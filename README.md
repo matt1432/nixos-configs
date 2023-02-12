@@ -69,6 +69,7 @@ loadkeys ca
 ```
 
 ### Installing packages on the device
+mount usb key and edit pacman.conf
 ```
 # pacstrap -K /mnt base linux-firmware linux amd-ucode patch dkms kmod rtw89-dkms-git btrfs-progs grub os-prober ntfs-3g efibootmgr efivar iwd nano sudo texinfo man-db man-pages
 ```
@@ -90,7 +91,7 @@ Uncomment ca_FR.UTF-8 en_CA.UTF-8 en_US.UTF-8 fr_CA.UTF-8 and run
 # echo LANG=en_CA.UTF-8 > /etc/locale.conf
 # echo KEYMAP=ca > /etc/vconsole.conf
 ```
-## Edit /mnt/etc/mkinitcpio.conf for LUKS
+## Edit /etc/mkinitcpio.conf for LUKS
 ```
 BINARIES=(btrfs)
 ...
@@ -103,7 +104,7 @@ then run ```mkinitpcio -P```
 # grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=arch
 ```
 
-### Edit /mnt/etc/default/grub for LUKS
+### Edit /etc/default/grub for LUKS
 ```
 cryptdevice=UUID=??????:root root=/dev/mapper/root
 ```
