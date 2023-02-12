@@ -12,8 +12,7 @@ The latest linux kernels do not have the laptop's Wifi card's drivers, therefore
 ```
 base
 linux-firmware
-linux-zen
-linux-zen-headers
+linux
 amd-ucode
 
 patch
@@ -47,7 +46,7 @@ cd .. && sudo rm -r rtw89-dkms-git
 
 mkdir /tmp/blankdb
 
-pacman -Syw --cachedir . --dbpath /tmp/blankdb base linux-firmware linux-zen linux-zen-headers amd-ucode patch dkms kmod btrfs-progs grub os-prober ntfs-3g efibootmgr efivar iwd nano sudo texinfo man-db man-pages
+pacman -Syw --cachedir . --dbpath /tmp/blankdb base linux-firmware linux amd-ucode patch dkms kmod btrfs-progs grub os-prober ntfs-3g efibootmgr efivar iwd nano sudo texinfo man-db man-pages
 
 repo-add ./custom.db.tar.gz ./*
 ```
@@ -68,24 +67,73 @@ loadkeys ca
 ```
 # mount --mkdir /dev/nvme0n1p1 /mnt/boot
 ```
-### Edit /etc/mkinitcpio.conf
+
+### Installing packages on the device
+```
+# pacstrap -K /mnt base linux-firmware linux amd-ucode patch dkms kmod rtw89-dkms-git btrfs-progs grub os-prober ntfs-3g efibootmgr efivar iwd nano sudo texinfo man-db man-pages
+```
+
+## misc commands
+```
+# genfstab -U /mnt >> /mnt/etc/fstab
+# arch-chroot /mnt
+# ln -sf /usr/share/zoneinfo/America/Montreal /etc/localtime
+# hwclock --systohc
+# echo matt-laptop > /etc/hostname
+# passwd
+```
+
+## Localization
+Uncomment ca_FR.UTF-8 en_CA.UTF-8 en_US.UTF-8 fr_CA.UTF-8 and run 
+```
+# locale-gen
+# echo LANG=en_CA.UTF-8 > /etc/locale.conf
+# echo KEYMAP=ca > /etc/vconsole.conf
+```
+## Edit /mnt/etc/mkinitcpio.conf for LUKS
 ```
 BINARIES=(btrfs)
-
+...
 HOOKS=(base udev autodetect modconf kms keyboard keymap consolefont block encrypt filesystems fsck)
 ```
 then run ```mkinitpcio -P```
 
-### Edit /etc/default/grub
+## Grub install
+```
+# grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=arch
+```
+
+### Edit /mnt/etc/default/grub for LUKS
 ```
 cryptdevice=UUID=??????:root root=/dev/mapper/root
 ```
 make sure the UUID is the actual partition inside the LUKS container and run ```grub-mkconfig -o /boot/grub/grub.cfg```
 
-pacstrap /*/ base linux-firmware linux-zen linux-zen-headers amd-ucode patch dkms kmod rtw89-dkms-git btrfs-progs grub os-prober ntfs-3g efibootmgr efivar iwd nano sudo texinfo man-db man-pages
+we can now reboot to the installed Arch
+<br/><br/>
 
-## install yay
+# Inside installed Arch
 
+## Configure [internet](https://wiki.archlinux.org/title/Iwd) access
+```
+# systemctl enable --now iwd systemd-networkd systemd-resolved
+# iwctl device list # check if powered on
+# iwctl station wlan0 scan
+# iwctl station wlan0 get-networks
+# iwctl station wlan0 connect SSID
+# cat << EOF >> /etc/iwd/main.conf
+[General]
+EnableNetworkConfiguration=true
+EOF
+```
+
+## User management
+```
+# useradd -m matt -G wheel
+# passwd matt
+```
+
+yay
 htop 3.2.2-1
 iwgtk 0.9-1
 pkgfile 21-2
