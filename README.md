@@ -116,7 +116,7 @@ we can now reboot to the installed Arch
 
 ## Configure [internet](https://wiki.archlinux.org/title/Iwd) access
 ```
-# systemctl enable --now iwd systemd-networkd systemd-resolved
+# systemctl enable --now iwd systemd-networkd systemd-resolved systemd-timesyncd
 # iwctl device list # check if powered on
 # iwctl station wlan0 scan
 # iwctl station wlan0 get-networks
@@ -133,17 +133,49 @@ EOF
 # passwd matt
 ```
 
-yay
-htop 3.2.2-1
-iwgtk 0.9-1
-pkgfile 21-2
-plocate 1.1.18-1
-rsync 3.2.7-3
-tailscale 1.36.1-1
-tmux 3.3_a-3
-usbutils 015-2
-wget 1.21.3-1
-git 2.39.1-1
-curl 7.87.0-3
-devtools 20230105-1
+## A lot of packages to install
+```
+htop
+iwgtk
+pkgfile
+plocate
+rsync
+tailscale
+tmux
+usbutils
+wget
+git
+curl
+devtools
+xorg
+xf86-video-amdgpu
+mesa
+lib32-mesa
+vulkan-radeon
+lib32-vulkan-radeon
+libva-mesa-driver
+lib32-libva-mesa-driver
+mesa-vdpau
+lib32-mesa-vdpau
+```
 
+## Install [yay](https://github.com/Jguer/yay)
+
+## Audio
+```
+yay -Sy alsa-utils
+https://wiki.archlinux.org/title/Advanced_Linux_Sound_Architecture#Unmuting_the_channels
+https://wiki.archlinux.org/title/Advanced_Linux_Sound_Architecture#ALSA_firmware
+https://wiki.archlinux.org/title/PipeWire#Audio
+```
+
+## Firefox touchscreen [tweak](https://wiki.archlinux.org/title/Firefox/Tweaks#Enable_touchscreen_gestures)
+
+
+https://wiki.archlinux.org/title/KDE#Installation
+https://wiki.archlinux.org/title/SDDM
+
+iio-sensor-proxy-git
+kde-auto-rotate-git
+yoga-usage-mode-dkms-git
+onboard
