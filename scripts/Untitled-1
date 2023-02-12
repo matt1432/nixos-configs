@@ -1,0 +1,6 @@
+CRYPT="cryptdevice=$(blkid | sed -n 's/.*nvme0n1p'$PART': \(.*\) TYPE.*/\1/p'):root root=/dev/mapper/root"
+sed 's/GRUB_CMDLINE_LINUX_DEFAULT.*/GRUB_CMDLINE_LINUX_DEFAULT="quiet loglevel 3 $CRYPT"/' /etc/default/grub
+
+
+
+$(blkid | sed -n 's/.*nvme0n1p'$PART': \(.*\) TYPE.*/\1/p')

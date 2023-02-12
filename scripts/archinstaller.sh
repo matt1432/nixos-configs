@@ -34,6 +34,4 @@ mkinitcpio -P
 
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=arch
 
-cat << EOF >> /etc/default/grub
-cryptdevice=$(blkid | sed -n 's/.*nvme0n1p'$PART': \(.*\) TYPE.*/\1/p'):root root=/dev/mapper/root
-EOF
+CRYPT="cryptdevice=$(blkid | sed -n 's/.*nvme0n1p'$PART': \(.*\) TYPE.*/\1/p'):root root=/dev/mapper/root"
