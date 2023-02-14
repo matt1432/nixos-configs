@@ -74,10 +74,14 @@ mount usb key and edit pacman.conf
 # pacstrap -K /mnt base linux-firmware linux amd-ucode patch dkms kmod rtw89-dkms-git btrfs-progs grub os-prober ntfs-3g efibootmgr efivar iwd nano sudo texinfo man-db man-pages
 ```
 
-## misc commands
+## Preparing for chroot
 ```
 # genfstab -U /mnt >> /mnt/etc/fstab
 # arch-chroot /mnt
+```
+
+# Chroot in Installed Arch
+```
 # ln -sf /usr/share/zoneinfo/America/Montreal /etc/localtime
 # hwclock --systohc
 # echo matt-laptop > /etc/hostname
