@@ -165,13 +165,27 @@ lib32-mesa-vdpau
 ```
 
 ## Install [yay](https://github.com/Jguer/yay)
+```
+# pacman -S --needed git base-devel
+# git clone https://aur.archlinux.org/yay.git
+# cd yay
+# makepkg -si
+```
 
 ## Audio
+### ALSA
 ```
-yay -Sy alsa-utils
-https://wiki.archlinux.org/title/Advanced_Linux_Sound_Architecture#Unmuting_the_channels
-https://wiki.archlinux.org/title/Advanced_Linux_Sound_Architecture#ALSA_firmware
-https://wiki.archlinux.org/title/PipeWire#Audio
+yay -Sy alsa-utils alsa-firmware sof-firmware alsa-ucm-conf
+
+#unmute speakers
+amixer sset Master unmute
+```
+
+### Pipewire
+```
+yay -Sy pipewire-audio pipewire-alsa pipewire-pulse
+yay -R pulseaudio-alsa
+systemctl stop pulseaudio.service
 ```
 
 ## Firefox touchscreen [tweak](https://wiki.archlinux.org/title/Firefox/Tweaks#Enable_touchscreen_gestures)
@@ -180,7 +194,9 @@ https://wiki.archlinux.org/title/PipeWire#Audio
 https://wiki.archlinux.org/title/KDE#Installation
 https://wiki.archlinux.org/title/SDDM
 
-iio-sensor-proxy-git
-kde-auto-rotate-git
-yoga-usage-mode-dkms-git
-onboard
+
+## AUR Packages that are most likely needed
+- iio-sensor-proxy-git
+- kde-auto-rotate-git
+- yoga-usage-mode-dkms-git
+- onboard
