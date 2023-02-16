@@ -262,3 +262,5 @@ sudo chown matt:matt /home/matt/.env
 sed -i 's/USER=""/USER="matt"/'
 sudo bash fzf.sh /usr/share/fzf
 ```
+
+TODO: remove flatpak vscodium .desktop and make sed commands for mkinitcpio
