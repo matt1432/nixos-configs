@@ -234,7 +234,7 @@ then logout
 
 ### vscodium on Flatpak
 ```
-# CD=pwd
+# CD=$(pwd)
 # mkdir /tmp/host && cd /tmp/host
 # curl -s https://api.github.com/repos/1player/host-spawn/releases \
 | grep -m 1 "browser_download_url.*x86_64" \
