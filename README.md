@@ -249,18 +249,20 @@ then logout
 
 # cd $CD
 # cp settings.json ~/.var/app/com.vscodium.codium/config/VSCodium/User/
-sudo ln -s /home/matt/bin/host-spawn /var/lib/flatpak/app/com.vscodium.codium/current/**/files/bin/git-lfs
+# sudo ln -s /home/matt/bin/host-spawn /var/lib/flatpak/app/com.vscodium.codium/current/**/files/bin/git-lfs
+
+# sudo mv /var/lib/flatpak/app/com.vscodium.codium/current/active/export/share/applications/com.vscodium.codium.desktop{,.bak}
 ```
 
 ## Finally, install dotfiles
 ```
-mkdir ~/git && cd ~/git
-git clone git@git.nelim.org:matt1432/dotfiles.git
-cd dotfiles
-sudo bash setup.sh
-sudo chown matt:matt /home/matt/.env
-sed -i 's/USER=""/USER="matt"/'
-sudo bash fzf.sh /usr/share/fzf
+# mkdir ~/git && cd ~/git
+# git clone git@git.nelim.org:matt1432/dotfiles.git
+# cd dotfiles
+# sudo bash setup.sh
+# sudo chown matt:matt /home/matt/.env
+# sed -i 's/USER=""/USER="matt"/'
+# sudo bash fzf.sh /usr/share/fzf
 ```
 
-TODO: remove flatpak vscodium .desktop and make sed commands for mkinitcpio
+TODO: make sed commands for mkinitcpio
