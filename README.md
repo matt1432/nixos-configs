@@ -141,7 +141,6 @@ EOF
 ## A lot of packages to install
 ```
 htop
-iwgtk
 pkgfile
 plocate
 rsync
@@ -162,6 +161,8 @@ libva-mesa-driver
 lib32-libva-mesa-driver
 mesa-vdpau
 lib32-mesa-vdpau
+bash-completion
+fzf
 ```
 
 ## Install [yay](https://github.com/Jguer/yay)
@@ -170,6 +171,8 @@ lib32-mesa-vdpau
 # git clone https://aur.archlinux.org/yay.git
 # cd yay
 # makepkg -si
+
+# sudo sed -i 's/#Color/Color/' /etc/pacman.conf
 ```
 
 ## Audio
@@ -188,15 +191,74 @@ yay -R pulseaudio-alsa
 systemctl stop pulseaudio.service
 ```
 
-## Firefox touchscreen [tweak](https://wiki.archlinux.org/title/Firefox/Tweaks#Enable_touchscreen_gestures)
+## Install KDE
+```
+# yay -Sy bluedevil breeze breeze-gtk discover drkonqi kactivitymanagerd kde-cli-tools kde-gtk-config kdecoration kdeplasma-addons kgamma5 khotkeys kinfocenter kmenuedit kpipewire kscreen kscreenlocker ksshaskpass ksystemstats kwallet-pam kwayland-integration kwin ayer-shell-qt libkscreen libksysguard milou oxygen-sounds plasma-browser-integration plasma-desktop plasma-disks plasma-integration  plasma-nm plasma-pa plasma-sdk plasma-systemmonitor plasma-thunderbolt 	plasma-vault plasma-workspace plasma-workspace-wallpapers polkit-kde-agent powerdevil sddm-kcm systemsettings xdg-desktop-portal-kde
+```
 
+### Uninstall sddm and build from source for Wayland
+```
+# yay -R sddm
+# yay -Sy sddm-git plasma-wayland-session
+```
 
-https://wiki.archlinux.org/title/KDE#Installation
-https://wiki.archlinux.org/title/SDDM
+### Download some kde apps
+```
+yay -Sy akonadi-calendar-tools ark colord-kde dolphin dolphin-plugins ffmpegthumbs filelight grantlee-editor gwenview kalendar kamera kamoso kapptemplate kcalc kcolorchooser kcron kdebugsettings kdeconnect kdegraphics-thumbnailers kdenetwork-filesharing kdenlive kdepim-addons kdesdk-thumbnailers kdf kdialog kfind kget kgpg kmag kompare konsole korganizer krdc krfb kruler ksystemlog kwalletmanager markdownpart okular gparted pim-data-exporter print-manager signon-kwallet-extension spectacle svgpart maliit-keyboard
+```
+### Enable SDDM to launch the Desktop Environment
+```
+systemctl enable --now sddm
+```
 
+## Here are some random changes and tweaks
 
-## AUR Packages that are most likely needed
-- iio-sensor-proxy-git
-- kde-auto-rotate-git
-- yoga-usage-mode-dkms-git
-- onboard
+### Firefox touchscreen [tweak](https://wiki.archlinux.org/title/Firefox/Tweaks#Enable_touchscreen_gestures)
+```
+# echo MOZ_USE_XINPUT2 DEFAULT=1 >> /etc/security/pam_env.conf
+```
+then logout
+
+### AUR Packages that are most likely needed
+```
+# yay -Sy iio-sensor-proxy-git kde-auto-rotate-git yoga-usage-mode-dkms-git onboard spotify-edge vscodium-bin
+# sudo reboot
+```
+
+### Flatpak
+```
+# flatpak install com.unity.UnityHub com.vscodium.codium org.freedesktop.Sdk.Extension.dotnet6 org.freedesktop.Sdk.Extension.mono6 com.github.iwalton3.jellyfin-media-player com.github.tchx84.Flatseal
+# FLATPAK_ENABLE_SDK_EXT=dotnet6,mono6 flatpak run com.vscodium.codium
+# sudo flatpak override --filesystem=xdg-config/gtk-3.0
+``` 
+
+### vscodium on Flatpak
+```
+# CD=pwd
+# mkdir /tmp/host && cd /tmp/host
+# curl -s https://api.github.com/repos/1player/host-spawn/releases \
+| grep -m 1 "browser_download_url.*x86_64" \
+| cut -d : -f 2,3 \
+| tr -d \" \
+| wget -qi -
+# mv * host-spawn
+# sudo chmod 755 host-spawn
+
+# mkdir ~/bin
+# sudo mv host-spawn /home/matt/bin
+
+# cd $CD
+# cp settings.json ~/.var/app/com.vscodium.codium/config/VSCodium/User/
+sudo ln -s /home/matt/bin/host-spawn /var/lib/flatpak/app/com.vscodium.codium/current/**/files/bin/git-lfs
+```
+
+## Finally, install dotfiles
+```
+mkdir ~/git && cd ~/git
+git clone git@git.nelim.org:matt1432/dotfiles.git
+cd dotfiles
+sudo bash setup.sh
+sudo chown matt:matt /home/matt/.env
+sed -i 's/USER=""/USER="matt"/'
+sudo bash fzf.sh /usr/share/fzf
+```
