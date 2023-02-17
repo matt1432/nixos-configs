@@ -2,7 +2,7 @@
 
 SSID="$1"
 
-systemctl enable --now iwd systemd-networkd systemd-resolved systemd-timesyncd NetworkManager
+systemctl enable --now iwd systemd-networkd systemd-resolved systemd-timesyncd
 echo "check if powered on"
 iwctl device list
 sleep 5
@@ -27,6 +27,7 @@ git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si
 sudo sed -i 's/#Color/Color/' /etc/pacman.conf
+yay -Sy networkmanager-iwd
 
 su matt
 

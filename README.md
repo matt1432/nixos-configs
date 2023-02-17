@@ -165,7 +165,7 @@ bash-completion
 fzf
 ```
 
-## Install [yay](https://github.com/Jguer/yay)
+## Install [yay](https://github.com/Jguer/yay) and install tweaked NetworkManager
 ```
 # pacman -S --needed git base-devel
 # git clone https://aur.archlinux.org/yay.git
@@ -173,6 +173,8 @@ fzf
 # makepkg -si
 
 # sudo sed -i 's/#Color/Color/' /etc/pacman.conf
+
+# yay -Sy networkmanager-iwd
 ```
 
 ## Audio
