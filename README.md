@@ -175,6 +175,7 @@ fzf
 # sudo sed -i 's/#Color/Color/' /etc/pacman.conf
 
 # yay -Sy networkmanager-iwd
+# sudo systemctl enable NetworkManager
 ```
 
 ## Audio

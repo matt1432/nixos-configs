@@ -28,6 +28,7 @@ cd yay
 makepkg -si
 sudo sed -i 's/#Color/Color/' /etc/pacman.conf
 yay -Sy networkmanager-iwd
+sudo systemctl enable NetworkManager
 
 su matt
 
