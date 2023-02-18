@@ -281,7 +281,6 @@ then logout
 ### Use the reader
 add this to the top of every file in /etc/pam.d/ that you want ie. sddm, kde, polkit-1, sudo uwu
 ```
-auth            sufficient      pam_fprintd.so
 auth            sufficient      pam_fprintd_grosshack.so
 auth            sufficient      pam_unix.so try_first_pass nullok
 ```
