@@ -261,7 +261,7 @@ then logout
 ## Fingerprint Sensor Hack
 ### Flash [firmware](https://github.com/goodix-fp-linux-dev/goodix-fp-dump)
 ```
-# yay -Sy python # Must be Python 3.10 or newer
+# yay -Sy python pam-fprint-grosshack
 # cd /tmp
 # git clone --recurse-submodules https://github.com/goodix-fp-linux-dev/goodix-fp-dump.git
 # cd goodix-fp-dump
