@@ -199,7 +199,7 @@ systemctl stop pulseaudio.service
 # yay -Sy bluedevil breeze breeze-gtk discover drkonqi kactivitymanagerd kde-cli-tools kde-gtk-config kdecoration kdeplasma-addons kgamma5 khotkeys kinfocenter kmenuedit kpipewire kscreen kscreenlocker ksshaskpass ksystemstats kwallet-pam kwayland-integration kwin ayer-shell-qt libkscreen libksysguard milou oxygen-sounds plasma-browser-integration plasma-desktop plasma-disks plasma-integration  plasma-nm plasma-pa plasma-sdk plasma-systemmonitor plasma-thunderbolt 	plasma-vault plasma-workspace plasma-workspace-wallpapers polkit-kde-agent powerdevil sddm-kcm systemsettings xdg-desktop-portal-kde
 ```
 
-### Uninstall sddm and build from source for Wayland
+### Uninstall sddm and build from source for Wayland # or use GDM?
 ```
 # yay -R sddm
 # yay -Sy sddm-git plasma-wayland-session
@@ -230,7 +230,7 @@ then logout
 
 ### Flatpak
 ```
-# flatpak install com.unity.UnityHub com.vscodium.codium org.freedesktop.Sdk.Extension.dotnet6 org.freedesktop.Sdk.Extension.mono6 com.github.iwalton3.jellyfin-media-player com.github.tchx84.Flatseal
+# flatpak install com.unity.UnityHub com.vscodium.codium org.freedesktop.Sdk.Extension.dotnet6 org.freedesktop.Sdk.Extension.mono6 com.github.iwalton3.jellyfin-media-player com.github.tchx84.Flatseal org.gtk.Gtk3theme.Breeze-Dark
 # FLATPAK_ENABLE_SDK_EXT=dotnet6,mono6 flatpak run com.vscodium.codium
 # sudo flatpak override --filesystem=xdg-config/gtk-3.0
 ``` 
