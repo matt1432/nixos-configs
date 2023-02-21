@@ -16,7 +16,7 @@ EOF
 
 ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 sed -i 's/#DNS=.*/DNS=100.64.0.1/' /etc/systemd/resolved.conf
-sudo sed -i 's/#FallbackDNS=.*/FallbackDNS=1.1.1.1/' /etc/systemd/resolved.conf
+sed -i 's/#FallbackDNS=.*/FallbackDNS=1.1.1.1/' /etc/systemd/resolved.conf
 
 useradd -m matt -G wheel
 passwd matt
