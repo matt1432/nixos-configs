@@ -18,7 +18,7 @@ ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 sed -i 's/#DNS=.*/DNS=100.64.0.1/' /etc/systemd/resolved.conf
 sed -i 's/#FallbackDNS=.*/FallbackDNS=1.1.1.1/' /etc/systemd/resolved.conf
 
-# TODO : Add school wifi settings
+# TODO : Add school wifi settings and https://man.archlinux.org/man/reflector.1#EXAMPLES (update README)
 
 useradd -m matt -G wheel
 passwd matt
