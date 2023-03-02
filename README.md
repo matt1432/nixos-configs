@@ -3,55 +3,6 @@ This repo is a documentation of how I installed Arch and got all the drivers for
 Since I got the [touchpad issues](https://www.reddit.com/r/Lenovo/comments/yzs5fq/faulty_touchpad_tried_everything_to_fix_it_and_i/), I'll need this once I get it fixed.
 <br/><br/>
 
-# Local Pacman repo
-The latest linux kernels do not have the laptop's Wifi card's drivers, therefore I'll need a [custom repository](https://wiki.archlinux.org/title/Pacman/Tips_and_tricks#Installing_packages_from_a_CD/DVD_or_USB_stick) to complete the ach installation.
-
-<details>
-<summary>Repo Packages</summary>
-
-```
-base
-linux-firmware
-linux
-amd-ucode
-
-patch
-dkms
-kmod
-rtw89-dkms-git
-btrfs-progs
-
-grub
-os-prober
-ntfs-3g
-efibootmgr
-efivar
-
-iwd
-nano
-sudo
-texinfo
-man-db
-```
-</details>
-<br/><br/>
-
-On a separate Arch installation with Wifi access, enter the following commands in a clean directory in a USB key :
-```
-git clone https://aur.archlinux.org/rtw89-dkms-git.git 
-cd rtw89-dkms-git
-makepkg
-mv *.pkg.tar.zst ..
-cd .. && sudo rm -r rtw89-dkms-git
-
-mkdir /tmp/blankdb
-
-pacman -Syw --cachedir . --dbpath /tmp/blankdb base linux-firmware linux amd-ucode patch dkms kmod btrfs-progs grub os-prober ntfs-3g efibootmgr efivar iwd nano sudo texinfo man-db man-pages
-
-repo-add ./custom.db.tar.gz ./*
-```
-<br/><br/>
-
 # Archinstaller
 loadkeys ca
 
@@ -69,9 +20,8 @@ loadkeys ca
 ```
 
 ### Installing packages on the device
-mount usb key and edit pacman.conf
 ```
-# pacstrap -K /mnt base linux-firmware linux amd-ucode patch dkms kmod rtw89-dkms-git btrfs-progs grub os-prober ntfs-3g efibootmgr efivar iwd nano sudo texinfo man-db man-pages
+# pacstrap -K /mnt base linux-firmware linux amd-ucode patch dkms kmod btrfs-progs grub os-prober ntfs-3g efibootmgr efivar iwd nano sudo texinfo man-db man-pages
 ```
 
 ## Preparing for chroot
