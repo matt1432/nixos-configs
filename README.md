@@ -132,6 +132,20 @@ EnableNetworkConfiguration=true
 EOF
 ```
 
+### Configure systemd-resolved
+```
+# ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+# sed -i 's/#DNS=.*/DNS=100.64.0.1/' /etc/systemd/resolved.conf
+# sed -i 's/#FallbackDNS=.*/FallbackDNS=1.1.1.1/' /etc/systemd/resolved.conf
+```
+
+### Configure reflector for mirror management of pacman
+```
+# pacman -Sy reflector
+# nano /etc/xdg/reflector/reflector.conf 
+# systemctl enable --now reflector.timer
+```
+
 ## User management
 ```
 # useradd -m matt -G wheel
@@ -199,9 +213,12 @@ systemctl stop pulseaudio.service
 # yay -Sy baobab cheese eog evince file-roller gdm gnome-backgrounds gnome-calculator gnome-calendar gnome-characters gnome-clocks gnome-color-manager gnome-console gnome-contacts gnome-control-center gnome-disk-utility gnome-font-viewer gnome-keyring gnome-logs gnome-menus gnome-music gnome-photos gnome-remote-desktop gnome-session gnome-settings-daemon gnome-shell gnome-shell-extensions gnome-system-monitor gnome-user-docs gnome-user-share gnome-video-effects grilo-plugins nautilus rygel simple-scan sushi totem tracker3-miners xdg-user-dirs-gtk yelp
 ```
 
-### Download some gnome apps and extensions
+### Download some apps and extensions
 ```
-# yay -Sy dconf-editor evolution gnome-nettool gnome-tweaks gnome-usage gnome-themes-extra adwaita-dark extension-manager gnome-shell-extension-appindicator gnome-shell-extension-rounded-window-corners gnome-shell-extension-clipboard-indicator gnome-shell-extension-gsconnect gnome-shell-extension-bluetooth-quick-connect gnome-shell-extension-compiz-windows-effect-git gnome-shell-extension-quick-settings-tweaks-git tailscale-systray-git
+# yay -Sy dconf-editor evolution gnome-nettool gnome-tweaks gnome-usage gnome-themes-extra adwaita-dark extension-manager tailscale-systray-git galaxybudsclient-bin hplip cups nextcloud-client grub-customizer
+
+## Download extensions and restore from Extensions Sync : 
+# yay -Sy gnome-shell-extension-extensions-sync-git
 ```
 
 ### Build and install my fork of Dash to Panel
@@ -233,7 +250,7 @@ then logout
 
 ### Flatpak
 ```
-# flatpak install com.unity.UnityHub com.vscodium.codium org.freedesktop.Sdk.Extension.dotnet6 org.freedesktop.Sdk.Extension.mono6 com.github.iwalton3.jellyfin-media-player com.github.tchx84.Flatseal org.gtk.Gtk3theme.Breeze-Dark
+# flatpak install com.unity.UnityHub com.vscodium.codium org.freedesktop.Sdk.Extension.dotnet6 org.freedesktop.Sdk.Extension.mono6 com.github.iwalton3.jellyfin-media-player com.github.tchx84.Flatseal org.gtk.Gtk3theme.Breeze-Dark ch.openboard.OpenBoard
 # FLATPAK_ENABLE_SDK_EXT=dotnet6,mono6 flatpak run com.vscodium.codium
 # sudo flatpak override --filesystem=xdg-config/gtk-3.0
 ``` 

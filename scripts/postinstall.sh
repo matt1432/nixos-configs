@@ -18,7 +18,22 @@ ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 sed -i 's/#DNS=.*/DNS=100.64.0.1/' /etc/systemd/resolved.conf
 sed -i 's/#FallbackDNS=.*/FallbackDNS=1.1.1.1/' /etc/systemd/resolved.conf
 
-# TODO : Add school wifi settings and https://man.archlinux.org/man/reflector.1#EXAMPLES (update README)
+cat << EOF >> /var/lib/iwd/ CLG.8021x
+[IPv6]
+Enabled=true
+
+[Security]
+EAP-Method=PEAP
+EAP-Identity=USER
+EAP-PEAP-Phase2-Method=MSCHAPV2
+EAP-PEAP-Phase2-Identity=USER
+EAP-PEAP-Phase2-Password=PASSWD
+EOF
+nano /var/lib/iwd/ CLG.8021x
+
+pacman -Sy reflector
+nano /etc/xdg/reflector/reflector.conf 
+systemctl enable --now reflector.timer
 
 useradd -m matt -G wheel
 passwd matt
@@ -48,7 +63,10 @@ systemctl --user enable --now pipewire-pulse.service
 
 yay -Sy baobab cheese eog evince file-roller gdm gnome-backgrounds gnome-calculator gnome-calendar gnome-characters gnome-clocks gnome-color-manager gnome-console gnome-contacts gnome-control-center gnome-disk-utility gnome-font-viewer gnome-keyring gnome-logs gnome-menus gnome-music gnome-photos gnome-remote-desktop gnome-session gnome-settings-daemon gnome-shell gnome-shell-extensions gnome-system-monitor gnome-user-docs gnome-user-share gnome-video-effects grilo-plugins nautilus rygel simple-scan sushi totem tracker3-miners xdg-user-dirs-gtk yelp
 
-yay -Sy dconf-editor evolution gnome-nettool gnome-tweaks gnome-usage gnome-themes-extra adwaita-dark extension-manager gnome-shell-extension-appindicator gnome-shell-extension-rounded-window-corners gnome-shell-extension-clipboard-indicator gnome-shell-extension-gsconnect gnome-shell-extension-bluetooth-quick-connect gnome-shell-extension-compiz-windows-effect-git gnome-shell-extension-quick-settings-tweaks-git tailscale-systray-git
+yay -Sy dconf-editor evolution gnome-nettool gnome-tweaks gnome-usage gnome-themes-extra adwaita-dark extension-manager tailscale-systray-git galaxybudsclient-bin hplip cups nextcloud-client grub-customizer
+
+## Download extensions and restore from Extensions Sync : 
+yay -Sy gnome-shell-extension-extensions-sync-git
 
 cd /tmp
 git clone https://github.com/matt1432/dash-to-panel-touch-fix.git
