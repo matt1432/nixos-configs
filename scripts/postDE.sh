@@ -1,3 +1,4 @@
+#!/bin/sh
 yay -Sy python pam-fprint-grosshack
 cd /tmp
 git clone --recurse-submodules https://github.com/goodix-fp-linux-dev/goodix-fp-dump.git
