@@ -205,17 +205,47 @@ systemctl enable --now gdm
 ```
 
 ### Use the reader
-add this to the top of every file in /etc/pam.d/ that you want ie. sddm, kde, polkit-1, sudo uwu
+add this to the top of every file in /etc/pam.d/ that you want ie. polkit-1, sudo uwu
 ```
 auth            sufficient      pam_fprintd_grosshack.so
 auth            sufficient      pam_unix.so try_first_pass nullok
+```
+
+## Plymouth and Silent Boot
+By following the wiki pages on [watchdogs](https://wiki.archlinux.org/title/Improving_performance#Watchdogs), [silent booting](https://wiki.archlinux.org/title/Silent_boot#top-page) and [Plymouth](https://wiki.archlinux.org/title/Plymouth), I edited my grub config and mkinitcpio, installed and setup Plymouth, to get a satisfying booting experience
+```
+# yay -Sy plymouth-git gdm-plymouth plymouth-theme-arch-charge-gdm-spinner
+```
+/etc/mkinitcpio.conf
+```
+MODULES=(amdgpu)
+HOOKS=(base udev plymouth plymouth-encrypt ...)
+```
+/etc/default/grub
+```
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash loglevel=3 systemd.show_status=auto rd.udev.log_level=3 splash vt.global_cursor_default=0 nowatchdog ..."
+GRUB_TIMEOUT="1"
+GRUB_TIMEOUT_STYLE="hidden"
+GRUB_GFXMODE="1920x1200x32"
+#GRUB_DISABLE_RECOVERY=true
+GRUB_DISABLE_OS_PROBER="false"
+```
+Mute watchdog
+```
+echo blacklist sp5100_tco | sudo tee /etc/modprobe.d/disable-sp5100-watchdog.conf
+```
+Apply changes
+```
+sudo plymouth-set-default-theme -R arch-charge-gdm-spinner
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+sudo sed -i 's/echo/#ech~o/g' /boot/grub/grub.cfg
 ```
 
 ## Here are some random changes and tweaks
 
 ### Firefox touchscreen [tweak](https://wiki.archlinux.org/title/Firefox/Tweaks#Enable_touchscreen_gestures)
 ```
-# echo MOZ_USE_XINPUT2 DEFAULT=1 >> /etc/security/pam_env.conf
+# echo MOZ_USE_XINPUT2 DEFAULT=1 | sudo tee -a /etc/security/pam_env.conf
 ```
 then logout
 
@@ -265,5 +295,3 @@ then logout
 # sed -i 's/USER=""/USER="matt"/'
 # sudo bash fzf.sh /usr/share/fzf
 ```
-
-TODO: make sed commands for mkinitcpio
