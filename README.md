@@ -184,6 +184,33 @@ systemctl stop pulseaudio.service
 systemctl enable --now gdm
 ```
 
+## Fingerprint Sensor Hack
+### Flash [firmware](https://github.com/goodix-fp-linux-dev/goodix-fp-dump)
+```
+# yay -Sy python pam-fprint-grosshack
+# cd /tmp
+# git clone --recurse-submodules https://github.com/goodix-fp-linux-dev/goodix-fp-dump.git
+# cd goodix-fp-dump
+# python -m venv .venv
+# source .venv/bin/activate
+# pip install -r requirements.txt
+# sudo python3 run_55b4.py
+```
+
+### Install experimental [drivers](https://github.com/TheWeirdDev/libfprint/tree/55b4-experimental)
+```
+# yay -Sy libfprint-goodixtls-55x4 fprintd
+# sudo systemctl enable --now fprintd
+# fprintd-enroll
+```
+
+### Use the reader
+add this to the top of every file in /etc/pam.d/ that you want ie. sddm, kde, polkit-1, sudo uwu
+```
+auth            sufficient      pam_fprintd_grosshack.so
+auth            sufficient      pam_unix.so try_first_pass nullok
+```
+
 ## Here are some random changes and tweaks
 
 ### Firefox touchscreen [tweak](https://wiki.archlinux.org/title/Firefox/Tweaks#Enable_touchscreen_gestures)
@@ -221,38 +248,11 @@ then logout
 # sudo mv host-spawn /home/matt/bin
 
 # cd $CD
-# cp settings.json ~/.var/app/com.vscodium.codium/config/VSCodium/User/
+# cp ../conf/settings.json ~/.var/app/com.vscodium.codium/config/VSCodium/User/
 # sudo ln -s /home/matt/bin/host-spawn /var/lib/flatpak/app/com.vscodium.codium/current/**/files/bin/git-lfs
 
 # sudo mv /var/lib/flatpak/app/com.vscodium.codium/current/active/export/share/applications/com.vscodium.codium.desktop{,.bak}
 # sudo mv /var/lib/flatpak/exports/share/applications/com.vscodium.codium.desktop{,.bak}
-```
-
-## Fingerprint Sensor Hack
-### Flash [firmware](https://github.com/goodix-fp-linux-dev/goodix-fp-dump)
-```
-# yay -Sy python pam-fprint-grosshack
-# cd /tmp
-# git clone --recurse-submodules https://github.com/goodix-fp-linux-dev/goodix-fp-dump.git
-# cd goodix-fp-dump
-# python -m venv .venv
-# source .venv/bin/activate
-# pip install -r requirements.txt
-# sudo python3 run_55b4.py
-```
-
-### Install experimental [drivers](https://github.com/TheWeirdDev/libfprint/tree/55b4-experimental)
-```
-# yay -Sy libfprint-goodixtls-55x4 fprintd
-# sudo systemctl enable --now fprintd
-# fprintd-enroll
-```
-
-### Use the reader
-add this to the top of every file in /etc/pam.d/ that you want ie. sddm, kde, polkit-1, sudo uwu
-```
-auth            sufficient      pam_fprintd_grosshack.so
-auth            sufficient      pam_unix.so try_first_pass nullok
 ```
 
 ## Finally, install dotfiles

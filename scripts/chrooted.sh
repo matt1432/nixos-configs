@@ -7,12 +7,13 @@ echo matt-laptop > /etc/hostname
 passwd
 
 mv /etc/locale.gen{,.bak}
-mv ./locale.gen /etc
+mv ../conf/locale.gen /etc
 locale-gen
 echo LANG=en_CA.UTF-8 > /etc/locale.conf
 echo KEYMAP=ca > /etc/vconsole.conf
 
-nano /etc/mkinitcpio.conf # TODO SED
+sed -i 's/BINARIES=.*/BINARIES=(btrfs)/' /etc/mkinitcpio.conf
+sed -i 's/HOOKS=.*/HOOKS=(base udev autodetect modconf kms keyboard keymap consolefont block encrypt filesystems fsck)/' /etc/mkinitcpio.conf
 mkinitcpio -P
 
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=arch
