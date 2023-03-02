@@ -194,24 +194,27 @@ yay -R pulseaudio-alsa
 systemctl stop pulseaudio.service
 ```
 
-## Install KDE
+## Install Gnome
 ```
-# yay -Sy bluedevil breeze breeze-gtk discover drkonqi kactivitymanagerd kde-cli-tools kde-gtk-config kdecoration kdeplasma-addons kgamma5 khotkeys kinfocenter kmenuedit kpipewire kscreen kscreenlocker ksshaskpass ksystemstats kwallet-pam kwayland-integration kwin ayer-shell-qt libkscreen libksysguard milou oxygen-sounds plasma-browser-integration plasma-desktop plasma-disks plasma-integration  plasma-nm plasma-pa plasma-sdk plasma-systemmonitor plasma-thunderbolt 	plasma-vault plasma-workspace plasma-workspace-wallpapers polkit-kde-agent powerdevil sddm-kcm systemsettings xdg-desktop-portal-kde
-```
-
-### Uninstall sddm and build from source for Wayland # or use GDM?
-```
-# yay -R sddm
-# yay -Sy sddm-git plasma-wayland-session
+# yay -Sy baobab cheese eog evince file-roller gdm gnome-backgrounds gnome-calculator gnome-calendar gnome-characters gnome-clocks gnome-color-manager gnome-console gnome-contacts gnome-control-center gnome-disk-utility gnome-font-viewer gnome-keyring gnome-logs gnome-menus gnome-music gnome-photos gnome-remote-desktop gnome-session gnome-settings-daemon gnome-shell gnome-shell-extensions gnome-system-monitor gnome-user-docs gnome-user-share gnome-video-effects grilo-plugins nautilus rygel simple-scan sushi totem tracker3-miners xdg-user-dirs-gtk yelp
 ```
 
-### Download some kde apps
+### Download some gnome apps and extensions
 ```
-yay -Sy akonadi-calendar-tools ark colord-kde dolphin dolphin-plugins ffmpegthumbs filelight grantlee-editor gwenview kalendar kamera kamoso kapptemplate kcalc kcolorchooser kcron kdebugsettings kdeconnect kdegraphics-thumbnailers kdenetwork-filesharing kdenlive kdepim-addons kdesdk-thumbnailers kdf kdialog kfind kget kgpg kmag kompare konsole korganizer krdc krfb kruler ksystemlog kwalletmanager markdownpart okular gparted pim-data-exporter print-manager signon-kwallet-extension spectacle svgpart maliit-keyboard
+# yay -Sy dconf-editor evolution gnome-nettool gnome-tweaks gnome-usage gnome-themes-extra adwaita-dark extension-manager gnome-shell-extension-appindicator gnome-shell-extension-rounded-window-corners gnome-shell-extension-clipboard-indicator gnome-shell-extension-gsconnect gnome-shell-extension-bluetooth-quick-connect gnome-shell-extension-compiz-windows-effect-git gnome-shell-extension-quick-settings-tweaks-git tailscale-systray-git
 ```
-### Enable SDDM to launch the Desktop Environment
+
+### Build and install my fork of Dash to Panel
 ```
-systemctl enable --now sddm
+# cd /tmp
+# git clone https://github.com/matt1432/dash-to-panel-touch-fix.git
+# cd dash-to-panel-touch-fix/
+# make install
+```
+
+### Enable GDM to launch the Desktop Environment
+```
+systemctl enable --now gdm
 ```
 
 ## Here are some random changes and tweaks
