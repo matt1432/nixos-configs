@@ -9,41 +9,41 @@ loadkeys ca
 ## Partionning with [cryptsetup](https://wiki.archlinux.org/title/Dm-crypt/Encrypting_an_entire_system#LUKS_on_a_partition)
 ### Encrypting root partition
 ```
-# cryptsetup -y -v luksFormat --type luks1 /dev/nvme0n1p?
-# cryptsetup open /dev/nvme0n1p? root
-# mkfs.btrfs /dev/mapper/root
-# mount /dev/mapper/root /mnt
+$ cryptsetup -y -v luksFormat --type luks1 /dev/nvme0n1p?
+$ cryptsetup open /dev/nvme0n1p? root
+$ mkfs.btrfs /dev/mapper/root
+$ mount /dev/mapper/root /mnt
 ```
 ### Mounting boot :
 ```
-# mount --mkdir /dev/nvme0n1p1 /mnt/boot
+$ mount --mkdir /dev/nvme0n1p1 /mnt/boot
 ```
 
 ### Installing packages on the device
 ```
-# pacstrap -K /mnt base linux-firmware linux amd-ucode patch dkms kmod btrfs-progs grub os-prober ntfs-3g efibootmgr efivar iwd nano sudo texinfo man-db man-pages
+$ pacstrap -K /mnt base linux-firmware linux amd-ucode patch dkms kmod btrfs-progs grub os-prober ntfs-3g efibootmgr efivar iwd nano sudo texinfo man-db man-pages
 ```
 
 ## Preparing for chroot
 ```
-# genfstab -U /mnt >> /mnt/etc/fstab
-# arch-chroot /mnt
+$ genfstab -U /mnt >> /mnt/etc/fstab
+$ arch-chroot /mnt
 ```
 
 # Chroot in Installed Arch
 ```
-# ln -sf /usr/share/zoneinfo/America/Montreal /etc/localtime
-# hwclock --systohc
-# echo matt-laptop > /etc/hostname
-# passwd
+$ ln -sf /usr/share/zoneinfo/America/Montreal /etc/localtime
+$ hwclock --systohc
+$ echo matt-laptop > /etc/hostname
+$ passwd
 ```
 
 ## Localization
 Uncomment ca_FR.UTF-8 en_CA.UTF-8 en_US.UTF-8 fr_CA.UTF-8 and run 
 ```
-# locale-gen
-# echo LANG=en_CA.UTF-8 > /etc/locale.conf
-# echo KEYMAP=ca > /etc/vconsole.conf
+$ locale-gen
+$ echo LANG=en_CA.UTF-8 > /etc/locale.conf
+$ echo KEYMAP=ca > /etc/vconsole.conf
 ```
 ## Edit /etc/mkinitcpio.conf for LUKS
 ```
@@ -55,7 +55,7 @@ then run ```mkinitpcio -P```
 
 ## Grub install
 ```
-# grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=arch
+$ grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=arch
 ```
 
 ### Edit /etc/default/grub for LUKS
@@ -71,12 +71,12 @@ we can now reboot to the installed Arch
 
 ## Configure [internet](https://wiki.archlinux.org/title/Iwd) access
 ```
-# systemctl enable --now iwd systemd-networkd systemd-resolved systemd-timesyncd
-# iwctl device list # check if powered on
-# iwctl station wlan0 scan
-# iwctl station wlan0 get-networks
-# iwctl station wlan0 connect SSID
-# cat << EOF >> /etc/iwd/main.conf
+$ systemctl enable --now iwd systemd-networkd systemd-resolved systemd-timesyncd
+$ iwctl device list # check if powered on
+$ iwctl station wlan0 scan
+$ iwctl station wlan0 get-networks
+$ iwctl station wlan0 connect SSID
+$ cat << EOF >> /etc/iwd/main.conf
 [General]
 EnableNetworkConfiguration=true
 EOF
@@ -84,22 +84,22 @@ EOF
 
 ### Configure systemd-resolved
 ```
-# ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
-# sed -i 's/#DNS=.*/DNS=100.64.0.1/' /etc/systemd/resolved.conf
-# sed -i 's/#FallbackDNS=.*/FallbackDNS=1.1.1.1/' /etc/systemd/resolved.conf
+$ ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+$ sed -i 's/#DNS=.*/DNS=100.64.0.1/' /etc/systemd/resolved.conf
+$ sed -i 's/#FallbackDNS=.*/FallbackDNS=1.1.1.1/' /etc/systemd/resolved.conf
 ```
 
 ### Configure reflector for mirror management of pacman
 ```
-# pacman -Sy reflector
-# nano /etc/xdg/reflector/reflector.conf 
-# systemctl enable --now reflector.timer
+$ pacman -Sy reflector
+$ nano /etc/xdg/reflector/reflector.conf 
+$ systemctl enable --now reflector.timer
 ```
 
 ## User management
 ```
-# useradd -m matt -G wheel
-# passwd matt
+$ useradd -m matt -G wheel
+$ passwd matt
 ```
 
 ## A lot of packages to install
@@ -131,77 +131,77 @@ fzf
 
 ## Install [yay](https://github.com/Jguer/yay) and install tweaked NetworkManager
 ```
-# pacman -S --needed git base-devel
-# git clone https://aur.archlinux.org/yay.git
-# cd yay
-# makepkg -si
+$ pacman -S --needed git base-devel
+$ git clone https://aur.archlinux.org/yay.git
+$ cd yay
+$ makepkg -si
 
-# sudo sed -i 's/#Color/Color/' /etc/pacman.conf
+$ sudo sed -i 's/#Color/Color/' /etc/pacman.conf
 
-# yay -Sy networkmanager-iwd
-# sudo systemctl enable NetworkManager
+$ yay -Sy networkmanager-iwd
+$ sudo systemctl enable NetworkManager
 ```
 
 ## Audio
 ### ALSA
 ```
-yay -Sy alsa-utils alsa-firmware sof-firmware alsa-ucm-conf
+$ yay -Sy alsa-utils alsa-firmware sof-firmware alsa-ucm-conf
 
 #unmute speakers
-amixer sset Master unmute
+$ amixer sset Master unmute
 ```
 
 ### Pipewire
 ```
-yay -Sy pipewire-audio pipewire-alsa pipewire-pulse
-yay -R pulseaudio-alsa
-systemctl stop pulseaudio.service
+$ yay -Sy pipewire-audio pipewire-alsa pipewire-pulse
+$ yay -R pulseaudio-alsa
+$ systemctl stop pulseaudio.service
 ```
 
 ## Install Gnome
 ```
-# yay -Sy baobab cheese eog evince file-roller gdm gnome-backgrounds gnome-calculator gnome-calendar gnome-characters gnome-clocks gnome-color-manager gnome-console gnome-contacts gnome-control-center gnome-disk-utility gnome-font-viewer gnome-keyring gnome-logs gnome-menus gnome-music gnome-photos gnome-remote-desktop gnome-session gnome-settings-daemon gnome-shell gnome-shell-extensions gnome-system-monitor gnome-user-docs gnome-user-share gnome-video-effects grilo-plugins nautilus rygel simple-scan sushi totem tracker3-miners xdg-user-dirs-gtk yelp
+$ yay -Sy baobab cheese eog evince file-roller gdm gnome-backgrounds gnome-calculator gnome-calendar gnome-characters gnome-clocks gnome-color-manager gnome-console gnome-contacts gnome-control-center gnome-disk-utility gnome-font-viewer gnome-keyring gnome-logs gnome-menus gnome-music gnome-photos gnome-remote-desktop gnome-session gnome-settings-daemon gnome-shell gnome-shell-extensions gnome-system-monitor gnome-user-docs gnome-user-share gnome-video-effects grilo-plugins nautilus rygel simple-scan sushi totem tracker3-miners xdg-user-dirs-gtk yelp
 ```
 
 ### Download some apps and extensions
 ```
-# yay -Sy dconf-editor evolution gnome-nettool gnome-tweaks gnome-usage gnome-themes-extra adwaita-dark extension-manager tailscale-systray-git galaxybudsclient-bin hplip cups nextcloud-client grub-customizer
+$ yay -Sy dconf-editor evolution gnome-nettool gnome-tweaks gnome-usage gnome-themes-extra adwaita-dark extension-manager tailscale-systray-git galaxybudsclient-bin hplip cups nextcloud-client grub-customizer
 
 ## Download extensions and restore from Extensions Sync : 
-# yay -Sy gnome-shell-extension-extensions-sync-git
+$ yay -Sy gnome-shell-extension-extensions-sync-git
 ```
 
 ### Build and install my fork of Dash to Panel
 ```
-# cd /tmp
-# git clone https://github.com/matt1432/dash-to-panel-touch-fix.git
-# cd dash-to-panel-touch-fix/
-# make install
+$ cd /tmp
+$ git clone https://github.com/matt1432/dash-to-panel-touch-fix.git
+$ cd dash-to-panel-touch-fix/
+$ make install
 ```
 
 ### Enable GDM to launch the Desktop Environment
 ```
-systemctl enable --now gdm
+$ systemctl enable --now gdm
 ```
 
 ## Fingerprint Sensor Hack
 ### Flash [firmware](https://github.com/goodix-fp-linux-dev/goodix-fp-dump)
 ```
-# yay -Sy python pam-fprint-grosshack
-# cd /tmp
-# git clone --recurse-submodules https://github.com/goodix-fp-linux-dev/goodix-fp-dump.git
-# cd goodix-fp-dump
-# python -m venv .venv
-# source .venv/bin/activate
-# pip install -r requirements.txt
-# sudo python3 run_55b4.py
+$ yay -Sy python pam-fprint-grosshack
+$ cd /tmp
+$ git clone --recurse-submodules https://github.com/goodix-fp-linux-dev/goodix-fp-dump.git
+$ cd goodix-fp-dump
+$ python -m venv .venv
+$ source .venv/bin/activate
+$ pip install -r requirements.txt
+$ sudo python3 run_55b4.py
 ```
 
 ### Install experimental [drivers](https://github.com/TheWeirdDev/libfprint/tree/55b4-experimental)
 ```
-# yay -Sy libfprint-goodixtls-55x4 fprintd
-# sudo systemctl enable --now fprintd
-# fprintd-enroll
+$ yay -Sy libfprint-goodixtls-55x4 fprintd
+$ sudo systemctl enable --now fprintd
+$ fprintd-enroll
 ```
 
 ### Use the reader
@@ -214,7 +214,7 @@ auth            sufficient      pam_unix.so try_first_pass nullok
 ## Plymouth and Silent Boot
 By following the wiki pages on [watchdogs](https://wiki.archlinux.org/title/Improving_performance#Watchdogs), [silent booting](https://wiki.archlinux.org/title/Silent_boot#top-page) and [Plymouth](https://wiki.archlinux.org/title/Plymouth), I edited my grub config and mkinitcpio, installed and setup Plymouth, to get a satisfying booting experience
 ```
-# yay -Sy plymouth-git gdm-plymouth plymouth-theme-arch-charge-gdm-spinner
+$ yay -Sy plymouth-git gdm-plymouth plymouth-theme-arch-charge-gdm-spinner
 ```
 /etc/mkinitcpio.conf
 ```
@@ -232,66 +232,66 @@ GRUB_DISABLE_OS_PROBER="false"
 ```
 Mute watchdog
 ```
-echo blacklist sp5100_tco | sudo tee /etc/modprobe.d/disable-sp5100-watchdog.conf
+$ echo blacklist sp5100_tco | sudo tee /etc/modprobe.d/disable-sp5100-watchdog.conf
 ```
 Apply changes
 ```
-sudo plymouth-set-default-theme -R arch-charge-gdm-spinner
-sudo grub-mkconfig -o /boot/grub/grub.cfg
-sudo sed -i 's/echo/#ech~o/g' /boot/grub/grub.cfg
+$ sudo plymouth-set-default-theme -R arch-charge-gdm-spinner
+$ sudo grub-mkconfig -o /boot/grub/grub.cfg
+$ sudo sed -i 's/echo/#ech~o/g' /boot/grub/grub.cfg
 ```
 
 ## Here are some random changes and tweaks
 
 ### Firefox touchscreen [tweak](https://wiki.archlinux.org/title/Firefox/Tweaks#Enable_touchscreen_gestures)
 ```
-# echo MOZ_USE_XINPUT2 DEFAULT=1 | sudo tee -a /etc/security/pam_env.conf
+$ echo MOZ_USE_XINPUT2 DEFAULT=1 | sudo tee -a /etc/security/pam_env.conf
 ```
 then logout
 
 ### AUR Packages that are most likely needed
 ```
-# yay -Sy iio-sensor-proxy-git spotify-edge vscodium-bin # yoga-usage-mode-dkms-git ?
-# sudo reboot
+$ yay -Sy iio-sensor-proxy-git spotify-edge vscodium-bin # yoga-usage-mode-dkms-git ?
+$ sudo reboot
 ```
 
 ### Flatpak
 ```
-# flatpak install com.unity.UnityHub com.vscodium.codium org.freedesktop.Sdk.Extension.dotnet6 org.freedesktop.Sdk.Extension.mono6 com.github.iwalton3.jellyfin-media-player com.github.tchx84.Flatseal org.gtk.Gtk3theme.Breeze-Dark ch.openboard.OpenBoard
-# FLATPAK_ENABLE_SDK_EXT=dotnet6,mono6 flatpak run com.vscodium.codium
-# sudo flatpak override --filesystem=xdg-config/gtk-3.0
+$ flatpak install com.unity.UnityHub com.vscodium.codium org.freedesktop.Sdk.Extension.dotnet6 org.freedesktop.Sdk.Extension.mono6 com.github.iwalton3.jellyfin-media-player com.github.tchx84.Flatseal org.gtk.Gtk3theme.Breeze-Dark ch.openboard.OpenBoard
+$ FLATPAK_ENABLE_SDK_EXT=dotnet6,mono6 flatpak run com.vscodium.codium
+$ sudo flatpak override --filesystem=xdg-config/gtk-3.0
 ``` 
 
 ### vscodium on Flatpak
 ```
-# CD=$(pwd)
-# mkdir /tmp/host && cd /tmp/host
-# curl -s https://api.github.com/repos/1player/host-spawn/releases \
+$ CD=$(pwd)
+$ mkdir /tmp/host && cd /tmp/host
+$ curl -s https://api.github.com/repos/1player/host-spawn/releases \
 | grep -m 1 "browser_download_url.*x86_64" \
 | cut -d : -f 2,3 \
 | tr -d \" \
 | wget -qi -
-# mv * host-spawn
-# sudo chmod 755 host-spawn
+$ mv * host-spawn
+$ sudo chmod 755 host-spawn
 
-# mkdir ~/bin
-# sudo mv host-spawn /home/matt/bin
+$ mkdir ~/bin
+$ sudo mv host-spawn /home/matt/bin
 
-# cd $CD
-# cp ../conf/settings.json ~/.var/app/com.vscodium.codium/config/VSCodium/User/
-# sudo ln -s /home/matt/bin/host-spawn /var/lib/flatpak/app/com.vscodium.codium/current/**/files/bin/git-lfs
+$ cd $CD
+$ cp ../conf/settings.json ~/.var/app/com.vscodium.codium/config/VSCodium/User/
+$ sudo ln -s /home/matt/bin/host-spawn /var/lib/flatpak/app/com.vscodium.codium/current/**/files/bin/git-lfs
 
-# sudo mv /var/lib/flatpak/app/com.vscodium.codium/current/active/export/share/applications/com.vscodium.codium.desktop{,.bak}
-# sudo mv /var/lib/flatpak/exports/share/applications/com.vscodium.codium.desktop{,.bak}
+$ sudo mv /var/lib/flatpak/app/com.vscodium.codium/current/active/export/share/applications/com.vscodium.codium.desktop{,.bak}
+$ sudo mv /var/lib/flatpak/exports/share/applications/com.vscodium.codium.desktop{,.bak}
 ```
 
 ## Finally, install dotfiles
 ```
-# mkdir ~/git && cd ~/git
-# git clone git@git.nelim.org:matt1432/dotfiles.git
-# cd dotfiles
-# sudo bash setup.sh
-# sudo chown matt:matt /home/matt/.env
-# sed -i 's/USER=""/USER="matt"/'
-# sudo bash fzf.sh /usr/share/fzf
+$ mkdir ~/git && cd ~/git
+$ git clone git@git.nelim.org:matt1432/dotfiles.git
+$ cd dotfiles
+$ sudo bash setup.sh
+$ sudo chown matt:matt /home/matt/.env
+$ sed -i 's/USER=""/USER="matt"/'
+$ sudo bash fzf.sh /usr/share/fzf
 ```
