@@ -251,7 +251,7 @@ then logout
 
 ### AUR Packages that are most likely needed
 ```
-$ yay -Sy iio-sensor-proxy-git spotify-edge vscodium-bin # yoga-usage-mode-dkms-git ?
+$ yay -Sy iio-sensor-proxy-git spotify-edge vscodium-bin
 $ sudo reboot
 ```
 
