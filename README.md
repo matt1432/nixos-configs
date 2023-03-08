@@ -165,7 +165,7 @@ $ yay -Sy baobab cheese eog evince file-roller gdm gnome-backgrounds gnome-calcu
 
 ### Download some apps and extensions
 ```
-$ yay -Sy dconf-editor evolution gnome-nettool gnome-tweaks gnome-usage gnome-themes-extra adwaita-dark extension-manager tailscale-systray-git galaxybudsclient-bin hplip cups nextcloud-client grub-customizer
+$ yay -Sy dconf-editor evolution gnome-nettool gnome-tweaks gnome-usage gnome-themes-extra adwaita-dark extension-manager libayatana-appindicator tailscale-systray-git galaxybudsclient-bin hplip cups nextcloud-client grub-customizer
 
 ## Download extensions and restore from Extensions Sync : 
 $ yay -Sy gnome-shell-extension-extensions-sync-git
