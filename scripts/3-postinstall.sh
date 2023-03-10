@@ -41,7 +41,7 @@ useradd -m matt -G wheel
 passwd matt
 
 pacman -Syu
-pacman -Sy htop pkgfile plocate rsync tailscale tmux usbutils wget git curl devtools xorg xf86-video-amdgpu mesa lib32-mesa vulkan-radeon lib32-vulkan-radeon libva-mesa-driver lib32-libva-mesa-driver mesa-vdpau lib32-mesa-vdpau bash-completion fzf
+pacman -Sy htop pkgfile plocate rsync tailscale libayatana-appindicator tmux usbutils wget git curl devtools xorg xf86-video-amdgpu mesa lib32-mesa vulkan-radeon lib32-vulkan-radeon libva-mesa-driver lib32-libva-mesa-driver mesa-vdpau lib32-mesa-vdpau bash-completion fzf
 
 systemctl enable --now tailscale
 
