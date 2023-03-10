@@ -29,7 +29,7 @@ EAP-PEAP-Phase2-Method=MSCHAPV2
 EAP-PEAP-Phase2-Identity=USER
 EAP-PEAP-Phase2-Password=PASSWD
 EOF
-nano /var/lib/iwd/ CLG.8021x
+nano /var/lib/iwd/CLG.8021x
 
 pacman -Sy reflector
 nano /etc/xdg/reflector/reflector.conf 
