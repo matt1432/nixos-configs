@@ -18,6 +18,8 @@ ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 sed -i 's/#DNS=.*/DNS=100.64.0.1/' /etc/systemd/resolved.conf
 sed -i 's/#FallbackDNS=.*/FallbackDNS=1.1.1.1/' /etc/systemd/resolved.conf
 
+systemctl restart iwd systemd-resolved
+
 cat << EOF >> /var/lib/iwd/ CLG.8021x
 [IPv6]
 Enabled=true
@@ -42,11 +44,5 @@ pacman -Syu
 pacman -Sy htop pkgfile plocate rsync tailscale tmux usbutils wget git curl devtools xorg xf86-video-amdgpu mesa lib32-mesa vulkan-radeon lib32-vulkan-radeon libva-mesa-driver lib32-libva-mesa-driver mesa-vdpau lib32-mesa-vdpau bash-completion fzf
 
 systemctl enable --now tailscale
-
-pacman -S --needed git base-devel
-git clone https://aur.archlinux.org/yay.git
-cd yay
-makepkg -si
-sed -i 's/#Color/Color/' /etc/pacman.conf
 
 su matt
