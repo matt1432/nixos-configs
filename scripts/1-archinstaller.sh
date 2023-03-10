@@ -4,6 +4,7 @@ KEY="$2"
 
 loadkeys ca
 
+fdisk /dev/nvme0n1p$PART
 cryptsetup -y -v luksFormat --type luks1 /dev/nvme0n1p$PART
 cryptsetup open /dev/nvme0n1p$PART root
 mkfs.btrfs /dev/mapper/root
