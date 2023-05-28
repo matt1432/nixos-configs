@@ -82,19 +82,19 @@
     },
     "custom/osk": {
         "format":" 󰌌 ",
-        "on-click": "$HOME/.scripts/osk-toggle.sh",
+        "on-click": "$HOME/.config/sway/scripts/tablet/osk-toggle.sh",
         "restart-interval": 1,
     },
     
     "custom/quicksettings": {
         "format":"  ",
-        "on-click": "$HOME/.scripts/quick-toggle.sh",
+        "on-click": "$HOME/.config/waybar/scripts/quick-toggle.sh",
         "restart-interval": 1,
     },
     
     "custom/tablet": {
         "format":" 󰦧 ",
-        "on-click": "$HOME/.scripts/tablet-toggle.sh",
+        "on-click": "$HOME/.config/sway/scripts/tablet/tablet-toggle.sh",
         "restart-interval": 1,
     },
     
