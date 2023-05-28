@@ -1,0 +1,10 @@
+include catppuccin-machiato
+
+## Window decoration
+#class                   border    backgr.   text   indicator  child_border
+client.focused           $mauve    $base     $text  $lavender  $mauve
+client.focused_inactive  $mauve    $base     $text  $mauve     $mauve
+#client.unfocused         $mauve    $base     $text  $mauve     $mauve
+client.urgent            $peach    $base     $peach $overlay0  $peach
+client.placeholder       $base     $base     $text  $overlay0  $overlay0
+client.background        $base

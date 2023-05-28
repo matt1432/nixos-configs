@@ -1,0 +1,321 @@
+###################################################################################
+### VARIABLES
+###################################################################################
+
+# Logo key. Use Mod1 for Alt.
+set $mod Mod4
+
+# Home row direction keys, like vim
+set $left h
+set $down j
+set $up k
+set $right l
+
+# misc
+set $scripts $HOME/.config/sway/scripts
+set $term alacritty
+set $menu wofi --show drun --allow-images -i --display-drun ""
+set $bar waybar
+font pango:SF Mono Regular 10
+
+
+###################################################################################
+### SOV
+###################################################################################
+
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
+set $SOVSOCK $XDG_RUNTIME_DIR/sov.sock
+exec rm -f $SOVSOCK && mkfifo $SOVSOCK && tail -f $SOVSOCK | sov
+
+
+###################################################################################
+### STARTUP APPS
+####################################################################################
+
+# bar
+bar {
+    swaybar_command $bar
+    mode dock
+    modifier none
+}
+
+# execs
+exec bash -c "sleep 3; nm-tray"
+exec eww daemon
+exec $HOME/.config/lisgd/config
+exec sudo input-emulator start touch --x-max 1920 --y-max 1200 --slots 4
+
+exec dbus-update-activation-environment --all
+exec gnome-keyring-daemon --start --components=secrets
+
+exec $menu
+exec --no-startup-id sleep 3 && nextcloud --background
+#exec --no-startup-id sleep 3 && galaxybudsclient --background
+exec swww init
+exec swww img "$HOME/Pictures/BG/bonzai.jpg"
+exec /usr/lib/polkit-kde-authentication-agent-1
+exec bash -c "sleep 3; /opt/tutanota-desktop/tutanota-desktop -a"
+exec blueman-applet
+exec $scripts/lose-focus.sh
+
+# Clipboard manager
+exec wl-paste --watch cliphist store
+bindsym $mod+v exec cliphist list | wofi -dmenu | cliphist decode | wl-copy
+
+# OSD window
+exec swayosd
+
+
+###################################################################################
+### Appearance
+###################################################################################
+
+# window corner radius in px
+default_border pixel 2
+gaps inner 5
+gaps outer 5
+
+#for_window [app_id="$term"] opacity 0.8
+corner_radius 20
+shadows on
+
+# Window background blur
+blur on
+blur_xray off
+blur_passes 1
+blur_radius 5
+
+shadows_on_csd off
+shadow_blur_radius 5
+shadow_color #0000007F
+
+# inactive window fade amount. 0.0 = no dimming, 1.0 = fully dimmed
+default_dim_inactive 0.0
+dim_inactive_colors.unfocused #000000FF
+dim_inactive_colors.urgent #900000FF
+
+# Move minimized windows into Scratchpad (enable|disable)
+#scratchpad_minimize enable
+
+###################################################################################
+### Idle configuration
+###################################################################################
+
+# Example configuration:
+#
+# exec swayidle -w \
+#          timeout 300 'swaylock -f -c 000000' \
+#          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+#          before-sleep 'swaylock -f -c 000000'
+#
+# This will lock your screen after 300 seconds of inactivity, then turn off
+# your displays after another 300 seconds, and turn your screens back on when
+# resumed. It will also lock your screen before your computer goes to sleep.
+
+
+###################################################################################
+### Input configuration
+###################################################################################
+
+    input * {
+        xkb_layout ca
+        xkb_variant multix
+        tap enabled
+        dwt disabled
+    }
+
+
+###################################################################################
+### Key bindings
+###################################################################################
+
+# Basics:
+
+    # Start a terminal
+    bindsym $mod+q exec $term
+
+    # Take a screenshot
+    bindsym Print exec bash -c 'grim -g "$(slurp)" - | swappy -f -'
+
+    # Logout but keep sway open
+    bindsym $mod+l exec swaylock --fade-in 0.2
+
+    # Logout on closed lid
+    bindswitch --reload --locked lid:on exec swaylock
+
+    # Kill focused window
+    bindsym $mod+c kill
+
+    # Start your launcher
+    bindsym $mod+d exec $menu
+
+    # Drag floating windows by holding down $mod and left mouse button.
+    # Resize them with right mouse button + $mod.
+    # Despite the name, also works for non-floating windows.
+    # Change normal to inverse to use left mouse button for resizing and right
+    # mouse button for dragging.
+    floating_modifier $mod normal
+
+    # Reload the configuration file
+    bindsym $mod+Shift+c reload
+
+    # Exit sway (logs you out of your Wayland session)
+    #bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+    bindsym $mod+Shift+e exec "eww open powermenu && eww open powermenu-closer"
+#
+# Moving around:
+#
+    # Move your focus around
+    #bindsym $mod+$left focus left
+    #bindsym $mod+$down focus down
+    #bindsym $mod+$up focus up
+    #bindsym $mod+$right focus right
+    # Or use $mod+[up|down|left|right]
+    bindsym $mod+Left focus left
+    bindsym $mod+Down focus down
+    bindsym $mod+Up focus up
+    bindsym $mod+Right focus right
+
+    # Move the focused window with the same, but add Shift
+    bindsym $mod+Shift+$left move left
+    bindsym $mod+Shift+$down move down
+    bindsym $mod+Shift+$up move up
+    bindsym $mod+Shift+$right move right
+    # Ditto, with arrow keys
+    bindsym $mod+Shift+Left move left
+    bindsym $mod+Shift+Down move down
+    bindsym $mod+Shift+Up move up
+    bindsym $mod+Shift+Right move right
+
+    # Sink volume raise
+    bindsym XF86AudioRaiseVolume exec swayosd --output-volume raise
+    # Sink volume lower
+    bindsym XF86AudioLowerVolume exec  swayosd --output-volume lower
+    # Sink volume toggle mute
+    bindsym XF86AudioMute exec swayosd --output-volume mute-toggle
+    # Source volume toggle mute
+    #bindsym XF86AudioMicMute exec swayosd --input-volume mute-toggle
+    bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+    # Capslock
+    bindsym --release Caps_Lock exec swayosd --caps-lock
+
+    # Brightness raise
+    bindsym XF86MonBrightnessUp exec swayosd --brightness raise
+    # Brightness lower
+    bindsym XF86MonBrightnessDown exec swayosd --brightness lower
+
+#
+# Workspaces:
+#
+    # Allow switching between workspaces with left and right swipes
+    bindgesture swipe:right exec $HOME/.config/sway/scripts/gestures.sh prev #workspace prev
+    bindgesture swipe:left exec $HOME/.config/sway/scripts/gestures.sh next #workspace next
+
+    # Switch to workspace
+    bindsym --no-repeat $mod+z exec "echo 1 > $SOVSOCK"
+    bindsym --no-repeat $mod+z+1 workspace number 1
+    bindsym --no-repeat $mod+z+2 workspace number 2
+    bindsym --no-repeat $mod+z+3 workspace number 3
+    bindsym --no-repeat $mod+z+4 workspace number 4
+    bindsym --no-repeat $mod+z+5 workspace number 5
+    bindsym --no-repeat $mod+z+6 workspace number 6
+    bindsym --no-repeat $mod+z+7 workspace number 7
+    bindsym --no-repeat $mod+z+8 workspace number 8
+    bindsym --no-repeat $mod+z+9 workspace number 9
+    bindsym --no-repeat $mod+z+0 workspace number 10
+
+    bindsym --release $mod+z exec "echo 0 > $SOVSOCK"
+    bindsym --release $mod+z+1 exec "echo 0 > $SOVSOCK"
+    bindsym --release $mod+z+2 exec "echo 0 > $SOVSOCK"
+    bindsym --release $mod+z+3 exec "echo 0 > $SOVSOCK"
+    bindsym --release $mod+z+4 exec "echo 0 > $SOVSOCK"
+    bindsym --release $mod+z+5 exec "echo 0 > $SOVSOCK"
+    bindsym --release $mod+z+6 exec "echo 0 > $SOVSOCK"
+    bindsym --release $mod+z+7 exec "echo 0 > $SOVSOCK"
+    bindsym --release $mod+z+8 exec "echo 0 > $SOVSOCK"
+    bindsym --release $mod+z+9 exec "echo 0 > $SOVSOCK"
+    bindsym --release $mod+z+0 exec "echo 0 > $SOVSOCK"
+
+    # Move focused container to workspace
+    bindsym $mod+Shift+1 move container to workspace number 1
+    bindsym $mod+Shift+2 move container to workspace number 2
+    bindsym $mod+Shift+3 move container to workspace number 3
+    bindsym $mod+Shift+4 move container to workspace number 4
+    bindsym $mod+Shift+5 move container to workspace number 5
+    bindsym $mod+Shift+6 move container to workspace number 6
+    bindsym $mod+Shift+7 move container to workspace number 7
+    bindsym $mod+Shift+8 move container to workspace number 8
+    bindsym $mod+Shift+9 move container to workspace number 9
+    bindsym $mod+Shift+0 move container to workspace number 10
+    # Note: workspaces can have any name you want, not just numbers.
+    # We just use 1-10 as the default.
+#
+# Layout stuff:
+#
+    # Floating windows
+    for_window [app_id="org.gnome.Calculator"] floating enable
+    for_window [app_id="org.kde.polkit-kde-authentication-agent-1"] floating enable
+    for_window [app_id="nm-tray"] floating enable, sticky enable, move position cursor, move down 35
+    for_window [app_id="blueman-manager"] floating enable, sticky enable, resize set width 200 px height 581px, move position cursor, move down 35
+
+    # You can "split" the current object of your focus with
+    # $mod+b or $mod+v, for horizontal and vertical splits
+    # respectively.
+    bindsym $mod+b splith
+    bindsym $mod+n splitv
+
+    # Switch the current container between different layout styles
+    bindsym $mod+s layout stacking
+    bindsym $mod+w layout tabbed
+    bindsym $mod+e layout toggle split
+
+    # Make the current focus fullscreen
+    bindsym $mod+f fullscreen
+
+    # Toggle the current focus between tiling and floating mode
+    bindsym $mod+Shift+space floating toggle
+
+    # Swap focus between the tiling area and the floating area
+    bindsym $mod+space focus mode_toggle
+
+    # Move focus to the parent container
+    bindsym $mod+a focus parent
+#
+# Scratchpad:
+#
+    # Sway has a "scratchpad", which is a bag of holding for windows.
+    # You can send windows there and get them back later.
+
+    # Move the currently focused window to the scratchpad
+    bindsym $mod+Shift+minus move scratchpad
+
+    # Show the next scratchpad window or hide the focused scratchpad window.
+    # If there are multiple scratchpad windows, this command cycles through them.
+    bindsym $mod+minus scratchpad show
+#
+# Resizing containers:
+#
+mode "resize" {
+    # left will shrink the containers width
+    # right will grow the containers width
+    # up will shrink the containers height
+    # down will grow the containers height
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+
+    # Ditto, with arrow keys
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# user config directory
+include $HOME/.config/sway/config.d/*
