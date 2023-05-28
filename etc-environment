@@ -1,0 +1,11 @@
+#
+# This file is parsed by pam_env module
+#
+# Syntax: simple "KEY=VAL" pairs on separate lines
+#
+EDITOR=nano
+#GTK_THEME=Adwaita:dark
+#GTK_THEME=Lavanda-Dark
+QT_QPA_PLATFORMTHEME=qt5ct
+QT_STYLE_OVERRIDE=kvantum
+QT_FONT_DPI=125
