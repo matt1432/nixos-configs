@@ -1,0 +1,12 @@
+{
+    "editor.fontSize": 16,
+    "editor.wordWrap": "on",
+    "omnisharp.useGlobalMono": "always",
+    "workbench.startupEditor": "none",
+    "workbench.colorTheme": "Cherry Midnight",
+    "git.openRepositoryInParentFolders": "always",
+    "git.autofetch": true,
+    "clangd.path": "/home/matt/.config/VSCodium/User/globalStorage/llvm-vs-code-extensions.vscode-clangd/install/16.0.2/clangd_16.0.2/bin/clangd",
+    "git.enableSmartCommit": true,
+    "git.confirmSync": false
+}
