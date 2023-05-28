@@ -1,0 +1,128 @@
+* {
+    border: none;
+    /*font-family: 'SF Mono', Consolas, 'Font Awesome 5 Free Solid', Roboto;*/
+    font-family: UbuntuMono;
+    font-size: 18px
+  }
+  
+  window#waybar {
+    /* background-color: rgba(18, 21, 29, 0.98); */
+    /*background-color: rgba(49, 50, 68, 0.8);*/
+    background-color: rgba(0, 0, 0, 0);
+    border-bottom: 0px solid #181825;
+    border-radius: 80px;
+    color: #CBA6F7;
+    transition-property: background-color;
+    transition-duration: .5s;
+  }
+  
+  window#waybar.hidden {
+    opacity: 0.5;
+  }
+  
+  #workspaces,
+  #cpu,
+  #memory,
+  #pulseaudio,
+  #clock,
+  #backlight,
+  #battery,
+  #tray,
+  #network {
+    background-color: rgba(69, 71, 90, 0.3);
+    padding: 2 16;
+    /*color: #CDD6F4;*/
+    color: #CBA6F7;
+    border-color: #11111B;
+    margin: 0px 2px 0px 2px;
+    border: 6px solid rgba(0, 0, 0, 0);
+    border-radius: 80px;
+    background-clip: padding-box;
+  }
+
+  #workspaces button {
+    border-radius: 80px;
+    padding: 0 5px;
+    min-width: 25px;
+    /*color: #74C7EC;*/
+    color: #CDD6F4;
+    font-size: 16px;
+  }
+  
+  #workspaces button:hover {
+    background-color: #7F849C;
+  }
+  
+  #workspaces button.focused {
+    background-color: #616578;
+    color: #CBA6F7;
+
+    font-weight: bolder;
+  }
+  
+  #workspaces button.urgent {
+    color: #F80000;
+  }
+  
+  #backlight {
+    color: #F9E2AF;
+  }
+  
+  #battery {
+    color: #A6E3A1;
+  }
+  
+  #battery.charging, #battery.plugged {
+    background-color: #98c379;
+    color: #1e222a;
+  }
+  
+  @keyframes blink {
+      to {
+          background-color: #1e222a;
+          color: #e06c75;
+      }
+  }
+  
+  #battery.critical:not(.charging) {
+      background-color: #F38BA8;
+      color: #1e222a;
+      animation-name: blink;
+      animation-duration: 0.5s;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      animation-direction: alternate;
+  }
+  
+  #network.disconnected {
+      background-color: #F38BA8;
+      color: #1e222a;
+  }
+
+  #custom-osk {
+    font-size: 26px;
+    background-color: rgba(69, 71, 90, 0.3);
+    padding: 0 6px 0 0;
+    border-color: #11111B;
+    margin: 0px 0px 0px 0px;
+    border: 6px solid rgba(0, 0, 0, 0);
+    border-radius: 80px;
+    background-clip: padding-box;
+  }
+
+  #custom-tablet {
+    font-size: 26px;
+    background-color: rgba(69, 71, 90, 0.3);
+    padding: 0 8px 0 0;
+    border-color: #11111B;
+    margin: 0px 0px 0px 0px;
+    border: 6px solid rgba(0, 0, 0, 0);
+    border-radius: 80px;
+    background-clip: padding-box;
+  }
+  
+  #custom-quicksettings {
+    font-size: 26px;
+    background-color: rgba(0, 0, 0, 0);
+    padding: 0 8px 0 0;
+  }
