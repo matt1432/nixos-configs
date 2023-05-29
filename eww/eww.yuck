@@ -3,3 +3,4 @@
 (include "actions/actions.yuck")
 (include "powermenu/powermenu.yuck")
 (include "dashboard/dashboard.yuck")
+(include "closer/closer.yuck")
