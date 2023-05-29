@@ -1,0 +1,3 @@
+I use my [fork](https://git.nelim.org/matt1432/lisgd-sway) of [lisgd](https://git.sr.ht/~mil/lisgd) to freeze touchscreen inputs while using 3 or more fingers so gestures can be done without zooming your firefox tabs or messing up your work (only works on sway).
+
+I had to also make a [fork](https://git.nelim.org/matt1432/input-emulator-sway) of [input-emulator](https://github.com/tio/input-emulator) to make the touch_tap do 3 simultaneous taps, because disabling the touchscreen while doing gestures would not register when the fingers stop touching. therefore, simulating another tap of 3 fingers makes sway recognize the release.
