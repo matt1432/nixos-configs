@@ -1,0 +1,60 @@
+Electron/
+GIMP/
+Nextcloud/
+PhotoQt/
+QtProject.conf
+VSCodium/Cache/
+VSCodium/CachedData/
+VSCodium/CachedExtensionVSIXs/
+VSCodium/CachedProfilesData/
+VSCodium/Code Cache/
+VSCodium/Cookies
+VSCodium/Cookies-journal
+VSCodium/Crashpad/
+VSCodium/DawnCache/
+VSCodium/Dictionaries/
+VSCodium/GPUCache/
+VSCodium/Local Storage/
+VSCodium/Network Persistent State
+VSCodium/Preferences
+VSCodium/Service Worker/
+VSCodium/Session Storage/
+VSCodium/TransportSecurity
+VSCodium/User/History/
+VSCodium/User/globalStorage/
+VSCodium/User/workspaceStorage/
+VSCodium/WebStorage/
+VSCodium/code.lock
+VSCodium/databases/
+VSCodium/languagepacks.json
+VSCodium/logs/
+VSCodium/machineid
+akregatorrc
+autostart/
+baloofileinformationrc
+dconf/
+discord/
+gtk-4.0/
+htop/
+hypr/
+kconf_updaterc
+kde.org/
+kdeglobals
+kiorc
+libreoffice/
+mimeapps.list
+pavucontrol.ini
+pulse/
+replugged/
+session/
+spicetify/
+spotify/
+systemd/
+trashrc
+tuta_integration/
+tutanota-desktop/
+unity3d/
+unityhub/
+vlc/
+wireguard/
+xsettingsd/
