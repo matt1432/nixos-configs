@@ -255,8 +255,10 @@ dim_inactive_colors.urgent #900000FF
     # Floating windows
     for_window [app_id="org.gnome.Calculator"] floating enable
     for_window [app_id="org.kde.polkit-kde-authentication-agent-1"] floating enable
+    for_window [title="Open File"] floating enable, resize set width 1231 px height 950
+    for_window [title="Open Folder"] floating enable, resize set width 1231 px height 950
     for_window [app_id="nm-tray"] floating enable, sticky enable, move position cursor, move down 35
-    for_window [app_id="blueman-manager"] floating enable, sticky enable, resize set width 200 px height 581px, move position cursor, move down 35
+    for_window [app_id="blueman-manager"] floating enable, sticky enable, resize set width 200 px height 581px, move position cursor, move down 30
 
     # You can "split" the current object of your focus with
     # $mod+b or $mod+v, for horizontal and vertical splits

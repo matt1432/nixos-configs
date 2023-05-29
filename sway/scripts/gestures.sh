@@ -32,5 +32,5 @@ elif [[ $SIDE == "prev" ]]; then
 elif [[ $SIDE == "next" ]]; then
 	swaymsg workspace $[$current_workspace + 1]
 fi
-sleep 0.5
+sleep 0.2
 sudo input-emulator touch tap 1280 720
