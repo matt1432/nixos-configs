@@ -48,10 +48,10 @@
 
 (defwindow date
   :monitor 0
-  :geometry (geometry :x "6px"
-                      :y "-44px"
+  :geometry (geometry :x "70px"
+                      :y "4px"
                       :width "0px" ; automatically generated
                       :height "0px" ; automatically generated
-                      :anchor "left bottom")
+                      :anchor "top right")
   :wm-ignore true
 (date))

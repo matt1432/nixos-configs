@@ -1,8 +1,7 @@
 .actions {
   background-color: $bg;
   color: $fg;
-  //font-family: Product Sans;
-  font-family: Ubuntu Mono;
+  font-family: Product Sans;
   border-radius: 30px;
   border: 5px solid $contrastbg;
   padding: 10px 18px;
@@ -10,7 +9,7 @@
 
 .controlsbox {
   background-color: $contrastbg;
-  border-radius: 7px;
+  border-radius: 15px;
   padding: 7px 12px;
 
   .vol-slider {
@@ -81,8 +80,7 @@
     font-size: 14px;
   }
   .username {
-    //font-family: Product Sans;
-    font-family: Ubuntu Mono;
+    font-family: Product Sans;
   }
   .useractions {
     .logout {
