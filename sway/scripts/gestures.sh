@@ -1,5 +1,6 @@
 #!/bin/bash
 SIDE="$1"
+TOUCH="$2"
 workspaces=($(swaymsg -t get_workspaces | jq '.[] | .num'))
 list_focused=($(swaymsg -t get_workspaces | jq '.[] | .focused'))
 
@@ -32,5 +33,8 @@ elif [[ $SIDE == "prev" ]]; then
 elif [[ $SIDE == "next" ]]; then
 	swaymsg workspace $[$current_workspace + 1]
 fi
-sleep 0.2
-sudo input-emulator touch tap 1280 720
+
+if [[ $TOUCH == "touch" ]]
+	sleep 0.2
+	sudo input-emulator touch tap 1280 720
+fi

@@ -42,7 +42,7 @@ bar {
 # execs
 exec bash -c "sleep 3; nm-tray"
 exec eww daemon
-exec $HOME/.config/lisgd/config
+exec_always $HOME/.config/lisgd/config
 exec sudo input-emulator start touch --x-max 1920 --y-max 1200 --slots 4
 
 exec dbus-update-activation-environment --all
