@@ -143,6 +143,9 @@ dim_inactive_colors.urgent #900000FF
     # Logout on closed lid
     bindswitch --reload --locked lid:on exec swaylock
 
+    # Kill all eww widgets
+    bindsym Escape exec $scripts/esc.sh
+
     # Kill focused window
     bindsym $mod+c kill
 
@@ -161,7 +164,7 @@ dim_inactive_colors.urgent #900000FF
 
     # Exit sway (logs you out of your Wayland session)
     #bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
-    bindsym $mod+Shift+e exec "eww open powermenu && eww open powermenu-closer"
+    bindsym $mod+Shift+e exec "eww open powermenu && eww open closer"
 #
 # Moving around:
 #
@@ -208,8 +211,8 @@ dim_inactive_colors.urgent #900000FF
 # Workspaces:
 #
     # Allow switching between workspaces with left and right swipes
-    bindgesture swipe:right exec $HOME/.config/sway/scripts/gestures.sh prev #workspace prev
-    bindgesture swipe:left exec $HOME/.config/sway/scripts/gestures.sh next #workspace next
+    bindgesture swipe:right exec $scripts/gestures.sh prev
+    bindgesture swipe:left exec $scripts/gestures.sh next
 
     # Switch to workspace
     bindsym --no-repeat $mod+z exec "echo 1 > $SOVSOCK"
