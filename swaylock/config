@@ -5,7 +5,7 @@ timestr=%R
 datestr=%a, %e of %B
 
 screenshots
-
+submit-on-touch
 #fade-in=0.2
 
 effect-blur=20x2

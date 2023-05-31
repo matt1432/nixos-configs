@@ -40,7 +40,7 @@ bar {
 }
 
 # execs
-exec bash -c "sleep 3; nm-tray"
+exec bash -c "sleep 3; nm-applet"
 exec eww daemon
 exec_always $HOME/.config/lisgd/config
 exec sudo input-emulator start touch --x-max 1920 --y-max 1200 --slots 4
@@ -49,12 +49,12 @@ exec dbus-update-activation-environment --all
 exec gnome-keyring-daemon --start --components=secrets
 
 exec $menu
-exec --no-startup-id sleep 3 && nextcloud --background
+exec --no-startup-id sleep 4 && nextcloud --background
 #exec --no-startup-id sleep 3 && galaxybudsclient --background
 exec swww init
 exec swww img "$HOME/Pictures/BG/bonzai.jpg"
 exec /usr/lib/polkit-kde-authentication-agent-1
-exec bash -c "sleep 3; /opt/tutanota-desktop/tutanota-desktop -a"
+exec bash -c "sleep 4; /opt/tutanota-desktop/tutanota-desktop -a"
 exec blueman-applet
 exec $scripts/lose-focus.sh
 
