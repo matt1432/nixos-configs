@@ -14,7 +14,7 @@ set $right l
 # misc
 set $scripts $HOME/.config/sway/scripts
 set $term alacritty
-set $menu wofi --show drun --allow-images -i --display-drun ""
+set $menu "~/.config/rofi/launcher.sh"
 set $bar waybar
 font pango:SF Mono Regular 10
 
@@ -60,7 +60,7 @@ exec $scripts/lose-focus.sh
 
 # Clipboard manager
 exec wl-paste --watch cliphist store
-bindsym $mod+v exec cliphist list | wofi -dmenu | cliphist decode | wl-copy
+bindsym $mod+v exec cliphist list | ~/.config/rofi/dmenu.sh | cliphist decode | wl-copy
 
 # OSD window
 exec swayosd
