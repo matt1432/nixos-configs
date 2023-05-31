@@ -1,8 +1,8 @@
 #!/bin/bash
 
 if [[ $(eww state | grep calendar_month) ]]; then
-	eww close date && eww close closer
+	$HOME/.config/eww/scripts/close.sh date && eww close closer
 else
-	eww close-all
-	eww open date && eww open closer
+	$HOME/.config/eww/scripts/close-opened.sh
+	$HOME/.config/eww/scripts/open.sh date && eww open closer
 fi

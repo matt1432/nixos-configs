@@ -1,5 +1,5 @@
 (defwidget closer []
-  (eventbox :onclick "eww close-all"))
+  (eventbox :onclick "$HOME/.config/eww/scripts/close-opened.sh && eww close closer"))
 
 (defwindow closer
   :monitor 0

@@ -35,12 +35,17 @@
   :wm-ignore true
 (powermenu-clickhandler))
 
-(defwindow powermenu
+(defvar powermenu-visible false)
+
+(defwindow powermenu-reveal
   :monitor 0
   :geometry (geometry :x "0px"
                       :y "0px"
                       :width "500px"
                       :height "150px"
                       :anchor "center")
-  :wm-ignore true
-(powermenu))
+  (revealer
+        :transition "crossfade"
+        :reveal powermenu-visible
+        :duration "550ms"
+(powermenu)))

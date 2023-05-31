@@ -144,7 +144,7 @@ dim_inactive_colors.urgent #900000FF
     bindswitch --reload --locked lid:on exec swaylock
 
     # Kill all eww widgets
-    bindsym Escape exec $scripts/esc.sh
+    #bindsym Escape exec $scripts/esc.sh
 
     # Kill focused window
     bindsym $mod+c kill
@@ -164,7 +164,7 @@ dim_inactive_colors.urgent #900000FF
 
     # Exit sway (logs you out of your Wayland session)
     #bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
-    bindsym $mod+Shift+e exec "eww open powermenu && eww open closer"
+    bindsym $mod+Shift+e exec "$HOME/.config/eww/scripts/open.sh powermenu && eww open closer"
 #
 # Moving around:
 #

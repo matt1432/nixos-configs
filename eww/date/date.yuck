@@ -46,12 +46,17 @@
   )
 )
 
-(defwindow date
+(defvar date-visible false)
+
+(defwindow date-reveal
   :monitor 0
   :geometry (geometry :x "70px"
                       :y "4px"
                       :width "0px" ; automatically generated
                       :height "0px" ; automatically generated
                       :anchor "top right")
-  :wm-ignore true
-(date))
+     (revealer
+        :transition "crossfade"
+        :reveal date-visible
+        :duration "550ms"
+(date)))
