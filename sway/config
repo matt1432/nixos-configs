@@ -41,21 +41,22 @@ bar {
 
 # execs
 exec bash -c "sleep 3; nm-applet"
+exec bash -c "sleep 4; blueman-applet"
+exec bash -c "sleep 5; nextcloud --background"
+exec bash -c "sleep 6; /opt/tutanota-desktop/tutanota-desktop -a"
+exec bash -c "sleep 7; galaxybudsclient /StartMinimized"
+
 exec eww daemon
-exec_always $HOME/.config/lisgd/config
 exec sudo input-emulator start touch --x-max 1920 --y-max 1200 --slots 4
+exec_always $HOME/.config/lisgd/config
 
 exec dbus-update-activation-environment --all
 exec gnome-keyring-daemon --start --components=secrets
 
 exec $menu
-exec --no-startup-id sleep 4 && nextcloud --background
-#exec --no-startup-id sleep 3 && galaxybudsclient --background
 exec swww init
 exec swww img "$HOME/Pictures/BG/bonzai.jpg"
 exec /usr/lib/polkit-kde-authentication-agent-1
-exec bash -c "sleep 4; /opt/tutanota-desktop/tutanota-desktop -a"
-exec blueman-applet
 exec $scripts/lose-focus.sh
 
 # Clipboard manager
@@ -75,7 +76,7 @@ default_border pixel 2
 gaps inner 5
 gaps outer 5
 
-#for_window [app_id="$term"] opacity 0.8
+#for_window [app_id="Alacritty"] opacity 0.8
 corner_radius 20
 shadows on
 
@@ -262,6 +263,7 @@ dim_inactive_colors.urgent #900000FF
     for_window [title="Open Folder"] floating enable, resize set width 1231 px height 950
     for_window [app_id="nm-tray"] floating enable, sticky enable, move position cursor, move down 35
     for_window [app_id="blueman-manager"] floating enable, sticky enable, resize set width 200 px height 581px, move position cursor, move down 30
+    for_window [class="GalaxyBudsClient"] floating enable
 
     # You can "split" the current object of your focus with
     # $mod+b or $mod+v, for horizontal and vertical splits
