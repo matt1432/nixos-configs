@@ -1,0 +1,25 @@
+(defvar toggle-state false)
+
+(defwidget tablet-toggle []
+  (button :onclick {toggle-state ? "$HOME/.config/sway/scripts/tablet/laptop-mode.sh &" : 
+                                   "$HOME/.config/sway/scripts/tablet/tablet-mode.sh &"}
+    (box   :class {toggle-state ? "toggle-on" : "toggle-off"}
+            :space-evenly true
+            :spacing 6
+            :orientation "h"
+      (label :text " 󰦧 ")
+    )
+  )
+)
+
+(defwindow tablet-toggle
+  :monitor 0
+  :exclusive "ignore"
+  :geometry (geometry :x "78px"
+                      :y "8px"
+                      :width "0px"
+                      :height "0px"
+                      :anchor "top left"
+            )
+  (tablet-toggle)
+)
