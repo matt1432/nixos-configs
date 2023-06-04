@@ -95,7 +95,7 @@
     
     "custom/tablet": {
         "format":" 󰦧 ",
-        "on-click": "$HOME/.config/sway/scripts/tablet/tablet-toggle.sh",
+//        "on-click": "$HOME/.config/sway/scripts/tablet/tablet-toggle.sh",
         "restart-interval": 1,
     },
     

@@ -10,8 +10,10 @@ do
 	array[i]=${array[i]%-reveal}
 done
 
-# Print the elements of the array
+# Close every window except permanent ones
 for element in "${array[@]}"
 do
-	$HOME/.config/eww/scripts/close.sh "$element"
+	if [[ "$element" != "tablet-toggle" ]]; then
+		$HOME/.config/eww/scripts/close.sh "$element"
+	fi
 done
