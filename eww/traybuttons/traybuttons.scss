@@ -9,6 +9,7 @@
 
 .toggle-off {
   background-color: $bg;
+  transition: border-color 0.5s ease-in-out;
   color: #CBA6F7;
   font-size: 26px;
   border-radius: 80px;
@@ -19,6 +20,7 @@
 
 .toggle-on {
   background-color: $bg;
+  transition: border-color 0.5s ease-in-out;
   color: #CBA6F7;
   font-size: 26px;
   border-radius: 80px;
