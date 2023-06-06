@@ -39,31 +39,32 @@
     border-radius: 80px;
     background-clip: padding-box;
   }
-
+  
   #workspaces button {
-    border-radius: 80px;
     padding: 0 5px;
+    color: #7984A4;
+    background-color: transparent;
+    box-shadow: inset 0 -3px transparent;
+    border: none;
     min-width: 25px;
-    /*color: #74C7EC;*/
-    color: #CDD6F4;
-    font-size: 16px;
+    border-radius: 80px;
   }
-  
-  #workspaces button:hover {
-    background-color: #7F849C;
-  }
-  
+
   #workspaces button.focused {
+    color: #bf616a;
+  }
+
+  #workspaces button.active {
     background-color: #616578;
     color: #CBA6F7;
 
     font-weight: bolder;
   }
-  
+
   #workspaces button.urgent {
-    color: #F80000;
+    background-color: #F80000;
   }
-  
+ 
   #backlight {
     color: #F9E2AF;
   }

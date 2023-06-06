@@ -5,7 +5,7 @@ do
 	while killall -0 blueman-manager
 	do
 		if [[ $(bluetoothctl show | grep Powered | grep yes) ]]; then
-			if [[ $(swaymsg -t get_tree | grep -B 39 blueman | grep "focused.: false") != "" ]]; then
+			if [[ $(hyprctl activewindow | grep blueman-manager) == "" && $(hyprctl clients | grep blueman-manager) != "" ]]; then
 	                	killall blueman-manager
         	        	break
         		fi

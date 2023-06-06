@@ -1,8 +1,8 @@
 (defvar toggle-state false)
 
 (defwidget tablet-toggle []
-  (button :onclick {toggle-state ? "$HOME/.config/sway/scripts/tablet/laptop-mode.sh &" : 
-                                   "$HOME/.config/sway/scripts/tablet/tablet-mode.sh &"}
+  (button :onclick {toggle-state ? "$HOME/.config/hypr/scripts/tablet/laptop-mode.sh &" : 
+                                   "$HOME/.config/hypr/scripts/tablet/tablet-mode.sh &"}
     (box   :class {toggle-state ? "toggle-on" : "toggle-off"}
             :space-evenly true
             :spacing 6

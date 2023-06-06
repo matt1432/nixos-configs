@@ -1,3 +1,4 @@
+chromium/
 Electron/
 GIMP/
 Nextcloud/
@@ -36,7 +37,6 @@ dconf/
 discord/
 gtk-4.0/
 htop/
-hypr/
 kconf_updaterc
 kde.org/
 kdeglobals

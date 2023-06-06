@@ -1,1 +1,1 @@
-find credits for wofi, waybar, swaylock, sway theme colors
+find credits for wofi

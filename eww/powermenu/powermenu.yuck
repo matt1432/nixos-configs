@@ -12,7 +12,7 @@
       (label :text "勒" :class "content")
     )
     (button :class "logout"
-            :onclick "swaymsg exit"
+            :onclick "hyprctl dispatch exit && sleep 2 && sudo chvt 2"
       (label :text "" :class "content")
     )
   )
