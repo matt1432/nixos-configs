@@ -6,9 +6,9 @@
 function gestures {
 	lisgd -d /dev/input/by-path/platform-AMDI0010\:00-event -o 0 -t 125 -r 25 -m 3200 \
 	-g "1,UD,B,*,R,bash -c 'busctl call --user sm.puri.OSK0 /sm/puri/OSK0 sm.puri.OSK0 SetVisible b false'" \
-	-g "1,DU,B,*,R,bash -c 'busctl call --user sm.puri.OSK0 /sm/puri/OSK0 sm.puri.OSK0 SetVisible b true'" # \
-#	-g "3,RL,N,*,R,$HOME/.config/sway/scripts/gestures.sh next touch" \
-#	-g "3,LR,N,*,R,$HOME/.config/sway/scripts/gestures.sh prev touch"
+	-g "1,DU,B,*,R,bash -c 'busctl call --user sm.puri.OSK0 /sm/puri/OSK0 sm.puri.OSK0 SetVisible b true'" \
+	-g "3,RL,N,*,R,$HOME/.config/hypr/scripts/gestures.sh next touch" \
+	-g "3,LR,N,*,R,$HOME/.config/hypr/scripts/gestures.sh prev touch"
 
 }
 
