@@ -1,12 +1,7 @@
 #!/bin/bash
 
 execute() {
-    swww img $HOME/Pictures/BG/black.jpg
-    sleep 0.1
-
     echo "Rotating"
-
-    swww img $HOME/Pictures/BG/bonzai.jpg
     /home/matt/.config/lisgd/config &
     lisgd_pid=$!  # Save the PID of the lisgd process
 }
