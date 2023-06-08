@@ -127,3 +127,9 @@
     background-color: rgba(0, 0, 0, 0);
     padding: 0 8px 0 0;
   }
+
+  #custom-notif {
+    min-width: 110px;
+    color: #CBA6F7;
+    font-size: 26px;
+  }

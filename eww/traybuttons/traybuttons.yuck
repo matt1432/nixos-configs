@@ -1,7 +1,8 @@
 (defvar toggle-state false)
 
 (defwidget tablet-toggle []
-  (button :onclick {toggle-state ? "$HOME/.config/hypr/scripts/tablet/laptop-mode.sh &" : 
+  (button :class "tablet-toggle"
+          :onclick {toggle-state ? "$HOME/.config/hypr/scripts/tablet/laptop-mode.sh &" : 
                                    "$HOME/.config/hypr/scripts/tablet/tablet-mode.sh &"}
     (box   :class {toggle-state ? "toggle-on" : "toggle-off"}
             :space-evenly true
@@ -22,4 +23,32 @@
                       :anchor "top left"
             )
   (tablet-toggle)
+)
+
+(defvar notif-panel-state false)
+
+(defwidget notif-panel []
+  (button :class "notif-panel"
+          :onclick {notif-panel-state ? "swaync-client -cp; eww update notif-panel-state=false" : 
+                                        "swaync-client -op; eww update notif-panel-state=true"}
+    (box :class {notif-panel-state ? "toggle-on" : "toggle-off"}
+         :space-evenly true
+         :spacing 6
+         :orientation "h"
+      (label :text " ${notif_icon} ")
+    )
+  )
+)
+
+(defwindow notif-panel
+  :monitor 0
+  :stacking "overlay"
+  :exclusive "ignore"
+  :geometry (geometry :x "60px"
+                      :y "8px"
+                      :width "0px"
+                      :height "0px"
+                      :anchor "top right"
+            )
+  (notif-panel)
 )

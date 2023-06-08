@@ -1,5 +1,4 @@
 {
-    "ipc": true,
     "height": 20,
     "margin-top":5,
     "margin-left":5,
@@ -7,7 +6,7 @@
     "spacing": 1,
     "modules-left": ["custom/osk", "custom/tablet", "wlr/workspaces", "tray", "custom/mowayah"],
     "modules-center": ["hyprland/window"],
-    "modules-right": ["pulseaudio", "backlight", "battery", "clock", "custom/quicksettings"],
+    "modules-right": ["pulseaudio", "backlight", "battery", "clock", "custom/notif", "custom/quicksettings"],
     "sway/mode": {
         "format": "<span style=\"italic\">{}</span>"
     },
@@ -73,7 +72,7 @@
     },
     "custom/osk": {
         "format":" 󰌌 ",
-        "on-click": "$HOME/.config/sway/scripts/tablet/osk-toggle.sh",
+        "on-click": "$HOME/.config/hypr/scripts/tablet/osk-toggle.sh",
         "restart-interval": 1,
     },
     
@@ -97,10 +96,15 @@
         "default": ""
       }
     },
+
     "custom/tablet": {
         "format":" 󰦧 ",
-        //"on-click": "$HOME/.config/sway/scripts/tablet/tablet-toggle.sh",
+        //"on-click": "$HOME/.config/hypr/scripts/tablet/tablet-toggle.sh",
         "restart-interval": 1,
+    },
+
+    "custom/notif": {
+        "format": " 󰂜 "
     },
     
     "custom/mowayah": {

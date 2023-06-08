@@ -11,7 +11,6 @@
   background-color: $bg;
   transition: border-color 0.5s ease-in-out;
   color: #CBA6F7;
-  font-size: 26px;
   border-radius: 80px;
   border: 3px solid $contrastbg;
   padding: 0px 6px 0px 12px;
@@ -22,10 +21,18 @@
   background-color: $bg;
   transition: border-color 0.5s ease-in-out;
   color: #CBA6F7;
-  font-size: 26px;
   border-radius: 80px;
   border: 3px solid #CBA6F7;
   padding: 0px 6px 0px 12px;
   /* Add any other styles for the "on" state */
 }
 
+.notif-panel {
+  min-width: 110px;
+  min-height: 40px;
+  font-size: 22px;
+}
+
+.tablet-toggle {
+  font-size: 26px;
+}

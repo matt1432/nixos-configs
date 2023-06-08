@@ -44,3 +44,5 @@
 (defpoll ram :interval "3s" "~/.config/eww/scripts/ram.sh ram")
 (defpoll temp :interval "3s" "~/.config/eww/scripts/temp.sh get")
 (defpoll disk :interval "3s" "~/.config/eww/scripts/disk.sh")
+
+(defpoll notif_icon :interval "1s" "~/.config/eww/scripts/notif.sh icon")
