@@ -45,7 +45,7 @@
   :stacking "overlay"
   :exclusive "ignore"
   :geometry (geometry :x "60px"
-                      :y "8px"
+                      :y "9px"
                       :width "0px"
                       :height "0px"
                       :anchor "top right"

@@ -42,12 +42,18 @@
   
   #workspaces button {
     padding: 0 5px;
-    color: #7984A4;
+    color: #CDD6F4;
+    /*color: #7984A4;*/
     background-color: transparent;
     box-shadow: inset 0 -3px transparent;
     border: none;
     min-width: 25px;
     border-radius: 80px;
+  }
+
+  #workspaces button:hover {
+    background-color: #7F849C;
+    transition: background-color 0.5s ease-in-out;
   }
 
   #workspaces button.focused {
