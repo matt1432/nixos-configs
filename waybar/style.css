@@ -126,6 +126,7 @@
     border: 6px solid rgba(0, 0, 0, 0);
     border-radius: 80px;
     background-clip: padding-box;
+    color: rgba(0, 0, 0, 0);
   }
   
   #custom-quicksettings {
@@ -136,6 +137,6 @@
 
   #custom-notif {
     min-width: 110px;
-    color: #CBA6F7;
-    font-size: 26px;
+    color: rgba(0, 0, 0, 0);
+    font-size: 20px;
   }

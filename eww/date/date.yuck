@@ -50,6 +50,7 @@
 
 (defwindow date-reveal
   :monitor 0
+  :stacking "overlay"
   :geometry (geometry :x "70px"
                       :y "4px"
                       :width "0px" ; automatically generated

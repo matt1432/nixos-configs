@@ -4,6 +4,6 @@
 (defwindow closer
   :monitor 0
   :geometry (geometry :width "100%" :height "100%")
-  :stacking "fg"
+  :stacking "overlay"
   :focusable false
   (closer :window ""))

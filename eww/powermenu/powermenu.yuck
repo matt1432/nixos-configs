@@ -40,7 +40,7 @@
 
 (defwindow powermenu-reveal
   :monitor 0
-  :stacking "fg"
+  :stacking "overlay"
   :geometry (geometry :x "0px"
                       :y "0px"
                       :width "500px"

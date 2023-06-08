@@ -201,6 +201,7 @@
 
 (defwindow actions-reveal
   :monitor "0"
+  :stacking "overlay"
   :geometry (geometry :x "10px"
                       :y "4px"
                       :width "320px" ; this isn't respected btw, so it's auto-adjusted by eww lol.
