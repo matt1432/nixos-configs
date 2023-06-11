@@ -3,13 +3,11 @@
     "margin-top":5,
     "margin-left":5,
     "margin-right":5,
+    "layer":"overlay",
     "spacing": 1,
     "modules-left": ["custom/osk", "custom/tablet", "wlr/workspaces", "tray", "custom/mowayah"],
     "modules-center": ["hyprland/window"],
     "modules-right": ["pulseaudio", "backlight", "battery", "clock", "custom/notif", "custom/quicksettings"],
-    "sway/mode": {
-        "format": "<span style=\"italic\">{}</span>"
-    },
     "tray": {
         "icon-size": 26,
         "spacing": 5

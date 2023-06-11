@@ -186,6 +186,7 @@
 
 .control-center {
   background: @cc-bg;
+  border-radius: 30px;
 }
 
 .control-center-list {
