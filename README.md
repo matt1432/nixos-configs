@@ -71,7 +71,6 @@ we can now reboot to the installed Arch
 
 ## Configure [internet](https://wiki.archlinux.org/title/Iwd) access
 ```
-$ timedatectl
 $ systemctl enable --now NetworkManager systemd-networkd systemd-resolved systemd-timesyncd
 
 $ cat << EOF >> /etc/NetworkManager/conf.d/wifi_backend.conf
@@ -79,16 +78,17 @@ $ cat << EOF >> /etc/NetworkManager/conf.d/wifi_backend.conf
 wifi.backend=iwd
 EOF
 
-$ systemctl restart NetworkManager
-$ iwctl device list # check if powered on
-$ iwctl station wlan0 scan
-$ iwctl station wlan0 get-networks
-$ iwctl station wlan0 connect SSID
-
 $ cat << EOF >> /etc/iwd/main.conf
 [General]
 EnableNetworkConfiguration=true
 EOF
+
+$ systemctl stop iwd
+$ systemctl restart NetworkManager
+$ iwctl device list # check if powered on
+$ iwctl station wlan0 scan
+$ iwctl station wlan0 get-networks
+$ iwctl station wlan0 connect $SSID
 ```
 
 ### Configure systemd-resolved
@@ -108,8 +108,9 @@ $ systemctl enable --now reflector.timer
 
 ## User management
 ```
-$ useradd -m matt -G wheel
+$ useradd -m matt -G wheel,input
 $ passwd matt
+$ env EDITOR=nano visudo # set wheel to allow sudo commands with pass
 ```
 
 ## A lot of packages to install
@@ -118,9 +119,11 @@ $ pacman -Sy htop pkgfile mlocate rsync tmux mosh usbutils wget git curl devtool
 $ pkgfile --update
 ```
 
+## su matt
+
 ## Install paru
 ```
-$ pacman -S --needed git base-devel
+$ sudo pacman -S --needed git base-devel
 $ git clone https://aur.archlinux.org/paru-git.git
 $ cd paru-git
 $ makepkg -si
@@ -135,8 +138,6 @@ BottomUp
 NoWarn = plymouth-theme-arch-elegant
 EOF
 ```
-
-## su matt
 
 ## Audio
 ### ALSA
@@ -224,6 +225,7 @@ $ sudo flatpak override --filesystem=xdg-config/gtk-3.0
 ``` 
 
 ## Finally, install dotfiles
+### get access to repo first
 ```
 $ mkdir ~/git && cd ~/git
 $ git clone git@git.nelim.org:matt1432/dotfiles.git
