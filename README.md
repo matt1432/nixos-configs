@@ -2,7 +2,6 @@
 ```
 loadkeys ca
 setfont ter-132b
-timedatectl
 ```
 
 ## Partionning with [cryptsetup](https://wiki.archlinux.org/title/Dm-crypt/Encrypting_an_entire_system#LUKS_on_a_partition)
@@ -55,7 +54,7 @@ then run ```mkinitpcio -P```
 
 ## Grub install
 ```
-$ grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=arch
+$ grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=wim --boot-directory=/boot/EFI/wim
 ```
 
 ### Edit /etc/default/grub for LUKS
@@ -63,7 +62,7 @@ $ grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=arch
 $ CRYPT="cryptdevice=$(blkid | sed -n 's/.*nvme0n1p'$PART': \(.*\) TYPE.*/\1/p'):root"
 $ sed -i 's#GRUB_CMDLINE_LINUX_DEFAULT.*#GRUB_CMDLINE_LINUX_DEFAULT="quiet loglevel 3 '$CRYPT' root=/dev/mapper/root"#' /etc/default/grub
 ```
-make sure the UUID is the actual partition inside the LUKS container and run ```grub-mkconfig -o /boot/grub/grub.cfg```
+make sure the UUID is the actual partition inside the LUKS container and run ```grub-mkconfig -o /boot/EFI/wim/grub/grub.cfg```
 
 we can now reboot to the installed Arch
 <br/><br/>
@@ -72,6 +71,7 @@ we can now reboot to the installed Arch
 
 ## Configure [internet](https://wiki.archlinux.org/title/Iwd) access
 ```
+$ timedatectl
 $ systemctl enable --now NetworkManager systemd-networkd systemd-resolved systemd-timesyncd
 
 $ cat << EOF >> /etc/NetworkManager/conf.d/wifi_backend.conf
