@@ -155,11 +155,6 @@ $ sudo systemctl stop pulseaudio.service
 $ systemctl --user enable --now pipewire-pulse.service
 ```
 
-### Download some apps and extensions
-```
-$ yay -Sy dconf-editor evolution gnome-nettool gnome-tweaks gnome-usage gnome-themes-extra adwaita-dark extension-manager libayatana-appindicator tailscale-systray-git galaxybudsclient-bin hplip cups nextcloud-client grub-customizer
-```
-
 ## Fingerprint Sensor Hack
 ```
 $ yay -Sy python pam-fprint-grosshack
