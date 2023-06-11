@@ -1,16 +1,16 @@
-# Lenovo Yoga 6 13ALC7
-This repo is a documentation of how I installed Arch and got all the drivers for the Yoga 6, to make it work as if it was native.
-Since I got the [touchpad issues](https://www.reddit.com/r/Lenovo/comments/yzs5fq/faulty_touchpad_tried_everything_to_fix_it_and_i/), I'll need this once I get it fixed.
-<br/><br/>
-
 # Archinstaller
+```
 loadkeys ca
+setfont ter-132b
+timedatectl
+```
 
 ## Partionning with [cryptsetup](https://wiki.archlinux.org/title/Dm-crypt/Encrypting_an_entire_system#LUKS_on_a_partition)
 ### Encrypting root partition
 ```
-$ cryptsetup -y -v luksFormat --type luks1 /dev/nvme0n1p?
-$ cryptsetup open /dev/nvme0n1p? root
+$ PART="encrypted partition number ie. 2"
+$ cryptsetup -y -v luksFormat --type luks1 /dev/nvme0n1p$PART
+$ cryptsetup open /dev/nvme0n1p$PART root
 $ mkfs.btrfs /dev/mapper/root
 $ mount /dev/mapper/root /mnt
 ```
@@ -21,7 +21,7 @@ $ mount --mkdir /dev/nvme0n1p1 /mnt/boot
 
 ### Installing packages on the device
 ```
-$ pacstrap -K /mnt base linux-firmware linux amd-ucode patch dkms kmod btrfs-progs grub os-prober ntfs-3g efibootmgr efivar iwd nano sudo texinfo man-db man-pages
+$ pacstrap -K /mnt base linux-firmware linux amd-ucode patch dkms kmod btrfs-progs grub os-prober ntfs-3g efibootmgr efivar networkmanager iwd nano sudo texinfo man-db man-pages
 ```
 
 ## Preparing for chroot
@@ -47,9 +47,9 @@ $ echo KEYMAP=ca > /etc/vconsole.conf
 ```
 ## Edit /etc/mkinitcpio.conf for LUKS
 ```
-BINARIES=(btrfs)
+$ sed -i 's/BINARIES=.*/BINARIES=(btrfs)/' /etc/mkinitcpio.conf
 ...
-HOOKS=(base udev autodetect modconf kms keyboard keymap consolefont block encrypt filesystems fsck)
+$ sed -i 's/HOOKS=.*/HOOKS=(base udev autodetect modconf kms keyboard keymap consolefont block encrypt filesystems fsck)/' /etc/mkinitcpio.conf
 ```
 then run ```mkinitpcio -P```
 
@@ -60,7 +60,8 @@ $ grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=arch
 
 ### Edit /etc/default/grub for LUKS
 ```
-cryptdevice=UUID=??????:root root=/dev/mapper/root
+$ CRYPT="cryptdevice=$(blkid | sed -n 's/.*nvme0n1p'$PART': \(.*\) TYPE.*/\1/p'):root"
+$ sed -i 's#GRUB_CMDLINE_LINUX_DEFAULT.*#GRUB_CMDLINE_LINUX_DEFAULT="quiet loglevel 3 '$CRYPT' root=/dev/mapper/root"#' /etc/default/grub
 ```
 make sure the UUID is the actual partition inside the LUKS container and run ```grub-mkconfig -o /boot/grub/grub.cfg```
 
@@ -71,11 +72,19 @@ we can now reboot to the installed Arch
 
 ## Configure [internet](https://wiki.archlinux.org/title/Iwd) access
 ```
-$ systemctl enable --now iwd systemd-networkd systemd-resolved systemd-timesyncd
+$ systemctl enable --now NetworkManager systemd-networkd systemd-resolved systemd-timesyncd
+
+$ cat << EOF >> /etc/NetworkManager/conf.d/wifi_backend.conf
+[device]
+wifi.backend=iwd
+EOF
+
+$ systemctl restart NetworkManager
 $ iwctl device list # check if powered on
 $ iwctl station wlan0 scan
 $ iwctl station wlan0 get-networks
 $ iwctl station wlan0 connect SSID
+
 $ cat << EOF >> /etc/iwd/main.conf
 [General]
 EnableNetworkConfiguration=true
@@ -87,6 +96,7 @@ EOF
 $ ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 $ sed -i 's/#DNS=.*/DNS=100.64.0.1/' /etc/systemd/resolved.conf
 $ sed -i 's/#FallbackDNS=.*/FallbackDNS=1.1.1.1/' /etc/systemd/resolved.conf
+$ sed -i 's/#DNSStubListener=.*/DNSStubListener=no/' /etc/systemd/resolved.conf
 ```
 
 ### Configure reflector for mirror management of pacman
@@ -104,43 +114,29 @@ $ passwd matt
 
 ## A lot of packages to install
 ```
-htop
-pkgfile
-plocate
-rsync
-tailscale
-tmux
-usbutils
-wget
-git
-curl
-devtools
-xorg
-xf86-video-amdgpu
-mesa
-lib32-mesa
-vulkan-radeon
-lib32-vulkan-radeon
-libva-mesa-driver
-lib32-libva-mesa-driver
-mesa-vdpau
-lib32-mesa-vdpau
-bash-completion
-fzf
+$ pacman -Sy htop pkgfile mlocate rsync tmux mosh usbutils wget git curl devtools mesa lib32-mesa vulkan-radeon lib32-vulkan-radeon libva-mesa-driver lib32-libva-mesa-driver mesa-vdpau lib32-mesa-vdpau bash-completion fzf
+$ pkgfile --update
 ```
 
-## Install [yay](https://github.com/Jguer/yay) and install tweaked NetworkManager
+## Install paru
 ```
 $ pacman -S --needed git base-devel
-$ git clone https://aur.archlinux.org/yay.git
-$ cd yay
+$ git clone https://aur.archlinux.org/paru-git.git
+$ cd paru-git
 $ makepkg -si
 
-$ sudo sed -i 's/#Color/Color/' /etc/pacman.conf
+$ sed -i 's/#Color/Color/' /etc/pacman.conf
+$ sed -i 's/#IgnorePkg.*/IgnorePkg   = linux-xanmod-anbox linux-xanmod-anbox-headers/' /etc/pacman.conf
 
-$ yay -Sy networkmanager-iwd
-$ sudo systemctl enable NetworkManager
+$ cat << EOF >> /etc/paru.conf
+CombinedUpgrade
+BatchInstall
+BottomUp
+NoWarn = plymouth-theme-arch-elegant
+EOF
 ```
+
+## su matt
 
 ## Audio
 ### ALSA
@@ -155,51 +151,17 @@ $ amixer sset Master unmute
 ```
 $ yay -Sy pipewire-audio pipewire-alsa pipewire-pulse
 $ yay -R pulseaudio-alsa
-$ systemctl stop pulseaudio.service
-```
-
-## Install Gnome
-```
-$ yay -Sy baobab cheese eog evince file-roller gdm gnome-backgrounds gnome-calculator gnome-calendar gnome-characters gnome-clocks gnome-color-manager gnome-console gnome-contacts gnome-control-center gnome-disk-utility gnome-font-viewer gnome-keyring gnome-logs gnome-menus gnome-music gnome-photos gnome-remote-desktop gnome-session gnome-settings-daemon gnome-shell gnome-shell-extensions gnome-system-monitor gnome-user-docs gnome-user-share gnome-video-effects grilo-plugins nautilus rygel simple-scan sushi totem tracker3-miners xdg-user-dirs-gtk yelp
+$ sudo systemctl stop pulseaudio.service
+$ systemctl --user enable --now pipewire-pulse.service
 ```
 
 ### Download some apps and extensions
 ```
 $ yay -Sy dconf-editor evolution gnome-nettool gnome-tweaks gnome-usage gnome-themes-extra adwaita-dark extension-manager libayatana-appindicator tailscale-systray-git galaxybudsclient-bin hplip cups nextcloud-client grub-customizer
 
-## Download extensions and restore from Extensions Sync : 
-$ yay -Sy gnome-shell-extension-extensions-sync-git
-```
-
-### Build and install my fork of Dash to Panel
-```
-$ cd /tmp
-$ git clone https://github.com/matt1432/dash-to-panel-touch-fix.git
-$ cd dash-to-panel-touch-fix/
-$ make install
-```
-
-### Enable GDM to launch the Desktop Environment
-```
-$ systemctl enable --now gdm
-```
-
 ## Fingerprint Sensor Hack
-### Flash [firmware](https://github.com/goodix-fp-linux-dev/goodix-fp-dump)
 ```
 $ yay -Sy python pam-fprint-grosshack
-$ cd /tmp
-$ git clone --recurse-submodules https://github.com/goodix-fp-linux-dev/goodix-fp-dump.git
-$ cd goodix-fp-dump
-$ python -m venv .venv
-$ source .venv/bin/activate
-$ pip install -r requirements.txt
-$ sudo python3 run_55b4.py
-```
-
-### Install experimental [drivers](https://github.com/TheWeirdDev/libfprint/tree/55b4-experimental)
-```
-$ yay -Sy libfprint-goodixtls-55x4 fprintd
 $ sudo systemctl enable --now fprintd
 $ fprintd-enroll
 ```
@@ -210,33 +172,37 @@ add this to the top of every file in /etc/pam.d/ that you want ie. polkit-1, sud
 auth            sufficient      pam_fprintd_grosshack.so
 auth            sufficient      pam_unix.so try_first_pass nullok
 ```
+OR (for gtklock and check for sddm)
+```
+auth      sufficient pam_fprintd.so
+```
 
 ## Plymouth and Silent Boot
 By following the wiki pages on [watchdogs](https://wiki.archlinux.org/title/Improving_performance#Watchdogs), [silent booting](https://wiki.archlinux.org/title/Silent_boot#top-page) and [Plymouth](https://wiki.archlinux.org/title/Plymouth), I edited my grub config and mkinitcpio, installed and setup Plymouth, to get a satisfying booting experience
 ```
-$ yay -Sy plymouth-git gdm-plymouth plymouth-theme-arch-charge-gdm-spinner
+$ yay -Sy plymouth-git
 ```
 /etc/mkinitcpio.conf
 ```
-MODULES=(amdgpu)
-HOOKS=(base udev plymouth plymouth-encrypt ...)
+$ sudo sed -i 's/MODULES=()/MODULES=(amdgpu)/' /etc/mkinitcpio.conf
+$ sudo sed -i 's/#COMPRESSION="lz4"/COMPRESSION="lz4"/' /etc/mkinitcpio.conf
+$ sudo sed -i 's/HOOKS=(.* /HOOKS=(base udev plymouth encrypt autodetect modconf kms keyboard keymap consolefont block filesystems fsck)/' /etc/mkinitcpio.conf
+COMPRESSION="lz4"
 ```
 /etc/default/grub
 ```
-GRUB_CMDLINE_LINUX_DEFAULT="quiet splash loglevel=3 systemd.show_status=auto rd.udev.log_level=3 splash vt.global_cursor_default=0 nowatchdog ..."
-GRUB_TIMEOUT="1"
-GRUB_TIMEOUT_STYLE="hidden"
-GRUB_GFXMODE="1920x1200x32"
-#GRUB_DISABLE_RECOVERY=true
-GRUB_DISABLE_OS_PROBER="false"
+sudo sed -i 's/quiet loglevel 3/quiet splash loglevel=3 systemd.show_status=auto rd.udev.log_level=3 splash nowatchdog psi=1/' /etc/default/grub
 ```
 Mute watchdog
 ```
 $ echo blacklist sp5100_tco | sudo tee /etc/modprobe.d/disable-sp5100-watchdog.conf
 ```
-Apply changes
+Apply changes [Theme](https://github.com/murkl/plymouth-theme-arch-elegant)
 ```
-$ sudo plymouth-set-default-theme -R arch-charge-gdm-spinner
+$ git clone https://github.com/murkl/plymouth-theme-arch-elegant.git
+$ cd plymouth-theme-arch-elegant/aur
+$ makepkg -si
+$ sudo plymouth-set-default-theme -R arch-elegant
 $ sudo grub-mkconfig -o /boot/grub/grub.cfg
 $ sudo sed -i 's/echo/#ech~o/g' /boot/grub/grub.cfg
 ```
@@ -249,49 +215,24 @@ $ echo MOZ_USE_XINPUT2 DEFAULT=1 | sudo tee -a /etc/security/pam_env.conf
 ```
 then logout
 
-### AUR Packages that are most likely needed
+### More Packages that are most likely needed
 ```
-$ yay -Sy iio-sensor-proxy-git spotify-edge vscodium-bin
+run toinstall.sh script
 $ sudo reboot
 ```
 
 ### Flatpak
 ```
-$ flatpak install com.unity.UnityHub com.vscodium.codium org.freedesktop.Sdk.Extension.dotnet6 org.freedesktop.Sdk.Extension.mono6 com.github.iwalton3.jellyfin-media-player com.github.tchx84.Flatseal org.gtk.Gtk3theme.Breeze-Dark ch.openboard.OpenBoard
-$ FLATPAK_ENABLE_SDK_EXT=dotnet6,mono6 flatpak run com.vscodium.codium
+$ flatpak install com.github.iwalton3.jellyfin-media-player com.github.tchx84.Flatseal xournalpp stemlink
 $ sudo flatpak override --filesystem=xdg-config/gtk-3.0
 ``` 
-
-### vscodium on Flatpak
-```
-$ CD=$(pwd)
-$ mkdir /tmp/host && cd /tmp/host
-$ curl -s https://api.github.com/repos/1player/host-spawn/releases \
-| grep -m 1 "browser_download_url.*x86_64" \
-| cut -d : -f 2,3 \
-| tr -d \" \
-| wget -qi -
-$ mv * host-spawn
-$ sudo chmod 755 host-spawn
-
-$ mkdir ~/bin
-$ sudo mv host-spawn /home/matt/bin
-
-$ cd $CD
-$ cp ../conf/settings.json ~/.var/app/com.vscodium.codium/config/VSCodium/User/
-$ sudo ln -s /home/matt/bin/host-spawn /var/lib/flatpak/app/com.vscodium.codium/current/**/files/bin/git-lfs
-
-$ sudo mv /var/lib/flatpak/app/com.vscodium.codium/current/active/export/share/applications/com.vscodium.codium.desktop{,.bak}
-$ sudo mv /var/lib/flatpak/exports/share/applications/com.vscodium.codium.desktop{,.bak}
-```
 
 ## Finally, install dotfiles
 ```
 $ mkdir ~/git && cd ~/git
 $ git clone git@git.nelim.org:matt1432/dotfiles.git
 $ cd dotfiles
+$ bash getenv.sh
 $ sudo bash setup.sh
-$ sudo chown matt:matt /home/matt/.env
-$ sed -i 's/USER=""/USER="matt"/'
 $ sudo bash fzf.sh /usr/share/fzf
 ```
