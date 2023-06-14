@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [[ $(eww state | grep calendar_month) ]]; then
 	$HOME/.config/eww/scripts/close.sh date && eww close closer

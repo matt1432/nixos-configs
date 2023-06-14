@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 eww update toggle-state=true
 setsysmode tablet
 
@@ -8,6 +8,8 @@ brightnessctl -d tpacpi::kbd_backlight s 0
 
 iio-hyprland &
 
-$HOME/.config/hypr/scripts/tablet/autorotate.sh &
-killall autorotate.sh
-$HOME/.config/hypr/scripts/tablet/autorotate.sh &
+evtest --grab "/dev/input/by-path/platform-i8042-serio-0-event-kbd" &
+evtest --grab "/dev/input/by-path/platform-i8042-serio-1-event-mouse" &
+evtest --grab "/dev/input/by-path/platform-AMDI0010:02-event-mouse" &
+evtest --grab "/dev/input/by-path/platform-thinkpad_acpi-event" &
+evtest --grab "/dev/video-bus" &

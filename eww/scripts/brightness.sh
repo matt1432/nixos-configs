@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # @requires: brightnessctl
 
@@ -46,5 +46,5 @@ if [[ $1 == "icon" ]]; then
 fi
 
 if [[ $1 == "set" ]]; then
-  light -S $2
+  brightnessctl set $2%
 fi

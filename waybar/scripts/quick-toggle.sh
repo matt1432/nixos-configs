@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [[ $(eww state | grep br_icon) ]]; then
 	$HOME/.config/eww/scripts/close.sh actions && eww close closer

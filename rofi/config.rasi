@@ -19,7 +19,7 @@ configuration {
 @import                          "~/.config/rofi/colors/dracula.rasi"
 
 * {
-    font: "Product Sans 12";
+    font: "MesloLGS NF 12";
 }
 
 /*****----- Main Window -----*****/

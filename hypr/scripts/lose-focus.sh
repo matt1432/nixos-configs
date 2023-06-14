@@ -1,12 +1,12 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 while true
 do
-	while killall -0 blueman-manager > /dev/null 2>&1
+	while killall -0 .blueman-manage > /dev/null 2>&1
 	do
 		if [[ $(bluetoothctl show | grep Powered | grep yes) ]]; then
 			if [[ $(hyprctl activewindow | grep blueman-manager) == "" && $(hyprctl clients | grep blueman-manager) != "" ]]; then
-	                	killall blueman-manager
+				killall .blueman-manage
         	        	break
         		fi
         		sleep 0.1

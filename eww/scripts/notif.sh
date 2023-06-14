@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 state () {
   if [[ $(hyprctl layers | grep swaync-control-center) == "" ]]; then

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Store the output of the command in an array, keeping only lines with '*'
 readarray -t array <<< "$(eww windows | grep '^\*')"
