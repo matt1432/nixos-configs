@@ -8,7 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-#      ./cfg/Hyprland.nix
+      ./cfg/home-manager.nix
     ];
 
   boot = {
@@ -64,13 +64,16 @@
     enable = true;
     powerOnBoot = true;
   };
+
   services.blueman.enable = true;
-  programs.dconf.enable = true;
 
   services.udev.extraRules = ''
-    ACTION=="add", SUBSYSTEM=="backlight", RUN+="${pkgs.bash}/bin/bash -c '${pkgs.coreutils}/bin/chgrp video /sys/class/backlight/%k/brightness'"
-    ACTION=="add", SUBSYSTEM=="backlight", RUN+="${pkgs.bash}/bin/bash -c '${pkgs.coreutils}/bin/chmod g+w /sys/class/backlight/%k/brightness'"
+    # give permanent path to keyboard XF86* binds
+    SUBSYSTEMS=="input", ATTRS{id/product}=="0006", ATTRS{id/vendor}=="0000", SYMLINK += "video-bus"
   '';
+
+  # enable brightness control for swayosd
+  programs.light.enable = true;
 
   services.fprintd.enable = true;
 
@@ -186,8 +189,9 @@
     jack.enable = true;
     pulse.enable = true;
   };
-
+  hardware.sensor.iio.enable = true;
   hardware.opengl.enable = true;
+  hardware.opengl.driSupport32Bit = true;
 
   xdg.portal.enable = true;
   services.flatpak.enable = true;
@@ -198,27 +202,23 @@
   # Define a user account. Don't forget to set a password with 'passwd'.
   users.users.matt = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "input" "adm" ];
+    extraGroups = [ "wheel" "input" "adm" "mlocate" "video" ];
   #   packages = with pkgs; [
   #     firefox
   #     tree
   #   ];
   };
-
+  
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    libsForQt5.qtstyleplugin-kvantum
-    alacritty
     brightnessctl
     pulseaudio
     alsa-utils
-    hyprland
     wget
-    firefox
     tree
     mlocate
     gcc
@@ -229,43 +229,16 @@
     killall
     htop
     fzf
-    libinput-gestures
     jq
     ripgrep
-    hyprpaper
     python3
-    rofi-wayland
-    wev
-    networkmanagerapplet
-    nextcloud-client
-    tutanota-desktop
-    galaxy-buds-client
-    gnome.gnome-keyring
-    gnome.gnome-calculator
-    swaynotificationcenter
-    #swayosd
-    (with import <nixpkgs> {}; callPackage ./cfg/swayosd.nix {})
-    swayidle
-    wl-clipboard
-    cliphist
-    polkit-kde-agent
-    gtklock
-    gtklock-playerctl-module
-    gtklock-powerbar-module
-    grim
-    slurp
-    swappy
-    gnome.seahorse
     neovim
-    fontfor
-    qt5ct
-    qt6Packages.qtstyleplugin-kvantum
-    lxappearance
     gnome3.adwaita-icon-theme
     xorg.xcursorthemes
     imagemagick
     usbutils
     catppuccin-plymouth
+    evtest
   ];
 
   fonts = {
@@ -289,11 +262,6 @@
       jetbrains-mono
       #google-fonts
       ubuntu_font_family
-      #fira-code
-      #fira-code-symbols
-      #mplus-outline-fonts.githubRelease
-      #dina-font
-      #proggyfonts
     ];
   };
 
@@ -312,12 +280,12 @@
     });
   };
 
+  # TODO: see if setting them in Hyprland.nix works
   environment.sessionVariables = {
     GTK_THEME 		 = "Lavanda-Dark";
     QT_QPA_PLATFORMTHEME = "qt5ct";
     QT_STYLE_OVERRIDE	 = "kvantum";
     QT_FONT_DPI		 = "125";
-
   };
 
   environment.variables = {
