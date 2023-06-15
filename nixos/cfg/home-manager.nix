@@ -17,8 +17,6 @@
       src = builtins.fetchTarball "https://github.com/hyprwm/Hyprland/archive/v0.26.0.tar.gz";
     }).defaultNix;
 
-    #hyprland-touch-gestures = (with import <nixpkgs> {}; callPackage ./hyprland-touch-gestures.nix {});
-
   in {
     programs.waybar = {
       enable = true;
@@ -97,7 +95,7 @@
       enable = true;
       
       plugins = with pkgs; [
-        #hyprland-touch-gestures
+        /nix/store/60x0zlg3fbq7nzz8249fxsb89pn541z8-hyprland-touch-gestures-0.3.0/lib/libtouch-gestures.so
       ];
 
       extraConfig = ''
