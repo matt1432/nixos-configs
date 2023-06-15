@@ -1,4 +1,5 @@
 cef_user_data/
+environment.d/
 gtk-3.0/bookmarks
 Kvantum/**/
 chromium/

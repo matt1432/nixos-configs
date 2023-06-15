@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 eww update toggle-state=false
-/usr/bin/setsysmode laptop
 
 gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled false
 
