@@ -25,8 +25,38 @@
       });
     };
     
-    home.packages = with pkgs; [ 
+    home.packages = with pkgs; [
+      acpi
+      xorg.xhost # for gparted?
+      libsForQt5.dolphin # get plugins
+      libsForQt5.kio-admin # doesn't work
+      libreoffice-fresh # TODO: add spelling stuff
+      neofetch
+      photoqt
+      progress
+      python311Packages.pyclip
+      python311Packages.pyclip
+      tlp
+      wl-color-picker # add bind for this in hyprland
+      xclip
+      xdg-utils
+      zathura # set default
+      pavucontrol # TODO: open on left click
+      fwupd # doesn't work
+      #fwupd-efi # is it needed?
+      gimp-with-plugins
+      gparted # doesn't open without sudo
+      jdk8_headless
+      bluez-tools
+      spotify
+      #spotifywm # fails to build
+      spotify-tray # doesn't open
+      spicetify-cli # TODO
+      vlc
+      discord
+      spotify
       libsForQt5.qtstyleplugin-kvantum
+      libsForQt5.breeze-icons
       alacritty
       brightnessctl
       pulseaudio
@@ -36,6 +66,7 @@
       tree
       mlocate
       gcc
+      mosh
       rsync
       tmux
       git

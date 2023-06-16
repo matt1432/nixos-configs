@@ -179,6 +179,14 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  services.printing.drivers = with pkgs; [
+    hplip
+  ];
+
+  virtualisation = {
+    waydroid.enable = true;
+    lxd.enable = true;
+  };
 
   # Enable sound.
   # sound.enable = true;
@@ -194,6 +202,9 @@
   hardware.opengl.driSupport32Bit = true;
 
   xdg.portal.enable = true;
+  xdg.portal.extraPortals = [ 
+    pkgs.xdg-desktop-portal-hyprland
+  ];
   services.flatpak.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -215,6 +226,8 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    xorg.xhost
+    wl-clipboard
     brightnessctl
     pulseaudio
     alsa-utils
