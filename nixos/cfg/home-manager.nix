@@ -26,6 +26,9 @@
     };
     
     home.packages = with pkgs; [
+      httrack
+      lisgd
+      zeal
       acpi
       xorg.xhost # for gparted?
       libsForQt5.dolphin # get plugins
@@ -42,8 +45,6 @@
       xdg-utils
       zathura # set default
       pavucontrol # TODO: open on left click
-      fwupd # doesn't work
-      #fwupd-efi # is it needed?
       gimp-with-plugins
       gparted # doesn't open without sudo
       jdk8_headless

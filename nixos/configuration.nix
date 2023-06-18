@@ -40,6 +40,7 @@
       "rd.systemd.show_status=false"
       "rd.udev.log_level=3"
       "udev.log_priority=3"
+      "psi=1"
       "cryptdevice=UUID=ab82b477-2477-453f-b95f-28e5553ad10d:root"
       "root=/dev/mapper/root"
     ];
@@ -76,6 +77,8 @@
   programs.light.enable = true;
 
   services.fprintd.enable = true;
+
+  services.fwupd.enable = true;
 
   systemd.services.fprintd = {
     wantedBy = [ "multi-user.target" ];
