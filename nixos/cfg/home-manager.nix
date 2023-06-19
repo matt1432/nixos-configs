@@ -88,7 +88,7 @@
       gnome.gnome-calculator
       swaynotificationcenter
       #swayosd
-      (with import <nixpkgs> {}; callPackage ./swayosd.nix {})
+      (with import <nixpkgs> {}; callPackage ../pkgs/swayosd.nix {})
       swayidle
       wl-clipboard
       cliphist

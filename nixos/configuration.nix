@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running `nixos-help`).
-
 { config, pkgs, ... }:
 
 {
@@ -9,51 +5,14 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./cfg/home-manager.nix
+      ./cfg/boot.nix
+      ./cfg/security.nix
+      ./cfg/extra-hardware.nix
     ];
-
-  boot = {
-    consoleLogLevel = 0;
-    initrd.verbose = false;
-    initrd.systemd.enable = true;
-
-    loader = {
-      efi.canTouchEfiVariables = true;
-      grub = {
-        enable = true;
-        device = "nodev";
-        efiSupport = true;
-        extraConfig = ''
-          set timeout_style=hidden
-        '';
-        # Because it still draws that image otherwise
-        splashImage = null;
-      };
-      timeout = 2;
-    };
-
-    kernelParams = [
-      "quiet"
-      "splash"
-      "boot.shell_on_fail"
-      "i915.fastboot=1"
-      "loglevel=3"
-      "rd.systemd.show_status=false"
-      "rd.udev.log_level=3"
-      "udev.log_priority=3"
-      "psi=1"
-      "cryptdevice=UUID=ab82b477-2477-453f-b95f-28e5553ad10d:root"
-      "root=/dev/mapper/root"
-    ];
-
-    plymouth = {
-      enable = true;
-      themePackages = [ pkgs.catppuccin-plymouth ];
-      theme = "catppuccin-macchiato";
-    };
-  };
 
   services.xserver = {
     enable = true;
+    layout = "ca";
     displayManager = {
       gdm.enable = true;
       gdm.wayland = true;
@@ -61,102 +20,9 @@
     };
   };
 
-  hardware.bluetooth = {
-    enable = true;
-    powerOnBoot = true;
-  };
-
-  services.blueman.enable = true;
-
-  services.udev.extraRules = ''
-    # give permanent path to keyboard XF86* binds
-    SUBSYSTEMS=="input", ATTRS{id/product}=="0006", ATTRS{id/vendor}=="0000", SYMLINK += "video-bus"
-  '';
-
-  # enable brightness control for swayosd
-  programs.light.enable = true;
-
-  services.fprintd.enable = true;
-
-  services.fwupd.enable = true;
-
-  systemd.services.fprintd = {
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig.Type = "simple";
-  };
-
-  security.pam.services.sddm.text = ''
-    auth      [success=1 new_authtok_reqd=1 default=ignore]  	pam_unix.so try_first_pass likeauth nullok
-    auth      sufficient    /nix/store/7hw6i2p2p7zzgjirw6xaj3c50gga488y-fprintd-1.94.2/lib/security/pam_fprintd.so
-    auth      substack      login
-    account   include       login
-    password  substack      login
-    session   include       login
-  '';
-
-  security.pam.services.sudo.text = ''
-    # Account management.
-    auth    sufficient    /root/lib/pam/pam_fprintd_grosshack.so
-    auth    sufficient    pam_unix.so try_first_pass nullok
-    account required pam_unix.so
-
-    # Authentication management.
-    auth required pam_deny.so
-
-    # Password management.
-    password sufficient pam_unix.so nullok yescrypt
-
-    # Session management.
-    session required pam_env.so conffile=/etc/pam/environment readenv=0
-    session required pam_unix.so
-  '';
-
-  security.pam.services.login.text = ''
-    # Account management.
-    account required pam_unix.so
-
-    # Authentication management.
-    auth    sufficient    /root/lib/pam/pam_fprintd_grosshack.so
-    auth optional pam_unix.so nullok  likeauth
-    auth optional /nix/store/21dqfghfa8b09ssvgja8l5bg7h5d9rzl-gnome-keyring-42.1/lib/security/pam_gnome_keyring.so
-    auth    sufficient    pam_unix.so try_first_pass nullok
-    auth required pam_deny.so
-
-    # Password management.
-    password sufficient pam_unix.so nullok yescrypt
-    password optional /nix/store/21dqfghfa8b09ssvgja8l5bg7h5d9rzl-gnome-keyring-42.1/lib/security/pam_gnome_keyring.so use_authtok
-
-    # Session management.
-    session required pam_env.so conffile=/etc/pam/environment readenv=0
-    session required pam_unix.so
-    session required pam_loginuid.so
-    session required /nix/store/4m8ab1p9y6ig31wniimlvsl23i9sazvp-linux-pam-1.5.2/lib/security/pam_lastlog.so silent
-    session optional /nix/store/8pbr7x6wh765mg43zs0p70gsaavmbbh7-systemd-253.3/lib/security/pam_systemd.so
-    session optional /nix/store/21dqfghfa8b09ssvgja8l5bg7h5d9rzl-gnome-keyring-42.1/lib/security/pam_gnome_keyring.so auto_start
-  '';
-
-  security.pam.services.polkit-1.text = ''
-    # Account management.
-    account required pam_unix.so
-
-    # Authentication management.
-    auth    sufficient    /root/lib/pam/pam_fprintd_grosshack.so
-    auth    sufficient    pam_unix.so try_first_pass nullok
-    auth required pam_deny.so
-
-    # Password management.
-    password sufficient pam_unix.so nullok yescrypt
-
-    # Session management.
-    session required pam_env.so conffile=/etc/pam/environment readenv=0
-    session required pam_unix.so
-  '';
-
   networking.hostName = "wim";
   networking.networkmanager.enable = true;
   networking.networkmanager.wifi.backend = "iwd";
-
-  security.pam.services.gtklock = {};
 
   # Set your time zone.
   time.timeZone = "America/Montreal";
@@ -173,36 +39,10 @@
     #useXkbConfig = true; # use xkbOptions in tty.
   };
 
-  # Enable the X11 windowing system.
-  # services.xserver.enable = true;
-
-  # Configure keymap in X11
-  # services.xserver.layout = "us";
-  # services.xserver.xkbOptions = "eurosign:e,caps:escape";
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-  services.printing.drivers = with pkgs; [
-    hplip
-  ];
-
   virtualisation = {
     waydroid.enable = true;
     lxd.enable = true;
   };
-
-  # Enable sound.
-  # sound.enable = true;
-  hardware.pulseaudio.enable = false;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    jack.enable = true;
-    pulse.enable = true;
-  };
-  hardware.sensor.iio.enable = true;
-  hardware.opengl.enable = true;
-  hardware.opengl.driSupport32Bit = true;
 
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [ 
@@ -310,19 +150,6 @@
     QT_STYLE_OVERRIDE	 = "kvantum";
     QT_FONT_DPI		 = "125";
   };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-  services.logind.lidSwitch = "lock";
-  services.gnome.gnome-keyring.enable = true;
-  
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
