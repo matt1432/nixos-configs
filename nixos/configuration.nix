@@ -4,10 +4,11 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./cfg/home-manager.nix
       ./cfg/boot.nix
       ./cfg/security.nix
       ./cfg/extra-hardware.nix
+      ./overlays/list.nix
+      ./cfg/home-manager.nix
     ];
 
   services.xserver = {
@@ -44,6 +45,8 @@
     lxd.enable = true;
   };
 
+  services.dbus.enable = true;
+
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [ 
     pkgs.xdg-desktop-portal-hyprland
@@ -69,15 +72,12 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    xorg.xhost
     wl-clipboard
-    brightnessctl
     pulseaudio
     alsa-utils
     wget
     tree
     mlocate
-    gcc
     rsync
     tmux
     git
@@ -89,8 +89,6 @@
     ripgrep
     python3
     neovim
-    gnome3.adwaita-icon-theme
-    xorg.xcursorthemes
     imagemagick
     usbutils
     catppuccin-plymouth

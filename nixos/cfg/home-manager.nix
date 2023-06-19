@@ -25,20 +25,39 @@
       });
     };
     
-    home.packages = with pkgs; [
+    home.packages = with pkgs; 
+      (with xorg; [
+        xhost # for gparted
+        xcursorthemes
+
+      ]) ++
+      (with python311Packages; [
+        pyclip
+
+      ]) ++
+      (with plasma5Packages; [
+        qtstyleplugin-kvantum
+        breeze-icons
+        dolphin # install plugins
+        kio-admin # dbus issues
+
+      ]) ++
+      (with gnome; [
+        gnome-calculator
+        seahorse
+        adwaita-icon-theme
+
+      ]) ++
+    [
+      swayosd
       httrack
       lisgd
       zeal
       acpi
-      xorg.xhost # for gparted?
-      libsForQt5.dolphin # get plugins
-      libsForQt5.kio-admin # doesn't work
       libreoffice-fresh # TODO: add spelling stuff
       neofetch
       photoqt
       progress
-      python311Packages.pyclip
-      python311Packages.pyclip
       tlp
       wl-color-picker # add bind for this in hyprland
       xclip
@@ -55,9 +74,6 @@
       spicetify-cli # TODO
       vlc
       discord
-      spotify
-      libsForQt5.qtstyleplugin-kvantum
-      libsForQt5.breeze-icons
       alacritty
       brightnessctl
       pulseaudio
@@ -66,7 +82,6 @@
       firefox
       tree
       mlocate
-      gcc
       mosh
       rsync
       tmux
@@ -80,15 +95,11 @@
       hyprpaper
       python3
       rofi-wayland
-      wev
       networkmanagerapplet
       nextcloud-client
       tutanota-desktop
       galaxy-buds-client
-      gnome.gnome-calculator
       swaynotificationcenter
-      #swayosd
-      (with import <nixpkgs> {}; callPackage ../pkgs/swayosd.nix {})
       swayidle
       wl-clipboard
       cliphist
@@ -99,13 +110,10 @@
       grim
       slurp
       swappy
-      gnome.seahorse
       neovim
       fontfor
       qt5ct
       lxappearance
-      gnome3.adwaita-icon-theme
-      xorg.xcursorthemes
       imagemagick
       usbutils
       catppuccin-plymouth
