@@ -6,6 +6,16 @@
       <home-manager/nixos>
     ];
 
+  # Define a user account. Don't forget to set a password with 'passwd'.
+  users.users.matt = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" "input" "adm" "mlocate" "video" ];
+  #   packages = with pkgs; [
+  #     firefox
+  #     tree
+  #   ];
+  };
+
   home-manager.useGlobalPkgs = true;
   programs.dconf.enable = true;
 
@@ -27,7 +37,6 @@
     
     home.packages = with pkgs; 
       (with xorg; [
-        xhost # for gparted
         xcursorthemes
 
       ]) ++
@@ -37,10 +46,18 @@
 
       ]) ++
       (with plasma5Packages; [
+        polkit-kde-agent
         qtstyleplugin-kvantum
         breeze-icons
-        dolphin # install plugins
-        kio-admin # dbus issues
+        dolphin
+        dolphin-plugins
+        ffmpegthumbs
+        kio-admin # needs to be both here and in system pkgs
+        ark
+        kcharselect
+        #kdenlive
+        kmime
+        okular
 
       ]) ++
       (with gnome; [
@@ -59,14 +76,11 @@
       neofetch
       photoqt
       progress
-      tlp
       wl-color-picker # add bind for this in hyprland
       xclip
       xdg-utils
-      zathura # set default
       pavucontrol # TODO: open on left click
       gimp-with-plugins
-      gparted # doesn't open without sudo
       jdk8_headless
       bluez-tools
       spotify
@@ -97,7 +111,6 @@
       swayidle
       wl-clipboard
       cliphist
-      polkit-kde-agent
       gtklock
       gtklock-playerctl-module
       gtklock-powerbar-module
@@ -115,10 +128,26 @@
       squeekboard
       glib
       appimage-run
+      gparted # doesn't open without sudo
+      (writeShellScriptBin "Gparted" ''
+        (
+          sleep 0.5
+          while killall -r -0 ksshaskpass > /dev/null 2>&1
+          do
+	    sleep 0.1
+	    if [[ $(hyprctl activewindow | grep Ksshaskpas) == "" ]]; then
+	      killall -r ksshaskpass
+	    fi
+          done
+        ) &
+
+        exec sudo -k -EA '${gparted}/bin/${gparted.pname}' "$@"
+      '')
     ];
 
     home.sessionVariables = {
       XDG_DATA_DIRS = "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}:\$XDG_DATA_DIRS";
+      SUDO_ASKPASS= "${pkgs.plasma5Packages.ksshaskpass}/bin/${pkgs.plasma5Packages.ksshaskpass.pname}";
     };
 
     imports = [
@@ -133,8 +162,11 @@
       ];
 
       extraConfig = ''
+        exec-once = ${pkgs.plasma5Packages.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1
         source = ~/.config/hypr/main.conf
         env = XDG_DATA_DIRS, ${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}:$XDG_DATA_DIRS
+        env = SUDO_ASKPASS, ${pkgs.plasma5Packages.ksshaskpass}/bin/${pkgs.plasma5Packages.ksshaskpass.pname}
+
       '';
     };
 
