@@ -32,6 +32,7 @@
 
       ]) ++
       (with python311Packages; [
+        python
         pyclip
 
       ]) ++
@@ -81,19 +82,12 @@
       wget
       firefox
       tree
-      mlocate
       mosh
       rsync
-      tmux
-      git
-      git-lfs
       killall
-      htop
-      fzf
-      jq
-      ripgrep
+      jq # enable using home-manager?
+      ripgrep-all
       hyprpaper
-      python3
       rofi-wayland
       networkmanagerapplet
       nextcloud-client

@@ -17,8 +17,53 @@
     displayManager = {
       gdm.enable = true;
       gdm.wayland = true;
-      sessionPackages = [ pkgs.hyprland ];
+      sessionPackages = [ pkgs.hyprland pkgs.gnome.gnome-session.sessions ];
     };
+  };
+
+  services.locate = {
+    enable = true;
+    interval = "hourly";
+    prunePaths = [
+      "/tmp"
+      "/var/tmp"
+      "/var/cache"
+      "/var/lock"
+      "/var/run"
+      "/var/spool"
+      "/nix/var/log/nix"
+      "/proc"
+    ];
+  };
+
+  programs.tmux = {
+    enable = true;
+    keyMode = "vi";
+    terminal = "screen-256color";
+    newSession = true;
+    historyLimit = 30000;
+    extraConfig = ''
+      bind-key -n Home send Escape "OH"
+      bind-key -n End send Escape "OF"
+      set -g mouse on
+      set -ga terminal-overrides ',xterm*:smcup@:rmcup@'
+      bind -T root WheelUpPane   if-shell -F -t = "#{alternate_on}" "send-keys -M" "select-pane -t =; copy-mode -e; send-keys -M"
+      bind -T root WheelDownPane if-shell -F -t = "#{alternate_on}" "send-keys -M" "select-pane -t =; send-keys -M"
+    '';
+  };
+  
+  programs.git = { # TODO: make better config
+    enable = true;
+    lfs.enable = true;
+  };
+
+  programs.htop = {
+    enable = true;
+  };
+
+  programs.fzf = {
+    fuzzyCompletion = true;
+    keybindings = true;
   };
 
   networking.hostName = "wim";
@@ -69,29 +114,18 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nixpkgs.config.allowUnfree = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  # List packages in root user PATH
   environment.systemPackages = with pkgs; [
     wl-clipboard
-    pulseaudio
     alsa-utils
     wget
     tree
-    mlocate
     rsync
-    tmux
-    git
-    git-lfs
     killall
-    htop
-    fzf
-    jq
-    ripgrep
-    python3
-    neovim
+    ripgrep-all
+    neovim # TODO: use nix
     imagemagick
     usbutils
-    catppuccin-plymouth
     evtest
   ];
 
