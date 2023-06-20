@@ -7,7 +7,7 @@
 
 .tablet-toggle {
   font-size: 26px;
-  padding: 2px 10px 2px 16px;
+  padding: 2px 13px 2px 16px;
 }
 
 .toggle-off {
@@ -16,7 +16,6 @@
   color: #CBA6F7;
   border-radius: 80px;
   border: 3px solid $contrastbg;
-  /* Add any other styles for the "off" state */
 }
 
 .toggle-off:hover {
@@ -30,5 +29,4 @@
   color: #CBA6F7;
   border-radius: 80px;
   border: 3px solid #CBA6F7;
-  /* Add any other styles for the "on" state */
 }
