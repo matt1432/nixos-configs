@@ -4,6 +4,7 @@ MenuBar=Disabled
 update_info=dolphin_detailsmodesettings.upd:rename-leading-padding
 
 [General]
+ShowFullPath=true
 Version=202
 ViewPropsTimestamp=2023,5,12,19,59,9.33
 
@@ -22,3 +23,9 @@ Places Icons Static Size=22
 [MainWindow]
 MenuBar=Disabled
 ToolBarsMovable=Disabled
+
+[PreviewSettings]
+Plugins=,ffmpegthumbs
+
+[ViewPropertiesDialog]
+1920x1200 screen: Window-Maximized=true
