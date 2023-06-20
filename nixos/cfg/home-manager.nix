@@ -68,6 +68,8 @@
       ]) ++
     [
       swayosd
+      qt5.qtwayland
+      qt6.qtwayland
       httrack
       lisgd
       zeal

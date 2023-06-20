@@ -3,6 +3,7 @@
 {
   services.fprintd.enable = true;
 
+  # https://www.reddit.com/r/NixOS/comments/z7i83r/fingertip_tip_start_fprintd_at_boot_for_a_quick/
   systemd.services.fprintd = {
     wantedBy = [ "multi-user.target" ];
     serviceConfig.Type = "simple";
