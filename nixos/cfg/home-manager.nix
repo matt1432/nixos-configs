@@ -85,7 +85,6 @@
       bluez-tools
       spotify
       #spotifywm # fails to build
-      spotify-tray # doesn't open
       spicetify-cli # TODO
       vlc
       discord
