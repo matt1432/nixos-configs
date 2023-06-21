@@ -1,5 +1,12 @@
-{ config, ... }:
+{ config, ... }: let
+  flake-compat = builtins.fetchTarball "https://github.com/edolstra/flake-compat/archive/master.tar.gz";
 
+  hyprland = (import flake-compat {
+                                           # I use release version for plugin support
+    src = builtins.fetchTarball "https://github.com/hyprwm/Hyprland/archive/v0.26.0.tar.gz";
+  }).defaultNix;
+
+in
 {
   imports =
     [
@@ -19,15 +26,7 @@
   home-manager.useGlobalPkgs = true;
   programs.dconf.enable = true;
 
-  home-manager.users.matt = { config, pkgs, lib, ... }: let
-    flake-compat = builtins.fetchTarball "https://github.com/edolstra/flake-compat/archive/master.tar.gz";
-
-    hyprland = (import flake-compat {
-                                                                              # I use release version for plugin support
-      src = builtins.fetchTarball "https://github.com/hyprwm/Hyprland/archive/v0.26.0.tar.gz";
-    }).defaultNix;
-
-  in {
+  home-manager.users.matt = { config, pkgs, lib, ... }: {
     programs.waybar = {
       enable = true;
       package = pkgs.waybar.overrideAttrs (oldAttrs: {
@@ -148,7 +147,7 @@
 
     home.sessionVariables = {
       XDG_DATA_DIRS = "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}:\$XDG_DATA_DIRS";
-      SUDO_ASKPASS= "${pkgs.plasma5Packages.ksshaskpass}/bin/${pkgs.plasma5Packages.ksshaskpass.pname}";
+      SUDO_ASKPASS = "${pkgs.plasma5Packages.ksshaskpass}/bin/${pkgs.plasma5Packages.ksshaskpass.pname}";
     };
 
     imports = [
@@ -172,5 +171,12 @@
     };
 
     home.stateVersion = "23.05";
+  };
+
+  services.xserver.displayManager = {
+    sessionPackages = [
+      (hyprland).packages.x86_64-linux.default
+    ];
+    defaultSession = "hyprland";
   };
 }

@@ -8,9 +8,10 @@
       gdm = {
         enable = true;
         wayland = true;
-      };                                    # gnome session needed to fix bugs
-      sessionPackages = [ pkgs.hyprland pkgs.gnome.gnome-session.sessions ];
-      defaultSession = "hyprland";
+      };                        # gnome session needed to fix bugs
+      sessionPackages = [ pkgs.gnome.gnome-session.sessions ];
+      # See ./cfg/home-manager.nix
+      #defaultSession = "hyprland";
       #autoLogin = { # logs out after a minute
       #  enable = true;
       #  user = "matt";
