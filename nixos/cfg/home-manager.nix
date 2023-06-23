@@ -126,7 +126,8 @@ in
       squeekboard
       glib
       appimage-run
-      (writeShellScriptBin "gparted" ''
+      gparted # doesn't open without sudo
+      (writeShellScriptBin "Gparted" ''
         (
           sleep 0.5
           while killall -r -0 ksshaskpass > /dev/null 2>&1
