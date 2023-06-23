@@ -3,7 +3,7 @@
 
   hyprland = (import flake-compat {
                                            # I use release version for plugin support
-    src = builtins.fetchTarball "https://github.com/hyprwm/Hyprland/archive/v0.26.0.tar.gz";
+    src = builtins.fetchTarball "https://github.com/hyprwm/Hyprland/archive/master.tar.gz";
   }).defaultNix;
 
 in
@@ -17,10 +17,6 @@ in
   users.users.matt = {
     isNormalUser = true;
     extraGroups = [ "wheel" "input" "adm" "mlocate" "video" ];
-  #   packages = with pkgs; [
-  #     firefox
-  #     tree
-  #   ];
   };
 
   home-manager.useGlobalPkgs = true;
@@ -66,6 +62,8 @@ in
 
       ]) ++
     [
+      (builtins.getFlake "github:hyprwm/Hyprland").packages.x86_64-linux.default
+      (builtins.getFlake "path:/home/matt/git/hyprland-touch-gestures").packages.x86_64-linux.default
       swayosd
       qt5.qtwayland
       qt6.qtwayland
@@ -156,9 +154,10 @@ in
 
     wayland.windowManager.hyprland = {
       enable = true;
+      package = (builtins.getFlake "github:hyprwm/Hyprland").packages.x86_64-linux.default; # to be able to get the right ver from hyprctl version
       
       plugins = with pkgs; [
-        /nix/store/60x0zlg3fbq7nzz8249fxsb89pn541z8-hyprland-touch-gestures-0.3.0/lib/libtouch-gestures.so
+        "${(builtins.getFlake "path:/home/matt/git/hyprland-touch-gestures").packages.x86_64-linux.default}/lib/libtouch-gestures.so"
       ];
 
       extraConfig = ''
@@ -166,7 +165,6 @@ in
         source = ~/.config/hypr/main.conf
         env = XDG_DATA_DIRS, ${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}:$XDG_DATA_DIRS
         env = SUDO_ASKPASS, ${pkgs.plasma5Packages.ksshaskpass}/bin/${pkgs.plasma5Packages.ksshaskpass.pname}
-
       '';
     };
 
@@ -175,7 +173,7 @@ in
 
   services.xserver.displayManager = {
     sessionPackages = [
-      (hyprland).packages.x86_64-linux.default
+      (builtins.getFlake "github:hyprwm/Hyprland").packages.x86_64-linux.default
     ];
     defaultSession = "hyprland";
   };
