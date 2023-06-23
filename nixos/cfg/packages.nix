@@ -3,6 +3,7 @@
 {
   # List packages in root user PATH
   environment.systemPackages = with pkgs; [
+    gparted # not in userspace because doesn't open without sudo
     wl-clipboard
     alsa-utils
     wget
