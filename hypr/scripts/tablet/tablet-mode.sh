@@ -6,7 +6,7 @@ gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled true
 
 brightnessctl -d tpacpi::kbd_backlight s 0
 
-$HOME/.local/bin/iio-hyprland &
+$HOME/.config/hypr/scripts/autorotate.sh &
 
 evtest --grab "/dev/input/by-path/platform-i8042-serio-0-event-kbd" &
 evtest --grab "/dev/input/by-path/platform-i8042-serio-1-event-mouse" &

@@ -1,4 +1,12 @@
-cef_user_data/
+okularrc
+user-dirs.dirs
+.gsd-keyboard.settings-ported
+arkrc
+evolution/
+fontconfig/
+gnome-initial-setup-done
+kcharselectrc
+user-dirs.locale
 GalaxyBudsClient/
 baloofilerc
 Zeal/
