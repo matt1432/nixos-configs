@@ -133,7 +133,7 @@ in
           while killall -r -0 ksshaskpass > /dev/null 2>&1
           do
 	    sleep 0.1
-	    if [[ $(hyprctl activewindow | grep Ksshaskpas) == "" ]]; then
+	    if [[ $(hyprctl activewindow | grep Ksshaskpass) == "" ]]; then
 	      killall -r ksshaskpass
 	    fi
           done
@@ -142,6 +142,22 @@ in
         exec sudo -k -EA '${gparted}/bin/${gparted.pname}' "$@"
       '')
     ];
+
+    xdg.desktopEntries.gparted = {
+      name = "GParted";
+      genericName = "Partition Editor";
+      comment = "Create, reorganize, and delete partitions";
+      exec = "Gparted";
+      icon = "gparted";
+      terminal = false;
+      type = "Application";
+      categories = [ "GNOME" "System" "Filesystem" ];
+      startupNotify = true;
+      settings = {
+        Keywords = "Partition";
+        X-GNOME-FullName = "GParted Partition Editor";
+      };
+    };
 
     home.sessionVariables = {
       XDG_DATA_DIRS = "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}:\$XDG_DATA_DIRS";
