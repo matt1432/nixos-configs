@@ -123,6 +123,7 @@
       usbutils
       evtest
       squeekboard
+      (builtins.getFlake "github:matt1432/eww-exclusiver").packages.x86_64-linux.default
       glib
       appimage-run
       gparted # doesn't open without sudo
@@ -138,8 +139,7 @@
           done
         ) &
 
-        SUDO_ASKPASS = "${pkgs.plasma5Packages.ksshaskpass}/bin/${pkgs.plasma5Packages.ksshaskpass.pname}";
-        exec sudo -k -EA '${gparted}/bin/${gparted.pname}' "$@"
+        exec env SUDO_ASKPASS=${pkgs.plasma5Packages.ksshaskpass}/bin/${pkgs.plasma5Packages.ksshaskpass.pname} sudo -k -EA "${gparted}/bin/${gparted.pname}" "$@"
       '')
     ];
 
