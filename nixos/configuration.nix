@@ -5,12 +5,8 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./overlays/list.nix
-      ./cfg/boot.nix
-      ./cfg/security.nix
-      ./cfg/extra-hardware.nix
-      ./cfg/services.nix
-      ./cfg/packages.nix
-      ./cfg/home-manager.nix
+      ./cfg/main.nix
+      ./home/main.nix
     ];
 
   networking.hostName = "wim";

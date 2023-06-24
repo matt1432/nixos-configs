@@ -1,13 +1,8 @@
-{ config, ... }: let
-  flake-compat = builtins.fetchTarball "https://github.com/edolstra/flake-compat/archive/master.tar.gz";
+{ config, pkgs,  ... }:
 
-  hyprland = (import flake-compat {
-                                           # I use release version for plugin support
-    src = builtins.fetchTarball "https://github.com/hyprwm/Hyprland/archive/master.tar.gz";
-  }).defaultNix;
-
-in
 {
+## Global config to add home-manager module
+#############################################################################
   imports =
     [
       <home-manager/nixos>
@@ -19,10 +14,17 @@ in
     extraGroups = [ "wheel" "input" "adm" "mlocate" "video" ];
   };
 
+  home-manager.useUserPackages = true;
   home-manager.useGlobalPkgs = true;
   programs.dconf.enable = true;
+#############################################################################
 
-  home-manager.users.matt = { config, pkgs, lib, ... }: {
+  home-manager.users.matt = {
+
+    imports = [
+      ./hyprland.nix
+    ];
+
     programs.waybar = {
       enable = true;
       package = pkgs.waybar.overrideAttrs (oldAttrs: {
@@ -62,8 +64,6 @@ in
 
       ]) ++
     [
-      (builtins.getFlake "github:hyprwm/Hyprland").packages.x86_64-linux.default
-      (builtins.getFlake "path:/home/matt/git/hyprland-touch-gestures").packages.x86_64-linux.default
       swayosd
       qt5.qtwayland
       qt6.qtwayland
@@ -80,7 +80,7 @@ in
       xdg-utils
       pavucontrol # TODO: open on left click
       gimp-with-plugins
-      jdk8_headless
+      jdk19_headless
       bluez-tools
       spotify
       #spotifywm # fails to build
@@ -121,7 +121,6 @@ in
       lxappearance
       imagemagick
       usbutils
-      catppuccin-plymouth
       evtest
       squeekboard
       glib
@@ -139,6 +138,7 @@ in
           done
         ) &
 
+        SUDO_ASKPASS = "${pkgs.plasma5Packages.ksshaskpass}/bin/${pkgs.plasma5Packages.ksshaskpass.pname}";
         exec sudo -k -EA '${gparted}/bin/${gparted.pname}' "$@"
       '')
     ];
@@ -159,38 +159,6 @@ in
       };
     };
 
-    home.sessionVariables = {
-      XDG_DATA_DIRS = "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}:\$XDG_DATA_DIRS";
-      SUDO_ASKPASS = "${pkgs.plasma5Packages.ksshaskpass}/bin/${pkgs.plasma5Packages.ksshaskpass.pname}";
-    };
-
-    imports = [
-     hyprland.homeManagerModules.default
-    ];
-
-    wayland.windowManager.hyprland = {
-      enable = true;
-      package = (builtins.getFlake "github:hyprwm/Hyprland").packages.x86_64-linux.default; # to be able to get the right ver from hyprctl version
-      
-      plugins = with pkgs; [
-        "${(builtins.getFlake "path:/home/matt/git/hyprland-touch-gestures").packages.x86_64-linux.default}/lib/libtouch-gestures.so"
-      ];
-
-      extraConfig = ''
-        exec-once = ${pkgs.plasma5Packages.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1
-        source = ~/.config/hypr/main.conf
-        env = XDG_DATA_DIRS, ${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}:$XDG_DATA_DIRS
-        env = SUDO_ASKPASS, ${pkgs.plasma5Packages.ksshaskpass}/bin/${pkgs.plasma5Packages.ksshaskpass.pname}
-      '';
-    };
-
     home.stateVersion = "23.05";
-  };
-
-  services.xserver.displayManager = {
-    sessionPackages = [
-      (builtins.getFlake "github:hyprwm/Hyprland").packages.x86_64-linux.default
-    ];
-    defaultSession = "hyprland";
   };
 }
