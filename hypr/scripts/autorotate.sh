@@ -25,7 +25,7 @@ function rotate_ms {
                 rotate 1
                 ;;
         esac
-    elif [[ $(hyprctl monitors | grep "transform: 0") == "" ]]; then 
+    elif [[ $(hyprctl monitors | grep "transform: 0") == "" ]]; then
         rotate 0
     fi
 }
@@ -37,7 +37,7 @@ function rotate {
 
       hyprctl keyword monitor $SCREEN,transform,$TARGET_ORIENTATION
 
-      for i in "${WAYLANDINPUT[@]}" 
+      for i in "${WAYLANDINPUT[@]}"
       do
           hyprctl keyword device:"$i":transform $TARGET_ORIENTATION
       done
