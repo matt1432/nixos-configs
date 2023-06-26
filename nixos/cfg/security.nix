@@ -27,7 +27,7 @@
     gtklock = {};
 
     # all the changes in /etc/pam.d/*
-    sddm.text = ''
+    sddm.text = /* TODO: lib.mkBefore ... */''
       auth      [success=1 new_authtok_reqd=1 default=ignore]  	pam_unix.so try_first_pass likeauth nullok
       auth      sufficient    /nix/store/7hw6i2p2p7zzgjirw6xaj3c50gga488y-fprintd-1.94.2/lib/security/pam_fprintd.so
       auth      substack      login
