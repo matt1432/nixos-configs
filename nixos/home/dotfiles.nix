@@ -9,20 +9,9 @@ in
     fzf = {
       enable = true;
       enableBashIntegration = true;
-      colors = {
-        fg = "ffffff";
-        bg = "4b5263";
-        hl = "d858fe";
-        "fg+" = "#ffffff";
-        "bg+" = "#4b5263";
-        "hl+" = "#d858fe";
-        info = "#98c379";
-        prompt = "#61afef";
-        pointer = "#be5046";
-        marker = "#e5c07b";
-        spinner = "#61afef";
-        header = "#61afef";
-      };
+      #colors = {
+        # not working ?
+      #};
     };
 
     eww = {
