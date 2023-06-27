@@ -1,13 +1,19 @@
 { pkgs, ... }:
 
 {
-  programs.waybar = {
-    enable = true;
-    package = pkgs.waybar.overrideAttrs (oldAttrs: {
-      mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-    });
+  programs = {
+    btop = {
+      enable = true;
+    };
+
+    waybar = {
+      enable = true;
+      package = pkgs.waybar.overrideAttrs (oldAttrs: {
+        mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+      });
+    };
   };
-    
+
   home.packages = with pkgs; 
     (with xorg; [
       xcursorthemes
