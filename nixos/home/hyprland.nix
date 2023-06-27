@@ -1,4 +1,4 @@
-{ pkgs, ... }: let
+{ pkgs, config, ... }: let
 
   configDir = "/home/matt/.nix/configs";
 
@@ -43,8 +43,8 @@ in
     '';
   };
 
-  xdg.configFile = {
-    "hypr/main.conf".source       = "${configDir}/hypr/main.conf";
-    "hypr/hyprpaper.conf".source  = "${configDir}/hypr/hyprpaper.conf";
+  home.file = {
+    ".config/hypr/main.conf".source       = config.lib.file.mkOutOfStoreSymlink "${configDir}/hypr/main.conf";
+    ".config/hypr/hyprpaper.conf".source  = config.lib.file.mkOutOfStoreSymlink "${configDir}/hypr/hyprpaper.conf";
   };
 }
