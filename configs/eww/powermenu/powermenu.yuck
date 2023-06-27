@@ -1,0 +1,55 @@
+(defwidget powermenu []
+  (box :class "powermenu"
+       :orientation "h"
+       :space-evenly true
+       :spacing 20
+    (button :class "shutdown"
+            :onclick "systemctl poweroff"
+      (label :text "襤" :class "content")
+    )
+    (button :class "reboot"
+            :onclick "systemctl reboot"
+      (label :text "勒" :class "content")
+    )
+    (button :class "logout"
+            :onclick "hyprctl dispatch exit"
+      (label :text "" :class "content")
+    )
+  )
+)
+
+(defwidget powermenu-clickhandler []
+  (button :class "powermenu-clickhandler"
+          :onclick "eww close powermenu powermenu-clickhandler"
+    ""
+  )
+)
+
+(defwindow powermenu-clickhandler
+  :monitor 0
+  :geometry (geometry :x "0px"
+                      :y "0px"
+                      :width "100%"
+                      :height "100%"
+                      :anchor "center")
+  :wm-ignore true
+  (powermenu-clickhandler)
+)
+
+(defvar powermenu-visible false)
+
+(defwindow powermenu-reveal
+  :monitor 0
+  :stacking "overlay"
+  :geometry (geometry :x "0px"
+                      :y "0px"
+                      :width "500px"
+                      :height "150px"
+                      :anchor "center")
+  (revealer
+        :transition "crossfade"
+        :reveal powermenu-visible
+        :duration "550ms"
+    (powermenu)
+  )
+)

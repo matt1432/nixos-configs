@@ -1,0 +1,39 @@
+(defpoll network_status :interval "1s" "$EWW_PATH/network.sh status")
+(defpoll network_icon :interval "1s" "$EWW_PATH/network.sh icon")
+(defpoll network_radio :interval "1s" "$EWW_PATH/network.sh radio-status")
+(defpoll network_ssid :interval "1s" "$EWW_PATH/network.sh ssid")
+
+(defpoll volume_icon :interval "1s" "$EWW_PATH/volume.sh icon")
+(defpoll volume :interval "1s" "$EWW_PATH/volume.sh percentage")
+(defpoll volume_value :interval "1s" "$EWW_PATH/volume.sh vol")
+(defpoll is_muted :interval "1s" "$EWW_PATH/volume.sh muted")
+
+(defpoll mic :interval "1s" "$EWW_PATH/mic get")
+(defpoll mic_status :interval "1s" "$EWW_PATH/mic status")
+
+(defpoll bluetooth_state :interval "1s" "$EWW_PATH/bluetooth state")
+(defpoll redshift_state :interval "1s" "$EWW_PATH/redshift state")
+
+(defpoll rawuser :interval "30s" "whoami")
+(defpoll hostname :interval "30s" "cat /etc/hostname")
+(defpoll uptime :interval "30s" "uptime -p")
+
+(defpoll br_icon :interval "1s" "$EWW_PATH/brightness.sh icon")
+(defpoll br :interval "1s" "$EWW_PATH/brightness.sh br")
+
+(defpoll completeday :interval "1h" "date '+%A, %d %B'")
+(defpoll lithour :interval "30m" "date +%H")
+(defpoll litmin :interval "30s" "date +%M")
+(defpoll calendar_day :interval "10h" "date '+%d'")
+(defpoll calendar_month :interval "10h" "date '+%m")
+(defpoll calendar_year :interval "10h" "date '+%Y'")
+(defpoll date :interval "30s" "date '+%d %b, %I:%M %p'")
+(defpoll shortday :interval "1h" "date '+%d %b %y'")
+(defpoll weekday :interval "24h" "date +%A")
+
+(defpoll cpu :interval "3s" "$EWW_PATH/cpu.sh")
+(defpoll ram :interval "3s" "$EWW_PATH/ram.sh ram")
+(defpoll temp :interval "3s" "$EWW_PATH/temp.sh get")
+(defpoll disk :interval "3s" "$EWW_PATH/disk.sh")
+
+(defpoll notif_icon :interval "1s" "$EWW_PATH/notif.sh icon")

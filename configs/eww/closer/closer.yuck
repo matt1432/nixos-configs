@@ -1,0 +1,9 @@
+(defwidget closer []
+  (eventbox :onclick "$EWW_PATH/close-opened.sh && eww close closer"))
+
+(defwindow closer
+  :monitor 0
+  :geometry (geometry :width "100%" :height "100%")
+  :stacking "overlay"
+  :focusable false
+  (closer :window ""))

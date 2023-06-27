@@ -50,11 +50,8 @@
       jelly = "mosh matt@10.0.0.121 -- ssh -t matt@10.0.0.123 'tmux -2u new -At laptop'";
       qbit  = "mosh matt@10.0.0.121 -- ssh -t matt@10.0.0.128 'tmux -2u new -At laptop'";
     };
-    sessionVariables = {
+    sessionVariables = { # see hyprland.nix
       TERM = "xterm-color";
-      #MOZ_ENABLE_WAYLAND = 1;
-      #QT_QPA_PLATFORM = "wayland-egl";
-      XDG_DATA_DIRS = "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}:\$XDG_DATA_DIRS";
     };
 
     profileExtra = ''

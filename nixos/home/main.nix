@@ -22,8 +22,9 @@
   home-manager.users.matt = {
 
     imports = [
-      ./bashdots.nix
       ./hyprland.nix
+      ./bashdots.nix
+      ./dotfiles.nix
       ./packages.nix
       ./misc.nix
     ];

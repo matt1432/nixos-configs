@@ -1,4 +1,7 @@
 { pkgs, ... }: let
+
+  configDir = "/home/matt/.nix/configs";
+
   flake-compat = builtins.fetchTarball "https://github.com/edolstra/flake-compat/archive/master.tar.gz";
 
   hyprland = (import flake-compat {
@@ -30,9 +33,18 @@ in
     ];
 
     extraConfig = ''
+      env = XDG_DATA_DIRS, ${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}:$XDG_DATA_DIRS
+
+      env = EWW_PATH, $HOME/.nix/configs/eww/scripts
+      env = HYPR_PATH, $HOME/.nix/configs/hypr/scripts
+
       exec-once = ${pkgs.plasma5Packages.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1
       source = ~/.config/hypr/main.conf
-      env = XDG_DATA_DIRS, ${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}:$XDG_DATA_DIRS
     '';
+  };
+
+  xdg.configFile = {
+    "hypr/main.conf".source       = "${configDir}/hypr/main.conf";
+    "hypr/hyprpaper.conf".source  = "${configDir}/hypr/hyprpaper.conf";
   };
 }

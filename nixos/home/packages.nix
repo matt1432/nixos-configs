@@ -42,7 +42,7 @@
   [
     (writeShellScriptBin "Gparted" ''
       (
-        sleep 0.5
+        sleep 1.5
         while killall -r -0 ksshaskpass > /dev/null 2>&1
         do
           sleep 0.1
@@ -55,7 +55,6 @@
       exec env SUDO_ASKPASS=${pkgs.plasma5Packages.ksshaskpass}/bin/${pkgs.plasma5Packages.ksshaskpass.pname} sudo -k -EA "${gparted}/bin/${gparted.pname}" "$@"
     '')
 
-    (builtins.getFlake "github:matt1432/eww-exclusiver").packages.x86_64-linux.default
     swayosd
     qt5.qtwayland
     qt6.qtwayland
@@ -79,7 +78,6 @@
     spicetify-cli # TODO
     vlc
     discord
-    alacritty
     brightnessctl
     pulseaudio
     alsa-utils
