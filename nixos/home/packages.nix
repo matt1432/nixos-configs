@@ -8,9 +8,8 @@
 
     waybar = {
       enable = true;
-      package = pkgs.waybar.overrideAttrs (oldAttrs: {
-        mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-      });
+      # https://discourse.nixos.org/t/how-to-use-waybar-hyprland/27638/6
+      package = (builtins.getFlake "github:hyprwm/Hyprland").packages.x86_64-linux.waybar-hyprland;
     };
   };
 

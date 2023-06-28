@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 
 let
   configDir = "/home/matt/.nix/configs";
@@ -16,7 +16,7 @@ in
 
     eww = {
       enable = true;
-      configDir = "${configDir}/eww"; # see hyprland.nix for scripts path
+      configDir = config.lib.file.mkOutOfStoreSymlink "${configDir}/eww"; # see hyprland.nix for scripts path
       package = (builtins.getFlake "github:matt1432/eww-exclusiver").packages.x86_64-linux.default;
     };
 
