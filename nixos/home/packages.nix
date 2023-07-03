@@ -72,6 +72,7 @@
     swayosd
     blueberry
     libayatana-appindicator
+    papirus-icon-theme
     qt5.qtwayland
     qt6.qtwayland
     httrack
