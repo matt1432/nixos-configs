@@ -14,8 +14,7 @@
   networking.networkmanager.wifi.backend = "iwd";
 
   # Set your time zone.
-  #time.timeZone = "America/Montreal";
-  time.timeZone = "Europe/Paris";
+  time.timeZone = "America/Montreal";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_CA.UTF-8";

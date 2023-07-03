@@ -1,9 +1,18 @@
 { pkgs, ... }:
 
 {
+  home.shellAliases = {
+    rg = "rga";
+  };
+
   programs = {
     btop = {
       enable = true;
+    };
+
+    ripgrep = {
+      enable = true;
+      package = pkgs.ripgrep-all;
     };
 
     waybar = {
@@ -61,6 +70,8 @@
     '')
 
     swayosd
+    blueberry
+    libayatana-appindicator
     qt5.qtwayland
     qt6.qtwayland
     httrack

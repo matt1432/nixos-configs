@@ -6,8 +6,6 @@
     powerOnBoot = true;
   };
 
-  services.blueman.enable = true;
-
   services.udev.extraRules = ''
     # give permanent path to keyboard XF86* binds
     SUBSYSTEMS=="input", ATTRS{id/product}=="0006", ATTRS{id/vendor}=="0000", SYMLINK += "video-bus"
