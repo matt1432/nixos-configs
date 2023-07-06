@@ -1,4 +1,3 @@
-
 /* Dracula Theme */
 /* https://gist.github.com/MrRoy/3a4a0b1462921e78bf667e1b36697268 */
 @define-color foreground rgb(248, 248, 242);
@@ -12,8 +11,6 @@
   transition: all 200ms ease;
   outline: none;
   margin-bottom: 4px;
-  margin-right: 13px;
-  margin-top: 8px;
   border-radius: 30px;
 }
 
@@ -95,11 +92,12 @@
 .notification-default-action,
 .notification-action {
   padding: 4px;
-  margin: 0;
+  margin: 0px;
   box-shadow: none;
   background: @current-line;
   border: 2px solid @accent;
   color: @foreground;
+  min-height: 40px;
 }
 
 .notification-default-action:hover,
