@@ -5,6 +5,11 @@ let
 in
 
 {
+  xdg.configFile = {
+    "swaync/config.json".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/swaync/config.json";
+    "swaync/style.css".source   = config.lib.file.mkOutOfStoreSymlink "${configDir}/swaync/style.css";
+  };
+
   programs = {
     fzf = {
       enable = true;

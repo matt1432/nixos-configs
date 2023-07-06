@@ -1,6 +1,6 @@
 .notif-panel {
-/*  min-width: 110px;
-  min-height: 34px; */
+  min-width: 50px;
+  min-height: 16px;
   font-size: 20px;
   padding: 2px 25px 2px 35px;
 }
@@ -29,4 +29,9 @@
   color: #CBA6F7;
   border-radius: 80px;
   border: 3px solid #CBA6F7;
+}
+
+.toggle-on:hover {
+  background-color: rgba(127, 132, 156, 0.4);
+  transition: background-color 0.5s ease-in-out;
 }

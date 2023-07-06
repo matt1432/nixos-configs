@@ -2,7 +2,10 @@
 
 state () {
   if [[ $(hyprctl layers | grep swaync-control-center) == "" ]]; then
-    eww update notif-panel-state=false
+    if [[ $(eww get notif-panel-state) == "true" ]]; then
+      eww update notif-panel-state=false
+      eww reload
+    fi
   fi
 }
 
@@ -20,6 +23,9 @@ icon () {
 }
 
 if [[ $1 == "icon" ]]; then
-  icon
+  while true; do
+    sleep 0.2
+    icon
+  done
 fi
 
