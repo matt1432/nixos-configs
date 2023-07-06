@@ -15,10 +15,6 @@ in
     (builtins.getFlake "path:/home/matt/git/hyprland-touch-gestures").packages.x86_64-linux.default
   ];
 
-  home.sessionVariables = {
-    XDG_DATA_DIRS = "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}:\$XDG_DATA_DIRS";
-  };
-
   imports = [
    hyprland.homeManagerModules.default
   ];
@@ -32,7 +28,7 @@ in
     ];
 
     extraConfig = ''
-      env = XDG_DATA_DIRS, ${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}:$XDG_DATA_DIRS
+      env = XDG_DATA_DIRS, ${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}:${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}:$XDG_DATA_DIRS
 
       env = EWW_PATH, $HOME/.nix/configs/eww/scripts
       env = HYPR_PATH, $HOME/.nix/configs/hypr/scripts
