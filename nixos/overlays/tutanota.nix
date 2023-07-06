@@ -27,7 +27,9 @@ let
     inherit pname version src;
   };
 
-in appimageTools.wrapType2 {
+in 
+
+appimageTools.wrapType2 {
   inherit name src;
 
   profile = ''
@@ -37,13 +39,14 @@ in appimageTools.wrapType2 {
   targetPkgs = pkgs: [ libGL libsecret ffmpeg curl alsa-lib udev ];
 
   extraInstallCommands = ''
-    mkdir -p $out/bin
+    mkdir -p $out/bin $out/share/applications
     
     cp -r ${extracted}/* $out/
 
     ln -s $out/tutanota-desktop $out/bin/tutanota-desktop
     
-    substituteInPlace $out/tutanota-desktop.desktop \
+    mv $out/tutanota-desktop.desktop $out/share/applications/
+    substituteInPlace $out/share/applications/tutanota-desktop.desktop \
       --replace AppRun ${pname}
     
     source "${makeWrapper}/nix-support/setup-hook"
