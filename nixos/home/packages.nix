@@ -38,8 +38,11 @@
       breeze-icons
       dolphin
       dolphin-plugins
+      kdegraphics-thumbnailers
       ffmpegthumbs
+      kio
       kio-admin # needs to be both here and in system pkgs
+      kio-extras
       ark
       kcharselect
       kdenlive
