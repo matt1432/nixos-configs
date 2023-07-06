@@ -72,10 +72,12 @@
       exec env SUDO_ASKPASS=${pkgs.plasma5Packages.ksshaskpass}/bin/${pkgs.plasma5Packages.ksshaskpass.pname} sudo -k -EA "${gparted}/bin/${gparted.pname}" "$@"
     '')
 
+    (with import <nixpkgs> {}; callPackage ../overlays/tutanota.nix {})
     swayosd
     blueberry
     libayatana-appindicator
     papirus-icon-theme
+    steam-run
     qt5.qtwayland
     qt6.qtwayland
     httrack
@@ -113,7 +115,6 @@
     rofi-wayland
     networkmanagerapplet
     nextcloud-client
-    tutanota-desktop
     galaxy-buds-client
     swaynotificationcenter
     swayidle
