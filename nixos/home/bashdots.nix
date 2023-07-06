@@ -50,7 +50,7 @@
       jelly = "mosh matt@10.0.0.121 -- ssh -t matt@10.0.0.123 'tmux -2u new -At laptop'";
       qbit  = "mosh matt@10.0.0.121 -- ssh -t matt@10.0.0.128 'tmux -2u new -At laptop'";
     };
-    sessionVariables = { # see hyprland.nix
+    sessionVariables = { # see configuration.nix
       TERM = "xterm-color";
     };
 

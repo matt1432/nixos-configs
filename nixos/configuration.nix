@@ -28,18 +28,10 @@
   nixpkgs.config.allowUnfree = true;
 
 
-  # TODO: see if setting them in Hyprland.nix works
   environment.sessionVariables = {
+    NIXPKGS_ALLOW_UNFREE = "1";
     GTK_THEME 		 = "Lavanda-Dark";
     QT_QPA_PLATFORMTHEME = "qt5ct";
-    QT_STYLE_OVERRIDE	 = "kvantum";
-    QT_FONT_DPI		 = "125";
-  };
-
-  environment.variables = {
-    GTK_THEME 		 = "Lavanda-Dark";
-    QT_QPA_PLATFORMTHEME = "qt5ct";
-    QT_STYLE_OVERRIDE	 = "kvantum";
     QT_FONT_DPI		 = "125";
   };
 

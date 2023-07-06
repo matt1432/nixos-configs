@@ -13,6 +13,7 @@ in
   home.packages = [
     (builtins.getFlake "github:hyprwm/Hyprland").packages.x86_64-linux.default
     (builtins.getFlake "path:/home/matt/git/hyprland-touch-gestures").packages.x86_64-linux.default
+    pkgs.kora-icon-theme
   ];
 
   imports = [
@@ -29,6 +30,7 @@ in
 
     extraConfig = ''
       env = XDG_DATA_DIRS, ${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}:${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}:$XDG_DATA_DIRS
+      $kora = "$HOME/.config/share"
 
       env = EWW_PATH, $HOME/.nix/configs/eww/scripts
       env = HYPR_PATH, $HOME/.nix/configs/hypr/scripts
@@ -40,6 +42,7 @@ in
 
   # https://www.reddit.com/r/NixOS/comments/vc3srj/comment/iccqxw1/?utm_source=share&utm_medium=web2x&context=3
   xdg.configFile = {
+    "share/icons/hicolor".source  = "${pkgs.kora-icon-theme}/share/icons/kora-pgrey";
     "hypr/main.conf".source       = config.lib.file.mkOutOfStoreSymlink "${configDir}/hypr/main.conf";
     "hypr/hyprpaper.conf".source  = config.lib.file.mkOutOfStoreSymlink "${configDir}/hypr/hyprpaper.conf";
   };
