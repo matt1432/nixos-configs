@@ -38,28 +38,65 @@ in
             y = 10;
           };
 
-          opacity = 0.8;
+          opacity = 0.6;
         };
 
+        # https://github.com/dracula/alacritty/blob/05faff15c0158712be87d200081633d9f4850a7d/dracula.yml
         colors = {
           primary = {
-            background = "0x0c0c0c";
-            foreground = "0xfcfcfc";
-
-            dim_foreground    = "0xeff0f1";
-            bright_foreground = "0xffffff";
-            dim_background    = "0x31363b";
-            bright_background = "0x000000";
+            background = "#282a36";
+            foreground = "#f8f8f2";
+            bright_foreground = "#ffffff";
+          };
+          cursor = {
+            text = "CellBackground";
+            cursor = "CellForeground";
+          };
+          vi_mode_cursor = {
+            text = "CellBackground";
+            cursor = "CellForeground";
+          };
+          search = {
+            matches = {
+              foreground = "#44475a";
+              background = "#50fa7b";
+            };
+            focused_match = {
+              foreground = "#44475a";
+              background = "#ffb86c";
+            };
+            footer_bar = {
+              background = "#282a36";
+              foreground = "#f8f8f2";
+            };
+          };
+          hints = {
+            start = {
+              foreground = "#282a36";
+              background = "#f1fa8c";
+            };
+            end = {
+              foreground = "#f1fa8c";
+              background = "#282a36";
+            };
+          };
+          line_indicator = {
+            foreground = "None";
+            background = "None";
+          };
+          selection = {
+            text = "CellForeground";
+            background = "#44475a";
           };
           normal = {
-            black   = "0x232627";
-            red     = "0xed1515";
-            green   = "0x11d116";
-            yellow  = "0xf67400";
-            blue    = "0x1d99f3";
-            magenta = "0x9b59b6";
-            cyan    = "0x1abc9c";
-            white   = "0xfcfcfc";
+            black = "#21222c";
+            red = "#ff5555";
+            green = "#50fa7b";
+            yellow = "#f1fa8c";
+            blue = "#bd93f9";
+            magenta = "#ff79c6";
+            cyan = "#8be9fd";
+            white = "#f8f8f2";
           };
         };
       };
