@@ -23,10 +23,6 @@
   };
 
   home.packages = with pkgs; 
-    (with xorg; [
-      xcursorthemes
-
-    ]) ++
     (with python311Packages; [
       python
       pyclip
@@ -35,7 +31,6 @@
     (with plasma5Packages; [
       polkit-kde-agent
       qtstyleplugin-kvantum
-      breeze-icons
       dolphin
       dolphin-plugins
       kdegraphics-thumbnailers
@@ -76,10 +71,12 @@
     swayosd
     blueberry
     libayatana-appindicator
-    papirus-icon-theme
+    dracula-theme
+    dracula-icon-theme
     steam-run
     qt5.qtwayland
     qt6.qtwayland
+    bottles-unwrapped
     httrack
     lisgd
     zeal

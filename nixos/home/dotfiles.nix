@@ -14,9 +14,6 @@ in
     fzf = {
       enable = true;
       enableBashIntegration = true;
-      #colors = {
-        # not working ?
-      #};
     };
 
     eww = {
@@ -38,7 +35,7 @@ in
             y = 10;
           };
 
-          opacity = 0.6;
+          opacity = 0.8;
         };
 
         # https://github.com/dracula/alacritty/blob/05faff15c0158712be87d200081633d9f4850a7d/dracula.yml
