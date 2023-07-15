@@ -1,4 +1,4 @@
-{config, pkgs, ...}:
+{config, pkgs, lib, ...}:
 
 {
   services = {
@@ -6,12 +6,21 @@
       enable = true;
       layout = "ca";
       displayManager = {
-        gdm = {
+        sddm = {
           enable = true;
-          wayland = true;
+          settings = {
+            General = {
+              DisplayServer = "wayland";
+              InputMethod = "";
+            };
+            Wayland.CompositorCommand = "${pkgs.weston}/bin/weston --shell=fullscreen-shell.so";
+            Theme = {
+              Current = "Dracula";
+              ThemeDir = "${pkgs.dracula-theme}/share/sddm/themes";
+            };
+          };
         };
         sessionPackages = [
-          pkgs.gnome.gnome-session.sessions # gnome session needed to fix bugs
           (builtins.getFlake "github:hyprwm/Hyprland").packages.x86_64-linux.default
         ];
         defaultSession = "hyprland";
@@ -39,6 +48,7 @@
         "/nix/var/log/nix"
         "/proc"
         "/run/user/1000"
+        "${pkgs.findutils}/" # doesn't work?
       ];
     };
   };
@@ -153,6 +163,8 @@
     evtest
     plasma5Packages.kio-admin
     plasma5Packages.ksshaskpass
+    plasma5Packages.plasma-framework
+    plasma5Packages.plasma-workspace
   ];
 
   fonts = {

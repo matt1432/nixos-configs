@@ -44,12 +44,12 @@
   ],
   "widget-config": {
     "backlight": {
-      "label": "󰃟 ",
+      "label": "󰃟  ",
       "device": "amdgpu_bl0",
       "min": 10
     },
     "volume": {
-      "label": "󰕾 "
+      "label": "󰕾  "
     },
     "inhibitors": {
       "text": "Inhibitors",
@@ -96,7 +96,7 @@
         },
         {
           "label": "󰍃",
-          "command": "swaync-client -cp; sleep 1; eww open closer; $EWW_PATH/open.sh powermenu"
+          "command": "swaync-client -cp; sleep 0.9; eww open closer; $EWW_PATH/open.sh powermenu"
         }
       ]
     }

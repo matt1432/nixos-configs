@@ -324,7 +324,7 @@
 
 .widget-volume {
   background-color: @background;
-  padding: 4px 8px 8px 8px;
+  padding: 4px 16px 8px 8px;
   margin: 0px 8px 8px 8px;
   font-size: x-large;
   border-bottom: 2px solid @accent;
@@ -336,7 +336,7 @@
 
 .widget-backlight {
   background-color: @background;
-  padding: 8px 8px 4px 8px;
+  padding: 8px 16px 4px 8px;
   margin: 8px 8px 0px 8px;
   font-size: x-large;
   border-top: 2px solid @accent;
