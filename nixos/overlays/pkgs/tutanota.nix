@@ -15,12 +15,12 @@
 
 let
   pname = "tutanota-desktop";
-  version = "3.114.1";
+  version = "3.115.2";
   name = "${pname}-${version}";
 
   src = fetchurl {
     url = "https://github.com/tutao/tutanota/releases/download/tutanota-desktop-release-${version}/tutanota-desktop-linux.AppImage";
-    hash = "sha256-cWK95F3/zRyKt2fN/uN/dfDNnSiXgJq6mlGjtD3W7VY=";
+    hash = "sha256-a/V2F+kAYBNeCYi5gZ7Ov+ShBp8F9KUyyNlT0WEW9Z4=";
   };
 
   extracted = appimageTools.extractType2 {
