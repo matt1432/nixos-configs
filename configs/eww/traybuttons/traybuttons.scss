@@ -1,6 +1,13 @@
+.osk-toggle {
+  font-size: 30px;
+  min-height: 26px;
+  min-width: 50px;
+  padding: 0px 0px 0px 5px;
+}
+
 .notif-panel {
   min-width: 50px;
-  min-height: 16px;
+  min-height: 26px;
   font-size: 20px;
   padding: 2px 25px 2px 35px;
 }
@@ -15,7 +22,7 @@
   transition: border-color 0.5s ease-in-out;
   color: #CBA6F7;
   border-radius: 80px;
-  border: 3px solid $contrastbg;
+  border: 2px solid #1b1b2b;
 }
 
 .toggle-off:hover {
@@ -28,7 +35,7 @@
   transition: border-color 0.5s ease-in-out;
   color: #CBA6F7;
   border-radius: 80px;
-  border: 3px solid #CBA6F7;
+  border: 2px solid $contrastbg;
 }
 
 .toggle-on:hover {

@@ -1,3 +1,32 @@
+(defvar osk-toggle-state false)
+
+(defwidget osk-toggle []
+  (eventbox :class {osk-toggle-state ? "toggle-on" : "toggle-off"}
+            :onclick "$HYPR_PATH/osk-toggle.sh toggle &"
+    (box  :class "osk-toggle"
+          :space-evenly true
+          :spacing 6
+          :orientation "h"
+      (label :text " 󰌌 ")
+    )
+  )
+)
+
+(defwindow osk-toggle
+  :monitor 0
+  :stacking "overlay"
+  :exclusive "ignore"
+  :geometry (geometry :x "10px"
+                      :y "9px"
+                      :width "0px"
+                      :height "0px"
+                      :anchor "top left"
+            )
+  (osk-toggle)
+)
+
+
+
 (defvar toggle-state false)
 
 (defwidget tablet-toggle []
@@ -17,7 +46,7 @@
   :monitor 0
   :stacking "overlay"
   :exclusive "ignore"
-  :geometry (geometry :x "66px"
+  :geometry (geometry :x "72px"
                       :y "9px"
                       :width "0px"
                       :height "0px"
@@ -25,6 +54,8 @@
             )
   (tablet-toggle)
 )
+
+
 
 (defvar notif-panel-state false)
 
@@ -46,7 +77,7 @@
   :stacking "overlay"
   :exclusive "ignore"
   :geometry (geometry :x "50px"
-                      :y "10px"
+                      :y "11px"
                       :width "0px"
                       :height "0px"
                       :anchor "top right"

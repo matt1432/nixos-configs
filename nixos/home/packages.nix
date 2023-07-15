@@ -26,6 +26,7 @@
     (with python311Packages; [
       python
       pyclip
+      gdown
 
     ]) ++
     (with plasma5Packages; [
@@ -74,6 +75,8 @@
     dracula-theme
     dracula-icon-theme
     steam-run
+    wineWowPackages.stable
+    cabextract
     qt5.qtwayland
     qt6.qtwayland
     bottles-unwrapped
