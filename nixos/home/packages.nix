@@ -6,9 +6,10 @@
   };
 
   programs = {
-    btop = {
-      enable = true;
-    };
+
+    btop.enable = true;
+
+    jq.enable = true;
 
     ripgrep = {
       enable = true;
@@ -68,7 +69,7 @@
       exec env SUDO_ASKPASS=${pkgs.plasma5Packages.ksshaskpass}/bin/${pkgs.plasma5Packages.ksshaskpass.pname} sudo -k -EA "${gparted}/bin/${gparted.pname}" "$@"
     '')
 
-    (with import <nixpkgs> {}; callPackage ../overlays/tutanota.nix {})
+    tutanota
     swayosd
     blueberry
     libayatana-appindicator
@@ -109,8 +110,6 @@
     mosh
     rsync
     killall
-    jq # enable using home-manager?
-    ripgrep-all
     hyprpaper
     networkmanagerapplet
     nextcloud-client

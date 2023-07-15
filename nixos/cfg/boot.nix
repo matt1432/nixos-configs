@@ -39,7 +39,7 @@
       enable = true;
       #themePackages = [ pkgs.catppuccin-plymouth ];
       #theme = "catppuccin-macchiato";
-      themePackages = [ (with import <nixpkgs> {}; callPackage ../overlays/dracula-plymouth.nix {}) ];
+      themePackages = [ pkgs.dracula-plymouth ];
       theme = "dracula";
     };
   };

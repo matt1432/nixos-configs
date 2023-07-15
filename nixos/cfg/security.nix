@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   services.fprintd.enable = true;
@@ -27,18 +27,14 @@
     gtklock = {};
 
     # all the changes in /etc/pam.d/*
-    sddm.text = /* TODO: lib.mkBefore ... */''
+    sddm.text =  lib.mkBefore ''
       auth      [success=1 new_authtok_reqd=1 default=ignore]  	pam_unix.so try_first_pass likeauth nullok
-      auth      sufficient    /nix/store/7hw6i2p2p7zzgjirw6xaj3c50gga488y-fprintd-1.94.2/lib/security/pam_fprintd.so
-      auth      substack      login
-      account   include       login
-      password  substack      login
-      session   include       login
+      auth      sufficient    ${pkgs.fprintd}/lib/security/pam_fprintd.so
     '';
 
     sudo.text = ''
       # Account management.
-      auth    sufficient    /root/lib/pam/pam_fprintd_grosshack.so
+      auth    sufficient    ${pkgs.pam-fprint-grosshack}/lib/security/pam_fprintd_grosshack.so
       auth    sufficient    pam_unix.so try_first_pass nullok
       account required pam_unix.so
 
@@ -58,23 +54,23 @@
       account required pam_unix.so
 
       # Authentication management.
-      auth    sufficient    /root/lib/pam/pam_fprintd_grosshack.so
+      auth    sufficient    ${pkgs.pam-fprint-grosshack}/lib/security/pam_fprintd_grosshack.so
       auth optional pam_unix.so nullok  likeauth
-      auth optional /nix/store/21dqfghfa8b09ssvgja8l5bg7h5d9rzl-gnome-keyring-42.1/lib/security/pam_gnome_keyring.so
+      auth optional ${pkgs.gnome.gnome-keyring}/lib/security/pam_gnome_keyring.so
       auth    sufficient    pam_unix.so try_first_pass nullok
       auth required pam_deny.so
 
       # Password management.
       password sufficient pam_unix.so nullok yescrypt
-      password optional /nix/store/21dqfghfa8b09ssvgja8l5bg7h5d9rzl-gnome-keyring-42.1/lib/security/pam_gnome_keyring.so use_authtok
+      password optional ${pkgs.gnome.gnome-keyring}/lib/security/pam_gnome_keyring.so use_authtok
 
       # Session management.
       session required pam_env.so conffile=/etc/pam/environment readenv=0
       session required pam_unix.so
       session required pam_loginuid.so
-      session required /nix/store/4m8ab1p9y6ig31wniimlvsl23i9sazvp-linux-pam-1.5.2/lib/security/pam_lastlog.so silent
-      session optional /nix/store/8pbr7x6wh765mg43zs0p70gsaavmbbh7-systemd-253.3/lib/security/pam_systemd.so
-      session optional /nix/store/21dqfghfa8b09ssvgja8l5bg7h5d9rzl-gnome-keyring-42.1/lib/security/pam_gnome_keyring.so auto_start
+      session required ${pkgs.pam}/lib/security/pam_lastlog.so silent
+      session optional ${pkgs.systemd}/lib/security/pam_systemd.so
+      session optional ${pkgs.gnome.gnome-keyring}/lib/security/pam_gnome_keyring.so auto_start
     '';
 
     polkit-1.text = ''
@@ -82,7 +78,7 @@
       account required pam_unix.so
 
       # Authentication management.
-      auth    sufficient    /root/lib/pam/pam_fprintd_grosshack.so
+      auth    sufficient    ${pkgs.pam-fprint-grosshack}/lib/security/pam_fprintd_grosshack.so
       auth    sufficient    pam_unix.so try_first_pass nullok
       auth required pam_deny.so
 
