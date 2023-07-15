@@ -22,6 +22,79 @@ in
       package = (builtins.getFlake "github:matt1432/eww-exclusiver").packages.x86_64-linux.default;
     };
 
+    wofi = {
+      enable = true;
+      settings = {
+        prompt = "";
+        allow_images = true;
+        image_size = "48";
+        matching = "fuzzy";
+        insensitive = true;
+        normal_window = true;
+        height = "620";
+      };
+      style = ''
+        /* https://github.com/dracula/wofi/blob/master/style.css */
+        window {
+          margin: 0px;
+          border: 1px solid #bd93f9;
+          border-bottom: none;
+          border-radius: 30px;
+          background-color: #282a36;
+        }
+
+        #input {
+          margin: 5px;
+          border: none;
+          color: #f8f8f2;
+          background-color: #44475a;
+        }
+
+        #inner-box {
+          margin: 5px;
+          border: none;
+          background-color: #282a36;
+        }
+
+        #outer-box {
+          margin: 5px;
+          padding: 10px 10px 0px 10px;
+          border: none;
+          border-radius: 30px;
+          background-color: #282a36;
+        }
+
+        #scroll {
+          margin: -4px 0px -7px 0px;
+          border: none;
+        }
+
+        #text {
+          margin: 5px;
+          border: none;
+          color: #f8f8f2;
+        }
+
+        #entry.activatable #text {
+          color: #282a36;
+        }
+
+        #entry > * {
+          color: #f8f8f2;
+          padding: 4px 0px 0px 0px;
+        }
+
+        #entry:selected {
+          background-color: #44475a;
+          outline: none;
+        }
+
+        #entry:selected #text {
+          font-weight: bold;
+        }
+      '';
+    };
+
     alacritty = {
       enable = true;
       settings = {

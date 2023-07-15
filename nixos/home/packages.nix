@@ -112,7 +112,6 @@
     jq # enable using home-manager?
     ripgrep-all
     hyprpaper
-    rofi-wayland
     networkmanagerapplet
     nextcloud-client
     galaxy-buds-client
