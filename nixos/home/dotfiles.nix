@@ -1,7 +1,7 @@
 { config, ... }:
 
 let
-  configDir = "/home/matt/.nix/configs";
+  configDir = "/home/matt/.nix/config";
 in
 
 {

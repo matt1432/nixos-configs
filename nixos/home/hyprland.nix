@@ -1,6 +1,6 @@
 { pkgs, config, ... }: let
 
-  configDir = "/home/matt/.nix/configs";
+  configDir = "/home/matt/.nix/config";
 
   flake-compat = builtins.fetchTarball "https://github.com/edolstra/flake-compat/archive/master.tar.gz";
 
@@ -32,8 +32,8 @@ in
       env = XDG_DATA_DIRS, ${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}:${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}:$XDG_DATA_DIRS
       $kora = "$HOME/.config/share"
 
-      env = EWW_PATH, $HOME/.nix/configs/eww/scripts
-      env = HYPR_PATH, $HOME/.nix/configs/hypr/scripts
+      env = EWW_PATH, ${configDir}/eww/scripts
+      env = HYPR_PATH, ${configDir}/hypr/scripts
 
       exec-once = ${pkgs.plasma5Packages.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1
       source = ~/.config/hypr/main.conf
