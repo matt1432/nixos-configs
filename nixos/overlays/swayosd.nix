@@ -4,15 +4,22 @@ final: prev: {
     src = prev.fetchFromGitHub {
       owner = "ErikReider";
       repo = "SwayOSD";
-      rev = "c573f5ce94e2017d37b3dd3c2c1363bb1c6f82a3";
-      hash = "sha256-cPom4dU+64TdCIi9D+GZN+EJltgXWy8fezEL1r9kUDo=";
+      rev = "b14c83889c7860c174276d05dec6554169a681d9";
+      hash = "sha256-MJuTwEI599Y7q+0u0DMxRYaXsZfpksc2csgnK9Ghp/E=";
     };
     
     cargoDeps = oldAttrs.cargoDeps.overrideAttrs (prev.lib.const {
       name = "swayosd-vendor.tar.gz";
       inherit src;
-      outputHash = "sha256-rSz7edA/G446eJGy5qYx9xOpMhsTpA9H43b45bLArHU=";
+      outputHash = "sha256-gRhhPDUFPcDS1xo7JzCpZtd1Al1kEkx2dXf92cc2bUo=";
+      #outputHash = prev.lib.fakeHash;
     });
+
+    buildInputs = (oldAttrs.buildInputs or [ ]) ++ [
+      prev.systemd
+      prev.libevdev
+      prev.libinput
+    ];
   });
 }
 
