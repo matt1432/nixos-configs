@@ -15,12 +15,12 @@
 
 let
   pname = "tutanota-desktop";
-  version = "3.115.2";
+  version = "3.114.1";
   name = "${pname}-${version}";
 
   src = fetchurl {
     url = "https://github.com/tutao/tutanota/releases/download/tutanota-desktop-release-${version}/tutanota-desktop-linux.AppImage";
-    hash = "sha256-a/V2F+kAYBNeCYi5gZ7Ov+ShBp8F9KUyyNlT0WEW9Z4=";
+    hash = "sha256-cWK95F3/zRyKt2fN/uN/dfDNnSiXgJq6mlGjtD3W7VY=";
   };
 
   extracted = appimageTools.extractType2 {
@@ -56,3 +56,4 @@ appimageTools.wrapType2 {
     sed -i 's#exec -a "$0"#exec -a "$0" "${pkgs.steam-run}/bin/steam-run"#' "$out/bin/${pname}"
   '';
 }
+
