@@ -124,7 +124,6 @@
     grim
     slurp
     swappy
-    neovim
     fontfor
     qt5ct
     lxappearance

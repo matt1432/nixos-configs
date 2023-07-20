@@ -27,6 +27,7 @@
       ./dotfiles.nix
       ./packages.nix
       ./misc.nix
+      ./nvim.nix
     ];
 
     home.stateVersion = "23.05";

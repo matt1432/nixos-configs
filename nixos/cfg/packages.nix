@@ -157,7 +157,6 @@
     rsync
     killall
     ripgrep-all
-    neovim # TODO: use nix
     imagemagick
     usbutils
     evtest
