@@ -33,30 +33,52 @@ in {
     ];
 
     extraPackages = with pkgs; [
-      # used to compile tree-sitter grammar
       tree-sitter
 
       # https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
       nodePackages.bash-language-server
       shellcheck
       nixd
+      sumneko-lua-language-server
+      vscode-langservers-extracted
     ];
     plugins = with pkgs.vimPlugins; [
-      # you can use plugins from the pkgs
       vim-which-key
-      clangd_extensions-nvim
 
       nvim-treesitter.withAllGrammars
       nvim-treesitter
 
-      # or you can use our function to directly fetch plugins from git
-      (plugin "hrsh7th/nvim-cmp") # completion
-      (plugin "neovim/nvim-lspconfig")
+      #telescope-nvim
+      #telescope-fzf-native-nvim
+      
       (plugin "Mofiqul/dracula.nvim")
-      (plugin "nvim-neo-tree/neo-tree.nvim")
-
-      # this installs the plugin from 'lua' branch
+      (plugin "neovim/nvim-lspconfig")
       (plugin "lukas-reineke/indent-blankline.nvim")
+      (plugin "lewis6991/gitsigns.nvim")
+      (plugin "nvim-lualine/lualine.nvim")
+
+      # plugins for completion
+      (plugin "hrsh7th/nvim-cmp")
+      (plugin "hrsh7th/cmp-nvim-lsp")
+      (plugin "hrsh7th/cmp-buffer")
+      (plugin "hrsh7th/cmp-path")
+      (plugin "hrsh7th/cmp-cmdline")
+      (plugin "hrsh7th/cmp-vsnip")
+      (plugin "hrsh7th/vim-vsnip")
+
+      # neo-tree and deps
+      (plugin "nvim-neo-tree/neo-tree.nvim")
+      (plugin "nvim-lua/plenary.nvim")
+      (plugin "nvim-tree/nvim-web-devicons")
+      (plugin "MunifTanjim/nui.nvim")
+
+      # to explore more
+      (plugin "iamcco/markdown-preview.nvim")
+      (plugin "sindrets/diffview.nvim")
+      (plugin "windwp/nvim-autopairs")
+      (plugin "mhartington/formatter.nvim")
+      (plugin "folke/todo-comments.nvim")
+      (plugin "petertriho/nvim-scrollbar")
     ];
   };
 }
