@@ -1,10 +1,6 @@
 { pkgs, ... }:
 
 {
-  home.shellAliases = {
-    rg = "rga";
-  };
-
   programs = {
 
     btop.enable = true;
@@ -13,7 +9,6 @@
 
     ripgrep = {
       enable = true;
-      package = pkgs.ripgrep-all;
     };
 
     waybar = {
