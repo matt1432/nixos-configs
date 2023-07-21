@@ -108,7 +108,6 @@
     hyprpaper
     networkmanagerapplet
     nextcloud-client
-    galaxy-buds-client
     swaynotificationcenter
     swayidle
     wl-clipboard
