@@ -52,7 +52,7 @@
   :monitor 0
   :stacking "overlay"
   :geometry (geometry :x "70px"
-                      :y "4px"
+                      :y "8px"
                       :width "0px" ; automatically generated
                       :height "0px" ; automatically generated
                       :anchor "top right")

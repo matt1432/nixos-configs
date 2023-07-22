@@ -14,6 +14,6 @@ done
 for element in "${array[@]}"
 do
 	if [[ "$element" != "tablet-toggle" ]]; then
-		$EWW_PATH/close.sh "$element"
+		"$EWW_PATH"/close.sh "$element"
 	fi
 done
