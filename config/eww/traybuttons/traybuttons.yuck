@@ -1,78 +1,85 @@
-(defvar osk-toggle-state false)
-
+(defvar osk-ts false)
 (defwidget osk-toggle []
-  (eventbox :class {osk-toggle-state ? "toggle-on" : "toggle-off"}
+  (eventbox :class {osk-ts ? "toggle-on" : "toggle-off"}
             :onclick "$HYPR_PATH/osk-toggle.sh toggle &"
     (box  :class "osk-toggle"
-          :space-evenly true
-          :spacing 6
           :orientation "h"
       (label :text " 󰌌 ")
     )
   )
 )
 
-(defwindow osk-toggle
-  :monitor 0
-  :stacking "overlay"
-  :exclusive "ignore"
-  :geometry (geometry :x "10px"
-                      :y "9px"
-                      :width "0px"
-                      :height "0px"
-                      :anchor "top left"
-            )
-  (osk-toggle)
-)
-
-
-
-(defvar toggle-state false)
-
+(defvar tablet-ts false)
 (defwidget tablet-toggle []
-  (eventbox :class {toggle-state ? "toggle-on" : "toggle-off"}
-            :onclick {toggle-state ? "$HYPR_PATH/laptop-mode.sh &" : 
-                                     "$HYPR_PATH/tablet-mode.sh &"}
+  (eventbox :class {tablet-ts ? "toggle-on" : "toggle-off"}
+            :onclick {tablet-ts ? "$HYPR_PATH/laptop-mode.sh &" : 
+                                  "$HYPR_PATH/tablet-mode.sh &"}
     (box   :class "tablet-toggle"
-           :space-evenly true
-           :spacing 6
            :orientation "h"
       (label :text " 󰦧 ")
     )
   )
 )
 
-(defwindow tablet-toggle
+(defvar heart-ts true)
+(defvar heart-icon "󰣐")
+(defwidget heart-toggle []
+  (eventbox :class {heart-ts ? "toggle-on" : "toggle-off"}
+            :onclick {heart-ts ? "eww update heart-icon= ; eww update heart-ts=false" :
+                                 "eww update heart-icon=󰣐 ; eww update heart-ts=true"}
+    (box :class "heart-toggle"
+         :orientation "h"
+      (label :text " ${heart-icon} ")
+    )
+  )
+)
+
+(defwidget left-bar []
+  (box  :class "transparent"
+        :space-evenly true
+        :spacing 14
+        :orientation "h"
+    (osk-toggle)
+    (tablet-toggle)
+    (heart-toggle)
+  )
+)
+(defwindow left-bar
   :monitor 0
   :stacking "overlay"
   :exclusive "ignore"
-  :geometry (geometry :x "72px"
-                      :y "9px"
+  :geometry (geometry :x "10px"
+                      :y "11px"
                       :width "0px"
                       :height "0px"
                       :anchor "top left"
             )
-  (tablet-toggle)
+  (left-bar)
 )
 
 
 
 (defvar notif-panel-state false)
-
 (defwidget notif-panel []
   (button :class {notif-panel-state ? "toggle-on" : "toggle-off"}
           :onclick {notif-panel-state ? "swaync-client -cp; eww update notif-panel-state=false" : 
                                         "swaync-client -op; eww update notif-panel-state=true"}
     (box :class "notif-panel"
-         :space-evenly true
-         :spacing 6
          :orientation "h"
       (label :text " ${notif_icon} ")
     )
   )
 )
 
-(defwindow notif-panel
+(defwidget right-bar []
+  (box  :class "transparent"
+        :space-evenly true
+        :spacing 14
+        :orientation "h"
+    (notif-panel)
+  )
+)
+(defwindow right-bar
   :monitor 0
   :stacking "overlay"
   :exclusive "ignore"
@@ -82,5 +89,5 @@
                       :height "0px"
                       :anchor "top right"
             )
-  (notif-panel)
+  (right-bar)
 )

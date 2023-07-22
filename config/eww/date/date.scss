@@ -28,7 +28,7 @@
 .cal-box {
   font-family: Product Sans;
   background-color: rgba(40, 42, 54, 0.8);
-  border-radius: 15px;
+  border-radius: 30px;
   padding: 0 1rem .2rem;
   color: $fg;
   background-color: $bg;
@@ -40,6 +40,7 @@
     background-color: inherit;
     padding: .5rem .10rem 0rem;
     margin-left: 10px;
+    border-radius: 30px;
 
     & > * {
       border: solid 0px transparent;

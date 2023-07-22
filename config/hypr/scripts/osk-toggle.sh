@@ -3,10 +3,10 @@
 state () {
     if [[ $(busctl get-property --user sm.puri.OSK0 /sm/puri/OSK0 sm.puri.OSK0 Visible) == "b true" ]]; then
         echo "Running"
-        eww update osk-toggle-state=true
+        eww update osk-ts=true
     else
         echo "Stopped"
-        eww update osk-toggle-state=false
+        eww update osk-ts=false
     fi
 }
                                                 
@@ -14,11 +14,11 @@ toggle () {
     if [[ $(busctl get-property --user sm.puri.OSK0 /sm/puri/OSK0 sm.puri.OSK0 Visible) == "b true" ]]; then
         echo "Running"
         busctl call --user sm.puri.OSK0 /sm/puri/OSK0 sm.puri.OSK0 SetVisible b false
-        eww update osk-toggle-state=false
+        eww update osk-ts=false
     else
         echo "Stopped"
         busctl call --user sm.puri.OSK0 /sm/puri/OSK0 sm.puri.OSK0 SetVisible b true
-        eww update osk-toggle-state=true
+        eww update osk-ts=true
     fi
 }
 

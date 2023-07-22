@@ -1,20 +1,29 @@
 .osk-toggle {
   font-size: 30px;
-  min-height: 26px;
+  min-height: 38px;
   min-width: 50px;
   padding: 0px 0px 0px 5px;
 }
 
-.notif-panel {
-  min-width: 50px;
-  min-height: 26px;
-  font-size: 20px;
-  padding: 2px 25px 2px 35px;
-}
-
 .tablet-toggle {
   font-size: 26px;
-  padding: 2px 13px 2px 16px;
+  min-height: 38px;
+  min-width: 50px;
+  padding: 0px 0px 0px 5px;
+}
+
+.heart-toggle {
+  font-size: 24px;
+  min-height: 38px;
+  min-width: 50px;
+  padding: 0px 0px 0px 4px;
+}
+
+.notif-panel {
+  font-size: 20px;
+  min-height: 34px;
+  min-width: 105px;
+  padding: 0px 0px 0px 5px;
 }
 
 .toggle-off {

@@ -7,4 +7,4 @@ brightnessctl -d tpacpi::kbd_backlight s 2
 killall -r autorotate.sh
 killall -r evtest
 
-eww update toggle-state=false
+eww update tablet-ts=false

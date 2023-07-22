@@ -13,7 +13,7 @@ done
 # Close every window except permanent ones
 for element in "${array[@]}"
 do
-	if [[ "$element" != "tablet-toggle" ]]; then
+	if [[ "$element" != "left-bar" && "$element" != "right-bar" ]]; then
 		"$EWW_PATH"/close.sh "$element"
 	fi
 done
