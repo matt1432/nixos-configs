@@ -14,7 +14,7 @@
   "fit-to-screen": false,
 
   "layer": "top",
-  "control-center-layer": "top",
+  "control-center-layer": "overlay",
   "cssPriority": "user",
   "notification-icon-size": 64,
   "notification-body-image-height": 300,
