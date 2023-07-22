@@ -2,7 +2,7 @@
 
 WINDOW="$1"
 (
-eww update $WINDOW-visible=false
+eww update "$WINDOW"-visible=false
 sleep .55
-eww close $WINDOW-reveal
+eww close "$WINDOW"-reveal
 ) &

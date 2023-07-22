@@ -1,4 +1,5 @@
 (deflisten notif_icon "$EWW_PATH/notif.sh icon")
+(deflisten heart_icon "tail -f $HOME/.config/.heart")
 
 (defpoll volume_icon :interval "1s" "$EWW_PATH/volume.sh icon")
 (defpoll volume :interval "1s" "$EWW_PATH/volume.sh percentage")

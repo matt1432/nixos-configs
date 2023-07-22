@@ -21,15 +21,12 @@
   )
 )
 
-(defvar heart-ts true)
-(defvar heart-icon "󰣐")
 (defwidget heart-toggle []
-  (eventbox :class {heart-ts ? "toggle-on" : "toggle-off"}
-            :onclick {heart-ts ? "eww update heart-icon= ; eww update heart-ts=false" :
-                                 "eww update heart-icon=󰣐 ; eww update heart-ts=true"}
+  (eventbox :class {heart_icon == "󰣐" ? "toggle-on" : "toggle-off"}
+            :onclick "$EWW_PATH/heart.sh toggle"
     (box :class "heart-toggle"
          :orientation "h"
-      (label :text " ${heart-icon} ")
+      (label :text " ${heart_icon} ")
     )
   )
 )
@@ -57,6 +54,9 @@
   (left-bar)
 )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; 
 
 
 (defvar notif-panel-state false)
