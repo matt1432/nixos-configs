@@ -6,3 +6,6 @@ set smartindent
 
 set number
 set relativenumber
+
+set undofile
+set undodir=/home/matt/.cache/nvim/
