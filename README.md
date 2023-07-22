@@ -1,5 +1,6 @@
 what is currently not working:
-- gdm thinks i tried to login when pressing on the user
+- plymouth theme has no login prompt
+- sddm theme flashes white
 
 what i want to do:
 - learn flakes
