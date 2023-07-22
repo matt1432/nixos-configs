@@ -23,7 +23,7 @@
 
 (defwidget heart-toggle []
   (eventbox :class {heart_icon == "󰣐" ? "toggle-on" : "toggle-off"}
-            :onclick "$EWW_PATH/heart.sh toggle"
+            :onclick "$EWW_PATH/heart.sh"
     (box :class "heart-toggle"
          :orientation "h"
       (label :text " ${heart_icon} ")
