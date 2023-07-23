@@ -1,7 +1,8 @@
 (defvar osk-ts false)
 (defwidget osk-toggle []
-  (button :class {osk-ts ? "toggle-on" : "toggle-off"}
+  (eventbox :class {osk-ts ? "toggle-on" : "toggle-off"}
           :onclick "$HYPR_PATH/osk-toggle.sh toggle &"
+          :cursor "pointer"
     
     (box  :class "osk-toggle"
           :orientation "h"
@@ -12,9 +13,11 @@
 
 (defvar tablet-ts false)
 (defwidget tablet-toggle []
-  (button :class {tablet-ts ? "toggle-on" : "toggle-off"}
+  (eventbox :class {tablet-ts ? "toggle-on" : "toggle-off"}
           :onclick {tablet-ts ? "$HYPR_PATH/laptop-mode.sh &" : 
                                 "$HYPR_PATH/tablet-mode.sh &"}
+          :cursor "pointer"
+    
     (box  :class "tablet-toggle"
           :orientation "h"
       (label :text " 󰦧 ")
@@ -23,8 +26,9 @@
 )
 
 (defwidget heart-toggle []
-  (button :class {heart_icon == "󰣐" ? "toggle-on" : "toggle-off"}
+  (eventbox :class {heart_icon == "󰣐" ? "toggle-on" : "toggle-off"}
           :onclick "$EWW_PATH/heart.sh"
+          :cursor "pointer"
     
     (box  :class "heart-toggle"
           :orientation "h"
@@ -60,8 +64,10 @@
 
 (defvar quick-settings-ts false)
 (defwidget quick-settings-toggle []
-  (button :class {quick-settings-ts ? "toggle-on" : "toggle-off"}
+  (eventbox :class {quick-settings-ts ? "toggle-on" : "toggle-off"}
           :onclick ""
+          :cursor "pointer"
+
     (box  :class "quick-settings-toggle"
           :orientation "h"
       (label  :text "  ")
@@ -83,7 +89,7 @@
 
 (defvar notif-panel-state false)
 (defwidget notif-panel []
-  (button :class {notif-panel-state ? "toggle-on" : "toggle-off"}
+  (eventbox :class {notif-panel-state ? "toggle-on" : "toggle-off"}
           :onclick {notif-panel-state ? "swaync-client -cp; eww update notif-panel-state=false" : 
                                         "swaync-client -op; eww update notif-panel-state=true"}
     (box  :class "notif-panel"
