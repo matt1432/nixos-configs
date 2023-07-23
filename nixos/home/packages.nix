@@ -25,6 +25,10 @@
       gdown
 
     ]) ++
+    (with nodePackages; [
+      undollar
+
+    ]) ++
     (with plasma5Packages; [
       polkit-kde-agent
       qtstyleplugin-kvantum
