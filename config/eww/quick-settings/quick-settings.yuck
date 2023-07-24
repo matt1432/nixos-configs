@@ -1,3 +1,5 @@
+(defvar showqs false)
+
 (defwidget quick-settings-smol []
   (box  :class "quick-settings-smol"
         :orientation "h"
@@ -14,13 +16,17 @@
                       :height "0px"
                       :anchor "top right"
             )
-  (quick-settings-smol)
+  (revealer
+      :transition "crossfade"
+      :reveal showqs
+      :duration "550ms"
+    (quick-settings-smol)
+  )
 )
-
 
 (defwidget quick-settings-logo []
   (eventbox :class "quick-settings-logo"
-            :onclick "eww close quick-settings-smol; eww close quick-settings-logo"
+            :onclick "eww close quick-settings-smol; eww close quick-settings-logo; eww close quick-settings; eww update showqs=false"
             :cursor "pointer"
 
     (box  :class "quick-settings-logo"
@@ -39,5 +45,33 @@
                       :height "0px"
                       :anchor "top right"
             )
-  (quick-settings-logo)
+  (revealer
+      :transition "crossfade"
+      :reveal showqs
+      :duration "550ms"
+    (quick-settings-logo)
+  )
+)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defwidget quick-settings []
+  (box :class "quick-settings"
+       :orientation "h"
+  )
+)
+(defwindow quick-settings 
+  :monitor 0
+  :stacking "overlay"
+  :geometry (geometry :x "5px"
+                      :y "7px"
+                      :width "0px"
+                      :height "0px"
+                      :anchor "top right"
+            )
+  (revealer
+      :transition "crossfade"
+      :reveal showqs
+      :duration "550ms"
+    (quick-settings)
+  )
 )
