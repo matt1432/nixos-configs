@@ -1,5 +1,5 @@
 .date {
-  background-color: rgba(40, 42, 54, 0.8);
+  background-color: $bg;
   color: $fg;
   border-radius: 30px;
   border: 2px solid $contrastbg;
@@ -27,11 +27,11 @@
 
 .cal-box {
   font-family: Product Sans;
-  background-color: rgba(40, 42, 54, 0.8);
+  background-color: $bg;
   border-radius: 30px;
   padding: 0 1rem .2rem;
   color: $fg;
-  background-color: $bg;
+  background-color: $bgfull;
   border-bottom: 2px solid $contrastbg;
   border-top: 2px solid $contrastbg;
   margin: 0px 12px 18px 12px;
