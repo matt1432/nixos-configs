@@ -1,0 +1,43 @@
+(defwidget quick-settings-smol []
+  (box  :class "quick-settings-smol"
+        :orientation "h"
+    (label  :text "  ")
+  )
+)
+(defwindow quick-settings-smol
+  :monitor 0
+  :stacking "overlay"
+  :exclusive "ignore"
+  :geometry (geometry :x "5px"
+                      :y "10px"
+                      :width "0px"
+                      :height "0px"
+                      :anchor "top right"
+            )
+  (quick-settings-smol)
+)
+
+
+(defwidget quick-settings-logo []
+  (eventbox :class "quick-settings-logo"
+            :onclick "eww close quick-settings-smol; eww close quick-settings-logo"
+            :cursor "pointer"
+
+    (box  :class "quick-settings-logo"
+          :orientation "h"
+      (label  :text "  ")
+    )
+  )
+)
+(defwindow quick-settings-logo
+  :monitor 0
+  :stacking "overlay"
+  :exclusive "ignore"
+  :geometry (geometry :x "5px"
+                      :y "10px"
+                      :width "0px"
+                      :height "0px"
+                      :anchor "top right"
+            )
+  (quick-settings-logo)
+)
