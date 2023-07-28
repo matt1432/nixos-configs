@@ -177,7 +177,7 @@
       };*/
     };
 
-    fonts = with pkgs; [
+    packages = with pkgs; [
       (nerdfonts.override { fonts = [ "JetBrainsMono" "Go-Mono" "Iosevka" "NerdFontsSymbolsOnly" "SpaceMono" "Ubuntu" ]; })
       noto-fonts
       noto-fonts-cjk
