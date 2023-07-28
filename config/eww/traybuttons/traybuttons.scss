@@ -35,7 +35,7 @@
 
 .toggle-off {
   background-color: $bg;
-  transition: border-color 0.5s ease-in-out;
+  //transition: border-color 0.5s ease-in-out;
   color: #CBA6F7;
   border-radius: 80px;
   border: 2px solid #1b1b2b;
@@ -48,7 +48,7 @@
 
 .toggle-on {
   background-color: $bg;
-  transition: border-color 0.5s ease-in-out;
+  //transition: border-color 0.5s ease-in-out;
   color: #CBA6F7;
   border-radius: 80px;
   border: 2px solid $contrastbg;

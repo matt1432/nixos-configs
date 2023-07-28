@@ -2,15 +2,43 @@
 ;; On-Screen Keyboard Toggle
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defvar osk-ts false)
-(defwidget osk-toggle []
-  (eventbox :class {osk-ts ? "toggle-on" : "toggle-off"}
-          :onclick "$HYPR_PATH/osk-toggle.sh toggle &"
-          :cursor "pointer"
+(defwidget osk-toggle-on []
+  (eventbox :class "toggle-on"
+            :onclick "$HYPR_PATH/osk-toggle.sh toggle &"
+            :cursor "pointer"
     
     (box  :class "osk-toggle"
           :orientation "h"
       (label :text " 󰌌 ")
     )
+  )
+)
+(defwidget osk-toggle-off []
+  (eventbox :class "toggle-off"
+            :onclick "$HYPR_PATH/osk-toggle.sh toggle &"
+            :cursor "pointer"
+    
+    (box  :class "osk-toggle"
+          :orientation "h"
+      (label :text " 󰌌 ")
+    )
+  )
+)
+(defwindow osk
+  :monitor 0
+  :stacking "overlay"
+  :exclusive "ignore"
+  :geometry (geometry :x "5px"
+                      :y "10px"
+                      :width "0px"
+                      :height "0px"
+                      :anchor "top left"
+            )
+  (revealer
+      :transition "crossfade"
+      :reveal osk-ts
+      :duration "550ms"
+    (osk-toggle-on)
   )
 )
 
@@ -34,8 +62,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Heart Toggle
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defwidget heart-toggle []
-  (eventbox :class {heart_icon == "󰣐" ? "toggle-on" : "toggle-off"}
+(defvar heart-ts "default")
+(defwidget heart-toggle-on []
+  (eventbox :class "toggle-on"
             :onclick "$EWW_PATH/heart.sh"
             :cursor "pointer"
     
@@ -43,6 +72,34 @@
           :orientation "h"
       (label :text " ${heart_icon} ")
     )
+  )
+)
+(defwidget heart-toggle-off []
+  (eventbox :class "toggle-off"
+            :onclick "$EWW_PATH/heart.sh"
+            :cursor "pointer"
+    
+    (box  :class "heart-toggle"
+          :orientation "h"
+      (label :text " ${heart_icon} ")
+    )
+  )
+)
+(defwindow heart
+  :monitor 0
+  :stacking "overlay"
+  :exclusive "ignore"
+  :geometry (geometry :x "140px"
+                      :y "10px"
+                      :width "0px"
+                      :height "0px"
+                      :anchor "top left"
+            )
+  (revealer
+      :transition "crossfade"
+      :reveal heart-ts
+      :duration "550ms"
+    (heart-toggle-on)
   )
 )
 
@@ -54,9 +111,9 @@
         :space-evenly true
         :spacing 12
         :orientation "h"
-    (osk-toggle)
+    (osk-toggle-off)
     (tablet-toggle)
-    (heart-toggle)
+    (heart-toggle-off)
   )
 )
 (defwindow left-bar
