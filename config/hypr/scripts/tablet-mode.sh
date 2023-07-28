@@ -13,4 +13,5 @@ evtest --grab "/dev/input/by-path/platform-AMDI0010:02-event-mouse" &
 evtest --grab "/dev/input/by-path/platform-thinkpad_acpi-event" &
 evtest --grab "/dev/video-bus" &
 
+eww open tablet
 eww update tablet-ts=true

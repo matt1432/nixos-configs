@@ -46,16 +46,43 @@
 ;; Tablet Mode Toggle
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defvar tablet-ts false)
-(defwidget tablet-toggle []
-  (eventbox :class {tablet-ts ? "toggle-on" : "toggle-off"}
-            :onclick {tablet-ts ? "$HYPR_PATH/laptop-mode.sh &" : 
-                                  "$HYPR_PATH/tablet-mode.sh &"}
+(defwidget tablet-toggle-on []
+  (eventbox :class "toggle-on"
+            :onclick "$HYPR_PATH/laptop-mode.sh &"
             :cursor "pointer"
     
     (box  :class "tablet-toggle"
           :orientation "h"
       (label :text " 󰦧 ")
     )
+  )
+)
+(defwidget tablet-toggle-off []
+  (eventbox :class "toggle-off"
+            :onclick "$HYPR_PATH/tablet-mode.sh &"
+            :cursor "pointer"
+    
+    (box  :class "tablet-toggle"
+          :orientation "h"
+      (label :text " 󰦧 ")
+    )
+  )
+)
+(defwindow tablet
+  :monitor 0
+  :stacking "overlay"
+  :exclusive "ignore"
+  :geometry (geometry :x "72px"
+                      :y "10px"
+                      :width "0px"
+                      :height "0px"
+                      :anchor "top left"
+            )
+  (revealer
+      :transition "crossfade"
+      :reveal tablet-ts
+      :duration "550ms"
+    (tablet-toggle-on)
   )
 )
 
@@ -112,7 +139,7 @@
         :spacing 12
         :orientation "h"
     (osk-toggle-off)
-    (tablet-toggle)
+    (tablet-toggle-off)
     (heart-toggle-off)
   )
 )
