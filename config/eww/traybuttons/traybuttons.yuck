@@ -161,10 +161,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defwidget quick-settings-toggle []
   (eventbox :class "toggle-off"
-            :onclick "eww open quick-settings;
-                      eww open quick-settings-smol;
-                      eww open quick-settings-logo;
-                      eww update showqs=true"
+            :onclick "$EWW_PATH/qs-toggle.sh on"
 
             :cursor "pointer"
 

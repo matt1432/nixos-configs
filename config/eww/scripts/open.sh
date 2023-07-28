@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+eww open closer &&
 
 WINDOW="$1"
 

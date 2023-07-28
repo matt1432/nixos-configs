@@ -6,7 +6,7 @@
     (label  :text "  ")
   )
 )
-(defwindow quick-settings-smol
+(defwindow quick-settings-smol-reveal
   :monitor 0
   :stacking "overlay"
   :exclusive "ignore"
@@ -26,7 +26,7 @@
 
 (defwidget quick-settings-logo []
   (eventbox :class "quick-settings-logo"
-            :onclick "eww close quick-settings-smol; eww close quick-settings-logo; eww close quick-settings; eww update showqs=false"
+            :onclick "$EWW_PATH/qs-toggle.sh off"
             :cursor "pointer"
 
     (box  :class "quick-settings-logo"
@@ -35,7 +35,7 @@
     )
   )
 )
-(defwindow quick-settings-logo
+(defwindow quick-settings-logo-reveal
   :monitor 0
   :stacking "overlay"
   :exclusive "ignore"
@@ -59,7 +59,7 @@
        :orientation "h"
   )
 )
-(defwindow quick-settings 
+(defwindow quick-settings-reveal
   :monitor 0
   :stacking "overlay"
   :geometry (geometry :x "5px"
