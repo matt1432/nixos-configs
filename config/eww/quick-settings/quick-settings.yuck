@@ -55,8 +55,189 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defwidget quick-settings []
-  (box :class "quick-settings"
-       :orientation "h"
+  (box  :class "quick-settings"
+        :orientation "v"
+        :space-evenly false
+    (label :text "Control Center"
+           :class "title"
+           :xalign 0.04
+    )
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ;; Button Grid
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    (box  :class "button-grid"
+          :orientation "v"
+          :valign "start"
+          :width 0
+          :height 0
+          :halign "center"
+          :space-evenly true
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      ;; Row ONE
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      (box  :class "button-row"
+            :orientation "h"
+            :space-evenly true
+            :width 0
+            :height 0
+            :halign "center"
+        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        (box  :class "grid-button"
+              :orientation "h"
+              :space-evenly false
+              :width 0
+              :height 0
+
+          (eventbox :class "left-part"
+                    :cursor "pointer"
+            (label  :text " 󰖩 "
+                    :class "grid-label"
+            )
+          )
+          (eventbox :class "right-part"
+                    :cursor "pointer"
+            (label  :text " " :class "grid-chev")
+          )
+        )
+        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        (box  :class "grid-button"
+              :orientation "h"
+              :space-evenly false
+              :width 0
+              :height 0
+
+          (eventbox :class "left-part"
+                    :cursor "pointer"
+            (label  :text " 󰖩 "
+                    :class "grid-label"
+            )
+          )
+          (eventbox :class "right-part"
+                    :cursor "pointer"
+            (label  :text " " :class "grid-chev")
+          )
+        )
+        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        (box  :class "grid-button"
+              :orientation "h"
+              :space-evenly false
+              :width 0
+              :height 0
+
+          (eventbox :class "left-part"
+                    :cursor "pointer"
+            (label  :text " 󰖩 "
+                    :class "grid-label"
+            )
+          )
+          (eventbox :class "right-part"
+                    :cursor "pointer"
+            (label  :text " " :class "grid-chev")
+          )
+        )
+        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        (box  :class "grid-button"
+              :orientation "h"
+              :space-evenly false
+              :width 0
+              :height 0
+
+          (eventbox :class "left-part"
+                    :cursor "pointer"
+            (label  :text " 󰖩 "
+                    :class "grid-label"
+            )
+          )
+          (eventbox :class "right-part"
+                    :cursor "pointer"
+            (label  :text " " :class "grid-chev")
+          )
+        )
+      )
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      ;; Row TWO
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      (box  :class "button-row"
+            :orientation "h"
+            :space-evenly true
+            :width 0
+            :height 0
+            :halign "center"
+        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        (box  :class "grid-button"
+              :orientation "h"
+              :space-evenly false
+              :width 0
+              :height 0
+
+          (eventbox :class "left-part"
+                    :cursor "pointer"
+            (label  :text " 󰖩 "
+                    :class "grid-label"
+            )
+          )
+          (eventbox :class "right-part"
+                    :cursor "pointer"
+            (label  :text " " :class "grid-chev")
+          )
+        )
+        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        (box  :class "grid-button"
+              :orientation "h"
+              :space-evenly false
+              :width 0
+              :height 0
+
+          (eventbox :class "left-part"
+                    :cursor "pointer"
+            (label  :text " 󰖩 "
+                    :class "grid-label"
+            )
+          )
+          (eventbox :class "right-part"
+                    :cursor "pointer"
+            (label  :text " " :class "grid-chev")
+          )
+        )
+        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        (box  :class "grid-button"
+              :orientation "h"
+              :space-evenly false
+              :width 0
+              :height 0
+
+          (eventbox :class "left-part"
+                    :cursor "pointer"
+            (label  :text " 󰖩 "
+                    :class "grid-label"
+            )
+          )
+          (eventbox :class "right-part"
+                    :cursor "pointer"
+            (label  :text " " :class "grid-chev")
+          )
+        )
+        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        (box  :class "grid-button"
+              :orientation "h"
+              :space-evenly false
+              :width 0
+              :height 0
+
+          (eventbox :class "left-part"
+                    :cursor "pointer"
+            (label  :text " 󰖩 "
+                    :class "grid-label"
+            )
+          )
+          (eventbox :class "right-part"
+                    :cursor "pointer"
+            (label  :text " " :class "grid-chev")
+          )
+        )
+        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      )
+    )
   )
 )
 (defwindow quick-settings-reveal
