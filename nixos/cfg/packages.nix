@@ -24,10 +24,10 @@
           (builtins.getFlake "github:hyprwm/Hyprland").packages.x86_64-linux.default
         ];
         defaultSession = "hyprland";
-        #autoLogin = { # logs out after a minute
-        #  enable = true;
-        #  user = "matt";
-        #};
+        autoLogin = { # logs out after a minute
+          enable = true;
+          user = "matt";
+        };
       };
       libinput.enable = true;
     };
