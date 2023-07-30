@@ -81,6 +81,8 @@
             :width 0
             :height 0
             :halign "center"
+            :style "margin-top: 15px;
+                    margin-bottom: 7px"
         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
         (box  :class "grid-button"
               :orientation "h"
@@ -90,7 +92,29 @@
 
           (eventbox :class "left-part"
                     :cursor "pointer"
+                    :onclick "notify-send 'set this up moron'"
+
             (label  :text " 󰖩 "
+                    :class "grid-label"
+            )
+          )
+          (eventbox :class "right-part"
+                    :cursor "pointer"
+                    :onclick "nm-connection-editor &"
+
+            (label  :text " " :class "grid-chev")
+          )
+        )
+        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        (box  :class "grid-button"
+              :orientation "h"
+              :space-evenly false
+              :width 0
+              :height 0
+
+          (eventbox :class "left-part"
+                    :cursor "pointer"
+            (label  :text " 󰂯 "
                     :class "grid-label"
             )
           )
@@ -108,43 +132,7 @@
 
           (eventbox :class "left-part"
                     :cursor "pointer"
-            (label  :text " 󰖩 "
-                    :class "grid-label"
-            )
-          )
-          (eventbox :class "right-part"
-                    :cursor "pointer"
-            (label  :text " " :class "grid-chev")
-          )
-        )
-        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-        (box  :class "grid-button"
-              :orientation "h"
-              :space-evenly false
-              :width 0
-              :height 0
-
-          (eventbox :class "left-part"
-                    :cursor "pointer"
-            (label  :text " 󰖩 "
-                    :class "grid-label"
-            )
-          )
-          (eventbox :class "right-part"
-                    :cursor "pointer"
-            (label  :text " " :class "grid-chev")
-          )
-        )
-        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-        (box  :class "grid-button"
-              :orientation "h"
-              :space-evenly false
-              :width 0
-              :height 0
-
-          (eventbox :class "left-part"
-                    :cursor "pointer"
-            (label  :text " 󰖩 "
+            (label  :text " 󰌾 "
                     :class "grid-label"
             )
           )
@@ -163,6 +151,8 @@
             :width 0
             :height 0
             :halign "center"
+            :style "margin-top: 7px;
+                    margin-bottom: 15px;"
         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
         (box  :class "grid-button"
               :orientation "h"
@@ -172,7 +162,7 @@
 
           (eventbox :class "left-part"
                     :cursor "pointer"
-            (label  :text " 󰖩 "
+            (label  :text " 󰕾 "
                     :class "grid-label"
             )
           )
@@ -190,7 +180,7 @@
 
           (eventbox :class "left-part"
                     :cursor "pointer"
-            (label  :text " 󰖩 "
+            (label  :text " 󰍬 "
                     :class "grid-label"
             )
           )
@@ -208,7 +198,7 @@
 
           (eventbox :class "left-part"
                     :cursor "pointer"
-            (label  :text " 󰖩 "
+            (label  :text " 󰍃 "
                     :class "grid-label"
             )
           )
@@ -218,24 +208,49 @@
           )
         )
         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-        (box  :class "grid-button"
-              :orientation "h"
-              :space-evenly false
-              :width 0
-              :height 0
+      )
+    )
+    (box  :class "slider-box"
+          :orientation "v"
+          :space-evenly true
+          :spacing 0
+          :width 0
+          :height 0
+          :halign "center"
 
-          (eventbox :class "left-part"
-                    :cursor "pointer"
-            (label  :text " 󰖩 "
-                    :class "grid-label"
-            )
-          )
-          (eventbox :class "right-part"
-                    :cursor "pointer"
-            (label  :text " " :class "grid-chev")
-          )
+      (box  :class "slider"
+            :orientation "h"
+            :valign "start"
+            :halign "center"
+            :width 0
+            :height 0
+            :space-evenly false
+        
+        (label  :text "󰕾 " :class "slider-label")
+        
+        (scale  :value 0
+                :min 0
+                :max 101
+                :height 0
+                :width 0
         )
-        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      )
+      (box  :class "slider"
+            :orientation "h"
+            :valign "start"
+            :halign "center"
+            :width 0
+            :height 0
+            :space-evenly false
+        
+        (label  :text "󰃟 " :class "slider-label")
+        
+        (scale  :value 0
+                :min 0
+                :max 101
+                :height 0
+                :width 0
+        )
       )
     )
   )

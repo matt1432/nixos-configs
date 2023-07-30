@@ -10,13 +10,10 @@ on () {
 }
 
 off () {
-  (
   eww update showqs=false
-  sleep .55
   eww close quick-settings-reveal
   eww close quick-settings-smol-reveal
   eww close quick-settings-logo-reveal
-  )
 }
 
 [[ "$1" == "on" ]] && on
