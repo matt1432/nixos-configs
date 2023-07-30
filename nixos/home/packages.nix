@@ -72,6 +72,7 @@
     swayosd
     blueberry
     libayatana-appindicator
+    libnotify
     dracula-theme
     dracula-icon-theme
     steam-run
