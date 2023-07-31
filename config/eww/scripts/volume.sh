@@ -23,12 +23,11 @@ percentage () {
 }
 
 is_muted () {
-  pacmd list-sinks | awk '/muted/ { print $2 }'
+  pactl get-sink-mute $SINK | awk '{print $2}'
 }
 
 get_percentage () {
-  local muted=$(is_muted)
-  if [[ $muted == 'yes' ]]; then
+  if [[ $(is_muted) == 'yes' ]]; then
     echo 0%
   else
     vol=$(pactl get-sink-volume @DEFAULT_SINK@ | grep Volume | awk '{print $5}' | tr % " ")
@@ -39,7 +38,7 @@ get_percentage () {
 get_icon () {
   local vol=$(get_percentage)
   if [[ $vol == "0%" ]]; then
-    echo "婢"
+    echo " 婢"
   else
     echo $(percentage "$vol" "" "" "墳" "")
   fi
@@ -61,7 +60,10 @@ get_vol () {
 }
 
 if [[ $1 == "icon" ]]; then
-  get_icon
+  while true; do
+    sleep 0.2
+    get_icon
+  done
 fi
 
 if [[ $1 == "class" ]]; then

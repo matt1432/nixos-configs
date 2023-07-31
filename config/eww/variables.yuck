@@ -1,12 +1,12 @@
 (deflisten notif_icon "$EWW_PATH/notif.sh icon")
 (deflisten heart_icon "tail -f $HOME/.config/.heart")
 
-(defpoll volume_icon    :interval "1s"  "$EWW_PATH/volume.sh icon")
+(deflisten volume_icon "$EWW_PATH/volume.sh icon")
 (defpoll volume         :interval "1s"  "$EWW_PATH/volume.sh percentage")
 (defpoll volume_value   :interval "1s"  "$EWW_PATH/volume.sh vol")
 (defpoll is_muted       :interval "1s"  "$EWW_PATH/volume.sh muted")
 
-(defpoll br_icon        :interval "1s"  "$EWW_PATH/brightness.sh icon")
+(deflisten br_icon "$EWW_PATH/brightness.sh icon")
 (defpoll br             :interval "1s"  "$EWW_PATH/brightness.sh br")
 
 (defpoll completeday    :interval "1h"  "date '+%A, %d %B'")

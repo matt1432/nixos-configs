@@ -92,7 +92,7 @@
 
           (eventbox :class "left-part"
                     :cursor "pointer"
-                    :onclick "notify-send 'set this up moron'"
+                    :onclick "rfkill toggle wlan"
 
             (label  :text " 󰖩 "
                     :class "grid-label"
@@ -114,12 +114,16 @@
 
           (eventbox :class "left-part"
                     :cursor "pointer"
+                    :onclick "rfkill toggle bluetooth"
+
             (label  :text " 󰂯 "
                     :class "grid-label"
             )
           )
           (eventbox :class "right-part"
                     :cursor "pointer"
+                    :onclick "blueberry &"
+
             (label  :text " " :class "grid-chev")
           )
         )
@@ -132,13 +136,19 @@
 
           (eventbox :class "left-part"
                     :cursor "pointer"
+                    :onclick "notify-send 'set this up moron'"
+
             (label  :text " 󰌾 "
                     :class "grid-label"
             )
           )
           (eventbox :class "right-part"
                     :cursor "pointer"
-            (label  :text " " :class "grid-chev")
+                    :onclick "notify-send 'set this up moron'"
+
+            (label  :text " " 
+                    :class "grid-chev"
+            )
           )
         )
       )
@@ -162,12 +172,16 @@
 
           (eventbox :class "left-part"
                     :cursor "pointer"
-            (label  :text " 󰕾 "
+                    :onclick "swayosd --output-volume mute-toggle"
+
+            (label  :text " ${volume_icon} "
                     :class "grid-label"
             )
           )
           (eventbox :class "right-part"
                     :cursor "pointer"
+                    :onclick "pavucontrol &"
+
             (label  :text " " :class "grid-chev")
           )
         )
@@ -180,12 +194,16 @@
 
           (eventbox :class "left-part"
                     :cursor "pointer"
+                    :onclick "swayosd --input-volume mute-toggle"
+
             (label  :text " 󰍬 "
                     :class "grid-label"
             )
           )
           (eventbox :class "right-part"
                     :cursor "pointer"
+                    :onclick "pavucontrol &"
+
             (label  :text " " :class "grid-chev")
           )
         )
@@ -198,12 +216,16 @@
 
           (eventbox :class "left-part"
                     :cursor "pointer"
+                    :onclick "notify-send 'set this up moron'"
+
             (label  :text " 󰍃 "
                     :class "grid-label"
             )
           )
           (eventbox :class "right-part"
                     :cursor "pointer"
+                    :onclick "notify-send 'set this up moron'"
+
             (label  :text " " :class "grid-chev")
           )
         )
@@ -226,9 +248,10 @@
             :height 0
             :space-evenly false
         
-        (label  :text "󰕾 " :class "slider-label")
+        (label  :text "${volume_icon}" :class "slider-label")
         
-        (scale  :value 0
+        (scale  :value volume_value
+                :onchange "$EWW_PATH/volume.sh set {}"
                 :min 0
                 :max 101
                 :height 0
@@ -243,9 +266,11 @@
             :height 0
             :space-evenly false
         
-        (label  :text "󰃟 " :class "slider-label")
+        (label  :text " ${br_icon} " :class "slider-label" :style "margin-left: 6px;
+                                                                   margin-right: -6px")
         
-        (scale  :value 0
+        (scale  :value br
+                :onchange "$EWW_PATH/brightness.sh set {}"
                 :min 0
                 :max 101
                 :height 0
@@ -253,6 +278,7 @@
         )
       )
     )
+    
   )
 )
 (defwindow quick-settings-reveal
