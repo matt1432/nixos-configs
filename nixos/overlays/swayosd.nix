@@ -4,8 +4,8 @@ final: prev: {
     src = prev.fetchFromGitHub {
       owner = "ErikReider";
       repo = "SwayOSD";
-      rev = "b14c83889c7860c174276d05dec6554169a681d9";
-      hash = "sha256-MJuTwEI599Y7q+0u0DMxRYaXsZfpksc2csgnK9Ghp/E=";
+      rev = "1add33d9ca7d9fa9be3cea39fd300e34ba3417c5";
+      hash = "sha256-+shokerDcB12RjWhJVCtM38HUOFxW3CNTRxsWbUnVTs=";
     };
     
     cargoDeps = oldAttrs.cargoDeps.overrideAttrs (prev.lib.const {
@@ -17,8 +17,10 @@ final: prev: {
 
     buildInputs = (oldAttrs.buildInputs or [ ]) ++ [
       prev.systemd
-      prev.libevdev
-      prev.libinput
+    ];
+
+    patches = [
+      ./patches/swayosd.patch
     ];
   });
 }
