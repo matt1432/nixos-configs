@@ -8,6 +8,7 @@ in
   xdg.configFile = {
     "swaync/config.json".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/swaync/config.json";
     "swaync/style.css".source   = config.lib.file.mkOutOfStoreSymlink "${configDir}/swaync/style.css";
+    "swayosd/style.css".source  = config.lib.file.mkOutOfStoreSymlink "${configDir}/swayosd/style.css";
   };
 
   programs = {
