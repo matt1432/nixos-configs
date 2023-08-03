@@ -2,7 +2,8 @@ diff --git a/data/meson.build b/data/meson.build
 index 1ceaa11..68decdf 100644
 --- a/data/meson.build
 +++ b/data/meson.build
-@@ -42,11 +42,7 @@ configure_file(
+@@ -42,11 +42,7 @@
+ configure_file(
  
  # Systemd service unit
  systemd = dependency('systemd', required: false)
