@@ -13,7 +13,8 @@
   "control-center-height": 1000,
   "fit-to-screen": false,
 
-  "layer": "top",
+  "layer-shell": true,
+  "layer": "overlay",
   "control-center-layer": "overlay",
   "cssPriority": "user",
   "notification-icon-size": 64,
@@ -32,10 +33,6 @@
   "script-fail-notify": true,
 
   "widgets": [
-    "label",
-    "buttons-grid",
-    "backlight",
-    "volume",
     "mpris",
     "title",
     "inhibitors",
@@ -43,14 +40,6 @@
     "notifications"
   ],
   "widget-config": {
-    "backlight": {
-      "label": "󰃟  ",
-      "device": "amdgpu_bl0",
-      "min": 10
-    },
-    "volume": {
-      "label": "󰕾  "
-    },
     "inhibitors": {
       "text": "Inhibitors",
       "button-text": "Clear All",
@@ -71,34 +60,6 @@
     "mpris": {
       "image-size": 96,
       "image-radius": 12
-    },
-    "buttons-grid": {
-      "actions": [
-        {
-          "label": "󰖩 ",
-          "command": "nm-connection-editor &"
-        },
-        {
-          "label": "󰂯",
-          "command": "blueberry &"
-        },
-        {
-          "label": "󰌾",
-          "command": "$HOME/.config/gtklock/scripts/lock.sh"
-        },
-        {
-          "label": "󰕾",
-          "command": "pavucontrol"
-        },
-        {
-          "label": "󰍬",
-          "command": "swayosd --input-volume mute-toggle"
-        },
-        {
-          "label": "󰍃",
-          "command": "swaync-client -cp; sleep 0.9; eww open closer; $EWW_PATH/open.sh powermenu"
-        }
-      ]
     }
   }
 }
