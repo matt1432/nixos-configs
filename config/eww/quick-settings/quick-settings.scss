@@ -31,7 +31,6 @@
 
 .quick-settings {
   font-size: 30px;
-  min-height: 1000px;
   min-width: 500px;
   padding: 0px 0px 0px 0px;
   background-color: $bg;
@@ -126,6 +125,7 @@
   border-bottom: 2px solid $contrastbg;
   border-radius: 15px;
   margin-top: 30px;
+  margin-bottom: 50px;
 
   .slider {
     margin-left: 10px;

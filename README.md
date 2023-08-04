@@ -6,6 +6,7 @@ what is currently not working:
 
 what i want to do:
 - learn flakes
+- add music widget in eww control center
 
 # Docs
 
