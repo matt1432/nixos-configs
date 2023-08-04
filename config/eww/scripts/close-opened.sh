@@ -7,13 +7,18 @@ readarray -t array <<< "$(eww windows | grep '^\*')"
 for ((i=0; i<${#array[@]}; i++))
 do
 	array[i]=${array[i]#'*'}
-	array[i]=${array[i]%-reveal}
 done
 
 # Close every window except permanent ones
 for element in "${array[@]}"
 do
-	if [[ "$element" != "left-bar" && "$element" != "right-bar" ]]; then
-		"$EWW_PATH"/close.sh "$element"
-	fi
+	[[ "$element" != "left-bar" ]] &&
+  [[ "$element" != "notif-panel" ]] &&
+  [[ "$element" != "notif-panel-on" ]] &&
+  [[ "$element" != "heart" ]] &&
+  [[ "$element" != "osk" ]] &&
+  [[ "$element" != "tablet" ]] &&
+  [[ "$element" != "quick-settings-toggle" ]] &&
+  #[[ "$element" != "" ]] &&
+	eww close "$element"
 done

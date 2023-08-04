@@ -4,7 +4,6 @@ state () {
   if [[ $(hyprctl layers | grep swaync-control-center) == "" ]]; then
     if [[ $(eww get notif-panel-state) == "true" ]]; then
       eww update notif-panel-state=false
-      eww reload
     fi
   fi
 }

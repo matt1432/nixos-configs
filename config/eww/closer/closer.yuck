@@ -1,9 +1,39 @@
 (defwidget closer []
-  (eventbox :onclick "$EWW_PATH/close-opened.sh && eww close closer"))
+  (eventbox :onclick "$EWW_PATH/close-opened.sh && eww close closer")
+)
+(defwindow closer :monitor 0
+                  :geometry (geometry :width "100%" 
+                                      :height "100%")
+                  :stacking "overlay"
+                  :focusable false
+  (closer :window "")
+)
 
-(defwindow closer
-  :monitor 0
-  :geometry (geometry :width "100%" :height "100%")
-  :stacking "overlay"
-  :focusable false
-  (closer :window ""))
+(defwidget closer-notif []
+  (eventbox :onclick "$EWW_PATH/notif-toggle.sh off")
+)
+(defwindow closer-notif1  :monitor 0
+                          :geometry (geometry :width "1412px"
+                                              :height "1200px")
+                          :stacking "overlay"
+                          :focusable false
+                          :exclusive "ignore"
+  (closer-notif)
+)
+(defwindow closer-notif2  :monitor 0
+                          :geometry (geometry :width "100%"
+                                              :height "200px"
+                                              :y "1063px")
+                          :stacking "overlay"
+                          :focusable false
+                          :exclusive "ignore"
+  (closer-notif)
+)
+(defwindow closer-notif3  :monitor 0
+                          :geometry (geometry :width "100%"
+                                              :height "63px")
+                          :stacking "overlay"
+                          :focusable false
+                          :exclusive "ignore"
+  (closer-notif)
+)
