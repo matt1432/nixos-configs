@@ -194,9 +194,9 @@
 
           (eventbox :class "left-part"
                     :cursor "pointer"
-                    :onclick "swayosd --input-volume mute-toggle"
+                    :onclick "$EWW_PATH/mic.sh toggle-muted"
 
-            (label  :text " 󰍬 "
+            (label  :text " ${mic_icon} "
                     :class "grid-label"
             )
           )

@@ -61,7 +61,7 @@ get_vol () {
 
 if [[ $1 == "icon" ]]; then
   while true; do
-    sleep 0.2
+    sleep 0.01
     get_icon
   done
 fi
