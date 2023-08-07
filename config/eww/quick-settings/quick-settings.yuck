@@ -71,7 +71,7 @@
           :width 0
           :height 0
           :halign "center"
-          :space-evenly true
+          :space-evenly false
       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       ;; Row ONE
       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -93,7 +93,6 @@
           (eventbox :class "left-part"
                     :cursor "pointer"
                     :onclick "rfkill toggle wlan"
-
             (label  :text " 󰖩 "
                     :class "grid-label"
             )
@@ -151,6 +150,38 @@
             )
           )
         )
+      )
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      ;; SUB ROW
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      (box  :orientation "h"
+            :space-evenly true
+            :spacing 54
+            :width 0
+            :height 0
+            :halign "center"
+
+            
+          (label  :text "${network_ssid}"
+                  :class "sub-label"
+                  :width 0
+                  :height 0
+                  :limit-width 10
+          )
+            
+          (label  :text "todo"
+                  :class "sub-label"
+                  :width 0
+                  :height 0
+                  :limit-width 10
+          )
+            
+          (label  :text ""
+                  :class ""
+                  :width 0
+                  :height 0
+                  :limit-width 10
+          )
       )
       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       ;; Row TWO

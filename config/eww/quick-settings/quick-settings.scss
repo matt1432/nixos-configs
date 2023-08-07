@@ -53,6 +53,21 @@
   min-width: 50px;
 }
 
+.sub-label {
+  font-size: 14px;
+  margin-top: -10px;
+  margin-left: -10px;
+  margin-bottom: 10px;
+  padding: 6px;
+  border: 2px solid $contrastbg;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 20px;
+  min-width: 90px;
+  background: #1b1b1b;
+}
+
 .grid-chev {
   margin-left: 0px;
 

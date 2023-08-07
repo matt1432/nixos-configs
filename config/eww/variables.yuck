@@ -2,6 +2,9 @@
 (deflisten heart_icon "tail -f $HOME/.config/.heart")
 (deflisten mic_icon   "$EWW_PATH/mic.sh icon")
 
+(deflisten network_ssid "zscroll -l 10 -u true \"$EWW_PATH/network.sh ssid\"")
+
+
 (deflisten volume_icon "$EWW_PATH/volume.sh icon")
 (defpoll volume         :interval "1s"  "$EWW_PATH/volume.sh percentage")
 (defpoll volume_value   :interval "1s"  "$EWW_PATH/volume.sh vol")
