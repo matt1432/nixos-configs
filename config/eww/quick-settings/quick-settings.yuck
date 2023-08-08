@@ -92,8 +92,8 @@
 
           (eventbox :class "left-part"
                     :cursor "pointer"
-                    :onclick "rfkill toggle wlan"
-            (label  :text " 󰖩 "
+                    :onclick "$EWW_PATH/network.sh toggle"
+            (label  :text " ${network_icon} "
                     :class "grid-label"
             )
           )
@@ -113,9 +113,9 @@
 
           (eventbox :class "left-part"
                     :cursor "pointer"
-                    :onclick "rfkill toggle bluetooth"
+                    :onclick "$EWW_PATH/bluetooth.sh toggle"
 
-            (label  :text " 󰂯 "
+            (label  :text " ${bluetooth_icon} "
                     :class "grid-label"
             )
           )
@@ -156,7 +156,7 @@
       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       (box  :orientation "h"
             :space-evenly true
-            :spacing 54
+            :spacing 60
             :width 0
             :height 0
             :halign "center"
@@ -169,7 +169,7 @@
                   :limit-width 10
           )
             
-          (label  :text "todo"
+          (label  :text "${bluetooth_dev}"
                   :class "sub-label"
                   :width 0
                   :height 0
