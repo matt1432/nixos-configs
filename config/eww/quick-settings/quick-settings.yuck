@@ -135,9 +135,9 @@
 
           (eventbox :class "left-part"
                     :cursor "pointer"
-                    :onclick "notify-send 'set this up moron'"
+                    :onclick "$EWW_PATH/network.sh toggle-radio"
 
-            (label  :text " 󰌾 "
+            (label  :text "${network_radio == 'on' ? '󰀝 ' : '󱡻 '}"
                     :class "grid-label"
             )
           )
@@ -247,15 +247,15 @@
 
           (eventbox :class "left-part"
                     :cursor "pointer"
-                    :onclick "notify-send 'set this up moron'"
+                    :onclick "$HOME/.config/gtklock/scripts/lock.sh &"
 
-            (label  :text " 󰍃 "
+            (label  :text " 󰌾 "
                     :class "grid-label"
             )
           )
           (eventbox :class "right-part"
                     :cursor "pointer"
-                    :onclick "notify-send 'set this up moron'"
+                    :onclick "$EWW_PATH/open.sh powermenu"
 
             (label  :text " " :class "grid-chev")
           )

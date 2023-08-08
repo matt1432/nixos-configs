@@ -25,3 +25,25 @@ if [[ $1 == "icon" ]]; then
     get_state
   done
 fi
+
+radio_status () {
+  radio_status=$(nmcli radio wifi)
+  if [[ $radio_status == "enabled" ]]; then
+    echo "on"
+  else
+    echo "off"
+  fi
+}
+
+if [[ $1 == "radio-status" ]]; then
+  radio_status
+fi
+
+if [[ $1 == "toggle-radio" ]]; then
+  stat=$(radio_status)
+  if [[ $stat == "on" ]]; then
+    nmcli radio wifi off
+  else
+    nmcli radio wifi on
+  fi
+fi
