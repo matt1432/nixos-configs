@@ -34,6 +34,7 @@ in
 
       env = EWW_PATH, ${configDir}/eww/scripts
       env = HYPR_PATH, ${configDir}/hypr/scripts
+      env = LOCK_PATH, ${configDir}/gtklock/scripts
 
       exec-once = ${pkgs.plasma5Packages.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1
       source = ~/.config/hypr/main.conf

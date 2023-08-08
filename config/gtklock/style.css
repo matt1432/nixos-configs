@@ -1,0 +1,17 @@
+@define-color accent rgba(189, 147, 249, 0.8);
+@define-color background rgb(40, 42, 54);
+
+window {
+   background-image: url("/tmp/image.jpeg");
+   background-size: cover;
+   background-repeat: no-repeat;
+   background-position: center;
+   background-color: rgba(0, 0, 0, 0);
+}
+
+#window-box {
+   padding: 64px;
+   border: 2px solid @accent;
+   border-radius: 30px;
+   background-color: @background;
+}

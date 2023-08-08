@@ -247,7 +247,7 @@
 
           (eventbox :class "left-part"
                     :cursor "pointer"
-                    :onclick "$HOME/.config/gtklock/scripts/lock.sh &"
+                    :onclick "$LOCK_PATH/lock.sh &"
 
             (label  :text " 󰌾 "
                     :class "grid-label"
