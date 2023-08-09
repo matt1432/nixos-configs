@@ -156,7 +156,7 @@
       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       (box  :orientation "h"
             :space-evenly true
-            :spacing 60
+            :spacing 34
             :width 0
             :height 0
             :halign "center"
@@ -166,21 +166,24 @@
                   :class "sub-label"
                   :width 0
                   :height 0
-                  :limit-width 10
+                  :xalign 0.4
+                  :limit-width 12
           )
             
           (label  :text "${bluetooth_dev}"
                   :class "sub-label"
                   :width 0
                   :height 0
-                  :limit-width 10
+                  :xalign 0.4
+                  :limit-width 12
           )
             
           (label  :text ""
                   :class ""
                   :width 0
                   :height 0
-                  :limit-width 10
+                  :xalign 0.4
+                  :limit-width 12
           )
       )
       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

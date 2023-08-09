@@ -2,11 +2,11 @@
 (deflisten heart_icon "tail -f $HOME/.config/.heart")
 (deflisten mic_icon   "$EWW_PATH/mic.sh icon")
 
-(deflisten network_ssid "zscroll -d 0.7 -l 10 -p '. ' -u true \"$EWW_PATH/network.sh ssid\"")
+(deflisten network_ssid "zscroll -d 0.7 -l 12 -p '. ' -u true \"$EWW_PATH/network.sh ssid\"")
 (deflisten network_icon "$EWW_PATH/network.sh icon")
 (defpoll network_radio :interval "1s" "$EWW_PATH/network.sh radio-status")
 
-(deflisten bluetooth_dev  "zscroll -d 0.7 -l 10 -p '. ' -u true \"$EWW_PATH/bluetooth.sh device\"")
+(deflisten bluetooth_dev  "zscroll -d 0.7 -l 12 -p '. ' -u true \"$EWW_PATH/bluetooth.sh device\"")
 (deflisten bluetooth_icon "$EWW_PATH/bluetooth.sh icon")
 
 (deflisten volume_icon "$EWW_PATH/volume.sh icon")
