@@ -56,7 +56,6 @@ in {
       (plugin "lukas-reineke/indent-blankline.nvim")
       (plugin "lewis6991/gitsigns.nvim")
       (plugin "nvim-lualine/lualine.nvim")
-      (plugin "elkowar/yuck.vim")
 
       # plugins for completion
       (plugin "hrsh7th/nvim-cmp")
