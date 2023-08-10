@@ -19,7 +19,7 @@
   networking.firewall.enable = false;
 
   security.sudo.extraConfig = ''
-    Defaults        timestamp_timeout=60
+    Defaults        timestamp_timeout=600
   '';
 
   security.pam.services = {
