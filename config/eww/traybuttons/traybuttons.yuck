@@ -92,7 +92,7 @@
 (defvar heart-ts "default")
 (defwidget heart-toggle-on []
   (eventbox :class "toggle-on"
-            :onclick "$EWW_PATH/heart.sh"
+            :onclick "$EWW_PATH/heart.sh toggle"
             :cursor "pointer"
     
     (box  :class "heart-toggle"
@@ -103,7 +103,7 @@
 )
 (defwidget heart-toggle-off []
   (eventbox :class "toggle-off"
-            :onclick "$EWW_PATH/heart.sh"
+            :onclick "$EWW_PATH/heart.sh toggle"
             :cursor "pointer"
     
     (box  :class "heart-toggle"

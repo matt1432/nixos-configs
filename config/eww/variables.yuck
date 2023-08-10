@@ -1,5 +1,7 @@
+; this var starts all scripts needed when eww boots
+(deflisten heart_icon "$EWW_PATH/heart.sh startup")
+
 (deflisten notif_icon "$EWW_PATH/notif.sh icon")
-(deflisten heart_icon "tail -f $HOME/.config/.heart")
 (deflisten mic_icon   "$EWW_PATH/mic.sh icon")
 
 (deflisten network_ssid "zscroll -d 0.7 -l 12 -p '. ' -u true \"$EWW_PATH/network.sh ssid\"")
