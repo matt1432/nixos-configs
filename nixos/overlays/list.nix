@@ -4,10 +4,7 @@
   nixpkgs.overlays = [
     (import ./swayosd.nix)
     (import ./blueberry.nix)
-
-    (final: prev: {
-      tutanota = final.callPackage ./pkgs/tutanota.nix {};
-    })
+    (import ./tutanota-desktop.nix)
 
     (final: prev: {
       pam-fprint-grosshack = final.callPackage ./pkgs/pam-fprint-grosshack.nix {};
