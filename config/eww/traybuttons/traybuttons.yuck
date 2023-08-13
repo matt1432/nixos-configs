@@ -46,10 +46,13 @@
 ;; Tablet Mode Toggle
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defvar tablet-ts false)
+(defvar tablet-run-off "false")
 (defwidget tablet-toggle-on []
   (eventbox :class "toggle-on"
-            :onclick "$HYPR_PATH/laptop-mode.sh &"
+            :onclick "$EWW_PATH/run.sh '$HYPR_PATH/laptop-mode.sh' tablet-run-off &"
             :cursor "pointer"
+            :onhover "eww update tablet-run-off=true"
+            :onhoverlost "eww update tablet-run-off=false"
     
     (box  :class "tablet-toggle"
           :orientation "h"
@@ -57,10 +60,13 @@
     )
   )
 )
+(defvar tablet-run-on "false")
 (defwidget tablet-toggle-off []
   (eventbox :class "toggle-off"
-            :onclick "$HYPR_PATH/tablet-mode.sh &"
+            :onclick "$EWW_PATH/run.sh '$HYPR_PATH/tablet-mode.sh' tablet-run-on &"
             :cursor "pointer"
+            :onhover "eww update tablet-run-on=true"
+            :onhoverlost "eww update tablet-run-on=false"
     
     (box  :class "tablet-toggle"
           :orientation "h"
