@@ -31,6 +31,8 @@ startup() {
   fi
 
   "$HYPR_PATH"/osk-toggle.sh getState &
+  "$EWW_PATH"/on-release.sh &
+  input-emulator start mouse -n &
 
   if grep -q 󰣐 "$FILE"; then
     eww close heart

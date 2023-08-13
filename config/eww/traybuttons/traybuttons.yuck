@@ -90,10 +90,13 @@
 ;; Heart Toggle
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defvar heart-ts "default")
+(defvar heart-run-off "false")
 (defwidget heart-toggle-on []
   (eventbox :class "toggle-on"
-            :onclick "$EWW_PATH/heart.sh toggle"
+            :onclick "$EWW_PATH/run.sh '$EWW_PATH/heart.sh toggle' heart-run-off &"
             :cursor "pointer"
+            :onhover "eww update heart-run-off=true"
+            :onhoverlost "eww update heart-run-off=false"
     
     (box  :class "heart-toggle"
           :orientation "h"
@@ -101,10 +104,13 @@
     )
   )
 )
+(defvar heart-run-on "false")
 (defwidget heart-toggle-off []
   (eventbox :class "toggle-off"
-            :onclick "$EWW_PATH/heart.sh toggle"
+            :onclick "$EWW_PATH/run.sh '$EWW_PATH/heart.sh toggle' heart-run-on &"
             :cursor "pointer"
+            :onhover "eww update heart-run-on=true"
+            :onhoverlost "eww update heart-run-on=false"
     
     (box  :class "heart-toggle"
           :orientation "h"
