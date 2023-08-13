@@ -34,6 +34,7 @@
   hardware.sensor.iio.enable = true;
   hardware.opengl.enable = true;
   hardware.opengl.driSupport32Bit = true;
+  hardware.uinput.enable = true;
 
   virtualisation = {
     waydroid.enable = true;

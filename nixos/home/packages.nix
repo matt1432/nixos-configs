@@ -69,10 +69,12 @@
     '')
 
     tutanota-desktop
+    input-emulator
     swayosd
     blueberry
     libayatana-appindicator
     libnotify
+    libinput
     dracula-theme
     dracula-icon-theme
     steam-run

@@ -13,7 +13,7 @@ in
   # Define a user account. Don't forget to set a password with 'passwd'.
   users.users.matt = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "input" "adm" "mlocate" "video" ];
+    extraGroups = [ "wheel" "input" "uinput" "adm" "mlocate" "video" ];
   };
 
   home-manager.useUserPackages = true;
