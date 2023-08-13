@@ -33,7 +33,7 @@ toggle () {
 if [[ $1 == "getState" ]]; then
     while true; do
         sleep 0.2
-        state
+        state > /dev/null
     done
 fi
 
