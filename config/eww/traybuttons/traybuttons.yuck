@@ -2,10 +2,13 @@
 ;; On-Screen Keyboard Toggle
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defvar osk-ts false)
+(defvar osk-run-off "false")
 (defwidget osk-toggle-on []
   (eventbox :class "toggle-on"
-            :onclick "$HYPR_PATH/osk-toggle.sh toggle &"
+            :onclick "$EWW_PATH/run.sh '$HYPR_PATH/osk-toggle.sh toggle'  osk-run-off &"
             :cursor "pointer"
+            :onhover "eww update osk-run-off=true"
+            :onhoverlost "eww update osk-run-off=false"
     
     (box  :class "osk-toggle"
           :orientation "h"
@@ -13,10 +16,13 @@
     )
   )
 )
+(defvar osk-run-on "false")
 (defwidget osk-toggle-off []
   (eventbox :class "toggle-off"
-            :onclick "$HYPR_PATH/osk-toggle.sh toggle &"
+            :onclick "$EWW_PATH/run.sh '$HYPR_PATH/osk-toggle.sh toggle' osk-run-on &"
             :cursor "pointer"
+            :onhover "eww update osk-run-on=true"
+            :onhoverlost "eww update osk-run-on=false"
     
     (box  :class "osk-toggle"
           :orientation "h"
