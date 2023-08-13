@@ -177,11 +177,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Quick Settings Toggle
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defvar qs-run-on "false")
 (defwidget quick-settings-toggle []
   (eventbox :class "toggle-off"
-            :onclick "$EWW_PATH/qs-toggle.sh on"
-
+            :onclick "$EWW_PATH/run.sh '$EWW_PATH/qs-toggle.sh on' qs-run-on &"
             :cursor "pointer"
+            :onhover "eww update qs-run-on=true"
+            :onhoverlost "eww update qs-run-on=false"
 
     (box  :class "quick-settings-toggle"
           :orientation "h"
@@ -206,10 +208,13 @@
 ;; Notification Panel Toggle
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defvar notif-panel-state false)
+(defvar notif-run-off "false")
 (defwidget notif-panel-on []
   (eventbox :class "toggle-on"
-            :onclick "$EWW_PATH/notif-toggle.sh off"
+            :onclick "$EWW_PATH/run.sh '$EWW_PATH/notif-toggle.sh off' notif-run-off &"
             :cursor "pointer"
+            :onhover "eww update notif-run-off=true"
+            :onhoverlost "eww update notif-run-off=false"
 
     (box  :class "notif-panel"
           :orientation "h"
@@ -217,10 +222,13 @@
     )
   )
 )
+(defvar notif-run-on "false")
 (defwidget notif-panel-off []
   (eventbox :class "toggle-off"
-            :onclick "$EWW_PATH/notif-toggle.sh on"
+            :onclick "$EWW_PATH/run.sh '$EWW_PATH/notif-toggle.sh on' notif-run-on &"
             :cursor "pointer"
+            :onhover "eww update notif-run-on=true"
+            :onhoverlost "eww update notif-run-on=false"
 
     (box  :class "notif-panel"
           :orientation "h"

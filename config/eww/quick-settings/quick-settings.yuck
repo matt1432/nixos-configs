@@ -24,10 +24,13 @@
   )
 )
 
+(defvar qs-run-off "false")
 (defwidget quick-settings-logo []
   (eventbox :class "quick-settings-logo"
-            :onclick "$EWW_PATH/qs-toggle.sh off"
+            :onclick "$EWW_PATH/run.sh '$EWW_PATH/qs-toggle.sh off' qs-run-off &"
             :cursor "pointer"
+            :onhover "eww update qs-run-off=true"
+            :onhoverlost "eww update qs-run-off=false"
 
     (box  :class "quick-settings-logo"
           :orientation "h"
