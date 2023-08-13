@@ -12,7 +12,7 @@
     min-width: 80px;
     transition: all ease .2s;
     &:hover { background-color: $bgSecondary; }
-    &:active { background-color: $bg; }
+    &:active { background-color: $bgSecondary; }
     .content {
       border-radius: 4px;
       padding: 0px 15px 0px 15px;

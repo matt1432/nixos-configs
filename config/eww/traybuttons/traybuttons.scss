@@ -42,11 +42,6 @@
   transition: background-color 0.5s ease-in-out;
 }
 
-.toggle-off:hover {
-  background-color: rgba(127, 132, 156, 0.4);
-  transition: background-color 0.5s ease-in-out;
-}
-
 .toggle-on {
   background-color: $bg;
   //transition: border-color 0.5s ease-in-out;
@@ -56,7 +51,7 @@
   transition: background-color 0.5s ease-in-out;
 }
 
-.toggle-on:hover {
+.toggle-on:hover, .toggle-off:hover {
   background-color: rgba(127, 132, 156, 0.4);
   transition: background-color 0.5s ease-in-out;
 }
