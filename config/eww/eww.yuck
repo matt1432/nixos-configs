@@ -1,6 +1,7 @@
 (include "variables.yuck")
 (include "date/date.yuck")
 (include "powermenu/powermenu.yuck")
+(include "playerinfo/playerinfo.yuck")
 (include "closer/closer.yuck")
 (include "quick-settings/quick-settings.yuck")
 (include "traybuttons/traybuttons.yuck")

@@ -1,0 +1,83 @@
+(defpoll player :interval "1s" "echo spotify")
+(defpoll music_cover :interval "1s" "$EWW_PATH/music.sh cover") ;done
+(defvar music_accent "rgb(0,0,0)") ;done
+(defvar button_accent "rgb(0,0,0)") ;done
+(defvar button_text "rgb(255,255,255)") ;done
+(defpoll music_status :interval "1s" "playerctl -p spotify status")
+(defpoll title :interval "1s" "playerctl -p spotify metadata title")
+(defpoll artist :interval "1s" "playerctl -p spotify metadata artist")
+
+(defwidget playerinfo []
+  (centerbox  :class "playerinfo"
+        :style "background: radial-gradient(circle, rgba(0, 0, 0, 0.4) 30%, ${music_accent}), url(\"${music_cover}\"); 
+                background-size: cover;
+                background-position: center;"
+        :orientation "v"
+    (box  :class "top"
+          :halign "start"
+          :valign "start"
+          :style "color: ${button_accent};"
+        "${player == 'spotify' ? '' : '爵' }"
+    )
+    (box  :class "center"
+          :orientation "h"
+          :space-evenly false
+      (box  :class "metadata"
+            :orientation "v"
+            :halign "start"
+            :valign "center"
+            :hexpand true
+        (label :limit-width 25 :halign "start" :text title :class "title")
+        (label :limit-width 25 :halign "start" :text artist :class "artist")
+      )
+      (centerbox :orientation "v"
+        (label)
+        (eventbox :class "pausebutton ${music_status == 'Playing' ? 'playing' : 'paused'}"
+                  :halign "end"
+                  :style "background-color: ${button_accent}; 
+                      color: ${button_text};"
+                  :onclick "playerctl -p spotify play-pause"
+                  :cursor "pointer"
+          
+          (label  :text "${music_status == 'Playing' ? '  ' : ''}" 
+                  :width 40
+                  :height 40
+          )
+        )
+        (label)
+      )
+    )
+    (box  :class "bottom"
+          :style "color: ${button_accent};"
+      (eventbox :valign "end"
+                :halign "start"
+                :onclick "playerctl -p spotify previous & $EWW_PATH/music.sh cover"
+                :class "previousbutton"
+                :cursor "pointer"
+              "󰒮"
+      )
+      (eventbox :valign "end"
+                :halign "end"
+                :onclick "playerctl -p spotify next & $EWW_PATH/music.sh cover"
+                :class "nextbutton"
+                :cursor "pointer"
+              "󰒭"
+      )
+    )
+  )
+)
+(defwindow playerinfo
+  :monitor 0
+  :stacking "overlay"
+  :exclusive "ignore"
+  :focusable "false"
+  :geometry (geometry :x "800px"
+                      :y "10px"
+                      :width "0px"
+                      :height "0px"
+                      :anchor "bottom left"
+            )
+  (playerinfo)
+)
+
+

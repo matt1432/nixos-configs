@@ -1,0 +1,42 @@
+.playerinfo {
+  padding: 10px;
+  min-width: 400px;
+  border-radius: 15px;
+  border-top: 2px solid $contrastbg;
+  border-bottom: 2px solid $contrastbg;
+  transition: background 250ms;
+  .top {
+    font-size: 23px;
+  }
+  .metadata {
+    .title{
+      font-weight: 500;
+      transition: text 250ms;
+    }
+    .artist{
+      font-weight: 400;
+      font-size: 15px;
+      transition: text 250ms;
+    }
+  }
+  .bottom {
+    font-size: 30px;
+    padding: 0 10px 0 10px;
+  }
+
+  .pausebutton {
+    transition: background 250ms;
+    padding: 14px 16px;
+  }
+
+  .playing {
+    transition: all ease .2s;
+    border-radius: 15px;
+  }
+
+  .paused {
+    border-radius: 26px;  
+    transition: all ease .2s;
+    padding: 14px 14px 14px 18px;
+  }
+}

@@ -32,6 +32,7 @@ startup() {
 
   "$HYPR_PATH"/osk-toggle.sh getState &
   "$EWW_PATH"/on-release.sh &
+  "$EWW_PATH"/music.sh accents &
   input-emulator start mouse -n &
 
   if grep -q 󰣐 "$FILE"; then
