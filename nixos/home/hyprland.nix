@@ -14,6 +14,7 @@ in
     (builtins.getFlake "github:hyprwm/Hyprland").packages.x86_64-linux.default
     (builtins.getFlake "path:/home/matt/git/hyprland-touch-gestures").packages.x86_64-linux.default
     pkgs.kora-icon-theme
+    pkgs.coloryou
   ];
 
   imports = [

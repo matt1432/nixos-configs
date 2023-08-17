@@ -13,8 +13,7 @@
 
     waybar = {
       enable = true;
-      # https://discourse.nixos.org/t/how-to-use-waybar-hyprland/27638/6
-      package = (builtins.getFlake "github:hyprwm/Hyprland").packages.x86_64-linux.waybar-hyprland;
+      package = pkgs.waybar-hyprland;
     };
   };
 
@@ -75,6 +74,7 @@
     libayatana-appindicator
     libnotify
     libinput
+    playerctl
     dracula-theme
     dracula-icon-theme
     steam-run

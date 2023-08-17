@@ -14,8 +14,12 @@
       pam-fprint-grosshack = final.callPackage ./pkgs/pam-fprint-grosshack.nix {};
     })
 
-   (final: prev: {
+    (final: prev: {
       dracula-plymouth = final.callPackage ./pkgs/dracula-plymouth.nix {};
+    })
+
+    (final: prev: {
+      coloryou = final.callPackage ./pkgs/coloryou/default.nix {};
     })
 
     (import (builtins.fetchTarball {
