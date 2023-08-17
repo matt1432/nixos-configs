@@ -269,6 +269,9 @@
         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       )
     )
+    (box :class "player"
+      (playerinfo)
+    )
     (box  :class "slider-box"
           :orientation "v"
           :space-evenly true
