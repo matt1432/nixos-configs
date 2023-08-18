@@ -9,6 +9,8 @@
 (defvar button_height "42")
 (defpoll shuffle_status :interval "1s" "playerctl -p spotify shuffle")
 (defpoll repeat_icon :interval "1s" "$EWW_PATH/music.sh loop_status")
+(defvar song_pos "0")
+(defpoll song_length :interval "1s" "$EWW_PATH/music.sh length")
 
 (defwidget playerinfo []
   (centerbox  :class "playerinfo"
@@ -54,6 +56,8 @@
     )
     (box  :class "bottom"
           :style "color: ${button_accent};"
+          :space-evenly false
+          :spacing 0
       (eventbox :valign "end"
                 :halign "start"
                 :onclick "playerctl -p spotify previous & $EWW_PATH/music.sh cover"
@@ -61,6 +65,19 @@
                 :width 40
                 :cursor "pointer"
               "󰒮"
+      )
+      (eventbox :cursor "pointer"
+                :class "song-pos"
+                :hexpand true
+        (scale :value song_pos
+               :min 0
+               :max song_length
+               :orientation "h"
+               :onchange "playerctl -p spotify position {}"
+               :css "highlight { background-color: ${button_accent}; }
+                     slider { background-color: ${button_accent}; }
+                     trough { background-color: rgba(${button_accent}, 0.4); }"
+        )
       )
       (box :valign "end"
            :halign "end"

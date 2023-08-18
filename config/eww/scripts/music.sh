@@ -41,6 +41,11 @@ loop_status() {
   esac
 }
 
+get_length() {
+  eww update song_pos="$(playerctl -p spotify position)"
+  eww update song_length="$(echo "$(playerctl -p spotify metadata mpris:length)/1000000" | bc -l)"
+}
+
 get_accents() {
   accents="$(coloryou /tmp/cover.jpg | sed 's/,//g' | sed 's/}//' | sed 's/'\''//g')"
   music_accent=$(echo "$accents" | awk '{ print $2 }')
@@ -74,4 +79,5 @@ get_cover() {
 [[ "$1" == "accents" ]] && get_accents
 [[ "$1" == "loop" ]] && loop
 [[ "$1" == "loop_status" ]] && loop_status
+[[ "$1" == "length" ]] && get_length
 [[ "$1" == "cover" ]] && get_cover

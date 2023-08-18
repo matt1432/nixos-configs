@@ -62,3 +62,29 @@
     padding-right: 8px;
   }
 }
+
+.song-pos {
+  scale {
+    highlight {
+      margin: 0px;
+      border-radius: 2em;
+    }
+
+    trough {
+      background-color: #363847;
+      border-radius: 2em;
+    }
+
+    slider {
+      margin: -8px;
+      min-height: 20px;
+      border-radius: 10px;
+      box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+      transition: background-color 0.5s ease-in-out;
+    }
+    slider:hover {
+      background-color: #303240;
+      transition: background-color 0.5s ease-in-out;
+    }
+  }
+}

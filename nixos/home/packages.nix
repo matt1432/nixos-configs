@@ -69,6 +69,7 @@
 
     tutanota-desktop
     input-emulator
+    bc
     swayosd
     blueberry
     libayatana-appindicator
