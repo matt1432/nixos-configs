@@ -19,6 +19,7 @@ do
   [[ "$element" != "osk" ]] &&
   [[ "$element" != "tablet" ]] &&
   [[ "$element" != "quick-settings-toggle" ]] &&
+  [[ "$element" != "playerinfo" ]] &&
   #[[ "$element" != "" ]] &&
 	eww close "$element"
 done

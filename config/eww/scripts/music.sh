@@ -1,4 +1,45 @@
-#!/usr/bin/env bash  
+#!/usr/bin/env bash
+
+loop() {
+  loop_status=$(playerctl -p spotify loop)
+
+  case $loop_status in
+    "None" )
+      playerctl -p spotify loop Playlist
+      eww update repeat_icon="󰑖"
+      ;;
+    "Track" )
+      playerctl -p spotify loop None
+      eww update repeat_icon="󰑗"
+      ;;
+    "Playlist" )
+      playerctl -p spotify loop Track
+      eww update repeat_icon="󰑘"
+      ;;
+    * )
+      echo "Unknown loop status."
+      ;;
+  esac
+}
+
+loop_status() {
+  loop_status=$(playerctl -p spotify loop)
+
+  case $loop_status in
+    "None" )
+      eww update repeat_icon="󰑗"
+      ;;
+    "Track" )
+      eww update repeat_icon="󰑘"
+      ;;
+    "Playlist" )
+      eww update repeat_icon="󰑖"
+      ;;
+    * )
+      echo "Unknown loop status."
+      ;;
+  esac
+}
 
 get_accents() {
   accents="$(coloryou /tmp/cover.jpg | sed 's/,//g' | sed 's/}//' | sed 's/'\''//g')"
@@ -31,4 +72,6 @@ get_cover() {
 }
 
 [[ "$1" == "accents" ]] && get_accents
+[[ "$1" == "loop" ]] && loop
+[[ "$1" == "loop_status" ]] && loop_status
 [[ "$1" == "cover" ]] && get_cover
