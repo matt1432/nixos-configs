@@ -332,6 +332,8 @@
   (revealer :reveal expand_player
             :transition "slidedown"
     (box :class "player"
+         :style "${expand_player == 'true' ? 'opacity: 1; transition: opacity ${anim_duration}' :
+                                             'opacity: 0; transition: opacity ${anim_duration}'}"
       (playerinfo)
     )
   )
