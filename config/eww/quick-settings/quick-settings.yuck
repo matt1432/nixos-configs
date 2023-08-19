@@ -19,7 +19,7 @@
   (revealer
       :transition "crossfade"
       :reveal showqs
-      :duration "550ms"
+      :duration anim_duration
     (quick-settings-smol)
   )
 )
@@ -51,13 +51,15 @@
   (revealer
       :transition "crossfade"
       :reveal showqs
-      :duration "550ms"
+      :duration anim_duration
     (quick-settings-logo)
   )
 )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defwidget quick-settings []
+  (box  :orientation "v"
+        :space-evenly false
   (box  :class "quick-settings"
         :orientation "v"
         :space-evenly false
@@ -269,9 +271,6 @@
         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       )
     )
-    (box :class "player"
-      (playerinfo)
-    )
     (box  :class "slider-box"
           :orientation "v"
           :space-evenly true
@@ -318,7 +317,10 @@
         )
       )
     )
-    
+  )
+    (box :class "player"
+      (playerinfo)
+    )
   )
 )
 (defwindow quick-settings-reveal
@@ -333,7 +335,7 @@
   (revealer
       :transition "crossfade"
       :reveal showqs
-      :duration "550ms"
+      :duration anim_duration
     (quick-settings)
   )
 )
