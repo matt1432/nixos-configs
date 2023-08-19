@@ -49,7 +49,7 @@
   (revealer
         :transition "crossfade"
         :reveal powermenu-visible
-        :duration "550ms"
+        :duration anim_duration
     (powermenu)
   )
 )

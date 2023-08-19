@@ -43,7 +43,7 @@
   (revealer
       :transition "crossfade"
       :reveal osk-ts
-      :duration "550ms"
+      :duration anim_duration
     (osk-toggle-on)
   )
 )
@@ -93,7 +93,7 @@
   (revealer
       :transition "crossfade"
       :reveal tablet-ts
-      :duration "550ms"
+      :duration anim_duration
     (tablet-toggle-on)
   )
 )
@@ -143,7 +143,7 @@
   (revealer
       :transition "crossfade"
       :reveal heart-ts
-      :duration "550ms"
+      :duration anim_duration
     (heart-toggle-on)
   )
 )
@@ -262,7 +262,7 @@
   (revealer
       :transition "crossfade"
       :reveal notif-panel-state
-      :duration "550ms"
+      :duration anim_duration
     (notif-panel-on)
   )
 )

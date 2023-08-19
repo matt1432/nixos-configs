@@ -20,6 +20,8 @@
 (deflisten br_icon "$EWW_PATH/brightness.sh icon")
 (defpoll br             :interval "1s"  "$EWW_PATH/brightness.sh br")
 
+(defvar anim_duration "550ms")
+
 (defpoll completeday    :interval "1h"  "date '+%A, %d %B'")
 (defpoll lithour        :interval "30m" "date +%H")
 (defpoll litmin         :interval "30s" "date +%M")
