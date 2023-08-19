@@ -56,7 +56,7 @@
   )
 )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+(defvar expand_player "false")
 (defwidget quick-settings []
   (box  :orientation "v"
         :space-evenly false
@@ -317,10 +317,24 @@
         )
       )
     )
+    (centerbox :orientation "h"
+               :style "margin-bottom: 10px;"
+      (label)
+
+      (eventbox :cursor "pointer"
+                :onclick "${expand_player == 'true' ? 'eww update expand_player=false' : 'eww update expand_player=true'}"
+        "${expand_player == 'true' ? ' ' : ' ' }"
+      )
+
+      (label)
+    )
   )
+  (revealer :reveal expand_player
+            :transition "slidedown"
     (box :class "player"
       (playerinfo)
     )
+  )
   )
 )
 (defwindow quick-settings-reveal
