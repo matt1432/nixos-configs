@@ -11,6 +11,7 @@
 (defpoll repeat_icon :interval "1s" "$EWW_PATH/music.sh loop_status")
 (defvar song_pos "0")
 (defpoll song_length :interval "1s" "$EWW_PATH/music.sh length")
+(defvar get_pos "true")
 
 (defwidget playerinfo []
   (centerbox  :class "playerinfo"
@@ -69,6 +70,8 @@
       (eventbox :cursor "pointer"
                 :class "song-pos"
                 :hexpand true
+                :onhover "eww update get_pos=false"
+                :onhoverlost "eww update get_pos=true"
         (scale :value song_pos
                :min 0
                :max song_length

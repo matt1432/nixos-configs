@@ -42,7 +42,9 @@ loop_status() {
 }
 
 get_length() {
-  eww update song_pos="$(playerctl -p spotify position)"
+  if [[ $(eww get get_pos) == "true" ]]; then
+    eww update song_pos="$(playerctl -p spotify position)"
+  fi
   eww update song_length="$(echo "$(playerctl -p spotify metadata mpris:length)/1000000" | bc -l)"
 }
 
