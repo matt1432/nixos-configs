@@ -156,7 +156,6 @@
     tree
     rsync
     killall
-    ripgrep-all
     imagemagick
     usbutils
     evtest
