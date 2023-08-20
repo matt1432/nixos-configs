@@ -10,18 +10,22 @@ get_ssid() {
 
 get_state() {
   if [[ "$(rfkill list | grep -A 1 LAN | grep -o no)" == "no" ]]; then
-    echo " 󰖩 "
+    eww update network_icon=" 󰖩 "
   else
-    echo " 󰖪 " 
+    eww update network_icon=" 󰖪 " 
   fi
 }
 
 [[ "$1" == "ssid" ]] && get_ssid
-[[ "$1" == "toggle" ]] && rfkill toggle wlan
+
+if [[ "$1" == "toggle" ]]; then
+  rfkill toggle wlan
+  get_state
+fi
 
 if [[ $1 == "icon" ]]; then
   while true; do
-    sleep 0.1
+    sleep 1
     get_state
   done
 fi

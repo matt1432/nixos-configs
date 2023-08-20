@@ -311,7 +311,7 @@
         (scale  :value br
                 :onchange "$EWW_PATH/brightness.sh set {}"
                 :min 0
-                :max 101
+                :max 256
                 :height 0
                 :width 0
         )

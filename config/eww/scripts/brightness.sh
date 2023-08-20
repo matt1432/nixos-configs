@@ -1,67 +1,46 @@
 #!/usr/bin/env bash
 
-# @requires: brightnessctl
+get_icon () {
+  val=$(brightnessctl get)
 
-percentage () {
-  local val=$(echo $1 | tr '%' ' ' | awk '{print $1}')
-  local icon1=$2
-  local icon2=$3
-  local icon3=$4
-  local icon4=$5
-  local icon5=$6
-  local icon6=$7
-  local icon7=$8
-  local icon8=$9
-  if [ "$val" -le 1 ]; then
-    echo "$icon1"
-  elif [ "$val" -le 15 ]; then
-    echo "$icon2"
-  elif [ "$val" -le 30 ]; then
-    echo "$icon3"
-  elif [ "$val" -le 45 ]; then
-    echo "$icon4"
-  elif [ "$val" -le 60 ]; then
-    echo "$icon5"
-  elif [ "$val" -le 75 ]; then
-    echo "$icon6"
-  elif [ "$val" -le 90 ]; then
-    echo "$icon7"
+  if [ "$val" -le 3 ]; then
+    eww update br_icon=" "
+
+  elif [ "$val" -le 38 ]; then
+    eww update br_icon=" "
+
+  elif [ "$val" -le 77 ]; then
+    eww update br_icon=" "
+
+  elif [ "$val" -le 115 ]; then
+    eww update br_icon=" "
+
+  elif [ "$val" -le 153 ]; then
+    eww update br_icon=" "
+
+  elif [ "$val" -le 191 ]; then
+    eww update br_icon="  "
+
+  elif [ "$val" -le 230 ]; then
+    eww update br_icon="  "
+
   else
-    echo "$icon8"
+    eww update br_icon="  "
   fi
 }
 
-
-get_brightness () {
-  (( br = $(brightnessctl get) * 100 / $(brightnessctl max) ))
-  echo $br
-}
-
-get_percent () {
-  echo $(get_brightness)%
-}
-
-get_icon () {
-  local br=$(get_percent)
-  echo $(percentage "$br" " " " " " " " " " " "  " "  " "  ")
-}
-
 if [[ $1 == "br" ]]; then
-  get_brightness
-fi
-
-if [[ $1 == "percent" ]]; then
-  get_percent
+  brightnessctl get
 fi
 
 if [[ $1 == "icon" ]]; then
   while true; do
-    sleep 0.01
+    sleep 1
     get_icon
   done
 fi
 
 if [[ $1 == "set" ]]; then
-  eww update br=$2
-  brightnessctl set $2%
+  brightnessctl set "$2"
+  get_icon
 fi

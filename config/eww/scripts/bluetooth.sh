@@ -12,18 +12,23 @@ get_device() {
 
 get_state() {
   if [[ "$(rfkill list | grep -A 1 hci0 | grep -o no)" == "no" ]]; then
+    eww update bluetooth_icon=" 󰂯 "
     echo " 󰂯 " > "$FILE"
   else
+    eww update bluetooth_icon=" 󰂲 "
     echo " 󰂲 " > "$FILE"
   fi
 }
 
 [[ "$1" == "device" ]] && get_device
-[[ "$1" == "toggle" ]] && rfkill toggle bluetooth
+if [[ "$1" == "toggle" ]]; then
+  rfkill toggle bluetooth
+  get_state
+fi
 
 if [[ $1 == "icon" ]]; then
   while true; do
-    sleep 0.1
+    sleep 1
     get_state
     tail "$FILE"
   done
