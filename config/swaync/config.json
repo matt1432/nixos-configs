@@ -33,7 +33,6 @@
   "script-fail-notify": true,
 
   "widgets": [
-    "mpris",
     "title",
     "inhibitors",
     "dnd",
@@ -56,10 +55,6 @@
     "label": {
       "max-lines": 5,
       "text": "Control Center"
-    },
-    "mpris": {
-      "image-size": 96,
-      "image-radius": 12
     }
   }
 }
