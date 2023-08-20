@@ -4,11 +4,9 @@ FILE="$HOME/.config/.heart"
 
 toggle() {
   if grep -q 󰣐 "$FILE"; then
-    eww close heart
     eww update heart-ts=false
     echo  > "$FILE"
   else
-    eww open heart
     eww update heart-ts=true
     echo 󰣐 >> "$FILE"
   fi
@@ -36,9 +34,7 @@ startup() {
   input-emulator start mouse -n &
 
   if grep -q 󰣐 "$FILE"; then
-    eww close heart
     sleep 0.9 && 
-    eww open heart
     eww update heart-ts=true
   fi
 

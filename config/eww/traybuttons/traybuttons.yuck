@@ -2,49 +2,19 @@
 ;; On-Screen Keyboard Toggle
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defvar osk-ts false)
-(defvar osk-run-off "false")
-(defwidget osk-toggle-on []
-  (eventbox :class "toggle-on"
-            :onclick "$EWW_PATH/run.sh '$HYPR_PATH/osk-toggle.sh toggle'  osk-run-off &"
+(defvar osk-run "false")
+
+(defwidget osk-toggle []
+  (eventbox :class "${osk-ts == 'true' ? 'toggle-on' : 'toggle-off'}"
+            :onclick "$EWW_PATH/run.sh '$HYPR_PATH/osk-toggle.sh toggle' osk-run &"
             :cursor "pointer"
-            :onhover "eww update osk-run-off=true"
-            :onhoverlost "eww update osk-run-off=false"
+            :onhover "eww update osk-run=true"
+            :onhoverlost "eww update osk-run=false"
     
     (box  :class "osk-toggle"
           :orientation "h"
       (label :text " 󰌌 ")
     )
-  )
-)
-(defvar osk-run-on "false")
-(defwidget osk-toggle-off []
-  (eventbox :class "toggle-off"
-            :onclick "$EWW_PATH/run.sh '$HYPR_PATH/osk-toggle.sh toggle' osk-run-on &"
-            :cursor "pointer"
-            :onhover "eww update osk-run-on=true"
-            :onhoverlost "eww update osk-run-on=false"
-    
-    (box  :class "osk-toggle"
-          :orientation "h"
-      (label :text " 󰌌 ")
-    )
-  )
-)
-(defwindow osk
-  :monitor 0
-  :stacking "overlay"
-  :exclusive "ignore"
-  :geometry (geometry :x "5px"
-                      :y "10px"
-                      :width "0px"
-                      :height "0px"
-                      :anchor "top left"
-            )
-  (revealer
-      :transition "crossfade"
-      :reveal osk-ts
-      :duration anim_duration
-    (osk-toggle-on)
   )
 )
 
@@ -52,49 +22,22 @@
 ;; Tablet Mode Toggle
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defvar tablet-ts false)
-(defvar tablet-run-off "false")
-(defwidget tablet-toggle-on []
-  (eventbox :class "toggle-on"
-            :onclick "$EWW_PATH/run.sh '$HYPR_PATH/laptop-mode.sh' tablet-run-off &"
+(defvar tablet-run "false")
+
+(defvar turn-tablet-off "$EWW_PATH/run.sh '$HYPR_PATH/laptop-mode.sh' tablet-run &")
+(defvar turn-tablet-on  "$EWW_PATH/run.sh '$HYPR_PATH/tablet-mode.sh' tablet-run &")
+
+(defwidget tablet-toggle []
+  (eventbox :class "${tablet-ts == 'true' ? 'toggle-on' : 'toggle-off'}"
+            :onclick "${tablet-ts == 'true' ? turn-tablet-off : turn-tablet-on}" 
             :cursor "pointer"
-            :onhover "eww update tablet-run-off=true"
-            :onhoverlost "eww update tablet-run-off=false"
+            :onhover "eww update tablet-run=true"
+            :onhoverlost "eww update tablet-run=false"
     
     (box  :class "tablet-toggle"
           :orientation "h"
       (label :text " 󰦧 ")
     )
-  )
-)
-(defvar tablet-run-on "false")
-(defwidget tablet-toggle-off []
-  (eventbox :class "toggle-off"
-            :onclick "$EWW_PATH/run.sh '$HYPR_PATH/tablet-mode.sh' tablet-run-on &"
-            :cursor "pointer"
-            :onhover "eww update tablet-run-on=true"
-            :onhoverlost "eww update tablet-run-on=false"
-    
-    (box  :class "tablet-toggle"
-          :orientation "h"
-      (label :text " 󰦧 ")
-    )
-  )
-)
-(defwindow tablet
-  :monitor 0
-  :stacking "overlay"
-  :exclusive "ignore"
-  :geometry (geometry :x "72px"
-                      :y "10px"
-                      :width "0px"
-                      :height "0px"
-                      :anchor "top left"
-            )
-  (revealer
-      :transition "crossfade"
-      :reveal tablet-ts
-      :duration anim_duration
-    (tablet-toggle-on)
   )
 )
 
@@ -102,49 +45,19 @@
 ;; Heart Toggle
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defvar heart-ts "false")
-(defvar heart-run-off "false")
-(defwidget heart-toggle-on []
-  (eventbox :class "toggle-on"
-            :onclick "$EWW_PATH/run.sh '$EWW_PATH/heart.sh toggle' heart-run-off &"
+(defvar heart-run "false")
+
+(defwidget heart-toggle []
+  (eventbox :class "${heart-ts == 'true' ? 'toggle-on' : 'toggle-off'}"
+            :onclick "$EWW_PATH/run.sh '$EWW_PATH/heart.sh toggle' heart-run &"
             :cursor "pointer"
-            :onhover "eww update heart-run-off=true"
-            :onhoverlost "eww update heart-run-off=false"
+            :onhover "eww update heart-run=true"
+            :onhoverlost "eww update heart-run=false"
     
     (box  :class "heart-toggle"
           :orientation "h"
       (label :text " ${heart_icon} ")
     )
-  )
-)
-(defvar heart-run-on "false")
-(defwidget heart-toggle-off []
-  (eventbox :class "toggle-off"
-            :onclick "$EWW_PATH/run.sh '$EWW_PATH/heart.sh toggle' heart-run-on &"
-            :cursor "pointer"
-            :onhover "eww update heart-run-on=true"
-            :onhoverlost "eww update heart-run-on=false"
-    
-    (box  :class "heart-toggle"
-          :orientation "h"
-      (label :text " ${heart_icon} ")
-    )
-  )
-)
-(defwindow heart
-  :monitor 0
-  :stacking "overlay"
-  :exclusive "ignore"
-  :geometry (geometry :x "140px"
-                      :y "10px"
-                      :width "0px"
-                      :height "0px"
-                      :anchor "top left"
-            )
-  (revealer
-      :transition "crossfade"
-      :reveal heart-ts
-      :duration anim_duration
-    (heart-toggle-on)
   )
 )
 
@@ -156,9 +69,9 @@
         :space-evenly true
         :spacing 12
         :orientation "h"
-    (osk-toggle-off)
-    (tablet-toggle-off)
-    (heart-toggle-off)
+    (osk-toggle)
+    (tablet-toggle)
+    (heart-toggle)
   )
 )
 (defwindow left-bar
@@ -208,13 +121,16 @@
 ;; Notification Panel Toggle
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defvar notif-panel-state false)
-(defvar notif-run-off "false")
-(defwidget notif-panel-on []
-  (eventbox :class "toggle-on"
-            :onclick "$EWW_PATH/run.sh '$EWW_PATH/notif-toggle.sh off' notif-run-off &"
+(defvar notif-run "false")
+(defvar turn-notif-on  "$EWW_PATH/run.sh '$EWW_PATH/notif-toggle.sh on' notif-run &")
+(defvar turn-notif-off "$EWW_PATH/run.sh '$EWW_PATH/notif-toggle.sh off' notif-run &")
+
+(defwidget notif-panel []
+  (eventbox :class "${notif-panel-state == 'true' ? 'toggle-on' : 'toggle-off'}"
+            :onclick "${notif-panel-state == 'true' ? turn-notif-off : turn-notif-on}"
             :cursor "pointer"
-            :onhover "eww update notif-run-off=true"
-            :onhoverlost "eww update notif-run-off=false"
+            :onhover "eww update notif-run=true"
+            :onhoverlost "eww update notif-run=false"
 
     (box  :class "notif-panel"
           :orientation "h"
@@ -222,21 +138,6 @@
     )
   )
 )
-(defvar notif-run-on "false")
-(defwidget notif-panel-off []
-  (eventbox :class "toggle-off"
-            :onclick "$EWW_PATH/run.sh '$EWW_PATH/notif-toggle.sh on' notif-run-on &"
-            :cursor "pointer"
-            :onhover "eww update notif-run-on=true"
-            :onhoverlost "eww update notif-run-on=false"
-
-    (box  :class "notif-panel"
-          :orientation "h"
-      (label :text " ${notif_icon} ")
-    )
-  )
-)
-
 (defwindow notif-panel
   :monitor 0
   :stacking "overlay"
@@ -247,22 +148,5 @@
                       :height "0px"
                       :anchor "top right"
             )
-  (notif-panel-off)
-)
-(defwindow notif-panel-on
-  :monitor 0
-  :stacking "overlay"
-  :exclusive "ignore"
-  :geometry (geometry :x "60px"
-                      :y "10px"
-                      :width "0px"
-                      :height "0px"
-                      :anchor "top right"
-            )
-  (revealer
-      :transition "crossfade"
-      :reveal notif-panel-state
-      :duration anim_duration
-    (notif-panel-on)
-  )
+  (notif-panel)
 )

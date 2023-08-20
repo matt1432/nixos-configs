@@ -14,12 +14,7 @@ for element in "${array[@]}"
 do
 	[[ "$element" != "left-bar" ]] &&
   [[ "$element" != "notif-panel" ]] &&
-  [[ "$element" != "notif-panel-on" ]] &&
-  [[ "$element" != "heart" ]] &&
-  [[ "$element" != "osk" ]] &&
-  [[ "$element" != "tablet" ]] &&
   [[ "$element" != "quick-settings-toggle" ]] &&
   [[ "$element" != "playerinfo" ]] &&
-  #[[ "$element" != "" ]] &&
 	eww close "$element"
 done

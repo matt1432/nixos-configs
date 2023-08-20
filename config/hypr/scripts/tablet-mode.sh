@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-echo "$XDG_DATA_DIRS" >> ~/log.log
 gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled true
 
 brightnessctl -d tpacpi::kbd_backlight s 0
@@ -13,5 +12,4 @@ evtest --grab "/dev/input/by-path/platform-AMDI0010:02-event-mouse" &
 evtest --grab "/dev/input/by-path/platform-thinkpad_acpi-event" &
 evtest --grab "/dev/video-bus" &
 
-eww open tablet
 eww update tablet-ts=true
