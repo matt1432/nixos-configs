@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# @requires: pactl
-
-#SINK=$(pactl list short sinks | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,' | head -n 1)
 SINK="@DEFAULT_SINK@"
 
 percentage () {
@@ -54,8 +51,6 @@ get_class () {
 }
 
 get_vol () {
-  #local percent=$(get_percentage)
-  #echo $percent | tr -d '%'
   echo $(pactl get-sink-volume @DEFAULT_SINK@ | grep Volume | awk '{print $5}' | tr % " ")
 }
 

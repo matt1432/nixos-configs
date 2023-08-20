@@ -9,7 +9,7 @@ state () {
 }
 
 icon () {
-  local COUNT=$(swaync-client -c)
+  COUNT=$(swaync-client -c)
 
   if [[ $(swaync-client -D) == "true" ]]; then
     echo " 󱏨"
