@@ -13,7 +13,7 @@
   (eventbox :onclick "$EWW_PATH/notif-toggle.sh off")
 )
 (defwindow closer-notif1  :monitor 0
-                          :geometry (geometry :width "1412px"
+                          :geometry (geometry :width "1360px"
                                               :height "1200px")
                           :stacking "overlay"
                           :focusable false
@@ -23,7 +23,7 @@
 (defwindow closer-notif2  :monitor 0
                           :geometry (geometry :width "100%"
                                               :height "200px"
-                                              :y "1063px")
+                                              :y "1060px")
                           :stacking "overlay"
                           :focusable false
                           :exclusive "ignore"
@@ -31,7 +31,16 @@
 )
 (defwindow closer-notif3  :monitor 0
                           :geometry (geometry :width "100%"
-                                              :height "63px")
+                                              :height "60px")
+                          :stacking "overlay"
+                          :focusable false
+                          :exclusive "ignore"
+  (closer-notif)
+)
+(defwindow closer-notif4  :monitor 0
+                          :geometry (geometry :width "60px"
+                                              :height "100%"
+                                              :x "1860px")
                           :stacking "overlay"
                           :focusable false
                           :exclusive "ignore"

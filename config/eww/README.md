@@ -1,3 +1,1 @@
-credits: https://github.com/AlphaTechnolog/dotfiles/tree/openbox
-
-it has been slightly modified
+inspired from: https://github.com/AlphaTechnolog/dotfiles/tree/openbox

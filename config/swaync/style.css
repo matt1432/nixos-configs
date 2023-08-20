@@ -203,7 +203,8 @@
 
 .control-center {
   background: @background-alpha;
-  border-radius: 35px;
+  border-radius: 30px;
+  border-top-right-radius: 0px;
   background-clip: border-box;
   padding: 4px;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.7),

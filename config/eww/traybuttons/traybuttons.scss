@@ -21,9 +21,28 @@
 
 .notif-panel {
   font-size: 20px;
+  border-radius: 80px;
   min-height: 37px;
   min-width: 105px;
   padding: 1px 0px 1px 5px;
+
+  .toggle-on {
+    border-top-left-radius: 22px;
+    border-top-right-radius: 22px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom: 0px solid $bg;
+  }
+}
+
+.filler {
+  border-left: 2px solid $contrastbg;
+  border-right: 2px solid $contrastbg;
+  min-height: 14px;
+  min-width: 105px;
+  margin-top: -10px;
+  background-color: $bg;
+  transition: all 0.5s;
 }
 
 .quick-settings-toggle {
@@ -35,7 +54,6 @@
 
 .toggle-off {
   background-color: $bg;
-  //transition: border-color 0.5s ease-in-out;
   color: #CBA6F7;
   border-radius: 80px;
   border: 2px solid #1b1b2b;
@@ -45,7 +63,6 @@
 
 .toggle-on {
   background-color: $bg;
-  //transition: border-color 0.5s ease-in-out;
   color: #CBA6F7;
   border-radius: 80px;
   border: 2px solid $contrastbg;

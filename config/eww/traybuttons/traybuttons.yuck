@@ -126,15 +126,23 @@
 (defvar turn-notif-off "$EWW_PATH/run.sh '$EWW_PATH/notif-toggle.sh off' notif-run &")
 
 (defwidget notif-panel []
-  (eventbox :class "${notif-panel-state == 'true' ? 'toggle-on' : 'toggle-off'}"
-            :onclick "${notif-panel-state == 'true' ? turn-notif-off : turn-notif-on}"
-            :cursor "pointer"
-            :onhover "eww update notif-run=true"
-            :onhoverlost "eww update notif-run=false"
+  (box :orientation "v"
+    (eventbox :class "${notif-panel-state == 'true' ? 'toggle-on' : 'toggle-off'}"
+              :onclick "${notif-panel-state == 'true' ? turn-notif-off : turn-notif-on}"
+              :cursor "pointer"
+              :onhover "eww update notif-run=true"
+              :onhoverlost "eww update notif-run=false"
 
-    (box  :class "notif-panel"
-          :orientation "h"
-      (label :text " ${notif_icon} ")
+      (box  :class "notif-panel"
+            :orientation "v"
+        (label :text " ${notif_icon} ")
+      )
+    )
+    (expander :expanded notif-panel-state
+              :height 0
+      (box :class "filler"
+           :height 0
+      )
     )
   )
 )
