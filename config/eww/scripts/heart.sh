@@ -16,6 +16,7 @@ toggle() {
 
 
 startup() {
+  (
   if [[ ! -f "$FILE" ]]; then
     echo 󰣐 > "$FILE"
   fi
@@ -37,6 +38,7 @@ startup() {
     sleep 0.9 && 
     eww update heart-ts=true
   fi
+  ) &
 
   tail -f "$FILE"
 }

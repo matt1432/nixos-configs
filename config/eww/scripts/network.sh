@@ -25,8 +25,8 @@ fi
 
 if [[ $1 == "icon" ]]; then
   while true; do
-    sleep 1
     get_state
+    sleep 1
   done
 fi
 
