@@ -127,6 +127,7 @@
 
 (defwidget notif-panel []
   (box :orientation "v"
+       :space-evenly false
     (eventbox :class "${notif-panel-state == 'true' ? 'toggle-on' : 'toggle-off'}"
               :onclick "${notif-panel-state == 'true' ? turn-notif-off : turn-notif-on}"
               :cursor "pointer"
