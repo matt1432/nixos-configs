@@ -1,19 +1,19 @@
 #!/usr/bin/env bash
 
 loop() {
-  loop_status=$(playerctl -p spotify loop)
+  loop_status=$(playerctl -p Spot loop)
 
   case $loop_status in
     "None" )
-      playerctl -p spotify loop Playlist
+      playerctl -p Spot loop Playlist
       eww update repeat_icon="󰑖"
       ;;
     "Track" )
-      playerctl -p spotify loop None
+      playerctl -p Spot loop None
       eww update repeat_icon="󰑗"
       ;;
     "Playlist" )
-      playerctl -p spotify loop Track
+      playerctl -p Spot loop Track
       eww update repeat_icon="󰑘"
       ;;
     * )
@@ -23,7 +23,7 @@ loop() {
 }
 
 loop_status() {
-  loop_status=$(playerctl -p spotify loop)
+  loop_status=$(playerctl -p Spot loop)
 
   case $loop_status in
     "None" )
@@ -43,9 +43,9 @@ loop_status() {
 
 get_length() {
   if [[ $(eww get get_pos) == "true" ]]; then
-    eww update song_pos="$(playerctl -p spotify position)"
+    eww update song_pos="$(playerctl -p Spot position)"
   fi
-  eww update song_length="$(echo "$(playerctl -p spotify metadata mpris:length)/1000000" | bc -l)"
+  eww update song_length="$(echo "$(playerctl -p Spot metadata mpris:length)/1000000" | bc -l)"
 }
 
 get_accents() {
@@ -62,7 +62,7 @@ get_accents() {
 
 get_cover() {
   existing_file="/tmp/cover.jpg"
-  new_image_url=$(playerctl -p spotify metadata mpris:artUrl)
+  new_image_url=$(playerctl -p Spot metadata mpris:artUrl)
   existing_hash=$(md5sum "$existing_file" | awk '{print $1}')
 
   # Download the new image only if the hashes are different

@@ -1,13 +1,13 @@
-(defpoll player :interval "1s" "echo spotify")
+(defpoll player :interval "1s" "echo Spot")
 (defpoll music_cover :interval "1s" "$EWW_PATH/music.sh cover") ;done
 (defvar music_accent "rgb(0,0,0)") ;done
 (defvar button_accent "rgb(0,0,0)") ;done
 (defvar button_text "rgb(255,255,255)") ;done
-(defpoll music_status :interval "1s" "playerctl -p spotify status")
-(defpoll title :interval "1s" "playerctl -p spotify metadata title")
-(defpoll artist :interval "1s" "playerctl -p spotify metadata artist")
+(defpoll music_status :interval "1s" "playerctl -p Spot status")
+(defpoll title :interval "1s" "playerctl -p Spot metadata title")
+(defpoll artist :interval "1s" "playerctl -p Spot metadata artist")
 (defvar button_height "42")
-(defpoll shuffle_status :interval "1s" "playerctl -p spotify shuffle")
+(defpoll shuffle_status :interval "1s" "playerctl -p Spot shuffle")
 (defpoll repeat_icon :interval "1s" "$EWW_PATH/music.sh loop_status")
 (defvar song_pos "0")
 (defpoll song_length :interval "1s" "$EWW_PATH/music.sh length")
@@ -23,7 +23,7 @@
           :halign "start"
           :valign "start"
           :style "color: ${button_accent};"
-        "${player == 'spotify' ? '' : '爵' }"
+        "${player == 'Spot' ? '' : '爵' }"
     )
     (box  :class "center"
           :orientation "h"
@@ -42,7 +42,7 @@
                   :halign "left"
                   :style "background-color: ${button_accent}; 
                           color: ${button_text};"
-                  :onclick "playerctl -p spotify play-pause"
+                  :onclick "playerctl -p Spot play-pause"
                   :cursor "pointer"
                   :onhover "eww update button_height=41"
                   :onhoverlost "eww update button_height=42"
@@ -61,7 +61,7 @@
           :spacing 0
       (eventbox :valign "end"
                 :halign "start"
-                :onclick "playerctl -p spotify previous & $EWW_PATH/music.sh cover"
+                :onclick "playerctl -p Spot previous & $EWW_PATH/music.sh cover"
                 :class "previousbutton"
                 :width 40
                 :cursor "pointer"
@@ -76,7 +76,7 @@
                :min 0
                :max song_length
                :orientation "h"
-               :onchange "playerctl -p spotify position {}"
+               :onchange "playerctl -p Spot position {}"
                :css "highlight { background-color: ${button_accent}; }
                      slider { background-color: ${button_accent}; }
                      trough { background-color: rgba(${button_accent}, 0.4); }"
@@ -85,13 +85,13 @@
       (box :valign "end"
            :halign "end"
                 
-        (eventbox :onclick "playerctl -p spotify next & $EWW_PATH/music.sh cover"
+        (eventbox :onclick "playerctl -p Spot next & $EWW_PATH/music.sh cover"
                   :class "nextbutton"
                   :width 40
                   :cursor "pointer"
                 "󰒭"
         )
-        (eventbox :onclick "playerctl -p spotify shuffle toggle"
+        (eventbox :onclick "playerctl -p Spot shuffle toggle"
                   :class "shuffle"
                   :width 40
                   :cursor "pointer"

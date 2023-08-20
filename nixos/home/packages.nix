@@ -70,6 +70,7 @@
     tutanota-desktop
     input-emulator
     bc
+    spot
     swayosd
     blueberry
     libayatana-appindicator
@@ -100,9 +101,6 @@
     gimp-with-plugins
     jdk19_headless
     bluez-tools
-    spotify
-    #spotifywm # fails to build
-    spicetify-cli # TODO
     vlc
     discord
     brightnessctl

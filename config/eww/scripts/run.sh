@@ -14,10 +14,9 @@ function run() {
     sleep 0.1
     input-emulator mouse button left
   fi
-  echo "cant_run" > "$FILE"
+  exit 0
 }
 
 while IFS='$\n' read -r line; do
   [[ $(grep "can_run" "$FILE") != "" ]] && run
-  [[ $(grep "cant_run" "$FILE") != "" ]] && exit 0
 done < <(stdbuf -oL tail -f "$FILE")
