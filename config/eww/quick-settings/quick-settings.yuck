@@ -1,4 +1,5 @@
 (defvar showqs false)
+(defvar showplayer false)
 
 (defwidget quick-settings-smol []
   (box  :class "quick-settings-smol"
@@ -321,9 +322,11 @@
                :style "margin-bottom: 10px;"
       (label)
 
-      (eventbox :cursor "pointer"
-                :onclick "${expand_player == 'true' ? 'eww update expand_player=false' : 'eww update expand_player=true'}"
-        "${expand_player == 'true' ? ' ' : ' ' }"
+      (revealer :reveal showplayer
+        (eventbox :cursor "pointer"
+                  :onclick "${expand_player == 'true' ? 'eww update expand_player=false' : 'eww update expand_player=true'}"
+          "${expand_player == 'true' ? ' ' : ' ' }"
+        )
       )
 
       (label)

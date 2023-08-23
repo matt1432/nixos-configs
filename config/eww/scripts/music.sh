@@ -71,9 +71,11 @@ get_cover() {
     get_accents
   fi
 
-  if [[ -f "/tmp/cover.jpg" ]]; then
+  if [[ -s "/tmp/cover.jpg" ]]; then
+    eww update showplayer=true
     echo "/tmp/cover.jpg"
   else
+    eww update showplayer=false
     echo "randomfile"
   fi
 }

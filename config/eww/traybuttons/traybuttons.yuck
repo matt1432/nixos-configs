@@ -128,6 +128,7 @@
 (defwidget notif-panel []
   (box :orientation "v"
        :space-evenly false
+       :spacing 0
     (eventbox :class "${notif-panel-state == 'true' ? 'toggle-on' : 'toggle-off'}"
               :onclick "${notif-panel-state == 'true' ? turn-notif-off : turn-notif-on}"
               :cursor "pointer"
@@ -139,7 +140,9 @@
         (label :text " ${notif_icon} ")
       )
     )
-    (expander :expanded notif-panel-state
+    (revealer :reveal notif-panel-state
+              :duration anim_duration
+              :transition "slideup"
               :height 0
       (box :class "filler"
            :height 0
