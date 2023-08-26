@@ -4,8 +4,8 @@ final: prev: {
     src = prev.fetchFromGitHub {
       owner = "ErikReider";
       repo = "SwayOSD";
-      rev = "1add33d9ca7d9fa9be3cea39fd300e34ba3417c5";
-      hash = "sha256-+shokerDcB12RjWhJVCtM38HUOFxW3CNTRxsWbUnVTs=";
+      rev = "8159c9e9962ce19f6fb78201d4d34e5817f53b45";
+      hash = "sha256-kGd4/eQkhvxEL3/LToBDjE/JIR8m6w9vdFUrRTyylCE=";
     };
     
     cargoDeps = oldAttrs.cargoDeps.overrideAttrs (prev.lib.const {
