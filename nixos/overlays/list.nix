@@ -4,7 +4,6 @@
   nixpkgs.overlays = [
     (import ./swayosd.nix)
     (import ./blueberry.nix)
-    (import ./tutanota-desktop.nix) 
 
     (final: prev: {
       input-emulator = final.callPackage ./pkgs/input-emulator.nix {};
@@ -16,6 +15,10 @@
 
     (final: prev: {
       dracula-plymouth = final.callPackage ./pkgs/dracula-plymouth.nix {};
+    })
+
+    (final: prev: {
+      lavanda-sddm = final.callPackage ./pkgs/lavanda-sddm.nix {};
     })
 
     (final: prev: {
