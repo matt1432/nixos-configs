@@ -1,5 +1,6 @@
 import { execAsync, writeFile } from 'resource:///com/github/Aylur/ags/utils.js';
 import { Powermenu } from 'file:///home/matt/.nix/config/ags/powermenu/powermenu.js';
+import { LeftBar } from 'file:///home/matt/.nix/config/ags/traybuttons/traybuttons.js';
 import { Closer } from 'file:///home/matt/.nix/config/ags/closer/closer.js';
 
 const scss = ags.App.configDir + '/style.scss';
@@ -12,6 +13,7 @@ export default {
     style: css,
     windows: [
       Powermenu,
+      LeftBar,
       Closer,
     ]
 }

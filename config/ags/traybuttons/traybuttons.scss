@@ -1,0 +1,76 @@
+.osk-toggle {
+  font-size: 28px;
+  min-height: 40px;
+  min-width: 50px;
+  padding: 0px 0px 0px 5px;
+}
+
+.tablet-toggle {
+  font-size: 28px;
+  min-height: 40px;
+  min-width: 50px;
+  padding: 0px 0px 0px 5px;
+}
+
+.heart-toggle {
+  font-size: 28px;
+  min-height: 40px;
+  min-width: 50px;
+  padding: 0px 0px 0px 4px;
+}
+
+.notif-panel {
+  font-size: 20px;
+  border-radius: 80px;
+  min-height: 37px;
+  min-width: 105px;
+  padding: 1px 0px 1px 5px;
+
+  .toggle-on {
+    border-top-left-radius: 22px;
+    border-top-right-radius: 22px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom: 0px solid $bg;
+  }
+}
+
+.filler {
+  border-left: 2px solid $contrastbg;
+  border-right: 2px solid $contrastbg;
+  min-height: 14px;
+  min-width: 105px;
+  background-color: $bg;
+  transition: all 0.5s;
+}
+
+.quick-settings-toggle {
+  font-size: 24px;
+  min-height: 40px;
+  min-width: 40px;
+  padding: 0px 0px 0px 0px;
+}
+
+.toggle-off {
+  background-color: $bg;
+  color: #CBA6F7;
+  border-radius: 80px;
+  border: 2px solid #1b1b2b;
+  transition: background-color 0.5s ease-in-out,
+              border 0.5s ease-in-out;
+}
+
+.toggle-on {
+  background-color: $bg;
+  color: #CBA6F7;
+  border-radius: 80px;
+  border: 2px solid $contrastbg;
+  transition: background-color 0.5s ease-in-out,
+              border 0.5s ease-in-out;
+}
+
+.toggle-on:hover, .toggle-off:hover {
+  background-color: rgba(127, 132, 156, 0.4);
+  transition: background-color 0.5s ease-in-out,
+              border 0.5s ease-in-out;
+}
