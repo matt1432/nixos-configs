@@ -13,6 +13,8 @@ in
   home.packages = [
     (builtins.getFlake "github:hyprwm/Hyprland").packages.x86_64-linux.default
     (builtins.getFlake "path:/home/matt/git/hyprland-touch-gestures").packages.x86_64-linux.default
+    (builtins.getFlake "github:Aylur/ags").packages.x86_64-linux.default
+    pkgs.sassc
     pkgs.kora-icon-theme
     pkgs.coloryou
   ];
