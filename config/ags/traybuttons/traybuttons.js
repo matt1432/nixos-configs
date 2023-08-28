@@ -1,5 +1,6 @@
 import Gdk from 'gi://Gdk';
 const display = Gdk.Display.get_default();
+import { CurrentWindow } from 'file:///home/matt/.nix/config/ags/current-window/current-window.js';
 
 const Separator = () => ags.Widget.Box({
   style: 'min-width: 8px; min-height: 8px',
@@ -129,10 +130,7 @@ export const LeftBar = ags.Widget.Window({
         ],
       }),
 
-      ags.Widget.Box({
-        halign: 'center',
-        style: 'background: red; min-width: 100px; min-height: 40px',
-      }),
+      CurrentWindow,
 
       ags.Widget.Box({
         halign: 'end',
