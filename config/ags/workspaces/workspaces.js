@@ -58,7 +58,7 @@ export const Workspaces = props => Box({
 
         });
       }]],
-      children: Array.from({ length: 10 }, (_, i) => i + 1).map(i => Workspace({ i: i})),
+      children: Array.from({ length: 15 }, (_, i) => i + 1).map(i => Workspace({ i: i})),
     }),
   })],
 });

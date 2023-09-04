@@ -16,15 +16,15 @@
   
   .empty {
     border: none;
-    transition: border-color 0.3s ease-in-out;
+    transition: border-color 0.25s linear;
   }
   .occupied {
     border: 2px solid $bg;
     background: $contrastbg;
-    transition: border-color 0.3s ease-in-out;
+    transition: border-color 0.25s linear;
   }
   .active {
     border: 2px solid #50fa7b;
-    transition: border-color 0.3s ease-in-out;
+    transition: border-color 0.25s linear;
   }
 }
