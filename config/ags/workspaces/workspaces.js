@@ -6,27 +6,30 @@ const { Hyprland, Applications } = ags.Service;
 const { execAsync, lookUpIcon } = ags.Utils;
 const { Box, Button, EventBox, Label, Icon } = ags.Widget;
 
-export const Workspace = ({ i, } = {}) => 
-EventBox({
-  onPrimaryClickRelease: () => execAsync(`hyprctl dispatch workspace ${i}`).catch(print),
-  onHover: box => {
-    box.window.set_cursor(Gdk.Cursor.new_from_name(display, 'pointer'));
-  },
-  onHoverLost: box => {
-    box.window.set_cursor(null);
-  },
-  child: Box({
-    className: 'button',
-    child: Label(`${i}`),
-    connections: [
-      [Hyprland, btn => {
-        const { workspaces, active } = Hyprland;
-        const occupied = workspaces.has(i) && workspaces.get(i).windows > 0;
-        btn.toggleClassName('active', active.workspace.id === i);
-        btn.toggleClassName('occupied', occupied);
-        btn.toggleClassName('empty', !occupied);
-      }]
-    ],
+export const Workspace = ({ i, } = {}) =>
+ags.Widget.Revealer({
+  transition: "slide_right",
+  child: EventBox({
+    onPrimaryClickRelease: () => execAsync(`hyprctl dispatch workspace ${i}`).catch(print),
+    onHover: box => {
+      box.window.set_cursor(Gdk.Cursor.new_from_name(display, 'pointer'));
+    },
+    onHoverLost: box => {
+      box.window.set_cursor(null);
+    },
+    child: Box({
+      className: 'button',
+      child: Label(`${i}`),
+      connections: [
+        [Hyprland, btn => {
+          const { workspaces, active } = Hyprland;
+          const occupied = workspaces.has(i) && workspaces.get(i).windows > 0;
+          btn.toggleClassName('active', active.workspace.id === i);
+          btn.toggleClassName('occupied', occupied);
+          btn.toggleClassName('empty', !occupied);
+        }]
+      ],
+    }),
   }),
 });
 
@@ -42,29 +45,20 @@ export const Workspaces = props => Box({
         new Promise(resolve => {
 
           Hyprland.workspaces.forEach(ws => {
-            if (ws.id > 0) {
-              workspaces.push(ws);
-            }
+            if (ws.id > 0) workspaces.push(ws);
           });
 
           resolve();
         }).then(value => {
 
-          if (workspaces.length > 0) {
-            let currentId = Hyprland.active.workspace.id;
-            let qtyChange = Number(currentId - box.children.length);
-
-            if (qtyChange != 0 && currentId != prev) {
-              box.get_children().forEach(ch => ch.destroy());
-              box.children = Array.from(
-                { length: Math.max(...workspaces.map(ws => ws.id)) },
-                (_, i) => i + 1).map(i => Workspace({ i: i}));
-            }
-            prev = currentId;
-          }
+          box.children.forEach(rev => rev.reveal_child = false);
+          workspaces.forEach(ws => {
+            box.children[ws.id - 1].reveal_child = true;
+          });
 
         });
       }]],
+      children: Array.from({ length: 10 }, (_, i) => i + 1).map(i => Workspace({ i: i})),
     }),
   })],
 });
