@@ -1,9 +1,10 @@
 import Gdk from 'gi://Gdk';
 const display = Gdk.Display.get_default();
 import { CurrentWindow } from 'file:///home/matt/.nix/config/ags/current-window/current-window.js';
+import { Workspaces } from 'file:///home/matt/.nix/config/ags/workspaces/workspaces.js';
 
 const Separator = () => ags.Widget.Box({
-  style: 'min-width: 8px; min-height: 8px',
+  style: 'min-width: 12px;',
 });
 
 ags.Utils.subprocess(
@@ -126,6 +127,10 @@ export const LeftBar = ags.Widget.Window({
           Separator(),
 
           HeartToggle,
+
+          Separator(),
+
+          Workspaces(),
 
         ],
       }),
