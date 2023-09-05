@@ -3,8 +3,8 @@ const display = Gdk.Display.get_default();
 import { CurrentWindow } from 'file:///home/matt/.nix/config/ags/current-window/current-window.js';
 import { Workspaces } from 'file:///home/matt/.nix/config/ags/workspaces/workspaces.js';
 
-const Separator = () => ags.Widget.Box({
-  style: 'min-width: 12px;',
+const Separator = width => ags.Widget.Box({
+  style: `min-width: ${width}px;`,
 });
 
 ags.Utils.subprocess(
@@ -103,7 +103,7 @@ export const LeftBar = ags.Widget.Window({
 
           OskToggle,
   
-          Separator(),
+          Separator(12),
 
           ags.Widget.EventBox({
             className: 'toggle-off',
@@ -124,11 +124,11 @@ export const LeftBar = ags.Widget.Window({
             }),
           }),
       
-          Separator(),
+          Separator(12),
 
           HeartToggle,
 
-          Separator(),
+          Separator(12),
 
           Workspaces(),
 
