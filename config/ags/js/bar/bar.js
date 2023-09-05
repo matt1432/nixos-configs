@@ -8,6 +8,7 @@ import { Heart }          from './heart.js';
 import { TabletToggle }   from './tablet-toggle.js';
 import { QsToggle }       from './quick-settings.js';
 import { NotifButton }    from './notif-button.js';
+import { Clock }    from './clock.js';
 
 export const Bar = Window({
   name: 'left-bar',
@@ -52,6 +53,10 @@ export const Bar = Window({
       Box({
         halign: 'end',
         children: [
+          Clock,
+
+          Separator(12),
+
           NotifButton,
 
           Separator(12),

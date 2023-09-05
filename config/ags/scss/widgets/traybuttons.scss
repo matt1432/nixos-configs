@@ -22,15 +22,6 @@
   }
 }
 
-.filler {
-  border-left: 2px solid $contrastbg;
-  border-right: 2px solid $contrastbg;
-  min-height: 14px;
-  min-width: 105px;
-  background-color: $bg;
-  transition: all 0.5s;
-}
-
 .quick-settings-toggle {
   font-size: 24px;
   min-height: 40px;
@@ -61,4 +52,13 @@
   background-color: rgba(127, 132, 156, 0.4);
   transition: background-color 0.5s ease-in-out,
               border 0.5s ease-in-out;
+}
+
+.clock {
+  font-size: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  min-width: 230px;
+  border: 2px solid rgba(#382c4a, 0.8);
+  border-radius: 80px;
 }

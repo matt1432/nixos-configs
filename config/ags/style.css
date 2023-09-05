@@ -58,14 +58,6 @@
     border-bottom-right-radius: 0px;
     border-bottom: 0px solid rgba(40, 42, 54, 0.8); }
 
-.filler {
-  border-left: 2px solid rgba(189, 147, 249, 0.8);
-  border-right: 2px solid rgba(189, 147, 249, 0.8);
-  min-height: 14px;
-  min-width: 105px;
-  background-color: rgba(40, 42, 54, 0.8);
-  transition: all 0.5s; }
-
 .quick-settings-toggle {
   font-size: 24px;
   min-height: 40px;
@@ -90,6 +82,14 @@
 .toggle-on:hover, .toggle-off:hover {
   background-color: rgba(127, 132, 156, 0.4);
   transition: background-color 0.5s ease-in-out, border 0.5s ease-in-out; }
+
+.clock {
+  font-size: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  min-width: 230px;
+  border: 2px solid rgba(56, 44, 74, 0.8);
+  border-radius: 80px; }
 
 .workspaces {
   background-color: rgba(40, 42, 54, 0.8);
