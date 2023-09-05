@@ -1,7 +1,7 @@
 import Gdk from 'gi://Gdk';
 const display = Gdk.Display.get_default();
-import { CurrentWindow } from 'file:///home/matt/.nix/config/ags/current-window/current-window.js';
-import { Workspaces } from 'file:///home/matt/.nix/config/ags/workspaces/workspaces.js';
+import { CurrentWindow } from './current-window.js';
+import { Workspaces } from './workspaces.js';
 
 const Separator = width => ags.Widget.Box({
   style: `min-width: ${width}px;`,

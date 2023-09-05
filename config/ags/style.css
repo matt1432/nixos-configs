@@ -1,0 +1,116 @@
+* {
+  all: unset; }
+
+.powermenu {
+  background-color: rgba(40, 42, 54, 0.8);
+  color: #a5b6cf;
+  padding: 10px;
+  font-family: MesloLGS NF;
+  /*font-family: Iosevka Nerd Font;*/
+  font-size: 70px;
+  border-radius: 30px;
+  border: 2px solid rgba(189, 147, 249, 0.8); }
+  .powermenu label {
+    min-width: 140px;
+    min-height: 130px; }
+  .powermenu button {
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 12px;
+    min-width: 80px;
+    transition: all ease .2s; }
+    .powermenu button:hover {
+      background-color: #11131c; }
+    .powermenu button:active {
+      background-color: #11131c; }
+    .powermenu button .content {
+      border-radius: 4px;
+      padding: 0px 15px 0px 15px; }
+  .powermenu .shutdown {
+    color: #dd6777; }
+  .powermenu .reboot {
+    color: #c296eb; }
+  .powermenu .logout {
+    color: #ecd3a0; }
+
+.powermenu-clickhandler {
+  background-color: black; }
+
+.osk-toggle,
+.tablet-toggle,
+.heart-toggle {
+  font-size: 28px;
+  min-height: 40px;
+  min-width: 53px; }
+
+.notif-panel {
+  font-size: 20px;
+  border-radius: 80px;
+  min-height: 37px;
+  min-width: 105px;
+  padding: 1px 0px 1px 5px; }
+  .notif-panel .toggle-on {
+    border-top-left-radius: 22px;
+    border-top-right-radius: 22px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom: 0px solid rgba(40, 42, 54, 0.8); }
+
+.filler {
+  border-left: 2px solid rgba(189, 147, 249, 0.8);
+  border-right: 2px solid rgba(189, 147, 249, 0.8);
+  min-height: 14px;
+  min-width: 105px;
+  background-color: rgba(40, 42, 54, 0.8);
+  transition: all 0.5s; }
+
+.quick-settings-toggle {
+  font-size: 24px;
+  min-height: 40px;
+  min-width: 40px;
+  padding: 0px 0px 0px 0px; }
+
+.toggle-off {
+  background-color: rgba(40, 42, 54, 0.8);
+  color: #CBA6F7;
+  border-radius: 80px;
+  border: 2px solid #1b1b2b;
+  transition: background-color 0.5s ease-in-out, border 0.5s ease-in-out; }
+
+.toggle-on {
+  background-color: rgba(40, 42, 54, 0.8);
+  color: #CBA6F7;
+  border-radius: 80px;
+  border: 2px solid rgba(189, 147, 249, 0.8);
+  transition: background-color 0.5s ease-in-out, border 0.5s ease-in-out; }
+
+.toggle-on:hover, .toggle-off:hover {
+  background-color: rgba(127, 132, 156, 0.4);
+  transition: background-color 0.5s ease-in-out, border 0.5s ease-in-out; }
+
+.workspaces {
+  background-color: rgba(40, 42, 54, 0.8);
+  border-radius: 80px;
+  border: 2px solid #1b1b1b;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 12px;
+  padding-right: 12px; }
+  .workspaces .button {
+    margin: 2px;
+    min-width: 20px;
+    border-radius: 100%; }
+    .workspaces .button * {
+      color: transparent; }
+  .workspaces .empty {
+    border: none;
+    transition: border-color 0.25s linear; }
+  .workspaces .occupied {
+    border: 2px solid rgba(40, 42, 54, 0.8);
+    background: rgba(189, 147, 249, 0.8);
+    transition: border-color 0.25s linear; }
+  .workspaces .active {
+    border: 2px solid #50fa7b;
+    transition: border-color 0.25s linear; }

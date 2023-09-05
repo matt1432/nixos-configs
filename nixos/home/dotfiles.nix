@@ -14,8 +14,7 @@ in
     "gtklock/config.ini".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/gtklock/config.ini";
     "gtklock/style.css".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/gtklock/style.css";
 
-    "ags/config.js".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/ags/config.js";
-    "ags/style.scss".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/ags/style.scss";
+    "ags".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/ags";
   };
 
   programs = {

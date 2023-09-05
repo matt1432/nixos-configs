@@ -1,0 +1,8 @@
+* {
+  all: unset;
+}
+
+@import "./common.scss";
+@import "./widgets/powermenu.scss";
+@import "./widgets/traybuttons.scss";
+@import "./widgets/workspaces.scss";
