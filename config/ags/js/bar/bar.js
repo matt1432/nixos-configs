@@ -6,6 +6,7 @@ import { Workspaces }     from './workspaces.js';
 import { OskToggle }      from './osk-toggle.js';
 import { Heart }          from './heart.js';
 import { TabletToggle }   from './tablet-toggle.js';
+import { QsToggle }       from './quick-settings.js';
 
 export const Bar = Window({
   name: 'left-bar',
@@ -16,7 +17,7 @@ export const Bar = Window({
   child: CenterBox({
     className: 'transparent',
     halign: 'fill',
-    style: 'margin-top: 5px; margin-left: 5px;',
+    style: 'margin-top: 5px; margin-left: 5px; margin-right: 5px',
     vertical: false,
     
     children: [
@@ -49,7 +50,9 @@ export const Bar = Window({
       // Right
       Box({
         halign: 'end',
-        children: [],
+        children: [
+          QsToggle,
+        ],
       }),
     ],
   }),
