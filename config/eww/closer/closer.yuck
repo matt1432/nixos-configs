@@ -1,5 +1,5 @@
 (defwidget closer []
-  (eventbox :onclick "$EWW_PATH/close-opened.sh && eww close closer")
+  (eventbox :onclick "$EWW_PATH/close-opened.sh && eww close closer; eww update showqs=false")
 )
 (defwindow closer :monitor 0
                   :geometry (geometry :width "100%" 

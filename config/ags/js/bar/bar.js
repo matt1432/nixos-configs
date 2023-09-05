@@ -7,6 +7,7 @@ import { OskToggle }      from './osk-toggle.js';
 import { Heart }          from './heart.js';
 import { TabletToggle }   from './tablet-toggle.js';
 import { QsToggle }       from './quick-settings.js';
+import { NotifButton }    from './notif-button.js';
 
 export const Bar = Window({
   name: 'left-bar',
@@ -51,6 +52,10 @@ export const Bar = Window({
       Box({
         halign: 'end',
         children: [
+          NotifButton,
+
+          Separator(12),
+
           QsToggle,
         ],
       }),
