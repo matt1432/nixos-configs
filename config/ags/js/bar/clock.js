@@ -3,13 +3,17 @@ const { execAsync } = ags.Utils;
 const { DateTime } = imports.gi.GLib;
 
 const ClockModule = ({
-    format = '%a. %e %b. %H:%M',
     interval = 1000,
     ...props
 }) => Label({
     ...props,
     className: 'clock',
-    connections: [[interval, label => label.label = DateTime.new_now_local().format(format)]],
+    connections: [
+      [interval, label => {
+        var time = DateTime.new_now_local();
+        label.label = time.format('%a. ') + time.get_day_of_month() + time.format(' %b. %H:%M');
+      }],
+    ],
 });
 
 export const Clock = Box({
