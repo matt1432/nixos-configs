@@ -1,7 +1,11 @@
-import { Separator, EventBox } from '../common.js';
+const { Box, Label } = ags.Widget;
+const { subprocess, exec } = ags.Utils;
+const deflisten = subprocess;
 
-ags.Utils.subprocess(
-  ['bash', '-c', '/home/matt/.nix/config/ags/scripts/osk-toggle.sh getState'],
+import { EventBox } from '../common.js';
+
+deflisten(
+  ['bash', '-c', '/home/matt/.nix/config/ags/bin/osk-toggle.sh getState'],
   (output) => {
     if (output == 'Running') {
       OskToggle.toggleClassName('toggle-on', true);
@@ -13,7 +17,7 @@ ags.Utils.subprocess(
 export const OskToggle = EventBox({
   className: 'toggle-off',
   onPrimaryClickRelease: function() {
-    ags.Utils.subprocess(
+    subprocess(
       ['bash', '-c', '/home/matt/.nix/config/ags/bin/osk-toggle.sh toggle'],
       (output) => {
         if (output == 'Running') {
@@ -24,12 +28,12 @@ export const OskToggle = EventBox({
       },
     );
   },
-  child: ags.Widget.Box({
+  child: Box({
     className: 'osk-toggle',
     vertical: false,
 
     children: [
-      ags.Widget.Label({
+      Label({
         label: " 󰌌 ",
       }),
     ],
