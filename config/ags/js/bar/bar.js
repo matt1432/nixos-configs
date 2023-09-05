@@ -5,7 +5,7 @@ import { CurrentWindow }  from './current-window.js';
 import { Workspaces }     from './workspaces.js';
 import { OskToggle }      from './osk-toggle.js';
 import { Heart }          from './heart.js';
-import { TabletToggle }    from './tablet-toggle.js';
+import { TabletToggle }   from './tablet-toggle.js';
 
 export const Bar = Window({
   name: 'left-bar',
