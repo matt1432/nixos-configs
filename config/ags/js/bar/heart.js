@@ -1,8 +1,10 @@
-
+const { Box, Label } = ags.Widget;
+const { subprocess, exec } = ags.Utils;
+const deflisten = subprocess;
 
 import { EventBox } from '../common.js';
 
-ags.Utils.subprocess(
+deflisten(
   ['bash', '-c', 'tail -f /home/matt/.config/.heart'],
   (output) => {
     Heart.child.children[0].label = ' ' + output;
@@ -17,14 +19,14 @@ ags.Utils.subprocess(
 export const Heart = EventBox({
   className: 'toggle-off',
   halign: 'center',
-  onPrimaryClickRelease: function() {
-    ags.Utils.exec('/home/matt/.nix/config/ags/bin/heart.sh toggle');
+  onPrimaryClickRelease: () => {
+    exec('/home/matt/.nix/config/ags/bin/heart.sh toggle');
   },
-  child: ags.Widget.Box({
+  child: Box({
     className: 'heart-toggle',
     vertical: false,
 
-    child: ags.Widget.Label({
+    child: Label({
       label: '',
     }),
   }),
