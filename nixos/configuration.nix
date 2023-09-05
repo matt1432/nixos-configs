@@ -11,7 +11,7 @@
 
   networking.hostName = "wim";
   networking.networkmanager.enable = true;
-  networking.networkmanager.wifi.backend = "iwd";
+  networking.networkmanager.wifi.backend = "wpa_supplicant";
 
   # Set your time zone.
   time.timeZone = "America/Montreal";
