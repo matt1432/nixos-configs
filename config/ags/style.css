@@ -22,9 +22,9 @@
     min-width: 80px;
     transition: all ease .2s; }
     .powermenu button:hover {
-      background-color: #11131c; }
+      background-color: rgba(56, 44, 74, 0.8); }
     .powermenu button:active {
-      background-color: #11131c; }
+      background-color: rgba(56, 44, 74, 0.8); }
     .powermenu button .content {
       border-radius: 4px;
       padding: 0px 15px 0px 15px; }
@@ -69,7 +69,7 @@
   background-color: rgba(40, 42, 54, 0.8);
   color: #CBA6F7;
   border-radius: 80px;
-  border: 2px solid #1b1b2b;
+  border: 2px solid rgba(56, 44, 74, 0.8);
   transition: background-color 0.5s ease-in-out, border 0.5s ease-in-out; }
 
 .toggle-on {
@@ -87,9 +87,17 @@
   font-size: 20px;
   padding-left: 10px;
   padding-right: 10px;
-  min-width: 230px;
-  border: 2px solid rgba(56, 44, 74, 0.8);
-  border-radius: 80px; }
+  min-width: 230px; }
+
+.battery {
+  padding: 0 10px 0 10px;
+  font-size: 20px; }
+  .battery .battery-indicator.charging {
+    color: green; }
+  .battery .battery-indicator.low {
+    color: red; }
+  .battery .label {
+    font-size: 20px; }
 
 .workspaces {
   background-color: rgba(40, 42, 54, 0.8);
@@ -115,3 +123,36 @@
   .workspaces .active {
     border: 2px solid #50fa7b;
     transition: border-color 0.25s linear; }
+
+.sys-tray {
+  padding: 5px;
+  background-color: rgba(40, 42, 54, 0.8);
+  color: #CBA6F7;
+  border-radius: 80px;
+  border: 2px solid #1b1b2b;
+  transition: background-color 0.5s ease-in-out, border 0.5s ease-in-out; }
+  .sys-tray .tray-item {
+    all: unset;
+    padding: 0px 2px 0px 2px;
+    font-size: 25px; }
+  .sys-tray * {
+    min-width: 20px;
+    min-height: 20px; }
+  .sys-tray menuitem:not(.tray-item) {
+    background: #282a36;
+    padding: 5px;
+    border-left: 2px solid #1b1b2b;
+    border-right: 2px solid #1b1b2b;
+    transition: background-color 0.2s ease-in-out; }
+    .sys-tray menuitem:not(.tray-item):hover {
+      background: #1b1b1b; }
+    .sys-tray menuitem:not(.tray-item):nth-child(1) {
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      border-top: 2px solid #1b1b2b;
+      padding-top: 10px; }
+    .sys-tray menuitem:not(.tray-item):nth-last-child(1) {
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+      border-bottom: 2px solid #1b1b2b;
+      padding-bottom: 10px; }

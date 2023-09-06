@@ -9,6 +9,8 @@ import { TabletToggle }   from './tablet-toggle.js';
 import { QsToggle }       from './quick-settings.js';
 import { NotifButton }    from './notif-button.js';
 import { Clock }          from './clock.js';
+import { SysTray }        from './systray.js';
+import { BatteryLabel }   from './battery.js';
 
 export const Bar = Window({
   name: 'left-bar',
@@ -41,6 +43,10 @@ export const Bar = Window({
 
           Separator(12),
 
+          SysTray,
+
+          Separator(12),
+
           Workspaces,
 
         ],
@@ -53,6 +59,10 @@ export const Bar = Window({
       Box({
         halign: 'end',
         children: [
+          BatteryLabel(),
+
+          Separator(12),
+
           Clock,
 
           Separator(12),

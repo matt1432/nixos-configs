@@ -1,0 +1,45 @@
+.sys-tray {
+  padding: 5px;
+  background-color: $bg;
+  color: #CBA6F7;
+  border-radius: 80px;
+  border: 2px solid #1b1b2b;
+  transition: background-color 0.5s ease-in-out,
+              border 0.5s ease-in-out;
+
+  .tray-item {
+    all: unset;
+    padding: 0px 2px 0px 2px;
+    font-size: 25px;
+  }
+
+* {
+  min-width: 20px;
+  min-height: 20px;
+}
+  menuitem:not(.tray-item) {
+    background: $bgfull;
+    padding: 5px;
+    border-left: 2px solid #1b1b2b;
+    border-right: 2px solid #1b1b2b;
+    transition: background-color 0.2s ease-in-out;
+
+    &:hover {
+      background: #1b1b1b;
+    }
+
+    &:nth-child(1) {
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      border-top: 2px solid #1b1b2b;
+      padding-top: 10px;
+    }
+    &:nth-last-child(1) {
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+      border-bottom: 2px solid #1b1b2b;
+      padding-bottom: 10px;
+    }
+  }
+}
+
