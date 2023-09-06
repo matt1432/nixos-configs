@@ -11,8 +11,6 @@
 in
 {
   home.packages = [
-    (builtins.getFlake "github:hyprwm/Hyprland").packages.x86_64-linux.default
-    (builtins.getFlake "path:/home/matt/git/hyprland-touch-gestures").packages.x86_64-linux.default
     (builtins.getFlake "github:Aylur/ags").packages.x86_64-linux.default
     pkgs.sassc
     pkgs.kora-icon-theme
@@ -25,10 +23,10 @@ in
 
   wayland.windowManager.hyprland = {
     enable = true;
-    package = (builtins.getFlake "github:hyprwm/Hyprland").packages.x86_64-linux.default; # to be able to get the right ver from hyprctl version
+    package = (builtins.getFlake "github:horriblename/hyprgrass").inputs.hyprland.packages.x86_64-linux.default;
     
     plugins = [
-      "${(builtins.getFlake "path:/home/matt/git/hyprland-touch-gestures").packages.x86_64-linux.default}/lib/libtouch-gestures.so"
+      "${(builtins.getFlake "github:horriblename/hyprgrass").packages.x86_64-linux.default}/lib/libhyprgrass.so"
     ];
 
     extraConfig = ''
