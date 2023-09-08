@@ -9,6 +9,8 @@ const css = ags.App.configDir + '/style.css';
 exec(`touch ${css}`);
 exec(`sassc ${scss} ${css}`);
 
+exec(`bash -c "$AGS_PATH/startup.sh"`);
+
 export default {
     style: css,
     windows: [
