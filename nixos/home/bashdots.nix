@@ -39,7 +39,7 @@
       ls    = "ls -lah --color=auto";
       cp    = "cp -r";
 
-      ags   = "XDG_DATA_DIRS=/home/matt/.config/share ags | grep -v On";
+      ags   = "XDG_DATA_DIRS=/home/matt/.config/share ags";
 
       tup   = "tailscale up --login-server https://headscale.nelim.org";
 
