@@ -135,9 +135,6 @@
     all: unset;
     padding: 0px 2px 0px 2px;
     font-size: 25px; }
-  .sys-tray * {
-    min-width: 20px;
-    min-height: 20px; }
   .sys-tray menuitem:not(.tray-item) {
     background: #282a36;
     padding: 5px;
