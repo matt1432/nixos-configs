@@ -10,10 +10,6 @@
     ripgrep = {
       enable = true;
     };
-
-    waybar = {
-      enable = true;
-    };
   };
 
   home.packages = with pkgs; 
