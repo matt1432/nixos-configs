@@ -11,6 +11,7 @@ import { NotifButton }    from './notif-button.js';
 import { Clock }          from './clock.js';
 import { SysTray }        from './systray.js';
 import { Batt }           from './battery.js';
+import { Brightness }     from './brightness.js';
 
 export const Bar = Window({
   name: 'bar',
@@ -41,6 +42,10 @@ export const Bar = Window({
         Separator(12),
 
         SysTray,
+
+        Separator(12),
+
+        Brightness,
 
         Separator(12),
 
