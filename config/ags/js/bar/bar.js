@@ -10,10 +10,10 @@ import { QsToggle }       from './quick-settings.js';
 import { NotifButton }    from './notif-button.js';
 import { Clock }          from './clock.js';
 import { SysTray }        from './systray.js';
-import { BatteryLabel }   from './battery.js';
+import { Batt }           from './battery.js';
 
 export const Bar = Window({
-  name: 'left-bar',
+  name: 'bar',
   layer: 'overlay',
   anchor: 'top left right',
   exclusive: true,
@@ -24,56 +24,50 @@ export const Bar = Window({
     style: 'margin: 5px',
     vertical: false,
     
-    children: [
+    startWidget: Box({
+      halign: 'start',
+      children: [
 
-      // Left
-      Box({
-        halign: 'start',
-        children: [
-
-          OskToggle,
+        OskToggle,
   
-          Separator(12),
+        Separator(12),
 
-          TabletToggle,
+        TabletToggle,
       
-          Separator(12),
+        Separator(12),
 
-          Heart,
+        Heart,
 
-          Separator(12),
+        Separator(12),
 
-          SysTray,
+        SysTray,
 
-          Separator(12),
+        Separator(12),
 
-          Workspaces,
+        Workspaces,
 
-        ],
-      }),
+      ],
+    }),
 
-      // Center
-      CurrentWindow,
+    centerWidget: CurrentWindow,
 
-      // Right
-      Box({
-        halign: 'end',
-        children: [
-          BatteryLabel(),
+    endWidget: Box({
+      halign: 'end',
+      children: [
+        Batt,
+        
+        Separator(12),
+      
+        Clock,
 
-          Separator(12),
+        Separator(12),
 
-          Clock,
+        NotifButton,
 
-          Separator(12),
+        Separator(12),
 
-          NotifButton,
-
-          Separator(12),
-
-          QsToggle,
-        ],
-      }),
-    ],
+        QsToggle,
+      ],
+    }),
   }),
 });

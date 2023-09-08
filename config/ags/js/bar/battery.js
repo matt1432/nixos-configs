@@ -3,7 +3,7 @@ import { Separator } from '../common.js';
 const { exec } = ags.Utils;
 
 const icons = charging => ([
-  ...Array.from({ length: 9 }, (_, i) => i * 10).map(i => ([
+  ...Array.from({ length: 10 }, (_, i) => i * 10).map(i => ([
     `${i}`, Icon({
       className: `${i} ${charging ? 'charging' : 'discharging'}`,
       icon: `battery-level-${i}${charging ? '-charging' : ''}-symbolic`,
@@ -22,7 +22,7 @@ const Indicators = charging => Stack({
   }]],
 });
 
-export const Indicator = ({
+const Indicator = ({
   charging = Indicators(true),
   discharging = Indicators(false),
   ...props
@@ -43,13 +43,13 @@ export const Indicator = ({
   }]],
 });
 
-export const LevelLabel = props => Label({
+const LevelLabel = props => Label({
   ...props,
   className: 'label',
   connections: [[1000, label => label.label = `${exec('cat /sys/class/power_supply/BAT0/capacity')}%`]],
 });
 
-export const BatteryLabel = () => Box({
+const BatteryLabel = () => Box({
   className: 'toggle-off battery',
   children: [
     Indicator(),
@@ -57,3 +57,5 @@ export const BatteryLabel = () => Box({
     LevelLabel(),
   ],
 });
+
+export const Batt = BatteryLabel();
