@@ -12,6 +12,7 @@ import { Clock }          from './clock.js';
 import { SysTray }        from './systray.js';
 import { Batt }           from './battery.js';
 import { Brightness }     from './brightness.js';
+import { AudioIndicator } from './audio.js';
 
 export const Bar = Window({
   name: 'bar',
@@ -42,6 +43,10 @@ export const Bar = Window({
         Separator(12),
 
         SysTray,
+
+        Separator(12),
+
+        AudioIndicator,
 
         Separator(12),
 

@@ -1,5 +1,3 @@
-// https://github.com/Aylur/ags/wiki/Widgets
-
 const { Hyprland } = ags.Service;
 const { Label } = ags.Widget;
 const { Gtk } = imports.gi;
