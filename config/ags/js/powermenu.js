@@ -9,7 +9,7 @@ export const Powermenu = ags.Widget.Window({
 
     startWidget: ags.Widget.Button({
       className: 'shutdown',
-      onPrimaryClickRelease: 'echo shutdown',
+      onPrimaryClickRelease: 'systemctl poweroff',
 
       child: ags.Widget.Label({
         label: '襤',
@@ -18,7 +18,7 @@ export const Powermenu = ags.Widget.Window({
 
     centerWidget: ags.Widget.Button({
       className: 'reboot',
-      onPrimaryClickRelease: 'echo reboot',
+      onPrimaryClickRelease: 'systemctl reboot',
 
       child: ags.Widget.Label({
         label: '勒',
@@ -27,7 +27,7 @@ export const Powermenu = ags.Widget.Window({
 
     endWidget: ags.Widget.Button({
       className: 'logout',
-      onPrimaryClickRelease: 'echo logout',
+      onPrimaryClickRelease: 'hyprctl dispatch exit',
 
       child: ags.Widget.Label({
         label: '',

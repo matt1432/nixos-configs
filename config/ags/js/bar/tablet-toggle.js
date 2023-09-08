@@ -7,7 +7,7 @@ export const TabletToggle = EventBox({
   className: 'toggle-off',
   onPrimaryClickRelease: function() {
     subprocess(
-      ['bash', '-c', '/home/matt/.nix/config/ags/bin/tablet-toggle.sh toggle'],
+      ['bash', '-c', '$AGS_PATH/tablet-toggle.sh toggle'],
       (output) => {
         print(output)
         if (output == 'Tablet') {

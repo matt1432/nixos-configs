@@ -4,13 +4,13 @@ import { EventBox } from '../common.js';
 const deflisten = subprocess;
 
 deflisten(
-  ['bash', '-c', '/home/matt/.nix/config/ags/bin/notif.sh icon'],
+  ['bash', '-c', '$AGS_PATH/notif.sh icon'],
   (output) => {
     NotifButton.child.children[0].label = '     ' + output;
   },
 );
 deflisten(
-  ['bash', '-c', '/home/matt/.nix/config/ags/bin/notif-toggle.sh state'],
+  ['bash', '-c', '$AGS_PATH/notif-toggle.sh state'],
   (output) => {
     print(output)
     if (output == 'On') {
@@ -24,7 +24,7 @@ export const NotifButton = EventBox({
   className: 'toggle-off',
   onPrimaryClickRelease: function() {
     subprocess(
-      ['bash', '-c', '/home/matt/.nix/config/ags/bin/notif-toggle.sh toggle'],
+      ['bash', '-c', '$AGS_PATH/notif-toggle.sh toggle'],
       (output) => {
         print(output)
         if (output == 'On') {

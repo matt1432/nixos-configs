@@ -20,7 +20,7 @@ export const Heart = EventBox({
   className: 'toggle-off',
   halign: 'center',
   onPrimaryClickRelease: () => {
-    exec('/home/matt/.nix/config/ags/bin/heart.sh toggle');
+    exec("bash -c '$AGS_PATH/heart.sh toggle'");
   },
   child: Box({
     className: 'heart-toggle',

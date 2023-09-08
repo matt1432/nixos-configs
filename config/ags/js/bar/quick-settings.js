@@ -4,7 +4,7 @@ import { EventBox } from '../common.js';
 const deflisten = subprocess;
 
 deflisten(
-  ['bash', '-c', '/home/matt/.nix/config/ags/bin/qs-toggle.sh state'],
+  ['bash', '-c', '$AGS_PATH/qs-toggle.sh state'],
   (output) => {
     print(output)
     if (output == 'On') {
@@ -18,7 +18,7 @@ export const QsToggle = EventBox({
   className: 'toggle-off',
   onPrimaryClickRelease: function() {
     subprocess(
-      ['bash', '-c', '/home/matt/.nix/config/ags/bin/qs-toggle.sh toggle'],
+      ['bash', '-c', '$AGS_PATH/qs-toggle.sh toggle'],
       (output) => {
         print(output)
         if (output == 'On') {

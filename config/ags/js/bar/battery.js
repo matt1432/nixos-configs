@@ -1,4 +1,3 @@
-const { Battery } = ags.Service;
 const { Label, Icon, Stack, ProgressBar, Overlay, Box } = ags.Widget;
 import { Separator } from '../common.js';
 const { exec } = ags.Utils;

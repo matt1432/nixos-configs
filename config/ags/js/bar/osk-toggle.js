@@ -5,7 +5,7 @@ const deflisten = subprocess;
 import { EventBox } from '../common.js';
 
 deflisten(
-  ['bash', '-c', '/home/matt/.nix/config/ags/bin/osk-toggle.sh getState'],
+  ['bash', '-c', '$AGS_PATH/osk-toggle.sh getState'],
   (output) => {
     if (output == 'Running') {
       OskToggle.toggleClassName('toggle-on', true);
@@ -18,7 +18,7 @@ export const OskToggle = EventBox({
   className: 'toggle-off',
   onPrimaryClickRelease: function() {
     subprocess(
-      ['bash', '-c', '/home/matt/.nix/config/ags/bin/osk-toggle.sh toggle'],
+      ['bash', '-c', '$AGS_PATH/osk-toggle.sh toggle'],
       (output) => {
         if (output == 'Running') {
           OskToggle.toggleClassName('toggle-on', false);
