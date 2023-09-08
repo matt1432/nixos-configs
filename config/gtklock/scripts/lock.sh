@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-$HYPR_PATH/laptop-mode.sh &
+$AGS_PATH/tablet-toggle.sh laptop &
 $LOCK_PATH/blur.sh
 gtklock

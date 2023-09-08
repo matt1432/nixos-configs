@@ -33,6 +33,6 @@ toggle () {
   fi
 }
 
-if [[ $1 == "toggle" ]];then
-  toggle
-fi
+[[ $1 == "toggle" ]] && toggle
+[[ $1 == "laptop" ]] && laptop
+[[ $1 == "tablet" ]] && tablet
