@@ -36,8 +36,8 @@
   hardware.opengl.driSupport32Bit = true;
   hardware.uinput.enable = true;
 
-  virtualisation = {
-    waydroid.enable = true;
-    lxd.enable = true;
-  };
+  #virtualisation = {
+    #waydroid.enable = true;
+    #lxd.enable = true;
+  #};
 }
