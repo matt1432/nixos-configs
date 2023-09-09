@@ -133,27 +133,29 @@
   background-color: rgba(40, 42, 54, 0.8);
   color: #CBA6F7;
   border-radius: 80px;
-  border: 2px solid #1b1b2b;
+  border: 2px solid rgba(56, 44, 74, 0.8);
   transition: background-color 0.5s ease-in-out, border 0.5s ease-in-out; }
   .sys-tray .tray-item {
     all: unset;
     padding: 0px 2px 0px 2px;
     font-size: 25px; }
-  .sys-tray menuitem:not(.tray-item) {
+  .sys-tray menu {
     background: #282a36;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border: 2px solid #1b1b1b;
+    border-radius: 10px; }
+    .sys-tray menu check {
+      color: white;
+      margin-left: 2px;
+      margin-right: 5px;
+      min-height: 20px;
+      min-width: 20px;
+      -gtk-icon-source: -gtk-icontheme("checkbox-symbolic"); }
+      .sys-tray menu check:checked {
+        -gtk-icon-source: -gtk-icontheme("checkbox-checked-symbolic"); }
+  .sys-tray menuitem:not(.tray-item) {
     padding: 5px;
-    border-left: 2px solid #1b1b2b;
-    border-right: 2px solid #1b1b2b;
-    transition: background-color 0.2s ease-in-out; }
+    transition: all 0.2s ease-in-out; }
     .sys-tray menuitem:not(.tray-item):hover {
       background: #1b1b1b; }
-    .sys-tray menuitem:not(.tray-item):nth-child(1) {
-      border-top-left-radius: 10px;
-      border-top-right-radius: 10px;
-      border-top: 2px solid #1b1b2b;
-      padding-top: 10px; }
-    .sys-tray menuitem:not(.tray-item):nth-last-child(1) {
-      border-bottom-left-radius: 10px;
-      border-bottom-right-radius: 10px;
-      border-bottom: 2px solid #1b1b2b;
-      padding-bottom: 10px; }
