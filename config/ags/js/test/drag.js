@@ -2,7 +2,7 @@ const { Window, Box, EventBox, Button } = ags.Widget;
 const { Gtk, Gdk } = imports.gi;
 const display = Gdk.Display.get_default();
 
-const Draggable = ({ maxOffset = 150, style, connections = [], ...props }) => {
+const Draggable = ({ maxOffset = 150, startMargin = 0, style, connections = [], ...props }) => {
   let w = EventBox({
     onHover: box => {
       box.window.set_cursor(Gdk.Cursor.new_from_name(display, 'grab'));
@@ -21,18 +21,18 @@ const Draggable = ({ maxOffset = 150, style, connections = [], ...props }) => {
       [gesture, box => {
         const offset = gesture.get_offset()[1];
 
-        box.setStyle('margin-left: ' + offset + 'px; ' + style);
+        box.setStyle('margin-left: ' + Number(offset + startMargin) + 'px; ' + style);
         w.window.set_cursor(Gdk.Cursor.new_from_name(display, 'grabbing'));
       }, 'drag-update'],
 
       [gesture, box => {
         const offset = gesture.get_offset()[1];
 
-        if (offset > maxOffset) {
+        if (offset > maxOffset || offset < -maxOffset) {
           w.destroy();
         }
         else {
-          box.setStyle('transition: margin 0.5s ease; ' + style);
+          box.setStyle('transition: margin-left 0.5s ease; margin-left: ' + startMargin + 'px; ' + style);
           w.window.set_cursor(Gdk.Cursor.new_from_name(display, 'grab'));
         }
       }, 'drag-end'],
@@ -53,6 +53,7 @@ export const DragTest = Window({
     children: [
       Draggable({
         maxOffset: 120,
+        startMargin: 5,
         className: 'test',
         style: 'background: black; min-width: 40px; min-height: 20px',
         child: Button({
