@@ -1,27 +1,48 @@
-const { Window, Box, EventBox } = ags.Widget;
+const { Window, Box, EventBox, Button } = ags.Widget;
 const { Gtk, Gdk } = imports.gi;
 const display = Gdk.Display.get_default();
 
-var Gesture;
-var shouldDelete = false;
+const Draggable = ({ maxOffset = 150, style, connections = [], ...props }) => {
+  let w = EventBox({
+    onHover: box => {
+      box.window.set_cursor(Gdk.Cursor.new_from_name(display, 'grab'));
+    },
+    onHoverLost: box => {
+      box.window.set_cursor(null);
+    },
+  });
 
-const DraggableCtor = props => EventBox({
-  onHover: box => {
-    box.window.set_cursor(Gdk.Cursor.new_from_name(display, 'grab'));
-  },
-  onHoverLost: box => {
-    box.window.set_cursor(null);
-  },
-  setup: widget => {
-    Gesture = Gtk.GestureDrag.new(widget);
-  },
-  child: Box({
-    style: 'background: black; min-width: 40px; min-height: 20px',
-  }),
-  ...props,
-});
+  let gesture = Gtk.GestureDrag.new(w);
 
-const Draggable = DraggableCtor();
+  w.child = Box({
+    ...props,
+    connections: [
+
+      [gesture, box => {
+        const offset = gesture.get_offset()[1];
+
+        box.setStyle('margin-left: ' + offset + 'px; ' + style);
+        w.window.set_cursor(Gdk.Cursor.new_from_name(display, 'grabbing'));
+      }, 'drag-update'],
+
+      [gesture, box => {
+        const offset = gesture.get_offset()[1];
+
+        if (offset > maxOffset) {
+          w.destroy();
+        }
+        else {
+          box.setStyle('transition: margin 0.5s ease; ' + style);
+          w.window.set_cursor(Gdk.Cursor.new_from_name(display, 'grab'));
+        }
+      }, 'drag-end'],
+
+      ...connections,
+    ],
+  });
+
+  return w;
+};
 
 export const DragTest = Window({
   name: 'drag-test',
@@ -30,33 +51,14 @@ export const DragTest = Window({
   child: Box({
     style: 'background: white; min-width: 200px; min-height: 200px;',
     children: [
-      Draggable,
-      Box({
-        connections: [
-          [Gesture, event => {
-            const offset = Gesture.get_offset()[1];
-            Draggable.child.setStyle('background: black; min-width: 40px; min-height: 20px; margin-left: ' + offset + 'px;');
-            Draggable.window.set_cursor(Gdk.Cursor.new_from_name(display, 'grabbing'));
-
-            if (offset > 150) {
-              shouldDelete = true;
-            }
-            else if (shouldDelete) {
-              shouldDelete = false;
-            }
-          }, 'drag-update'],
-
-          [Gesture, event => {
-            if (shouldDelete) {
-              Draggable.destroy();
-            }
-            else {
-              Draggable.child.setStyle('transition: margin 0.5s ease; background: black; min-width: 40px; min-height: 20px');
-              Draggable.window.set_cursor(Gdk.Cursor.new_from_name(display, 'grab'));
-            }
-            print('end');
-          }, 'drag-end'],
-        ],
+      Draggable({
+        maxOffset: 120,
+        className: 'test',
+        style: 'background: black; min-width: 40px; min-height: 20px',
+        child: Button({
+          style: 'background: red; min-width: 10px; min-height: 10px',
+          onClicked: 'echo hi',
+        }),
       }),
     ],
   }),
