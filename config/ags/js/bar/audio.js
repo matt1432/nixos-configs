@@ -34,7 +34,14 @@ const SpeakerPercentLabel = props => Label({
     if (!Audio.speaker)
       return;
 
-    label.label = `${Math.floor(Audio.speaker.volume * 100)}%`;
+    let vol = Math.floor(Audio.speaker.volume * 100);
+
+    if (vol == 0) {
+      label.label = vol + '%';
+    }
+    else {
+      label.label = vol + 1 + '%';
+    }
   }, 'speaker-changed']],
 });
 
