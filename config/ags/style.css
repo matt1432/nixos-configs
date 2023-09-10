@@ -103,6 +103,15 @@
   .battery .label {
     font-size: 20px; }
 
+.brightness trough {
+  margin-right: -50px; }
+  .brightness trough progress {
+    margin-right: 50px;
+    margin-top: -30px;
+    border-radius: 80px;
+    min-height: 37px;
+    background: rgba(56, 44, 74, 0.8); }
+
 .workspaces {
   background-color: rgba(40, 42, 54, 0.8);
   border-radius: 80px;

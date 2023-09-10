@@ -2,34 +2,44 @@ const { Label, Icon, Stack, ProgressBar, Overlay, Box } = ags.Widget;
 import { Separator } from '../common.js';
 const { exec } = ags.Utils;
 
-const Indicator = props => Label({
+const Indicator = props => Icon({
   ...props,
-  label: '',
-  connections: [[500, icon => {
-    const br = `${exec('brightnessctl get')}`;
-         if (br <= 3) icon.label = "";
-    else if (br <= 38) icon.label = "";
-    else if (br <= 77) icon.label = "";
-    else if (br <= 115) icon.label = "";
-    else if (br <= 153) icon.label = "";
-    else if (br <= 191) icon.label = "";
-    else if (br <= 230) icon.label = "";
-                   else icon.label = "";
-  }]],
+  size: 28,
+  style: 'margin-left: -5px',
+  icon: 'display-brightness-symbolic',
 });
 
 const LevelLabel = props => Label({
   ...props,
   className: 'label',
-  connections: [[500, label => label.label = `${Math.floor(exec('brightnessctl get') / 2.55)}%`]],
+  connections: [[200, label => label.label = `${Math.floor(exec('brightnessctl get') / 2.55)}%`]],
 });
 
-const BrightnessModule = () => Box({
-  className: 'toggle-off battery',
-  children: [
-    Indicator(),
-    Separator(12),
-    LevelLabel(),
+const BrightnessModule = () => Overlay({
+  child: ProgressBar({
+    className: 'toggle-off brightness',
+    connections: [
+      [ 200, progress => {
+        let br = exec('brightnessctl get') / 255;
+        if (br > 0.33) {
+          progress.value = br;
+        }
+        else {
+          progress.value = 0.33;
+        }
+      }]
+    ],
+  }),
+  overlays: [
+    Box({
+      className: 'battery',
+      style: 'color: #CBA6F7;',
+      children: [
+        Indicator(),
+        Separator(2),
+        LevelLabel(),
+      ],
+    }),
   ],
 });
 
