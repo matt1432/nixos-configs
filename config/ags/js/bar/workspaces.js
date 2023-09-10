@@ -14,9 +14,8 @@ Revealer({
       child: Label(`${i}`),
       connections: [
         [Hyprland, btn => {
-          const { workspaces, active } = Hyprland;
-          const occupied = workspaces.has(i) && workspaces.get(i).windows > 0;
-          btn.toggleClassName('active', active.workspace.id === i);
+          const occupied = Hyprland.getWorkspace(i)?.windows > 0;
+          btn.toggleClassName('active', Hyprland.active.workspace.id === i);
           btn.toggleClassName('occupied', occupied);
           btn.toggleClassName('empty', !occupied);
         }]

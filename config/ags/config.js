@@ -1,7 +1,7 @@
 import { exec } from 'resource:///com/github/Aylur/ags/utils.js';
 import { Powermenu } from './js/powermenu.js';
 import { Bar } from './js/bar/bar.js';
-import { DragTest } from './js/test/drag.js';
+//import { DragTest } from './js/test/drag.js';
 import { Closer } from './js/common.js';
 
 const scss = ags.App.configDir + '/scss/main.scss';
@@ -18,6 +18,6 @@ export default {
       Powermenu,
       Bar,
       Closer,
-      DragTest,
+      //DragTest,
     ]
 }
