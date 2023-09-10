@@ -110,7 +110,11 @@
     margin-top: -30px;
     border-radius: 80px;
     min-height: 37px;
-    background: rgba(56, 44, 74, 0.8); }
+    background: rgba(132, 102, 174, 0.8); }
+
+tooltip {
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 5px; }
 
 .workspaces {
   background-color: rgba(40, 42, 54, 0.8);

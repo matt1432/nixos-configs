@@ -4,7 +4,6 @@ import { Separator }      from '../common.js';
 import { CurrentWindow }  from './current-window.js';
 import { Workspaces }     from './workspaces.js';
 import { OskToggle }      from './osk-toggle.js';
-import { Heart }          from './heart.js';
 import { TabletToggle }   from './tablet-toggle.js';
 import { QsToggle }       from './quick-settings.js';
 import { NotifButton }    from './notif-button.js';
@@ -36,10 +35,6 @@ export const Bar = Window({
 
         TabletToggle,
       
-        Separator(12),
-
-        Heart,
-
         Separator(12),
 
         SysTray,

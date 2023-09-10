@@ -96,7 +96,12 @@
       margin-top: -30px;
       border-radius: 80px;
       min-height: 37px;
-      background: $bgSecondary;
+      background: rgba(#8466ae, 0.8);
     }
   }
+}
+  
+tooltip {
+  background: rgba(0,0,0, 0.6);
+  border-radius: 5px;
 }

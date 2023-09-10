@@ -1,25 +1,16 @@
 const { Label, Icon, Stack, ProgressBar, Overlay, Box } = ags.Widget;
-import { Separator } from '../common.js';
 const { exec } = ags.Utils;
+import { Separator } from '../common.js';
+import { Heart }     from './heart.js';
 
-const Indicator = props => Icon({
-  ...props,
-  size: 28,
-  style: 'margin-left: -5px',
-  icon: 'display-brightness-symbolic',
-});
-
-const LevelLabel = props => Label({
-  ...props,
-  className: 'label',
-  connections: [[200, label => label.label = `${Math.floor(exec('brightnessctl get') / 2.55)}%`]],
-});
-
-const BrightnessModule = () => Overlay({
+export const Brightness = Overlay({
+  setup: widget => {
+    widget.set_tooltip_text('Brightness');
+  },
   child: ProgressBar({
     className: 'toggle-off brightness',
     connections: [
-      [ 200, progress => {
+      [200, progress => {
         let br = exec('brightnessctl get') / 255;
         if (br > 0.33) {
           progress.value = br;
@@ -32,15 +23,11 @@ const BrightnessModule = () => Overlay({
   }),
   overlays: [
     Box({
-      className: 'battery',
       style: 'color: #CBA6F7;',
       children: [
-        Indicator(),
-        Separator(2),
-        LevelLabel(),
+        Separator(25),
+        Heart,
       ],
     }),
   ],
 });
-
-export const Brightness = BrightnessModule();
