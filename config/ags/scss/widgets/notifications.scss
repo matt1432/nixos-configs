@@ -1,0 +1,335 @@
+.notifications-popup-list .notification.critical > box {
+  box-shadow: inset 0 0 0.5em 0 #e67090; }
+
+.notifications-popup-list .notification > box {
+  border-radius: 4.5px;
+  padding: 9px; }
+
+.notifications-popup-list .notification:hover .close-button {
+  box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+  background-color: rgba(238, 238, 238, 0.154);
+  color: #f1f1f1;
+  background-color: rgba(230, 112, 144, 0.5); }
+
+.notifications-popup-list .notification .title {
+  margin-right: 9px;
+  color: #eee;
+  font-size: 1.1em; }
+
+.notifications-popup-list .notification .time {
+  color: rgba(238, 238, 238, 0.8); }
+
+.notifications-popup-list .notification .description {
+  font-size: .9em;
+  color: rgba(238, 238, 238, 0.8); }
+
+.notifications-popup-list .notification .icon {
+  border-radius: 7.2px;
+  margin-right: 9px; }
+  .notifications-popup-list .notification .icon.img {
+    border: 1px solid rgba(238, 238, 238, 0.03); }
+
+.notifications-popup-list .notification .actions button {
+  all: unset;
+  transition: 200ms;
+  border-radius: 9px;
+  color: #eee;
+  background-color: rgba(238, 238, 238, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+  border-radius: 7.2px;
+  font-size: 1.2em;
+  padding: 4.5px 9px;
+  margin: 9px 4.5px 0; }
+  .notifications-popup-list .notification .actions button * {
+    font-size: 16px;
+    font-family: "Ubuntu Nerd Font", sans-serif; }
+  .notifications-popup-list .notification .actions button:focus {
+    box-shadow: inset 0 0 0 1px #51a4e7;
+    background-color: rgba(238, 238, 238, 0.154);
+    color: #f1f1f1; }
+  .notifications-popup-list .notification .actions button:hover {
+    box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+    background-color: rgba(238, 238, 238, 0.154);
+    color: #f1f1f1; }
+  .notifications-popup-list .notification .actions button:active, .notifications-popup-list .notification .actions button.on, .notifications-popup-list .notification .actions button.active, .notifications-popup-list .notification .actions button:checked {
+    box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+    background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
+    background-color: #51a4e7;
+    color: #141414; }
+    .notifications-popup-list .notification .actions button:active:hover, .notifications-popup-list .notification .actions button.on:hover, .notifications-popup-list .notification .actions button.active:hover, .notifications-popup-list .notification .actions button:checked:hover {
+      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 0 99px rgba(238, 238, 238, 0.154); }
+  .notifications-popup-list .notification .actions button:disabled {
+    box-shadow: none;
+    background-color: transparent;
+    color: rgba(238, 238, 238, 0.3); }
+  .notifications-popup-list .notification .actions button:first-child {
+    margin-left: 0; }
+  .notifications-popup-list .notification .actions button:last-child {
+    margin-right: 0; }
+
+.notifications-popup-list .notification button.close-button {
+  all: unset;
+  transition: 200ms;
+  border-radius: 9px;
+  color: #eee;
+  background-color: transparent;
+  background-image: none;
+  box-shadow: none;
+  margin-left: 9px;
+  border-radius: 7.2px;
+  min-width: 1.2em;
+  min-height: 1.2em; }
+  .notifications-popup-list .notification button.close-button * {
+    font-size: 16px;
+    font-family: "Ubuntu Nerd Font", sans-serif; }
+  .notifications-popup-list .notification button.close-button:focus {
+    box-shadow: inset 0 0 0 1px #51a4e7;
+    background-color: rgba(238, 238, 238, 0.154);
+    color: #f1f1f1; }
+  .notifications-popup-list .notification button.close-button:hover {
+    box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+    background-color: rgba(238, 238, 238, 0.154);
+    color: #f1f1f1; }
+  .notifications-popup-list .notification button.close-button:active, .notifications-popup-list .notification button.close-button.on, .notifications-popup-list .notification button.close-button.active, .notifications-popup-list .notification button.close-button:checked {
+    box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+    background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
+    background-color: #51a4e7;
+    color: #141414; }
+    .notifications-popup-list .notification button.close-button:active:hover, .notifications-popup-list .notification button.close-button.on:hover, .notifications-popup-list .notification button.close-button.active:hover, .notifications-popup-list .notification button.close-button:checked:hover {
+      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 0 99px rgba(238, 238, 238, 0.154); }
+  .notifications-popup-list .notification button.close-button:disabled {
+    box-shadow: none;
+    background-color: transparent;
+    color: rgba(238, 238, 238, 0.3); }
+  .notifications-popup-list .notification button.close-button:hover {
+    background-color: rgba(230, 112, 144, 0.5); }
+  .notifications-popup-list .notification button.close-button:active {
+    background-image: linear-gradient(#e67090, #e67090); }
+
+.notifications-popup-list .notification > box {
+  all: unset;
+  box-shadow: 0 0 4.5px 0 rgba(0, 0, 0, 0.6);
+  margin: 9px;
+  border: 1px solid rgba(238, 238, 238, 0.04);
+  border-radius: 15.3px;
+  background-color: #171717;
+  color: #eee;
+  padding: 16.2px;
+  border-radius: 9px; }
+  .notifications-popup-list .notification > box * {
+    font-size: 16px;
+    font-family: "Ubuntu Nerd Font", sans-serif; }
+
+.notifications-popup-list .notification .description {
+  min-width: 350px; }
+
+.dashboard {
+  all: unset;
+  box-shadow: 0 0 4.5px 0 rgba(0, 0, 0, 0.6);
+  margin: 9px;
+  border: 1px solid rgba(238, 238, 238, 0.04);
+  border-radius: 15.3px;
+  background-color: #171717;
+  color: #eee;
+  padding: 16.2px; }
+  .dashboard * {
+    font-size: 16px;
+    font-family: "Ubuntu Nerd Font", sans-serif; }
+  .dashboard .notifications {
+    min-width: 450px;
+    min-height: 600px;}
+    .dashboard .notifications .header {
+      padding-left: .3em;
+      margin-bottom: 9px; }
+      .dashboard .notifications .header label {
+        font-size: 1.2em; }
+      .dashboard .notifications .header button {
+        all: unset;
+        transition: 200ms;
+        border-radius: 9px;
+        color: #eee;
+        background-color: rgba(238, 238, 238, 0.06);
+        box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+        padding: 4.5px 9px; }
+        .dashboard .notifications .header button * {
+          font-size: 16px;
+          font-family: "Ubuntu Nerd Font", sans-serif; }
+        .dashboard .notifications .header button:focus {
+          box-shadow: inset 0 0 0 1px #51a4e7;
+          background-color: rgba(238, 238, 238, 0.154);
+          color: #f1f1f1; }
+        .dashboard .notifications .header button:hover {
+          box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+          background-color: rgba(238, 238, 238, 0.154);
+          color: #f1f1f1; }
+        .dashboard .notifications .header button:active, .dashboard .notifications .header button.on, .dashboard .notifications .header button.active, .dashboard .notifications .header button:checked {
+          box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+          background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
+          background-color: #51a4e7;
+          color: #141414; }
+          .dashboard .notifications .header button:active:hover, .dashboard .notifications .header button.on:hover, .dashboard .notifications .header button.active:hover, .dashboard .notifications .header button:checked:hover {
+            box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 0 99px rgba(238, 238, 238, 0.154); }
+        .dashboard .notifications .header button:disabled {
+          box-shadow: none;
+          background-color: transparent;
+          color: rgba(238, 238, 238, 0.3); }
+        .dashboard .notifications .header button label {
+          font-size: 1.2em; }
+    .dashboard .notifications .notification-wallpaper-box {
+      all: unset;
+      border-radius: 9px;
+      color: #eee;
+      background-color: rgba(238, 238, 238, 0.06);
+      border: 1px solid rgba(238, 238, 238, 0.03); }
+      .dashboard .notifications .notification-wallpaper-box * {
+        font-size: 16px;
+        font-family: "Ubuntu Nerd Font", sans-serif; }
+      .dashboard .notifications .notification-wallpaper-box .wallpaper {
+        border-radius: 8px;
+        background-position: bottom right;
+        box-shadow: inset 0 0 9px 0 rgba(0, 0, 0, 0.6); }
+    .dashboard .notifications .notification-list-box scrollbar, .dashboard .notifications .notification-list-box scrollbar * {
+      all: unset; }
+    .dashboard .notifications .notification-list-box scrollbar.vertical {
+      transition: 200ms;
+      background-color: rgba(23, 23, 23, 0.3); }
+      .dashboard .notifications .notification-list-box scrollbar.vertical:hover {
+        background-color: rgba(23, 23, 23, 0.7); }
+        .dashboard .notifications .notification-list-box scrollbar.vertical:hover slider {
+          background-color: rgba(238, 238, 238, 0.7);
+          min-width: .6em; }
+    .dashboard .notifications .notification-list-box scrollbar.vertical slider {
+      background-color: rgba(238, 238, 238, 0.5);
+      border-radius: 9px;
+      min-width: .4em;
+      min-height: 2em;
+      transition: 200ms; }
+    .dashboard .notifications .notification-list-box scrollbar, .dashboard .notifications .notification-list-box scrollbar:hover {
+      border-radius: 8px;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0; }
+    .dashboard .notifications .notification-list-box .notification-list {
+      padding: 4.5px; }
+    .dashboard .notifications .notification-list-box .notification.critical > box {
+      box-shadow: inset 0 0 0.5em 0 #e67090; }
+    .dashboard .notifications .notification-list-box .notification > box {
+      border-radius: 4.5px;
+      padding: 9px; }
+    .dashboard .notifications .notification-list-box .notification:hover .close-button {
+      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+      background-color: rgba(238, 238, 238, 0.154);
+      color: #f1f1f1;
+      background-color: rgba(230, 112, 144, 0.5); }
+    .dashboard .notifications .notification-list-box .notification .title {
+      margin-right: 9px;
+      color: #eee;
+      font-size: 1.1em; }
+    .dashboard .notifications .notification-list-box .notification .time {
+      color: rgba(238, 238, 238, 0.8); }
+    .dashboard .notifications .notification-list-box .notification .description {
+      font-size: .9em;
+      color: rgba(238, 238, 238, 0.8); }
+    .dashboard .notifications .notification-list-box .notification .icon {
+      border-radius: 7.2px;
+      margin-right: 9px; }
+      .dashboard .notifications .notification-list-box .notification .icon.img {
+        border: 1px solid rgba(238, 238, 238, 0.03); }
+    .dashboard .notifications .notification-list-box .notification .actions button {
+      all: unset;
+      transition: 200ms;
+      border-radius: 9px;
+      color: #eee;
+      background-color: rgba(238, 238, 238, 0.06);
+      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+      border-radius: 7.2px;
+      font-size: 1.2em;
+      padding: 4.5px 9px;
+      margin: 9px 4.5px 0; }
+      .dashboard .notifications .notification-list-box .notification .actions button * {
+        font-size: 16px;
+        font-family: "Ubuntu Nerd Font", sans-serif; }
+      .dashboard .notifications .notification-list-box .notification .actions button:focus {
+        box-shadow: inset 0 0 0 1px #51a4e7;
+        background-color: rgba(238, 238, 238, 0.154);
+        color: #f1f1f1; }
+      .dashboard .notifications .notification-list-box .notification .actions button:hover {
+        box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+        background-color: rgba(238, 238, 238, 0.154);
+        color: #f1f1f1; }
+      .dashboard .notifications .notification-list-box .notification .actions button:active, .dashboard .notifications .notification-list-box .notification .actions button.on, .dashboard .notifications .notification-list-box .notification .actions button.active, .dashboard .notifications .notification-list-box .notification .actions button:checked {
+        box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+        background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
+        background-color: #51a4e7;
+        color: #141414; }
+        .dashboard .notifications .notification-list-box .notification .actions button:active:hover, .dashboard .notifications .notification-list-box .notification .actions button.on:hover, .dashboard .notifications .notification-list-box .notification .actions button.active:hover, .dashboard .notifications .notification-list-box .notification .actions button:checked:hover {
+          box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 0 99px rgba(238, 238, 238, 0.154); }
+      .dashboard .notifications .notification-list-box .notification .actions button:disabled {
+        box-shadow: none;
+        background-color: transparent;
+        color: rgba(238, 238, 238, 0.3); }
+      .dashboard .notifications .notification-list-box .notification .actions button:first-child {
+        margin-left: 0; }
+      .dashboard .notifications .notification-list-box .notification .actions button:last-child {
+        margin-right: 0; }
+    .dashboard .notifications .notification-list-box .notification button.close-button {
+      all: unset;
+      transition: 200ms;
+      border-radius: 9px;
+      color: #eee;
+      background-color: transparent;
+      background-image: none;
+      box-shadow: none;
+      margin-left: 9px;
+      border-radius: 7.2px;
+      min-width: 1.2em;
+      min-height: 1.2em; }
+      .dashboard .notifications .notification-list-box .notification button.close-button * {
+        font-size: 16px;
+        font-family: "Ubuntu Nerd Font", sans-serif; }
+      .dashboard .notifications .notification-list-box .notification button.close-button:focus {
+        box-shadow: inset 0 0 0 1px #51a4e7;
+        background-color: rgba(238, 238, 238, 0.154);
+        color: #f1f1f1; }
+      .dashboard .notifications .notification-list-box .notification button.close-button:hover {
+        box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+        background-color: rgba(238, 238, 238, 0.154);
+        color: #f1f1f1; }
+      .dashboard .notifications .notification-list-box .notification button.close-button:active, .dashboard .notifications .notification-list-box .notification button.close-button.on, .dashboard .notifications .notification-list-box .notification button.close-button.active, .dashboard .notifications .notification-list-box .notification button.close-button:checked {
+        box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+        background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
+        background-color: #51a4e7;
+        color: #141414; }
+        .dashboard .notifications .notification-list-box .notification button.close-button:active:hover, .dashboard .notifications .notification-list-box .notification button.close-button.on:hover, .dashboard .notifications .notification-list-box .notification button.close-button.active:hover, .dashboard .notifications .notification-list-box .notification button.close-button:checked:hover {
+          box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 0 99px rgba(238, 238, 238, 0.154); }
+      .dashboard .notifications .notification-list-box .notification button.close-button:disabled {
+        box-shadow: none;
+        background-color: transparent;
+        color: rgba(238, 238, 238, 0.3); }
+      .dashboard .notifications .notification-list-box .notification button.close-button:hover {
+        background-color: rgba(230, 112, 144, 0.5); }
+      .dashboard .notifications .notification-list-box .notification button.close-button:active {
+        background-image: linear-gradient(#e67090, #e67090); }
+    .dashboard .notifications .notification-list-box .notification > box {
+      all: unset;
+      box-shadow: 0 0 4.5px 0 rgba(0, 0, 0, 0.6);
+      margin: 9px;
+      border: 1px solid rgba(238, 238, 238, 0.04);
+      border-radius: 15.3px;
+      background-color: #171717;
+      color: #eee;
+      padding: 16.2px;
+      border-radius: 9px;
+      padding: 9px;
+      margin: 4.5px; }
+      .dashboard .notifications .notification-list-box .notification > box * {
+        font-size: 16px;
+        font-family: "Ubuntu Nerd Font", sans-serif; }
+    .dashboard .notifications .placeholder {
+      color: white; }
+      .dashboard .notifications .placeholder image {
+        font-size: 7em; }
+      .dashboard .notifications .placeholder label {
+        font-size: 1.2em; }
+      .dashboard .notifications .placeholder label, .dashboard .notifications .placeholder image {
+        text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6);
+        -gtk-icon-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6); }
