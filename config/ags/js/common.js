@@ -22,7 +22,12 @@ const display = Gdk.Display.get_default();
 export const EventBox = ({ ...params }) => ags.Widget.EventBox({
   ...params,
   onHover: box => {
-    box.window.set_cursor(Gdk.Cursor.new_from_name(display, 'pointer'));
+    if (! box.child.sensitive || ! box.sensitive) {
+      box.window.set_cursor(Gdk.Cursor.new_from_name(display, 'not-allowed'));
+    }
+    else {
+      box.window.set_cursor(Gdk.Cursor.new_from_name(display, 'pointer'));
+    }
   },
   onHoverLost: box => {
     box.window.set_cursor(null);
