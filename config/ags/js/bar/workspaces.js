@@ -4,10 +4,13 @@ const { Box, Button, Label, Revealer } = ags.Widget;
 
 import { EventBox } from '../common.js';
 
-const WorkspaceModule = ({ i } = {}) =>
+const Workspace = ({ i } = {}) =>
 Revealer({
   transition: "slide_right",
   child: EventBox({
+    setup: widget => {
+      widget.set_tooltip_text(`${i}`);
+    },
     onPrimaryClickRelease: () => execAsync(`hyprctl dispatch workspace ${i}`).catch(print),
     child: Box({
       className: 'button',
@@ -24,11 +27,11 @@ Revealer({
   }),
 });
 
-const Workspace = props => Box({
+export const Workspaces = Box({
   className: 'workspaces',
   children: [EventBox({
     child: Box({
-      children: Array.from({ length: 15 }, (_, i) => i + 1).map(i => WorkspaceModule({ i: i})),
+      children: Array.from({ length: 15 }, (_, i) => i + 1).map(i => Workspace({ i: i})),
       connections: [[Hyprland, box => {
         let workspaces = [];
         Hyprland.workspaces.forEach(ws => {
@@ -43,5 +46,3 @@ const Workspace = props => Box({
     }),
   })],
 });
-
-export const Workspaces = Workspace();
