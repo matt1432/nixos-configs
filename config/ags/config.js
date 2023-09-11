@@ -14,12 +14,12 @@ exec(`sassc ${scss} ${css}`);
 exec(`bash -c "$AGS_PATH/startup.sh"`);
 
 export default {
-    style: css,
-    windows: [
-      Powermenu,
-      Bar,
-      Closer,
-      NotificationCenter,
-      NotificationsPopupList,
-    ]
-}
+  style: css,
+  windows: [
+    Powermenu,
+    Bar,
+    Closer,
+    NotificationCenter,
+    NotificationsPopupList,
+  ],
+};
