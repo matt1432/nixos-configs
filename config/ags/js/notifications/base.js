@@ -1,9 +1,10 @@
 const { GLib } = imports.gi;
 const { Notifications } = ags.Service;
 const { lookUpIcon, timeout } = ags.Utils;
-const { Box, Icon, Label, EventBox, Button } = ags.Widget;
+const { Box, Icon, Label, Button } = ags.Widget;
 
 import { Draggable } from '../misc/drag.js';
+import { EventBox } from '../common.js'
 
 const NotificationIcon = ({ appEntry, appIcon, image }) => {
   if (image) {
@@ -53,25 +54,6 @@ export default ({ id, summary, body, actions, urgency, time, ...icon }) => Dragg
   maxOffset: 200,
   command: () => Notifications.close(id),
 
-  /// Port of Aylur's notification
-  properties: [['hovered', false]],
-  addOnHover: w => {
-    if (w._hovered) {
-      return;
-    }
-
-    timeout(300, () => w._hovered = true);
-  },
-  addOnHoverLost: w => {
-    if (!w._hovered) {
-      return;
-    }
-
-    w._hovered = false;
-    Notifications.dismiss(id);
-  },
-  ///
-
   child: Box({
     className: `notification ${urgency}`,
     vexpand: false,
@@ -106,11 +88,14 @@ export default ({ id, summary, body, actions, urgency, time, ...icon }) => Dragg
                       valign: 'start',
                       label: GLib.DateTime.new_from_unix_local(time).format('%H:%M'),
                     }),
-                    Button({
-                      className: 'close-button',
-                      valign: 'start',
-                      onClicked: () => Notifications.close(id),
-                      child: Icon('window-close-symbolic'),
+                    EventBox({
+                      reset: false,
+                      child: Button({
+                        className: 'close-button',
+                        valign: 'start',
+                        onClicked: () => Notifications.close(id),
+                        child: Icon('window-close-symbolic'),
+                      }),
                     }),
                   ],
                 }),

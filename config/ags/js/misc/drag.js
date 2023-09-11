@@ -64,6 +64,7 @@ export const Draggable = ({
             w.window.set_cursor(Gdk.Cursor.new_from_name(display, 'grab'));
         }
       }, 'drag-end'],
+
     ],
   });
 

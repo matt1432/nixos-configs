@@ -19,7 +19,7 @@ export const Separator = width => ags.Widget.Box({
 import Gdk from 'gi://Gdk';
 const display = Gdk.Display.get_default();
 
-export const EventBox = ({ ...params }) => ags.Widget.EventBox({
+export const EventBox = ({ reset = true, ...params }) => ags.Widget.EventBox({
   ...params,
   onHover: box => {
     if (! box.child.sensitive || ! box.sensitive) {
@@ -30,6 +30,7 @@ export const EventBox = ({ ...params }) => ags.Widget.EventBox({
     }
   },
   onHoverLost: box => {
-    box.window.set_cursor(null);
+    if (reset)
+      box.window.set_cursor(null);
   },
 });
