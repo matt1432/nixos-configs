@@ -1,6 +1,8 @@
 const { Audio } = ags.Service;
 const { Label, Box, Icon, Stack, Button, Slider } = ags.Widget;
-import { Separator, EventBox } from '../common.js';
+
+import { Separator } from '../misc/separator.js';
+import { EventBox } from '../misc/cursorbox.js';
 
 const items = {
   101: 'audio-volume-overamplified-symbolic',

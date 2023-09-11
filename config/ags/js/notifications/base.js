@@ -4,7 +4,7 @@ const { lookUpIcon, timeout } = ags.Utils;
 const { Box, Icon, Label, Button } = ags.Widget;
 
 import { Draggable } from '../misc/drag.js';
-import { EventBox } from '../common.js'
+import { EventBox } from '../misc/cursorbox.js'
 
 const NotificationIcon = ({ appEntry, appIcon, image }) => {
   if (image) {

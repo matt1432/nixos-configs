@@ -1,6 +1,7 @@
 const { Label, Icon, Stack, ProgressBar, Overlay, Box } = ags.Widget;
-import { Separator } from '../common.js';
 const { exec } = ags.Utils;
+
+import { Separator } from '../misc/separator.js';
 
 const icons = charging => ([
   ...Array.from({ length: 10 }, (_, i) => i * 10).map(i => ([

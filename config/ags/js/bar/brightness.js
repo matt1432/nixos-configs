@@ -1,6 +1,6 @@
 const { Label, Icon, Stack, ProgressBar, Overlay, Box } = ags.Widget;
 const { exec } = ags.Utils;
-import { Separator } from '../common.js';
+import { Separator } from '../misc/separator.js';
 import { Heart }     from './heart.js';
 
 export const Brightness = Overlay({

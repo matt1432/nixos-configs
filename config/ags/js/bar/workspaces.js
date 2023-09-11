@@ -2,7 +2,7 @@ const { Hyprland, Applications } = ags.Service;
 const { execAsync } = ags.Utils;
 const { Box, Button, Label, Revealer } = ags.Widget;
 
-import { EventBox } from '../common.js';
+import { EventBox } from '../misc/cursorbox.js';
 
 const Workspace = ({ i } = {}) =>
 Revealer({

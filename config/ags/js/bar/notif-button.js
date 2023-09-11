@@ -2,7 +2,8 @@ const { Box, Label, Icon } = ags.Widget;
 const { openWindow, closeWindow } = ags.App;
 const { Notifications } = ags.Service;
 
-import { EventBox, Separator } from '../common.js';
+import { Separator } from '../misc/separator.js';
+import { EventBox } from '../misc/cursorbox.js';
 
 var notifButtonState = false;
 

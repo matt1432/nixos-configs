@@ -3,7 +3,7 @@ import { Powermenu } from './js/powermenu.js';
 import { Bar } from './js/bar/bar.js';
 import { NotificationCenter } from './js/notifications/center.js';
 import { NotificationsPopupList } from './js/notifications/popup.js'
-import { Closer } from './js/common.js';
+import { Closer } from './js/misc/closer.js';
 
 const scss = ags.App.configDir + '/scss/main.scss';
 const css = ags.App.configDir + '/style.css';

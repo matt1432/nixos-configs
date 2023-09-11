@@ -2,7 +2,7 @@ const { Box, Label } = ags.Widget;
 const { subprocess, exec } = ags.Utils;
 const deflisten = subprocess;
 
-import { EventBox } from '../common.js';
+import { EventBox } from '../misc/cursorbox.js';
 
 deflisten(
   ['bash', '-c', 'tail -f /home/matt/.config/.heart'],

@@ -1,6 +1,6 @@
 const { Window, CenterBox, Box } = ags.Widget;
 
-import { Separator }        from '../common.js';
+import { Separator }        from '../misc/separator.js';
 import { CurrentWindow }    from './current-window.js';
 import { Workspaces }       from './workspaces.js';
 import { OskToggle }        from './osk-toggle.js';

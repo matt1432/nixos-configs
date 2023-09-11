@@ -1,7 +1,8 @@
 const { SystemTray } = ags.Service;
 const { Box, Button, Icon, MenuItem } = ags.Widget;
 const { Gtk } = imports.gi;
-import { EventBox } from '../common.js';
+
+import { EventBox } from '../misc/cursorbox.js';
 
 const SysTrayItem = item => MenuItem({
   className: 'tray-item',

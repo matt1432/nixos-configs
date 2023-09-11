@@ -1,7 +1,8 @@
-import Notification from './base.js';
-import { EventBox } from '../common.js'
 const { Notifications } = ags.Service;
 const { Button, Label, Box, Icon, Scrollable, Window } = ags.Widget;
+
+import Notification from './base.js';
+import { EventBox } from '../misc/cursorbox.js'
 
 const ClearButton = () => EventBox({child: Button({
   onClicked: Notifications.clear,
