@@ -111,7 +111,6 @@
     hyprpaper
     networkmanagerapplet
     nextcloud-client
-    swaynotificationcenter
     swayidle
     wl-clipboard
     cliphist

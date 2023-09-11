@@ -1,7 +1,6 @@
 what is currently not working:
 - plymouth theme has no login prompt
 - sddm theme flashes white
-- fixme: swaync acts up with eww
 - autosign in to keyring
 
 what i want to do:
