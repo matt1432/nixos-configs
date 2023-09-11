@@ -1,17 +1,17 @@
 const { Window, CenterBox, Box } = ags.Widget;
 
-import { Separator }      from '../common.js';
-import { CurrentWindow }  from './current-window.js';
-import { Workspaces }     from './workspaces.js';
-import { OskToggle }      from './osk-toggle.js';
-import { TabletToggle }   from './tablet-toggle.js';
-import { QsToggle }       from './quick-settings.js';
-import { NotifButton }    from './notif-button.js';
-import { Clock }          from './clock.js';
-import { SysTray }        from './systray.js';
-import { Batt }           from './battery.js';
-import { Brightness }     from './brightness.js';
-import { AudioIndicator } from './audio.js';
+import { Separator }        from '../common.js';
+import { CurrentWindow }    from './current-window.js';
+import { Workspaces }       from './workspaces.js';
+import { OskToggle }        from './osk-toggle.js';
+import { TabletToggle }     from './tablet-toggle.js';
+import { QsToggle }         from './quick-settings.js';
+import { NotifButton }      from './notif-button.js';
+import { Clock }            from './clock.js';
+import { SysTray }          from './systray.js';
+import { BatteryIndicator } from './battery.js';
+import { Brightness }       from './brightness.js';
+import { AudioIndicator }   from './audio.js';
 
 export const Bar = Window({
   name: 'bar',
@@ -59,7 +59,7 @@ export const Bar = Window({
     endWidget: Box({
       halign: 'end',
       children: [
-        Batt,
+        BatteryIndicator,
         
         Separator(12),
       

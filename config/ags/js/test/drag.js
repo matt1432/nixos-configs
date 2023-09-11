@@ -2,7 +2,7 @@ const { Window, Box, EventBox, Button } = ags.Widget;
 const { Gtk, Gdk } = imports.gi;
 const display = Gdk.Display.get_default();
 
-const Draggable = ({ maxOffset = 150, startMargin = 0, style, connections = [], ...props }) => {
+const Draggable = ({ maxOffset = 150, startMargin = 0, style, connections = [], ...params }) => {
   let w = EventBox({
     onHover: box => {
       box.window.set_cursor(Gdk.Cursor.new_from_name(display, 'grab'));
@@ -15,7 +15,7 @@ const Draggable = ({ maxOffset = 150, startMargin = 0, style, connections = [], 
   let gesture = Gtk.GestureDrag.new(w);
 
   w.child = Box({
-    ...props,
+    ...params,
     connections: [
 
       [gesture, box => {

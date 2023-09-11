@@ -15,7 +15,7 @@ const SysTrayItem = item => MenuItem({
   }]]
 });
 
-const SysTrayModule = () => ags.Widget({
+export const SysTray = ags.Widget({
   type: Gtk.MenuBar,
   className: 'sys-tray',
   properties: [
@@ -43,5 +43,3 @@ const SysTrayModule = () => ags.Widget({
     [SystemTray, (box, id) => box._onRemoved(box, id), 'removed'],
   ],
 });
-
-export const SysTray = SysTrayModule();

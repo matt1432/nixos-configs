@@ -1,7 +1,8 @@
 const { Box, Label } = ags.Widget;
 const { subprocess } = ags.Utils;
-import { EventBox } from '../common.js';
 const deflisten = subprocess;
+
+import { EventBox } from '../common.js';
 
 deflisten(
   ['bash', '-c', '$AGS_PATH/notif.sh icon'],

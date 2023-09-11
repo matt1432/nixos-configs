@@ -4,9 +4,9 @@ const { DateTime } = imports.gi.GLib;
 
 const ClockModule = ({
     interval = 1000,
-    ...props
+    ...params
 }) => Label({
-    ...props,
+    ...params,
     className: 'clock',
     connections: [
       [interval, label => {

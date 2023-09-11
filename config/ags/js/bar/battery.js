@@ -25,9 +25,9 @@ const Indicators = charging => Stack({
 const Indicator = ({
   charging = Indicators(true),
   discharging = Indicators(false),
-  ...props
+  ...params
 } = {}) => Stack({
-  ...props,
+  ...params,
   className: 'battery-indicator',
   items: [
     ['true', charging],
@@ -43,13 +43,13 @@ const Indicator = ({
   }]],
 });
 
-const LevelLabel = props => Label({
-  ...props,
+const LevelLabel = params => Label({
+  ...params,
   className: 'label',
   connections: [[1000, label => label.label = `${exec('cat /sys/class/power_supply/BAT0/capacity')}%`]],
 });
 
-const BatteryLabel = () => Box({
+export const BatteryIndicator = Box({
   className: 'toggle-off battery',
   children: [
     Indicator(),
@@ -57,5 +57,3 @@ const BatteryLabel = () => Box({
     LevelLabel(),
   ],
 });
-
-export const Batt = BatteryLabel();

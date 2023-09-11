@@ -10,8 +10,8 @@ const items = {
   0: 'audio-volume-muted-symbolic',
 };
 
-const SpeakerIndicator = props => Icon({
-  ...props,
+const SpeakerIndicator = params => Icon({
+  ...params,
   icon: '',
   connections: [[Audio, icon => {
     if (!Audio.speaker)
@@ -28,8 +28,8 @@ const SpeakerIndicator = props => Icon({
   }, 'speaker-changed']],
 });
 
-const SpeakerPercentLabel = props => Label({
-  ...props,
+const SpeakerPercentLabel = params => Label({
+  ...params,
   connections: [[Audio, label => {
     if (!Audio.speaker)
       return;
@@ -45,7 +45,7 @@ const SpeakerPercentLabel = props => Label({
   }, 'speaker-changed']],
 });
 
-const AudioModule = () => EventBox({
+export const AudioIndicator = EventBox({
   onPrimaryClickRelease: 'pavucontrol',
   className: 'toggle-off',
   child: Box({
@@ -57,5 +57,3 @@ const AudioModule = () => EventBox({
     ],
   }),
 });
-
-export const AudioIndicator = AudioModule();
