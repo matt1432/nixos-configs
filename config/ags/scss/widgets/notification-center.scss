@@ -1,10 +1,10 @@
 .notification-center {
   min-height: 700px;
-  min-width: 500px;
+  min-width: 524px;
   margin-top: 6px;
   margin-right: 60px;
   background: $bg;
-  border-radius: 12px;
+  border-radius: 30px;
   border-top-right-radius: 0px;
   border: 2px solid $contrastbg;
   padding: 0px;
@@ -48,9 +48,10 @@
 
   .notification-list-box {
     background: $bgfull;
-    border-radius: 12px;
-    border-top: 3px solid $bgSecondary;
-    box-shadow: 0 0 4.5px 0 rgba(0, 0, 0, 0.2);
+    padding: 0 12px 0 12px;
+    border-radius: 30px;
+    border-top: 2px solid $contrastbg;
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
 		scrollbar {
 			all: unset;
 			border-radius: 8px;

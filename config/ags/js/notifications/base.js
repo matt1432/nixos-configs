@@ -72,11 +72,8 @@ export default ({ id, summary, body, actions, urgency, time, ...icon }) => Dragg
   },
   ///
 
-  child: EventBox({
+  child: Box({
     className: `notification ${urgency}`,
-    /// TODO: see if this is still necessary
-    //
-    //onPrimaryClick: () => Notifications.dismiss(id),
     vexpand: false,
     // Notification
     child: Box({

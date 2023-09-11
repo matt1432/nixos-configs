@@ -69,24 +69,3 @@ export const Draggable = ({
 
   return w;
 };
-
-/*export const DragTest = Window({
-  name: 'drag-test',
-  layer: 'overlay',
-  anchor: 'top right',
-  child: Box({
-    style: 'background: white; min-width: 200px; min-height: 200px;',
-    children: [
-      Draggable({
-        maxOffset: 120,
-        startMargin: 5,
-        className: 'test',
-        style: 'background: black; min-width: 40px; min-height: 20px',
-        child: Button({
-          style: 'background: red; min-width: 10px; min-height: 10px',
-          onClicked: 'echo hi',
-        }),
-      }),
-    ],
-  }),
-});*/

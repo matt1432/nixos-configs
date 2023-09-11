@@ -1,10 +1,3 @@
-$color_1: #f1f1f1;
-$color_2: #eee;
-$color_3: rgba(238, 238, 238, 0.8);
-$color_4: #141414;
-$color_5: rgba(238, 238, 238, 0.3);
-$color_6: white;
-$font-family_1: "Ubuntu Nerd Font", sans-serif;
 $background-color_1: rgba(238, 238, 238, 0.154);
 $background-color_2: rgba(230, 112, 144, 0.5);
 $background-color_3: rgba(238, 238, 238, 0.06);
@@ -23,41 +16,31 @@ $background-color_10: rgba(238, 238, 238, 0.5);
 	}
 	.notification {
 		>box {
-			border-radius: 4.5px;
 			padding: 9px;
 			all: unset;
-			box-shadow: 0 0 4.5px 0 rgba(0, 0, 0, 0.6);
+			box-shadow: 0 0 4.5px 0 rgba(0, 0, 0, 0.4);
 			margin: 9px;
-			border: 1px solid rgba(238, 238, 238, 0.04);
-			border-radius: 15.3px;
-			background-color: $background-color_6;
-			color: $color_2;
+			border: 2px solid $contrastbg;
+			border-radius: 15px;
+			background-color: $bg;
 			padding: 16.2px;
-			border-radius: 9px;
 			* {
 				font-size: 16px;
-				font-family: $font-family_1;
 			}
 		}
 		&:hover {
 			.close-button {
 				box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
 				background-color: $background-color_1;
-				color: $color_1;
 				background-color: $background-color_2;
 			}
 		}
 		.title {
 			margin-right: 9px;
-			color: $color_2;
 			font-size: 1.1em;
-		}
-		.time {
-			color: $color_3;
 		}
 		.description {
 			font-size: .9em;
-			color: $color_3;
 			min-width: 350px;
 		}
 		.icon {
@@ -72,7 +55,6 @@ $background-color_10: rgba(238, 238, 238, 0.5);
 				all: unset;
 				transition: 200ms;
 				border-radius: 9px;
-				color: $color_2;
 				background-color: $background-color_3;
 				box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
 				border-radius: 7.2px;
@@ -81,23 +63,19 @@ $background-color_10: rgba(238, 238, 238, 0.5);
 				margin: 9px 4.5px 0;
 				* {
 					font-size: 16px;
-					font-family: $font-family_1;
 				}
 				&:focus {
 					box-shadow: inset 0 0 0 1px #51a4e7;
 					background-color: $background-color_1;
-					color: $color_1;
 				}
 				&:hover {
 					box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
 					background-color: $background-color_1;
-					color: $color_1;
 				}
 				&:active {
 					box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
 					background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
 					background-color: $background-color_4;
-					color: $color_4;
 					&:hover {
 						box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 0 99px rgba(238, 238, 238, 0.154);
 					}
@@ -106,7 +84,6 @@ $background-color_10: rgba(238, 238, 238, 0.5);
 					box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
 					background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
 					background-color: $background-color_4;
-					color: $color_4;
 					&:hover {
 						box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 0 99px rgba(238, 238, 238, 0.154);
 					}
@@ -114,7 +91,6 @@ $background-color_10: rgba(238, 238, 238, 0.5);
 				&:disabled {
 					box-shadow: none;
 					background-color: $background-color_5;
-					color: $color_5;
 				}
 				&:first-child {
 					margin-left: 0;
@@ -127,7 +103,6 @@ $background-color_10: rgba(238, 238, 238, 0.5);
 				box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
 				background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
 				background-color: $background-color_4;
-				color: $color_4;
 				&:hover {
 					box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 0 99px rgba(238, 238, 238, 0.154);
 				}
@@ -136,7 +111,6 @@ $background-color_10: rgba(238, 238, 238, 0.5);
 				box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
 				background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
 				background-color: $background-color_4;
-				color: $color_4;
 				&:hover {
 					box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 0 99px rgba(238, 238, 238, 0.154);
 				}
@@ -146,7 +120,6 @@ $background-color_10: rgba(238, 238, 238, 0.5);
 			all: unset;
 			transition: 200ms;
 			border-radius: 9px;
-			color: $color_2;
 			background-color: $background-color_5;
 			background-image: none;
 			box-shadow: none;
@@ -156,24 +129,20 @@ $background-color_10: rgba(238, 238, 238, 0.5);
 			min-height: 1.2em;
 			* {
 				font-size: 16px;
-				font-family: $font-family_1;
 			}
 			&:focus {
 				box-shadow: inset 0 0 0 1px #51a4e7;
 				background-color: $background-color_1;
-				color: $color_1;
 			}
 			&:hover {
 				box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
 				background-color: $background-color_1;
-				color: $color_1;
 				background-color: $background-color_2;
 			}
 			&:active {
 				box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
 				background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
 				background-color: $background-color_4;
-				color: $color_4;
 				background-image: linear-gradient(#e67090, #e67090);
 				&:hover {
 					box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 0 99px rgba(238, 238, 238, 0.154);
@@ -183,7 +152,6 @@ $background-color_10: rgba(238, 238, 238, 0.5);
 				box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
 				background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
 				background-color: $background-color_4;
-				color: $color_4;
 				&:hover {
 					box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 0 99px rgba(238, 238, 238, 0.154);
 				}
@@ -191,14 +159,12 @@ $background-color_10: rgba(238, 238, 238, 0.5);
 			&:disabled {
 				box-shadow: none;
 				background-color: $background-color_5;
-				color: $color_5;
 			}
 		}
 		button.close-button.on {
 			box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
 			background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
 			background-color: $background-color_4;
-			color: $color_4;
 			&:hover {
 				box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 0 99px rgba(238, 238, 238, 0.154);
 			}
@@ -207,7 +173,6 @@ $background-color_10: rgba(238, 238, 238, 0.5);
 			box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
 			background-image: linear-gradient(to right, #51a4e7, #6cb2eb);
 			background-color: $background-color_4;
-			color: $color_4;
 			&:hover {
 				box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 0 99px rgba(238, 238, 238, 0.154);
 			}
