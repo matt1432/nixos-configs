@@ -14,16 +14,17 @@ const SpeakerIndicator = params => Icon({
   ...params,
   icon: '',
   connections: [[Audio, icon => {
-    if (!Audio.speaker)
-      return;
-
-    if (Audio.speaker.isMuted)
-      return icon.icon = items[0];
-
-    const vol = Audio.speaker.volume * 100;
-    for (const threshold of [100, 66, 33, 0, -1]) {
-      if (vol > threshold + 1)
-        return icon.icon = items[threshold + 1];
+    if (Audio.speaker) {
+      if (Audio.speaker.isMuted) {
+        icon.icon = items[0];
+      }
+      else {
+        const vol = Audio.speaker.volume * 100;
+        for (const threshold of [100, 66, 33, 0, -1]) {
+          if (vol > threshold + 1)
+            icon.icon = items[threshold + 1];
+        }
+      }
     }
   }, 'speaker-changed']],
 });
