@@ -1,8 +1,9 @@
 import Notification from './base.js';
+import { EventBox } from '../common.js'
 const { Notifications } = ags.Service;
 const { Button, Label, Box, Icon, Scrollable, Window } = ags.Widget;
 
-const ClearButton = () => Button({
+const ClearButton = () => EventBox({child: Button({
   onClicked: Notifications.clear,
   connections: [[Notifications, button => {
     button.sensitive = Notifications.notifications.length > 0;
@@ -18,7 +19,7 @@ const ClearButton = () => Button({
       }),
     ],
   }),
-});
+})});
 
 const Header = () => Box({
   className: 'header',
@@ -61,9 +62,8 @@ export const NotificationCenter = Window({
   popup: true,
   layer: 'overlay',
   anchor: 'top right',
-  className: 'dashboard',
   child: Box({
-    className: 'notifications',
+    className: 'notification-center',
     vertical: true,
     children: [
       Header(),

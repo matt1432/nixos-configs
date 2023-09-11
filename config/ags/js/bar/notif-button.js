@@ -29,6 +29,7 @@ export const NotifButton = EventBox({
       Icon({
         connections: [
           [Notifications, icon => {
+            // TODO: add no notifs vs notifs
             icon.icon = Notifications.dnd
                         ? 'notifications-disabled-symbolic'
                         : 'preferences-system-notifications-symbolic';

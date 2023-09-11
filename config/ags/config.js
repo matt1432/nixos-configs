@@ -8,7 +8,6 @@ import { Closer } from './js/common.js';
 const scss = ags.App.configDir + '/scss/main.scss';
 const css = ags.App.configDir + '/style.css';
 
-exec(`touch ${css}`);
 exec(`sassc ${scss} ${css}`);
 
 exec(`bash -c "$AGS_PATH/startup.sh"`);
