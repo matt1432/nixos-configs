@@ -1,4 +1,4 @@
-const { Box, Slider, Label, Icon } = ags.Widget;
+const { Box, Slider, Label, Icon, EventBox } = ags.Widget;
 const { Audio } = ags.Service;
 const { exec } = ags.Utils;
 
@@ -9,6 +9,18 @@ const items = {
   1: 'audio-volume-low-symbolic',
   0: 'audio-volume-muted-symbolic',
 };
+
+let throttleTimer;
+
+const throttle = (callback, time) => {
+  if (throttleTimer) return;
+    throttleTimer = true;
+    setTimeout(() => {
+        callback();
+        throttleTimer = false;
+    }, time);
+}
+
 
 export const SliderBox = Box({
   className: 'slider-box',
@@ -64,12 +76,25 @@ export const SliderBox = Box({
           icon: 'display-brightness-symbolic',
         }),
 
-        Slider({
-          value: `${exec('brightnessctl get') / 2.55}`,
-          onChange: "brightnessctl set {}%",
-          min: 0,
-          max: 100,
-          draw_value: false,
+        EventBox({
+          onHover: box => box.child._canChange = false,
+          onHoverLost: box => box.child._canChange = true,
+          child: Slider({
+            properties: [
+              ['canChange', true],
+            ],
+            onChange: ({ value }) => {
+              throttle(() => exec('brightnessctl set ' + value + ' %'), 20);
+            },
+            connections: [[1000, slider => {
+              if (slider._canChange) {
+                slider.value = exec('brightnessctl get');
+              }
+            }]],
+            min: 0,
+            max: 255,
+            draw_value: false,
+          }),
         }),
       ],
     }),
