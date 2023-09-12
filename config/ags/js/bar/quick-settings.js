@@ -1,35 +1,26 @@
 const { Box, Label } = ags.Widget;
-const { subprocess } = ags.Utils;
-const deflisten = subprocess;
+const { toggleWindow, openWindow } = ags.App;
 
 import { EventBox } from '../misc/cursorbox.js';
+import { closeAll } from '../misc/close-all.js';
 
-deflisten(
-  ['bash', '-c', '$AGS_PATH/qs-toggle.sh state'],
-  (output) => {
-    print(output)
-    if (output == 'On') {
-      QsToggle.toggleClassName('toggle-on', false);
-    } else {
-      QsToggle.toggleClassName('toggle-on', true);
-    }
-  },
-);
 export const QsToggle = EventBox({
   className: 'toggle-off',
-  onPrimaryClickRelease: function() {
-    subprocess(
-      ['bash', '-c', '$AGS_PATH/qs-toggle.sh toggle'],
-      (output) => {
-        print(output)
-        if (output == 'On') {
+  onPrimaryClickRelease: () => toggleWindow('quick-settings'),
+  connections: [
+    [ags.App, (box, windowName, visible) => {
+      if (windowName == 'quick-settings') {
+        if (visible) {
           QsToggle.toggleClassName('toggle-on', true);
-        } else {
-          QsToggle.toggleClassName('toggle-on', false);
+          openWindow('closer');
         }
-      },
-    );
-  },
+        else {
+          QsToggle.toggleClassName('toggle-on', false);
+          closeAll();
+        }
+      }
+    }],
+  ],
   child: Box({
     className: 'quick-settings-toggle',
     vertical: false,

@@ -4,6 +4,7 @@ const { Notifications } = ags.Service;
 
 import { Separator } from '../misc/separator.js';
 import { EventBox } from '../misc/cursorbox.js';
+import { closeAll } from '../misc/close-all.js';
 
 export const NotifButton = EventBox({
   className: 'toggle-off',
@@ -17,6 +18,7 @@ export const NotifButton = EventBox({
         }
         else {
           NotifButton.toggleClassName('toggle-on', false);
+          closeAll();
         }
       }
     }],

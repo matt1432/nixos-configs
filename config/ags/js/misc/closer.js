@@ -1,5 +1,7 @@
 const { Window, EventBox } = ags.Widget;
-const { windows, closeWindow } = ags.App;
+const { closeWindow } = ags.App;
+
+import { closeAll } from './close-all.js';
 
 export const Closer = Window({
   name: 'closer',
@@ -8,11 +10,6 @@ export const Closer = Window({
   anchor: 'top bottom left right',
 
   child: EventBox({
-    onPrimaryClickRelease: () => {
-      windows.forEach(w => {
-        if (w.name != 'bar')
-          closeWindow(w.name)
-      });
-    },
+    onPrimaryClickRelease: () => closeAll(),
   }),
 });
