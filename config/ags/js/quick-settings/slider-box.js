@@ -42,10 +42,13 @@ export const SliderBox = Box({
         }),
 
         Slider({
-          value: `${exec('bash -c "$EWW_PATH/volume.sh vol"')}`,
-          onChange: 'bash -c "$EWW_PATH/volume.sh set {}"',
-          min: 0,
-          max: 100,
+          connections: [[Audio, slider => {
+            if (Audio.speaker) {
+              slider.value = Audio.speaker.volume;
+            }
+          }, 'speaker-changed']],
+          onChange: ({ value }) => Audio.speaker.volume = value,
+          max: 0.999,
           draw_value: false,
         }),
       ],
