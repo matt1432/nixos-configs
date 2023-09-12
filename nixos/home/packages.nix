@@ -62,6 +62,10 @@
       exec env SUDO_ASKPASS=${pkgs.plasma5Packages.ksshaskpass}/bin/${pkgs.plasma5Packages.ksshaskpass.pname} sudo -k -EA "${gparted}/bin/${gparted.pname}" "$@"
     '')
 
+    # School
+    virtmanager
+    #camunda-modeler
+    #
     protonmail-bridge
     thunderbird
     input-emulator

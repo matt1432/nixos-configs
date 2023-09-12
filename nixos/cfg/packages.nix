@@ -159,6 +159,7 @@
 
   # List packages in root user PATH
   environment.systemPackages = with pkgs; [
+    qemu
     wl-clipboard
     alsa-utils
     wget

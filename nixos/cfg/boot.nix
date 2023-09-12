@@ -22,6 +22,8 @@
       timeout = 2;
     };
 
+    kernelModules = [ "kvm-amd" ];
+
     kernelParams = [
       "quiet"
       "splash"
