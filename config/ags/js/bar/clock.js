@@ -1,6 +1,5 @@
 const { Box, Label } = ags.Widget;
-const { execAsync } = ags.Utils;
-const { openWindow, closeWindow } = ags.App;
+const { toggleWindow } = ags.App;
 const { DateTime } = imports.gi.GLib;
 
 import { EventBox } from '../misc/cursorbox.js';
@@ -19,22 +18,16 @@ const ClockModule = ({
     ],
 });
 
-var calendarState = false;
-
 export const Clock = EventBox({
   className: 'toggle-off',
-  onPrimaryClickRelease: () => {
-    if (calendarState) {
-      Clock.toggleClassName('toggle-on', false);
-      closeWindow('calendar');
-      calendarState = false;
-    }
-    else {
-      Clock.toggleClassName('toggle-on', true);
-      openWindow('calendar');
-      calendarState = true;
-    }
-  },
+  onPrimaryClickRelease: () => toggleWindow('calendar'),
+  connections: [
+    [ags.App, (box, windowName, visible) => {
+      if (windowName == 'calendar') {
+        Clock.toggleClassName('toggle-on', visible);
+      }
+    }],
+  ],
   child: Box({
     child: ClockModule({}),
   }),

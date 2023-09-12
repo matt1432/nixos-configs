@@ -6,6 +6,7 @@ const { Box, Icon, Label, Button } = ags.Widget;
 import { Draggable } from '../misc/drag.js';
 import { EventBox } from '../misc/cursorbox.js'
 
+// TODO: launch app when click on icon
 const NotificationIcon = ({ appEntry, appIcon, image }) => {
   if (image) {
     return Box({

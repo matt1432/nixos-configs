@@ -1,13 +1,18 @@
-export const Closer = ags.Widget.Window({
+const { Window, EventBox } = ags.Widget;
+const { windows, closeWindow } = ags.App;
+
+export const Closer = Window({
   name: 'closer',
   popup: true,
   layer: 'top',
   anchor: 'top bottom left right',
 
-  child: ags.Widget.EventBox({
+  child: EventBox({
     onPrimaryClickRelease: () => {
-      ags.App.closeWindow('powermenu');
-      ags.App.closeWindow('closer');
+      windows.forEach(w => {
+        if (w.name != 'bar')
+          closeWindow(w.name)
+      });
     },
   }),
 });

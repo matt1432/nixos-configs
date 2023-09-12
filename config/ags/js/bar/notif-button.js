@@ -1,26 +1,20 @@
 const { Box, Label, Icon } = ags.Widget;
-const { openWindow, closeWindow } = ags.App;
+const { toggleWindow } = ags.App;
 const { Notifications } = ags.Service;
 
 import { Separator } from '../misc/separator.js';
 import { EventBox } from '../misc/cursorbox.js';
 
-var notifButtonState = false;
-
 export const NotifButton = EventBox({
   className: 'toggle-off',
-  onPrimaryClickRelease: () => {
-    if (notifButtonState) {
-      NotifButton.toggleClassName('toggle-on', false);
-      closeWindow('notification-center');
-      notifButtonState = false;
-    }
-    else {
-      NotifButton.toggleClassName('toggle-on', true);
-      openWindow('notification-center');
-      notifButtonState = true;
-    }
-  },
+  onPrimaryClickRelease: () => toggleWindow('notification-center'),
+  connections: [
+    [ags.App, (box, windowName, visible) => {
+      if (windowName == 'notification-center') {
+        NotifButton.toggleClassName('toggle-on', visible);
+      }
+    }],
+  ],
   child: Box({
     className: 'notif-panel',
     vertical: false,
