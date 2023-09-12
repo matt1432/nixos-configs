@@ -1,13 +1,13 @@
 const { Window, CenterBox, Box, Label } = ags.Widget;
 
 import { ButtonGrid } from './button-grid.js';
-//import { SliderBox } from './slider-box';
+import { SliderBox } from './slider-box.js';
 //import { Player } from 
 
 export const QuickSettings = Window({
   name: 'quick-settings',
   layer: 'overlay',
-  //popup: true,
+  popup: true,
   anchor: 'top right',
   child: Box({
     className: 'qs-container',
@@ -22,11 +22,13 @@ export const QuickSettings = Window({
           Label({
             label: 'Control Center',
             className: 'title',
+            halign: 'start',
+            style: 'margin-left: 20px'
           }),
 
           ButtonGrid,
 
-          //SliderBox,
+          SliderBox,
 
         ],
       }),
