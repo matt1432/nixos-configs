@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
 on () {
-  eww open closer &&
-
   eww open quick-settings-reveal;
   eww update showqs=true;
 }

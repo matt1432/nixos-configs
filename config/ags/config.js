@@ -1,10 +1,11 @@
 import { exec } from 'resource:///com/github/Aylur/ags/utils.js';
 import { Powermenu } from './js/powermenu.js';
-import { Bar } from './js/bar/bar.js';
+import { Bar } from './js/bar/main.js';
 import { NotificationCenter } from './js/notifications/center.js';
 import { NotificationsPopupList } from './js/notifications/popup.js'
 import { Closer } from './js/misc/closer.js';
 import { Calendar } from './js/date.js';
+import { QuickSettings } from './js/quick-settings/main.js'
 
 const scss = ags.App.configDir + '/scss/main.scss';
 const css = ags.App.configDir + '/style.css';
@@ -22,5 +23,6 @@ export default {
     NotificationCenter,
     NotificationsPopupList,
     Calendar,
+    QuickSettings,
   ],
 };
