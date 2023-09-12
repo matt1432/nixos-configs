@@ -32,10 +32,17 @@ export const NotifButton = EventBox({
       Icon({
         connections: [
           [Notifications, icon => {
-            // TODO: add no notifs vs notifs
-            icon.icon = Notifications.dnd
-                        ? 'notifications-disabled-symbolic'
-                        : 'preferences-system-notifications-symbolic';
+            if (Notifications.dnd) {
+              icon.icon = 'notification-disabled-symbolic'
+            }
+            else {
+              if (Notifications.notifications.length > 0) {
+                icon.icon = 'notification-new-symbolic'
+              }
+              else {
+                icon.icon = 'notification-symbolic'
+              }
+            }
           }],
         ],
       }),
