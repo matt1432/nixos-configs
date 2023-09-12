@@ -22,9 +22,10 @@ const SpeakerIndicator = params => Icon({
       }
       else {
         const vol = Audio.speaker.volume * 100;
-        for (const threshold of [100, 66, 33, 0, -1]) {
-          if (vol > threshold + 1)
+        for (const threshold of [-1, 0, 33, 66, 100]) {
+          if (vol > threshold + 1) {
             icon.icon = items[threshold + 1];
+          }
         }
       }
     }
