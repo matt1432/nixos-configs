@@ -56,9 +56,11 @@ const FirstRow = Box({
         connections: [[Bluetooth, icon => {
           if (Bluetooth.enabled) {
             icon.icon = 'bluetooth-active-symbolic';
+            exec('bash -c "echo 󰂯 > $HOME/.config/.bluetooth"');
           }
           else {
             icon.icon = 'bluetooth-disabled-symbolic';
+            exec('bash -c "echo 󰂲 > $HOME/.config/.bluetooth"');
           }
         }, 'changed']],
       })
