@@ -182,7 +182,7 @@ tooltip {
 .notification-center {
   min-height: 700px;
   min-width: 524px;
-  margin-top: 6px;
+  margin-top: 8px;
   margin-right: 60px;
   background: rgba(40, 42, 54, 0.8);
   border-radius: 30px;
@@ -394,3 +394,63 @@ tooltip {
   background-color: #51a4e7; }
   .notification button.close-button.active:hover {
     box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03), inset 0 0 0 99px rgba(238, 238, 238, 0.154); }
+
+.date {
+  background-color: rgba(40, 42, 54, 0.8);
+  color: #a5b6cf;
+  border-radius: 30px;
+  border-top-right-radius: 0px;
+  border: 2px solid rgba(189, 147, 249, 0.8);
+  margin-right: 182px;
+  margin-top: 8px; }
+
+.timebox {
+  margin: 30px 0px; }
+  .timebox .time-container .content {
+    font-family: Product Sans;
+    font-weight: bolder;
+    font-size: 60px; }
+  .timebox .time-container .divider {
+    margin: 8px 15px;
+    padding: 0px 1px;
+    background: linear-gradient(#dd6777, #c296eb, #86aaec, #93cee9); }
+  .timebox .date-container {
+    font-family: Product Sans;
+    margin-top: 2px; }
+
+.cal-box {
+  font-family: Product Sans;
+  border-radius: 30px;
+  padding: 0 1rem .2rem;
+  color: #a5b6cf;
+  background-color: #282a36;
+  border-bottom: 2px solid rgba(189, 147, 249, 0.8);
+  border-top: 2px solid rgba(189, 147, 249, 0.8);
+  margin: 0px 12px 18px 12px; }
+  .cal-box .cal {
+    font-size: 20px;
+    background-color: inherit;
+    padding: .5rem .10rem 0rem;
+    margin-left: 10px;
+    border-radius: 30px; }
+    .cal-box .cal > * {
+      border: solid 0px transparent; }
+    .cal-box .cal.highlight {
+      padding: 10rem; }
+
+calendar:selected {
+  color: #93cee9; }
+
+calendar.header {
+  color: #93cee9;
+  font-weight: bold; }
+
+calendar.button {
+  color: #93cee9; }
+
+calendar.highlight {
+  color: #90ceaa;
+  font-weight: bold; }
+
+calendar:indeterminate {
+  color: #262831; }

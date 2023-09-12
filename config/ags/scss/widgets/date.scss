@@ -2,7 +2,10 @@
   background-color: $bg;
   color: $fg;
   border-radius: 30px;
+  border-top-right-radius: 0px;
   border: 2px solid $contrastbg;
+  margin-right: 182px;
+  margin-top: 8px;
 }
 
 .timebox {
@@ -27,7 +30,6 @@
 
 .cal-box {
   font-family: Product Sans;
-  background-color: $bg;
   border-radius: 30px;
   padding: 0 1rem .2rem;
   color: $fg;
@@ -37,6 +39,7 @@
   margin: 0px 12px 18px 12px;
 
   .cal {
+    font-size: 20px;
     background-color: inherit;
     padding: .5rem .10rem 0rem;
     margin-left: 10px;
