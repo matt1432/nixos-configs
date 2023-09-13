@@ -18,6 +18,7 @@ in
     "discord/settings.json".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/discord/settings.json";
 
     "dolphinrc".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/dolphinrc";
+    "kdeglobals".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/kdeglobals";
   };
 
   programs = {

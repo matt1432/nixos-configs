@@ -1,0 +1,5 @@
+[General]
+TerminalApplication=alacritty
+
+[PreviewSettings]
+MaximumRemoteSize=0
