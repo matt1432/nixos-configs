@@ -7,8 +7,8 @@ export const Draggable = ({
   maxOffset = 150,
   startMargin = 0,
   command = () => {},
-  addOnHover = w => {},
-  addOnHoverLost = w => {},
+  onHover = w => {},
+  onHoverLost = w => {},
   child = '',
   children = [],
   ...params
@@ -17,11 +17,11 @@ export const Draggable = ({
     ...params,
     onHover: box => {
       box.window.set_cursor(Gdk.Cursor.new_from_name(display, 'grab'));
-      addOnHover(box);
+      onHover(box);
     },
     onHoverLost: box => {
       box.window.set_cursor(null);
-      addOnHoverLost(box);
+      onHoverLost(box);
     },
   });
 
