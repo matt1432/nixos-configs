@@ -21,6 +21,8 @@ in
     "kdeglobals".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/kdeglobals";
     "kiorc".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/kiorc";
     "mimeapps.list".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/mimeapps.list";
+    "neofetch".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/neofetch";
+    "swappy".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/swappy";
   };
 
   programs = {
