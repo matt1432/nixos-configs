@@ -182,8 +182,6 @@ tooltip {
 .notification-center {
   min-height: 700px;
   min-width: 524px;
-  margin-top: 8px;
-  margin-right: 60px;
   background: rgba(40, 42, 54, 0.8);
   border-radius: 30px;
   border-top-right-radius: 0px;
@@ -400,9 +398,7 @@ tooltip {
   color: #a5b6cf;
   border-radius: 30px;
   border-top-right-radius: 0px;
-  border: 2px solid rgba(189, 147, 249, 0.8);
-  margin-right: 182px;
-  margin-top: 8px; }
+  border: 2px solid rgba(189, 147, 249, 0.8); }
 
 .timebox {
   margin: 30px 0px; }
@@ -456,8 +452,6 @@ calendar:indeterminate {
   color: #262831; }
 
 .quick-settings {
-  margin-right: 5px;
-  margin-top: 8px;
   font-size: 30px;
   min-width: 500px;
   padding: 0px 0px 0px 0px;

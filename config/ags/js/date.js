@@ -71,6 +71,7 @@ export const Calendar = Window({
   popup: true,
   layer: 'overlay',
   anchor: 'top right',
+  margin: [ 8, 182, 0, 0],
   child: Box({
     className: 'date',
     vertical: true,

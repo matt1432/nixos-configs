@@ -9,6 +9,7 @@ export const QuickSettings = Window({
   layer: 'overlay',
   popup: true,
   anchor: 'top right',
+  margin: [ 8, 5, 0,  ],
   child: Box({
     className: 'qs-container',
     vertical: true,
