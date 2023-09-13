@@ -20,6 +20,7 @@ in
     "dolphinrc".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/dolphinrc";
     "kdeglobals".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/kdeglobals";
     "kiorc".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/kiorc";
+    "mimeapps.list".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/mimeapps.list";
   };
 
   programs = {
