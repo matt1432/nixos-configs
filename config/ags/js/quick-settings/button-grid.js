@@ -49,7 +49,7 @@ const FirstRow = Box({
     }),
 
     GridButton({
-      command: () => exec("bash -c '$EWW_PATH/bluetooth.sh toggle'"),
+      command: () => exec("bash -c '$AGS_PATH/qs-toggles.sh blue-toggle'"),
       secondaryCommand: () => exec("bash -c 'blueberry &'"),
       icon: Icon({
         className: 'grid-label',
@@ -67,7 +67,7 @@ const FirstRow = Box({
     }),
 
     GridButton({
-      command: () => exec('bash -c "$EWW_PATH/network.sh toggle-radio"'),
+      command: () => exec('bash -c "$AGS_PATH/qs-toggles.sh toggle-radio"'),
       secondaryCommand: () => exec("notify-send 'set this up moron'"),
       icon: Icon({
         className: 'grid-label',
