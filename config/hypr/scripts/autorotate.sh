@@ -42,7 +42,7 @@ function rotate {
           hyprctl keyword device:"$i":transform $TARGET_ORIENTATION
       done
 
-      /home/matt/.config/lisgd/config &
+      $HYPR_PATH/lisgd.sh &
 }
 
 while IFS='$\n' read -r line; do
