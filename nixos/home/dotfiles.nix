@@ -16,6 +16,8 @@ in
     "ripgrep".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/ripgrep";
 
     "discord/settings.json".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/discord/settings.json";
+
+    "dolphinrc".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/dolphinrc";
   };
 
   programs = {
