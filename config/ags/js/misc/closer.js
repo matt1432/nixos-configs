@@ -1,7 +1,13 @@
 const { Window, EventBox } = ags.Widget;
 const { closeWindow } = ags.App;
 
-import { closeAll } from './close-all.js';
+export const closeAll = () => {
+  ags.App.windows.forEach(w => {
+    if (w.name != 'bar' &&
+        w.name != 'notifications')
+      ags.App.closeWindow(w.name)
+  });
+};
 
 export const Closer = Window({
   name: 'closer',

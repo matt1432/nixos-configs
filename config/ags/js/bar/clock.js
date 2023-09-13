@@ -3,7 +3,7 @@ const { toggleWindow, openWindow } = ags.App;
 const { DateTime } = imports.gi.GLib;
 
 import { EventBox } from '../misc/cursorbox.js';
-import { closeAll } from '../misc/close-all.js';
+import { closeAll } from '../misc/closer.js';
 
 const ClockModule = ({
     interval = 1000,

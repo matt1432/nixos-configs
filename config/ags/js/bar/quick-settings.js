@@ -2,7 +2,7 @@ const { Box, Label } = ags.Widget;
 const { toggleWindow, openWindow } = ags.App;
 
 import { EventBox } from '../misc/cursorbox.js';
-import { closeAll } from '../misc/close-all.js';
+import { closeAll } from '../misc/closer.js';
 
 export const QsToggle = EventBox({
   className: 'toggle-off',
