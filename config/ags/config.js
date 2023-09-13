@@ -5,7 +5,10 @@ import { NotificationCenter } from './js/notifications/center.js';
 import { NotificationsPopupList } from './js/notifications/popup.js'
 import { Closer } from './js/misc/closer.js';
 import { Calendar } from './js/date.js';
-import { QuickSettings } from './js/quick-settings/main.js'
+import { QuickSettings } from './js/quick-settings/main.js';
+
+import { closeAll } from './js/misc/close-all.js';
+ags.App.closeAll = () => closeAll();
 
 const scss = ags.App.configDir + '/scss/main.scss';
 const css = ags.App.configDir + '/style.css';
