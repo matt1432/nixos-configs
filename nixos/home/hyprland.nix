@@ -23,7 +23,7 @@ in
 
   wayland.windowManager.hyprland = {
     enable = true;
-    package = (builtins.getFlake "github:horriblename/hyprgrass").inputs.hyprland.packages.x86_64-linux.default;
+    package = (builtins.getFlake "github:hyprwm/Hyprland").packages.x86_64-linux.default;
     
     plugins = [
       "${(builtins.getFlake "github:horriblename/hyprgrass").packages.x86_64-linux.default}/lib/libhyprgrass.so"
