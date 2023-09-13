@@ -14,6 +14,8 @@ in
     "ags".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/ags";
 
     "ripgrep".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/ripgrep";
+
+    "discord/settings.json".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/discord/settings.json";
   };
 
   programs = {
