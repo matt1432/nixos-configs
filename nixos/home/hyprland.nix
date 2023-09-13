@@ -34,7 +34,6 @@ in
       $kora = "$HOME/.config/share"
 
       env = AGS_PATH, ${configDir}/ags/bin
-      env = EWW_PATH, ${configDir}/eww/scripts
       env = HYPR_PATH, ${configDir}/hypr/scripts
       env = LOCK_PATH, ${configDir}/gtklock/scripts
 

@@ -31,12 +31,6 @@ in
       enableBashIntegration = true;
     };
 
-    eww = {
-      enable = true;
-      configDir = config.lib.file.mkOutOfStoreSymlink "${configDir}/eww"; # see hyprland.nix for scripts path
-      package = (builtins.getFlake "github:matt1432/eww-exclusiver").packages.x86_64-linux.default;
-    };
-
     wofi = {
       enable = true;
       settings = {
