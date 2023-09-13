@@ -35,16 +35,8 @@ const SpeakerIndicator = params => Icon({
 const SpeakerPercentLabel = params => Label({
   ...params,
   connections: [[Audio, label => {
-    if (!Audio.speaker)
-      return;
-
-    let vol = Math.floor(Audio.speaker.volume * 100);
-
-    if (vol == 0) {
-      label.label = vol + '%';
-    }
-    else {
-      label.label = vol + 1 + '%';
+    if (Audio.speaker) {
+      label.label = Math.round(Audio.speaker.volume * 100) + '%';
     }
   }, 'speaker-changed']],
 });
