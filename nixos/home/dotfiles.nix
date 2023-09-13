@@ -12,6 +12,8 @@ in
     "gtklock/style.css".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/gtklock/style.css";
 
     "ags".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/ags";
+
+    "ripgrep".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/ripgrep";
   };
 
   programs = {
