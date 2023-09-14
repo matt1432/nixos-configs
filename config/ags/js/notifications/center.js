@@ -33,13 +33,19 @@ const Header = () => Box({
 const NotificationList = () => Box({
   vertical: true,
   vexpand: true,
-  connections: [[Notifications, box => {
-    box.children = Notifications.notifications
-      .reverse()
-      .map(n => Notification(n));
+  connections: [[Notifications, (box, id) => {
+    if (box.children.length == 0) {
+      box.children = Notifications.notifications
+        .reverse()
+        .map(n => Notification(n));
+    }
+    else if (id) {
+      box.add(Notification(Notifications.getNotification(id)));
+      box.show_all();
+    }
 
     box.visible = Notifications.notifications.length > 0;
-  }]],
+  }, 'notified']],
 });
 
 const Placeholder = () => Revealer({
