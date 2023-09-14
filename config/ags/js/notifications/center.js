@@ -1,5 +1,5 @@
 const { Notifications } = ags.Service;
-const { Button, Label, Box, Icon, Scrollable, Window } = ags.Widget;
+const { Button, Label, Box, Icon, Scrollable, Window, Revealer } = ags.Widget;
 
 import Notification from './base.js';
 import { EventBox } from '../misc/cursorbox.js'
@@ -42,20 +42,23 @@ const NotificationList = () => Box({
   }]],
 });
 
-const Placeholder = () => Box({
-  className: 'placeholder',
-  vertical: true,
-  valign: 'center',
-  halign: 'center',
-  vexpand: true,
-  hexpand: true,
-  children: [
-    Icon('notification-disabled-symbolic'),
-    Label('Your inbox is empty'),
-  ],
+const Placeholder = () => Revealer({
+  transition: 'crossfade',
   connections: [[Notifications, box => {
-    box.visible = Notifications.notifications.length === 0;
+    box.revealChild = Notifications.notifications.length === 0;
   }]],
+  child: Box({
+    className: 'placeholder',
+    vertical: true,
+    valign: 'center',
+    halign: 'center',
+    vexpand: true,
+    hexpand: true,
+    children: [
+      Icon('notification-disabled-symbolic'),
+      Label('Your inbox is empty'),
+    ],
+  }),
 });
 
 export const NotificationCenter = Window({
