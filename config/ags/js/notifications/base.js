@@ -56,17 +56,14 @@ export default ({ id, summary, body, actions, urgency, time, ...icon }) => Dragg
   command: () => Notifications.close(id),
   properties: [['hovered', false]],
   onHover: w => {
-    if (w._hovered)
-      return;
-
-    timeout(300, () => w._hovered = true);
+    if (!w._hovered) {
+      w._hovered = true;
+    }
   },
   onHoverLost: w => {
-    if (!w._hovered)
-      return;
-
-    w._hovered = false;
-    Notifications.dismiss(id);
+    if (w._hovered) {
+      w._hovered = false;
+    }
   },
 
   child: Box({
