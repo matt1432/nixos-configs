@@ -2,10 +2,10 @@ const { Window, Box, EventBox, Button } = ags.Widget;
 const { Gtk, Gdk } = imports.gi;
 const display = Gdk.Display.get_default();
 
-// TODO: add slide away anim
 export const Draggable = ({
   maxOffset = 150,
   startMargin = 0,
+  endMargin = 300,
   command = () => {},
   onHover = w => {},
   onHoverLost = w => {},
@@ -55,7 +55,17 @@ export const Draggable = ({
         const offset = gesture.get_offset()[1];
 
         if (Math.abs(offset) > maxOffset) {
-          command();
+          if (offset > 0) {
+            box.setStyle('transition: margin 0.5s ease; ' + 
+                         'margin-left: ' + Number(maxOffset + endMargin) + 'px; ' +
+                         'margin-right: -' + Number(maxOffset + endMargin) + 'px;');
+          }
+          else {
+            box.setStyle('transition: margin 0.5s ease; ' + 
+                         'margin-left: -' + Number(maxOffset + endMargin) + 'px; ' +
+                         'margin-right: ' + Number(maxOffset + endMargin) + 'px;');
+          }
+          setTimeout(command, 500);
         }
         else {
           box.setStyle('transition: margin 0.5s ease; margin-left: ' + startMargin + 'px; ' +
