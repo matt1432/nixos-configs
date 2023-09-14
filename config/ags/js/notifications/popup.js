@@ -19,7 +19,9 @@ const Popups = () => Box({
         box.get_parent().reveal_child = false;
 
       timeout(200, () => {
-        source_remove(box._map.get(id)?.interval);
+        if (box._map.get(id).interval) {
+          source_remove(box._map.get(id).interval);
+        }
         box._map.get(id)?.destroy();
         box._map.delete(id);
       });
@@ -29,7 +31,12 @@ const Popups = () => Box({
         return;
 
       box._map.delete(id);
-      box._map.set(id, Notification(Notifications.getNotification(id)));
+
+      box._map.set(id, Notification({
+        ...Notifications.getNotification(id),
+        command: i => Notifications.dismiss(i),
+      }));
+
       box.children = Array.from(box._map.values()).reverse();
       timeout(10, () => {
           box.get_parent().revealChild = true;
@@ -38,8 +45,8 @@ const Popups = () => Box({
         if (!box._map.get(id)._hovered) {
           box._map.get(id).child.setStyle(box._map.get(id).child._leftAnim);
 
-          if (box._map.get(id)?.interval) {
-            source_remove(box._map.get(id)?.interval);
+          if (box._map.get(id).interval) {
+            source_remove(box._map.get(id).interval);
           }
         }
       });

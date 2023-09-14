@@ -51,9 +51,9 @@ const NotificationIcon = ({ appEntry, appIcon, image }) => {
   });
 };
 
-export default ({ id, summary, body, actions, urgency, time, ...icon }) => Draggable({
+export default ({ id, summary, body, actions, urgency, time, command = i => {}, ...icon }) => Draggable({
   maxOffset: 200,
-  command: () => Notifications.close(id),
+  command: () => command(id),
   properties: [['hovered', false]],
   onHover: w => {
     if (!w._hovered) {

@@ -37,10 +37,13 @@ const NotificationList = () => Box({
     if (box.children.length == 0) {
       box.children = Notifications.notifications
         .reverse()
-        .map(n => Notification(n));
+        .map(n => Notification({ ...n, command: i => Notifications.close(i), }));
     }
     else if (id) {
-      box.add(Notification(Notifications.getNotification(id)));
+      box.add(Notification({
+        ...Notifications.getNotification(id),
+        command: i => Notifications.close(i),
+      }));
       box.show_all();
     }
 
