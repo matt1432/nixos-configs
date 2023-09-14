@@ -54,6 +54,20 @@ const NotificationIcon = ({ appEntry, appIcon, image }) => {
 export default ({ id, summary, body, actions, urgency, time, ...icon }) => Draggable({
   maxOffset: 200,
   command: () => Notifications.close(id),
+  properties: [['hovered', false]],
+  onHover: w => {
+    if (w._hovered)
+      return;
+
+    timeout(300, () => w._hovered = true);
+  },
+  onHoverLost: w => {
+    if (!w._hovered)
+      return;
+
+    w._hovered = false;
+    Notifications.dismiss(id);
+  },
 
   child: Box({
     className: `notification ${urgency}`,
