@@ -21,6 +21,7 @@ const Popups = () => Box({
       timeout(200, () => {
         if (box._map.get(id).interval) {
           source_remove(box._map.get(id).interval);
+          box._map.get(id).interval = undefined;
         }
         box._map.get(id)?.destroy();
         box._map.delete(id);
@@ -47,6 +48,7 @@ const Popups = () => Box({
 
           if (box._map.get(id).interval) {
             source_remove(box._map.get(id).interval);
+            box._map.get(id).interval = undefined;
           }
         }
       });
