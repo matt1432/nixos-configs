@@ -1,6 +1,7 @@
 const { Window, EventBox } = ags.Widget;
 const { closeWindow } = ags.App;
 
+// TODO: close on scroll event too?
 export const closeAll = () => {
   ags.App.windows.forEach(w => {
     if (w.name != 'bar' &&
