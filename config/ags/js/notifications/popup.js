@@ -1,7 +1,8 @@
 import Notification from './base.js';
 const { Notifications } = ags.Service;
 const { Box, Revealer, Window } = ags.Widget;
-const { timeout } = ags.Utils;
+const { timeout, interval } = ags.Utils;
+const { source_remove } = imports.gi.GLib;
 
 const Popups = () => Box({
   vertical: true,
@@ -18,6 +19,7 @@ const Popups = () => Box({
         box.get_parent().reveal_child = false;
 
       timeout(200, () => {
+        source_remove(box._map.get(id)?.interval);
         box._map.get(id)?.destroy();
         box._map.delete(id);
       });
@@ -32,6 +34,15 @@ const Popups = () => Box({
       timeout(10, () => {
           box.get_parent().revealChild = true;
       });
+      box._map.get(id).interval = interval(4500, () => {
+        if (!box._map.get(id)._hovered) {
+          box._map.get(id).child.setStyle(box._map.get(id).child._leftAnim);
+
+          if (box._map.get(id)?.interval) {
+            source_remove(box._map.get(id)?.interval);
+          }
+        }
+      });
     }],
   ],
   connections: [
@@ -41,7 +52,7 @@ const Popups = () => Box({
   ],
 });
 
-const PopupList = ({ transition = 'slide_right' } = {}) => Box({
+const PopupList = ({ transition = 'none' } = {}) => Box({
   className: 'notifications-popup-list',
   style: 'padding: 1px',
   children: [
