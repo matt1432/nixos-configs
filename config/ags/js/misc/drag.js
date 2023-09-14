@@ -56,14 +56,16 @@ export const Draggable = ({
 
         if (Math.abs(offset) > maxOffset) {
           if (offset > 0) {
-            box.setStyle('transition: margin 0.5s ease; ' + 
+            box.setStyle('transition: margin 0.5s ease, opacity 0.5s ease; ' + 
                          'margin-left: ' + Number(maxOffset + endMargin) + 'px; ' +
-                         'margin-right: -' + Number(maxOffset + endMargin) + 'px;');
+                         'margin-right: -' + Number(maxOffset + endMargin) + 'px; ' +
+                         'margin-bottom: -70px; margin-top: -70px; opacity: 0;');
           }
           else {
-            box.setStyle('transition: margin 0.5s ease; ' + 
+            box.setStyle('transition: margin 0.5s ease, opacity 0.5s ease; ' + 
                          'margin-left: -' + Number(maxOffset + endMargin) + 'px; ' +
-                         'margin-right: ' + Number(maxOffset + endMargin) + 'px;');
+                         'margin-right: ' + Number(maxOffset + endMargin) + 'px; ' +
+                         'margin-bottom: -70px; margin-top: -70px; opacity: 0;');
           }
           setTimeout(command, 500);
         }
