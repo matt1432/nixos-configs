@@ -11,10 +11,15 @@ export const Draggable = ({
   onHoverLost = w => {},
   child = '',
   children = [],
+  properties = [[]],
   ...params
 }) => {
   let w = EventBox({
     ...params,
+    properties: [
+      ['dragging', false],
+      ...properties,
+    ],
     onHover: box => {
       box.window.set_cursor(Gdk.Cursor.new_from_name(display, 'grab'));
       onHover(box);
@@ -61,7 +66,9 @@ export const Draggable = ({
           box.setStyle('margin-right: ' + Number(offset + startMargin) + 'px; ' +
                        'margin-left: -' + Number(offset + startMargin) + 'px;');
         }
-        
+
+        box.get_parent()._dragging = Math.abs(offset) > 10;
+
         if (w.window)
           w.window.set_cursor(Gdk.Cursor.new_from_name(display, 'grabbing'));
       }, 'drag-update'],
@@ -85,6 +92,8 @@ export const Draggable = ({
                        'margin-bottom: unset; margin-top: unset; opacity: 1;');
           if (w.window)
             w.window.set_cursor(Gdk.Cursor.new_from_name(display, 'grab'));
+
+          box.get_parent()._dragging = false;
         }
       }, 'drag-end'],
 

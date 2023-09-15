@@ -1,26 +1,45 @@
 const { GLib } = imports.gi;
-const { Notifications } = ags.Service;
-const { lookUpIcon, timeout } = ags.Utils;
+const { Notifications, Applications } = ags.Service;
+const { lookUpIcon, timeout, exec } = ags.Utils;
 const { Box, Icon, Label, Button } = ags.Widget;
 
 import { Draggable } from '../misc/drag.js';
 import { EventBox } from '../misc/cursorbox.js'
+import { closeAll } from '../misc/closer.js';
 
-// TODO: launch app when click on icon
 const NotificationIcon = ({ appEntry, appIcon, image }) => {
+  let iconCmd = () => {};
+
+  if (Applications.query(appEntry).length > 0) {
+    let app = Applications.query(appEntry)[0];
+
+    if (app.app.get_string('StartupWMClass') != null) {
+      iconCmd = box => {
+        if (!box.get_parent().get_parent().get_parent().get_parent().get_parent()._dragging) {
+          exec('bash -c "$AGS_PATH/launch-app.sh ' + app.app.get_string('StartupWMClass') +
+                                               ' ' + app.app.get_string('Exec') + '"');
+          closeAll();
+        }
+      }
+    }
+  }
+
   if (image) {
-    return Box({
-      valign: 'start',
-      hexpand: false,
-      className: 'icon img',
-      style: `
-        background-image: url("${image}");
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-        min-width: 78px;
-        min-height: 78px;
-      `,
+    return EventBox({
+      onPrimaryClickRelease: iconCmd,
+      child: Box({
+        valign: 'start',
+        hexpand: false,
+        className: 'icon img',
+        style: `
+          background-image: url("${image}");
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center;
+          min-width: 78px;
+          min-height: 78px;
+        `,
+      }),
     });
   }
 
@@ -33,21 +52,24 @@ const NotificationIcon = ({ appEntry, appIcon, image }) => {
     icon = appEntry;
   }
 
-  return Box({
-    valign: 'start',
-    hexpand: false,
-    className: 'icon',
-    style: `
-      min-width: 78px;
-      min-height: 78px;
-    `,
-    children: [Icon({
-      icon, size: 58,
-      halign: 'center',
-      hexpand: true,
-      valign: 'center',
-      vexpand: true,
-    })],
+  return EventBox({
+    onPrimaryClickRelease: iconCmd,
+    child: Box({
+      valign: 'start',
+      hexpand: false,
+      className: 'icon',
+      style: `
+        min-width: 78px;
+        min-height: 78px;
+      `,
+      children: [Icon({
+        icon, size: 58,
+        halign: 'center',
+        hexpand: true,
+        valign: 'center',
+        vexpand: true,
+      })],
+    }),
   });
 };
 
