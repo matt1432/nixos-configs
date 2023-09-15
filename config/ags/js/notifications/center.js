@@ -53,6 +53,7 @@ const NotificationList = () => Box({
     }, 'notified'],
 
     [Notifications, (box, id) => {
+      box.visible = Notifications.notifications.length > 0;
       for (const ch of box.children) {
         if (ch._id == id) {
           ch.child.setStyle(ch.child._rightAnim);
