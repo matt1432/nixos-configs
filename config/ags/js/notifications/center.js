@@ -1,27 +1,46 @@
 const { Notifications } = ags.Service;
 const { Button, Label, Box, Icon, Scrollable, Window, Revealer } = ags.Widget;
 const { timeout } = ags.Utils;
+const { getWindow } = ags.App;
 
 import Notification from './base.js';
 import { EventBox } from '../misc/cursorbox.js'
 
-const ClearButton = () => EventBox({child: Button({
-  onClicked: Notifications.clear,
-  connections: [[Notifications, button => {
-    button.sensitive = Notifications.notifications.length > 0;
-  }]],
-  child: Box({
-    children: [
-      Label('Clear '),
-      Icon({
-        connections: [[Notifications, icon => {
-          icon.icon = Notifications.notifications.length > 0
+const ClearButton = () => EventBox({
+  child: Button({
+    onPrimaryClickRelease: button => {
+      button._popups.children.forEach(ch => ch.child.setStyle(ch.child._leftAnim));
+      button._notifList.children.forEach(ch => {
+        ch.child.setStyle(ch.child._rightAnim);
+        timeout(500, () => {
+          button._notifList.remove(ch);
+          Notifications.close(ch._id);
+        });
+      });
+    },
+    properties: [['notifList'], ['popups']],
+    connections: [[Notifications, button => {
+      if (!button._notifList)
+        button._notifList = getWindow('notification-center').child.children[1].children[0].child.child.children[0];
+
+      if (!button._popups)
+        button._popups = getWindow('notifications').child.children[0].child;
+
+      button.sensitive = Notifications.notifications.length > 0;
+    }]],
+    child: Box({
+      children: [
+        Label('Clear '),
+        Icon({
+          connections: [[Notifications, icon => {
+            icon.icon = Notifications.notifications.length > 0
                       ? 'user-trash-full-symbolic' : 'user-trash-symbolic';
-        }]],
-      }),
-    ],
+          }]],
+        }),
+      ],
+    }),
   }),
-})});
+});
 
 const Header = () => Box({
   className: 'header',
@@ -49,11 +68,9 @@ const NotificationList = () => Box({
         box.show_all();
       }
 
-      box.visible = Notifications.notifications.length > 0;
     }, 'notified'],
 
     [Notifications, (box, id) => {
-      box.visible = Notifications.notifications.length > 0;
       for (const ch of box.children) {
         if (ch._id == id) {
           ch.child.setStyle(ch.child._rightAnim);
@@ -62,6 +79,8 @@ const NotificationList = () => Box({
         }
       }
     }, 'closed'],
+
+    [Notifications, box => box.visible = Notifications.notifications.length > 0],
   ],
 });
 
