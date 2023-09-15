@@ -1,5 +1,6 @@
 const { Notifications } = ags.Service;
 const { Button, Label, Box, Icon, Scrollable, Window, Revealer } = ags.Widget;
+const { timeout } = ags.Utils;
 
 import Notification from './base.js';
 import { EventBox } from '../misc/cursorbox.js'
@@ -33,22 +34,34 @@ const Header = () => Box({
 const NotificationList = () => Box({
   vertical: true,
   vexpand: true,
-  connections: [[Notifications, (box, id) => {
-    if (box.children.length == 0) {
-      box.children = Notifications.notifications
-        .reverse()
-        .map(n => Notification({ ...n, command: i => Notifications.close(i), }));
-    }
-    else if (id) {
-      box.add(Notification({
-        ...Notifications.getNotification(id),
-        command: i => Notifications.close(i),
-      }));
-      box.show_all();
-    }
+  connections: [
+    [Notifications, (box, id) => {
+      if (box.children.length == 0) {
+        box.children = Notifications.notifications
+          .reverse()
+          .map(n => Notification({ ...n, command: i => Notifications.close(i), }));
+      }
+      else if (id) {
+        box.add(Notification({
+          ...Notifications.getNotification(id),
+          command: i => Notifications.close(i),
+        }));
+        box.show_all();
+      }
 
-    box.visible = Notifications.notifications.length > 0;
-  }, 'notified']],
+      box.visible = Notifications.notifications.length > 0;
+    }, 'notified'],
+
+    [Notifications, (box, id) => {
+      for (const ch of box.children) {
+        if (ch._id == id) {
+          ch.child.setStyle(ch.child._rightAnim);
+          timeout(500, () => box.remove(ch));
+          return;
+        }
+      }
+    }, 'closed'],
+  ],
 });
 
 const Placeholder = () => Revealer({
