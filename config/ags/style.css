@@ -588,3 +588,147 @@ calendar:indeterminate {
     .slider-box scale slider:hover {
       background-color: #303240;
       transition: background-color 0.5s ease-in-out; }
+
+.arrow {
+  transition: -gtk-icon-transform 0.3s ease-in-out;
+  margin-bottom: 5px; }
+
+.media .player {
+  all: unset;
+  border-radius: 9px;
+  color: #eee;
+  background-color: rgba(238, 238, 238, 0.06);
+  border: 1px solid rgba(238, 238, 238, 0.03);
+  margin-top: 9px; }
+  .media .player * {
+    font-size: 16px;
+    font-family: "Ubuntu Nerd Font", sans-serif; }
+  .media .player label {
+    color: white;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6); }
+  .media .player .shader {
+    all: unset;
+    box-shadow: inset 0 0 3em 1em rgba(23, 23, 23, 0.7); }
+    .media .player .shader * {
+      font-size: 16px;
+      font-family: "Ubuntu Nerd Font", sans-serif; }
+    .media .player .shader label {
+      color: white;
+      text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6); }
+  .media .player .cover {
+    border-radius: 7.2px;
+    min-height: 100px;
+    min-width: 100px;
+    box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.6);
+    margin: 9px;
+    margin-bottom: 0; }
+    .media .player .cover .shader {
+      background-color: transparent;
+      border-radius: 6.2px;
+      box-shadow: inset 0 0 0 999px rgba(23, 23, 23, 0.2); }
+  .media .player .blurred-cover, .media .player .cover {
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px; }
+  .media .player .labels {
+    margin-top: 9px; }
+    .media .player .labels label {
+      font-size: 1.1em;
+      text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6); }
+      .media .player .labels label.title {
+        font-weight: bold; }
+  .media .player .position-slider {
+    all: unset;
+    margin: 9px 0; }
+    .media .player .position-slider * {
+      font-size: 16px;
+      font-family: "Ubuntu Nerd Font", sans-serif; }
+    .media .player .position-slider * {
+      all: unset; }
+    .media .player .position-slider trough {
+      transition: 200ms;
+      border-radius: 0;
+      border: 1px solid rgba(238, 238, 238, 0.03);
+      background-color: rgba(238, 238, 238, 0.06);
+      min-height: 0.4em;
+      min-width: 0.4em; }
+      .media .player .position-slider trough highlight, .media .player .position-slider trough progress {
+        border-radius: 0;
+        background-image: linear-gradient(white, white);
+        min-height: 0.4em;
+        min-width: 0.4em; }
+      .media .player .position-slider trough:focus {
+        background-color: rgba(238, 238, 238, 0.154);
+        box-shadow: inset 0 0 0 1px #51a4e7; }
+    .media .player .position-slider slider {
+      box-shadow: none;
+      background-color: transparent;
+      border: 1px solid transparent;
+      transition: 200ms;
+      border-radius: 0;
+      min-height: 0.4em;
+      min-width: 0.4em;
+      margin: -0.5em; }
+    .media .player .position-slider:hover trough {
+      background-color: rgba(238, 238, 238, 0.154); }
+    .media .player .position-slider:disabled highlight, .media .player .position-slider:disabled progress {
+      background-color: rgba(238, 238, 238, 0.6);
+      background-image: none; }
+    .media .player .position-slider trough {
+      border: none;
+      background-color: rgba(255, 255, 255, 0.3); }
+  .media .player .footer-box {
+    margin: -4.5px 9px 4.5px; }
+    .media .player .footer-box image {
+      -gtk-icon-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6); }
+  .media .player .controls button {
+    all: unset; }
+    .media .player .controls button label {
+      font-size: 2em;
+      color: rgba(255, 255, 255, 0.8);
+      transition: 200ms; }
+      .media .player .controls button label.shuffle, .media .player .controls button label.loop {
+        font-size: 1.4em; }
+    .media .player .controls button:hover label {
+      color: rgba(255, 255, 255, 0.9); }
+    .media .player .controls button:active label {
+      color: white; }
+  .media .player.spotify button .shuffle.enabled {
+    color: #43c383; }
+  .media .player.spotify button .loop.playlist, .media .player.spotify button .loop.track {
+    color: #43c383; }
+  .media .player.spotify button:active label {
+    color: #43c383; }
+  .media .player.spotify .position-slider:hover trough {
+    background-color: rgba(67, 195, 131, 0.5); }
+  .media .player.spotify .player-icon {
+    color: #43c383; }
+  .media .player.firefox button .shuffle.enabled {
+    color: #E79E64; }
+  .media .player.firefox button .loop.playlist, .media .player.firefox button .loop.track {
+    color: #E79E64; }
+  .media .player.firefox button:active label {
+    color: #E79E64; }
+  .media .player.firefox .position-slider:hover trough {
+    background-color: rgba(231, 158, 100, 0.5); }
+  .media .player.firefox .player-icon {
+    color: #E79E64; }
+  .media .player.mpv button .shuffle.enabled {
+    color: #9077e7; }
+  .media .player.mpv button .loop.playlist, .media .player.mpv button .loop.track {
+    color: #9077e7; }
+  .media .player.mpv button:active label {
+    color: #9077e7; }
+  .media .player.mpv .position-slider:hover trough {
+    background-color: rgba(144, 119, 231, 0.5); }
+  .media .player.mpv .player-icon {
+    color: #9077e7; }
+
+.media.spotify image {
+  color: #43c383; }
+
+.media.firefox image {
+  color: #E79E64; }
+
+.media.mpv image {
+  color: #9077e7; }

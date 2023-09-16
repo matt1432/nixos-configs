@@ -1,8 +1,10 @@
-const { Window, CenterBox, Box, Label } = ags.Widget;
+const { Window, CenterBox, Box, Label, Revealer, Icon } = ags.Widget;
+const { ToggleButton } = imports.gi.Gtk;
 
 import { ButtonGrid } from './button-grid.js';
 import { SliderBox } from './slider-box.js';
-//import { Player } from 
+import Player from '../media-player/player.js';
+import { EventBox } from '../misc/cursorbox.js';
 
 export const QuickSettings = Window({
   name: 'quick-settings',
@@ -31,10 +33,34 @@ export const QuickSettings = Window({
 
           SliderBox,
 
+          EventBox({
+            child: ags.Widget({
+              type: ToggleButton,
+              connections: [['toggled', button => {
+                if (button.get_active()) {
+                  button.child.setStyle("-gtk-icon-transform: rotate(0deg);");
+                  button.get_parent().get_parent().get_parent().children[1].revealChild = true;
+                }
+                else {
+                  button.child.setStyle('-gtk-icon-transform: rotate(180deg);');
+                  button.get_parent().get_parent().get_parent().children[1].revealChild = false;
+                }
+              }]],
+              child: Icon({
+                icon: 'folder-download-symbolic',
+                className: 'arrow',
+                style: `-gtk-icon-transform: rotate(180deg);`,
+              }),
+            }),
+          }),
+
         ],
       }),
 
-      //Player,
+      Revealer({
+        transition: 'slide_down',
+        child: Player(),
+      })
 
     ],
   }),

@@ -41,6 +41,7 @@
       libinput.enable = true;
     };
     dbus.enable = true;
+    gvfs.enable = true;
     flatpak.enable = true;
     tlp.enable = true;
 
