@@ -5,7 +5,8 @@ what is currently not working:
 
 what i want to do:
 - learn flakes
-- add auto-rotate widget in eww control center
+- add auto-rotate widget in ags control center
+- add toggle of popups window
 
 # Docs
 
