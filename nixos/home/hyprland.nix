@@ -11,7 +11,7 @@
 in
 {
   home.packages = [
-    (builtins.getFlake "github:Aylur/ags").packages.x86_64-linux.default
+    (builtins.getFlake "github:matt1432/ags").packages.x86_64-linux.default
     pkgs.sassc
     pkgs.kora-icon-theme
     pkgs.coloryou
