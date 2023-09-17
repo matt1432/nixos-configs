@@ -16,7 +16,7 @@ let
   f = { buildPythonPackage, utils, material-color-utilities }:
     buildPythonPackage rec {
       pname = "coloryou";
-      version = "0.0.1";
+      version = "0.0.2";
 
       # If you have your sources locally, you can specify a path
       src = ./.;

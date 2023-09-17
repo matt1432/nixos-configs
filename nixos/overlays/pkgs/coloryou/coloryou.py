@@ -7,6 +7,7 @@ https://github.com/dharmx/vile/blob/7d486c128c7e553912673755f97b118aaab0193d/src
 
 import argparse
 import utils
+import json
 from material_color_utilities_python import *
 
 parser = argparse.ArgumentParser(
@@ -40,9 +41,9 @@ def get_material_you_colors(image_path: str) -> dict:
     theme = themeFromImage(img)
     themePalette = theme.get("palettes")
     themePalettePrimary = themePalette.get("primary")
-    parsed_colors = {"image_accent": hexFromArgb(themePalettePrimary.tone(40)), "button_accent": hexFromArgb(themePalettePrimary.tone(90)), "button_text": hexFromArgb(themePalettePrimary.tone(10))}
+    parsed_colors = {"imageAccent": hexFromArgb(themePalettePrimary.tone(40)), "buttonAccent": hexFromArgb(themePalettePrimary.tone(90)), "buttonText": hexFromArgb(themePalettePrimary.tone(10))}
 
     # parsed_colors = {"bright": colors[3], "dark": colors[9]}
     return parsed_colors
 
-print(get_material_you_colors(args.image_path))
+print(json.dumps(get_material_you_colors(args.image_path)))
