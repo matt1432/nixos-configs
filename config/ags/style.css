@@ -617,19 +617,17 @@ calendar:indeterminate {
   .player .bottom {
     font-size: 30px; }
   .player .pausebutton {
-    transition: background 250ms;
+    transition: background-color ease .2s, color ease .2s;
     font-size: 15px;
-    min-height: 14px;
-    min-width: 14px;
-    padding: 14px 14px 14px 17px; }
+    padding: 4px 4px 4px 7px; }
   .player .playing {
-    transition: all ease .2s;
+    transition: background-color ease .2s, color ease .2s;
     border-radius: 15px; }
   .player .stopped,
   .player .paused {
+    transition: background-color ease .2s, color ease .2s;
     border-radius: 26px;
-    transition: all ease .2s;
-    padding: 14px 14px 14px 20px; }
+    padding: 4px 4px 4px 10px; }
   .player button label {
     min-width: 35px; }
 

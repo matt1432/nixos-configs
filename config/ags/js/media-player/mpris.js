@@ -47,7 +47,7 @@ export const CoverArt = (player, params) => CenterBox({
 });
 
 export const TitleLabel = (player, params) => Label({
-  ...params,                    
+  ...params,
   xalign: 0,
   maxWidthChars: 40,
   truncate: 'end',
@@ -167,7 +167,9 @@ const PlayerButton = ({ player, items, onClick, prop }) => Button({
     if (prop == 'playBackStatus') {
       items.forEach(item => {
         item[1].setStyle(`background-color: ${player.colors.value.hoverAccent};
-                          color: ${player.colors.value.buttonText};`);
+                          color: ${player.colors.value.buttonText};
+                          min-height: 40px; min-width: 36px;
+                          margin-bottom: 1px; margin-right: 1px;`);
       });
     }
   },
@@ -176,7 +178,8 @@ const PlayerButton = ({ player, items, onClick, prop }) => Button({
     if (prop == 'playBackStatus') {
       items.forEach(item => {
         item[1].setStyle(`background-color: ${player.colors.value.buttonAccent};
-                          color: ${player.colors.value.buttonText};`);
+                          color: ${player.colors.value.buttonText};
+                          min-height: 42px; min-width: 38px;`);
       });
     }
   },
@@ -190,7 +193,8 @@ const PlayerButton = ({ player, items, onClick, prop }) => Button({
         if (prop == 'playBackStatus') {
           items.forEach(item => {
             item[1].setStyle(`background-color: ${player.colors.value.buttonAccent};
-                              color: ${player.colors.value.buttonText};`);
+                              color: ${player.colors.value.buttonText};
+                              min-height: 42px; min-width: 38px;`);
           });
         }
         else {
