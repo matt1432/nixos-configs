@@ -18,5 +18,10 @@ export const Closer = Window({
 
   child: EventBox({
     onPrimaryClickRelease: () => closeAll(),
+    connections: [[ags.App, (box, windowName, visible) => {
+      if (!Array.from(ags.App.windows).some(w => w[1].visible && w[0] != 'bar' && w[0] != 'notifications' && w[0] != 'closer')) {
+        closeWindow('closer');
+      }
+    }]],
   }),
 });

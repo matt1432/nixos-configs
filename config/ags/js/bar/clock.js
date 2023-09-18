@@ -3,7 +3,6 @@ const { toggleWindow, openWindow } = ags.App;
 const { DateTime } = imports.gi.GLib;
 
 import { EventBox } from '../misc/cursorbox.js';
-import { closeAll } from '../misc/closer.js';
 
 const ClockModule = ({
     interval = 1000,
@@ -31,7 +30,6 @@ export const Clock = EventBox({
         }
         else {
           Clock.toggleClassName('toggle-on', false);
-          closeAll();
         }
       }
     }],
