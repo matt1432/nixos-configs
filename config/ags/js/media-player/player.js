@@ -83,24 +83,26 @@ const PlayerBox = player => mpris.CoverArt(player, {
 });
 
 export default () => Box({
-    vertical: true,
-    className: 'media',
-    properties: [['players', new Map()]],
-    connections: [
-        [Mpris, (box, busName) => {
-            if (!busName || box._players.has(busName))
-                return;
+  vertical: true,
+  className: 'media',
+  properties: [['players', new Map()]],
+  connections: [
+    [Mpris, (box, busName) => {
+      if (!busName || box._players.has(busName))
+        return;
 
-            const player = Mpris.getPlayer(busName);
-            box._players.set(busName, PlayerBox(player));
-            box.children = Array.from(box._players.values());
-        }, 'player-added'],
-        [Mpris, (box, busName) => {
-            if (!busName || !box._players.has(busName))
-                return;
+      const player = Mpris.getPlayer(busName);
+      player.colors = ags.Variable();
+      box._players.set(busName, PlayerBox(player));
+      box.children = Array.from(box._players.values());
+    }, 'player-added'],
 
-            box._players.delete(busName);
-            box.children = Array.from(box._players.values());
-        }, 'player-closed'],
-    ],
+    [Mpris, (box, busName) => {
+      if (!busName || !box._players.has(busName))
+        return;
+
+      box._players.delete(busName);
+      box.children = Array.from(box._players.values());
+    }, 'player-closed'],
+  ],
 });

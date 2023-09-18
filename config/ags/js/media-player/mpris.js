@@ -22,24 +22,19 @@ const icons = {
   },
 }
 
-
-let coloryou = path => ['bash', '-c', `[[ -f "${path}" ]] && coloryou "${path}"`];
-
-const MEDIA_CACHE_PATH = CACHE_DIR + '/media';
-
 export const CoverArt = (player, params) => CenterBox({
   ...params,
   className: 'player',
   vertical: true,
   connections: [
     [player, box => {
-      execAsync(coloryou(player.coverPath))
+      execAsync(['bash', '-c', `[[ -f "${player.coverPath}" ]] && coloryou "${player.coverPath}"`])
       .then(out => {
-        let colors = JSON.parse(out);
+        player.colors.value = JSON.parse(out);
 
         box.setStyle(`background: radial-gradient(circle,
                                   rgba(0, 0, 0, 0.4) 30%,
-                                  ${colors.imageAccent}),
+                                  ${player.colors.value.imageAccent}),
                                   url("${player.coverPath}"); 
                       background-size: cover;
                       background-position: center;`);
@@ -91,16 +86,6 @@ export const PositionSlider = (player, params) => Slider({
   },
   properties: [
     ['update', slider => {
-      execAsync(coloryou(player.coverPath))
-      .then(out => {
-        let colors = JSON.parse(out);
-
-        slider.setCss(`highlight { background-color: ${colors.buttonAccent}; }
-                       slider { background-color: ${colors.buttonAccent}; }
-                       slider:hover { background-color: #303240; }
-                       trough { background-color: ${colors.buttonAccent}; }`);
-      }).catch(err => { if (err !== "") print(err) });
-
       if (slider.dragging)
         return;
 
@@ -112,6 +97,13 @@ export const PositionSlider = (player, params) => Slider({
   connections: [
     [player, s => s._update(s), 'position'],
     [1000, s => s._update(s)],
+    [player.colors, s => {
+      if (player.colors.value)
+        s.setCss(`highlight { background-color: ${player.colors.value.buttonAccent}; }
+                  slider { background-color: ${player.colors.value.buttonAccent}; }
+                  slider:hover { background-color: #303240; }
+                  trough { background-color: ${player.colors.value.buttonAccent}; }`);
+    }],
   ],
 });
 
@@ -153,21 +145,20 @@ const PlayerButton = ({ player, items, onClick, prop }) => Button({
   connections: [
     [player, button => {
       button.child.shown = `${player[prop]}`;
+    }],
 
-      execAsync(coloryou(player.coverPath))
-      .then(out => {
-        let colors = JSON.parse(out);
-
+    [player.colors, button => {
+      if (player.colors.value) {
         if (prop == 'playBackStatus') {
           items.forEach(item => {
-            item[1].setStyle(`background-color: ${colors.buttonAccent};
-                            color: ${colors.buttonText};`);
-          })
+            item[1].setStyle(`background-color: ${player.colors.value.buttonAccent};
+                              color: ${player.colors.value.buttonText};`);
+          });
         }
         else {
-          button.setStyle(`color: ${colors.buttonAccent};`);
+          button.setStyle(`color: ${player.colors.value.buttonAccent};`);
         }
-      }).catch(err => { if (err !== "") print(err) });
+      }
     }],
   ],
 });

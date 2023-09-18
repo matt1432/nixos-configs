@@ -7,6 +7,7 @@ what i want to do:
 - learn flakes
 - add auto-rotate widget in ags control center
 - add toggle of popups window
+- when multiple widgets open, clicking on a background one puts it forward
 
 # Docs
 
