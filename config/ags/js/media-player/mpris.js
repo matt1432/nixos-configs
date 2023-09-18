@@ -1,6 +1,9 @@
 const { CACHE_DIR, execAsync, ensureDirectory, lookUpIcon } = ags.Utils;
 const { Button, Icon, Label, Box, Stack, Slider, CenterBox } = ags.Widget;
-const { GLib } = imports.gi;
+const { GLib, Gtk, Gdk } = imports.gi;
+const display = Gdk.Display.get_default();
+
+import { EventBox } from '../misc/cursorbox.js';
 
 const icons = {
   mpris: {
@@ -68,7 +71,8 @@ export const ArtistLabel = (player, params) => Label({
 export const PlayerIcon = (player, { symbolic = true, ...params } = {}) => Icon({
   ...params,
   className: 'player-icon',
-  tooltipText: player.indentity || '',
+  size: 32,
+  tooltipText: player.identity || '',
   connections: [[player, icon => {
     const name = `${player.entry}${symbolic ? '-symbolic' : ''}`;
     lookUpIcon(name) ? icon.icon = name
@@ -76,35 +80,44 @@ export const PlayerIcon = (player, { symbolic = true, ...params } = {}) => Icon(
   }]],
 });
 
-export const PositionSlider = (player, params) => Slider({
-  ...params,
-  className: 'position-slider',
-  hexpand: true,
-  drawValue: false,
-  onChange: ({ value }) => {
-    player.position = player.length * value;
-  },
-  properties: [
-    ['update', slider => {
-      if (slider.dragging)
-        return;
+export const PositionSlider = (player, params) => EventBox({
+  child: Slider({
+    ...params,
+    className: 'position-slider',
+    hexpand: true,
+    drawValue: false,
+    onChange: ({ value }) => {
+      player.position = player.length * value;
+    },
+    properties: [
+      ['update', slider => {
+        if (slider.dragging) {
+          slider.get_parent().window.set_cursor(Gdk.Cursor.new_from_name(display, 'grabbing'));
+        }
+        else {
+          if (slider.get_parent() && slider.get_parent().window) {
+            slider.get_parent().window.set_cursor(Gdk.Cursor.new_from_name(display, 'pointer'));
+          }
 
-      slider.sensitive = player.length > 0;
-      if (player.length > 0)
-        slider.value = player.position / player.length;
-    }],
-  ],
-  connections: [
-    [player, s => s._update(s), 'position'],
-    [1000, s => s._update(s)],
-    [player.colors, s => {
-      if (player.colors.value)
-        s.setCss(`highlight { background-color: ${player.colors.value.buttonAccent}; }
-                  slider { background-color: ${player.colors.value.buttonAccent}; }
-                  slider:hover { background-color: #303240; }
-                  trough { background-color: ${player.colors.value.buttonAccent}; }`);
-    }],
-  ],
+          slider.sensitive = player.length > 0;
+          if (player.length > 0) {
+            slider.value = player.position / player.length;
+          }
+        }
+      }],
+    ],
+    connections: [
+      [player, s => s._update(s), 'position'],
+      [1000, s => s._update(s)],
+      [player.colors, s => {
+        if (player.colors.value)
+          s.setCss(`highlight { background-color: ${player.colors.value.buttonAccent}; }
+                    slider { background-color: ${player.colors.value.buttonAccent}; }
+                    slider:hover { background-color: #303240; }
+                    trough { background-color: ${player.colors.value.buttonAccent}; }`);
+      }],
+    ],
+  }),
 });
 
 function lengthStr(length) {
