@@ -41,9 +41,11 @@ def get_material_you_colors(image_path: str) -> dict:
     theme = themeFromImage(img)
     themePalette = theme.get("palettes")
     themePalettePrimary = themePalette.get("primary")
-    parsed_colors = {"imageAccent": hexFromArgb(themePalettePrimary.tone(40)), "buttonAccent": hexFromArgb(themePalettePrimary.tone(90)), "buttonText": hexFromArgb(themePalettePrimary.tone(10))}
+    parsed_colors = {"imageAccent":  hexFromArgb(themePalettePrimary.tone(40)),
+                     "buttonAccent": hexFromArgb(themePalettePrimary.tone(90)),
+                     "buttonText":   hexFromArgb(themePalettePrimary.tone(10)),
+                     "hoverAccent":  hexFromArgb(themePalettePrimary.tone(85))}
 
-    # parsed_colors = {"bright": colors[3], "dark": colors[9]}
     return parsed_colors
 
 print(json.dumps(get_material_you_colors(args.image_path)))
