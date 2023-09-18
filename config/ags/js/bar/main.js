@@ -12,6 +12,7 @@ import { SysTray }          from './systray.js';
 import { BatteryIndicator } from './battery.js';
 import { Brightness }       from './brightness.js';
 import { AudioIndicator }   from './audio.js';
+import { Gesture }          from './gesture.js';
 
 export const Bar = Window({
   name: 'bar',
@@ -19,60 +20,62 @@ export const Bar = Window({
   anchor: 'top left right',
   exclusive: true,
 
-  child: CenterBox({
-    className: 'transparent',
-    halign: 'fill',
-    style: 'margin: 5px',
-    vertical: false,
-    
-    startWidget: Box({
-      halign: 'start',
-      children: [
+  child: Gesture({
+    child: CenterBox({
+      className: 'transparent',
+      halign: 'fill',
+      style: 'margin: 5px',
+      vertical: false,
 
-        OskToggle,
-  
-        Separator(12),
+      startWidget: Box({
+        halign: 'start',
+        children: [
 
-        TabletToggle,
-      
-        Separator(12),
+          OskToggle,
 
-        SysTray,
+          Separator(12),
 
-        Separator(12),
+          TabletToggle,
 
-        AudioIndicator,
+          Separator(12),
 
-        Separator(12),
+          SysTray,
 
-        Brightness,
+          Separator(12),
 
-        Separator(12),
+          AudioIndicator,
 
-        Workspaces,
+          Separator(12),
 
-      ],
-    }),
+          Brightness,
 
-    centerWidget: CurrentWindow,
+          Separator(12),
 
-    endWidget: Box({
-      halign: 'end',
-      children: [
-        BatteryIndicator,
-        
-        Separator(12),
-      
-        Clock,
+          Workspaces,
 
-        Separator(12),
+        ],
+      }),
 
-        NotifButton,
+      centerWidget: CurrentWindow,
 
-        Separator(12),
+      endWidget: Box({
+        halign: 'end',
+        children: [
+          BatteryIndicator,
 
-        QsToggle,
-      ],
+          Separator(12),
+
+          Clock,
+
+          Separator(12),
+
+          NotifButton,
+
+          Separator(12),
+
+          QsToggle,
+        ],
+      }),
     }),
   }),
 });
