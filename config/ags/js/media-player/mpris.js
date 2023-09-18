@@ -156,7 +156,9 @@ export const Slash = player => Label({
 const PlayerButton = ({ player, items, onClick, prop }) => Button({
   child: Stack({ items }),
   onPrimaryClickRelease: () => player[onClick](),
+  properties: [['hovered', false]],
   onHover: box => {
+    box._hovered = true;
     if (! box.child.sensitive || ! box.sensitive) {
       box.window.set_cursor(Gdk.Cursor.new_from_name(display, 'not-allowed'));
     }
@@ -174,6 +176,7 @@ const PlayerButton = ({ player, items, onClick, prop }) => Button({
     }
   },
   onHoverLost: box => {
+    box._hovered = false;
     box.window.set_cursor(null);
     if (prop == 'playBackStatus') {
       items.forEach(item => {
@@ -191,11 +194,21 @@ const PlayerButton = ({ player, items, onClick, prop }) => Button({
     [player.colors, button => {
       if (player.colors.value) {
         if (prop == 'playBackStatus') {
-          items.forEach(item => {
-            item[1].setStyle(`background-color: ${player.colors.value.buttonAccent};
-                              color: ${player.colors.value.buttonText};
-                              min-height: 42px; min-width: 38px;`);
-          });
+          if (button._hovered) {
+            items.forEach(item => {
+              item[1].setStyle(`background-color: ${player.colors.value.hoverAccent};
+                                color: ${player.colors.value.buttonText};
+                                min-height: 40px; min-width: 36px;
+                                margin-bottom: 1px; margin-right: 1px;`);
+            });
+          }
+          else {
+            items.forEach(item => {
+              item[1].setStyle(`background-color: ${player.colors.value.buttonAccent};
+                                color: ${player.colors.value.buttonText};
+                                min-height: 42px; min-width: 38px;`);
+            });
+          }
         }
         else {
           button.setCss(`* { color: ${player.colors.value.buttonAccent}; }
