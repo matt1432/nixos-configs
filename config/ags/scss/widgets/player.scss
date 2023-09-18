@@ -63,11 +63,11 @@
 .shuffle,
 .loop {
   border-radius: 100%;
-  transition: background-color 200ms;
+  transition: color 200ms;
   &:hover {
     border-radius: 100%;
     background-color: rgba(127, 132, 156, 0.4);
-    transition: background-color 200ms;
+    transition: color 200ms;
   }
 }
 

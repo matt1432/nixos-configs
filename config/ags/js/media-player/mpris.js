@@ -113,7 +113,7 @@ export const PositionSlider = (player, params) => EventBox({
         if (player.colors.value)
           s.setCss(`highlight { background-color: ${player.colors.value.buttonAccent}; }
                     slider { background-color: ${player.colors.value.buttonAccent}; }
-                    slider:hover { background-color: #303240; }
+                    slider:hover { background-color: ${player.colors.value.hoverAccent}; }
                     trough { background-color: ${player.colors.value.buttonAccent}; }`);
       }],
     ],
@@ -152,9 +152,34 @@ export const Slash = player => Label({
   }]],
 });
 
+// TODO: use label instead of stack to fix UI issues
 const PlayerButton = ({ player, items, onClick, prop }) => Button({
   child: Stack({ items }),
   onPrimaryClickRelease: () => player[onClick](),
+  onHover: box => {
+    if (! box.child.sensitive || ! box.sensitive) {
+      box.window.set_cursor(Gdk.Cursor.new_from_name(display, 'not-allowed'));
+    }
+    else {
+      box.window.set_cursor(Gdk.Cursor.new_from_name(display, 'pointer'));
+    }
+
+    if (prop == 'playBackStatus') {
+      items.forEach(item => {
+        item[1].setStyle(`background-color: ${player.colors.value.hoverAccent};
+                          color: ${player.colors.value.buttonText};`);
+      });
+    }
+  },
+  onHoverLost: box => {
+    box.window.set_cursor(null);
+    if (prop == 'playBackStatus') {
+      items.forEach(item => {
+        item[1].setStyle(`background-color: ${player.colors.value.buttonAccent};
+                          color: ${player.colors.value.buttonText};`);
+      });
+    }
+  },
   connections: [
     [player, button => {
       button.child.shown = `${player[prop]}`;
@@ -169,7 +194,8 @@ const PlayerButton = ({ player, items, onClick, prop }) => Button({
           });
         }
         else {
-          button.setStyle(`color: ${player.colors.value.buttonAccent};`);
+          button.setCss(`* { color: ${player.colors.value.buttonAccent}; }
+                         *:hover { color: ${player.colors.value.hoverAccent}; }`);
         }
       }
     }],
