@@ -9,3 +9,5 @@ set relativenumber
 
 set undofile
 set undodir=/home/matt/.cache/nvim/
+
+set list listchars=tab:\ \ ,nbsp:␣,trail:•,extends:⟩,precedes:⟨
