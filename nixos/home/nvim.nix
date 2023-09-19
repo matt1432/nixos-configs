@@ -27,7 +27,8 @@ in {
           "--logpath",
           "~/.cache/sumneko_lua/log"
         ],
-        "sumneko-lua.serverDir": "${pkgs.lua-language-server}/share/lua-language-server"
+        "sumneko-lua.serverDir": "${pkgs.lua-language-server}/share/lua-language-server",
+        "bashIde.shellcheckPath": "${pkgs.shellcheck}/bin/shellcheck"
       }
     '';
   };
@@ -54,23 +55,26 @@ in {
       tree-sitter
       nodejs_latest
       bat
+
+      python311Packages.pylint
     ];
     plugins = with pkgs.vimPlugins; [
       vim-which-key
 
-      coc-nvim # done
-      coc-java # done
-      coc-css # done
-      coc-sumneko-lua # done
-      coc-highlight # done
+      coc-nvim
+      coc-java
+      coc-css
+      coc-sumneko-lua
+      coc-highlight
       coc-json
       coc-pairs
-      coc-python
+      coc-pyright
       coc-sh
       coc-snippets
       coc-vimlsp
       coc-yaml
       coc-toml
+      coc-markdownlint
 
       coc-fzf
       (plugin "junegunn/fzf.vim")
@@ -91,7 +95,6 @@ in {
       (plugin "MunifTanjim/nui.nvim")
 
       # to explore more
-      (plugin "iamcco/markdown-preview.nvim")
       (plugin "sindrets/diffview.nvim")
       (plugin "folke/todo-comments.nvim")
       (plugin "petertriho/nvim-scrollbar")
