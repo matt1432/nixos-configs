@@ -16,31 +16,6 @@ let
   # always installs latest version
   plugin = pluginGit "HEAD";
 in {
-  xdg.configFile = {
-    "nvim/coc-settings.json".source = pkgs.writeText "coc-settings.json" ''
-      {
-        "colors.enable": true,
-        "coc.preferences.formatOnType": true,
-        "Lua.misc.parameters": [
-          "--metapath",
-          "~/.cache/sumneko_lua/meta",
-          "--logpath",
-          "~/.cache/sumneko_lua/log"
-        ],
-        "sumneko-lua.serverDir": "${pkgs.lua-language-server}/share/lua-language-server",
-        "java.jdt.ls.java.home": "${pkgs.temurin-bin-18}",
-        "bashIde.shellcheckPath": "${pkgs.shellcheck}/bin/shellcheck",
-        "languageserver": {
-          "nix": {
-            "command": "nil",
-            "filetypes": ["nix"],
-            "rootPatterns":  ["flake.nix"],
-          }
-        }
-      }
-    '';
-  };
-
   programs.neovim = {
     enable = true;
     package = pkgs.neovim-nightly;
@@ -67,10 +42,33 @@ in {
       python311Packages.pylint
       nil
     ];
+
+    coc = {
+      enable = true;
+      settings = {
+        "colors.enable" = true;
+        "coc.preferences.formatOnType" = true;
+        "Lua.misc.parameters" = [
+          "--metapath"
+          "~/.cache/sumneko_lua/meta"
+          "--logpath"
+          "~/.cache/sumneko_lua/log"
+        ];
+        "sumneko-lua.serverDir" = "${pkgs.lua-language-server}/share/lua-language-server";
+        "java.jdt.ls.java.home" = "${pkgs.temurin-bin-18}";
+        "bashIde.shellcheckPath" = "${pkgs.shellcheck}/bin/shellcheck";
+        languageserver = {
+          nix = {
+            command = "nil";
+            filetypes = [ "nix" ];
+            rootPatterns =  [ "flake.nix" ];
+          };
+        };
+      };
+    };
     plugins = with pkgs.vimPlugins; [
       vim-which-key
 
-      coc-nvim
       coc-java
       coc-css
       coc-sumneko-lua
@@ -91,6 +89,7 @@ in {
 
       nvim-treesitter.withAllGrammars
       nvim-treesitter
+      nvim-autopairs
 
       (plugin "Mofiqul/dracula.nvim")
       (plugin "lukas-reineke/indent-blankline.nvim")
@@ -104,7 +103,6 @@ in {
       (plugin "MunifTanjim/nui.nvim")
 
       # to explore more
-      nvim-autopairs
       (plugin "sindrets/diffview.nvim")
       (plugin "folke/todo-comments.nvim")
       (plugin "petertriho/nvim-scrollbar")
