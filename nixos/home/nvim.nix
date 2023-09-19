@@ -103,7 +103,7 @@ in {
       (plugin "MunifTanjim/nui.nvim")
 
       # to explore more
-      (plugin "sindrets/diffview.nvim")
+      fugitive
       (plugin "folke/todo-comments.nvim")
       (plugin "petertriho/nvim-scrollbar")
     ];
