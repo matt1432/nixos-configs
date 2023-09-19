@@ -77,7 +77,7 @@
     thunderbird
     input-emulator
     bc
-    spot
+    spotifywm
     swayosd
     blueberry
     libayatana-appindicator

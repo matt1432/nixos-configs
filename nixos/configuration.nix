@@ -13,10 +13,6 @@
     hostName = "wim";
     networkmanager.enable = true;
     networkmanager.wifi.backend = "wpa_supplicant";
-    hosts = {
-      # Fix spot playback issue: https://github.com/xou816/spot/issues/541#issuecomment-1200503080
-      "104.199.65.124" = [ "ap-gew4.spotify.com" "ap-gue1.spotify.com" ];
-    };
   };
 
   # Set your time zone.
