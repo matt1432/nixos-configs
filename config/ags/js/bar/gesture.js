@@ -21,7 +21,7 @@ export const Gesture = ({
 
       [gesture, box => {
         const velocity = gesture.get_velocity()[1];
-        if (velocity < -50)
+        if (velocity < -100)
           openWindow('quick-settings');
       }, 'update'],
 

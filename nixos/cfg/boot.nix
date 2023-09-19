@@ -39,10 +39,11 @@
 
     plymouth = {
       enable = true;
-      #themePackages = [ pkgs.catppuccin-plymouth ];
-      #theme = "catppuccin-macchiato";
       themePackages = [ pkgs.dracula-plymouth ];
       theme = "dracula";
     };
+
+    # https://github.com/NixOS/nixpkgs/issues/254807#issuecomment-1722351771
+    swraid.enable = false;
   };
 }
