@@ -61,11 +61,15 @@ const NotificationList = () => Box({
           .map(n => Notification({ ...n, command: i => Notifications.close(i), }));
       }
       else if (id) {
-        box.add(Notification({
+        const NewNotif = Notification({
           ...Notifications.getNotification(id),
           command: i => Notifications.close(i),
-        }));
-        box.show_all();
+        });
+
+        if (NewNotif) {
+          box.add(NewNotif);
+          box.show_all();
+        }
       }
 
     }, 'notified'],

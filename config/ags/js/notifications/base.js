@@ -73,93 +73,104 @@ const NotificationIcon = ({ appEntry, appIcon, image }) => {
   });
 };
 
-export default ({ id, summary, body, actions, urgency, time, command = i => {}, ...icon }) => Draggable({
-  maxOffset: 200,
-  command: () => command(id),
-  properties: [
-    ['hovered', false],
-    ['id', id],
-  ],
-  onHover: w => {
-    if (!w._hovered) {
-      w._hovered = true;
-    }
-  },
-  onHoverLost: w => {
-    if (w._hovered) {
-      w._hovered = false;
-    }
-  },
+export default ({ id, summary, body, actions, urgency, time, command = i => {}, ...icon }) => {
+  const BlockedApps = [
+    'Spotify',
+  ];
 
-  child: Box({
-    className: `notification ${urgency}`,
-    vexpand: false,
-    // Notification
+  if (BlockedApps.find(app => app == Notifications.getNotification(id).appName)) {
+    Notifications.close(id);
+    return;
+  }
+
+  return Draggable({
+    maxOffset: 200,
+    command: () => command(id),
+    properties: [
+      ['hovered', false],
+      ['id', id],
+    ],
+    onHover: w => {
+      if (!w._hovered) {
+        w._hovered = true;
+      }
+    },
+    onHoverLost: w => {
+      if (w._hovered) {
+        w._hovered = false;
+      }
+    },
+
     child: Box({
-      vertical: true,
-      children: [
-        // Content
-        Box({
-          children: [
-            NotificationIcon(icon),
-            Box({
-              hexpand: true,
-              vertical: true,
-              children: [
-                // Top of Content
-                Box({
-                  children: [
-                    Label({
-                      className: 'title',
-                      xalign: 0,
-                      justification: 'left',
-                      hexpand: true,
-                      maxWidthChars: 24,
-                      truncate: 'end',
-                      wrap: true,
-                      label: summary,
-                      useMarkup: summary.startsWith('<'),
-                    }),
-                    Label({
-                      className: 'time',
-                      valign: 'start',
-                      label: GLib.DateTime.new_from_unix_local(time).format('%H:%M'),
-                    }),
-                    EventBox({
-                      reset: false,
-                      child: Button({
-                        className: 'close-button',
-                        valign: 'start',
-                        onClicked: () => Notifications.close(id),
-                        child: Icon('window-close-symbolic'),
+      className: `notification ${urgency}`,
+      vexpand: false,
+      // Notification
+      child: Box({
+        vertical: true,
+        children: [
+          // Content
+          Box({
+            children: [
+              NotificationIcon(icon),
+              Box({
+                hexpand: true,
+                vertical: true,
+                children: [
+                  // Top of Content
+                  Box({
+                    children: [
+                      Label({
+                        className: 'title',
+                        xalign: 0,
+                        justification: 'left',
+                        hexpand: true,
+                        maxWidthChars: 24,
+                        truncate: 'end',
+                        wrap: true,
+                        label: summary,
+                        useMarkup: summary.startsWith('<'),
                       }),
-                    }),
-                  ],
-                }),
-                Label({
-                  className: 'description',
-                  hexpand: true,
-                  useMarkup: true,
-                  xalign: 0,
-                  justification: 'left',
-                  label: body,
-                  wrap: true,
-                }),
-              ],
-            }),
-          ],
-        }),
-        // Actions
-        Box({
-          className: 'actions',
-          children: actions.map(action => Button({
-            className: 'action-button',
-            onClicked: () => Notifications.invoke(id, action.id),
-            hexpand: true,
-            child: Label(action.label),
-          })),
-        }),
-      ],
+                      Label({
+                        className: 'time',
+                        valign: 'start',
+                        label: GLib.DateTime.new_from_unix_local(time).format('%H:%M'),
+                      }),
+                      EventBox({
+                        reset: false,
+                        child: Button({
+                          className: 'close-button',
+                          valign: 'start',
+                          onClicked: () => Notifications.close(id),
+                          child: Icon('window-close-symbolic'),
+                        }),
+                      }),
+                    ],
+                  }),
+                  Label({
+                    className: 'description',
+                    hexpand: true,
+                    useMarkup: true,
+                    xalign: 0,
+                    justification: 'left',
+                    label: body,
+                    wrap: true,
+                  }),
+                ],
+              }),
+            ],
+          }),
+          // Actions
+          Box({
+            className: 'actions',
+            children: actions.map(action => Button({
+              className: 'action-button',
+              onClicked: () => Notifications.invoke(id, action.id),
+              hexpand: true,
+              child: Label(action.label),
+            })),
+          }),
+        ],
+      }),
     }),
-  }),
-});
+  });
+};

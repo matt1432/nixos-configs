@@ -31,6 +31,9 @@ const Popups = () => Box({
       if (!id || Notifications.dnd)
         return;
 
+      if (! Notifications.getNotification(id))
+        return;
+
       box._map.delete(id);
 
       box._map.set(id, Notification({
