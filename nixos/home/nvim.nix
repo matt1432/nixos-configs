@@ -19,8 +19,8 @@ in {
   xdg.configFile = {
     "nvim/coc-settings.json".source = pkgs.writeText "coc-settings.json" ''
       {
-        "java.jdt.ls.java.home": "${pkgs.temurin-bin-18}",
         "colors.enable": true,
+        "coc.preferences.formatOnType": true,
         "Lua.misc.parameters": [
           "--metapath",
           "~/.cache/sumneko_lua/meta",
@@ -28,6 +28,7 @@ in {
           "~/.cache/sumneko_lua/log"
         ],
         "sumneko-lua.serverDir": "${pkgs.lua-language-server}/share/lua-language-server",
+        "java.jdt.ls.java.home": "${pkgs.temurin-bin-18}",
         "bashIde.shellcheckPath": "${pkgs.shellcheck}/bin/shellcheck"
       }
     '';
@@ -67,7 +68,6 @@ in {
       coc-sumneko-lua
       coc-highlight
       coc-json
-      coc-pairs
       coc-pyright
       coc-sh
       coc-snippets
@@ -75,6 +75,7 @@ in {
       coc-yaml
       coc-toml
       coc-markdownlint
+      coc-tsserver
 
       coc-fzf
       (plugin "junegunn/fzf.vim")
@@ -95,6 +96,7 @@ in {
       (plugin "MunifTanjim/nui.nvim")
 
       # to explore more
+      nvim-autopairs
       (plugin "sindrets/diffview.nvim")
       (plugin "folke/todo-comments.nvim")
       (plugin "petertriho/nvim-scrollbar")
