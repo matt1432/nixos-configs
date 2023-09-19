@@ -1,41 +1,3 @@
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-local lspconfig = require('lspconfig')
-lspconfig.bashls.setup { capabilities = capabilities }
-lspconfig.nixd.setup { capabilities = capabilities }
-lspconfig.html.setup { capabilities = capabilities }
-lspconfig.cssls.setup { capabilities = capabilities }
-lspconfig.lua_ls.setup {
-  settings = {
-    capabilities = capabilities,
-    Lua = {
-      runtime = {
-        version = 'LuaJIT',
-      },
-      diagnostics = {
-        -- Get the language server to recognize the `vim` global
-        globals = {'vim'},
-      },
-      workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
-      },
-      telemetry = {
-        enable = false,
-      },
-    },
-  },
-}
-
-require("formatter").setup {
-  filetype = {
-    ["*"] = {
-      -- "formatter.filetypes.any" defines default configurations for any
-      -- filetype
-      require("formatter.filetypes.any").remove_trailing_whitespace
-    }
-  }
-}
-
 require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
@@ -76,6 +38,5 @@ require("neo-tree").setup({
     leave_dirs_open = true,
   }
 })
-require('nvim-autopairs').setup()
 require('todo-comments').setup()
 require("scrollbar").setup()
