@@ -29,7 +29,14 @@ in {
         ],
         "sumneko-lua.serverDir": "${pkgs.lua-language-server}/share/lua-language-server",
         "java.jdt.ls.java.home": "${pkgs.temurin-bin-18}",
-        "bashIde.shellcheckPath": "${pkgs.shellcheck}/bin/shellcheck"
+        "bashIde.shellcheckPath": "${pkgs.shellcheck}/bin/shellcheck",
+        "languageserver": {
+          "nix": {
+            "command": "nil",
+            "filetypes": ["nix"],
+            "rootPatterns":  ["flake.nix"],
+          }
+        }
       }
     '';
   };
@@ -58,6 +65,7 @@ in {
       bat
 
       python311Packages.pylint
+      nil
     ];
     plugins = with pkgs.vimPlugins; [
       vim-which-key
