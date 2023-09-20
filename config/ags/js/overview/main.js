@@ -46,15 +46,15 @@ export const Overview = Window({
       [Hyprland, box => {
         let childI = 0;
         box._workspaces = box.children[childI++].centerWidget.children.concat(
-                          box.children[childI].centerWidget.children)
-        let newWorkspaces = Hyprland.workspaces;
+                          box.children[childI].centerWidget.children);
 
-        if (newWorkspaces.length > box._workspaces.length) {
-          box._updateWs(box);
-        }
+        // Make sure the order is correct
+        box._workspaces.forEach(workspace => {
+          workspace.get_parent().reorder_child(workspace, workspace._id)
+        });
 
-        if (box._canUpdate)
-          box._updateApps(box);
+        box._updateWs(box);
+        box._updateApps(box);
 
       }],
     ],
@@ -140,40 +140,37 @@ export const Overview = Window({
       }],
 
       ['updateWs', box => {
-        if (!box._canUpdate)
-          return;
-
-        box._canUpdate = false;
-        const id = Hyprland.instance.connect('changed', () => {
-          Hyprland.workspaces.forEach(ws => {
-            if (box._workspaces.some(ch => ch._id == ws.id)) 
-              return;
-
+        Hyprland.workspaces.forEach(ws => {
+          let currentWs = box._workspaces.find(ch => ch._id == ws.id)
+          if (currentWs) {
+            if (!currentWs._ordered) {
+              currentWs.get_parent().reorder_child(currentWs, ws._id);
+              currentWs._ordered = true;
+            }
+          }
+          else {
             var childI = 0;
             if (ws.id < 0) {
               childI = 1;
             }
 
-            box.children[childI].centerWidget.add(
-              Box({
-                properties: [['id', ws.id]],
-                className: 'workspace',
-                child: EventBox({
-                  tooltipText: `Workspace: ${ws.id}`,
-                  child: ags.Widget({
-                    type: Gtk.Fixed,
-                  }),
+            currentWs = Box({
+              properties: [
+                ['id', ws.id],
+                ['ordered', false],
+              ],
+              className: 'workspace',
+              child: EventBox({
+                tooltipText: `Workspace: ${ws.id}`,
+                child: ags.Widget({
+                  type: Gtk.Fixed,
                 }),
-              })
-            );
-          });
-          box.show_all();
-          if (box._workspaces.length > 0) {
-            Hyprland.instance.disconnect(id);
-            box._canUpdate = true;
-            box._updateApps(box);
+              }),
+            });
+            box.children[childI].centerWidget.add(currentWs);
           }
         });
+        box.show_all();
       }],
     ],
   }),
