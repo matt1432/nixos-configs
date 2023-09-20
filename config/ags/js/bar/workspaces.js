@@ -8,9 +8,7 @@ const Workspace = ({ i } = {}) =>
 Revealer({
   transition: "slide_right",
   child: EventBox({
-    setup: widget => {
-      widget.set_tooltip_text(`${i}`);
-    },
+    tooltipText: `${i}`,
     onPrimaryClickRelease: () => execAsync(`hyprctl dispatch workspace ${i}`).catch(print),
     child: Box({
       className: 'button',
