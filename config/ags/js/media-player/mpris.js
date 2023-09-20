@@ -1,6 +1,6 @@
-const { CACHE_DIR, execAsync, ensureDirectory, lookUpIcon } = ags.Utils;
-const { Button, Icon, Label, Box, Stack, Slider, CenterBox } = ags.Widget;
-const { GLib, Gtk, Gdk } = imports.gi;
+const { execAsync, lookUpIcon } = ags.Utils;
+const { Button, Icon, Label, Stack, Slider, CenterBox } = ags.Widget;
+const { Gdk } = imports.gi;
 const display = Gdk.Display.get_default();
 
 import { EventBox } from '../misc/cursorbox.js';
@@ -33,14 +33,16 @@ export const CoverArt = (player, params) => CenterBox({
     [player, box => {
       execAsync(['bash', '-c', `[[ -f "${player.coverPath}" ]] && coloryou "${player.coverPath}"`])
       .then(out => {
-        player.colors.value = JSON.parse(out);
+        if (box) {
+          player.colors.value = JSON.parse(out);
 
-        box.setStyle(`background: radial-gradient(circle,
-                                  rgba(0, 0, 0, 0.4) 30%,
-                                  ${player.colors.value.imageAccent}),
-                                  url("${player.coverPath}"); 
-                      background-size: cover;
-                      background-position: center;`);
+          box.setStyle(`background: radial-gradient(circle,
+                                    rgba(0, 0, 0, 0.4) 30%,
+                                    ${player.colors.value.imageAccent}),
+                                    url("${player.coverPath}"); 
+                        background-size: cover;
+                        background-position: center;`);
+        }
       }).catch(err => { if (err !== "") print(err) });
     }],
   ],
