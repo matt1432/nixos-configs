@@ -5,6 +5,9 @@
   .workspace .window {
     border-radius: 10px;
     margin: 0 10px;
+    transition: min-width 0.2s ease-in-out,
+                min-height 0.2s ease-in-out,
+                border-color 0.2s ease-in-out;
   }
 
   .normal {

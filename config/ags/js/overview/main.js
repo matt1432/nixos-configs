@@ -79,7 +79,8 @@ export const Overview = Window({
               }
 
               // Special workspaces that haven't been opened yet
-              // return a size of 0.
+              // return a size of 0. We need to set them to default
+              // values to show the workspace properly
               if (app.size[0] === 0) {
                 app.size[0] = DEFAULT_SPECIAL.SIZE_X;
                 app.size[1] = DEFAULT_SPECIAL.SIZE_Y;
@@ -98,8 +99,7 @@ export const Overview = Window({
                 );
                 existingApp.child.className = `window ${active}`;
                 existingApp.child.style = `min-width: ${app.size[0] * SCALE - MARGIN}px;
-                                           min-height: ${app.size[1] * SCALE - MARGIN}px;
-                                           transition: min-width 0.2s ease, min-height 0.2s ease`;
+                                           min-height: ${app.size[1] * SCALE - MARGIN}px;`;
               }
               else {
                 fixed.put(
@@ -115,8 +115,7 @@ export const Overview = Window({
                     child: Icon({
                       className: `window ${active}`,
                       style: `min-width: ${app.size[0] * SCALE - MARGIN}px;
-                              min-height: ${app.size[1] * SCALE - MARGIN}px;
-                              transition: min-width 0.2s ease, min-height 0.2s ease`,
+                              min-height: ${app.size[1] * SCALE - MARGIN}px;`,
                       icon: app.class,
                       size: 40,
                     }),
@@ -169,7 +168,7 @@ export const Overview = Window({
             );
           });
           box.show_all();
-          if (box.children[0].centerWidget.children.length > 0) {
+          if (box._workspaces.length > 0) {
             Hyprland.instance.disconnect(id);
             box._canUpdate = true;
             box._updateApps(box);
