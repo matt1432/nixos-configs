@@ -1,4 +1,4 @@
-const { Window, Box, CenterBox, Icon } = ags.Widget;
+const { Window, Box, CenterBox, Icon, Revealer } = ags.Widget;
 const { Hyprland, Applications } = ags.Service;
 const { Gtk } = imports.gi;
 
@@ -6,6 +6,12 @@ import { EventBox } from '../misc/cursorbox.js';
 
 const SCALE = 0.11;
 const MARGIN = 8;
+const DEFAULT_SPECIAL = {
+  SIZE_X: 1524,
+  SIZE_Y: 908,
+  POS_X: 197,
+  POS_Y: 170,
+};
 
 export const Overview = Window({
   name: 'overview',
@@ -38,8 +44,9 @@ export const Overview = Window({
     ],
     connections: [
       [Hyprland, box => {
-        box._workspaces = box.children[0].centerWidget.children.concat(
-                         box.children[1].centerWidget.children)
+        let childI = 0;
+        box._workspaces = box.children[childI++].centerWidget.children.concat(
+                          box.children[childI].centerWidget.children)
         let newWorkspaces = Hyprland.workspaces;
 
         if (newWorkspaces.length > box._workspaces.length) {
@@ -63,36 +70,72 @@ export const Overview = Window({
 
           box._workspaces.forEach(workspace => {
             let fixed = workspace.children[0].child;
-            fixed.get_children().forEach(ch => ch.destroy());
+            let toRemove = fixed.get_children();
 
             box._clients.filter(app => app.workspace.id == workspace._id).forEach(app => {
               let active = '';
               if (app.address == Hyprland.active.client.address) {
                 active = 'active';
-                print(app.at[0])
-                print(app.at[1])
               }
 
+              // Special workspaces that haven't been opened yet
+              // return a size of 0.
               if (app.size[0] === 0) {
-                app.size[0] = 1524;
-                app.size[1] = 908;
-                app.at[0] = 197;
-                app.at[1] = 170;
+                app.size[0] = DEFAULT_SPECIAL.SIZE_X;
+                app.size[1] = DEFAULT_SPECIAL.SIZE_Y;
+                app.at[0] = DEFAULT_SPECIAL.POS_X;
+                app.at[1] = DEFAULT_SPECIAL.POS_Y;
               }
 
-              fixed.put(
-                Icon({
-                  className: `window ${active}`,
-                  style: `min-width: ${app.size[0] * SCALE - MARGIN}px;
-                          min-height: ${app.size[1] * SCALE - MARGIN}px;`,
-                  icon: app.class,
-                  size: 40,
-                }),
-                app.at[0] * SCALE,
-                app.at[1] * SCALE
-              );
+              let existingApp = fixed.get_children().find(ch => ch._address == app.address);
+              toRemove.splice(toRemove.indexOf(existingApp), 1);
+
+              if (existingApp) {
+                fixed.move(
+                  existingApp,
+                  app.at[0] * SCALE,
+                  app.at[1] * SCALE,
+                );
+                existingApp.child.className = `window ${active}`;
+                existingApp.child.style = `min-width: ${app.size[0] * SCALE - MARGIN}px;
+                                           min-height: ${app.size[1] * SCALE - MARGIN}px;
+                                           transition: min-width 0.2s ease, min-height 0.2s ease`;
+              }
+              else {
+                fixed.put(
+                  Revealer({
+                    transition: 'slide_right',
+                    connections: [[Hyprland, rev => {
+                      rev.revealChild = true;
+                    }]],
+                    properties: [
+                      ['address', app.address],
+                      ['toDestroy', false]
+                    ],
+                    child: Icon({
+                      className: `window ${active}`,
+                      style: `min-width: ${app.size[0] * SCALE - MARGIN}px;
+                              min-height: ${app.size[1] * SCALE - MARGIN}px;
+                              transition: min-width 0.2s ease, min-height 0.2s ease`,
+                      icon: app.class,
+                      size: 40,
+                    }),
+                  }),
+                  app.at[0] * SCALE,
+                  app.at[1] * SCALE,
+                );
+              }
             });
             fixed.show_all();
+            toRemove.forEach(ch => {
+              if (ch._toDestroy) {
+                ch.destroy();
+              }
+              else {
+                ch.revealChild = false;
+                ch._toDestroy = true;
+              }
+            });
           });
         }).catch(print);
       }],
@@ -112,7 +155,6 @@ export const Overview = Window({
               childI = 1;
             }
 
-            // TODO: make this a revealer so no awkward jump
             box.children[childI].centerWidget.add(
               Box({
                 properties: [['id', ws.id]],
