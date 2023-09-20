@@ -71,6 +71,8 @@
 
     # School
     virtmanager
+    gradle
+    gradle-completion
     #camunda-modeler
     #
     protonmail-bridge

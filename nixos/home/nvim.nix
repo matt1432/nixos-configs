@@ -16,6 +16,11 @@ let
   # always installs latest version
   plugin = pluginGit "HEAD";
 in {
+  xdg.configFile = {
+    "../.gradle/gradle.properties".source = pkgs.writeText "gradle.properties" ''
+      org.gradle.java.home = ${pkgs.temurin-bin-17}
+    '';
+  };
   programs.neovim = {
     enable = true;
     package = pkgs.neovim-nightly;
@@ -37,6 +42,7 @@ in {
     extraPackages = with pkgs; [
       tree-sitter
       nodejs_latest
+      gradle
       bat
 
       python311Packages.pylint
@@ -55,7 +61,7 @@ in {
           "~/.cache/sumneko_lua/log"
         ];
         "sumneko-lua.serverDir" = "${pkgs.lua-language-server}/share/lua-language-server";
-        "java.jdt.ls.java.home" = "${pkgs.temurin-bin-18}";
+        "java.jdt.ls.java.home" = "${pkgs.temurin-bin-17}";
         "bashIde.shellcheckPath" = "${pkgs.shellcheck}/bin/shellcheck";
         languageserver = {
           nix = {
