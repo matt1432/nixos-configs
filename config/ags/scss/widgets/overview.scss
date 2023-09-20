@@ -1,0 +1,40 @@
+.overview {
+  min-height: 1px;
+  min-width: 1px;
+
+  .workspace .window {
+    border-radius: 10px;
+
+  }
+
+  .normal {
+    margin-bottom: 5px;
+
+    .workspace {
+      margin: 0 10px;
+
+      .window {
+        border: 2px solid #411C6C;
+
+        &.active {
+          border: 2px solid purple;
+        }
+      }
+    }
+  }
+  .special {
+
+    .workspace {
+      margin: 0 5px;
+
+      .window {
+        border: 2px solid lighten($color: black, $amount: 20);
+
+        &.active {
+          border: 2px solid purple;
+        }
+
+      }
+    }
+  }
+}
