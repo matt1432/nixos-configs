@@ -69,11 +69,15 @@ export const Overview = Window({
               let active = '';
               if (app.address == Hyprland.active.client.address) {
                 active = 'active';
+                print(app.at[0])
+                print(app.at[1])
               }
 
               if (app.size[0] === 0) {
                 app.size[0] = 1524;
                 app.size[1] = 908;
+                app.at[0] = 197;
+                app.at[1] = 170;
               }
 
               fixed.put(
@@ -108,6 +112,7 @@ export const Overview = Window({
               childI = 1;
             }
 
+            // TODO: make this a revealer so no awkward jump
             box.children[childI].centerWidget.add(
               Box({
                 properties: [['id', ws.id]],
