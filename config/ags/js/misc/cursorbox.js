@@ -16,3 +16,19 @@ export const EventBox = ({ reset = true, ...params }) => ags.Widget.EventBox({
       box.window.set_cursor(null);
   },
 });
+
+export const Button = ({ reset = true, ...params }) => ags.Widget.Button({
+  ...params,
+  onHover: box => {
+    if (! box.child.sensitive || ! box.sensitive) {
+      box.window.set_cursor(Gdk.Cursor.new_from_name(display, 'not-allowed'));
+    }
+    else {
+      box.window.set_cursor(Gdk.Cursor.new_from_name(display, 'pointer'));
+    }
+  },
+  onHoverLost: box => {
+    if (reset)
+      box.window.set_cursor(null);
+  },
+});
