@@ -22,6 +22,10 @@
       timeout = 2;
     };
 
+    extraModulePackages = with config.boot.kernelPackages; [
+      v4l2loopback
+    ];
+
     kernelModules = [ "kvm-amd" ];
 
     kernelParams = [
