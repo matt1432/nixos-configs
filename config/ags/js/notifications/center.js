@@ -9,9 +9,9 @@ import { EventBox } from '../misc/cursorbox.js'
 const ClearButton = () => EventBox({
   child: Button({
     onPrimaryClickRelease: button => {
-      button._popups.children.forEach(ch => ch.child.setStyle(ch.child._leftAnim));
+      button._popups.children.forEach(ch => ch.child.setStyle(ch.child._leftAnim1));
       button._notifList.children.forEach(ch => {
-        ch.child.setStyle(ch.child._rightAnim);
+        ch.child.setStyle(ch.child._rightAnim1);
         timeout(500, () => {
           button._notifList.remove(ch);
           Notifications.close(ch._id);
@@ -77,7 +77,7 @@ const NotificationList = () => Box({
     [Notifications, (box, id) => {
       for (const ch of box.children) {
         if (ch._id == id) {
-          ch.child.setStyle(ch.child._rightAnim);
+          ch.child.setStyle(ch.child._rightAnim1);
           timeout(500, () => box.remove(ch));
           return;
         }

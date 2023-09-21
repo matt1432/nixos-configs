@@ -1,4 +1,4 @@
-const { Window, Box, EventBox, Button } = ags.Widget;
+const { Box, EventBox } = ags.Widget;
 const { Gtk, Gdk } = imports.gi;
 const display = Gdk.Display.get_default();
 
@@ -32,26 +32,39 @@ export const Draggable = ({
 
   let gesture = Gtk.GestureDrag.new(w);
 
-  let leftAnim = 'transition: margin 0.5s ease, opacity 0.5s ease; ' +
-                 'margin-left: -' + Number(maxOffset + endMargin) + 'px; ' +
-                 'margin-right: ' + Number(maxOffset + endMargin) + 'px; ' +
-                 'margin-bottom: -70px; margin-top: -70px; opacity: 0;';
+  let leftAnim1 = `transition: margin 0.5s ease, opacity 0.5s ease;
+                   margin-left: -${Number(maxOffset + endMargin)}px;
+                   margin-right: ${Number(maxOffset + endMargin)}px;
+                   opacity: 0;`;
 
-  let rightAnim = 'transition: margin 0.5s ease, opacity 0.5s ease; ' +
-                  'margin-left: ' + Number(maxOffset + endMargin) + 'px; ' +
-                  'margin-right: -' + Number(maxOffset + endMargin) + 'px; ' +
-                  'margin-bottom: -70px; margin-top: -70px; opacity: 0;';
+  let leftAnim2 = `transition: margin 0.5s ease, opacity 0.5s ease;
+                   margin-left: -${Number(maxOffset + endMargin)}px;
+                   margin-right: ${Number(maxOffset + endMargin)}px;
+                   margin-bottom: -70px; margin-top: -70px; opacity: 0;`;
+
+  let rightAnim1 = `transition: margin 0.5s ease, opacity 0.5s ease;
+                    margin-left: ${Number(maxOffset + endMargin)}px;
+                    margin-right: -${Number(maxOffset + endMargin)}px;
+                    opacity: 0;`;
+
+  let rightAnim2 = `transition: margin 0.5s ease, opacity 0.5s ease;
+                    margin-left: ${Number(maxOffset + endMargin)}px;
+                    margin-right: -${Number(maxOffset + endMargin)}px;
+                    margin-bottom: -70px; margin-top: -70px; opacity: 0;`;
 
   w.child = Box({
     properties: [
-      ['leftAnim', leftAnim],
-      ['rightAnim', rightAnim],
+      ['leftAnim1', leftAnim1],
+      ['leftAnim2', leftAnim2],
+      ['rightAnim1', rightAnim1],
+      ['rightAnim2', rightAnim2],
+      ['ready', false]
     ],
     children: [
       ...children,
       child,
     ],
-    style: leftAnim,
+    style: leftAnim2,
     connections: [
 
       [gesture, box => {
@@ -74,16 +87,37 @@ export const Draggable = ({
       }, 'drag-update'],
 
       [gesture, box => {
+        if (!box._ready) {
+          box.setStyle(`transition: margin 0.5s ease, opacity 0.5s ease;
+                        margin-left: -${Number(maxOffset + endMargin)}px;
+                        margin-right: ${Number(maxOffset + endMargin)}px;
+                        margin-bottom: 0px; margin-top: 0px; opacity: 0;`);
+
+          setTimeout(() => {
+            box.setStyle('transition: margin 0.5s ease, opacity 0.5s ease; ' +
+                         'margin-left: ' + startMargin + 'px; ' +
+                         'margin-right: ' + startMargin + 'px; ' +
+                         'margin-bottom: unset; margin-top: unset; opacity: 1;');
+          }, 500);
+          setTimeout(() => box._ready = true, 1000);
+          return;
+        }
+
         const offset = gesture.get_offset()[1];
 
         if (Math.abs(offset) > maxOffset) {
           if (offset > 0) {
-            box.setStyle(rightAnim);
+            box.setStyle(rightAnim1);
+            setTimeout(() => box.setStyle(rightAnim2), 500);
           }
           else {
-            box.setStyle(leftAnim);
+            box.setStyle(leftAnim1);
+            setTimeout(() => box.setStyle(leftAnim2), 500);
           }
-          setTimeout(command, 500);
+          setTimeout(() => {
+            command();
+            box.destroy();
+          }, 1000);
         }
         else {
           box.setStyle('transition: margin 0.5s ease, opacity 0.5s ease; ' +

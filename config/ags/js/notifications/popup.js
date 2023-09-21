@@ -47,7 +47,7 @@ const Popups = () => Box({
       });
       box._map.get(id).interval = interval(4500, () => {
         if (!box._map.get(id)._hovered) {
-          box._map.get(id).child.setStyle(box._map.get(id).child._leftAnim);
+          box._map.get(id).child.setStyle(box._map.get(id).child._leftAnim1);
 
           if (box._map.get(id).interval) {
             source_remove(box._map.get(id).interval);
