@@ -2,6 +2,16 @@
   min-height: 1px;
   min-width: 1px;
 
+  .workspace {
+    padding: 4px;
+    border: 2px solid transparent;
+    border-radius: 10px;
+
+    &.active {
+      border: 2px solid black;
+    }
+  }
+
   .workspace .window {
     border-radius: 10px;
     margin: 0 10px;

@@ -6,6 +6,10 @@ import { EventBox } from '../misc/cursorbox.js';
 
 const SCALE = 0.11;
 const MARGIN = 8;
+const SCREEN = {
+  X: 1920,
+  Y: 1200,
+}
 const DEFAULT_SPECIAL = {
   SIZE_X: 1524,
   SIZE_Y: 908,
@@ -54,20 +58,18 @@ export const Overview = Window({
       }],
     ],
     properties: [
-      ['canUpdate', true],
       ['workspaces'],
-      ['clients'],
 
       ['updateApps', box => {
         ags.Utils.execAsync('hyprctl clients -j')
         .then(result => {
-          box._clients = JSON.parse(result).filter(client => client.class)
+          let clients = JSON.parse(result).filter(client => client.class)
 
           box._workspaces.forEach(workspace => {
             let fixed = workspace.children[0].child;
             let toRemove = fixed.get_children();
 
-            box._clients.filter(app => app.workspace.id == workspace._id).forEach(app => {
+            clients.filter(app => app.workspace.id == workspace._id).forEach(app => {
               let active = '';
               if (app.address == Hyprland.active.client.address) {
                 active = 'active';
@@ -148,6 +150,13 @@ export const Overview = Window({
                 ['id', ws.id],
               ],
               className: 'workspace',
+              style: `min-width: ${SCREEN.X * SCALE}px;
+                      min-height: ${SCREEN.Y * SCALE}px;`,
+              connections: [[Hyprland, box => {
+                let active = Hyprland.active.workspace.id === box._id;
+                box.toggleClassName('active', active);
+                box.visible = Hyprland.getWorkspace(box._id)?.windows > 0 || active;
+              }]],
               child: EventBox({
                 tooltipText: `Workspace: ${ws.id}`,
                 child: ags.Widget({

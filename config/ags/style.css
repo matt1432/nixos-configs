@@ -668,6 +668,12 @@ calendar:indeterminate {
 .overview {
   min-height: 1px;
   min-width: 1px; }
+  .overview .workspace {
+    padding: 4px;
+    border: 2px solid transparent;
+    border-radius: 10px; }
+    .overview .workspace.active {
+      border: 2px solid black; }
   .overview .workspace .window {
     border-radius: 10px;
     margin: 0 10px;
