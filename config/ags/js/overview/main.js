@@ -16,7 +16,7 @@ const DEFAULT_SPECIAL = {
 export const Overview = Window({
   name: 'overview',
   layer: 'overlay',
-  //popup: true,
+  popup: true,
   anchor: 'top',
   margin: [ 0, 0, 0, 0 ],
   child: Box({
@@ -45,17 +45,12 @@ export const Overview = Window({
     connections: [
       [Hyprland, box => {
         let childI = 0;
-        box._workspaces = box.children[childI++].centerWidget.children.concat(
-                          box.children[childI].centerWidget.children);
-
-        // Make sure the order is correct
-        box._workspaces.forEach(workspace => {
-          workspace.get_parent().reorder_child(workspace, workspace._id)
-        });
+        box._workspaces = [].concat(box.children[childI++].centerWidget.children,
+                                    box.children[childI].centerWidget.children)
+                            .sort((a, b) => a._id - b._id);
 
         box._updateWs(box);
         box._updateApps(box);
-
       }],
     ],
     properties: [
@@ -142,13 +137,7 @@ export const Overview = Window({
       ['updateWs', box => {
         Hyprland.workspaces.forEach(ws => {
           let currentWs = box._workspaces.find(ch => ch._id == ws.id)
-          if (currentWs) {
-            if (!currentWs._ordered) {
-              currentWs.get_parent().reorder_child(currentWs, ws._id);
-              currentWs._ordered = true;
-            }
-          }
-          else {
+          if (!currentWs) {
             var childI = 0;
             if (ws.id < 0) {
               childI = 1;
@@ -157,7 +146,6 @@ export const Overview = Window({
             currentWs = Box({
               properties: [
                 ['id', ws.id],
-                ['ordered', false],
               ],
               className: 'workspace',
               child: EventBox({
@@ -171,6 +159,11 @@ export const Overview = Window({
           }
         });
         box.show_all();
+
+        // Make sure the order is correct
+        box._workspaces.forEach((workspace, i) => {
+          workspace.get_parent().reorder_child(workspace, i)
+        });
       }],
     ],
   }),

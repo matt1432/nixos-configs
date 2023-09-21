@@ -5,6 +5,7 @@ import { NotificationCenter } from './js/notifications/center.js';
 import { NotificationsPopupList } from './js/notifications/popup.js'
 import { Calendar } from './js/date.js';
 import { QuickSettings } from './js/quick-settings/main.js';
+import { Overview } from './js/overview/main.js';
 
 import { Closer, closeAll } from './js/misc/closer.js';
 ags.App.closeAll = () => closeAll();
@@ -27,5 +28,6 @@ export default {
     NotificationsPopupList,
     Calendar,
     QuickSettings,
+    Overview,
   ],
 };
