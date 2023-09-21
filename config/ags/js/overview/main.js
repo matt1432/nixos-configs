@@ -66,7 +66,7 @@ export const Overview = Window({
           let clients = JSON.parse(result).filter(client => client.class)
 
           box._workspaces.forEach(workspace => {
-            let fixed = workspace.children[0].child;
+            let fixed = workspace.child.child.children[0];
             let toRemove = fixed.get_children();
 
             clients.filter(app => app.workspace.id == workspace._id).forEach(app => {
@@ -145,22 +145,25 @@ export const Overview = Window({
               childI = 1;
             }
 
-            currentWs = Box({
+            currentWs = Revealer({
+              transition: 'slide_right',
               properties: [
                 ['id', ws.id],
               ],
-              className: 'workspace',
-              style: `min-width: ${SCREEN.X * SCALE}px;
-                      min-height: ${SCREEN.Y * SCALE}px;`,
               connections: [[Hyprland, box => {
                 let active = Hyprland.active.workspace.id === box._id;
-                box.toggleClassName('active', active);
-                box.visible = Hyprland.getWorkspace(box._id)?.windows > 0 || active;
+                box.child.child.toggleClassName('active', active);
+                box.revealChild = Hyprland.getWorkspace(box._id)?.windows > 0 || active;
               }]],
               child: EventBox({
                 tooltipText: `Workspace: ${ws.id}`,
-                child: ags.Widget({
-                  type: Gtk.Fixed,
+                child: Box({
+                  className: 'workspace',
+                  style: `min-width: ${SCREEN.X * SCALE}px;
+                          min-height: ${SCREEN.Y * SCALE}px;`,
+                  child: ags.Widget({
+                    type: Gtk.Fixed,
+                  }),
                 }),
               }),
             });
