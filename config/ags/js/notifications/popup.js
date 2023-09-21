@@ -19,7 +19,7 @@ const Popups = () => Box({
         box.get_parent().reveal_child = false;
 
       timeout(200, () => {
-        if (box._map.get(id).interval) {
+        if (box._map.get(id)?.interval) {
           source_remove(box._map.get(id).interval);
           box._map.get(id).interval = undefined;
         }
