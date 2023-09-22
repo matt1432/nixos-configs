@@ -29,3 +29,5 @@ let g:coc_snippet_next = '<tab>'
 
 " support scss @
 autocmd FileType scss setl iskeyword+=@-@
+
+nnoremap <silent> <esc> :noh<cr><esc>
