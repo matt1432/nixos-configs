@@ -116,7 +116,7 @@ export const Draggable = ({
           }
           setTimeout(() => {
             command();
-            box.get_parent().destroy();
+            box.destroy();
           }, 1000);
         }
         else {
