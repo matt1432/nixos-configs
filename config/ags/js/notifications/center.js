@@ -4,7 +4,8 @@ const { timeout } = ags.Utils;
 const { getWindow } = ags.App;
 
 import Notification from './base.js';
-import { EventBox } from '../misc/cursorbox.js'
+import { EventBox } from '../misc/cursorbox.js';
+import { PopUp } from '../misc/popup.js';
 
 const ClearButton = () => EventBox({
   child: Button({
@@ -21,7 +22,7 @@ const ClearButton = () => EventBox({
     properties: [['notifList'], ['popups']],
     connections: [[Notifications, button => {
       if (!button._notifList)
-        button._notifList = getWindow('notification-center').child.children[1].children[0].child.child.children[0];
+        button._notifList = NotificationList;
 
       if (!button._popups)
         button._popups = getWindow('notifications').child.children[0].child;
@@ -50,7 +51,7 @@ const Header = () => Box({
   ],
 });
 
-const NotificationList = () => Box({
+const NotificationList = Box({
   vertical: true,
   vexpand: true,
   connections: [
@@ -107,33 +108,37 @@ const Placeholder = () => Revealer({
   }),
 });
 
+const NotificationCenterWidget = Box({
+  className: 'notification-center',
+  vertical: true,
+  children: [
+    Header(),
+    Box({
+      className: 'notification-wallpaper-box',
+      children: [Scrollable({
+        className: 'notification-list-box',
+        hscroll: 'never',
+        vscroll: 'automatic',
+        child: Box({
+          className: 'notification-list',
+          vertical: true,
+          children: [
+            NotificationList,
+            Placeholder(),
+          ],
+        }),
+      })],
+    }),
+  ],
+});
+
 export const NotificationCenter = Window({
   name: 'notification-center',
-  popup: true,
   layer: 'overlay',
   anchor: 'top right',
   margin: [ 8, 60, 0, 0 ],
-  child: Box({
-    className: 'notification-center',
-    vertical: true,
-    children: [
-      Header(),
-      Box({
-        className: 'notification-wallpaper-box',
-        children: [Scrollable({
-          className: 'notification-list-box',
-          hscroll: 'never',
-          vscroll: 'automatic',
-          child: Box({
-            className: 'notification-list',
-            vertical: true,
-            children: [
-              NotificationList(),
-              Placeholder(),
-            ],
-          }),
-        })],
-      }),
-    ],
+  child: PopUp({
+    name: 'notification-center',
+    child: NotificationCenterWidget,
   }),
 });

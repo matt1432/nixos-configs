@@ -1,5 +1,5 @@
 const { Box, Label, Icon } = ags.Widget;
-const { toggleWindow, openWindow } = ags.App;
+const { toggleWindow } = ags.App;
 const { Notifications } = ags.Service;
 
 import { Separator } from '../misc/separator.js';
@@ -11,13 +11,7 @@ export const NotifButton = EventBox({
   connections: [
     [ags.App, (box, windowName, visible) => {
       if (windowName == 'notification-center') {
-        if (visible) {
-          NotifButton.toggleClassName('toggle-on', true);
-          openWindow('closer');
-        }
-        else {
-          NotifButton.toggleClassName('toggle-on', false);
-        }
+        box.toggleClassName('toggle-on', visible);
       }
     }],
   ],

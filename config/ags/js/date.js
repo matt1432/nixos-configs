@@ -2,6 +2,8 @@ const { Box, Label, Window } = ags.Widget;
 const { Gtk } = imports.gi;
 const { DateTime } = imports.gi.GLib;
 
+import { PopUp } from './misc/popup.js';
+
 const Divider = () => Box({
   className: 'divider',
   vertical: true,
@@ -68,16 +70,18 @@ const CalendarWidget = () => Box({
 
 export const Calendar = Window({
   name: 'calendar',
-  popup: true,
   layer: 'overlay',
   anchor: 'top right',
   margin: [ 8, 182, 0, 0],
-  child: Box({
-    className: 'date',
-    vertical: true,
-    children: [
-      Time(),
-      CalendarWidget(),
-    ],
+  child: PopUp({
+    name: 'calendar',
+    child: Box({
+      className: 'date',
+      vertical: true,
+      children: [
+        Time(),
+        CalendarWidget(),
+      ],
+    }),
   }),
 });

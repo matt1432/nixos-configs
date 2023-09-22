@@ -1,5 +1,5 @@
 const { Box, Label } = ags.Widget;
-const { toggleWindow, openWindow } = ags.App;
+const { toggleWindow } = ags.App;
 const { DateTime } = imports.gi.GLib;
 
 import { EventBox } from '../misc/cursorbox.js';
@@ -24,13 +24,7 @@ export const Clock = EventBox({
   connections: [
     [ags.App, (box, windowName, visible) => {
       if (windowName == 'calendar') {
-        if (visible) {
-          Clock.toggleClassName('toggle-on', true);
-          openWindow('closer');
-        }
-        else {
-          Clock.toggleClassName('toggle-on', false);
-        }
+        box.toggleClassName('toggle-on', visible);
       }
     }],
   ],

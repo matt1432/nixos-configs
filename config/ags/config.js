@@ -20,6 +20,13 @@ exec(`bash -c "$AGS_PATH/startup.sh"`);
 export default {
   style: css,
   notificationPopupTimeout: 5000,
+  cacheNotificationActions: true,
+  closeWindowDelay: {
+    'quick-settings': 500,
+    'notification-center': 500,
+    'calendar': 500,
+    'powermenu': 500,
+  },
   windows: [
     Powermenu,
     Bar,
