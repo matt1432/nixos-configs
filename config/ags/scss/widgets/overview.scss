@@ -1,10 +1,15 @@
 .overview {
+  background-color: $bg;
+  border-radius: 30px;
+  border: 2px solid $contrastbg;
+  padding: 10px;
   min-height: 1px;
   min-width: 1px;
 
   .workspace {
     padding: 4px;
     border: 2px solid transparent;
+    transition: border-color 0.2s ease-in-out;
     border-radius: 10px;
 
     &.active {
@@ -17,7 +22,8 @@
     margin: 0 10px;
     transition: min-width 0.2s ease-in-out,
                 min-height 0.2s ease-in-out,
-                border-color 0.2s ease-in-out;
+                border-color 0.2s ease-in-out,
+                font-size 0.2s ease-in-out;
   }
 
   .normal {

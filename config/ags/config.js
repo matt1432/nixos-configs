@@ -26,6 +26,7 @@ export default {
     'notification-center': 500,
     'calendar': 500,
     'powermenu': 500,
+    'overview': 500,
   },
   windows: [
     Powermenu,
