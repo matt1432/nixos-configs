@@ -82,6 +82,7 @@ const PlayerBox = player => mpris.CoverArt(player, {
   ],
 });
 
+// TODO: Make this a stack with animations and gestures
 export default () => Box({
   vertical: true,
   className: 'media',

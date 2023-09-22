@@ -1,23 +1,24 @@
 .overview {
-  background-color: $bg;
-  border-radius: 30px;
-  border: 2px solid $contrastbg;
-  padding: 10px;
   min-height: 1px;
   min-width: 1px;
 
   .workspace {
     padding: 4px;
     border: 2px solid transparent;
-    transition: border-color 0.2s ease-in-out;
+    transition: border-color 0.2s ease-in-out,
+                background-color 0.2s ease-in-out;
     border-radius: 10px;
 
     &.active {
+      background-color: rgba(lighten($color: black, $amount: 15), 0.8);
+      transition: border-color 0.2s ease-in-out,
+                  background-color 0.2s ease-in-out;
       border: 2px solid black;
     }
   }
 
   .workspace .window {
+    background-color: $bgfull;
     border-radius: 10px;
     margin: 0 10px;
     transition: min-width 0.2s ease-in-out,
