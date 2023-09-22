@@ -1,5 +1,5 @@
-const { Window, CenterBox, Box, Label, Revealer, Icon } = ags.Widget;
-const { closeWindow } = ags.App;
+const { Window, Box, Label, Revealer, Icon } = ags.Widget;
+const { Mpris } = ags.Service;
 const { ToggleButton } = imports.gi.Gtk;
 
 import { ButtonGrid } from './button-grid.js';
@@ -32,6 +32,12 @@ const QuickSettingsWidget = Box({
         EventBox({
           child: ags.Widget({
             type: ToggleButton,
+            setup: btn => {
+              const id = Mpris.instance.connect('changed', () => {
+                btn.set_active(Mpris.players.length > 0);
+                Mpris.instance.disconnect(id);
+              });
+            },
             connections: [['toggled', button => {
               if (button.get_active()) {
                 button.child.setStyle("-gtk-icon-transform: rotate(0deg);");
