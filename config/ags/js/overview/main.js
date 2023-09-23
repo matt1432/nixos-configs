@@ -5,7 +5,9 @@ const { Gtk } = imports.gi;
 import { EventBox } from '../misc/cursorbox.js';
 import { PopUp } from '../misc/popup.js';
 
+const WORKSPACE_PER_ROW = 6;
 const SCALE = 0.11;
+const ICON_SCALE = 0.8;
 const MARGIN = 8;
 const SCREEN = {
   X: 1920,
@@ -17,30 +19,119 @@ const DEFAULT_SPECIAL = {
   POS_X: 197,
   POS_Y: 170,
 };
+const IconStyle = app => `min-width: ${app.size[0] * SCALE - MARGIN}px;
+                          min-height: ${app.size[1] * SCALE - MARGIN}px;
+                          font-size: ${Math.min(app.size[0] * SCALE - MARGIN,
+                            app.size[1] * SCALE - MARGIN) * ICON_SCALE}px;`;
+Array.prototype.remove = function (el) { this.splice(this.indexOf(el), 1) };
 
-const WorkspaceRow = className => CenterBox({
-  children: [ null, Box({ className: className }), null ],
+const WorkspaceRow = (className, i) => Revealer({
+  transition: 'slide_down',
+  connections: [[Hyprland, rev => {
+    rev.revealChild = Hyprland.workspaces.some(ws => ws.id > i * WORKSPACE_PER_ROW &&
+                                                    (ws.windows > 0 ||
+                                                     ws.id === Hyprland.active.workspace.id));
+  }]],
+  child: CenterBox({
+    children: [null, Box({
+      className: className,
+    }), null],
+  }),
 });
 
 const OverviewWidget = Box({
   className: 'overview',
   vertical: true,
   children: [
-    WorkspaceRow('normal'),
-    WorkspaceRow('special'),
+    Box({
+      vertical: true,
+      children: [
+        WorkspaceRow('normal', 0),
+      ],
+    }),
+    Box({
+      vertical: true,
+      children: [
+        WorkspaceRow('special', 0),
+      ],
+    }),
   ],
   connections: [
     [Hyprland, box => {
-      let childI = 0;
-      box._workspaces = [].concat(box.children[childI++].centerWidget.children,
-                                  box.children[childI].centerWidget.children)
-                          .sort((a, b) => a._id - b._id);
+      box._getWorkspaces(box);
       box._updateWs(box);
       box._updateApps(box);
     }],
   ],
   properties: [
     ['workspaces'],
+
+    ['getWorkspaces', box => {
+      let children = [];
+      box.children.forEach(type => {
+        type.children.forEach(row => {
+          row.child.centerWidget.children.forEach(ch => {
+            children.push(ch);
+          });
+        });
+      });
+      box._workspaces = children.sort((a, b) => a._id - b._id);
+    }],
+
+    ['updateWs', box => {
+      Hyprland.workspaces.forEach(ws => {
+        let currentWs = box._workspaces.find(ch => ch._id == ws.id);
+        if (!currentWs) {
+          var type = 0;
+          var rowNo = 0;
+
+          if (ws.id < 0) {
+            // This means it's a special workspace
+            type = 1;
+          }
+          else {
+            rowNo = Math.floor((ws.id - 1) / WORKSPACE_PER_ROW);
+            if (rowNo >= box.children[type].children.length) {
+              for (let i = box.children[type].children.length; i <= rowNo; ++i) {
+                box.children[type].add(WorkspaceRow('normal', i));
+              }
+            }
+          }
+
+          var row = box.children[type].children[rowNo].child.centerWidget;
+
+          currentWs = Revealer({
+            transition: 'slide_right',
+            properties: [
+              ['id', ws.id],
+            ],
+            connections: [[Hyprland, box => {
+              let active = Hyprland.active.workspace.id === box._id;
+              box.child.child.toggleClassName('active', active);
+              box.revealChild = Hyprland.getWorkspace(box._id)?.windows > 0 || active;
+            }]],
+            child: EventBox({
+              tooltipText: `Workspace: ${ws.id}`,
+              child: Box({
+                className: 'workspace',
+                style: `min-width: ${SCREEN.X * SCALE}px;
+                        min-height: ${SCREEN.Y * SCALE}px;`,
+                child: ags.Widget({
+                  type: Gtk.Fixed,
+                }),
+              }),
+            }),
+          });
+          row.add(currentWs);
+        }
+      });
+      box.show_all();
+
+      // Make sure the order is correct
+      box._workspaces.forEach((workspace, i) => {
+        workspace.get_parent().reorder_child(workspace, i)
+      });
+    }],
 
     ['updateApps', box => {
       ags.Utils.execAsync('hyprctl clients -j')
@@ -68,7 +159,7 @@ const OverviewWidget = Box({
             }
 
             let existingApp = fixed.get_children().find(ch => ch._address == app.address);
-            toRemove.splice(toRemove.indexOf(existingApp), 1);
+            toRemove.remove(existingApp);
 
             if (existingApp) {
               fixed.move(
@@ -77,10 +168,7 @@ const OverviewWidget = Box({
                 app.at[1] * SCALE,
               );
               existingApp.child.className = `window ${active}`;
-              existingApp.child.style = `min-width: ${app.size[0] * SCALE - MARGIN}px;
-                                         min-height: ${app.size[1] * SCALE - MARGIN}px;
-                                         font-size: ${Math.min(app.size[0] * SCALE - MARGIN,
-                                                        app.size[1] * SCALE - MARGIN) - 5}px;`;
+              existingApp.child.style = IconStyle(app);
             }
             else {
               fixed.put(
@@ -95,10 +183,7 @@ const OverviewWidget = Box({
                   ],
                   child: Icon({
                     className: `window ${active}`,
-                    style: `min-width: ${app.size[0] * SCALE - MARGIN}px;
-                            min-height: ${app.size[1] * SCALE - MARGIN}px;
-                            font-size: ${Math.min(app.size[0] * SCALE - MARGIN,
-                                                  app.size[1] * SCALE - MARGIN) * 0.8}px;`,
+                    style: IconStyle(app),
                     icon: app.class,
                   }),
                 }),
@@ -121,47 +206,6 @@ const OverviewWidget = Box({
       }).catch(print);
     }],
 
-    ['updateWs', box => {
-      Hyprland.workspaces.forEach(ws => {
-        let currentWs = box._workspaces.find(ch => ch._id == ws.id);
-        if (!currentWs) {
-          var childI = 0;
-          if (ws.id < 0) {
-            childI = 1;
-          }
-
-          currentWs = Revealer({
-            transition: 'slide_right',
-            properties: [
-              ['id', ws.id],
-            ],
-            connections: [[Hyprland, box => {
-              let active = Hyprland.active.workspace.id === box._id;
-              box.child.child.toggleClassName('active', active);
-              box.revealChild = Hyprland.getWorkspace(box._id)?.windows > 0 || active;
-            }]],
-            child: EventBox({
-              tooltipText: `Workspace: ${ws.id}`,
-              child: Box({
-                className: 'workspace',
-                style: `min-width: ${SCREEN.X * SCALE}px;
-                        min-height: ${SCREEN.Y * SCALE}px;`,
-                child: ags.Widget({
-                  type: Gtk.Fixed,
-                }),
-              }),
-            }),
-          });
-          box.children[childI].centerWidget.add(currentWs);
-        }
-      });
-      box.show_all();
-
-      // Make sure the order is correct
-      box._workspaces.forEach((workspace, i) => {
-        workspace.get_parent().reorder_child(workspace, i)
-      });
-    }],
   ],
 });
 
