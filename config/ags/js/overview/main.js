@@ -1,8 +1,9 @@
 const { Window, Box, CenterBox, Icon, Revealer, EventBox } = ags.Widget;
 const { closeWindow } = ags.App;
 const { execAsync } = ags.Utils;
-const { Hyprland, Applications } = ags.Service;
-const { Gtk } = imports.gi;
+const { Hyprland } = ags.Service;
+const { Gtk, Gdk } = imports.gi;
+import Cairo from 'cairo';
 
 import { Button } from '../misc/cursorbox.js';
 import { PopUp } from '../misc/popup.js';
@@ -26,6 +27,24 @@ const IconStyle = app => `min-width: ${app.size[0] * SCALE - MARGIN}px;
                           font-size: ${Math.min(app.size[0] * SCALE - MARGIN,
                             app.size[1] * SCALE - MARGIN) * ICON_SCALE}px;`;
 Array.prototype.remove = function (el) { this.splice(this.indexOf(el), 1) };
+
+const TARGET = [Gtk.TargetEntry.new('text/plain', Gtk.TargetFlags.SAME_APP, 0)];
+
+export function createSurfaceFromWidget(widget) {
+    const alloc = widget.get_allocation();
+    const surface = new Cairo.ImageSurface(
+        Cairo.Format.ARGB32,
+        alloc.width,
+        alloc.height,
+    );
+    const cr = new Cairo.Context(surface);
+    cr.setSourceRGBA(255, 255, 255, 0);
+    cr.rectangle(0, 0, alloc.width, alloc.height);
+    cr.fill();
+    widget.draw(cr);
+
+    return surface;
+}
 
 const WorkspaceRow = (className, i) => Revealer({
   transition: 'slide_down',
@@ -118,6 +137,13 @@ const OverviewWidget = Box({
                 className: 'workspace',
                 style: `min-width: ${SCREEN.X * SCALE}px;
                         min-height: ${SCREEN.Y * SCALE}px;`,
+                setup: eventbox => {
+                  eventbox.drag_dest_set(Gtk.DestDefaults.ALL, TARGET, Gdk.DragAction.COPY);
+                  eventbox.connect('drag-data-received', (_w, _c, _x, _y, data) => {
+                    execAsync(`hyprctl dispatch movetoworkspacesilent ${ws.id},address:${data.get_text()}`)
+                      .catch(print);
+                  });
+                },
                 child: ags.Widget({
                   type: Gtk.Fixed,
                 }),
@@ -175,15 +201,19 @@ const OverviewWidget = Box({
             else {
               fixed.put(
                 Revealer({
-                  transition: 'slide_right',
-                  connections: [[Hyprland, rev => {
+                  transition: 'crossfade',
+                  setup: rev => {
                     rev.revealChild = true;
-                  }]],
+                  },
                   properties: [
                     ['address', app.address],
                     ['toDestroy', false]
                   ],
                   child: Button({
+                    onSecondaryClickRelease: () => {
+                      execAsync(`hyprctl dispatch closewindow address:${address}`)
+                        .catch(print)
+                    },
                     onPrimaryClickRelease: () => {
                       if (app.class === 'thunderbird' || app.class === 'Spotify')
                         execAsync(['bash', '-c', `$AGS_PATH/launch-app.sh ${app.class}`])
@@ -193,6 +223,15 @@ const OverviewWidget = Box({
                         execAsync(`hyprctl dispatch focuswindow address:${app.address}`)
                           .then(() => closeWindow('overview'))
                           .catch(print);
+                    },
+                    setup: button => {
+                      button.drag_source_set(Gdk.ModifierType.BUTTON1_MASK, TARGET, Gdk.DragAction.COPY);
+                      button.connect('drag-data-get', (_w, _c, data) => data.set_text(app.address, app.address.length));
+                      button.connect('drag-begin', (_, context) => {
+                        Gtk.drag_set_icon_surface(context, createSurfaceFromWidget(button));
+                        button.get_parent().revealChild = false;
+                      });
+                      button.connect('drag-end', () => button.get_parent().revealChild = true);
                     },
                     child: Icon({
                       className: `window ${active}`,
