@@ -1,8 +1,10 @@
-const { Window, Box, CenterBox, Icon, Revealer } = ags.Widget;
+const { Window, Box, CenterBox, Icon, Revealer, EventBox } = ags.Widget;
+const { closeWindow } = ags.App;
+const { execAsync } = ags.Utils;
 const { Hyprland, Applications } = ags.Service;
 const { Gtk } = imports.gi;
 
-import { EventBox } from '../misc/cursorbox.js';
+import { Button } from '../misc/cursorbox.js';
 import { PopUp } from '../misc/popup.js';
 
 const WORKSPACE_PER_ROW = 6;
@@ -167,8 +169,8 @@ const OverviewWidget = Box({
                 app.at[0] * SCALE,
                 app.at[1] * SCALE,
               );
-              existingApp.child.className = `window ${active}`;
-              existingApp.child.style = IconStyle(app);
+              existingApp.child.child.className = `window ${active}`;
+              existingApp.child.child.style = IconStyle(app);
             }
             else {
               fixed.put(
@@ -181,10 +183,22 @@ const OverviewWidget = Box({
                     ['address', app.address],
                     ['toDestroy', false]
                   ],
-                  child: Icon({
-                    className: `window ${active}`,
-                    style: IconStyle(app),
-                    icon: app.class,
+                  child: Button({
+                    onPrimaryClickRelease: () => {
+                      if (app.class === 'thunderbird' || app.class === 'Spotify')
+                        execAsync(['bash', '-c', `$AGS_PATH/launch-app.sh ${app.class}`])
+                          .then(() => closeWindow('overview'))
+                          .catch(print);
+                      else
+                        execAsync(`hyprctl dispatch focuswindow address:${app.address}`)
+                          .then(() => closeWindow('overview'))
+                          .catch(print);
+                    },
+                    child: Icon({
+                      className: `window ${active}`,
+                      style: IconStyle(app),
+                      icon: app.class,
+                    }),
                   }),
                 }),
                 app.at[0] * SCALE,

@@ -1,6 +1,6 @@
 const { GLib } = imports.gi;
 const { Notifications, Applications } = ags.Service;
-const { lookUpIcon, timeout, exec } = ags.Utils;
+const { lookUpIcon, exec } = ags.Utils;
 const { Box, Icon, Label, Button } = ags.Widget;
 
 import { Draggable } from '../misc/drag.js';
