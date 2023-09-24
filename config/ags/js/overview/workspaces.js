@@ -28,7 +28,10 @@ export const WorkspaceRow = (className, i) => Revealer({
     children: [null, EventBox({
       properties: [['box']],
       setup: eventbox => eventbox._box = eventbox.child.children[0],
-      onHover: eventbox => eventbox._box.revealChild = true,
+      connections: [[Hyprland, eventbox => {
+        eventbox._box.revealChild = className === 'special' ||
+          !Hyprland.workspaces.some(ws => ws.id > i * VARS.WORKSPACE_PER_ROW + VARS.WORKSPACE_PER_ROW && (ws.windows > 0 || ws.id === Hyprland.active.workspace.id));
+      }]],
       child: Box({
         className: className,
         children: [
