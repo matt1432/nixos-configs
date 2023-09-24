@@ -45,8 +45,10 @@ const Client = (client, active, clients) => Revealer({
       }
       else {
         // close special workspace if one is opened
-        let currentActive = clients.find(c => c.class === Hyprland.active.client.class)
-        if (currentActive.workspace.id < 0)
+        let activeAddress = Hyprland.active.client.address;
+        let currentActive = clients.find(c => c.address === activeAddress)
+
+        if (currentActive && currentActive.workspace.id < 0)
           execAsync(`hyprctl dispatch togglespecialworkspace ${String(currentActive.workspace.name)
                                                                 .replace('special:', '')}`).catch(print);
         execAsync(`hyprctl dispatch focuswindow address:${client.address}`)
