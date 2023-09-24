@@ -1,4 +1,4 @@
-const { Revealer, CenterBox, Box } = ags.Widget;
+const { Revealer, CenterBox, Box, EventBox, Label } = ags.Widget;
 const { Hyprland } = ags.Service;
 const { Gtk } = imports.gi;
 
@@ -9,7 +9,7 @@ export function getWorkspaces(box) {
   let children = [];
   box.children.forEach(type => {
     type.children.forEach(row => {
-      row.child.centerWidget.children.forEach(ch => {
+      row.child.centerWidget.child.children.forEach(ch => {
         children.push(ch);
       });
     });
@@ -25,16 +25,49 @@ export const WorkspaceRow = (className, i) => Revealer({
                                                      ws.id === Hyprland.active.workspace.id));
   }]],
   child: CenterBox({
-    children: [null, Box({
-      className: className,
+    children: [null, EventBox({
+      properties: [['box']],
+      setup: eventbox => eventbox._box = eventbox.child.children[0],
+      onHover: eventbox => eventbox._box.revealChild = true,
+      child: Box({
+        className: className,
+        children: [
+          Revealer({
+            transition: 'slide_right',
+            properties: [
+              ['id', className === 'special' ? -1 : 1000],
+              ['name', className === 'special' ? 'special' : ''],
+            ],
+            child: WorkspaceDrop({
+              id: className === 'special' ? -1 : 1000,
+              name: className === 'special' ? 'special' : '',
+              child: Box({
+                className: 'workspace',
+                style: `min-width: ${VARS.SCREEN.X * VARS.SCALE}px;
+                        min-height: ${VARS.SCREEN.Y * VARS.SCALE}px;`,
+                children: [
+                  ags.Widget({
+                    type: Gtk.Fixed,
+                  }),
+                  Label({
+                    label: '   +',
+                    style: 'font-size: 40px;',
+                  }),
+                ],
+              }),
+            }),
+          }),
+        ],
+      }),
     }), null],
   }),
 });
 
-const Workspace = id => Revealer({
+const Workspace = (id, name) => Revealer({
   transition: 'slide_right',
   properties: [
     ['id', id],
+    ['name', name],
   ],
   connections: [[Hyprland, box => {
     let active = Hyprland.active.workspace.id === box._id;
@@ -43,6 +76,7 @@ const Workspace = id => Revealer({
   }]],
   child: WorkspaceDrop({
     id: id,
+    name: name,
     child: Box({
       className: 'workspace',
       style: `min-width: ${VARS.SCREEN.X * VARS.SCALE}px;
@@ -69,12 +103,12 @@ export function updateWorkspaces(box) {
         rowNo = Math.floor((ws.id - 1) / VARS.WORKSPACE_PER_ROW);
         if (rowNo >= box.children[type].children.length) {
           for (let i = box.children[type].children.length; i <= rowNo; ++i) {
-            box.children[type].add(WorkspaceRow('normal', i));
+            box.children[type].add(WorkspaceRow(type ? 'special' : 'normal', i));
           }
         }
       }
-      var row = box.children[type].children[rowNo].child.centerWidget;
-      row.add(Workspace(ws.id));
+      var row = box.children[type].children[rowNo].child.centerWidget.child;
+      row.add(Workspace(ws.id, type ? ws.name : ''));
     }
   });
   box.show_all();

@@ -25,10 +25,15 @@ function createSurfaceFromWidget(widget) {
   return surface;
 };
 
-export const WorkspaceDrop = ({id, ...params} = {}) => EventBox({
+export const WorkspaceDrop = ({id, name, ...params} = {}) => EventBox({
   ...params,
-  tooltipText: `Workspace: ${id}`,
+  //tooltipText: `Workspace: ${id}`,
   setup: eventbox => {
+    if (id < 0)
+      id = name;
+    else if (id === 1000)
+      id = "empty";
+
     eventbox.drag_dest_set(Gtk.DestDefaults.ALL, TARGET, Gdk.DragAction.COPY);
     eventbox.connect('drag-data-received', (_w, _c, _x, _y, data) => {
       execAsync(`hyprctl dispatch movetoworkspacesilent ${id},address:${data.get_text()}`)

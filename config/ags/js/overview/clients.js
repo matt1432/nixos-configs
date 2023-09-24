@@ -12,7 +12,7 @@ const IconStyle = app => `min-width: ${app.size[0] * VARS.SCALE - VARS.MARGIN}px
                           font-size: ${Math.min(app.size[0] * VARS.SCALE - VARS.MARGIN,
                             app.size[1] * VARS.SCALE - VARS.MARGIN) * VARS.ICON_SCALE}px;`;
 
-const Client = (client, active) => Revealer({
+const Client = (client, active, clients) => Revealer({
   transition: 'crossfade',
   setup: rev => {
     rev.revealChild = true;
@@ -28,14 +28,31 @@ const Client = (client, active) => Revealer({
         .catch(print)
     },
     onPrimaryClickRelease: () => {
-      if (client.class === 'thunderbird' || client.class === 'Spotify')
-        execAsync(['bash', '-c', `$AGS_PATH/launch-app.sh ${client.class}`])
-          .then(() => closeWindow('overview'))
-          .catch(print);
-      else
+      if (client.workspace.id < 0) {
+        if (client.workspace.name === 'special') {
+          execAsync(`hyprctl dispatch movetoworkspacesilent special:${client.workspace.id},address:${client.address}`)
+            .then(execAsync(`hyprctl dispatch togglespecialworkspace ${client.workspace.id}`)
+              .then(() => closeWindow('overview'))
+              .catch(print))
+            .catch(print);
+        }
+        else {
+          execAsync(`hyprctl dispatch togglespecialworkspace ${String(client.workspace.name)
+                                                                .replace('special:', '')}`)
+            .then(() => closeWindow('overview'))
+            .catch(print);
+        }
+      }
+      else {
+        // close special workspace if one is opened
+        let currentActive = clients.find(c => c.class === Hyprland.active.client.class)
+        if (currentActive.workspace.id < 0)
+          execAsync(`hyprctl dispatch togglespecialworkspace ${String(currentActive.workspace.name)
+                                                                .replace('special:', '')}`).catch(print);
         execAsync(`hyprctl dispatch focuswindow address:${client.address}`)
           .then(() => closeWindow('overview'))
           .catch(print);
+      }
     },
     child: Icon({
       className: `window ${active}`,
@@ -84,7 +101,7 @@ export function updateClients(box) {
         }
         else {
           fixed.put(
-            Client(client, active),
+            Client(client, active, clients),
             client.at[0] * VARS.SCALE,
             client.at[1] * VARS.SCALE,
           );
