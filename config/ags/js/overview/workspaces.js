@@ -42,8 +42,6 @@ export const WorkspaceRow = (className, i) => Revealer({
               ['name', className === 'special' ? 'special' : ''],
             ],
             child: WorkspaceDrop({
-              id: className === 'special' ? -1 : 1000,
-              name: className === 'special' ? 'special' : '',
               child: Box({
                 className: 'workspace',
                 style: `min-width: ${VARS.SCREEN.X * VARS.SCALE}px;
@@ -78,8 +76,6 @@ const Workspace = (id, name) => Revealer({
     box.revealChild = Hyprland.getWorkspace(box._id)?.windows > 0 || active;
   }]],
   child: WorkspaceDrop({
-    id: id,
-    name: name,
     child: Box({
       className: 'workspace',
       style: `min-width: ${VARS.SCREEN.X * VARS.SCALE}px;
