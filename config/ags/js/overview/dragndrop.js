@@ -29,15 +29,18 @@ let hidden = 0;
 export const WorkspaceDrop = params => EventBox({
   ...params,
   //tooltipText: `Workspace: ${id}`,
-  connections: [['drag-data-received', (eventbox, _w, _c, _x, data) => {
+  connections: [['drag-data-received', (eventbox, _c, _x, _y, data) => {
     let id = eventbox.get_parent()._id;
-    if (id < -1)
-      id = eventbox.get_parent()._name;
-    else if (id === -1)
-      id = `special:${++hidden}`;
-    else if (id === 1000)
-      id = "empty";
 
+    if (id < -1) {
+      id = eventbox.get_parent()._name;
+    }
+    else if (id === -1) {
+      id = `special:${++hidden}`;
+    }
+    else if (id === 1000) {
+      id = "empty";
+    }
     execAsync(`hyprctl dispatch movetoworkspacesilent ${id},address:${data.get_text()}`)
       .catch(print);
   }]],
