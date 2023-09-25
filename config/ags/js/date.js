@@ -71,6 +71,7 @@ const CalendarWidget = () => Box({
 export const Calendar = Window({
   name: 'calendar',
   layer: 'overlay',
+  popup: true,
   anchor: 'top right',
   margin: [ 8, 182, 0, 0],
   child: PopUp({

@@ -8,6 +8,7 @@ import { updateClients } from './clients.js';
 export default Window({
   name: 'overview',
   layer: 'overlay',
+  popup: true,
 
   child: PopUp({
     name: 'overview',

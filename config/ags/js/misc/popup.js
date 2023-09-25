@@ -1,31 +1,20 @@
-const { Revealer } = ags.Widget;
-const { closeWindow, openWindow } = ags.App;
+const { Revealer, Box } = ags.Widget;
+const { openWindow } = ags.App;
 
-export const PopUp = ({name, child, transition = 'slide_down', ...params}) => Revealer({
-  ...params,
-  // FIXME: popups don't work with revealers
-  setup: () => {
-    setTimeout(() => {
-      closeWindow(name);
-    }, 100);
+export const PopUp = ({name, child, transition = 'slide_down', ...params}) => Box({
+  style: 'min-height:1px; min-width:1px',
+  child: Revealer({
+    ...params,
+    transition,
+    transitionDuration: 500,
+    connections: [[ags.App, (revealer, currentName, visible) => {
+      if (currentName === name) {
+        revealer.reveal_child = visible;
 
-    // my eyes hurt
-    if (name == 'overview') {
-      setTimeout(() => {
-        openWindow(name);
-        closeWindow(name);
-      }, 700);
-    }
-  },
-  transition,
-  transitionDuration: 500,
-  connections: [[ags.App, (revealer, currentName, visible) => {
-    if (currentName === name) {
-      revealer.reveal_child = visible;
-
-      if (visible && name !== 'overview')
-        openWindow('closer');
-    }
-  }]],
-  child: child,
+        if (visible && name !== 'overview')
+          openWindow('closer');
+      }
+    }]],
+    child: child,
+  }),
 });

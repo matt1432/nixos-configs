@@ -136,6 +136,7 @@ export const NotificationCenter = Window({
   name: 'notification-center',
   layer: 'overlay',
   anchor: 'top right',
+  popup: true,
   margin: [ 8, 60, 0, 0 ],
   child: PopUp({
     name: 'notification-center',

@@ -37,6 +37,7 @@ const PowermenuWidget = CenterBox({
 
 export const Powermenu = Window({
   name: 'powermenu',
+  popup: true,
   layer: 'overlay',
   child: PopUp({
     name: 'powermenu',
