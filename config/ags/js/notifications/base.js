@@ -1,6 +1,6 @@
 const { GLib } = imports.gi;
 const { Notifications, Applications } = ags.Service;
-const { lookUpIcon, exec } = ags.Utils;
+const { lookUpIcon, exec, execAsync } = ags.Utils;
 const { Box, Icon, Label, Button } = ags.Widget;
 
 import { Draggable } from '../misc/drag.js';
@@ -16,8 +16,16 @@ const NotificationIcon = ({ appEntry, appIcon, image }) => {
     if (app.app.get_string('StartupWMClass') != null) {
       iconCmd = box => {
         if (!box.get_parent().get_parent().get_parent().get_parent().get_parent()._dragging) {
-          exec('bash -c "$AGS_PATH/launch-app.sh ' + app.app.get_string('StartupWMClass') +
-                                               ' ' + app.app.get_string('Exec') + '"');
+          execAsync(['bash', '-c', `$AGS_PATH/launch-app.sh ${app.app.get_string('StartupWMClass')} ${app.app.get_string('Exec')}`]).catch(print);
+          closeAll();
+        }
+      }
+    }
+    else if (app.app.get_filename().includes('discord')) {
+      iconCmd = box => {
+        if (!box.get_parent().get_parent().get_parent().get_parent().get_parent()._dragging) {
+          execAsync(['bash', '-c', `$AGS_PATH/launch-app.sh discord ${app.app.get_string('Exec')}`])
+            .catch(print);
           closeAll();
         }
       }
