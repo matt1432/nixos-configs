@@ -28,7 +28,6 @@ export const Closer = Window({
       if (!Array.from(ags.App.windows).some(w => w[1].visible &&
         !ALWAYS_OPEN.some(window => window === w[0]))) {
         closeWindow('closer');
-        print('hi')
       }
     }]],
   }),
