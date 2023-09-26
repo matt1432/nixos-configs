@@ -77,7 +77,7 @@
     '')
 
     # School
-    virtmanager
+    virt-manager
     gradle
     gradle-completion
     #camunda-modeler
