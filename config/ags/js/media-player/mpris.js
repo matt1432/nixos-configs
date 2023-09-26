@@ -1,4 +1,5 @@
 const { execAsync, lookUpIcon } = ags.Utils;
+const { Mpris } = ags.Service;
 const { Button, Icon, Label, Stack, Slider, CenterBox } = ags.Widget;
 const { Gdk } = imports.gi;
 const display = Gdk.Display.get_default();
@@ -34,18 +35,19 @@ export const CoverArt = (player, params) => CenterBox({
     [player, box => {
       execAsync(['bash', '-c', `[[ -f "${player.coverPath}" ]] && coloryou "${player.coverPath}"`])
       .then(out => {
-        if (box) {
-          player.colors.value = JSON.parse(out);
+        if (!Mpris.players.find(p => player === p))
+          return;
 
-          box._bgStyle = `background: radial-gradient(circle,
-                                      rgba(0, 0, 0, 0.4) 30%,
-                                      ${player.colors.value.imageAccent}),
-                                      url("${player.coverPath}");
-                          background-size: cover;
-                          background-position: center;`;
-          if (!box.get_parent()._dragging)
-            box.setStyle(box._bgStyle);
-        }
+        player.colors.value = JSON.parse(out);
+
+        box._bgStyle = `background: radial-gradient(circle,
+                                    rgba(0, 0, 0, 0.4) 30%,
+                                    ${player.colors.value.imageAccent}),
+                                    url("${player.coverPath}");
+                        background-size: cover;
+                        background-position: center;`;
+        if (!box.get_parent()._dragging)
+          box.setStyle(box._bgStyle);
       }).catch(err => { if (err !== "") print(err) });
     }],
   ],
@@ -197,6 +199,9 @@ const PlayerButton = ({ player, items, onClick, prop }) => Button({
     }],
 
     [player.colors, button => {
+      if (!Mpris.players.find(p => player === p))
+          return;
+
       if (player.colors.value) {
         if (prop == 'playBackStatus') {
           if (button._hovered) {
