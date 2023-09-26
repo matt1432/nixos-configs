@@ -1,6 +1,7 @@
 const { Box, CenterBox, Label, Icon } = ags.Widget;
 const { Network, Bluetooth, Audio } = ags.Service;
-const { exec } = ags.Utils;
+const { execAsync } = ags.Utils;
+const { openWindow } = ags.App;
 
 import { EventBox } from '../misc/cursorbox.js';
 
@@ -34,7 +35,7 @@ const FirstRow = Box({
 
     GridButton({
       command: () => Network.toggleWifi(),
-      secondaryCommand: () => exec("bash -c 'nm-connection-editor &'"),
+      secondaryCommand: () => execAsync(['bash', '-c', 'nm-connection-editor']).catch(print),
       icon: Icon({
         className: 'grid-label',
         connections: [[Network, icon => {
@@ -49,26 +50,26 @@ const FirstRow = Box({
     }),
 
     GridButton({
-      command: () => exec("bash -c '$AGS_PATH/qs-toggles.sh blue-toggle'"),
-      secondaryCommand: () => exec("bash -c 'blueberry &'"),
+      command: () => execAsync(['bash', '-c', '$AGS_PATH/qs-toggles.sh blue-toggle']).catch(print),
+      secondaryCommand: () => execAsync(['bash', '-c', 'blueberry']).catch(print),
       icon: Icon({
         className: 'grid-label',
         connections: [[Bluetooth, icon => {
           if (Bluetooth.enabled) {
             icon.icon = 'bluetooth-active-symbolic';
-            exec('bash -c "echo 󰂯 > $HOME/.config/.bluetooth"');
+            execAsync(['bash', '-c', 'echo 󰂯 > $HOME/.config/.bluetooth']).catch(print);
           }
           else {
             icon.icon = 'bluetooth-disabled-symbolic';
-            exec('bash -c "echo 󰂲 > $HOME/.config/.bluetooth"');
+            execAsync(['bash', '-c', 'echo 󰂲 > $HOME/.config/.bluetooth']).catch(print);
           }
         }, 'changed']],
       })
     }),
 
     GridButton({
-      command: () => exec('bash -c "$AGS_PATH/qs-toggles.sh toggle-radio"'),
-      secondaryCommand: () => exec("notify-send 'set this up moron'"),
+      command: () => execAsync(['bash', '-c', '$AGS_PATH/qs-toggles.sh toggle-radio']).catch(print),
+      secondaryCommand: () => execAsync(['notify-send', 'set this up moron']).catch(print),
       icon: Icon({
         className: 'grid-label',
         connections: [[Network, icon => {
@@ -103,7 +104,8 @@ const SubRow = CenterBox({
       truncate: 'end',
       maxWidthChars: 12,
       connections: [[Bluetooth, label => {
-        label.label = String(Bluetooth.connectedDevices[0]);
+        label.label = Bluetooth.connectedDevices[0] ? String(Bluetooth.connectedDevices[0]) :
+                                                      'Disconnected';
       }, 'changed']],
     }),
 
@@ -140,8 +142,8 @@ const SecondRow = Box({
   children: [
 
     GridButton({
-      command: () => exec("swayosd-client --output-volume mute-toggle"),
-      secondaryCommand: () => exec('bash -c "pavucontrol &"'),
+      command: () => execAsync(['swayosd-client', '--output-volume', 'mute-toggle']).catch(print),
+      secondaryCommand: () => execAsync(['bash', '-c', 'pavucontrol']).catch(print),
       icon: Icon({
         className: 'grid-label',
         connections: [[Audio, icon => {
@@ -163,8 +165,8 @@ const SecondRow = Box({
     }),
 
     GridButton({
-      command: () => exec("swayosd-client --input-volume mute-toggle"),
-      secondaryCommand: () => exec('bash -c "pavucontrol &"'),
+      command: () => execAsync(['swayosd-client', '--input-volume', 'mute-toggle']).catch(print),
+      secondaryCommand: () => execAsync(['bash', '-c', 'pavucontrol']).catch(print),
       icon: Icon({
         className: 'grid-label',
         connections: [[Audio, icon => {
@@ -186,11 +188,8 @@ const SecondRow = Box({
     }),
 
     GridButton({
-      command: () => exec('bash -c "$LOCK_PATH/lock.sh &"'),
-      secondaryCommand: () => {
-        ags.App.openWindow('closer');
-        ags.App.openWindow('powermenu');
-      },
+      command: () => execAsync(['bash', '-c', '$LOCK_PATH/lock.sh']).catch(print),
+      secondaryCommand: () => openWindow('powermenu'),
       icon: Label({
         className: 'grid-label',
         label: " 󰌾 ", 

@@ -18,7 +18,7 @@ if [[ $1 == "toggle-radio" ]]; then
   fi
 fi
 
-
+FILE='/home/matt/.config/.bluetooth'
 get_state() {
   if [[ "$(rfkill list | grep -A 1 hci0 | grep -o no)" == "no" ]]; then
     echo " 󰂯 " > "$FILE"
