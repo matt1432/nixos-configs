@@ -83,55 +83,57 @@ const PlayerBox = player => mpris.CoverArt(player, {
   ],
 });
 
-export default () => PlayerGesture({
+export default () => Box({
   className: 'media',
-  properties: [
-    ['players', new Map()],
-    ['setup', false],
-    ['selected'],
-  ],
-  connections: [
-    [Mpris, (overlay, busName) => {
-      if (!busName || overlay._players.has(busName))
-        return;
+  child: PlayerGesture({
+    properties: [
+      ['players', new Map()],
+      ['setup', false],
+      ['selected'],
+    ],
+    connections: [
+      [Mpris, (overlay, busName) => {
+        if (!busName || overlay._players.has(busName))
+          return;
 
-      const player = Mpris.getPlayer(busName);
-      player.colors = ags.Variable();
-      overlay._players.set(busName, PlayerBox(player));
+        const player = Mpris.getPlayer(busName);
+        player.colors = ags.Variable();
+        overlay._players.set(busName, PlayerBox(player));
 
-      let result = [];
-      overlay._players.forEach(widget => {
-        result.push(widget);
-      });
+        let result = [];
+        overlay._players.forEach(widget => {
+          result.push(widget);
+        });
 
-      overlay.overlays = result;
+        overlay.overlays = result;
 
-      // Favor spotify
-      if (!overlay._setup) {
-        if (overlay._players.has('org.mpris.MediaPlayer2.spotify')) {
-          overlay._selected = overlay._players.get('org.mpris.MediaPlayer2.spotify');
+        // Favor spotify
+        if (!overlay._setup) {
+          if (overlay._players.has('org.mpris.MediaPlayer2.spotify')) {
+            overlay._selected = overlay._players.get('org.mpris.MediaPlayer2.spotify');
+          }
+          overlay._setup = true;
         }
-        overlay._setup = true;
-      }
 
-      if (overlay._selected)
-        overlay.reorder_overlay(overlay._selected, -1);
-    }, 'player-added'],
+        if (overlay._selected)
+          overlay.reorder_overlay(overlay._selected, -1);
+      }, 'player-added'],
 
-    [Mpris, (overlay, busName) => {
-      if (!busName || !overlay._players.has(busName))
-        return;
+      [Mpris, (overlay, busName) => {
+        if (!busName || !overlay._players.has(busName))
+          return;
 
-      overlay._players.delete(busName);
+        overlay._players.delete(busName);
 
-      let result = [];
-      overlay._players.forEach(widget => {
-        result.push(widget);
-      });
+        let result = [];
+        overlay._players.forEach(widget => {
+          result.push(widget);
+        });
 
-      overlay.overlays = result;
-      if (overlay._selected)
-        overlay.reorder_overlay(overlay._selected, -1);
-    }, 'player-closed'],
-  ],
-})
+        overlay.overlays = result;
+        if (overlay._selected)
+          overlay.reorder_overlay(overlay._selected, -1);
+      }, 'player-closed'],
+    ],
+  }),
+});
