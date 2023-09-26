@@ -1,5 +1,5 @@
-const { Label, Icon, Stack, ProgressBar, Overlay, Box } = ags.Widget;
-const { exec } = ags.Utils;
+const { Battery } = ags.Service;
+const { Label, Icon, Stack, Box } = ags.Widget;
 
 import { Separator } from '../misc/separator.js';
 
@@ -18,8 +18,8 @@ const icons = charging => ([
 
 const Indicators = charging => Stack({
   items: icons(charging),
-  connections: [[1000, stack => {
-    stack.shown = `${Math.floor(exec('cat /sys/class/power_supply/BAT0/capacity') / 10) * 10}`;
+  connections: [[Battery, stack => {
+    stack.shown = `${Math.floor(Battery.percent / 10) * 10}`;
   }]],
 });
 
@@ -34,20 +34,18 @@ const Indicator = ({
     ['true', charging],
     ['false', discharging],
   ],
-  connections: [[1000, stack => {
-    const charging = exec('cat /sys/class/power_supply/BAT0/status') == 'Charging';
-    const charged = exec('cat /sys/class/power_supply/BAT0/capacity') == 100;
-    stack.shown = `${charging || charged}`;
-    stack.toggleClassName('charging', charging);
-    stack.toggleClassName('charged', charged);
-    stack.toggleClassName('low', exec('cat /sys/class/power_supply/BAT0/capacity') < 30);
+  connections: [[Battery, stack => {
+    stack.shown = `${Battery.charging || Battery.charged}`;
+    stack.toggleClassName('charging', Battery.charging);
+    stack.toggleClassName('charged', Battery.charged);
+    stack.toggleClassName('low', Battery.percent < 20);
   }]],
 });
 
 const LevelLabel = params => Label({
   ...params,
   className: 'label',
-  connections: [[1000, label => label.label = `${exec('cat /sys/class/power_supply/BAT0/capacity')}%`]],
+  connections: [[Battery, label => label.label = `${Battery.percent}%`]],
 });
 
 export const BatteryIndicator = Box({

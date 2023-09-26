@@ -6,35 +6,41 @@
     powerOnBoot = true;
   };
 
-  services.udev.extraRules = ''
+  # enable brightness control for swayosd
+  programs.light.enable = true;
+
+  services = {
+
+    udev.extraRules = ''
     # give permanent path to keyboard XF86* binds
     SUBSYSTEMS=="input", ATTRS{id/product}=="0006", ATTRS{id/vendor}=="0000", SYMLINK += "video-bus"
   '';
 
-  # enable brightness control for swayosd
-  programs.light.enable = true;
+    fwupd.enable = true;
 
-  services.fwupd.enable = true;
+    # Enable CUPS to print documents.
+    printing.enable = true;
+    printing.drivers = with pkgs; [
+      hplip
+    ];
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-  services.printing.drivers = with pkgs; [
-    hplip
-  ];
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      jack.enable = true;
+      pulse.enable = true;
+    };
 
-  # Enable sound.
-  # sound.enable = true;
-  hardware.pulseaudio.enable = false;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    jack.enable = true;
-    pulse.enable = true;
+    upower.enable = true;
   };
-  hardware.sensor.iio.enable = true;
-  hardware.opengl.enable = true;
-  hardware.opengl.driSupport32Bit = true;
-  hardware.uinput.enable = true;
+
+  hardware = {
+    pulseaudio.enable = false;
+    sensor.iio.enable = true;
+    opengl.enable = true;
+    opengl.driSupport32Bit = true;
+    uinput.enable = true;
+  };
 
   virtualisation = {
     libvirtd.enable = true;
