@@ -41,8 +41,6 @@ export const Bar = Window({
 
           SysTray,
 
-          Separator(12),
-
           AudioIndicator,
 
           Separator(12),
