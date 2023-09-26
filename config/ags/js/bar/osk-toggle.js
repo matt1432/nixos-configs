@@ -1,5 +1,5 @@
 const { Box, Label } = ags.Widget;
-const { subprocess, exec } = ags.Utils;
+const { subprocess } = ags.Utils;
 const deflisten = subprocess;
 
 import { EventBox } from '../misc/cursorbox.js';

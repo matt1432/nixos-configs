@@ -1,4 +1,4 @@
-import { exec } from 'resource:///com/github/Aylur/ags/utils.js';
+import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 import { Powermenu } from './js/powermenu.js';
 import { Bar } from './js/bar/main.js';
 import { NotificationCenter } from './js/notifications/center.js';
@@ -15,7 +15,7 @@ const css = ags.App.configDir + '/style.css';
 
 exec(`sassc ${scss} ${css}`);
 
-exec(`bash -c "$AGS_PATH/startup.sh"`);
+execAsync(['bash', '-c', '$AGS_PATH/startup.sh']).catch(print);
 
 export default {
   style: css,

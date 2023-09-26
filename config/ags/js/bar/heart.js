@@ -1,5 +1,5 @@
 const { Box, Label } = ags.Widget;
-const { subprocess, exec } = ags.Utils;
+const { subprocess, execAsync } = ags.Utils;
 const deflisten = subprocess;
 
 import { EventBox } from '../misc/cursorbox.js';
@@ -13,7 +13,7 @@ deflisten(
 export const Heart = EventBox({
   halign: 'center',
   onPrimaryClickRelease: () => {
-    exec("bash -c '$AGS_PATH/heart.sh toggle'");
+    execAsync(['bash', '-c', '$AGS_PATH/heart.sh toggle']).catch(print);
   },
   child: Box({
     className: 'heart-toggle',

@@ -1,5 +1,5 @@
-const { Label, Icon, Stack, ProgressBar, Overlay, Box } = ags.Widget;
-const { exec } = ags.Utils;
+const { ProgressBar, Overlay, Box } = ags.Widget;
+const { execAsync } = ags.Utils;
 import { Separator } from '../misc/separator.js';
 import { Heart }     from './heart.js';
 
@@ -11,14 +11,16 @@ export const Brightness = Overlay({
     className: 'toggle-off brightness',
     connections: [
       [200, progress => {
-        let br = exec('brightnessctl get') / 255;
-        if (br > 0.33) {
-          progress.value = br;
-        }
-        else {
-          progress.value = 0.33;
-        }
-      }]
+        execAsync('brightnessctl get').then(out => {
+          let br = out / 255;
+          if (br > 0.33) {
+            progress.value = br;
+          }
+          else {
+            progress.value = 0.33;
+          }
+        }).catch(print);
+      }],
     ],
   }),
   overlays: [
