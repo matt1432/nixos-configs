@@ -8,18 +8,25 @@
     src = builtins.fetchTarball "https://github.com/hyprwm/Hyprland/archive/master.tar.gz";
   }).defaultNix;
 
+  ags = (builtins.getFlake "github:Aylur/ags");
+
 in
 {
   home.packages = [
-    (builtins.getFlake "github:Aylur/ags").packages.x86_64-linux.default
     pkgs.sassc
     pkgs.kora-icon-theme
     pkgs.coloryou
   ];
 
   imports = [
-   hyprland.homeManagerModules.default
+    hyprland.homeManagerModules.default
+    ags.homeManagerModules.default
   ];
+
+  programs.ags = {
+    enable = true;
+    configDir = config.lib.file.mkOutOfStoreSymlink "${configDir}/ags";
+  };
 
   wayland.windowManager.hyprland = {
     enable = true;
