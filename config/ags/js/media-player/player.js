@@ -1,8 +1,8 @@
 const { Mpris } = ags.Service;
-const { Box, CenterBox, Label, Stack, EventBox } = ags.Widget;
-const { Gtk } = imports.gi;
+const { Box, CenterBox, Label } = ags.Widget;
 
 import * as mpris from './mpris.js';
+import PlayerGesture from './gesture.js';
 import { Separator } from '../misc/separator.js';
 
 const Top = player => Box({
@@ -56,7 +56,7 @@ const Center = player => Box({
 const Bottom = player => Box({
   className: 'bottom',
   children: [
-      
+
     mpris.PreviousButton(player, {
       valign: 'end',
       halign: 'start',
@@ -83,81 +83,55 @@ const PlayerBox = player => mpris.CoverArt(player, {
   ],
 });
 
-export default () => {
-  let widget = EventBox();
+export default () => PlayerGesture({
+  className: 'media',
+  properties: [
+    ['players', new Map()],
+    ['setup', false],
+    ['selected'],
+  ],
+  connections: [
+    [Mpris, (overlay, busName) => {
+      if (!busName || overlay._players.has(busName))
+        return;
 
-  let gesture = Gtk.GestureDrag.new(widget)
+      const player = Mpris.getPlayer(busName);
+      player.colors = ags.Variable();
+      overlay._players.set(busName, PlayerBox(player));
 
-  widget.child = Stack({
-    className: 'media',
-    properties: [
-      ['players', new Map()],
-      ['previous', 'spotify'],
-    ],
-    connections: [
-      [gesture, stack => {
-        const offset = gesture.get_offset()[1];
-        if (Math.abs(offset) > 200) {
-          let players = [];
-          stack._players.forEach((_, busName) => players.push(Mpris.getPlayer(busName).name));
-          let current = players.findIndex(player => player === stack.shown);
+      let result = [];
+      overlay._players.forEach(widget => {
+        result.push(widget);
+      });
 
-          if (offset > 0) {
-            stack.transition = 'slide_right';
-            if (players[++current])
-              stack.shown = `${players[current]}`;
-            else
-              stack.shown = `${players[0]}`;
-          }
-          else {
-            stack.transition = 'slide_left';
-            if (players[--current])
-              stack.shown = `${players[current]}`;
-            else
-              stack.shown = `${players.at(-1)}`;
-          }
-          stack._previous = stack.shown;
+      overlay.overlays = result;
+
+      // Favor spotify
+      if (!overlay._setup) {
+        if (overlay._players.has('org.mpris.MediaPlayer2.spotify')) {
+          overlay._selected = overlay._players.get('org.mpris.MediaPlayer2.spotify');
         }
-      }, 'drag-end'],
+        overlay._setup = true;
+      }
 
-      [Mpris, (stack, busName) => {
-        if (!busName || stack._players.has(busName))
-          return;
+      if (overlay._selected)
+        overlay.reorder_overlay(overlay._selected, -1);
+    }, 'player-added'],
 
-        const player = Mpris.getPlayer(busName);
-        player.colors = ags.Variable();
-        stack._players.set(busName, PlayerBox(player));
+    [Mpris, (overlay, busName) => {
+      if (!busName || !overlay._players.has(busName))
+        return;
 
-        let result = [];
-        stack._players.forEach((widget, busName) => {
-          result.push([`${Mpris.getPlayer(busName).name}`, widget]);
-        });
+      overlay._players.delete(busName);
 
-        stack.items = result;
-        if (result.find(p => p[0] === stack._previous))
-          stack.shown = stack._previous;
-        else if (stack._players.has('org.mpris.MediaPlayer2.spotify'))
-          stack.shown = `spotify`;
-      }, 'player-added'],
+      let result = [];
+      overlay._players.forEach(widget => {
+        result.push(widget);
+      });
 
-      [Mpris, (stack, busName) => {
-        if (!busName || !stack._players.has(busName))
-          return;
-
-        stack._players.delete(busName);
-
-        let result = [];
-        stack._players.forEach((widget, busName) => {
-          result.push([`${Mpris.getPlayer(busName).name}`, widget]);
-        });
-
-        stack.items = result;
-        if (result.find(p => p[0] === stack._previous))
-          stack.shown = stack._previous;
-        else if (stack._players.has('org.mpris.MediaPlayer2.spotify'))
-          stack.shown = `spotify`;
-      }, 'player-closed'],
-    ],
-  });
-  return widget;
-};
+      overlay.overlays = result;
+      if (overlay._selected)
+        overlay.reorder_overlay(overlay._selected, -1);
+    }, 'player-closed'],
+  ],
+})

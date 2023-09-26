@@ -29,6 +29,7 @@ export const CoverArt = (player, params) => CenterBox({
   ...params,
   className: 'player',
   vertical: true,
+  properties: [['bgStyle', '']],
   connections: [
     [player, box => {
       execAsync(['bash', '-c', `[[ -f "${player.coverPath}" ]] && coloryou "${player.coverPath}"`])
@@ -36,12 +37,14 @@ export const CoverArt = (player, params) => CenterBox({
         if (box) {
           player.colors.value = JSON.parse(out);
 
-          box.setStyle(`background: radial-gradient(circle,
-                                    rgba(0, 0, 0, 0.4) 30%,
-                                    ${player.colors.value.imageAccent}),
-                                    url("${player.coverPath}"); 
-                        background-size: cover;
-                        background-position: center;`);
+          box._bgStyle = `background: radial-gradient(circle,
+                                      rgba(0, 0, 0, 0.4) 30%,
+                                      ${player.colors.value.imageAccent}),
+                                      url("${player.coverPath}");
+                          background-size: cover;
+                          background-position: center;`;
+          if (!box.get_parent()._dragging)
+            box.setStyle(box._bgStyle);
         }
       }).catch(err => { if (err !== "") print(err) });
     }],
