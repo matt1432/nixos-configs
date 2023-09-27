@@ -1,10 +1,11 @@
 const { execAsync, lookUpIcon } = ags.Utils;
 const { Mpris } = ags.Service;
-const { Button, Icon, Label, Stack, Slider, CenterBox } = ags.Widget;
+const { Button, Icon, Label, Stack, Slider, CenterBox, Box } = ags.Widget;
 const { Gdk } = imports.gi;
 const display = Gdk.Display.get_default();
 
 import { EventBox } from '../misc/cursorbox.js';
+import { Separator } from '../misc/separator.js';
 
 const icons = {
   mpris: {
@@ -28,7 +29,6 @@ const icons = {
 
 export const CoverArt = (player, params) => CenterBox({
   ...params,
-  className: 'player',
   vertical: true,
   properties: [['bgStyle', '']],
   connections: [
@@ -75,17 +75,44 @@ export const ArtistLabel = (player, params) => Label({
   }]],
 });
 
-export const PlayerIcon = (player, { symbolic = true, ...params } = {}) => Icon({
-  ...params,
-  className: 'player-icon',
-  size: 32,
-  tooltipText: player.identity || '',
-  connections: [[player, icon => {
-    const name = `${player.entry}${symbolic ? '-symbolic' : ''}`;
-    lookUpIcon(name) ? icon.icon = name
-                     : icon.icon = icons.mpris.fallback;
-  }]],
-});
+export const PlayerIcon = (player, { symbolic = true, ...params } = {}) => {
+  let MainIcon = Icon({
+    ...params,
+    className: 'player-icon',
+    size: 32,
+    tooltipText: player.identity || '',
+    connections: [
+      [player, icon => {
+        const name = `${player.entry}${symbolic ? '-symbolic' : ''}`;
+        lookUpIcon(name) ? icon.icon = name
+          : icon.icon = icons.mpris.fallback;
+      }],
+    ],
+  });
+
+  return Box({
+    connections: [
+      [Mpris, box => {
+        let overlays = box.get_parent().get_parent().get_parent().overlays;
+        let player = overlays.find(overlay => overlay === box.get_parent().get_parent());
+        let index = overlays.indexOf(player)
+
+        let children = [];
+        for (let i = 0; i < overlays.length; ++i) {
+          if (i === index) {
+            children.push(MainIcon);
+            children.push(Separator(2));
+          }
+          else {
+            children.push(Box({ className: 'position-indicator' }));
+            children.push(Separator(2));
+          }
+        }
+        box.children = children;
+      }],
+    ],
+  });
+}
 
 export const PositionSlider = (player, params) => EventBox({
   child: Slider({
