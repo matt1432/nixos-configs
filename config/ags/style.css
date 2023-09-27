@@ -657,6 +657,7 @@ calendar:indeterminate {
   border-radius: 2em; }
 
 .position-slider trough {
+  margin: 0 8px;
   border-radius: 2em; }
 
 .position-slider slider {

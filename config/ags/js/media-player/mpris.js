@@ -148,7 +148,7 @@ export const PositionSlider = (player, params) => EventBox({
           s.setCss(`highlight { background-color: ${player.colors.value.buttonAccent}; }
                     slider { background-color: ${player.colors.value.buttonAccent}; }
                     slider:hover { background-color: ${player.colors.value.hoverAccent}; }
-                    trough { background-color: ${player.colors.value.buttonAccent}; }`);
+                    trough { background-color: ${player.colors.value.buttonText}; }`);
       }],
     ],
   }),
