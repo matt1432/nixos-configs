@@ -62,7 +62,7 @@ export const WindowButton = ({address, ...params} = {}) => Button({
     });
     button.connect('drag-end', () => {
       button.get_parent().destroy();
-      let mainBox = getWindow('overview').child.child;
+      let mainBox = getWindow('overview').child.children[0].child;
       mainBox._updateClients(mainBox);
     });
   },
