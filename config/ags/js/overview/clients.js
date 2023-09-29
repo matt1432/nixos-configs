@@ -58,7 +58,7 @@ const Client = (client, active, clients) => Revealer({
     },
     child: Icon({
       className: `window ${active}`,
-      style: IconStyle(client),
+      style: IconStyle(client) + 'font-size: 10px;',
       icon: client.class,
     }),
   }),
