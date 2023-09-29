@@ -1,6 +1,6 @@
 const { App } = ags;
 const { Applications } = ags.Service;
-const { Label, Box, Icon, Button, Scrollable, Entry, Window } = ags.Widget;
+const { Label, Box, Icon, Button, Scrollable, Entry, Window, EventBox } = ags.Widget;
 
 import { Separator } from '../misc/separator.js';
 import { PopUp } from '../misc/popup.js';
@@ -113,14 +113,22 @@ const Applauncher = ({ windowName = 'applauncher' } = {}) => {
   });
 };
 
-// TODO: make focusable a bit less focusable
+// FIXME: make it so I don't have to click to trigger onHoverLost
 export default Window({
   name: 'applauncher',
   popup: true,
   focusable: true,
   layer: 'overlay',
-  child: PopUp({
-    name: 'applauncher',
-    child: Applauncher(),
+  child: EventBox({
+    onHover: box => {
+      box.get_parent().focusable = true
+    },
+    onHoverLost: box => {
+      box.get_parent().focusable = false
+    },
+    child: PopUp({
+      name: 'applauncher',
+      child: Applauncher(),
+    }),
   }),
 });
