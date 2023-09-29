@@ -1,9 +1,12 @@
-const { Revealer, CenterBox, Box, EventBox, Label } = ags.Widget;
+const { Revealer, CenterBox, Box, EventBox, Label, Overlay } = ags.Widget;
 const { Hyprland } = ags.Service;
 const { Gtk } = imports.gi;
 
 import { WorkspaceDrop } from './dragndrop.js';
 import * as VARS from './variables.js';
+
+const DEFAULT_STYLE = `min-width: ${VARS.SCREEN.X * VARS.SCALE}px;
+                       min-height: ${VARS.SCREEN.Y * VARS.SCALE}px;`;
 
 export function getWorkspaces(box) {
   let children = [];
@@ -20,17 +23,25 @@ export function getWorkspaces(box) {
 export const WorkspaceRow = (className, i) => Revealer({
   transition: 'slide_down',
   connections: [[Hyprland, rev => {
-    rev.revealChild = Hyprland.workspaces.some(ws => ws.id > i * VARS.WORKSPACE_PER_ROW &&
+    let minId = i * VARS.WORKSPACE_PER_ROW;
+    let activeId = Hyprland.active.workspace.id;
+
+    rev.revealChild = Hyprland.workspaces.some(ws => ws.id > minId &&
                                                     (ws.windows > 0 ||
-                                                     ws.id === Hyprland.active.workspace.id));
+                                                     ws.id === activeId));
   }]],
   child: CenterBox({
     children: [null, EventBox({
       properties: [['box']],
       setup: eventbox => eventbox._box = eventbox.child.children[0],
       connections: [[Hyprland, eventbox => {
+        let maxId = i * VARS.WORKSPACE_PER_ROW + VARS.WORKSPACE_PER_ROW;
+        let activeId = Hyprland.active.workspace.id;
+
         eventbox._box.revealChild = className === 'special' ||
-          !Hyprland.workspaces.some(ws => ws.id > i * VARS.WORKSPACE_PER_ROW + VARS.WORKSPACE_PER_ROW && (ws.windows > 0 || ws.id === Hyprland.active.workspace.id));
+          !Hyprland.workspaces.some(ws => ws.id > maxId &&
+                                         (ws.windows > 0 ||
+                                          ws.id === activeId));
       }]],
       child: Box({
         className: className,
@@ -42,19 +53,23 @@ export const WorkspaceRow = (className, i) => Revealer({
               ['name', className === 'special' ? 'special' : ''],
             ],
             child: WorkspaceDrop({
-              child: Box({
-                className: 'workspace',
-                style: `min-width: ${VARS.SCREEN.X * VARS.SCALE}px;
-                        min-height: ${VARS.SCREEN.Y * VARS.SCALE}px;`,
-                children: [
-                  ags.Widget({
-                    type: Gtk.Fixed,
-                  }),
-                  Label({
-                    label: '   +',
-                    style: 'font-size: 40px;',
-                  }),
-                ],
+              child: Overlay({
+                child: Box({
+                  className: 'workspace',
+                    style: DEFAULT_STYLE,
+                }),
+                overlays: [Box({
+                  style: DEFAULT_STYLE,
+                  children: [
+                    ags.Widget({
+                      type: Gtk.Fixed,
+                    }),
+                    Label({
+                      label: '   +',
+                      style: 'font-size: 40px;',
+                    }),
+                  ],
+                })],
               }),
             }),
           }),
@@ -66,23 +81,76 @@ export const WorkspaceRow = (className, i) => Revealer({
 
 const Workspace = (id, name) => Revealer({
   transition: 'slide_right',
+  transitionDuration: 500,
   properties: [
     ['id', id],
     ['name', name],
+    ['timeouts', []],
+    ['wasActive', false],
   ],
   connections: [[Hyprland, box => {
-    let active = Hyprland.active.workspace.id === box._id;
-    box.child.child.toggleClassName('active', active);
-    box.revealChild = Hyprland.getWorkspace(box._id)?.windows > 0 || active;
+    box._timeouts.forEach(clearTimeout);
+
+    let activeId = Hyprland.active.workspace.id;
+    let active = activeId === box._id;
+
+    let rev = box.child.child.child;
+    let n = activeId > box._id;
+
+    if (Hyprland.getWorkspace(box._id)?.windows > 0 || active) {
+      rev.setStyle(DEFAULT_STYLE);
+      box._timeouts.push(setTimeout(() => {
+        box.revealChild = true;
+      }, 100));
+
+    }
+    else if (!Hyprland.getWorkspace(box._id)?.windows > 0) {
+      rev.setStyle(DEFAULT_STYLE);
+      box._timeouts.push(setTimeout(() => {
+        box.revealChild = false;
+      }, 100));
+      return;
+    }
+
+    if (active) {
+      rev.setStyle(`${DEFAULT_STYLE}
+                    transition: margin 0.5s ease-in-out;
+                    opacity: 1;`);
+      box._wasActive = true;
+    }
+    else if (box._wasActive) {
+      box._wasActive = false;
+      box._timeouts.push(setTimeout(() => {
+        rev.setStyle(`${DEFAULT_STYLE}
+                  transition: margin 0.5s ease-in-out;
+                  opacity: 1; margin-left: ${n ? '' : '-'}300px;
+                              margin-right: ${n ? '-' : ''}300px;`);
+      }, 120));
+      box._timeouts.push(setTimeout(() => {
+        rev.setStyle(`${DEFAULT_STYLE} opacity: 0;
+                      margin-left: ${n ? '' : '-'}300px;
+                      margin-right: ${n ? '-' : ''}300px;`);
+      }, 500));
+    }
+    else {
+      rev.setStyle(`${DEFAULT_STYLE} opacity: 0;
+                    margin-left: ${n ? '' : '-'}300px;
+                    margin-right: ${n ? '-' : ''}300px;`);
+    }
   }]],
   child: WorkspaceDrop({
-    child: Box({
-      className: 'workspace',
-      style: `min-width: ${VARS.SCREEN.X * VARS.SCALE}px;
-              min-height: ${VARS.SCREEN.Y * VARS.SCALE}px;`,
-      child: ags.Widget({
-        type: Gtk.Fixed,
+    child: Overlay({
+      child: Box({
+        className: 'workspace active',
+          style: `${DEFAULT_STYLE} opacity: 0;`,
       }),
+      overlays: [Box({
+        className: 'workspace',
+        style: DEFAULT_STYLE,
+        child: ags.Widget({
+          type: Gtk.Fixed,
+        }),
+      })],
     }),
   }),
 });

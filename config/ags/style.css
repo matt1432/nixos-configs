@@ -670,30 +670,28 @@ calendar:indeterminate {
 .position-slider slider:hover {
   transition: background-color 0.5s ease-in-out; }
 
-.overview {
-  min-height: 1px;
-  min-width: 1px; }
-  .overview .workspace {
-    padding: 4px;
-    border: 2px solid transparent;
-    transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
-    border-radius: 10px; }
-    .overview .workspace.active {
-      background-color: rgba(38, 38, 38, 0.8);
-      transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
-      border: 2px solid black; }
-  .overview .workspace .window {
-    background-color: #282a36;
-    border-radius: 10px;
-    margin: 0 10px;
-    transition: min-width 0.2s ease-in-out, min-height 0.2s ease-in-out, border-color 0.2s ease-in-out, font-size 0.2s ease-in-out; }
-  .overview .normal {
-    margin-bottom: 5px; }
-    .overview .normal .workspace .window {
-      border: 2px solid #411C6C; }
-      .overview .normal .workspace .window.active {
-        border: 2px solid purple; }
-  .overview .special .workspace .window {
-    border: 2px solid #333333; }
-    .overview .special .workspace .window.active {
+.overview .workspace {
+  padding: 4px 15px 4px 0px;
+  border: 2px solid transparent;
+  border-radius: 10px; }
+  .overview .workspace.active {
+    background-color: rgba(38, 38, 38, 0.8);
+    border: 2px solid black; }
+
+.overview .workspace .window {
+  background-color: #282a36;
+  border-radius: 10px;
+  margin: 0 10px;
+  transition: min-width 0.2s ease-in-out, min-height 0.2s ease-in-out, border-color 0.2s ease-in-out, font-size 0.2s ease-in-out; }
+
+.overview .normal {
+  margin-bottom: 5px; }
+  .overview .normal .workspace .window {
+    border: 2px solid #411C6C; }
+    .overview .normal .workspace .window.active {
       border: 2px solid purple; }
+
+.overview .special .workspace .window {
+  border: 2px solid #333333; }
+  .overview .special .workspace .window.active {
+    border: 2px solid purple; }

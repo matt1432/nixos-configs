@@ -70,7 +70,7 @@ export function updateClients(box) {
     let clients = JSON.parse(result).filter(client => client.class)
 
     box._workspaces.forEach(workspace => {
-      let fixed = workspace.child.child.children[0];
+      let fixed = workspace.child.child.overlays[0].children[0];
       let toRemove = fixed.get_children();
 
       clients.filter(client => client.workspace.id == workspace._id).forEach(client => {

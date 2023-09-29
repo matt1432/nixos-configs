@@ -1,18 +1,12 @@
 .overview {
-  min-height: 1px;
-  min-width: 1px;
 
   .workspace {
-    padding: 4px;
+    padding: 4px 15px 4px 0px;
     border: 2px solid transparent;
-    transition: border-color 0.2s ease-in-out,
-                background-color 0.2s ease-in-out;
     border-radius: 10px;
 
     &.active {
       background-color: rgba(lighten($color: black, $amount: 15), 0.8);
-      transition: border-color 0.2s ease-in-out,
-                  background-color 0.2s ease-in-out;
       border: 2px solid black;
     }
   }
