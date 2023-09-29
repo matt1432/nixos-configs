@@ -695,3 +695,76 @@ calendar:indeterminate {
   border: 2px solid #333333; }
   .overview .special .workspace .window.active {
     border: 2px solid purple; }
+
+.applauncher {
+  all: unset;
+  box-shadow: 0 0 4.5px 0 rgba(0, 0, 0, 0.6);
+  margin: 9px;
+  border: 2px solid rgba(189, 147, 249, 0.8);
+  border-radius: 25px;
+  background-color: rgba(40, 42, 54, 0.8);
+  color: #f8f8f2;
+  padding: 16.2px; }
+  .applauncher * {
+    font-size: 16px; }
+  .applauncher .header {
+    margin: 16.2px;
+    margin-bottom: 0; }
+    .applauncher .header image, .applauncher .header entry {
+      all: unset;
+      border-radius: 9px;
+      color: #f8f8f2;
+      background-color: rgba(68, 71, 90, 0.6);
+      border: 1px solid #44475a;
+      padding: 4.5px; }
+    .applauncher .header image {
+      margin-right: 9px;
+      -gtk-icon-transform: scale(0.8);
+      font-size: 25.6px; }
+  .applauncher scrolledwindow {
+    padding: 16.2px;
+    min-width: 700px;
+    min-height: 450px; }
+    .applauncher scrolledwindow scrollbar, .applauncher scrolledwindow scrollbar * {
+      all: unset; }
+    .applauncher scrolledwindow scrollbar.vertical {
+      transition: 200ms;
+      background-color: rgba(23, 23, 23, 0.3); }
+      .applauncher scrolledwindow scrollbar.vertical:hover {
+        background-color: rgba(23, 23, 23, 0.7); }
+        .applauncher scrolledwindow scrollbar.vertical:hover slider {
+          background-color: rgba(238, 238, 238, 0.7);
+          min-width: .6em; }
+      .applauncher scrolledwindow scrollbar.vertical slider {
+        background-color: rgba(238, 238, 238, 0.5);
+        border-radius: 9px;
+        min-width: .4em;
+        min-height: 2em;
+        transition: 200ms; }
+  .applauncher .placeholder {
+    margin-top: 9px;
+    color: #f8f8f2;
+    font-size: 1.2em; }
+  .applauncher .app {
+    all: unset;
+    transition: 200ms;
+    padding: 9px; }
+    .applauncher .app:active {
+      background-color: rgba(189, 147, 249, 0.5);
+      border-radius: 9px;
+      box-shadow: inset 0 0 0 3px rgba(238, 238, 238, 0.03); }
+      .applauncher .app:active .title {
+        color: #f8f8f2; }
+    .applauncher .app:hover .title, .applauncher .app:focus .title {
+      color: rgba(189, 147, 249, 0.8); }
+    .applauncher .app:hover image, .applauncher .app:focus image {
+      -gtk-icon-shadow: 2px 2px rgba(189, 147, 249, 0.8); }
+    .applauncher .app label {
+      transition: 200ms; }
+      .applauncher .app label.title {
+        color: #f8f8f2; }
+      .applauncher .app label.description {
+        color: rgba(238, 238, 238, 0.7); }
+    .applauncher .app image {
+      transition: 200ms;
+      margin-right: 9px; }

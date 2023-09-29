@@ -1,0 +1,113 @@
+.applauncher {
+  all: unset;
+  box-shadow: 0 0 4.5px 0 rgba(0, 0, 0, 0.6);
+  margin: 9px;
+  border: 2px solid $contrastbg;
+  border-radius: 25px;
+  background-color: $bg;
+  color: #f8f8f2;
+  padding: 16.2px;
+
+  * {
+    font-size: 16px;
+  }
+
+  .header {
+    margin: 16.2px;
+    margin-bottom: 0;
+
+    image, entry {
+      all: unset;
+      border-radius: 9px;
+      color: #f8f8f2;
+      background-color: rgba(#44475a, 0.6);
+      border: 1px solid #44475a;
+      padding: 4.5px;
+    }
+
+    image {
+      margin-right: 9px;
+      -gtk-icon-transform: scale(0.8);
+      font-size: 25.6px;
+    }
+  }
+
+  scrolledwindow {
+    padding: 16.2px;
+    min-width: 700px;
+    min-height: 450px;
+
+    scrollbar, scrollbar * {
+      all: unset;
+    }
+    scrollbar.vertical {
+      transition: 200ms;
+      background-color: rgba(23, 23, 23, 0.3);
+
+      &:hover {
+        background-color: rgba(23, 23, 23, 0.7);
+
+        slider {
+          background-color: rgba(238, 238, 238, 0.7);
+          min-width: .6em;
+        }
+      }
+      slider {
+        background-color: rgba(238, 238, 238, 0.5);
+        border-radius: 9px;
+        min-width: .4em;
+        min-height: 2em;
+        transition: 200ms;
+      }
+    }
+  }
+
+  .placeholder {
+    margin-top: 9px;
+    color: #f8f8f2;
+    font-size: 1.2em;
+  }
+
+  .app {
+    all: unset;
+    transition: 200ms;
+    padding: 9px;
+
+    &:active {
+      background-color: rgba($contrastbg, 0.5);
+      border-radius: 9px;
+      box-shadow: inset 0 0 0 3px rgba(238, 238, 238, 0.03);
+
+      .title {
+        color: #f8f8f2;
+      }
+    }
+
+    &:hover, &:focus {
+      .title {
+        color: $contrastbg;
+      }
+
+      image {
+        -gtk-icon-shadow: 2px 2px $contrastbg;
+      }
+    }
+
+    label {
+      transition: 200ms;
+
+      &.title {
+        color: #f8f8f2;
+      }
+
+      &.description {
+        color: rgba(238, 238, 238, 0.7);
+      }
+    }
+
+    image {
+      transition: 200ms;
+      margin-right: 9px;
+    }
+  }
+}

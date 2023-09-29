@@ -6,6 +6,7 @@ import { NotificationsPopupList } from './js/notifications/popup.js'
 import { Calendar } from './js/date.js';
 import { QuickSettings } from './js/quick-settings/main.js';
 import Overview from './js/overview/main.js';
+import AppLauncher from './js/applauncher/main.js';
 
 import { Closer, closeAll } from './js/misc/closer.js';
 ags.App.closeAll = () => closeAll();
@@ -27,6 +28,7 @@ export default {
     'calendar': 500,
     'powermenu': 500,
     'overview': 500,
+    'applauncher': 500,
   },
   windows: [
     Powermenu,
@@ -37,5 +39,6 @@ export default {
     Calendar,
     QuickSettings,
     Overview,
+    AppLauncher,
   ],
 };
