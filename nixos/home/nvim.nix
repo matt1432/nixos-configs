@@ -19,16 +19,11 @@ in
     enable = true;
     package = pkgs.neovim-nightly;
 
-    # read in the vim config from filesystem
-    # this enables syntaxhighlighting when editing those
     extraConfig = builtins.concatStringsSep "\n" [
       (lib.strings.fileContents ../../config/nvim/base.vim)
-    #  (lib.strings.fileContents ./.nvim/plugins.vim)
-    #  (lib.strings.fileContents ./.nvim/lsp.vim)
       ''
         lua << EOF
         ${lib.strings.fileContents ../../config/nvim/config.lua}
-        ${lib.strings.fileContents ../../config/nvim/lsp.lua}
         EOF
       ''
     ];
@@ -54,7 +49,13 @@ in
           "--logpath"
           "~/.cache/sumneko_lua/log"
         ];
-        "sumneko-lua.serverDir" = "${pkgs.lua-language-server}/share/lua-language-server";
+        "Lua.workspace.library" = [
+          "$\{3rd\}/luv/library"
+        ];
+        sumneko-lua = {
+          serverDir = "${pkgs.lua-language-server}/share/lua-language-server";
+          enableNvimLuaDev = true;
+        };
         "java.jdt.ls.java.home" = "${pkgs.temurin-bin-17}";
         "bashIde.shellcheckPath" = "${pkgs.shellcheck}/bin/shellcheck";
         languageserver = {
@@ -82,6 +83,7 @@ in
       coc-toml
       coc-markdownlint
       coc-tsserver
+      neodev-nvim
 
       coc-fzf
       fzfWrapper
