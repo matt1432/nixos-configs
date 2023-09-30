@@ -35,6 +35,10 @@
       sudo  = "sudo ";
       frick = "sudo $(fc -ln -1)";
 
+      vi    = "nvim";
+      vim   = "nvim";
+      nivm  = "nvim";
+
       tmux  = "tmux -2";
       ls    = "ls -lah --color=auto";
       cp    = "cp -r";
@@ -138,6 +142,8 @@
         printf %b '\e]PE97e2ff'    # redefine 'bright-cyan'    as '#97e2ff'
         printf %b '\e]P7f8f8f2'    # redefine 'white'          as 'dracula-fg'
         printf %b '\e]PFffffff'    # redefine 'bright-white'   as '#ffffff'
+        clear
+        pokemon-colorscripts -r 1-5
       fi
     '';
     #initExtra = ''
