@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, ... }:
 
 {
   services.fprintd.enable = true;
@@ -11,7 +11,7 @@
 
   services.logind.lidSwitch = "lock";
   services.gnome.gnome-keyring.enable = true;
-  
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
@@ -23,7 +23,7 @@
   '';
 
   security.pam.services = {
-    
+
     gtklock = {};
 
     # all the changes in /etc/pam.d/*

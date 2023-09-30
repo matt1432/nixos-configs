@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ neovim-nightly-overlay, ... }:
 
 {
   nixpkgs.overlays = [
@@ -25,8 +25,6 @@
       coloryou = final.callPackage ./pkgs/coloryou/default.nix {};
     })
 
-    (import (builtins.fetchTarball {
-      url = "https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz";
-    }))
+    neovim-nightly-overlay.overlay
   ];
 }

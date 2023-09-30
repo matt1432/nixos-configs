@@ -1,5 +1,4 @@
-{ lib
-, stdenv
+{ stdenv
 , meson
 , ninja
 , pkg-config
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     pam
     libpam-wrapper
   ];
-  
+
   mesonFlags = [
     "-Dpam_modules_dir=${placeholder "out"}/lib/security"
     "-Dsysconfdir=${placeholder "out"}/etc"

@@ -26,7 +26,7 @@
     };
   };
 
-  home.packages = with pkgs; 
+  home.packages = with pkgs;
     (with python311Packages; [
       python
       pyclip
@@ -40,6 +40,12 @@
     (with plasma5Packages; [
       polkit-kde-agent
       qtstyleplugin-kvantum
+      ark
+      kcharselect
+      kdenlive
+      okular
+
+      # Dolphin & co
       dolphin
       dolphin-plugins
       kdegraphics-thumbnailers
@@ -47,11 +53,7 @@
       kio
       kio-admin # needs to be both here and in system pkgs
       kio-extras
-      ark
-      kcharselect
-      kdenlive
       kmime
-      okular
 
     ]) ++
     (with gnome; [
@@ -59,8 +61,8 @@
       seahorse
       adwaita-icon-theme
 
-    ]) ++
-  [
+    ]) ++ [
+
     (writeShellScriptBin "Gparted" ''
       (
         sleep 1.5
@@ -79,9 +81,10 @@
     # School
     virt-manager
     gradle
-    gradle-completion
+    gradle-completion # not working
+    jdk19_headless
     #camunda-modeler
-    #
+
     protonmail-bridge
     thunderbird
     input-emulator
@@ -102,7 +105,6 @@
     qt6.qtwayland
     bottles-unwrapped
     zscroll
-    httrack
     lisgd
     zeal
     acpi
@@ -115,7 +117,6 @@
     xdg-utils
     pavucontrol # TODO: open on left click
     gimp-with-plugins
-    jdk19_headless
     bluez-tools
     vlc
     discord
@@ -149,6 +150,5 @@
     squeekboard
     glib
     appimage-run
-    gparted # doesn't open without sudo
   ];
 }

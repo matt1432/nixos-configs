@@ -1,15 +1,5 @@
-{ pkgs, config, ... }: let
-
+{ pkgs, config, hyprland, hyprgrass, ags, ... }: let
   configDir = "/home/matt/.nix/config";
-
-  flake-compat = builtins.fetchTarball "https://github.com/edolstra/flake-compat/archive/master.tar.gz";
-
-  hyprland = (import flake-compat {
-    src = builtins.fetchTarball "https://github.com/hyprwm/Hyprland/archive/master.tar.gz";
-  }).defaultNix;
-
-  ags = (builtins.getFlake "github:Aylur/ags");
-
 in
 {
   home.packages = [
@@ -25,15 +15,16 @@ in
 
   programs.ags = {
     enable = true;
+    package = ags.packages.x86_64-linux.default;
     configDir = config.lib.file.mkOutOfStoreSymlink "${configDir}/ags";
   };
 
   wayland.windowManager.hyprland = {
     enable = true;
-    package = (builtins.getFlake "github:horriblename/hyprgrass").inputs.hyprland.packages.x86_64-linux.default;
+    package = hyprland.packages.x86_64-linux.default;
 
     plugins = [
-      "${(builtins.getFlake "github:horriblename/hyprgrass").packages.x86_64-linux.default}/lib/libhyprgrass.so"
+      "${hyprgrass.packages.x86_64-linux.default}/lib/libhyprgrass.so"
     ];
 
     extraConfig = ''

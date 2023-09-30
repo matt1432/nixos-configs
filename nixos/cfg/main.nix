@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ ... }:
 
 {
   imports = [
@@ -6,5 +6,5 @@
     ./extra-hardware.nix
     ./security.nix
     ./packages.nix
-  ]; 
+  ];
 }

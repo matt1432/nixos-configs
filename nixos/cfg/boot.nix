@@ -4,11 +4,15 @@
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
     consoleLogLevel = 0;
-    initrd.verbose = false;
-    initrd.systemd.enable = true;
+
+    initrd = {
+      verbose = false;
+      systemd.enable = true;
+    };
 
     loader = {
       efi.canTouchEfiVariables = true;
+      timeout = 2;
       grub = {
         enable = true;
         device = "nodev";
@@ -19,14 +23,11 @@
         # Because it still draws that image otherwise
         splashImage = null;
       };
-      timeout = 2;
     };
 
     extraModulePackages = with config.boot.kernelPackages; [
       v4l2loopback
     ];
-
-    kernelModules = [ "kvm-amd" ];
 
     kernelParams = [
       "quiet"

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   hardware.bluetooth = {
@@ -12,17 +12,19 @@
   services = {
 
     udev.extraRules = ''
-    # give permanent path to keyboard XF86* binds
-    SUBSYSTEMS=="input", ATTRS{id/product}=="0006", ATTRS{id/vendor}=="0000", SYMLINK += "video-bus"
-  '';
+      # give permanent path to keyboard XF86* binds
+      SUBSYSTEMS=="input", ATTRS{id/product}=="0006", ATTRS{id/vendor}=="0000", SYMLINK += "video-bus"
+    '';
 
     fwupd.enable = true;
 
     # Enable CUPS to print documents.
-    printing.enable = true;
-    printing.drivers = with pkgs; [
-      hplip
-    ];
+    printing = {
+      enable = true;
+      drivers = with pkgs; [
+        hplip
+      ];
+    };
 
     pipewire = {
       enable = true;

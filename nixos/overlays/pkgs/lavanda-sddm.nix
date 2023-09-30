@@ -1,8 +1,6 @@
 ### test package
-{ lib
-, stdenv
+{ stdenv
 , fetchFromGitHub
-, pkgs
 }:
 
 stdenv.mkDerivation {

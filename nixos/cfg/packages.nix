@@ -1,4 +1,4 @@
-{config, pkgs, lib, ...}:
+{ pkgs, hyprland, ... }:
 
 {
   systemd.user.services.protonmail-bridge = {
@@ -30,10 +30,10 @@
           };
         };
         sessionPackages = [
-          (builtins.getFlake "github:hyprwm/Hyprland").packages.x86_64-linux.default
+          hyprland.packages.x86_64-linux.default
         ];
         defaultSession = "hyprland";
-        autoLogin = { # logs out after a minute
+        autoLogin = {
           enable = true;
           user = "matt";
         };

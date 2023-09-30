@@ -1,13 +1,13 @@
 final: prev: {
   swayosd = prev.swayosd.overrideAttrs (oldAttrs: rec {
-    
+
     src = prev.fetchFromGitHub {
       owner = "ErikReider";
       repo = "SwayOSD";
       rev = "8159c9e9962ce19f6fb78201d4d34e5817f53b45";
       hash = "sha256-kGd4/eQkhvxEL3/LToBDjE/JIR8m6w9vdFUrRTyylCE=";
     };
-    
+
     cargoDeps = oldAttrs.cargoDeps.overrideAttrs (prev.lib.const {
       name = "swayosd-vendor.tar.gz";
       inherit src;

@@ -1,14 +1,11 @@
-{ config, pkgs,  ... }:
-let
-  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/master.tar.gz";
-in
+{ home-manager,  ... }:
+
 {
 ## Global config to add home-manager module
 #############################################################################
-  imports =
-    [
-      (import "${home-manager}/nixos")
-    ];
+  imports = [
+    home-manager.nixosModules.default
+  ];
 
   # Define a user account. Don't forget to set a password with 'passwd'.
   users.users.matt = {

@@ -6,21 +6,21 @@ in
 
 {
   xdg.configFile = {
-    "swayosd/style.css".source  = config.lib.file.mkOutOfStoreSymlink "${configDir}/swayosd/style.css";
+    "swayosd/style.css".source     = config.lib.file.mkOutOfStoreSymlink "${configDir}/swayosd/style.css";
 
-    "gtklock/config.ini".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/gtklock/config.ini";
-    "gtklock/style.css".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/gtklock/style.css";
+    "gtklock/config.ini".source    = config.lib.file.mkOutOfStoreSymlink "${configDir}/gtklock/config.ini";
+    "gtklock/style.css".source     = config.lib.file.mkOutOfStoreSymlink "${configDir}/gtklock/style.css";
 
-    "ripgrep".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/ripgrep";
+    "ripgrep".source               = config.lib.file.mkOutOfStoreSymlink "${configDir}/ripgrep";
 
     "discord/settings.json".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/discord/settings.json";
 
-    "dolphinrc".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/dolphinrc";
-    "kdeglobals".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/kdeglobals";
-    "kiorc".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/kiorc";
-    "mimeapps.list".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/mimeapps.list";
-    "neofetch".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/neofetch";
-    "swappy".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/swappy";
+    "dolphinrc".source             = config.lib.file.mkOutOfStoreSymlink "${configDir}/dolphinrc";
+    "kdeglobals".source            = config.lib.file.mkOutOfStoreSymlink "${configDir}/kdeglobals";
+    "kiorc".source                 = config.lib.file.mkOutOfStoreSymlink "${configDir}/kiorc";
+    "mimeapps.list".source         = config.lib.file.mkOutOfStoreSymlink "${configDir}/mimeapps.list";
+    "neofetch".source              = config.lib.file.mkOutOfStoreSymlink "${configDir}/neofetch";
+    "swappy".source                = config.lib.file.mkOutOfStoreSymlink "${configDir}/swappy";
   };
 
   programs = {

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 
 {
   programs.bash = {   # TODO: deal with root dotfiles
@@ -29,8 +29,8 @@
       "cdspell"
       "dirspell"
       "dotglob"
-    ]
-    ;
+    ];
+
     shellAliases = {
       sudo  = "sudo ";
       frick = "sudo $(fc -ln -1)";

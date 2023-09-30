@@ -3,12 +3,9 @@
 what is currently not working:
 
 - plymouth theme has no login prompt
-- sddm theme flashes white
-- autosign in to keyring
 
 what i want to do:
 
-- learn flakes
 - add auto-rotate widget in ags control center
 - when multiple widgets open, clicking on a background one puts it forward
 
