@@ -1,8 +1,8 @@
 # https://breuer.dev/blog/nixos-home-manager-neovim
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, ... }:
 let
   configDir = "/home/matt/.nix/config";
-  
+
   # installs a vim plugin from git with a given tag / branch
   pluginGit = ref: repo: pkgs.vimUtils.buildVimPluginFrom2Nix {
     pname = "${lib.strings.sanitizeDerivationName repo}";
