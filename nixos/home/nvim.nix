@@ -1,21 +1,15 @@
-# https://breuer.dev/blog/nixos-home-manager-neovim
 { pkgs, lib, ... }:
 let
-  configDir = "/home/matt/.nix/config";
-
   # installs a vim plugin from git with a given tag / branch
-  pluginGit = ref: repo: pkgs.vimUtils.buildVimPluginFrom2Nix {
+  plugin = owner: repo: rev: hash: pkgs.vimUtils.buildVimPluginFrom2Nix {
     pname = "${lib.strings.sanitizeDerivationName repo}";
-    version = ref;
-    src = builtins.fetchGit {
-      url = "https://github.com/${repo}.git";
-      ref = ref;
+    version = rev;
+    src = pkgs.fetchFromGitHub {
+      inherit rev owner repo hash;
     };
   };
-
-  # always installs latest version
-  plugin = pluginGit "HEAD";
-in {
+in
+{
   xdg.configFile = {
     "../.gradle/gradle.properties".source = pkgs.writeText "gradle.properties" ''
       org.gradle.java.home = ${pkgs.temurin-bin-17}
@@ -28,13 +22,13 @@ in {
     # read in the vim config from filesystem
     # this enables syntaxhighlighting when editing those
     extraConfig = builtins.concatStringsSep "\n" [
-      (lib.strings.fileContents "${configDir}/nvim/base.vim")
+      (lib.strings.fileContents ../../config/nvim/base.vim)
     #  (lib.strings.fileContents ./.nvim/plugins.vim)
     #  (lib.strings.fileContents ./.nvim/lsp.vim)
       ''
         lua << EOF
-        ${lib.strings.fileContents "${configDir}/nvim/config.lua"}
-        ${lib.strings.fileContents "${configDir}/nvim/lsp.lua"}
+        ${lib.strings.fileContents ../../config/nvim/config.lua}
+        ${lib.strings.fileContents ../../config/nvim/lsp.lua}
         EOF
       ''
     ];
@@ -90,28 +84,27 @@ in {
       coc-tsserver
 
       coc-fzf
-      (plugin "junegunn/fzf.vim")
-      (plugin "junegunn/fzf")
+      fzfWrapper
+      fzf-vim
 
       nvim-treesitter.withAllGrammars
       nvim-treesitter
       nvim-autopairs
 
-      (plugin "Mofiqul/dracula.nvim")
-      (plugin "lukas-reineke/indent-blankline.nvim")
-      (plugin "lewis6991/gitsigns.nvim")
-      (plugin "nvim-lualine/lualine.nvim")
+      dracula-nvim
+      (plugin "lukas-reineke"
+              "indent-blankline.nvim"
+              "1e79f3dd6e750c5cb4ce99d1755a3e17025c0f47"
+              "sha256-YhfMeA+bnXlGSZPNsK1rRls9iMXUlXYKVFjHwXlnE4E=")
+      gitsigns-nvim
+      lualine-nvim
+      nvim-scrollbar
 
-      # neo-tree and deps
-      (plugin "nvim-neo-tree/neo-tree.nvim")
-      (plugin "nvim-lua/plenary.nvim")
-      (plugin "nvim-tree/nvim-web-devicons")
-      (plugin "MunifTanjim/nui.nvim")
+      neo-tree-nvim
 
       # to explore more
       fugitive
-      (plugin "folke/todo-comments.nvim")
-      (plugin "petertriho/nvim-scrollbar")
+      todo-comments-nvim
     ];
   };
 }
