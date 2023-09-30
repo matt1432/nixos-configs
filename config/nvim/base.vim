@@ -31,3 +31,7 @@ let g:coc_snippet_next = '<tab>'
 autocmd FileType scss setl iskeyword+=@-@
 
 nnoremap <silent> <esc> :noh<cr><esc>
+
+let g:minimap_width = 10
+let g:minimap_auto_start = 1
+let g:minimap_auto_start_win_enter = 1

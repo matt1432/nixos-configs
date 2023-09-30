@@ -39,7 +39,6 @@ require("neo-tree").setup({
   }
 })
 require('todo-comments').setup()
-require("scrollbar").setup()
 
 -- Auto indent when pressing Enter between brackets
 local remap = vim.api.nvim_set_keymap

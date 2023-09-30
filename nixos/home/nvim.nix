@@ -98,7 +98,7 @@ in
               "sha256-YhfMeA+bnXlGSZPNsK1rRls9iMXUlXYKVFjHwXlnE4E=")
       gitsigns-nvim
       lualine-nvim
-      nvim-scrollbar
+      minimap-vim
 
       neo-tree-nvim
 
