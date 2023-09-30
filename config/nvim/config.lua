@@ -97,3 +97,10 @@ hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
 end)
 
 require("ibl").setup { indent = { highlight = highlight } }
+
+-- Autoclose Minimap
+vim.api.nvim_create_autocmd('QuitPre', {
+	pattern = '*',
+	desc = 'Close minimap on exit',
+	command = 'MinimapClose',
+})

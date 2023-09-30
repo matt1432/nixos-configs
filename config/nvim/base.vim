@@ -30,9 +30,14 @@ let g:coc_snippet_next = '<tab>'
 " support scss @
 autocmd FileType scss setl iskeyword+=@-@
 
+" remove highlight on words
 nnoremap <silent> <esc> :noh<cr><esc>
 
+" Minimap config
 let g:minimap_width = 6
 let g:minimap_auto_start = 1
 let g:minimap_auto_start_win_enter = 1
 let g:minimap_git_colors = 1
+
+" Auto open Neo-Tree
+autocmd VimEnter * Neotree show
