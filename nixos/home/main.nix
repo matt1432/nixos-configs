@@ -13,8 +13,6 @@
     extraGroups = [ "wheel" "input" "uinput" "adm" "mlocate" "video" "libvirtd" ];
   };
 
-  home-manager.useUserPackages = true;
-  home-manager.useGlobalPkgs = true;
   programs.dconf.enable = true;
 #############################################################################
 

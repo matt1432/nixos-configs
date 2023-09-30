@@ -26,6 +26,8 @@
         ./configuration.nix
         home-manager.nixosModules.home-manager {
           home-manager.extraSpecialArgs = attrs;
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
         }
       ];
     };
