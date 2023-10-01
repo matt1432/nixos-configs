@@ -136,8 +136,6 @@
     wl-clipboard
     cliphist
     gtklock
-    gtklock-playerctl-module
-    gtklock-powerbar-module
     grim
     slurp
     swappy

@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 let
   configDir = "/home/matt/.nix/config";
@@ -8,7 +8,10 @@ in
   xdg.configFile = {
     "swayosd/style.css".source     = config.lib.file.mkOutOfStoreSymlink "${configDir}/swayosd/style.css";
 
-    "gtklock/config.ini".source    = config.lib.file.mkOutOfStoreSymlink "${configDir}/gtklock/config.ini";
+    "gtklock/config.ini".source    = pkgs.writeText "config.ini" ''
+                                      [main]
+                                      modules=${pkgs.gtklock-powerbar-module}/lib/gtklock/powerbar-module.so;${pkgs.gtklock-playerctl-module}/lib/gtklock/playerctl-module.so
+                                    '';
     "gtklock/style.css".source     = config.lib.file.mkOutOfStoreSymlink "${configDir}/gtklock/style.css";
 
     "ripgrep".source               = config.lib.file.mkOutOfStoreSymlink "${configDir}/ripgrep";
