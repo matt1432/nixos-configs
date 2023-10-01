@@ -39,5 +39,13 @@ let g:minimap_auto_start = 1
 let g:minimap_auto_start_win_enter = 1
 let g:minimap_git_colors = 1
 
-" Auto open Neo-Tree
-autocmd VimEnter * Neotree show
+" Auto open Neo-Tree on big enough window
+function! OpenTree() abort
+  if &columns > 70
+    Neotree show
+    Neotree close
+    Neotree show
+  endif
+endfunction
+
+autocmd VimEnter * call OpenTree()
