@@ -62,7 +62,7 @@ export const TitleLabel = (player, params) => Label({
   truncate: 'end',
   justification: 'left',
   className: 'title',
-  binds: [['label', player, 'trackTitle']],
+  binds: [['label', player, 'track-title']],
 });
 
 export const ArtistLabel = (player, params) => Label({
@@ -72,9 +72,7 @@ export const ArtistLabel = (player, params) => Label({
   truncate: 'end',
   justification: 'left',
   className: 'artist',
-  connections: [[player, label => {
-    label.label = player.trackArtists.join(', ') || '';
-  }]],
+  binds: [['label', player, 'track-artists', a => a.join(', ') || '']],
 });
 
 export const PlayerIcon = (player, { symbolic = true, ...params } = {}) => {
