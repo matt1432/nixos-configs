@@ -1,7 +1,7 @@
 { pkgs, lib, ... }:
 let
   # installs a vim plugin from git with a given tag / branch
-  plugin = owner: repo: rev: hash: pkgs.vimUtils.buildVimPluginFrom2Nix {
+  plugin = owner: repo: rev: hash: pkgs.vimUtils.buildVimPlugin {
     pname = "${lib.strings.sanitizeDerivationName repo}";
     version = rev;
     src = pkgs.fetchFromGitHub {
