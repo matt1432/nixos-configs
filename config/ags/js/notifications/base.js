@@ -1,17 +1,19 @@
-const { GLib } = imports.gi;
-const { Notifications, Applications } = ags.Service;
-const { lookUpIcon, exec, execAsync } = ags.Utils;
-const { Box, Icon, Label, Button } = ags.Widget;
+import { Applications, Utils, Widget } from '../../imports.js';
+const { lookUpIcon, execAsync } = Utils;
+const { Box, Icon, Label, Button } = Widget;
+
+import GLib from 'gi://GLib';
 
 import { Draggable } from '../misc/drag.js';
 import { EventBox } from '../misc/cursorbox.js'
 import { closeAll } from '../misc/closer.js';
 
-const NotificationIcon = ({ appEntry, appIcon, image }) => {
+
+const NotificationIcon = notif => {
   let iconCmd = () => {};
 
-  if (Applications.query(appEntry).length > 0) {
-    let app = Applications.query(appEntry)[0];
+  if (Applications.query(notif.appEntry).length > 0) {
+    let app = Applications.query(notif.appEntry)[0];
 
     if (app.app.get_string('StartupWMClass') != null) {
       iconCmd = box => {
@@ -32,7 +34,7 @@ const NotificationIcon = ({ appEntry, appIcon, image }) => {
     }
   }
 
-  if (image) {
+  if (notif.image) {
     return EventBox({
       onPrimaryClickRelease: iconCmd,
       child: Box({
@@ -40,7 +42,7 @@ const NotificationIcon = ({ appEntry, appIcon, image }) => {
         hexpand: false,
         className: 'icon img',
         style: `
-          background-image: url("${image}");
+          background-image: url("${notif.image}");
           background-size: contain;
           background-repeat: no-repeat;
           background-position: center;
@@ -52,12 +54,12 @@ const NotificationIcon = ({ appEntry, appIcon, image }) => {
   }
 
   let icon = 'dialog-information-symbolic';
-  if (lookUpIcon(appIcon)) {
-    icon = appIcon;
+  if (lookUpIcon(notif.appIcon)) {
+    icon = notif.appIcon;
   }
 
-  if (lookUpIcon(appEntry)) {
-    icon = appEntry;
+  if (lookUpIcon(notif.appEntry)) {
+    icon = notif.appEntry;
   }
 
   return EventBox({
@@ -81,22 +83,22 @@ const NotificationIcon = ({ appEntry, appIcon, image }) => {
   });
 };
 
-export default ({ id, summary, body, actions, urgency, time, command = i => {}, ...icon }) => {
+export default ({ notif, command = () => {}} = {}) => {
   const BlockedApps = [
     'Spotify',
   ];
 
-  if (BlockedApps.find(app => app == Notifications.getNotification(id).appName)) {
-    Notifications.close(id);
+  if (BlockedApps.find(app => app == notif.appName)) {
+    notif.close();
     return;
   }
 
   return Draggable({
     maxOffset: 200,
-    command: () => command(id),
+    command: () => command(),
     properties: [
       ['hovered', false],
-      ['id', id],
+      ['id', notif.id],
     ],
     onHover: w => {
       if (!w._hovered) {
@@ -110,7 +112,7 @@ export default ({ id, summary, body, actions, urgency, time, command = i => {}, 
     },
 
     child: Box({
-      className: `notification ${urgency}`,
+      className: `notification ${notif.urgency}`,
       vexpand: false,
       // Notification
       child: Box({
@@ -119,7 +121,7 @@ export default ({ id, summary, body, actions, urgency, time, command = i => {}, 
           // Content
           Box({
             children: [
-              NotificationIcon(icon),
+              NotificationIcon(notif),
               Box({
                 hexpand: true,
                 vertical: true,
@@ -135,20 +137,20 @@ export default ({ id, summary, body, actions, urgency, time, command = i => {}, 
                         maxWidthChars: 24,
                         truncate: 'end',
                         wrap: true,
-                        label: summary,
-                        useMarkup: summary.startsWith('<'),
+                        label: notif.summary,
+                        useMarkup: notif.summary.startsWith('<'),
                       }),
                       Label({
                         className: 'time',
                         valign: 'start',
-                        label: GLib.DateTime.new_from_unix_local(time).format('%H:%M'),
+                        label: GLib.DateTime.new_from_unix_local(notif.time).format('%H:%M'),
                       }),
                       EventBox({
                         reset: false,
                         child: Button({
                           className: 'close-button',
                           valign: 'start',
-                          onClicked: () => Notifications.close(id),
+                          onClicked: () => notif.close(),
                           child: Icon('window-close-symbolic'),
                         }),
                       }),
@@ -160,7 +162,7 @@ export default ({ id, summary, body, actions, urgency, time, command = i => {}, 
                     useMarkup: true,
                     xalign: 0,
                     justification: 'left',
-                    label: body,
+                    label: notif.body,
                     wrap: true,
                   }),
                 ],
@@ -170,9 +172,9 @@ export default ({ id, summary, body, actions, urgency, time, command = i => {}, 
           // Actions
           Box({
             className: 'actions',
-            children: actions.map(action => Button({
+            children: notif.actions.map(action => Button({
               className: 'action-button',
-              onClicked: () => Notifications.invoke(id, action.id),
+              onClicked: () => notif.invoke(action.id),
               hexpand: true,
               child: Label(action.label),
             })),

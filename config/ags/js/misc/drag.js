@@ -1,6 +1,10 @@
-const { Box, EventBox } = ags.Widget;
-const { Gtk, Gdk } = imports.gi;
+import { Widget } from '../../imports.js';
+const { Box, EventBox } = Widget;
+
+import Gtk from 'gi://Gtk';
+import Gdk from 'gi://Gdk';
 const display = Gdk.Display.get_default();
+
 
 export const Draggable = ({
   maxOffset = 150,

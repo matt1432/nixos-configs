@@ -1,12 +1,14 @@
-const { Window, Box, Label, Revealer, Icon } = ags.Widget;
-const { Mpris } = ags.Service;
-const { ToggleButton } = imports.gi.Gtk;
+import { Mpris, Widget } from '../../imports.js';
+const { Window, Box, Label, Revealer, Icon } = Widget;
+
+import Gtk from 'gi://Gtk';
 
 import { ButtonGrid } from './button-grid.js';
 import { SliderBox } from './slider-box.js';
 import Player from '../media-player/player.js';
 import { EventBox } from '../misc/cursorbox.js';
 import { PopUp } from '../misc/popup.js';
+
 
 const QuickSettingsWidget = Box({
   className: 'qs-container',
@@ -30,12 +32,12 @@ const QuickSettingsWidget = Box({
         SliderBox,
 
         EventBox({
-          child: ags.Widget({
-            type: ToggleButton,
+          child: Widget({
+            type: Gtk.ToggleButton,
             setup: btn => {
-              const id = Mpris.instance.connect('changed', () => {
+              const id = Mpris.connect('changed', () => {
                 btn.set_active(Mpris.players.length > 0);
-                Mpris.instance.disconnect(id);
+                Mpris.disconnect(id);
               });
             },
             connections: [['toggled', button => {

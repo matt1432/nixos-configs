@@ -1,10 +1,11 @@
-const { Box, Label } = ags.Widget;
-const { subprocess, execAsync } = ags.Utils;
-const deflisten = subprocess;
+import { Utils, Widget } from '../../imports.js';
+const { Box, Label } = Widget;
+const { subprocess, execAsync } = Utils;
 
 import { EventBox } from '../misc/cursorbox.js';
 
-deflisten(
+
+subprocess(
   ['bash', '-c', 'tail -f /home/matt/.config/.heart'],
   (output) => {
     Heart.child.children[0].label = ' ' + output;

@@ -1,7 +1,8 @@
-const { execAsync, lookUpIcon } = ags.Utils;
-const { Mpris } = ags.Service;
-const { Button, Icon, Label, Stack, Slider, CenterBox, Box } = ags.Widget;
-const { Gdk } = imports.gi;
+import { Mpris, Utils, Widget } from '../../imports.js';
+const { Button, Icon, Label, Stack, Slider, CenterBox, Box } = Widget;
+const { execAsync, lookUpIcon } = Utils;
+
+import Gdk from 'gi://Gdk';
 const display = Gdk.Display.get_default();
 
 import { EventBox } from '../misc/cursorbox.js';
@@ -26,6 +27,7 @@ const icons = {
     next: '󰒭',
   },
 }
+
 
 export const CoverArt = (player, params) => CenterBox({
   ...params,

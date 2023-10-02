@@ -1,7 +1,9 @@
-const { Window, CenterBox, Label } = ags.Widget;
+import { Widget } from '../imports.js';
+const { Window, CenterBox, Label } = Widget;
 
 import { PopUp } from './misc/popup.js';
 import { Button } from './misc/cursorbox.js'
+
 
 const PowermenuWidget = CenterBox({
   className: 'powermenu',

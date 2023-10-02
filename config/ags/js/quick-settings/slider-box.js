@@ -1,6 +1,6 @@
-const { Box, Slider, Icon, EventBox } = ags.Widget;
-const { Audio } = ags.Service;
-const { execAsync } = ags.Utils;
+import { Audio, Utils, Widget } from '../../imports.js';
+const { Box, Slider, Icon, EventBox } = Widget;
+const { execAsync } = Utils;
 
 const items = {
   101: 'audio-volume-overamplified-symbolic',
@@ -9,6 +9,7 @@ const items = {
   1: 'audio-volume-low-symbolic',
   0: 'audio-volume-muted-symbolic',
 };
+
 
 export const SliderBox = Box({
   className: 'slider-box',
@@ -26,7 +27,7 @@ export const SliderBox = Box({
           className: 'slider-label',
           connections: [[Audio, icon => {
             if (Audio.speaker) {
-              if (Audio.speaker.isMuted) {
+              if (Audio.speaker.stream.isMuted) {
                 icon.icon = items[0];
               }
               else {

@@ -1,13 +1,16 @@
-const { Gtk, Gdk } = imports.gi;
-const { EventBox } = ags.Widget;
-const { execAsync } = ags.Utils;
-const { getWindow } = ags.App;
+import { App, Utils, Widget } from '../../imports.js';
+const { EventBox } = Widget;
+const { execAsync } = Utils;
+const { getWindow } = App;
+
+import Gtk from 'gi://Gtk';
+import Gdk from 'gi://Gdk';
 import Cairo from 'cairo';
 
 import { Button } from '../misc/cursorbox.js';
 
-
 const TARGET = [Gtk.TargetEntry.new('text/plain', Gtk.TargetFlags.SAME_APP, 0)];
+
 
 function createSurfaceFromWidget(widget) {
   const alloc = widget.get_allocation();
@@ -28,7 +31,6 @@ function createSurfaceFromWidget(widget) {
 let hidden = 0;
 export const WorkspaceDrop = params => EventBox({
   ...params,
-  //tooltipText: `Workspace: ${id}`,
   connections: [['drag-data-received', (eventbox, _c, _x, _y, data) => {
     let id = eventbox.get_parent()._id;
 

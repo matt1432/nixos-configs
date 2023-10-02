@@ -1,8 +1,12 @@
-const { Box, Label } = ags.Widget;
-const { toggleWindow } = ags.App;
-const { DateTime } = imports.gi.GLib;
+import { App, Widget } from '../../imports.js';
+const { Box, Label } = Widget;
+const { toggleWindow } = App;
+
+import GLib from 'gi://GLib';
+const { DateTime } = GLib;
 
 import { EventBox } from '../misc/cursorbox.js';
+
 
 const ClockModule = ({
     interval = 1000,
@@ -22,7 +26,7 @@ export const Clock = EventBox({
   className: 'toggle-off',
   onPrimaryClickRelease: () => toggleWindow('calendar'),
   connections: [
-    [ags.App, (box, windowName, visible) => {
+    [App, (box, windowName, visible) => {
       if (windowName == 'calendar') {
         box.toggleClassName('toggle-on', visible);
       }

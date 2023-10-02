@@ -1,5 +1,6 @@
-const { Window, EventBox } = ags.Widget;
-const { closeWindow } = ags.App;
+import { App, Widget } from '../../imports.js';
+const { Window, EventBox } = Widget;
+const { closeWindow } = App;
 
 const ALWAYS_OPEN = [
   'closer',
@@ -7,11 +8,12 @@ const ALWAYS_OPEN = [
   'notifications',
 ];
 
+
 // TODO: close on scroll event too?
 export const closeAll = () => {
-  ags.App.windows.forEach(w => {
+  App.windows.forEach(w => {
     if (!ALWAYS_OPEN.some(window => window === w.name))
-      ags.App.closeWindow(w.name)
+      closeWindow(w.name)
   });
   closeWindow('closer');
 };
@@ -24,8 +26,8 @@ export const Closer = Window({
 
   child: EventBox({
     onPrimaryClickRelease: () => closeAll(),
-    connections: [[ags.App, (_b, _w, _v) => {
-      if (!Array.from(ags.App.windows).some(w => w[1].visible &&
+    connections: [[App, (_b, _w, _v) => {
+      if (!Array.from(App.windows).some(w => w[1].visible &&
         !ALWAYS_OPEN.some(window => window === w[0]))) {
         closeWindow('closer');
       }

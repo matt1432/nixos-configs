@@ -12,8 +12,7 @@ Libinput.instance.connect('device-init', () => {
 });
 */
 
-const { Service } = ags;
-const { execAsync } = ags.Utils;
+const { Service, Utils } = '../imports.js';
 import GLib from 'gi://GLib';
 import Gio from 'gi://Gio';
 import GObject from 'gi://GObject';
@@ -123,7 +122,7 @@ class LibinputService extends Service {
   constructor() {
     super();
     this.debugInstances = new Map();
-    execAsync(['libinput', 'list-devices'])
+    Utils.execAsync(['libinput', 'list-devices'])
       .then(out => this.parseOutput(out))
       .catch(console.error);
   }

@@ -1,13 +1,15 @@
-const { Box, Overlay, EventBox } = ags.Widget;
-const { Gtk } = imports.gi;
+import { Widget } from '../../imports.js';
+const { Box, Overlay, EventBox } = Widget;
+
+import Gtk from 'gi://Gtk';
 
 const MAX_OFFSET = 200;
 const OFFSCREEN = 500;
 const TRANSITION = 'transition: margin 0.5s ease, opacity 3s ease;';
 
+
 export default ({ properties, connections, params } = {}) => {
   let widget = EventBox();
-
   let gesture = Gtk.GestureDrag.new(widget)
 
   widget.child = Overlay({

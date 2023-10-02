@@ -1,6 +1,6 @@
-const { Hyprland } = ags.Service;
-const { Label } = ags.Widget;
-const { Gtk } = imports.gi;
+import { Widget, Hyprland } from '../../imports.js';
+const { Label } = Widget;
+
 
 export const CurrentWindow = Label({
   style: 'color: #CBA6F7; font-size: 18px',

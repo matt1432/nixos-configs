@@ -1,15 +1,16 @@
-const { Box, Label, Icon } = ags.Widget;
-const { toggleWindow } = ags.App;
-const { Notifications } = ags.Service;
+import { App, Notifications, Widget } from '../../imports.js';
+const { Box, Label, Icon } = Widget;
+const { toggleWindow } = App;
 
 import { Separator } from '../misc/separator.js';
 import { EventBox } from '../misc/cursorbox.js';
+
 
 export const NotifButton = EventBox({
   className: 'toggle-off',
   onPrimaryClickRelease: () => toggleWindow('notification-center'),
   connections: [
-    [ags.App, (box, windowName, visible) => {
+    [App, (box, windowName, visible) => {
       if (windowName == 'notification-center') {
         box.toggleClassName('toggle-on', visible);
       }
@@ -46,7 +47,7 @@ export const NotifButton = EventBox({
           [Notifications, label => {
             label.label = String(Notifications.notifications.length);
           }],
-        ],  
+        ],
       }),
 
     ],

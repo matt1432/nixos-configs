@@ -1,7 +1,9 @@
-const { Window, CenterBox, EventBox, Button } = ags.Widget;
-const { openWindow } = ags.App;
-const { Gtk, Gdk } = imports.gi;
-const display = Gdk.Display.get_default();
+import { Widget, App } from '../../imports.js';
+const { CenterBox, EventBox } = Widget;
+const { openWindow } = App;
+
+import Gtk from 'gi://Gtk';
+
 
 export const Gesture = ({
   child,
@@ -19,7 +21,7 @@ export const Gesture = ({
     ],
     connections: [
 
-      [gesture, box => {
+      [gesture, _ => {
         const velocity = gesture.get_velocity()[1];
         if (velocity < -100)
           openWindow('quick-settings');

@@ -1,8 +1,10 @@
-const { SystemTray } = ags.Service;
-const { Box, Revealer, Icon, MenuItem } = ags.Widget;
-const { Gtk } = imports.gi;
+import { SystemTray, Widget } from '../../imports.js';
+const { Box, Revealer, Icon, MenuItem } = Widget;
+
+import Gtk from 'gi://Gtk';
 
 import { Separator } from '../misc/separator.js';
+
 
 const SysTrayItem = item => MenuItem({
   className: 'tray-item',
@@ -23,7 +25,7 @@ export const SysTray = Revealer({
   }]],
   child: Box({
     children: [
-      ags.Widget({
+      Widget({
         type: Gtk.MenuBar,
         className: 'sys-tray',
         properties: [

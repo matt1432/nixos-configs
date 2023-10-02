@@ -1,11 +1,12 @@
-const { Notifications } = ags.Service;
-const { Button, Label, Box, Icon, Scrollable, Window, Revealer } = ags.Widget;
-const { timeout } = ags.Utils;
-const { getWindow } = ags.App;
+import { Notifications, App, Utils, Widget } from '../../imports.js';
+const { Button, Label, Box, Icon, Scrollable, Window, Revealer } = Widget;
+const { timeout } = Utils;
+const { getWindow } = App;
 
 import Notification from './base.js';
 import { EventBox } from '../misc/cursorbox.js';
 import { PopUp } from '../misc/popup.js';
+
 
 const ClearButton = () => EventBox({
   child: Button({
@@ -59,12 +60,14 @@ const NotificationList = Box({
       if (box.children.length == 0) {
         box.children = Notifications.notifications
           .reverse()
-          .map(n => Notification({ ...n, command: i => Notifications.close(i), }));
+          .map(n => Notification({ notif: n, command: () => n.close() }));
       }
       else if (id) {
+        let notif = Notifications.getNotification(id);
+
         const NewNotif = Notification({
-          ...Notifications.getNotification(id),
-          command: i => Notifications.close(i),
+          notif,
+          command: () => notif.close(),
         });
 
         if (NewNotif) {

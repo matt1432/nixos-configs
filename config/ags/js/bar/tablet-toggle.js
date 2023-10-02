@@ -1,7 +1,9 @@
-const { Box, Label } = ags.Widget;
-const { subprocess } = ags.Utils;
+import { Utils, Widget } from '../../imports.js';
+const { Box, Label } = Widget;
+const { subprocess } = Utils;
 
 import { EventBox } from '../misc/cursorbox.js';
+
 
 export const TabletToggle = EventBox({
   className: 'toggle-off',

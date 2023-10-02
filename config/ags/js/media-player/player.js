@@ -1,9 +1,10 @@
-const { Mpris } = ags.Service;
-const { Box, CenterBox, Label } = ags.Widget;
+import { Mpris, Variable, Widget } from '../../imports.js';
+const { Box, CenterBox, Label } = Widget;
 
 import * as mpris from './mpris.js';
 import PlayerGesture from './gesture.js';
 import { Separator } from '../misc/separator.js';
+
 
 const Top = player => Box({
   className: 'top',
@@ -97,7 +98,7 @@ export default () => Box({
           return;
 
         const player = Mpris.getPlayer(busName);
-        player.colors = ags.Variable();
+        player.colors = Variable();
         overlay._players.set(busName, PlayerBox(player));
 
         let result = [];

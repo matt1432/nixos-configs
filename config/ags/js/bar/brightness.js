@@ -1,7 +1,9 @@
-const { ProgressBar, Overlay, Box } = ags.Widget;
-const { execAsync } = ags.Utils;
+import { Utils, Widget } from '../../imports.js';
+const { ProgressBar, Overlay, Box } = Widget;
+
 import { Separator } from '../misc/separator.js';
 import { Heart }     from './heart.js';
+
 
 export const Brightness = Overlay({
   setup: widget => {
@@ -11,7 +13,7 @@ export const Brightness = Overlay({
     className: 'toggle-off brightness',
     connections: [
       [200, progress => {
-        execAsync('brightnessctl get').then(out => {
+        Utils.execAsync('brightnessctl get').then(out => {
           let br = out / 255;
           if (br > 0.33) {
             progress.value = br;

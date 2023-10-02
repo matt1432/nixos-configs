@@ -1,10 +1,11 @@
-const { Box, Label } = ags.Widget;
-const { subprocess } = ags.Utils;
-const deflisten = subprocess;
+import { Utils, Widget } from '../../imports.js';
+const { Box, Label } = Widget;
+const { subprocess } = Utils;
 
 import { EventBox } from '../misc/cursorbox.js';
 
-deflisten(
+
+subprocess(
   ['bash', '-c', '$AGS_PATH/osk-toggle.sh getState'],
   (output) => {
     if (output == 'Running') {

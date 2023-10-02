@@ -1,9 +1,10 @@
-const { Window, Box } = ags.Widget;
-const { Hyprland } = ags.Service;
+import { Hyprland, Widget } from '../../imports.js';
+const { Window, Box } = Widget;
 
 import { PopUp } from '../misc/popup.js';
 import { WorkspaceRow, getWorkspaces, updateWorkspaces } from './workspaces.js';
 import { updateClients } from './clients.js';
+
 
 export default Window({
   name: 'overview',

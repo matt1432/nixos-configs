@@ -1,6 +1,5 @@
-const { App } = ags;
-const { Applications } = ags.Service;
-const { Label, Box, Icon, Button, Scrollable, Entry, Window, EventBox } = ags.Widget;
+import { App, Applications, Widget } from '../../imports.js';
+const { Label, Box, Icon, Button, Scrollable, Entry, Window, EventBox } = Widget;
 
 import { Separator } from '../misc/separator.js';
 import { PopUp } from '../misc/popup.js';
@@ -11,6 +10,7 @@ const icons = {
     search: 'preferences-system-search-symbolic',
   }
 };
+
 
 const AppItem = (app, window) => {
   if (app.app.get_string('Icon') == 'Nextcloud')

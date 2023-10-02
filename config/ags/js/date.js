@@ -1,8 +1,12 @@
-const { Box, Label, Window } = ags.Widget;
-const { Gtk } = imports.gi;
-const { DateTime } = imports.gi.GLib;
+import { Widget } from '../imports.js';
+const { Box, Label, Window } = Widget;
+
+import Gtk from 'gi://Gtk';
+import GLib from 'gi://GLib';
+const { DateTime } = GLib;
 
 import { PopUp } from './misc/popup.js';
+
 
 const Divider = () => Box({
   className: 'divider',
@@ -59,7 +63,7 @@ const Time = () => Box({
 
 const CalendarWidget = () => Box({
   className: 'cal-box',
-  child: ags.Widget({
+  child: Widget({
     type: Gtk.Calendar,
     showDayNames: true,
     showHeading: true,

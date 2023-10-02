@@ -1,12 +1,14 @@
-const { Revealer, CenterBox, Box, EventBox, Label, Overlay } = ags.Widget;
-const { Hyprland } = ags.Service;
-const { Gtk } = imports.gi;
+import { Hyprland, Widget } from '../../imports.js';
+const { Revealer, CenterBox, Box, EventBox, Label, Overlay } = Widget;
+
+import Gtk from 'gi://Gtk';
 
 import { WorkspaceDrop } from './dragndrop.js';
 import * as VARS from './variables.js';
 
 const DEFAULT_STYLE = `min-width: ${VARS.SCREEN.X * VARS.SCALE}px;
                        min-height: ${VARS.SCREEN.Y * VARS.SCALE}px;`;
+
 
 export function getWorkspaces(box) {
   let children = [];
@@ -61,7 +63,7 @@ export const WorkspaceRow = (className, i) => Revealer({
                 overlays: [Box({
                   style: DEFAULT_STYLE,
                   children: [
-                    ags.Widget({
+                    Widget({
                       type: Gtk.Fixed,
                     }),
                     Label({
@@ -89,7 +91,7 @@ const Workspace = (id, name) => Revealer({
     ['wasActive', false],
   ],
   connections: [[Hyprland, box => {
-    box._timeouts.forEach(clearTimeout);
+    box._timeouts.forEach(timer => timer.destroy());
 
     let activeId = Hyprland.active.workspace.id;
     let active = activeId === box._id;
@@ -119,12 +121,12 @@ const Workspace = (id, name) => Revealer({
       box._wasActive = true;
     }
     else if (box._wasActive) {
-      box._wasActive = false;
       box._timeouts.push(setTimeout(() => {
         rev.setStyle(`${DEFAULT_STYLE}
                   transition: margin 0.5s ease-in-out;
                   opacity: 1; margin-left: ${n ? '' : '-'}300px;
                               margin-right: ${n ? '-' : ''}300px;`);
+        box._wasActive = false;
       }, 120));
       box._timeouts.push(setTimeout(() => {
         rev.setStyle(`${DEFAULT_STYLE} opacity: 0;
@@ -147,7 +149,7 @@ const Workspace = (id, name) => Revealer({
       overlays: [Box({
         className: 'workspace',
         style: DEFAULT_STYLE,
-        child: ags.Widget({
+        child: Widget({
           type: Gtk.Fixed,
         }),
       })],

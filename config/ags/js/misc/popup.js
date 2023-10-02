@@ -1,5 +1,7 @@
-const { Revealer, Box } = ags.Widget;
-const { openWindow } = ags.App;
+import { App, Widget } from '../../imports.js';
+const { Revealer, Box } = Widget;
+const { openWindow } = App;
+
 
 export const PopUp = ({name, child, transition = 'slide_down', ...params}) => Box({
   style: 'min-height:1px; min-width:1px',
@@ -7,7 +9,7 @@ export const PopUp = ({name, child, transition = 'slide_down', ...params}) => Bo
     ...params,
     transition,
     transitionDuration: 500,
-    connections: [[ags.App, (revealer, currentName, visible) => {
+    connections: [[App, (revealer, currentName, visible) => {
       if (currentName === name) {
         revealer.reveal_child = visible;
 

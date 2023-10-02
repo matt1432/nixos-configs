@@ -1,9 +1,10 @@
-const { Box, CenterBox, Label, Icon } = ags.Widget;
-const { Network, Bluetooth, Audio } = ags.Service;
-const { execAsync } = ags.Utils;
-const { openWindow } = ags.App;
+import { Network, Bluetooth, Audio, App, Utils, Widget } from '../../imports.js';
+const { Box, CenterBox, Label, Icon } = Widget;
+const { execAsync } = Utils;
+const { openWindow } = App;
 
 import { EventBox } from '../misc/cursorbox.js';
+
 
 const GridButton = ({ command = () => {}, secondaryCommand = () => {}, icon } = {}) => Box({
   className: 'grid-button',
@@ -148,7 +149,7 @@ const SecondRow = Box({
         className: 'grid-label',
         connections: [[Audio, icon => {
           if (Audio.speaker) {
-            if (Audio.speaker.isMuted) {
+            if (Audio.speaker.stream.isMuted) {
               icon.icon = items[0];
             }
             else {
@@ -171,7 +172,7 @@ const SecondRow = Box({
         className: 'grid-label',
         connections: [[Audio, icon => {
           if (Audio.microphone) {
-            if (Audio.microphone.isMuted) {
+            if (Audio.microphone.stream.isMuted) {
               icon.icon = itemsMic[0];
             }
             else {

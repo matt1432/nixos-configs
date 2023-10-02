@@ -1,4 +1,5 @@
-const { Window, CenterBox, Box } = ags.Widget;
+import { Widget } from '../../imports.js';
+const { Window, CenterBox, Box } = Widget;
 
 import { Separator }        from '../misc/separator.js';
 import { CurrentWindow }    from './current-window.js';
@@ -13,6 +14,7 @@ import { BatteryIndicator } from './battery.js';
 import { Brightness }       from './brightness.js';
 import { AudioIndicator }   from './audio.js';
 import { Gesture }          from './gesture.js';
+
 
 export const Bar = Window({
   name: 'bar',

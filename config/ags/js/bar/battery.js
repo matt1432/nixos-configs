@@ -1,5 +1,5 @@
-const { Battery } = ags.Service;
-const { Label, Icon, Stack, Box } = ags.Widget;
+import { Battery, Widget } from '../../imports.js';
+const { Label, Icon, Stack, Box } = Widget;
 
 import { Separator } from '../misc/separator.js';
 
@@ -15,6 +15,7 @@ const icons = charging => ([
     icon: `battery-level-100${charging ? '-charged' : ''}-symbolic`,
   })],
 ]);
+
 
 const Indicators = charging => Stack({
   items: icons(charging),

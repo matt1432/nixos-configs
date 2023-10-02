@@ -1,7 +1,10 @@
+import { Widget } from '../../imports.js';
+
 import Gdk from 'gi://Gdk';
 const display = Gdk.Display.get_default();
 
-export const EventBox = ({ reset = true, ...params }) => ags.Widget.EventBox({
+
+export const EventBox = ({ reset = true, ...params }) => Widget.EventBox({
   ...params,
   onHover: box => {
     if (! box.child.sensitive || ! box.sensitive) {
@@ -17,7 +20,7 @@ export const EventBox = ({ reset = true, ...params }) => ags.Widget.EventBox({
   },
 });
 
-export const Button = ({ reset = true, ...params }) => ags.Widget.Button({
+export const Button = ({ reset = true, ...params }) => Widget.Button({
   ...params,
   onHover: box => {
     if (! box.child.sensitive || ! box.sensitive) {

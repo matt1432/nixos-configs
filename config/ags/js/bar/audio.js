@@ -1,5 +1,5 @@
-const { Audio } = ags.Service;
-const { Label, Box, Icon, Stack, Button, Slider } = ags.Widget;
+import { Audio, Widget } from '../../imports.js';
+const { Label, Box, Icon } = Widget;
 
 import { Separator } from '../misc/separator.js';
 import { EventBox } from '../misc/cursorbox.js';
@@ -12,12 +12,13 @@ const items = {
   0: 'audio-volume-muted-symbolic',
 };
 
+
 const SpeakerIndicator = params => Icon({
   ...params,
   icon: '',
   connections: [[Audio, icon => {
     if (Audio.speaker) {
-      if (Audio.speaker.isMuted) {
+      if (Audio.speaker.stream.isMuted) {
         icon.icon = items[0];
       }
       else {

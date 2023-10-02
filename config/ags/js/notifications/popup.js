@@ -1,8 +1,12 @@
+import { Notifications, Utils, Widget } from '../../imports.js';
+const { Box, Revealer, Window } = Widget;
+const { timeout, interval } = Utils;
+
+import GLib from 'gi://GLib';
+const { source_remove } = GLib;
+
 import Notification from './base.js';
-const { Notifications } = ags.Service;
-const { Box, Revealer, Window } = ags.Widget;
-const { timeout, interval } = ags.Utils;
-const { source_remove } = imports.gi.GLib;
+
 
 const Popups = () => Box({
   vertical: true,
@@ -36,9 +40,10 @@ const Popups = () => Box({
 
       box._map.delete(id);
 
+      let notif = Notifications.getNotification(id);
       box._map.set(id, Notification({
-        ...Notifications.getNotification(id),
-        command: i => Notifications.dismiss(i),
+        notif,
+        command: () => notif.dismiss(),
       }));
 
       box.children = Array.from(box._map.values()).reverse();

@@ -1,16 +1,18 @@
-const { Icon, Revealer } = ags.Widget;
-const { closeWindow } = ags.App;
-const { execAsync } = ags.Utils;
-const { Hyprland } = ags.Service;
+import { App, Hyprland, Utils, Widget } from '../../imports.js';
+const { Icon, Revealer } = Widget;
+const { closeWindow } = App;
+const { execAsync } = Utils;
 
 import { WindowButton } from './dragndrop.js';
 import * as VARS from './variables.js';
 
 Array.prototype.remove = function (el) { this.splice(this.indexOf(el), 1) };
+
 const IconStyle = app => `min-width: ${app.size[0] * VARS.SCALE - VARS.MARGIN}px;
                           min-height: ${app.size[1] * VARS.SCALE - VARS.MARGIN}px;
                           font-size: ${Math.min(app.size[0] * VARS.SCALE - VARS.MARGIN,
                             app.size[1] * VARS.SCALE - VARS.MARGIN) * VARS.ICON_SCALE}px;`;
+
 
 const Client = (client, active, clients) => Revealer({
   transition: 'crossfade',
@@ -65,7 +67,7 @@ const Client = (client, active, clients) => Revealer({
 });
 
 export function updateClients(box) {
-  ags.Utils.execAsync('hyprctl clients -j')
+  execAsync('hyprctl clients -j')
   .then(result => {
     let clients = JSON.parse(result).filter(client => client.class)
 
