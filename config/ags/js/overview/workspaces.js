@@ -60,18 +60,24 @@ export const WorkspaceRow = (className, i) => Revealer({
                   className: 'workspace',
                     style: DEFAULT_STYLE,
                 }),
-                overlays: [Box({
-                  style: DEFAULT_STYLE,
-                  children: [
-                    Widget({
-                      type: Gtk.Fixed,
-                    }),
-                    Label({
-                      label: '   +',
-                      style: 'font-size: 40px;',
-                    }),
-                  ],
-                })],
+                overlays: [
+                  Box({
+                    className: 'workspace active',
+                    style: `${DEFAULT_STYLE} opacity: 0;`,
+                  }),
+                  Box({
+                    style: DEFAULT_STYLE,
+                    children: [
+                      Widget({
+                        type: Gtk.Fixed,
+                      }),
+                      Label({
+                        label: '   +',
+                        style: 'font-size: 40px;',
+                      }),
+                    ],
+                  })
+                ],
               }),
             }),
           }),
@@ -96,7 +102,7 @@ const Workspace = (id, name) => Revealer({
     let activeId = Hyprland.active.workspace.id;
     let active = activeId === box._id;
 
-    let rev = box.child.child.child;
+    let rev = box.child.child.overlays[0];
     let n = activeId > box._id;
 
     if (Hyprland.getWorkspace(box._id)?.windows > 0 || active) {
@@ -144,15 +150,21 @@ const Workspace = (id, name) => Revealer({
     child: Overlay({
       child: Box({
         className: 'workspace active',
-          style: `${DEFAULT_STYLE} opacity: 0;`,
+        style: `${DEFAULT_STYLE} opacity: 0;`,
       }),
-      overlays: [Box({
-        className: 'workspace',
-        style: DEFAULT_STYLE,
-        child: Widget({
-          type: Gtk.Fixed,
+      overlays: [
+        Box({
+          className: 'workspace active',
+          style: `${DEFAULT_STYLE} opacity: 0;`,
         }),
-      })],
+        Box({
+          className: 'workspace',
+          style: DEFAULT_STYLE,
+          child: Widget({
+            type: Gtk.Fixed,
+          }),
+        })
+      ],
     }),
   }),
 });
