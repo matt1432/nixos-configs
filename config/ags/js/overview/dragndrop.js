@@ -66,6 +66,11 @@ export const WindowButton = ({address, ...params} = {}) => Button({
       button.get_parent().destroy();
       let mainBox = getWindow('overview').child.children[0].child;
       mainBox._updateClients(mainBox);
+
+      // Set the correct Icon size
+      setTimeout(() => {
+        mainBox._updateClients(mainBox);
+      }, 100);
     });
   },
 });
