@@ -3,9 +3,9 @@
   symlink = config.lib.file.mkOutOfStoreSymlink;
 in
 {
-  home.packages = [
-    pkgs.sassc
-    pkgs.coloryou
+  home.packages = with pkgs; [
+    sassc
+    coloryou
   ];
 
   imports = [

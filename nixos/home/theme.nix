@@ -1,5 +1,11 @@
-{ pkgs, ... }:
-
+{ pkgs, ... }: let
+  dracula-xresources = pkgs.fetchFromGitHub {
+    owner = "dracula";
+    repo = "xresources";
+    rev = "539ef24e9b0c5498a82d59bfa2bad9b618d832a3";
+    sha256 = "sha256-6fltsAluqOqYIh2NX0I/LC3WCWkb9Fn8PH6LNLBQbrY=";
+  };
+in
 {
   gtk = {
     enable = true;
@@ -18,6 +24,8 @@
       package = pkgs.dracula-icon-theme;
     };
   };
+
+  xresources.extraConfig = builtins.readFile("${dracula-xresources}/Xresources");
 
   xdg.configFile = {
     "../.themes/Dracula".source           = "${pkgs.dracula-theme}/share/themes/Dracula";
