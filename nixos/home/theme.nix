@@ -9,7 +9,7 @@ in
 {
   home.pointerCursor = {
     name = "Dracula-cursors";
-    package = pkgs.dracula-icon-theme;
+    package = pkgs.dracula-theme;
     size = 24;
 
     gtk.enable = true;

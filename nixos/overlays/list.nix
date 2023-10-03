@@ -18,10 +18,6 @@
     })
 
     (final: prev: {
-      lavanda-sddm = final.callPackage ./pkgs/lavanda-sddm.nix {};
-    })
-
-    (final: prev: {
       coloryou = final.callPackage ./pkgs/coloryou/default.nix {};
     })
 
