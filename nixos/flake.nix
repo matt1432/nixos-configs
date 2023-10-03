@@ -23,6 +23,13 @@
       system = "x86_64-linux";
       specialArgs = attrs;
       modules = [
+        ({ ... }: {
+          nix.registry = {
+            nixpkgs.flake = self.inputs.nixpkgs;
+            # Minimize dowloads of indirect nixpkgs flakes
+            nixpkgs.exact = false;
+          };
+        })
         ./configuration.nix
         home-manager.nixosModules.home-manager {
           home-manager.extraSpecialArgs = attrs;
