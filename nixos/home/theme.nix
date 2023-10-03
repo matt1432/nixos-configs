@@ -7,6 +7,11 @@
   };
 in
 {
+  home.packages = with pkgs; [
+    plasma5Packages.qtstyleplugin-kvantum
+    qt5ct
+  ];
+
   home.pointerCursor = {
     name = "Dracula-cursors";
     package = pkgs.dracula-theme;

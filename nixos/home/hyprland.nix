@@ -6,11 +6,6 @@
   polkit = pkgs.plasma5Packages.polkit-kde-agent;
 in
 {
-  home.packages = with pkgs; [
-    sassc
-    coloryou
-  ];
-
   imports = [
     ags.homeManagerModules.default
   ];
@@ -51,4 +46,45 @@ in
     "hypr/main.conf".source       = symlink "${configDir}/hypr/main.conf";
     "hypr/hyprpaper.conf".source  = symlink "${configDir}/hypr/hyprpaper.conf";
   };
+
+  home.packages = with pkgs; [
+    # ags
+    sassc
+    coloryou
+    libnotify
+    playerctl
+    bluez-tools
+    brightnessctl
+    pulseaudio
+    libinput
+
+    ## gui
+    pavucontrol # TODO: replace with ags widget
+    networkmanagerapplet # TODO: replace with ags widget
+    blueberry # TODO: replace with ags widget
+
+
+    # Hyprland
+    hyprpaper
+    swayidle
+    lisgd
+    swayosd
+    squeekboard
+    xclip
+    wl-clipboard
+    cliphist
+
+    ## gui
+    gtklock
+    wl-color-picker # TODO: add bind for this in hyprland
+    grim
+    slurp
+    swappy
+
+    ## libs
+    libayatana-appindicator
+    xdg-utils
+    evtest
+    glib
+  ];
 }
