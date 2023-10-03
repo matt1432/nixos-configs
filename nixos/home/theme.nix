@@ -7,6 +7,19 @@
   };
 in
 {
+  home.pointerCursor = {
+    name = "Dracula-cursors";
+    package = pkgs.dracula-icon-theme;
+    size = 24;
+
+    gtk.enable = true;
+
+    x11 = {
+      enable = true;
+      defaultCursor = "Dracula-cursors";
+    };
+  };
+
   gtk = {
     enable = true;
     theme = {
@@ -17,11 +30,6 @@ in
     iconTheme = {
       name = "Flat-Remix-Violet-Dark";
       package = pkgs.flat-remix-icon-theme;
-    };
-
-    cursorTheme = {
-      name = "Dracula-cursors";
-      package = pkgs.dracula-icon-theme;
     };
   };
 
