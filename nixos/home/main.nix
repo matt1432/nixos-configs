@@ -1,4 +1,4 @@
-{ home-manager,  ... }:
+{ home-manager, ... }:
 
 {
 ## Global config to add home-manager module
@@ -19,6 +19,7 @@
   home-manager.users.matt = {
 
     imports = [
+      ./dconf.nix
       ./hyprland.nix
       ./bashdots.nix
       ./dotfiles.nix

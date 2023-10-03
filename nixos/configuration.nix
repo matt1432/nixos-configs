@@ -30,7 +30,6 @@
 
   environment.sessionVariables = {
     NIXPKGS_ALLOW_UNFREE = "1";
-    GTK_THEME 		 = "Dracula";
     QT_QPA_PLATFORMTHEME = "qt5ct";
     QT_FONT_DPI		 = "125";
   };

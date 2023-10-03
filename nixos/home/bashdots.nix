@@ -43,8 +43,6 @@
       ls    = "ls -lah --color=auto";
       cp    = "cp -r";
 
-      ags   = "XDG_DATA_DIRS=/home/matt/.config/share ags";
-
       tup   = "tailscale up --login-server https://headscale.nelim.org";
 
       pc    = "mosh matt@10.0.0.248 -- tmux -2u new -At laptop";
