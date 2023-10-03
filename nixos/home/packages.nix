@@ -68,7 +68,6 @@
     (with gnome; [
       gnome-calculator
       seahorse
-      adwaita-icon-theme
 
     ]) ++ [
 
@@ -91,7 +90,7 @@
     virt-manager
     gradle
     gradle-completion # not working
-    jdk19_headless
+    temurin-bin-17
     #camunda-modeler
 
     protonmail-bridge
@@ -105,8 +104,6 @@
     libnotify
     libinput
     playerctl
-    dracula-theme
-    dracula-icon-theme
     steam-run
     wineWowPackages.stable
     cabextract
@@ -150,7 +147,6 @@
     swappy
     fontfor
     qt5ct
-    lxappearance
     imagemagick
     usbutils
     evtest

@@ -17,8 +17,6 @@
 
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
-      gtk-theme = "Dracula";
-      icon-theme = "Flat-Remix-Violet-Dark";
     };
   };
 }
