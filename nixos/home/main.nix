@@ -20,11 +20,11 @@
 
     imports = [
       ./dconf.nix
+      ./theme.nix
       ./hyprland.nix
       ./bashdots.nix
       ./dotfiles.nix
       ./packages.nix
-      ./misc.nix
       ./nvim.nix
     ];
 

@@ -1,9 +1,6 @@
-{ config, pkgs, ... }:
-
-let
-  configDir = "/home/matt/.nix/config";
+{ config, pkgs, ... }: let
+  configDir = (import ../vars.nix).configDir;
 in
-
 {
   xdg.configFile = {
     "swayosd/style.css".source     = config.lib.file.mkOutOfStoreSymlink "${configDir}/swayosd/style.css";

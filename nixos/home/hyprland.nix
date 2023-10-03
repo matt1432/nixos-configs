@@ -1,5 +1,5 @@
 { pkgs, config, hyprland, hyprgrass, ags, ... }: let
-  configDir = "/home/matt/.nix/config";
+  configDir = (import ../vars.nix).configDir;
 in
 {
   home.packages = [
@@ -39,15 +39,7 @@ in
     '';
   };
 
-  # https://www.reddit.com/r/NixOS/comments/vc3srj/comment/iccqxw1/?utm_source=share&utm_medium=web2x&context=3
   xdg.configFile = {
-    "../.themes/Dracula".source   = "${pkgs.dracula-theme}/share/themes/Dracula";
-
-    "Kvantum/Dracula".source              = "${pkgs.dracula-theme}/share/Kvantum/Dracula";
-    "Kvantum/Dracula-Solid".source        = "${pkgs.dracula-theme}/share/Kvantum/Dracula-Solid";
-    "Kvantum/Dracula-purple".source       = "${pkgs.dracula-theme}/share/Kvantum/Dracula-purple";
-    "Kvantum/Dracula-purple-solid".source = "${pkgs.dracula-theme}/share/Kvantum/Dracula-purple-solid";
-
     "hypr/main.conf".source       = config.lib.file.mkOutOfStoreSymlink "${configDir}/hypr/main.conf";
     "hypr/hyprpaper.conf".source  = config.lib.file.mkOutOfStoreSymlink "${configDir}/hypr/hyprpaper.conf";
   };
