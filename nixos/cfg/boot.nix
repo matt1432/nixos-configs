@@ -44,7 +44,7 @@
 
     plymouth = {
       enable = true;
-      themePackages = [ pkgs.dracula-plymouth ];
+      themePackages = [ pkgs.dracula-theme ];
       theme = "dracula";
     };
 
