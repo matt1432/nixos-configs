@@ -25,7 +25,8 @@
             Wayland.CompositorCommand = "${pkgs.weston}/bin/weston --shell=fullscreen-shell.so";
             Theme = {
               Current = "Dracula";
-              ThemeDir = "${pkgs.dracula-theme}/share/sddm/themes";
+              CursorTheme = "Dracula-cursors";
+              CursorSize = 24;
             };
           };
         };
@@ -160,6 +161,11 @@
 
   # List packages in root user PATH
   environment.systemPackages = with pkgs; [
+    # for sddm
+    dracula-theme
+    plasma5Packages.plasma-framework
+    plasma5Packages.plasma-workspace
+
     qemu
     wl-clipboard
     alsa-utils
@@ -172,8 +178,6 @@
     evtest
     plasma5Packages.kio-admin
     plasma5Packages.ksshaskpass
-    plasma5Packages.plasma-framework
-    plasma5Packages.plasma-workspace
   ];
 
   fonts = {
