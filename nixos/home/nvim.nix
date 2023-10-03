@@ -1,5 +1,4 @@
-{ pkgs, lib, ... }:
-let
+{ pkgs, lib, ... }: let
   # installs a vim plugin from git with a given tag / branch
   plugin = owner: repo: rev: hash: pkgs.vimUtils.buildVimPlugin {
     pname = "${lib.strings.sanitizeDerivationName repo}";
@@ -9,12 +8,14 @@ let
     };
   };
 in
+
 {
   xdg.configFile = {
     "../.gradle/gradle.properties".source = pkgs.writeText "gradle.properties" ''
       org.gradle.java.home = ${pkgs.temurin-bin-17}
     '';
   };
+
   programs.neovim = {
     enable = true;
     package = pkgs.neovim-nightly;
@@ -67,6 +68,7 @@ in
         };
       };
     };
+
     plugins = with pkgs.vimPlugins; [
       vim-which-key
 

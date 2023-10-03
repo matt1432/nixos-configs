@@ -1,26 +1,30 @@
 { config, pkgs, ... }: let
   configDir = (import ../vars.nix).configDir;
+  symlink = config.lib.file.mkOutOfStoreSymlink;
 in
 {
   xdg.configFile = {
-    "swayosd/style.css".source     = config.lib.file.mkOutOfStoreSymlink "${configDir}/swayosd/style.css";
+    "swayosd/style.css".source     = symlink "${configDir}/swayosd/style.css";
 
     "gtklock/config.ini".source    = pkgs.writeText "config.ini" ''
-                                      [main]
-                                      modules=${pkgs.gtklock-powerbar-module}/lib/gtklock/powerbar-module.so;${pkgs.gtklock-playerctl-module}/lib/gtklock/playerctl-module.so
+      [main]
+      modules=${builtins.concatStringsSep ";" [
+        "${pkgs.gtklock-powerbar-module}/lib/gtklock/powerbar-module.so"
+        "${pkgs.gtklock-playerctl-module}/lib/gtklock/playerctl-module.so"
+      ]}
                                     '';
-    "gtklock/style.css".source     = config.lib.file.mkOutOfStoreSymlink "${configDir}/gtklock/style.css";
+    "gtklock/style.css".source     = symlink "${configDir}/gtklock/style.css";
 
-    "ripgrep".source               = config.lib.file.mkOutOfStoreSymlink "${configDir}/ripgrep";
+    "ripgrep".source               = symlink "${configDir}/ripgrep";
 
-    "discord/settings.json".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/discord/settings.json";
+    "discord/settings.json".source = symlink "${configDir}/discord/settings.json";
 
-    "dolphinrc".source             = config.lib.file.mkOutOfStoreSymlink "${configDir}/dolphinrc";
-    "kdeglobals".source            = config.lib.file.mkOutOfStoreSymlink "${configDir}/kdeglobals";
-    "kiorc".source                 = config.lib.file.mkOutOfStoreSymlink "${configDir}/kiorc";
-    "mimeapps.list".source         = config.lib.file.mkOutOfStoreSymlink "${configDir}/mimeapps.list";
-    "neofetch".source              = config.lib.file.mkOutOfStoreSymlink "${configDir}/neofetch";
-    "swappy".source                = config.lib.file.mkOutOfStoreSymlink "${configDir}/swappy";
+    "dolphinrc".source             = symlink "${configDir}/dolphinrc";
+    "kdeglobals".source            = symlink "${configDir}/kdeglobals";
+    "kiorc".source                 = symlink "${configDir}/kiorc";
+    "mimeapps.list".source         = symlink "${configDir}/mimeapps.list";
+    "neofetch".source              = symlink "${configDir}/neofetch";
+    "swappy".source                = symlink "${configDir}/swappy";
   };
 
   programs = {

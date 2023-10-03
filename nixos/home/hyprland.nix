@@ -1,10 +1,10 @@
 { pkgs, config, hyprland, hyprgrass, ags, ... }: let
   configDir = (import ../vars.nix).configDir;
+  symlink = config.lib.file.mkOutOfStoreSymlink;
 in
 {
   home.packages = [
     pkgs.sassc
-    pkgs.flat-remix-icon-theme
     pkgs.coloryou
   ];
 
@@ -16,7 +16,7 @@ in
   programs.ags = {
     enable = true;
     package = ags.packages.x86_64-linux.default;
-    configDir = config.lib.file.mkOutOfStoreSymlink "${configDir}/ags";
+    configDir = symlink "${configDir}/ags";
   };
 
   wayland.windowManager.hyprland = {
@@ -40,7 +40,7 @@ in
   };
 
   xdg.configFile = {
-    "hypr/main.conf".source       = config.lib.file.mkOutOfStoreSymlink "${configDir}/hypr/main.conf";
-    "hypr/hyprpaper.conf".source  = config.lib.file.mkOutOfStoreSymlink "${configDir}/hypr/hyprpaper.conf";
+    "hypr/main.conf".source       = symlink "${configDir}/hypr/main.conf";
+    "hypr/hyprpaper.conf".source  = symlink "${configDir}/hypr/hyprpaper.conf";
   };
 }
