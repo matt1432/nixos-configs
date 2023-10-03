@@ -17,6 +17,11 @@
     ripgrep = {
       enable = true;
     };
+
+    java = {
+      enable = true;
+      package = pkgs.temurin-bin-17;
+    };
   };
 
   xdg.desktopEntries.gparted = {
@@ -90,7 +95,6 @@
     virt-manager
     gradle
     gradle-completion # not working
-    temurin-bin-17
     #camunda-modeler
 
     protonmail-bridge
