@@ -3,7 +3,8 @@ button,
 eventbox,
 box,
 progressbar,
-trough {
+trough,
+undershoot {
   all: unset; }
 
 .powermenu {
