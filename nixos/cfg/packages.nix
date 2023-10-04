@@ -48,6 +48,8 @@
 
     locate = {
       enable = true;
+      locate = pkgs.mlocate;
+      localuser = null;
       interval = "hourly";
       prunePaths = [
         "/tmp"
@@ -58,8 +60,7 @@
         "/var/spool"
         "/nix/var/log/nix"
         "/proc"
-        "/run/user/1000"
-        "${pkgs.findutils}/" # doesn't work?
+        "/run/user"
       ];
     };
   };
