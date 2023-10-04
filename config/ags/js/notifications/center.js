@@ -16,7 +16,7 @@ const ClearButton = () => EventBox({
         ch.child.setStyle(ch.child._rightAnim1);
         timeout(500, () => {
           button._notifList.remove(ch);
-          Notifications.close(ch._id);
+          Notifications.notifications.forEach(n => n.close());
         });
       });
     },
