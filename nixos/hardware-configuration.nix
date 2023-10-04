@@ -19,7 +19,7 @@
   boot.initrd.luks.devices."root".device = "/dev/disk/by-uuid/ab82b477-2477-453f-b95f-28e5553ad10d";
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/F6E1-006D";
+    device = "/dev/disk/by-label/NIXBOOT";
     fsType = "vfat";
   };
 
