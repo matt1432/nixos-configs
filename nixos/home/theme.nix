@@ -7,11 +7,6 @@
   };
 in
 {
-  home.packages = with pkgs; [
-    plasma5Packages.qtstyleplugin-kvantum
-    qt5ct
-  ];
-
   home.pointerCursor = {
     name = "Dracula-cursors";
     package = pkgs.dracula-theme;
@@ -38,14 +33,21 @@ in
     };
   };
 
+  qt = {
+    enable = true;
+    platformTheme = "qtct";
+    style.name = "Kvantum";
+  };
+
   xresources.extraConfig = builtins.readFile("${dracula-xresources}/Xresources");
 
-  xdg.configFile = {
-    "../.themes/Dracula".source           = "${pkgs.dracula-theme}/share/themes/Dracula";
+  home.sessionVariables = {
+    QT_FONT_DPI		 = "125";
+  };
 
-    "Kvantum/Dracula".source              = "${pkgs.dracula-theme}/share/Kvantum/Dracula";
-    "Kvantum/Dracula-Solid".source        = "${pkgs.dracula-theme}/share/Kvantum/Dracula-Solid";
-    "Kvantum/Dracula-purple".source       = "${pkgs.dracula-theme}/share/Kvantum/Dracula-purple";
-    "Kvantum/Dracula-purple-solid".source = "${pkgs.dracula-theme}/share/Kvantum/Dracula-purple-solid";
+  xdg.configFile = {
+    "Kvantum/Dracula/Dracula.kvconfig".source = "${pkgs.dracula-theme}/share/Kvantum/Dracula-purple-solid/Dracula-purple-solid.kvconfig";
+    "Kvantum/Dracula/Dracula.svg".source      = "${pkgs.dracula-theme}/share/Kvantum/Dracula-purple-solid/Dracula-purple-solid.svg";
+    "Kvantum/kvantum.kvconfig".text           = "[General]\ntheme=Dracula";
   };
 }

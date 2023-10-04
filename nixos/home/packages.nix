@@ -69,17 +69,17 @@
     firefox # TODO: use programs.firefox
     spotifywm
     zeal
-    libreoffice-fresh # TODO: add spelling stuff
+    libreoffice-fresh # TODO: add spelling stuff and declarative conf?
     photoqt
-    gimp-with-plugins
+    gimp-with-plugins # TODO: set plugins using nix
     vlc
     discord
     nextcloud-client
+    jellyfin-media-player
+    xournalpp
 
     # Misc CLI
     neofetch
-    qt5.qtwayland
-    qt6.qtwayland
     acpi
     progress
     alsa-utils
