@@ -51,7 +51,7 @@ const QuickSettingsWidget = Box({
               }
             }]],
             child: Icon({
-              icon: 'folder-download-symbolic',
+              icon: 'go-down-symbolic',
               className: 'arrow',
               style: `-gtk-icon-transform: rotate(180deg);`,
             }),
