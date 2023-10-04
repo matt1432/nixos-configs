@@ -1,45 +1,25 @@
 .sys-tray {
   padding: 5px;
   background-color: $bg;
-  color: #CBA6F7;
   border-radius: 80px;
   border: 2px solid $bgSecondary;
   transition: background-color 0.5s ease-in-out,
               border 0.5s ease-in-out;
 
   .tray-item {
-    all: unset;
+    image { color: #CBA6F7; }
     padding: 0px 2px 0px 2px;
-    font-size: 25px;
     border-radius: 100%;
-    transition: background-color 0.5s ease-in-out,
-                border 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+
     &:hover {
-      background: rgba(127, 132, 156, 0.4);
       border-radius: 100%;
-      transition: background-color 0.5s ease-in-out,
-                  border 0.5s ease-in-out;
+      transition: all 0.5s ease-in-out;
     }
-  }
 
-  menu {
-    background: $bgfull;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    border: 2px solid #1b1b1b;
-    border-radius: 10px;
-
-    check {
-      color: white;
-      margin-left: 2px;
-      margin-right: 5px;
-      min-height: 20px;
-      min-width: 20px;
-      -gtk-icon-source: -gtk-icontheme('checkbox-symbolic');
-
-      &:checked {
-        -gtk-icon-source: -gtk-icontheme('checkbox-checked-symbolic');
-      }
+    * {
+      font-size: 25px;
+      border-radius: 10px;
     }
   }
 
