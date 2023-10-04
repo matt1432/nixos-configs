@@ -1,4 +1,5 @@
-{ pkgs, ... }: let
+{ pkgs, lib, ... }: let
+  font-size = 12;
   dracula-xresources = pkgs.fetchFromGitHub {
     owner = "dracula";
     repo = "xresources";
@@ -31,23 +32,40 @@ in
       name = "Flat-Remix-Violet-Dark";
       package = pkgs.flat-remix-icon-theme;
     };
+
+    font = {
+      name = "Sans Serif";
+      size = font-size;
+    };
   };
 
+  home.packages = with pkgs; [
+    libsForQt5.qtstyleplugin-kvantum
+    qt6Packages.qtstyleplugin-kvantum #FIXME: doesn't work with qt6ct
+  ];
   qt = {
     enable = true;
     platformTheme = "qtct";
-    style.name = "Kvantum";
   };
 
   xresources.extraConfig = builtins.readFile("${dracula-xresources}/Xresources");
 
-  home.sessionVariables = {
-    QT_FONT_DPI		 = "125";
-  };
+  xdg.configFile = let
+    qtconf = ''
+      [Fonts]
+      fixed="Sans Serif,${lib.strings.floatToString font-size},-1,5,50,0,0,0,0,0"
+      general="Sans Serif,${lib.strings.floatToString font-size},-1,5,50,0,0,0,0,0"
 
-  xdg.configFile = {
+      [Appearance]
+      icon_theme=Flat-Remix-Violet-Dark
+      style=''
+    ;
+  in
+  {
     "Kvantum/Dracula/Dracula.kvconfig".source = "${pkgs.dracula-theme}/share/Kvantum/Dracula-purple-solid/Dracula-purple-solid.kvconfig";
     "Kvantum/Dracula/Dracula.svg".source      = "${pkgs.dracula-theme}/share/Kvantum/Dracula-purple-solid/Dracula-purple-solid.svg";
     "Kvantum/kvantum.kvconfig".text           = "[General]\ntheme=Dracula";
+
+    "qt5ct/qt5ct.conf".text = qtconf + "kvantum";
   };
 }
