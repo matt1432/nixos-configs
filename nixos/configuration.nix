@@ -25,7 +25,6 @@
     #useXkbConfig = true; # use xkbOptions in tty.
   };
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nixpkgs.config.allowUnfree = true;
 
   # This value determines the NixOS release from which the default

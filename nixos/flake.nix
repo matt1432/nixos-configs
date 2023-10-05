@@ -24,10 +24,20 @@
       specialArgs = attrs;
       modules = [
         ({ ... }: {
-          nix.registry = {
-            nixpkgs.flake = self.inputs.nixpkgs;
+          nix = {
+            # Edit nix.conf
+            settings = {
+              experimental-features = [ "nix-command" "flakes" ];
+              keep-outputs = true;
+              auto-optimise-store = true;
+              warn-dirty = false;
+            };
+
             # Minimize dowloads of indirect nixpkgs flakes
-            nixpkgs.exact = false;
+            registry = {
+              nixpkgs.flake = self.inputs.nixpkgs;
+              nixpkgs.exact = false;
+            };
           };
         })
         ./configuration.nix
