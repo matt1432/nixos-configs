@@ -38,6 +38,7 @@
       vi    = "nvim";
       vim   = "nvim";
       nivm  = "nvim";
+      nivim = "nvim";
 
       tmux  = "tmux -2";
       ls    = "ls -lah --color=auto";
@@ -62,12 +63,32 @@
       [[ -f ~/.bashrc ]] && . ~/.bashrc
     '';
     bashrcExtra = ''
-      PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
-      [[ -d ~/.local/bin ]] && PATH+=":$HOME/.local/bin"
+      # PS1
+      USER_COLOR="\[\033[01;32m\]"
+      HOST_COLOR="\[\033[01;38;5;183m\]"
+      WHITE="\[\033[00m\]"
+      PURPLE="\[\033[01;34m\]"
+      RED="\[\033[38;5;124m\]"
+      FAILED="$RED⛔$WHITE"
 
-      USER_COLOR="01;32m"
-      HOST_COLOR="183m"
-      PS1="\[\033[$USER_COLOR\]\u\[\033[01;38;5;$HOST_COLOR\]@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$ "
+      set_prompt() {
+          BRANCH=$(git symbolic-ref -q --short HEAD 2>/dev/null)
+          if [ -n "$BRANCH" ]; then
+              BRANCH="$RED($WHITE$BRANCH$RED)"
+          fi
+
+          if [ "$1" == 0 ]; then
+              STATUS=""
+          else
+              STATUS="$FAILED"
+          fi
+
+          PS1="╭╴$USER_COLOR\u$HOST_COLOR@\h$BRANCH$WHITE:$PURPLE\w$WHITE $STATUS\n╰╴$ "
+      }
+
+      PROMPT_COMMAND="set_prompt \$?; history -a"
+
+      [[ -d ~/.local/bin ]] && PATH+=":$HOME/.local/bin"
 
       # source: https://stackoverflow.com/a/44232192
       PATH="$(perl -e 'print join(":", grep { not $seen{$_}++ } split(/:/, $ENV{PATH}))')"
