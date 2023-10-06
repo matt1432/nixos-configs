@@ -1,5 +1,5 @@
-{ ... }:
-
+{ lib, ... }:
+ 
 {
   programs.bash = {   # TODO: deal with root dotfiles
     enable = true;
@@ -63,107 +63,11 @@
       [[ -f ~/.bashrc ]] && . ~/.bashrc
     '';
     bashrcExtra = ''
-      # PS1
-      USER_COLOR="\[\033[01;32m\]"
-      HOST_COLOR="\[\033[01;38;5;183m\]"
-      WHITE="\[\033[00m\]"
-      PURPLE="\[\033[01;34m\]"
-      RED="\[\033[38;5;124m\]"
-      FAILED="$RED⛔$WHITE"
+      ${lib.strings.fileContents ../../config/bash/dracula/less.sh}
+      ${lib.strings.fileContents ../../config/bash/dracula/fzf.sh}
 
-      set_prompt() {
-          BRANCH=$(git symbolic-ref -q --short HEAD 2>/dev/null)
-          if [ -n "$BRANCH" ]; then
-              BRANCH="$RED($WHITE$BRANCH$RED)"
-          fi
-
-          if [ "$1" == 0 ]; then
-              STATUS=""
-          else
-              STATUS="$FAILED"
-          fi
-
-          PS1="╭╴$USER_COLOR\u$HOST_COLOR@\h$BRANCH$WHITE:$PURPLE\w$WHITE $STATUS\n╰╴$ "
-      }
-
-      PROMPT_COMMAND="set_prompt \$?; history -a"
-
-      [[ -d ~/.local/bin ]] && PATH+=":$HOME/.local/bin"
-
-      # source: https://stackoverflow.com/a/44232192
-      PATH="$(perl -e 'print join(":", grep { not $seen{$_}++ } split(/:/, $ENV{PATH}))')"
-
-      [ -x "$(command -v pokemon-colorscripts)" ] &&
-      [ "$POKE" == "true" ] &&
-      pokemon-colorscripts -r 1-5
-
-      function colorgrid() {
-        iter=16
-        while [ $iter -lt 52 ]
-        do
-          second=$[$iter+36]
-          third=$[$second+36]
-          four=$[$third+36]
-          five=$[$four+36]
-          six=$[$five+36]
-          seven=$[$six+36]
-          if [ $seven -gt 250 ];then seven=$[$seven-251]; fi
-
-          echo -en "\033[38;5;$(echo $iter)m█ "
-          printf "%03d" $iter
-          echo -en "   \033[38;5;$(echo $second)m█ "
-          printf "%03d" $second
-          echo -en "   \033[38;5;$(echo $third)m█ "
-          printf "%03d" $third
-          echo -en "   \033[38;5;$(echo $four)m█ "
-          printf "%03d" $four
-          echo -en "   \033[38;5;$(echo $five)m█ "
-          printf "%03d" $five
-          echo -en "   \033[38;5;$(echo $six)m█ "
-          printf "%03d" $six
-          echo -en "   \033[38;5;$(echo $seven)m█ "
-          printf "%03d" $seven
-
-          iter=$[$iter+1]
-          printf '\r\n'
-        done
-      }
-
-      ### DRACULA
-
-      export FZF_DEFAULT_OPTS='--color=fg:#f8f8f2,hl:#bd93f9 --color=fg+:#f8f8f2,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4'
-
-      #man-page colors
-      export LESS_TERMCAP_mb=$'\e[1;31m'      # begin bold
-      export LESS_TERMCAP_md=$'\e[1;34m'      # begin blink
-      export LESS_TERMCAP_so=$'\e[01;45;37m'  # begin reverse video
-      export LESS_TERMCAP_us=$'\e[01;36m'     # begin underline
-      export LESS_TERMCAP_me=$'\e[0m'         # reset bold/blink
-      export LESS_TERMCAP_se=$'\e[0m'         # reset reverse video
-      export LESS_TERMCAP_ue=$'\e[0m'         # reset underline
-
-      if [ "$TERM" = "linux" ]; then
-        printf %b '\e[40m' '\e[8]' # set default background to color 0 'dracula-bg'
-        printf %b '\e[37m' '\e[8]' # set default foreground to color 7 'dracula-fg'
-        printf %b '\e]P0282a36'    # redefine 'black'          as 'dracula-bg'
-        printf %b '\e]P86272a4'    # redefine 'bright-black'   as 'dracula-comment'
-        printf %b '\e]P1ff5555'    # redefine 'red'            as 'dracula-red'
-        printf %b '\e]P9ff7777'    # redefine 'bright-red'     as '#ff7777'
-        printf %b '\e]P250fa7b'    # redefine 'green'          as 'dracula-green'
-        printf %b '\e]PA70fa9b'    # redefine 'bright-green'   as '#70fa9b'
-        printf %b '\e]P3f1fa8c'    # redefine 'brown'          as 'dracula-yellow'
-        printf %b '\e]PBffb86c'    # redefine 'bright-brown'   as 'dracula-orange'
-        printf %b '\e]P4bd93f9'    # redefine 'blue'           as 'dracula-purple'
-        printf %b '\e]PCcfa9ff'    # redefine 'bright-blue'    as '#cfa9ff'
-        printf %b '\e]P5ff79c6'    # redefine 'magenta'        as 'dracula-pink'
-        printf %b '\e]PDff88e8'    # redefine 'bright-magenta' as '#ff88e8'
-        printf %b '\e]P68be9fd'    # redefine 'cyan'           as 'dracula-cyan'
-        printf %b '\e]PE97e2ff'    # redefine 'bright-cyan'    as '#97e2ff'
-        printf %b '\e]P7f8f8f2'    # redefine 'white'          as 'dracula-fg'
-        printf %b '\e]PFffffff'    # redefine 'bright-white'   as '#ffffff'
-        clear
-        pokemon-colorscripts -r 1-5
-      fi
+      ${lib.strings.fileContents ../../config/bash/colorgrid.sh}
+      ${lib.strings.fileContents ../../config/bash/bashrc}
     '';
     #initExtra = ''
     #'';
