@@ -46,6 +46,17 @@
     flatpak.enable = true;
     tlp.enable = true;
 
+    kmscon = {
+      enable = true;
+      hwRender = true;
+      fonts = [
+        {
+          name = "Source Code Pro";
+          package = pkgs.source-code-pro;
+        }
+      ];
+    };
+
     locate = {
       enable = true;
       locate = pkgs.mlocate;
