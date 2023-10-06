@@ -18,7 +18,12 @@ set_prompt() {
         STATUS="$FAILED"
     fi
 
-    PS1="╭╴$USER_COLOR\u$HOST_COLOR@\h$BRANCH$WHITE:$PURPLE\w$WHITE $STATUS\n╰╴$ "
+    LEVEL=""
+    if [ $SHLVL -gt 1 ]; then
+      LEVEL="shellDepth=\$((SHLVL-1))"
+    fi
+
+    PS1="╭╴$USER_COLOR\u$HOST_COLOR@\h$BRANCH$WHITE:$PURPLE\w$WHITE $LEVEL $STATUS\n╰╴$ "
 }
 
 PROMPT_COMMAND="set_prompt \$?; history -a"
