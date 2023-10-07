@@ -20,7 +20,8 @@
       ];
 
       nix_shell = {
-        #TODO
+        symbol = "❄️ ";
+        format = "[$symbol]($style)";
       };
 
       username = {
