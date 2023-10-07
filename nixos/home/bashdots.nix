@@ -16,8 +16,12 @@
         "[](fg:#382c4a bg:#120e18)"
         "$git_branch"
         "[](fg:#120e18)"
-        "\n╰╴$shlvl$character"
+        "\n╰╴$shlvl$nix_shell$character"
       ];
+
+      nix_shell = {
+        #TODO
+      };
 
       username = {
         show_always = true;
