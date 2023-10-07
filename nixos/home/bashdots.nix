@@ -48,6 +48,7 @@
         style = "fg:#bd93f9 bg:#382c4a";
         format = "[ $path ]($style)";
         truncate_to_repo = false;
+        truncation_length = 0;
       };
 
       directory.substitutions = {
