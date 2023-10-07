@@ -113,6 +113,8 @@
       ls    = "ls -lah --color=auto";
       cp    = "cp -r";
 
+      chore = "(cd ~/.nix/nixos; git add flake.lock; git commit -m 'chore: update flake.lock'; git push)";
+
       tup   = "tailscale up --login-server https://headscale.nelim.org";
 
       pc    = "mosh matt@10.0.0.248 -- tmux -2u new -At laptop";
