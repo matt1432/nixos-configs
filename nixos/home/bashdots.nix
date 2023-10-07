@@ -11,6 +11,7 @@
         "[   ](bg:#bd93f9 fg:#090c0c)"
         "[](bg:#715895 fg:#bd93f9)"
         "$username$hostname"
+        "$sudo"
         "[](fg:#715895 bg:#382c4a)"
         "$directory"
         "[](fg:#382c4a bg:#120e18)"
@@ -19,9 +20,10 @@
         "\n╰╴$shlvl$nix_shell$character"
       ];
 
-      nix_shell = {
-        symbol = "❄️ ";
-        format = "[$symbol]($style)";
+      sudo = {
+        disabled = false;
+        style = "fg:#e3e5e5 bg:#715895";
+        format = "[as root ]($style)";
       };
 
       username = {
@@ -36,6 +38,26 @@
         format = "[@$hostname ]($style)";
       };
 
+      directory = {
+        style = "fg:#bd93f9 bg:#382c4a";
+        format = "[ $path ]($style)";
+        truncate_to_repo = false;
+        truncation_length = 0;
+
+        substitutions = {
+          "Documents" = "󰈙 ";
+          "Downloads" = " ";
+          "Music" = " ";
+          "Pictures" = " ";
+        };
+      };
+
+      git_branch = {
+        style = "fg:#715895 bg:#120e18";
+        symbol = "";
+        format = "[ $symbol $branch ]($style)";
+      };
+
       shlvl = {
         disabled = false;
         repeat = true;
@@ -44,29 +66,14 @@
         threshold = 1;
       };
 
+      nix_shell = {
+        symbol = "❄️ ";
+        format = "[$symbol]($style)";
+      };
+
       character = {
         success_symbol = "[\\$](bold green)";
         error_symbol = "[\\$](bold red)";
-      };
-
-      directory = {
-        style = "fg:#bd93f9 bg:#382c4a";
-        format = "[ $path ]($style)";
-        truncate_to_repo = false;
-        truncation_length = 0;
-      };
-
-      directory.substitutions = {
-        "Documents" = "󰈙 ";
-        "Downloads" = " ";
-        "Music" = " ";
-        "Pictures" = " ";
-      };
-
-      git_branch = {
-        style = "fg:#715895 bg:#120e18";
-        symbol = "";
-        format = "[ $symbol $branch ]($style)";
       };
     };
   };
