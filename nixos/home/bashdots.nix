@@ -1,6 +1,70 @@
 { lib, ... }:
  
 {
+  programs.starship = {
+    enable = true;
+    enableBashIntegration = true;
+    settings = {
+      format = lib.concatStrings [
+        "╭╴"
+        "[](fg:#bd93f9)"
+        "[   ](bg:#bd93f9 fg:#090c0c)"
+        "[](bg:#715895 fg:#bd93f9)"
+        "$username$hostname"
+        "[](fg:#715895 bg:#382c4a)"
+        "$directory"
+        "[](fg:#382c4a bg:#120e18)"
+        "$git_branch"
+        "[](fg:#120e18)"
+        "\n╰╴$shlvl$character"
+      ];
+
+      username = {
+        show_always = true;
+        style_user = "fg:#e3e5e5 bg:#715895";
+        format = "[ $user]($style)";
+      };
+
+      hostname = {
+        ssh_only = false;
+        style = "fg:#e3e5e5 bg:#715895";
+        format = "[@$hostname ]($style)";
+      };
+
+      shlvl = {
+        disabled = false;
+        repeat = true;
+        symbol = "󰔳 ";
+        format = "[$symbol]($style)";
+        threshold = 1;
+      };
+
+      character = {
+        success_symbol = "[\\$](bold green)";
+        error_symbol = "[\\$](bold red)";
+      };
+
+      directory = {
+        style = "fg:#bd93f9 bg:#382c4a";
+        format = "[ $path ]($style)";
+        truncate_to_repo = false;
+      };
+
+      directory.substitutions = {
+        "Documents" = "󰈙 ";
+        "Downloads" = " ";
+        "Music" = " ";
+        "Pictures" = " ";
+      };
+
+      git_branch = {
+        style = "fg:#715895 bg:#120e18";
+        symbol = "";
+        format = "[ $symbol $branch ]($style)";
+      };
+    };
+  };
+
   programs.bash = {   # TODO: deal with root dotfiles
     enable = true;
     enableCompletion = true;

@@ -122,6 +122,22 @@ in
           opacity = 0.8;
         };
 
+        font = {
+          normal = {
+            family = "JetBrainsMono Nerd Font";
+            style = "Regular";
+          };
+          bold = {
+            family = "JetBrainsMono Nerd Font";
+            style = "Bold";
+          };
+          italic = {
+            family = "JetBrainsMono Nerd Font";
+            style = "Italic";
+          };
+          size = 12.5;
+        };
+
         # https://github.com/dracula/alacritty/blob/05faff15c0158712be87d200081633d9f4850a7d/dracula.yml
         colors = {
           primary = {

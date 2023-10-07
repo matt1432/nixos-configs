@@ -26,7 +26,7 @@ set_prompt() {
     PS1="╭╴$USER_COLOR\u$HOST_COLOR@\h$BRANCH$WHITE:$PURPLE\w$WHITE $LEVEL $STATUS\n╰╴$ "
 }
 
-PROMPT_COMMAND="set_prompt \$?; history -a"
+PROMPT_COMMAND="history -a"
 
 
 #PATH manipulations

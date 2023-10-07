@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -20,9 +20,12 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_CA.UTF-8";
   console = {
-    #font = "Lat2-Terminus16";
     keyMap = "ca";
-    #useXkbConfig = true; # use xkbOptions in tty.
+  };
+  services.kmscon = {
+    enable = true;
+    hwRender = true;
+    extraOptions = "--font-size 12.5 --font-dpi 170 --font-name 'JetBrainsMono Nerd Font'";
   };
 
   nixpkgs.config.allowUnfree = true;
