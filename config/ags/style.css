@@ -154,6 +154,7 @@ tooltip {
   border: 2px solid rgba(56, 44, 74, 0.8);
   transition: background-color 0.5s ease-in-out, border 0.5s ease-in-out; }
   .sys-tray .tray-item {
+    background-color: transparent;
     padding: 0px 2px 0px 2px;
     border-radius: 100%;
     transition: all 0.5s ease-in-out; }
@@ -165,6 +166,8 @@ tooltip {
     .sys-tray .tray-item * {
       font-size: 25px;
       border-radius: 10px; }
+  .sys-tray menubar {
+    background-color: transparent; }
   .sys-tray menuitem:not(.tray-item) {
     padding: 5px;
     transition: all 0.2s ease-in-out; }

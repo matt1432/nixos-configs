@@ -8,6 +8,7 @@
 
   .tray-item {
     image { color: #CBA6F7; }
+    background-color: transparent;
     padding: 0px 2px 0px 2px;
     border-radius: 100%;
     transition: all 0.5s ease-in-out;
@@ -21,6 +22,10 @@
       font-size: 25px;
       border-radius: 10px;
     }
+  }
+
+  menubar {
+    background-color: transparent;
   }
 
   menuitem:not(.tray-item) {
