@@ -1,4 +1,4 @@
-{ home-manager, ... }:
+{ home-manager, nur, ... }:
 
 {
 ## Global config to add home-manager module
@@ -19,6 +19,7 @@
   home-manager.users.matt = {
 
     imports = [
+      nur.hmModules.nur
       ./dconf.nix
       ./theme.nix
       ./hyprland.nix

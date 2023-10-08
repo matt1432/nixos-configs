@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
   programs = {
@@ -24,40 +24,43 @@
     };
   };
 
-  home.packages = with pkgs;
-    (with python311Packages; [
-      python
-      pyclip
+  home.packages = (with pkgs.python311Packages; [
+    python
+    pyclip
+  ]) ++
 
-    ]) ++
-    (with nodePackages; [
-      undollar
+  (with pkgs.nodePackages; [
+    undollar
+  ]) ++
 
-    ]) ++
-    (with plasma5Packages; [
-      polkit-kde-agent
-      ark
-      kcharselect
-      kdenlive
-      okular
+  (with pkgs.plasma5Packages; [
+    polkit-kde-agent
+    ark
+    kcharselect
+    kdenlive
+    okular
 
-      # Dolphin & co
-      dolphin
-      dolphin-plugins
-      kdegraphics-thumbnailers
-      ffmpegthumbs
-      kio
-      kio-admin # needs to be both here and in system pkgs
-      kio-extras
-      kmime
+    # Dolphin & co
+    dolphin
+    dolphin-plugins
+    kdegraphics-thumbnailers
+    ffmpegthumbs
+    kio
+    kio-admin # needs to be both here and in system pkgs
+    kio-extras
+    kmime
+  ]) ++
 
-    ]) ++
-    (with gnome; [
-      gnome-calculator
-      seahorse
+  (with pkgs.gnome; [
+    gnome-calculator
+    seahorse
+  ]) ++
 
-    ]) ++ [
+  (with config.nur.repos.rycee; [
+    mozilla-addons-to-nix
+  ]) ++
 
+  (with pkgs; [
     # School
     virt-manager
     gradle
@@ -105,7 +108,7 @@
       ) &
       exec env SUDO_ASKPASS=${pkgs.plasma5Packages.ksshaskpass}/bin/${pkgs.plasma5Packages.ksshaskpass.pname} sudo -k -EA "${gparted}/bin/${gparted.pname}" "$@"
     '')
-  ];
+  ]);
 
   xdg.desktopEntries.gparted = {
     name = "GParted";
