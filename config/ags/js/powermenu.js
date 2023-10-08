@@ -1,7 +1,7 @@
 import { Widget } from '../imports.js';
-const { Window, CenterBox, Label } = Widget;
+const { CenterBox, Label } = Widget;
 
-import { PopUp } from './misc/popup.js';
+import { PopupWindow } from './misc/popup.js';
 import { Button } from './misc/cursorbox.js'
 
 
@@ -37,13 +37,8 @@ const PowermenuWidget = CenterBox({
   }),
 });
 
-export const Powermenu = Window({
+export const Powermenu = PopupWindow({
   name: 'powermenu',
-  popup: true,
-  layer: 'overlay',
-  child: PopUp({
-    name: 'powermenu',
-    transition: 'crossfade',
-    child: PowermenuWidget,
-  }),
+  transition: 'crossfade',
+  child: PowermenuWidget,
 });

@@ -1,11 +1,11 @@
 import { Notifications, App, Utils, Widget } from '../../imports.js';
-const { Button, Label, Box, Icon, Scrollable, Window, Revealer } = Widget;
+const { Button, Label, Box, Icon, Scrollable, Revealer } = Widget;
 const { timeout } = Utils;
 const { getWindow } = App;
 
 import Notification from './base.js';
 import { EventBox } from '../misc/cursorbox.js';
-import { PopUp } from '../misc/popup.js';
+import { PopupWindow } from '../misc/popup.js';
 
 
 const ClearButton = () => EventBox({
@@ -135,15 +135,9 @@ const NotificationCenterWidget = Box({
   ],
 });
 
-export const NotificationCenter = Window({
+export const NotificationCenter = PopupWindow({
   name: 'notification-center',
-  layer: 'overlay',
   anchor: [ 'top', 'right' ],
-  popup: true,
   margin: [ 8, 60, 0, 0 ],
-
-  child: PopUp({
-    name: 'notification-center',
-    child: NotificationCenterWidget,
-  }),
+  child: NotificationCenterWidget,
 });

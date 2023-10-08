@@ -1,5 +1,5 @@
 import { Mpris, Widget } from '../../imports.js';
-const { Window, Box, Label, Revealer, Icon } = Widget;
+const { Box, Label, Revealer, Icon } = Widget;
 
 import Gtk from 'gi://Gtk';
 
@@ -7,7 +7,7 @@ import { ButtonGrid } from './button-grid.js';
 import { SliderBox } from './slider-box.js';
 import Player from '../media-player/player.js';
 import { EventBox } from '../misc/cursorbox.js';
-import { PopUp } from '../misc/popup.js';
+import { PopupWindow } from '../misc/popup.js';
 
 
 const QuickSettingsWidget = Box({
@@ -69,14 +69,9 @@ const QuickSettingsWidget = Box({
   ],
 });
 
-export const QuickSettings = Window({
+export const QuickSettings = PopupWindow({
   name: 'quick-settings',
-  layer: 'overlay',
   anchor: [ 'top', 'right' ],
-  popup: true,
   margin: [ 8, 5, 0, ],
-  child: PopUp({
-    name: 'quick-settings',
-    child: QuickSettingsWidget,
-  }),
+  child: QuickSettingsWidget,
 });

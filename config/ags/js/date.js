@@ -1,11 +1,11 @@
 import { Widget } from '../imports.js';
-const { Box, Label, Window } = Widget;
+const { Box, Label } = Widget;
 
 import Gtk from 'gi://Gtk';
 import GLib from 'gi://GLib';
 const { DateTime } = GLib;
 
-import { PopUp } from './misc/popup.js';
+import { PopupWindow } from './misc/popup.js';
 
 
 const Divider = () => Box({
@@ -72,22 +72,16 @@ const CalendarWidget = () => Box({
   }),
 });
 
-export const Calendar = Window({
-  name: 'calendar',
-  layer: 'overlay',
-  popup: true,
+export const Calendar = PopupWindow({
   anchor: [ 'top', 'right' ],
   margin: [ 8, 182, 0, 0],
-
-  child: PopUp({
-    name: 'calendar',
-    child: Box({
-      className: 'date',
-      vertical: true,
-      children: [
-        Time(),
-        CalendarWidget(),
-      ],
-    }),
+  name: 'calendar',
+  child: Box({
+    className: 'date',
+    vertical: true,
+    children: [
+      Time(),
+      CalendarWidget(),
+    ],
   }),
 });

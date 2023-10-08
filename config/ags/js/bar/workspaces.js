@@ -16,7 +16,6 @@ Revealer({
     onPrimaryClickRelease: () => execAsync(`hyprctl dispatch workspace ${i}`).catch(print),
     child: Box({
       className: 'button',
-      child: Label(`${i}`),
       connections: [
         [Hyprland, btn => {
           const occupied = Hyprland.getWorkspace(i)?.windows > 0;

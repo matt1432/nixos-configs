@@ -1,8 +1,9 @@
 import { App, Applications, Widget } from '../../imports.js';
-const { Label, Box, Icon, Button, Scrollable, Entry, Window, EventBox } = Widget;
+const { Label, Box, Icon, Button, Scrollable, Entry, EventBox } = Widget;
+const { getWindow } = App
 
 import { Separator } from '../misc/separator.js';
-import { PopUp } from '../misc/popup.js';
+import { PopupWindow } from '../misc/popup.js';
 
 const icons = {
   apps: {
@@ -114,21 +115,15 @@ const Applauncher = ({ windowName = 'applauncher' } = {}) => {
 };
 
 // FIXME: make it so I don't have to click to trigger onHoverLost
-export default Window({
+export default PopupWindow({
   name: 'applauncher',
-  popup: true,
-  focusable: true,
-  layer: 'overlay',
   child: EventBox({
-    onHover: box => {
-      box.get_parent().focusable = true
+    onHover: () => {
+      getWindow('applauncher').focusable = true;
     },
-    onHoverLost: box => {
-      box.get_parent().focusable = false
+    onHoverLost: () => {
+      getWindow('applauncher').focusable = false;
     },
-    child: PopUp({
-      name: 'applauncher',
-      child: Applauncher(),
-    }),
+    child: Applauncher(),
   }),
 });
