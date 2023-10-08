@@ -19,7 +19,7 @@ import { Revealer }         from './fullscreen.js';
 export const Bar = Window({
   name: 'bar',
   layer: 'overlay',
-  anchor: 'top left right',
+  anchor: [ 'top', 'left', 'right' ],
   exclusive: true,
   child: Revealer({
     child: CenterBox({

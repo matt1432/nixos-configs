@@ -72,7 +72,7 @@ const QuickSettingsWidget = Box({
 export const QuickSettings = Window({
   name: 'quick-settings',
   layer: 'overlay',
-  anchor: 'top right',
+  anchor: [ 'top', 'right' ],
   popup: true,
   margin: [ 8, 5, 0, ],
   child: PopUp({

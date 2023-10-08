@@ -22,7 +22,7 @@ export const Closer = Window({
   name: 'closer',
   popup: true,
   layer: 'top',
-  anchor: 'top bottom left right',
+  anchor: [ 'top', 'bottom', 'left', 'right' ],
 
   child: EventBox({
     onPrimaryClickRelease: () => closeAll(),

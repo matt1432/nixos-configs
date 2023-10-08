@@ -82,6 +82,6 @@ const PopupList = ({ transition = 'none' } = {}) => Box({
 
 export const NotificationsPopupList = Window({
   name: `notifications`,
-  anchor: 'top left',
+  anchor: [ 'top', 'left' ],
   child: PopupList(),
 });
