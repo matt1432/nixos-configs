@@ -1,45 +1,51 @@
 { lib, ... }:
  
 {
-  programs.starship = {
+  programs.starship = let
+    textColor   = "#e3e5e5";
+    firstColor  = "#bd93f9";
+    secondColor = "#715895";
+    thirdColor  = "#382c4a";
+    fourthColor = "#120e18";
+  in {
     enable = true;
     enableBashIntegration = true;
     settings = {
       format = lib.concatStrings [
         "╭╴"
-        "[](fg:#bd93f9)"
-        "[   ](bg:#bd93f9 fg:#090c0c)"
-        "[](bg:#715895 fg:#bd93f9)"
+        "[](fg:${firstColor})"
+        "[   ](bg:${firstColor} fg:#090c0c)"
+        "[](bg:${secondColor} fg:${firstColor})"
         "$username$hostname"
         "$sudo"
-        "[](fg:#715895 bg:#382c4a)"
+        "[](fg:${secondColor} bg:${thirdColor})"
         "$directory"
-        "[](fg:#382c4a bg:#120e18)"
+        "[](fg:${thirdColor} bg:${fourthColor})"
         "$git_branch"
-        "[](fg:#120e18)"
+        "[](fg:${fourthColor})"
         "\n╰╴$shlvl$nix_shell$character"
       ];
 
       sudo = {
         disabled = false;
-        style = "fg:#e3e5e5 bg:#715895";
+        style = "fg:${textColor} bg:${secondColor}";
         format = "[as root ]($style)";
       };
 
       username = {
         show_always = true;
-        style_user = "fg:#e3e5e5 bg:#715895";
+        style_user = "fg:${textColor} bg:${secondColor}";
         format = "[ $user]($style)";
       };
 
       hostname = {
         ssh_only = false;
-        style = "fg:#e3e5e5 bg:#715895";
+        style = "fg:${textColor} bg:${secondColor}";
         format = "[@$hostname ]($style)";
       };
 
       directory = {
-        style = "fg:#bd93f9 bg:#382c4a";
+        style = "fg:${firstColor} bg:${thirdColor}";
         format = "[ $path ]($style)";
         truncate_to_repo = false;
         truncation_length = 0;
@@ -53,7 +59,7 @@
       };
 
       git_branch = {
-        style = "fg:#715895 bg:#120e18";
+        style = "fg:${secondColor} bg:${fourthColor}";
         symbol = "";
         format = "[ $symbol $branch ]($style)";
       };
@@ -112,8 +118,6 @@
       sudo  = "sudo ";
       frick = "sudo $(fc -ln -1)";
 
-      vi    = "nvim";
-      vim   = "nvim";
       nivm  = "nvim";
       nivim = "nvim";
 
