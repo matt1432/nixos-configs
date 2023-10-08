@@ -21,18 +21,18 @@ export const Revealer = params => Box({
         Utils.execAsync('hyprctl activewindow -j')
           .then(result => {
             let client = JSON.parse(result);
-            if (client.fullscreen === Revealed.value) return;
+            if (client.fullscreen !== Revealed.value) {
+              Revealed.value = client.fullscreen;
 
-            Revealed.value = client.fullscreen;
-
-            if (Revealed.value) {
-              setTimeout(() => {
-                if (Revealed.value)
-                  self.revealChild = false
-              }, 2000);
-            }
-            else {
-              self.revealChild = true;
+              if (Revealed.value) {
+                setTimeout(() => {
+                  if (Revealed.value)
+                    self.revealChild = false
+                }, 2000);
+              }
+              else {
+                self.revealChild = true;
+              }
             }
           }).catch(print);
       }]],
