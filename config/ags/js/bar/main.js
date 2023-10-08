@@ -13,7 +13,7 @@ import { SysTray }          from './systray.js';
 import { BatteryIndicator } from './battery.js';
 import { Brightness }       from './brightness.js';
 import { AudioIndicator }   from './audio.js';
-import { Gesture }          from './gesture.js';
+import { Revealer }         from './fullscreen.js';
 
 
 export const Bar = Window({
@@ -21,8 +21,7 @@ export const Bar = Window({
   layer: 'overlay',
   anchor: 'top left right',
   exclusive: true,
-
-  child: Gesture({
+  child: Revealer({
     child: CenterBox({
       className: 'transparent',
       halign: 'fill',
@@ -56,7 +55,11 @@ export const Bar = Window({
         ],
       }),
 
-      centerWidget: CurrentWindow,
+      centerWidget: Box({
+        children: [
+          CurrentWindow,
+        ],
+      }),
 
       endWidget: Box({
         halign: 'end',
