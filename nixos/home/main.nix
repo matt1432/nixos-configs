@@ -27,6 +27,7 @@
       ./dotfiles.nix
       ./packages.nix
       ./nvim.nix
+      ./firefox/main.nix
     ];
 
     home.stateVersion = "23.05";
