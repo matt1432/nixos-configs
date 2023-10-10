@@ -33,3 +33,9 @@ slot {
   margin: 0 !important;
   border-radius: 5% 0 0 5% !important;
 }
+
+@media screen and (max-width: 1000px) {
+  :root:not([chromehidden~="toolbar"]) #PersonalToolbar {
+    margin-top: -103.5px !important;
+  }
+}
