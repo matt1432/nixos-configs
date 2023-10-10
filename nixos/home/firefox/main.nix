@@ -6,9 +6,10 @@
 in
 {
   home.file = {
-    ".mozilla/firefox/matt/chrome/components".source = "${firefox-gx}/chrome/components";
-    ".mozilla/firefox/matt/chrome/icons".source      = "${firefox-gx}/chrome/icons";
-    ".mozilla/firefox/matt/chrome/images".source     = "${firefox-gx}/chrome/images";
+    ".mozilla/firefox/matt/chrome/components".source      = "${firefox-gx}/chrome/components";
+    ".mozilla/firefox/matt/chrome/icons".source           = "${firefox-gx}/chrome/icons";
+    ".mozilla/firefox/matt/chrome/images".source          = "${firefox-gx}/chrome/images";
+    ".mozilla/firefox/matt/chrome/userContent.css".source = "${firefox-gx}/chrome/userContent.css";
   };
 
   programs.firefox = {
@@ -21,7 +22,6 @@ in
         ${builtins.readFile "${firefox-gx}/chrome/userChrome.css"}
         ${builtins.readFile ./custom.css}
       '';
-      userContent = builtins.readFile "${firefox-gx}/chrome/userContent.css";
       extraConfig = builtins.readFile "${firefox-gx}/user.js";
 
       settings = {

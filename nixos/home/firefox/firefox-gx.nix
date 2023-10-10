@@ -17,6 +17,9 @@ stdenvNoCC.mkDerivation {
     # Personal changes
     sed -i 's/var(--fuchsia))/var(--purple))/' ./chrome/components/ogx_root-personal.css
 
+    substituteInPlace ./chrome/components/ogx_root-personal.css \
+      --replace '../images/newtab/wallpaper-dark.png' "$out/chrome/images/newtab/private-dark.png"
+
     mv ./Extras/Tab-Shapes/ogx_tab-shapes.css ./chrome/components
     rm ./user.js
     mv ./Extras/Tab-Shapes/user.js ./
