@@ -38,4 +38,7 @@ slot {
   :root:not([chromehidden~="toolbar"]) #PersonalToolbar {
     margin-top: -103.5px !important;
   }
+  :root[privatebrowsingmode]:not([chromehidden~="toolbar"]) #PersonalToolbar {
+    margin-top: -106.5px !important;
+  }
 }
