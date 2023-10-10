@@ -6,7 +6,9 @@
 in
 {
   home.file = {
-    ".mozilla/firefox/matt/chrome".source = "${firefox-gx}/chrome";
+    ".mozilla/firefox/matt/chrome/components".source = "${firefox-gx}/chrome/components";
+    ".mozilla/firefox/matt/chrome/icons".source      = "${firefox-gx}/chrome/icons";
+    ".mozilla/firefox/matt/chrome/images".source     = "${firefox-gx}/chrome/images";
   };
 
   programs.firefox = {
@@ -15,14 +17,23 @@ in
       isDefault = true;
       id = 0;
 
+      userChrome = ''
+        ${builtins.readFile "${firefox-gx}/chrome/userChrome.css"}
+        ${builtins.readFile ./custom.css}
+      '';
+      userContent = builtins.readFile "${firefox-gx}/chrome/userContent.css";
       extraConfig = builtins.readFile "${firefox-gx}/user.js";
+
       settings = {
         # Open previous windows and tabs
         "browser.startup.page" = 3;
 
         # Prefs
+        "layout.css.devPixelsPerPx" = 1.15;
+        "browser.tabs.firefox-view" = false;
         "browser.search.widget.inNavBar" = true;
         "browser.toolbars.bookmarks.visibility" = "always";
+        "browser.toolbars.bookmarks.showInPrivateBrowsing" = true;
 
         # remove telemetry
         "datareporting.policy.dataSubmissionEnabled" = false;

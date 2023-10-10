@@ -1,0 +1,35 @@
+.browser-toolbar > * #alltabs-button,
+#appMenu-fxa-status2,
+#appMenu-fxa-separator {
+  display: none !important;
+}
+
+#unified-extensions-button {
+  display: flex;
+  left: calc(100vw - var(--uc-window-control-width) - 13px) !important;
+  top: var(--windowed-top-padding, -0.5px);
+  z-index: 3 !important;
+}
+
+#appMenu-popup {
+  position: fixed !important;
+  top: 0px !important;
+  left: 0px !important;
+  margin: 0 !important;
+}
+
+#appMenu-popup panelview {
+  border-width: 2px 6px !important;
+  border-radius: 5% 0 0 5% !important;
+  border-image: var(--panel-separator-zap-gradient4) 1 !important;
+}
+
+#unified-extensions-panel panelview {
+  border-width: 0 !important;
+  border-radius: 0px !important;
+}
+
+slot {
+  margin: 0 !important;
+  border-radius: 5% 0 0 5% !important;
+}
