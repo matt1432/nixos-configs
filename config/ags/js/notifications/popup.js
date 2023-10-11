@@ -1,9 +1,5 @@
-import { Notifications, Utils, Widget } from '../../imports.js';
+import { Notifications, Widget } from '../../imports.js';
 const { Box, Revealer, Window } = Widget;
-const { timeout, interval } = Utils;
-
-import GLib from 'gi://GLib';
-const { source_remove } = GLib;
 
 import Notification from './base.js';
 
@@ -22,14 +18,14 @@ const Popups = () => Box({
       if (box._map.size - 1 === 0)
         box.get_parent().reveal_child = false;
 
-      timeout(200, () => {
+      setTimeout(() => {
         if (box._map.get(id)?.interval) {
-          source_remove(box._map.get(id).interval);
+          box._map.get(id).interval.destroy();
           box._map.get(id).interval = undefined;
         }
         box._map.get(id)?.destroy();
         box._map.delete(id);
-      });
+      }, 200);
     }],
     ['notify', (box, id) => {
       if (!id || Notifications.dnd)
@@ -47,19 +43,20 @@ const Popups = () => Box({
       }));
 
       box.children = Array.from(box._map.values()).reverse();
-      timeout(10, () => {
+      setTimeout(() => {
           box.get_parent().revealChild = true;
-      });
-      box._map.get(id).interval = interval(4500, () => {
+      }, 10);
+      box._map.get(id).interval = setInterval(() => {
+        print('interval')
         if (!box._map.get(id)._hovered) {
           box._map.get(id).child.setStyle(box._map.get(id).child._leftAnim1);
 
           if (box._map.get(id).interval) {
-            source_remove(box._map.get(id).interval);
+            box._map.get(id).interval.destroy();
             box._map.get(id).interval = undefined;
           }
         }
-      });
+      }, 4500);
     }],
   ],
   connections: [
