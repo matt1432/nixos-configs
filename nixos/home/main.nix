@@ -16,20 +16,33 @@
   programs.dconf.enable = true;
 #############################################################################
 
-  home-manager.users.matt = {
+  # TODO: use hm for tmux
+  home-manager.users = {
 
-    imports = [
-      nur.hmModules.nur
-      ./dconf.nix
-      ./theme.nix
-      ./hyprland.nix
-      ./bashdots.nix
-      ./dotfiles.nix
-      ./packages.nix
-      ./nvim.nix
-      ./firefox/main.nix
-    ];
+    root = {
+      imports = [
+        ./bashdots.nix
+        ./nvim.nix
+      ];
 
-    home.stateVersion = "23.05";
+      home.stateVersion = "23.05";
+    };
+
+    matt = {
+
+      imports = [
+        nur.hmModules.nur
+        ./dconf.nix
+        ./theme.nix
+        ./hyprland.nix
+        ./bashdots.nix
+        ./dotfiles.nix
+        ./packages.nix
+        ./nvim.nix
+        ./firefox/main.nix
+      ];
+
+      home.stateVersion = "23.05";
+    };
   };
 }
