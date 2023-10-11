@@ -35,6 +35,7 @@
       username = {
         show_always = true;
         style_user = "fg:${textColor} bg:${secondColor}";
+        style_root = "fg:red bg:${secondColor} blink";
         format = "[ $user]($style)";
       };
 
