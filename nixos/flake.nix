@@ -2,19 +2,31 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nur.url = "github:nix-community/NUR";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     hyprgrass = {
       url = "github:horriblename/hyprgrass";
       inputs.hyprland.follows = "hyprland";
     };
-    ags.url = "github:Aylur/ags";
 
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    ags = {
+      url = "github:Aylur/ags";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, nur, ... }@attrs: {
@@ -30,6 +42,7 @@
             settings = {
               experimental-features = [ "nix-command" "flakes" ];
               keep-outputs = true;
+              keep-derivations = true;
               auto-optimise-store = true;
               warn-dirty = false;
             };
