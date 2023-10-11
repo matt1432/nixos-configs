@@ -85,10 +85,9 @@
     };
   };
 
-  programs.bash = {   # TODO: deal with root dotfiles
+  programs.bash = {
     enable = true;
     enableCompletion = true;
-    #enableVteIntegration = false; what is this?
 
     historyFile     = "\$HOME/.cache/.bash_history";
     historyFileSize = 100000; # default
