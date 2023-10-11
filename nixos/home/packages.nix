@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, nix-melt, ... }:
 
 {
   programs = {
@@ -24,7 +24,11 @@
     };
   };
 
-  home.packages = (with pkgs.python311Packages; [
+  home.packages = [
+    nix-melt.packages.x86_64-linux.default
+  ] ++
+
+  (with pkgs.python311Packages; [
     python
     pyclip
   ]) ++
