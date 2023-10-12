@@ -8,10 +8,12 @@ import * as VARS from './variables.js';
 
 Array.prototype.remove = function (el) { this.splice(this.indexOf(el), 1) };
 
-const IconStyle = app => `min-width: ${app.size[0] * VARS.SCALE - VARS.MARGIN}px;
-                          min-height: ${app.size[1] * VARS.SCALE - VARS.MARGIN}px;
-                          font-size: ${Math.min(app.size[0] * VARS.SCALE - VARS.MARGIN,
-                            app.size[1] * VARS.SCALE - VARS.MARGIN) * VARS.ICON_SCALE}px;`;
+const scale = size => size * VARS.SCALE - VARS.MARGIN;
+const getFontSize = client => Math.min(scale(client.size[0]), scale(client.size[1])) * VARS.ICON_SCALE;
+
+const IconStyle = client => `min-width:  ${scale(client.size[0])}px;
+                             min-height: ${scale(client.size[1])}px;
+                             font-size:  ${getFontSize(client)}px;`;
 
 
 const Client = (client, active, clients) => Revealer({
@@ -25,24 +27,24 @@ const Client = (client, active, clients) => Revealer({
   ],
   child: WindowButton({
     address: client.address,
-    onSecondaryClickRelease: () => {
-      execAsync(`hyprctl dispatch closewindow address:${client.address}`)
-        .catch(print)
-    },
+    onSecondaryClickRelease: () => execAsync(`hyprctl dispatch closewindow address:${client.address}`).catch(print),
     onPrimaryClickRelease: () => {
-      if (client.workspace.id < 0) {
+      let wsName = String(client.workspace.name).replace('special:', '');
+      let wsId = client.workspace.id;
+      let addr = `address:${client.address}`;
+
+      if (wsId < 0) {
         if (client.workspace.name === 'special') {
-          execAsync(`hyprctl dispatch movetoworkspacesilent special:${client.workspace.id},address:${client.address}`)
-            .then(execAsync(`hyprctl dispatch togglespecialworkspace ${client.workspace.id}`)
-              .then(() => closeWindow('overview'))
-              .catch(print))
-            .catch(print);
+          execAsync(`hyprctl dispatch movetoworkspacesilent special:${wsId},${addr}`).then(
+            execAsync(`hyprctl dispatch togglespecialworkspace ${wsId}`).then(
+              () => closeWindow('overview')
+            ).catch(print)
+          ).catch(print);
         }
         else {
-          execAsync(`hyprctl dispatch togglespecialworkspace ${String(client.workspace.name)
-                                                                .replace('special:', '')}`)
-            .then(() => closeWindow('overview'))
-            .catch(print);
+          execAsync(`hyprctl dispatch togglespecialworkspace ${wsName}`).then(
+            () => closeWindow('overview')
+          ).catch(print);
         }
       }
       else {
@@ -50,12 +52,12 @@ const Client = (client, active, clients) => Revealer({
         let activeAddress = Hyprland.active.client.address;
         let currentActive = clients.find(c => c.address === activeAddress)
 
-        if (currentActive && currentActive.workspace.id < 0)
-          execAsync(`hyprctl dispatch togglespecialworkspace ${String(currentActive.workspace.name)
-                                                                .replace('special:', '')}`).catch(print);
-        execAsync(`hyprctl dispatch focuswindow address:${client.address}`)
-          .then(() => closeWindow('overview'))
-          .catch(print);
+        if (currentActive && currentActive.workspace.id < 0) {
+          execAsync(`hyprctl dispatch togglespecialworkspace ${wsName}`).catch(print);
+        }
+        execAsync(`hyprctl dispatch focuswindow ${addr}`).then(
+          () => closeWindow('overview')
+        ).catch(print);
       }
     },
     child: Icon({
@@ -67,8 +69,11 @@ const Client = (client, active, clients) => Revealer({
 });
 
 export function updateClients(box) {
-  execAsync('hyprctl clients -j')
-  .then(result => {
+  if (!App.getWindow('overview').visible)
+    return;
+
+  execAsync('hyprctl clients -j').then(
+  result => {
     let clients = JSON.parse(result).filter(client => client.class)
 
     box._workspaces.forEach(workspace => {
@@ -80,6 +85,9 @@ export function updateClients(box) {
         if (client.address == Hyprland.active.client.address) {
           active = 'active';
         }
+
+        // TODO: fix multi monitor issue. this is just a temp fix
+        client.at[1] -= 2920;
 
         // Special workspaces that haven't been opened yet
         // return a size of 0. We need to set them to default
