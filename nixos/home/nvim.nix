@@ -100,8 +100,8 @@ in
       dracula-nvim
       (plugin "lukas-reineke"
               "indent-blankline.nvim"
-              "1e79f3dd6e750c5cb4ce99d1755a3e17025c0f47"
-              "sha256-YhfMeA+bnXlGSZPNsK1rRls9iMXUlXYKVFjHwXlnE4E=")
+              "0fe34b4c1b926e106d105d3ae88ef6cbf6743572"
+              "sha256-e8gn4pJYALaQ6sGA66SFf8p6VLJBPxT/BimQhOd5eBs=")
       gitsigns-nvim
       lualine-nvim
       minimap-vim
