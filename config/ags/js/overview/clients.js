@@ -11,7 +11,8 @@ Array.prototype.remove = function (el) { this.splice(this.indexOf(el), 1) };
 const scale = size => size * VARS.SCALE - VARS.MARGIN;
 const getFontSize = client => Math.min(scale(client.size[0]), scale(client.size[1])) * VARS.ICON_SCALE;
 
-const IconStyle = client => `min-width:  ${scale(client.size[0])}px;
+const IconStyle = client => `transition: font-size 0.2s linear;
+                             min-width:  ${scale(client.size[0])}px;
                              min-height: ${scale(client.size[1])}px;
                              font-size:  ${getFontSize(client)}px;`;
 
@@ -99,25 +100,26 @@ export function updateClients(box) {
           client.at[1] = VARS.DEFAULT_SPECIAL.POS_Y;
         }
 
-        let existingClient = fixed.get_children().find(ch => ch._address == client.address);
-        toRemove.remove(existingClient);
+        let newClient = [
+          fixed.get_children().find(ch => ch._address == client.address),
+          client.at[0] * VARS.SCALE,
+          client.at[1] * VARS.SCALE,
+        ];
 
-        if (existingClient) {
-          fixed.move(
-            existingClient,
-            client.at[0] * VARS.SCALE,
-            client.at[1] * VARS.SCALE,
-          );
-          existingClient.child.child.className = `window ${active}`;
-          existingClient.child.child.style = IconStyle(client);
+        if (newClient[0]) {
+          toRemove.remove(newClient[0]);
+          fixed.move(...newClient);
         }
         else {
-          fixed.put(
-            Client(client, active, clients),
-            client.at[0] * VARS.SCALE,
-            client.at[1] * VARS.SCALE,
-          );
+          newClient[0] = Client(client, active, clients);
+          fixed.put(...newClient);
         }
+
+        // Set a timeout here to have an animation when the icon first appears
+        setTimeout(() => {
+          newClient[0].child.child.className = `window ${active}`;
+          newClient[0].child.child.style = IconStyle(client);
+        }, 1);
       });
       fixed.show_all();
       toRemove.forEach(ch => {
