@@ -19,7 +19,7 @@
     };
 
     ags = {
-      url = "github:Aylur/ags";
+      url = "path:/home/matt/git/ags";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

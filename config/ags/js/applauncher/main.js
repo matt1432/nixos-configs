@@ -1,4 +1,4 @@
-import { App, Applications, Widget } from '../../imports.js';
+import { App, Applications, Utils, Widget } from '../../imports.js';
 const { Label, Box, Icon, Button, Scrollable, Entry, EventBox } = Widget;
 const { getWindow } = App
 
@@ -21,7 +21,8 @@ const AppItem = (app, window) => {
     className: 'app',
     connections: [['clicked', () => {
       App.closeWindow(window);
-      app.launch();
+      Utils.exec(`hyprctl dispatch exec ${app.executable}`);
+      ++app.frequency;
     }]],
     child: Box({
       children: [
