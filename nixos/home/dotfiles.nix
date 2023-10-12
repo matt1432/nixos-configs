@@ -1,4 +1,6 @@
-{ config, pkgs, ... }: let
+{ config, pkgs, nixpkgs-wayland, ... }: let
+  waypkgs = nixpkgs-wayland.packages.x86_64-linux;
+
   configDir = (import ../vars.nix).configDir;
   symlink = config.lib.file.mkOutOfStoreSymlink;
 in
@@ -35,6 +37,7 @@ in
 
     wofi = {
       enable = true;
+      package = waypkgs.wofi;
       settings = {
         prompt = "";
         allow_images = true;

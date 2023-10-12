@@ -1,12 +1,13 @@
-{ pkgs, config, nix-melt, ... }:
-
+{ pkgs, config, nixpkgs-wayland, nix-melt, ... }: let
+  waypkgs = nixpkgs-wayland.packages.x86_64-linux;
+in
 {
   programs = {
 
     obs-studio = {
       enable = true;
-      plugins = with pkgs.obs-studio-plugins; [
-        wlrobs
+      plugins = with waypkgs; [
+        obs-wlrobs
       ];
     };
 

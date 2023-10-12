@@ -23,6 +23,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixpkgs-wayland = {
+      url = "github:nix-community/nixpkgs-wayland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -60,13 +65,13 @@
           };
         })
 
-        ./configuration.nix
-
         home-manager.nixosModules.home-manager {
           home-manager.extraSpecialArgs = attrs;
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
         }
+
+        ./configuration.nix
       ];
     };
   };

@@ -1,4 +1,6 @@
-{ pkgs, config, hyprland, hyprgrass, ags, ... }: let
+{ pkgs, config, hyprland, hyprgrass, ags, nixpkgs-wayland, ... }: let
+  waypkgs = nixpkgs-wayland.packages.x86_64-linux;
+
   configDir = (import ../vars.nix).configDir;
   symlink = config.lib.file.mkOutOfStoreSymlink;
 
@@ -47,44 +49,44 @@ in
     "hypr/hyprpaper.conf".source  = symlink "${configDir}/hypr/hyprpaper.conf";
   };
 
-  home.packages = with pkgs; [
+  home.packages = [
     # ags
-    sassc
-    coloryou
-    libnotify
-    playerctl
-    bluez-tools
-    brightnessctl
-    pulseaudio
-    libinput
+    pkgs.sassc
+    pkgs.coloryou
+    pkgs.libnotify
+    pkgs.playerctl
+    pkgs.bluez-tools
+    pkgs.brightnessctl
+    pkgs.pulseaudio
+    pkgs.libinput
 
     ## gui
-    pavucontrol # TODO: replace with ags widget
-    networkmanagerapplet # TODO: replace with ags widget
-    blueberry # TODO: replace with ags widget
+    pkgs.pavucontrol # TODO: replace with ags widget
+    pkgs.networkmanagerapplet # TODO: replace with ags widget
+    pkgs.blueberry # TODO: replace with ags widget
 
 
     # Hyprland
-    hyprpaper
-    swayidle
-    lisgd
-    swayosd
-    squeekboard
-    xclip
-    wl-clipboard
-    cliphist
+    pkgs.hyprpaper
+    waypkgs.swayidle
+    pkgs.lisgd
+    pkgs.swayosd
+    pkgs.squeekboard
+    pkgs.xclip
+    waypkgs.wl-clipboard
+    pkgs.cliphist
 
     ## gui
-    gtklock
-    wl-color-picker # TODO: add bind for this in hyprland
-    grim
-    slurp
-    swappy
+    pkgs.gtklock
+    pkgs.wl-color-picker # TODO: add bind for this in hyprland
+    waypkgs.grim
+    waypkgs.slurp
+    pkgs.swappy
 
     ## libs
-    libayatana-appindicator
-    xdg-utils
-    evtest
-    glib
+    pkgs.libayatana-appindicator
+    pkgs.xdg-utils
+    pkgs.evtest
+    pkgs.glib
   ];
 }
