@@ -27,7 +27,6 @@ stdenvNoCC.mkDerivation {
     sed -i 's/rounded_corner.wave",          false/rounded_corner.wave",          true/' ./user.js
 
     mv ./Extras/Left-SideBar/ogx_left-sidebar.css ./chrome/components
-    mv ./Extras/OneLine/ogx_oneline.css ./chrome/components
 
     mkdir -p $out
     cp -r ./* $out

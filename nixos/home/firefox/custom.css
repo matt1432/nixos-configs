@@ -4,13 +4,6 @@
   display: none !important;
 }
 
-#unified-extensions-button {
-  display: flex;
-  left: calc(100vw - var(--uc-window-control-width) - 13px) !important;
-  top: var(--windowed-top-padding, -0.5px);
-  z-index: 3 !important;
-}
-
 #appMenu-popup {
   position: fixed !important;
   top: 0px !important;
@@ -34,11 +27,8 @@ slot {
   border-radius: 5% 0 0 5% !important;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen {
   :root:not([chromehidden~="toolbar"]) #PersonalToolbar {
-    margin-top: -103.5px !important;
-  }
-  :root[privatebrowsingmode]:not([chromehidden~="toolbar"]) #PersonalToolbar {
     margin-top: -106.5px !important;
   }
 }

@@ -29,7 +29,7 @@ in
         "browser.startup.page" = 3;
 
         # Prefs
-        "layout.css.devPixelsPerPx" = 1.15;
+        "layout.css.devPixelsPerPx" = 1.12;
         "browser.tabs.firefox-view" = false;
         "browser.search.widget.inNavBar" = true;
         "browser.toolbars.bookmarks.visibility" = "always";
