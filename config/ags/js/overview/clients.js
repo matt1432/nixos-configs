@@ -70,9 +70,6 @@ const Client = (client, active, clients) => Revealer({
 });
 
 export function updateClients(box) {
-  if (!App.getWindow('overview').visible)
-    return;
-
   execAsync('hyprctl clients -j').then(
   result => {
     let clients = JSON.parse(result).filter(client => client.class)
