@@ -1,4 +1,4 @@
-{ pkgs, config, nixpkgs-wayland, nix-melt, ... }: let
+{ pkgs, config, nixpkgs-wayland, nix-melt, nurl, ... }: let
   waypkgs = nixpkgs-wayland.packages.x86_64-linux;
 in
 {
@@ -27,6 +27,7 @@ in
 
   home.packages = [
     nix-melt.packages.x86_64-linux.default
+    nurl.packages.x86_64-linux.default
   ] ++
 
   (with pkgs.python311Packages; [

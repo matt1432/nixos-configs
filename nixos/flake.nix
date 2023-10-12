@@ -37,6 +37,11 @@
       url = "github:nix-community/nix-melt";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nurl = {
+      url = "github:nix-community/nurl";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, nur, ... }@attrs: {
