@@ -14,6 +14,9 @@
     udev.extraRules = ''
       # give permanent path to keyboard XF86* binds
       SUBSYSTEMS=="input", ATTRS{id/product}=="0006", ATTRS{id/vendor}=="0000", SYMLINK += "video-bus"
+
+      # give permanent path to touchpad
+      SUBSYSTEMS=="input", ATTRS{id/product}=="01e0", ATTRS{id/vendor}=="27c6", ATTRS{name}=="GXTP5140:00 27C6:01E0 Touchpad", SYMLINK += "touchpad"
     '';
 
     fwupd.enable = true;
