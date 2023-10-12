@@ -41,7 +41,7 @@ let g:minimap_git_colors = 1
 
 " Auto open Neo-Tree on big enough window
 function! OpenTree() abort
-  if &columns > 70
+  if &columns > 100
     Neotree show
     Neotree close
     Neotree show
