@@ -35,7 +35,7 @@ export const CoverArt = (player, params) => CenterBox({
   properties: [['bgStyle', '']],
   connections: [
     [player, box => {
-      execAsync(['bash', '-c', `[[ -f "${player.coverPath}" ]] && coloryou "${player.coverPath}"`])
+      execAsync(['bash', '-c', `[[ -f "${player.coverPath}" ]] && coloryou "${player.coverPath}" | grep -v Warning`])
       .then(out => {
         if (!Mpris.players.find(p => player === p))
           return;
