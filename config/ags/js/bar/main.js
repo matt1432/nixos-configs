@@ -14,6 +14,7 @@ import { BatteryIndicator } from './battery.js';
 import { Brightness }       from './brightness.js';
 import { AudioIndicator }   from './audio.js';
 import { Revealer }         from './fullscreen.js';
+//import KeyboardLayout       from './keyboard-layout.js';
 
 
 export const Bar = Window({
@@ -67,6 +68,10 @@ export const Bar = Window({
           BatteryIndicator,
 
           Separator(12),
+
+          //KeyboardLayout,
+
+          //Separator(12),
 
           Clock,
 
