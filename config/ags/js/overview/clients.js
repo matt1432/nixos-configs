@@ -17,57 +17,57 @@ const IconStyle = client => `transition: font-size 0.2s linear;
                              font-size:  ${getFontSize(client)}px;`;
 
 
-const Client = (client, active, clients) => Revealer({
-  transition: 'crossfade',
-  setup: rev => {
-    rev.revealChild = true;
-  },
-  properties: [
-    ['address', client.address],
-    ['toDestroy', false]
-  ],
-  child: WindowButton({
-    address: client.address,
-    onSecondaryClickRelease: () => execAsync(`hyprctl dispatch closewindow address:${client.address}`).catch(print),
-    onPrimaryClickRelease: () => {
-      let wsName = String(client.workspace.name).replace('special:', '');
-      let wsId = client.workspace.id;
-      let addr = `address:${client.address}`;
+const Client = (client, active, clients) => {
+  let wsName = String(client.workspace.name).replace('special:', '');
+  let wsId = client.workspace.id;
+  let addr = `address:${client.address}`;
 
-      if (wsId < 0) {
-        if (client.workspace.name === 'special') {
-          execAsync(`hyprctl dispatch movetoworkspacesilent special:${wsId},${addr}`).then(
-            execAsync(`hyprctl dispatch togglespecialworkspace ${wsId}`).then(
+  return Revealer({
+    transition: 'crossfade',
+    setup: rev => rev.revealChild = true,
+    properties: [
+      ['address', client.address],
+      ['toDestroy', false]
+    ],
+    child: WindowButton({
+      address: client.address,
+      onSecondaryClickRelease: () => execAsync(`hyprctl dispatch closewindow ${addr}`).catch(print),
+      onPrimaryClickRelease: () => {
+        if (wsId < 0) {
+          if (client.workspace.name === 'special') {
+            execAsync(`hyprctl dispatch movetoworkspacesilent special:${wsId},${addr}`).then(
+              execAsync(`hyprctl dispatch togglespecialworkspace ${wsId}`).then(
+                () => closeWindow('overview')
+              ).catch(print)
+            ).catch(print);
+          }
+          else {
+            execAsync(`hyprctl dispatch togglespecialworkspace ${wsName}`).then(
               () => closeWindow('overview')
-            ).catch(print)
-          ).catch(print);
+            ).catch(print);
+          }
         }
         else {
-          execAsync(`hyprctl dispatch togglespecialworkspace ${wsName}`).then(
+          // close special workspace if one is opened
+          let activeAddress = Hyprland.active.client.address;
+          let currentActive = clients.find(c => c.address === activeAddress)
+
+          if (currentActive && currentActive.workspace.id < 0) {
+            execAsync(`hyprctl dispatch togglespecialworkspace ${wsName}`).catch(print);
+          }
+          execAsync(`hyprctl dispatch focuswindow ${addr}`).then(
             () => closeWindow('overview')
           ).catch(print);
         }
-      }
-      else {
-        // close special workspace if one is opened
-        let activeAddress = Hyprland.active.client.address;
-        let currentActive = clients.find(c => c.address === activeAddress)
-
-        if (currentActive && currentActive.workspace.id < 0) {
-          execAsync(`hyprctl dispatch togglespecialworkspace ${wsName}`).catch(print);
-        }
-        execAsync(`hyprctl dispatch focuswindow ${addr}`).then(
-          () => closeWindow('overview')
-        ).catch(print);
-      }
-    },
-    child: Icon({
-      className: `window ${active}`,
-      style: IconStyle(client) + 'font-size: 10px;',
-      icon: client.class,
+      },
+      child: Icon({
+        className: `window ${active}`,
+        style: IconStyle(client) + 'font-size: 10px;',
+        icon: client.class,
+      }),
     }),
-  }),
-});
+  });
+};
 
 export function updateClients(box) {
   execAsync('hyprctl clients -j').then(

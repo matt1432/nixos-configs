@@ -8,6 +8,7 @@ import Gdk from 'gi://Gdk';
 import Cairo from 'cairo';
 
 import { Button } from '../misc/cursorbox.js';
+import { updateClients } from './clients.js';
 
 const TARGET = [Gtk.TargetEntry.new('text/plain', Gtk.TargetFlags.SAME_APP, 0)];
 
@@ -66,7 +67,7 @@ export const WindowButton = ({address, ...params} = {}) => Button({
       button.get_parent().destroy();
 
       let mainBox = getWindow('overview').child.children[0].child;
-      mainBox._updateClients(mainBox);
+      updateClients(mainBox);
     });
   },
 });

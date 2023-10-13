@@ -6,9 +6,9 @@ import { WorkspaceRow, getWorkspaces, updateWorkspaces } from './workspaces.js';
 import { updateClients } from './clients.js';
 
 function update(box) {
-  box._getWorkspaces(box);
-  box._updateWorkspaces(box);
-  box._updateClients(box);
+  getWorkspaces(box);
+  updateWorkspaces(box);
+  updateClients(box);
 }
 
 export default PopupWindow({
@@ -45,10 +45,6 @@ export default PopupWindow({
     ],
     properties: [
       ['workspaces'],
-
-      ['getWorkspaces', getWorkspaces],
-      ['updateWorkspaces', updateWorkspaces],
-      ['updateClients', updateClients],
     ],
   }),
 
