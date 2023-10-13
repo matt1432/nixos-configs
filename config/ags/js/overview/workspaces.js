@@ -102,7 +102,7 @@ const Workspace = (id, name) => Revealer({
     let activeId = Hyprland.active.workspace.id;
     let active = activeId === box._id;
 
-    let rev = box.child.child.overlays[0];
+    let rev = box.child.child.get_children()[1];
     let n = activeId > box._id;
 
     if (Hyprland.getWorkspace(box._id)?.windows > 0 || active) {
