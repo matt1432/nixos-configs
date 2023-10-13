@@ -23,13 +23,14 @@ export default ({ properties, connections, params } = {}) => {
       ...connections,
 
       [gesture, overlay => {
-        if (overlay.overlays.length <= 1)
+        if (overlay.list().length <= 1)
           return;
 
         overlay._dragging = true;
         const offset = gesture.get_offset()[1];
 
-        let playerBox = overlay.get_children().at(-1);
+        let playerBox = overlay.list().at(-1);
+
         if (offset >= 0) {
           playerBox.setStyle(`margin-left:   ${offset}px;
                               margin-right: -${offset}px;
@@ -45,13 +46,13 @@ export default ({ properties, connections, params } = {}) => {
       }, 'drag-update'],
 
       [gesture, overlay => {
-        if (overlay.overlays.length <= 1)
+        if (overlay.list().length <= 1)
           return;
 
         overlay._dragging = false;
         const offset = gesture.get_offset()[1];
 
-        let playerBox = overlay.get_children().at(-1);
+        let playerBox = overlay.list().at(-1);
 
         if (Math.abs(offset) > MAX_OFFSET) {
           if (offset >= 0) {
@@ -71,7 +72,7 @@ export default ({ properties, connections, params } = {}) => {
           setTimeout(() => {
             overlay.reorder_overlay(playerBox, 0);
             playerBox.setStyle(playerBox._bgStyle);
-            overlay._selected = overlay.get_children().at(-1);
+            overlay._selected = overlay.list().at(-1);
           }, 500);
         }
         else
@@ -80,5 +81,7 @@ export default ({ properties, connections, params } = {}) => {
       }, 'drag-end'],
     ],
   });
+  widget.child.list = () => widget.child.get_children().filter(ch => ch._bgStyle !== undefined);
+
   return widget;
 };

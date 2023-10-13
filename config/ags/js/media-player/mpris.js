@@ -93,7 +93,7 @@ export const PlayerIcon = (player, { symbolic = true, ...params } = {}) => {
   return Box({
     connections: [
       [Mpris, box => {
-        let overlays = box.get_parent().get_parent().get_parent().overlays;
+        let overlays = box.get_parent().get_parent().get_parent().list();
         let player = overlays.find(overlay => overlay === box.get_parent().get_parent());
         let index = overlays.indexOf(player)
 
