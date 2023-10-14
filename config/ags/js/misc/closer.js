@@ -1,6 +1,5 @@
 import { App, Widget } from '../../imports.js';
 const { Window, EventBox } = Widget;
-const { closeWindow } = App;
 
 const ALWAYS_OPEN = [
   'closer',
@@ -13,9 +12,9 @@ const ALWAYS_OPEN = [
 export const closeAll = () => {
   App.windows.forEach(w => {
     if (!ALWAYS_OPEN.some(window => window === w.name))
-      closeWindow(w.name)
+      App.closeWindow(w.name)
   });
-  closeWindow('closer');
+  App.closeWindow('closer');
 };
 
 export const Closer = Window({
@@ -29,7 +28,7 @@ export const Closer = Window({
     connections: [[App, (_b, _w, _v) => {
       if (!Array.from(App.windows).some(w => w[1].visible &&
         !ALWAYS_OPEN.some(window => window === w[0]))) {
-        closeWindow('closer');
+        App.closeWindow('closer');
       }
     }]],
   }),

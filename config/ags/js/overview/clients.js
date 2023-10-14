@@ -1,6 +1,5 @@
 import { App, Hyprland, Utils, Widget } from '../../imports.js';
 const { Icon, Revealer } = Widget;
-const { closeWindow } = App;
 const { execAsync } = Utils;
 
 import { WindowButton } from './dragndrop.js';
@@ -22,6 +21,7 @@ const Client = (client, active, clients) => {
   let wsId = client.workspace.id;
   let addr = `address:${client.address}`;
 
+  // FIXME: special workspaces not closing when in one and clicking on normal client
   return Revealer({
     transition: 'crossfade',
     setup: rev => rev.revealChild = true,
@@ -37,13 +37,13 @@ const Client = (client, active, clients) => {
           if (client.workspace.name === 'special') {
             execAsync(`hyprctl dispatch movetoworkspacesilent special:${wsId},${addr}`).then(
               execAsync(`hyprctl dispatch togglespecialworkspace ${wsId}`).then(
-                () => closeWindow('overview')
+                () => App.closeWindow('overview')
               ).catch(print)
             ).catch(print);
           }
           else {
             execAsync(`hyprctl dispatch togglespecialworkspace ${wsName}`).then(
-              () => closeWindow('overview')
+              () => App.closeWindow('overview')
             ).catch(print);
           }
         }
@@ -56,7 +56,7 @@ const Client = (client, active, clients) => {
             execAsync(`hyprctl dispatch togglespecialworkspace ${wsName}`).catch(print);
           }
           execAsync(`hyprctl dispatch focuswindow ${addr}`).then(
-            () => closeWindow('overview')
+            () => App.closeWindow('overview')
           ).catch(print);
         }
       },

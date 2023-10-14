@@ -1,7 +1,6 @@
 import { Notifications, App, Utils, Widget } from '../../imports.js';
 const { Button, Label, Box, Icon, Scrollable, Revealer } = Widget;
 const { timeout } = Utils;
-const { getWindow } = App;
 
 import Notification from './base.js';
 import { EventBox } from '../misc/cursorbox.js';
@@ -26,7 +25,7 @@ const ClearButton = () => EventBox({
         button._notifList = NotificationList;
 
       if (!button._popups)
-        button._popups = getWindow('notifications').child.children[0].child;
+        button._popups = App.getWindow('notifications').child.children[0].child;
 
       button.sensitive = Notifications.notifications.length > 0;
     }]],

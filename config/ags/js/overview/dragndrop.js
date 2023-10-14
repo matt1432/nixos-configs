@@ -1,7 +1,6 @@
 import { App, Utils, Widget } from '../../imports.js';
 const { EventBox } = Widget;
 const { execAsync } = Utils;
-const { getWindow } = App;
 
 import Gtk from 'gi://Gtk';
 import Gdk from 'gi://Gdk';
@@ -66,7 +65,7 @@ export const WindowButton = ({address, ...params} = {}) => Button({
     button.connect('drag-end', () => {
       button.get_parent().destroy();
 
-      let mainBox = getWindow('overview').child.children[0].child;
+      let mainBox = App.getWindow('overview').child.children[0].child;
       updateClients(mainBox);
     });
   },

@@ -1,6 +1,5 @@
 import { Widget, App } from '../../imports.js';
 const { CenterBox, EventBox } = Widget;
-const { openWindow } = App;
 
 import Gtk from 'gi://Gtk';
 
@@ -24,7 +23,7 @@ export const Gesture = ({
       [gesture, _ => {
         const velocity = gesture.get_velocity()[1];
         if (velocity < -100)
-          openWindow('quick-settings');
+          App.openWindow('quick-settings');
       }, 'update'],
 
     ],

@@ -1,6 +1,5 @@
 import { App, Widget } from '../../imports.js';
 const { Box, Label } = Widget;
-const { toggleWindow } = App;
 
 import GLib from 'gi://GLib';
 const { DateTime } = GLib;
@@ -24,7 +23,7 @@ const ClockModule = ({
 
 export const Clock = EventBox({
   className: 'toggle-off',
-  onPrimaryClickRelease: () => toggleWindow('calendar'),
+  onPrimaryClickRelease: () => App.toggleWindow('calendar'),
   connections: [
     [App, (box, windowName, visible) => {
       if (windowName == 'calendar') {

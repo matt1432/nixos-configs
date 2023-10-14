@@ -1,7 +1,6 @@
 import { Network, Bluetooth, Audio, App, Utils, Widget } from '../../imports.js';
 const { Box, CenterBox, Label, Icon } = Widget;
 const { execAsync } = Utils;
-const { openWindow } = App;
 
 import { EventBox } from '../misc/cursorbox.js';
 
@@ -190,7 +189,7 @@ const SecondRow = Box({
 
     GridButton({
       command: () => execAsync(['bash', '-c', '$LOCK_PATH/lock.sh']).catch(print),
-      secondaryCommand: () => openWindow('powermenu'),
+      secondaryCommand: () => App.openWindow('powermenu'),
       icon: Label({
         className: 'grid-label',
         label: " 󰌾 ", 

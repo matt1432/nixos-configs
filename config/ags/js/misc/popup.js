@@ -1,6 +1,5 @@
 import { App, Widget } from '../../imports.js';
 const { Revealer, Box, Window } = Widget;
-const { openWindow } = App;
 
 
 export const PopupWindow = ({
@@ -25,7 +24,7 @@ export const PopupWindow = ({
           revealer.reveal_child = visible;
 
           if (visible && name !== 'overview')
-            openWindow('closer');
+            App.openWindow('closer');
         }
       }]],
       child: child,

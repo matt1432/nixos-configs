@@ -1,6 +1,5 @@
 import { App, Notifications, Widget } from '../../imports.js';
 const { Box, Label, Icon } = Widget;
-const { toggleWindow } = App;
 
 import { Separator } from '../misc/separator.js';
 import { EventBox } from '../misc/cursorbox.js';
@@ -8,7 +7,7 @@ import { EventBox } from '../misc/cursorbox.js';
 
 export const NotifButton = EventBox({
   className: 'toggle-off',
-  onPrimaryClickRelease: () => toggleWindow('notification-center'),
+  onPrimaryClickRelease: () => App.toggleWindow('notification-center'),
   connections: [
     [App, (box, windowName, visible) => {
       if (windowName == 'notification-center') {
