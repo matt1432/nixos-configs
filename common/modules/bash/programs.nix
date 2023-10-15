@@ -7,7 +7,11 @@
     ripgrep = {
       enable = true;
       arguments = [
-        "--no-config"
+        "--max-columns=150"
+        "--max-columns-preview"
+        "--hidden"
+        "--glob=!.git/*"
+        "--smart-case"
       ];
     };
     jq.enable = true;

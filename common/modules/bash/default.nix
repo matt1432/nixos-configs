@@ -1,6 +1,6 @@
 # Home-manager module
 
-{ lib, ... }: {
+{ config, lib, ... }: {
   imports = [
     ./programs.nix
   ];
@@ -144,7 +144,9 @@
         jelly = "mosh matt@10.0.0.121 -- ssh -t matt@10.0.0.123 'tmux -2u new -At laptop'";
         qbit  = "mosh matt@10.0.0.121 -- ssh -t matt@10.0.0.128 'tmux -2u new -At laptop'";
       };
-      sessionVariables = { # see configuration.nix
+      sessionVariables = {
+        # FIXME: why is this not set by home-manager?
+        "RIPGREP_CONFIG_PATH" = "${config.xdg.configHome}/ripgrep/ripgreprc";
       };
 
       profileExtra = ''
