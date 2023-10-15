@@ -34,8 +34,9 @@
     default = {
       imports = [
         nur.hmModules.nur
-        ./modules/neovim
         ./modules/bash
+        ./modules/git
+        ./modules/neovim
       ];
 
       home.packages = [

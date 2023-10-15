@@ -8,6 +8,13 @@ final: prev: {
       hash = "sha256-7YwkBzkAND9lfH2ewuwna1zUkQStBBx4JHGw3/+svhA=";
     };
 
+    git-colors = prev.fetchFromGitHub {
+      owner = "dracula";
+      repo = "git";
+      rev = "924d5fc32f7ca15d0dd3a8d2cf1747e81e063c73";
+      hash = "sha256-3tKjKn5IHIByj+xgi2AIL1vZANlb0vlYJsPjH6BHGxM=";
+    };
+
     src = prev.fetchFromGitHub {
       owner = "dracula";
       repo = "gtk";
@@ -21,12 +28,20 @@ final: prev: {
     installPhase = ''
       runHook preInstall
 
+      cp -a ${git-colors}/config/gitconfig ./git-colors
+      chmod 777 ./git-colors
+      line=$(grep -n 'Dracula Dark Theme' ./git-colors | cut -d: -f1)
+      sed -i "1,$((line-1))d" ./git-colors
+      mkdir -p $out
+      cp -a ./git-colors $out
+
       cp -a ${plymouth}/dracula ./dracula
       chmod 777 ./dracula
       sed -i "s@\/usr\/@$out\/@" ./dracula/dracula.plymouth
 
       mkdir -p $out/share/plymouth/themes
       cp -a ./dracula $out/share/plymouth/themes/
+
 
       mkdir -p $out/share/themes/Dracula
       cp -a {assets,cinnamon,gnome-shell,gtk-2.0,gtk-3.0,gtk-3.20,gtk-4.0,index.theme,metacity-1,unity,xfwm4} $out/share/themes/Dracula
