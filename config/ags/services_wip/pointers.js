@@ -12,150 +12,95 @@ Libinput.instance.connect('device-init', () => {
 });
 */
 
+/*
+
+      // WIP
+      Utils.execAsync('hyprctl layers -j').then(layers => {
+        layers = JSON.parse(layers);
+        Utils.execAsync('hyprctl cursorpos -j').then(pos => {
+          pos = JSON.parse(pos);
+
+          Object.values(layers).forEach(key => {
+            key['levels']['3'].forEach(l => {
+              print(l.namespace);
+              if (pos.x > l.x && pos.x < l.x + l.w &&
+                  pos.y > l.y && pos.y < l.y + l.h)
+              {
+                print('inside window');
+              }
+              else {
+                print('outside window');
+              }
+            });
+          });
+        }).catch(print);
+      }).catch(print);
+
+
+*/
+
+// TODO: use hyprctl layers to determine if clicks were on a widget
+// read /dev to recalculate devices and remake subprocess
+
 const { Service, Utils } = '../imports.js';
-import GLib from 'gi://GLib';
-import Gio from 'gi://Gio';
-import GObject from 'gi://GObject';
 
-class DebugInstance extends GObject.Object {
-  static {
-    GObject.registerClass({
-      Signals: {
-        'changed': {},
-        'closed': {},
-        'new-line': {},
-      },
-    }, this);
-  }
-  devices = [];
-  name = '';
-  lastLine = '';
 
-  readOutput(stdout, stdin) {
-    stdout.read_line_async(GLib.PRIORITY_LOW, null, (stream, result) => {
-      try {
-        const [line] = stream.read_line_finish_utf8(result);
-
-        if (line !== null) {
-          this.lastLine = line;
-          this.emit('new-line');
-          this.readOutput(stdout, stdin);
-        }
-      } catch (e) {
-        logError(e);
-      }
-    });
-  }
-
-  getOutput(devs) {
-    try {
-      let args = [];
-      devs.forEach(dev => {
-        if (dev.Kernel) {
-          args.push('--device');
-          args.push(dev.Kernel);
-        }
-      });
-
-      const proc = Gio.Subprocess.new(['libinput', 'debug-events', ...args],
-        Gio.SubprocessFlags.STDIN_PIPE | Gio.SubprocessFlags.STDOUT_PIPE);
-
-      // Get the `stdin`and `stdout` pipes, wrapping `stdout` to make it easier to
-      // read lines of text
-      const stdinStream = proc.get_stdin_pipe();
-      const stdoutStream = new Gio.DataInputStream({
-        base_stream: proc.get_stdout_pipe(),
-        close_base_stream: true,
-      });
-
-      // Start the loop
-     this.readOutput(stdoutStream, stdinStream);
-    } catch (e) {
-      logError(e);
-    }
-  }
-
-  constructor(name, devs) {
-    super();
-
-    this.devices = devs;
-    this.name = name;
-
-    this.getOutput(devs);
-  }
-}
-
-class LibinputService extends Service {
+class PointersService extends Service {
   static {
     Service.register(this, {
-      'device-init': ['boolean'],
-      'instance-closed': ['string'],
-      'instance-added': ['string'],
+      'log-started': ['boolean'],
+      'device-fetched': ['boolean'],
     });
   }
 
-  debugInstances = new Map();
+  log;
+  output = "";
   devices = new Map();
 
-  get devices() { return this._devices; }
+  get log() {return this.log;}
+  get output() {return this.output;}
+  get devices() {return this.devices;}
 
-  parseOutput(output) {
-    let lines = output.split('\n');
-    let device = null;
+  parseDevices() {
+    Utils.execAsync(['libinput', 'list-devices']).then(out => {
+      let lines = out.split('\n');
+      let device = null;
+      let devices = new Map();
 
-    lines.forEach(line => {
-      let parts = line.split(':');
+      lines.forEach(line => {
+        let parts = line.split(':');
 
-      if (parts[0] === 'Device') {
-        device = {};
-        this.devices.set(parts[1].trim(), device);
-      }
-      else if (device && parts[1]) {
-        let key = parts[0].trim();
-        let value = parts[1].trim();
-        device[key] = value;
+        if (parts[0] === 'Device') {
+          device = {};
+          devices.set(parts[1].trim(), device);
+        }
+        else if (device && parts[1]) {
+          let key = parts[0].trim();
+          let value = parts[1].trim();
+          device[key] = value;
+        }
+      });
+      this.devices = devices.filter(dev => dev.Capabilities && dev.Capabilities.includes('pointer'));
+      this.emit('device-fetched', true);
+    });
+  }
+
+  startLog() {
+    let args = [];
+    this.devices.forEach(dev => {
+      if (dev.Kernel) {
+        args.push('--device');
+        args.push(dev.Kernel);
       }
     });
-    this.emit('device-init', true);
-  }
 
-  constructor() {
-    super();
-    this.debugInstances = new Map();
-    Utils.execAsync(['libinput', 'list-devices'])
-      .then(out => this.parseOutput(out))
-      .catch(console.error);
-  }
-
-  addDebugInstance(name, devs) {
-    if (this.debugInstances.get(name))
-      return;
-
-    devs = Array(devs);
-    if (devs.some(dev => dev.Capabilities && dev.Capabilities.includes('pointer'))) {
-    }
-    const debugInst = new DebugInstance(name, devs);
-
-    debugInst.connect('closed', () => {
-      this.debugInstances.delete(name);
-      this.emit('instance-closed', name);
-      this.emit('changed');
-    });
-
-    this.debugInstances.set(name, debugInst);
-    this.emit('instance-added', name);
-    return debugInst;
-  }
-}
-
-export default class Libinput {
-  static { Service.Libinput = this; }
-  static instance = new LibinputService();
-
-  static get devices() { return Libinput.instance.devices; }
-  static get debugInstances() { return Libinput.instance.debugInstances; }
-
-  static addDebugInstance(name, dev) {
-    return Libinput.instance.addDebugInstance(name, dev);
+    this.log = Utils.subprocess(
+      ['libinput', 'debug-events', ...args],
+      (output) => {
+        this.output = output;
+      },
+      (err) => logError(err)
+    );
+    this.emit('log-started', true);
   }
 }
