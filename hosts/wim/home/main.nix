@@ -18,15 +18,6 @@
 
   # TODO: use hm for tmux
   home-manager.users = {
-
-    root = {
-      imports = [
-        ./bashdots.nix
-      ];
-
-      home.stateVersion = "23.05";
-    };
-
     matt = {
 
       imports = [
@@ -34,7 +25,6 @@
         ./dconf.nix
         ./theme.nix
         ./hyprland.nix
-        ./bashdots.nix
         ./dotfiles.nix
         ./packages.nix
         ./firefox/main.nix

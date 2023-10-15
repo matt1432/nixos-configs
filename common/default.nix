@@ -27,7 +27,8 @@
   home-manager.users = let
     default = {
       imports = [
-        ./modules/neovim/nvim.nix
+        ./modules/neovim
+        ./modules/bash
       ];
       home.stateVersion = lib.mkDefault "23.05";
     };
