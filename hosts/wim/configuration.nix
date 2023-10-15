@@ -6,6 +6,7 @@
 
     ../../modules/audio.nix
     ../../modules/kmscon.nix
+    ../../modules/plymouth.nix
     ../../modules/printer.nix
 
     ./cfg/main.nix
