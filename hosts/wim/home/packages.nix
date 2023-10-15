@@ -12,17 +12,6 @@ in
     };
 
     btop.enable = true;
-
-    jq.enable = true;
-
-    ripgrep = {
-      enable = true;
-    };
-
-    java = {
-      enable = true;
-      package = pkgs.temurin-bin-17;
-    };
   };
 
   home.packages = [

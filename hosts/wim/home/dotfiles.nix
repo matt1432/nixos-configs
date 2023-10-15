@@ -30,10 +30,6 @@ in
   };
 
   programs = {
-    fzf = {
-      enable = true;
-      enableBashIntegration = true;
-    };
 
     wofi = {
       enable = true;
