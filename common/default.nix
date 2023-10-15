@@ -1,4 +1,4 @@
-{ home-manager, lib, nixpkgs, nur, ... }: {
+{ config, home-manager, lib, nixpkgs, nur, nix-melt, nurl, pkgs, ... }: {
   imports = [
     home-manager.nixosModules.default
     ./overlays/list.nix
@@ -36,6 +36,32 @@
         ./modules/neovim
         ./modules/bash
       ];
+
+      home.packages = [
+        nix-melt.packages.x86_64-linux.default
+        nurl.packages.x86_64-linux.default
+      ] ++
+
+      (with config.nur.repos.rycee; [
+        mozilla-addons-to-nix
+      ]) ++
+
+      (with pkgs.nodePackages; [
+        undollar
+      ]) ++
+
+      (with pkgs; [
+        neofetch
+        progress
+        wget
+        tree
+        mosh
+        rsync
+        killall
+        imagemagick
+        usbutils
+      ]);
+
       home.stateVersion = lib.mkDefault "23.05";
     };
   in {

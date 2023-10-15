@@ -17,8 +17,6 @@ in
                                     '';
     "gtklock/style.css".source     = symlink "${configDir}/gtklock/style.css";
 
-    "ripgrep".source               = symlink "${configDir}/ripgrep";
-
     "discord/settings.json".source = symlink "${configDir}/discord/settings.json";
 
     "dolphinrc".source             = symlink "${configDir}/dolphinrc";

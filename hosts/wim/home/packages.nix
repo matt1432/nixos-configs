@@ -1,7 +1,6 @@
-{ pkgs, config, nixpkgs-wayland, nix-melt, nurl, ... }: let
+{ pkgs, nixpkgs-wayland, ... }: let
   waypkgs = nixpkgs-wayland.packages.x86_64-linux;
-in
-{
+in {
   programs = {
 
     obs-studio = {
@@ -14,18 +13,9 @@ in
     btop.enable = true;
   };
 
-  home.packages = [
-    nix-melt.packages.x86_64-linux.default
-    nurl.packages.x86_64-linux.default
-  ] ++
-
-  (with pkgs.python311Packages; [
+  home.packages = (with pkgs.python311Packages; [
     python
     pyclip
-  ]) ++
-
-  (with pkgs.nodePackages; [
-    undollar
   ]) ++
 
   (with pkgs.plasma5Packages; [
@@ -51,10 +41,6 @@ in
     seahorse
   ]) ++
 
-  (with config.nur.repos.rycee; [
-    mozilla-addons-to-nix
-  ]) ++
-
   (with pkgs; [
     # School
     virt-manager
@@ -77,18 +63,9 @@ in
     xournalpp
 
     # Misc CLI
-    neofetch
     acpi
-    progress
     alsa-utils
-    wget
-    tree
-    mosh
-    rsync
-    killall
     fontfor
-    imagemagick
-    usbutils
 
     (writeShellScriptBin "Gparted" ''
       (

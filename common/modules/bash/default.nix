@@ -7,8 +7,13 @@
       enable = true;
       enableBashIntegration = true;
     };
+    ripgrep = {
+      enable = true;
+      arguments = [
+        "--no-config"
+      ];
+    };
     jq.enable = true;
-    ripgrep.enable = true;
 
     starship = let
       textColor   = "#e3e5e5";
