@@ -1,3 +1,5 @@
+# Home-manager module
+
 { pkgs, lib, ... }: let
   # installs a vim plugin from git with a given tag / branch
   plugin = owner: repo: rev: hash: pkgs.vimUtils.buildVimPlugin {
@@ -23,10 +25,10 @@ in
     package = pkgs.neovim-nightly;
 
     extraConfig = builtins.concatStringsSep "\n" [
-      (lib.strings.fileContents ../config/nvim/base.vim)
+      (lib.strings.fileContents ./config/base.vim)
       ''
         lua << EOF
-        ${lib.strings.fileContents ../config/nvim/config.lua}
+        ${lib.strings.fileContents ./config/config.lua}
         EOF
       ''
     ];

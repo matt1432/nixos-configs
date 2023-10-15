@@ -22,7 +22,6 @@
     root = {
       imports = [
         ./bashdots.nix
-        ./nvim.nix
       ];
 
       home.stateVersion = "23.05";
@@ -38,7 +37,6 @@
         ./bashdots.nix
         ./dotfiles.nix
         ./packages.nix
-        ./nvim.nix
         ./firefox/main.nix
       ];
 

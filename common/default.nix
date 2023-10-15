@@ -1,4 +1,4 @@
-({ nixpkgs, ... }: {
+({ nixpkgs, home-manager, lib, ... }: {
   # Select internationalisation properties.
   i18n.defaultLocale = "en_CA.UTF-8";
   console = {
@@ -22,6 +22,18 @@
       flake = nixpkgs;
       exact = false;
     };
+  };
+
+  home-manager.users = let
+    default = {
+      imports = [
+        ./modules/neovim/nvim.nix
+      ];
+      home.stateVersion = lib.mkDefault "23.05";
+    };
+  in {
+    root = default;
+    matt = default;
   };
 
   imports = [
