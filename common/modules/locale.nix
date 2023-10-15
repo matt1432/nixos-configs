@@ -4,9 +4,9 @@
       enable = true;
       defaultFonts = {
         emoji = [ "Noto Color Emoji" ];
-        monospace = [ "JetBrainsMono Nerd Font" ];
-        sansSerif = [ "JetBrainsMono Nerd Font" ];
-        serif = [ "JetBrainsMono Nerd Font" ];
+        monospace = [ "Noto Nerd Font" ];
+        sansSerif = [ "Noto Nerd Font" ];
+        serif = [ "Noto Nerd Font" ];
       };
     };
 
@@ -18,6 +18,7 @@
         "NerdFontsSymbolsOnly"
         "SpaceMono"
         "Ubuntu"
+        "Noto"
       ]; })
       noto-fonts
       noto-fonts-cjk
