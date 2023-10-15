@@ -131,10 +131,6 @@
         };
       };
     };
-
-    htop = {
-      enable = true;
-    };
   };
 
   # List packages in root user PATH

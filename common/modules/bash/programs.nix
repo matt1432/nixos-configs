@@ -15,5 +15,6 @@
       ];
     };
     jq.enable = true;
+    htop.enable = true;
   };
 }
