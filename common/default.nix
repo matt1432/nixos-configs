@@ -1,4 +1,9 @@
-({ nixpkgs, home-manager, lib, ... }: {
+{ home-manager, lib, nixpkgs, nur, ... }: {
+  imports = [
+    home-manager.nixosModules.default
+    ./overlays/list.nix
+  ];
+
   # Select internationalisation properties.
   i18n.defaultLocale = "en_CA.UTF-8";
   console = {
@@ -27,6 +32,7 @@
   home-manager.users = let
     default = {
       imports = [
+        nur.hmModules.nur
         ./modules/neovim
         ./modules/bash
       ];
@@ -36,8 +42,4 @@
     root = default;
     matt = default;
   };
-
-  imports = [
-    ./overlays/list.nix
-  ];
-})
+}
