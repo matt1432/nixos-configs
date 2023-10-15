@@ -45,24 +45,6 @@
     gvfs.enable = true;
     flatpak.enable = true;
     tlp.enable = true;
-
-    locate = {
-      enable = true;
-      package = pkgs.mlocate;
-      localuser = null;
-      interval = "hourly";
-      prunePaths = [
-        "/tmp"
-        "/var/tmp"
-        "/var/cache"
-        "/var/lock"
-        "/var/run"
-        "/var/spool"
-        "/nix/var/log/nix"
-        "/proc"
-        "/run/user"
-      ];
-    };
   };
 
   xdg.portal = {
@@ -152,11 +134,6 @@
 
     htop = {
       enable = true;
-    };
-
-    fzf = {
-      fuzzyCompletion = true;
-      keybindings = true;
     };
   };
 

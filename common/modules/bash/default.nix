@@ -1,19 +1,11 @@
 # Home-manager module
 
 { lib, ... }: {
-  programs = {
+  imports = [
+    ./programs.nix
+  ];
 
-    fzf = {
-      enable = true;
-      enableBashIntegration = true;
-    };
-    ripgrep = {
-      enable = true;
-      arguments = [
-        "--no-config"
-      ];
-    };
-    jq.enable = true;
+  programs = {
 
     starship = let
       textColor   = "#e3e5e5";

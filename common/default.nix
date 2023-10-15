@@ -1,6 +1,7 @@
 { config, home-manager, lib, nixpkgs, nur, nix-melt, nurl, pkgs, ... }: {
   imports = [
     home-manager.nixosModules.default
+    ./modules/programs.nix
     ./overlays/list.nix
   ];
 
