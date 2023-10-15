@@ -1,15 +1,11 @@
 { config, home-manager, lib, nixpkgs, nur, nix-melt, nurl, pkgs, ... }: {
+
   imports = [
     home-manager.nixosModules.default
     ./modules/programs.nix
+    ./modules/locale.nix
     ./overlays/list.nix
   ];
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_CA.UTF-8";
-  console = {
-    keyMap = "ca";
-  };
 
   nixpkgs.config.allowUnfree = true;
 
@@ -53,6 +49,7 @@
       ]) ++
 
       (with pkgs; [
+        dracula-theme
         neofetch
         progress
         wget

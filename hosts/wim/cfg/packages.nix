@@ -83,52 +83,14 @@
   # List packages in root user PATH
   environment.systemPackages = with pkgs; [
     # for sddm
-    dracula-theme
     plasma5Packages.plasma-framework
     plasma5Packages.plasma-workspace
 
     qemu
     wl-clipboard
     alsa-utils
-    wget
-    tree
-    rsync
-    killall
-    imagemagick
-    usbutils
     evtest
     plasma5Packages.kio-admin
     plasma5Packages.ksshaskpass
   ];
-
-  fonts = {
-    fontconfig = {
-      enable = true;
-      /*defaultFonts = {
-        emoji = [ "Noto Color Emoji" ];
-        monospace = [ "MesloLGS Nerd Font" ];
-        sansSerif = [ "MesloLGS Nerd Font" ];
-        serif = [ "MesloLGS Nerd Font" ];
-      };*/
-    };
-
-    packages = with pkgs; [
-      (nerdfonts.override { fonts = [
-        "JetBrainsMono"
-        "Go-Mono"
-        "Iosevka"
-        "NerdFontsSymbolsOnly"
-        "SpaceMono"
-        "Ubuntu"
-      ]; })
-      noto-fonts
-      noto-fonts-cjk
-      noto-fonts-emoji
-      liberation_ttf
-      font-awesome
-      meslo-lgs-nf
-      jetbrains-mono
-      ubuntu_font_family
-    ];
-  };
 }
