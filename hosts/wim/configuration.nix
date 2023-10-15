@@ -8,6 +8,7 @@
     ../../modules/kmscon.nix
     ../../modules/plymouth.nix
     ../../modules/printer.nix
+    ../../modules/proton-bridge.nix
 
     ./cfg/main.nix
     ./home/main.nix
