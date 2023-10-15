@@ -51,6 +51,4 @@
     libvirtd.enable = true;
     waydroid.enable = true;
   };
-
-  zramSwap.enable = true;
 }
