@@ -1,13 +1,19 @@
-{ pkgs, ... }:
+{ lib, ... }:
 
 {
   imports = [
     ./hardware-configuration.nix
+
+    ../../modules/audio.nix
+    ../../modules/kmscon.nix
+    ../../modules/printer.nix
+
     ./cfg/main.nix
     ./home/main.nix
   ];
 
   networking = {
+    useDHCP = lib.mkDefault true;
     hostName = "wim";
     networkmanager = {
       enable = true;
@@ -17,14 +23,6 @@
 
   # Set your time zone.
   time.timeZone = "America/Montreal";
-
-  services.kmscon = {
-    enable = true;
-    hwRender = true;
-    # FIXME: https://github.com/Aetf/kmscon/issues/18    // Icons not rendering properly
-    # FIXME: https://github.com/Aetf/kmscon/issues/56    // Mouse cursor stays
-    extraOptions = "--font-size 12.5 --font-dpi 170 --font-name 'JetBrainsMono Nerd Font'";
-  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
