@@ -3,25 +3,21 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ./overlays/list.nix
     ./cfg/main.nix
     ./home/main.nix
   ];
 
   networking = {
     hostName = "wim";
-    networkmanager.enable = true;
-    networkmanager.wifi.backend = "wpa_supplicant";
+    networkmanager = {
+      enable = true;
+      wifi.backend = "wpa_supplicant";
+    };
   };
 
   # Set your time zone.
   time.timeZone = "America/Montreal";
 
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_CA.UTF-8";
-  console = {
-    keyMap = "ca";
-  };
   services.kmscon = {
     enable = true;
     hwRender = true;
@@ -29,8 +25,6 @@
     # FIXME: https://github.com/Aetf/kmscon/issues/56    // Mouse cursor stays
     extraOptions = "--font-size 12.5 --font-dpi 170 --font-name 'JetBrainsMono Nerd Font'";
   };
-
-  nixpkgs.config.allowUnfree = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

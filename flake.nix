@@ -44,40 +44,25 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, nur, ... }@attrs: {
+  outputs = { self, nixpkgs, home-manager, nur, ... }@attrs: let
+    defaultModules = [
+      nur.nixosModules.nur
+
+      home-manager.nixosModules.home-manager {
+        home-manager.extraSpecialArgs = attrs;
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+      }
+
+      ./common/default.nix
+    ];
+  in {
     nixosConfigurations.wim = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = attrs;
       modules = [
-        nur.nixosModules.nur
-
-        ({ ... }: {
-          nix = {
-            # Edit nix.conf
-            settings = {
-              experimental-features = [ "nix-command" "flakes" ];
-              keep-outputs = true;
-              keep-derivations = true;
-              auto-optimise-store = true;
-              warn-dirty = false;
-            };
-
-            # Minimize dowloads of indirect nixpkgs flakes
-            registry = {
-              nixpkgs.flake = self.inputs.nixpkgs;
-              nixpkgs.exact = false;
-            };
-          };
-        })
-
-        home-manager.nixosModules.home-manager {
-          home-manager.extraSpecialArgs = attrs;
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-        }
-
-        ./configuration.nix
-      ];
+        ./hosts/wim/configuration.nix
+      ] ++ defaultModules;
     };
   };
 }

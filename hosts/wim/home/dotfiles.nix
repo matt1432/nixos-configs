@@ -47,7 +47,7 @@ in
         insensitive = true;
         no_actions = true;
       };
-      style = builtins.readFile ../../config/wofi/style.css;
+      style = builtins.readFile ../config/wofi/style.css;
     };
 
     alacritty = {

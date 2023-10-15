@@ -146,11 +146,11 @@
       [[ -f ~/.bashrc ]] && . ~/.bashrc
     '';
     bashrcExtra = ''
-      ${lib.strings.fileContents ../../config/bash/dracula/less.sh}
-      ${lib.strings.fileContents ../../config/bash/dracula/fzf.sh}
+      ${lib.strings.fileContents ../config/bash/dracula/less.sh}
+      ${lib.strings.fileContents ../config/bash/dracula/fzf.sh}
 
-      ${lib.strings.fileContents ../../config/bash/colorgrid.sh}
-      ${lib.strings.fileContents ../../config/bash/bashrc}
+      ${lib.strings.fileContents ../config/bash/colorgrid.sh}
+      ${lib.strings.fileContents ../config/bash/bashrc}
     '';
     #initExtra = ''
     #'';
