@@ -10,13 +10,6 @@
   };
 
   services.logind.lidSwitch = "lock";
-  services.gnome.gnome-keyring.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  networking.firewall.enable = false;
 
   security.sudo.extraConfig = ''
     Defaults        timestamp_timeout=600

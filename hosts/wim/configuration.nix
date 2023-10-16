@@ -11,7 +11,7 @@
     ../../modules/proton-bridge.nix
     ../../modules/sddm-wayland.nix
 
-    ./cfg/main.nix
+    ./modules/security.nix
     ./home/main.nix
   ];
 
@@ -22,6 +22,7 @@
       enable = true;
       wifi.backend = "wpa_supplicant";
     };
+    firewall.enable = false;
   };
 
   services = {
