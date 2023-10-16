@@ -4,7 +4,7 @@ const { Box, Icon, Label, Button } = Widget;
 
 import GLib from 'gi://GLib';
 
-import Gesture from '../misc/drag.js';
+import Gesture from './gesture.js';
 import { EventBox } from '../misc/cursorbox.js'
 
 

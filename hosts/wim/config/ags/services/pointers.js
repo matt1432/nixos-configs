@@ -13,7 +13,7 @@ class Pointers extends Service {
     });
   }
 
-  proc;
+  proc = undefined;
   output = "";
   devices = new Map();
 
@@ -52,6 +52,9 @@ class Pointers extends Service {
   }
 
   startProc() {
+    if (this.proc)
+      return;
+
     let args = [];
     this.devices.forEach(dev => {
       if (dev.Kernel) {
@@ -79,6 +82,7 @@ class Pointers extends Service {
   killProc() {
     if (this.proc) {
       this.proc.force_exit();
+      this.proc = undefined;
       this.emit('proc-destroyed', true);
     }
   }
