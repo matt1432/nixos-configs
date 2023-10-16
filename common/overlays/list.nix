@@ -5,6 +5,7 @@
     (import ./swayosd.nix)
     (import ./blueberry.nix)
     (import ./dracula-theme.nix)
+    (import ./spotifywm.nix)
 
     (final: prev: {
       input-emulator = final.callPackage ./pkgs/input-emulator.nix {};
