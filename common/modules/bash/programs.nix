@@ -12,6 +12,8 @@
         "--hidden"
         "--glob=!.git/*"
         "--smart-case"
+        "--sort"
+        "path"
       ];
     };
     jq.enable = true;
