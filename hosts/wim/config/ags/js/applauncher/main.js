@@ -1,6 +1,5 @@
 import { App, Applications, Utils, Widget } from '../../imports.js';
 const { Label, Box, Icon, Button, Scrollable, Entry, EventBox } = Widget;
-const { getWindow } = App
 
 import { Separator } from '../misc/separator.js';
 import { PopupWindow } from '../misc/popup.js';
@@ -120,10 +119,10 @@ export default PopupWindow({
   name: 'applauncher',
   child: EventBox({
     onHover: () => {
-      getWindow('applauncher').focusable = true;
+      App.getWindow('applauncher').focusable = true;
     },
     onHoverLost: () => {
-      getWindow('applauncher').focusable = false;
+      App.getWindow('applauncher').focusable = false;
     },
     child: Applauncher(),
   }),

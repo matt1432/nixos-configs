@@ -24,7 +24,6 @@ const Center = player => Box({
     CenterBox({
       vertical: true,
       children: [
- 
         Box({
           className: 'metadata',
           vertical: true,
