@@ -93,8 +93,16 @@ export default () => Box({
     ],
     connections: [
       [Mpris, (overlay, busName) => {
-        if (!busName || overlay._players.has(busName))
+        if (overlay._players.has(busName))
           return;
+
+        if (!busName) {
+          let player = Mpris.players.find(p => !overlay._players.has(p.busName));
+          if (player)
+            busName = player.busName;
+          else
+            return;
+        }
 
         const player = Mpris.getPlayer(busName);
         player.colors = Variable();
