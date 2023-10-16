@@ -1,4 +1,8 @@
 { pkgs, ... }: {
+  environment.systemPackages = with pkgs; [
+    dracula-theme
+  ];
+
   services.xserver = {
     enable = true;
     layout = "ca";
