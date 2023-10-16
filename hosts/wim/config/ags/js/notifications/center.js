@@ -134,7 +134,7 @@ const NotificationCenterWidget = Box({
   ],
 });
 
-export const NotificationCenter = PopupWindow({
+export default () => PopupWindow({
   name: 'notification-center',
   anchor: [ 'top', 'right' ],
   margin: [ 8, 60, 0, 0 ],

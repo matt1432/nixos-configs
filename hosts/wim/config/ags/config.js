@@ -1,17 +1,15 @@
-import { App, Utils }             from './imports.js';
+import { App, Utils } from './imports.js';
 
-import { Powermenu }              from './js/powermenu.js';
-import { Bar }                    from './js/bar/main.js';
-import { NotificationCenter }     from './js/notifications/center.js';
-import { NotificationsPopupList } from './js/notifications/popup.js'
-import { Calendar }               from './js/date.js';
-import { QuickSettings }          from './js/quick-settings/main.js';
-import Overview                   from './js/overview/main.js';
-import AppLauncher                from './js/applauncher/main.js';
-import * as Corners               from './js/screen-corners.js';
-
-import { Closer, closeAll }       from './js/misc/closer.js';
-globalThis.closeAll = () => closeAll();
+import Closer         from './js/misc/closer.js';
+import Powermenu      from './js/powermenu.js';
+import { Bar }        from './js/bar/main.js';
+import NotifCenter    from './js/notifications/center.js';
+import NotifPopups    from './js/notifications/popup.js'
+import Calendar       from './js/date.js';
+import QuickSettings  from './js/quick-settings/main.js';
+import Overview       from './js/overview/main.js';
+import AppLauncher    from './js/applauncher/main.js';
+import * as Corners   from './js/screen-corners.js';
 
 
 const scss = App.configDir + '/scss/main.scss';
@@ -35,15 +33,15 @@ export default {
     'applauncher': 500,
   },
   windows: [
-    Powermenu,
-    Bar,
-    Closer,
-    NotificationCenter,
-    NotificationsPopupList,
-    Calendar,
-    QuickSettings,
-    Overview,
-    AppLauncher,
+    Powermenu(),
+    Bar(),
+    Closer(),
+    NotifCenter(),
+    NotifPopups(),
+    Calendar(),
+    QuickSettings(),
+    Overview(),
+    AppLauncher(),
     Corners.Bottomleft(),
     Corners.Bottomright(),
   ],

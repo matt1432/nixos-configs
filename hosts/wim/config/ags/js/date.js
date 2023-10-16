@@ -72,7 +72,7 @@ const CalendarWidget = () => Box({
   }),
 });
 
-export const Calendar = PopupWindow({
+export default () => PopupWindow({
   anchor: [ 'top', 'right' ],
   margin: [ 8, 182, 0, 0],
   name: 'calendar',

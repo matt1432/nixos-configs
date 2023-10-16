@@ -11,7 +11,7 @@ function update(box) {
   updateClients(box);
 }
 
-export default PopupWindow({
+export default () => PopupWindow({
   name: 'overview',
   transition: 'crossfade',
 

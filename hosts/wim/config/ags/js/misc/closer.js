@@ -14,13 +14,14 @@ const ALWAYS_OPEN = [
 ];
 
 
-export const closeAll = () => {
+const closeAll = () => {
   App.windows.forEach(w => {
     if (!ALWAYS_OPEN.some(window => window === w.name))
       App.closeWindow(w.name)
   });
   App.closeWindow('closer');
 };
+globalThis.closeAll = () => closeAll();
 
 Pointers.connect('new-line', (_, out) => {
   if (out) {
@@ -59,7 +60,7 @@ Pointers.connect('new-line', (_, out) => {
   }
 })
 
-export const Closer = Window({
+export default () => Window({
   name: 'closer',
   popup: true,
   layer: 'top',

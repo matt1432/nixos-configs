@@ -17,15 +17,14 @@ import { Revealer }         from './fullscreen.js';
 //import KeyboardLayout       from './keyboard-layout.js';
 
 
-export const Bar = Window({
+export const Bar = () => Window({
   name: 'bar',
   layer: 'overlay',
   anchor: [ 'top', 'left', 'right' ],
   exclusive: true,
   child: Revealer({
     child: CenterBox({
-      className: 'transparent',
-      style: 'margin: 5px',
+      className: 'bar',
       vertical: false,
 
       startWidget: Box({

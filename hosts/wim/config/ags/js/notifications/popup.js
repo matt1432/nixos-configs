@@ -77,7 +77,7 @@ const PopupList = ({ transition = 'none' } = {}) => Box({
   ],
 });
 
-export const NotificationsPopupList = Window({
+export default () => Window({
   name: `notifications`,
   anchor: [ 'top', 'left' ],
   child: PopupList(),

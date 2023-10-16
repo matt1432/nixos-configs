@@ -44,6 +44,9 @@ undershoot {
 .powermenu-clickhandler {
   background-color: black; }
 
+.bar {
+  margin: 5px; }
+
 .osk-toggle,
 .tablet-toggle,
 .heart-toggle {

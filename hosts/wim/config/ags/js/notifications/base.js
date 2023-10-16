@@ -6,7 +6,6 @@ import GLib from 'gi://GLib';
 
 import { Draggable } from '../misc/drag.js';
 import { EventBox } from '../misc/cursorbox.js'
-import { closeAll } from '../misc/closer.js';
 
 
 const NotificationIcon = notif => {
@@ -19,7 +18,7 @@ const NotificationIcon = notif => {
       iconCmd = box => {
         if (!box.get_parent().get_parent().get_parent().get_parent().get_parent()._dragging) {
           execAsync(['bash', '-c', `$AGS_PATH/launch-app.sh ${app.app.get_string('StartupWMClass')} ${app.app.get_string('Exec')}`]).catch(print);
-          closeAll();
+          globalThis.closeAll();
         }
       }
     }
@@ -28,7 +27,7 @@ const NotificationIcon = notif => {
         if (!box.get_parent().get_parent().get_parent().get_parent().get_parent()._dragging) {
           execAsync(['bash', '-c', `$AGS_PATH/launch-app.sh discord ${app.app.get_string('Exec')}`])
             .catch(print);
-          closeAll();
+          globalThis.closeAll();
         }
       }
     }

@@ -114,8 +114,7 @@ const Applauncher = ({ windowName = 'applauncher' } = {}) => {
   });
 };
 
-// FIXME: make it unfocusable
-export default PopupWindow({
+export default () => PopupWindow({
   name: 'applauncher',
   focusable: true,
   child: Applauncher(),
