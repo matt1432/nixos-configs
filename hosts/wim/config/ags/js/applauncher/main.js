@@ -1,5 +1,5 @@
 import { App, Applications, Utils, Widget } from '../../imports.js';
-const { Label, Box, Icon, Button, Scrollable, Entry, EventBox } = Widget;
+const { Label, Box, Icon, Button, Scrollable, Entry } = Widget;
 
 import { Separator } from '../misc/separator.js';
 import { PopupWindow } from '../misc/popup.js';
@@ -114,16 +114,9 @@ const Applauncher = ({ windowName = 'applauncher' } = {}) => {
   });
 };
 
-// FIXME: make it so I don't have to click to trigger onHoverLost
+// FIXME: make it unfocusable
 export default PopupWindow({
   name: 'applauncher',
-  child: EventBox({
-    onHover: () => {
-      App.getWindow('applauncher').focusable = true;
-    },
-    onHoverLost: () => {
-      App.getWindow('applauncher').focusable = false;
-    },
-    child: Applauncher(),
-  }),
+  focusable: true,
+  child: Applauncher(),
 });
