@@ -6,7 +6,7 @@ import Gdk from 'gi://Gdk';
 const display = Gdk.Display.get_default();
 
 
-export const Draggable = ({
+export default ({
   maxOffset = 150,
   startMargin = 0,
   endMargin = 300,

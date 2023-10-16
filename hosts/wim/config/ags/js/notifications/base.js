@@ -4,7 +4,7 @@ const { Box, Icon, Label, Button } = Widget;
 
 import GLib from 'gi://GLib';
 
-import { Draggable } from '../misc/drag.js';
+import Gesture from '../misc/drag.js';
 import { EventBox } from '../misc/cursorbox.js'
 
 
@@ -92,7 +92,7 @@ export default ({ notif, command = () => {}} = {}) => {
     return;
   }
 
-  return Draggable({
+  return Gesture({
     maxOffset: 200,
     command: () => command(),
     properties: [
