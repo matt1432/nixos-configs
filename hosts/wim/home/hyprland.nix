@@ -45,8 +45,12 @@ in
   };
 
   xdg.configFile = {
-    "hypr/main.conf".source       = symlink "${configDir}/hypr/main.conf";
-    "hypr/hyprpaper.conf".source  = symlink "${configDir}/hypr/hyprpaper.conf";
+    "hypr/main.conf".source    = symlink "${configDir}/hypr/main.conf";
+
+    "hypr/hyprpaper.conf".text = ''
+      preload = ${pkgs.dracula-theme}/wallpapers/waves.png
+      wallpaper = eDP-1, ${pkgs.dracula-theme}/wallpapers/waves.png
+    '';
   };
 
   home.packages = [

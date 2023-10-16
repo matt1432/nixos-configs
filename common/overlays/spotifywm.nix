@@ -1,7 +1,5 @@
 final: prev: {
   spotifywm = prev.spotifywm.overrideAttrs (oldAttrs: rec {
-
-
     installPhase = ''
       runHook preInstall
 
