@@ -57,12 +57,22 @@
       ./common/default.nix
     ];
   in {
-    nixosConfigurations.wim = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      specialArgs = attrs;
-      modules = [
-        ./hosts/wim/configuration.nix
-      ] ++ defaultModules;
+    nixosConfigurations = {
+      wim = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = attrs;
+        modules = [
+          ./hosts/wim/configuration.nix
+        ] ++ defaultModules;
+      };
+
+      binto = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = attrs;
+        modules = [
+          ./hosts/binto/configuration.nix
+        ] ++ defaultModules;
+      };
     };
   };
 }
