@@ -25,7 +25,6 @@ export const Bar = Window({
   child: Revealer({
     child: CenterBox({
       className: 'transparent',
-      halign: 'fill',
       style: 'margin: 5px',
       vertical: false,
 

@@ -5,6 +5,10 @@ const ALWAYS_OPEN = [
   'closer',
   'bar',
   'notifications',
+  'cornertl',
+  'cornertr',
+  'cornerbl',
+  'cornerbr'
 ];
 
 

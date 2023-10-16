@@ -764,3 +764,8 @@ calendar:indeterminate {
     .applauncher .app image {
       transition: 200ms;
       margin-right: 9px; }
+
+.corner {
+  background-color: black;
+  border-radius: 21px;
+  border-width: 0.068rem; }

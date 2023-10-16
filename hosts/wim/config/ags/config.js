@@ -8,6 +8,7 @@ import { Calendar }               from './js/date.js';
 import { QuickSettings }          from './js/quick-settings/main.js';
 import Overview                   from './js/overview/main.js';
 import AppLauncher                from './js/applauncher/main.js';
+import * as Corners               from './js/screen-corners.js';
 
 import { Closer, closeAll }       from './js/misc/closer.js';
 globalThis.closeAll = () => closeAll();
@@ -43,5 +44,7 @@ export default {
     QuickSettings,
     Overview,
     AppLauncher,
+    Corners.Bottomleft(),
+    Corners.Bottomright(),
   ],
 };
