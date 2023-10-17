@@ -11,6 +11,7 @@
     ../../modules/printer.nix
 
     ./modules/nvidia.nix
+    ./modules/nix-gaming.nix
   ];
 
   networking = {

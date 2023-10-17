@@ -33,6 +33,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-gaming.url = "github:fufexan/nix-gaming";
+
     nix-melt = {
       url = "github:nix-community/nix-melt";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -44,7 +46,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, nur, ... }@attrs: let
+  outputs = { self, nixpkgs, home-manager, nur, nix-gaming, ... }@attrs: let
     defaultModules = [
       nur.nixosModules.nur
 

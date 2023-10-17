@@ -1,4 +1,8 @@
-{ ... }: {
+{ nix-gaming, ... }: {
+  imports = [
+    nix-gaming.nixosModules.pipewireLowLatency
+  ];
+
   hardware.pulseaudio.enable = false;
 
   services.pipewire = {
@@ -6,5 +10,6 @@
     alsa.enable = true;
     jack.enable = true;
     pulse.enable = true;
+    lowLatency.enable = true;
   };
 }

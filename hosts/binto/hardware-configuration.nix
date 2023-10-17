@@ -2,7 +2,7 @@
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_xanmod_latest;
     kernelModules = [ "kvm-amd" ];
     extraModulePackages = with config.boot.kernelPackages; [
       v4l2loopback
