@@ -16,7 +16,6 @@
   ];
 
   networking = {
-    useDHCP = lib.mkDefault true;
     hostName = "wim";
     networkmanager = {
       enable = true;

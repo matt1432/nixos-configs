@@ -4,6 +4,16 @@
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
+    kernelModules = [ "kvm-amd" ];
+    extraModulePackages = with config.boot.kernelPackages; [
+      v4l2loopback
+    ];
+
+    kernelParams = [
+      "cryptdevice=UUID=ab82b477-2477-453f-b95f-28e5553ad10d:root"
+      "root=/dev/mapper/root"
+    ];
+
     consoleLogLevel = 0;
 
     initrd = {
@@ -16,19 +26,10 @@
       };
     };
 
-    kernelModules = [ "kvm-amd" ];
-    extraModulePackages = with config.boot.kernelPackages; [
-      v4l2loopback
-    ];
-
-    kernelParams = [
-      "cryptdevice=UUID=ab82b477-2477-453f-b95f-28e5553ad10d:root"
-      "root=/dev/mapper/root"
-    ];
-
     loader = {
       efi.canTouchEfiVariables = true;
       timeout = 2;
+
       grub = {
         enable = true;
         device = "nodev";

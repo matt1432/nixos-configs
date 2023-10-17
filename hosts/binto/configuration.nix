@@ -18,10 +18,6 @@
     networkmanager.enable = true;
     firewall.enable = false;
   };
-
-  # Set your time zone.
-  time.timeZone = "America/Toronto";
-
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
@@ -32,6 +28,10 @@
   };
 
   services = {
+    dbus.enable = true;
+    gvfs.enable = true;
+    flatpak.enable = true;
+
     tailscale = {
       enable = true;
       extraUpFlags = [
@@ -68,6 +68,9 @@
       home.stateVersion = "23.11";
     };
   };
+
+  # Set your time zone.
+  time.timeZone = "America/Toronto";
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
