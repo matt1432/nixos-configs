@@ -3,7 +3,7 @@ const { Label, Box, Icon } = Widget;
 
 const DEFAULT_KB = "at-translated-set-2-keyboard";
 
-export default Box({
+export default () => Box({
   className: 'toggle-off',
   children: [
     Icon({

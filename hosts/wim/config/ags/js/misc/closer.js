@@ -21,7 +21,7 @@ const closeAll = () => {
   });
   App.closeWindow('closer');
 };
-globalThis.closeAll = () => closeAll();
+globalThis.closeAll = closeAll;
 
 Pointers.connect('new-line', (_, out) => {
   if (out) {

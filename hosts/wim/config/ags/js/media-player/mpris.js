@@ -5,8 +5,8 @@ const { execAsync, lookUpIcon } = Utils;
 import Gdk from 'gi://Gdk';
 const display = Gdk.Display.get_default();
 
-import { EventBox } from '../misc/cursorbox.js';
-import { Separator } from '../misc/separator.js';
+import Separator from '../misc/separator.js';
+import EventBox  from '../misc/cursorbox.js';
 
 const icons = {
   mpris: {
@@ -29,34 +29,35 @@ const icons = {
 }
 
 
-export const CoverArt = (player, params) => CenterBox({
-  ...params,
+export const CoverArt = (player, props) => CenterBox({
+  ...props,
   vertical: true,
   properties: [['bgStyle', '']],
-  connections: [
-    [player, box => {
-      execAsync(['bash', '-c', `[[ -f "${player.coverPath}" ]] && coloryou "${player.coverPath}" | grep -v Warning`])
+  connections: [[player, self => {
+    execAsync(['bash', '-c', `[[ -f "${player.coverPath}" ]] &&
+                  coloryou "${player.coverPath}" | grep -v Warning`])
       .then(out => {
         if (!Mpris.players.find(p => player === p))
           return;
 
         player.colors.value = JSON.parse(out);
 
-        box._bgStyle = `background: radial-gradient(circle,
-                                    rgba(0, 0, 0, 0.4) 30%,
-                                    ${player.colors.value.imageAccent}),
-                                    url("${player.coverPath}");
-                        background-size: cover;
-                        background-position: center;`;
-        if (!box.get_parent()._dragging)
-          box.setStyle(box._bgStyle);
-      }).catch(err => { if (err !== "") print(err) });
-    }],
-  ],
+        self._bgStyle = `background: radial-gradient(circle,
+                                     rgba(0, 0, 0, 0.4) 30%,
+                                     ${player.colors.value.imageAccent}),
+                                     url("${player.coverPath}");
+                         background-size: cover;
+                         background-position: center;`;
+
+        if (!self.get_parent()._dragging)
+          self.setStyle(self._bgStyle);
+
+      }).catch(err => {if (err !== "") print(err)});
+  }]],
 });
 
-export const TitleLabel = (player, params) => Label({
-  ...params,
+export const TitleLabel = (player, props) => Label({
+  ...props,
   xalign: 0,
   maxWidthChars: 40,
   truncate: 'end',
@@ -65,8 +66,8 @@ export const TitleLabel = (player, params) => Label({
   binds: [['label', player, 'track-title']],
 });
 
-export const ArtistLabel = (player, params) => Label({
-  ...params,
+export const ArtistLabel = (player, props) => Label({
+  ...props,
   xalign: 0,
   maxWidthChars: 40,
   truncate: 'end',
@@ -75,80 +76,83 @@ export const ArtistLabel = (player, params) => Label({
   binds: [['label', player, 'track-artists', a => a.join(', ') || '']],
 });
 
-export const PlayerIcon = (player, { symbolic = true, ...params } = {}) => {
+export const PlayerIcon = (player, { symbolic = true, ...props } = {}) => {
   let MainIcon = Icon({
-    ...params,
+    ...props,
     className: 'player-icon',
     size: 32,
     tooltipText: player.identity || '',
-    connections: [
-      [player, icon => {
-        const name = `${player.entry}${symbolic ? '-symbolic' : ''}`;
-        lookUpIcon(name) ? icon.icon = name
-          : icon.icon = icons.mpris.fallback;
-      }],
-    ],
+    connections: [[player, self => {
+      const name = `${player.entry}${symbolic ? '-symbolic' : ''}`;
+      lookUpIcon(name) ? self.icon = name
+                       : self.icon = icons.mpris.fallback;
+    }]],
   });
 
   return Box({
-    connections: [
-      [Mpris, box => {
-        let overlays = box.get_parent().get_parent().get_parent().list();
-        let player = overlays.find(overlay => overlay === box.get_parent().get_parent());
-        let index = overlays.indexOf(player)
+    connections: [[Mpris, self => {
+      let overlays = self.get_parent().get_parent()
+                          .get_parent().list();
 
-        let children = [];
-        for (let i = 0; i < overlays.length; ++i) {
-          if (i === index) {
-            children.push(MainIcon);
-            children.push(Separator(2));
-          }
-          else {
-            children.push(Box({ className: 'position-indicator' }));
-            children.push(Separator(2));
-          }
+      let player = overlays.find(overlay => {
+        overlay === self.get_parent().get_parent();
+      });
+
+      let index = overlays.indexOf(player);
+
+      let children = [];
+      for (let i = 0; i < overlays.length; ++i) {
+        if (i === index) {
+          children.push(MainIcon);
+          children.push(Separator(2));
         }
-        box.children = children;
-      }],
-    ],
+        else {
+          children.push(Box({className: 'position-indicator'}));
+          children.push(Separator(2));
+        }
+      }
+      self.children = children;
+    }]],
   });
 }
 
-export const PositionSlider = (player, params) => EventBox({
+// FIXME: get the cursors right or just don't display when disabled
+export const PositionSlider = (player, props) => EventBox({
   child: Slider({
-    ...params,
+    ...props,
     className: 'position-slider',
     hexpand: true,
     drawValue: false,
     onChange: ({ value }) => {
       player.position = player.length * value;
     },
-    properties: [
-      ['update', slider => {
-        if (slider.dragging) {
-          slider.get_parent().window.set_cursor(Gdk.Cursor.new_from_name(display, 'grabbing'));
+    properties: [['update', slider => {
+      if (slider.dragging) {
+        slider.get_parent().window.set_cursor(Gdk.Cursor
+          .new_from_name(display, 'grabbing'));
+      }
+      else {
+        if (slider.get_parent() && slider.get_parent().window) {
+          slider.get_parent().window.set_cursor(Gdk.Cursor
+            .new_from_name(display, 'pointer'));
         }
-        else {
-          if (slider.get_parent() && slider.get_parent().window) {
-            slider.get_parent().window.set_cursor(Gdk.Cursor.new_from_name(display, 'pointer'));
-          }
 
-          slider.sensitive = player.length > 0;
-          if (player.length > 0) {
-            slider.value = player.position / player.length;
-          }
+        slider.sensitive = player.length > 0;
+        if (player.length > 0) {
+          slider.value = player.position / player.length;
         }
-      }],
-    ],
+      }
+    }]],
     connections: [
       [player, s => s._update(s), 'position'],
       [1000, s => s._update(s)],
       [player.colors, s => {
-        if (player.colors.value)
-          s.setCss(`highlight { background-color: ${player.colors.value.buttonAccent}; }
-                    slider { background-color: ${player.colors.value.buttonAccent}; }
-                    slider:hover { background-color: ${player.colors.value.hoverAccent}; }
-                    trough { background-color: ${player.colors.value.buttonText}; }`);
+        let c = player.colors.value;
+        if (c)
+          s.setCss(`highlight { background-color: ${c.buttonAccent}; }
+                    slider { background-color: ${c.buttonAccent}; }
+                    slider:hover { background-color: ${c.hoverAccent}; }
+                    trough { background-color: ${c.buttonText}; }`);
       }],
     ],
   }),
@@ -162,9 +166,9 @@ function lengthStr(length) {
 }
 
 export const PositionLabel = player => Label({
-  properties: [['update', label => {
-    player.length > 0 ? label.label = lengthStr(player.position)
-                      : label.visible = !!player;
+  properties: [['update', self => {
+    player.length > 0 ? self.label = lengthStr(player.position)
+                      : self.visible = !!player;
   }]],
   connections: [
     [player, l => l._update(l), 'position'],
@@ -173,16 +177,16 @@ export const PositionLabel = player => Label({
 });
 
 export const LengthLabel = player => Label({
-  connections: [[player, label => {
-    player.length > 0 ? label.label = lengthStr(player.length)
-                      : label.visible = !!player;
+  connections: [[player, self => {
+    player.length > 0 ? self.label = lengthStr(player.length)
+                      : self.visible = !!player;
   }]],
 });
 
 export const Slash = player => Label({
   label: '/',
-  connections: [[player, label => {
-    label.visible = player.length > 0;
+  connections: [[player, self => {
+    self.visible = player.length > 0;
   }]],
 });
 
@@ -191,13 +195,13 @@ const PlayerButton = ({ player, items, onClick, prop }) => Button({
   child: Stack({ items }),
   onPrimaryClickRelease: () => player[onClick](),
   properties: [['hovered', false]],
-  onHover: box => {
-    box._hovered = true;
-    if (! box.child.sensitive || ! box.sensitive) {
-      box.window.set_cursor(Gdk.Cursor.new_from_name(display, 'not-allowed'));
+  onHover: self => {
+    self._hovered = true;
+    if (! self.child.sensitive || ! self.sensitive) {
+      self.window.set_cursor(Gdk.Cursor.new_from_name(display, 'not-allowed'));
     }
     else {
-      box.window.set_cursor(Gdk.Cursor.new_from_name(display, 'pointer'));
+      self.window.set_cursor(Gdk.Cursor.new_from_name(display, 'pointer'));
     }
 
     if (prop == 'playBackStatus') {
@@ -209,9 +213,9 @@ const PlayerButton = ({ player, items, onClick, prop }) => Button({
       });
     }
   },
-  onHoverLost: box => {
-    box._hovered = false;
-    box.window.set_cursor(null);
+  onHoverLost: self => {
+    self._hovered = false;
+    self.window.set_cursor(null);
     if (prop == 'playBackStatus') {
       items.forEach(item => {
         item[1].setStyle(`background-color: ${player.colors.value.buttonAccent};

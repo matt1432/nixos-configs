@@ -6,7 +6,7 @@ import Gtk from 'gi://Gtk';
 import Gdk from 'gi://Gdk';
 import Cairo from 'cairo';
 
-import { Button } from '../misc/cursorbox.js';
+import Button from '../misc/cursorbox.js';
 import { updateClients } from './clients.js';
 
 const TARGET = [Gtk.TargetEntry.new('text/plain', Gtk.TargetFlags.SAME_APP, 0)];
@@ -29,13 +29,13 @@ function createSurfaceFromWidget(widget) {
 };
 
 let hidden = 0;
-export const WorkspaceDrop = params => EventBox({
-  ...params,
-  connections: [['drag-data-received', (eventbox, _c, _x, _y, data) => {
-    let id = eventbox.get_parent()._id;
+export const WorkspaceDrop = props => EventBox({
+  ...props,
+  connections: [['drag-data-received', (self, _c, _x, _y, data) => {
+    let id = self.get_parent()._id;
 
     if (id < -1) {
-      id = eventbox.get_parent()._name;
+      id = self.get_parent()._name;
     }
     else if (id === -1) {
       id = `special:${++hidden}`;
@@ -46,26 +46,27 @@ export const WorkspaceDrop = params => EventBox({
     execAsync(`hyprctl dispatch movetoworkspacesilent ${id},address:${data.get_text()}`)
       .catch(print);
   }]],
-  setup: eventbox => {
-    eventbox.drag_dest_set(Gtk.DestDefaults.ALL, TARGET, Gdk.DragAction.COPY);
+  setup: self => {
+    self.drag_dest_set(Gtk.DestDefaults.ALL, TARGET, Gdk.DragAction.COPY);
   },
 });
 
-export const WindowButton = ({address, ...params} = {}) => Button({
-  ...params,
-  setup: button => {
-    button.drag_source_set(Gdk.ModifierType.BUTTON1_MASK, TARGET, Gdk.DragAction.COPY);
-    button.connect('drag-data-get', (_w, _c, data) => {
+export const WindowButton = ({address, ...props} = {}) => Button({
+  type: "Button",
+  ...props,
+  setup: self => {
+    self.drag_source_set(Gdk.ModifierType.BUTTON1_MASK, TARGET, Gdk.DragAction.COPY);
+    self.connect('drag-data-get', (_w, _c, data) => {
       data.set_text(address, address.length);
     });
-    button.connect('drag-begin', (_, context) => {
-      Gtk.drag_set_icon_surface(context, createSurfaceFromWidget(button));
-      button.get_parent().revealChild = false;
+    self.connect('drag-begin', (_, context) => {
+      Gtk.drag_set_icon_surface(context, createSurfaceFromWidget(self));
+      self.get_parent().revealChild = false;
     });
-    button.connect('drag-end', () => {
-      button.get_parent().destroy();
+    self.connect('drag-end', () => {
+      self.get_parent().destroy();
 
-      let mainBox = App.getWindow('overview').child.children[0].child;
+      let mainBox = App.getWindow('overview').getChild();
       updateClients(mainBox);
     });
   },

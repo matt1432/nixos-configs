@@ -1,8 +1,8 @@
 import { App, Applications, Utils, Widget } from '../../imports.js';
 const { Label, Box, Icon, Button, Scrollable, Entry } = Widget;
 
-import { Separator } from '../misc/separator.js';
-import { PopupWindow } from '../misc/popup.js';
+import Separator   from '../misc/separator.js';
+import PopupWindow from '../misc/popup.js';
 
 const icons = {
   apps: {

@@ -1,7 +1,7 @@
 import { Battery, Widget } from '../../imports.js';
 const { Label, Icon, Stack, Box } = Widget;
 
-import { Separator } from '../misc/separator.js';
+import Separator from '../misc/separator.js';
 
 const icons = charging => ([
   ...Array.from({ length: 10 }, (_, i) => i * 10).map(i => ([
@@ -27,9 +27,9 @@ const Indicators = charging => Stack({
 const Indicator = ({
   charging = Indicators(true),
   discharging = Indicators(false),
-  ...params
+  ...props
 } = {}) => Stack({
-  ...params,
+  ...props,
   className: 'battery-indicator',
   items: [
     ['true', charging],
@@ -43,13 +43,13 @@ const Indicator = ({
   }]],
 });
 
-const LevelLabel = params => Label({
-  ...params,
+const LevelLabel = props => Label({
+  ...props,
   className: 'label',
-  connections: [[Battery, label => label.label = `${Battery.percent}%`]],
+  connections: [[Battery, self => self.label = `${Battery.percent}%`]],
 });
 
-export const BatteryIndicator = Box({
+export default () => Box({
   className: 'toggle-off battery',
   children: [
     Indicator(),

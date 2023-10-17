@@ -4,30 +4,32 @@ const { Box, Label } = Widget;
 import GLib from 'gi://GLib';
 const { DateTime } = GLib;
 
-import { EventBox } from '../misc/cursorbox.js';
+import EventBox from '../misc/cursorbox.js';
 
 
 const ClockModule = ({
     interval = 1000,
-    ...params
+    ...props
 }) => Label({
-    ...params,
+    ...props,
     className: 'clock',
     connections: [
-      [interval, label => {
+      [interval, self => {
         var time = DateTime.new_now_local();
-        label.label = time.format('%a. ') + time.get_day_of_month() + time.format(' %b. %H:%M');
+        self.label = time.format('%a. ') +
+                     time.get_day_of_month() +
+                     time.format(' %b. %H:%M');
       }],
     ],
 });
 
-export const Clock = EventBox({
+export default () => EventBox({
   className: 'toggle-off',
   onPrimaryClickRelease: () => App.toggleWindow('calendar'),
   connections: [
-    [App, (box, windowName, visible) => {
+    [App, (self, windowName, visible) => {
       if (windowName == 'calendar') {
-        box.toggleClassName('toggle-on', visible);
+        self.toggleClassName('toggle-on', visible);
       }
     }],
   ],

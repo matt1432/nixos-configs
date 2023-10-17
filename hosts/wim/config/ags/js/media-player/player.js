@@ -1,9 +1,11 @@
 import { Mpris, Variable, Widget } from '../../imports.js';
 const { Box, CenterBox, Label } = Widget;
 
-import * as mpris from './mpris.js';
+import * as mpris    from './mpris.js';
 import PlayerGesture from './gesture.js';
-import { Separator } from '../misc/separator.js';
+import Separator     from '../misc/separator.js';
+
+const FAVE_PLAYER = 'org.mpris.MediaPlayer2.spotify';
 
 
 const Top = player => Box({
@@ -56,20 +58,22 @@ const Center = player => Box({
 const Bottom = player => Box({
   className: 'bottom',
   children: [
-
     mpris.PreviousButton(player, {
       valign: 'end',
       halign: 'start',
     }),
     Separator(8),
+
     mpris.PositionSlider(player),
     Separator(8),
+
     mpris.NextButton(player),
     Separator(8),
+
     mpris.ShuffleButton(player),
     Separator(8),
-    mpris.LoopButton(player),
 
+    mpris.LoopButton(player),
   ],
 });
 
@@ -98,10 +102,12 @@ export default () => Box({
 
         if (!busName) {
           let player = Mpris.players.find(p => !overlay._players.has(p.busName));
-          if (player)
+          if (player) {
             busName = player.busName;
-          else
+          }
+          else {
             return;
+          }
         }
 
         const player = Mpris.getPlayer(busName);
@@ -115,17 +121,19 @@ export default () => Box({
 
         overlay.overlays = result;
 
-        // Favor spotify
+        // Select favorite player at startup
         if (!overlay._setup) {
-          if (overlay._players.has('org.mpris.MediaPlayer2.spotify')) {
-            overlay._selected = overlay._players.get('org.mpris.MediaPlayer2.spotify');
+          if (overlay._players.has(FAVE_PLAYER)) {
+            overlay._selected = overlay._players.get(FAVE_PLAYER);
           }
           overlay._setup = true;
         }
 
         if (overlay._selected)
           overlay.reorder_overlay(overlay._selected, -1);
+
       }, 'player-added'],
+
 
       [Mpris, (overlay, busName) => {
         if (!busName || !overlay._players.has(busName))
@@ -141,6 +149,7 @@ export default () => Box({
         overlay.overlays = result;
         if (overlay._selected)
           overlay.reorder_overlay(overlay._selected, -1);
+
       }, 'player-closed'],
     ],
   }),

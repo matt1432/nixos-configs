@@ -8,12 +8,13 @@ const Popups = () => Box({
   vertical: true,
   properties: [
     ['map', new Map()],
-    ['dismiss', (box, id, force = false) => {
-      if (!id || !box._map.has(id))
-        return;
 
-      if (box._map.get(id)._hovered && !force)
+    ['dismiss', (box, id, force = false) => {
+      if (!id || !box._map.has(id) ||
+          box._map.get(id)._hovered && !force) {
+
         return;
+      }
 
       if (box._map.size - 1 === 0)
         box.get_parent().reveal_child = false;
@@ -27,6 +28,7 @@ const Popups = () => Box({
         box._map.delete(id);
       }, 200);
     }],
+
     ['notify', (box, id) => {
       if (!id || Notifications.dnd)
         return;
@@ -43,11 +45,12 @@ const Popups = () => Box({
       }));
 
       box.children = Array.from(box._map.values()).reverse();
+
       setTimeout(() => {
           box.get_parent().revealChild = true;
       }, 10);
+
       box._map.get(id).interval = setInterval(() => {
-        print('interval')
         if (!box._map.get(id)._hovered) {
           box._map.get(id).child.setStyle(box._map.get(id).child._leftAnim1);
 

@@ -1,20 +1,17 @@
 import { App, Notifications, Widget } from '../../imports.js';
 const { Box, Label, Icon } = Widget;
 
-import { Separator } from '../misc/separator.js';
-import { EventBox } from '../misc/cursorbox.js';
+import Separator from '../misc/separator.js';
+import EventBox  from '../misc/cursorbox.js';
 
 
-export const NotifButton = EventBox({
+export default () => EventBox({
   className: 'toggle-off',
   onPrimaryClickRelease: () => App.toggleWindow('notification-center'),
-  connections: [
-    [App, (box, windowName, visible) => {
-      if (windowName == 'notification-center') {
-        box.toggleClassName('toggle-on', visible);
-      }
-    }],
-  ],
+  connections: [[App, (self, windowName, visible) => {
+    if (windowName == 'notification-center')
+      self.toggleClassName('toggle-on', visible);
+  }]],
   child: Box({
     className: 'notif-panel',
     vertical: false,
@@ -22,30 +19,26 @@ export const NotifButton = EventBox({
       Separator(28),
 
       Icon({
-        connections: [
-          [Notifications, icon => {
-            if (Notifications.dnd) {
-              icon.icon = 'notification-disabled-symbolic'
+        connections: [[Notifications, self => {
+          if (Notifications.dnd) {
+            self.icon = 'notification-disabled-symbolic'
+          }
+          else {
+            if (Notifications.notifications.length > 0) {
+              self.icon = 'notification-new-symbolic'
             }
             else {
-              if (Notifications.notifications.length > 0) {
-                icon.icon = 'notification-new-symbolic'
-              }
-              else {
-                icon.icon = 'notification-symbolic'
-              }
+              self.icon = 'notification-symbolic'
             }
-          }],
-        ],
+          }
+        }]],
       }),
 
       Separator(8),
 
       Label({
-        connections: [
-          [Notifications, label => {
-            label.label = String(Notifications.notifications.length);
-          }],
+        binds: [
+          ['label', Notifications, 'notifications', n => String(n.length)],
         ],
       }),
 

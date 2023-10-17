@@ -1,25 +1,23 @@
 import { Utils, Widget } from '../../imports.js';
 const { ProgressBar, Overlay, Box } = Widget;
 
-import { Separator } from '../misc/separator.js';
-import { Heart }     from './heart.js';
+import Separator from '../misc/separator.js';
+import Heart     from './heart.js';
 
 
-export const Brightness = Overlay({
-  setup: widget => {
-    widget.set_tooltip_text('Brightness');
-  },
+export default () => Overlay({
+  tooltipText: 'Brightness',
   child: ProgressBar({
     className: 'toggle-off brightness',
     connections: [
-      [200, progress => {
+      [200, self => {
         Utils.execAsync('brightnessctl get').then(out => {
           let br = out / 255;
           if (br > 0.33) {
-            progress.value = br;
+            self.value = br;
           }
           else {
-            progress.value = 0.33;
+            self.value = 0.33;
           }
         }).catch(print);
       }],
@@ -30,7 +28,7 @@ export const Brightness = Overlay({
       style: 'color: #CBA6F7;',
       children: [
         Separator(25),
-        Heart,
+        Heart(),
       ],
     }),
   ],

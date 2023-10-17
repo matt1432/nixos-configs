@@ -5,7 +5,7 @@ import Gtk from 'gi://Gtk';
 import GLib from 'gi://GLib';
 const { DateTime } = GLib;
 
-import { PopupWindow } from './misc/popup.js';
+import PopupWindow from './misc/popup.js';
 
 
 const Divider = () => Box({
@@ -27,8 +27,8 @@ const Time = () => Box({
         Label({
           className: 'content',
           label: 'hour',
-          connections: [[1000, label => {
-            label.label = DateTime.new_now_local().format('%H');
+          connections: [[1000, self => {
+            self.label = DateTime.new_now_local().format('%H');
           }]],
         }),
 
@@ -37,8 +37,8 @@ const Time = () => Box({
         Label({
           className: 'content',
           label: 'minute',
-          connections: [[1000, label => {
-            label.label = DateTime.new_now_local().format('%M');
+          connections: [[1000, self => {
+            self.label = DateTime.new_now_local().format('%M');
           }]],
         }),
 
@@ -51,9 +51,11 @@ const Time = () => Box({
       child: Label({
         style: 'font-size: 20px',
         label: 'complete date',
-        connections: [[1000, label => {
+        connections: [[1000, self => {
           var time = DateTime.new_now_local();
-          label.label = time.format("%A, %B ") + time.get_day_of_month()  + time.format(", %Y");
+          self.label = time.format("%A, %B ") +
+                       time.get_day_of_month() +
+                       time.format(", %Y");
         }]],
       }),
     }),
@@ -68,7 +70,6 @@ const CalendarWidget = () => Box({
     showDayNames: true,
     showHeading: true,
     className: 'cal',
-    connections: [/* */]
   }),
 });
 

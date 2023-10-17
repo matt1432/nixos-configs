@@ -2,10 +2,14 @@ import { Network, Bluetooth, Audio, App, Utils, Widget } from '../../imports.js'
 const { Box, CenterBox, Label, Icon } = Widget;
 const { execAsync } = Utils;
 
-import { EventBox } from '../misc/cursorbox.js';
+import EventBox from '../misc/cursorbox.js';
 
 
-const GridButton = ({ command = () => {}, secondaryCommand = () => {}, icon } = {}) => Box({
+const GridButton = ({
+  command = () => {},
+  secondaryCommand = () => {},
+  icon
+} = {}) => Box({
   className: 'grid-button',
   children: [
 
@@ -27,7 +31,7 @@ const GridButton = ({ command = () => {}, secondaryCommand = () => {}, icon } = 
   ],
 });
 
-const FirstRow = Box({
+const FirstRow = () => Box({
   className: 'button-row',
   halign: 'center',
   style: 'margin-top: 15px; margin-bottom: 7px;',
@@ -35,7 +39,10 @@ const FirstRow = Box({
 
     GridButton({
       command: () => Network.toggleWifi(),
-      secondaryCommand: () => execAsync(['bash', '-c', 'nm-connection-editor']).catch(print),
+      secondaryCommand: () => {
+        execAsync(['bash', '-c', 'nm-connection-editor'])
+          .catch(print);
+      },
       icon: Icon({
         className: 'grid-label',
         connections: [[Network, icon => {
@@ -50,35 +57,47 @@ const FirstRow = Box({
     }),
 
     GridButton({
-      command: () => execAsync(['bash', '-c', '$AGS_PATH/qs-toggles.sh blue-toggle']).catch(print),
-      secondaryCommand: () => execAsync(['bash', '-c', 'blueberry']).catch(print),
+      command: () => {
+        execAsync(['bash', '-c', '$AGS_PATH/qs-toggles.sh blue-toggle'])
+          .catch(print);
+      },
+      secondaryCommand: () => {
+        execAsync(['bash', '-c', 'blueberry'])
+          .catch(print)
+      },
       icon: Icon({
         className: 'grid-label',
-        connections: [[Bluetooth, icon => {
+        connections: [[Bluetooth, self => {
           if (Bluetooth.enabled) {
-            icon.icon = 'bluetooth-active-symbolic';
-            execAsync(['bash', '-c', 'echo 󰂯 > $HOME/.config/.bluetooth']).catch(print);
+            self.icon = 'bluetooth-active-symbolic';
+            execAsync(['bash', '-c', 'echo 󰂯 > $HOME/.config/.bluetooth'])
+              .catch(print);
           }
           else {
-            icon.icon = 'bluetooth-disabled-symbolic';
-            execAsync(['bash', '-c', 'echo 󰂲 > $HOME/.config/.bluetooth']).catch(print);
+            self.icon = 'bluetooth-disabled-symbolic';
+            execAsync(['bash', '-c', 'echo 󰂲 > $HOME/.config/.bluetooth'])
+              .catch(print);
           }
         }, 'changed']],
       })
     }),
 
     GridButton({
-      command: () => execAsync(['bash', '-c', '$AGS_PATH/qs-toggles.sh toggle-radio']).catch(print),
-      secondaryCommand: () => execAsync(['notify-send', 'set this up moron']).catch(print),
+      command: () => {
+        execAsync(['bash', '-c', '$AGS_PATH/qs-toggles.sh toggle-radio'])
+          .catch(print);
+      },
+      secondaryCommand: () => {
+        execAsync(['notify-send', 'set this up moron'])
+          .catch(print);
+      },
       icon: Icon({
         className: 'grid-label',
-        connections: [[Network, icon => {
-          if (Network.wifi.enabled) {
-            icon.icon = 'airplane-mode-disabled-symbolic';
-          }
-          else {
-            icon.icon = 'airplane-mode-symbolic';
-          }
+        connections: [[Network, self => {
+          if (Network.wifi.enabled)
+            self.icon = 'airplane-mode-disabled-symbolic';
+          else
+            self.icon = 'airplane-mode-symbolic';
         }, 'changed']],
       }),
     }),
@@ -86,7 +105,7 @@ const FirstRow = Box({
   ],
 });
 
-const SubRow = CenterBox({
+const SubRow = () => CenterBox({
   halign: 'start',
   children: [
 
@@ -94,8 +113,9 @@ const SubRow = CenterBox({
       className: 'sub-label',
       truncate: 'end',
       maxWidthChars: 12,
-      connections: [[Network, label => {
-        label.label = Network.wifi.ssid;
+      connections: [[Network, self => {
+        // TODO: handle ethernet too
+        self.label = Network.wifi.ssid;
       }, 'changed']],
     }),
 
@@ -103,20 +123,15 @@ const SubRow = CenterBox({
       className: 'sub-label',
       truncate: 'end',
       maxWidthChars: 12,
-      connections: [[Bluetooth, label => {
-        label.label = Bluetooth.connectedDevices[0] ? String(Bluetooth.connectedDevices[0]) :
-                                                      'Disconnected';
+      connections: [[Bluetooth, self => {
+        if (Bluetooth.connectedDevices[0])
+          self.label = String(Bluetooth.connectedDevices[0])
+        else
+          self.label = 'Disconnected';
       }, 'changed']],
     }),
 
-    Label({
-      className: '',
-      truncate: 'end',
-      maxWidthChars: 12,
-      /*connections: [[Network, label => {
-        label.label = Network.wifi.ssid;
-      }, 'changed']],*/
-    }),
+    null,
 
   ],
 });
@@ -135,15 +150,23 @@ const itemsMic = {
   0: 'audio-input-microphone-muted-symbolic',
 };
 
-const SecondRow = Box({
+const SecondRow = () => Box({
   className: 'button-row',
   halign: 'center',
   style: 'margin-top: 7px; margin-bottom: 15px;',
   children: [
 
     GridButton({
-      command: () => execAsync(['swayosd-client', '--output-volume', 'mute-toggle']).catch(print),
-      secondaryCommand: () => execAsync(['bash', '-c', 'pavucontrol']).catch(print),
+      command: () => {
+        execAsync(['swayosd-client', '--output-volume', 'mute-toggle'])
+          .catch(print);
+      },
+
+      secondaryCommand: () => {
+        execAsync(['bash', '-c', 'pavucontrol'])
+          .catch(print);
+      },
+
       icon: Icon({
         className: 'grid-label',
         connections: [[Audio, icon => {
@@ -165,8 +188,16 @@ const SecondRow = Box({
     }),
 
     GridButton({
-      command: () => execAsync(['swayosd-client', '--input-volume', 'mute-toggle']).catch(print),
-      secondaryCommand: () => execAsync(['bash', '-c', 'pavucontrol']).catch(print),
+      command: () => {
+        execAsync(['swayosd-client', '--input-volume', 'mute-toggle'])
+          .catch(print);
+      },
+
+      secondaryCommand: () => {
+        execAsync(['bash', '-c', 'pavucontrol'])
+          .catch(print);
+      },
+
       icon: Icon({
         className: 'grid-label',
         connections: [[Audio, icon => {
@@ -188,7 +219,10 @@ const SecondRow = Box({
     }),
 
     GridButton({
-      command: () => execAsync(['bash', '-c', '$LOCK_PATH/lock.sh']).catch(print),
+      command: () => {
+        execAsync(['bash', '-c', '$LOCK_PATH/lock.sh'])
+          .catch(print);
+      },
       secondaryCommand: () => App.openWindow('powermenu'),
       icon: Label({
         className: 'grid-label',
@@ -199,14 +233,13 @@ const SecondRow = Box({
   ],
 });
 
-
-export const ButtonGrid = Box({
+export default () => Box({
   className: 'button-grid',
   vertical: true,
   halign: 'center',
   children: [
-    FirstRow,
-    SubRow,
-    SecondRow,
+    FirstRow(),
+    SubRow(),
+    SecondRow(),
   ],
 });

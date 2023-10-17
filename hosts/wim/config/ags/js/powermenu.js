@@ -1,15 +1,16 @@
 import { Widget } from '../imports.js';
 const { CenterBox, Label } = Widget;
 
-import { PopupWindow } from './misc/popup.js';
-import { Button } from './misc/cursorbox.js'
+import PopupWindow from './misc/popup.js';
+import Button      from './misc/cursorbox.js'
 
 
-const PowermenuWidget = CenterBox({
+const PowermenuWidget = () => CenterBox({
   className: 'powermenu',
   vertical: false,
 
   startWidget: Button({
+    type: "Button",
     className: 'shutdown',
     onPrimaryClickRelease: 'systemctl poweroff',
 
@@ -19,6 +20,7 @@ const PowermenuWidget = CenterBox({
   }),
 
   centerWidget: Button({
+    type: "Button",
     className: 'reboot',
     onPrimaryClickRelease: 'systemctl reboot',
 
@@ -28,6 +30,7 @@ const PowermenuWidget = CenterBox({
   }),
 
   endWidget: Button({
+    type: "Button",
     className: 'logout',
     onPrimaryClickRelease: 'hyprctl dispatch exit',
 
@@ -40,5 +43,5 @@ const PowermenuWidget = CenterBox({
 export default () => PopupWindow({
   name: 'powermenu',
   transition: 'crossfade',
-  child: PowermenuWidget,
+  child: PowermenuWidget(),
 });

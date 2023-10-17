@@ -8,12 +8,12 @@ const OFFSCREEN = 500;
 const TRANSITION = 'transition: margin 0.5s ease, opacity 3s ease;';
 
 
-export default ({ properties, connections, params } = {}) => {
+export default ({ properties, connections, props } = {}) => {
   let widget = EventBox();
   let gesture = Gtk.GestureDrag.new(widget)
 
   widget.child = Overlay({
-    ...params,
+    ...props,
     properties: [
       ...properties,
       ['dragging', false],

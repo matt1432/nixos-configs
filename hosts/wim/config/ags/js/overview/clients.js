@@ -5,10 +5,12 @@ const { execAsync } = Utils;
 import { WindowButton } from './dragndrop.js';
 import * as VARS from './variables.js';
 
+// Has to be a traditional function for 'this' scope
 Array.prototype.remove = function (el) { this.splice(this.indexOf(el), 1) };
 
 const scale = size => size * VARS.SCALE - VARS.MARGIN;
-const getFontSize = client => Math.min(scale(client.size[0]), scale(client.size[1])) * VARS.ICON_SCALE;
+const getFontSize = client => Math.min(scale(client.size[0]),
+  scale(client.size[1])) * VARS.ICON_SCALE;
 
 const IconStyle = client => `transition: font-size 0.2s linear;
                              min-width:  ${scale(client.size[0])}px;
@@ -31,14 +33,22 @@ const Client = (client, active, clients) => {
     ],
     child: WindowButton({
       address: client.address,
-      onSecondaryClickRelease: () => execAsync(`hyprctl dispatch closewindow ${addr}`).catch(print),
+      onSecondaryClickRelease: () => {
+        execAsync(`hyprctl dispatch closewindow ${addr}`)
+          .catch(print);
+      },
+
       onPrimaryClickRelease: () => {
         if (wsId < 0) {
           if (client.workspace.name === 'special') {
-            execAsync(`hyprctl dispatch movetoworkspacesilent special:${wsId},${addr}`).then(
+            execAsync(`hyprctl dispatch
+              movetoworkspacesilent special:${wsId},${addr}`)
+            .then(
+
               execAsync(`hyprctl dispatch togglespecialworkspace ${wsId}`).then(
                 () => App.closeWindow('overview')
               ).catch(print)
+
             ).catch(print);
           }
           else {
@@ -53,13 +63,15 @@ const Client = (client, active, clients) => {
           let currentActive = clients.find(c => c.address === activeAddress)
 
           if (currentActive && currentActive.workspace.id < 0) {
-            execAsync(`hyprctl dispatch togglespecialworkspace ${wsName}`).catch(print);
+            execAsync(`hyprctl dispatch togglespecialworkspace ${wsName}`)
+              .catch(print);
           }
           execAsync(`hyprctl dispatch focuswindow ${addr}`).then(
             () => App.closeWindow('overview')
           ).catch(print);
         }
       },
+
       child: Icon({
         className: `window ${active}`,
         style: IconStyle(client) + 'font-size: 10px;',
@@ -70,15 +82,15 @@ const Client = (client, active, clients) => {
 };
 
 export function updateClients(box) {
-  execAsync('hyprctl clients -j').then(
-  result => {
-    let clients = JSON.parse(result).filter(client => client.class)
+  execAsync('hyprctl clients -j').then(out => {
+    let clients = JSON.parse(out).filter(client => client.class)
 
     box._workspaces.forEach(workspace => {
-      let fixed = workspace.child.child.get_children()[2].children[0];
+      let fixed = workspace.getFixed();
       let toRemove = fixed.get_children();
 
-      clients.filter(client => client.workspace.id == workspace._id).forEach(client => {
+      clients.filter(client => client.workspace.id == workspace._id)
+      .forEach(client => {
         let active = '';
         if (client.address == Hyprland.active.client.address) {
           active = 'active';

@@ -11,7 +11,7 @@ const items = {
 };
 
 
-export const SliderBox = Box({
+export default () => Box({
   className: 'slider-box',
   vertical: true,
   halign: 'center',
@@ -73,11 +73,14 @@ export const SliderBox = Box({
               ['canChange', true],
             ],
             onChange: ({ value }) => {
-              execAsync(`brightnessctl set ${value}`).catch(print);
+              execAsync(`brightnessctl set ${value}`)
+                .catch(print);
             },
             connections: [[1000, slider => {
               if (slider._canChange) {
-                execAsync('brightnessctl get').then(out => slider.value = out).catch(print);
+                execAsync('brightnessctl get')
+                  .then(out => slider.value = out)
+                  .catch(print);
               }
             }]],
             min: 0,

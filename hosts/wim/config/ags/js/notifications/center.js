@@ -3,23 +3,30 @@ const { Button, Label, Box, Icon, Scrollable, Revealer } = Widget;
 const { timeout } = Utils;
 
 import Notification from './base.js';
-import { EventBox } from '../misc/cursorbox.js';
-import { PopupWindow } from '../misc/popup.js';
+import PopupWindow  from '../misc/popup.js';
+import EventBox     from '../misc/cursorbox.js';
 
 
 const ClearButton = () => EventBox({
   child: Button({
     onPrimaryClickRelease: button => {
-      button._popups.children.forEach(ch => ch.child.setStyle(ch.child._leftAnim1));
+      button._popups.children.forEach(ch => {
+        ch.child.setStyle(ch.child._leftAnim1);
+      });
+
       button._notifList.children.forEach(ch => {
-        ch.child.setStyle(ch.child._rightAnim1);
+        if (ch.child)
+          ch.child.setStyle(ch.child._rightAnim1);
         timeout(500, () => {
           button._notifList.remove(ch);
-          Notifications.notifications.forEach(n => n.close());
+          Notifications.clear();
         });
       });
     },
-    properties: [['notifList'], ['popups']],
+    properties: [
+      ['notifList'],
+      ['popups'],
+    ],
     connections: [[Notifications, button => {
       if (!button._notifList)
         button._notifList = NotificationList;
@@ -33,8 +40,8 @@ const ClearButton = () => EventBox({
       children: [
         Label('Clear '),
         Icon({
-          connections: [[Notifications, icon => {
-            icon.icon = Notifications.notifications.length > 0
+          connections: [[Notifications, self => {
+            self.icon = Notifications.notifications.length > 0
                       ? 'user-trash-full-symbolic' : 'user-trash-symbolic';
           }]],
         }),
@@ -46,7 +53,11 @@ const ClearButton = () => EventBox({
 const Header = () => Box({
   className: 'header',
   children: [
-    Label({ label: 'Notifications', hexpand: true, xalign: 0 }),
+    Label({
+      label: 'Notifications',
+      hexpand: true,
+      xalign: 0,
+    }),
     ClearButton(),
   ],
 });
@@ -110,26 +121,28 @@ const Placeholder = () => Revealer({
   }),
 });
 
-const NotificationCenterWidget = Box({
+const NotificationCenterWidget = () => Box({
   className: 'notification-center',
   vertical: true,
   children: [
     Header(),
     Box({
       className: 'notification-wallpaper-box',
-      children: [Scrollable({
-        className: 'notification-list-box',
-        hscroll: 'never',
-        vscroll: 'automatic',
-        child: Box({
-          className: 'notification-list',
-          vertical: true,
-          children: [
-            NotificationList,
-            Placeholder(),
-          ],
-        }),
-      })],
+      children: [
+        Scrollable({
+          className: 'notification-list-box',
+          hscroll: 'never',
+          vscroll: 'automatic',
+          child: Box({
+            className: 'notification-list',
+            vertical: true,
+            children: [
+              NotificationList,
+              Placeholder(),
+            ],
+          }),
+        })
+      ],
     }),
   ],
 });
@@ -138,5 +151,5 @@ export default () => PopupWindow({
   name: 'notification-center',
   anchor: [ 'top', 'right' ],
   margin: [ 8, 60, 0, 0 ],
-  child: NotificationCenterWidget,
+  child: NotificationCenterWidget(),
 });

@@ -1,20 +1,20 @@
 import { Widget } from '../../imports.js';
 const { Window, CenterBox, Box } = Widget;
 
-import { Separator }        from '../misc/separator.js';
-import { CurrentWindow }    from './current-window.js';
-import { Workspaces }       from './workspaces.js';
-import { OskToggle }        from './osk-toggle.js';
-import { TabletToggle }     from './tablet-toggle.js';
-import { QsToggle }         from './quick-settings.js';
-import { NotifButton }      from './notif-button.js';
-import { Clock }            from './clock.js';
-import { SysTray }          from './systray.js';
-import { BatteryIndicator } from './battery.js';
-import { Brightness }       from './brightness.js';
-import { AudioIndicator }   from './audio.js';
-import { Revealer }         from './fullscreen.js';
-//import KeyboardLayout       from './keyboard-layout.js';
+import Separator      from '../misc/separator.js';
+import CurrentWindow  from './current-window.js';
+import Workspaces     from './workspaces.js';
+import OskToggle      from './osk-toggle.js';
+import TabletToggle   from './tablet-toggle.js';
+import QsToggle       from './quick-settings.js';
+import NotifButton    from './notif-button.js';
+import Clock          from './clock.js';
+import SysTray        from './systray.js';
+import Battery        from './battery.js';
+import Brightness     from './brightness.js';
+import Audio          from './audio.js';
+import Revealer       from './fullscreen.js';
+//import KeyboardLayout from './keyboard-layout.js';
 
 
 export const Bar = () => Window({
@@ -31,55 +31,55 @@ export const Bar = () => Window({
         halign: 'start',
         children: [
 
-          OskToggle,
+          OskToggle(),
 
           Separator(12),
 
-          TabletToggle,
+          TabletToggle(),
 
           Separator(12),
 
-          SysTray,
+          SysTray(),
 
-          AudioIndicator,
-
-          Separator(12),
-
-          Brightness,
+          Audio(),
 
           Separator(12),
 
-          Workspaces,
+          Brightness(),
+
+          Separator(12),
+
+          Workspaces(),
 
         ],
       }),
 
       centerWidget: Box({
         children: [
-          CurrentWindow,
+          CurrentWindow(),
         ],
       }),
 
       endWidget: Box({
         halign: 'end',
         children: [
-          BatteryIndicator,
+          Battery(),
 
           Separator(12),
 
-          //KeyboardLayout,
+          //KeyboardLayout(),
 
           //Separator(12),
 
-          Clock,
+          Clock(),
 
           Separator(12),
 
-          NotifButton,
+          NotifButton(),
 
           Separator(12),
 
-          QsToggle,
+          QsToggle(),
         ],
       }),
     }),

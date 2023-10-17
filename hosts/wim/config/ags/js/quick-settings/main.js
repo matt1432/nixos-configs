@@ -3,14 +3,14 @@ const { Box, Label, Revealer, Icon } = Widget;
 
 import Gtk from 'gi://Gtk';
 
-import { ButtonGrid } from './button-grid.js';
-import { SliderBox } from './slider-box.js';
-import Player from '../media-player/player.js';
-import { EventBox } from '../misc/cursorbox.js';
-import { PopupWindow } from '../misc/popup.js';
+import ButtonGrid  from './button-grid.js';
+import SliderBox   from './slider-box.js';
+import Player      from '../media-player/player.js';
+import EventBox    from '../misc/cursorbox.js';
+import PopupWindow from '../misc/popup.js';
 
 
-const QuickSettingsWidget = Box({
+const QuickSettingsWidget = () => Box({
   className: 'qs-container',
   vertical: true,
   children: [
@@ -27,9 +27,9 @@ const QuickSettingsWidget = Box({
           style: 'margin-left: 20px'
         }),
 
-        ButtonGrid,
+        ButtonGrid(),
 
-        SliderBox,
+        SliderBox(),
 
         EventBox({
           child: Widget({
@@ -41,13 +41,15 @@ const QuickSettingsWidget = Box({
               });
             },
             connections: [['toggled', button => {
+              let rev = button.get_parent().get_parent().get_parent().children[1];
+
               if (button.get_active()) {
                 button.child.setStyle("-gtk-icon-transform: rotate(0deg);");
-                button.get_parent().get_parent().get_parent().children[1].revealChild = true;
+                rev.revealChild = true;
               }
               else {
                 button.child.setStyle('-gtk-icon-transform: rotate(180deg);');
-                button.get_parent().get_parent().get_parent().children[1].revealChild = false;
+                rev.revealChild = false;
               }
             }]],
             child: Icon({
@@ -73,5 +75,5 @@ export default () => PopupWindow({
   name: 'quick-settings',
   anchor: [ 'top', 'right' ],
   margin: [ 8, 5, 0, ],
-  child: QuickSettingsWidget,
+  child: QuickSettingsWidget(),
 });

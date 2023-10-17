@@ -3,7 +3,7 @@ const { Box, Revealer, Icon, MenuItem } = Widget;
 
 import Gtk from 'gi://Gtk';
 
-import { Separator } from '../misc/separator.js';
+import Separator from '../misc/separator.js';
 
 
 const SysTrayItem = item => MenuItem({
@@ -21,7 +21,7 @@ const SysTrayItem = item => MenuItem({
   }]]
 });
 
-export const SysTray = Revealer({
+export default () => Revealer({
   transition: 'slide_right',
   connections: [[SystemTray, rev => {
     rev.revealChild = rev.child.children[0].get_children().length > 0;

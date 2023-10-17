@@ -4,19 +4,14 @@ const { Box, EventBox, Overlay } = Widget;
 const Revealed = Variable(true);
 const Hovering = Variable(false);
 
-import { Gesture } from './gesture.js';
-import { RoundedCorner }    from '../screen-corners.js';
+import { RoundedCorner } from '../screen-corners.js';
+import Gesture           from './gesture.js';
 
 
-export const Revealer = params => Overlay({
+export default (props) => Overlay({
   overlays: [
-    RoundedCorner('topleft', {
-      className: 'corner',
-    }),
-
-    RoundedCorner('topright', {
-      className: 'corner',
-    }),
+    RoundedCorner('topleft',  { className: 'corner' }),
+    RoundedCorner('topright', { className: 'corner' }),
   ],
 
   child: Box({
@@ -27,27 +22,26 @@ export const Revealer = params => Overlay({
       Widget.Revealer({
         transition: 'slide_down',
         setup: self => self.revealChild = true,
-        properties: [
-          ['timeouts', []],
-        ],
-        connections: [[Hyprland, self => {
-          Utils.execAsync('hyprctl activewindow -j')
-            .then(result => {
-              let client = JSON.parse(result);
-              if (client.fullscreen !== Revealed.value) {
-                Revealed.value = client.fullscreen;
 
-                if (Revealed.value) {
-                  setTimeout(() => {
-                    if (Revealed.value)
-                      self.revealChild = false
-                  }, 2000);
-                }
-                else {
-                  self.revealChild = true;
-                }
-              }
-            }).catch(print);
+        properties: [['timeouts', []]],
+        connections: [[Hyprland, self => {
+          Utils.execAsync('hyprctl activewindow -j').then(out => {
+            let client = JSON.parse(out);
+            if (client.fullscreen === Revealed.value)
+              return;
+
+            Revealed.value = client.fullscreen;
+
+            if (Revealed.value) {
+              setTimeout(() => {
+                if (Revealed.value)
+                  self.revealChild = false
+              }, 2000);
+            }
+            else {
+              self.revealChild = true;
+            }
+          }).catch(print);
         }]],
 
         child: Gesture({
@@ -63,7 +57,7 @@ export const Revealer = params => Overlay({
               }, 2000);
             }
           },
-          ...params,
+          ...props,
         }),
       }),
 

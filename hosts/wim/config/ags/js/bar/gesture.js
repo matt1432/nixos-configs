@@ -4,30 +4,25 @@ const { CenterBox, EventBox } = Widget;
 import Gtk from 'gi://Gtk';
 
 
-export const Gesture = ({
+export default ({
   child,
-  ...params
+  ...props
 }) => {
-  let w = EventBox({
-    ...params,
+  let widget = EventBox({
+    ...props,
   });
 
-  let gesture = Gtk.GestureSwipe.new(w);
+  let gesture = Gtk.GestureSwipe.new(widget);
 
-  w.child = CenterBox({
-    children: [
-      child,
-    ],
-    connections: [
+  widget.child = CenterBox({
+    children: [ child ],
+    connections: [[gesture, () => {
+      const velocity = gesture.get_velocity()[1];
+      if (velocity < -100)
+        App.openWindow('quick-settings');
 
-      [gesture, _ => {
-        const velocity = gesture.get_velocity()[1];
-        if (velocity < -100)
-          App.openWindow('quick-settings');
-      }, 'update'],
-
-    ],
+    }, 'update']],
   });
 
-  return w;
+  return widget;
 };

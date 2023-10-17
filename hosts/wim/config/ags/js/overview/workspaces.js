@@ -6,7 +6,7 @@ import Gtk from 'gi://Gtk';
 import { WorkspaceDrop } from './dragndrop.js';
 import * as VARS from './variables.js';
 
-const DEFAULT_STYLE = `min-width: ${VARS.SCREEN.X * VARS.SCALE}px;
+const DEFAULT_STYLE = `min-width:  ${VARS.SCREEN.X * VARS.SCALE}px;
                        min-height: ${VARS.SCREEN.Y * VARS.SCALE}px;`;
 
 
@@ -48,126 +48,140 @@ export const WorkspaceRow = (className, i) => Revealer({
       child: Box({
         className: className,
         children: [
-          Revealer({
-            transition: 'slide_right',
-            properties: [
-              ['id', className === 'special' ? -1 : 1000],
-              ['name', className === 'special' ? 'special' : ''],
-            ],
-            child: WorkspaceDrop({
-              child: Overlay({
-                child: Box({
-                  className: 'workspace',
-                    style: DEFAULT_STYLE,
-                }),
-                overlays: [
-                  Box({
-                    className: 'workspace active',
-                    style: `${DEFAULT_STYLE} opacity: 0;`,
-                  }),
-                  Box({
-                    style: DEFAULT_STYLE,
-                    children: [
-                      Widget({
-                        type: Gtk.Fixed,
-                      }),
-                      Label({
-                        label: '   +',
-                        style: 'font-size: 40px;',
-                      }),
-                    ],
-                  })
-                ],
-              }),
-            }),
-          }),
+          Workspace(className === 'special' ? -1 : 1000,
+                    className === 'special' ? 'special' : '',
+                    true),
         ],
       }),
     }), null],
   }),
 });
 
-const Workspace = (id, name) => Revealer({
-  transition: 'slide_right',
-  transitionDuration: 500,
-  properties: [
-    ['id', id],
-    ['name', name],
-    ['timeouts', []],
-    ['wasActive', false],
-  ],
-  connections: [[Hyprland, box => {
-    box._timeouts.forEach(timer => timer.destroy());
+// TODO: please make this readable for the love of god
+const Workspace = (id, name, extra = false) => {
+  let workspace;
+  let fixed = Widget({
+    type: Gtk.Fixed,
+  });
 
-    let activeId = Hyprland.active.workspace.id;
-    let active = activeId === box._id;
+  if (!extra) {
+    workspace = Revealer({
+      transition: 'slide_right',
+      transitionDuration: 500,
+      properties: [
+        ['id', id],
+        ['name', name],
+        ['timeouts', []],
+        ['wasActive', false],
+      ],
+      connections: [[Hyprland, box => {
+        box._timeouts.forEach(timer => timer.destroy());
 
-    let rev = box.child.child.get_children()[1];
-    let n = activeId > box._id;
+        let activeId = Hyprland.active.workspace.id;
+        let active = activeId === box._id;
 
-    if (Hyprland.getWorkspace(box._id)?.windows > 0 || active) {
-      rev.setStyle(DEFAULT_STYLE);
-      box._timeouts.push(setTimeout(() => {
-        box.revealChild = true;
-      }, 100));
+        let rev = box.child.child.get_children()[1];
+        let n = activeId > box._id;
 
-    }
-    else if (!Hyprland.getWorkspace(box._id)?.windows > 0) {
-      rev.setStyle(DEFAULT_STYLE);
-      box._timeouts.push(setTimeout(() => {
-        box.revealChild = false;
-      }, 100));
-      return;
-    }
+        if (Hyprland.getWorkspace(box._id)?.windows > 0 || active) {
+          rev.setStyle(DEFAULT_STYLE);
+          box._timeouts.push(setTimeout(() => {
+            box.revealChild = true;
+          }, 100));
 
-    if (active) {
-      rev.setStyle(`${DEFAULT_STYLE}
+        }
+        else if (!Hyprland.getWorkspace(box._id)?.windows > 0) {
+          rev.setStyle(DEFAULT_STYLE);
+          box._timeouts.push(setTimeout(() => {
+            box.revealChild = false;
+          }, 100));
+          return;
+        }
+
+        if (active) {
+          rev.setStyle(`${DEFAULT_STYLE}
                     transition: margin 0.5s ease-in-out;
                     opacity: 1;`);
-      box._wasActive = true;
-    }
-    else if (box._wasActive) {
-      box._timeouts.push(setTimeout(() => {
-        rev.setStyle(`${DEFAULT_STYLE}
+          box._wasActive = true;
+        }
+        else if (box._wasActive) {
+          box._timeouts.push(setTimeout(() => {
+            rev.setStyle(`${DEFAULT_STYLE}
                   transition: margin 0.5s ease-in-out;
                   opacity: 1; margin-left: ${n ? '' : '-'}300px;
                               margin-right: ${n ? '-' : ''}300px;`);
-        box._wasActive = false;
-      }, 120));
-      box._timeouts.push(setTimeout(() => {
-        rev.setStyle(`${DEFAULT_STYLE} opacity: 0;
+            box._wasActive = false;
+          }, 120));
+          box._timeouts.push(setTimeout(() => {
+            rev.setStyle(`${DEFAULT_STYLE} opacity: 0;
                       margin-left: ${n ? '' : '-'}300px;
                       margin-right: ${n ? '-' : ''}300px;`);
-      }, 500));
-    }
-    else {
-      rev.setStyle(`${DEFAULT_STYLE} opacity: 0;
+          }, 500));
+        }
+        else {
+          rev.setStyle(`${DEFAULT_STYLE} opacity: 0;
                     margin-left: ${n ? '' : '-'}300px;
                     margin-right: ${n ? '-' : ''}300px;`);
-    }
-  }]],
-  child: WorkspaceDrop({
-    child: Overlay({
-      child: Box({
-        className: 'workspace active',
-        style: `${DEFAULT_STYLE} opacity: 0;`,
-      }),
-      overlays: [
-        Box({
-          className: 'workspace active',
-          style: `${DEFAULT_STYLE} opacity: 0;`,
-        }),
-        Box({
-          className: 'workspace',
-          style: DEFAULT_STYLE,
-          child: Widget({
-            type: Gtk.Fixed,
+        }
+      }]],
+      child: WorkspaceDrop({
+        child: Overlay({
+          child: Box({
+            className: 'workspace active',
+            style: `${DEFAULT_STYLE} opacity: 0;`,
           }),
-        })
+          overlays: [
+            Box({
+              className: 'workspace active',
+              style: `${DEFAULT_STYLE} opacity: 0;`,
+            }),
+            Box({
+              className: 'workspace',
+              style: DEFAULT_STYLE,
+              child: fixed,
+            })
+          ],
+        }),
+      }),
+    });
+  }
+  else {
+    workspace = Revealer({
+      transition: 'slide_right',
+      properties: [
+        ['id', id],
+        ['name', name],
       ],
-    }),
-  }),
-});
+      child: WorkspaceDrop({
+        child: Overlay({
+          child: Box({
+            className: 'workspace',
+            style: DEFAULT_STYLE,
+          }),
+          overlays: [
+            Box({
+              className: 'workspace active',
+              style: `${DEFAULT_STYLE} opacity: 0;`,
+            }),
+            Box({
+              style: DEFAULT_STYLE,
+              children: [
+                fixed,
+                Label({
+                  label: '   +',
+                  style: 'font-size: 40px;',
+                }),
+              ],
+            })
+          ],
+        }),
+      }),
+    });
+  }
+
+  workspace.getFixed = () => fixed;
+  return workspace;
+};
 
 export function updateWorkspaces(box) {
   Hyprland.workspaces.forEach(ws => {

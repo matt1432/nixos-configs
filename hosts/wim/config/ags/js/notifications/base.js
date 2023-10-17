@@ -4,8 +4,17 @@ const { Box, Icon, Label, Button } = Widget;
 
 import GLib from 'gi://GLib';
 
+const setTime = time => {
+  return GLib.DateTime
+    .new_from_unix_local(time)
+    .format('%H:%M');
+};
+
+const getDragState = box => box.get_parent().get_parent()
+  .get_parent().get_parent().get_parent()._dragging;
+
 import Gesture from './gesture.js';
-import { EventBox } from '../misc/cursorbox.js'
+import EventBox from '../misc/cursorbox.js'
 
 
 const NotificationIcon = notif => {
@@ -14,19 +23,19 @@ const NotificationIcon = notif => {
   if (Applications.query(notif.appEntry).length > 0) {
     let app = Applications.query(notif.appEntry)[0];
 
-    if (app.app.get_string('StartupWMClass') != null) {
+    let wmClass = app.app.get_string('StartupWMClass');
+    if (app.app.get_filename().includes('discord'))
+      wmClass = 'discord';
+
+    if (wmClass != null) {
       iconCmd = box => {
-        if (!box.get_parent().get_parent().get_parent().get_parent().get_parent()._dragging) {
-          execAsync(['bash', '-c', `$AGS_PATH/launch-app.sh ${app.app.get_string('StartupWMClass')} ${app.app.get_string('Exec')}`]).catch(print);
-          globalThis.closeAll();
-        }
-      }
-    }
-    else if (app.app.get_filename().includes('discord')) {
-      iconCmd = box => {
-        if (!box.get_parent().get_parent().get_parent().get_parent().get_parent()._dragging) {
-          execAsync(['bash', '-c', `$AGS_PATH/launch-app.sh discord ${app.app.get_string('Exec')}`])
-            .catch(print);
+        if (!getDragState(box)) {
+          execAsync(['bash', '-c',
+            `$AGS_PATH/launch-app.sh
+              ${wmClass}
+              ${app.app.get_string('Exec')}`
+          ]).catch(print);
+
           globalThis.closeAll();
         }
       }
@@ -82,7 +91,7 @@ const NotificationIcon = notif => {
   });
 };
 
-export default ({ notif, command = () => {}} = {}) => {
+export default ({ notif, command = () => {}, } = {}) => {
   const BlockedApps = [
     'Spotify',
   ];
@@ -142,7 +151,7 @@ export default ({ notif, command = () => {}} = {}) => {
                       Label({
                         className: 'time',
                         valign: 'start',
-                        label: GLib.DateTime.new_from_unix_local(notif.time).format('%H:%M'),
+                        label: setTime(notif.time),
                       }),
                       EventBox({
                         reset: false,
