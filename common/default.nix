@@ -26,6 +26,11 @@
     };
   };
 
+  services.xserver = {
+    layout = "ca";
+    xkbVariant = "multix";
+  };
+
   home-manager.users = let
     default = {
       imports = [

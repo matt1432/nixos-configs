@@ -14,12 +14,13 @@
     matt = {
 
       imports = [
-        ./dconf.nix
         ./theme.nix
         ./hyprland.nix
         ./dotfiles.nix
         ./packages.nix
-        ./firefox/main.nix
+
+        ../../../modules/dconf.nix
+        ../../../modules/firefox/main.nix
       ];
 
       home.stateVersion = "23.05";

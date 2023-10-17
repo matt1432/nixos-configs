@@ -10,12 +10,8 @@
     ../../modules/kmscon.nix
     ../../modules/printer.nix
 
-    ./binto.nix
+    ./modules/nvidia.nix
   ];
-
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.supportedFilesystems = [ "ntfs" ];
 
   networking = {
     hostName = "binto";
@@ -27,32 +23,49 @@
   time.timeZone = "America/Toronto";
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Enable the KDE Plasma Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
-
-  # Configure keymap in X11
   services.xserver = {
-    layout = "ca";
-    xkbVariant = "multix";
+    enable = true;
+
+    # Enable the KDE Plasma Desktop Environment.
+    displayManager.sddm.enable = true;
+    desktopManager.plasma5.enable = true;
   };
 
-  services.tailscale = {
-    enable = true;
-    extraUpFlags = [
-      "--login-server https://headscale.nelim.org"
-      "--operator=matt"
-    ];
+  services = {
+    tailscale = {
+      enable = true;
+      extraUpFlags = [
+        "--login-server https://headscale.nelim.org"
+        "--operator=matt"
+      ];
+    };
+
+    openssh = {
+      enable = true;
+      settings = {
+        PasswordAuthentication = false;
+        PermitRootLogin = "no";
+      };
+    };
   };
 
-  # Enable the OpenSSH daemon.
-  services.openssh = {
-    enable = true;
-    settings = {
-      PasswordAuthentication = false;
-      PermitRootLogin = "no";
+  users.users.matt = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" "input" "uinput" "adm" "mlocate" "video" "libvirtd" ];
+  };
+
+  programs.dconf.enable = true;
+
+  # TODO: use hm for tmux
+  home-manager.users = {
+    matt = {
+
+      imports = [
+        ../../modules/dconf.nix
+        ../../modules/firefox/main.nix
+      ];
+
+      home.stateVersion = "23.11";
     };
   };
 
