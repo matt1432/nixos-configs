@@ -1,10 +1,13 @@
 { neovim-nightly-overlay, ... }:
 
 {
+  imports = [
+    ./dracula-theme.nix
+  ];
+
   nixpkgs.overlays = [
     (import ./swayosd.nix)
     (import ./blueberry.nix)
-    (import ./dracula-theme.nix)
 
     (final: prev: {
       spotifywm = final.callPackage ./pkgs/spotifywm.nix {};
