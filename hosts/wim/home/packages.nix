@@ -50,7 +50,6 @@ in {
 
     # Misc Apps
     thunderbird # TODO: use programs.thunderbird
-    firefox # TODO: use programs.firefox
     spotifywm
     zeal
     libreoffice-fresh # TODO: add spelling stuff and declarative conf?
