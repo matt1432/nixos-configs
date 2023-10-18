@@ -1,9 +1,5 @@
 # My NixOS configs
 
-what is currently not working:
-
-- plymouth theme has no login prompt
-
 what i want to do:
 
 - add auto-rotate widget in ags control center
