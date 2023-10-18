@@ -1,8 +1,4 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ ... }: {
+{ pkgs, ... }: {
   imports = [
     ./hardware-configuration.nix
 
@@ -49,6 +45,19 @@
       };
     };
   };
+
+  environment.systemPackages = with pkgs; [
+    p7zip # for reshade
+    xclip
+  ];
+
+  environment.plasma5.excludePackages = with pkgs.libsForQt5; [
+    elisa
+    oxygen
+    khelpcenter
+    konsole
+    plasma-browser-integration
+  ];
 
   users.users.matt = {
     isNormalUser = true;

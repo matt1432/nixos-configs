@@ -8,6 +8,8 @@
       v4l2loopback
     ];
 
+    supportedFilesystems = [ "ntfs" ];
+
     consoleLogLevel = 0;
 
     initrd = {
@@ -42,6 +44,11 @@
     "/boot" = {
       device = "/dev/disk/by-uuid/1407-A10C";
       fsType = "vfat";
+    };
+
+    "/run/media/matt/Games" = {
+      device = "/dev/disk/by-uuid/da62f4ee-d4a6-4fdd-ab12-9c5e131c6f30";
+      fsType = "ext4";
     };
   };
 
