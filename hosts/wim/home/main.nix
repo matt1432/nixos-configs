@@ -19,6 +19,7 @@
         ./dotfiles.nix
         ./packages.nix
 
+        ../../../modules/alacritty.nix
         ../../../modules/dconf.nix
         ../../../modules/firefox/main.nix
       ];

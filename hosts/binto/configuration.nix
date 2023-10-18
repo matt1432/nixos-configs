@@ -62,9 +62,11 @@
     matt = {
 
       imports = [
+        ../../modules/alacritty.nix
         ../../modules/dconf.nix
         ../../modules/firefox/main.nix
       ];
+      programs.alacritty.settings.font.size = 10;
 
       home.stateVersion = "23.11";
     };
