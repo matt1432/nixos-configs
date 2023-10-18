@@ -1,6 +1,6 @@
 # Home-manager module
 
-{ lib, ... }: {
+{ lib, config, ... }: {
   programs.alacritty = {
     enable = true;
     settings = {
@@ -38,7 +38,7 @@
           family = "JetBrainsMono Nerd Font";
           style = "Italic";
         };
-        size = lib.mkDefault 12.5;
+        size = config.services.hostvars.fontSize;
       };
 
       # https://github.com/dracula/alacritty/blob/05faff15c0158712be87d200081633d9f4850a7d/dracula.yml

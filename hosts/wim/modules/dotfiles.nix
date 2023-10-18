@@ -1,5 +1,5 @@
 { config, pkgs, ... }: let
-  configDir = (import ../vars.nix).configDir;
+  configDir = config.services.hostvars.configDir;
   symlink = config.lib.file.mkOutOfStoreSymlink;
 in
 {

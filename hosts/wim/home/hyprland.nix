@@ -1,13 +1,12 @@
 { pkgs, config, hyprland, hyprgrass, ags, nixpkgs-wayland, ... }: let
   waypkgs = nixpkgs-wayland.packages.x86_64-linux;
 
-  configDir = (import ../vars.nix).configDir;
+  configDir = config.services.hostvars.configDir;
   symlink = config.lib.file.mkOutOfStoreSymlink;
 
   gset = pkgs.gsettings-desktop-schemas;
   polkit = pkgs.plasma5Packages.polkit-kde-agent;
-in
-{
+in {
   imports = [
     ags.homeManagerModules.default
   ];

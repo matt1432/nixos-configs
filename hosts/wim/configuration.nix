@@ -13,6 +13,12 @@
     ./modules/security.nix
   ];
 
+  services.hostvars = {
+    username = "matt";
+    configDir = "/home/matt/.nix/hosts/wim/config";
+    fontSize = 12.5;
+  };
+
   users.users.matt = {
     isNormalUser = true;
     extraGroups = [ "wheel" "input" "uinput" "adm" "mlocate" "video" "libvirtd" ];

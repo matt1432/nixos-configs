@@ -1,5 +1,5 @@
-{ pkgs, lib, ... }: let
-  font-size = 12;
+{ pkgs, lib, config, ... }: let
+  fontSize = config.services.hostvars.fontSize;
   dracula-xresources = pkgs.fetchFromGitHub {
     owner = "dracula";
     repo = "xresources";
@@ -35,7 +35,7 @@ in
 
     font = {
       name = "Sans Serif";
-      size = font-size;
+      size = fontSize;
     };
   };
 
@@ -53,8 +53,8 @@ in
   xdg.configFile = let
     qtconf = ''
       [Fonts]
-      fixed="Sans Serif,${lib.strings.floatToString font-size},-1,5,50,0,0,0,0,0"
-      general="Sans Serif,${lib.strings.floatToString font-size},-1,5,50,0,0,0,0,0"
+      fixed="Sans Serif,${lib.strings.floatToString fontSize},-1,5,50,0,0,0,0,0"
+      general="Sans Serif,${lib.strings.floatToString fontSize},-1,5,50,0,0,0,0,0"
 
       [Appearance]
       icon_theme=Flat-Remix-Violet-Dark

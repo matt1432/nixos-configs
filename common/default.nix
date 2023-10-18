@@ -1,10 +1,20 @@
-{ config, home-manager, lib, nixpkgs, nur, nix-melt, nurl, pkgs, ... }: {
-
+{ config
+, home-manager
+, lib
+, nixpkgs
+, nur
+, nix-melt
+, nurl
+, pkgs
+, ...
+}: {
   imports = [
     home-manager.nixosModules.default
     ./modules/programs.nix
     ./modules/locale.nix
     ./overlays
+
+    ./hostvars.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -38,6 +48,11 @@
         ./modules/bash
         ./modules/git
         ./modules/neovim
+
+        ./hostvars.nix
+        ({ osConfig, ... }: {
+          services.hostvars = osConfig.services.hostvars;
+        })
       ];
 
       home.packages = [
