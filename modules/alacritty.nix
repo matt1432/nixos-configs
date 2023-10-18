@@ -8,6 +8,14 @@
         POKE = "true";
       };
 
+      key_bindings = [
+        {
+          key = "Return";
+          mods = "Control|Shift";
+          action = "SpawnNewInstance";
+        }
+      ];
+
       window = {
         padding = {
           x = 0;
@@ -33,7 +41,7 @@
         size = lib.mkDefault 12.5;
       };
 
-# https://github.com/dracula/alacritty/blob/05faff15c0158712be87d200081633d9f4850a7d/dracula.yml
+      # https://github.com/dracula/alacritty/blob/05faff15c0158712be87d200081633d9f4850a7d/dracula.yml
       colors = {
         primary = {
           background = "#282a36";
