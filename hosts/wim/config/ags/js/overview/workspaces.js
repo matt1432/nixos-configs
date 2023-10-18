@@ -60,9 +60,7 @@ export const WorkspaceRow = (className, i) => Revealer({
 // TODO: please make this readable for the love of god
 const Workspace = (id, name, extra = false) => {
   let workspace;
-  let fixed = Widget({
-    type: Gtk.Fixed,
-  });
+  let fixed = Gtk.Fixed.new();
 
   if (!extra) {
     workspace = Revealer({

@@ -21,6 +21,42 @@ const SysTrayItem = item => MenuItem({
   }]]
 });
 
+const SysTray = () => {
+  let widget = Gtk.MenuBar.new();
+
+  // Properties
+  widget._items = new Map();
+
+  widget._onAdded = (id) => {
+    const item = SystemTray.getItem(id);
+    if (widget._items.has(id) || !item)
+      return;
+
+    const w = SysTrayItem(item);
+    widget._items.set(id, w);
+    widget.add(w);
+    widget.show_all();
+    w.child.revealChild = true;
+  };
+
+  widget._onRemoved = (id) => {
+    if (!widget._items.has(id))
+      return;
+
+    widget._items.get(id).child.revealChild = false;
+    setTimeout(() => {
+      widget._items.get(id).destroy();
+      widget._items.delete(id);
+    }, 400);
+  };
+
+  // Connections
+  SystemTray.connect('added', (_, id) => widget._onAdded(id));
+  SystemTray.connect('removed', (_, id) => widget._onRemoved(id));
+
+  return widget;
+}
+
 export default () => Revealer({
   transition: 'slide_right',
   connections: [[SystemTray, rev => {
@@ -31,38 +67,7 @@ export default () => Revealer({
       Box({
         className: 'sys-tray',
         children: [
-          Widget({
-            type: Gtk.MenuBar,
-            properties: [
-              ['items', new Map()],
-              ['onAdded', (box, id) => {
-                const item = SystemTray.getItem(id);
-                if (box._items.has(id) || !item)
-                  return;
-
-                const widget = SysTrayItem(item);
-                box._items.set(id, widget);
-                box.add(widget);
-                box.show_all();
-                widget.child.revealChild = true;
-              }],
-
-              ['onRemoved', (box, id) => {
-                if (!box._items.has(id))
-                  return;
-
-                box._items.get(id).child.revealChild = false;
-                setTimeout(() => {
-                  box._items.get(id).destroy();
-                  box._items.delete(id);
-                }, 400);
-              }],
-            ],
-            connections: [
-              [SystemTray, (box, id) => box._onAdded(box, id), 'added'],
-              [SystemTray, (box, id) => box._onRemoved(box, id), 'removed'],
-            ],
-          }),
+          SysTray(),
         ],
       }),
       Separator(12),
