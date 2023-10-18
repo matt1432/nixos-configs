@@ -13,7 +13,7 @@
 
   services.hostvars = {
     username = "matt";
-    fontSize = 10;
+    fontSize = 10.0;
   };
 
   users.users.matt = {
