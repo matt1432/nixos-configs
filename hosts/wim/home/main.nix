@@ -16,12 +16,13 @@
       imports = [
         ./theme.nix
         ./hyprland.nix
-        ./dotfiles.nix
+        ../modules/dotfiles.nix
         ./packages.nix
 
         ../../../modules/alacritty.nix
         ../../../modules/dconf.nix
-        ../../../modules/firefox/main.nix
+        ../../../modules/firefox
+        ../../../modules/wofi
       ];
 
       home.stateVersion = "23.05";

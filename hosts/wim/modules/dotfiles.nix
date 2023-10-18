@@ -1,6 +1,4 @@
-{ config, pkgs, nixpkgs-wayland, ... }: let
-  waypkgs = nixpkgs-wayland.packages.x86_64-linux;
-
+{ config, pkgs, ... }: let
   configDir = (import ../vars.nix).configDir;
   symlink = config.lib.file.mkOutOfStoreSymlink;
 in
@@ -25,22 +23,5 @@ in
     "mimeapps.list".source         = symlink "${configDir}/mimeapps.list";
     "neofetch".source              = symlink "${configDir}/neofetch";
     "swappy".source                = symlink "${configDir}/swappy";
-  };
-
-  programs = {
-    wofi = {
-      enable = true;
-      package = waypkgs.wofi;
-      settings = {
-        prompt = "";
-        allow_images = true;
-        normal_window = true;
-        image_size = "48";
-        matching = "fuzzy";
-        insensitive = true;
-        no_actions = true;
-      };
-      style = builtins.readFile ../config/wofi/style.css;
-    };
   };
 }

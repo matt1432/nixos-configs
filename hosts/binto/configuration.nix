@@ -73,7 +73,7 @@
       imports = [
         ../../modules/alacritty.nix
         ../../modules/dconf.nix
-        ../../modules/firefox/main.nix
+        ../../modules/firefox
       ];
       programs.alacritty.settings.font.size = 10;
 
