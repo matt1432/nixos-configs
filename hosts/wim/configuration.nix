@@ -1,6 +1,4 @@
-{ lib, hyprland, pkgs, ... }:
-
-{
+{ hyprland, pkgs, ... }: {
   imports = [
     ./hardware-configuration.nix
 
@@ -12,8 +10,35 @@
     ../../modules/sddm-wayland.nix
 
     ./modules/security.nix
-    ./home/main.nix
   ];
+
+  users.users.matt = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" "input" "uinput" "adm" "mlocate" "video" "libvirtd" ];
+  };
+
+  programs.dconf.enable = true;
+
+  # TODO: use hm for tmux
+  home-manager.users = {
+    matt = {
+      imports = [
+        ./home/theme.nix
+        ./home/hyprland.nix
+        ./home/packages.nix
+
+        ../../modules/alacritty.nix
+        ../../modules/dconf.nix
+        ../../modules/firefox
+        ../../modules/wofi
+
+        ./modules/dotfiles.nix
+      ];
+
+      # No touchy
+      home.stateVersion = "23.05";
+    };
+  };
 
   networking = {
     hostName = "wim";
@@ -54,7 +79,6 @@
     ];
   };
 
-  # List packages in root user PATH
   environment.systemPackages = with pkgs; [
     # for sddm
     plasma5Packages.plasma-framework
@@ -71,11 +95,6 @@
   # Set your time zone.
   time.timeZone = "America/Montreal";
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It's perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.05"; # Did you read the comment?
+  # No touchy
+  system.stateVersion = "23.05";
 }
