@@ -4,7 +4,7 @@
     home-manager.nixosModules.default
     ./modules/programs.nix
     ./modules/locale.nix
-    ./overlays/list.nix
+    ./overlays
   ];
 
   nixpkgs.config.allowUnfree = true;
