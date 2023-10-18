@@ -21,8 +21,17 @@
 
   users.users.matt = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "input" "uinput" "adm" "mlocate" "video" "libvirtd" ];
+    extraGroups = [
+      "wheel"
+      "input"
+      "uinput"
+      "adm"
+      "mlocate"
+      "video"
+      "libvirtd"
+    ];
   };
+
   # TODO: use hm for tmux
   home-manager.users = {
     matt = {
