@@ -28,8 +28,6 @@
       "libvirtd"
     ];
   };
-
-  # TODO: use hm for tmux
   home-manager.users = {
     matt = {
 

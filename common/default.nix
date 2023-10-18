@@ -46,8 +46,9 @@
       imports = [
         nur.hmModules.nur
         ./modules/bash
-        ./modules/git
+        ./modules/git.nix
         ./modules/neovim
+        ./modules/tmux.nix
 
         ./hostvars.nix
         ({ osConfig, ... }: {
