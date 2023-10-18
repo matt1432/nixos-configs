@@ -8,6 +8,12 @@ import { RoundedCorner } from '../screen-corners.js';
 import Gesture           from './gesture.js';
 
 
+// TODO: add fullscreen status in hyprland.ts
+// TODO: when fullscreen changes, keep current workspace in memory.
+//       if it changes while still in fullscreen, check directly
+//       with hyprctl if in fullscreen or not until fullscreen
+//       status changes again
+
 export default (props) => Overlay({
   overlays: [
     RoundedCorner('topleft',  { className: 'corner' }),

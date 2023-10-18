@@ -56,7 +56,7 @@ export default ({
                     margin-right: -${Number(maxOffset + endMargin)}px;
                     margin-bottom: -70px; margin-top: -70px; opacity: 0;`;
 
-  widget.child = Box({
+  widget.add(Box({
     properties: [
       ['leftAnim1',  leftAnim1],
       ['leftAnim2',  leftAnim2],
@@ -136,7 +136,7 @@ export default ({
       }, 'drag-end'],
 
     ],
-  });
+  }));
 
   return widget;
 };

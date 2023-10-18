@@ -14,7 +14,7 @@ export default ({
 
   let gesture = Gtk.GestureSwipe.new(widget);
 
-  widget.child = CenterBox({
+  widget.add(CenterBox({
     children: [ child ],
     connections: [[gesture, () => {
       const velocity = gesture.get_velocity()[1];
@@ -22,7 +22,7 @@ export default ({
         App.openWindow('quick-settings');
 
     }, 'update']],
-  });
+  }));
 
   return widget;
 };

@@ -9,10 +9,10 @@ const TRANSITION = 'transition: margin 0.5s ease, opacity 3s ease;';
 
 
 export default ({ properties, connections, props } = {}) => {
-  let widget = EventBox();
+  let widget = EventBox({});
   let gesture = Gtk.GestureDrag.new(widget)
 
-  widget.child = Overlay({
+  widget.add(Overlay({
     ...props,
     properties: [
       ...properties,
@@ -80,7 +80,7 @@ export default ({ properties, connections, props } = {}) => {
 
       }, 'drag-end'],
     ],
-  });
+  }));
   widget.child.list = () => widget.child.get_children().filter(ch => ch._bgStyle !== undefined);
 
   return widget;

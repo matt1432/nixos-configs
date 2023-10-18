@@ -38,17 +38,17 @@ const Center = player => Box({
           ],
         }),
 
-        Label(),
-        Label(),
+        null,
+        null,
       ],
     }),
 
     CenterBox({
       vertical: true,
       children: [
-        Label(),
+        null,
         mpris.PlayPauseButton(player),
-        Label(),
+        null,
       ],
     }),
 
