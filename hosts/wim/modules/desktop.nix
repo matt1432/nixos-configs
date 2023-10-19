@@ -7,16 +7,20 @@
         sessionPackages = [
           hyprland.packages.x86_64-linux.default
         ];
-        defaultSession = "hyprland";
-
-        autoLogin = {
-          enable = true;
-          user = "matt";
-        };
       };
 
       libinput.enable = true;
     };
+
+    greetd = {
+      settings = {
+        initial_session = {
+          command = "${hyprland.packages.x86_64-linux.default}/bin/Hyprland";
+          user = "matt";
+        };
+      };
+    };
+
     dbus.enable = true;
     gvfs.enable = true;
     flatpak.enable = true;

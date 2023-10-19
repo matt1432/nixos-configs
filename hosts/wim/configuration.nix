@@ -3,11 +3,11 @@
     ./hardware-configuration.nix
 
     ../../modules/audio.nix
+    ../../modules/greetd
     ../../modules/kmscon.nix
     ../../modules/plymouth.nix
     ../../modules/printer.nix
     ../../modules/proton-bridge.nix
-    ../../modules/sddm-wayland.nix
 
     ./modules/desktop.nix
     ./modules/security.nix
