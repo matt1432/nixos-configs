@@ -3,6 +3,7 @@
 {
   imports = [
     ./dracula-theme.nix
+    ./regreet.nix
   ];
 
   nixpkgs.overlays = [
