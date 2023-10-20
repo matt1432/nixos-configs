@@ -35,7 +35,6 @@
         ../../modules/alacritty.nix
         ../../modules/dconf.nix
         ../../modules/firefox
-        ../../modules/theme.nix
       ];
 
       # No touchy

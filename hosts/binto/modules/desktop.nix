@@ -17,6 +17,7 @@
   environment.systemPackages = with pkgs; [
     p7zip # for reshade
     xclip
+    flat-remix-icon-theme
     nextcloud-client
     (pkgs.discord.override {
       withOpenASAR = true;
