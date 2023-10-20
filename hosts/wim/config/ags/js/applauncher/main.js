@@ -21,6 +21,7 @@ const AppItem = (app, window) => {
     connections: [['clicked', () => {
       App.closeWindow(window);
       Utils.exec(`hyprctl dispatch exec ${app.executable}`);
+      // TODO: focus on new client. Is this only needed after launch?
       ++app.frequency;
     }]],
     child: Box({

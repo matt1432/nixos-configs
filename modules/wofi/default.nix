@@ -1,10 +1,9 @@
 # Home-manager module
 
-{ nixpkgs-wayland, ... }: {
+{ ... }: {
   programs = {
     wofi = {
       enable = true;
-      package = nixpkgs-wayland.packages.x86_64-linux.wofi;
       settings = {
         prompt = "";
         allow_images = true;
