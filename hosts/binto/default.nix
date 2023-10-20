@@ -5,6 +5,7 @@
     ../../modules/audio.nix
     ../../modules/kmscon.nix
     ../../modules/printer.nix
+    ../../modules/tailscale.nix
 
     ./modules/desktop.nix
     ./modules/nix-gaming.nix
@@ -49,14 +50,6 @@
   };
 
   services = {
-    tailscale = {
-      enable = true;
-      extraUpFlags = [
-        "--login-server https://headscale.nelim.org"
-        "--operator=matt"
-      ];
-    };
-
     openssh = {
       enable = true;
       settings = {
