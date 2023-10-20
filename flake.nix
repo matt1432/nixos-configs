@@ -8,10 +8,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    hyprland.url = "github:hyprwm/Hyprland";
 
     hyprgrass = {
       url = "github:horriblename/hyprgrass";
@@ -63,17 +60,17 @@
       wim = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = attrs;
-        modules = [
+        modules = defaultModules ++ [
           ./hosts/wim
-        ] ++ defaultModules;
+        ];
       };
 
       binto = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = attrs;
-        modules = [
+        modules = defaultModules ++ [
           ./hosts/binto
-        ] ++ defaultModules;
+        ];
       };
     };
   };
