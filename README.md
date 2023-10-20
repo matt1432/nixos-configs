@@ -9,3 +9,10 @@ what i want to do:
 
 Since I use my laptop with one user, I symlinked the configs to my home
 directory following the tutorial [here](https://nixos.wiki/wiki/NixOS_configuration_editors)
+
+### Discord themes
+
+```
+https://markchan0225.github.io/RoundedDiscord/RoundedDiscord.theme.css
+https://raw.githubusercontent.com/dracula/BetterDiscord/master/Dracula_Official.theme.css
+```
