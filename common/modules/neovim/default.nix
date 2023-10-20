@@ -55,6 +55,7 @@ in
         settings = {
           "colors.enable" = true;
           "coc.preferences.formatOnType" = true;
+          "eslint.format.enable" = true;
           "Lua.misc.parameters" = [
             "--metapath"
             "~/.cache/sumneko_lua/meta"
@@ -96,6 +97,7 @@ in
         coc-toml
         coc-markdownlint
         coc-tsserver
+        coc-eslint
         neodev-nvim
 
         coc-fzf
