@@ -15,6 +15,13 @@
     hash = "sha256-3tKjKn5IHIByj+xgi2AIL1vZANlb0vlYJsPjH6BHGxM=";
   };
 
+  bat-theme = pkgs.fetchFromGitHub {
+    owner = "matt1432";
+    repo = "bat";
+    rev = "270bce892537311ac92494a2a7663e3ecf772092";
+    hash = "sha256-UyZ3WFfrEEBjtdb//5waVItmjKorkOiNGtu9eeB3lOw=";
+  };
+
   wallpaper = pkgs.fetchurl {
     url = "https://github.com/aynp/dracula-wallpapers/blob/main/Art/4k/Waves%201.png?raw=true";
     hash = "sha256-f9FwSOSvqTeDj4bOjYUQ6TM+/carCD9o5dhg/MnP/lk=";
@@ -42,6 +49,13 @@ in {
 
         mkdir -p $out
         cp -a ./git-colors $out
+
+        # Bat colors
+        mkdir -p ./bat $out/bat
+        cp -a ${bat-theme}/Dracula.tmTheme ./bat/dracula-bat.tmTheme
+        chmod 777 ./bat/dracula-bat.tmTheme
+
+        cp -a ./bat/dracula-bat.tmTheme $out/bat
 
         # Plymouth
         cp -a ${plymouth}/dracula ./dracula
