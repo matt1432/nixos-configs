@@ -56,10 +56,13 @@ in {
     photoqt
     gimp-with-plugins # TODO: set plugins using nix
     vlc
-    discord
     nextcloud-client
     jellyfin-media-player
     xournalpp
+    (pkgs.discord.override {
+      withOpenASAR = true;
+      withVencord = true;
+    })
 
     # Misc CLI
     acpi

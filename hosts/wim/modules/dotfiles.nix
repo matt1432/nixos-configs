@@ -15,8 +15,6 @@ in
                                     '';
     "gtklock/style.css".source     = symlink "${configDir}/gtklock/style.css";
 
-    "discord/settings.json".source = symlink "${configDir}/discord/settings.json";
-
     "dolphinrc".source             = symlink "${configDir}/dolphinrc";
     "kdeglobals".source            = symlink "${configDir}/kdeglobals";
     "kiorc".source                 = symlink "${configDir}/kiorc";
