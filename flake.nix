@@ -64,7 +64,7 @@
         system = "x86_64-linux";
         specialArgs = attrs;
         modules = [
-          ./hosts/wim/configuration.nix
+          ./hosts/wim
         ] ++ defaultModules;
       };
 
@@ -72,7 +72,7 @@
         system = "x86_64-linux";
         specialArgs = attrs;
         modules = [
-          ./hosts/binto/configuration.nix
+          ./hosts/binto
         ] ++ defaultModules;
       };
     };

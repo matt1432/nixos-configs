@@ -3,20 +3,17 @@
     ./hardware-configuration.nix
 
     ../../modules/audio.nix
-    ../../modules/greetd
     ../../modules/kmscon.nix
-    ../../modules/plymouth.nix
     ../../modules/printer.nix
-    ../../modules/proton-bridge.nix
 
     ./modules/desktop.nix
-    ./modules/security.nix
+    ./modules/nix-gaming.nix
+    ./modules/nvidia.nix
   ];
 
   services.hostvars = {
     username = "matt";
-    configDir = "/home/matt/.nix/hosts/wim/config";
-    fontSize = 12.5;
+    fontSize = 10.0;
   };
 
   users.users.matt = {
@@ -33,36 +30,46 @@
   };
   home-manager.users = {
     matt = {
-      imports = [
-        ./home/theme.nix
-        ./home/hyprland.nix
-        ./home/packages.nix
 
+      imports = [
         ../../modules/alacritty.nix
         ../../modules/dconf.nix
         ../../modules/firefox
-        ../../modules/wofi
-
-        ./modules/dotfiles.nix
+        ../../modules/theme.nix
       ];
 
       # No touchy
-      home.stateVersion = "23.05";
+      home.stateVersion = "23.11";
     };
   };
 
   networking = {
-    hostName = "wim";
-    networkmanager = {
-      enable = true;
-      wifi.backend = "wpa_supplicant";
-    };
+    hostName = "binto";
+    networkmanager.enable = true;
     firewall.enable = false;
   };
 
+  services = {
+    tailscale = {
+      enable = true;
+      extraUpFlags = [
+        "--login-server https://headscale.nelim.org"
+        "--operator=matt"
+      ];
+    };
+
+    openssh = {
+      enable = true;
+      settings = {
+        PasswordAuthentication = false;
+        PermitRootLogin = "no";
+      };
+    };
+  };
+
   # Set your time zone.
-  time.timeZone = "America/Montreal";
+  time.timeZone = "America/Toronto";
 
   # No touchy
-  system.stateVersion = "23.05";
+  system.stateVersion = "23.11";
 }
