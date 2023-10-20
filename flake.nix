@@ -25,6 +25,11 @@
 
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
+    nh = {
+      url = "github:viperML/nh";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-melt = {
       url = "github:nix-community/nix-melt";
       inputs.nixpkgs.follows = "nixpkgs";
