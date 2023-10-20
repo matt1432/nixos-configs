@@ -27,6 +27,8 @@
     tlp.enable = true;
   };
 
+  programs.kdeconnect.enable = true;
+
   xdg.portal = {
     enable = true;
     wlr.enable = true;

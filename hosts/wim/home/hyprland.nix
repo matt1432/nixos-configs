@@ -1,4 +1,4 @@
-{ pkgs, config, hyprland, hyprgrass, ags, ... }: let
+{ pkgs, config, hyprland, hyprgrass, ags, osConfig, ... }: let
   configDir = config.services.hostvars.configDir;
   symlink = config.lib.file.mkOutOfStoreSymlink;
 
@@ -36,7 +36,11 @@ in {
         "LOCK_PATH, ${configDir}/gtklock/scripts"
       ];
 
-      exec-once = [ "${polkit}/libexec/polkit-kde-authentication-agent-1" ];
+      exec-once = [
+        "${polkit}/libexec/polkit-kde-authentication-agent-1"
+        "${osConfig.programs.kdeconnect.package}/libexec/kdeconnectd"
+      ];
+
       source = [ "~/.config/hypr/main.conf" ];
     };
   };

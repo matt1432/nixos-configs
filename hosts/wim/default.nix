@@ -8,6 +8,7 @@
     ../../modules/plymouth.nix
     ../../modules/printer.nix
     ../../modules/proton-bridge.nix
+    ../../modules/tailscale.nix
 
     ./modules/desktop.nix
     ./modules/security.nix
