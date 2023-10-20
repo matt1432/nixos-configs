@@ -17,6 +17,11 @@
   environment.systemPackages = with pkgs; [
     p7zip # for reshade
     xclip
+    nextcloud-client
+    (pkgs.discord.override {
+      withOpenASAR = true;
+      withVencord = true;
+    })
   ];
 
   environment.plasma5.excludePackages = with pkgs.libsForQt5; [
