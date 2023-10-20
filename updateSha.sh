@@ -22,7 +22,7 @@ parseNurl "https://github.com/lukas-reineke/indent-blankline.nvim"
 updateFirefoxAddons() {
     echo "Updating firefox addons using mozilla-addons-to-nix"
 
-    (cd /home/matt/.nix/nixos/home/firefox/addons || return;
+    (cd /home/matt/.nix/modules/firefox/addons || return;
 
      file=generated-firefox-addons.nix
      if [[ -f $file ]]; then

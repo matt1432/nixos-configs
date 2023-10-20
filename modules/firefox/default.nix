@@ -162,6 +162,7 @@ in
         sound-volume
         google-container
         checkmarks-web-ext
+        ttv-lol-pro
         opera-gx-witchcraft-purple
       ]);
     };
