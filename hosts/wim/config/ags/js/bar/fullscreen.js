@@ -8,11 +8,11 @@ import { RoundedCorner } from '../screen-corners.js';
 import Gesture           from './gesture.js';
 
 
-// TODO: add fullscreen status in hyprland.ts
-// TODO: when fullscreen changes, keep current workspace in memory.
-//       if it changes while still in fullscreen, check directly
-//       with hyprctl if in fullscreen or not until fullscreen
-//       status changes again
+Hyprland.connect('changed', () => {
+    Revealed.value = Hyprland.getWorkspace(Hyprland.active.workspace.id)
+        .hasfullscreen;
+});
+Hyprland.connect('fullscreen', (_, fullscreen) => Revealed.value = fullscreen);
 
 export default props => Overlay({
     overlays: [
@@ -30,24 +30,16 @@ export default props => Overlay({
                 setup: self => self.revealChild = true,
 
                 properties: [['timeouts', []]],
-                connections: [[Hyprland, self => {
-                    Utils.execAsync('hyprctl activewindow -j').then(out => {
-                        const client = JSON.parse(out);
-                        if (client.fullscreen === Revealed.value)
-                            return;
-
-                        Revealed.value = client.fullscreen;
-
-                        if (Revealed.value) {
-                            Utils.timeout(2000, () => {
-                                if (Revealed.value)
-                                    self.revealChild = false;
-                            });
-                        }
-                        else {
-                            self.revealChild = true;
-                        }
-                    }).catch(print);
+                connections: [[Revealed, self => {
+                    if (Revealed.value) {
+                        Utils.timeout(2000, () => {
+                            if (Revealed.value)
+                                self.revealChild = false;
+                        });
+                    }
+                    else {
+                        self.revealChild = true;
+                    }
                 }]],
 
                 child: Gesture({
