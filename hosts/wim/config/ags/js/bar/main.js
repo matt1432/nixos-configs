@@ -18,70 +18,70 @@ import Revealer       from './fullscreen.js';
 
 
 export const Bar = () => Window({
-  name: 'bar',
-  layer: 'overlay',
-  anchor: [ 'top', 'left', 'right' ],
-  exclusive: true,
-  child: Revealer({
-    child: CenterBox({
-      className: 'bar',
-      vertical: false,
+    name: 'bar',
+    layer: 'overlay',
+    anchor: ['top', 'left', 'right'],
+    exclusive: true,
+    child: Revealer({
+        child: CenterBox({
+            className: 'bar',
+            vertical: false,
 
-      startWidget: Box({
-        halign: 'start',
-        children: [
+            startWidget: Box({
+                halign: 'start',
+                children: [
 
-          OskToggle(),
+                    OskToggle(),
 
-          Separator(12),
+                    Separator(12),
 
-          TabletToggle(),
+                    TabletToggle(),
 
-          Separator(12),
+                    Separator(12),
 
-          SysTray(),
+                    SysTray(),
 
-          Audio(),
+                    Audio(),
 
-          Separator(12),
+                    Separator(12),
 
-          Brightness(),
+                    Brightness(),
 
-          Separator(12),
+                    Separator(12),
 
-          Workspaces(),
+                    Workspaces(),
 
-        ],
-      }),
+                ],
+            }),
 
-      centerWidget: Box({
-        children: [
-          CurrentWindow(),
-        ],
-      }),
+            centerWidget: Box({
+                children: [
+                    CurrentWindow(),
+                ],
+            }),
 
-      endWidget: Box({
-        halign: 'end',
-        children: [
-          Battery(),
+            endWidget: Box({
+                halign: 'end',
+                children: [
+                    Battery(),
 
-          Separator(12),
+                    Separator(12),
 
-          //KeyboardLayout(),
+                    //KeyboardLayout(),
 
-          //Separator(12),
+                    //Separator(12),
 
-          Clock(),
+                    Clock(),
 
-          Separator(12),
+                    Separator(12),
 
-          NotifButton(),
+                    NotifButton(),
 
-          Separator(12),
+                    Separator(12),
 
-          QsToggle(),
-        ],
-      }),
+                    QsToggle(),
+                ],
+            }),
+        }),
     }),
-  }),
 });

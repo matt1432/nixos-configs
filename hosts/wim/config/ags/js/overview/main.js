@@ -7,42 +7,42 @@ import { updateClients } from './clients.js';
 
 
 function update(box) {
-  getWorkspaces(box);
-  updateWorkspaces(box);
-  updateClients(box);
+    getWorkspaces(box);
+    updateWorkspaces(box);
+    updateClients(box);
 }
 
 export default () => PopupWindow({
-  name: 'overview',
-  transition: 'crossfade',
-  onOpen: child => update(child),
+    name: 'overview',
+    transition: 'crossfade',
+    onOpen: child => update(child),
 
-  child: Box({
-    className: 'overview',
-    vertical: true,
-    children: [
-      Box({
+    child: Box({
+        className: 'overview',
         vertical: true,
         children: [
-          WorkspaceRow('normal', 0),
+            Box({
+                vertical: true,
+                children: [
+                    WorkspaceRow('normal', 0),
+                ],
+            }),
+            Box({
+                vertical: true,
+                children: [
+                    WorkspaceRow('special', 0),
+                ],
+            }),
         ],
-      }),
-      Box({
-        vertical: true,
-        children: [
-          WorkspaceRow('special', 0),
-        ],
-      }),
-    ],
-    connections: [[Hyprland, self => {
-      if (!App.getWindow('overview').visible)
-        return;
+        connections: [[Hyprland, self => {
+            if (!App.getWindow('overview').visible)
+                return;
 
-      update(self);
-    }]],
-    properties: [
-      ['workspaces'],
-    ],
-  }),
+            update(self);
+        }]],
+        properties: [
+            ['workspaces'],
+        ],
+    }),
 
 });

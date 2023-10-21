@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@girs/gtk-3.0": "^3.24.39-3.2.2",
-    "eslint": "^8.52.0"
+    "eslint": "^8.52.0",
+    "stylelint-config-standard-scss": "^11.0.0"
   }
 }

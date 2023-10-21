@@ -5,24 +5,23 @@ import Gtk from 'gi://Gtk';
 
 
 export default ({
-  child,
-  ...props
+    child,
+    ...props
 }) => {
-  let widget = EventBox({
-    ...props,
-  });
+    const widget = EventBox({
+        ...props,
+    });
 
-  let gesture = Gtk.GestureSwipe.new(widget);
+    const gesture = Gtk.GestureSwipe.new(widget);
 
-  widget.add(CenterBox({
-    children: [ child ],
-    connections: [[gesture, () => {
-      const velocity = gesture.get_velocity()[1];
-      if (velocity < -100)
-        App.openWindow('quick-settings');
+    widget.add(CenterBox({
+        children: [child],
+        connections: [[gesture, () => {
+            const velocity = gesture.get_velocity()[1];
+            if (velocity < -100)
+                App.openWindow('quick-settings');
+        }, 'update']],
+    }));
 
-    }, 'update']],
-  }));
-
-  return widget;
+    return widget;
 };

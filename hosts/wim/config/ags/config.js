@@ -4,7 +4,7 @@ import Closer         from './js/misc/closer.js';
 import Powermenu      from './js/powermenu.js';
 import { Bar }        from './js/bar/main.js';
 import NotifCenter    from './js/notifications/center.js';
-import NotifPopups    from './js/notifications/popup.js'
+import NotifPopups    from './js/notifications/popup.js';
 import Calendar       from './js/date.js';
 import QuickSettings  from './js/quick-settings/main.js';
 import Overview       from './js/overview/main.js';
@@ -21,28 +21,28 @@ Utils.execAsync(['bash', '-c', '$AGS_PATH/startup.sh']).catch(print);
 
 
 export default {
-  style: css,
-  notificationPopupTimeout: 5000,
-  cacheNotificationActions: true,
-  closeWindowDelay: {
-    'quick-settings': 500,
-    'notification-center': 500,
-    'calendar': 500,
-    'powermenu': 500,
-    'overview': 500,
-    'applauncher': 500,
-  },
-  windows: [
-    Powermenu(),
-    Bar(),
-    Closer(),
-    NotifCenter(),
-    NotifPopups(),
-    Calendar(),
-    QuickSettings(),
-    Overview(),
-    AppLauncher(),
-    Corners.Bottomleft(),
-    Corners.Bottomright(),
-  ],
+    style: css,
+    notificationPopupTimeout: 5000,
+    cacheNotificationActions: true,
+    closeWindowDelay: {
+        'quick-settings': 500,
+        'notification-center': 500,
+        'calendar': 500,
+        'powermenu': 500,
+        'overview': 500,
+        'applauncher': 500,
+    },
+    windows: [
+        Powermenu(),
+        Bar(),
+        Closer(),
+        NotifCenter(),
+        NotifPopups(),
+        Calendar(),
+        QuickSettings(),
+        Overview(),
+        AppLauncher(),
+        Corners.Bottomleft(),
+        Corners.Bottomright(),
+    ],
 };

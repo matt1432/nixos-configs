@@ -9,22 +9,22 @@ export const RoundedCorner = (place, props) => Widget({
     valign: place.includes('top') ? 'start' : 'end',
     setup: widget => {
         const r = widget.get_style_context()
-          .get_property('border-radius', Gtk.StateFlags.NORMAL);
+            .get_property('border-radius', Gtk.StateFlags.NORMAL);
 
         widget.set_size_request(r, r);
         widget.connect('draw', Lang.bind(widget, (widget, cr) => {
             const c = widget.get_style_context()
-              .get_property('background-color', Gtk.StateFlags.NORMAL);
+                .get_property('background-color', Gtk.StateFlags.NORMAL);
 
             const r = widget.get_style_context()
-              .get_property('border-radius', Gtk.StateFlags.NORMAL);
+                .get_property('border-radius', Gtk.StateFlags.NORMAL);
 
             const borderColor = widget.get_style_context()
-              .get_property('color', Gtk.StateFlags.NORMAL);
+                .get_property('color', Gtk.StateFlags.NORMAL);
 
             // ur going to write border-width: something anyway
             const borderWidth = widget.get_style_context()
-              .get_border(Gtk.StateFlags.NORMAL).left;
+                .get_border(Gtk.StateFlags.NORMAL).left;
             widget.set_size_request(r, r);
 
             switch (place) {
@@ -54,9 +54,9 @@ export const RoundedCorner = (place, props) => Widget({
             cr.fill();
             cr.setLineWidth(borderWidth);
             cr.setSourceRGBA(borderColor.red,
-                             borderColor.green,
-                             borderColor.blue,
-                             borderColor.alpha);
+                borderColor.green,
+                borderColor.blue,
+                borderColor.alpha);
             cr.stroke();
         }));
     },
@@ -68,7 +68,7 @@ export const Topleft = () => Widget.Window({
     anchor: ['top', 'left'],
     exclusive: false,
     visible: true,
-    child: RoundedCorner('topleft', { className: 'corner', }),
+    child: RoundedCorner('topleft', { className: 'corner' }),
 });
 export const Topright = () => Widget.Window({
     name: 'cornertr',
@@ -76,7 +76,7 @@ export const Topright = () => Widget.Window({
     anchor: ['top', 'right'],
     exclusive: false,
     visible: true,
-    child: RoundedCorner('topright', { className: 'corner', }),
+    child: RoundedCorner('topright', { className: 'corner' }),
 });
 export const Bottomleft = () => Widget.Window({
     name: 'cornerbl',
@@ -84,7 +84,7 @@ export const Bottomleft = () => Widget.Window({
     anchor: ['bottom', 'left'],
     exclusive: false,
     visible: true,
-    child: RoundedCorner('bottomleft', { className: 'corner', }),
+    child: RoundedCorner('bottomleft', { className: 'corner' }),
 });
 export const Bottomright = () => Widget.Window({
     name: 'cornerbr',
@@ -92,5 +92,5 @@ export const Bottomright = () => Widget.Window({
     anchor: ['bottom', 'right'],
     exclusive: false,
     visible: true,
-    child: RoundedCorner('bottomright', { className: 'corner', }),
+    child: RoundedCorner('bottomright', { className: 'corner' }),
 });

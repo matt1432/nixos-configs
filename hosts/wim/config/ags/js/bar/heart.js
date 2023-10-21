@@ -6,24 +6,24 @@ import EventBox from '../misc/cursorbox.js';
 
 
 export default () => EventBox({
-  halign: 'center',
+    halign: 'center',
 
-  onPrimaryClickRelease: () => {
-    execAsync(['bash', '-c', '$AGS_PATH/heart.sh toggle']).catch(print);
-  },
+    onPrimaryClickRelease: () => {
+        execAsync(['bash', '-c', '$AGS_PATH/heart.sh toggle']).catch(print);
+    },
 
-  child: Box({
-    className: 'heart-toggle',
-    vertical: false,
+    child: Box({
+        className: 'heart-toggle',
+        vertical: false,
 
-    child: Label({
-      label: '',
-      setup: self => {
-        subprocess(
-          ['bash', '-c', 'tail -f /home/matt/.config/.heart'],
-          (output) => self.label = ' ' + output,
-        );
-      },
+        child: Label({
+            label: '',
+            setup: self => {
+                subprocess(
+                    ['bash', '-c', 'tail -f /home/matt/.config/.heart'],
+                    output => self.label = ' ' + output,
+                );
+            },
+        }),
     }),
-  }),
 });

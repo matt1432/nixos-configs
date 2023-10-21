@@ -9,42 +9,42 @@ import ToggleButton from './toggle-button.js';
 
 
 const QuickSettingsWidget = () => Box({
-  className: 'qs-container',
-  vertical: true,
-  children: [
+    className: 'qs-container',
+    vertical: true,
+    children: [
 
-    Box({
-      className: 'quick-settings',
-      vertical: true,
-      children: [
+        Box({
+            className: 'quick-settings',
+            vertical: true,
+            children: [
 
-        Label({
-          label: 'Control Center',
-          className: 'title',
-          halign: 'start',
-          style: 'margin-left: 20px'
+                Label({
+                    label: 'Control Center',
+                    className: 'title',
+                    halign: 'start',
+                    style: 'margin-left: 20px',
+                }),
+
+                ButtonGrid(),
+
+                SliderBox(),
+
+                ToggleButton(),
+
+            ],
         }),
 
-        ButtonGrid(),
+        Revealer({
+            transition: 'slide_down',
+            child: Player(),
+        }),
 
-        SliderBox(),
-
-        ToggleButton(),
-
-      ],
-    }),
-
-    Revealer({
-      transition: 'slide_down',
-      child: Player(),
-    })
-
-  ],
+    ],
 });
 
 export default () => PopupWindow({
-  name: 'quick-settings',
-  anchor: [ 'top', 'right' ],
-  margin: [ 8, 5, 0, ],
-  child: QuickSettingsWidget(),
+    name: 'quick-settings',
+    anchor: ['top', 'right'],
+    margin: [8, 5, 0],
+    child: QuickSettingsWidget(),
 });
