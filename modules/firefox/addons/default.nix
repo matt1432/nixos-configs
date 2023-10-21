@@ -29,19 +29,18 @@ let
 in packages // {
   inherit buildFirefoxXpiAddon;
 
-  bypass-paywalls-clean = let
-    version = "3.3.6.0";
+  seventv = let
+    version = "v3.0.10.1000";
   in buildFirefoxXpiAddon {
-    pname = "bypass-paywalls-clean";
+    pname = "seventv";
     inherit version;
-    addonId = "magnolia@12.34";
-    url =
-      "https://gitlab.com/magnolia1234/bpc-uploads/-/raw/master/bypass_paywalls_clean-${version}.xpi";
-    sha256 = "sha256-nuWwx7a51WI1HPkATXMLi6UZiQo+YgWWCZZk54JPDIU=";
+    addonId = "moz-addon@7tv.app";
+    url = "https://extension.7tv.gg/${version}/ext.xpi";
+    sha256 = "sha256-dZyjFayvnLebSZHjMTTQFjcsxxpmc1aL5q17mLF3kG8=";
     meta = with lib; {
-      homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
-      description = "Bypass Paywalls of (custom) news sites";
-      license = licenses.mit;
+      homepage = "https://7tv.app/";
+      description = "The Web Extension for 7TV, bringing new features, emotes, vanity and performance to Twitch, Kick & YouTube";
+      license = licenses.asl20;
       platforms = platforms.all;
     };
   };

@@ -19,6 +19,7 @@ parseNurl "https://github.com/lukas-reineke/indent-blankline.nvim"
 
 # https://github.com/ErikReider/SwayOSD
 
+# https://extension.7tv.gg/manifest.moz.json
 updateFirefoxAddons() {
     echo "Updating firefox addons using mozilla-addons-to-nix"
 

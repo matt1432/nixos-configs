@@ -163,6 +163,7 @@ in
         google-container
         checkmarks-web-ext
         ttv-lol-pro
+        seventv
         opera-gx-witchcraft-purple
       ]);
     };
