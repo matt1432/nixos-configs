@@ -45,6 +45,7 @@ in
         nodejs_latest
         gradle
         bat
+        stylelint
 
         python311Packages.pylint
         nil
