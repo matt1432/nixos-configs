@@ -55,7 +55,15 @@ in
         settings = {
           "colors.enable" = true;
           "coc.preferences.formatOnType" = true;
+
           "eslint.format.enable" = true;
+          "eslint.autoFixOnSave" = true;
+          "stylelintplus.autoFixOnFormat" = true;
+          "css.validate" = false;
+          "less.validate" = false;
+          "scss.validate" = false;
+          "wxss.validate" = false;
+
           "Lua.misc.parameters" = [
             "--metapath"
             "~/.cache/sumneko_lua/meta"
@@ -69,6 +77,7 @@ in
             serverDir = "${pkgs.lua-language-server}/share/lua-language-server";
             enableNvimLuaDev = true;
           };
+
           "java.jdt.ls.java.home" = "${pkgs.temurin-bin-17}";
           "bashIde.shellcheckPath" = "${pkgs.shellcheck}/bin/shellcheck";
           languageserver = {
@@ -98,6 +107,10 @@ in
         coc-markdownlint
         coc-tsserver
         coc-eslint
+        (plugin "bmatcuk"
+                "coc-stylelintplus"
+                "4854bfdc0cb6f92e39b5afb3b90d60b411ecb9e4"
+                "sha256-PgcQc3JecfHE4oNcydyOqsKdRbh4yPhXPugVQDGSRuI=")
         neodev-nvim
 
         coc-fzf
