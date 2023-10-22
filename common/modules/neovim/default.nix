@@ -18,6 +18,11 @@ in
     '';
   };
 
+  home.packages = with pkgs; [
+    gradle
+    gradle-completion # FIXME: not working
+  ];
+
   programs = {
 
     java = {

@@ -44,8 +44,6 @@ in {
   (with pkgs; [
     # School
     virt-manager
-    gradle
-    gradle-completion # FIXME: not working
     #camunda-modeler
 
     # Misc Apps
