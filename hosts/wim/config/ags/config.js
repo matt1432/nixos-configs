@@ -2,7 +2,7 @@ import { App, Utils } from './imports.js';
 
 import Closer         from './js/misc/closer.js';
 import Powermenu      from './js/powermenu.js';
-import { Bar }        from './js/bar/main.js';
+import * as Bar       from './js/bar/main.js';
 import NotifCenter    from './js/notifications/center.js';
 import NotifPopups    from './js/notifications/popup.js';
 import Calendar       from './js/date.js';
@@ -34,7 +34,8 @@ export default {
     },
     windows: [
         Powermenu(),
-        Bar(),
+        Bar.Bar(),
+        Bar.BgGradient(),
         Closer(),
         NotifCenter(),
         NotifPopups(),

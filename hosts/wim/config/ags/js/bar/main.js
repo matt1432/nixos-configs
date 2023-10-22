@@ -17,6 +17,15 @@ import Revealer       from './fullscreen.js';
 //import KeyboardLayout from './keyboard-layout.js';
 
 
+export const BgGradient = () => Window({
+    name: 'bg-gradient',
+    layer: 'background',
+    anchor: ['top', 'bottom', 'left', 'right'],
+    style: `background-image: -gtk-gradient (linear,
+                                left top, left bottom,
+                                from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0)));`,
+});
+
 export const Bar = () => Window({
     name: 'bar',
     layer: 'overlay',

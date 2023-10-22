@@ -1,11 +1,12 @@
-import { Widget, Hyprland, Utils, Variable } from '../../imports.js';
+import { App, Widget, Hyprland, Utils, Variable } from '../../imports.js';
 const { Box, EventBox, Overlay } = Widget;
-
-const Revealed = Variable(true);
-const Hovering = Variable(false);
 
 import { RoundedCorner } from '../screen-corners.js';
 import Gesture           from './gesture.js';
+
+const Revealed = Variable(true);
+const Hovering = Variable(false);
+const wStyle = 'background: rgba(0, 0, 0, 0.5);';
 
 
 Hyprland.connect('changed', () => {
@@ -31,6 +32,12 @@ export default props => Overlay({
 
                 properties: [['timeouts', []]],
                 connections: [[Revealed, self => {
+                    const Bar = App.getWindow('bar');
+                    Bar.setStyle(Revealed.value ? '' : wStyle);
+
+                    const BgGradient = App.getWindow('bg-gradient');
+                    BgGradient.visible = !Revealed.value;
+
                     if (Revealed.value) {
                         Utils.timeout(2000, () => {
                             if (Revealed.value)

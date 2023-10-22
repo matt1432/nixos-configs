@@ -6,6 +6,7 @@ import Pointers from '../../services/pointers.js';
 const ALWAYS_OPEN = [
     'closer',
     'bar',
+    'bg-gradient',
     'notifications',
     'cornertl',
     'cornertr',
