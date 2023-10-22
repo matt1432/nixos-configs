@@ -128,11 +128,9 @@ const NotificationCenterWidget = () => Box({
         Box({
             className: 'notification-wallpaper-box',
             children: [
-                // FIXME: doesn't behave like scrollable??
                 Scrollable({
                     className: 'notification-list-box',
                     hscroll: 'never',
-                    vscroll: 'automatic',
                     child: Box({
                         className: 'notification-list',
                         vertical: true,
