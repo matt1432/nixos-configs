@@ -129,7 +129,10 @@ in
                 "sha256-e8gn4pJYALaQ6sGA66SFf8p6VLJBPxT/BimQhOd5eBs=")
         gitsigns-nvim
         lualine-nvim
-        minimap-vim
+        (plugin "echasnovski"
+                "mini.map"
+                "75b7ca9443e17c852b24055b32f74a880cf48053"
+                "sha256-CoMc6yQXXAW1wzcD9eJGuM+kcOJghuwHjKrqEMxZBec=")
 
         neo-tree-nvim
 

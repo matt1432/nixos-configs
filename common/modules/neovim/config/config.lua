@@ -98,9 +98,14 @@ end)
 
 require("ibl").setup { indent = { highlight = highlight } }
 
--- Autoclose Minimap
-vim.api.nvim_create_autocmd('QuitPre', {
-	pattern = '*',
-	desc = 'Close minimap on exit',
-	command = 'MinimapClose',
-})
+local map = require('mini.map')
+  map.setup({
+    integrations = {
+      map.gen_integration.builtin_search(),
+      map.gen_integration.gitsigns(),
+      map.gen_integration.diagnostic(),
+    },
+    window = {
+      width = 7,
+    },
+  })
