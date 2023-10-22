@@ -45,6 +45,6 @@ const QuickSettingsWidget = () => Box({
 export default () => PopupWindow({
     name: 'quick-settings',
     anchor: ['top', 'right'],
-    margin: [8, 5, 0],
+    margin: [6, 5, 0],
     child: QuickSettingsWidget(),
 });

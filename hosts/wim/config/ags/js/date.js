@@ -75,7 +75,7 @@ const CalendarWidget = () => Box({
 
 export default () => PopupWindow({
     anchor: ['top', 'right'],
-    margin: [8, 182, 0, 0],
+    margin: [6, 182, 0, 0],
     name: 'calendar',
     child: Box({
         className: 'date',
