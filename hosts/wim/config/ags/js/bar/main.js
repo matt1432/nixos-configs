@@ -65,7 +65,11 @@ export const Bar = () => Window({
 
             centerWidget: Box({
                 children: [
+                    Separator(12),
+
                     CurrentWindow(),
+
+                    Separator(12),
                 ],
             }),
 
