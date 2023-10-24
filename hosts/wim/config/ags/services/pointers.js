@@ -1,6 +1,19 @@
-// TODO: read /dev to recalculate devices and remake subprocess
-
 import { Service, Utils } from '../imports.js';
+import GUdev from 'gi://GUdev';
+
+const UDEV_POINTERS = [
+    'ID_INPUT_MOUSE',
+    'ID_INPUT_POINTINGSTICK',
+    'ID_INPUT_TOUCHPAD',
+    'ID_INPUT_TOUCHSCREEN',
+    'ID_INPUT_TABLET',
+];
+const LIB_POINTERS = [
+    'BTN',
+    'released',
+    'TOUCH_UP',
+    'HOLD_END',
+];
 
 
 class Pointers extends Service {
@@ -15,7 +28,8 @@ class Pointers extends Service {
 
     proc = undefined;
     output = '';
-    devices = new Map();
+    devices = [];
+    udevClient = GUdev.Client.new(['input']);
 
     get process() { return this.proc; }
     get lastLine() { return this.output; }
@@ -23,32 +37,36 @@ class Pointers extends Service {
 
     constructor() {
         super();
-        this.parseDevices();
+        this.initUdevConnection();
     }
 
-    parseDevices() {
-        Utils.execAsync(['libinput', 'list-devices']).then(out => {
-            const lines = out.split('\n');
-            let device = null;
-            const devices = new Map();
+    // FIXME: logitech mouse screws everything up on disconnect
+    getDevices() {
+        this.devices = [];
+        this.udevClient.query_by_subsystem('input').forEach(dev => {
+            const isPointer = UDEV_POINTERS.some(p => dev.has_property(p));
+            if (isPointer) {
+                const hasEventFile = dev.has_property('DEVNAME') &&
+                    dev.get_property('DEVNAME').includes('event');
+                if (hasEventFile)
+                    this.devices.push(dev.get_property('DEVNAME'));
+            }
+        });
 
-            lines.forEach(line => {
-                const parts = line.split(':');
+        this.emit('device-fetched', true);
+    }
 
-                if (parts[0] === 'Device') {
-                    device = {};
-                    devices.set(parts[1].trim(), device);
+    initUdevConnection() {
+        this.getDevices();
+        this.udevClient.connect('uevent', (_, action) => {
+            if (action === 'add' || action === 'remove') {
+                this.getDevices();
+                if (this.proc) {
+                    this.killProc();
+                    this.startProc();
                 }
-                else if (device && parts[1]) {
-                    const key = parts[0].trim();
-                    const value = parts[1].trim();
-                    device[key] = value;
-                }
-            });
-            this.devices = Array.from(devices).filter(dev => dev.Capabilities &&
-                                                dev.Capabilities.includes('pointer'));
-            this.emit('device-fetched', true);
-        }).catch(print);
+            }
+        });
     }
 
     startProc() {
@@ -57,20 +75,18 @@ class Pointers extends Service {
 
         const args = [];
         this.devices.forEach(dev => {
-            if (dev.Kernel) {
-                args.push('--device');
-                args.push(dev.Kernel);
-            }
+            args.push('--device');
+            args.push(dev);
         });
 
         this.proc = Utils.subprocess(
             ['libinput', 'debug-events', ...args],
             output => {
-                if (output.includes('BTN') && output.includes('released') ||
-            output.includes('TOUCH_UP') ||
-            output.includes('HOLD_END') && !output.includes('cancelled')) {
-                    this.output = output;
-                    this.emit('new-line', output);
+                if (!output.includes('cancelled')) {
+                    if (LIB_POINTERS.some(p => output.includes(p))) {
+                        this.output = output;
+                        this.emit('new-line', output);
+                    }
                 }
             },
             err => logError(err),
