@@ -12,13 +12,8 @@ in {
   programs.ags = {
     enable = true;
     configDir = symlink "${configDir}/ags";
-    package = (ags.packages.x86_64-linux.default.overrideAttrs
-      (_: prev: {
-        buildInputs = with pkgs; prev.buildInputs ++ [
-          libgudev
-        ];
-      })
-    );
+    package = ags.packages.x86_64-linux.default;
+    extraPackages = [ pkgs.libgudev ];
   };
 
   wayland.windowManager.hyprland = {
