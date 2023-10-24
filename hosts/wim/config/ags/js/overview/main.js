@@ -15,6 +15,7 @@ function update(box) {
 export default () => PopupWindow({
     name: 'overview',
     transition: 'crossfade',
+    closeOnUnfocus: 'none',
     onOpen: child => update(child),
 
     child: Box({

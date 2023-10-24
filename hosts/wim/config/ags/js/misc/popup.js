@@ -5,6 +5,7 @@ const { Revealer, Box, Window } = Widget;
 export default ({
     name,
     child,
+    closeOnUnfocus = 'released',
     transition = 'slide_down',
     onOpen = () => {},
     ...props
@@ -27,9 +28,6 @@ export default ({
                     if (currentName === name) {
                         rev.reveal_child = visible;
                         onOpen(child);
-
-                        if (visible && name !== 'overview')
-                            App.openWindow('closer');
                     }
                 }]],
                 child: child,
@@ -37,5 +35,6 @@ export default ({
         }),
     });
     window.getChild = () => child;
+    window.closeOnUnfocus = closeOnUnfocus;
     return window;
 };

@@ -1,6 +1,8 @@
 import { App, Utils } from './imports.js';
 
-import Closer         from './js/misc/closer.js';
+import closeAll       from './js/misc/closer.js';
+globalThis.closeAll = closeAll;
+
 import Powermenu      from './js/powermenu.js';
 import * as Bar       from './js/bar/main.js';
 import NotifCenter    from './js/notifications/center.js';
@@ -25,25 +27,25 @@ export default {
     notificationPopupTimeout: 5000,
     cacheNotificationActions: true,
     closeWindowDelay: {
-        'quick-settings': 500,
-        'notification-center': 500,
-        'calendar': 500,
-        'powermenu': 500,
-        'overview': 500,
         'applauncher': 500,
+        'calendar': 500,
+        'notification-center': 500,
+        'overview': 500,
+        'powermenu': 500,
+        'quick-settings': 500,
     },
     windows: [
+        AppLauncher(),
+        Calendar(),
+        NotifCenter(),
+        Overview(),
         Powermenu(),
+        QuickSettings(),
+
         Bar.Bar(),
         Bar.BgGradient(),
-        Closer(),
-        NotifCenter(),
-        NotifPopups(),
-        Calendar(),
-        QuickSettings(),
-        Overview(),
-        AppLauncher(),
         Corners.Bottomleft(),
         Corners.Bottomright(),
+        NotifPopups(),
     ],
 };
