@@ -4,8 +4,8 @@ parseNurl() {
   REV=$(nurl -j "$1" | jq '.["args"].["rev"]')
   HASH=$(nurl -j "$1" | jq '.["args"].["hash"]')
 
-  sed -i "s/rev = .*/rev = $REV;/" "$2"
-  sed -i "s/hash = .*/hash = $HASH;/" "$2"
+  sed -i "s,rev = .*,rev = $REV;," "$2"
+  sed -i "s,hash = .*,hash = $HASH;," "$2"
 }
 
 updateVencord() {
