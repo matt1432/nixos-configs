@@ -24,6 +24,9 @@
       withOpenASAR = true;
       withVencord = true;
     })
+
+    # School
+    bluej
   ];
 
   environment.plasma5.excludePackages = with pkgs.libsForQt5; [

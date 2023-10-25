@@ -44,6 +44,7 @@ in {
   (with pkgs; [
     # School
     virt-manager
+    bluej
     #camunda-modeler
 
     # Misc Apps
