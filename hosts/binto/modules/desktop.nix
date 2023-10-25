@@ -19,6 +19,7 @@
     xclip
     flat-remix-icon-theme
     nextcloud-client
+    spotifywm
     (pkgs.discord.override {
       withOpenASAR = true;
       withVencord = true;
