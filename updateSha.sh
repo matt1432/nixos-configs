@@ -4,11 +4,16 @@ parseNurl() {
   REV=$(nurl -j "$1" | jq '.["args"].["rev"]')
   HASH=$(nurl -j "$1" | jq '.["args"].["hash"]')
 
-  echo $REV $HASH
+  sed -i "s/rev = .*/rev = $REV;/" "$2"
+  sed -i "s/hash = .*/hash = $HASH;/" "$2"
+}
+
+updateVencord() {
+  parseNurl https://github.com/Vendicated/Vencord /home/matt/.nix/common/overlays/vencord.nix
 }
 
 # TODO
-parseNurl "https://github.com/lukas-reineke/indent-blankline.nvim"
+#parseNurl "https://github.com/lukas-reineke/indent-blankline.nvim"
 
 # https://github.com/dracula/xresources
 # https://github.com/dracula/plymouth
@@ -44,4 +49,5 @@ doAll() {
 }
 
 [[ "$1" == "-a" || "$1" == "--all" ]] && doAll
+[[ "$1" == "-v" || "$1" == "--vencord" ]] && updateVencord
 [[ "$1" == "-f" || "$1" == "--firefox" ]] && updateFirefoxAddons
