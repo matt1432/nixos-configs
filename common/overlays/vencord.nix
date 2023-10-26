@@ -4,8 +4,8 @@ final: prev: {
     src = prev.fetchFromGitHub {
       owner = "Vendicated";
       repo = "Vencord";
-      rev = "70943455161031d63a4481249d14833afe94f5a5";
-      hash = "sha256-i/n7qPQ/dloLUYR6sj2fPJnvvL80/OQC3s6sOqhu2dQ=";
+      rev = "ffe6bb1c5d4191cad35a1bdcb84695e886ff4528";
+      hash = "sha256-t4+8ybPzqcCtTSukBBgvbD7HiKG4K51WPVnJg0RQbs8=";
     };
   });
 }
