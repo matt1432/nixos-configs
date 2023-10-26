@@ -3,7 +3,7 @@
   color: $fg;
   border-radius: 30px;
   border-top-right-radius: 0;
-  border: 2px solid $contrastbg;
+  border: 2px solid $contrast-bg;
 }
 
 .timebox {
@@ -32,8 +32,8 @@
   padding: 0 1rem .2rem;
   color: $fg;
   background-color: $bgfull;
-  border-bottom: 2px solid $contrastbg;
-  border-top: 2px solid $contrastbg;
+  border-bottom: 2px solid $contrast-bg;
+  border-top: 2px solid $contrast-bg;
   margin: 0 12px 18px;
 
   .cal {

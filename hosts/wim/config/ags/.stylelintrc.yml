@@ -10,3 +10,5 @@ rules:
   scss/operator-no-unspaced: null
   scss/no-global-function-names: null
   scss/dollar-variable-empty-line-before: null
+  no-invalid-position-at-import-rule: null
+  font-family-no-missing-generic-family-keyword: null

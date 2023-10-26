@@ -1,7 +1,6 @@
 .overview {
-
   .workspace {
-    padding: 4px 15px 4px 0px;
+    padding: 4px 15px 4px 0;
     border: 2px solid transparent;
     border-radius: 10px;
 
@@ -25,7 +24,6 @@
     margin-bottom: 5px;
 
     .workspace {
-
       .window {
         border: 2px solid #411C6C;
 
@@ -35,10 +33,9 @@
       }
     }
   }
+
   .special {
-
     .workspace {
-
       .window {
         border: 2px solid lighten($color: black, $amount: 20);
 

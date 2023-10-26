@@ -1,11 +1,8 @@
 .workspaces {
   background-color: $bg;
   border-radius: 80px;
-  border: 2px solid $bgSecondary;
-  padding-top: 3px;
-  padding-bottom: 3px;
-  padding-left: 12px;
-  padding-right: 12px;
+  border: 2px solid $bg-secondary;
+  padding: 3px 12px;
 
   .button {
     margin: 2px;
@@ -18,11 +15,13 @@
     border: none;
     transition: border-color 0.25s linear;
   }
+
   .occupied {
     border: 2px solid $bg;
-    background: $contrastbg;
+    background: $contrast-bg;
     transition: border-color 0.25s linear;
   }
+
   .active {
     border: 2px solid #50fa7b;
     transition: border-color 0.25s linear;

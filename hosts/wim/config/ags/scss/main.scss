@@ -8,16 +8,16 @@ undershoot {
   all: unset;
 }
 
-@import "./common.scss";
-@import "./widgets/powermenu.scss";
-@import "./widgets/traybuttons.scss";
-@import "./widgets/workspaces.scss";
-@import "./widgets/systray.scss";
-@import "./widgets/notification-center.scss";
-@import "./widgets/notification.scss";
-@import "./widgets/date.scss";
-@import "./widgets/quick-settings.scss";
-@import "./widgets/player.scss";
-@import "./widgets/overview.scss";
-@import "./widgets/applauncher.scss";
-@import "./widgets/corners.scss";
+@import "./common";
+@import "./widgets/powermenu";
+@import "./widgets/traybuttons";
+@import "./widgets/workspaces";
+@import "./widgets/systray";
+@import "./widgets/notification-center";
+@import "./widgets/notification";
+@import "./widgets/date";
+@import "./widgets/quick-settings";
+@import "./widgets/player";
+@import "./widgets/overview";
+@import "./widgets/applauncher";
+@import "./widgets/corners";

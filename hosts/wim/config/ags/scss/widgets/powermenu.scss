@@ -2,28 +2,29 @@
   background-color: $bg;
   color: $fg;
   padding: 10px;
-  font-family: MesloLGS NF;
-  /*font-family: Iosevka Nerd Font;*/
+  font-family: "MesloLGS NF";
+
+  /* font-family: Iosevka Nerd Font; */
   font-size: 70px;
   border-radius: 30px;
-  border: 2px solid $contrastbg;
+  border: 2px solid $contrast-bg;
+
   label {
     min-width: 140px;
     min-height: 130px;
   }
+
   button {
-    margin-right: 10px;
-    margin-left: 10px;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin: 5px 10px;
     border-radius: 12px;
     min-width: 80px;
     transition: all ease .2s;
-    &:hover { background-color: $bgSecondary; }
-    &:active { background-color: $bgSecondary; }
+    &:hover { background-color: $bg-secondary; }
+    &:active { background-color: $bg-secondary; }
+
     .content {
       border-radius: 4px;
-      padding: 0px 15px 0px 15px;
+      padding: 0 15px;
     }
   }
   .shutdown { color: $red; }

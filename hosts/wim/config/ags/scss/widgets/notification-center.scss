@@ -3,9 +3,9 @@
   min-width: 524px;
   background: $bg;
   border-radius: 30px;
-  border-top-right-radius: 0px;
-  border: 2px solid $contrastbg;
-  padding: 0px;
+  border-top-right-radius: 0;
+  border: 2px solid $contrast-bg;
+  padding: 0;
   box-shadow: 0 0 4.5px 0 rgba(0, 0, 0, 0.6);
 
   * {
@@ -16,9 +16,11 @@
     padding: 10px;
     margin-top: 22px;
     margin-bottom: 9px;
+
     label {
       font-size: 22px;
     }
+
     button {
       all: unset;
       transition: 200ms;
@@ -33,11 +35,13 @@
         background-color: rgba(238, 238, 238, 0.154);
         color: #f1f1f1;
       }
+
       &:disabled {
         box-shadow: none;
         background-color: rgba(#664C90, 0.3);
         color: rgba(238, 238, 238, 0.3);
       }
+
       label {
         font-size: 1.2em;
       }
@@ -46,34 +50,41 @@
 
   .notification-list-box {
     background: $bgfull;
-    padding: 0 12px 0 12px;
+    padding: 0 12px;
     border-radius: 30px;
-    border-top: 2px solid $contrastbg;
+    border-top: 2px solid $contrast-bg;
     box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
+
     scrollbar {
       all: unset;
       border-radius: 8px;
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
+
       * {
         all: unset;
       }
+
       &:hover {
         border-radius: 8px;
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
       }
     }
+
     scrollbar.vertical {
       transition: 200ms;
       background-color: rgba(23, 23, 23, 0.3);
+
       &:hover {
         background-color: rgba(23, 23, 23, 0.7);
+
         slider {
           background-color: rgba(238, 238, 238, 0.7);
           min-width: .6em;
         }
       }
+
       slider {
         background-color: rgba(238, 238, 238, 0.5);
         border-radius: 9px;
@@ -86,11 +97,13 @@
 
   .placeholder {
     color: white;
+
     image {
       font-size: 7em;
       text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6);
       -gtk-icon-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6);
     }
+
     label {
       font-size: 1.2em;
       text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6);
