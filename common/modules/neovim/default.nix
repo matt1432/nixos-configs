@@ -69,6 +69,7 @@ in
           # General
           "colors.enable" = true;
           "coc.preferences.formatOnType" = true;
+          "diagnostic.checkCurrentLine" = true;
           "inlayHint.enable" = false;
 
           # Eslint
