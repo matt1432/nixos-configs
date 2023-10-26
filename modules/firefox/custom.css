@@ -33,3 +33,13 @@
     transform: scale(1.0) !important;
     transition-duration: 0ms !important;
 }
+
+#notification-popup {
+  margin-top: -1px !important;
+  margin-inline: -505px !important;
+}
+
+#customizationui-widget-panel {
+  margin-top: -1px !important;
+  margin-inline: -200px !important;
+}

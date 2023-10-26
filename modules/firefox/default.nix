@@ -2,7 +2,7 @@
   firefox-addons = pkgs.recurseIntoAttrs (pkgs.callPackage ./addons { });
   sound-volume = firefox-addons."600-sound-volume";
 
-  firefox-gx = pkgs.callPackage ./firefox-gx.nix { };
+  firefox-gx = pkgs.callPackage ./firefox-gx { };
 in
 {
   home.file = {
