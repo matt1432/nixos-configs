@@ -12,6 +12,16 @@
     (import ./vencord.nix)
 
     (final: prev: {
+      vimPlugins = prev.vimPlugins.extend (final': prev': {
+        coc-stylelintplus = prev.callPackage ./pkgs/coc-stylelintplus.nix {};
+      });
+    })
+
+    (final: prev: {
+      stylelint-lsp = final.callPackage ./pkgs/stylelint-lsp.nix {};
+    })
+
+    (final: prev: {
       spotifywm = final.callPackage ./pkgs/spotifywm.nix {};
     })
 

@@ -17,7 +17,6 @@ in
       org.gradle.java.home = ${pkgs.temurin-bin-17}
     '';
   };
-
   home.packages = with pkgs; [
     gradle
     gradle-completion # FIXME: not working
@@ -32,10 +31,14 @@ in
 
     neovim = {
       enable = true;
+      package = pkgs.neovim-nightly;
+      withNodeJs = true;
+      withPython3 = true;
+      withRuby = false;
+
       defaultEditor = true;
       viAlias = true;
       vimAlias = true;
-      package = pkgs.neovim-nightly;
 
       extraConfig = with lib.strings; ''
         ${fileContents ./config/base.vim}
@@ -45,7 +48,6 @@ in
         ${fileContents ./config/config.lua}
       '';
 
-      withNodeJs = true;
       extraPackages = with pkgs; [
         nodejs_latest
         nodePackages.npm
@@ -54,7 +56,7 @@ in
 
         bat
 
-        stylelint
+        stylelint-lsp
         nil
       ];
       extraPython3Packages = with pkgs.python311Packages; [
@@ -64,18 +66,26 @@ in
       coc = {
         enable = true;
         settings = {
+          # General
           "colors.enable" = true;
           "coc.preferences.formatOnType" = true;
           "inlayHint.enable" = false;
 
+          # Eslint
           "eslint.format.enable" = true;
           "eslint.autoFixOnSave" = true;
+
+          # Stylelint FIXME: not working
+          "stylelintplus.enable" = true;
+          "stylelintplus.cssInJs" = true;
+          "stylelintplus.autoFixOnSave" = true;
           "stylelintplus.autoFixOnFormat" = true;
           "css.validate" = false;
           "less.validate" = false;
           "scss.validate" = false;
           "wxss.validate" = false;
 
+          # Lua lsp
           "Lua.misc.parameters" = [
             "--metapath"
             "~/.cache/sumneko_lua/meta"
@@ -90,8 +100,7 @@ in
             enableNvimLuaDev = true;
           };
 
-          "java.jdt.ls.java.home" = "${pkgs.temurin-bin-17}";
-          "bashIde.shellcheckPath" = "${pkgs.shellcheck}/bin/shellcheck";
+          # Nix
           languageserver = {
             nix = {
               command = "nil";
@@ -99,6 +108,10 @@ in
               rootPatterns =  [ "flake.nix" ];
             };
           };
+
+          # Misc
+          "java.jdt.ls.java.home" = "${pkgs.temurin-bin-17}";
+          "bashIde.shellcheckPath" = "${pkgs.shellcheck}/bin/shellcheck";
         };
       };
 
@@ -107,7 +120,11 @@ in
 
         coc-java
         coc-css
+
+        # Lua
         coc-sumneko-lua
+        neodev-nvim
+
         coc-highlight
         coc-json
         coc-pyright
@@ -119,11 +136,7 @@ in
         coc-markdownlint
         coc-tsserver
         coc-eslint
-        (plugin "bmatcuk"
-                "coc-stylelintplus"
-                "4854bfdc0cb6f92e39b5afb3b90d60b411ecb9e4"
-                "sha256-PgcQc3JecfHE4oNcydyOqsKdRbh4yPhXPugVQDGSRuI=")
-        neodev-nvim
+        coc-stylelintplus
 
         coc-fzf
         fzfWrapper

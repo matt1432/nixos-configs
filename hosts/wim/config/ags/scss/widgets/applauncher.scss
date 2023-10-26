@@ -40,6 +40,7 @@
     scrollbar, scrollbar * {
       all: unset;
     }
+
     scrollbar.vertical {
       transition: 200ms;
       background-color: rgba(23, 23, 23, 0.3);
@@ -52,6 +53,7 @@
           min-width: .6em;
         }
       }
+
       slider {
         background-color: rgba(238, 238, 238, 0.5);
         border-radius: 9px;
