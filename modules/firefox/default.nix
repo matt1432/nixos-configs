@@ -25,12 +25,20 @@ in
       extraConfig = builtins.readFile "${firefox-gx}/user.js";
 
       settings = {
+        # Theme
+        "firefoxgx.tab-shapes" = true;
+        "firefoxgx.left-sidebar" = true;
+        "userChrome.tab.bottom_rounded_corner" = true;
+        "userChrome.tab.bottom_rounded_corner.wave" = false;
+        "userChrome.tab.bottom_rounded_corner.australis" = true;
+
         # Open previous windows and tabs
         "browser.startup.page" = 3;
 
         # Prefs
         "layout.css.devPixelsPerPx" = 1.12;
         "browser.tabs.firefox-view" = false;
+        "browser.tabs.firefox-view-next" = false;
         "browser.search.widget.inNavBar" = true;
         "browser.toolbars.bookmarks.visibility" = "always";
         "browser.toolbars.bookmarks.showInPrivateBrowsing" = true;

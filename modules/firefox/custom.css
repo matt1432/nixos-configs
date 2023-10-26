@@ -4,31 +4,32 @@
   display: none !important;
 }
 
-#appMenu-popup {
-  position: fixed !important;
-  top: 0px !important;
-  left: 0px !important;
-  margin: 0 !important;
+/* https://github.com/Godiesc/firefox-gx/blob/main/Tricks/README.md */
+/* Extensions button into the "left-sidebar" - Immovable */
+
+:root:not([chromehidden~="toolbar"],[sizemode="fullscreen"]) #PersonalToolbar {
+    --padding-top-left-sidebar: 110px !important; /* 182px to one-line config */
 }
 
-#appMenu-popup panelview {
-  border-width: 2px 6px !important;
-  border-radius: 5% 0 0 5% !important;
-  border-image: var(--panel-separator-zap-gradient4) 1 !important;
+:root:not([chromehidden~="toolbar"], [sizemode="fullscreen"]) #unified-extensions-button {
+    --toolbarbutton-hover-background: transparent !important;
+    --toolbarbutton-active-background: transparent !important;
+    position: fixed;
+    display: flex;
+    top: 50px !important;
+    left: inherit !important;
+    z-index: 2 !important;
+    fill: var(--general-color) !important;
+    width: calc(var(--uc-vertical-toolbar-width) - 4px) !important;
 }
 
-#unified-extensions-panel panelview {
-  border-width: 0 !important;
-  border-radius: 0px !important;
+:root:not([chromehidden~="toolbar"], [sizemode="fullscreen"]) #unified-extensions-button:hover,
+:root:not([chromehidden~="toolbar"], [sizemode="fullscreen"]) #unified-extensions-button[open] {
+    transform: scale(1.12) !important;
+    transition: ease-in-out !important;
 }
 
-slot {
-  margin: 0 !important;
-  border-radius: 5% 0 0 5% !important;
-}
-
-@media screen {
-  :root:not([chromehidden~="toolbar"]) #PersonalToolbar {
-    margin-top: -106.5px !important;
-  }
+:root:not([chromehidden~="toolbar"], [sizemode="fullscreen"]) #unified-extensions-button:active {
+    transform: scale(1.0) !important;
+    transition-duration: 0ms !important;
 }

@@ -32,28 +32,33 @@ in
 
     neovim = {
       enable = true;
+      defaultEditor = true;
       viAlias = true;
       vimAlias = true;
       package = pkgs.neovim-nightly;
 
-      extraConfig = builtins.concatStringsSep "\n" [
-        (lib.strings.fileContents ./config/base.vim)
-        ''
-          lua << EOF
-          ${lib.strings.fileContents ./config/config.lua}
-          EOF
-        ''
-      ];
+      extraConfig = with lib.strings; ''
+        ${fileContents ./config/base.vim}
+      '';
 
+      extraLuaConfig = with lib.strings; ''
+        ${fileContents ./config/config.lua}
+      '';
+
+      withNodeJs = true;
       extraPackages = with pkgs; [
-        tree-sitter
         nodejs_latest
+        nodePackages.npm
+        nodePackages.neovim
         gradle
-        bat
-        stylelint
 
-        python311Packages.pylint
+        bat
+
+        stylelint
         nil
+      ];
+      extraPython3Packages = with pkgs.python311Packages; [
+        pylint
       ];
 
       coc = {
@@ -61,6 +66,7 @@ in
         settings = {
           "colors.enable" = true;
           "coc.preferences.formatOnType" = true;
+          "inlayHint.enable" = false;
 
           "eslint.format.enable" = true;
           "eslint.autoFixOnSave" = true;
@@ -123,15 +129,15 @@ in
         fzfWrapper
         fzf-vim
 
-        nvim-treesitter.withAllGrammars
         nvim-treesitter
+        nvim-treesitter.withAllGrammars
         nvim-autopairs
 
         dracula-nvim
         (plugin "lukas-reineke"
                 "indent-blankline.nvim"
-                "0fe34b4c1b926e106d105d3ae88ef6cbf6743572"
-                "sha256-e8gn4pJYALaQ6sGA66SFf8p6VLJBPxT/BimQhOd5eBs=")
+                "046e2cf04e08ece927bacbfb87c5b35c0b636546"
+                "sha256-bhoep8aTYje5K/dZ/XmpwBPn4PBEMPrmw33QJdfFe6M=")
         gitsigns-nvim
         lualine-nvim
         (plugin "echasnovski"

@@ -1,7 +1,7 @@
 { lib, stdenvNoCC, fetchFromGitHub }:
 let
   pname = "firefox-gx";
-  version = "8.4";
+  version = "8.5";
 in
 stdenvNoCC.mkDerivation {
   inherit pname version;
@@ -10,23 +10,16 @@ stdenvNoCC.mkDerivation {
     owner = "Godiesc";
     repo = pname;
     rev = "v.${version}";
-    sha256 = "sha256-Izb2dLIThLAXJ+Z6fNyRli3v3kV1upyDY0wA2VNVi+o=";
+    sha256 = "sha256-llffq16PZz5GxkLIJDeWN1d04SCCJFqwCLzOrxgwhYI=";
   };
 
   installPhase = ''
     # Personal changes
     sed -i 's/var(--fuchsia))/var(--purple))/' ./chrome/components/ogx_root-personal.css
 
+    # Fix new tab background for nix
     substituteInPlace ./chrome/components/ogx_root-personal.css \
       --replace '../images/newtab/wallpaper-dark.png' "$out/chrome/images/newtab/private-dark.png"
-
-    mv ./Extras/Tab-Shapes/ogx_tab-shapes.css ./chrome/components
-    rm ./user.js
-    mv ./Extras/Tab-Shapes/user.js ./
-    sed -i 's/rounded_corner.chrome",        true/rounded_corner.chrome",        false/' ./user.js
-    sed -i 's/rounded_corner.wave",          false/rounded_corner.wave",          true/' ./user.js
-
-    mv ./Extras/Left-SideBar/ogx_left-sidebar.css ./chrome/components
 
     mkdir -p $out
     cp -r ./* $out
