@@ -9,13 +9,14 @@
       inherit rev owner repo hash;
     };
   };
-in
-
-{
-  xdg.configFile = {
-    "../.gradle/gradle.properties".source = pkgs.writeText "gradle.properties" ''
-      org.gradle.java.home = ${pkgs.temurin-bin-17}
-    '';
+  fileContents = lib.strings.fileContents;
+in {
+  # TODO: make a gradle module and have java in hostvars.nix
+  xdg.dataFile = {
+    ".gradle/gradle.properties".source =
+      pkgs.writeText "gradle.properties" ''
+        org.gradle.java.home = ${pkgs.temurin-bin-17}
+      '';
   };
   home.packages = with pkgs; [
     gradle
@@ -39,14 +40,6 @@ in
       defaultEditor = true;
       viAlias = true;
       vimAlias = true;
-
-      extraConfig = with lib.strings; ''
-        ${fileContents ./config/base.vim}
-      '';
-
-      extraLuaConfig = with lib.strings; ''
-        ${fileContents ./config/config.lua}
-      '';
 
       extraPackages = with pkgs; [
         nodejs_latest
@@ -75,7 +68,7 @@ in
           "eslint.format.enable" = true;
           "eslint.autoFixOnSave" = true;
 
-          # Stylelint FIXME: not working
+          # Stylelint
           "stylelintplus.enable" = true;
           "stylelintplus.cssInJs" = true;
           "stylelintplus.autoFixOnSave" = true;
@@ -115,54 +108,98 @@ in
         };
       };
 
+      extraConfig = fileContents ./base.vim;
+
       plugins = with pkgs.vimPlugins; [
-        vim-which-key
-
-        coc-java
+        # Coc configured
         coc-css
+        coc-eslint
+        coc-java
+        coc-sh
+        coc-stylelintplus
+        {
+          plugin = coc-snippets;
+          type = "viml";
+          config = fileContents ./plugins/snippets.vim;
+        }
 
-        # Lua
+        ## Lua
         coc-sumneko-lua
         neodev-nvim
+
+        ## Fzf
+        coc-fzf
+        fzfWrapper
+        fzf-vim
 
         coc-highlight
         coc-json
         coc-pyright
-        coc-sh
-        coc-snippets
         coc-vimlsp
         coc-yaml
         coc-toml
         coc-markdownlint
         coc-tsserver
-        coc-eslint
-        coc-stylelintplus
-
-        coc-fzf
-        fzfWrapper
-        fzf-vim
-
-        nvim-treesitter
-        nvim-treesitter.withAllGrammars
-        nvim-autopairs
-
-        dracula-nvim
-        (plugin "lukas-reineke"
-                "indent-blankline.nvim"
-                "046e2cf04e08ece927bacbfb87c5b35c0b636546"
-                "sha256-bhoep8aTYje5K/dZ/XmpwBPn4PBEMPrmw33QJdfFe6M=")
-        gitsigns-nvim
-        lualine-nvim
-        (plugin "echasnovski"
-                "mini.map"
-                "75b7ca9443e17c852b24055b32f74a880cf48053"
-                "sha256-CoMc6yQXXAW1wzcD9eJGuM+kcOJghuwHjKrqEMxZBec=")
-
-        neo-tree-nvim
-
-        # to explore more
         fugitive
-        todo-comments-nvim
+
+        {
+          plugin = dracula-nvim;
+          type = "viml";
+          config = fileContents ./plugins/dracula.vim;
+        }
+        {
+          plugin = lualine-nvim;
+          type = "lua";
+          config = fileContents ./plugins/lualine.lua;
+        }
+        {
+          plugin = todo-comments-nvim;
+          type = "lua";
+          config = "require('todo-comments').setup()";
+        }
+        {
+          plugin = gitsigns-nvim;
+          type = "lua";
+          config = "require('gitsigns').setup()";
+        }
+        {
+          plugin = nvim-autopairs;
+          type = "lua";
+          config = fileContents ./plugins/autopairs.lua;
+        }
+        {
+          plugin = nvim-treesitter-context;
+        }
+        {
+          plugin = nvim-treesitter.withAllGrammars;
+          type = "viml";
+          config = fileContents ./plugins/treesitter.vim;
+        }
+        {
+          plugin = (plugin "lukas-reineke" "indent-blankline.nvim"
+                    "046e2cf04e08ece927bacbfb87c5b35c0b636546"
+                    "sha256-bhoep8aTYje5K/dZ/XmpwBPn4PBEMPrmw33QJdfFe6M=");
+          type = "lua";
+          config = fileContents ./plugins/indent.lua;
+        }
+        {
+          plugin = (plugin "echasnovski" "mini.map"
+                    "75b7ca9443e17c852b24055b32f74a880cf48053"
+                    "sha256-CoMc6yQXXAW1wzcD9eJGuM+kcOJghuwHjKrqEMxZBec=");
+          type = "lua";
+          config = fileContents ./plugins/minimap.lua;
+        }
+        {
+          plugin = neo-tree-nvim;
+          type = "viml";
+          config = ''
+            ${fileContents ./plugins/neotree.vim}
+
+            lua << EOF
+              ${fileContents ./plugins/neotree.lua}
+            EOF
+          '';
+        }
       ];
     };
   };
