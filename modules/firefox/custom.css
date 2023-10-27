@@ -34,6 +34,7 @@
     transition-duration: 0ms !important;
 }
 
+#appMenu-addon-installed-notification,
 #notification-popup {
   margin-top: -1px !important;
   margin-inline: -505px !important;
