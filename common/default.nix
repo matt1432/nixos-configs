@@ -7,6 +7,7 @@
 , nur
 , nix-melt
 , nurl
+, coc-stylelintplus
 , pkgs
 , ...
 }: {
@@ -39,7 +40,10 @@
       exact = false;
     };
   };
-  nixpkgs.overlays = [ nixpkgs-wayland.overlay ];
+  nixpkgs.overlays = [
+    nixpkgs-wayland.overlay
+    coc-stylelintplus.overlay
+  ];
 
   nh = {
     enable = true;

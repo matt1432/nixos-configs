@@ -42,6 +42,10 @@
       url = "github:nix-community/nurl";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    coc-stylelintplus = {
+      url = "github:matt1432/coc-stylelintplus";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, nur, nix-gaming, ... }@attrs: let

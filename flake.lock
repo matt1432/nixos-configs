@@ -20,6 +20,26 @@
         "type": "github"
       }
     },
+    "coc-stylelintplus": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1698358884,
+        "narHash": "sha256-gpqZucyZujTq7bclWcU/F8Zp7jae0V21mI58yBhKeJ4=",
+        "owner": "matt1432",
+        "repo": "coc-stylelintplus",
+        "rev": "5653e8d99b950a6ef199f3048a567b8df7999434",
+        "type": "github"
+      },
+      "original": {
+        "owner": "matt1432",
+        "repo": "coc-stylelintplus",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -649,6 +669,7 @@
     "root": {
       "inputs": {
         "ags": "ags",
+        "coc-stylelintplus": "coc-stylelintplus",
         "home-manager": "home-manager",
         "hyprgrass": "hyprgrass",
         "hyprland": "hyprland",
