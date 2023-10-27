@@ -167,9 +167,8 @@ in {
           type = "lua";
           config = fileContents ./plugins/autopairs.lua;
         }
-        {
-          plugin = nvim-treesitter-context;
-        }
+        nvim-treesitter-context
+        nvim-treesitter-textobjects
         {
           plugin = nvim-treesitter.withAllGrammars;
           type = "viml";
@@ -183,11 +182,9 @@ in {
           config = fileContents ./plugins/indent.lua;
         }
         {
-          plugin = (plugin "echasnovski" "mini.map"
-                    "75b7ca9443e17c852b24055b32f74a880cf48053"
-                    "sha256-CoMc6yQXXAW1wzcD9eJGuM+kcOJghuwHjKrqEMxZBec=");
+          plugin = mini-nvim;
           type = "lua";
-          config = fileContents ./plugins/minimap.lua;
+          config = fileContents ./plugins/mini.lua;
         }
         {
           plugin = neo-tree-nvim;
