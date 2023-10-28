@@ -90,6 +90,8 @@ in {
     swappy
 
     ## libs
+    qt5.qtwayland
+    qt6.qtwayland
     libayatana-appindicator
     xdg-utils
     evtest
