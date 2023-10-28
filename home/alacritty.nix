@@ -1,5 +1,3 @@
-# Home-manager module
-
 { config, ... }: {
   programs.alacritty = {
     enable = true;
@@ -41,7 +39,7 @@
           family = "JetBrainsMono Nerd Font";
           style = "Italic";
         };
-        size = config.services.hostvars.fontSize;
+        size = config.services.device-vars.fontSize;
       };
 
       # https://github.com/dracula/alacritty/blob/05faff15c0158712be87d200081633d9f4850a7d/dracula.yml

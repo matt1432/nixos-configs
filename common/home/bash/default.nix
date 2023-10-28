@@ -1,5 +1,3 @@
-# Home-manager module
-
 { config, lib, ... }: {
   imports = [
     ./programs.nix

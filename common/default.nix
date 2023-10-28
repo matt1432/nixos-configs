@@ -13,13 +13,14 @@
 }: {
   imports = [
     ./cachix.nix
+    ./overlays
+    ./device-vars.nix
+
     home-manager.nixosModules.default
     nh.nixosModules.default
+
     ./modules/programs.nix
     ./modules/locale.nix
-    ./overlays
-
-    ./hostvars.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -64,14 +65,14 @@
     default = {
       imports = [
         nur.hmModules.nur
-        ./modules/bash
-        ./modules/git.nix
-        ./modules/neovim
-        ./modules/tmux.nix
+        ./home/bash
+        ./home/git.nix
+        ./home/neovim
+        ./home/tmux.nix
 
-        ./hostvars.nix
+        ./device-vars.nix
         ({ osConfig, ... }: {
-          services.hostvars = osConfig.services.hostvars;
+          services.device-vars = osConfig.services.device-vars;
         })
       ];
 

@@ -1,5 +1,5 @@
 { config, pkgs, ... }: let
-  configDir = config.services.hostvars.configDir;
+  configDir = config.services.device-vars.configDir;
   symlink = config.lib.file.mkOutOfStoreSymlink;
 in
 {

@@ -14,9 +14,9 @@
     ./modules/security.nix
   ];
 
-  services.hostvars = {
+  services.device-vars = {
     username = "matt";
-    configDir = "/home/matt/.nix/hosts/wim/config";
+    configDir = "/home/matt/.nix/devices/wim/config";
     fontSize = 12.5;
   };
 
@@ -35,16 +35,15 @@
   home-manager.users = {
     matt = {
       imports = [
-        ./home/hyprland.nix
+        ../../home/alacritty.nix
+        ../../home/dconf.nix
+        ../../home/firefox
+        ../../home/theme.nix
+        ../../home/wofi
+
+        ./home/dotfiles.nix
         ./home/packages.nix
-
-        ../../modules/alacritty.nix
-        ../../modules/dconf.nix
-        ../../modules/firefox
-        ../../modules/theme.nix
-        ../../modules/wofi
-
-        ./modules/dotfiles.nix
+        ./home/hyprland.nix
       ];
 
       # No touchy

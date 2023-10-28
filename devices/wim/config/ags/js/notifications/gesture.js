@@ -47,12 +47,12 @@ export default ({
                        margin-bottom: -70px; margin-top: -70px; opacity: 0;`;
 
     const rightAnim1 = `transition: margin 0.5s ease, opacity 0.5s ease;
-                        margin-left: ${Number(maxOffset + endMargin)}px;
+                        margin-left:   ${Number(maxOffset + endMargin)}px;
                         margin-right: -${Number(maxOffset + endMargin)}px;
                         opacity: 0;`;
 
     const rightAnim2 = `transition: margin 0.5s ease, opacity 0.5s ease;
-                        margin-left: ${Number(maxOffset + endMargin)}px;
+                        margin-left:   ${Number(maxOffset + endMargin)}px;
                         margin-right: -${Number(maxOffset + endMargin)}px;
                         margin-bottom: -70px; margin-top: -70px; opacity: 0;`;
 

@@ -1,5 +1,5 @@
 { pkgs, lib, config, ... }: let
-  fontSize = config.services.hostvars.fontSize;
+  fontSize = config.services.device-vars.fontSize;
   dracula-xresources = pkgs.fetchFromGitHub {
     owner = "dracula";
     repo = "xresources";

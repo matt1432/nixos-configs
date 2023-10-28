@@ -1,5 +1,3 @@
-# Home-manager module
-
 { pkgs, lib, ... }: let
   # installs a vim plugin from git with a given tag / branch
   plugin = owner: repo: rev: hash: pkgs.vimUtils.buildVimPlugin {
@@ -11,7 +9,7 @@
   };
   fileContents = lib.strings.fileContents;
 in {
-  # TODO: make a gradle module and have java in hostvars.nix
+  # TODO: make a gradle module and have java in device-vars.nix
   xdg.dataFile = {
     ".gradle/gradle.properties".source =
       pkgs.writeText "gradle.properties" ''

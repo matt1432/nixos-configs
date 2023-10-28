@@ -42,6 +42,7 @@
       url = "github:nix-community/nurl";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     coc-stylelintplus = {
       url = "github:matt1432/coc-stylelintplus";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -66,7 +67,7 @@
         system = "x86_64-linux";
         specialArgs = attrs;
         modules = defaultModules ++ [
-          ./hosts/wim
+          ./devices/wim
         ];
       };
 
@@ -74,7 +75,7 @@
         system = "x86_64-linux";
         specialArgs = attrs;
         modules = defaultModules ++ [
-          ./hosts/binto
+          ./devices/binto
         ];
       };
     };

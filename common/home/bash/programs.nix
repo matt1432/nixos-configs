@@ -1,5 +1,3 @@
-# Home-manager module
-
 { pkgs, ... }: {
   programs = {
     fzf = {

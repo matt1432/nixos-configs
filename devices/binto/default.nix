@@ -12,7 +12,7 @@
     ./modules/nvidia.nix
   ];
 
-  services.hostvars = {
+  services.device-vars = {
     username = "matt";
     fontSize = 10.0;
   };
@@ -33,9 +33,9 @@
     matt = {
 
       imports = [
-        ../../modules/alacritty.nix
-        ../../modules/dconf.nix
-        ../../modules/firefox
+        ../../home/alacritty.nix
+        ../../home/dconf.nix
+        ../../home/firefox
       ];
 
       # No touchy

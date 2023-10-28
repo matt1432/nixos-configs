@@ -1,5 +1,5 @@
 { lib, ... }: {
-  options.services.hostvars = with lib; {
+  options.services.device-vars = with lib; {
     username = mkOption {
       description = ''
         Username that was defined at the initial setup process
@@ -9,7 +9,7 @@
 
     configDir = mkOption {
       description = ''
-        The path to where most of the hosts' configs are in the .nix folder
+        The path to where most of the devices' configs are in the .nix folder
       '';
       type = types.nullOr types.str;
     };
