@@ -87,7 +87,10 @@ const NotificationIcon = notif => {
     });
 };
 
-export default ({ notif, command = () => {} } = {}) => {
+export default ({
+    notif,
+    command = () => {},
+} = {}) => {
     const BlockedApps = [
         'Spotify',
     ];

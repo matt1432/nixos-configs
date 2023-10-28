@@ -12,18 +12,15 @@ const Popups = () => Box({
         ['map', new Map()],
 
         ['dismiss', (box, id, force = false) => {
-            if (!id || !box._map.has(id) ||
-          box._map.get(id)._hovered && !force)
-
+            if (!id || !box._map.has(id) || box._map.get(id)._hovered && !force)
                 return;
-
 
             if (box._map.size - 1 === 0)
                 box.get_parent().reveal_child = false;
 
             Utils.timeout(200, () => {
                 if (box._map.get(id)?.interval) {
-                    box._map.get(id).interval.destroy();
+                    GLib.source_remove(box._map.get(id).interval);
                     box._map.get(id).interval = undefined;
                 }
                 box._map.get(id)?.destroy();
@@ -53,12 +50,14 @@ const Popups = () => Box({
             });
 
             box._map.get(id).interval = Utils.interval(4500, () => {
-                if (!box._map.get(id)._hovered) {
-                    box._map.get(id).child.setStyle(box._map.get(id).child._leftAnim1);
+                const notif = box._map.get(id);
+                if (!notif._hovered) {
+                    notif.child.setStyle(notif.child._leftAnim1);
 
-                    if (box._map.get(id).interval) {
-                        GLib.source_remove(box._map.get(id).interval);
-                        box._map.get(id).interval = undefined;
+                    if (notif.interval) {
+                        Utils.timeout(500, () => notif.destroy());
+                        GLib.source_remove(notif.interval);
+                        notif.interval = undefined;
                     }
                 }
             });

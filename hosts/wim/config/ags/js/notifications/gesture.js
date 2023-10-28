@@ -76,12 +76,12 @@ export default ({
 
                 if (offset >= 0) {
                     self.setStyle(`margin-left:   ${Number(offset + startMargin)}px;
-                         margin-right: -${Number(offset + startMargin)}px;`);
+                                   margin-right: -${Number(offset + startMargin)}px;`);
                 }
                 else {
                     offset = Math.abs(offset);
                     self.setStyle(`margin-right: ${Number(offset + startMargin)}px;
-                         margin-left: -${Number(offset + startMargin)}px;`);
+                                   margin-left: -${Number(offset + startMargin)}px;`);
                 }
 
                 self.get_parent()._dragging = Math.abs(offset) > 10;
@@ -93,15 +93,16 @@ export default ({
             [gesture, self => {
                 if (!self._ready) {
                     self.setStyle(`transition: margin 0.5s ease, opacity 0.5s ease;
-                         margin-left: -${Number(maxOffset + endMargin)}px;
-                         margin-right: ${Number(maxOffset + endMargin)}px;
-                         margin-bottom: 0px; margin-top: 0px; opacity: 0;`);
+                                   margin-left: -${Number(maxOffset + endMargin)}px;
+                                   margin-right: ${Number(maxOffset + endMargin)}px;
+                                   margin-bottom: 0px; margin-top: 0px; opacity: 0;`);
 
                     Utils.timeout(500, () => {
                         self.setStyle(`transition: margin 0.5s ease, opacity 0.5s ease;
-                           margin-left:  ${startMargin}px;
-                           margin-right: ${startMargin}px;
-                           margin-bottom: unset; margin-top: unset; opacity: 1;`);
+                                       margin-left:  ${startMargin}px;
+                                       margin-right: ${startMargin}px;
+                                       margin-bottom: unset; margin-top: unset;
+                                       opacity: 1;`);
                     });
                     Utils.timeout(1000, () => self._ready = true);
                     return;
@@ -125,9 +126,10 @@ export default ({
                 }
                 else {
                     self.setStyle(`transition: margin 0.5s ease, opacity 0.5s ease;
-                         margin-left:  ${startMargin}px;
-                         margin-right: ${startMargin}px;
-                         margin-bottom: unset; margin-top: unset; opacity: 1;`);
+                                   margin-left:  ${startMargin}px;
+                                   margin-right: ${startMargin}px;
+                                   margin-bottom: unset; margin-top: unset;
+                                   opacity: 1;`);
                     if (widget.window)
                         widget.window.set_cursor(Gdk.Cursor.new_from_name(display, 'grab'));
 
