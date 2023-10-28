@@ -19,12 +19,11 @@ const Popups = () => Box({
                 box.get_parent().reveal_child = false;
 
             Utils.timeout(200, () => {
-                if (box._map.get(id)?.interval) {
-                    GLib.source_remove(box._map.get(id).interval);
-                    box._map.get(id).interval = undefined;
+                const notif = box._map.get(id);
+                if (notif.interval) {
+                    GLib.source_remove(notif.interval);
+                    notif.interval = undefined;
                 }
-                box._map.get(id)?.destroy();
-                box._map.delete(id);
             });
         }],
 

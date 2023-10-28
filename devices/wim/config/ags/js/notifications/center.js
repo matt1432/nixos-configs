@@ -12,11 +12,14 @@ const ClearButton = () => EventBox({
         onPrimaryClickRelease: button => {
             button._popups.children.forEach(ch => {
                 ch.child.setStyle(ch.child._leftAnim1);
+                ch.sensitive = false;
             });
 
             button._notifList.children.forEach(ch => {
-                if (ch.child)
+                if (ch.child) {
                     ch.child.setStyle(ch.child._rightAnim1);
+                    ch.sensitive = false;
+                }
                 timeout(500, () => {
                     button._notifList.remove(ch);
                     Notifications.clear();
@@ -91,6 +94,7 @@ const NotificationList = Box({
             for (const ch of box.children) {
                 if (ch._id == id) {
                     ch.child.setStyle(ch.child._rightAnim1);
+                    ch.sensitive = false;
                     timeout(500, () => box.remove(ch));
                     return;
                 }

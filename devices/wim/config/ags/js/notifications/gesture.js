@@ -113,11 +113,17 @@ export default ({
                 if (Math.abs(offset) > maxOffset) {
                     if (offset > 0) {
                         self.setStyle(rightAnim1);
-                        Utils.timeout(500, () => self.setStyle(rightAnim2));
+                        widget.sensitive = false;
+                        Utils.timeout(500, () => {
+                            self.setStyle(rightAnim2);
+                        });
                     }
                     else {
                         self.setStyle(leftAnim1);
-                        Utils.timeout(500, () => self.setStyle(leftAnim2));
+                        widget.sensitive = false;
+                        Utils.timeout(500, () => {
+                            self.setStyle(leftAnim2);
+                        });
                     }
                     Utils.timeout(1000, () => {
                         command();
