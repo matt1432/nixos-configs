@@ -17,6 +17,7 @@ const Workspace = ({ i } = {}) =>
                     .catch(print);
             },
             child: Box({
+                valign: 'center',
                 className: 'button',
                 connections: [[Hyprland, self => {
                     const occupied = Hyprland.getWorkspace(i)?.windows > 0;
