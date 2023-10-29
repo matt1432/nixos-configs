@@ -74,7 +74,10 @@ const Workspace = (id, name, extra = false) => {
                 ['wasActive', false],
             ],
             connections: [[Hyprland, box => {
-                box._timeouts.forEach(timer => GLib.source_remove(timer));
+                box._timeouts.forEach(timer => {
+                    GLib.source_remove(timer);
+                    box._timeouts.remove(timer);
+                });
 
                 const activeId = Hyprland.active.workspace.id;
                 const active = activeId === box._id;
@@ -84,15 +87,21 @@ const Workspace = (id, name, extra = false) => {
 
                 if (Hyprland.getWorkspace(box._id)?.windows > 0 || active) {
                     rev.setStyle(DEFAULT_STYLE);
-                    box._timeouts.push(Utils.timeout(100, () => {
+
+                    const timer = Utils.timeout(100, () => {
                         box.revealChild = true;
-                    }));
+                        box._timeouts.remove(timer);
+                    });
+                    box._timeouts.push(timer);
                 }
                 else if (!Hyprland.getWorkspace(box._id)?.windows > 0) {
                     rev.setStyle(DEFAULT_STYLE);
-                    box._timeouts.push(Utils.timeout(100, () => {
+
+                    const timer = Utils.timeout(100, () => {
                         box.revealChild = false;
-                    }));
+                        box._timeouts.remove(timer);
+                    });
+                    box._timeouts.push(timer);
                     return;
                 }
 
@@ -103,18 +112,23 @@ const Workspace = (id, name, extra = false) => {
                     box._wasActive = true;
                 }
                 else if (box._wasActive) {
-                    box._timeouts.push(Utils.timeout(120, () => {
+                    const timer1 = Utils.timeout(120, () => {
                         rev.setStyle(`${DEFAULT_STYLE}
                                       transition: margin 0.5s ease-in-out;
                                       opacity: 1; margin-left: ${n ? '' : '-'}300px;
                                       margin-right: ${n ? '-' : ''}300px;`);
                         box._wasActive = false;
-                    }));
-                    box._timeouts.push(Utils.timeout(500, () => {
+                        box._timeouts.remove(timer1);
+                    });
+                    box._timeouts.push(timer1);
+
+                    const timer2 = Utils.timeout(500, () => {
                         rev.setStyle(`${DEFAULT_STYLE} opacity: 0;
                                       margin-left: ${n ? '' : '-'}300px;
                                       margin-right: ${n ? '-' : ''}300px;`);
-                    }));
+                        box._timeouts.remove(timer2);
+                    });
+                    box._timeouts.push(timer2);
                 }
                 else {
                     rev.setStyle(`${DEFAULT_STYLE} opacity: 0;

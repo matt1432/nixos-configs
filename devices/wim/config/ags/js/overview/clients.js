@@ -5,9 +5,6 @@ const { execAsync } = Utils;
 import { WindowButton } from './dragndrop.js';
 import * as VARS from './variables.js';
 
-// Has to be a traditional function for 'this' scope
-Array.prototype.remove = function (el) { this.splice(this.indexOf(el), 1); };
-
 const scale = size => size * VARS.SCALE - VARS.MARGIN;
 const getFontSize = client => Math.min(scale(client.size[0]),
     scale(client.size[1])) * VARS.ICON_SCALE;

@@ -1,3 +1,6 @@
+// Has to be a traditional function for 'this' scope
+Array.prototype.remove = function (el) { this.splice(this.indexOf(el), 1); };
+
 import { App, Utils } from './imports.js';
 
 import closeAll       from './js/misc/closer.js';
