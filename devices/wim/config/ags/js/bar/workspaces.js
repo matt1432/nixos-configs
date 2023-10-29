@@ -1,5 +1,5 @@
 import { Hyprland, Utils, Widget } from '../../imports.js';
-const { Box, Revealer } = Widget;
+const { Box, Overlay, Revealer } = Widget;
 const { execAsync } = Utils;
 
 import EventBox from '../misc/cursorbox.js';
@@ -21,7 +21,6 @@ const Workspace = ({ i } = {}) =>
                 className: 'button',
                 connections: [[Hyprland, self => {
                     const occupied = Hyprland.getWorkspace(i)?.windows > 0;
-                    self.toggleClassName('active', Hyprland.active.workspace.id === i);
                     self.toggleClassName('occupied', occupied);
                     self.toggleClassName('empty', !occupied);
                 }]],
@@ -29,10 +28,28 @@ const Workspace = ({ i } = {}) =>
         }),
     });
 
-export default () => Box({
-    className: 'workspaces',
-    children: [EventBox({
+export default () => Overlay({
+    setup: self => {
+        self.set_overlay_pass_through(
+            self.get_children()[1],
+            true,
+        );
+    },
+    overlays: [Box({
+        valign: 'center',
+        halign: 'start',
+        className: 'button active',
+        connections: [[Hyprland.active.workspace, self => {
+            const currentId = Hyprland.active.workspace.id;
+            const indicators = self.get_parent().get_children()[0].child.children;
+            const currentIndex = indicators.findIndex(w => w._id == currentId);
+
+            self.setStyle(`margin-left: ${16 + currentIndex * 30}px`);
+        }]],
+    })],
+    child: EventBox({
         child: Box({
+            className: 'workspaces',
             properties: [
                 ['workspaces'],
 
@@ -43,7 +60,7 @@ export default () => Box({
                     });
                 }],
 
-                ['updateWs', self => {
+                ['updateWorkspaces', self => {
                     Hyprland.workspaces.forEach(ws => {
                         const currentWs = self.children.find(ch => ch._id == ws.id);
                         if (!currentWs && ws.id > 0)
@@ -62,9 +79,9 @@ export default () => Box({
                     return Hyprland.workspaces.find(ws => ws.id == ch._id);
                 }).sort((a, b) => a._id - b._id);
 
-                self._updateWs(self);
+                self._updateWorkspaces(self);
                 self._refresh(self);
             }]],
         }),
-    })],
+    }),
 });
