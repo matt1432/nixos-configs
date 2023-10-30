@@ -1,32 +1,51 @@
-import { App, Widget } from '../../imports.js';
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
+import App    from 'resource:///com/github/Aylur/ags/app.js';
 const { Revealer, Box, Window } = Widget;
 
 
 export default ({
+    // Revealer props
+    transition = 'slide_down',
+    transitionDuration = 500,
+    // Optional: execute a function whenever the window pops up
+    onOpen = () => {},
+
+    // Window props
     name,
     child,
     closeOnUnfocus = 'released',
-    transition = 'slide_down',
-    onOpen = () => {},
+    visible = false,
+    layer = 'overlay',
     ...props
 }) => {
     const window = Window({
         name,
+        layer,
         popup: true,
         visible: false,
-        layer: 'overlay',
         ...props,
 
+        // Add way to make window open on startup
+        setup: () => {
+            const id = App.connect('config-parsed', () => {
+                if (visible)
+                    App.openWindow(name);
+                App.disconnect(id);
+            });
+        },
+
+        // Wrapping the revealer inside a box is needed
+        // to allocate some space for it even when not revealed
         child: Box({
             style: `min-height:1px;
                     min-width:1px;
                     padding: 1px;`,
             child: Revealer({
                 transition,
-                transitionDuration: 500,
+                transitionDuration,
                 connections: [[App, (rev, currentName, visible) => {
                     if (currentName === name) {
-                        rev.reveal_child = visible;
+                        rev.revealChild = visible;
                         onOpen(child);
                     }
                 }]],
@@ -34,7 +53,14 @@ export default ({
             }),
         }),
     });
+
+    // Make getting the original child passed in
+    // this function easier when making more code
+    // for the widget
     window.getChild = () => child;
+
+    // This is for my custom pointers.js
     window.closeOnUnfocus = closeOnUnfocus;
+
     return window;
 };
