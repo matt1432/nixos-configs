@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }: let
+{ pkgs, lib, nixpkgs-staging, neovim-flake, ... }: let
   # installs a vim plugin from git with a given tag / branch
   plugin = owner: repo: rev: hash: pkgs.vimUtils.buildVimPlugin {
     pname = "${lib.strings.sanitizeDerivationName repo}";
@@ -30,7 +30,10 @@ in {
 
     neovim = {
       enable = true;
-      package = pkgs.neovim-nightly;
+      # Temp fix https://github.com/nix-community/neovim-nightly-overlay/issues/332
+      package = neovim-flake.packages.x86_64-linux.default.override {
+        libvterm-neovim = nixpkgs-staging.legacyPackages.x86_64-linux.libvterm-neovim;
+      };
       withNodeJs = true;
       withPython3 = true;
       withRuby = false;

@@ -1,6 +1,9 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    # Temp fix https://github.com/nix-community/neovim-nightly-overlay/issues/332
+    nixpkgs-staging.url = "github:nixos/nixpkgs/staging";
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
     nur.url = "github:nix-community/NUR";
 
@@ -23,7 +26,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    neovim-nightly-overlay = {
+    neovim-flake = {
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };

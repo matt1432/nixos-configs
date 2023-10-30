@@ -1,6 +1,4 @@
-{ neovim-nightly-overlay, ... }:
-
-{
+{ ... }: {
   imports = [
     ./dracula-theme.nix
     ./regreet.nix
@@ -26,7 +24,5 @@
     (final: prev: {
       coloryou = final.callPackage ./pkgs/coloryou/default.nix {};
     })
-
-    neovim-nightly-overlay.overlay
   ];
 }
