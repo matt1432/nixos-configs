@@ -161,7 +161,7 @@ in {
         {
           plugin = gitsigns-nvim;
           type = "lua";
-          config = "require('gitsigns').setup()";
+          config = fileContents ./plugins/gitsigns.lua;
         }
         {
           plugin = nvim-autopairs;
