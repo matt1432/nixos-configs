@@ -1,5 +1,5 @@
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
-import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
+import { execAsync, timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 import { Box, Overlay, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import EventBox from '../misc/cursorbox.js';
@@ -28,60 +28,73 @@ const Workspace = ({ i } = {}) =>
         }),
     });
 
-export default () => Overlay({
-    setup: self => {
-        self.set_overlay_pass_through(
-            self.get_children()[1],
-            true,
-        );
-    },
-    overlays: [Box({
+export default () => {
+    const updateHighlight = () => {
+        const currentId = Hyprland.active.workspace.id;
+        const indicators = highlight.get_parent().get_children()[0].child.children;
+        const currentIndex = indicators.findIndex(w => w._id == currentId);
+
+        if (currentIndex < 0)
+            return;
+
+        highlight.setStyle(`margin-left: ${16 + currentIndex * 30}px`);
+    };
+    const highlight = Box({
         valign: 'center',
         halign: 'start',
         className: 'button active',
-        connections: [[Hyprland.active.workspace, self => {
-            const currentId = Hyprland.active.workspace.id;
-            const indicators = self.get_parent().get_children()[0].child.children;
-            const currentIndex = indicators.findIndex(w => w._id == currentId);
+        connections: [[Hyprland.active.workspace, updateHighlight]],
+    });
 
-            self.setStyle(`margin-left: ${16 + currentIndex * 30}px`);
-        }]],
-    })],
-    child: EventBox({
-        child: Box({
-            className: 'workspaces',
-            properties: [
-                ['workspaces'],
+    const widget = Overlay({
+        setup: self => {
+            self.set_overlay_pass_through(
+                self.get_children()[1],
+                true,
+            );
+        },
+        overlays: [highlight],
+        child: EventBox({
+            child: Box({
+                className: 'workspaces',
+                properties: [
+                    ['workspaces'],
 
-                ['refresh', self => {
-                    self.children.forEach(rev => rev.reveal_child = false);
-                    self._workspaces.forEach(ws => {
-                        ws.revealChild = true;
-                    });
-                }],
+                    ['refresh', self => {
+                        self.children.forEach(rev => rev.reveal_child = false);
+                        self._workspaces.forEach(ws => {
+                            ws.revealChild = true;
+                        });
+                    }],
 
-                ['updateWorkspaces', self => {
-                    Hyprland.workspaces.forEach(ws => {
-                        const currentWs = self.children.find(ch => ch._id == ws.id);
-                        if (!currentWs && ws.id > 0)
-                            self.add(Workspace({ i: ws.id }));
-                    });
-                    self.show_all();
+                    ['updateWorkspaces', self => {
+                        Hyprland.workspaces.forEach(ws => {
+                            const currentWs = self.children.find(ch => ch._id == ws.id);
+                            if (!currentWs && ws.id > 0)
+                                self.add(Workspace({ i: ws.id }));
+                        });
+                        self.show_all();
 
-                    // Make sure the order is correct
-                    self._workspaces.forEach((workspace, i) => {
-                        workspace.get_parent().reorder_child(workspace, i);
-                    });
-                }],
-            ],
-            connections: [[Hyprland, self => {
-                self._workspaces = self.children.filter(ch => {
-                    return Hyprland.workspaces.find(ws => ws.id == ch._id);
-                }).sort((a, b) => a._id - b._id);
+                        // Make sure the order is correct
+                        self._workspaces.forEach((workspace, i) => {
+                            workspace.get_parent().reorder_child(workspace, i);
+                        });
+                    }],
+                ],
+                connections: [[Hyprland, self => {
+                    self._workspaces = self.children.filter(ch => {
+                        return Hyprland.workspaces.find(ws => ws.id == ch._id);
+                    }).sort((a, b) => a._id - b._id);
 
-                self._updateWorkspaces(self);
-                self._refresh(self);
-            }]],
+                    self._updateWorkspaces(self);
+                    self._refresh(self);
+
+                    // Make sure the highlight doesn't go too far
+                    timeout(10, updateHighlight);
+                }]],
+            }),
         }),
-    }),
-});
+    });
+
+    return widget;
+};
