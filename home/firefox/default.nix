@@ -42,6 +42,7 @@ in
         "browser.search.widget.inNavBar" = true;
         "browser.toolbars.bookmarks.visibility" = "always";
         "browser.toolbars.bookmarks.showInPrivateBrowsing" = true;
+        "ui.key.menuAccessKey" = 0;
 
         # remove telemetry
         "datareporting.policy.dataSubmissionEnabled" = false;
