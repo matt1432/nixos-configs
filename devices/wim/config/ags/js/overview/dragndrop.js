@@ -67,7 +67,7 @@ export const WindowButton = ({ address, ...props } = {}) => Button({
             self.get_parent().destroy();
 
             const mainBox = App.getWindow('overview').getChild();
-            updateClients(mainBox);
+            updateClients(mainBox.child);
         });
     },
 });
