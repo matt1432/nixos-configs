@@ -6,13 +6,20 @@ import { WindowButton } from './dragndrop.js';
 import * as VARS from './variables.js';
 
 const scale = size => size * VARS.SCALE - VARS.MARGIN;
-const getFontSize = client => Math.min(scale(client.size[0]),
-    scale(client.size[1])) * VARS.ICON_SCALE;
+const getFontSize = client => {
+    const valX = scale(client.size[0]) * VARS.ICON_SCALE;
+    const valY = scale(client.size[1]) * VARS.ICON_SCALE;
 
-const IconStyle = client => `transition: font-size 0.2s linear;
-                             min-width:  ${scale(client.size[0])}px;
-                             min-height: ${scale(client.size[1])}px;
-                             font-size:  ${getFontSize(client)}px;`;
+    var size = Math.min(valX, valY);
+    return size <= 0 ? 0.1 : size;
+};
+
+const IconStyle = client => `
+    transition: font-size 0.2s linear;
+    min-width:  ${scale(client.size[0])}px;
+    min-height: ${scale(client.size[1])}px;
+    font-size:  ${getFontSize(client)}px;
+`;
 
 
 const Client = (client, active, clients) => {
