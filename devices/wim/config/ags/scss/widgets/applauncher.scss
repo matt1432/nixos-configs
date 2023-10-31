@@ -1,12 +1,10 @@
 .applauncher {
   all: unset;
-  box-shadow: 0 0 4.5px 0 rgba(0, 0, 0, 0.6);
-  margin: 9px;
   border: 2px solid $contrast-bg;
   border-radius: 25px;
   background-color: $bg;
   color: #f8f8f2;
-  padding: 16.2px;
+  padding: 10px;
 
   * {
     font-size: 16px;
