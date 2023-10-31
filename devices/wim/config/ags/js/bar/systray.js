@@ -8,7 +8,6 @@ import Separator from '../misc/separator.js';
 
 
 const SysTrayItem = item => MenuItem({
-    className: 'tray-item',
     child: Revealer({
         transition: 'slide_right',
         child: Icon({

@@ -6,7 +6,7 @@
   transition: background-color 0.5s ease-in-out,
               border 0.5s ease-in-out;
 
-  .tray-item {
+  menuitem {
     image { color: #CBA6F7; }
     background-color: transparent;
     padding: 0 2px;
@@ -26,14 +26,5 @@
 
   menubar {
     background-color: transparent;
-  }
-
-  menuitem:not(.tray-item) {
-    padding: 5px;
-    transition: all 0.2s ease-in-out;
-
-    &:hover {
-      background: #1b1b1b;
-    }
   }
 }

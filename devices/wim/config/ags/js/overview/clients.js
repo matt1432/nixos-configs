@@ -1,7 +1,7 @@
 import App      from 'resource:///com/github/Aylur/ags/app.js';
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 import { Icon, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
-import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
+import { execAsync, timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import { WindowButton } from './dragndrop.js';
 import * as VARS from './variables.js';
@@ -130,7 +130,7 @@ export function updateClients(box) {
                     }
 
                     // Set a timeout here to have an animation when the icon first appears
-                    Utils.timeout(1, () => {
+                    timeout(1, () => {
                         newClient[0].child.child.className = `window ${active}`;
                         newClient[0].child.child.style = IconStyle(client);
                     });
