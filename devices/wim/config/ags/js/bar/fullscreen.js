@@ -10,8 +10,9 @@ const wStyle = 'background: rgba(0, 0, 0, 0.5);';
 
 
 Hyprland.connect('changed', () => {
-    Revealed.value = Hyprland.getWorkspace(Hyprland.active.workspace.id)
-        .hasfullscreen;
+    const workspace = Hyprland.getWorkspace(Hyprland.active.workspace.id);
+    if (workspace)
+        Revealed.value = workspace.hasfullscreen;
 });
 Hyprland.connect('fullscreen', (_, fullscreen) => Revealed.value = fullscreen);
 
