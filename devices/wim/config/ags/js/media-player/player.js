@@ -111,6 +111,22 @@ export default () => Box({
 
                 const player = Mpris.getPlayer(busName);
                 player.colors = Variable();
+                const id = player.colors.connect('changed', () => {
+                    if (!overlay._players.has(busName))
+                        return;
+                    if (player.colors.value === 'delete') {
+                        overlay._players.delete(busName);
+
+                        const result = [];
+                        overlay._players.forEach(widget => {
+                            result.push(widget);
+                        });
+
+                        overlay.overlays = result;
+                    }
+                    player.colors.disconnect(id);
+                });
+
                 overlay._players.set(busName, PlayerBox(player));
 
                 const result = [];

@@ -1,6 +1,6 @@
 import Mpris from 'resource:///com/github/Aylur/ags/service/mpris.js';
 import { Button, Icon, Label, Stack, Slider, CenterBox, Box } from 'resource:///com/github/Aylur/ags/widget.js';
-import { execAsync, lookUpIcon } from 'resource:///com/github/Aylur/ags/utils.js';
+import { execAsync, lookUpIcon, readFileAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import Gdk from 'gi://Gdk';
 const display = Gdk.Display.get_default();
@@ -34,6 +34,12 @@ export const CoverArt = (player, props) => CenterBox({
     vertical: true,
     properties: [['bgStyle', '']],
     connections: [[player, self => {
+        // Don't show players that don't have covers
+        readFileAsync(player.coverPath).catch(() => {
+            if (!player.colors.value && !player.trackCoverUrl)
+                player.colors.value = 'delete';
+        });
+
         execAsync(['bash', '-c', `[[ -f "${player.coverPath}" ]] &&
                   coloryou "${player.coverPath}" | grep -v Warning`])
             .then(out => {
@@ -91,31 +97,42 @@ export const PlayerIcon = (player, { symbolic = true, ...props } = {}) => {
         }]],
     });
 
-    return Box({
-        connections: [[Mpris, self => {
-            const overlays = self.get_parent().get_parent()
-                .get_parent().list();
+    const widget = Box({});
+    var overlay;
+    const interval = setInterval(() => {
+        if (player.colors.value === 'delete') {
+            interval.destroy();
+        }
+        else if (player.colors.value && player.trackCoverUrl) {
+            overlay = widget.get_parent().get_parent().get_parent();
+            updateIcons();
+            Mpris.connect('changed', updateIcons);
+            interval.destroy();
+        }
+    }, 100);
+    const updateIcons = () => {
+        const overlays = overlay.list();
 
-            const player = overlays.find(overlay => {
-                overlay === self.get_parent().get_parent();
-            });
+        const player = overlays.find(overlay => {
+            return overlay === widget.get_parent().get_parent();
+        });
 
-            const index = overlays.indexOf(player);
+        const index = overlays.indexOf(player);
 
-            const children = [];
-            for (let i = 0; i < overlays.length; ++i) {
-                if (i === index) {
-                    children.push(MainIcon);
-                    children.push(Separator(2));
-                }
-                else {
-                    children.push(Box({ className: 'position-indicator' }));
-                    children.push(Separator(2));
-                }
+        const children = [];
+        for (let i = 0; i < overlays.length; ++i) {
+            if (i === index) {
+                children.push(MainIcon);
+                children.push(Separator(2));
             }
-            self.children = children;
-        }]],
-    });
+            else {
+                children.push(Box({ className: 'position-indicator' }));
+                children.push(Separator(2));
+            }
+        }
+        widget.children = children;
+    };
+    return widget;
 };
 
 // FIXME: get the cursors right or just don't display when disabled
@@ -149,7 +166,7 @@ export const PositionSlider = (player, props) => EventBox({
             [1000, s => s._update(s)],
             [player.colors, s => {
                 const c = player.colors.value;
-                if (c) {
+                if (c && c != 'delete') {
                     s.setCss(`highlight { background-color: ${c.buttonAccent}; }
                               slider { background-color: ${c.buttonAccent}; }
                               slider:hover { background-color: ${c.hoverAccent}; }
@@ -235,7 +252,7 @@ const PlayerButton = ({ player, items, onClick, prop }) => Button({
             if (!Mpris.players.find(p => player === p))
                 return;
 
-            if (player.colors.value) {
+            if (player.colors.value && player.colors.value != 'delete') {
                 if (prop == 'playBackStatus') {
                     if (button._hovered) {
                         items.forEach(item => {
