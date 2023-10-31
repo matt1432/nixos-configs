@@ -1,4 +1,4 @@
-import { App } from '../../imports.js';
+import App from 'resource:///com/github/Aylur/ags/app.js';
 
 // TODO: find a way to not need this?
 import Pointers from '../../services/pointers.js';

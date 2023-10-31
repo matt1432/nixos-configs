@@ -1,6 +1,6 @@
-import { Applications, Utils, Widget } from '../../imports.js';
-const { lookUpIcon, execAsync } = Utils;
-const { Box, Icon, Label, Button } = Widget;
+import Applications from 'resource:///com/github/Aylur/ags/service/applications.js';
+import { Box, Icon, Label, Button } from 'resource:///com/github/Aylur/ags/widget.js';
+import { lookUpIcon, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import GLib from 'gi://GLib';
 

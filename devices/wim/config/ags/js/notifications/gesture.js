@@ -1,5 +1,5 @@
-import { Utils, Widget } from '../../imports.js';
-const { Box, EventBox } = Widget;
+import { Box, EventBox } from 'resource:///com/github/Aylur/ags/widget.js';
+import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import Gtk from 'gi://Gtk';
 import Gdk from 'gi://Gdk';
@@ -97,14 +97,14 @@ export default ({
                                    margin-right: ${Number(maxOffset + endMargin)}px;
                                    margin-bottom: 0px; margin-top: 0px; opacity: 0;`);
 
-                    Utils.timeout(500, () => {
+                    timeout(500, () => {
                         self.setStyle(`transition: margin 0.5s ease, opacity 0.5s ease;
                                        margin-left:  ${startMargin}px;
                                        margin-right: ${startMargin}px;
                                        margin-bottom: unset; margin-top: unset;
                                        opacity: 1;`);
                     });
-                    Utils.timeout(1000, () => self._ready = true);
+                    timeout(1000, () => self._ready = true);
                     return;
                 }
 
@@ -114,18 +114,18 @@ export default ({
                     if (offset > 0) {
                         self.setStyle(rightAnim1);
                         widget.sensitive = false;
-                        Utils.timeout(500, () => {
+                        timeout(500, () => {
                             self.setStyle(rightAnim2);
                         });
                     }
                     else {
                         self.setStyle(leftAnim1);
                         widget.sensitive = false;
-                        Utils.timeout(500, () => {
+                        timeout(500, () => {
                             self.setStyle(leftAnim2);
                         });
                     }
-                    Utils.timeout(1000, () => {
+                    timeout(1000, () => {
                         command();
                         self.destroy();
                     });

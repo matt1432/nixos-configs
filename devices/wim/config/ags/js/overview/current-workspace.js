@@ -1,5 +1,5 @@
-import { Hyprland, Widget } from '../../imports.js';
-const { Box } = Widget;
+import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
+import { Box } from 'resource:///com/github/Aylur/ags/widget.js';
 import * as VARS from './variables.js';
 
 const DEFAULT_STYLE = `

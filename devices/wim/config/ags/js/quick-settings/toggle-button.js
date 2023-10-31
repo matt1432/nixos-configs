@@ -1,8 +1,8 @@
-import { Mpris, Widget } from '../../imports.js';
-const { Icon } = Widget;
+import Mpris from 'resource:///com/github/Aylur/ags/service/mpris.js';
+import { Icon } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import Gtk from 'gi://Gtk';
-import EventBox    from '../misc/cursorbox.js';
+import EventBox from '../misc/cursorbox.js';
 
 export default () => {
     const widget = EventBox({});

@@ -1,5 +1,4 @@
-import { Widget } from '../imports.js';
-const { Box, Label } = Widget;
+import { Widget, Box, Label } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import Gtk  from 'gi://Gtk';
 import GLib from 'gi://GLib';

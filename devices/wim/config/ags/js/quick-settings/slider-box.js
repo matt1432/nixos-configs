@@ -1,6 +1,6 @@
-import { Audio, Utils, Widget } from '../../imports.js';
-const { Box, Slider, Icon, EventBox } = Widget;
-const { execAsync } = Utils;
+import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
+import { Box, Slider, Icon, EventBox } from 'resource:///com/github/Aylur/ags/widget.js';
+import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
 const items = {
     101: 'audio-volume-overamplified-symbolic',

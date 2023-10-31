@@ -1,5 +1,4 @@
-import { Widget } from '../../imports.js';
-const { Box, Label, Revealer } = Widget;
+import { Box, Label, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import ButtonGrid   from './button-grid.js';
 import SliderBox    from './slider-box.js';

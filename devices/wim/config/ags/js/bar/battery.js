@@ -1,5 +1,5 @@
-import { Battery, Widget } from '../../imports.js';
-const { Label, Icon, Stack, Box } = Widget;
+import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
+import { Label, Icon, Stack, Box } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import Separator from '../misc/separator.js';
 

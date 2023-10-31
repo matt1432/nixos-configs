@@ -1,5 +1,5 @@
-import { Widget, Hyprland } from '../../imports.js';
-const { Label } = Widget;
+import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
+import { Label } from 'resource:///com/github/Aylur/ags/widget.js';
 
 
 export default () => Label({

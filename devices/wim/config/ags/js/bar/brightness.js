@@ -1,5 +1,5 @@
-import { Utils, Widget } from '../../imports.js';
-const { ProgressBar, Overlay, Box } = Widget;
+import { ProgressBar, Overlay, Box } from 'resource:///com/github/Aylur/ags/widget.js';
+import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import Separator from '../misc/separator.js';
 import Heart     from './heart.js';
@@ -11,7 +11,7 @@ export default () => Overlay({
         className: 'toggle-off brightness',
         connections: [
             [200, self => {
-                Utils.execAsync('brightnessctl get').then(out => {
+                execAsync('brightnessctl get').then(out => {
                     const br = out / 255;
                     if (br > 0.33)
                         self.value = br;

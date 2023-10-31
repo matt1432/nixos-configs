@@ -1,5 +1,4 @@
-import { Widget } from '../imports.js';
-const { CenterBox, Label } = Widget;
+import { CenterBox, Label } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import PopupWindow from './misc/popup.js';
 import Button      from './misc/cursorbox.js';

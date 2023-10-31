@@ -1,5 +1,5 @@
-import { App, Widget } from '../../imports.js';
-const { Box, Label } = Widget;
+import App from 'resource:///com/github/Aylur/ags/app.js';
+import { Box, Label } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import GLib from 'gi://GLib';
 const { DateTime } = GLib;

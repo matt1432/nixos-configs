@@ -1,6 +1,7 @@
-import { Notifications, App, Utils, Widget } from '../../imports.js';
-const { Button, Label, Box, Icon, Scrollable, Revealer } = Widget;
-const { timeout } = Utils;
+import App           from 'resource:///com/github/Aylur/ags/app.js';
+import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
+import { Button, Label, Box, Icon, Scrollable, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
+import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import Notification from './base.js';
 import PopupWindow  from '../misc/popup.js';

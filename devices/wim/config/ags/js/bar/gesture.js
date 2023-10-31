@@ -1,5 +1,5 @@
-import { Widget, App } from '../../imports.js';
-const { CenterBox, EventBox } = Widget;
+import App from 'resource:///com/github/Aylur/ags/app.js';
+import { CenterBox, EventBox } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import Gtk from 'gi://Gtk';
 

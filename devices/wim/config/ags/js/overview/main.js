@@ -1,5 +1,6 @@
-import { App, Hyprland, Widget } from '../../imports.js';
-const { Box, Overlay } = Widget;
+import App      from 'resource:///com/github/Aylur/ags/app.js';
+import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
+import { Box, Overlay } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import PopupWindow from '../misc/popup.js';
 import { WorkspaceRow, getWorkspaces, updateWorkspaces } from './workspaces.js';

@@ -1,6 +1,6 @@
-import { Mpris, Utils, Widget } from '../../imports.js';
-const { Button, Icon, Label, Stack, Slider, CenterBox, Box } = Widget;
-const { execAsync, lookUpIcon } = Utils;
+import Mpris from 'resource:///com/github/Aylur/ags/service/mpris.js';
+import { Button, Icon, Label, Stack, Slider, CenterBox, Box } from 'resource:///com/github/Aylur/ags/widget.js';
+import { execAsync, lookUpIcon } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import Gdk from 'gi://Gdk';
 const display = Gdk.Display.get_default();

@@ -1,5 +1,5 @@
-import { Audio, Widget } from '../../imports.js';
-const { Label, Box, Icon } = Widget;
+import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
+import { Label, Box, Icon } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import Separator from '../misc/separator.js';
 import EventBox  from '../misc/cursorbox.js';

@@ -1,5 +1,9 @@
-import { App, Widget, Hyprland, Utils, Variable } from '../../imports.js';
-const { Box, EventBox, Overlay } = Widget;
+import App         from 'resource:///com/github/Aylur/ags/app.js';
+import Hyprland    from 'resource:///com/github/Aylur/ags/service/hyprland.js';
+import Variable    from 'resource:///com/github/Aylur/ags/variable.js';
+
+import { Widget, Box, EventBox, Overlay } from 'resource:///com/github/Aylur/ags/widget.js';
+import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import { RoundedCorner } from '../screen-corners.js';
 import Gesture           from './gesture.js';
@@ -40,7 +44,7 @@ export default props => Overlay({
                     BgGradient.visible = !Revealed.value;
 
                     if (Revealed.value) {
-                        Utils.timeout(2000, () => {
+                        timeout(2000, () => {
                             if (Revealed.value)
                                 self.revealChild = false;
                         });
@@ -55,7 +59,7 @@ export default props => Overlay({
                     onHoverLost: self => {
                         Hovering.value = false;
                         if (Revealed.value) {
-                            Utils.timeout(2000, () => {
+                            timeout(2000, () => {
                                 if (!Hovering.value) {
                                     self.get_parent().get_parent().children[1].revealChild = true;
                                     self.get_parent().revealChild = false;
@@ -70,7 +74,7 @@ export default props => Overlay({
             Widget.Revealer({
                 connections: [[Revealed, self => {
                     if (Revealed.value) {
-                        Utils.timeout(2000, () => {
+                        timeout(2000, () => {
                             if (Revealed.value)
                                 self.revealChild = true;
                         });

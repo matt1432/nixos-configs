@@ -1,6 +1,5 @@
-import { Utils, Widget } from '../../imports.js';
-const { Box, Label } = Widget;
-const { subprocess, execAsync } = Utils;
+import { Box, Label } from 'resource:///com/github/Aylur/ags/widget.js';
+import { subprocess, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import EventBox from '../misc/cursorbox.js';
 

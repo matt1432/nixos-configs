@@ -1,4 +1,6 @@
-import { App, Service, Utils } from '../imports.js';
+import App     from 'resource:///com/github/Aylur/ags/app.js';
+import Service from 'resource:///com/github/Aylur/ags/service.js';
+import { execAsync, subprocess } from 'resource:///com/github/Aylur/ags/utils.js';
 import GUdev from 'gi://GUdev';
 
 const UDEV_POINTERS = [
@@ -85,7 +87,7 @@ class Pointers extends Service {
             args.push(dev);
         });
 
-        this.proc = Utils.subprocess(
+        this.proc = subprocess(
             ['libinput', 'debug-events', ...args],
             output => {
                 if (output.includes('cancelled'))
@@ -145,10 +147,10 @@ class Pointers extends Service {
         if (!toClose)
             return;
 
-        Utils.execAsync('hyprctl layers -j').then(layers => {
+        execAsync('hyprctl layers -j').then(layers => {
             layers = JSON.parse(layers);
 
-            Utils.execAsync('hyprctl cursorpos -j').then(pos => {
+            execAsync('hyprctl cursorpos -j').then(pos => {
                 pos = JSON.parse(pos);
 
                 Object.values(layers).forEach(key => {

@@ -1,6 +1,6 @@
-import { Hyprland, Utils, Widget } from '../../imports.js';
-const { Box, Overlay, Revealer } = Widget;
-const { execAsync } = Utils;
+import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
+import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
+import { Box, Overlay, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import EventBox from '../misc/cursorbox.js';
 

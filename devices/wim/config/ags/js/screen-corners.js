@@ -1,5 +1,5 @@
-import { Widget } from '../imports.js';
-const { Gtk } = imports.gi;
+import { Widget } from 'resource:///com/github/Aylur/ags/widget.js';
+import Gtk from 'gi://Gtk';
 const Lang = imports.lang;
 
 export const RoundedCorner = (place, props) => Widget.Box({

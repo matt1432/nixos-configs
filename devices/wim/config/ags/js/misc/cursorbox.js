@@ -1,4 +1,4 @@
-import { Widget } from '../../imports.js';
+import { Widget } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import Gdk from 'gi://Gdk';
 const display = Gdk.Display.get_default();

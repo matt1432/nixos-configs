@@ -1,5 +1,6 @@
-import { App, Notifications, Widget } from '../../imports.js';
-const { Box, Label, Icon } = Widget;
+import App           from 'resource:///com/github/Aylur/ags/app.js';
+import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
+import { Box, Icon, Label } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import Separator from '../misc/separator.js';
 import EventBox  from '../misc/cursorbox.js';

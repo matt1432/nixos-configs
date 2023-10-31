@@ -1,5 +1,5 @@
-import { Hyprland, Widget } from '../../imports.js';
-const { Revealer, CenterBox, Box, EventBox, Label, Overlay } = Widget;
+import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
+import { Revealer, CenterBox, Box, EventBox, Label } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import Gtk  from 'gi://Gtk';
 

@@ -1,5 +1,4 @@
-import { Widget } from '../../imports.js';
-const { Window, CenterBox, Box } = Widget;
+import { Window, CenterBox, Box } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import Separator      from '../misc/separator.js';
 import CurrentWindow  from './current-window.js';

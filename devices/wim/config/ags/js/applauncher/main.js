@@ -1,5 +1,8 @@
-import { App, Applications, Utils, Widget } from '../../imports.js';
-const { Label, Box, Icon, Button, Scrollable, Entry } = Widget;
+import App          from 'resource:///com/github/Aylur/ags/app.js';
+import Applications from 'resource:///com/github/Aylur/ags/service/applications.js';
+
+import { Label, Box, Icon, Button, Scrollable, Entry } from 'resource:///com/github/Aylur/ags/widget.js';
+import { exec } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import Separator   from '../misc/separator.js';
 import PopupWindow from '../misc/popup.js';
@@ -20,7 +23,7 @@ const AppItem = (app, window) => {
         className: 'app',
         connections: [['clicked', () => {
             App.closeWindow(window);
-            Utils.exec(`hyprctl dispatch exec ${app.executable}`);
+            exec(`hyprctl dispatch exec ${app.executable}`);
             // TODO: focus on new client. Is this only needed after launch?
             ++app.frequency;
         }]],

@@ -1,5 +1,5 @@
-import { Utils, Widget } from '../../imports.js';
-const { Box, Overlay, EventBox } = Widget;
+import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
+import { Box, EventBox, Overlay } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import Gtk from 'gi://Gtk';
 
@@ -73,7 +73,7 @@ export default ({
                                             opacity: 0;
                                             ${playerBox._bgStyle}`);
                     }
-                    Utils.timeout(500, () => {
+                    timeout(500, () => {
                         overlay.reorder_overlay(playerBox, 0);
                         playerBox.setStyle(playerBox._bgStyle);
                         overlay._selected = overlay.list().at(-1);

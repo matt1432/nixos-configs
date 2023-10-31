@@ -1,5 +1,4 @@
-import { Widget } from '../../imports.js';
-const { Box } = Widget;
+import { Box } from 'resource:///com/github/Aylur/ags/widget.js';
 
 
 export default (size, { vertical = false } = {}) => {

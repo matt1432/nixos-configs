@@ -1,6 +1,6 @@
-import { App, Utils, Widget } from '../../imports.js';
-const { EventBox } = Widget;
-const { execAsync } = Utils;
+import App from 'resource:///com/github/Aylur/ags/app.js';
+import { EventBox } from 'resource:///com/github/Aylur/ags/widget.js';
+import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import Gtk from 'gi://Gtk';
 import Gdk from 'gi://Gdk';

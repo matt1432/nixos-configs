@@ -1,6 +1,9 @@
-import { Network, Bluetooth, Audio, App, Utils, Widget } from '../../imports.js';
-const { Box, CenterBox, Label, Icon } = Widget;
-const { execAsync } = Utils;
+import App       from 'resource:///com/github/Aylur/ags/app.js';
+import Audio     from 'resource:///com/github/Aylur/ags/service/audio.js';
+import Bluetooth from 'resource:///com/github/Aylur/ags/service/bluetooth.js';
+import Network   from 'resource:///com/github/Aylur/ags/service/network.js';
+import { Box, CenterBox, Label, Icon } from 'resource:///com/github/Aylur/ags/widget.js';
+import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import EventBox from '../misc/cursorbox.js';
 

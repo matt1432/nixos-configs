@@ -1,5 +1,6 @@
-import { Notifications, Utils, Widget } from '../../imports.js';
-const { Box, Revealer, Window } = Widget;
+import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
+import { Box, Revealer, Window } from 'resource:///com/github/Aylur/ags/widget.js';
+import { interval, timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import GLib from 'gi://GLib';
 
@@ -18,7 +19,7 @@ const Popups = () => Box({
             if (box._map.size - 1 === 0)
                 box.get_parent().reveal_child = false;
 
-            Utils.timeout(200, () => {
+            timeout(200, () => {
                 const notif = box._map.get(id);
                 if (notif.interval) {
                     GLib.source_remove(notif.interval);
@@ -44,17 +45,17 @@ const Popups = () => Box({
 
             box.children = Array.from(box._map.values()).reverse();
 
-            Utils.timeout(10, () => {
+            timeout(10, () => {
                 box.get_parent().revealChild = true;
             });
 
-            box._map.get(id).interval = Utils.interval(4500, () => {
+            box._map.get(id).interval = interval(4500, () => {
                 const notif = box._map.get(id);
                 if (!notif._hovered) {
                     notif.child.setStyle(notif.child._leftAnim1);
 
                     if (notif.interval) {
-                        Utils.timeout(500, () => notif.destroy());
+                        timeout(500, () => notif.destroy());
                         GLib.source_remove(notif.interval);
                         notif.interval = undefined;
                     }

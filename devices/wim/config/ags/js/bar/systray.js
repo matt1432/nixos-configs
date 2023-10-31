@@ -1,5 +1,6 @@
-import { SystemTray, Utils, Widget } from '../../imports.js';
-const { Box, Revealer, Icon, MenuItem } = Widget;
+import SystemTray from 'resource:///com/github/Aylur/ags/service/systemtray.js';
+import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
+import { Box, Icon, MenuItem, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import Gtk from 'gi://Gtk';
 
@@ -44,7 +45,7 @@ const SysTray = () => {
             return;
 
         widget._items.get(id).child.revealChild = false;
-        Utils.timeout(400, () => {
+        timeout(400, () => {
             widget._items.get(id).destroy();
             widget._items.delete(id);
         });

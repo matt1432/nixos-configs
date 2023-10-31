@@ -1,6 +1,7 @@
-import { App, Hyprland, Utils, Widget } from '../../imports.js';
-const { Icon, Revealer } = Widget;
-const { execAsync } = Utils;
+import App      from 'resource:///com/github/Aylur/ags/app.js';
+import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
+import { Icon, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
+import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import { WindowButton } from './dragndrop.js';
 import * as VARS from './variables.js';
