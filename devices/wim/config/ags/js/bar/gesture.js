@@ -19,7 +19,7 @@ export default ({
         connections: [[gesture, () => {
             const velocity = gesture.get_velocity()[1];
             if (velocity < -100)
-                App.openWindow('quick-settings');
+                App.openWindow('applauncher');
         }, 'update']],
     }));
 
