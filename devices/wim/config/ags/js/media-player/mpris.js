@@ -1,9 +1,8 @@
 import Mpris from 'resource:///com/github/Aylur/ags/service/mpris.js';
 import { Button, Icon, Label, Stack, Slider, CenterBox, Box } from 'resource:///com/github/Aylur/ags/widget.js';
-import { execAsync, lookUpIcon, interval, readFileAsync } from 'resource:///com/github/Aylur/ags/utils.js';
+import { execAsync, lookUpIcon, readFileAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import Gdk from 'gi://Gdk';
-import GLib from 'gi://GLib';
 const display = Gdk.Display.get_default();
 
 import Separator from '../misc/separator.js';
@@ -66,12 +65,14 @@ export const CoverArt = (player, props) => CenterBox({
 
                 player.colors.value = JSON.parse(out);
 
-                self._bgStyle = `background: radial-gradient(circle,
-                                             rgba(0, 0, 0, 0.4) 30%,
-                                             ${player.colors.value.imageAccent}),
-                                             url("${player.coverPath}");
-                                 background-size: cover;
-                                 background-position: center;`;
+                self._bgStyle = `
+                    background: radial-gradient(circle,
+                                rgba(0, 0, 0, 0.4) 30%,
+                                ${player.colors.value.imageAccent}),
+                                url("${player.coverPath}");
+                    background-size: cover;
+                    background-position: center;
+                `;
 
                 if (!self.get_parent()._dragging)
                     self.setStyle(self._bgStyle);
@@ -103,6 +104,7 @@ export const ArtistLabel = (player, props) => Label({
 });
 
 export const PlayerIcon = (player, { symbolic = true, ...props } = {}) => {
+    // Get player's icon
     const MainIcon = Icon({
         ...props,
         className: 'player-icon',
@@ -115,43 +117,37 @@ export const PlayerIcon = (player, { symbolic = true, ...props } = {}) => {
         }]],
     });
 
-    const widget = Box({});
-    var overlay;
-    const source = interval(100, () => {
-        if (player.colors.value) {
-            overlay = widget.get_parent().get_parent().get_parent();
-            updateIcons();
-            overlay._mprisConnections.set(player.busName, Mpris.connect('changed', updateIcons));
+    // Multiple player indicators
+    return Box({
+        properties: [['overlay']],
+        connections: [[Mpris, self => {
+            if (!self._overlay)
+                self._overlay = self.get_parent().get_parent().get_parent();
 
-            GLib.source_remove(source);
-        }
+            const overlays = self._overlay.list();
+
+            const player = overlays.find(overlay => {
+                return overlay === self.get_parent().get_parent();
+            });
+
+            const index = overlays.indexOf(player);
+
+            const children = [];
+            for (let i = 0; i < overlays.length; ++i) {
+                if (i === index) {
+                    children.push(MainIcon);
+                    children.push(Separator(2));
+                }
+                else {
+                    children.push(Box({ className: 'position-indicator' }));
+                    children.push(Separator(2));
+                }
+            }
+            self.children = children;
+        }]],
     });
-    const updateIcons = () => {
-        const overlays = overlay.list();
-
-        const player = overlays.find(overlay => {
-            return overlay === widget.get_parent().get_parent();
-        });
-
-        const index = overlays.indexOf(player);
-
-        const children = [];
-        for (let i = 0; i < overlays.length; ++i) {
-            if (i === index) {
-                children.push(MainIcon);
-                children.push(Separator(2));
-            }
-            else {
-                children.push(Box({ className: 'position-indicator' }));
-                children.push(Separator(2));
-            }
-        }
-        widget.children = children;
-    };
-    return widget;
 };
 
-// FIXME: get the cursors right or just don't display when disabled
 export const PositionSlider = (player, props) => EventBox({
     child: Slider({
         ...props,
@@ -172,7 +168,7 @@ export const PositionSlider = (player, props) => EventBox({
                         .new_from_name(display, 'pointer'));
                 }
 
-                slider.sensitive = player.length > 0;
+                slider.visible = player.length > 0;
                 if (player.length > 0)
                     slider.value = player.position / player.length;
             }
@@ -183,68 +179,36 @@ export const PositionSlider = (player, props) => EventBox({
             [player.colors, s => {
                 const c = player.colors.value;
                 if (player.colors.value) {
-                    s.setCss(`highlight { background-color: ${c.buttonAccent}; }
-                              slider { background-color: ${c.buttonAccent}; }
-                              slider:hover { background-color: ${c.hoverAccent}; }
-                              trough { background-color: ${c.buttonText}; }`);
+                    s.setCss(`
+                        highlight    { background-color: ${c.buttonAccent}; }
+                        slider       { background-color: ${c.buttonAccent}; }
+                        slider:hover { background-color: ${c.hoverAccent}; }
+                        trough       { background-color: ${c.buttonText}; }
+                    `);
                 }
             }],
         ],
     }),
 });
 
-function lengthStr(length) {
-    const min = Math.floor(length / 60);
-    const sec0 = Math.floor(length % 60) < 10 ? '0' : '';
-    const sec = Math.floor(length % 60);
-    return `${min}:${sec0}${sec}`;
-}
-
-export const PositionLabel = player => Label({
-    properties: [['update', self => {
-        player.length > 0 ? self.label = lengthStr(player.position)
-            : self.visible = !!player;
-    }]],
-    connections: [
-        [player, l => l._update(l), 'position'],
-        [1000, l => l._update(l)],
-    ],
-});
-
-export const LengthLabel = player => Label({
-    connections: [[player, self => {
-        player.length > 0 ? self.label = lengthStr(player.length)
-            : self.visible = !!player;
-    }]],
-});
-
-export const Slash = player => Label({
-    label: '/',
-    connections: [[player, self => {
-        self.visible = player.length > 0;
-    }]],
-});
-
-// TODO: use label instead of stack to fix UI issues
 const PlayerButton = ({ player, items, onClick, prop }) => Button({
     child: Stack({ items }),
     onPrimaryClickRelease: () => player[onClick](),
     properties: [['hovered', false]],
     onHover: self => {
         self._hovered = true;
-        if (! self.child.sensitive || ! self.sensitive)
-            self.window.set_cursor(Gdk.Cursor.new_from_name(display, 'not-allowed'));
-
-        else
-            self.window.set_cursor(Gdk.Cursor.new_from_name(display, 'pointer'));
-
+        self.window.set_cursor(Gdk.Cursor.new_from_name(display, 'pointer'));
 
         if (prop == 'playBackStatus') {
             items.forEach(item => {
-                item[1].setStyle(`background-color: ${player.colors.value.hoverAccent};
-                                  color: ${player.colors.value.buttonText};
-                                  min-height: 40px; min-width: 36px;
-                                  margin-bottom: 1px; margin-right: 1px;`);
+                item[1].setStyle(`
+                    background-color: ${player.colors.value.hoverAccent};
+                    color: ${player.colors.value.buttonText};
+                    min-height: 40px;
+                    min-width: 36px;
+                    margin-bottom: 1px;
+                    margin-right: 1px;
+                `);
             });
         }
     },
@@ -253,9 +217,12 @@ const PlayerButton = ({ player, items, onClick, prop }) => Button({
         self.window.set_cursor(null);
         if (prop == 'playBackStatus') {
             items.forEach(item => {
-                item[1].setStyle(`background-color: ${player.colors.value.buttonAccent};
-                                  color: ${player.colors.value.buttonText};
-                                  min-height: 42px; min-width: 38px;`);
+                item[1].setStyle(`
+                    background-color: ${player.colors.value.buttonAccent};
+                    color: ${player.colors.value.buttonText};
+                    min-height: 42px;
+                    min-width: 38px;
+                `);
             });
         }
     },
@@ -272,23 +239,31 @@ const PlayerButton = ({ player, items, onClick, prop }) => Button({
                 if (prop == 'playBackStatus') {
                     if (button._hovered) {
                         items.forEach(item => {
-                            item[1].setStyle(`background-color: ${player.colors.value.hoverAccent};
-                                              color: ${player.colors.value.buttonText};
-                                              min-height: 40px; min-width: 36px;
-                                              margin-bottom: 1px; margin-right: 1px;`);
+                            item[1].setStyle(`
+                                background-color: ${player.colors.value.hoverAccent};
+                                color: ${player.colors.value.buttonText};
+                                min-height: 40px;
+                                min-width: 36px;
+                                margin-bottom: 1px;
+                                margin-right: 1px;
+                            `);
                         });
                     }
                     else {
                         items.forEach(item => {
-                            item[1].setStyle(`background-color: ${player.colors.value.buttonAccent};
-                                              color: ${player.colors.value.buttonText};
-                                              min-height: 42px; min-width: 38px;`);
+                            item[1].setStyle(`
+                                background-color: ${player.colors.value.buttonAccent};
+                                color: ${player.colors.value.buttonText};
+                                min-height: 42px;
+                                min-width: 38px;`);
                         });
                     }
                 }
                 else {
-                    button.setCss(`* { color: ${player.colors.value.buttonAccent}; }
-                                   *:hover { color: ${player.colors.value.hoverAccent}; }`);
+                    button.setCss(`
+                        *       { color: ${player.colors.value.buttonAccent}; }
+                        *:hover { color: ${player.colors.value.hoverAccent}; }
+                    `);
                 }
             }
         }],

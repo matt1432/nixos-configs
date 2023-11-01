@@ -7,6 +7,7 @@ import GLib from 'gi://GLib';
 import Notification from './base.js';
 
 
+// FIXME: slide away when notif is seen
 const Popups = () => Box({
     vertical: true,
     properties: [

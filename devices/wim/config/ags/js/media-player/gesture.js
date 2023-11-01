@@ -22,19 +22,23 @@ export default ({
             ...properties,
             ['dragging', false],
         ],
+
+        // Have empty PlayerBox to define the size of the widget
         child: Box({ className: 'player' }),
         connections: [
             ...connections,
 
             [gesture, overlay => {
+                // Don't allow gesture when only one player
                 if (overlay.list().length <= 1)
                     return;
 
                 overlay._dragging = true;
-                const offset = gesture.get_offset()[1];
+                var offset = gesture.get_offset()[1];
 
                 const playerBox = overlay.list().at(-1);
 
+                // Sliding right
                 if (offset >= 0) {
                     playerBox.setStyle(`
                         margin-left:   ${offset}px;
@@ -42,18 +46,20 @@ export default ({
                         ${playerBox._bgStyle}
                     `);
                 }
+
+                // Sliding left
                 else {
-                    const newOffset = Math.abs(offset);
+                    offset = Math.abs(offset);
                     playerBox.setStyle(`
-                        margin-left: -${newOffset}px;
-                        margin-right: ${newOffset}px;
+                        margin-left: -${offset}px;
+                        margin-right: ${offset}px;
                         ${playerBox._bgStyle}
                     `);
                 }
-                overlay._selected = playerBox;
             }, 'drag-update'],
 
             [gesture, overlay => {
+                // Don't allow gesture when only one player
                 if (overlay.list().length <= 1)
                     return;
 
@@ -62,8 +68,12 @@ export default ({
 
                 const playerBox = overlay.list().at(-1);
 
+                // If crosses threshold after letting go, slide away
                 if (Math.abs(offset) > MAX_OFFSET) {
+                    // Disable inputs during animation
                     widget.sensitive = false;
+
+                    // Slide away right
                     if (offset >= 0) {
                         playerBox.setStyle(`
                             ${TRANSITION}
@@ -72,6 +82,8 @@ export default ({
                             opacity: 0; ${playerBox._bgStyle}
                         `);
                     }
+
+                    // Slide away left
                     else {
                         playerBox.setStyle(`
                             ${TRANSITION}
@@ -79,14 +91,18 @@ export default ({
                             margin-right: ${OFFSCREEN}px;
                             opacity: 0; ${playerBox._bgStyle}`);
                     }
+
                     timeout(500, () => {
+                        // Put the player in the back after anim
                         overlay.reorder_overlay(playerBox, 0);
+                        // Recenter player
                         playerBox.setStyle(playerBox._bgStyle);
-                        overlay._selected = overlay.list().at(-1);
+
                         widget.sensitive = true;
                     });
                 }
                 else {
+                    // Recenter with transition for animation
                     playerBox.setStyle(`${TRANSITION} ${playerBox._bgStyle}`);
                 }
             }, 'drag-end'],

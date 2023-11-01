@@ -38,7 +38,6 @@ const Center = player => Box({
                         mpris.ArtistLabel(player),
                     ],
                 }),
-
                 null,
                 null,
             ],
@@ -93,7 +92,6 @@ export default () => Box({
     child: PlayerGesture({
         properties: [
             ['players', new Map()],
-            ['mprisConnections', new Map()],
             ['setup', false],
         ],
         connections: [
@@ -158,8 +156,6 @@ export default () => Box({
                 }
 
                 overlay._players.delete(busName);
-                Mpris.disconnect(overlay._mprisConnections.get(busName));
-                overlay._mprisConnections.delete(busName);
 
                 const result = [];
                 overlay._players.forEach(widget => {
