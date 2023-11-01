@@ -38,7 +38,7 @@ export default ({
 
                 const playerBox = overlay.list().at(-1);
 
-                // Sliding right
+                // Slide right
                 if (offset >= 0) {
                     playerBox.setStyle(`
                         margin-left:   ${offset}px;
@@ -47,7 +47,7 @@ export default ({
                     `);
                 }
 
-                // Sliding left
+                // Slide left
                 else {
                     offset = Math.abs(offset);
                     playerBox.setStyle(`

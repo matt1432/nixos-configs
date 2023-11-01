@@ -53,7 +53,7 @@ const Popups = () => Box({
             box._map.get(id).interval = interval(4500, () => {
                 const notif = box._map.get(id);
                 if (!notif._hovered) {
-                    notif.child.setStyle(notif.child._leftAnim1);
+                    notif.child.setStyle(notif.child._slideLeft);
 
                     if (notif.interval) {
                         timeout(500, () => notif.destroy());

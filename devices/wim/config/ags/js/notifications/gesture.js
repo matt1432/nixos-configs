@@ -36,52 +36,55 @@ export default ({
 
     const gesture = Gtk.GestureDrag.new(widget);
 
-    const leftAnim1 = `transition: margin 0.5s ease, opacity 0.5s ease;
-                       margin-left: -${Number(maxOffset + endMargin)}px;
-                       margin-right: ${Number(maxOffset + endMargin)}px;
-                       opacity: 0;`;
+    const TRANSITION = 'transition: margin 0.5s ease, opacity 0.5s ease;';
+    const SQUEEZED = 'margin-bottom: -70px; margin-top: -70px;';
+    const MAX_LEFT = `
+        margin-left: -${Number(maxOffset + endMargin)}px;
+        margin-right: ${Number(maxOffset + endMargin)}px;
+    `;
+    const MAX_RIGHT = `
+        margin-left:   ${Number(maxOffset + endMargin)}px;
+        margin-right: -${Number(maxOffset + endMargin)}px;
+    `;
 
-    const leftAnim2 = `transition: margin 0.5s ease, opacity 0.5s ease;
-                       margin-left: -${Number(maxOffset + endMargin)}px;
-                       margin-right: ${Number(maxOffset + endMargin)}px;
-                       margin-bottom: -70px; margin-top: -70px; opacity: 0;`;
-
-    const rightAnim1 = `transition: margin 0.5s ease, opacity 0.5s ease;
-                        margin-left:   ${Number(maxOffset + endMargin)}px;
-                        margin-right: -${Number(maxOffset + endMargin)}px;
-                        opacity: 0;`;
-
-    const rightAnim2 = `transition: margin 0.5s ease, opacity 0.5s ease;
-                        margin-left:   ${Number(maxOffset + endMargin)}px;
-                        margin-right: -${Number(maxOffset + endMargin)}px;
-                        margin-bottom: -70px; margin-top: -70px; opacity: 0;`;
+    const slideLeft    = `${TRANSITION} ${MAX_LEFT} opacity: 0;`;
+    const squeezeLeft  = `${TRANSITION} ${MAX_LEFT} ${SQUEEZED} opacity: 0;`;
+    const slideRight   = `${TRANSITION} ${MAX_RIGHT} opacity: 0;`;
+    const squeezeRight = `${TRANSITION} ${MAX_RIGHT} ${SQUEEZED} opacity: 0;`;
 
     widget.add(Box({
         properties: [
-            ['leftAnim1',  leftAnim1],
-            ['leftAnim2',  leftAnim2],
-            ['rightAnim1', rightAnim1],
-            ['rightAnim2', rightAnim2],
+            ['slideLeft',    slideLeft],
+            ['squeezeLeft',  squeezeLeft],
+            ['slideRight',   slideRight],
+            ['squeezeRight', squeezeRight],
             ['ready', false],
         ],
         children: [
             ...children,
             child,
         ],
-        style: leftAnim2,
+        style: squeezeLeft,
         connections: [
 
             [gesture, self => {
                 var offset = gesture.get_offset()[1];
 
+                // Slide right
                 if (offset >= 0) {
-                    self.setStyle(`margin-left:   ${Number(offset + startMargin)}px;
-                                   margin-right: -${Number(offset + startMargin)}px;`);
+                    self.setStyle(`
+                        margin-left:   ${Number(offset + startMargin)}px;
+                        margin-right: -${Number(offset + startMargin)}px;
+                    `);
                 }
+
+                // Slide left
                 else {
                     offset = Math.abs(offset);
-                    self.setStyle(`margin-right: ${Number(offset + startMargin)}px;
-                                   margin-left: -${Number(offset + startMargin)}px;`);
+                    self.setStyle(`
+                        margin-right: ${Number(offset + startMargin)}px;
+                        margin-left: -${Number(offset + startMargin)}px;
+                    `);
                 }
 
                 self.get_parent()._dragging = Math.abs(offset) > 10;
@@ -91,51 +94,44 @@ export default ({
             }, 'drag-update'],
 
             [gesture, self => {
+                // ?
                 if (!self._ready) {
-                    self.setStyle(`transition: margin 0.5s ease, opacity 0.5s ease;
-                                   margin-left: -${Number(maxOffset + endMargin)}px;
-                                   margin-right: ${Number(maxOffset + endMargin)}px;
-                                   margin-bottom: 0px; margin-top: 0px; opacity: 0;`);
+                    self.setStyle(slideLeft);
 
-                    timeout(500, () => {
-                        self.setStyle(`transition: margin 0.5s ease, opacity 0.5s ease;
-                                       margin-left:  ${startMargin}px;
-                                       margin-right: ${startMargin}px;
-                                       margin-bottom: unset; margin-top: unset;
-                                       opacity: 1;`);
-                    });
+                    timeout(500, () => self.setStyle(`${TRANSITION} margin: unset; opacity: 1;`));
                     timeout(1000, () => self._ready = true);
                     return;
                 }
 
                 const offset = gesture.get_offset()[1];
 
+                // If crosses threshold after letting go, slide away
                 if (Math.abs(offset) > maxOffset) {
+                    // Slide away right
                     if (offset > 0) {
-                        self.setStyle(rightAnim1);
+                        // Disable inputs during animation
                         widget.sensitive = false;
-                        timeout(500, () => {
-                            self.setStyle(rightAnim2);
-                        });
+
+                        self.setStyle(slideRight);
+                        timeout(500, () => self.setStyle(squeezeRight));
                     }
+
+                    // Slide away left
                     else {
-                        self.setStyle(leftAnim1);
+                        // Disable inputs during animation
                         widget.sensitive = false;
-                        timeout(500, () => {
-                            self.setStyle(leftAnim2);
-                        });
+
+                        self.setStyle(slideLeft);
+                        timeout(500, () => self.setStyle(squeezeLeft));
                     }
+
                     timeout(1000, () => {
                         command();
                         self.destroy();
                     });
                 }
                 else {
-                    self.setStyle(`transition: margin 0.5s ease, opacity 0.5s ease;
-                                   margin-left:  ${startMargin}px;
-                                   margin-right: ${startMargin}px;
-                                   margin-bottom: unset; margin-top: unset;
-                                   opacity: 1;`);
+                    self.setStyle(`${TRANSITION} margin: unset; opacity: 1;`);
                     if (widget.window)
                         widget.window.set_cursor(Gdk.Cursor.new_from_name(display, 'grab'));
 
