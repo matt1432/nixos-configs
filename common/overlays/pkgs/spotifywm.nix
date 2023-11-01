@@ -11,8 +11,8 @@
 }:
 let
   spotifywm = stdenv.mkDerivation {
-    pname = "spotifywm-unstable";
-    version = "2022-10-25";
+    pname = "spotifywm";
+    version = "unstable-2022-10-25";
 
     src = fetchFromGitHub {
       owner = "dasJ";
