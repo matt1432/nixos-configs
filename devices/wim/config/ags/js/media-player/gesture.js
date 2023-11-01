@@ -36,15 +36,19 @@ export default ({
                 const playerBox = overlay.list().at(-1);
 
                 if (offset >= 0) {
-                    playerBox.setStyle(`margin-left:   ${offset}px;
-                                        margin-right: -${offset}px;
-                                        ${playerBox._bgStyle}`);
+                    playerBox.setStyle(`
+                        margin-left:   ${offset}px;
+                        margin-right: -${offset}px;
+                        ${playerBox._bgStyle}
+                    `);
                 }
                 else {
                     const newOffset = Math.abs(offset);
-                    playerBox.setStyle(`margin-left: -${newOffset}px;
-                                        margin-right: ${newOffset}px;
-                                        ${playerBox._bgStyle}`);
+                    playerBox.setStyle(`
+                        margin-left: -${newOffset}px;
+                        margin-right: ${newOffset}px;
+                        ${playerBox._bgStyle}
+                    `);
                 }
                 overlay._selected = playerBox;
             }, 'drag-update'],
@@ -59,24 +63,27 @@ export default ({
                 const playerBox = overlay.list().at(-1);
 
                 if (Math.abs(offset) > MAX_OFFSET) {
+                    widget.sensitive = false;
                     if (offset >= 0) {
-                        playerBox.setStyle(`${TRANSITION}
-                                            margin-left:   ${OFFSCREEN}px;
-                                            margin-right: -${OFFSCREEN}px;
-                                            opacity: 0;
-                                            ${playerBox._bgStyle}`);
+                        playerBox.setStyle(`
+                            ${TRANSITION}
+                            margin-left:   ${OFFSCREEN}px;
+                            margin-right: -${OFFSCREEN}px;
+                            opacity: 0; ${playerBox._bgStyle}
+                        `);
                     }
                     else {
-                        playerBox.setStyle(`${TRANSITION}
-                                            margin-left: -${OFFSCREEN}px;
-                                            margin-right: ${OFFSCREEN}px;
-                                            opacity: 0;
-                                            ${playerBox._bgStyle}`);
+                        playerBox.setStyle(`
+                            ${TRANSITION}
+                            margin-left: -${OFFSCREEN}px;
+                            margin-right: ${OFFSCREEN}px;
+                            opacity: 0; ${playerBox._bgStyle}`);
                     }
                     timeout(500, () => {
                         overlay.reorder_overlay(playerBox, 0);
                         playerBox.setStyle(playerBox._bgStyle);
                         overlay._selected = overlay.list().at(-1);
+                        widget.sensitive = true;
                     });
                 }
                 else {
