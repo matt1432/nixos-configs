@@ -105,6 +105,15 @@ in
             definedAliases = [ "@mn" ];
           };
 
+          "Noogle" = {
+            urls = [{ template =
+              "https://noogle.dev/?term={searchTerms}";
+            }];
+            iconUpdateURL = "https://noogle.dev/favicon.ico";
+            updateInterval = 24 * 60 * 60 * 1000; # every day
+            definedAliases = [ "@ng" ];
+          };
+
           "Firefox Add-ons" = {
             urls = [{ template =
               "https://addons.mozilla.org/en-US/firefox/search/?q={searchTerms}";
@@ -141,6 +150,7 @@ in
           "MyNixos"
           "NixOS Wiki"
           "Nix Packages"
+          "Noogle"
           "Wikipedia (en)"
           "YouTube"
           "Firefox Add-ons"
