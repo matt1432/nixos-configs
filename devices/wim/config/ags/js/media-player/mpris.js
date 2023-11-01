@@ -1,8 +1,9 @@
 import Mpris from 'resource:///com/github/Aylur/ags/service/mpris.js';
 import { Button, Icon, Label, Stack, Slider, CenterBox, Box } from 'resource:///com/github/Aylur/ags/widget.js';
-import { execAsync, lookUpIcon, readFileAsync } from 'resource:///com/github/Aylur/ags/utils.js';
+import { execAsync, lookUpIcon, interval, readFileAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import Gdk from 'gi://Gdk';
+import GLib from 'gi://GLib';
 const display = Gdk.Display.get_default();
 
 import Separator from '../misc/separator.js';
@@ -33,13 +34,30 @@ export const CoverArt = (player, props) => CenterBox({
     ...props,
     vertical: true,
     properties: [['bgStyle', '']],
-    connections: [[player, self => {
-        // Don't show players that don't have covers
+    setup: self => {
+        // Give temp cover art
         readFileAsync(player.coverPath).catch(() => {
-            if (!player.colors.value && !player.trackCoverUrl)
-                player.colors.value = 'delete';
-        });
+            if (!player.colors.value && !player.trackCoverUrl) {
+                player.colors.value = {
+                    'imageAccent': '#9d4141',
+                    'buttonAccent': '#ffdad6',
+                    'buttonText': '#400005',
+                    'hoverAccent': '#ffb3b0',
+                };
 
+                self._bgStyle = `
+                    background: radial-gradient(circle,
+                                rgba(0, 0, 0, 0.4) 30%,
+                                ${player.colors.value.imageAccent}),
+                                rgb(0, 0, 0);
+                    background-size: cover;
+                    background-position: center;
+                `;
+                self.setStyle(self._bgStyle);
+            }
+        });
+    },
+    connections: [[player, self => {
         execAsync(['bash', '-c', `[[ -f "${player.coverPath}" ]] &&
                   coloryou "${player.coverPath}" | grep -v Warning`])
             .then(out => {
@@ -99,17 +117,15 @@ export const PlayerIcon = (player, { symbolic = true, ...props } = {}) => {
 
     const widget = Box({});
     var overlay;
-    const interval = setInterval(() => {
-        if (player.colors.value === 'delete') {
-            interval.destroy();
-        }
-        else if (player.colors.value && player.trackCoverUrl) {
+    const source = interval(100, () => {
+        if (player.colors.value) {
             overlay = widget.get_parent().get_parent().get_parent();
             updateIcons();
-            Mpris.connect('changed', updateIcons);
-            interval.destroy();
+            overlay._mprisConnections.set(player.busName, Mpris.connect('changed', updateIcons));
+
+            GLib.source_remove(source);
         }
-    }, 100);
+    });
     const updateIcons = () => {
         const overlays = overlay.list();
 
@@ -166,7 +182,7 @@ export const PositionSlider = (player, props) => EventBox({
             [1000, s => s._update(s)],
             [player.colors, s => {
                 const c = player.colors.value;
-                if (c && c != 'delete') {
+                if (player.colors.value) {
                     s.setCss(`highlight { background-color: ${c.buttonAccent}; }
                               slider { background-color: ${c.buttonAccent}; }
                               slider:hover { background-color: ${c.hoverAccent}; }
@@ -252,7 +268,7 @@ const PlayerButton = ({ player, items, onClick, prop }) => Button({
             if (!Mpris.players.find(p => player === p))
                 return;
 
-            if (player.colors.value && player.colors.value != 'delete') {
+            if (player.colors.value) {
                 if (prop == 'playBackStatus') {
                     if (button._hovered) {
                         items.forEach(item => {

@@ -93,14 +93,15 @@ export default () => Box({
     child: PlayerGesture({
         properties: [
             ['players', new Map()],
+            ['mprisConnections', new Map()],
             ['setup', false],
-            ['selected'],
         ],
         connections: [
             [Mpris, (overlay, busName) => {
                 if (overlay._players.has(busName))
                     return;
 
+                // Sometimes the signal doesn't give the busName
                 if (!busName) {
                     const player = Mpris.players.find(p => !overlay._players.has(p.busName));
                     if (player)
@@ -109,23 +110,17 @@ export default () => Box({
                         return;
                 }
 
+                // Get the one on top so it stays there
+                var previousFirst = overlay.get_children().at(-1);
+                for (const [key, value] of overlay._players.entries()) {
+                    if (value === previousFirst) {
+                        previousFirst = key;
+                        break;
+                    }
+                }
+
                 const player = Mpris.getPlayer(busName);
                 player.colors = Variable();
-                const id = player.colors.connect('changed', () => {
-                    if (!overlay._players.has(busName))
-                        return;
-                    if (player.colors.value === 'delete') {
-                        overlay._players.delete(busName);
-
-                        const result = [];
-                        overlay._players.forEach(widget => {
-                            result.push(widget);
-                        });
-
-                        overlay.overlays = result;
-                    }
-                    player.colors.disconnect(id);
-                });
 
                 overlay._players.set(busName, PlayerBox(player));
 
@@ -139,13 +134,13 @@ export default () => Box({
                 // Select favorite player at startup
                 if (!overlay._setup) {
                     if (overlay._players.has(FAVE_PLAYER))
-                        overlay._selected = overlay._players.get(FAVE_PLAYER);
+                        overlay.reorder_overlay(overlay._players.get(FAVE_PLAYER), -1);
 
                     overlay._setup = true;
                 }
-
-                if (overlay._selected)
-                    overlay.reorder_overlay(overlay._selected, -1);
+                else {
+                    overlay.reorder_overlay(overlay._players.get(previousFirst), -1);
+                }
             }, 'player-added'],
 
 
@@ -153,7 +148,18 @@ export default () => Box({
                 if (!busName || !overlay._players.has(busName))
                     return;
 
+                // Get the one on top so it stays there
+                var previousFirst = overlay.get_children().at(-1);
+                for (const [key, value] of overlay._players.entries()) {
+                    if (value === previousFirst) {
+                        previousFirst = key;
+                        break;
+                    }
+                }
+
                 overlay._players.delete(busName);
+                Mpris.disconnect(overlay._mprisConnections.get(busName));
+                overlay._mprisConnections.delete(busName);
 
                 const result = [];
                 overlay._players.forEach(widget => {
@@ -161,8 +167,9 @@ export default () => Box({
                 });
 
                 overlay.overlays = result;
-                if (overlay._selected)
-                    overlay.reorder_overlay(overlay._selected, -1);
+
+                if (overlay._players.has(previousFirst))
+                    overlay.reorder_overlay(overlay._players.get(previousFirst), -1);
             }, 'player-closed'],
         ],
     }),
