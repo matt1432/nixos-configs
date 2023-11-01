@@ -28,7 +28,6 @@ const Client = (client, active, clients) => {
     const wsId = client.workspace.id;
     const addr = `address:${client.address}`;
 
-    // FIXME: special workspaces not closing when in one and clicking on normal client
     return Revealer({
         transition: 'crossfade',
         setup: rev => rev.revealChild = true,
@@ -66,9 +65,10 @@ const Client = (client, active, clients) => {
                     // close special workspace if one is opened
                     const activeAddress = Hyprland.active.client.address;
                     const currentActive = clients.find(c => c.address === activeAddress);
+                    const currentSpecial = String(currentActive.workspace.name).replace('special:', '');
 
                     if (currentActive && currentActive.workspace.id < 0) {
-                        execAsync(`hyprctl dispatch togglespecialworkspace ${wsName}`)
+                        execAsync(`hyprctl dispatch togglespecialworkspace ${currentSpecial}`)
                             .catch(print);
                     }
                     execAsync(`hyprctl dispatch focuswindow ${addr}`).then(
