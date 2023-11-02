@@ -7,19 +7,24 @@ import Gtk from 'gi://Gtk';
 import Separator from '../misc/separator.js';
 
 
-const SysTrayItem = item => MenuItem({
-    child: Revealer({
-        transition: 'slide_right',
-        child: Icon({
-            size: 24,
+const SysTrayItem = item => {
+    if (item.id === 'spotify-client')
+        return;
+
+    return MenuItem({
+        child: Revealer({
+            transition: 'slide_right',
+            child: Icon({
+                size: 24,
+            }),
         }),
-    }),
-    submenu: item.menu,
-    connections: [[item, btn => {
-        btn.child.child.icon = item.icon;
-        btn.tooltipMarkup = item.tooltipMarkup;
-    }]],
-});
+        submenu: item.menu,
+        connections: [[item, btn => {
+            btn.child.child.icon = item.icon;
+            btn.tooltipMarkup = item.tooltipMarkup;
+        }]],
+    });
+};
 
 const SysTray = () => {
     const widget = Gtk.MenuBar.new();
@@ -33,6 +38,10 @@ const SysTray = () => {
             return;
 
         const w = SysTrayItem(item);
+        // Early return if item is in blocklist
+        if (!w)
+            return;
+
         widget._items.set(id, w);
         widget.add(w);
         widget.show_all();
