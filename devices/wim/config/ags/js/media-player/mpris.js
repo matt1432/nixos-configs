@@ -116,7 +116,6 @@ export const PlayerIcon = (player, { symbolic = true, ...props } = {}) => {
                 : self.icon = icons.mpris.fallback;
         }]],
     });
-
     // Multiple player indicators
     return Box({
         properties: [['overlay']],
@@ -135,15 +134,15 @@ export const PlayerIcon = (player, { symbolic = true, ...props } = {}) => {
             const children = [];
             for (let i = 0; i < overlays.length; ++i) {
                 if (i === index) {
-                    children.push(MainIcon);
                     children.push(Separator(2));
+                    children.push(MainIcon);
                 }
                 else {
-                    children.push(Box({ className: 'position-indicator' }));
                     children.push(Separator(2));
+                    children.push(Box({ className: 'position-indicator' }));
                 }
             }
-            self.children = children;
+            self.children = children.reverse();
         }]],
     });
 };
