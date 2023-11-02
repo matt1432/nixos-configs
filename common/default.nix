@@ -90,6 +90,7 @@
       ]) ++
 
       (with pkgs; [
+        comma
         dracula-theme
         neofetch
         progress

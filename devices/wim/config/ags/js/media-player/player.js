@@ -130,13 +130,11 @@ export default () => Box({
                 overlay.overlays = result;
 
                 // Select favorite player at startup
-                if (!overlay._setup) {
-                    if (overlay._players.has(FAVE_PLAYER))
-                        overlay.reorder_overlay(overlay._players.get(FAVE_PLAYER), -1);
-
+                if (!overlay._setup && overlay._players.has(FAVE_PLAYER)) {
+                    overlay.reorder_overlay(overlay._players.get(FAVE_PLAYER), -1);
                     overlay._setup = true;
                 }
-                else {
+                else if (overlay._players.get(previousFirst)) {
                     overlay.reorder_overlay(overlay._players.get(previousFirst), -1);
                 }
             }, 'player-added'],
