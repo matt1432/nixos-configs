@@ -1,45 +1,16 @@
-import App           from 'resource:///com/github/Aylur/ags/app.js';
 import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
 import { Button, Label, Box, Icon, Scrollable, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
-import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 
-import Notification from './base.js';
+import { Notification, HasNotifs } from './base.js';
 import PopupWindow  from '../misc/popup.js';
 import EventBox     from '../misc/cursorbox.js';
 
 
+// Needs to be wrapped to still have onHover when disabled
 const ClearButton = () => EventBox({
     child: Button({
-        onPrimaryClickRelease: button => {
-            button._popups.children.forEach(ch => {
-                ch.child.setStyle(ch.child._slideLeft);
-                ch.sensitive = false;
-            });
-
-            button._notifList.children.forEach(ch => {
-                if (ch.child) {
-                    ch.child.setStyle(ch.child._slideRight);
-                    ch.sensitive = false;
-                }
-                timeout(500, () => {
-                    button._notifList.remove(ch);
-                    Notifications.clear();
-                });
-            });
-        },
-        properties: [
-            ['notifList'],
-            ['popups'],
-        ],
-        connections: [[Notifications, button => {
-            if (!button._notifList)
-                button._notifList = NotificationList;
-
-            if (!button._popups)
-                button._popups = App.getWindow('notifications').child.children[0].child;
-
-            button.sensitive = Notifications.notifications.length > 0;
-        }]],
+        onPrimaryClickRelease: () => Notifications.clear(),
+        binds: [['sensitive', HasNotifs]],
         child: Box({
             children: [
                 Label('Clear '),
@@ -66,16 +37,21 @@ const Header = () => Box({
     ],
 });
 
-const NotificationList = Box({
+const NotificationList = () => Box({
     vertical: true,
-    valign: 'start',
     vexpand: true,
+    valign: 'start',
+    binds: [['visible', HasNotifs]],
     connections: [
         [Notifications, (box, id) => {
             if (box.children.length == 0) {
                 for (const notif of Notifications.notifications) {
+                    if (!notif)
+                        return;
+
                     const NewNotif = Notification({
                         notif,
+                        slideIn: 'Right',
                         command: () => notif.close(),
                     });
 
@@ -90,6 +66,7 @@ const NotificationList = Box({
 
                 const NewNotif = Notification({
                     notif,
+                    slideIn: 'Right',
                     command: () => notif.close(),
                 });
 
@@ -103,23 +80,17 @@ const NotificationList = Box({
         [Notifications, (box, id) => {
             for (const ch of box.children) {
                 if (ch._id == id) {
-                    ch.child.setStyle(ch.child._slideRight);
-                    ch.sensitive = false;
-                    timeout(500, () => box.remove(ch));
+                    ch.slideAway('Right');
                     return;
                 }
             }
         }, 'closed'],
-
-        [Notifications, box => box.visible = Notifications.notifications.length > 0],
     ],
 });
 
 const Placeholder = () => Revealer({
     transition: 'crossfade',
-    connections: [[Notifications, box => {
-        box.revealChild = Notifications.notifications.length === 0;
-    }]],
+    binds: [['revealChild', HasNotifs, 'value', value => !value]],
     child: Box({
         className: 'placeholder',
         vertical: true,
@@ -149,7 +120,7 @@ const NotificationCenterWidget = () => Box({
                         className: 'notification-list',
                         vertical: true,
                         children: [
-                            NotificationList,
+                            NotificationList(),
                             Placeholder(),
                         ],
                     }),

@@ -1,6 +1,8 @@
 import Applications from 'resource:///com/github/Aylur/ags/service/applications.js';
+import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
+import Variable     from 'resource:///com/github/Aylur/ags/variable.js';
 import { Box, Icon, Label, Button } from 'resource:///com/github/Aylur/ags/widget.js';
-import { lookUpIcon, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
+import { lookUpIcon, execAsync, timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import GLib from 'gi://GLib';
 
@@ -87,10 +89,20 @@ const NotificationIcon = notif => {
     });
 };
 
-export default ({
+// Make a variable to connect to for Widgets
+// to know when there are notifs or not
+export const HasNotifs = Variable(false);
+
+export const Notification = ({
     notif,
+    slideIn = 'Left',
     command = () => {},
 } = {}) => {
+    if (!notif)
+        return;
+
+    HasNotifs.value = Notifications.notifications.length > 0;
+
     const BlockedApps = [
         'Spotify',
     ];
@@ -100,9 +112,11 @@ export default ({
         return;
     }
 
-    return Gesture({
+    // Init notif
+    const notifWidget = Gesture({
         maxOffset: 200,
         command: () => command(),
+        slideIn,
         properties: [
             ['hovered', false],
             ['id', notif.id],
@@ -115,77 +129,93 @@ export default ({
             if (w._hovered)
                 w._hovered = false;
         },
-
-        child: Box({
-            className: `notification ${notif.urgency}`,
-            vexpand: false,
-            // Notification
-            child: Box({
-                vertical: true,
-                children: [
-                    // Content
-                    Box({
-                        children: [
-                            NotificationIcon(notif),
-                            Box({
-                                hexpand: true,
-                                vertical: true,
-                                children: [
-                                    // Top of Content
-                                    Box({
-                                        children: [
-                                            Label({
-                                                className: 'title',
-                                                xalign: 0,
-                                                justification: 'left',
-                                                hexpand: true,
-                                                maxWidthChars: 24,
-                                                truncate: 'end',
-                                                wrap: true,
-                                                label: notif.summary,
-                                                useMarkup: notif.summary.startsWith('<'),
-                                            }),
-                                            Label({
-                                                className: 'time',
-                                                valign: 'start',
-                                                label: setTime(notif.time),
-                                            }),
-                                            EventBox({
-                                                reset: false,
-                                                child: Button({
-                                                    className: 'close-button',
-                                                    valign: 'start',
-                                                    onClicked: () => notif.close(),
-                                                    child: Icon('window-close-symbolic'),
-                                                }),
-                                            }),
-                                        ],
-                                    }),
-                                    Label({
-                                        className: 'description',
-                                        hexpand: true,
-                                        useMarkup: true,
-                                        xalign: 0,
-                                        justification: 'left',
-                                        label: notif.body,
-                                        wrap: true,
-                                    }),
-                                ],
-                            }),
-                        ],
-                    }),
-                    // Actions
-                    Box({
-                        className: 'actions',
-                        children: notif.actions.map(action => Button({
-                            className: 'action-button',
-                            onClicked: () => notif.invoke(action.id),
-                            hexpand: true,
-                            child: Label(action.label),
-                        })),
-                    }),
-                ],
-            }),
-        }),
     });
+
+    // Notif methods
+    notifWidget.slideAway = side => {
+        notifWidget.child.setStyle(notifWidget.child[`_slide${side}`]);
+        notifWidget.sensitive = false;
+        timeout(400, () => {
+            notifWidget.child.setStyle(notifWidget.child[`_squeeze${side}`]);
+            timeout(500, () => {
+                HasNotifs.value = Notifications.notifications.length > 0;
+                notifWidget.get_parent().remove(notifWidget);
+                notifWidget.destroy();
+            });
+        });
+    };
+
+    // Add body to notif
+    notifWidget.child.add(Box({
+        className: `notification ${notif.urgency}`,
+        vexpand: false,
+        // Notification
+        child: Box({
+            vertical: true,
+            children: [
+                // Content
+                Box({
+                    children: [
+                        NotificationIcon(notif),
+                        Box({
+                            hexpand: true,
+                            vertical: true,
+                            children: [
+                                // Top of Content
+                                Box({
+                                    children: [
+                                        Label({
+                                            className: 'title',
+                                            xalign: 0,
+                                            justification: 'left',
+                                            hexpand: true,
+                                            maxWidthChars: 24,
+                                            truncate: 'end',
+                                            wrap: true,
+                                            label: notif.summary,
+                                            useMarkup: notif.summary.startsWith('<'),
+                                        }),
+                                        Label({
+                                            className: 'time',
+                                            valign: 'start',
+                                            label: setTime(notif.time),
+                                        }),
+                                        EventBox({
+                                            reset: false,
+                                            child: Button({
+                                                className: 'close-button',
+                                                valign: 'start',
+                                                onClicked: () => notif.close(),
+                                                child: Icon('window-close-symbolic'),
+                                            }),
+                                        }),
+                                    ],
+                                }),
+                                Label({
+                                    className: 'description',
+                                    hexpand: true,
+                                    useMarkup: true,
+                                    xalign: 0,
+                                    justification: 'left',
+                                    label: notif.body,
+                                    wrap: true,
+                                }),
+                            ],
+                        }),
+                    ],
+                }),
+                // Actions
+                Box({
+                    className: 'actions',
+                    children: notif.actions.map(action => Button({
+                        className: 'action-button',
+                        onClicked: () => notif.invoke(action.id),
+                        hexpand: true,
+                        child: Label(action.label),
+                    })),
+                }),
+            ],
+        }),
+    }));
+    return notifWidget;
 };

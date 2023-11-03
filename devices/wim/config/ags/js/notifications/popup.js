@@ -1,13 +1,12 @@
 import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
-import { Box, Revealer, Window } from 'resource:///com/github/Aylur/ags/widget.js';
-import { interval, timeout } from 'resource:///com/github/Aylur/ags/utils.js';
+import { Box, Window } from 'resource:///com/github/Aylur/ags/widget.js';
+import { interval } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import GLib from 'gi://GLib';
 
-import Notification from './base.js';
+import { Notification } from './base.js';
 
 
-// TODO: clean up code
 const Popups = () => Box({
     vertical: true,
     properties: [
@@ -21,6 +20,7 @@ const Popups = () => Box({
                 });
 
                 if (NewNotif) {
+                    // use this instead of add to put it at the top
                     box.pack_end(NewNotif, false, false, 0);
                     box.show_all();
                 }
@@ -30,28 +30,21 @@ const Popups = () => Box({
         ['dismiss', (box, id, force = false) => {
             for (const ch of box.children) {
                 if (ch._id == id) {
+                    // If notif isn't hovered or was closed, slide away
                     if (!ch._hovered || force) {
-                        ch.child.setStyle(ch.child._slideLeft);
-                        ch.sensitive = false;
-                        timeout(400, () => {
-                            ch.child.setStyle(ch.child._squeezeLeft);
-                            timeout(500, () => box.remove(ch));
-                        });
+                        ch.slideAway('Left');
                         return;
                     }
+
+                    // If notif is hovered, delay close
                     else if (ch._hovered) {
                         ch.interval = interval(2000, () => {
-                            if (!ch._hovered) {
-                                if (ch.interval) {
-                                    ch.child.setStyle(ch.child._slideLeft);
-                                    ch.sensitive = false;
-                                    timeout(400, () => {
-                                        ch.child.setStyle(ch.child._squeezeLeft);
-                                        timeout(500, () => box.remove(ch));
-                                    });
-                                    GLib.source_remove(ch.interval);
-                                    ch.interval = undefined;
-                                }
+                            if (!ch._hovered && ch.interval) {
+                                ch.slideAway('Left');
+
+                                GLib.source_remove(ch.interval);
+                                ch.interval = undefined;
+                                return;
                             }
                         });
                     }
@@ -66,22 +59,13 @@ const Popups = () => Box({
     ],
 });
 
-const PopupList = ({ transition = 'none' } = {}) => Box({
-    className: 'notifications-popup-list',
-    style: 'padding: 1px',
-    children: [
-        Revealer({
-            transition,
-            connections: [[Notifications, self => {
-                self.revealChild = self.child.children.length > 0;
-            }]],
-            child: Popups(),
-        }),
-    ],
-});
-
 export default () => Window({
     name: 'notifications',
     anchor: ['top', 'left'],
-    child: PopupList(),
+    child: Box({
+        style: `min-height:1px;
+                min-width:1px;
+                padding: 1px;`,
+        children: [Popups()],
+    }),
 });

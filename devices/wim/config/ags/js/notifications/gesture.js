@@ -7,6 +7,7 @@ const display = Gdk.Display.get_default();
 
 
 export default ({
+    slideIn = 'Left',
     maxOffset = 150,
     startMargin = 0,
     endMargin = 300,
@@ -87,6 +88,7 @@ export default ({
                     `);
                 }
 
+                // Put a threshold on if a click is actually dragging
                 self.get_parent()._dragging = Math.abs(offset) > 10;
 
                 if (widget.window)
@@ -94,9 +96,9 @@ export default ({
             }, 'drag-update'],
 
             [gesture, self => {
-                // ?
+                // Make it slide in on init
                 if (!self._ready) {
-                    self.setStyle(slideLeft);
+                    self.setStyle(slideIn === 'Left' ? slideLeft : slideRight);
 
                     timeout(500, () => self.setStyle(`${TRANSITION} margin: unset; opacity: 1;`));
                     timeout(1000, () => self._ready = true);
