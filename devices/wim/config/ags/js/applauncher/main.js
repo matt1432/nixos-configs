@@ -23,7 +23,7 @@ const AppItem = (app, window) => {
         className: 'app',
         connections: [['clicked', () => {
             App.closeWindow(window);
-            execAsync(['hyprctl', 'dispatch', 'exec', app.executable.split(' ')[0]]);
+            execAsync(['hyprctl', 'dispatch', 'exec', `sh -c ${app.executable}`]);
             // TODO: focus on new client. Is this only needed after launch?
             ++app.frequency;
         }]],
