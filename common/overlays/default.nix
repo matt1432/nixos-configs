@@ -7,7 +7,6 @@
   nixpkgs.overlays = [
     (import ./swayosd.nix)
     (import ./blueberry.nix)
-    (import ./vencord.nix)
 
     (final: prev: {
       spotifywm = final.callPackage ./pkgs/spotifywm.nix {};
