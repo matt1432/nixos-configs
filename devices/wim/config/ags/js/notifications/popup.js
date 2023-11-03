@@ -7,61 +7,56 @@ import GLib from 'gi://GLib';
 import Notification from './base.js';
 
 
-// FIXME: slide away when notif is seen
+// TODO: clean up code
 const Popups = () => Box({
     vertical: true,
     properties: [
-        ['map', new Map()],
+        ['notify', (box, id) => {
+            if (id) {
+                const notif = Notifications.getNotification(id);
 
-        ['dismiss', (box, id, force = false) => {
-            if (!id || !box._map.has(id) || box._map.get(id)._hovered && !force)
-                return;
+                const NewNotif = Notification({
+                    notif,
+                    command: () => notif.dismiss(),
+                });
 
-            if (box._map.size - 1 === 0)
-                box.get_parent().reveal_child = false;
-
-            timeout(200, () => {
-                const notif = box._map.get(id);
-                if (notif.interval) {
-                    GLib.source_remove(notif.interval);
-                    notif.interval = undefined;
+                if (NewNotif) {
+                    box.pack_end(NewNotif, false, false, 0);
+                    box.show_all();
                 }
-            });
+            }
         }],
 
-        ['notify', (box, id) => {
-            if (!id || Notifications.dnd)
-                return;
-
-            if (! Notifications.getNotification(id))
-                return;
-
-            box._map.delete(id);
-
-            const notif = Notifications.getNotification(id);
-            box._map.set(id, Notification({
-                notif,
-                command: () => notif.dismiss(),
-            }));
-
-            box.children = Array.from(box._map.values()).reverse();
-
-            timeout(10, () => {
-                box.get_parent().revealChild = true;
-            });
-
-            box._map.get(id).interval = interval(4500, () => {
-                const notif = box._map.get(id);
-                if (!notif._hovered) {
-                    notif.child.setStyle(notif.child._slideLeft);
-
-                    if (notif.interval) {
-                        timeout(500, () => notif.destroy());
-                        GLib.source_remove(notif.interval);
-                        notif.interval = undefined;
+        ['dismiss', (box, id, force = false) => {
+            for (const ch of box.children) {
+                if (ch._id == id) {
+                    if (!ch._hovered || force) {
+                        ch.child.setStyle(ch.child._slideLeft);
+                        ch.sensitive = false;
+                        timeout(400, () => {
+                            ch.child.setStyle(ch.child._squeezeLeft);
+                            timeout(500, () => box.remove(ch));
+                        });
+                        return;
+                    }
+                    else if (ch._hovered) {
+                        ch.interval = interval(2000, () => {
+                            if (!ch._hovered) {
+                                if (ch.interval) {
+                                    ch.child.setStyle(ch.child._slideLeft);
+                                    ch.sensitive = false;
+                                    timeout(400, () => {
+                                        ch.child.setStyle(ch.child._squeezeLeft);
+                                        timeout(500, () => box.remove(ch));
+                                    });
+                                    GLib.source_remove(ch.interval);
+                                    ch.interval = undefined;
+                                }
+                            }
+                        });
                     }
                 }
-            });
+            }
         }],
     ],
     connections: [
@@ -77,6 +72,9 @@ const PopupList = ({ transition = 'none' } = {}) => Box({
     children: [
         Revealer({
             transition,
+            connections: [[Notifications, self => {
+                self.revealChild = self.child.children.length > 0;
+            }]],
             child: Popups(),
         }),
     ],

@@ -68,13 +68,22 @@ const Header = () => Box({
 
 const NotificationList = Box({
     vertical: true,
+    valign: 'start',
     vexpand: true,
     connections: [
         [Notifications, (box, id) => {
             if (box.children.length == 0) {
-                box.children = Notifications.notifications
-                    .reverse()
-                    .map(n => Notification({ notif: n, command: () => n.close() }));
+                for (const notif of Notifications.notifications) {
+                    const NewNotif = Notification({
+                        notif,
+                        command: () => notif.close(),
+                    });
+
+                    if (NewNotif) {
+                        box.pack_end(NewNotif, false, false, 0);
+                        box.show_all();
+                    }
+                }
             }
             else if (id) {
                 const notif = Notifications.getNotification(id);
@@ -85,7 +94,7 @@ const NotificationList = Box({
                 });
 
                 if (NewNotif) {
-                    box.add(NewNotif);
+                    box.pack_end(NewNotif, false, false, 0);
                     box.show_all();
                 }
             }
