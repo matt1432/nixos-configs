@@ -11,6 +11,7 @@ const ROTATION_MAPPING = {
 const SCREEN = 'desc:BOE 0x0964';
 
 
+// TODO: Make autorotate reset lisgd
 class Tablet extends Service {
     static {
         Service.register(this, {
@@ -22,11 +23,13 @@ class Tablet extends Service {
             'laptop-mode': ['boolean'],
             'tablet-mode': ['boolean'],
             'mode-toggled': ['boolean'],
+            'osk-toggled': ['boolean'],
         });
     }
 
     tabletMode = false;
     autorotate = undefined;
+    oskState = false;
     blockedInputs = undefined;
     udevClient = GUdev.Client.new(['input']);
 
@@ -36,6 +39,7 @@ class Tablet extends Service {
     constructor() {
         super();
         this.initUdevConnection();
+        this.listenOskState();
     }
 
     blockInputs() {
@@ -155,6 +159,40 @@ class Tablet extends Service {
             this.autorotate = undefined;
             this.emit('autorotate-destroyed', true);
         }
+    }
+
+    listenOskState() {
+        subprocess(
+            ['bash', '-c', 'busctl monitor --user sm.puri.OSK0'],
+            output => {
+                if (output.includes('BOOLEAN')) {
+                    this.oskState = output.match('true|false')[0] === 'true';
+                    this.emit('osk-toggled', this.oskState);
+                }
+            },
+            err => logError(err),
+        );
+    }
+
+    openOsk() {
+        execAsync(['busctl', 'call', '--user',
+            'sm.puri.OSK0', '/sm/puri/OSK0', 'sm.puri.OSK0',
+            'SetVisible', 'b', 'true'])
+            .catch(print);
+    }
+
+    closeOsk() {
+        execAsync(['busctl', 'call', '--user',
+            'sm.puri.OSK0', '/sm/puri/OSK0', 'sm.puri.OSK0',
+            'SetVisible', 'b', 'false'])
+            .catch(print);
+    }
+
+    toggleOsk() {
+        if (this.oskState)
+            this.closeOsk();
+        else
+            this.openOsk();
     }
 }
 
