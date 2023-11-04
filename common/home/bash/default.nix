@@ -127,6 +127,7 @@
 
         tmux  = "tmux -2";
         ls    = "ls -lah --color=auto";
+        tree  = "tree -a -I node_modules";
         cp    = "cp -r";
 
         chore = "(cd ~/.nix; git add flake.lock; git commit -m 'chore: update flake.lock'; git push)";
