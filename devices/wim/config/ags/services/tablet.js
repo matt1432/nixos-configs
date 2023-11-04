@@ -144,7 +144,7 @@ class Tablet extends Service {
 
                     this.devices.forEach(dev => {
                         execAsync(['hyprctl', 'keyword',
-                            `device:"${dev}":transform`, String(orientation)]).catch(print);
+                            `device:${dev}:transform`, String(orientation)]).catch(print);
                     });
                 }
             },
