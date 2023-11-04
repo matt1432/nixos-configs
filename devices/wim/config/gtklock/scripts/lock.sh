@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-$AGS_PATH/tablet-toggle.sh laptop &
+ags -r 'Tablet.setLaptopMode()'
 $LOCK_PATH/blur.sh
 gtklock
