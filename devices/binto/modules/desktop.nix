@@ -19,6 +19,10 @@
     xclip
     flat-remix-icon-theme
     nextcloud-client
+    libreoffice-qt
+    hunspell
+    hunspellDicts.en_CA
+    jellyfin-media-player
     spotifywm
     (pkgs.discord.override {
       withOpenASAR = true;
@@ -27,6 +31,7 @@
 
     # School
     bluej
+    xournalpp
   ];
 
   environment.plasma5.excludePackages = with pkgs.libsForQt5; [
