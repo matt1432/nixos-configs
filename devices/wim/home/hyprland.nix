@@ -40,6 +40,7 @@ in {
       exec-once = [
         "${polkit}/libexec/polkit-kde-authentication-agent-1"
         "${osConfig.programs.kdeconnect.package}/libexec/kdeconnectd"
+        "swww init --no-cache && swww img -t none ${pkgs.dracula-theme}/wallpapers/waves.png"
       ];
 
       source = [ "~/.config/hypr/main.conf" ];
@@ -47,12 +48,7 @@ in {
   };
 
   xdg.configFile = {
-    "hypr/main.conf".source    = symlink "${configDir}/hypr/main.conf";
-
-    "hypr/hyprpaper.conf".text = ''
-      preload = ${pkgs.dracula-theme}/wallpapers/waves.png
-      wallpaper = eDP-1, ${pkgs.dracula-theme}/wallpapers/waves.png
-    '';
+    "hypr/main.conf".source = symlink "${configDir}/hypr/main.conf";
   };
 
   home.packages = with pkgs; [
@@ -73,7 +69,7 @@ in {
 
 
     # Hyprland
-    hyprpaper
+    swww
     swayidle
     lisgd
     swayosd

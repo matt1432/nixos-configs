@@ -10,13 +10,8 @@
 
   css = pkgs.writeText "style.css" ''${builtins.readFile ./style.css}'';
 
-  paperConf = pkgs.writeText "hyprpaper.conf" ''
-    preload = ${pkgs.dracula-theme}/wallpapers/waves.png
-    wallpaper = eDP-1, ${pkgs.dracula-theme}/wallpapers/waves.png
-  '';
-
   hyprConf = pkgs.writeText "greetd-hypr-config" ''
-    exec-once = hyprpaper --config ${paperConf}
+    exec-once = swww init --no-cache && swww img -t none ${pkgs.dracula-theme}/wallpapers/waves.png
 
     ${builtins.readFile ./hyprland.conf}
 
@@ -32,7 +27,7 @@ in {
     packages = with pkgs; [
       dracula-theme
       flat-remix-icon-theme
-      hyprpaper
+      swww
       gtk3
       glib
       squeekboard
