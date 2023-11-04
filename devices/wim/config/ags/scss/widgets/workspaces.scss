@@ -14,13 +14,19 @@
 
 .empty {
   border: 2px solid transparent;
-  transition: border-color 0.25s linear;
+  transition: background-color 0.6s ease-in-out;
 }
 
 .occupied {
   border: 2px solid $bg;
   background: $contrast-bg;
-  transition: border-color 0.25s linear;
+  transition: background-color 0.6s ease-in-out;
+}
+
+.urgent {
+  border: 2px solid $bg;
+  background: red;
+  transition: background-color 0.6s ease-in-out;
 }
 
 .active {

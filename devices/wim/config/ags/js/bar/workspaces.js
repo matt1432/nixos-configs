@@ -19,11 +19,27 @@ const Workspace = ({ i } = {}) =>
             child: Box({
                 valign: 'center',
                 className: 'button',
-                connections: [[Hyprland, self => {
-                    const occupied = Hyprland.getWorkspace(i)?.windows > 0;
-                    self.toggleClassName('occupied', occupied);
-                    self.toggleClassName('empty', !occupied);
-                }]],
+                setup: self => {
+                    self.update = addr => {
+                        const occupied = Hyprland.getWorkspace(i)?.windows > 0;
+                        self.toggleClassName('occupied', occupied);
+                        self.toggleClassName('empty', !occupied);
+
+                        // Deal with urgent windows
+                        if (Hyprland.getClient(addr)?.workspace.id === i)
+                            self.toggleClassName('urgent', true);
+                    };
+                },
+                connections: [
+                    [Hyprland, self => self.update()],
+
+                    // Deal with urgent windows
+                    [Hyprland, (self, addr) => self.update(addr), 'urgent-window'],
+                    [Hyprland.active.workspace, self => {
+                        if (Hyprland.active.workspace.id === i)
+                            self.toggleClassName('urgent', false);
+                    }],
+                ],
             }),
         }),
     });
