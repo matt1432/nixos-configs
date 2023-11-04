@@ -32,7 +32,8 @@
     "no-useless-escape": ["off"]
   },
   "globals": {
-    "ags": "readonly",
+    "Tablet": "readonly",
+    "Pointers": "readonly",
     "ARGV": "readonly",
     "imports": "readonly",
     "print": "readonly",

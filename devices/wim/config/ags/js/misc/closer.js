@@ -1,8 +1,5 @@
 import App from 'resource:///com/github/Aylur/ags/app.js';
 
-// TODO: find a way to not need this?
-import Pointers from '../../services/pointers.js';
-
 
 export default () => {
     Array.from(App.windows)

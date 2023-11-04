@@ -4,6 +4,12 @@ Array.prototype.remove = function (el) { this.splice(this.indexOf(el), 1); };
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
+import Tablet from './services/tablet.js';
+globalThis.Tablet = Tablet;
+
+import Pointers from './services/pointers.js';
+globalThis.Pointers = Pointers;
+
 import closeAll from './js/misc/closer.js';
 globalThis.closeAll = closeAll;
 
