@@ -24,6 +24,7 @@
     hunspellDicts.en_CA
     jellyfin-media-player
     spotifywm
+    prismlauncher-qt5
     (pkgs.discord.override {
       withOpenASAR = true;
       withVencord = true;

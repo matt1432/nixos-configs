@@ -62,6 +62,7 @@ in {
       withOpenASAR = true;
       withVencord = true;
     })
+    prismlauncher-qt5
 
     # Misc CLI
     acpi
