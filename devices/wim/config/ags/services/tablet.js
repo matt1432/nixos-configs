@@ -1,4 +1,5 @@
 import Service from 'resource:///com/github/Aylur/ags/service.js';
+import TouchGestures from './touch-gestures.js';
 import { execAsync, subprocess } from 'resource:///com/github/Aylur/ags/utils.js';
 import GUdev from 'gi://GUdev';
 
@@ -11,7 +12,6 @@ const ROTATION_MAPPING = {
 const SCREEN = 'desc:BOE 0x0964';
 
 
-// TODO: Make autorotate reset lisgd
 class Tablet extends Service {
     static {
         Service.register(this, {
@@ -148,6 +148,11 @@ class Tablet extends Service {
                             `device:${dev}:transform`, String(orientation)])
                             .catch(print);
                     });
+
+                    if (TouchGestures.gestureDaemon) {
+                        TouchGestures.killDaemon();
+                        TouchGestures.startDaemon();
+                    }
                 }
             },
             err => logError(err),
