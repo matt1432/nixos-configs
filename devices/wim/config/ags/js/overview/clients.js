@@ -121,7 +121,7 @@ export function updateClients(box) {
                     ];
 
                     if (newClient[0]) {
-                        toRemove.remove(newClient[0]);
+                        toRemove.removeItem(newClient[0]);
                         fixed.move(...newClient);
                     }
                     else {

@@ -34,7 +34,7 @@ class Tablet extends Service {
     udevClient = GUdev.Client.new(['input']);
 
     get tabletMode() { return this.tabletMode; }
-    get autorotate() { return this.autorotate; }
+    get oskState() { return this.oskState; }
 
     constructor() {
         super();
@@ -140,11 +140,13 @@ class Tablet extends Service {
                     const orientation = ROTATION_MAPPING[output.split(' ').at(-1)];
 
                     execAsync(['hyprctl', 'keyword', 'monitor',
-                        `${SCREEN},transform,${orientation}`]).catch(print);
+                        `${SCREEN},transform,${orientation}`])
+                        .catch(print);
 
                     this.devices.forEach(dev => {
                         execAsync(['hyprctl', 'keyword',
-                            `device:${dev}:transform`, String(orientation)]).catch(print);
+                            `device:${dev}:transform`, String(orientation)])
+                            .catch(print);
                     });
                 }
             },
