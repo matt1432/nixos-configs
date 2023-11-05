@@ -14,7 +14,7 @@
 
   services.device-vars = {
     username = "matt";
-    fontSize = 10.0;
+    fontSize = 12.5;
   };
 
   users.users.matt = {
