@@ -33,6 +33,8 @@ const DISTANCE_VERIF = [
 ];
 
 
+// TODO: add actmode param
+// TODO: support multiple daemons for different thresholds
 class TouchGestures extends Service {
     static {
         Service.register(this, {
