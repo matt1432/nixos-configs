@@ -139,7 +139,7 @@ export const Notification = ({
             notifWidget.child.setStyle(notifWidget.child[`_squeeze${side}`]);
             timeout(500, () => {
                 HasNotifs.value = Notifications.notifications.length > 0;
-                notifWidget.get_parent().removeItem(notifWidget);
+                notifWidget.get_parent().remove(notifWidget);
                 notifWidget.destroy();
             });
         });

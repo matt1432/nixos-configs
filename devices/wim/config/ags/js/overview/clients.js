@@ -1,3 +1,6 @@
+// Has to be a traditional function for 'this' scope
+Array.prototype.removeItem = function (el) { this.splice(this.indexOf(el), 1); };
+
 import App      from 'resource:///com/github/Aylur/ags/app.js';
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 import { Icon, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';

@@ -12,11 +12,6 @@ import Overview      from './js/overview/main.js';
 import AppLauncher   from './js/applauncher/main.js';
 import * as Corners  from './js/screen-corners.js';
 
-// Has to be a traditional function for 'this' scope
-// Keep this here for no errors
-Array.prototype.removeItem = function (el) { this.splice(this.indexOf(el), 1); };
-
-
 const scss = App.configDir + '/scss/main.scss';
 const css  = App.configDir + '/style.css';
 exec(`sassc ${scss} ${css}`);
