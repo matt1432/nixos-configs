@@ -40,7 +40,7 @@ const AppItem = (app, window) => {
                             className: 'title',
                             label: app.name,
                             xalign: 0,
-                            valign: 'center',
+                            vpack: 'center',
                             ellipsize: 3,
                         }),
                         Label({
@@ -49,7 +49,7 @@ const AppItem = (app, window) => {
                             wrap: true,
                             xalign: 0,
                             justification: 'left',
-                            valign: 'center',
+                            vpack: 'center',
                         }),
                     ],
                 }),

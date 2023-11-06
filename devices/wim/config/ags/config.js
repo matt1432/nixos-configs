@@ -4,11 +4,11 @@ import { exec } from 'resource:///com/github/Aylur/ags/utils.js';
 import Setup         from './js/setup.js';
 import Powermenu     from './js/powermenu.js';
 import * as Bar      from './js/bar/main.js';
-import NotifCenter   from './js/notifications/center.js';
-import NotifPopups   from './js/notifications/popup.js';
+//import NotifCenter   from './js/notifications/center.js';
+//import NotifPopups   from './js/notifications/popup.js';
 import Calendar      from './js/date.js';
 import QuickSettings from './js/quick-settings/main.js';
-import Overview      from './js/overview/main.js';
+//import Overview      from './js/overview/main.js';
 import AppLauncher   from './js/applauncher/main.js';
 import * as Corners  from './js/screen-corners.js';
 
@@ -18,6 +18,7 @@ exec(`sassc ${scss} ${css}`);
 Setup();
 
 
+// FIXME: notification and overview stuff are bugged as of this ags commit
 export default {
     style: css,
     notificationPopupTimeout: 5000,
@@ -33,8 +34,8 @@ export default {
     windows: [
         AppLauncher(),
         Calendar(),
-        NotifCenter(),
-        Overview(),
+        //NotifCenter(),
+        //Overview(),
         Powermenu(),
         QuickSettings(),
 
@@ -42,6 +43,6 @@ export default {
         Bar.BgGradient(),
         Corners.Bottomleft(),
         Corners.Bottomright(),
-        NotifPopups(),
+        //NotifPopups(),
     ],
 };

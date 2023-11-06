@@ -36,9 +36,9 @@ export default ({
         // Wrapping the revealer inside a box is needed
         // to allocate some space for it even when not revealed
         child: Box({
-            style: `min-height:1px;
-                    min-width:1px;
-                    padding: 1px;`,
+            css: `min-height:1px;
+                  min-width:1px;
+                  padding: 1px;`,
             child: Revealer({
                 transition,
                 transitionDuration,

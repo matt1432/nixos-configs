@@ -17,7 +17,7 @@ const Workspace = ({ i } = {}) =>
                     .catch(print);
             },
             child: Box({
-                valign: 'center',
+                vpack: 'center',
                 className: 'button',
                 setup: self => {
                     self.update = addr => {
@@ -53,21 +53,24 @@ export default () => {
         if (currentIndex < 0)
             return;
 
-        highlight.setStyle(`margin-left: ${16 + currentIndex * 30}px`);
+        highlight.setCss(`margin-left: ${16 + currentIndex * 30}px`);
     };
     const highlight = Box({
-        valign: 'center',
-        halign: 'start',
+        vpack: 'center',
+        hpack: 'start',
         className: 'button active',
         connections: [[Hyprland.active.workspace, updateHighlight]],
     });
 
     const widget = Overlay({
         setup: self => {
-            self.set_overlay_pass_through(
-                self.get_children()[1],
-                true,
-            );
+            // FIXME: see if we can get rid of this timeout
+            timeout(1, () => {
+                self.set_overlay_pass_through(
+                    self.get_children()[1],
+                    true,
+                );
+            });
         },
         overlays: [highlight],
         child: EventBox({

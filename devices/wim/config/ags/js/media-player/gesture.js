@@ -40,7 +40,7 @@ export default ({
 
                 // Slide right
                 if (offset >= 0) {
-                    playerBox.setStyle(`
+                    playerBox.setCss(`
                         margin-left:   ${offset}px;
                         margin-right: -${offset}px;
                         ${playerBox._bgStyle}
@@ -50,7 +50,7 @@ export default ({
                 // Slide left
                 else {
                     offset = Math.abs(offset);
-                    playerBox.setStyle(`
+                    playerBox.setCss(`
                         margin-left: -${offset}px;
                         margin-right: ${offset}px;
                         ${playerBox._bgStyle}
@@ -75,7 +75,7 @@ export default ({
 
                     // Slide away right
                     if (offset >= 0) {
-                        playerBox.setStyle(`
+                        playerBox.setCss(`
                             ${TRANSITION}
                             margin-left:   ${OFFSCREEN}px;
                             margin-right: -${OFFSCREEN}px;
@@ -85,7 +85,7 @@ export default ({
 
                     // Slide away left
                     else {
-                        playerBox.setStyle(`
+                        playerBox.setCss(`
                             ${TRANSITION}
                             margin-left: -${OFFSCREEN}px;
                             margin-right: ${OFFSCREEN}px;
@@ -96,14 +96,14 @@ export default ({
                         // Put the player in the back after anim
                         overlay.reorder_overlay(playerBox, 0);
                         // Recenter player
-                        playerBox.setStyle(playerBox._bgStyle);
+                        playerBox.setCss(playerBox._bgStyle);
 
                         widget.sensitive = true;
                     });
                 }
                 else {
                     // Recenter with transition for animation
-                    playerBox.setStyle(`${TRANSITION} ${playerBox._bgStyle}`);
+                    playerBox.setCss(`${TRANSITION} ${playerBox._bgStyle}`);
                 }
             }, 'drag-end'],
         ],

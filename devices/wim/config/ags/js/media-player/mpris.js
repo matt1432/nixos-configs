@@ -52,7 +52,7 @@ export const CoverArt = (player, props) => CenterBox({
                     background-size: cover;
                     background-position: center;
                 `;
-                self.setStyle(self._bgStyle);
+                self.setCss(self._bgStyle);
             }
         });
     },
@@ -75,7 +75,7 @@ export const CoverArt = (player, props) => CenterBox({
                 `;
 
                 if (!self.get_parent()._dragging)
-                    self.setStyle(self._bgStyle);
+                    self.setCss(self._bgStyle);
             }).catch(err => {
                 if (err !== '')
                     print(err);
@@ -200,7 +200,7 @@ const PlayerButton = ({ player, items, onClick, prop }) => Button({
 
         if (prop == 'playBackStatus') {
             items.forEach(item => {
-                item[1].setStyle(`
+                item[1].setCss(`
                     background-color: ${player.colors.value.hoverAccent};
                     color: ${player.colors.value.buttonText};
                     min-height: 40px;
@@ -216,7 +216,7 @@ const PlayerButton = ({ player, items, onClick, prop }) => Button({
         self.window.set_cursor(null);
         if (prop == 'playBackStatus') {
             items.forEach(item => {
-                item[1].setStyle(`
+                item[1].setCss(`
                     background-color: ${player.colors.value.buttonAccent};
                     color: ${player.colors.value.buttonText};
                     min-height: 42px;
@@ -238,7 +238,7 @@ const PlayerButton = ({ player, items, onClick, prop }) => Button({
                 if (prop == 'playBackStatus') {
                     if (button._hovered) {
                         items.forEach(item => {
-                            item[1].setStyle(`
+                            item[1].setCss(`
                                 background-color: ${player.colors.value.hoverAccent};
                                 color: ${player.colors.value.buttonText};
                                 min-height: 40px;
@@ -250,7 +250,7 @@ const PlayerButton = ({ player, items, onClick, prop }) => Button({
                     }
                     else {
                         items.forEach(item => {
-                            item[1].setStyle(`
+                            item[1].setCss(`
                                 background-color: ${player.colors.value.buttonAccent};
                                 color: ${player.colors.value.buttonText};
                                 min-height: 42px;

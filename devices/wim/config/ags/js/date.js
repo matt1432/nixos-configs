@@ -1,6 +1,5 @@
-import { Widget, Box, Label } from 'resource:///com/github/Aylur/ags/widget.js';
+import { Box, Calendar, Label } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import Gtk  from 'gi://Gtk';
 import GLib from 'gi://GLib';
 const { DateTime } = GLib;
 
@@ -19,8 +18,8 @@ const Time = () => Box({
 
         Box({
             className: 'time-container',
-            halign: 'center',
-            valign: 'center',
+            hpack: 'center',
+            vpack: 'center',
             children: [
 
                 Label({
@@ -46,9 +45,9 @@ const Time = () => Box({
 
         Box({
             className: 'date-container',
-            halign: 'center',
+            hpack: 'center',
             child: Label({
-                style: 'font-size: 20px',
+                css: 'font-size: 20px',
                 label: 'complete date',
                 connections: [[1000, self => {
                     var time = DateTime.new_now_local();
@@ -64,8 +63,7 @@ const Time = () => Box({
 
 const CalendarWidget = () => Box({
     className: 'cal-box',
-    child: Widget({
-        type: Gtk.Calendar,
+    child: Calendar({
         showDayNames: true,
         showHeading: true,
         className: 'cal',
@@ -74,7 +72,7 @@ const CalendarWidget = () => Box({
 
 export default () => PopupWindow({
     anchor: ['top', 'right'],
-    margin: [6, 182, 0, 0],
+    margins: [6, 182, 0, 0],
     name: 'calendar',
     child: Box({
         className: 'date',

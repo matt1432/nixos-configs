@@ -36,8 +36,8 @@ const GridButton = ({
 
 const FirstRow = () => Box({
     className: 'button-row',
-    halign: 'center',
-    style: 'margin-top: 15px; margin-bottom: 7px;',
+    hpack: 'center',
+    css: 'margin-top: 15px; margin-bottom: 7px;',
     children: [
 
         GridButton({
@@ -108,7 +108,7 @@ const FirstRow = () => Box({
 });
 
 const SubRow = () => CenterBox({
-    halign: 'start',
+    hpack: 'start',
     children: [
 
         Label({
@@ -154,8 +154,8 @@ const itemsMic = {
 
 const SecondRow = () => Box({
     className: 'button-row',
-    halign: 'center',
-    style: 'margin-top: 7px; margin-bottom: 15px;',
+    hpack: 'center',
+    css: 'margin-top: 7px; margin-bottom: 15px;',
     children: [
 
         GridButton({
@@ -236,7 +236,7 @@ const SecondRow = () => Box({
 export default () => Box({
     className: 'button-grid',
     vertical: true,
-    halign: 'center',
+    hpack: 'center',
     children: [
         FirstRow(),
         SubRow(),

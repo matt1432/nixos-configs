@@ -20,7 +20,7 @@ export const BgGradient = () => Window({
     name: 'bg-gradient',
     layer: 'background',
     anchor: ['top', 'bottom', 'left', 'right'],
-    style: `
+    css: `
         background-image: -gtk-gradient (linear,
                           left top, left bottom,
                           from(rgba(0, 0, 0, 0.5)),
@@ -39,7 +39,7 @@ export const Bar = () => Window({
             vertical: false,
 
             startWidget: Box({
-                halign: 'start',
+                hpack: 'start',
                 children: [
 
                     OskToggle(),
@@ -76,7 +76,7 @@ export const Bar = () => Window({
             }),
 
             endWidget: Box({
-                halign: 'end',
+                hpack: 'end',
                 children: [
                     Battery(),
 

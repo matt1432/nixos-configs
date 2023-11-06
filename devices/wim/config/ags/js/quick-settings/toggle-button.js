@@ -11,7 +11,7 @@ export default () => {
     toggleButton.add(Icon({
         icon: 'go-down-symbolic',
         className: 'arrow',
-        style: '-gtk-icon-transform: rotate(180deg);',
+        css: '-gtk-icon-transform: rotate(180deg);',
     }));
 
     // Setup
@@ -26,12 +26,12 @@ export default () => {
 
         if (toggleButton.get_active()) {
             toggleButton.get_children()[0]
-                .setStyle('-gtk-icon-transform: rotate(0deg);');
+                .setCss('-gtk-icon-transform: rotate(0deg);');
             rev.revealChild = true;
         }
         else {
             toggleButton.get_children()[0]
-                .setStyle('-gtk-icon-transform: rotate(180deg);');
+                .setCss('-gtk-icon-transform: rotate(180deg);');
             rev.revealChild = false;
         }
     });

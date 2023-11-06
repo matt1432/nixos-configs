@@ -5,7 +5,7 @@ import EventBox from '../misc/cursorbox.js';
 
 
 export default () => EventBox({
-    halign: 'center',
+    hpack: 'center',
 
     onPrimaryClickRelease: () => {
         execAsync(['bash', '-c', '$AGS_PATH/heart.sh toggle']).catch(print);

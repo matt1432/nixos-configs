@@ -2,14 +2,14 @@ import { Box } from 'resource:///com/github/Aylur/ags/widget.js';
 
 
 export default (size, { vertical = false } = {}) => {
-    if (vertical)  {
+    if (vertical) {
         return Box({
-            style: `min-height: ${size}px;`,
+            css: `min-height: ${size}px;`,
         });
     }
     else {
         return Box({
-            style: `min-width: ${size}px;`,
+            css: `min-width: ${size}px;`,
         });
     }
 };

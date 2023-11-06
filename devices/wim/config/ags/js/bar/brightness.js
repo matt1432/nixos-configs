@@ -23,7 +23,7 @@ export default () => Overlay({
     }),
     overlays: [
         Box({
-            style: 'color: #CBA6F7;',
+            css: 'color: #CBA6F7;',
             children: [
                 Separator(25),
                 Heart(),

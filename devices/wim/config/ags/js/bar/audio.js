@@ -1,5 +1,6 @@
 import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
 import { Label, Box, Icon } from 'resource:///com/github/Aylur/ags/widget.js';
+import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import Separator from '../misc/separator.js';
 import EventBox  from '../misc/cursorbox.js';
@@ -43,7 +44,7 @@ const SpeakerPercentLabel = props => Label({
 });
 
 export default () => EventBox({
-    onPrimaryClickRelease: 'pavucontrol',
+    onPrimaryClickRelease: () => execAsync(['pavucontrol']).catch(print),
     className: 'toggle-off',
     child: Box({
         className: 'audio',

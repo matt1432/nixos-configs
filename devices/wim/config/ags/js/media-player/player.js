@@ -11,8 +11,8 @@ const FAVE_PLAYER = 'org.mpris.MediaPlayer2.spotify';
 
 const Top = player => Box({
     className: 'top',
-    halign: 'start',
-    valign: 'start',
+    hpack: 'start',
+    vpack: 'start',
     children: [
         mpris.PlayerIcon(player, {
             symbolic: false,
@@ -30,8 +30,8 @@ const Center = player => Box({
                 Box({
                     className: 'metadata',
                     vertical: true,
-                    halign: 'start',
-                    valign: 'center',
+                    hpack: 'start',
+                    vpack: 'center',
                     hexpand: true,
                     children: [
                         mpris.TitleLabel(player),
@@ -59,8 +59,8 @@ const Bottom = player => Box({
     className: 'bottom',
     children: [
         mpris.PreviousButton(player, {
-            valign: 'end',
-            halign: 'start',
+            vpack: 'end',
+            hpack: 'start',
         }),
         Separator(8),
 

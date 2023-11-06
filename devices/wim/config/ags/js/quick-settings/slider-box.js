@@ -14,13 +14,13 @@ const items = {
 export default () => Box({
     className: 'slider-box',
     vertical: true,
-    halign: 'center',
+    hpack: 'center',
     children: [
 
         Box({
             className: 'slider',
-            valign: 'start',
-            halign: 'center',
+            vpack: 'start',
+            hpack: 'center',
             children: [
                 Icon({
                     size: 26,
@@ -55,8 +55,8 @@ export default () => Box({
 
         Box({
             className: 'slider',
-            valign: 'start',
-            halign: 'center',
+            vpack: 'start',
+            hpack: 'center',
             children: [
                 Icon({
                     className: 'slider-label',

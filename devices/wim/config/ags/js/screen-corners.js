@@ -1,18 +1,19 @@
-import { Widget } from 'resource:///com/github/Aylur/ags/widget.js';
+import { Box, DrawingArea, Window } from 'resource:///com/github/Aylur/ags/widget.js';
 import Gtk from 'gi://Gtk';
 const Lang = imports.lang;
 
-export const RoundedCorner = (place, props) => Widget.Box({
-    halign: place.includes('left') ? 'start' : 'end',
-    valign: place.includes('top')  ? 'start' : 'end',
-    style: `padding: 1px; margin:
-        ${place.includes('top')    ? '-1px' : '0'}
-        ${place.includes('right')  ? '-1px' : '0'}
-        ${place.includes('bottom') ? '-1px' : '0'}
-        ${place.includes('left')   ? '-1px' : '0'};`,
-    child: Widget({
+export const RoundedCorner = (place, props) => Box({
+    hpack: place.includes('left') ? 'start' : 'end',
+    vpack: place.includes('top')  ? 'start' : 'end',
+    css: `
+        padding: 1px; margin:
+            ${place.includes('top')    ? '-1px' : '0'}
+            ${place.includes('right')  ? '-1px' : '0'}
+            ${place.includes('bottom') ? '-1px' : '0'}
+            ${place.includes('left')   ? '-1px' : '0'};
+        `,
+    child: DrawingArea({
         ...props,
-        type: Gtk.DrawingArea,
         setup: widget => {
             const r = widget.get_style_context()
                 .get_property('border-radius', Gtk.StateFlags.NORMAL);
@@ -69,7 +70,7 @@ export const RoundedCorner = (place, props) => Widget.Box({
     }),
 });
 
-export const Topleft = () => Widget.Window({
+export const Topleft = () => Window({
     name: 'cornertl',
     layer: 'overlay',
     anchor: ['top', 'left'],
@@ -77,7 +78,7 @@ export const Topleft = () => Widget.Window({
     visible: true,
     child: RoundedCorner('topleft', { className: 'corner' }),
 });
-export const Topright = () => Widget.Window({
+export const Topright = () => Window({
     name: 'cornertr',
     layer: 'overlay',
     anchor: ['top', 'right'],
@@ -85,7 +86,7 @@ export const Topright = () => Widget.Window({
     visible: true,
     child: RoundedCorner('topright', { className: 'corner' }),
 });
-export const Bottomleft = () => Widget.Window({
+export const Bottomleft = () => Window({
     name: 'cornerbl',
     layer: 'overlay',
     anchor: ['bottom', 'left'],
@@ -93,7 +94,7 @@ export const Bottomleft = () => Widget.Window({
     visible: true,
     child: RoundedCorner('bottomleft', { className: 'corner' }),
 });
-export const Bottomright = () => Widget.Window({
+export const Bottomright = () => Window({
     name: 'cornerbr',
     layer: 'overlay',
     anchor: ['bottom', 'right'],

@@ -20,8 +20,8 @@ const QuickSettingsWidget = () => Box({
                 Label({
                     label: 'Control Center',
                     className: 'title',
-                    halign: 'start',
-                    style: 'margin-left: 20px',
+                    hpack: 'start',
+                    css: 'margin-left: 20px',
                 }),
 
                 ButtonGrid(),
@@ -44,6 +44,6 @@ const QuickSettingsWidget = () => Box({
 export default () => PopupWindow({
     name: 'quick-settings',
     anchor: ['top', 'right'],
-    margin: [6, 5, 0],
+    margins: [6, 5, 0],
     child: QuickSettingsWidget(),
 });

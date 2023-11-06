@@ -1,4 +1,5 @@
 import { CenterBox, Label } from 'resource:///com/github/Aylur/ags/widget.js';
+import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import PopupWindow from './misc/popup.js';
 import Button      from './misc/cursorbox.js';
@@ -9,9 +10,9 @@ const PowermenuWidget = () => CenterBox({
     vertical: false,
 
     startWidget: Button({
-        type: 'Button',
+        isButton: true,
         className: 'shutdown',
-        onPrimaryClickRelease: 'systemctl poweroff',
+        onPrimaryClickRelease: () => execAsync(['systemctl', 'poweroff']).catch(print),
 
         child: Label({
             label: '襤',
@@ -19,9 +20,9 @@ const PowermenuWidget = () => CenterBox({
     }),
 
     centerWidget: Button({
-        type: 'Button',
+        isButton: true,
         className: 'reboot',
-        onPrimaryClickRelease: 'systemctl reboot',
+        onPrimaryClickRelease: () => execAsync(['systemctl', 'reboot']).catch(print),
 
         child: Label({
             label: '勒',
@@ -29,9 +30,9 @@ const PowermenuWidget = () => CenterBox({
     }),
 
     endWidget: Button({
-        type: 'Button',
+        isButton: true,
         className: 'logout',
-        onPrimaryClickRelease: 'hyprctl dispatch exit',
+        onPrimaryClickRelease: () => execAsync(['hyprctl', 'dispatch', 'exit']).catch(print),
 
         child: Label({
             label: '',

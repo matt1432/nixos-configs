@@ -5,11 +5,11 @@ const display = Gdk.Display.get_default();
 
 
 export default ({
-    type = 'EventBox',
+    isButton = false,
     reset = true,
     ...props
 }) => {
-    if (type === 'EventBox') {
+    if (!isButton) {
         return Widget.EventBox({
             ...props,
             onHover: self => {

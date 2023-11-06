@@ -27,7 +27,7 @@ export default props => Overlay({
     ],
 
     child: Box({
-        style: 'min-height: 1px',
+        css: 'min-height: 1px',
         hexpand: true,
         vertical: true,
         children: [
@@ -38,7 +38,7 @@ export default props => Overlay({
                 properties: [['timeouts', []]],
                 connections: [[Revealed, self => {
                     const Bar = App.getWindow('bar');
-                    Bar.setStyle(Revealed.value ? '' : wStyle);
+                    Bar.setCss(Revealed.value ? '' : wStyle);
 
                     const BgGradient = App.getWindow('bg-gradient');
                     BgGradient.visible = !Revealed.value;
@@ -90,7 +90,7 @@ export default props => Overlay({
                         self.get_parent().revealChild = false;
                     },
                     child: Box({
-                        style: 'min-height: 50px;',
+                        css: 'min-height: 50px;',
                     }),
                 }),
             }),

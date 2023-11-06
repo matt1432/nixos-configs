@@ -9,7 +9,7 @@ export default () => Box({
     children: [
         Icon({
             icon: 'input-keyboard-symbolic',
-            style: 'margin-right: 4px;',
+            css: 'margin-right: 4px;',
         }),
         Label({
             connections: [[Hyprland, (self, _n, layout) => {
