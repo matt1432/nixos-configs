@@ -14,8 +14,6 @@ export default () => EventBox({
     child: Box({
         className: 'quick-settings-toggle',
         vertical: false,
-        child: Label({
-            label: '  ',
-        }),
+        child: Label('  '),
     }),
 });

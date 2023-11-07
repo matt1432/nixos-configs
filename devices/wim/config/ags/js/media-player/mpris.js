@@ -162,10 +162,8 @@ export const PositionSlider = (player, props) => EventBox({
                     .new_from_name(display, 'grabbing'));
             }
             else {
-                if (slider.get_parent() && slider.get_parent().window) {
-                    slider.get_parent().window.set_cursor(Gdk.Cursor
-                        .new_from_name(display, 'pointer'));
-                }
+                slider.get_parent()?.window?.set_cursor(Gdk.Cursor
+                    .new_from_name(display, 'pointer'));
 
                 slider.visible = player.length > 0;
                 if (player.length > 0)

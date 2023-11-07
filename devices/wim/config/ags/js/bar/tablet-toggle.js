@@ -14,8 +14,6 @@ export default () => EventBox({
     child: Box({
         className: 'tablet-toggle',
         vertical: false,
-        children: [Label({
-            label: ' 󰦧 ',
-        })],
+        children: [Label(' 󰦧 ')],
     }),
 });

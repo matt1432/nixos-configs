@@ -56,7 +56,7 @@ export default () => PopupWindow({
     anchor: ['top', 'left'],
     visible: true,
     transition: 'none',
-    closeOnUnfocus: 'none',
+    closeOnUnfocus: 'stay',
     child: Box({
         vertical: true,
         connections: [

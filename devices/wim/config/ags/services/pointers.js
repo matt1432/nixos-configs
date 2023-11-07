@@ -123,8 +123,9 @@ class Pointers extends Service {
     initAppConnection() {
         App.connect('window-toggled', () => {
             const anyVisibleAndClosable = Array.from(App.windows).some(w => {
-                const closable = (w[1].closeOnUnfocus &&
-                                  w[1].closeOnUnfocus !== 'none');
+                const closable = w[1].closeOnUnfocus &&
+                                !(w[1].closeOnUnfocus === 'none' ||
+                                    w[1].closeOnUnfocus === 'stay');
 
                 return w[1].visible && closable;
             });

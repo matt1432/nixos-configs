@@ -13,7 +13,7 @@ export default ({
     connections,
     props,
 } = {}) => {
-    const widget = EventBox({});
+    const widget = EventBox();
     const gesture = Gtk.GestureDrag.new(widget);
 
     widget.add(Overlay({
