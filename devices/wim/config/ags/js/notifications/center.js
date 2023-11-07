@@ -22,27 +22,19 @@ const addNotif = (box, notif) => {
     }
 };
 
-// FIXME: first notif never works
 const NotificationList = () => Box({
     vertical: true,
     vexpand: true,
     vpack: 'start',
     binds: [['visible', HasNotifs]],
-    setup: box => {
-        // Get cached notifications
-        const id = Notifications.connect('changed', () => {
-            Notifications.notifications.forEach(notif => {
-                addNotif(box, notif);
-            });
-            Notifications.disconnect(id);
-        });
-    },
     connections: [
         [Notifications, (box, id) => {
-            if (!id)
-                return;
+            // Handle cached notifs
+            if (box.children.length == 0)
+                Notifications.notifications.forEach(n => addNotif(box, n));
 
-            addNotif(box, Notifications.getNotification(id));
+            else if (id)
+                addNotif(box, Notifications.getNotification(id));
         }, 'notified'],
 
         [Notifications, (box, id) => {
