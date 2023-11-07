@@ -1,6 +1,3 @@
-// Has to be a traditional function for 'this' scope
-Array.prototype.removeItem = function (el) { this.splice(this.indexOf(el), 1); };
-
 import App      from 'resource:///com/github/Aylur/ags/app.js';
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 import { Icon, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
@@ -19,7 +16,6 @@ const getFontSize = client => {
 };
 
 const IconStyle = client => `
-    transition: font-size 0.2s linear;
     min-width:  ${scale(client.size[0])}px;
     min-height: ${scale(client.size[1])}px;
     font-size:  ${getFontSize(client)}px;
@@ -82,8 +78,9 @@ const Client = (client, active, clients) => {
 
             child: Icon({
                 className: `window ${active}`,
-                style: IconStyle(client) + 'font-size: 10px;',
+                css: IconStyle(client) + 'font-size: 10px;',
                 icon: client.class,
+                size: 1,
             }),
         }),
     });
@@ -102,7 +99,6 @@ export function updateClients(box) {
                     let active = '';
                     if (client.address == Hyprland.active.client.address)
                         active = 'active';
-
 
                     // TODO: fix multi monitor issue. this is just a temp fix
                     client.at[1] -= 2920;
@@ -123,19 +119,19 @@ export function updateClients(box) {
                         client.at[1] * VARS.SCALE,
                     ];
 
-                    if (newClient[0]) {
-                        toRemove.removeItem(newClient[0]);
-                        fixed.move(...newClient);
-                    }
-                    else {
+                    if (!newClient[0]) {
                         newClient[0] = Client(client, active, clients);
                         fixed.put(...newClient);
+                    }
+                    else {
+                        toRemove.splice(toRemove.indexOf(newClient[0]), 1);
+                        fixed.move(...newClient);
                     }
 
                     // Set a timeout here to have an animation when the icon first appears
                     timeout(1, () => {
                         newClient[0].child.child.className = `window ${active}`;
-                        newClient[0].child.child.style = IconStyle(client);
+                        newClient[0].child.child.setCss(IconStyle(client));
                     });
                 });
 

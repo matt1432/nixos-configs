@@ -8,7 +8,7 @@ import NotifCenter   from './js/notifications/center.js';
 import NotifPopups   from './js/notifications/popup.js';
 import Calendar      from './js/date.js';
 import QuickSettings from './js/quick-settings/main.js';
-//import Overview      from './js/overview/main.js';
+import Overview      from './js/overview/main.js';
 import AppLauncher   from './js/applauncher/main.js';
 import * as Corners  from './js/screen-corners.js';
 
@@ -34,7 +34,7 @@ export default {
         AppLauncher(),
         Calendar(),
         NotifCenter(),
-        //Overview(),
+        Overview(),
         Powermenu(),
         QuickSettings(),
 

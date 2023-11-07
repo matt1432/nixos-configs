@@ -52,7 +52,7 @@ export const WorkspaceDrop = props => EventBox({
 });
 
 export const WindowButton = ({ address, ...props } = {}) => Button({
-    type: 'Button',
+    isButton: true,
     ...props,
     setup: self => {
         self.drag_source_set(Gdk.ModifierType.BUTTON1_MASK, TARGET, Gdk.DragAction.COPY);

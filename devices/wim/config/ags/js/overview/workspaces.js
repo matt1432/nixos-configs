@@ -1,7 +1,5 @@
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
-import { Revealer, CenterBox, Box, EventBox, Label } from 'resource:///com/github/Aylur/ags/widget.js';
-
-import Gtk  from 'gi://Gtk';
+import { Revealer, CenterBox, Box, EventBox, Fixed, Label } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import { WorkspaceDrop } from './dragndrop.js';
 import * as VARS from './variables.js';
@@ -24,7 +22,7 @@ export function getWorkspaces(box) {
 
 export const WorkspaceRow = (className, i) => Revealer({
     transition: 'slide_down',
-    halign: className === 'special' ? '' : 'start',
+    hpack: className === 'special' ? '' : 'start',
     connections: [[Hyprland, rev => {
         const minId = i * VARS.WORKSPACE_PER_ROW;
         const activeId = Hyprland.active.workspace.id;
@@ -35,15 +33,11 @@ export const WorkspaceRow = (className, i) => Revealer({
     }]],
     child: CenterBox({
         children: [null, EventBox({
-            // save ref to the 'add' workspace
-            properties: [['box']],
-            setup: eventbox => eventbox._box = eventbox.child.children[0],
-
             connections: [[Hyprland, eventbox => {
                 const maxId = i * VARS.WORKSPACE_PER_ROW + VARS.WORKSPACE_PER_ROW;
                 const activeId = Hyprland.active.workspace.id;
 
-                eventbox._box.revealChild = className === 'special' ||
+                eventbox.child.children[0].revealChild = className === 'special' ||
                                             !Hyprland.workspaces.some(ws => ws.id > maxId &&
                                                 (ws.windows > 0 || ws.id === activeId));
             }]],
@@ -62,16 +56,12 @@ export const WorkspaceRow = (className, i) => Revealer({
 
 const Workspace = (id, name, extra = false) => {
     let workspace;
-    const fixed = Gtk.Fixed.new();
+    const fixed = Fixed();
 
     if (!extra) {
         workspace = Revealer({
             transition: 'slide_right',
             transitionDuration: 500,
-            properties: [
-                ['id', id],
-                ['name', name],
-            ],
             connections: [[Hyprland, box => {
                 const activeId = Hyprland.active.workspace.id;
                 const active = activeId === box._id;
@@ -81,7 +71,7 @@ const Workspace = (id, name, extra = false) => {
             child: WorkspaceDrop({
                 child: Box({
                     className: 'workspace',
-                    style: DEFAULT_STYLE,
+                    css: DEFAULT_STYLE,
                     child: fixed,
                 }),
             }),
@@ -91,19 +81,15 @@ const Workspace = (id, name, extra = false) => {
     else {
         workspace = Revealer({
             transition: 'slide_right',
-            properties: [
-                ['id', id],
-                ['name', name],
-            ],
             child: WorkspaceDrop({
                 child: Box({
-                    style: `min-width:  ${VARS.SCREEN.X * VARS.SCALE / 2}px;
-                            min-height: ${VARS.SCREEN.Y * VARS.SCALE}px;`,
+                    css: `min-width:  ${VARS.SCREEN.X * VARS.SCALE / 2}px;
+                          min-height: ${VARS.SCREEN.Y * VARS.SCALE}px;`,
                     children: [
                         fixed,
                         Label({
                             label: '   +',
-                            style: 'font-size: 40px;',
+                            css: 'font-size: 40px;',
                         }),
                     ],
                 }),
@@ -111,6 +97,8 @@ const Workspace = (id, name, extra = false) => {
         });
     }
 
+    workspace._id = id;
+    workspace._name = name;
     workspace.getFixed = () => fixed;
     return workspace;
 };
@@ -137,10 +125,10 @@ export function updateWorkspaces(box) {
             row.add(Workspace(ws.id, type ? ws.name : ''));
         }
     });
-    box.show_all();
 
     // Make sure the order is correct
     box._workspaces.forEach((workspace, i) => {
         workspace.get_parent().reorder_child(workspace, i);
     });
+    box.show_all();
 }

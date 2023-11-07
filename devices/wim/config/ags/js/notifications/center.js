@@ -22,6 +22,7 @@ const addNotif = (box, notif) => {
     }
 };
 
+// FIXME: first notif never works
 const NotificationList = () => Box({
     vertical: true,
     vexpand: true,

@@ -10,10 +10,10 @@ const DEFAULT_STYLE = `
 
 
 export const Highlighter = () => Box({
-    valign: 'start',
-    halign: 'start',
+    vpack: 'start',
+    hpack: 'start',
     className: 'workspace active',
-    style: DEFAULT_STYLE,
+    css: DEFAULT_STYLE,
 });
 
 export const updateCurrentWorkspace = self => {
@@ -27,7 +27,7 @@ export const updateCurrentWorkspace = self => {
     const height = row * (VARS.SCREEN.Y * VARS.SCALE + 17);
     const currentIndex = workspaces.findIndex(w => w._id == currentId);
 
-    self.setStyle(`
+    self.setCss(`
         ${DEFAULT_STYLE}
         margin-left: ${9 + currentIndex * (VARS.SCREEN.X * VARS.SCALE + 34)}px;
         margin-top: ${9 + height}px;
