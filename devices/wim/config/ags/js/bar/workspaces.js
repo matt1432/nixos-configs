@@ -26,8 +26,13 @@ const Workspace = ({ i } = {}) =>
                         self.toggleClassName('empty', !occupied);
 
                         // Deal with urgent windows
-                        if (Hyprland.getClient(addr)?.workspace.id === i)
+                        if (Hyprland.getClient(addr)?.workspace.id === i) {
                             self.toggleClassName('urgent', true);
+
+                            // Only show for a sec when urgent is current workspace
+                            if (Hyprland.active.workspace.id === i)
+                                timeout(1000, () => self.toggleClassName('urgent', false));
+                        }
                     };
                 },
                 connections: [
@@ -63,15 +68,9 @@ export default () => {
     });
 
     const widget = Overlay({
-        setup: self => {
-            // FIXME: see if we can get rid of this timeout
-            timeout(1, () => {
-                self.set_overlay_pass_through(
-                    self.get_children()[1],
-                    true,
-                );
-            });
-        },
+        // FIXME: see if we can get rid of this timeout
+        setup: self => timeout(1, () => self.pass_through = true),
+
         overlays: [highlight],
         child: EventBox({
             child: Box({

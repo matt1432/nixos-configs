@@ -24,15 +24,9 @@ export default () => PopupWindow({
     onOpen: child => update(child.child),
 
     child: Overlay({
-        setup: self => {
-            // FIXME: see if we can get rid of this timeout
-            timeout(1, () => {
-                self.set_overlay_pass_through(
-                    self.get_children()[1],
-                    true,
-                );
-            });
-        },
+        // FIXME: see if we can get rid of this timeout
+        setup: self => timeout(1, () => self.pass_through = true),
+
         overlays: [Highlighter()],
         child: Box({
             className: 'overview',
