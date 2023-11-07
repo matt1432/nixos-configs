@@ -4,6 +4,8 @@ import { Icon } from 'resource:///com/github/Aylur/ags/widget.js';
 import Gtk from 'gi://Gtk';
 import EventBox from '../misc/cursorbox.js';
 
+
+// TODO: use Widget.ToggleButton instead
 export default () => {
     const widget = EventBox({});
 

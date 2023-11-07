@@ -1,4 +1,4 @@
-import { Widget } from 'resource:///com/github/Aylur/ags/widget.js';
+import { Button, EventBox } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import Gdk from 'gi://Gdk';
 const display = Gdk.Display.get_default();
@@ -10,7 +10,7 @@ export default ({
     ...props
 }) => {
     if (!isButton) {
-        return Widget.EventBox({
+        return EventBox({
             ...props,
             onHover: self => {
                 if (!self.child.sensitive || !self.sensitive)
@@ -26,7 +26,7 @@ export default ({
         });
     }
     else {
-        return Widget.Button({
+        return Button({
             ...props,
             onHover: self => {
                 if (!self.child.sensitive || !self.sensitive)
