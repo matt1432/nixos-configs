@@ -1,4 +1,3 @@
-import App from 'resource:///com/github/Aylur/ags/app.js';
 import { EventBox } from 'resource:///com/github/Aylur/ags/widget.js';
 import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
@@ -51,7 +50,7 @@ export const WorkspaceDrop = props => EventBox({
     },
 });
 
-export const WindowButton = ({ address, ...props } = {}) => Button({
+export const WindowButton = ({ address, mainBox, ...props } = {}) => Button({
     isButton: true,
     ...props,
     setup: self => {
@@ -66,8 +65,7 @@ export const WindowButton = ({ address, ...props } = {}) => Button({
         self.connect('drag-end', () => {
             self.get_parent().destroy();
 
-            const mainBox = App.getWindow('overview').getChild();
-            updateClients(mainBox.child);
+            updateClients(mainBox);
         });
     },
 });

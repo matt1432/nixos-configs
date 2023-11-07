@@ -22,7 +22,7 @@ const IconStyle = client => `
 `;
 
 
-const Client = (client, active, clients) => {
+const Client = (client, active, clients, box) => {
     const wsName = String(client.workspace.name).replace('special:', '');
     const wsId = client.workspace.id;
     const addr = `address:${client.address}`;
@@ -35,6 +35,7 @@ const Client = (client, active, clients) => {
             ['toDestroy', false],
         ],
         child: WindowButton({
+            mainBox: box,
             address: client.address,
             onSecondaryClickRelease: () => {
                 execAsync(`hyprctl dispatch closewindow ${addr}`)
@@ -120,7 +121,7 @@ export function updateClients(box) {
                     ];
 
                     if (!newClient[0]) {
-                        newClient[0] = Client(client, active, clients);
+                        newClient[0] = Client(client, active, clients, box);
                         fixed.put(...newClient);
                     }
                     else {
