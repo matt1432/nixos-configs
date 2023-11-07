@@ -78,6 +78,11 @@ class TouchGestures extends Service {
             return;
         }
 
+        if (typeof command !== 'string') {
+            globalThis[name] = command;
+            command = `ags -r "${name}()"`;
+        }
+
         this.gestures.set(name, [
             '-g',
             `${nFingers},${gesture},${edge},${distance},${command}`,

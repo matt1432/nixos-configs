@@ -1,3 +1,4 @@
+import App from 'resource:///com/github/Aylur/ags/app.js';
 import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import Tablet        from '../services/tablet.js';
@@ -12,6 +13,13 @@ export default () => {
     globalThis.closeAll = closeAll;
 
     execAsync(['bash', '-c', '$AGS_PATH/startup.sh']).catch(print);
+
+    TouchGestures.addGesture({
+        name: 'openAppLauncher',
+        gesture: 'UD',
+        edge: 'T',
+        command: () => App.openWindow('applauncher'),
+    });
 
     TouchGestures.addGesture({
         name: 'oskOn',

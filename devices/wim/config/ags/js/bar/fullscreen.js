@@ -2,11 +2,10 @@ import App         from 'resource:///com/github/Aylur/ags/app.js';
 import Hyprland    from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 import Variable    from 'resource:///com/github/Aylur/ags/variable.js';
 
-import { Widget, Box, EventBox, Overlay } from 'resource:///com/github/Aylur/ags/widget.js';
+import { Box, EventBox, Overlay, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
 import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import { RoundedCorner } from '../screen-corners.js';
-import Gesture           from './gesture.js';
 
 const Revealed = Variable(true);
 const Hovering = Variable(false);
@@ -31,17 +30,14 @@ export default props => Overlay({
         hexpand: true,
         vertical: true,
         children: [
-            Widget.Revealer({
+            Revealer({
                 transition: 'slide_down',
                 setup: self => self.revealChild = true,
 
                 properties: [['timeouts', []]],
                 connections: [[Revealed, self => {
-                    const Bar = App.getWindow('bar');
-                    Bar.setCss(Revealed.value ? '' : wStyle);
-
-                    const BgGradient = App.getWindow('bg-gradient');
-                    BgGradient.visible = !Revealed.value;
+                    App.getWindow('bar').setCss(Revealed.value ? '' : wStyle);
+                    App.getWindow('bg-gradient').visible = !Revealed.value;
 
                     if (Revealed.value) {
                         timeout(2000, () => {
@@ -54,13 +50,14 @@ export default props => Overlay({
                     }
                 }]],
 
-                child: Gesture({
+                child: EventBox({
                     onHover: () => Hovering.value = true,
                     onHoverLost: self => {
                         Hovering.value = false;
                         if (Revealed.value) {
                             timeout(2000, () => {
                                 if (!Hovering.value) {
+                                    // Replace bar with transparent eventbox
                                     self.get_parent().get_parent().children[1].revealChild = true;
                                     self.get_parent().revealChild = false;
                                 }
@@ -71,7 +68,7 @@ export default props => Overlay({
                 }),
             }),
 
-            Widget.Revealer({
+            Revealer({
                 connections: [[Revealed, self => {
                     if (Revealed.value) {
                         timeout(2000, () => {
@@ -86,11 +83,13 @@ export default props => Overlay({
                 child: EventBox({
                     onHover: self => {
                         Hovering.value = true;
+
+                        // Replace eventbox with bar
                         self.get_parent().get_parent().children[0].revealChild = true;
                         self.get_parent().revealChild = false;
                     },
                     child: Box({
-                        css: 'min-height: 50px;',
+                        css: 'min-height: 5px;',
                     }),
                 }),
             }),
