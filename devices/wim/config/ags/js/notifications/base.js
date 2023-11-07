@@ -2,7 +2,7 @@ import Applications from 'resource:///com/github/Aylur/ags/service/applications.
 import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
 import Variable     from 'resource:///com/github/Aylur/ags/variable.js';
 import { Box, Icon, Label, Button } from 'resource:///com/github/Aylur/ags/widget.js';
-import { lookUpIcon, execAsync, timeout } from 'resource:///com/github/Aylur/ags/utils.js';
+import { lookUpIcon, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import GLib from 'gi://GLib';
 
@@ -48,15 +48,17 @@ const NotificationIcon = notif => {
         return EventBox({
             onPrimaryClickRelease: iconCmd,
             child: Box({
-                valign: 'start',
+                vpack: 'start',
                 hexpand: false,
                 className: 'icon img',
-                style: `background-image: url("${notif.image}");
-                        background-size: contain;
-                        background-repeat: no-repeat;
-                        background-position: center;
-                        min-width: 78px;
-                        min-height: 78px;`,
+                css: `
+                    background-image: url("${notif.image}");
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    min-width: 78px;
+                    min-height: 78px;
+                `,
             }),
         });
     }
@@ -73,16 +75,16 @@ const NotificationIcon = notif => {
     return EventBox({
         onPrimaryClickRelease: iconCmd,
         child: Box({
-            valign: 'start',
+            vpack: 'start',
             hexpand: false,
             className: 'icon',
-            style: `min-width: 78px;
-                    min-height: 78px;`,
+            css: `min-width: 78px;
+                  min-height: 78px;`,
             children: [Icon({
                 icon, size: 58,
-                halign: 'center',
+                hpack: 'center',
                 hexpand: true,
-                valign: 'center',
+                vpack: 'center',
                 vexpand: true,
             })],
         }),
@@ -114,36 +116,10 @@ export const Notification = ({
 
     // Init notif
     const notifWidget = Gesture({
-        maxOffset: 200,
-        command: () => command(),
+        command,
         slideIn,
-        properties: [
-            ['hovered', false],
-            ['id', notif.id],
-        ],
-        onHover: w => {
-            if (!w._hovered)
-                w._hovered = true;
-        },
-        onHoverLost: w => {
-            if (w._hovered)
-                w._hovered = false;
-        },
+        id: notif.id,
     });
-
-    // Notif methods
-    notifWidget.slideAway = side => {
-        notifWidget.child.setStyle(notifWidget.child[`_slide${side}`]);
-        notifWidget.sensitive = false;
-        timeout(400, () => {
-            notifWidget.child.setStyle(notifWidget.child[`_squeeze${side}`]);
-            timeout(500, () => {
-                HasNotifs.value = Notifications.notifications.length > 0;
-                notifWidget.get_parent().remove(notifWidget);
-                notifWidget.destroy();
-            });
-        });
-    };
 
     // Add body to notif
     notifWidget.child.add(Box({
@@ -177,14 +153,14 @@ export const Notification = ({
                                         }),
                                         Label({
                                             className: 'time',
-                                            valign: 'start',
+                                            vpack: 'start',
                                             label: setTime(notif.time),
                                         }),
                                         EventBox({
                                             reset: false,
                                             child: Button({
                                                 className: 'close-button',
-                                                valign: 'start',
+                                                vpack: 'start',
                                                 onClicked: () => notif.close(),
                                                 child: Icon('window-close-symbolic'),
                                             }),

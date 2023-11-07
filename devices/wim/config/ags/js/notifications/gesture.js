@@ -1,5 +1,8 @@
+import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
 import { Box, EventBox } from 'resource:///com/github/Aylur/ags/widget.js';
 import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
+
+import { HasNotifs } from './base.js';
 
 import Gtk from 'gi://Gtk';
 import Gdk from 'gi://Gdk';
@@ -7,33 +10,33 @@ const display = Gdk.Display.get_default();
 
 
 export default ({
+    id,
     slideIn = 'Left',
-    maxOffset = 150,
+    maxOffset = 200,
     startMargin = 0,
     endMargin = 300,
     command = () => {},
-    onHover = () => {},
-    onHoverLost = () => {},
-    child = '',
-    children = [],
-    properties = [[]],
     ...props
 }) => {
     const widget = EventBox({
         ...props,
-        properties: [
-            ['dragging', false],
-            ...properties,
-        ],
         onHover: self => {
             self.window.set_cursor(Gdk.Cursor.new_from_name(display, 'grab'));
-            onHover(self);
+            if (!self._hovered)
+                self._hovered = true;
         },
         onHoverLost: self => {
             self.window.set_cursor(null);
-            onHoverLost(self);
+            if (self._hovered)
+                self._hovered = false;
         },
     });
+
+    // Properties
+    widget._dragging = false;
+    widget._hovered = false;
+    widget._id = id;
+    widget.ready = false;
 
     const gesture = Gtk.GestureDrag.new(widget);
 
@@ -48,32 +51,45 @@ export default ({
         margin-right: -${Number(maxOffset + endMargin)}px;
     `;
 
-    const slideLeft    = `${TRANSITION} ${MAX_LEFT} opacity: 0;`;
+    const slideLeft    = `${TRANSITION} ${MAX_LEFT} margin-top: 0px; margin-bottom: 0px; opacity: 0;`;
     const squeezeLeft  = `${TRANSITION} ${MAX_LEFT} ${SQUEEZED} opacity: 0;`;
-    const slideRight   = `${TRANSITION} ${MAX_RIGHT} opacity: 0;`;
+    const slideRight   = `${TRANSITION} ${MAX_RIGHT} margin-top: 0px; margin-bottom: 0px; opacity: 0;`;
     const squeezeRight = `${TRANSITION} ${MAX_RIGHT} ${SQUEEZED} opacity: 0;`;
+    const defaultStyle = `${TRANSITION} margin: unset; opacity: 1;`;
+
+    // Notif methods
+    widget.slideAway = side => {
+        // Slide away
+        widget.child.setCss(side === 'Left' ? slideLeft : slideRight);
+
+        // Makie it uninteractable
+        widget.sensitive = false;
+
+        timeout(400, () => {
+            // Reduce height after sliding away
+            widget.child?.setCss(side === 'Left' ? squeezeLeft : squeezeRight);
+
+            timeout(500, () => {
+                // Kill notif and update HasNotifs after anim is done
+                command();
+                HasNotifs.value = Notifications.notifications.length > 0;
+                widget.get_parent()?.remove(widget);
+            });
+        });
+    };
 
     widget.add(Box({
-        properties: [
-            ['slideLeft',    slideLeft],
-            ['squeezeLeft',  squeezeLeft],
-            ['slideRight',   slideRight],
-            ['squeezeRight', squeezeRight],
-            ['ready', false],
-        ],
-        children: [
-            ...children,
-            child,
-        ],
-        style: squeezeLeft,
+        css: squeezeLeft,
         connections: [
 
+            // When dragging
             [gesture, self => {
                 var offset = gesture.get_offset()[1];
 
                 // Slide right
                 if (offset >= 0) {
-                    self.setStyle(`
+                    self.setCss(`
+                        margin-top: 0px; margin-bottom: 0px; opacity: 1; transition: none;
                         margin-left:   ${Number(offset + startMargin)}px;
                         margin-right: -${Number(offset + startMargin)}px;
                     `);
@@ -82,26 +98,31 @@ export default ({
                 // Slide left
                 else {
                     offset = Math.abs(offset);
-                    self.setStyle(`
+                    self.setCss(`
+                        margin-top: 0px; margin-bottom: 0px; opacity: 1; transition: none;
                         margin-right: ${Number(offset + startMargin)}px;
                         margin-left: -${Number(offset + startMargin)}px;
                     `);
                 }
 
                 // Put a threshold on if a click is actually dragging
-                self.get_parent()._dragging = Math.abs(offset) > 10;
-
-                if (widget.window)
-                    widget.window.set_cursor(Gdk.Cursor.new_from_name(display, 'grabbing'));
+                widget._dragging = Math.abs(offset) > 10;
+                widget.window?.set_cursor(Gdk.Cursor.new_from_name(display, 'grabbing'));
             }, 'drag-update'],
 
+
+            // On drag end
             [gesture, self => {
                 // Make it slide in on init
-                if (!self._ready) {
-                    self.setStyle(slideIn === 'Left' ? slideLeft : slideRight);
+                if (!widget.ready) {
+                    // Reverse of slideAway, so it started at squeeze, then we go to slide
+                    self.setCss(slideIn === 'Left' ? slideLeft : slideRight);
 
-                    timeout(500, () => self.setStyle(`${TRANSITION} margin: unset; opacity: 1;`));
-                    timeout(1000, () => self._ready = true);
+                    timeout(500, () => {
+                        // Then we got to center
+                        self.setCss(defaultStyle);
+                        timeout(500, () => widget.ready = true);
+                    });
                     return;
                 }
 
@@ -109,35 +130,16 @@ export default ({
 
                 // If crosses threshold after letting go, slide away
                 if (Math.abs(offset) > maxOffset) {
-                    // Slide away right
-                    if (offset > 0) {
-                        // Disable inputs during animation
-                        widget.sensitive = false;
-
-                        self.setStyle(slideRight);
-                        timeout(500, () => self.setStyle(squeezeRight));
-                    }
-
-                    // Slide away left
-                    else {
-                        // Disable inputs during animation
-                        widget.sensitive = false;
-
-                        self.setStyle(slideLeft);
-                        timeout(500, () => self.setStyle(squeezeLeft));
-                    }
-
-                    timeout(1000, () => {
-                        command();
-                        self.destroy();
-                    });
+                    if (offset > 0)
+                        widget.slideAway('Right');
+                    else
+                        widget.slideAway('Left');
                 }
                 else {
-                    self.setStyle(`${TRANSITION} margin: unset; opacity: 1;`);
-                    if (widget.window)
-                        widget.window.set_cursor(Gdk.Cursor.new_from_name(display, 'grab'));
+                    self.setCss(defaultStyle);
+                    widget.window?.set_cursor(Gdk.Cursor.new_from_name(display, 'grab'));
 
-                    self.get_parent()._dragging = false;
+                    widget._dragging = false;
                 }
             }, 'drag-end'],
 
