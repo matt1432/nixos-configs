@@ -16,18 +16,17 @@ export const Highlighter = () => Box({
     css: DEFAULT_STYLE,
 });
 
-export const updateCurrentWorkspace = self => {
-    self = self.get_parent().get_children()[1];
+export const updateCurrentWorkspace = (main, highlighter) => {
     const currentId = Hyprland.active.workspace.id;
     const row = Math.floor((currentId - 1) / VARS.WORKSPACE_PER_ROW);
 
-    const rowObject = self.get_parent().get_children()[0].children[0].children[row];
+    const rowObject = main.children[0].children[row];
     const workspaces = rowObject.child.centerWidget.child.get_children().filter(w => w.revealChild);
 
     const height = row * (VARS.SCREEN.Y * VARS.SCALE + 17);
     const currentIndex = workspaces.findIndex(w => w._id == currentId);
 
-    self.setCss(`
+    highlighter.setCss(`
         ${DEFAULT_STYLE}
         margin-left: ${9 + currentIndex * (VARS.SCREEN.X * VARS.SCALE + 34)}px;
         margin-top: ${9 + height}px;
