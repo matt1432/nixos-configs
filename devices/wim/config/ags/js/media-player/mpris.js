@@ -38,10 +38,10 @@ export const CoverArt = (player, props) => CenterBox({
         readFileAsync(player.coverPath).catch(() => {
             if (!player.colors.value && !player.trackCoverUrl) {
                 player.colors.value = {
-                    'imageAccent': '#9d4141',
-                    'buttonAccent': '#ffdad6',
-                    'buttonText': '#400005',
-                    'hoverAccent': '#ffb3b0',
+                    'imageAccent': '#6b4fa2',
+                    'buttonAccent': '#ecdcff',
+                    'buttonText': '#25005a',
+                    'hoverAccent': '#d4baff',
                 };
 
                 self._bgStyle = `
