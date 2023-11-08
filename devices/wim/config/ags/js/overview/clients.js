@@ -81,7 +81,6 @@ const Client = (client, active, clients, box) => {
                 className: `window ${active}`,
                 css: IconStyle(client) + 'font-size: 10px;',
                 icon: client.class,
-                size: 1,
             }),
         }),
     });
