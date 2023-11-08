@@ -7,6 +7,8 @@ const display = Gdk.Display.get_default();
 export default ({
     isButton = false,
     reset = true,
+    onHover = () => {},
+    onHoverLost = () => {},
     ...props
 }) => {
     if (!isButton) {
@@ -18,10 +20,14 @@ export default ({
 
                 else
                     self.window.set_cursor(Gdk.Cursor.new_from_name(display, 'pointer'));
+
+                onHover(self);
             },
             onHoverLost: self => {
                 if (reset)
                     self.window.set_cursor(null);
+
+                onHoverLost(self);
             },
         });
     }
