@@ -1,44 +1,39 @@
+import App   from 'resource:///com/github/Aylur/ags/app.js';
 import Mpris from 'resource:///com/github/Aylur/ags/service/mpris.js';
-import { Icon } from 'resource:///com/github/Aylur/ags/widget.js';
+import { Icon, ToggleButton } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import Gtk from 'gi://Gtk';
 import EventBox from '../misc/cursorbox.js';
 
 
-// TODO: use Widget.ToggleButton instead
-export default () => {
-    const widget = EventBox({});
+export default () => EventBox({
+    child: ToggleButton({
+        setup: self => {
+            // Open at startup if there are players
+            const id = Mpris.connect('changed', () => {
+                self.set_active(Mpris.players.length > 0);
+                Mpris.disconnect(id);
+            });
+        },
 
-    const toggleButton = Gtk.ToggleButton.new();
-    toggleButton.add(Icon({
-        icon: 'go-down-symbolic',
-        className: 'arrow',
-        css: '-gtk-icon-transform: rotate(180deg);',
-    }));
+        connections: [['toggled', self => {
+            const rev = self.get_parent().get_parent().get_parent().children[1];
 
-    // Setup
-    const id = Mpris.connect('changed', () => {
-        toggleButton.set_active(Mpris.players.length > 0);
-        Mpris.disconnect(id);
-    });
+            if (self.get_active()) {
+                self.get_children()[0]
+                    .setCss('-gtk-icon-transform: rotate(0deg);');
+                rev.revealChild = true;
+            }
+            else {
+                self.get_children()[0]
+                    .setCss('-gtk-icon-transform: rotate(180deg);');
+                rev.revealChild = false;
+            }
+        }]],
 
-    // Connections
-    toggleButton.connect('toggled', () => {
-        const rev = toggleButton.get_parent().get_parent().get_parent().children[1];
-
-        if (toggleButton.get_active()) {
-            toggleButton.get_children()[0]
-                .setCss('-gtk-icon-transform: rotate(0deg);');
-            rev.revealChild = true;
-        }
-        else {
-            toggleButton.get_children()[0]
-                .setCss('-gtk-icon-transform: rotate(180deg);');
-            rev.revealChild = false;
-        }
-    });
-
-    widget.add(toggleButton);
-
-    return widget;
-};
+        child: Icon({
+            icon: App.configDir + '/icons/down-large.svg',
+            className: 'arrow',
+            css: '-gtk-icon-transform: rotate(180deg);',
+        }),
+    }),
+});
