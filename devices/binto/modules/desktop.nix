@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   programs.dconf.enable = true;
 
   services = {
@@ -17,6 +17,7 @@
   environment.systemPackages = with pkgs; [
     p7zip # for reshade
     xclip
+    wl-clipboard
     flat-remix-icon-theme
     nextcloud-client
     libreoffice-qt

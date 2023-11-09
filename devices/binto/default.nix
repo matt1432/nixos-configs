@@ -36,6 +36,8 @@
         ../../home/alacritty.nix
         ../../home/dconf.nix
         ../../home/firefox
+
+        ./home/packages.nix
       ];
 
       # No touchy
