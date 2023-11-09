@@ -2,43 +2,149 @@ import App       from 'resource:///com/github/Aylur/ags/app.js';
 import Audio     from 'resource:///com/github/Aylur/ags/service/audio.js';
 import Bluetooth from 'resource:///com/github/Aylur/ags/service/bluetooth.js';
 import Network   from 'resource:///com/github/Aylur/ags/service/network.js';
-import { Box, CenterBox, Label, Icon } from 'resource:///com/github/Aylur/ags/widget.js';
+import Variable  from 'resource:///com/github/Aylur/ags/variable.js';
+import { Box, Icon, Label, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
 import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
-import EventBox from '../misc/cursorbox.js';
+import EventBox  from '../misc/cursorbox.js';
+import Separator from '../misc/separator.js';
 
 
+const ButtonStates = [];
 const GridButton = ({
     command = () => {},
     secondaryCommand = () => {},
     icon,
-} = {}) => Box({
-    className: 'grid-button',
-    children: [
+    indicator,
+    menu,
+} = {}) => {
+    const Activated = Variable(false);
+    ButtonStates.push(Activated);
 
-        EventBox({
-            className: 'left-part',
-            onPrimaryClickRelease: () => command(),
-            child: icon,
-        }),
+    // allow setting icon dynamically or statically
+    if (typeof icon === 'string') {
+        icon = Icon({
+            className: 'grid-label',
+            icon: icon,
+            connections: [[Activated, self => {
+                self.setCss(`color: ${Activated.value ? 'rgba(189, 147, 249, 0.8)' : 'unset'};`);
+            }]],
+        });
+    }
+    else {
+        icon = Icon({
+            className: 'grid-label',
+            connections: [
+                icon,
+                [Activated, self => {
+                    self.setCss(`color: ${Activated.value ? 'rgba(189, 147, 249, 0.8)' : 'unset'};`);
+                }],
+            ],
+        });
+    }
 
-        EventBox({
-            className: 'right-part',
-            onPrimaryClickRelease: () => secondaryCommand(),
-            child: Label({
-                label: ' ',
-                className: 'grid-chev',
+    if (indicator) {
+        indicator = Label({
+            className: 'sub-label',
+            justification: 'left',
+            truncate: 'end',
+            maxWidthChars: 12,
+            connections: [indicator],
+        });
+    }
+
+    if (menu) {
+        menu = Revealer({
+            transition: 'slide_down',
+            child: menu,
+            binds: [['revealChild', Activated, 'value']],
+        });
+    }
+
+    const widget = Box({
+        vertical: true,
+        children: [
+            Box({
+                className: 'grid-button',
+                children: [
+
+                    EventBox({
+                        className: 'left-part',
+                        onPrimaryClickRelease: () => {
+                            if (!Activated.value)
+                                command();
+                            else
+                                secondaryCommand();
+                        },
+                        child: icon,
+                    }),
+
+                    EventBox({
+                        className: 'right-part',
+                        onPrimaryClickRelease: () => {
+                            ButtonStates.forEach(state => {
+                                if (state !== Activated)
+                                    state.value = false;
+                            });
+                            Activated.value = !Activated.value;
+                        },
+                        onHover: self => {
+                            if (menu) {
+                                const rowMenu = self.get_parent().get_parent()
+                                    .get_parent().get_parent().children[1];
+
+                                if (!rowMenu.get_children().find(ch => ch === menu)) {
+                                    rowMenu.add(menu);
+                                    rowMenu.show_all();
+                                }
+                            }
+                        },
+                        child: Icon({
+                            icon: App.configDir + '/icons/down-large.svg',
+                            connections: [[Activated, self => {
+                                let deg = 270;
+                                if (Activated.value)
+                                    deg = menu ? 360 : 450;
+                                self.setCss(`-gtk-icon-transform: rotate(${deg}deg);`);
+                            }]],
+                            className: 'grid-chev',
+                        }),
+                    }),
+
+                ],
             }),
-        }),
+            indicator,
+        ],
+    });
+    return widget;
+};
 
-    ],
-});
+const Row = ({ buttons } = {}) => {
+    const widget = Box({
+        vertical: true,
+        children: [
+            Box({
+                className: 'button-row',
+                hpack: 'center',
+            }),
+            Box(),
+        ],
+    });
 
-const FirstRow = () => Box({
-    className: 'button-row',
-    hpack: 'center',
-    css: 'margin-top: 15px; margin-bottom: 7px;',
-    children: [
+    for (let i = 0; i < buttons.length; ++i) {
+        if (i !== buttons.length - 1) {
+            widget.children[0].add(buttons[i]);
+            widget.children[0].add(Separator(28));
+        }
+        else {
+            widget.children[0].add(buttons[i]);
+        }
+    }
+    return widget;
+};
+
+const FirstRow = () => Row({
+    buttons: [
 
         GridButton({
             command: () => Network.toggleWifi(),
@@ -46,15 +152,29 @@ const FirstRow = () => Box({
                 execAsync(['bash', '-c', 'nm-connection-editor'])
                     .catch(print);
             },
-            icon: Icon({
-                className: 'grid-label',
-                connections: [[Network, icon => {
-                    if (Network.wifi.enabled)
-                        icon.icon = 'network-wireless-connected-symbolic';
+            icon: [Network, icon => icon.icon = Network.wifi?.iconName],
+            indicator: [Network, self => self.label = Network.wifi?.ssid || Network.wired?.internet],
 
-                    else
-                        icon.icon = 'network-wireless-offline-symbolic';
-                }, 'changed']],
+            menu: Box({
+                className: 'menu',
+                vertical: true,
+                connections: [[Network, box => box.children =
+                    Network.wifi?.access_points.map(ap => EventBox({
+                        isButton: true,
+                        on_clicked: () => execAsync(`nmcli device wifi connect ${ap.bssid}`).catch(print),
+                        child: Box({
+                            children: [
+                                Icon(ap.iconName),
+                                Label(ap.ssid || ''),
+                                ap.active && Icon({
+                                    icon: 'object-select-symbolic',
+                                    hexpand: true,
+                                    hpack: 'end',
+                                }),
+                            ],
+                        }),
+                    })),
+                ]],
             }),
         }),
 
@@ -67,23 +187,27 @@ const FirstRow = () => Box({
                 execAsync(['bash', '-c', 'blueberry'])
                     .catch(print);
             },
-            icon: Icon({
-                className: 'grid-label',
-                connections: [[Bluetooth, self => {
-                    if (Bluetooth.enabled) {
-                        self.icon = 'bluetooth-active-symbolic';
-                        execAsync(['bash', '-c', 'echo 󰂯 > $HOME/.config/.bluetooth'])
-                            .catch(print);
-                    }
-                    else {
-                        self.icon = 'bluetooth-disabled-symbolic';
-                        execAsync(['bash', '-c', 'echo 󰂲 > $HOME/.config/.bluetooth'])
-                            .catch(print);
-                    }
-                }, 'changed']],
-            }),
+            icon: [Bluetooth, self => {
+                if (Bluetooth.enabled) {
+                    self.icon = 'bluetooth-active-symbolic';
+                    execAsync(['bash', '-c', 'echo 󰂯 > $HOME/.config/.bluetooth'])
+                        .catch(print);
+                }
+                else {
+                    self.icon = 'bluetooth-disabled-symbolic';
+                    execAsync(['bash', '-c', 'echo 󰂲 > $HOME/.config/.bluetooth'])
+                        .catch(print);
+                }
+            }, 'changed'],
+            indicator: [Bluetooth, self => {
+                if (Bluetooth.connectedDevices[0])
+                    self.label = String(Bluetooth.connectedDevices[0]);
+                else
+                    self.label = 'Disconnected';
+            }, 'changed'],
         }),
 
+        // TODO: replace with vpn
         GridButton({
             command: () => {
                 execAsync(['bash', '-c', '$AGS_PATH/qs-toggles.sh toggle-radio'])
@@ -93,47 +217,13 @@ const FirstRow = () => Box({
                 execAsync(['notify-send', 'set this up moron'])
                     .catch(print);
             },
-            icon: Icon({
-                className: 'grid-label',
-                connections: [[Network, self => {
-                    if (Network.wifi.enabled)
-                        self.icon = 'airplane-mode-disabled-symbolic';
-                    else
-                        self.icon = 'airplane-mode-symbolic';
-                }, 'changed']],
-            }),
-        }),
-
-    ],
-});
-
-const SubRow = () => CenterBox({
-    hpack: 'start',
-    children: [
-
-        Label({
-            className: 'sub-label',
-            truncate: 'end',
-            maxWidthChars: 12,
-            connections: [[Network, self => {
-                // TODO: handle ethernet too
-                self.label = Network.wifi.ssid;
-            }, 'changed']],
-        }),
-
-        Label({
-            className: 'sub-label',
-            truncate: 'end',
-            maxWidthChars: 12,
-            connections: [[Bluetooth, self => {
-                if (Bluetooth.connectedDevices[0])
-                    self.label = String(Bluetooth.connectedDevices[0]);
+            icon: [Network, self => {
+                if (Network.wifi.enabled)
+                    self.icon = 'airplane-mode-disabled-symbolic';
                 else
-                    self.label = 'Disconnected';
-            }, 'changed']],
+                    self.icon = 'airplane-mode-symbolic';
+            }, 'changed'],
         }),
-
-        null,
 
     ],
 });
@@ -152,11 +242,8 @@ const itemsMic = {
     0: 'audio-input-microphone-muted-symbolic',
 };
 
-const SecondRow = () => Box({
-    className: 'button-row',
-    hpack: 'center',
-    css: 'margin-top: 7px; margin-bottom: 15px;',
-    children: [
+const SecondRow = () => Row({
+    buttons: [
 
         GridButton({
             command: () => {
@@ -169,23 +256,20 @@ const SecondRow = () => Box({
                     .catch(print);
             },
 
-            icon: Icon({
-                className: 'grid-label',
-                connections: [[Audio, icon => {
-                    if (Audio.speaker) {
-                        if (Audio.speaker.stream.isMuted) {
-                            icon.icon = items[0];
-                        }
-                        else {
-                            const vol = Audio.speaker.volume * 100;
-                            for (const threshold of [-1, 0, 33, 66, 100]) {
-                                if (vol > threshold + 1)
-                                    icon.icon = items[threshold + 1];
-                            }
+            icon: [Audio, icon => {
+                if (Audio.speaker) {
+                    if (Audio.speaker.stream.isMuted) {
+                        icon.icon = items[0];
+                    }
+                    else {
+                        const vol = Audio.speaker.volume * 100;
+                        for (const threshold of [-1, 0, 33, 66, 100]) {
+                            if (vol > threshold + 1)
+                                icon.icon = items[threshold + 1];
                         }
                     }
-                }, 'speaker-changed']],
-            }),
+                }
+            }, 'speaker-changed'],
         }),
 
         GridButton({
@@ -199,23 +283,20 @@ const SecondRow = () => Box({
                     .catch(print);
             },
 
-            icon: Icon({
-                className: 'grid-label',
-                connections: [[Audio, icon => {
-                    if (Audio.microphone) {
-                        if (Audio.microphone.stream.isMuted) {
-                            icon.icon = itemsMic[0];
-                        }
-                        else {
-                            const vol = Audio.microphone.volume * 100;
-                            for (const threshold of [-1, 0, 1]) {
-                                if (vol > threshold + 1)
-                                    icon.icon = itemsMic[threshold + 1];
-                            }
+            icon: [Audio, icon => {
+                if (Audio.microphone) {
+                    if (Audio.microphone.stream.isMuted) {
+                        icon.icon = itemsMic[0];
+                    }
+                    else {
+                        const vol = Audio.microphone.volume * 100;
+                        for (const threshold of [-1, 0, 1]) {
+                            if (vol > threshold + 1)
+                                icon.icon = itemsMic[threshold + 1];
                         }
                     }
-                }, 'microphone-changed']],
-            }),
+                }
+            }, 'microphone-changed'],
         }),
 
         GridButton({
@@ -224,10 +305,7 @@ const SecondRow = () => Box({
                     .catch(print);
             },
             secondaryCommand: () => App.openWindow('powermenu'),
-            icon: Label({
-                className: 'grid-label',
-                label: ' 󰌾 ',
-            }),
+            icon: 'system-lock-screen-symbolic',
         }),
 
     ],
@@ -239,7 +317,7 @@ export default () => Box({
     hpack: 'center',
     children: [
         FirstRow(),
-        SubRow(),
+        Separator(10, { vertical: true }),
         SecondRow(),
     ],
 });

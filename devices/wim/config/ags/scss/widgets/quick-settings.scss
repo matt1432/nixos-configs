@@ -17,57 +17,61 @@
   margin-left: 15px;
   margin-right: 10px;
   min-width: 50px;
+  transition: color 0.3s ease-in-out;
+}
+
+.menu {
+  margin: 10px;
+  padding: 5px;
+  border: 1.5px solid $contrast-bg;
+  border-radius: 10px;
+  font-size: 12px;
+
+  button {
+    margin: 5px;
+
+    label {
+      font-size: 16px;
+      margin-left: 5px;
+    }
+
+    image {
+      font-size: 20px;
+    }
+  }
 }
 
 .sub-label {
   font-size: 14px;
-  margin-top: -10px;
-  margin-left: 31px;
-
-  &:nth-child(1) {
-    margin-left: 25px;
-  }
-  margin-bottom: 10px;
   padding: 3px;
   border: 2px solid $contrast-bg;
   border-radius: 10px 20px 20px 10px;
   min-width: 106px;
   background: #1b1b1b;
+  margin-top: 5px;
 }
 
 .grid-chev {
-  margin-left: 0;
+  margin-left: 10px;
+  margin-right: 12px;
+  font-size: 25px;
 
-  font-size: 40px;
-  margin-right: 5px;
+  transition: -gtk-icon-transform 0.3s ease-in-out;
 }
 
 .button-grid {
   font-size: 10px;
-  min-height: 160px;
-  min-width: 470px;
+  min-width: 440px;
   background-color: $bgfull;
   border-top: 2px solid $contrast-bg;
   border-bottom: 2px solid $contrast-bg;
   border-radius: 15px;
-  margin-top: 30px;
-}
-
-.button-row {
-  min-height: 70px;
-  min-width: 450px;
-  margin-left: 20px;
+  padding: 10px 15px;
 }
 
 .grid-button {
   min-height: 65px;
   min-width: 70px;
-  margin: 5px;
-  margin-left: 22px;
-
-  &:nth-child(1) {
-    margin-left: 5px;
-  }
 }
 
 .left-part {

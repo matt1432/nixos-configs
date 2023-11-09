@@ -21,7 +21,10 @@ const QuickSettingsWidget = () => Box({
                     label: 'Control Center',
                     className: 'title',
                     hpack: 'start',
-                    css: 'margin-left: 20px',
+                    css: `
+                        margin-left: 20px;
+                        margin-bottom: 30px;
+                    `,
                 }),
 
                 ButtonGrid(),
