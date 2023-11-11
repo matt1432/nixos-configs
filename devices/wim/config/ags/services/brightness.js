@@ -1,14 +1,15 @@
-import Service from 'resource:///com/github/Aylur/ags/service.js';
-import { exec, execAsync, readFileAsync } from 'resource:///com/github/Aylur/ags/utils.js';
+import Service  from 'resource:///com/github/Aylur/ags/service.js';
+import Variable from 'resource:///com/github/Aylur/ags/variable.js';
+import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
 const KBD = 'tpacpi::kbd_backlight';
-const CAPS = '/sys/class/leds/input0::capslock/brightness';
+const CAPS = 'input0::capslock';
 
 class Brightness extends Service {
     static {
         Service.register(this, {
             'screen': ['float'],
-            'kbd': ['int'],
+            'kbd': ['float'],
             'caps': ['int'],
         });
     }
@@ -43,8 +44,8 @@ class Brightness extends Service {
     constructor() {
         super();
         try {
-            this._kbd = Number(exec(`brightnessctl -d ${KBD} g`));
-            this._kbdMax = Number(exec(`brightnessctl -d ${KBD} m`));
+            this.monitorKbdState();
+            this._caps = Number(exec(`brightnessctl -d ${CAPS} g`));
             this._screen = Number(exec('brightnessctl g')) / Number(exec('brightnessctl m'));
         } catch (error) {
             console.error('missing dependancy: brightnessctl');
@@ -52,12 +53,23 @@ class Brightness extends Service {
     }
 
     fetchCapsState() {
-        readFileAsync(CAPS)
+        execAsync(`brightnessctl -d ${CAPS} g`)
             .then(out => {
                 this._caps = out;
                 this.emit('caps', this._caps);
             })
             .catch(logError);
+    }
+
+    monitorKbdState() {
+        Variable(0, {
+            poll: [1000, `brightnessctl -d ${KBD} g`, out => {
+                if (out !== this._kbd) {
+                    this._kbd = out;
+                    this.emit('kbd', this._kbd);
+                }
+            }],
+        });
     }
 }
 

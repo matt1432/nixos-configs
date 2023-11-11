@@ -7,7 +7,8 @@ import PopupWindow from '../misc/popup.js';
 
 import Audio       from './audio.js';
 import Brightness  from './brightness.js';
-import Caps        from './caps.js';
+import CapsLock    from './caps.js';
+import Keyboard    from './kbd.js';
 import Microphone  from './mic.js';
 
 
@@ -19,7 +20,8 @@ export default () => {
         items: [
             ['audio', Audio()],
             ['brightness', Brightness()],
-            ['caps', Caps()],
+            ['caps', CapsLock()],
+            ['kbd', Keyboard()],
             ['mic', Microphone()],
         ],
     });
