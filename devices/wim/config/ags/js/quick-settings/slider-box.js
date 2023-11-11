@@ -1,6 +1,5 @@
 import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
 import { Box, Slider, Icon, EventBox } from 'resource:///com/github/Aylur/ags/widget.js';
-import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
 const items = {
     101: 'audio-volume-overamplified-symbolic',
@@ -71,18 +70,12 @@ export default () => Box({
                             ['canChange', true],
                         ],
                         onChange: ({ value }) => {
-                            execAsync(`brightnessctl set ${value}`)
-                                .catch(print);
+                            Brightness.screen = value;
                         },
-                        connections: [[1000, slider => {
-                            if (slider._canChange) {
-                                execAsync('brightnessctl get')
-                                    .then(out => slider.value = out)
-                                    .catch(print);
-                            }
-                        }]],
-                        min: 0,
-                        max: 255,
+                        connections: [[Brightness, slider => {
+                            if (slider._canChange)
+                                slider.value = Brightness.screen;
+                        }, 'screen']],
                         draw_value: false,
                     }),
                 }),

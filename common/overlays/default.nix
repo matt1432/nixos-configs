@@ -5,7 +5,6 @@
   ];
 
   nixpkgs.overlays = [
-    (import ./swayosd.nix)
     (import ./blueberry.nix)
 
     (final: prev: {

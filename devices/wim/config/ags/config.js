@@ -2,6 +2,7 @@ import App      from 'resource:///com/github/Aylur/ags/app.js';
 import { exec } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import Setup         from './js/setup.js';
+import OSD           from './js/osd/main.js';
 import Powermenu     from './js/powermenu.js';
 import * as Bar      from './js/bar/main.js';
 import NotifCenter   from './js/notifications/center.js';
@@ -26,6 +27,7 @@ export default {
         'applauncher': 500,
         'calendar': 500,
         'notification-center': 500,
+        'osd': 500,
         'overview': 500,
         'powermenu': 500,
         'quick-settings': 500,
@@ -42,6 +44,7 @@ export default {
         Bar.BgGradient(),
         Corners.Bottomleft(),
         Corners.Bottomright(),
+        OSD(),
         NotifPopups(),
     ],
 };

@@ -4,8 +4,6 @@
 in
 {
   xdg.configFile = {
-    "swayosd/style.css".source     = symlink "${configDir}/swayosd/style.css";
-
     "gtklock/config.ini".source    = pkgs.writeText "config.ini" ''
       [main]
       modules=${builtins.concatStringsSep ";" [

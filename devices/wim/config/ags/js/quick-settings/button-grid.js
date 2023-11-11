@@ -247,7 +247,7 @@ const SecondRow = () => Row({
 
         GridButton({
             command: () => {
-                execAsync(['swayosd-client', '--output-volume', 'mute-toggle'])
+                execAsync(['pactl', 'set-source-mute', '@DEFAULT_SOURCE@', 'toggle'])
                     .catch(print);
             },
 
@@ -274,7 +274,7 @@ const SecondRow = () => Row({
 
         GridButton({
             command: () => {
-                execAsync(['swayosd-client', '--input-volume', 'mute-toggle'])
+                execAsync(['pactl', 'set-source-mute', '@DEFAULT_SOURCE@', 'toggle'])
                     .catch(print);
             },
 

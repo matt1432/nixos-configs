@@ -78,7 +78,7 @@
     waydroid.enable = true;
   };
 
-  # enable brightness control for swayosd
+  # enable brightness control
   programs.light.enable = true;
 
   services.udev.extraRules = ''

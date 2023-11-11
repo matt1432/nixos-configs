@@ -34,6 +34,7 @@
   "globals": {
     "Tablet": "readonly",
     "Pointers": "readonly",
+    "Brightness": "readonly",
     "ARGV": "readonly",
     "imports": "readonly",
     "print": "readonly",

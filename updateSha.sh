@@ -22,8 +22,6 @@ updateVencord() {
 # https://gitlab.com/mishakmak/pam-fprint-grosshack
 # https://github.com/tio/input-emulator
 
-# https://github.com/ErikReider/SwayOSD
-
 # https://extension.7tv.gg/manifest.moz.json
 updateFirefoxAddons() {
     echo "Updating firefox addons using mozilla-addons-to-nix"

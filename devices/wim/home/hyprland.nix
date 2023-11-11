@@ -72,7 +72,6 @@ in {
     swww
     swayidle
     lisgd
-    swayosd
     squeekboard
     xclip
     wl-clipboard
