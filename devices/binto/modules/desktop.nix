@@ -32,6 +32,7 @@
     })
 
     # School
+    virt-manager
     bluej
     xournalpp
   ];
