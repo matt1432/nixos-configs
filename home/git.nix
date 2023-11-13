@@ -1,6 +1,5 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   programs = {
-
     git = {
       enable = true;
       lfs.enable = true;
@@ -9,13 +8,16 @@
       userEmail = "matt@nelim.org";
 
       includes = [
-        { path = "${pkgs.fetchFromGitHub {
-            owner = "dracula";
-            repo = "git";
-            rev = "924d5fc32f7ca15d0dd3a8d2cf1747e81e063c73";
-            hash = "sha256-3tKjKn5IHIByj+xgi2AIL1vZANlb0vlYJsPjH6BHGxM=";
-          }
-        }/git-colors"; }
+        {
+          path = "${
+            pkgs.fetchFromGitHub {
+              owner = "dracula";
+              repo = "git";
+              rev = "924d5fc32f7ca15d0dd3a8d2cf1747e81e063c73";
+              hash = "sha256-3tKjKn5IHIByj+xgi2AIL1vZANlb0vlYJsPjH6BHGxM=";
+            }
+          }/git-colors";
+        }
       ];
 
       delta = {
@@ -30,11 +32,11 @@
       extraConfig.pager = let
         cmd = "LESS='LRc --mouse' ${pkgs.delta}/bin/delta";
       in {
-	      diff   = cmd;
-        show   = cmd;
-      	stash  = cmd;
-      	log    = cmd;
-      	reflog = cmd;
+        diff = cmd;
+        show = cmd;
+        stash = cmd;
+        log = cmd;
+        reflog = cmd;
       };
     };
   };

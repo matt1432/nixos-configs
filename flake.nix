@@ -4,7 +4,8 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    home-manager = {                                               url = "github:nix-community/home-manager";
+    home-manager = {
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -43,8 +44,7 @@
     coc-stylelintplus,
     neovim-flake,
     ...
-  }@attrs: {
-
+  } @ attrs: {
     nixOnDroidConfigurations.default = nix-on-droid.lib.nixOnDroidConfiguration {
       extraSpecialArgs = attrs;
 
@@ -56,43 +56,47 @@
           coc-stylelintplus.overlay
           (final: prev: {
             neovim-nightly = neovim-flake.packages."${prev.system}".default.override {
-              libvterm-neovim = prev.libvterm-neovim.overrideAttrs
-(prev': final': {
-          doCheck = false;                                             version = "0.3.3";                                           src = prev.fetchurl {                                          url = "https://launchpad.net/libvterm/trunk/v0.3.3/+download/libvterm-0.3.3.tar.gz";
-            hash = "sha256-CRVvQ90hKL00fL7r5Q2aVx0yxk4M8Y0hEZeUav9yJuA=";                                                           };                                                         });                                                        };
-})
+              libvterm-neovim =
+                prev.libvterm-neovim.overrideAttrs
+                (prev': final': {
+                  doCheck = false;
+                  version = "0.3.3";
+                  src = prev.fetchurl {
+                    url = "https://launchpad.net/libvterm/trunk/v0.3.3/+download/libvterm-0.3.3.tar.gz";
+                    hash = "sha256-CRVvQ90hKL00fL7r5Q2aVx0yxk4M8Y0hEZeUav9yJuA=";
+                  };
+                });
+            };
+          })
         ];
       };
 
       modules = [
-
         ./cachix.nix
 
-        ({
+        {
           nix = {
             extraOptions = ''
               experimental-features = nix-command flakes
-            ''; 
+            '';
 
             registry.nixpkgs = {
               flake = nixpkgs;
               exact = false;
             };
           };
-        })
+        }
 
-        ({
+        {
           home-manager = {
             extraSpecialArgs = attrs;
           };
-        })
+        }
 
         ./nix-on-droid.nix
-
       ];
 
       home-manager-path = home-manager.outPath;
     };
-
   };
 }

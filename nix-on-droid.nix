@@ -1,9 +1,14 @@
-{ nurl, nix-melt, pkgs, ... }:
-
 {
-  terminal.font = "${(pkgs.nerdfonts.override { fonts = [
+  nurl,
+  nix-melt,
+  pkgs,
+  ...
+}: {
+  terminal.font = "${(pkgs.nerdfonts.override {
+    fonts = [
       "JetBrainsMono"
-    ]; })}/share/fonts/truetype/NerdFonts/JetBrainsMonoNerdFontMono-Regular.ttf";
+    ];
+  })}/share/fonts/truetype/NerdFonts/JetBrainsMonoNerdFontMono-Regular.ttf";
 
   # Simply install just the packages
   environment.packages = with pkgs; [
@@ -38,6 +43,7 @@
     imagemagick
     nodePackages.undollar
     perl
+    alejandra
 
     nurl.packages.aarch64-linux.default
     nix-melt.packages.aarch64-linux.default
@@ -57,7 +63,12 @@
   ];
 
   home-manager = {
-    config = ({ config, lib, pkgs, ... }: {
+    config = {
+      config,
+      lib,
+      pkgs,
+      ...
+    }: {
       imports = [
         ./home/bash
         ./home/git.nix
@@ -65,7 +76,7 @@
         ./home/tmux.nix
       ];
       home.stateVersion = "23.05";
-    });
+    };
     backupFileExtension = "hm-bak";
     useGlobalPkgs = true;
   };
