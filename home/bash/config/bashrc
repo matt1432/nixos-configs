@@ -1,0 +1,14 @@
+PROMPT_COMMAND="history -a"
+
+
+#PATH manipulations
+[[ -d ~/.local/bin ]] && PATH+=":$HOME/.local/bin"
+
+# source: https://stackoverflow.com/a/44232192
+PATH="$(perl -e 'print join(":", grep { not $seen{$_}++ } split(/:/, $ENV{PATH}))')"
+
+
+# Pokemon Sprite
+[ -x "$(command -v pokemon-colorscripts)" ] &&
+[ "$POKE" == "true" ] &&
+pokemon-colorscripts -r 1-5
