@@ -1,11 +1,11 @@
 import App       from 'resource:///com/github/Aylur/ags/app.js';
-import Audio     from 'resource:///com/github/Aylur/ags/service/audio.js';
 import Bluetooth from 'resource:///com/github/Aylur/ags/service/bluetooth.js';
 import Network   from 'resource:///com/github/Aylur/ags/service/network.js';
 import Variable  from 'resource:///com/github/Aylur/ags/variable.js';
 import { Box, Icon, Label, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
 import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
+import { SpeakerIcon, MicIcon } from '../misc/audio-icons.js';
 import EventBox  from '../misc/cursorbox.js';
 import Separator from '../misc/separator.js';
 
@@ -228,20 +228,6 @@ const FirstRow = () => Row({
     ],
 });
 
-const items = {
-    101: 'audio-volume-overamplified-symbolic',
-    67: 'audio-volume-high-symbolic',
-    34: 'audio-volume-medium-symbolic',
-    1: 'audio-volume-low-symbolic',
-    0: 'audio-volume-muted-symbolic',
-};
-
-const itemsMic = {
-    2: 'audio-input-microphone-high-symbolic',
-    1: 'audio-input-microphone-muted-symbolic',
-    0: 'audio-input-microphone-muted-symbolic',
-};
-
 const SecondRow = () => Row({
     buttons: [
 
@@ -256,20 +242,9 @@ const SecondRow = () => Row({
                     .catch(print);
             },
 
-            icon: [Audio, icon => {
-                if (Audio.speaker) {
-                    if (Audio.speaker.stream.isMuted) {
-                        icon.icon = items[0];
-                    }
-                    else {
-                        const vol = Audio.speaker.volume * 100;
-                        for (const threshold of [-1, 0, 33, 66, 100]) {
-                            if (vol > threshold + 1)
-                                icon.icon = items[threshold + 1];
-                        }
-                    }
-                }
-            }, 'speaker-changed'],
+            icon: [SpeakerIcon, self => {
+                self.icon = SpeakerIcon.value;
+            }],
         }),
 
         GridButton({
@@ -283,20 +258,9 @@ const SecondRow = () => Row({
                     .catch(print);
             },
 
-            icon: [Audio, icon => {
-                if (Audio.microphone) {
-                    if (Audio.microphone.stream.isMuted) {
-                        icon.icon = itemsMic[0];
-                    }
-                    else {
-                        const vol = Audio.microphone.volume * 100;
-                        for (const threshold of [-1, 0, 1]) {
-                            if (vol > threshold + 1)
-                                icon.icon = itemsMic[threshold + 1];
-                        }
-                    }
-                }
-            }, 'microphone-changed'],
+            icon: [MicIcon, self => {
+                self.icon = MicIcon.value;
+            }],
         }),
 
         GridButton({

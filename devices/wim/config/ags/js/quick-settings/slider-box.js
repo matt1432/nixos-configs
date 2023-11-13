@@ -1,13 +1,7 @@
 import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
 import { Box, Slider, Icon, EventBox } from 'resource:///com/github/Aylur/ags/widget.js';
 
-const items = {
-    101: 'audio-volume-overamplified-symbolic',
-    67: 'audio-volume-high-symbolic',
-    34: 'audio-volume-medium-symbolic',
-    1: 'audio-volume-low-symbolic',
-    0: 'audio-volume-muted-symbolic',
-};
+import { SpeakerIcon } from '../misc/audio-icons.js';
 
 
 export default () => Box({
@@ -24,20 +18,7 @@ export default () => Box({
                 Icon({
                     size: 26,
                     className: 'slider-label',
-                    connections: [[Audio, icon => {
-                        if (Audio.speaker) {
-                            if (Audio.speaker.stream.isMuted) {
-                                icon.icon = items[0];
-                            }
-                            else {
-                                const vol = Audio.speaker.volume * 100;
-                                for (const threshold of [-1, 0, 33, 66, 100]) {
-                                    if (vol > threshold + 1)
-                                        icon.icon = items[threshold + 1];
-                                }
-                            }
-                        }
-                    }, 'speaker-changed']],
+                    binds: [['icon', SpeakerIcon, 'value']],
                 }),
 
                 Slider({

@@ -13,7 +13,6 @@ export default () => EventBox({
 
     child: Box({
         className: 'osk-toggle',
-        vertical: false,
         children: [Label(' 󰌌 ')],
     }),
 });
