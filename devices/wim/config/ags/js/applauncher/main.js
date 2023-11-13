@@ -2,102 +2,78 @@ import App          from 'resource:///com/github/Aylur/ags/app.js';
 import Applications from 'resource:///com/github/Aylur/ags/service/applications.js';
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 
-import { Label, Box, Icon, Button, Scrollable, Entry } from 'resource:///com/github/Aylur/ags/widget.js';
+import { Box, Entry, Icon, Label, Scrollable } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import Separator   from '../misc/separator.js';
 import PopupWindow from '../misc/popup.js';
-
-const icons = {
-    apps: {
-        apps: 'view-app-grid-symbolic',
-        search: 'preferences-system-search-symbolic',
-    },
-};
+import Separator from '../misc/separator.js';
+import AppItem from './app-item.js';
 
 
-const AppItem = (app, window) => {
-    if (app.app.get_string('Icon') == 'Nextcloud')
-        return;
-
-    return Button({
-        className: 'app',
-        connections: [['clicked', () => {
-            App.closeWindow(window);
-            Hyprland.sendMessage(`dispatch exec sh -c ${app.executable}`);
-            // TODO: focus on new client. Is this only needed after launch?
-            ++app.frequency;
-        }]],
-        child: Box({
-            children: [
-                Icon({
-                    icon: app.app.get_string('Icon'),
-                    size: 42,
+const Applauncher = ({ window_name = 'applauncher' } = {}) => {
+    const children = () => [
+        ...Applications.query('').flatMap(app => {
+            const item = AppItem(app);
+            return [
+                Separator(4, {
+                    binds: [['visible', item, 'visible']],
                 }),
-                Box({
-                    vertical: true,
-                    children: [
-                        Label({
-                            className: 'title',
-                            label: app.name,
-                            xalign: 0,
-                            vpack: 'center',
-                            ellipsize: 3,
-                        }),
-                        Label({
-                            className: 'description',
-                            label: app.description || '',
-                            wrap: true,
-                            xalign: 0,
-                            justification: 'left',
-                            vpack: 'center',
-                        }),
-                    ],
-                }),
-            ],
+                item,
+            ];
         }),
-    });
-};
+        Separator(4),
+    ];
 
-const Applauncher = ({ windowName = 'applauncher' } = {}) => {
-    const list = Box({ vertical: true });
-    const placeholder = Label({
-        label: " Couldn't find a match",
-        className: 'placeholder',
+    const list = Box({
+        vertical: true,
+        children: children(),
     });
+
     const entry = Entry({
         hexpand: true,
-        placeholderText: 'Search',
-        onAccept: ({ text }) => {
-            const list = Applications.query(text);
+        placeholder_text: 'Search',
+
+        // set some text so on-change works the first time
+        text: '-',
+        on_accept: ({ text }) => {
+            const list = Applications.query(text || '');
             if (list[0]) {
-                App.toggleWindow(windowName);
-                list[0].launch();
+                App.toggleWindow(window_name);
+                Hyprland.sendMessage(`dispatch exec sh -c ${list[0]}`);
+                ++list[0].frequency;
             }
         },
-        onChange: ({ text }) => {
-            list.children = Applications.query(text).map(app => [
-                Separator(4),
-                AppItem(app, windowName),
-            ]).flat();
-            list.add(Separator(4));
-            list.show_all();
+        on_change: ({ text }) => {
+            let visibleApps = 0;
+            list.children.map(item => {
+                if (item.app) {
+                    item.visible = item.app.match(text);
 
-            placeholder.visible = list.children.length === 1;
+                    if (item.app.match(text))
+                        ++visibleApps;
+                }
+            });
+            placeholder.visible = visibleApps <= 0;
         },
     });
+
+    const placeholder = Label({
+        label: "   Couldn't find a match",
+        className: 'placeholder',
+    });
+
 
     return Box({
         className: 'applauncher',
-        properties: [['list', list]],
         vertical: true,
         children: [
             Box({
                 className: 'header',
                 children: [
-                    Icon(icons.apps.search),
+                    Icon('preferences-system-search-symbolic'),
                     entry,
                 ],
             }),
+
             Scrollable({
                 hscroll: 'never',
                 child: Box({
@@ -106,14 +82,15 @@ const Applauncher = ({ windowName = 'applauncher' } = {}) => {
                 }),
             }),
         ],
-        connections: [[App, (_b, name, visible) => {
-            if (name !== windowName)
+        connections: [[App, (_, name, visible) => {
+            if (name !== window_name)
                 return;
 
-            entry.set_text('-'); // force onChange
-            entry.set_text('');
+            entry.text = '';
             if (visible)
                 entry.grab_focus();
+            else
+                list.children = children();
         }]],
     });
 };
