@@ -1,4 +1,19 @@
 { ... }: {
+  # Disable compositor in X11 for best performance
+  # TODO: add mic sound
+  xdg.configFile."gpu-screen-recorder.env".text = ''
+    WINDOW=focused
+    CONTAINER=mp4
+    QUALITY=very_high
+    CODEC=auto
+    AUDIO_CODEC=opus
+    FRAMERATE=60
+    REPLAYDURATION=1200
+    OUTPUTDIR=/home/matt/Videos/Replay
+    MAKEFOLDERS=yes
+    ADDITIONAL_ARGS="-s 2560x1440"
+  '';
+
   xdg.desktopEntries."com.github.iwalton3.jellyfin-media-player" = {
     name = "Jellyfin Media Player";
     comment = "Desktop client for Jellyfin";

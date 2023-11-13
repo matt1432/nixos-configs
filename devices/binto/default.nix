@@ -8,13 +8,14 @@
     ../../modules/tailscale.nix
 
     ./modules/desktop.nix
+    ./modules/gpu-replay.nix
     ./modules/nix-gaming.nix
     ./modules/nvidia.nix
   ];
 
   services.device-vars = {
     username = "matt";
-    fontSize = 12.5;
+    fontSize = 10.0;
   };
 
   users.users.matt = {

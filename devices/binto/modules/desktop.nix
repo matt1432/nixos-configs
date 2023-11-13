@@ -18,6 +18,7 @@
     p7zip # for reshade
     xclip
     wl-clipboard
+    vlc
     flat-remix-icon-theme
     nextcloud-client
     libreoffice-qt
