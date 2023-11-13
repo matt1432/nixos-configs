@@ -1,8 +1,6 @@
 import SystemTray from 'resource:///com/github/Aylur/ags/service/systemtray.js';
 import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
-import { Box, Icon, MenuItem, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
-
-import Gtk from 'gi://Gtk';
+import { Box, Icon, MenuItem, MenuBar, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import Separator from '../misc/separator.js';
 
@@ -16,55 +14,50 @@ const SysTrayItem = item => {
             transition: 'slide_right',
             child: Icon({
                 size: 24,
+                binds: [['icon', item, 'icon']],
             }),
         }),
         submenu: item.menu,
-        connections: [[item, btn => {
-            btn.child.child.icon = item.icon;
-            btn.tooltipMarkup = item.tooltipMarkup;
-        }]],
+        binds: [['tooltipMarkup', item, 'tooltip-markup']],
     });
 };
 
-const SysTray = () => {
-    const widget = Gtk.MenuBar.new();
+const SysTray = () => MenuBar({
+    setup: self => {
+        self.items = new Map();
 
-    // Properties
-    widget._items = new Map();
+        self.onAdded = id => {
+            const item = SystemTray.getItem(id);
+            if (self.items.has(id) || !item)
+                return;
 
-    widget._onAdded = id => {
-        const item = SystemTray.getItem(id);
-        if (widget._items.has(id) || !item)
-            return;
+            const w = SysTrayItem(item);
+            // Early return if item is in blocklist
+            if (!w)
+                return;
 
-        const w = SysTrayItem(item);
-        // Early return if item is in blocklist
-        if (!w)
-            return;
+            self.items.set(id, w);
+            self.add(w);
+            self.show_all();
+            w.child.revealChild = true;
+        };
 
-        widget._items.set(id, w);
-        widget.add(w);
-        widget.show_all();
-        w.child.revealChild = true;
-    };
+        self.onRemoved = id => {
+            if (!self.items.has(id))
+                return;
 
-    widget._onRemoved = id => {
-        if (!widget._items.has(id))
-            return;
-
-        widget._items.get(id).child.revealChild = false;
-        timeout(400, () => {
-            widget._items.get(id).destroy();
-            widget._items.delete(id);
-        });
-    };
-
-    // Connections
-    SystemTray.connect('added', (_, id) => widget._onAdded(id));
-    SystemTray.connect('removed', (_, id) => widget._onRemoved(id));
-
-    return widget;
-};
+            self.items.get(id).child.revealChild = false;
+            timeout(400, () => {
+                self.items.get(id).destroy();
+                self.items.delete(id);
+            });
+        };
+    },
+    connections: [
+        [SystemTray, (self, id) => self.onAdded(id), 'added'],
+        [SystemTray, (self, id) => self.onRemoved(id), 'removed'],
+    ],
+});
 
 export default () => Revealer({
     transition: 'slide_right',
