@@ -63,7 +63,7 @@ class Brightness extends Service {
 
     monitorKbdState() {
         Variable(0, {
-            poll: [1000, `brightnessctl -d ${KBD} g`, out => {
+            poll: [500, `brightnessctl -d ${KBD} g`, out => {
                 if (out !== this._kbd) {
                     this._kbd = out;
                     this.emit('kbd', this._kbd);

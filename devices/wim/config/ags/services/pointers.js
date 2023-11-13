@@ -1,6 +1,7 @@
 import App     from 'resource:///com/github/Aylur/ags/app.js';
+import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 import Service from 'resource:///com/github/Aylur/ags/service.js';
-import { execAsync, subprocess } from 'resource:///com/github/Aylur/ags/utils.js';
+import { subprocess } from 'resource:///com/github/Aylur/ags/utils.js';
 import GUdev from 'gi://GUdev';
 
 const UDEV_POINTERS = [
@@ -148,10 +149,10 @@ class Pointers extends Service {
         if (!toClose)
             return;
 
-        execAsync('hyprctl layers -j').then(layers => {
+        Hyprland.sendMessage('j/layers').then(layers => {
             layers = JSON.parse(layers);
 
-            execAsync('hyprctl cursorpos -j').then(pos => {
+            Hyprland.sendMessage('j/cursorpos').then(pos => {
                 pos = JSON.parse(pos);
 
                 Object.values(layers).forEach(key => {

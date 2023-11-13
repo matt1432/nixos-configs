@@ -1,8 +1,9 @@
 import Applications from 'resource:///com/github/Aylur/ags/service/applications.js';
+import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
 import Variable     from 'resource:///com/github/Aylur/ags/variable.js';
 import { Box, Icon, Label, Button } from 'resource:///com/github/Aylur/ags/widget.js';
-import { lookUpIcon, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
+import { lookUpIcon } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import GLib from 'gi://GLib';
 
@@ -32,11 +33,32 @@ const NotificationIcon = notif => {
         if (wmClass != null) {
             iconCmd = box => {
                 if (!getDragState(box)) {
-                    execAsync(['bash', '-c',
-                        `$AGS_PATH/launch-app.sh
-                        ${wmClass}
-                        ${app.app.get_string('Exec')}`,
-                    ]).catch(print);
+                    if (wmClass === 'thunderbird') {
+                        Hyprland.sendMessage('dispatch togglespecialworkspace thunder');
+                    }
+                    else if (wmClass === 'Spotify') {
+                        Hyprland.sendMessage('dispatch togglespecialworkspace spot');
+                    }
+                    else {
+                        Hyprland.sendMessage('j/clients').then(out => {
+                            out = JSON.parse(out);
+                            const classes = [];
+                            for (const key of out) {
+                                if (key.class)
+                                    classes.push(key.class);
+                            }
+
+                            if (classes.includes(wmClass)) {
+                                Hyprland.sendMessage(`dispatch focuswindow ^(${wmClass})`);
+                            }
+                            else {
+                                Hyprland.sendMessage('[[BATCH]] ' +
+                                    'dispatch workspace empty; ' +
+                                    `dispatch exec sh -c ${app.executable}
+                                `);
+                            }
+                        });
+                    }
 
                     globalThis.closeAll();
                 }

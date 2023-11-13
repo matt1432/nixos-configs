@@ -1,3 +1,4 @@
+import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 import { CenterBox, Label } from 'resource:///com/github/Aylur/ags/widget.js';
 import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
@@ -32,7 +33,7 @@ const PowermenuWidget = () => CenterBox({
     endWidget: Button({
         isButton: true,
         className: 'logout',
-        onPrimaryClickRelease: () => execAsync(['hyprctl', 'dispatch', 'exit']).catch(print),
+        onPrimaryClickRelease: () => Hyprland.sendMessage('dispatch exit').catch(print),
 
         child: Label({
             label: '',

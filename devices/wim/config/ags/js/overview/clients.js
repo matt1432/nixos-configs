@@ -1,7 +1,7 @@
 import App      from 'resource:///com/github/Aylur/ags/app.js';
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 import { Icon, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
-import { execAsync, timeout } from 'resource:///com/github/Aylur/ags/utils.js';
+import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import { WindowButton } from './dragndrop.js';
 import * as VARS from './variables.js';
@@ -37,26 +37,21 @@ const Client = (client, active, clients, box) => {
         child: WindowButton({
             mainBox: box,
             address: client.address,
-            onSecondaryClickRelease: () => {
-                execAsync(`hyprctl dispatch closewindow ${addr}`)
-                    .catch(print);
-            },
+            onSecondaryClickRelease: () => Hyprland.sendMessage(`dispatch closewindow ${addr}`),
 
             onPrimaryClickRelease: () => {
                 if (wsId < 0) {
                     if (client.workspace.name === 'special') {
-                        execAsync(`hyprctl dispatch
-                                   movetoworkspacesilent special:${wsId},${addr}`)
+                        Hyprland.sendMessage(`dispatch movetoworkspacesilent special:${wsId},${addr}`)
                             .then(
-
-                                execAsync(`hyprctl dispatch togglespecialworkspace ${wsId}`).then(
-                                    () => App.closeWindow('overview'),
-                                ).catch(print),
-
+                                Hyprland.sendMessage(`dispatch togglespecialworkspace ${wsId}`)
+                                    .then(
+                                        () => App.closeWindow('overview'),
+                                    ).catch(print),
                             ).catch(print);
                     }
                     else {
-                        execAsync(`hyprctl dispatch togglespecialworkspace ${wsName}`).then(
+                        Hyprland.sendMessage(`dispatch togglespecialworkspace ${wsName}`).then(
                             () => App.closeWindow('overview'),
                         ).catch(print);
                     }
@@ -68,10 +63,10 @@ const Client = (client, active, clients, box) => {
                     const currentSpecial = String(currentActive.workspace.name).replace('special:', '');
 
                     if (currentActive && currentActive.workspace.id < 0) {
-                        execAsync(`hyprctl dispatch togglespecialworkspace ${currentSpecial}`)
+                        Hyprland.sendMessage(`dispatch togglespecialworkspace ${currentSpecial}`)
                             .catch(print);
                     }
-                    execAsync(`hyprctl dispatch focuswindow ${addr}`).then(
+                    Hyprland.sendMessage(`dispatch focuswindow ${addr}`).then(
                         () => App.closeWindow('overview'),
                     ).catch(print);
                 }
@@ -87,7 +82,7 @@ const Client = (client, active, clients, box) => {
 };
 
 export function updateClients(box) {
-    execAsync('hyprctl clients -j').then(out => {
+    Hyprland.sendMessage('j/clients').then(out => {
         const clients = JSON.parse(out).filter(client => client.class);
 
         box._workspaces.forEach(workspace => {

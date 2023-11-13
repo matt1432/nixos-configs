@@ -1,5 +1,5 @@
+import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 import { EventBox } from 'resource:///com/github/Aylur/ags/widget.js';
-import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import Gtk from 'gi://Gtk';
 import Gdk from 'gi://Gdk';
@@ -42,7 +42,7 @@ export const WorkspaceDrop = props => EventBox({
         else if (id === 1000)
             id = 'empty';
 
-        execAsync(`hyprctl dispatch movetoworkspacesilent ${id},address:${data.get_text()}`)
+        Hyprland.sendMessage(`dispatch movetoworkspacesilent ${id},address:${data.get_text()}`)
             .catch(print);
     }]],
     setup: self => {

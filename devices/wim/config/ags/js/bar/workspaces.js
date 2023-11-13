@@ -1,5 +1,5 @@
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
-import { execAsync, timeout } from 'resource:///com/github/Aylur/ags/utils.js';
+import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 import { Box, Overlay, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import EventBox from '../misc/cursorbox.js';
@@ -12,10 +12,7 @@ const Workspace = ({ i } = {}) =>
 
         child: EventBox({
             tooltipText: `${i}`,
-            onPrimaryClickRelease: () => {
-                execAsync(`hyprctl dispatch workspace ${i}`)
-                    .catch(print);
-            },
+            onPrimaryClickRelease: () => Hyprland.sendMessage(`dispatch workspace ${i}`),
             child: Box({
                 vpack: 'center',
                 className: 'button',

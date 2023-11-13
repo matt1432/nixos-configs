@@ -1,4 +1,5 @@
 import App from 'resource:///com/github/Aylur/ags/app.js';
+import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import Brightness    from '../services/brightness.js';
@@ -41,13 +42,13 @@ export default () => {
         name: 'swipeSpotify1',
         gesture: 'LR',
         edge: 'L',
-        command: 'hyprctl dispatch togglespecialworkspace spot',
+        command: () => Hyprland.sendMessage('dispatch togglespecialworkspace spot'),
     });
 
     TouchGestures.addGesture({
         name: 'swipeSpotify2',
         gesture: 'RL',
         edge: 'L',
-        command: 'hyprctl dispatch togglespecialworkspace spot',
+        command: () => Hyprland.sendMessage('dispatch togglespecialworkspace spot'),
     });
 };

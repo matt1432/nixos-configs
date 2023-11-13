@@ -1,8 +1,8 @@
 import App          from 'resource:///com/github/Aylur/ags/app.js';
 import Applications from 'resource:///com/github/Aylur/ags/service/applications.js';
+import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 
 import { Label, Box, Icon, Button, Scrollable, Entry } from 'resource:///com/github/Aylur/ags/widget.js';
-import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import Separator   from '../misc/separator.js';
 import PopupWindow from '../misc/popup.js';
@@ -23,7 +23,7 @@ const AppItem = (app, window) => {
         className: 'app',
         connections: [['clicked', () => {
             App.closeWindow(window);
-            execAsync(['hyprctl', 'dispatch', 'exec', `sh -c ${app.executable}`]);
+            Hyprland.sendMessage(`dispatch exec sh -c ${app.executable}`);
             // TODO: focus on new client. Is this only needed after launch?
             ++app.frequency;
         }]],

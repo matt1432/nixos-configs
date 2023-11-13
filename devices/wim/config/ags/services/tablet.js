@@ -1,3 +1,4 @@
+import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 import Service from 'resource:///com/github/Aylur/ags/service.js';
 import TouchGestures from './touch-gestures.js';
 import { execAsync, subprocess } from 'resource:///com/github/Aylur/ags/utils.js';
@@ -116,7 +117,7 @@ class Tablet extends Service {
 
     getDevices() {
         this.devices = [];
-        execAsync(['hyprctl', 'devices', '-j']).then(out => {
+        Hyprland.sendMessage('j/devices').then(out => {
             const devices = JSON.parse(out);
             devices['touch'].forEach(dev => {
                 this.devices.push(dev.name);
@@ -139,15 +140,12 @@ class Tablet extends Service {
                 if (output.includes('orientation changed')) {
                     const orientation = ROTATION_MAPPING[output.split(' ').at(-1)];
 
-                    execAsync(['hyprctl', 'keyword', 'monitor',
-                        `${SCREEN},transform,${orientation}`])
+                    Hyprland.sendMessage(`keyword monitor ${SCREEN},transform,${orientation}`)
                         .catch(print);
 
-                    this.devices.forEach(dev => {
-                        execAsync(['hyprctl', 'keyword',
-                            `device:${dev}:transform`, String(orientation)])
-                            .catch(print);
-                    });
+                    const batchRotate = this.devices.map(dev =>
+                        `keyword device:${dev}:transform ${orientation}; `);
+                    Hyprland.sendMessage(`[[BATCH]] ${batchRotate.flat()}`);
 
                     if (TouchGestures.gestureDaemon) {
                         TouchGestures.killDaemon();

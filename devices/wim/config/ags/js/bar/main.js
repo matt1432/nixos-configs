@@ -13,7 +13,7 @@ import Battery        from './battery.js';
 import Brightness     from './brightness.js';
 import Audio          from './audio.js';
 import Revealer       from './fullscreen.js';
-//import KeyboardLayout from './keyboard-layout.js';
+import KeyboardLayout from './keyboard-layout.js';
 
 
 export const BgGradient = () => Window({
@@ -82,9 +82,9 @@ export const Bar = () => Window({
 
                     Separator(12),
 
-                    //KeyboardLayout(),
+                    KeyboardLayout(),
 
-                    //Separator(12),
+                    Separator(12),
 
                     Clock(),
 
