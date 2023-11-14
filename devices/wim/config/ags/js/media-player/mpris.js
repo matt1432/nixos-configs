@@ -139,6 +139,7 @@ export const PlayerIcon = (player, { symbolic = true, ...props } = {}) => {
                 }
                 else {
                     children.push(Separator(2));
+                    // TODO: make this clickable to switch
                     children.push(Box({ className: 'position-indicator' }));
                 }
             }

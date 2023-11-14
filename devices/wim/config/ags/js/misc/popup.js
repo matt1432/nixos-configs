@@ -6,8 +6,11 @@ export default ({
     // Revealer props
     transition = 'slide_down',
     transitionDuration = 500,
-    // Optional: execute a function whenever the window pops up
+
+    // Optional: execute a function whenever
+    // the window pops up or goes away
     onOpen = () => {},
+    onClose = () => {},
 
     // Window props
     name,
@@ -45,7 +48,11 @@ export default ({
                 connections: [[App, (rev, currentName, visible) => {
                     if (currentName === name) {
                         rev.revealChild = visible;
-                        onOpen(child);
+
+                        if (visible)
+                            onOpen(child);
+                        else
+                            onClose(child);
                     }
                 }]],
                 child: child,
