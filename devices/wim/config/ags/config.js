@@ -1,17 +1,18 @@
 import App      from 'resource:///com/github/Aylur/ags/app.js';
 import { exec } from 'resource:///com/github/Aylur/ags/utils.js';
 
-import Setup         from './js/setup.js';
-import OSD           from './js/osd/main.js';
-import Powermenu     from './js/powermenu.js';
-import * as Bar      from './js/bar/main.js';
-import NotifCenter   from './js/notifications/center.js';
-import NotifPopups   from './js/notifications/popup.js';
-import Calendar      from './js/date.js';
-import QuickSettings from './js/quick-settings/main.js';
-import Overview      from './js/overview/main.js';
-import AppLauncher   from './js/applauncher/main.js';
-import * as Corners  from './js/screen-corners.js';
+import Setup       from './js/setup.js';
+import AppLauncher from './js/applauncher/main.js';
+import Bar         from './js/bar/main.js';
+import BgFade      from './js/misc/background-fade.js';
+import Calendar    from './js/date.js';
+import Corners     from './js/corners/main.js';
+import NotifCenter from './js/notifications/center.js';
+import NotifPopups from './js/notifications/popup.js';
+import OSD         from './js/osd/main.js';
+import Overview    from './js/overview/main.js';
+import Powermenu   from './js/powermenu.js';
+import QSettings   from './js/quick-settings/main.js';
 
 const scss = App.configDir + '/scss/main.scss';
 const css  = App.configDir + '/style.css';
@@ -36,15 +37,14 @@ export default {
         AppLauncher(),
         Calendar(),
         NotifCenter(),
+        OSD(),
         Overview(),
         Powermenu(),
-        QuickSettings(),
+        QSettings(),
 
-        Bar.Bar(),
-        Bar.BgGradient(),
-        Corners.Bottomleft(),
-        Corners.Bottomright(),
-        OSD(),
+        Bar(),
+        BgFade(),
+        ...Corners(),
         NotifPopups(),
     ],
 };

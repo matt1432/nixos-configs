@@ -1,8 +1,8 @@
-import { Box, DrawingArea, Window } from 'resource:///com/github/Aylur/ags/widget.js';
+import { Box, DrawingArea } from 'resource:///com/github/Aylur/ags/widget.js';
 import Gtk from 'gi://Gtk';
 const Lang = imports.lang;
 
-export const RoundedCorner = (place, props) => Box({
+export default place => Box({
     hpack: place.includes('left') ? 'start' : 'end',
     vpack: place.includes('top')  ? 'start' : 'end',
     css: `
@@ -13,7 +13,11 @@ export const RoundedCorner = (place, props) => Box({
             ${place.includes('left')   ? '-1px' : '0'};
         `,
     child: DrawingArea({
-        ...props,
+        css: `
+            background-color: black;
+            border-radius: 18px;
+            border-width: 0.068rem;
+        `,
         setup: widget => {
             const r = widget.get_style_context()
                 .get_property('border-radius', Gtk.StateFlags.NORMAL);
@@ -68,33 +72,4 @@ export const RoundedCorner = (place, props) => Box({
             }));
         },
     }),
-});
-
-export const Topleft = () => Window({
-    name: 'cornertl',
-    layer: 'overlay',
-    anchor: ['top', 'left'],
-    visible: true,
-    child: RoundedCorner('topleft', { className: 'corner' }),
-});
-export const Topright = () => Window({
-    name: 'cornertr',
-    layer: 'overlay',
-    anchor: ['top', 'right'],
-    visible: true,
-    child: RoundedCorner('topright', { className: 'corner' }),
-});
-export const Bottomleft = () => Window({
-    name: 'cornerbl',
-    layer: 'overlay',
-    anchor: ['bottom', 'left'],
-    visible: true,
-    child: RoundedCorner('bottomleft', { className: 'corner' }),
-});
-export const Bottomright = () => Window({
-    name: 'cornerbr',
-    layer: 'overlay',
-    anchor: ['bottom', 'right'],
-    visible: true,
-    child: RoundedCorner('bottomright', { className: 'corner' }),
 });
