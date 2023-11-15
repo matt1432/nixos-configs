@@ -29,6 +29,7 @@ export default () => {
     const window = PopupWindow({
         name: 'osd',
         anchor: ['bottom'],
+        exclusivity: 'ignore',
         closeOnUnfocus: 'stay',
         transition: 'slide_up',
         transitionDuration: 200,

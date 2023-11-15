@@ -74,7 +74,6 @@ export const Topleft = () => Window({
     name: 'cornertl',
     layer: 'overlay',
     anchor: ['top', 'left'],
-    exclusive: false,
     visible: true,
     child: RoundedCorner('topleft', { className: 'corner' }),
 });
@@ -82,7 +81,6 @@ export const Topright = () => Window({
     name: 'cornertr',
     layer: 'overlay',
     anchor: ['top', 'right'],
-    exclusive: false,
     visible: true,
     child: RoundedCorner('topright', { className: 'corner' }),
 });
@@ -90,7 +88,6 @@ export const Bottomleft = () => Window({
     name: 'cornerbl',
     layer: 'overlay',
     anchor: ['bottom', 'left'],
-    exclusive: false,
     visible: true,
     child: RoundedCorner('bottomleft', { className: 'corner' }),
 });
@@ -98,7 +95,6 @@ export const Bottomright = () => Window({
     name: 'cornerbr',
     layer: 'overlay',
     anchor: ['bottom', 'right'],
-    exclusive: false,
     visible: true,
     child: RoundedCorner('bottomright', { className: 'corner' }),
 });

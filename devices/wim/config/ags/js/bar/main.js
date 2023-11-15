@@ -32,7 +32,7 @@ export const Bar = () => Window({
     name: 'bar',
     layer: 'overlay',
     anchor: ['top', 'left', 'right'],
-    exclusive: true,
+    exclusivity: 'exclusive',
     child: Revealer({
         child: CenterBox({
             className: 'bar',
