@@ -65,9 +65,7 @@ export default () => {
     });
 
     const widget = Overlay({
-        // FIXME: see if we can get rid of this timeout
-        setup: self => timeout(1, () => self.pass_through = true),
-
+        pass_through: true,
         overlays: [highlight],
         child: EventBox({
             child: Box({
