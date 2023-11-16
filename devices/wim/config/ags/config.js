@@ -10,6 +10,7 @@ import Corners     from './js/corners/main.js';
 import NotifCenter from './js/notifications/center.js';
 import NotifPopups from './js/notifications/popup.js';
 import OSD         from './js/osd/main.js';
+import OSK         from './js/on-screen-keyboard/main.js';
 import Overview    from './js/overview/main.js';
 import Powermenu   from './js/powermenu.js';
 import QSettings   from './js/quick-settings/main.js';
@@ -34,6 +35,10 @@ export default {
         'quick-settings': 500,
     },
     windows: [
+        // Put the corners first so they
+        // don't block the cursor on the bar
+        ...Corners(),
+
         AppLauncher(),
         Calendar(),
         NotifCenter(),
@@ -44,7 +49,6 @@ export default {
 
         Bar(),
         BgFade(),
-        ...Corners(),
         NotifPopups(),
     ],
 };
