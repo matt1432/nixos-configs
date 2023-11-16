@@ -5,8 +5,6 @@ import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 import { HasNotifs } from './base.js';
 
 import Gtk from 'gi://Gtk';
-import Gdk from 'gi://Gdk';
-const display = Gdk.Display.get_default();
 
 
 export default ({
@@ -20,13 +18,12 @@ export default ({
 }) => {
     const widget = EventBox({
         ...props,
+        cursor: 'grab',
         onHover: self => {
-            self.window.set_cursor(Gdk.Cursor.new_from_name(display, 'grab'));
             if (!self._hovered)
                 self._hovered = true;
         },
         onHoverLost: self => {
-            self.window.set_cursor(null);
             if (self._hovered)
                 self._hovered = false;
         },
@@ -85,9 +82,11 @@ export default ({
             // When dragging
             [gesture, self => {
                 var offset = gesture.get_offset()[1];
+                if (offset === 0)
+                    return;
 
                 // Slide right
-                if (offset >= 0) {
+                if (offset > 0) {
                     self.setCss(`
                         margin-top: 0px; margin-bottom: 0px; opacity: 1; transition: none;
                         margin-left:   ${Number(offset + startMargin)}px;
@@ -107,7 +106,7 @@ export default ({
 
                 // Put a threshold on if a click is actually dragging
                 widget._dragging = Math.abs(offset) > 10;
-                widget.window?.set_cursor(Gdk.Cursor.new_from_name(display, 'grabbing'));
+                widget.cursor = 'grabbing';
             }, 'drag-update'],
 
 
@@ -137,8 +136,7 @@ export default ({
                 }
                 else {
                     self.setCss(defaultStyle);
-                    widget.window?.set_cursor(Gdk.Cursor.new_from_name(display, 'grab'));
-
+                    widget.cursor = 'grab',
                     widget._dragging = false;
                 }
             }, 'drag-end'],

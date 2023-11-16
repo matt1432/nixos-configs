@@ -7,42 +7,46 @@ import PopupWindow  from '../misc/popup.js';
 import ToggleButton from './toggle-button.js';
 
 
-const QuickSettingsWidget = () => Box({
-    className: 'qs-container',
-    vertical: true,
-    children: [
+const QuickSettingsWidget = () => {
+    const rev = Revealer({
+        transition: 'slide_down',
+        child: Player(),
+    });
 
-        Box({
-            className: 'quick-settings',
-            vertical: true,
-            children: [
+    return Box({
+        className: 'qs-container',
+        vertical: true,
+        children: [
 
-                Label({
-                    label: 'Control Center',
-                    className: 'title',
-                    hpack: 'start',
-                    css: `
+            Box({
+                className: 'quick-settings',
+                vertical: true,
+                children: [
+
+                    Label({
+                        label: 'Control Center',
+                        className: 'title',
+                        hpack: 'start',
+                        css: `
                         margin-left: 20px;
                         margin-bottom: 30px;
                     `,
-                }),
+                    }),
 
-                ButtonGrid(),
+                    ButtonGrid(),
 
-                SliderBox(),
+                    SliderBox(),
 
-                ToggleButton(),
+                    ToggleButton(rev),
 
-            ],
-        }),
+                ],
+            }),
 
-        Revealer({
-            transition: 'slide_down',
-            child: Player(),
-        }),
+            rev,
 
-    ],
-});
+        ],
+    });
+};
 
 export default () => PopupWindow({
     name: 'quick-settings',

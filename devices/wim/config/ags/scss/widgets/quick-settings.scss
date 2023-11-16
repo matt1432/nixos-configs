@@ -132,35 +132,38 @@
     margin-right: -20px;
   }
 
-  scale {
+  .slider {
     min-height: 55px;
-    min-width: 400px;
-    margin-left: 18px;
-    margin-right: 20px;
 
-    highlight {
-      margin: 0;
-      background-color: #79659f;
-      border-radius: 2em;
-    }
+    scale {
+      min-width: 400px;
+      margin-left: 18px;
+      margin-right: 20px;
 
-    trough {
-      background-color: #363847;
-      border-radius: 2em;
-    }
+      highlight {
+        margin: 0;
+        background-color: #79659f;
+        border-radius: 2em;
+      }
 
-    slider {
-      margin: -4px;
-      min-width: 20px;
-      min-height: 20px;
-      background: #3e4153;
-      border-radius: 100%;
-      transition: background-color 0.5s ease-in-out;
-    }
+      trough {
+        background-color: #363847;
+        border-radius: 2em;
+      }
 
-    slider:hover {
-      background-color: #303240;
-      transition: background-color 0.5s ease-in-out;
+      slider {
+        margin: -4px;
+        min-width: 20px;
+        min-height: 20px;
+        background: #3e4153;
+        border-radius: 100%;
+        transition: background-color 0.5s ease-in-out;
+      }
+
+      slider:hover {
+        background-color: #303240;
+        transition: background-color 0.5s ease-in-out;
+      }
     }
   }
 }

@@ -179,7 +179,6 @@ export const Notification = ({
                                             label: setTime(notif.time),
                                         }),
                                         EventBox({
-                                            reset: false,
                                             child: Button({
                                                 className: 'close-button',
                                                 vpack: 'start',

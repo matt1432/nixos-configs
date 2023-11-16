@@ -2,16 +2,11 @@ import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import { Button, EventBox } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import Gtk from 'gi://Gtk';
-import Gdk from 'gi://Gdk';
-const display = Gdk.Display.get_default();
 
 
 // TODO: wrap in another EventBox for disabled cursor
 export default ({
     isButton = false,
-    reset = true,
-    onHover = () => {},
-    onHoverLost = () => {},
     onPrimaryClickRelease = () => {},
     ...props
 }) => {
@@ -21,6 +16,7 @@ export default ({
 
     const properties = {
         ...props,
+        cursor: 'pointer',
         onPrimaryClickRelease: self => {
             // Every click, do a one shot connect to
             // CanRun to wait for location of click
@@ -30,21 +26,6 @@ export default ({
 
                 CanRun.disconnect(id);
             });
-        },
-        onHover: self => {
-            if (!self.child.sensitive || !self.sensitive)
-                self.window.set_cursor(Gdk.Cursor.new_from_name(display, 'not-allowed'));
-
-            else
-                self.window.set_cursor(Gdk.Cursor.new_from_name(display, 'pointer'));
-
-            onHover(self);
-        },
-        onHoverLost: self => {
-            if (reset)
-                self.window.set_cursor(null);
-
-            onHoverLost(self);
         },
     };
 

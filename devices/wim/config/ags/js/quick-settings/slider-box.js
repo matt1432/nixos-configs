@@ -1,5 +1,5 @@
 import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
-import { Box, Slider, Icon, EventBox } from 'resource:///com/github/Aylur/ags/widget.js';
+import { Box, Slider, Icon } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import { SpeakerIcon } from '../misc/audio-icons.js';
 
@@ -22,10 +22,16 @@ export default () => Box({
                 }),
 
                 Slider({
-                    connections: [[Audio, slider => {
-                        if (Audio.speaker)
-                            slider.value = Audio.speaker.volume;
-                    }, 'speaker-changed']],
+                    cursor: 'pointer',
+                    vpack: 'center',
+                    connections: [
+                        [Audio, slider => {
+                            slider.value = Audio.speaker?.volume;
+                        }, 'speaker-changed'],
+
+                        ['button-press-event', s => { s.cursor = 'grabbing'; }],
+                        ['button-release-event', s => { s.cursor = 'pointer'; }],
+                    ],
                     onChange: ({ value }) => Audio.speaker.volume = value,
                     max: 0.999,
                     draw_value: false,
@@ -43,22 +49,19 @@ export default () => Box({
                     icon: 'display-brightness-symbolic',
                 }),
 
-                EventBox({
-                    onHover: box => box.child._canChange = false,
-                    onHoverLost: box => box.child._canChange = true,
-                    child: Slider({
-                        properties: [
-                            ['canChange', true],
-                        ],
-                        onChange: ({ value }) => {
-                            Brightness.screen = value;
-                        },
-                        connections: [[Brightness, slider => {
-                            if (slider._canChange)
-                                slider.value = Brightness.screen;
-                        }, 'screen']],
-                        draw_value: false,
-                    }),
+                Slider({
+                    cursor: 'pointer',
+                    vpack: 'center',
+                    onChange: ({ value }) => Brightness.screen = value,
+                    connections: [
+                        [Brightness, slider => {
+                            slider.value = Brightness.screen;
+                        }, 'screen'],
+
+                        ['button-press-event', s => { s.cursor = 'grabbing'; }],
+                        ['button-release-event', s => { s.cursor = 'pointer'; }],
+                    ],
+                    draw_value: false,
                 }),
             ],
         }),

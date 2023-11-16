@@ -2,11 +2,8 @@ import Mpris from 'resource:///com/github/Aylur/ags/service/mpris.js';
 import { Button, Icon, Label, Stack, Slider, CenterBox, Box } from 'resource:///com/github/Aylur/ags/widget.js';
 import { execAsync, lookUpIcon, readFileAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
-import Gdk from 'gi://Gdk';
-const display = Gdk.Display.get_default();
-
 import Separator from '../misc/separator.js';
-import EventBox  from '../misc/cursorbox.js';
+import EventBox from '../misc/cursorbox.js';
 
 const icons = {
     mpris: {
@@ -148,58 +145,54 @@ export const PlayerIcon = (player, { symbolic = true, ...props } = {}) => {
     });
 };
 
-export const PositionSlider = (player, props) => EventBox({
-    child: Slider({
-        ...props,
-        className: 'position-slider',
-        hexpand: true,
-        drawValue: false,
-        onChange: ({ value }) => {
-            player.position = player.length * value;
-        },
-        properties: [['update', slider => {
-            if (slider.dragging) {
-                slider.get_parent().window.set_cursor(Gdk.Cursor
-                    .new_from_name(display, 'grabbing'));
+export const PositionSlider = (player, props) => Slider({
+    ...props,
+    className: 'position-slider',
+    cursor: 'pointer',
+    vpack: 'center',
+    hexpand: true,
+    drawValue: false,
+    onChange: ({ value }) => {
+        player.position = player.length * value;
+    },
+    properties: [['update', slider => {
+        if (!slider.dragging) {
+            slider.visible = player.length > 0;
+            if (player.length > 0)
+                slider.value = player.position / player.length;
+        }
+    }]],
+    connections: [
+        [player, s => s._update(s), 'position'],
+        [1000, s => s._update(s)],
+        [player.colors, s => {
+            const c = player.colors.value;
+            if (player.colors.value) {
+                s.setCss(`
+                    highlight    { background-color: ${c.buttonAccent}; }
+                    slider       { background-color: ${c.buttonAccent}; }
+                    slider:hover { background-color: ${c.hoverAccent}; }
+                    trough       { background-color: ${c.buttonText}; }
+                `);
             }
-            else {
-                slider.get_parent()?.window?.set_cursor(Gdk.Cursor
-                    .new_from_name(display, 'pointer'));
+        }],
 
-                slider.visible = player.length > 0;
-                if (player.length > 0)
-                    slider.value = player.position / player.length;
-            }
-        }]],
-        connections: [
-            [player, s => s._update(s), 'position'],
-            [1000, s => s._update(s)],
-            [player.colors, s => {
-                const c = player.colors.value;
-                if (player.colors.value) {
-                    s.setCss(`
-                        highlight    { background-color: ${c.buttonAccent}; }
-                        slider       { background-color: ${c.buttonAccent}; }
-                        slider:hover { background-color: ${c.hoverAccent}; }
-                        trough       { background-color: ${c.buttonText}; }
-                    `);
-                }
-            }],
-        ],
-    }),
+        ['button-press-event', s => { s.cursor = 'grabbing'; }],
+        ['button-release-event', s => { s.cursor = 'pointer'; }],
+    ],
 });
 
-const PlayerButton = ({ player, items, onClick, prop }) => Button({
-    child: Stack({ items }),
-    onPrimaryClickRelease: () => player[onClick](),
-    properties: [['hovered', false]],
-    onHover: self => {
-        self._hovered = true;
-        self.window.set_cursor(Gdk.Cursor.new_from_name(display, 'pointer'));
+const PlayerButton = ({ player, items, onClick, prop }) => EventBox({
+    child: Button({
+        child: Stack({ items }),
+        onPrimaryClickRelease: () => player[onClick](),
+        properties: [['hovered', false]],
+        onHover: self => {
+            self._hovered = true;
 
-        if (prop == 'playBackStatus') {
-            items.forEach(item => {
-                item[1].setCss(`
+            if (prop == 'playBackStatus') {
+                items.forEach(item => {
+                    item[1].setCss(`
                     background-color: ${player.colors.value.hoverAccent};
                     color: ${player.colors.value.buttonText};
                     min-height: 40px;
@@ -207,37 +200,36 @@ const PlayerButton = ({ player, items, onClick, prop }) => Button({
                     margin-bottom: 1px;
                     margin-right: 1px;
                 `);
-            });
-        }
-    },
-    onHoverLost: self => {
-        self._hovered = false;
-        self.window.set_cursor(null);
-        if (prop == 'playBackStatus') {
-            items.forEach(item => {
-                item[1].setCss(`
+                });
+            }
+        },
+        onHoverLost: self => {
+            self._hovered = false;
+            if (prop == 'playBackStatus') {
+                items.forEach(item => {
+                    item[1].setCss(`
                     background-color: ${player.colors.value.buttonAccent};
                     color: ${player.colors.value.buttonText};
                     min-height: 42px;
                     min-width: 38px;
                 `);
-            });
-        }
-    },
-    connections: [
-        [player, button => {
-            button.child.shown = `${player[prop]}`;
-        }],
+                });
+            }
+        },
+        connections: [
+            [player, button => {
+                button.child.shown = `${player[prop]}`;
+            }],
 
-        [player.colors, button => {
-            if (!Mpris.players.find(p => player === p))
-                return;
+            [player.colors, button => {
+                if (!Mpris.players.find(p => player === p))
+                    return;
 
-            if (player.colors.value) {
-                if (prop == 'playBackStatus') {
-                    if (button._hovered) {
-                        items.forEach(item => {
-                            item[1].setCss(`
+                if (player.colors.value) {
+                    if (prop == 'playBackStatus') {
+                        if (button._hovered) {
+                            items.forEach(item => {
+                                item[1].setCss(`
                                 background-color: ${player.colors.value.hoverAccent};
                                 color: ${player.colors.value.buttonText};
                                 min-height: 40px;
@@ -245,27 +237,28 @@ const PlayerButton = ({ player, items, onClick, prop }) => Button({
                                 margin-bottom: 1px;
                                 margin-right: 1px;
                             `);
-                        });
-                    }
-                    else {
-                        items.forEach(item => {
-                            item[1].setCss(`
+                            });
+                        }
+                        else {
+                            items.forEach(item => {
+                                item[1].setCss(`
                                 background-color: ${player.colors.value.buttonAccent};
                                 color: ${player.colors.value.buttonText};
                                 min-height: 42px;
                                 min-width: 38px;`);
-                        });
+                            });
+                        }
                     }
-                }
-                else {
-                    button.setCss(`
+                    else {
+                        button.setCss(`
                         *       { color: ${player.colors.value.buttonAccent}; }
                         *:hover { color: ${player.colors.value.hoverAccent}; }
                     `);
+                    }
                 }
-            }
-        }],
-    ],
+            }],
+        ],
+    }),
 });
 
 export const ShuffleButton = player => PlayerButton({
