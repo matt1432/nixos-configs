@@ -233,7 +233,7 @@ const SecondRow = () => Row({
 
         GridButton({
             command: () => {
-                execAsync(['pactl', 'set-source-mute', '@DEFAULT_SOURCE@', 'toggle'])
+                execAsync(['pactl', 'set-sink-mute', '@DEFAULT_SINK@', 'toggle'])
                     .catch(print);
             },
 
