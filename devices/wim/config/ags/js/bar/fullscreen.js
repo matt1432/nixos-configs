@@ -1,83 +1,60 @@
-import Hyprland    from 'resource:///com/github/Aylur/ags/service/hyprland.js';
-import Variable    from 'resource:///com/github/Aylur/ags/variable.js';
+import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
+import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 
-import { Box, EventBox, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
-import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
-
-const Revealed = Variable(true);
-const Hovering = Variable(false);
+import { Box, EventBox, Revealer, Window } from 'resource:///com/github/Aylur/ags/widget.js';
 
 
-Hyprland.connect('changed', () => {
-    const workspace = Hyprland.getWorkspace(Hyprland.active.workspace.id);
-    Revealed.value = workspace?.hasfullscreen;
+const BarCloser = variable => Window({
+    name: 'bar-closer',
+    visible: false,
+    anchor: ['top', 'bottom', 'left', 'right'],
+    layer: 'overlay',
+    child: EventBox({
+        onHover: self => {
+            variable.value = false;
+            self.get_parent().visible = false;
+        },
+        child: Box({
+            css: 'padding: 1px',
+        }),
+    }),
 });
-Hyprland.connect('fullscreen', (_, fullscreen) => Revealed.value = fullscreen);
 
-export default props => Box({
-    css: 'min-height: 1px',
-    hexpand: true,
-    vertical: true,
-    children: [
-        Revealer({
-            transition: 'slide_down',
-            revealChild: true,
+export default props => {
+    const Revealed = Variable(true);
+    const barCloser = BarCloser(Revealed);
 
-            properties: [['timeouts', []]],
-            connections: [[Revealed, self => {
-                if (Revealed.value) {
-                    timeout(2000, () => {
-                        if (Revealed.value)
-                            self.revealChild = false;
-                    });
-                }
-                else {
-                    self.revealChild = true;
-                }
-            }]],
-
-            child: EventBox({
-                onHover: () => Hovering.value = true,
-                onHoverLost: self => {
-                    Hovering.value = false;
-                    if (Revealed.value) {
-                        timeout(2000, () => {
-                            if (!Hovering.value) {
-                                // Replace bar with transparent eventbox
-                                self.get_parent().get_parent().children[1].revealChild = true;
-                                self.get_parent().revealChild = false;
-                            }
-                        });
-                    }
-                },
+    return Box({
+        css: 'min-height: 1px',
+        hexpand: true,
+        vertical: true,
+        connections: [
+            [Hyprland.active, () => {
+                const workspace = Hyprland.getWorkspace(Hyprland.active.workspace.id);
+                Revealed.value = !workspace?.hasfullscreen;
+            }],
+            [Hyprland, (_, fullscreen) => Revealed.value = !fullscreen, 'fullscreen'],
+        ],
+        children: [
+            Revealer({
+                transition: 'slide_down',
+                revealChild: true,
+                binds: [['revealChild', Revealed, 'value']],
                 ...props,
             }),
-        }),
 
-        Revealer({
-            connections: [[Revealed, self => {
-                if (Revealed.value) {
-                    timeout(2000, () => {
-                        if (Revealed.value)
-                            self.revealChild = true;
-                    });
-                }
-                else {
-                    self.revealChild = false;
-                }
-            }]],
-            child: EventBox({
-                onHover: self => {
-                    Hovering.value = true;
-
-                    // Replace eventbox with bar
-                    self.get_parent().get_parent().children[0].revealChild = true;
-                    self.get_parent().revealChild = false;
-                },
-                child: Box({
-                    css: 'min-height: 5px;',
+            Revealer({
+                binds: [['revealChild', Revealed, 'value', v => !v]],
+                child: EventBox({
+                    onHover: () => {
+                        barCloser.visible = true;
+                        Revealed.value = true;
+                    },
+                    child: Box({
+                        css: 'min-height: 5px;',
+                    }),
                 }),
             }),
-        }),
-    ],
-});
+        ],
+    });
+};

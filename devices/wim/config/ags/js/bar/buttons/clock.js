@@ -4,7 +4,7 @@ import { Box, Label } from 'resource:///com/github/Aylur/ags/widget.js';
 import GLib from 'gi://GLib';
 const { DateTime } = GLib;
 
-import EventBox from '../misc/cursorbox.js';
+import EventBox from '../../misc/cursorbox.js';
 
 
 const ClockModule = ({

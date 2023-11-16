@@ -2,9 +2,9 @@ import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
 import { Label, Box, Icon } from 'resource:///com/github/Aylur/ags/widget.js';
 import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
-import { SpeakerIcon } from '../misc/audio-icons.js';
-import Separator from '../misc/separator.js';
-import EventBox  from '../misc/cursorbox.js';
+import { SpeakerIcon } from '../../misc/audio-icons.js';
+import Separator from '../../misc/separator.js';
+import EventBox  from '../../misc/cursorbox.js';
 
 
 const SpeakerIndicator = props => Icon({

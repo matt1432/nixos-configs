@@ -1,7 +1,7 @@
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import { Box, Label } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import EventBox from '../misc/cursorbox.js';
+import EventBox from '../../misc/cursorbox.js';
 
 
 export default () => EventBox({

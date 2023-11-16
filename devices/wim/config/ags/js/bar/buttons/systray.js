@@ -2,7 +2,7 @@ import SystemTray from 'resource:///com/github/Aylur/ags/service/systemtray.js';
 import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 import { Box, Icon, MenuItem, MenuBar, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import Separator from '../misc/separator.js';
+import Separator from '../../misc/separator.js';
 
 
 const SysTrayItem = item => {

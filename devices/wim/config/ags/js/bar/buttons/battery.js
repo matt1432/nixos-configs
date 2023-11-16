@@ -1,7 +1,7 @@
 import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
 import { Label, Icon, Box } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import Separator from '../misc/separator.js';
+import Separator from '../../misc/separator.js';
 
 
 const Indicator = () => Icon({

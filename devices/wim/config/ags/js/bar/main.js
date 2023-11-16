@@ -1,20 +1,20 @@
 import { Window, CenterBox, Box } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import Separator      from '../misc/separator.js';
-import CurrentWindow  from './current-window.js';
-import Workspaces     from './workspaces.js';
-import OskToggle      from './osk-toggle.js';
-import TabletToggle   from './tablet-toggle.js';
-import QsToggle       from './quick-settings.js';
-import NotifButton    from './notif-button.js';
-import Clock          from './clock.js';
-import SysTray        from './systray.js';
-import Battery        from './battery.js';
-import Brightness     from './brightness.js';
-import Audio          from './audio.js';
-import KeyboardLayout from './keyboard-layout.js';
+import CurrentWindow  from './buttons/current-window.js';
+import Workspaces     from './buttons/workspaces.js';
+import OskToggle      from './buttons/osk-toggle.js';
+import TabletToggle   from './buttons/tablet-toggle.js';
+import QsToggle       from './buttons/quick-settings.js';
+import NotifButton    from './buttons/notif-button.js';
+import Clock          from './buttons/clock.js';
+import SysTray        from './buttons/systray.js';
+import Battery        from './buttons/battery.js';
+import Brightness     from './buttons/brightness.js';
+import Audio          from './buttons/audio.js';
+import KeyboardLayout from './buttons/keyboard-layout.js';
 
-import Revealer from './fullscreen.js';
+import BarReveal from './fullscreen.js';
 
 
 export default () => Window({
@@ -22,7 +22,7 @@ export default () => Window({
     layer: 'overlay',
     anchor: ['top', 'left', 'right'],
     exclusivity: 'exclusive',
-    child: Revealer({
+    child: BarReveal({
         child: CenterBox({
             className: 'bar',
             vertical: false,

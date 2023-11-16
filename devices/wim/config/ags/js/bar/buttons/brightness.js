@@ -1,6 +1,6 @@
 import { ProgressBar, Overlay, Box } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import Separator from '../misc/separator.js';
+import Separator from '../../misc/separator.js';
 import Heart     from './heart.js';
 
 
