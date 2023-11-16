@@ -3,6 +3,7 @@ import { Box, Icon, Label } from 'resource:///com/github/Aylur/ags/widget.js';
 
 const DEFAULT_KB = 'at-translated-set-2-keyboard';
 
+
 export default () => Box({
     className: 'toggle-off',
     css: 'padding: 0 10px;',
