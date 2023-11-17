@@ -23,7 +23,6 @@ export default ({
     const window = Window({
         name,
         layer,
-        popup: true,
         visible: false,
         ...props,
 
