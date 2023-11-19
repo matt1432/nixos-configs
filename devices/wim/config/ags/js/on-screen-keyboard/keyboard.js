@@ -1,4 +1,4 @@
-import { Box, CenterBox } from 'resource:///com/github/Aylur/ags/widget.js';
+import { Box, CenterBox, Label, ToggleButton } from 'resource:///com/github/Aylur/ags/widget.js';
 import Separator from '../misc/separator.js';
 
 import Key from './keys.js';
@@ -10,7 +10,7 @@ const keyboardJson = oskLayouts[keyboardLayout];
 const L_KEY_PER_ROW = [8, 7, 6, 6, 6, 4];
 
 
-export default () => CenterBox({
+export default window => CenterBox({
     class_name: 'osk',
     hexpand: true,
     start_widget: Box({
@@ -33,6 +33,25 @@ export default () => CenterBox({
 
     center_widget: Box({
         hpack: 'center',
+        vpack: 'center',
+        children: [
+            Box({
+                class_name: 'settings',
+                children: [
+                    ToggleButton({
+                        cursor: 'pointer',
+                        class_name: 'button',
+                        active: true,
+                        vpack: 'center',
+                        connections: [['toggled', self => {
+                            self.toggleClassName('toggled', self.get_active());
+                            window.exclusivity = self.get_active() ? 'exclusive' : 'normal';
+                        }]],
+                        child: Label('Exclusive'),
+                    }),
+                ],
+            }),
+        ],
     }),
 
     end_widget: Box({

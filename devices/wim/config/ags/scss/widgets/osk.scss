@@ -1,6 +1,24 @@
 .osk {
   margin-left: 4px;
 
+  .settings {
+    background-color: $bg;
+    border: 0.08rem solid $darkbg;
+    border-radius: 0.7rem;
+    padding: 0.6rem;
+
+    .button {
+      background-color: $bgfull;
+      border: 0.08rem solid $darkbg;
+      border-radius: 0.7rem;
+      padding: 0.5rem;
+
+      &.toggled {
+        background-color: $contrast-bg;
+      }
+    }
+  }
+
   .side {
     .key {
       &:active label {
