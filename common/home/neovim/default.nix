@@ -1,4 +1,4 @@
-{ pkgs, lib, neovim-flake, ... }: let
+{ pkgs, lib, ... }: let
   # installs a vim plugin from git with a given tag / branch
   plugin = owner: repo: rev: hash: pkgs.vimUtils.buildVimPlugin {
     pname = "${lib.strings.sanitizeDerivationName repo}";
@@ -30,17 +30,7 @@ in {
 
     neovim = {
       enable = true;
-      # Temp fix https://github.com/nix-community/neovim-nightly-overlay/issues/332
-      package = neovim-flake.packages.x86_64-linux.default.override {
-        libvterm-neovim = pkgs.libvterm-neovim.overrideAttrs (prev: final: {
-          doCheck = false;
-          version = "0.3.3";
-          src = pkgs.fetchurl {
-            url = "https://launchpad.net/libvterm/trunk/v0.3.3/+download/libvterm-0.3.3.tar.gz";
-            hash = "sha256-CRVvQ90hKL00fL7r5Q2aVx0yxk4M8Y0hEZeUav9yJuA=";
-          };
-        });
-      };
+      package = pkgs.neovim-nightly;
       withNodeJs = true;
       withPython3 = true;
       withRuby = false;
