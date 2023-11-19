@@ -17,7 +17,7 @@
     ./device-vars.nix
 
     home-manager.nixosModules.default
-    #nh.nixosModules.default
+    nh.nixosModules.default
 
     ./modules/programs.nix
     ./modules/locale.nix
@@ -46,14 +46,14 @@
     coc-stylelintplus.overlay
   ];
 
-  /*nh = {
+  nh = {
     enable = true;
     # weekly cleanup
     clean = {
       enable = true;
       extraArgs = "--keep-since 30d";
     };
-  };*/
+  };
   environment.variables.FLAKE = "/home/matt/.nix";
 
   services.xserver = {
@@ -77,8 +77,8 @@
       ];
 
       home.packages = [
-        #nix-melt.packages.x86_64-linux.default
-        #nurl.packages.x86_64-linux.default
+        nix-melt.packages.x86_64-linux.default
+        nurl.packages.x86_64-linux.default
       ] ++
 
       (with config.nur.repos.rycee; [
