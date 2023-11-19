@@ -49,8 +49,8 @@ in {
 
         nil
       ];
-      extraPython3Packages = with pkgs.python311Packages; [
-        pylint
+      extraPython3Packages = ps: [
+        ps.pylint
       ];
 
       coc = {

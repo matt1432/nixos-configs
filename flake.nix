@@ -13,7 +13,6 @@
     };
 
     hyprland.url = "github:hyprwm/Hyprland";
-
     hyprgrass = {
       url = "github:horriblename/hyprgrass";
       inputs.hyprland.follows = "hyprland";
@@ -26,28 +25,17 @@
 
     neovim-flake = {
       url = "github:nix-community/neovim-nightly-overlay";
+      # to make sure plugins and nvim have same binaries
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    nh = {
-      url = "github:viperML/nh";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-melt = {
-      url = "github:nix-community/nix-melt";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nurl = {
-      url = "github:nix-community/nurl";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     coc-stylelintplus = {
       url = "github:matt1432/coc-stylelintplus";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nh.url = "github:viperML/nh";
+    nix-melt.url = "github:nix-community/nix-melt";
+    nurl.url = "github:nix-community/nurl";
   };
 
   outputs = { self, nixpkgs, home-manager, nur, nix-gaming, ... }@attrs: let
