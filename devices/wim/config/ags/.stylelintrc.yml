@@ -2,6 +2,7 @@ extends: stylelint-config-standard-scss
 ignoreFiles: "**/*.js"
 rules:
   selector-type-no-unknown: null
+  selector-class-pattern: null
   declaration-empty-line-before: null
   no-descending-specificity: null
   selector-pseudo-class-no-unknown: null

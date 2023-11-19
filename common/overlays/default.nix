@@ -6,6 +6,7 @@
 
   nixpkgs.overlays = [
     (import ./blueberry.nix)
+    (import ./squeekboard.nix)
     neovim-flake.overlay
 
     (final: prev: {

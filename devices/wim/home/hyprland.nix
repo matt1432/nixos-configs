@@ -53,6 +53,7 @@ in {
 
   home.packages = with pkgs; [
     # ags
+    ydotool
     sassc
     coloryou
     libnotify

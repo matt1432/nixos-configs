@@ -39,6 +39,8 @@
     "imports": "readonly",
     "print": "readonly",
     "console": "readonly",
-    "logError": "readonly"
+    "logError": "readonly",
+    "setTimeout": "readonly",
+    "setInterval": "readonly"
   }
 }

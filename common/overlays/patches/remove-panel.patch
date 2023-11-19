@@ -1,0 +1,41 @@
+From 10be06ebc72ec8f516003577dabcedb60fe05982 Mon Sep 17 00:00:00 2001
+From: matt1432 <matt@nelim.org>
+Date: Sat, 18 Nov 2023 20:26:50 -0500
+Subject: [PATCH] remove panel
+
+---
+ src/panel.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/src/panel.c b/src/panel.c
+index a9942c8..333727e 100644
+--- a/src/panel.c
++++ b/src/panel.c
+@@ -75,13 +75,13 @@ panel_manager_request_widget (struct panel_manager *self, struct wl_output *outp
+             PHOSH_TYPE_LAYER_SURFACE,
+             "layer-shell", squeek_wayland->layer_shell,
+             "wl-output", output,
+-            "height", height,
++            "height", 1,
+             "anchor", ZWLR_LAYER_SURFACE_V1_ANCHOR_BOTTOM
+             | ZWLR_LAYER_SURFACE_V1_ANCHOR_LEFT
+             | ZWLR_LAYER_SURFACE_V1_ANCHOR_RIGHT,
+             "layer", ZWLR_LAYER_SHELL_V1_LAYER_TOP,
+             "kbd-interactivity", FALSE,
+-            "exclusive-zone", height,
++
+             "namespace", "osk",
+             NULL
+         );
+@@ -100,7 +100,7 @@ panel_manager_request_widget (struct panel_manager *self, struct wl_output *outp
+         gtk_window_set_icon_name (GTK_WINDOW(self->window), "squeekboard");
+         gtk_window_set_keep_above (GTK_WINDOW(self->window), TRUE);
+     } else {
+-        panel_manager_resize(self, height);
++        panel_manager_resize(self, 1);
+     }
+ 
+     if (!self->widget) {
+-- 
+2.42.0
+

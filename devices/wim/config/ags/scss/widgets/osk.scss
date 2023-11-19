@@ -1,0 +1,73 @@
+.osk {
+  margin-left: 4px;
+
+  .side {
+    .key {
+      &:active label {
+        background-color: $contrast-bg;
+      }
+
+      label {
+        background-color: $bg;
+        border: 0.08rem solid $darkbg;
+        border-radius: 0.7rem;
+        min-height: 3rem;
+
+        transition: background-color 0.2s ease-in-out,
+                    border-color 0.2s ease-in-out;
+
+        &.normal, &.Super {
+          min-width: 3rem;
+        }
+
+        &.Tab, &.Backspace {
+          min-width: 7rem;
+        }
+
+        &.Enter, &.Caps {
+          min-width: 8rem;
+        }
+
+        &.Shift {
+          min-width: 9rem;
+        }
+
+        &.Space {
+          min-width: 20rem;
+        }
+
+        &.PrtSc, &.AltGr {
+          min-width: 3.2rem;
+        }
+
+        &.active {
+          background-color: $darkbg;
+        }
+
+        &.altgr {
+          border: 0.08rem solid blue;
+        }
+      }
+    }
+
+    &.right-side {
+      .key .mod {
+        &.Ctrl {
+          min-width: 2.4rem;
+        }
+      }
+    }
+
+    &.left-side {
+      .key .mod {
+        &.Alt {
+          min-width: 3rem;
+        }
+
+        &.Ctrl {
+          min-width: 4rem;
+        }
+      }
+    }
+  }
+}
