@@ -54,7 +54,7 @@ export default ({
                             onClose(child);
                     }
                 }]],
-                child: child,
+                child: child || Box(),
             }),
         }),
     });
@@ -62,7 +62,8 @@ export default ({
     // Make getting the original child passed in
     // this function easier when making more code
     // for the widget
-    window.getChild = () => child;
+    window.getChild = () => window.child.children[0].child;
+    window.setChild = newChild => window.child.children[0].child = newChild;
 
     // This is for my custom pointers.js
     window.closeOnUnfocus = closeOnUnfocus;
