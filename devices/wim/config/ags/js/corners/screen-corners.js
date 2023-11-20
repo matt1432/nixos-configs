@@ -2,7 +2,10 @@ import { Box, DrawingArea } from 'resource:///com/github/Aylur/ags/widget.js';
 import Gtk from 'gi://Gtk';
 const Lang = imports.lang;
 
-export default place => Box({
+export default (
+    place,
+    css = 'background-color: black;',
+) => Box({
     hpack: place.includes('left') ? 'start' : 'end',
     vpack: place.includes('top')  ? 'start' : 'end',
     css: `
@@ -14,10 +17,9 @@ export default place => Box({
         `,
     child: DrawingArea({
         css: `
-            background-color: black;
             border-radius: 18px;
             border-width: 0.068rem;
-        `,
+        ` + css,
         setup: widget => {
             const r = widget.get_style_context()
                 .get_property('border-radius', Gtk.StateFlags.NORMAL);

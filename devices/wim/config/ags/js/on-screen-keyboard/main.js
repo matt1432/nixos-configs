@@ -1,33 +1,31 @@
+import { Window } from 'resource:///com/github/Aylur/ags/widget.js';
 import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import Gesture from './gesture.js';
 import Keyboard from './keyboard.js';
-import PopupWindow from '../misc/popup.js';
 
 
-// ydotool stuff
+// start ydotool daemon
 execAsync('ydotoold').catch(print);
-
-function releaseAllKeys() {
-    const keycodes = Array.from(Array(249).keys());
-    execAsync([
-        'ydotool', 'key',
-        ...keycodes.map(keycode => `${keycode}:0`),
-    ]).catch(print);
-}
 
 // Window
 export default () => {
-    const window = PopupWindow({
+    const window = Window({
         name: 'osk',
+        visible: false,
         anchor: ['left', 'bottom', 'right'],
-        onClose: releaseAllKeys,
-        closeOnUnfocus: 'none',
-        connections: [[Tablet, self => {
-            self.visible = Tablet.oskState;
-        }, 'osk-toggled']],
+        connections: [
+            [Tablet, (self, state) => {
+                self.setVisible(state);
+            }, 'osk-toggled'],
+
+            [Tablet, () => {
+                if (!Tablet.tabletMode && !Tablet.oskState)
+                    window.visible = false;
+            }, 'mode-toggled'],
+        ],
     });
-    window.setChild(Keyboard(window));
+    window.child = Keyboard(window);
 
     return Gesture(window);
 };
