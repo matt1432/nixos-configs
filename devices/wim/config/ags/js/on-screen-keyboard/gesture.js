@@ -1,49 +1,60 @@
-import { execAsync, timeout } from 'resource:///com/github/Aylur/ags/utils.js';
-
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
+
+import { execAsync, timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import Gtk from 'gi://Gtk';
 
+import Tablet from '../../services/tablet.js';
+
+const KEY_N = 249;
+const HIDDEN_MARGIN = 340;
+const ANIM_DURATION = 700;
+
 
 const releaseAllKeys = () => {
-    const keycodes = Array.from(Array(249).keys());
+    const keycodes = Array.from(Array(KEY_N).keys());
+
     execAsync([
         'ydotool', 'key',
-        ...keycodes.map(keycode => `${keycode}:0`),
+        ...keycodes.map((keycode) => `${keycode}:0`),
     ]).catch(print);
 };
 
-const hidden = 340;
-export default window => {
-    window.child.setCss(`margin-bottom: -${hidden}px;`);
+export default (window) => {
+    window.child.setCss(`margin-bottom: -${HIDDEN_MARGIN}px;`);
     const gesture = Gtk.GestureDrag.new(window);
 
-    window.setVisible = state => {
+    window.setVisible = (state) => {
         if (state) {
             window.visible = true;
             window.setSlideDown();
             window.child.setCss(`
-                transition: margin-bottom 0.7s cubic-bezier(0.36, 0, 0.66, -0.56);
+                transition: margin-bottom 0.7s
+                    cubic-bezier(0.36, 0, 0.66, -0.56);
                 margin-bottom: 0px;
             `);
         }
         else {
-            timeout(710, () => {
-                if (!Tablet.tabletMode)
+            timeout(ANIM_DURATION + 10, () => {
+                if (!Tablet.tabletMode) {
                     window.visible = false;
+                }
             });
             releaseAllKeys();
             window.setSlideUp();
             window.child.setCss(`
-                transition: margin-bottom 0.7s cubic-bezier(0.36, 0, 0.66, -0.56);
-                margin-bottom: -${hidden}px;
+                transition: margin-bottom 0.7s
+                    cubic-bezier(0.36, 0, 0.66, -0.56);
+                margin-bottom: -${HIDDEN_MARGIN}px;
             `);
         }
     };
 
     gesture.signals = [];
     window.killGestureSigs = () => {
-        gesture.signals.forEach(id => gesture.disconnect(id));
+        gesture.signals.forEach((id) => {
+            gesture.disconnect(id);
+        });
         gesture.signals = [];
     };
 
@@ -53,7 +64,7 @@ export default window => {
         // Begin drag
         gesture.signals.push(
             gesture.connect('drag-begin', () => {
-                Hyprland.sendMessage('j/cursorpos').then(out => {
+                Hyprland.sendMessage('j/cursorpos').then((out) => {
                     gesture.startY = JSON.parse(out).y;
                 });
             }),
@@ -62,15 +73,16 @@ export default window => {
         // Update drag
         gesture.signals.push(
             gesture.connect('drag-update', () => {
-                Hyprland.sendMessage('j/cursorpos').then(out => {
+                Hyprland.sendMessage('j/cursorpos').then((out) => {
                     const currentY = JSON.parse(out).y;
                     const offset = gesture.startY - currentY;
 
-                    if (offset < 0)
+                    if (offset < 0) {
                         return;
+                    }
 
                     window.child.setCss(`
-                        margin-bottom: ${offset - hidden}px;
+                        margin-bottom: ${offset - HIDDEN_MARGIN}px;
                     `);
                 });
             }),
@@ -81,7 +93,7 @@ export default window => {
             gesture.connect('drag-end', () => {
                 window.child.setCss(`
                     transition: margin-bottom 0.5s ease-in-out;
-                    margin-bottom: -${hidden}px;
+                    margin-bottom: -${HIDDEN_MARGIN}px;
                 `);
             }),
         );
@@ -93,7 +105,7 @@ export default window => {
         // Begin drag
         gesture.signals.push(
             gesture.connect('drag-begin', () => {
-                Hyprland.sendMessage('j/cursorpos').then(out => {
+                Hyprland.sendMessage('j/cursorpos').then((out) => {
                     gesture.startY = JSON.parse(out).y;
                 });
             }),
@@ -102,12 +114,13 @@ export default window => {
         // Update drag
         gesture.signals.push(
             gesture.connect('drag-update', () => {
-                Hyprland.sendMessage('j/cursorpos').then(out => {
+                Hyprland.sendMessage('j/cursorpos').then((out) => {
                     const currentY = JSON.parse(out).y;
                     const offset = gesture.startY - currentY;
 
-                    if (offset > 0)
+                    if (offset > 0) {
                         return;
+                    }
 
                     window.child.setCss(`
                         margin-bottom: ${offset}px;

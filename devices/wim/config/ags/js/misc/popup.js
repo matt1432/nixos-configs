@@ -1,4 +1,5 @@
 import App from 'resource:///com/github/Aylur/ags/app.js';
+
 import { Revealer, Box, Window } from 'resource:///com/github/Aylur/ags/widget.js';
 
 
@@ -9,8 +10,8 @@ export default ({
 
     // Optional: execute a function whenever
     // the window pops up or goes away
-    onOpen = () => {},
-    onClose = () => {},
+    onOpen = () => { /**/ },
+    onClose = () => { /**/ },
 
     // Window props
     name,
@@ -29,8 +30,9 @@ export default ({
         // Add way to make window open on startup
         setup: () => {
             const id = App.connect('config-parsed', () => {
-                if (visible)
+                if (visible) {
                     App.openWindow(name);
+                }
                 App.disconnect(id);
             });
         },
@@ -38,32 +40,39 @@ export default ({
         // Wrapping the revealer inside a box is needed
         // to allocate some space for it even when not revealed
         child: Box({
-            css: `min-height:1px;
-                  min-width:1px;
-                  padding: 1px;`,
+            css: `
+                min-height:1px;
+                min-width:1px;
+                padding: 1px;
+            `,
             child: Revealer({
                 transition,
                 transitionDuration,
-                connections: [[App, (rev, currentName, visible) => {
-                    if (currentName === name) {
-                        rev.revealChild = visible;
 
-                        if (visible)
+                connections: [[App, (rev, currentName, isOpen) => {
+                    if (currentName === name) {
+                        rev.revealChild = isOpen;
+
+                        if (isOpen) {
                             onOpen(child);
-                        else
+                        }
+                        else {
                             onClose(child);
+                        }
                     }
                 }]],
+
                 child: child || Box(),
             }),
         }),
     });
 
-    // Make getting the original child passed in
-    // this function easier when making more code
-    // for the widget
+    // Make getting the original child passed in this
+    // function easier when making more code for the widget
     window.getChild = () => window.child.children[0].child;
-    window.setChild = newChild => window.child.children[0].child = newChild;
+    window.setChild = (newChild) => {
+        window.child.children[0].child = newChild;
+    };
 
     // This is for my custom pointers.js
     window.closeOnUnfocus = closeOnUnfocus;

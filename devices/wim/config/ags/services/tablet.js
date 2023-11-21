@@ -4,7 +4,7 @@ import TouchGestures from './touch-gestures.js';
 import { execAsync, subprocess } from 'resource:///com/github/Aylur/ags/utils.js';
 import GUdev from 'gi://GUdev';
 
-const ROTATION_MAPPING = {
+const ROTATION_MAP = {
     'normal': 0,
     'right-up': 3,
     'bottom-up': 2,
@@ -28,42 +28,47 @@ class Tablet extends Service {
         });
     }
 
-    tabletMode = false;
-    autorotate = undefined;
-    oskState = false;
-    blockedInputs = undefined;
-    udevClient = GUdev.Client.new(['input']);
+    #tabletMode = false;
+    #oskState = false;
+    #autorotate;
+    #blockedInputs;
+    #udevClient = GUdev.Client.new(['input']);
 
-    get tabletMode() { return this.tabletMode; }
-    get oskState() { return this.oskState; }
+    get tabletMode() {
+        return this.#tabletMode;
+    }
+
+    get oskState() {
+        return this.#oskState;
+    }
 
     constructor() {
         super();
-        this.initUdevConnection();
-        this.listenOskState();
+        this.#initUdevConnection();
+        this.#listenOskState();
     }
 
-    blockInputs() {
-        if (this.blockedInputs)
+    #blockInputs() {
+        if (this.#blockedInputs) {
             return;
+        }
 
-        this.blockedInputs = subprocess(['libinput', 'debug-events', '--grab',
+        this.#blockedInputs = subprocess(['libinput', 'debug-events', '--grab',
             '--device', '/dev/input/by-path/platform-i8042-serio-0-event-kbd',
             '--device', '/dev/input/by-path/platform-i8042-serio-1-event-mouse',
             '--device', '/dev/input/by-path/platform-AMDI0010:02-event-mouse',
             '--device', '/dev/input/by-path/platform-thinkpad_acpi-event',
             '--device', '/dev/video-bus',
-            '--device', '/dev/touchpad',
-        ],
-        () => {},
-        err => logError(err));
+            '--device', '/dev/touchpad'],
+        () => { /**/ },
+        (err) => logError(err));
         this.emit('inputs-blocked', true);
     }
 
-    unblockInputs() {
-        if (this.blockedInputs) {
-            this.blockedInputs.force_exit();
-            this.blockedInputs = undefined;
+    #unblockInputs() {
+        if (this.#blockedInputs) {
+            this.#blockedInputs.force_exit();
+            this.#blockedInputs = null;
             this.emit('inputs-unblocked', true);
         }
     }
@@ -76,9 +81,9 @@ class Tablet extends Service {
             .catch(print);
 
         this.startAutorotate();
-        this.blockInputs();
+        this.#blockInputs();
 
-        this.tabletMode = true;
+        this.#tabletMode = true;
         this.emit('tablet-mode', true);
         this.emit('mode-toggled', true);
     }
@@ -91,38 +96,42 @@ class Tablet extends Service {
             .catch(print);
 
         this.killAutorotate();
-        this.unblockInputs();
+        this.#unblockInputs();
 
-        this.tabletMode = false;
+        this.#tabletMode = false;
         this.emit('laptop-mode', true);
         this.emit('mode-toggled', true);
     }
 
     toggleMode() {
-        if (this.tabletMode)
+        if (this.#tabletMode) {
             this.setLaptopMode();
-        else
+        }
+        else {
             this.setTabletMode();
+        }
 
         this.emit('mode-toggled', true);
     }
 
-    initUdevConnection() {
-        this.getDevices();
-        this.udevClient.connect('uevent', (_, action) => {
-            if (action === 'add' || action === 'remove')
-                this.getDevices();
+    #initUdevConnection() {
+        this.#getDevices();
+        this.#udevClient.connect('uevent', (_, action) => {
+            if (action === 'add' || action === 'remove') {
+                this.#getDevices();
+            }
         });
     }
 
-    getDevices() {
+    #getDevices() {
         this.devices = [];
-        Hyprland.sendMessage('j/devices').then(out => {
+        Hyprland.sendMessage('j/devices').then((out) => {
             const devices = JSON.parse(out);
-            devices['touch'].forEach(dev => {
+
+            devices.touch.forEach((dev) => {
                 this.devices.push(dev.name);
             });
-            devices['tablets'].forEach(dev => {
+            devices.tablets.forEach((dev) => {
                 this.devices.push(dev.name);
             });
         }).catch(print);
@@ -131,20 +140,23 @@ class Tablet extends Service {
     }
 
     startAutorotate() {
-        if (this.autorotate)
+        if (this.#autorotate) {
             return;
+        }
 
-        this.autorotate = subprocess(
+        this.#autorotate = subprocess(
             ['monitor-sensor'],
-            output => {
+            (output) => {
                 if (output.includes('orientation changed')) {
-                    const orientation = ROTATION_MAPPING[output.split(' ').at(-1)];
+                    const orientation = ROTATION_MAP[output.split(' ').at(-1)];
 
-                    Hyprland.sendMessage(`keyword monitor ${SCREEN},transform,${orientation}`)
-                        .catch(print);
+                    Hyprland.sendMessage(
+                        `keyword monitor ${SCREEN},transform,${orientation}`,
+                    ).catch(print);
 
-                    const batchRotate = this.devices.map(dev =>
+                    const batchRotate = this.devices.map((dev) =>
                         `keyword device:${dev}:transform ${orientation}; `);
+
                     Hyprland.sendMessage(`[[BATCH]] ${batchRotate.flat()}`);
 
                     if (TouchGestures.gestureDaemon) {
@@ -153,40 +165,40 @@ class Tablet extends Service {
                     }
                 }
             },
-            err => logError(err),
+            (err) => logError(err),
         );
         this.emit('autorotate-started', true);
     }
 
     killAutorotate() {
-        if (this.autorotate) {
-            this.autorotate.force_exit();
-            this.autorotate = undefined;
+        if (this.#autorotate) {
+            this.#autorotate.force_exit();
+            this.#autorotate = null;
             this.emit('autorotate-destroyed', true);
         }
     }
 
-    listenOskState() {
+    #listenOskState() {
         subprocess(
             ['bash', '-c', 'busctl monitor --user sm.puri.OSK0'],
-            output => {
+            (output) => {
                 if (output.includes('BOOLEAN')) {
-                    this.oskState = output.match('true|false')[0] === 'true';
-                    this.emit('osk-toggled', this.oskState);
+                    this.#oskState = output.match('true|false')[0] === 'true';
+                    this.emit('osk-toggled', this.#oskState);
                 }
             },
-            err => logError(err),
+            (err) => logError(err),
         );
     }
 
-    openOsk() {
+    static openOsk() {
         execAsync(['busctl', 'call', '--user',
             'sm.puri.OSK0', '/sm/puri/OSK0', 'sm.puri.OSK0',
             'SetVisible', 'b', 'true'])
             .catch(print);
     }
 
-    closeOsk() {
+    static closeOsk() {
         execAsync(['busctl', 'call', '--user',
             'sm.puri.OSK0', '/sm/puri/OSK0', 'sm.puri.OSK0',
             'SetVisible', 'b', 'false'])
@@ -194,12 +206,15 @@ class Tablet extends Service {
     }
 
     toggleOsk() {
-        if (this.oskState)
-            this.closeOsk();
-        else
-            this.openOsk();
+        if (this.#oskState) {
+            Tablet.closeOsk();
+        }
+        else {
+            Tablet.openOsk();
+        }
     }
 }
 
 const tabletService = new Tablet();
+
 export default tabletService;

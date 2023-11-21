@@ -1,21 +1,23 @@
-import App      from 'resource:///com/github/Aylur/ags/app.js';
+import App from 'resource:///com/github/Aylur/ags/app.js';
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
+
 import { Icon, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
 import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import { WindowButton } from './dragndrop.js';
 import * as VARS from './variables.js';
 
-const scale = size => size * VARS.SCALE - VARS.MARGIN;
-const getFontSize = client => {
+const scale = (size) => (size * VARS.SCALE) - VARS.MARGIN;
+const getFontSize = (client) => {
     const valX = scale(client.size[0]) * VARS.ICON_SCALE;
     const valY = scale(client.size[1]) * VARS.ICON_SCALE;
 
-    var size = Math.min(valX, valY);
+    const size = Math.min(valX, valY);
+
     return size <= 0 ? 0.1 : size;
 };
 
-const IconStyle = client => `
+const IconStyle = (client) => `
     min-width:  ${scale(client.size[0])}px;
     min-height: ${scale(client.size[1])}px;
     font-size:  ${getFontSize(client)}px;
@@ -29,43 +31,61 @@ const Client = (client, active, clients, box) => {
 
     return Revealer({
         transition: 'crossfade',
-        setup: rev => rev.revealChild = true,
+
+        setup: (rev) => {
+            rev.revealChild = true;
+        },
+
         properties: [
             ['address', client.address],
             ['toDestroy', false],
         ],
+
         child: WindowButton({
             mainBox: box,
             address: client.address,
-            onSecondaryClickRelease: () => Hyprland.sendMessage(`dispatch closewindow ${addr}`),
+
+            onSecondaryClickRelease: () => {
+                Hyprland.sendMessage(`dispatch closewindow ${addr}`);
+            },
 
             onPrimaryClickRelease: () => {
                 if (wsId < 0) {
                     if (client.workspace.name === 'special') {
-                        Hyprland.sendMessage(`dispatch movetoworkspacesilent special:${wsId},${addr}`)
+                        Hyprland.sendMessage('dispatch ' +
+                            `movetoworkspacesilent special:${wsId},${addr}`)
                             .then(
-                                Hyprland.sendMessage(`dispatch togglespecialworkspace ${wsId}`)
+                                Hyprland.sendMessage('dispatch ' +
+                                    `togglespecialworkspace ${wsId}`)
                                     .then(
                                         () => App.closeWindow('overview'),
                                     ).catch(print),
                             ).catch(print);
                     }
                     else {
-                        Hyprland.sendMessage(`dispatch togglespecialworkspace ${wsName}`).then(
+                        Hyprland.sendMessage('dispatch ' +
+                            `togglespecialworkspace ${wsName}`).then(
                             () => App.closeWindow('overview'),
                         ).catch(print);
                     }
                 }
                 else {
-                    // close special workspace if one is opened
+                    // Close special workspace if one is opened
                     const activeAddress = Hyprland.active.client.address;
-                    const currentActive = clients.find(c => c.address === activeAddress);
-                    const currentSpecial = String(currentActive.workspace.name).replace('special:', '');
+
+                    const currentActive = clients.find((c) => {
+                        return c.address === activeAddress;
+                    });
 
                     if (currentActive && currentActive.workspace.id < 0) {
-                        Hyprland.sendMessage(`dispatch togglespecialworkspace ${currentSpecial}`)
+                        const currentSpecial = `${currentActive.workspace.name}`
+                            .replace('special:', '');
+
+                        Hyprland.sendMessage('dispatch ' +
+                            `togglespecialworkspace ${currentSpecial}`)
                             .catch(print);
                     }
+
                     Hyprland.sendMessage(`dispatch focuswindow ${addr}`).then(
                         () => App.closeWindow('overview'),
                     ).catch(print);
@@ -74,26 +94,28 @@ const Client = (client, active, clients, box) => {
 
             child: Icon({
                 className: `window ${active}`,
-                css: IconStyle(client) + 'font-size: 10px;',
+                css: `${IconStyle(client) }font-size: 10px;`,
                 icon: client.class,
             }),
         }),
     });
 };
 
-export function updateClients(box) {
-    Hyprland.sendMessage('j/clients').then(out => {
-        const clients = JSON.parse(out).filter(client => client.class);
+export const updateClients = (box) => {
+    Hyprland.sendMessage('j/clients').then((out) => {
+        const clients = JSON.parse(out).filter((client) => client.class);
 
-        box._workspaces.forEach(workspace => {
+        box._workspaces.forEach((workspace) => {
             const fixed = workspace.getFixed();
             const toRemove = fixed.get_children();
 
-            clients.filter(client => client.workspace.id == workspace._id)
-                .forEach(client => {
+            clients.filter((client) => client.workspace.id === workspace._id)
+                .forEach((client) => {
                     let active = '';
-                    if (client.address == Hyprland.active.client.address)
+
+                    if (client.address === Hyprland.active.client.address) {
                         active = 'active';
+                    }
 
                     // TODO: fix multi monitor issue. this is just a temp fix
                     client.at[1] -= 2920;
@@ -109,18 +131,20 @@ export function updateClients(box) {
                     }
 
                     const newClient = [
-                        fixed.get_children().find(ch => ch._address == client.address),
+                        fixed.get_children()
+                            .find((ch) => ch._address === client.address),
                         client.at[0] * VARS.SCALE,
                         client.at[1] * VARS.SCALE,
                     ];
 
-                    if (!newClient[0]) {
-                        newClient[0] = Client(client, active, clients, box);
-                        fixed.put(...newClient);
-                    }
-                    else {
+                    // If it exists already
+                    if (newClient[0]) {
                         toRemove.splice(toRemove.indexOf(newClient[0]), 1);
                         fixed.move(...newClient);
+                    }
+                    else {
+                        newClient[0] = Client(client, active, clients, box);
+                        fixed.put(...newClient);
                     }
 
                     // Set a timeout here to have an animation when the icon first appears
@@ -131,7 +155,7 @@ export function updateClients(box) {
                 });
 
             fixed.show_all();
-            toRemove.forEach(ch => {
+            toRemove.forEach((ch) => {
                 if (ch._toDestroy) {
                     ch.destroy();
                 }
@@ -142,4 +166,4 @@ export function updateClients(box) {
             });
         });
     }).catch(print);
-}
+};

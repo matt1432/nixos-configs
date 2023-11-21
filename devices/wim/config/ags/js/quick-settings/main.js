@@ -1,9 +1,9 @@
 import { Box, Label, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import ButtonGrid   from './button-grid.js';
-import SliderBox    from './slider-box.js';
-import Player       from '../media-player/player.js';
-import PopupWindow  from '../misc/popup.js';
+import ButtonGrid from './button-grid.js';
+import SliderBox from './slider-box.js';
+import Player from '../media-player/player.js';
+import PopupWindow from '../misc/popup.js';
 import ToggleButton from './toggle-button.js';
 
 
@@ -48,9 +48,12 @@ const QuickSettingsWidget = () => {
     });
 };
 
+const TOP_MARGIN = 6;
+const RIGHT_MARGIN = 5;
+
 export default () => PopupWindow({
     name: 'quick-settings',
     anchor: ['top', 'right'],
-    margins: [6, 5, 0],
+    margins: [TOP_MARGIN, RIGHT_MARGIN, 0, 0],
     child: QuickSettingsWidget(),
 });

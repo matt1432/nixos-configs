@@ -1,5 +1,7 @@
 import { Box, Icon, Label } from 'resource:///com/github/Aylur/ags/widget.js';
 
+import Brightness from '../../services/brightness.js';
+
 
 export default () => Box({
     className: 'osd',
@@ -7,10 +9,14 @@ export default () => Box({
         Icon({
             hpack: 'start',
             icon: 'caps-lock-symbolic',
+
             connections: [[Brightness, (self, state) => {
-                self.icon = state ? 'caps-lock-symbolic' : 'capslock-disabled-symbolic';
+                self.icon = state ?
+                    'caps-lock-symbolic' :
+                    'capslock-disabled-symbolic';
 
                 const stack = self.get_parent().get_parent();
+
                 stack.shown = 'caps';
                 stack.resetTimer();
             }, 'caps']],

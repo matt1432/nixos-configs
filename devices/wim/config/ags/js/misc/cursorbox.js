@@ -1,4 +1,5 @@
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
+
 import { Button, EventBox } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import Gtk from 'gi://Gtk';
@@ -7,7 +8,7 @@ import Gtk from 'gi://Gtk';
 // TODO: wrap in another EventBox for disabled cursor
 export default ({
     isButton = false,
-    onPrimaryClickRelease = () => {},
+    onPrimaryClickRelease = () => { /**/ },
     ...props
 }) => {
     // Make this variable to know if the function should
@@ -17,12 +18,13 @@ export default ({
     const properties = {
         ...props,
         cursor: 'pointer',
-        onPrimaryClickRelease: self => {
+        onPrimaryClickRelease: (self) => {
             // Every click, do a one shot connect to
             // CanRun to wait for location of click
             const id = CanRun.connect('changed', () => {
-                if (CanRun.value)
+                if (CanRun.value) {
                     onPrimaryClickRelease(self);
+                }
 
                 CanRun.disconnect(id);
             });
@@ -30,10 +32,13 @@ export default ({
     };
 
     let widget;
-    if (!isButton)
-        widget = EventBox(properties);
-    else
+
+    if (isButton) {
         widget = Button(properties);
+    }
+    else {
+        widget = EventBox(properties);
+    }
 
     const gesture = Gtk.GestureLongPress.new(widget);
 
@@ -42,8 +47,9 @@ export default ({
         const x = pointer[1];
         const y = pointer[2];
 
-        if ((!x || !y) || x === 0 && y === 0)
+        if ((!x || !y) || (x === 0 && y === 0)) {
             return;
+        }
 
         CanRun.value = !(
             x > widget.get_allocated_width() ||

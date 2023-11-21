@@ -4,23 +4,25 @@ import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import { Box, EventBox, Revealer, Window } from 'resource:///com/github/Aylur/ags/widget.js';
 
 
-const BarCloser = variable => Window({
+const BarCloser = (variable) => Window({
     name: 'bar-closer',
     visible: false,
     anchor: ['top', 'bottom', 'left', 'right'],
     layer: 'overlay',
+
     child: EventBox({
-        onHover: self => {
+        onHover: (self) => {
             variable.value = false;
             self.get_parent().visible = false;
         },
+
         child: Box({
             css: 'padding: 1px',
         }),
     }),
 });
 
-export default props => {
+export default (props) => {
     const Revealed = Variable(true);
     const barCloser = BarCloser(Revealed);
 
@@ -28,28 +30,39 @@ export default props => {
         css: 'min-height: 1px',
         hexpand: true,
         vertical: true,
+
         connections: [
             [Hyprland.active, () => {
-                const workspace = Hyprland.getWorkspace(Hyprland.active.workspace.id);
+                const workspace = Hyprland.getWorkspace(
+                    Hyprland.active.workspace.id,
+                );
+
                 Revealed.value = !workspace?.hasfullscreen;
             }],
-            [Hyprland, (_, fullscreen) => Revealed.value = !fullscreen, 'fullscreen'],
+
+            [Hyprland, (_, fullscreen) => {
+                Revealed.value = !fullscreen;
+            }, 'fullscreen'],
         ],
+
         children: [
             Revealer({
+                ...props,
                 transition: 'slide_down',
                 revealChild: true,
+
                 binds: [['revealChild', Revealed, 'value']],
-                ...props,
             }),
 
             Revealer({
-                binds: [['revealChild', Revealed, 'value', v => !v]],
+                binds: [['revealChild', Revealed, 'value', (v) => !v]],
+
                 child: EventBox({
                     onHover: () => {
                         barCloser.visible = true;
                         Revealed.value = true;
                     },
+
                     child: Box({
                         css: 'min-height: 5px;',
                     }),

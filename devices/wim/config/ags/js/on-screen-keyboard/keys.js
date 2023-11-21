@@ -1,5 +1,6 @@
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import Brightness from '../../services/brightness.js';
+
 import { Box, EventBox, Label } from 'resource:///com/github/Aylur/ags/widget.js';
 import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
@@ -19,59 +20,73 @@ const AltGr = Variable(false);
 const RCtrl = Variable(false);
 
 const Caps = Variable(false);
-Brightness.connect('caps', (_, state) => Caps.value = state);
+
+Brightness.connect('caps', (_, state) => {
+    Caps.value = state;
+});
 
 // Assume both shifts are the same for key.labelShift
 const LShift = Variable(false);
 const RShift = Variable(false);
 
 const Shift = Variable(false);
-LShift.connect('changed', () => Shift.value = LShift.value || RShift.value);
-RShift.connect('changed', () => Shift.value = LShift.value || RShift.value);
+
+LShift.connect('changed', () => {
+    Shift.value = LShift.value || RShift.value;
+});
+RShift.connect('changed', () => {
+    Shift.value = LShift.value || RShift.value;
+});
+
+const SPACING = 4;
+const LSHIFT_CODE = 42;
+const LALT_CODE = 56;
+const LCTRL_CODE = 29;
 
 
-export default key => {
-    if (key.keytype === 'normal')
-        return RegularKey(key);
-    else
-        return ModKey(key);
-};
-
-const ModKey = key => {
+const ModKey = (key) => {
     let Mod;
-    if (key.label === 'Super')
+
+    if (key.label === 'Super') {
         Mod = Super;
+    }
 
     // Differentiate left and right mods
-    else if (key.label === 'Shift' && key.keycode === 42)
+    else if (key.label === 'Shift' && key.keycode === LSHIFT_CODE) {
         Mod = LShift;
+    }
 
-    else if (key.label === 'Alt' && key.keycode === 56)
+    else if (key.label === 'Alt' && key.keycode === LALT_CODE) {
         Mod = LAlt;
+    }
 
-    else if (key.label === 'Ctrl' && key.keycode === 29)
+    else if (key.label === 'Ctrl' && key.keycode === LCTRL_CODE) {
         Mod = LCtrl;
+    }
 
-    else if (key.label === 'Shift')
+    else if (key.label === 'Shift') {
         Mod = RShift;
+    }
 
-    else if (key.label === 'AltGr')
+    else if (key.label === 'AltGr') {
         Mod = AltGr;
+    }
 
-    else if (key.label === 'Ctrl')
+    else if (key.label === 'Ctrl') {
         Mod = RCtrl;
+    }
 
     const button = EventBox({
         cursor: 'pointer',
         class_name: 'key',
-        onPrimaryClickRelease: self => {
+        onPrimaryClickRelease: (self) => {
             console.log('mod toggled');
 
             execAsync(`ydotool key ${key.keycode}:${Mod.value ? 0 : 1}`);
             self.child.toggleClassName('active', !Mod.value);
             Mod.value = !Mod.value;
         },
-        connections: [[NormalClick, self => {
+        connections: [[NormalClick, (self) => {
             Mod.value = false;
             self.child.toggleClassName('active', false);
             execAsync(`ydotool key ${key.keycode}:0`);
@@ -85,42 +100,49 @@ const ModKey = key => {
     return Box({
         children: [
             button,
-            Separator(4),
+            Separator(SPACING),
         ],
     });
 };
 
-const RegularKey = key => {
+const RegularKey = (key) => {
     const widget = EventBox({
         cursor: 'pointer',
         class_name: 'key',
+
         child: Label({
             class_name: `normal ${key.label}`,
             label: key.label,
+
             connections: [
-                [Shift, self => {
-                    if (!key.labelShift)
+                [Shift, (self) => {
+                    if (!key.labelShift) {
                         return;
+                    }
 
                     self.label = Shift.value ? key.labelShift : key.label;
                 }],
 
-                [Caps, self => {
+                [Caps, (self) => {
                     if (key.label === 'Caps') {
                         self.toggleClassName('active', Caps.value);
+
                         return;
                     }
 
-                    if (!key.labelShift)
+                    if (!key.labelShift) {
                         return;
+                    }
 
-                    if (key.label.match(/[A-Za-z]/))
+                    if (key.label.match(/[A-Za-z]/)) {
                         self.label = Caps.value ? key.labelShift : key.label;
+                    }
                 }],
 
-                [AltGr, self => {
-                    if (!key.labelAltGr)
+                [AltGr, (self) => {
+                    if (!key.labelAltGr) {
                         return;
+                    }
 
                     self.toggleClassName('altgr', AltGr.value);
                     self.label = AltGr.value ? key.labelAltGr : key.label;
@@ -130,6 +152,7 @@ const RegularKey = key => {
     });
 
     const gesture = Gtk.GestureLongPress.new(widget);
+
     gesture.delay_factor = 1.0;
 
     // Long press
@@ -138,22 +161,24 @@ const RegularKey = key => {
         const x = pointer[1];
         const y = pointer[2];
 
-        if ((!x || !y) || x === 0 && y === 0)
+        if ((!x || !y) || (x === 0 && y === 0)) {
             return;
+        }
 
         console.log('Not implemented yet');
 
         // TODO: popup menu for accents
     }, 'pressed');
 
-    // onPrimaryClickRelease
+    // OnPrimaryClickRelease
     widget.connectTo(gesture, () => {
         const pointer = gesture.get_point(null);
         const x = pointer[1];
         const y = pointer[2];
 
-        if ((!x || !y) || x === 0 && y === 0)
+        if ((!x || !y) || (x === 0 && y === 0)) {
             return;
+        }
 
         console.log('key clicked');
 
@@ -165,7 +190,11 @@ const RegularKey = key => {
     return Box({
         children: [
             widget,
-            Separator(4),
+            Separator(SPACING),
         ],
     });
 };
+
+export default (key) => key.keytype === 'normal' ?
+    RegularKey(key) :
+    ModKey(key);

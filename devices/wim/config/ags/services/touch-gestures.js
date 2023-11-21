@@ -14,22 +14,22 @@ const GESTURE_VERIF = [
     'ULDR', // Up to Left to Down to Right (counter-clockwise from Up)
 ];
 const EDGE_VERIF = [
-    '*', // any
-    'N', // none
-    'L', // left
-    'R', // right
-    'T', // top
-    'B', // bottom
-    'TL', // top left
-    'TR', // top right
-    'BL', // bottom left
-    'BR', // bottom right
+    '*', // Any
+    'N', // None
+    'L', // Left
+    'R', // Right
+    'T', // Top
+    'B', // Bottom
+    'TL', // Top left
+    'TR', // Top right
+    'BL', // Bottom left
+    'BR', // Bottom right
 ];
 const DISTANCE_VERIF = [
-    '*', // any
-    'S', // short
-    'M', // medium
-    'L', // large
+    '*', // Any
+    'S', // Short
+    'M', // Medium
+    'L', // Large
 ];
 
 
@@ -43,13 +43,11 @@ class TouchGestures extends Service {
         });
     }
 
-    gestures = new Map();
-    gestureDaemon = undefined;
+    #gestures = new Map();
+    #gestureDaemon;
 
-    get gestures() { return this.gestures; }
-
-    constructor() {
-        super();
+    get gestures() {
+        return this.#gestures;
     }
 
     addGesture({
@@ -63,18 +61,21 @@ class TouchGestures extends Service {
         gesture = String(gesture).toUpperCase();
         if (!GESTURE_VERIF.includes(gesture)) {
             logError('Wrong gesture id');
+
             return;
         }
 
         edge = String(edge).toUpperCase();
         if (!EDGE_VERIF.includes(edge)) {
             logError('Wrong edge id');
+
             return;
         }
 
         distance = String(distance).toUpperCase();
         if (!DISTANCE_VERIF.includes(distance)) {
             logError('Wrong distance id');
+
             return;
         }
 
@@ -83,23 +84,25 @@ class TouchGestures extends Service {
             command = `ags -r "${name}()"`;
         }
 
-        this.gestures.set(name, [
+        this.#gestures.set(name, [
             '-g',
             `${nFingers},${gesture},${edge},${distance},${command}`,
         ]);
 
-        if (this.gestureDaemon)
+        if (this.#gestureDaemon) {
             this.killDaemon();
+        }
         this.startDaemon();
     }
 
     startDaemon() {
-        if (this.gestureDaemon)
+        if (this.#gestureDaemon) {
             return;
+        }
 
-        var command = [
+        let command = [
             'lisgd', '-d', SCREEN,
-            // orientation
+            // Orientation
             '-o', '0',
             // Threshold of gesture recognized
             '-t', '125',
@@ -109,26 +112,27 @@ class TouchGestures extends Service {
             '-m', '3200',
         ];
 
-        this.gestures.forEach(gesture => {
+        this.#gestures.forEach((gesture) => {
             command = command.concat(gesture);
         });
 
-        this.gestureDaemon = subprocess(
+        this.#gestureDaemon = subprocess(
             command,
-            () => {},
-            err => logError(err),
+            () => { /**/ },
+            (err) => logError(err),
         );
         this.emit('daemon-started', true);
     }
 
     killDaemon() {
-        if (this.gestureDaemon) {
-            this.gestureDaemon.force_exit();
-            this.gestureDaemon = undefined;
+        if (this.#gestureDaemon) {
+            this.#gestureDaemon.force_exit();
+            this.#gestureDaemon = null;
             this.emit('daemon-destroyed', true);
         }
     }
 }
 
 const touchGesturesService = new TouchGestures();
+
 export default touchGesturesService;

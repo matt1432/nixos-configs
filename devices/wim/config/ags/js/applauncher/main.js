@@ -1,4 +1,4 @@
-import App          from 'resource:///com/github/Aylur/ags/app.js';
+import App from 'resource:///com/github/Aylur/ags/app.js';
 import Applications from 'resource:///com/github/Aylur/ags/service/applications.js';
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 
@@ -10,17 +10,20 @@ import AppItem from './app-item.js';
 
 
 const Applauncher = ({ window_name = 'applauncher' } = {}) => {
+    const ICON_SEPARATION = 4;
+
     const children = () => [
-        ...Applications.query('').flatMap(app => {
+        ...Applications.query('').flatMap((app) => {
             const item = AppItem(app);
+
             return [
-                Separator(4, {
+                Separator(ICON_SEPARATION, {
                     binds: [['visible', item, 'visible']],
                 }),
                 item,
             ];
         }),
-        Separator(4),
+        Separator(ICON_SEPARATION),
     ];
 
     const list = Box({
@@ -28,43 +31,46 @@ const Applauncher = ({ window_name = 'applauncher' } = {}) => {
         children: children(),
     });
 
-    const entry = Entry({
-        hexpand: true,
-        placeholder_text: 'Search',
+    const placeholder = Label({
+        label: "   Couldn't find a match",
+        className: 'placeholder',
+    });
 
-        // set some text so on-change works the first time
+    const entry = Entry({
+        // Set some text so on-change works the first time
         text: '-',
+        hexpand: true,
+
         on_accept: ({ text }) => {
-            const list = Applications.query(text || '');
-            if (list[0]) {
+            const appList = Applications.query(text || '');
+
+            if (appList[0]) {
                 App.toggleWindow(window_name);
-                Hyprland.sendMessage(`dispatch exec sh -c ${list[0]}`);
-                ++list[0].frequency;
+                Hyprland.sendMessage(`dispatch exec sh -c ${appList[0]}`);
+                ++appList[0].frequency;
             }
         },
+
         on_change: ({ text }) => {
             let visibleApps = 0;
-            list.children.map(item => {
+
+            list.children.forEach((item) => {
                 if (item.app) {
                     item.visible = item.app.match(text);
 
-                    if (item.app.match(text))
+                    if (item.app.match(text)) {
                         ++visibleApps;
+                    }
                 }
             });
             placeholder.visible = visibleApps <= 0;
         },
     });
 
-    const placeholder = Label({
-        label: "   Couldn't find a match",
-        className: 'placeholder',
-    });
-
-
     return Box({
         className: 'applauncher',
         vertical: true,
+
         children: [
             Box({
                 className: 'header',
@@ -82,15 +88,20 @@ const Applauncher = ({ window_name = 'applauncher' } = {}) => {
                 }),
             }),
         ],
+
         connections: [[App, (_, name, visible) => {
-            if (name !== window_name)
+            if (name !== window_name) {
                 return;
+            }
 
             entry.text = '';
-            if (visible)
+
+            if (visible) {
                 entry.grab_focus();
-            else
+            }
+            else {
                 list.children = children();
+            }
         }]],
     });
 };

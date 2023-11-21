@@ -1,13 +1,14 @@
-import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
-import Widget from 'resource:///com/github/Aylur/ags/widget.js';
+import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
+
+import { Box, Button, Icon, Label } from 'resource:///com/github/Aylur/ags/widget.js';
 import { lookUpIcon } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import Separator from '../misc/separator.js';
 
 
-export default app => {
-    const title = Widget.Label({
+export default (app) => {
+    const title = Label({
         class_name: 'title',
         label: app.name,
         xalign: 0,
@@ -15,7 +16,7 @@ export default app => {
         truncate: 'end',
     });
 
-    const description = Widget.Label({
+    const description = Label({
         class_name: 'description',
         label: app.description || '',
         wrap: true,
@@ -24,28 +25,42 @@ export default app => {
         vpack: 'center',
     });
 
-    const icon = Widget.Icon({
-        icon: lookUpIcon(app.icon_name) ? app.icon_name :
-            app.app.get_string('Icon') !== 'nix-snowflake' ? app.app.get_string('Icon') : '',
+    const icon = Icon({
+        icon: lookUpIcon(app.icon_name) ?
+            app.icon_name :
+            app.app.get_string('Icon') === 'nix-snowflake' ?
+                '' :
+                app.app.get_string('Icon'),
         size: 42,
     });
 
-    const textBox = Widget.Box({
+    const textBox = Box({
         vertical: true,
         vpack: 'center',
         children: [title, description],
     });
 
-    return Widget.Button({
+    const ENTRY_SPACING = 16;
+
+    return Button({
         class_name: 'app',
-        setup: self => self.app = app,
+
+        setup: (self) => {
+            self.app = app;
+        },
+
         on_clicked: () => {
             App.closeWindow('applauncher');
             Hyprland.sendMessage(`dispatch exec sh -c ${app.executable}`);
             ++app.frequency;
         },
-        child: Widget.Box({
-            children: [icon, Separator(16), textBox],
+
+        child: Box({
+            children: [
+                icon,
+                Separator(ENTRY_SPACING),
+                textBox,
+            ],
         }),
     });
 };

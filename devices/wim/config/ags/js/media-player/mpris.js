@@ -1,4 +1,5 @@
 import Mpris from 'resource:///com/github/Aylur/ags/service/mpris.js';
+
 import { Button, Icon, Label, Stack, Slider, CenterBox, Box } from 'resource:///com/github/Aylur/ags/widget.js';
 import { execAsync, lookUpIcon, readFileAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
@@ -29,16 +30,18 @@ const icons = {
 export const CoverArt = (player, props) => CenterBox({
     ...props,
     vertical: true,
+
     properties: [['bgStyle', '']],
-    setup: self => {
+
+    setup: (self) => {
         // Give temp cover art
         readFileAsync(player.coverPath).catch(() => {
             if (!player.colors.value && !player.trackCoverUrl) {
                 player.colors.value = {
-                    'imageAccent': '#6b4fa2',
-                    'buttonAccent': '#ecdcff',
-                    'buttonText': '#25005a',
-                    'hoverAccent': '#d4baff',
+                    imageAccent: '#6b4fa2',
+                    buttonAccent: '#ecdcff',
+                    buttonText: '#25005a',
+                    hoverAccent: '#d4baff',
                 };
 
                 self._bgStyle = `
@@ -53,12 +56,14 @@ export const CoverArt = (player, props) => CenterBox({
             }
         });
     },
-    connections: [[player, self => {
+
+    connections: [[player, (self) => {
         execAsync(['bash', '-c', `[[ -f "${player.coverPath}" ]] &&
                   coloryou "${player.coverPath}" | grep -v Warning`])
-            .then(out => {
-                if (!Mpris.players.find(p => player === p))
+            .then((out) => {
+                if (!Mpris.players.find((p) => player === p)) {
                     return;
+                }
 
                 player.colors.value = JSON.parse(out);
 
@@ -71,11 +76,13 @@ export const CoverArt = (player, props) => CenterBox({
                     background-position: center;
                 `;
 
-                if (!self.get_parent()._dragging)
+                if (!self.get_parent()._dragging) {
                     self.setCss(self._bgStyle);
-            }).catch(err => {
-                if (err !== '')
+                }
+            }).catch((err) => {
+                if (err !== '') {
                     print(err);
+                }
             });
     }]],
 });
@@ -87,6 +94,7 @@ export const TitleLabel = (player, props) => Label({
     truncate: 'end',
     justification: 'left',
     className: 'title',
+
     binds: [['label', player, 'track-title']],
 });
 
@@ -97,7 +105,8 @@ export const ArtistLabel = (player, props) => Label({
     truncate: 'end',
     justification: 'left',
     className: 'artist',
-    binds: [['label', player, 'track-artists', a => a.join(', ') || '']],
+
+    binds: [['label', player, 'track-artists', (a) => a.join(', ') || '']],
 });
 
 export const PlayerIcon = (player, { symbolic = true, ...props } = {}) => {
@@ -107,28 +116,34 @@ export const PlayerIcon = (player, { symbolic = true, ...props } = {}) => {
         className: 'player-icon',
         size: 32,
         tooltipText: player.identity || '',
-        connections: [[player, self => {
+
+        connections: [[player, (self) => {
             const name = `${player.entry}${symbolic ? '-symbolic' : ''}`;
-            lookUpIcon(name) ? self.icon = name
-                : self.icon = icons.mpris.fallback;
+
+            lookUpIcon(name) ?
+                self.icon = name :
+                self.icon = icons.mpris.fallback;
         }]],
     });
+
     // Multiple player indicators
     return Box({
         properties: [['overlay']],
-        connections: [[Mpris, self => {
-            if (!self._overlay)
+        connections: [[Mpris, (self) => {
+            if (!self._overlay) {
                 self._overlay = self.get_parent().get_parent().get_parent();
+            }
 
             const overlays = self._overlay.list();
 
-            const player = overlays.find(overlay => {
+            const playerWidget = overlays.find((overlay) => {
                 return overlay === self.get_parent().get_parent();
             });
 
-            const index = overlays.indexOf(player);
+            const index = overlays.indexOf(playerWidget);
 
             const children = [];
+
             for (let i = 0; i < overlays.length; ++i) {
                 if (i === index) {
                     children.push(Separator(2));
@@ -152,22 +167,27 @@ export const PositionSlider = (player, props) => Slider({
     vpack: 'center',
     hexpand: true,
     drawValue: false,
+
     onChange: ({ value }) => {
         player.position = player.length * value;
     },
-    properties: [['update', slider => {
+
+    properties: [['update', (slider) => {
         if (!slider.dragging) {
             slider.visible = player.length > 0;
-            if (player.length > 0)
+            if (player.length > 0) {
                 slider.value = player.position / player.length;
+            }
         }
     }]],
+
     connections: [
-        [player, s => s._update(s), 'position'],
-        [1000, s => s._update(s)],
-        [player.colors, s => {
-            const c = player.colors.value;
+        [1000, (s) => s._update(s)],
+        [player, (s) => s._update(s), 'position'],
+        [player.colors, (s) => {
             if (player.colors.value) {
+                const c = player.colors.value;
+
                 s.setCss(`
                     highlight    { background-color: ${c.buttonAccent}; }
                     slider       { background-color: ${c.buttonAccent}; }
@@ -177,21 +197,27 @@ export const PositionSlider = (player, props) => Slider({
             }
         }],
 
-        ['button-press-event', s => { s.cursor = 'grabbing'; }],
-        ['button-release-event', s => { s.cursor = 'pointer'; }],
+        ['button-press-event', (s) => {
+            s.cursor = 'grabbing';
+        }],
+        ['button-release-event', (s) => {
+            s.cursor = 'pointer';
+        }],
     ],
 });
 
 const PlayerButton = ({ player, items, onClick, prop }) => EventBox({
     child: Button({
-        child: Stack({ items }),
-        onPrimaryClickRelease: () => player[onClick](),
         properties: [['hovered', false]],
-        onHover: self => {
+        child: Stack({ items }),
+
+        onPrimaryClickRelease: () => player[onClick](),
+
+        onHover: (self) => {
             self._hovered = true;
 
-            if (prop == 'playBackStatus') {
-                items.forEach(item => {
+            if (prop === 'playBackStatus') {
+                items.forEach((item) => {
                     item[1].setCss(`
                     background-color: ${player.colors.value.hoverAccent};
                     color: ${player.colors.value.buttonText};
@@ -203,10 +229,11 @@ const PlayerButton = ({ player, items, onClick, prop }) => EventBox({
                 });
             }
         },
-        onHoverLost: self => {
+
+        onHoverLost: (self) => {
             self._hovered = false;
-            if (prop == 'playBackStatus') {
-                items.forEach(item => {
+            if (prop === 'playBackStatus') {
+                items.forEach((item) => {
                     item[1].setCss(`
                     background-color: ${player.colors.value.buttonAccent};
                     color: ${player.colors.value.buttonText};
@@ -216,22 +243,26 @@ const PlayerButton = ({ player, items, onClick, prop }) => EventBox({
                 });
             }
         },
+
         connections: [
-            [player, button => {
+            [player, (button) => {
                 button.child.shown = `${player[prop]}`;
             }],
 
-            [player.colors, button => {
-                if (!Mpris.players.find(p => player === p))
+            [player.colors, (button) => {
+                if (!Mpris.players.find((p) => player === p)) {
                     return;
+                }
 
                 if (player.colors.value) {
-                    if (prop == 'playBackStatus') {
+                    const c = player.colors.value;
+
+                    if (prop === 'playBackStatus') {
                         if (button._hovered) {
-                            items.forEach(item => {
+                            items.forEach((item) => {
                                 item[1].setCss(`
-                                background-color: ${player.colors.value.hoverAccent};
-                                color: ${player.colors.value.buttonText};
+                                background-color: ${c.hoverAccent};
+                                color: ${c.buttonText};
                                 min-height: 40px;
                                 min-width: 36px;
                                 margin-bottom: 1px;
@@ -240,10 +271,10 @@ const PlayerButton = ({ player, items, onClick, prop }) => EventBox({
                             });
                         }
                         else {
-                            items.forEach(item => {
+                            items.forEach((item) => {
                                 item[1].setCss(`
-                                background-color: ${player.colors.value.buttonAccent};
-                                color: ${player.colors.value.buttonText};
+                                background-color: ${c.buttonAccent};
+                                color: ${c.buttonText};
                                 min-height: 42px;
                                 min-width: 38px;`);
                             });
@@ -251,8 +282,8 @@ const PlayerButton = ({ player, items, onClick, prop }) => EventBox({
                     }
                     else {
                         button.setCss(`
-                        *       { color: ${player.colors.value.buttonAccent}; }
-                        *:hover { color: ${player.colors.value.hoverAccent}; }
+                        *       { color: ${c.buttonAccent}; }
+                        *:hover { color: ${c.hoverAccent}; }
                     `);
                     }
                 }
@@ -261,7 +292,7 @@ const PlayerButton = ({ player, items, onClick, prop }) => EventBox({
     }),
 });
 
-export const ShuffleButton = player => PlayerButton({
+export const ShuffleButton = (player) => PlayerButton({
     player,
     items: [
         ['true', Label({
@@ -277,7 +308,7 @@ export const ShuffleButton = player => PlayerButton({
     prop: 'shuffleStatus',
 });
 
-export const LoopButton = player => PlayerButton({
+export const LoopButton = (player) => PlayerButton({
     player,
     items: [
         ['None', Label({
@@ -297,7 +328,7 @@ export const LoopButton = player => PlayerButton({
     prop: 'loopStatus',
 });
 
-export const PlayPauseButton = player => PlayerButton({
+export const PlayPauseButton = (player) => PlayerButton({
     player,
     items: [
         ['Playing', Label({
@@ -317,7 +348,7 @@ export const PlayPauseButton = player => PlayerButton({
     prop: 'playBackStatus',
 });
 
-export const PreviousButton = player => PlayerButton({
+export const PreviousButton = (player) => PlayerButton({
     player,
     items: [
         ['true', Label({
@@ -333,7 +364,7 @@ export const PreviousButton = player => PlayerButton({
     prop: 'canGoPrev',
 });
 
-export const NextButton = player => PlayerButton({
+export const NextButton = (player) => PlayerButton({
     player,
     items: [
         ['true', Label({

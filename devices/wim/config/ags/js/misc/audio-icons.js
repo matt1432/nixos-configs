@@ -19,8 +19,9 @@ const micIcons = {
 
 export const SpeakerIcon = Variable();
 Audio.connect('speaker-changed', () => {
-    if (!Audio.speaker)
+    if (!Audio.speaker) {
         return;
+    }
 
     if (Audio.speaker.stream.isMuted) {
         SpeakerIcon.value = speakerIcons[0];
@@ -29,16 +30,18 @@ Audio.connect('speaker-changed', () => {
         const vol = Audio.speaker.volume * 100;
 
         for (const threshold of [-1, 0, 33, 66, 100]) {
-            if (vol > threshold + 1)
+            if (vol > threshold + 1) {
                 SpeakerIcon.value = speakerIcons[threshold + 1];
+            }
         }
     }
 });
 
 export const MicIcon = Variable();
 Audio.connect('microphone-changed', () => {
-    if (!Audio.microphone)
+    if (!Audio.microphone) {
         return;
+    }
 
     if (Audio.microphone.stream.isMuted) {
         MicIcon.value = micIcons[0];
@@ -47,8 +50,9 @@ Audio.connect('microphone-changed', () => {
         const vol = Audio.microphone.volume * 100;
 
         for (const threshold of [-1, 0, 33, 66]) {
-            if (vol > threshold + 1)
+            if (vol > threshold + 1) {
                 MicIcon.value = micIcons[threshold + 1];
+            }
         }
     }
 });

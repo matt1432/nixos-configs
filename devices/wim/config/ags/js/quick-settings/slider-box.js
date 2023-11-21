@@ -1,6 +1,8 @@
 import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
+
 import { Box, Slider, Icon } from 'resource:///com/github/Aylur/ags/widget.js';
 
+import Brightness from '../../services/brightness.js';
 import { SpeakerIcon } from '../misc/audio-icons.js';
 
 
@@ -14,6 +16,7 @@ export default () => Box({
             className: 'slider',
             vpack: 'start',
             hpack: 'center',
+
             children: [
                 Icon({
                     size: 26,
@@ -24,17 +27,25 @@ export default () => Box({
                 Slider({
                     cursor: 'pointer',
                     vpack: 'center',
+                    max: 0.999,
+                    draw_value: false,
+
+                    onChange: ({ value }) => {
+                        Audio.speaker.volume = value;
+                    },
+
                     connections: [
-                        [Audio, slider => {
+                        [Audio, (slider) => {
                             slider.value = Audio.speaker?.volume;
                         }, 'speaker-changed'],
 
-                        ['button-press-event', s => { s.cursor = 'grabbing'; }],
-                        ['button-release-event', s => { s.cursor = 'pointer'; }],
+                        ['button-press-event', (s) => {
+                            s.cursor = 'grabbing';
+                        }],
+                        ['button-release-event', (s) => {
+                            s.cursor = 'pointer';
+                        }],
                     ],
-                    onChange: ({ value }) => Audio.speaker.volume = value,
-                    max: 0.999,
-                    draw_value: false,
                 }),
             ],
         }),
@@ -43,6 +54,7 @@ export default () => Box({
             className: 'slider',
             vpack: 'start',
             hpack: 'center',
+
             children: [
                 Icon({
                     className: 'slider-label',
@@ -52,16 +64,24 @@ export default () => Box({
                 Slider({
                     cursor: 'pointer',
                     vpack: 'center',
-                    onChange: ({ value }) => Brightness.screen = value,
+                    draw_value: false,
+
+                    onChange: ({ value }) => {
+                        Brightness.screen = value;
+                    },
+
                     connections: [
-                        [Brightness, slider => {
+                        [Brightness, (slider) => {
                             slider.value = Brightness.screen;
                         }, 'screen'],
 
-                        ['button-press-event', s => { s.cursor = 'grabbing'; }],
-                        ['button-release-event', s => { s.cursor = 'pointer'; }],
+                        ['button-press-event', (s) => {
+                            s.cursor = 'grabbing';
+                        }],
+                        ['button-release-event', (s) => {
+                            s.cursor = 'pointer';
+                        }],
                     ],
-                    draw_value: false,
                 }),
             ],
         }),

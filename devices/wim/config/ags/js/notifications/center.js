@@ -1,24 +1,24 @@
 import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
+
 import { Button, Label, Box, Icon, Scrollable, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import { Notification, HasNotifs } from './base.js';
 import PopupWindow from '../misc/popup.js';
-import EventBox    from '../misc/cursorbox.js';
+import EventBox from '../misc/cursorbox.js';
 
 
 const addNotif = (box, notif) => {
-    if (!notif)
-        return;
+    if (notif) {
+        const NewNotif = Notification({
+            notif,
+            slideIn: 'Right',
+            command: () => notif.close(),
+        });
 
-    const NewNotif = Notification({
-        notif,
-        slideIn: 'Right',
-        command: () => notif.close(),
-    });
-
-    if (NewNotif) {
-        box.pack_end(NewNotif, false, false, 0);
-        box.show_all();
+        if (NewNotif) {
+            box.pack_end(NewNotif, false, false, 0);
+            box.show_all();
+        }
     }
 };
 
@@ -30,17 +30,23 @@ const NotificationList = () => Box({
     connections: [
         [Notifications, (box, id) => {
             // Handle cached notifs
-            if (box.children.length == 0)
-                Notifications.notifications.forEach(n => addNotif(box, n));
+            if (box.children.length === 0) {
+                Notifications.notifications.forEach((n) => {
+                    addNotif(box, n);
+                });
+            }
 
-            else if (id)
+            else if (id) {
                 addNotif(box, Notifications.getNotification(id));
+            }
         }, 'notified'],
 
         [Notifications, (box, id) => {
-            const notif = box.children.find(ch => ch._id === id);
-            if (notif?.sensitive)
+            const notif = box.children.find((ch) => ch._id === id);
+
+            if (notif?.sensitive) {
                 notif.slideAway('Right');
+            }
         }, 'closed'],
     ],
 });
@@ -54,9 +60,10 @@ const ClearButton = () => EventBox({
             children: [
                 Label('Clear '),
                 Icon({
-                    connections: [[Notifications, self => {
-                        self.icon = Notifications.notifications.length > 0
-                            ? 'user-trash-full-symbolic' : 'user-trash-symbolic';
+                    connections: [[Notifications, (self) => {
+                        self.icon = Notifications.notifications.length > 0 ?
+                            'user-trash-full-symbolic' :
+                            'user-trash-symbolic';
                     }]],
                 }),
             ],
@@ -78,7 +85,7 @@ const Header = () => Box({
 
 const Placeholder = () => Revealer({
     transition: 'crossfade',
-    binds: [['revealChild', HasNotifs, 'value', value => !value]],
+    binds: [['revealChild', HasNotifs, 'value', (value) => !value]],
     child: Box({
         className: 'placeholder',
         vertical: true,
@@ -118,9 +125,12 @@ const NotificationCenterWidget = () => Box({
     ],
 });
 
+const TOP_MARGIN = 6;
+const RIGHT_MARGIN = 60;
+
 export default () => PopupWindow({
     name: 'notification-center',
     anchor: ['top', 'right'],
-    margins: [6, 60, 0, 0],
+    margins: [TOP_MARGIN, RIGHT_MARGIN, 0, 0],
     child: NotificationCenterWidget(),
 });

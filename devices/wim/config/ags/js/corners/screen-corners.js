@@ -1,4 +1,5 @@
 import { Box, DrawingArea } from 'resource:///com/github/Aylur/ags/widget.js';
+
 import Gtk from 'gi://Gtk';
 const Lang = imports.lang;
 
@@ -7,37 +8,39 @@ export default (
     css = 'background-color: black;',
 ) => Box({
     hpack: place.includes('left') ? 'start' : 'end',
-    vpack: place.includes('top')  ? 'start' : 'end',
+    vpack: place.includes('top') ? 'start' : 'end',
     css: `
         padding: 1px; margin:
-            ${place.includes('top')    ? '-1px' : '0'}
-            ${place.includes('right')  ? '-1px' : '0'}
+            ${place.includes('top') ? '-1px' : '0'}
+            ${place.includes('right') ? '-1px' : '0'}
             ${place.includes('bottom') ? '-1px' : '0'}
-            ${place.includes('left')   ? '-1px' : '0'};
-        `,
+            ${place.includes('left') ? '-1px' : '0'};
+    `,
     child: DrawingArea({
         css: `
             border-radius: 18px;
             border-width: 0.068rem;
-        ` + css,
-        setup: widget => {
-            const r = widget.get_style_context()
+            ${css}
+        `,
+        setup: (widget) => {
+            let r = widget.get_style_context()
                 .get_property('border-radius', Gtk.StateFlags.NORMAL);
 
             widget.set_size_request(r, r);
-            widget.connect('draw', Lang.bind(widget, (widget, cr) => {
+            widget.connect('draw', Lang.bind(widget, (_, cr) => {
                 const c = widget.get_style_context()
                     .get_property('background-color', Gtk.StateFlags.NORMAL);
 
-                const r = widget.get_style_context()
+                r = widget.get_style_context()
                     .get_property('border-radius', Gtk.StateFlags.NORMAL);
 
                 const borderColor = widget.get_style_context()
                     .get_property('color', Gtk.StateFlags.NORMAL);
 
-                // ur going to write border-width: something anyway
+                // Ur going to write border-width: something anyway
                 const borderWidth = widget.get_style_context()
                     .get_border(Gtk.StateFlags.NORMAL).left;
+
                 widget.set_size_request(r, r);
 
                 switch (place) {

@@ -17,10 +17,13 @@ export default () => EventBox({
 
         child: Label({
             label: '',
-            setup: self => {
+
+            setup: (self) => {
                 subprocess(
                     ['bash', '-c', 'tail -f /home/matt/.config/.heart'],
-                    output => self.label = ' ' + output,
+                    (output) => {
+                        self.label = ` ${output}`;
+                    },
                 );
             },
         }),

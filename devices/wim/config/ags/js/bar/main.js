@@ -1,20 +1,23 @@
 import { Window, CenterBox, Box } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import Separator      from '../misc/separator.js';
-import CurrentWindow  from './buttons/current-window.js';
-import Workspaces     from './buttons/workspaces.js';
-import OskToggle      from './buttons/osk-toggle.js';
-import TabletToggle   from './buttons/tablet-toggle.js';
-import QsToggle       from './buttons/quick-settings.js';
-import NotifButton    from './buttons/notif-button.js';
-import Clock          from './buttons/clock.js';
-import SysTray        from './buttons/systray.js';
-import Battery        from './buttons/battery.js';
-import Brightness     from './buttons/brightness.js';
-import Audio          from './buttons/audio.js';
+import Separator from '../misc/separator.js';
+
+import Audio from './buttons/audio.js';
+import Battery from './buttons/battery.js';
+import Brightness from './buttons/brightness.js';
+import Clock from './buttons/clock.js';
+import CurrentWindow from './buttons/current-window.js';
 import KeyboardLayout from './buttons/keyboard-layout.js';
+import NotifButton from './buttons/notif-button.js';
+import OskToggle from './buttons/osk-toggle.js';
+import QsToggle from './buttons/quick-settings.js';
+import SysTray from './buttons/systray.js';
+import TabletToggle from './buttons/tablet-toggle.js';
+import Workspaces from './buttons/workspaces.js';
 
 import BarReveal from './fullscreen.js';
+
+const SPACING = 12;
 
 
 export default () => Window({
@@ -33,21 +36,21 @@ export default () => Window({
 
                     OskToggle(),
 
-                    Separator(12),
+                    Separator(SPACING),
 
                     TabletToggle(),
 
-                    Separator(12),
+                    Separator(SPACING),
 
                     SysTray(),
 
                     Audio(),
 
-                    Separator(12),
+                    Separator(SPACING),
 
                     Brightness(),
 
-                    Separator(12),
+                    Separator(SPACING),
 
                     Workspaces(),
 
@@ -56,11 +59,11 @@ export default () => Window({
 
             centerWidget: Box({
                 children: [
-                    Separator(12),
+                    Separator(SPACING),
 
                     CurrentWindow(),
 
-                    Separator(12),
+                    Separator(SPACING),
                 ],
             }),
 
@@ -69,19 +72,19 @@ export default () => Window({
                 children: [
                     Battery(),
 
-                    Separator(12),
+                    Separator(SPACING),
 
                     KeyboardLayout(),
 
-                    Separator(12),
+                    Separator(SPACING),
 
                     Clock(),
 
-                    Separator(12),
+                    Separator(SPACING),
 
                     NotifButton(),
 
-                    Separator(12),
+                    Separator(SPACING),
 
                     QsToggle(),
                 ],

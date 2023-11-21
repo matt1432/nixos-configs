@@ -1,5 +1,6 @@
-import App      from 'resource:///com/github/Aylur/ags/app.js';
+import App from 'resource:///com/github/Aylur/ags/app.js';
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
+
 import { Box, Overlay } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import PopupWindow from '../misc/popup.js';
@@ -8,25 +9,26 @@ import { Highlighter, updateCurrentWorkspace } from './current-workspace.js';
 import { updateClients } from './clients.js';
 
 
-function update(box, highlight) {
+const update = (box, highlight) => {
     getWorkspaces(box);
     updateWorkspaces(box);
     updateClients(box);
     updateCurrentWorkspace(box, highlight);
-}
+};
 
 // TODO: have a 'page' for each monitor, arrows on both sides to loop through
 export default () => {
     const highlighter = Highlighter();
 
     const mainBox = Box({
-        // do this for scss hierarchy
+        // Do this for scss hierarchy
         className: 'overview',
         css: 'all: unset',
 
         vertical: true,
         vpack: 'center',
         hpack: 'center',
+
         children: [
             Box({
                 vertical: true,
@@ -34,6 +36,7 @@ export default () => {
                     WorkspaceRow('normal', 0),
                 ],
             }),
+
             Box({
                 vertical: true,
                 children: [
@@ -41,12 +44,15 @@ export default () => {
                 ],
             }),
         ],
-        connections: [[Hyprland, self => {
-            if (!App.getWindow('overview').visible)
+
+        connections: [[Hyprland, (self) => {
+            if (!App.getWindow('overview').visible) {
                 return;
+            }
 
             update(self, highlighter);
         }]],
+
         properties: [
             ['workspaces'],
         ],
@@ -67,6 +73,7 @@ export default () => {
                     min-width: ${mainBox.get_allocated_width()}px;
                 `,
             }),
+
             // TODO: throttle his?
             connections: [['get-child-position', (self, ch) => {
                 if (ch === mainBox) {
@@ -80,5 +87,6 @@ export default () => {
         }),
 
     });
+
     return window;
 };

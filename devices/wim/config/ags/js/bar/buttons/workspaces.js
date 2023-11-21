@@ -1,24 +1,33 @@
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
+
 import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 import { Box, Overlay, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import EventBox from '../../misc/cursorbox.js';
 
+const URGENT_DURATION = 1000;
 
-const Workspace = ({ i } = {}) =>
-    Revealer({
+
+const Workspace = ({ i } = {}) => {
+    return Revealer({
         transition: 'slide_right',
         properties: [['id', i]],
 
         child: EventBox({
             tooltipText: `${i}`,
-            onPrimaryClickRelease: () => Hyprland.sendMessage(`dispatch workspace ${i}`),
+
+            onPrimaryClickRelease: () => {
+                Hyprland.sendMessage(`dispatch workspace ${i}`);
+            },
+
             child: Box({
                 vpack: 'center',
                 className: 'button',
-                setup: self => {
-                    self.update = addr => {
+
+                setup: (self) => {
+                    self.update = (addr) => {
                         const occupied = Hyprland.getWorkspace(i)?.windows > 0;
+
                         self.toggleClassName('occupied', occupied);
                         self.toggleClassName('empty', !occupied);
 
@@ -27,36 +36,47 @@ const Workspace = ({ i } = {}) =>
                             self.toggleClassName('urgent', true);
 
                             // Only show for a sec when urgent is current workspace
-                            if (Hyprland.active.workspace.id === i)
-                                timeout(1000, () => self.toggleClassName('urgent', false));
+                            if (Hyprland.active.workspace.id === i) {
+                                timeout(URGENT_DURATION, () => {
+                                    self.toggleClassName('urgent', false);
+                                });
+                            }
                         }
                     };
                 },
+
                 connections: [
-                    [Hyprland, self => self.update()],
+                    [Hyprland, (self) => self.update()],
 
                     // Deal with urgent windows
-                    [Hyprland, (self, addr) => self.update(addr), 'urgent-window'],
-                    [Hyprland.active.workspace, self => {
-                        if (Hyprland.active.workspace.id === i)
+                    [Hyprland, (self, a) => self.update(a), 'urgent-window'],
+                    [Hyprland.active.workspace, (self) => {
+                        if (Hyprland.active.workspace.id === i) {
                             self.toggleClassName('urgent', false);
+                        }
                     }],
                 ],
             }),
         }),
     });
+};
 
 export default () => {
-    const updateHighlight = () => {
+    const L_PADDING = 16;
+    const WS_WIDTH = 30;
+
+    const updateHighlight = (self) => {
         const currentId = Hyprland.active.workspace.id;
-        const indicators = highlight.get_parent().get_children()[0].child.children;
-        const currentIndex = indicators.findIndex(w => w._id == currentId);
+        const indicators = self.get_parent().get_children()[0].child.children;
+        const currentIndex = indicators.findIndex((w) => w._id === currentId);
 
-        if (currentIndex < 0)
+        if (currentIndex < 0) {
             return;
+        }
 
-        highlight.setCss(`margin-left: ${16 + currentIndex * 30}px`);
+        self.setCss(`margin-left: ${L_PADDING + (currentIndex * WS_WIDTH)}px`);
     };
+
     const highlight = Box({
         vpack: 'center',
         hpack: 'start',
@@ -70,21 +90,28 @@ export default () => {
         child: EventBox({
             child: Box({
                 className: 'workspaces',
+
                 properties: [
                     ['workspaces'],
 
-                    ['refresh', self => {
-                        self.children.forEach(rev => rev.reveal_child = false);
-                        self._workspaces.forEach(ws => {
+                    ['refresh', (self) => {
+                        self.children.forEach((rev) => {
+                            rev.reveal_child = false;
+                        });
+                        self._workspaces.forEach((ws) => {
                             ws.revealChild = true;
                         });
                     }],
 
-                    ['updateWorkspaces', self => {
-                        Hyprland.workspaces.forEach(ws => {
-                            const currentWs = self.children.find(ch => ch._id == ws.id);
-                            if (!currentWs && ws.id > 0)
+                    ['updateWorkspaces', (self) => {
+                        Hyprland.workspaces.forEach((ws) => {
+                            const currentWs = self.children.find((ch) => {
+                                return ch._id === ws.id;
+                            });
+
+                            if (!currentWs && ws.id > 0) {
                                 self.add(Workspace({ i: ws.id }));
+                            }
                         });
                         self.show_all();
 
@@ -94,16 +121,21 @@ export default () => {
                         });
                     }],
                 ],
-                connections: [[Hyprland, self => {
-                    self._workspaces = self.children.filter(ch => {
-                        return Hyprland.workspaces.find(ws => ws.id == ch._id);
+
+                connections: [[Hyprland, (self) => {
+                    self._workspaces = self.children.filter((ch) => {
+                        return Hyprland.workspaces.find((ws) => {
+                            return ws.id === ch._id;
+                        });
                     }).sort((a, b) => a._id - b._id);
 
                     self._updateWorkspaces(self);
                     self._refresh(self);
 
                     // Make sure the highlight doesn't go too far
-                    timeout(10, updateHighlight);
+                    const TEMP_TIMEOUT = 10;
+
+                    timeout(TEMP_TIMEOUT, () => updateHighlight(highlight));
                 }]],
             }),
         }),

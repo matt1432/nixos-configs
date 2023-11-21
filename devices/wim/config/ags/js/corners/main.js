@@ -11,6 +11,7 @@ const TopLeft = () => Window({
     visible: true,
     child: RoundedCorner('topleft'),
 });
+
 const TopRight = () => Window({
     name: 'cornertr',
     layer: 'overlay',
@@ -19,6 +20,7 @@ const TopRight = () => Window({
     visible: true,
     child: RoundedCorner('topright'),
 });
+
 const BottomLeft = () => Window({
     name: 'cornerbl',
     layer: 'overlay',
@@ -27,6 +29,7 @@ const BottomLeft = () => Window({
     visible: true,
     child: RoundedCorner('bottomleft'),
 });
+
 const BottomRight = () => Window({
     name: 'cornerbr',
     layer: 'overlay',

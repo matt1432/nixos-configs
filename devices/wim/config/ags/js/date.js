@@ -25,7 +25,7 @@ const Time = () => Box({
                 Label({
                     className: 'content',
                     label: 'hour',
-                    connections: [[1000, self => {
+                    connections: [[1000, (self) => {
                         self.label = DateTime.new_now_local().format('%H');
                     }]],
                 }),
@@ -35,7 +35,7 @@ const Time = () => Box({
                 Label({
                     className: 'content',
                     label: 'minute',
-                    connections: [[1000, self => {
+                    connections: [[1000, (self) => {
                         self.label = DateTime.new_now_local().format('%M');
                     }]],
                 }),
@@ -49,8 +49,9 @@ const Time = () => Box({
             child: Label({
                 css: 'font-size: 20px',
                 label: 'complete date',
-                connections: [[1000, self => {
-                    var time = DateTime.new_now_local();
+                connections: [[1000, (self) => {
+                    const time = DateTime.new_now_local();
+
                     self.label = time.format('%A, %B ') +
                                  time.get_day_of_month() +
                                  time.format(', %Y');
@@ -70,9 +71,12 @@ const CalendarWidget = () => Box({
     }),
 });
 
+const TOP_MARGIN = 6;
+const RIGHT_MARGIN = 182;
+
 export default () => PopupWindow({
     anchor: ['top', 'right'],
-    margins: [6, 182, 0, 0],
+    margins: [TOP_MARGIN, RIGHT_MARGIN, 0, 0],
     name: 'calendar',
     child: Box({
         className: 'date',

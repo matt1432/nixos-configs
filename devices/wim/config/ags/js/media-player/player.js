@@ -1,18 +1,20 @@
-import Mpris    from 'resource:///com/github/Aylur/ags/service/mpris.js';
+import Mpris from 'resource:///com/github/Aylur/ags/service/mpris.js';
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
+
 import { Box, CenterBox } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import * as mpris    from './mpris.js';
+import * as mpris from './mpris.js';
 import PlayerGesture from './gesture.js';
-import Separator     from '../misc/separator.js';
+import Separator from '../misc/separator.js';
 
 const FAVE_PLAYER = 'org.mpris.MediaPlayer2.spotify';
 
 
-const Top = player => Box({
+const Top = (player) => Box({
     className: 'top',
     hpack: 'start',
     vpack: 'start',
+
     children: [
         mpris.PlayerIcon(player, {
             symbolic: false,
@@ -20,12 +22,13 @@ const Top = player => Box({
     ],
 });
 
-const Center = player => Box({
+const Center = (player) => Box({
     className: 'center',
-    children: [
 
+    children: [
         CenterBox({
             vertical: true,
+
             children: [
                 Box({
                     className: 'metadata',
@@ -33,6 +36,7 @@ const Center = player => Box({
                     hpack: 'start',
                     vpack: 'center',
                     hexpand: true,
+
                     children: [
                         mpris.TitleLabel(player),
                         mpris.ArtistLabel(player),
@@ -45,6 +49,7 @@ const Center = player => Box({
 
         CenterBox({
             vertical: true,
+
             children: [
                 null,
                 mpris.PlayPauseButton(player),
@@ -55,31 +60,35 @@ const Center = player => Box({
     ],
 });
 
-const Bottom = player => Box({
+const SPACING = 8;
+
+const Bottom = (player) => Box({
     className: 'bottom',
+
     children: [
         mpris.PreviousButton(player, {
             vpack: 'end',
             hpack: 'start',
         }),
-        Separator(8),
+        Separator(SPACING),
 
         mpris.PositionSlider(player),
-        Separator(8),
+        Separator(SPACING),
 
         mpris.NextButton(player),
-        Separator(8),
+        Separator(SPACING),
 
         mpris.ShuffleButton(player),
-        Separator(8),
+        Separator(SPACING),
 
         mpris.LoopButton(player),
     ],
 });
 
-const PlayerBox = player => mpris.CoverArt(player, {
+const PlayerBox = (player) => mpris.CoverArt(player, {
     className: `player ${player.name}`,
     hexpand: true,
+
     children: [
         Top(player),
         Center(player),
@@ -89,27 +98,36 @@ const PlayerBox = player => mpris.CoverArt(player, {
 
 export default () => Box({
     className: 'media',
+
     child: PlayerGesture({
         properties: [
             ['players', new Map()],
             ['setup', false],
         ],
+
         connections: [
             [Mpris, (overlay, busName) => {
-                if (overlay._players.has(busName))
+                if (overlay._players.has(busName)) {
                     return;
+                }
 
                 // Sometimes the signal doesn't give the busName
                 if (!busName) {
-                    const player = Mpris.players.find(p => !overlay._players.has(p.busName));
-                    if (player)
+                    const player = Mpris.players.find((p) => {
+                        return !overlay._players.has(p.busName);
+                    });
+
+                    if (player) {
                         busName = player.busName;
-                    else
+                    }
+                    else {
                         return;
+                    }
                 }
 
                 // Get the one on top so it stays there
-                var previousFirst = overlay.get_children().at(-1);
+                let previousFirst = overlay.get_children().at(-1);
+
                 for (const [key, value] of overlay._players.entries()) {
                     if (value === previousFirst) {
                         previousFirst = key;
@@ -118,12 +136,14 @@ export default () => Box({
                 }
 
                 const player = Mpris.getPlayer(busName);
+
                 player.colors = Variable();
 
                 overlay._players.set(busName, PlayerBox(player));
 
                 const result = [];
-                overlay._players.forEach(widget => {
+
+                overlay._players.forEach((widget) => {
                     result.push(widget);
                 });
 
@@ -131,21 +151,29 @@ export default () => Box({
 
                 // Select favorite player at startup
                 if (!overlay._setup && overlay._players.has(FAVE_PLAYER)) {
-                    overlay.reorder_overlay(overlay._players.get(FAVE_PLAYER), -1);
+                    overlay.reorder_overlay(
+                        overlay._players.get(FAVE_PLAYER),
+                        -1,
+                    );
                     overlay._setup = true;
                 }
                 else if (overlay._players.get(previousFirst)) {
-                    overlay.reorder_overlay(overlay._players.get(previousFirst), -1);
+                    overlay.reorder_overlay(
+                        overlay._players.get(previousFirst),
+                        -1,
+                    );
                 }
             }, 'player-added'],
 
 
             [Mpris, (overlay, busName) => {
-                if (!busName || !overlay._players.has(busName))
+                if (!busName || !overlay._players.has(busName)) {
                     return;
+                }
 
                 // Get the one on top so it stays there
-                var previousFirst = overlay.get_children().at(-1);
+                let previousFirst = overlay.get_children().at(-1);
+
                 for (const [key, value] of overlay._players.entries()) {
                     if (value === previousFirst) {
                         previousFirst = key;
@@ -156,14 +184,19 @@ export default () => Box({
                 overlay._players.delete(busName);
 
                 const result = [];
-                overlay._players.forEach(widget => {
+
+                overlay._players.forEach((widget) => {
                     result.push(widget);
                 });
 
                 overlay.overlays = result;
 
-                if (overlay._players.has(previousFirst))
-                    overlay.reorder_overlay(overlay._players.get(previousFirst), -1);
+                if (overlay._players.has(previousFirst)) {
+                    overlay.reorder_overlay(
+                        overlay._players.get(previousFirst),
+                        -1,
+                    );
+                }
             }, 'player-closed'],
         ],
     }),

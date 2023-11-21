@@ -5,7 +5,9 @@ import Gtk from 'gi://Gtk';
 
 const MAX_OFFSET = 200;
 const OFFSCREEN = 500;
-const TRANSITION = 'transition: margin 0.5s ease, opacity 3s ease;';
+const ANIM_DURATION = 500;
+const TRANSITION = `transition: margin ${ANIM_DURATION}ms ease,
+                                opacity 3s ease;`;
 
 
 export default ({
@@ -25,16 +27,18 @@ export default ({
 
         // Have empty PlayerBox to define the size of the widget
         child: Box({ className: 'player' }),
+
         connections: [
             ...connections,
 
-            [gesture, overlay => {
+            [gesture, (overlay) => {
                 // Don't allow gesture when only one player
-                if (overlay.list().length <= 1)
+                if (overlay.list().length <= 1) {
                     return;
+                }
 
                 overlay._dragging = true;
-                var offset = gesture.get_offset()[1];
+                let offset = gesture.get_offset()[1];
 
                 const playerBox = overlay.list().at(-1);
 
@@ -58,10 +62,11 @@ export default ({
                 }
             }, 'drag-update'],
 
-            [gesture, overlay => {
+            [gesture, (overlay) => {
                 // Don't allow gesture when only one player
-                if (overlay.list().length <= 1)
+                if (overlay.list().length <= 1) {
                     return;
+                }
 
                 overlay._dragging = false;
                 const offset = gesture.get_offset()[1];
@@ -92,7 +97,7 @@ export default ({
                             opacity: 0; ${playerBox._bgStyle}`);
                     }
 
-                    timeout(500, () => {
+                    timeout(ANIM_DURATION, () => {
                         // Put the player in the back after anim
                         overlay.reorder_overlay(playerBox, 0);
                         // Recenter player
@@ -108,7 +113,9 @@ export default ({
             }, 'drag-end'],
         ],
     }));
-    widget.child.list = () => widget.child.get_children().filter(ch => ch._bgStyle !== undefined);
+
+    widget.child.list = () => widget.child.get_children()
+        .filter((ch) => ch._bgStyle);
 
     return widget;
 };

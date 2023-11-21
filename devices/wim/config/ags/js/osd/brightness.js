@@ -1,5 +1,7 @@
 import { Box, Icon, ProgressBar } from 'resource:///com/github/Aylur/ags/widget.js';
 
+import Brightness from '../../services/brightness.js';
+
 
 export default () => Box({
     className: 'osd',
@@ -11,10 +13,12 @@ export default () => Box({
 
         ProgressBar({
             vpack: 'center',
-            connections: [[Brightness, self => {
+
+            connections: [[Brightness, (self) => {
                 self.value = Brightness.screen;
 
                 const stack = self.get_parent().get_parent();
+
                 stack.shown = 'brightness';
                 stack.resetTimer();
             }, 'screen']],
