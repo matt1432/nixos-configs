@@ -3,6 +3,7 @@
 , lib
 , nixpkgs
 , nixpkgs-wayland
+, nix-index-database
 , nh
 , nur
 , nix-melt
@@ -65,6 +66,17 @@
     default = {
       imports = [
         nur.hmModules.nur
+        nix-index-database.hmModules.nix-index
+        {
+          programs = {
+            nix-index-database.comma.enable = true;
+            nix-index = {
+              enable = true;
+              enableBashIntegration = true;
+            };
+          };
+        }
+
         ./home/bash
         ./home/git.nix
         ./home/neovim
@@ -90,7 +102,6 @@
       ]) ++
 
       (with pkgs; [
-        comma
         dracula-theme
         neofetch
         progress

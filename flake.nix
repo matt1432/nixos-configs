@@ -39,6 +39,11 @@
     nh.url = "github:viperML/nh";
     nix-melt.url = "github:nix-community/nix-melt";
     nurl.url = "github:nix-community/nurl";
+
+    nix-index-database = {
+      url = "github:Mic92/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, nur, nix-gaming, ... }@attrs: let
