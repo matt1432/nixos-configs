@@ -1,4 +1,4 @@
-{ neovim-flake, ... }: {
+{neovim-flake, ...}: {
   imports = [
     ./dracula-theme.nix
     ./regreet.nix

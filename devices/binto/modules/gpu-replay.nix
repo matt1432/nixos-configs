@@ -1,19 +1,25 @@
-{ pkgs, lib, ... }: let
-  gsr = (pkgs.gpu-screen-recorder.overrideAttrs (o: {
+{
+  pkgs,
+  lib,
+  ...
+}: let
+  gsr = pkgs.gpu-screen-recorder.overrideAttrs (o: {
     src = pkgs.fetchgit {
       url = "https://repo.dec05eba.com/gpu-screen-recorder";
       rev = "1ac862d155e10f050e6f6cca5381f9f5a3528d98";
       hash = "sha256-wLiBn4VIi+IWY4qVkdFzkHhECTFH97snogVTEwM5yx8=";
     };
 
-    buildInputs = (o.buildInputs or [ ]) ++ (with pkgs; [
-      wayland
-      wayland-protocols
-      libdrm
-      libva
-      xorg.libXrandr
-      libglvnd
-    ]);
+    buildInputs =
+      (o.buildInputs or [])
+      ++ (with pkgs; [
+        wayland
+        wayland-protocols
+        libdrm
+        libva
+        xorg.libXrandr
+        libglvnd
+      ]);
 
     postPatch = "";
 
@@ -30,7 +36,7 @@
         pkgs.libglvnd
       ]}"
     '';
-  }));
+  });
 in {
   environment.systemPackages = with pkgs; [
     pulseaudio # for getting audio sink

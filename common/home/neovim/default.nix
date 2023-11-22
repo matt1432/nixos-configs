@@ -1,28 +1,32 @@
-{ pkgs, lib, ... }: let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   # installs a vim plugin from git with a given tag / branch
-  plugin = owner: repo: rev: hash: pkgs.vimUtils.buildVimPlugin {
-    pname = "${lib.strings.sanitizeDerivationName repo}";
-    version = rev;
-    src = pkgs.fetchFromGitHub {
-      inherit rev owner repo hash;
+  plugin = owner: repo: rev: hash:
+    pkgs.vimUtils.buildVimPlugin {
+      pname = "${lib.strings.sanitizeDerivationName repo}";
+      version = rev;
+      src = pkgs.fetchFromGitHub {
+        inherit rev owner repo hash;
+      };
     };
-  };
   fileContents = lib.strings.fileContents;
 in {
   # TODO: make a gradle module and have java in device-vars.nix
   xdg.dataFile = {
-    ".gradle/gradle.properties".source =
-      pkgs.writeText "gradle.properties" ''
-        org.gradle.java.home = ${pkgs.temurin-bin-17}
-      '';
+    ".gradle/gradle.properties".source = pkgs.writeText "gradle.properties" ''
+      org.gradle.java.home = ${pkgs.temurin-bin-17}
+    '';
   };
   home.packages = with pkgs; [
     gradle
     gradle-completion # FIXME: not working
+    alejandra
   ];
 
   programs = {
-
     java = {
       enable = true;
       package = pkgs.temurin-bin-17;
@@ -95,8 +99,13 @@ in {
           languageserver = {
             nix = {
               command = "nil";
-              filetypes = [ "nix" ];
-              rootPatterns =  [ "flake.nix" ];
+              filetypes = ["nix"];
+              rootPatterns = ["flake.nix"];
+              settings = {
+                nil = {
+                  formatting = {command = ["alejandra"];};
+                };
+              };
             };
           };
 
@@ -107,6 +116,7 @@ in {
       };
 
       extraConfig = fileContents ./base.vim;
+      extraLuaConfig = fileContents ./base.lua;
 
       plugins = with pkgs.vimPlugins; [
         # Coc configured
@@ -173,9 +183,10 @@ in {
           config = fileContents ./plugins/treesitter.vim;
         }
         {
-          plugin = (plugin "lukas-reineke" "indent-blankline.nvim"
-                    "046e2cf04e08ece927bacbfb87c5b35c0b636546"
-                    "sha256-bhoep8aTYje5K/dZ/XmpwBPn4PBEMPrmw33QJdfFe6M=");
+          plugin =
+            plugin "lukas-reineke" "indent-blankline.nvim"
+            "046e2cf04e08ece927bacbfb87c5b35c0b636546"
+            "sha256-bhoep8aTYje5K/dZ/XmpwBPn4PBEMPrmw33QJdfFe6M=";
           type = "lua";
           config = fileContents ./plugins/indent.lua;
         }

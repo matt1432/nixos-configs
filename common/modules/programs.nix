@@ -1,6 +1,5 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   services = {
-
     fwupd.enable = true;
     upower.enable = true;
 

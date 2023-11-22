@@ -1,4 +1,4 @@
-{ ... }: {
+{...}: {
   imports = [
     ./hardware-configuration.nix
 
@@ -32,7 +32,6 @@
   };
   home-manager.users = {
     matt = {
-
       imports = [
         ../../home/alacritty.nix
         ../../home/dconf.nix

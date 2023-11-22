@@ -1,4 +1,4 @@
-{ ... }: {
+{...}: {
   services = {
     tailscale = {
       enable = true;

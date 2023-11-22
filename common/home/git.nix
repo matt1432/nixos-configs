@@ -1,6 +1,5 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   programs = {
-
     git = {
       enable = true;
       lfs.enable = true;
@@ -9,7 +8,7 @@
       userEmail = "matt@nelim.org";
 
       includes = [
-        { path = "${pkgs.dracula-theme}/git-colors"; }
+        {path = "${pkgs.dracula-theme}/git-colors";}
       ];
 
       delta = {
@@ -24,11 +23,11 @@
       extraConfig.pager = let
         cmd = "LESS='LRc --mouse' ${pkgs.delta}/bin/delta";
       in {
-	      diff   = cmd;
-        show   = cmd;
-      	stash  = cmd;
-      	log    = cmd;
-      	reflog = cmd;
+        diff = cmd;
+        show = cmd;
+        stash = cmd;
+        log = cmd;
+        reflog = cmd;
       };
     };
   };

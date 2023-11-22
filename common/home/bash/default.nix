@@ -1,15 +1,18 @@
-{ config, lib, ... }: {
+{
+  config,
+  lib,
+  ...
+}: {
   imports = [
     ./programs.nix
   ];
 
   programs = {
-
     starship = let
-      textColor   = "#e3e5e5";
-      firstColor  = "#bd93f9";
+      textColor = "#e3e5e5";
+      firstColor = "#bd93f9";
       secondColor = "#715895";
-      thirdColor  = "#382c4a";
+      thirdColor = "#382c4a";
       fourthColor = "#120e18";
     in {
       enable = true;
@@ -93,10 +96,10 @@
       enable = true;
       enableCompletion = true;
 
-      historyFile     = "\$HOME/.cache/.bash_history";
+      historyFile = "\$HOME/.cache/.bash_history";
       historyFileSize = 100000; # default
-      historySize     = 10000; # default
-      historyControl  = [
+      historySize = 10000; # default
+      historyControl = [
         "erasedups"
         "ignorespace"
       ];
@@ -119,29 +122,29 @@
       ];
 
       shellAliases = {
-        sudo  = "sudo ";
+        sudo = "sudo ";
         frick = "sudo $(fc -ln -1)";
 
-        nivm  = "nvim";
+        nivm = "nvim";
         nivim = "nvim";
 
-        tmux  = "tmux -2";
-        ls    = "ls -lah --color=auto";
-        tree  = "tree -a -I node_modules";
-        cp    = "cp -r";
+        tmux = "tmux -2";
+        ls = "ls -lah --color=auto";
+        tree = "tree -a -I node_modules";
+        cp = "cp -r";
 
         chore = "(cd ~/.nix; git add flake.lock; git commit -m 'chore: update flake.lock'; git push)";
 
-        tup   = "tailscale up --login-server https://headscale.nelim.org";
+        tup = "tailscale up --login-server https://headscale.nelim.org";
 
-        pc    = "mosh matt@binto -- tmux -2u new -At laptop";
+        pc = "mosh matt@binto -- tmux -2u new -At laptop";
         oksys = "mosh matt@oksys -- tmux -2u new -At laptop";
-        pve   = "mosh matt@pve -- tmux -2u new -At laptop";
+        pve = "mosh matt@pve -- tmux -2u new -At laptop";
 
-        mc    = "mosh mc@mc -- tmux -2u new -At laptop";
-        pod   = "mosh matt@pve -- ssh -t -p 6768 matt@10.0.0.122 'tmux -2u new -At laptop'";
+        mc = "mosh mc@mc -- tmux -2u new -At laptop";
+        pod = "mosh matt@pve -- ssh -t -p 6768 matt@10.0.0.122 'tmux -2u new -At laptop'";
         jelly = "mosh matt@pve -- ssh -t matt@10.0.0.123 'tmux -2u new -At laptop'";
-        qbit  = "mosh matt@pve -- ssh -t matt@10.0.0.128 'tmux -2u new -At laptop'";
+        qbit = "mosh matt@pve -- ssh -t matt@10.0.0.128 'tmux -2u new -At laptop'";
       };
       sessionVariables = {
         # FIXME: why is this not set by home-manager?

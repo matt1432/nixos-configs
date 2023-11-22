@@ -1,4 +1,4 @@
-{ ... }: {
+{...}: {
   # Disable compositor in X11 for best performance
   # TODO: add mic sound
   xdg.configFile."gpu-screen-recorder.env".text = ''
@@ -21,7 +21,7 @@
     icon = "com.github.iwalton3.jellyfin-media-player";
     terminal = false;
     type = "Application";
-    categories = [ "AudioVideo" "Video" "Player" "TV" ];
+    categories = ["AudioVideo" "Video" "Player" "TV"];
     settings = {
       Version = "1.0";
       StartupWMClass = "jellyfin-media-player";

@@ -1,17 +1,17 @@
-{ stdenv
-, meson
-, ninja
-, pkg-config
-, glib
-, libfprint
-, polkit
-, dbus
-, systemd
-, pam
-, libpam-wrapper
-, fetchFromGitLab
+{
+  stdenv,
+  meson,
+  ninja,
+  pkg-config,
+  glib,
+  libfprint,
+  polkit,
+  dbus,
+  systemd,
+  pam,
+  libpam-wrapper,
+  fetchFromGitLab,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pam-fprint-grosshack";
   version = "v0.3.0";

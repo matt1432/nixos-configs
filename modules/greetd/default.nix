@@ -1,8 +1,9 @@
-{ lib
-, pkgs
-, config
-, hyprland
-, ...
+{
+  lib,
+  pkgs,
+  config,
+  hyprland,
+  ...
 }: let
   regreetBin = "${lib.getExe config.programs.regreet.package}";
   hyprBin = "${hyprland.packages.x86_64-linux.default}/bin";

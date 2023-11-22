@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   programs.regreet = {
     package = pkgs.greetd.regreet.overrideAttrs (self: super: rec {
       version = "0.1.1-patched";
