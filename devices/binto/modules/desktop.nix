@@ -1,17 +1,39 @@
-{ pkgs, lib, ... }: {
+{ pkgs, hyprland, ... }: {
   programs.dconf.enable = true;
 
   services = {
     xserver = {
-      enable = true;
+      displayManager = {
+        sessionPackages = [
+          hyprland.packages.x86_64-linux.default
+        ];
+      };
 
-      # Enable the KDE Plasma Desktop Environment.
-      displayManager.sddm.enable = true;
-      desktopManager.plasma5.enable = true;
+      libinput.enable = true;
     };
+
+    greetd = {
+      settings = {
+        initial_session = {
+          command = "${hyprland.packages.x86_64-linux.default}/bin/Hyprland";
+          user = "matt";
+        };
+      };
+    };
+
     dbus.enable = true;
     gvfs.enable = true;
     flatpak.enable = true;
+  };
+
+  programs.kdeconnect.enable = true;
+
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+    ];
   };
 
   environment.systemPackages = with pkgs; [
@@ -26,6 +48,7 @@
     hunspellDicts.en_CA
     jellyfin-media-player
     spotifywm
+    thunderbird
     prismlauncher-qt5
     (pkgs.discord.override {
       withOpenASAR = true;
@@ -36,13 +59,5 @@
     virt-manager
     bluej
     xournalpp
-  ];
-
-  environment.plasma5.excludePackages = with pkgs.libsForQt5; [
-    elisa
-    oxygen
-    khelpcenter
-    konsole
-    plasma-browser-integration
   ];
 }

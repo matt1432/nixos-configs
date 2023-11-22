@@ -23,7 +23,7 @@
 
       install -Dm755 "gsr-kms-server" "$out/bin/gsr-kms-server"
       install -Dm755 "gpu-screen-recorder" "$out/bin/gpu-screen-recorder"
-      install -Dm644 "extra/gpu-screen-recorder.service" "$out/lib/systemd/user/gpu-screen-recorder.service"
+      #install -Dm644 "extra/gpu-screen-recorder.service" "$out/lib/systemd/user/gpu-screen-recorder.service"
 
       wrapProgram $out/bin/gpu-screen-recorder --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [
         pkgs.addOpenGLRunpath.driverLink
@@ -38,11 +38,6 @@ in {
 
     (writeShellScriptBin "gpu-save-replay" ''
       exec ${pkgs.procps}/bin/pkill --signal SIGUSR1 -f gpu-screen-recorder
-    '')
-
-    # Run this after login to make sure it works
-    (writeShellScriptBin "gpu-restart-replay" ''
-      exec systemctl --user restart gpu-screen-recorder.service
     '')
   ];
 
