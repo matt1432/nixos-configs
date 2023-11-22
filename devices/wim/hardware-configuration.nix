@@ -1,10 +1,15 @@
-{ config, modulesPath, pkgs, ... }: {
+{
+  config,
+  modulesPath,
+  pkgs,
+  ...
+}: {
   nixpkgs.hostPlatform = "x86_64-linux";
-  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+  imports = [(modulesPath + "/installer/scan/not-detected.nix")];
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
-    kernelModules = [ "kvm-amd" ];
+    kernelModules = ["kvm-amd"];
     extraModulePackages = with config.boot.kernelPackages; [
       v4l2loopback
     ];
@@ -19,7 +24,7 @@
     initrd = {
       verbose = false;
       systemd.enable = true;
-      availableKernelModules = [ "nvme" "xhci_pci" "usb_storage" "sd_mod" ];
+      availableKernelModules = ["nvme" "xhci_pci" "usb_storage" "sd_mod"];
 
       luks.devices."root" = {
         device = "/dev/disk/by-uuid/ab82b477-2477-453f-b95f-28e5553ad10d";

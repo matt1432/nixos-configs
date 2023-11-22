@@ -1,4 +1,12 @@
-{ pkgs, config, hyprland, hyprgrass, ags, osConfig, ... }: let
+{
+  pkgs,
+  config,
+  hyprland,
+  hyprgrass,
+  ags,
+  osConfig,
+  ...
+}: let
   configDir = config.services.device-vars.configDir;
   symlink = config.lib.file.mkOutOfStoreSymlink;
 
@@ -13,7 +21,7 @@ in {
     enable = true;
     configDir = symlink "${configDir}/ags";
     package = ags.packages.x86_64-linux.default;
-    extraPackages = [ pkgs.libgudev ];
+    extraPackages = [pkgs.libgudev];
   };
 
   wayland.windowManager.hyprland = {
@@ -43,7 +51,7 @@ in {
         "swww init --no-cache && swww img -t none ${pkgs.dracula-theme}/wallpapers/waves.png"
       ];
 
-      source = [ "~/.config/hypr/main.conf" ];
+      source = ["~/.config/hypr/main.conf"];
     };
   };
 
@@ -67,7 +75,6 @@ in {
     pavucontrol # TODO: replace with ags widget
     networkmanagerapplet # TODO: replace with ags widget
     blueberry # TODO: replace with ags widget
-
 
     # Hyprland
     swww

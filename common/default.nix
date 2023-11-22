@@ -1,16 +1,17 @@
-{ config
-, home-manager
-, lib
-, nixpkgs
-, nixpkgs-wayland
-, nix-index-database
-, nh
-, nur
-, nix-melt
-, nurl
-, coc-stylelintplus
-, pkgs
-, ...
+{
+  config,
+  home-manager,
+  lib,
+  nixpkgs,
+  nixpkgs-wayland,
+  nix-index-database,
+  nh,
+  nur,
+  nix-melt,
+  nurl,
+  coc-stylelintplus,
+  pkgs,
+  ...
 }: {
   imports = [
     ./cachix.nix
@@ -29,7 +30,7 @@
   nix = {
     # Edit nix.conf
     settings = {
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = ["nix-command" "flakes"];
       keep-outputs = true;
       keep-derivations = true;
       auto-optimise-store = true;
@@ -83,36 +84,34 @@
         ./home/tmux.nix
 
         ./device-vars.nix
-        ({ osConfig, ... }: {
+        ({osConfig, ...}: {
           services.device-vars = osConfig.services.device-vars;
         })
       ];
 
-      home.packages = [
-        nix-melt.packages.x86_64-linux.default
-        nurl.packages.x86_64-linux.default
-      ] ++
-
-      (with config.nur.repos.rycee; [
-        mozilla-addons-to-nix
-      ]) ++
-
-      (with pkgs.nodePackages; [
-        undollar
-      ]) ++
-
-      (with pkgs; [
-        dracula-theme
-        neofetch
-        progress
-        wget
-        tree
-        mosh
-        rsync
-        killall
-        imagemagick
-        usbutils
-      ]);
+      home.packages =
+        [
+          nix-melt.packages.x86_64-linux.default
+          nurl.packages.x86_64-linux.default
+        ]
+        ++ (with config.nur.repos.rycee; [
+          mozilla-addons-to-nix
+        ])
+        ++ (with pkgs.nodePackages; [
+          undollar
+        ])
+        ++ (with pkgs; [
+          dracula-theme
+          neofetch
+          progress
+          wget
+          tree
+          mosh
+          rsync
+          killall
+          imagemagick
+          usbutils
+        ]);
 
       home.stateVersion = lib.mkDefault "23.05";
     };

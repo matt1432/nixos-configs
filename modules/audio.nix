@@ -1,4 +1,4 @@
-{ nix-gaming, ... }: {
+{nix-gaming, ...}: {
   imports = [
     nix-gaming.nixosModules.pipewireLowLatency
   ];

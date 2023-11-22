@@ -1,4 +1,8 @@
-{ nix-gaming, pkgs, ... }: {
+{
+  nix-gaming,
+  pkgs,
+  ...
+}: {
   imports = [
     nix-gaming.nixosModules.steamCompat
   ];

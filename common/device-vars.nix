@@ -1,10 +1,10 @@
-{ lib, ... }: {
+{lib, ...}: {
   options.services.device-vars = with lib; {
     username = mkOption {
       description = ''
         Username that was defined at the initial setup process
       '';
-	    type = types.nullOr types.str;
+      type = types.nullOr types.str;
     };
 
     configDir = mkOption {

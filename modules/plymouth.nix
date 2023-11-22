@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   boot = {
     initrd = {
       verbose = false;
@@ -18,7 +18,7 @@
 
     plymouth = {
       enable = true;
-      themePackages = [ pkgs.dracula-theme ];
+      themePackages = [pkgs.dracula-theme];
       theme = "dracula";
     };
   };

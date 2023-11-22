@@ -1,25 +1,27 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   fonts = {
     fontconfig = {
       enable = true;
       defaultFonts = {
-        emoji = [ "Noto Color Emoji" ];
-        monospace = [ "Noto Nerd Font" ];
-        sansSerif = [ "Noto Nerd Font" ];
-        serif = [ "Noto Nerd Font" ];
+        emoji = ["Noto Color Emoji"];
+        monospace = ["Noto Nerd Font"];
+        sansSerif = ["Noto Nerd Font"];
+        serif = ["Noto Nerd Font"];
       };
     };
 
     packages = with pkgs; [
-      (nerdfonts.override { fonts = [
-        "JetBrainsMono"
-        "Go-Mono"
-        "Iosevka"
-        "NerdFontsSymbolsOnly"
-        "SpaceMono"
-        "Ubuntu"
-        "Noto"
-      ]; })
+      (nerdfonts.override {
+        fonts = [
+          "JetBrainsMono"
+          "Go-Mono"
+          "Iosevka"
+          "NerdFontsSymbolsOnly"
+          "SpaceMono"
+          "Ubuntu"
+          "Noto"
+        ];
+      })
       noto-fonts
       noto-fonts-cjk
       noto-fonts-emoji

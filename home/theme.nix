@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }: let
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}: let
   fontSize = config.services.device-vars.fontSize;
   dracula-xresources = pkgs.fetchFromGitHub {
     owner = "dracula";
@@ -6,8 +11,7 @@
     rev = "539ef24e9b0c5498a82d59bfa2bad9b618d832a3";
     sha256 = "sha256-6fltsAluqOqYIh2NX0I/LC3WCWkb9Fn8PH6LNLBQbrY=";
   };
-in
-{
+in {
   home.pointerCursor = {
     name = "Dracula-cursors";
     package = pkgs.dracula-theme;
@@ -48,7 +52,7 @@ in
     platformTheme = "qtct";
   };
 
-  xresources.extraConfig = builtins.readFile("${dracula-xresources}/Xresources");
+  xresources.extraConfig = builtins.readFile "${dracula-xresources}/Xresources";
 
   xdg.configFile = let
     qtconf = ''
@@ -58,13 +62,11 @@ in
 
       [Appearance]
       icon_theme=Flat-Remix-Violet-Dark
-      style=''
-    ;
-  in
-  {
+      style='';
+  in {
     "Kvantum/Dracula/Dracula.kvconfig".source = "${pkgs.dracula-theme}/share/Kvantum/Dracula-purple-solid/Dracula-purple-solid.kvconfig";
-    "Kvantum/Dracula/Dracula.svg".source      = "${pkgs.dracula-theme}/share/Kvantum/Dracula-purple-solid/Dracula-purple-solid.svg";
-    "Kvantum/kvantum.kvconfig".text           = "[General]\ntheme=Dracula";
+    "Kvantum/Dracula/Dracula.svg".source = "${pkgs.dracula-theme}/share/Kvantum/Dracula-purple-solid/Dracula-purple-solid.svg";
+    "Kvantum/kvantum.kvconfig".text = "[General]\ntheme=Dracula";
 
     "qt5ct/qt5ct.conf".text = qtconf + "kvantum";
   };

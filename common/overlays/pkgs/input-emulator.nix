@@ -1,12 +1,12 @@
-{ stdenv
-, meson
-, ninja
-, pkg-config
-, cmake
-, bash-completion
-, fetchFromGitHub
+{
+  stdenv,
+  meson,
+  ninja,
+  pkg-config,
+  cmake,
+  bash-completion,
+  fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "input-emulator";
   version = "6c35040e6fc4f65ce0519ee76d00d60490bcb987";

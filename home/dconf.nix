@@ -1,4 +1,4 @@
-{ ... }: {
+{...}: {
   dconf.settings = {
     "org/virt-manager/virt-manager/connections" = {
       autoconnect = ["qemu:///system"];
@@ -6,7 +6,7 @@
     };
 
     "apps/seahorse/listing" = {
-      keyrings-selected = [ "gnupg://" ];
+      keyrings-selected = ["gnupg://"];
     };
 
     "org/gtk/settings/file-chooser" = {

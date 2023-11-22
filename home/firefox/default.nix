@@ -1,14 +1,17 @@
-{ config, pkgs, ... }: let
-  firefox-addons = pkgs.recurseIntoAttrs (pkgs.callPackage ./addons { });
+{
+  config,
+  pkgs,
+  ...
+}: let
+  firefox-addons = pkgs.recurseIntoAttrs (pkgs.callPackage ./addons {});
   sound-volume = firefox-addons."600-sound-volume";
 
-  firefox-gx = pkgs.callPackage ./firefox-gx { };
-in
-{
+  firefox-gx = pkgs.callPackage ./firefox-gx {};
+in {
   home.file = {
-    ".mozilla/firefox/matt/chrome/components".source      = "${firefox-gx}/chrome/components";
-    ".mozilla/firefox/matt/chrome/icons".source           = "${firefox-gx}/chrome/icons";
-    ".mozilla/firefox/matt/chrome/images".source          = "${firefox-gx}/chrome/images";
+    ".mozilla/firefox/matt/chrome/components".source = "${firefox-gx}/chrome/components";
+    ".mozilla/firefox/matt/chrome/icons".source = "${firefox-gx}/chrome/icons";
+    ".mozilla/firefox/matt/chrome/images".source = "${firefox-gx}/chrome/images";
     ".mozilla/firefox/matt/chrome/userContent.css".source = "${firefox-gx}/chrome/userContent.css";
   };
 
@@ -76,69 +79,89 @@ in
         force = true;
         engines = {
           "Nix Packages" = {
-            urls = [{
-              template = "https://search.nixos.org/packages";
-              params = [
-                { name = "type"; value = "packages"; }
-                { name = "query"; value = "{searchTerms}"; }
-              ];
-            }];
+            urls = [
+              {
+                template = "https://search.nixos.org/packages";
+                params = [
+                  {
+                    name = "type";
+                    value = "packages";
+                  }
+                  {
+                    name = "query";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
             icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake-white.svg";
-            definedAliases = [ "@np" ];
+            definedAliases = ["@np"];
           };
 
           "NixOS Wiki" = {
-            urls = [{ template =
-              "https://nixos.wiki/index.php?search={searchTerms}";
-            }];
+            urls = [
+              {
+                template = "https://nixos.wiki/index.php?search={searchTerms}";
+              }
+            ];
             iconUpdateURL = "https://nixos.wiki/favicon.png";
             updateInterval = 24 * 60 * 60 * 1000; # every day
-            definedAliases = [ "@nw" ];
+            definedAliases = ["@nw"];
           };
 
           "MyNixos" = {
-            urls = [{ template =
-              "https://mynixos.com/search?q={searchTerms}";
-            }];
+            urls = [
+              {
+                template = "https://mynixos.com/search?q={searchTerms}";
+              }
+            ];
             iconUpdateURL = "https://mynixos.com/favicon.ico";
             updateInterval = 24 * 60 * 60 * 1000; # every day
-            definedAliases = [ "@mn" ];
+            definedAliases = ["@mn"];
           };
 
           "Noogle" = {
-            urls = [{ template =
-              "https://noogle.dev/?term={searchTerms}";
-            }];
+            urls = [
+              {
+                template = "https://noogle.dev/?term={searchTerms}";
+              }
+            ];
             iconUpdateURL = "https://noogle.dev/favicon.ico";
             updateInterval = 24 * 60 * 60 * 1000; # every day
-            definedAliases = [ "@ng" ];
+            definedAliases = ["@ng"];
           };
 
           "Firefox Add-ons" = {
-            urls = [{ template =
-              "https://addons.mozilla.org/en-US/firefox/search/?q={searchTerms}";
-            }];
+            urls = [
+              {
+                template = "https://addons.mozilla.org/en-US/firefox/search/?q={searchTerms}";
+              }
+            ];
             iconUpdateURL = "https://addons.mozilla.org/favicon.ico";
             updateInterval = 24 * 60 * 60 * 1000; # every day
-            definedAliases = [ "@fa" ];
+            definedAliases = ["@fa"];
           };
 
           "ProtonDB" = {
-            urls = [{ template =
-              "https://www.protondb.com/search?q={searchTerms}";
-            }];
+            urls = [
+              {
+                template = "https://www.protondb.com/search?q={searchTerms}";
+              }
+            ];
             iconUpdateURL = "https://www.protondb.com/favicon.ico";
             updateInterval = 24 * 60 * 60 * 1000; # every day
-            definedAliases = [ "@pdb" ];
+            definedAliases = ["@pdb"];
           };
 
           "YouTube" = {
-            urls = [{ template =
-              "https://www.youtube.com/results?search_query={searchTerms}";
-            }];
+            urls = [
+              {
+                template = "https://www.youtube.com/results?search_query={searchTerms}";
+              }
+            ];
             iconUpdateURL = "https://www.youtube.com/favicon.ico";
             updateInterval = 24 * 60 * 60 * 1000; # every day
-            definedAliases = [ "@yt" "@youtube" ];
+            definedAliases = ["@yt" "@youtube"];
           };
 
           "Bing".metaData.hidden = true;
@@ -160,31 +183,29 @@ in
       };
 
       extensions = with config.nur.repos;
-      (with bandithedoge.firefoxAddons; [
-        sponsorblock
-        stylus
-        #tridactyl
-        ublock-origin
-      ]) ++
-
-      (with rycee.firefox-addons; [
-        bitwarden
-        darkreader
-        floccus
-        istilldontcareaboutcookies
-        image-search-options
-        return-youtube-dislikes
-        undoclosetabbutton
-      ]) ++
-
-      (with firefox-addons; [
-        sound-volume
-        google-container
-        checkmarks-web-ext
-        ttv-lol-pro
-        seventv
-        opera-gx-witchcraft-purple
-      ]);
+        (with bandithedoge.firefoxAddons; [
+          sponsorblock
+          stylus
+          #tridactyl
+          ublock-origin
+        ])
+        ++ (with rycee.firefox-addons; [
+          bitwarden
+          darkreader
+          floccus
+          istilldontcareaboutcookies
+          image-search-options
+          return-youtube-dislikes
+          undoclosetabbutton
+        ])
+        ++ (with firefox-addons; [
+          sound-volume
+          google-container
+          checkmarks-web-ext
+          ttv-lol-pro
+          seventv
+          opera-gx-witchcraft-purple
+        ]);
     };
   };
 }

@@ -1,4 +1,8 @@
-{ pkgs, hyprland, ... }: {
+{
+  pkgs,
+  hyprland,
+  ...
+}: {
   programs.dconf.enable = true;
 
   services = {

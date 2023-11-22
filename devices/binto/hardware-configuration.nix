@@ -1,21 +1,27 @@
-{ config, lib, modulesPath, pkgs, ... }: {
-  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+{
+  config,
+  lib,
+  modulesPath,
+  pkgs,
+  ...
+}: {
+  imports = [(modulesPath + "/installer/scan/not-detected.nix")];
 
   boot = {
     kernelPackages = pkgs.linuxPackages_xanmod_latest;
-    kernelModules = [ "kvm-amd" ];
+    kernelModules = ["kvm-amd"];
     extraModulePackages = with config.boot.kernelPackages; [
       v4l2loopback
     ];
 
-    supportedFilesystems = [ "ntfs" ];
+    supportedFilesystems = ["ntfs"];
 
     consoleLogLevel = 0;
 
     initrd = {
       verbose = false;
       systemd.enable = true;
-      availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
+      availableKernelModules = ["nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod"];
     };
 
     loader = {
@@ -35,10 +41,10 @@
   };
 
   fileSystems = {
-    "/" ={
+    "/" = {
       device = "/dev/disk/by-uuid/560976b6-85e0-44ca-bb73-e15a78e9c449";
       fsType = "btrfs";
-      options = [ "subvol=@" ];
+      options = ["subvol=@"];
     };
 
     "/boot" = {

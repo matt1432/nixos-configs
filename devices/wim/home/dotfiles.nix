@@ -1,23 +1,26 @@
-{ config, pkgs, ... }: let
+{
+  config,
+  pkgs,
+  ...
+}: let
   configDir = config.services.device-vars.configDir;
   symlink = config.lib.file.mkOutOfStoreSymlink;
-in
-{
+in {
   xdg.configFile = {
-    "gtklock/config.ini".source    = pkgs.writeText "config.ini" ''
+    "gtklock/config.ini".source = pkgs.writeText "config.ini" ''
       [main]
       modules=${builtins.concatStringsSep ";" [
         "${pkgs.gtklock-powerbar-module}/lib/gtklock/powerbar-module.so"
         "${pkgs.gtklock-playerctl-module}/lib/gtklock/playerctl-module.so"
       ]}
-                                    '';
-    "gtklock/style.css".source     = symlink "${configDir}/gtklock/style.css";
+    '';
+    "gtklock/style.css".source = symlink "${configDir}/gtklock/style.css";
 
-    "dolphinrc".source             = symlink "${configDir}/dolphinrc";
-    "kdeglobals".source            = symlink "${configDir}/kdeglobals";
-    "kiorc".source                 = symlink "${configDir}/kiorc";
-    "mimeapps.list".source         = symlink "${configDir}/mimeapps.list";
-    "neofetch".source              = symlink "${configDir}/neofetch";
-    "swappy".source                = symlink "${configDir}/swappy";
+    "dolphinrc".source = symlink "${configDir}/dolphinrc";
+    "kdeglobals".source = symlink "${configDir}/kdeglobals";
+    "kiorc".source = symlink "${configDir}/kiorc";
+    "mimeapps.list".source = symlink "${configDir}/mimeapps.list";
+    "neofetch".source = symlink "${configDir}/neofetch";
+    "swappy".source = symlink "${configDir}/swappy";
   };
 }

@@ -46,11 +46,19 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, nur, nix-gaming, ... }@attrs: let
+  outputs = {
+    self,
+    home-manager,
+    nix-gaming,
+    nixpkgs,
+    nur,
+    ...
+  } @ attrs: let
     defaultModules = [
       nur.nixosModules.nur
 
-      home-manager.nixosModules.home-manager {
+      home-manager.nixosModules.home-manager
+      {
         home-manager.extraSpecialArgs = attrs;
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
@@ -63,18 +71,25 @@
       wim = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = attrs;
-        modules = defaultModules ++ [
-          ./devices/wim
-        ];
+        modules =
+          defaultModules
+          ++ [
+            ./devices/wim
+          ];
       };
 
       binto = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = attrs;
-        modules = defaultModules ++ [
-          ./devices/binto
-        ];
+        modules =
+          defaultModules
+          ++ [
+            ./devices/binto
+          ];
       };
     };
+
+    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
+    formatter.aarch64-linux = nixpkgs.legacyPackages.aarch64-linux.alejandra;
   };
 }

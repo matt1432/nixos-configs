@@ -1,5 +1,4 @@
 # https://github.com/NixOS/nixpkgs/blob/77b27fdb6a9ba01f60b8f5c48038938cf14b7d2f/pkgs/applications/audio/spotifywm/default.nix
-
 {
   lib,
   stdenv,
@@ -8,8 +7,7 @@
   makeBinaryWrapper,
   spotify,
   symlinkJoin,
-}:
-let
+}: let
   spotifywm = stdenv.mkDerivation {
     pname = "spotifywm";
     version = "unstable-2022-10-25";
@@ -34,31 +32,31 @@ let
     '';
   };
 in
-symlinkJoin {
-  inherit (spotifywm) name;
+  symlinkJoin {
+    inherit (spotifywm) name;
 
-  nativeBuildInputs = [
-    makeBinaryWrapper
-  ];
+    nativeBuildInputs = [
+      makeBinaryWrapper
+    ];
 
-  paths = [
-    spotify
-    spotifywm
-  ];
+    paths = [
+      spotify
+      spotifywm
+    ];
 
-  postBuild = ''
-    wrapProgram $out/bin/spotify \
-      --suffix LD_PRELOAD : "$out/lib/spotifywm.so"
+    postBuild = ''
+      wrapProgram $out/bin/spotify \
+        --suffix LD_PRELOAD : "$out/lib/spotifywm.so"
 
-    ln -sf $out/bin/spotify $out/bin/spotifywm
-  '';
+      ln -sf $out/bin/spotify $out/bin/spotifywm
+    '';
 
-  meta = {
-    homepage = "https://github.com/dasJ/spotifywm";
-    description = "Wrapper around Spotify that correctly sets class name before opening the window";
-    license = lib.licenses.mit;
-    platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ jqueiroz the-argus ];
-    mainProgram = "spotify";
-  };
-}
+    meta = {
+      homepage = "https://github.com/dasJ/spotifywm";
+      description = "Wrapper around Spotify that correctly sets class name before opening the window";
+      license = lib.licenses.mit;
+      platforms = lib.platforms.linux;
+      maintainers = with lib.maintainers; [jqueiroz the-argus];
+      mainProgram = "spotify";
+    };
+  }
