@@ -5,6 +5,20 @@
   hyprland,
   ...
 }: let
+  nvidia =
+    if config.hardware.nvidia.modesetting.enable
+    then {
+      env = ''
+        env = LIBVA_DRIVER_NAME,nvidia
+        env = XDG_SESSION_TYPE,wayland
+        env = GBM_BACKEND,nvidia-drm
+        env = __GLX_VENDOR_LIBRARY_NAME,nvidia
+        env = WLR_NO_HARDWARE_CURSORS,1
+      '';
+    }
+    else {
+      env = "";
+    };
   regreetBin = "${lib.getExe config.programs.regreet.package}";
   hyprBin = "${hyprland.packages.x86_64-linux.default}/bin";
   gset = pkgs.gsettings-desktop-schemas;
@@ -15,6 +29,8 @@
     exec-once = swww init --no-cache && swww img -t none ${pkgs.dracula-theme}/wallpapers/waves.png
 
     ${builtins.readFile ./hyprland.conf}
+
+    ${nvidia.env}
 
     # FIXME: kb doesn't work
     env = XDG_DATA_DIRS, ${gset}/share/gsettings-schemas/${gset.name}:${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}:$XDG_DATA_DIRS
