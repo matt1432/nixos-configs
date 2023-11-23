@@ -4,22 +4,10 @@
   ...
 }: let
   gsr = pkgs.gpu-screen-recorder.overrideAttrs (o: {
-    src = pkgs.fetchgit {
-      url = "https://repo.dec05eba.com/gpu-screen-recorder";
-      rev = "2f60f4c109f1bcc748d5f0d937476e8708a4073b";
-      hash = "sha256-pdyKspXx6ozXLgfLHAyRrPVJ2kzllHQDhPu1QQwpQjU=";
+    src = pkgs.fetchurl {
+      url = "https://dec05eba.com/snapshot/gpu-screen-recorder.git.r420.2f60f4c.tar.gz";
+      hash = "sha256-1PVe9t+vud2XnVT+UlEHozq+OtOKo/8gggcmdbp1dj4=";
     };
-
-    buildInputs =
-      (o.buildInputs or [])
-      ++ (with pkgs; [
-        wayland
-        wayland-protocols
-        libdrm
-        libva
-        xorg.libXrandr
-        libglvnd
-      ]);
 
     postPatch = "";
 
