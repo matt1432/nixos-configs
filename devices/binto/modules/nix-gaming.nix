@@ -9,6 +9,7 @@
 
   programs = {
     steam = {
+      # Disable HW accel to fix flickers
       enable = true;
 
       extraCompatPackages = [
