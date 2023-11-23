@@ -1,4 +1,10 @@
-{ pkgs, config, hyprland, osConfig, ... }: let
+{
+  pkgs,
+  config,
+  hyprland,
+  osConfig,
+  ...
+}: let
   configDir = config.services.device-vars.configDir;
   symlink = config.lib.file.mkOutOfStoreSymlink;
 
@@ -25,7 +31,7 @@ in {
         "swww init --no-cache && swww img -t none ${pkgs.dracula-theme}/wallpapers/waves.png"
       ];
 
-      source = [ "~/.config/hypr/main.conf" ];
+      source = ["~/.config/hypr/main.conf"];
     };
   };
 
@@ -45,7 +51,6 @@ in {
     pavucontrol # TODO: replace with ags widget
     networkmanagerapplet # TODO: replace with ags widget
     blueberry # TODO: replace with ags widget
-
 
     # Hyprland
     swww

@@ -5,10 +5,9 @@
   writeText,
 }: let
   pname = "firefox-gx";
-  version = "8.5";
+  version = "8.6";
 
   custom-menu = writeText "menu" "${builtins.readFile ./ogx_menu.css}";
-  custom-sidebar = writeText "sidebar" "${builtins.readFile ./ogx_left-sidebar.css}";
 in
   stdenvNoCC.mkDerivation {
     inherit pname version;
@@ -17,7 +16,7 @@ in
       owner = "Godiesc";
       repo = pname;
       rev = "v.${version}";
-      sha256 = "sha256-llffq16PZz5GxkLIJDeWN1d04SCCJFqwCLzOrxgwhYI=";
+      sha256 = "sha256-AaufMjeK66y/3ymz7TkiIgvtmAvD/pjou7+wVglUFGc=";
     };
 
     installPhase = ''
@@ -29,8 +28,8 @@ in
         --replace '../images/newtab/wallpaper-dark.png' "$out/chrome/images/newtab/private-dark.png"
 
       # TODO: make patch instead
+      # FIXME: menu is bugged again
       cp -a ${custom-menu} ./chrome/components/ogx_menu.css
-      cp -a ${custom-sidebar} ./chrome/components/ogx_left-sidebar.css
 
       mkdir -p $out
       cp -r ./* $out
