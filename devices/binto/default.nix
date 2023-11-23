@@ -5,6 +5,7 @@
     ../../modules/audio.nix
     ../../modules/kmscon.nix
     ../../modules/printer.nix
+    ../../modules/proton-bridge.nix
     ../../modules/tailscale.nix
 
     ./modules/desktop.nix

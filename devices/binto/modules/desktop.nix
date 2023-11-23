@@ -30,6 +30,7 @@
     hunspellDicts.en_CA
     jellyfin-media-player
     spotifywm
+    thunderbird
     prismlauncher-qt5
     (pkgs.discord.override {
       withOpenASAR = true;
