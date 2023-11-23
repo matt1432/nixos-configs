@@ -1,28 +1,52 @@
 {
   pkgs,
-  lib,
+  hyprland,
   ...
 }: {
   programs.dconf.enable = true;
 
   services = {
     xserver = {
-      enable = true;
+      displayManager = {
+        sessionPackages = [
+          hyprland.packages.x86_64-linux.default
+        ];
+      };
 
-      # Enable the KDE Plasma Desktop Environment.
-      displayManager.sddm.enable = true;
-      desktopManager.plasma5.enable = true;
+      libinput.enable = true;
     };
+
+    greetd = {
+      settings = {
+        initial_session = {
+          command = "${hyprland.packages.x86_64-linux.default}/bin/Hyprland";
+          user = "matt";
+        };
+      };
+    };
+
     dbus.enable = true;
     gvfs.enable = true;
     flatpak.enable = true;
+  };
+
+  programs.kdeconnect.enable = true;
+
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+    ];
   };
 
   environment.systemPackages = with pkgs; [
     p7zip # for reshade
     xclip
     wl-clipboard
-    vlc
+
+    # FIXME: vlc stutters
+    mpv
     flat-remix-icon-theme
     nextcloud-client
     libreoffice-qt
@@ -41,13 +65,5 @@
     virt-manager
     bluej
     xournalpp
-  ];
-
-  environment.plasma5.excludePackages = with pkgs.libsForQt5; [
-    elisa
-    oxygen
-    khelpcenter
-    konsole
-    plasma-browser-integration
   ];
 }

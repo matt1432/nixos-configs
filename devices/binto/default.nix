@@ -3,6 +3,7 @@
     ./hardware-configuration.nix
 
     ../../modules/audio.nix
+    ../../modules/greetd
     ../../modules/kmscon.nix
     ../../modules/printer.nix
     ../../modules/proton-bridge.nix
@@ -16,7 +17,8 @@
 
   services.device-vars = {
     username = "matt";
-    fontSize = 10.0;
+    configDir = "/home/matt/.nix/devices/binto/config";
+    fontSize = 12.5;
   };
 
   users.users.matt = {
@@ -37,7 +39,10 @@
         ../../home/alacritty.nix
         ../../home/dconf.nix
         ../../home/firefox
+        ../../home/theme.nix
+        ../../home/wofi
 
+        ./home/hyprland.nix
         ./home/packages.nix
       ];
 
