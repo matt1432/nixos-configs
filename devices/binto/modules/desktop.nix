@@ -44,7 +44,9 @@
     p7zip # for reshade
     xclip
     wl-clipboard
-    vlc
+
+    # FIXME: vlc stutters
+    mpv
     flat-remix-icon-theme
     nextcloud-client
     libreoffice-qt

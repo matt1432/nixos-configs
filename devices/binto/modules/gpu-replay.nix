@@ -6,8 +6,8 @@
   gsr = pkgs.gpu-screen-recorder.overrideAttrs (o: {
     src = pkgs.fetchgit {
       url = "https://repo.dec05eba.com/gpu-screen-recorder";
-      rev = "1ac862d155e10f050e6f6cca5381f9f5a3528d98";
-      hash = "sha256-wLiBn4VIi+IWY4qVkdFzkHhECTFH97snogVTEwM5yx8=";
+      rev = "2f60f4c109f1bcc748d5f0d937476e8708a4073b";
+      hash = "sha256-pdyKspXx6ozXLgfLHAyRrPVJ2kzllHQDhPu1QQwpQjU=";
     };
 
     buildInputs =

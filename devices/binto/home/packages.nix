@@ -4,7 +4,7 @@
   xdg.configFile."gsr.sh" = {
     executable = true;
     text = ''
-      export WINDOW=DP-3
+      export WINDOW=DP-5
       export CONTAINER=mkv
       export QUALITY=very_high
       export CODEC=auto

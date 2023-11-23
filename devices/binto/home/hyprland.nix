@@ -4,6 +4,7 @@
 
   polkit = pkgs.plasma5Packages.polkit-kde-agent;
 in {
+  # FIXME: steam flicker issues
   wayland.windowManager.hyprland = {
     enable = true;
     enableNvidiaPatches = true;
@@ -63,6 +64,7 @@ in {
     ## libs
     qt5.qtwayland
     qt6.qtwayland
+    xorg.xrandr
     nvidia-vaapi-driver
     libayatana-appindicator
     xdg-utils
