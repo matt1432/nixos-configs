@@ -62,7 +62,7 @@
   };
 
   # Set your time zone.
-  time.timeZone = "America/Toronto";
+  time.timeZone = "America/Montreal";
 
   # No touchy
   system.stateVersion = "23.11";

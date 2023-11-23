@@ -7,12 +7,13 @@
     nix-gaming.nixosModules.steamCompat
   ];
 
-  programs.steam = {
-    enable = true;
+  programs = {
+    steam = {
+      enable = true;
 
-    extraCompatPackages = [
-      # pkgs.luxtorpeda
-      nix-gaming.packages.${pkgs.system}.proton-ge
-    ];
+      extraCompatPackages = [
+        nix-gaming.packages.${pkgs.system}.proton-ge
+      ];
+    };
   };
 }
