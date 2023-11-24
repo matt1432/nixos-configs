@@ -36,13 +36,10 @@
   home-manager.users = {
     matt = {
       imports = [
-        ../../home/alacritty.nix
         ../../home/dconf.nix
         ../../home/firefox
-        ../../home/theme.nix
-        ../../home/wofi
+        ../../home/hyprland
 
-        ./home/hyprland.nix
         ./home/packages.nix
       ];
 
