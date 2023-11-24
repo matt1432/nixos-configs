@@ -6,8 +6,8 @@
 
 :root * {
   --margin-left-icons-personal: 3px !important;
-  --tab-height-personal: 41px !important;
-  --uc-tab-corner-height: 41px !important;
+  --tab-height-personal: 40px !important;
+  --uc-tab-corner-height: 40px !important;
 }
 
 /* https://github.com/Godiesc/firefox-gx/blob/main/Tricks/README.md */
@@ -22,8 +22,8 @@
   --toolbarbutton-active-background: transparent !important;
   position: fixed;
   display: flex;
-  top: 50px !important;
-  left: inherit !important;
+  top: 42px !important;
+  left: 2px !important;
   z-index: 2 !important;
   fill: var(--general-color) !important;
   width: calc(var(--uc-vertical-toolbar-width) - 4px) !important;
@@ -49,6 +49,13 @@
 #customizationui-widget-panel {
   margin-top: -1px !important;
   margin-inline: -200px !important;
+}
+
+#PersonalToolbar .toolbarbutton-1 {
+  margin-block: 0px !important;
+}
+#PersonalToolbar #PlacesToolbarItems > .bookmark-item {
+  margin-block: 6px !important;
 }
 
 /* -------------------------------------------------------------- */
