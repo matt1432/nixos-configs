@@ -4,6 +4,12 @@
   display: none !important;
 }
 
+:root * {
+  --margin-left-icons-personal: 3px !important;
+  --tab-height-personal: 41px !important;
+  --uc-tab-corner-height: 41px !important;
+}
+
 /* https://github.com/Godiesc/firefox-gx/blob/main/Tricks/README.md */
 /* Extensions button into the "left-sidebar" - Immovable */
 
@@ -71,10 +77,6 @@ toolbar .toolbarbutton-1 > .toolbarbutton-badge-stack {
 
 :root[sizemode="maximized"]:not([chromehidden~="toolbar"]) #appMenu-popup panelview {
   width: unset !important;
-}
-
-:root {
-  --margin-left-icons-personal: 3px !important;
 }
 
 :root:not([chromehidden~="toolbar"]) #PanelUI-menu-button > stack{
