@@ -68,7 +68,7 @@
   min-width: 46px !important;
 }
 toolbar .toolbarbutton-1 > .toolbarbutton-badge-stack {
-  padding: 0.6em !important;
+  padding: 10px !important;
 }
 
 :root:not([chromehidden~="toolbar"]) #PanelUI-menu-button[open] > .toolbarbutton-badge-stack {
