@@ -9,9 +9,10 @@
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
-    kernelModules = ["kvm-amd"];
+    kernelModules = ["kvm-amd" "acpi_call"];
     extraModulePackages = with config.boot.kernelPackages; [
       v4l2loopback
+      acpi_call
     ];
 
     kernelParams = [
