@@ -2,12 +2,9 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
-  writeText,
 }: let
   pname = "firefox-gx";
   version = "8.6";
-
-  custom-menu = writeText "menu" "${builtins.readFile ./ogx_menu.css}";
 in
   stdenvNoCC.mkDerivation {
     inherit pname version;
@@ -26,10 +23,6 @@ in
       # Fix new tab background for nix
       substituteInPlace ./chrome/components/ogx_root-personal.css \
         --replace '../images/newtab/wallpaper-dark.png' "$out/chrome/images/newtab/private-dark.png"
-
-      # TODO: make patch instead
-      # FIXME: menu is bugged again
-      cp -a ${custom-menu} ./chrome/components/ogx_menu.css
 
       mkdir -p $out
       cp -r ./* $out

@@ -8,30 +8,30 @@
 /* Extensions button into the "left-sidebar" - Immovable */
 
 :root:not([chromehidden~="toolbar"],[sizemode="fullscreen"]) #PersonalToolbar {
-    --padding-top-left-sidebar: 110px !important; /* 182px to one-line config */
+  --padding-top-left-sidebar: 110px !important; /* 182px to one-line config */
 }
 
 :root:not([chromehidden~="toolbar"], [sizemode="fullscreen"]) #unified-extensions-button {
-    --toolbarbutton-hover-background: transparent !important;
-    --toolbarbutton-active-background: transparent !important;
-    position: fixed;
-    display: flex;
-    top: 50px !important;
-    left: inherit !important;
-    z-index: 2 !important;
-    fill: var(--general-color) !important;
-    width: calc(var(--uc-vertical-toolbar-width) - 4px) !important;
+  --toolbarbutton-hover-background: transparent !important;
+  --toolbarbutton-active-background: transparent !important;
+  position: fixed;
+  display: flex;
+  top: 50px !important;
+  left: inherit !important;
+  z-index: 2 !important;
+  fill: var(--general-color) !important;
+  width: calc(var(--uc-vertical-toolbar-width) - 4px) !important;
 }
 
 :root:not([chromehidden~="toolbar"], [sizemode="fullscreen"]) #unified-extensions-button:hover,
 :root:not([chromehidden~="toolbar"], [sizemode="fullscreen"]) #unified-extensions-button[open] {
-    transform: scale(1.12) !important;
-    transition: ease-in-out !important;
+  transform: scale(1.12) !important;
+  transition: ease-in-out !important;
 }
 
 :root:not([chromehidden~="toolbar"], [sizemode="fullscreen"]) #unified-extensions-button:active {
-    transform: scale(1.0) !important;
-    transition-duration: 0ms !important;
+  transform: scale(1.0) !important;
+  transition-duration: 0ms !important;
 }
 
 #appMenu-addon-installed-notification,
@@ -43,4 +43,100 @@
 #customizationui-widget-panel {
   margin-top: -1px !important;
   margin-inline: -200px !important;
+}
+
+/* -------------------------------------------------------------- */
+/* Fix menu */
+:root:not([chromehidden~="toolbar"], [sizemode="fullscreen"]) #PanelUI-menu-button, :root[sizemode="maximized"] #appMenu-popup,
+:root[sizemode="maximized"] #appMenu-popup {
+  --tab-height-personal: unset !important;
+}
+
+:root:not([chromehidden~="toolbar"])[sizemode="maximized"] #appMenu-popup > panelmultiview > box > box > panelview {
+  padding-top: unset !important;
+}
+
+/* Hamburger menu width */
+:root:not([chromehidden~="toolbar"], [sizemode="fullscreen"]):is([sizemode="maximized"]) #PanelUI-menu-button[open] > stack,
+:root:not([chromehidden~="toolbar"]) #PanelUI-menu-button .toolbarbutton-badge-stack {
+  min-width: 46px !important;
+}
+toolbar .toolbarbutton-1 > .toolbarbutton-badge-stack {
+  padding: 10px !important;
+}
+
+:root:not([chromehidden~="toolbar"]) #PanelUI-menu-button[open] > .toolbarbutton-badge-stack {
+  width: unset !important;
+}
+
+:root[sizemode="maximized"]:not([chromehidden~="toolbar"]) #appMenu-popup panelview {
+  width: unset !important;
+}
+
+:root {
+  --margin-left-icons-personal: 3px !important;
+}
+
+:root:not([chromehidden~="toolbar"]) #PanelUI-menu-button > stack{
+  display: unset;
+  align-items: unset !important;
+}
+
+:root:not([chromehidden~="toolbar"]) #PanelUI-menu-button>stack::after {
+  width: unset !important;
+  content: unset;
+  color: unset !important;
+  padding-inline-start: unset !important;
+  padding-block: unset !important;
+  text-shadow: unset !important;
+}
+
+:root:not([chromehidden~="toolbar"])[sizemode="maximized"] #appMenu-popup {
+  appearance: unset !important;
+  margin-top: -1px !important;
+  clip-path: unset;
+  --arrowpanel-menuitem-padding: unset !important;
+}
+
+:root:is([sizemode="maximized"]):not([tabsintitlebar], [chromehidden~="toolbar"]) #appMenu-popup {
+  margin-top: unset !important;
+}
+
+.subviewbutton:is(#appMenu-popup toolbarbutton):not(.subviewbutton-back) {
+  padding-inline-start: unset !important;
+}
+.subviewbutton:not(.subviewbutton-iconic, .toolbarbutton-text, [checked="true"])>.toolbarbutton-icon, .syncNowBtn {
+  width: unset;
+  height: unset;
+  margin-inline-end: unset !important;
+}
+
+#appMenu-zoom-controls{
+  padding-inline-start: unset !important;
+}
+
+#appMenu-fxa-status2:not([fxastatus])>#appMenu-fxa-label2 {
+  margin-inline-end: unset !important;
+}
+
+:root:not([chromehidden~="toolbar"])[sizemode="maximized"] #appMenu-fxa-status2 {
+  padding-top: unset !important;
+  border-image: unset !important;
+  border-top: unset !important;
+}
+
+:root:is([sizemode="normal"], [sizemode="fullscreen"]) #appMenu-fxa-label2 {
+  margin-inline-start: unset !important;
+}
+
+#appMenu-fxa-status2:not([fxastatus="signedin"]) {
+  margin-inline-end: unset !important;
+  margin-inline-start: unset !important;
+}
+#appMenu-fxa-status2:not([fxastatus="signedin"]):hover toolbarbutton {
+  background-color: unset !important;
+}
+
+:root:not([chromehidden~="toolbar"])[sizemode="maximized"] #appMenu-popup {
+  --arrowpanel-menuitem-padding: unset !important;
 }
