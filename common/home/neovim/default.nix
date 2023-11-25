@@ -4,14 +4,22 @@
   ...
 }: let
   # installs a vim plugin from git with a given tag / branch
-  plugin = owner: repo: rev: hash:
+  plugin = src:
     pkgs.vimUtils.buildVimPlugin {
-      pname = "${lib.strings.sanitizeDerivationName repo}";
-      version = rev;
-      src = pkgs.fetchFromGitHub {
-        inherit rev owner repo hash;
-      };
+      pname = "${lib.strings.sanitizeDerivationName src.repo}";
+      version = src.rev;
+      inherit src;
     };
+
+  buildGrammar = name: grammar:
+    pkgs.callPackage ./grammar.nix {} {
+      language = grammar.language or name;
+      version = grammar.src.rev;
+      src = grammar.src;
+      location = grammar.location or null;
+      generate = grammar.generate or false;
+    };
+
   fileContents = lib.strings.fileContents;
 in {
   # TODO: make a gradle module and have java in device-vars.nix
@@ -48,6 +56,7 @@ in {
         nodePackages.npm
         nodePackages.neovim
         gradle
+        gcc
 
         bat
 
@@ -134,95 +143,122 @@ in {
       extraConfig = fileContents ./base.vim;
       extraLuaConfig = fileContents ./base.lua;
 
-      plugins = with pkgs.vimPlugins; [
-        # Coc configured
-        coc-css
-        coc-eslint
-        coc-java
-        coc-sh
-        coc-stylelintplus
-        {
-          plugin = coc-snippets;
-          type = "viml";
-          config = fileContents ./plugins/snippets.vim;
-        }
+      plugins = let
+        # custom packages
+        hypr-src = pkgs.fetchFromGitHub {
+          owner = "luckasRanarison";
+          repo = "tree-sitter-hypr";
+          rev = "90b3ddf8a85b5ea3d9dc4920fddb16182a192e14";
+          hash = "sha256-ErFs2eCC0eZEyDldrTUj4JJ0Eu+exDHNQx4g8WXh/UQ=";
+        };
 
-        ## Lua
-        coc-sumneko-lua
-        neodev-nvim
+        tree-sitter-hypr = plugin hypr-src;
 
-        ## Fzf
-        coc-fzf
-        fzfWrapper
-        fzf-vim
+        hypr-grammar = buildGrammar "hypr" {
+          src = hypr-src;
+          generate = true;
+        };
 
-        coc-highlight
-        coc-json
-        coc-pyright
-        coc-vimlsp
-        coc-yaml
-        coc-toml
-        coc-markdownlint
-        coc-tsserver
-        fugitive
+        indent-blankline = plugin (pkgs.fetchFromGitHub {
+          owner = "lukas-reineke";
+          repo = "indent-blankline.nvim";
+          rev = "046e2cf04e08ece927bacbfb87c5b35c0b636546";
+          hash = "sha256-bhoep8aTYje5K/dZ/XmpwBPn4PBEMPrmw33QJdfFe6M=";
+        });
+      in
+        with pkgs.vimPlugins; [
+          # Coc configured
+          coc-css
+          coc-eslint
+          coc-java
+          coc-sh
+          coc-stylelintplus
+          {
+            plugin = coc-snippets;
+            type = "viml";
+            config = fileContents ./plugins/snippets.vim;
+          }
 
-        {
-          plugin = dracula-nvim;
-          type = "viml";
-          config = fileContents ./plugins/dracula.vim;
-        }
-        {
-          plugin = lualine-nvim;
-          type = "lua";
-          config = fileContents ./plugins/lualine.lua;
-        }
-        {
-          plugin = todo-comments-nvim;
-          type = "lua";
-          config = "require('todo-comments').setup()";
-        }
-        {
-          plugin = gitsigns-nvim;
-          type = "lua";
-          config = fileContents ./plugins/gitsigns.lua;
-        }
-        {
-          plugin = nvim-autopairs;
-          type = "lua";
-          config = fileContents ./plugins/autopairs.lua;
-        }
-        nvim-treesitter-context
-        nvim-treesitter-textobjects
-        {
-          plugin = nvim-treesitter.withAllGrammars;
-          type = "viml";
-          config = fileContents ./plugins/treesitter.vim;
-        }
-        {
-          plugin =
-            plugin "lukas-reineke" "indent-blankline.nvim"
-            "046e2cf04e08ece927bacbfb87c5b35c0b636546"
-            "sha256-bhoep8aTYje5K/dZ/XmpwBPn4PBEMPrmw33QJdfFe6M=";
-          type = "lua";
-          config = fileContents ./plugins/indent.lua;
-        }
-        {
-          plugin = mini-nvim;
-          type = "lua";
-          config = fileContents ./plugins/mini.lua;
-        }
-        {
-          plugin = neo-tree-nvim;
-          type = "viml";
-          config = ''
-            ${fileContents ./plugins/neotree.vim}
+          ## Lua
+          coc-sumneko-lua
+          neodev-nvim
 
-            lua << EOF
-              ${fileContents ./plugins/neotree.lua}
-            EOF
-          '';
-        }
-      ];
+          ## Fzf
+          coc-fzf
+          fzfWrapper
+          fzf-vim
+
+          coc-highlight
+          coc-json
+          coc-pyright
+          coc-vimlsp
+          coc-yaml
+          coc-toml
+          coc-markdownlint
+          coc-tsserver
+          fugitive
+
+          {
+            plugin = dracula-nvim;
+            type = "viml";
+            config = fileContents ./plugins/dracula.vim;
+          }
+          {
+            plugin = lualine-nvim;
+            type = "lua";
+            config = fileContents ./plugins/lualine.lua;
+          }
+          {
+            plugin = todo-comments-nvim;
+            type = "lua";
+            config = "require('todo-comments').setup()";
+          }
+          {
+            plugin = gitsigns-nvim;
+            type = "lua";
+            config = fileContents ./plugins/gitsigns.lua;
+          }
+          {
+            plugin = nvim-autopairs;
+            type = "lua";
+            config = fileContents ./plugins/autopairs.lua;
+          }
+          nvim-treesitter-context
+          nvim-treesitter-textobjects
+          {
+            plugin = tree-sitter-hypr;
+            type = "lua";
+            config = ''
+              vim.treesitter.language.require_language("hypr", "${hypr-grammar}/parser")
+            '';
+          }
+          {
+            plugin = nvim-treesitter.withAllGrammars;
+            type = "viml";
+            config = fileContents ./plugins/treesitter.vim;
+          }
+          {
+            plugin = indent-blankline;
+            type = "lua";
+            config = fileContents ./plugins/indent.lua;
+          }
+          {
+            plugin = mini-nvim;
+            type = "lua";
+            config = fileContents ./plugins/mini.lua;
+          }
+          {
+            plugin = neo-tree-nvim;
+            type = "viml";
+            config = ''
+              ${fileContents ./plugins/neotree.vim}
+
+              lua << EOF
+                ${fileContents ./plugins/neotree.lua}
+              EOF
+            '';
+          }
+        ];
     };
   };
 }
