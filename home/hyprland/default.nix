@@ -31,7 +31,7 @@ in {
     plugins =
       []
       ++ (lib.lists.optionals (osConfig.hardware.sensor.iio.enable) [
-        "${hyprgrass.packages.x86_64-linux.default}/lib/libhyprgrass.so"
+        hyprgrass.packages.${pkgs.system}.default
       ]);
 
     settings = {
