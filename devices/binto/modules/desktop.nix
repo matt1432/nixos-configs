@@ -1,16 +1,17 @@
 {
   pkgs,
-  hyprland,
+  config,
   ...
-}: {
+}: let
+  user = config.services.device-vars.username;
+  hyprland = config.home-manager.users.${user}.wayland.windowManager.hyprland.finalPackage;
+in {
   programs.dconf.enable = true;
 
   services = {
     xserver = {
       displayManager = {
-        sessionPackages = [
-          hyprland.packages.x86_64-linux.default
-        ];
+        sessionPackages = [hyprland];
       };
 
       libinput.enable = true;
@@ -19,8 +20,8 @@
     greetd = {
       settings = {
         initial_session = {
-          command = "${hyprland.packages.x86_64-linux.default}/bin/Hyprland";
-          user = "matt";
+          command = "${hyprland}/bin/Hyprland";
+          user = user;
         };
       };
     };

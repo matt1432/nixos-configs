@@ -2,9 +2,11 @@
   lib,
   pkgs,
   config,
-  hyprland,
   ...
 }: let
+  user = config.services.device-vars.username;
+  hyprBin = "${config.home-manager.users.${user}.wayland.windowManager.hyprland.finalPackage}/bin";
+
   nvidia =
     if config.hardware.nvidia.modesetting.enable
     then {
@@ -20,7 +22,6 @@
       env = "";
     };
   regreetBin = "${lib.getExe config.programs.regreet.package}";
-  hyprBin = "${hyprland.packages.x86_64-linux.default}/bin";
   gset = pkgs.gsettings-desktop-schemas;
 
   css = pkgs.writeText "style.css" ''${builtins.readFile ./style.css}'';

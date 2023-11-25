@@ -12,6 +12,15 @@
 
   gset = pkgs.gsettings-desktop-schemas;
   polkit = pkgs.plasma5Packages.polkit-kde-agent;
+
+  mainPkg =
+    if osConfig.hardware.nvidia.modesetting.enable
+    then {
+      hyprland = pkgs.hyprland;
+    }
+    else {
+      hyprland = hyprland.packages.x86_64-linux.default;
+    };
 in {
   imports = [
     ./theme.nix
@@ -25,7 +34,7 @@ in {
 
   wayland.windowManager.hyprland = {
     enable = true;
-    package = hyprland.packages.x86_64-linux.default;
+    package = mainPkg.hyprland;
     enableNvidiaPatches = osConfig.hardware.nvidia.modesetting.enable;
 
     plugins =
