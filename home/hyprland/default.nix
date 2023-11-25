@@ -9,18 +9,11 @@
 }: let
   configDir = config.services.device-vars.configDir;
   symlink = config.lib.file.mkOutOfStoreSymlink;
+  optionals = lib.lists.optionals;
+  isNvidia = osConfig.hardware.nvidia.modesetting.enable;
 
   gset = pkgs.gsettings-desktop-schemas;
   polkit = pkgs.plasma5Packages.polkit-kde-agent;
-
-  mainPkg =
-    if osConfig.hardware.nvidia.modesetting.enable
-    then {
-      hyprland = pkgs.hyprland;
-    }
-    else {
-      hyprland = hyprland.packages.x86_64-linux.default;
-    };
 in {
   imports = [
     ./theme.nix
@@ -34,12 +27,13 @@ in {
 
   wayland.windowManager.hyprland = {
     enable = true;
-    package = mainPkg.hyprland;
-    enableNvidiaPatches = osConfig.hardware.nvidia.modesetting.enable;
+    enableNvidiaPatches = isNvidia;
+    package = lib.mkIf (!isNvidia)
+      hyprland.packages.x86_64-linux.default;
 
     plugins =
       []
-      ++ (lib.lists.optionals (osConfig.hardware.sensor.iio.enable) [
+      ++ (optionals (osConfig.hardware.sensor.iio.enable) [
         hyprgrass.packages.${pkgs.system}.default
       ]);
 
@@ -53,7 +47,7 @@ in {
             "$XDG_DATA_DIRS"
           ]}"
         ]
-        ++ (lib.lists.optionals (osConfig.hardware.nvidia.modesetting.enable) [
+        ++ (optionals (isNvidia) [
           "LIBVA_DRIVER_NAME, nvidia"
           "XDG_SESSION_TYPE, wayland"
           "GBM_BACKEND, nvidia-drm"
@@ -99,11 +93,11 @@ in {
           "swww init --no-cache && swww img -t none ${pkgs.dracula-theme}/wallpapers/waves.png"
           "wl-paste --watch cliphist store"
         ]
-        ++ (lib.lists.optionals (osConfig.programs.kdeconnect.enable) [
+        ++ (optionals (osConfig.programs.kdeconnect.enable) [
           "${osConfig.programs.kdeconnect.package}/libexec/kdeconnectd"
           "kdeconnect-indicator"
         ])
-        ++ (lib.lists.optionals (osConfig.services.gnome.gnome-keyring.enable) [
+        ++ (optionals (osConfig.services.gnome.gnome-keyring.enable) [
           "gnome-keyring-daemon --start --components=secrets"
         ]);
 
@@ -185,7 +179,7 @@ in {
 
       source =
         []
-        ++ lib.lists.optionals (configDir != null) [
+        ++ optionals (configDir != null) [
           "~/.config/hypr/main.conf"
         ];
     };
