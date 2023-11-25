@@ -1,11 +1,12 @@
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 
-import { Box, Button, Icon, Label } from 'resource:///com/github/Aylur/ags/widget.js';
+import { Box, Button, CenterBox, Icon, Label } from 'resource:///com/github/Aylur/ags/widget.js';
 import { lookUpIcon } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import Separator from '../misc/separator.js';
 
+const ENTRY_SPACING = 16;
 
 export default (app) => {
     const title = Label({
@@ -34,13 +35,13 @@ export default (app) => {
         size: 42,
     });
 
-    const textBox = Box({
+    const textBox = CenterBox({
         vertical: true,
-        vpack: 'center',
-        children: [title, description],
+        start_widget: title,
+        center_widget: description,
+        end_widget: Separator(ENTRY_SPACING, { vertical: true }),
     });
 
-    const ENTRY_SPACING = 16;
 
     return Button({
         class_name: 'app',

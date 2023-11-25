@@ -4,7 +4,7 @@
   border-radius: 25px;
   background-color: $bg;
   color: #f8f8f2;
-  padding: 10px;
+  padding: 2px;
 
   * {
     font-size: 16px;
@@ -31,7 +31,8 @@
   }
 
   scrolledwindow {
-    padding: 16.2px;
+    padding: 10px;
+    padding-bottom: 0;
     min-width: 700px;
     min-height: 450px;
 
@@ -42,6 +43,7 @@
     scrollbar.vertical {
       transition: 200ms;
       background-color: rgba(23, 23, 23, 0.3);
+      margin: 20px 0;
 
       &:hover {
         background-color: rgba(23, 23, 23, 0.7);
@@ -71,7 +73,7 @@
   .app {
     all: unset;
     transition: 200ms;
-    padding: 9px;
+    padding: 2px 9px;
 
     &:active {
       background-color: rgba($contrast-bg, 0.5);
@@ -107,8 +109,6 @@
 
     image {
       transition: 200ms;
-      margin-left: -10px;
-      margin-bottom: -8px;
     }
   }
 }
