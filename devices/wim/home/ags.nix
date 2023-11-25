@@ -33,7 +33,6 @@ in {
     ydotool
     sassc
     coloryou
-    libnotify
     playerctl
 
     ## gui

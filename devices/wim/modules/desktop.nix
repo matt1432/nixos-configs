@@ -49,9 +49,7 @@ in {
     plasma5Packages.plasma-workspace
 
     qemu
-    wl-clipboard
     alsa-utils
-    evtest
     plasma5Packages.kio-admin
     plasma5Packages.ksshaskpass
   ];

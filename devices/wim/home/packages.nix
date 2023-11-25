@@ -22,7 +22,6 @@ in {
       pyclip
     ])
     ++ (with pkgs.plasma5Packages; [
-      polkit-kde-agent
       ark
       kcharselect
       kdenlive
@@ -40,7 +39,6 @@ in {
     ])
     ++ (with pkgs.gnome; [
       gnome-calculator
-      seahorse
     ])
     ++ (with pkgs; [
       # School

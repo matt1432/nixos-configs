@@ -187,21 +187,18 @@ in {
 
   home.packages = with pkgs; [
     # tools
-    gtklock
     wl-color-picker
     grim
     slurp
     swappy
-
+    swayidle
     bluez-tools
     brightnessctl
     pulseaudio
-    libinput
-    xclip
-    wl-clipboard
-    cliphist
+    gnome.seahorse
+
+    gtklock
     swww
-    swayidle
 
     ## libs
     qt5.qtwayland
@@ -211,5 +208,10 @@ in {
     evtest
     glib
     xorg.xrandr
+    libinput
+    xclip
+    wl-clipboard
+    cliphist
+    libnotify
   ];
 }
