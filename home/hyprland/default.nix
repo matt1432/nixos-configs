@@ -28,7 +28,8 @@ in {
   wayland.windowManager.hyprland = {
     enable = true;
     enableNvidiaPatches = isNvidia;
-    package = lib.mkIf (!isNvidia)
+    package =
+      lib.mkIf (!isNvidia)
       hyprland.packages.x86_64-linux.default;
 
     plugins =
@@ -47,7 +48,7 @@ in {
             "$XDG_DATA_DIRS"
           ]}"
         ]
-        ++ (optionals (isNvidia) [
+        ++ (optionals isNvidia [
           "LIBVA_DRIVER_NAME, nvidia"
           "XDG_SESSION_TYPE, wayland"
           "GBM_BACKEND, nvidia-drm"

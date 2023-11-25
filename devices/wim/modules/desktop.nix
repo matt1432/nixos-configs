@@ -2,7 +2,7 @@
   pkgs,
   config,
   ...
-}:  let
+}: let
   user = config.services.device-vars.username;
   hyprland = config.home-manager.users.${user}.wayland.windowManager.hyprland.finalPackage;
 in {

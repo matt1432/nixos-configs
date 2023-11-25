@@ -4,42 +4,43 @@
   config,
   ...
 }: let
+  optionals = lib.lists.optionals;
+  isNvidia = config.hardware.nvidia.modesetting.enable;
   user = config.services.device-vars.username;
-  hyprBin = "${config.home-manager.users.${user}.wayland.windowManager.hyprland.finalPackage}/bin";
 
-  nvidia =
-    if config.hardware.nvidia.modesetting.enable
-    then {
-      env = ''
-        env = LIBVA_DRIVER_NAME,nvidia
-        env = XDG_SESSION_TYPE,wayland
-        env = GBM_BACKEND,nvidia-drm
-        env = __GLX_VENDOR_LIBRARY_NAME,nvidia
-        env = WLR_NO_HARDWARE_CURSORS,1
-      '';
-    }
-    else {
-      env = "";
-    };
+  hyprBin = "${config.home-manager.users.${user}
+    .wayland.windowManager.hyprland.finalPackage}/bin";
   regreetBin = "${lib.getExe config.programs.regreet.package}";
-  gset = pkgs.gsettings-desktop-schemas;
 
-  css = pkgs.writeText "style.css" ''${builtins.readFile ./style.css}'';
+  style = pkgs.writeText "style.css" ''${builtins.readFile ./style.css}'';
 
-  hyprConf = pkgs.writeText "greetd-hypr-config" ''
-    exec-once = swww init --no-cache && swww img -t none ${pkgs.dracula-theme}/wallpapers/waves.png
+  setupMonitors = pkgs.writeShellScriptBin "setupMonitors" ''
+    names=($(${hyprBin}/hyprctl -j monitors | ${pkgs.jq}/bin/jq -r '.[] .name'))
 
-    ${builtins.readFile ./hyprland.conf}
-
-    ${nvidia.env}
-
-    # FIXME: kb doesn't work
-    env = XDG_DATA_DIRS, ${gset}/share/gsettings-schemas/${gset.name}:${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}:$XDG_DATA_DIRS
-    exec-once = squeekboard
-    exec-once = gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled true
-
-    exec-once = ${regreetBin} -s ${css}; ${hyprBin}/hyprctl dispatch exit
+    for (( i=1; i<''${#names[@]}; i++ )); do
+        ${hyprBin}/hyprctl keyword monitor ''${names[$i]},preferred,auto,1,mirror,''${names[0]}
+    done
   '';
+
+  hyprConf =
+    pkgs.writeText "greetd-hypr-config"
+    (lib.strings.concatStrings ((optionals isNvidia [
+        "env = LIBVA_DRIVER_NAME,nvidia\n"
+        "env = XDG_SESSION_TYPE,wayland\n"
+        "env = GBM_BACKEND,nvidia-drm\n"
+        "env = __GLX_VENDOR_LIBRARY_NAME,nvidia\n"
+        "env = WLR_NO_HARDWARE_CURSORS,1\n"
+      ])
+      ++ [
+        "exec-once = ${setupMonitors}/bin/setupMonitors &&"
+        "    swww init --no-cache &&"
+        "    swww img -t none ${pkgs.dracula-theme}/wallpapers/waves.png\n"
+
+        "${builtins.readFile ./hyprland.conf}\n"
+
+        "exec-once = ${regreetBin} -s ${style};"
+        "    ${hyprBin}/hyprctl dispatch exit"
+      ]));
 in {
   users.users.greeter = {
     packages = with pkgs; [
@@ -48,7 +49,6 @@ in {
       swww
       gtk3
       glib
-      squeekboard
     ];
   };
 
