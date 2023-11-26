@@ -11,15 +11,6 @@
       inherit src;
     };
 
-  buildGrammar = name: grammar:
-    pkgs.callPackage ./grammar.nix {} {
-      language = grammar.language or name;
-      version = grammar.src.rev;
-      src = grammar.src;
-      location = grammar.location or null;
-      generate = grammar.generate or false;
-    };
-
   fileContents = lib.strings.fileContents;
 in {
   # TODO: make a gradle module and have java in device-vars.nix
@@ -154,8 +145,10 @@ in {
 
         tree-sitter-hypr = plugin hypr-src;
 
-        hypr-grammar = buildGrammar "hypr" {
+        hypr-grammar = pkgs.tree-sitter.buildGrammar {
+          language = "hypr";
           src = hypr-src;
+          version = hypr-src.rev;
           generate = true;
         };
 
