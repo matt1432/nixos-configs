@@ -36,7 +36,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     tree-sitter-hypr-flake = {
-      url = "github:matt1432/tree-sitter-hypr";
+      url = "github:luckasRanarison/tree-sitter-hypr";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

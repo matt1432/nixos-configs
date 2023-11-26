@@ -28,11 +28,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1700978238,
-        "narHash": "sha256-izqKi2fHWWjnKb7H+BKP2EMgAcd1yXdY2N2LEQ2gF6I=",
+        "lastModified": 1700981976,
+        "narHash": "sha256-hf4OAoPb9ISU1YhzgCjt9mlRETeR79cjL3EBooyP7cA=",
         "owner": "matt1432",
         "repo": "coc-stylelintplus",
-        "rev": "955513cc1d942980d2e1b30059a2205aa3784c1e",
+        "rev": "91b0bed0c5b2b8abf0887266576daf6a3ae99dab",
         "type": "github"
       },
       "original": {
@@ -743,11 +743,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1700977241,
-        "narHash": "sha256-1toBTNtLkR8mq4WVq1M8bk4GvuuxNVIm2ITdXSplRTM=",
+        "lastModified": 1700981149,
+        "narHash": "sha256-a5TqoaOUXmVjuvxOswUnYoEm1qIo+aaP4aEq/TaWy1s=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "f3e9bac6b7cc491a052ff255d80226e3faa74bfb",
+        "rev": "ed62b1ecf8943fbd295b3320f049aba932d88886",
         "type": "github"
       },
       "original": {
@@ -876,15 +876,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1700977291,
+        "lastModified": 1700978179,
         "narHash": "sha256-P3ZiIurixNdBqKJrsmFibmScnwD0pjhljLo4L8BLtws=",
-        "owner": "matt1432",
+        "owner": "luckasRanarison",
         "repo": "tree-sitter-hypr",
-        "rev": "9d9060ea8830229c23dd59490035ab180eebff21",
+        "rev": "da3c1d780c8e04446722ece04beadb6a44eb442d",
         "type": "github"
       },
       "original": {
-        "owner": "matt1432",
+        "owner": "luckasRanarison",
         "repo": "tree-sitter-hypr",
         "type": "github"
       }
