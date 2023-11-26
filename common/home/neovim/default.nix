@@ -151,13 +151,6 @@ in {
           version = hypr-src.rev;
           generate = true;
         };
-
-        indent-blankline = plugin (pkgs.fetchFromGitHub {
-          owner = "lukas-reineke";
-          repo = "indent-blankline.nvim";
-          rev = "046e2cf04e08ece927bacbfb87c5b35c0b636546";
-          hash = "sha256-bhoep8aTYje5K/dZ/XmpwBPn4PBEMPrmw33QJdfFe6M=";
-        });
       in
         with pkgs.vimPlugins; [
           # Coc configured
@@ -231,7 +224,7 @@ in {
             config = fileContents ./plugins/treesitter.vim;
           }
           {
-            plugin = indent-blankline;
+            plugin = indent-blankline-nvim;
             type = "lua";
             config = fileContents ./plugins/indent.lua;
           }
