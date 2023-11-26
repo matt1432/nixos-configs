@@ -4,24 +4,41 @@
   config,
   ...
 }: let
+  # Nix stuff
   optionals = lib.lists.optionals;
   isNvidia = config.hardware.nvidia.modesetting.enable;
-  user = config.services.device-vars.username;
+  vars = config.services.device-vars;
 
-  hyprBin = "${config.home-manager.users.${user}
-    .wayland.windowManager.hyprland.finalPackage}/bin";
+  # Executables' paths
   regreetBin = "${lib.getExe config.programs.regreet.package}";
+  hyprBin = "${config.home-manager.users.${vars.username}
+    .wayland.windowManager.hyprland.finalPackage}/bin";
 
-  style = pkgs.writeText "style.css" ''${builtins.readFile ./style.css}'';
-
-  setupMonitors = pkgs.writeShellScriptBin "setupMonitors" ''
+  # Show Regreet on all monitors
+  dupeMonitors = pkgs.writeShellScriptBin "dupeMonitors" ''
     names=($(${hyprBin}/hyprctl -j monitors | ${pkgs.jq}/bin/jq -r '.[] .name'))
+    main="${vars.mainMonitor}"
 
-    for (( i=1; i<''${#names[@]}; i++ )); do
-        ${hyprBin}/hyprctl keyword monitor ''${names[$i]},preferred,auto,1,mirror,''${names[0]}
+    if [[ $(echo "$main") == "null" ]]; then
+        main="''${names[0]}"
+    fi
+
+    for (( i=0; i<''${#names[@]}; i++ )); do
+        if [[ ''${names[$i]} != "$main" ]]; then
+          ${hyprBin}/hyprctl keyword monitor ''${names[$i]},preferred,auto,1,mirror,"$main"
+        fi
     done
   '';
 
+  # Check if user wants Regreet only on main monitor
+  setupMonitors = if vars.mainMonitor != null && !vars.greetdDupe
+    then "${hyprBin}/hyprctl dispatch focusmonitor ${vars.mainMonitor}"
+    else "${dupeMonitors}/bin/dupeMonitors";
+
+  # Get css for regreet
+  style = pkgs.writeText "style.css" ''${builtins.readFile ./style.css}'';
+
+  # Setup Hyprland as regreet's compositor
   hyprConf =
     pkgs.writeText "greetd-hypr-config"
     (lib.strings.concatStrings ((optionals isNvidia [
@@ -32,8 +49,8 @@
         "env = WLR_NO_HARDWARE_CURSORS,1\n"
       ])
       ++ [
-        "exec-once = ${setupMonitors}/bin/setupMonitors &&"
-        "    swww init --no-cache &&"
+        "exec-once = ${setupMonitors} &&"
+        "    sleep 1; swww init --no-cache &&"
         "    swww img -t none ${pkgs.dracula-theme}/wallpapers/waves.png\n"
 
         "${builtins.readFile ./hyprland.conf}\n"

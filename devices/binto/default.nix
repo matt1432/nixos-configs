@@ -18,6 +18,8 @@
   services.device-vars = {
     username = "matt";
     configDir = "/home/matt/.nix/devices/binto/config";
+    mainMonitor = "DP-5";
+    greetdDupe = false;
     fontSize = 12.5;
   };
 

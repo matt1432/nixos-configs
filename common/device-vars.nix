@@ -14,6 +14,22 @@
       type = types.nullOr types.str;
     };
 
+    mainMonitor = mkOption {
+      description = ''
+        The name of the main monitor used for Hyprland and Regreet
+      '';
+      default = "null";
+      type = types.nullOr types.str;
+    };
+
+    greetdDupe = mkOption {
+      description = ''
+        If we should duplicate regreet on all monitors
+      '';
+      default = true;
+      type = types.nullOr types.bool;
+    };
+
     fontSize = mkOption {
       type = types.nullOr types.float;
     };
