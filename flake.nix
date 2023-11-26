@@ -35,6 +35,10 @@
       url = "github:matt1432/coc-stylelintplus";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    tree-sitter-hypr = {
+      url = "github:matt1432/tree-sitter-hypr";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     nh.url = "github:viperML/nh";
     nix-melt.url = "github:nix-community/nix-melt";
