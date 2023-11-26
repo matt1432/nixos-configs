@@ -27,10 +27,7 @@ in {
 
   wayland.windowManager.hyprland = {
     enable = true;
-    enableNvidiaPatches = isNvidia;
-    package =
-      lib.mkIf (!isNvidia)
-      hyprland.packages.x86_64-linux.default;
+    package = hyprland.packages.x86_64-linux.default;
 
     plugins =
       []
