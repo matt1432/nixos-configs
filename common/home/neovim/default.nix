@@ -1,11 +1,13 @@
 {
   pkgs,
   lib,
-  tree-sitter-hypr,
+  coc-stylelintplus-flake,
+  tree-sitter-hypr-flake,
   ...
 }: let
   fileContents = lib.strings.fileContents;
-  nvim-treesitter-hypr = tree-sitter-hypr.packages.${pkgs.system}.default;
+  nvim-treesitter-hypr = tree-sitter-hypr-flake.packages.${pkgs.system}.default;
+  coc-stylelintplus = coc-stylelintplus-flake.packages.${pkgs.system}.default;
 in {
   # TODO: make a gradle module and have java in device-vars.nix
   xdg.dataFile = {

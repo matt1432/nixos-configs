@@ -31,11 +31,11 @@
       # to make sure plugins and nvim have same binaries
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    coc-stylelintplus = {
+    coc-stylelintplus-flake = {
       url = "github:matt1432/coc-stylelintplus";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    tree-sitter-hypr = {
+    tree-sitter-hypr-flake = {
       url = "github:matt1432/tree-sitter-hypr";
       inputs.nixpkgs.follows = "nixpkgs";
     };

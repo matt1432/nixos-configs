@@ -9,7 +9,6 @@
   nur,
   nix-melt,
   nurl,
-  coc-stylelintplus,
   pkgs,
   ...
 }: {
@@ -45,7 +44,6 @@
   };
   nixpkgs.overlays = [
     nixpkgs-wayland.overlay
-    coc-stylelintplus.overlay
   ];
 
   nh = {
