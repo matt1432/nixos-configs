@@ -42,6 +42,7 @@
         ../../home/firefox
         ../../home/hyprland
 
+        ./home/ags.nix
         ./home/packages.nix
       ];
 

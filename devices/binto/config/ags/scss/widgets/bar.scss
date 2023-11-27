@@ -1,0 +1,23 @@
+.clock, .notif-panel {
+  margin: 0 5px 5px 0;
+  padding: 2.5px 5px;
+  background-color: $bgfull;
+}
+
+.sys-tray {
+  margin: 0 0 5px 5px;
+
+  menubar {
+    background-color: $bgfull;
+    padding: 2.5px;
+  }
+
+  menuitem {
+    image { color: #CBA6F7; }
+    padding: 0 2px;
+
+    * {
+      font-size: 25px;
+    }
+  }
+}

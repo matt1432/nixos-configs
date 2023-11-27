@@ -1,0 +1,14 @@
+window,
+button,
+eventbox,
+box,
+progressbar,
+trough,
+undershoot {
+  all: unset;
+}
+
+@import '/home/matt/.nix/devices/wim/config/ags/scss/common';
+@import './widgets/bar';
+@import './widgets/notification';
+@import './widgets/notification-center';
