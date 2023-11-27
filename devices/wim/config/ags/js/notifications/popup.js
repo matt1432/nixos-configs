@@ -6,7 +6,6 @@ import { interval } from 'resource:///com/github/Aylur/ags/utils.js';
 import GLib from 'gi://GLib';
 
 import { Notification } from './base.js';
-import PopupWindow from '../misc/popup.js';
 
 const DELAY = 2000;
 
@@ -55,20 +54,12 @@ const handleDismiss = (box, id, force = false) => {
     }
 };
 
-export default () => PopupWindow({
-    name: 'notifications',
-    anchor: ['top', 'left'],
-    visible: true,
-    transition: 'none',
-    closeOnUnfocus: 'stay',
+export default () => Box({
+    vertical: true,
 
-    child: Box({
-        vertical: true,
-
-        connections: [
-            [Notifications, (s, id) => addPopup(s, id), 'notified'],
-            [Notifications, (s, id) => handleDismiss(s, id), 'dismissed'],
-            [Notifications, (s, id) => handleDismiss(s, id, true), 'closed'],
-        ],
-    }),
+    connections: [
+        [Notifications, (s, id) => addPopup(s, id), 'notified'],
+        [Notifications, (s, id) => handleDismiss(s, id), 'dismissed'],
+        [Notifications, (s, id) => handleDismiss(s, id, true), 'closed'],
+    ],
 });

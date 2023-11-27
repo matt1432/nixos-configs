@@ -3,7 +3,6 @@ import Notifications from 'resource:///com/github/Aylur/ags/service/notification
 import { Button, Label, Box, Icon, Scrollable, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import { Notification, HasNotifs } from './base.js';
-import PopupWindow from '../misc/popup.js';
 import EventBox from '../misc/cursorbox.js';
 
 
@@ -100,7 +99,7 @@ const Placeholder = () => Revealer({
     }),
 });
 
-const NotificationCenterWidget = () => Box({
+export default () => Box({
     className: 'notification-center',
     vertical: true,
     children: [
@@ -123,14 +122,4 @@ const NotificationCenterWidget = () => Box({
             ],
         }),
     ],
-});
-
-const TOP_MARGIN = 6;
-const RIGHT_MARGIN = 60;
-
-export default () => PopupWindow({
-    name: 'notification-center',
-    anchor: ['top', 'right'],
-    margins: [TOP_MARGIN, RIGHT_MARGIN, 0, 0],
-    child: NotificationCenterWidget(),
 });
