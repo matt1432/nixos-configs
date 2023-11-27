@@ -43,6 +43,7 @@ export default () => {
 
     stack.resetTimer = () => {
         // Each osd calls resetTimer once at startup
+        // FIXME: doesn't seem to work anymore, find alternative
         if (setup <= stack.items.length + 1) {
             ++setup;
 

@@ -29,12 +29,6 @@ in {
     enable = true;
     package = hyprland.packages.x86_64-linux.default;
 
-    plugins =
-      []
-      ++ (optionals (osConfig.hardware.sensor.iio.enable) [
-        hyprgrass.packages.${pkgs.system}.default
-      ]);
-
     settings = {
       env =
         [
@@ -97,6 +91,10 @@ in {
         ])
         ++ (optionals (osConfig.services.gnome.gnome-keyring.enable) [
           "gnome-keyring-daemon --start --components=secrets"
+        ])
+        # FIXME: https://github.com/horriblename/hyprgrass/issues/65
+        ++ (optionals (osConfig.hardware.sensor.iio.enable) [
+          "sleep 3; hyprctl plugin load ${hyprgrass.packages.${pkgs.system}.default}/lib/libhyprgrass.so"
         ]);
 
       windowrule = [
