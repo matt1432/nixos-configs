@@ -12,15 +12,8 @@
 
 .notif-panel {
   font-size: 20px;
-  border-radius: 80px;
   min-height: 37px;
   min-width: 105px;
-  padding: 1px 0 1px 5px;
-
-  .toggle-on {
-    border-radius: 22px 22px 0 0;
-    border-bottom: 0 solid $bg;
-  }
 }
 
 .quick-settings-toggle {
