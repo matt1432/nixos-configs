@@ -185,8 +185,8 @@ class Pointers extends Service {
                                window?.closeOnUnfocus === clickStage;
                     });
 
-                    if (pos.x > bar.x && pos.x < bar.x + bar.w &&
-                        pos.y > bar.y && pos.y < bar.y + bar.h) {
+                    if (pos.x > bar?.x && pos.x < bar?.x + bar?.w &&
+                        pos.y > bar?.y && pos.y < bar?.y + bar?.h) {
 
                         // Don't handle clicks when on bar
                         // TODO: make this configurable
