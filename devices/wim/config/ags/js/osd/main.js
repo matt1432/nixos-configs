@@ -3,63 +3,58 @@ import App from 'resource:///com/github/Aylur/ags/app.js';
 import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 import { Stack } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import GLib from 'gi://GLib';
 import PopupWindow from '../misc/popup.js';
 
-import Audio from './audio.js';
-import Brightness from './brightness.js';
-import CapsLock from './caps.js';
-import Keyboard from './kbd.js';
-import Microphone from './mic.js';
+// Import all the OSDs as an array
+const OSDList = [];
+
+import * as Modules from './osds.js';
+for (const osd in Modules) {
+    OSDList.push(Modules[osd]);
+} // Array
 
 const HIDE_DELAY = 2000;
 
 
-export default () => {
-    let setup = 0;
-
+const OSDs = () => {
     const stack = Stack({
-        css: 'margin-bottom: 80px;',
-        items: [
-            ['audio', Audio()],
-            ['brightness', Brightness()],
-            ['caps', CapsLock()],
-            ['kbd', Keyboard()],
-            ['mic', Microphone()],
-        ],
-    });
-
-    const window = PopupWindow({
-        name: 'osd',
-        anchor: ['bottom'],
-        exclusivity: 'ignore',
-        closeOnUnfocus: 'stay',
-        transition: 'slide_up',
+        transition: 'over_up_down',
         transitionDuration: 200,
-        child: stack,
     });
 
-    let timer;
+    stack.items = OSDList.map((osd, i) => [`${i}`, osd(stack)]);
 
-    stack.resetTimer = () => {
-        // Each osd calls resetTimer once at startup
-        // FIXME: doesn't seem to work anymore, find alternative
-        if (setup <= stack.items.length + 1) {
-            ++setup;
+    stack.popup = () => { /**/ };
 
-            return;
-        }
+    // Delay popup method so it
+    // doesn't show any OSDs at launch
+    timeout(1000, () => {
+        let count = 0;
 
-        App.openWindow('osd');
-        if (timer) {
-            GLib.source_remove(timer);
-        }
+        stack.popup = (osd) => {
+            ++count;
+            stack.set_visible_child(osd);
+            App.openWindow('osd');
 
-        timer = timeout(HIDE_DELAY, () => {
-            App.closeWindow('osd');
-            timer = null;
-        });
-    };
+            timeout(HIDE_DELAY, () => {
+                --count;
 
-    return window;
+                if (count === 0) {
+                    App.closeWindow('osd');
+                }
+            });
+        };
+    });
+
+    return stack;
 };
+
+export default () => PopupWindow({
+    name: 'osd',
+    anchor: ['bottom'],
+    exclusivity: 'ignore',
+    closeOnUnfocus: 'stay',
+    transition: 'slide_up',
+    transitionDuration: 200,
+    child: OSDs(),
+});
