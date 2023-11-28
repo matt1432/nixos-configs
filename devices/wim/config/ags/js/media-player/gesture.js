@@ -46,6 +46,15 @@ export default ({
             ...connections,
 
             [gesture, (overlay, realGesture) => {
+                if (realGesture) {
+                    overlay.list().forEach((over) => {
+                        over.visible = true;
+                    });
+                }
+                else {
+                    overlay._showTopOnly(overlay);
+                }
+
                 // Don't allow gesture when only one player
                 if (overlay.list().length <= 1) {
                     return;
@@ -55,15 +64,6 @@ export default ({
                 let offset = gesture.get_offset()[1];
 
                 const playerBox = overlay.list().at(-1);
-
-                if (realGesture) {
-                    overlay.list().forEach((over) => {
-                        over.visible = true;
-                    });
-                }
-                else {
-                    overlay._showTopOnly(overlay);
-                }
 
                 // Slide right
                 if (offset >= 0) {
