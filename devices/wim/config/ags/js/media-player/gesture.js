@@ -7,7 +7,7 @@ const MAX_OFFSET = 200;
 const OFFSCREEN = 500;
 const ANIM_DURATION = 500;
 const TRANSITION = `transition: margin ${ANIM_DURATION}ms ease,
-                                opacity 3s ease;`;
+                                opacity ${ANIM_DURATION}ms ease;`;
 
 
 export default ({
@@ -24,20 +24,11 @@ export default ({
     // Set this prop to differentiate it easily
     emptyPlayer.empty = true;
 
-    widget.add(Overlay({
+    const content = Overlay({
         ...props,
         properties: [
             ...properties,
             ['dragging', false],
-            ['showTopOnly', (overlay) => overlay.list()
-                .forEach((over) => {
-                    if (over === overlay.list().at(-1)) {
-                        over.visible = true;
-                    }
-                    else {
-                        over.visible = false;
-                    }
-                })],
         ],
 
         child: emptyPlayer,
@@ -52,7 +43,7 @@ export default ({
                     });
                 }
                 else {
-                    overlay._showTopOnly(overlay);
+                    overlay.showTopOnly();
                 }
 
                 // Don't allow gesture when only one player
@@ -128,7 +119,7 @@ export default ({
 
                         widget.sensitive = true;
 
-                        overlay._showTopOnly(overlay);
+                        overlay.showTopOnly();
                     });
                 }
                 else {
@@ -137,10 +128,31 @@ export default ({
                 }
             }, 'drag-end'],
         ],
-    }));
+    });
 
-    widget.child.list = () => widget.child.get_children()
+    widget.add(content);
+
+    // Overlay methods
+    content.list = () => content.get_children()
         .filter((ch) => !ch.empty);
+
+    content.includesWidget = (playerW) => {
+        return content.list().find((w) => w === playerW);
+    };
+
+    content.showTopOnly = () => content.list().forEach((over) => {
+        over.visible = over === content.list().at(-1);
+    });
+
+    content.moveToTop = (player) => {
+        player.visible = true;
+        content.reorder_overlay(player, -1);
+        timeout(ANIM_DURATION, () => {
+            content.showTopOnly();
+        });
+    };
+
+    widget.getOverlay = () => content;
 
     return widget;
 };

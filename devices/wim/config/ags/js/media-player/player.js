@@ -10,15 +10,13 @@ import Separator from '../misc/separator.js';
 const FAVE_PLAYER = 'org.mpris.MediaPlayer2.spotify';
 
 
-const Top = (player) => Box({
+const Top = (player, overlay) => Box({
     className: 'top',
     hpack: 'start',
     vpack: 'start',
 
     children: [
-        mpris.PlayerIcon(player, {
-            symbolic: false,
-        }),
+        mpris.PlayerIcon(player, overlay),
     ],
 });
 
@@ -85,13 +83,13 @@ const Bottom = (player) => Box({
     ],
 });
 
-const PlayerBox = (player) => {
+const PlayerBox = (player, overlay) => {
     const widget = mpris.CoverArt(player, {
         className: `player ${player.name}`,
         hexpand: true,
 
         children: [
-            Top(player),
+            Top(player, overlay),
             Center(player),
             Bottom(player),
         ],
@@ -102,10 +100,8 @@ const PlayerBox = (player) => {
     return widget;
 };
 
-export default () => Box({
-    className: 'media',
-
-    child: PlayerGesture({
+export default () => {
+    const content = PlayerGesture({
         properties: [
             ['players', new Map()],
             ['setup', false],
@@ -131,39 +127,29 @@ export default () => Box({
                     }
                 }
 
-                // Get the one on top so it stays there
-                let previousFirst = overlay.get_children().at(-1);
-
-                for (const [key, value] of overlay._players.entries()) {
-                    if (value === previousFirst) {
-                        previousFirst = key;
-                        break;
-                    }
-                }
+                // Get the one on top so we can move it up later
+                const previousFirst = overlay.list().at(-1);
 
                 // Make the new player
                 const player = Mpris.getPlayer(busName);
 
                 player.colors = Variable();
-                overlay._players.set(busName, PlayerBox(player));
+                overlay._players.set(
+                    busName,
+                    PlayerBox(player, content.getOverlay()),
+                );
                 overlay.overlays = Array.from(overlay._players.values())
                     .map((widget) => widget);
 
                 // Select favorite player at startup
                 if (!overlay._setup && overlay._players.has(FAVE_PLAYER)) {
-                    overlay.reorder_overlay(
-                        overlay._players.get(FAVE_PLAYER),
-                        -1,
-                    );
+                    overlay.moveToTop(overlay._players.get(FAVE_PLAYER));
                     overlay._setup = true;
                 }
 
                 // Move previousFirst on top again
-                else if (overlay._players.get(previousFirst)) {
-                    overlay.reorder_overlay(
-                        overlay._players.get(previousFirst),
-                        -1,
-                    );
+                else if (overlay.includesWidget(previousFirst)) {
+                    overlay.moveToTop(previousFirst);
                 }
             }, 'player-added'],
 
@@ -173,15 +159,8 @@ export default () => Box({
                     return;
                 }
 
-                // Get the one on top so it stays there
-                let previousFirst = overlay.get_children().at(-1);
-
-                for (const [key, value] of overlay._players.entries()) {
-                    if (value === previousFirst) {
-                        previousFirst = key;
-                        break;
-                    }
-                }
+                // Get the one on top so we can move it up later
+                const previousFirst = overlay.list().at(-1);
 
                 // Remake overlays without deleted one
                 overlay._players.delete(busName);
@@ -189,13 +168,15 @@ export default () => Box({
                     .map((widget) => widget);
 
                 // Move previousFirst on top again
-                if (overlay._players.has(previousFirst)) {
-                    overlay.reorder_overlay(
-                        overlay._players.get(previousFirst),
-                        -1,
-                    );
+                if (overlay.includesWidget(previousFirst)) {
+                    overlay.moveToTop(previousFirst);
                 }
             }, 'player-closed'],
         ],
-    }),
-});
+    });
+
+    return Box({
+        className: 'media',
+        child: content,
+    });
+};

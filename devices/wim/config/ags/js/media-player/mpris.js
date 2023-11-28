@@ -6,6 +6,8 @@ import { execAsync, lookUpIcon, readFileAsync } from 'resource:///com/github/Ayl
 import Separator from '../misc/separator.js';
 import EventBox from '../misc/cursorbox.js';
 
+const ICON_SIZE = 32;
+
 const icons = {
     mpris: {
         fallback: 'audio-x-generic-symbolic',
@@ -31,7 +33,10 @@ export const CoverArt = (player, props) => CenterBox({
     ...props,
     vertical: true,
 
-    properties: [['bgStyle', '']],
+    properties: [
+        ['bgStyle', ''],
+        ['player', player],
+    ],
 
     setup: (self) => {
         // Give temp cover art
@@ -109,53 +114,39 @@ export const ArtistLabel = (player, props) => Label({
     binds: [['label', player, 'track-artists', (a) => a.join(', ') || '']],
 });
 
-export const PlayerIcon = (player, { symbolic = true, ...props } = {}) => {
-    // Get player's icon
-    const MainIcon = Icon({
+export const PlayerIcon = (player, overlay, props) => {
+    const playerIcon = (p, widget, over) => EventBox({
         ...props,
-        className: 'player-icon',
-        size: 32,
-        tooltipText: player.identity || '',
+        tooltipText: p.identity || '',
 
-        connections: [[player, (self) => {
-            const name = `${player.entry}${symbolic ? '-symbolic' : ''}`;
+        onPrimaryClickRelease: () => {
+            widget?.moveToTop(over);
+        },
 
-            lookUpIcon(name) ?
-                self.icon = name :
-                self.icon = icons.mpris.fallback;
-        }]],
+        child: Icon({
+            className: widget ? 'position-indicator' : 'player-icon',
+            size: widget ? '' : ICON_SIZE,
+
+            connections: [[p, (self) => {
+                self.icon = lookUpIcon(p.entry) ?
+                    p.entry :
+                    icons.mpris.fallback;
+            }]],
+        }),
     });
 
-    // Multiple player indicators
     return Box({
-        properties: [['overlay']],
         connections: [[Mpris, (self) => {
-            if (!self._overlay) {
-                self._overlay = self.get_parent().get_parent().get_parent();
-            }
+            const thisIndex = overlay.list()
+                .indexOf(self.get_parent().get_parent());
 
-            const overlays = self._overlay.list();
+            self.children = overlay.list().map((over, i) => {
+                self.children.push(Separator(2));
 
-            const playerWidget = overlays.find((overlay) => {
-                return overlay === self.get_parent().get_parent();
-            });
-
-            const index = overlays.indexOf(playerWidget);
-
-            const children = [];
-
-            for (let i = 0; i < overlays.length; ++i) {
-                if (i === index) {
-                    children.push(Separator(2));
-                    children.push(MainIcon);
-                }
-                else {
-                    children.push(Separator(2));
-                    // TODO: make this clickable to switch
-                    children.push(Box({ className: 'position-indicator' }));
-                }
-            }
-            self.children = children.reverse();
+                return i === thisIndex ?
+                    playerIcon(player) :
+                    playerIcon(over._player, overlay, over);
+            }).reverse();
         }]],
     });
 };
@@ -216,11 +207,13 @@ const PlayerButton = ({ player, items, onClick, prop }) => EventBox({
         onHover: (self) => {
             self._hovered = true;
 
-            if (prop === 'playBackStatus') {
+            if (prop === 'playBackStatus' && player.colors.value) {
+                const c = player.colors.value;
+
                 items.forEach((item) => {
                     item[1].setCss(`
-                    background-color: ${player.colors.value.hoverAccent};
-                    color: ${player.colors.value.buttonText};
+                    background-color: ${c.hoverAccent};
+                    color: ${c.buttonText};
                     min-height: 40px;
                     min-width: 36px;
                     margin-bottom: 1px;
@@ -232,11 +225,13 @@ const PlayerButton = ({ player, items, onClick, prop }) => EventBox({
 
         onHoverLost: (self) => {
             self._hovered = false;
-            if (prop === 'playBackStatus') {
+            if (prop === 'playBackStatus' && player.colors.value) {
+                const c = player.colors.value;
+
                 items.forEach((item) => {
                     item[1].setCss(`
-                    background-color: ${player.colors.value.buttonAccent};
-                    color: ${player.colors.value.buttonText};
+                    background-color: ${c.buttonAccent};
+                    color: ${c.buttonText};
                     min-height: 42px;
                     min-width: 38px;
                 `);
