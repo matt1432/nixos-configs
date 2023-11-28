@@ -85,16 +85,22 @@ const Bottom = (player) => Box({
     ],
 });
 
-const PlayerBox = (player) => mpris.CoverArt(player, {
-    className: `player ${player.name}`,
-    hexpand: true,
+const PlayerBox = (player) => {
+    const widget = mpris.CoverArt(player, {
+        className: `player ${player.name}`,
+        hexpand: true,
 
-    children: [
-        Top(player),
-        Center(player),
-        Bottom(player),
-    ],
-});
+        children: [
+            Top(player),
+            Center(player),
+            Bottom(player),
+        ],
+    });
+
+    widget.visible = false;
+
+    return widget;
+};
 
 export default () => Box({
     className: 'media',
@@ -135,19 +141,13 @@ export default () => Box({
                     }
                 }
 
+                // Make the new player
                 const player = Mpris.getPlayer(busName);
 
                 player.colors = Variable();
-
                 overlay._players.set(busName, PlayerBox(player));
-
-                const result = [];
-
-                overlay._players.forEach((widget) => {
-                    result.push(widget);
-                });
-
-                overlay.overlays = result;
+                overlay.overlays = Array.from(overlay._players.values())
+                    .map((widget) => widget);
 
                 // Select favorite player at startup
                 if (!overlay._setup && overlay._players.has(FAVE_PLAYER)) {
@@ -157,6 +157,8 @@ export default () => Box({
                     );
                     overlay._setup = true;
                 }
+
+                // Move previousFirst on top again
                 else if (overlay._players.get(previousFirst)) {
                     overlay.reorder_overlay(
                         overlay._players.get(previousFirst),
@@ -181,16 +183,12 @@ export default () => Box({
                     }
                 }
 
+                // Remake overlays without deleted one
                 overlay._players.delete(busName);
+                overlay.overlays = Array.from(overlay._players.values())
+                    .map((widget) => widget);
 
-                const result = [];
-
-                overlay._players.forEach((widget) => {
-                    result.push(widget);
-                });
-
-                overlay.overlays = result;
-
+                // Move previousFirst on top again
                 if (overlay._players.has(previousFirst)) {
                     overlay.reorder_overlay(
                         overlay._players.get(previousFirst),

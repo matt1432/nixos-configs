@@ -18,20 +18,34 @@ export default ({
     const widget = EventBox();
     const gesture = Gtk.GestureDrag.new(widget);
 
+    // Have empty PlayerBox to define the size of the widget
+    const emptyPlayer = Box({ className: 'player' });
+
+    // Set this prop to differentiate it easily
+    emptyPlayer.empty = true;
+
     widget.add(Overlay({
         ...props,
         properties: [
             ...properties,
             ['dragging', false],
+            ['showTopOnly', (overlay) => overlay.list()
+                .forEach((over) => {
+                    if (over === overlay.list().at(-1)) {
+                        over.visible = true;
+                    }
+                    else {
+                        over.visible = false;
+                    }
+                })],
         ],
 
-        // Have empty PlayerBox to define the size of the widget
-        child: Box({ className: 'player' }),
+        child: emptyPlayer,
 
         connections: [
             ...connections,
 
-            [gesture, (overlay) => {
+            [gesture, (overlay, x) => {
                 // Don't allow gesture when only one player
                 if (overlay.list().length <= 1) {
                     return;
@@ -41,6 +55,15 @@ export default ({
                 let offset = gesture.get_offset()[1];
 
                 const playerBox = overlay.list().at(-1);
+
+                if (x) {
+                    overlay.list().forEach((over) => {
+                        over.visible = true;
+                    });
+                }
+                else {
+                    overlay._showTopOnly(overlay);
+                }
 
                 // Slide right
                 if (offset >= 0) {
@@ -104,6 +127,8 @@ export default ({
                         playerBox.setCss(playerBox._bgStyle);
 
                         widget.sensitive = true;
+
+                        overlay._showTopOnly(overlay);
                     });
                 }
                 else {
@@ -115,7 +140,7 @@ export default ({
     }));
 
     widget.child.list = () => widget.child.get_children()
-        .filter((ch) => ch._bgStyle);
+        .filter((ch) => !ch.empty);
 
     return widget;
 };
