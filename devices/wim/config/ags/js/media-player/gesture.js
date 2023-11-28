@@ -45,7 +45,7 @@ export default ({
         connections: [
             ...connections,
 
-            [gesture, (overlay, x) => {
+            [gesture, (overlay, realGesture) => {
                 // Don't allow gesture when only one player
                 if (overlay.list().length <= 1) {
                     return;
@@ -56,7 +56,7 @@ export default ({
 
                 const playerBox = overlay.list().at(-1);
 
-                if (x) {
+                if (realGesture) {
                     overlay.list().forEach((over) => {
                         over.visible = true;
                     });
