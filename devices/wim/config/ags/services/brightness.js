@@ -12,12 +12,15 @@ class Brightness extends Service {
             screen: ['float'],
             kbd: ['float'],
             caps: ['int'],
+        }, {
+            'caps-icon': ['string', 'rw'],
         });
     }
 
     #kbd = 0;
     #screen = 0;
     #caps = 0;
+    #capsIcon = 'caps-lock-symbolic';
 
     get kbd() {
         return this.#kbd;
@@ -29,6 +32,10 @@ class Brightness extends Service {
 
     get caps() {
         return this.#caps;
+    }
+
+    get capsIcon() {
+        return this.#capsIcon;
     }
 
     set kbd(value) {
@@ -69,7 +76,12 @@ class Brightness extends Service {
     fetchCapsState() {
         execAsync(`brightnessctl -d ${CAPS} g`)
             .then((out) => {
-                this.#caps = out;
+                this.#caps = Number(out);
+                this.#capsIcon = this.#caps ?
+                    'caps-lock-symbolic' :
+                    'capslock-disabled-symbolic';
+
+                this.notify('caps-icon');
                 this.emit('caps', this.#caps);
             })
             .catch(logError);
