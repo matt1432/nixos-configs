@@ -46,7 +46,8 @@ const Applauncher = ({ window_name = 'applauncher' } = {}) => {
 
             if (appList[0]) {
                 App.toggleWindow(window_name);
-                Hyprland.sendMessage(`dispatch exec sh -c ${appList[0]}`);
+                Hyprland.sendMessage(`dispatch exec sh -c
+                    ${appList[0].executable}`);
                 ++appList[0].frequency;
             }
         },
