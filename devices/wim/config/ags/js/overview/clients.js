@@ -94,7 +94,7 @@ const Client = (client, active, clients, box) => {
 
             child: Icon({
                 className: `window ${active}`,
-                css: `${IconStyle(client) }font-size: 10px;`,
+                css: `${IconStyle(client)} font-size: 10px;`,
                 icon: client.class,
             }),
         }),
