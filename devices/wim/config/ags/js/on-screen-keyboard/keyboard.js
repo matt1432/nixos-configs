@@ -23,9 +23,34 @@ export default (window) => Box({
                 background-color: ${COLOR};
             `),
 
-            center_widget: Box({
+            center_widget: CenterBox({
                 class_name: 'thingy',
                 css: `background: ${COLOR};`,
+                center_widget: Box({
+                    hpack: 'center',
+                    class_name: 'settings',
+
+                    children: [
+                        ToggleButton({
+                            cursor: 'pointer',
+                            class_name: 'button',
+                            active: true,
+                            vpack: 'center',
+
+                            connections: [['toggled', (self) => {
+                                self.toggleClassName(
+                                    'toggled',
+                                    self.get_active(),
+                                );
+                                window.exclusivity = self.get_active() ?
+                                    'exclusive' :
+                                    'normal';
+                            }]],
+
+                            child: Label('Exclusive'),
+                        }),
+                    ],
+                }),
             }),
 
             end_widget: RoundedCorner('bottomleft', `
@@ -70,30 +95,6 @@ export default (window) => Box({
                 vpack: 'center',
 
                 children: [
-                    Box({
-                        class_name: 'settings',
-
-                        children: [
-                            ToggleButton({
-                                cursor: 'pointer',
-                                class_name: 'button',
-                                active: true,
-                                vpack: 'center',
-
-                                connections: [['toggled', (self) => {
-                                    self.toggleClassName(
-                                        'toggled',
-                                        self.get_active(),
-                                    );
-                                    window.exclusivity = self.get_active() ?
-                                        'exclusive' :
-                                        'normal';
-                                }]],
-
-                                child: Label('Exclusive'),
-                            }),
-                        ],
-                    }),
                 ],
             }),
 

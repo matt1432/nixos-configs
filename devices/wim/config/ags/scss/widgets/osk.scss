@@ -2,29 +2,26 @@
   border-radius: 2rem 2rem 0 0;
   min-height: 2.7rem;
   min-width: 20rem;
-}
-
-.osk {
-  padding-top: 4px;
-  border-radius: 10px 10px 0;
 
   .settings {
-    background-color: $bg;
-    border: 0.08rem solid $darkbg;
-    border-radius: 0.7rem;
-    padding: 0.6rem;
+    padding: 0.5rem;
 
     .button {
       background-color: $bgfull;
-      border: 0.08rem solid $darkbg;
+      border: 0.1rem solid $darkbg;
       border-radius: 0.7rem;
-      padding: 0.5rem;
+      padding: 0.3rem;
 
       &.toggled {
         background-color: $contrast-bg;
       }
     }
   }
+}
+
+.osk {
+  padding-top: 4px;
+  border-radius: 10px 10px 0;
 
   .side {
     .key {
