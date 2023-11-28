@@ -1,6 +1,7 @@
 import App from 'resource:///com/github/Aylur/ags/app.js';
 
 import { Revealer, Box, Window } from 'resource:///com/github/Aylur/ags/widget.js';
+import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 
 
 export default ({
@@ -57,7 +58,9 @@ export default ({
                             onOpen(child);
                         }
                         else {
-                            onClose(child);
+                            timeout(transitionDuration, () => {
+                                onClose(child);
+                            });
                         }
                     }
                 }]],
@@ -72,6 +75,7 @@ export default ({
     window.getChild = () => window.child.children[0].child;
     window.setChild = (newChild) => {
         window.child.children[0].child = newChild;
+        window.child.children[0].show_all();
     };
 
     // This is for my custom pointers.js
