@@ -18,6 +18,7 @@
       "adm"
       "mlocate"
       "headscale"
+      "unbound"
     ];
   };
   home-manager.users = {
