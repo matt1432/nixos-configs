@@ -44,13 +44,11 @@ in {
   };
 
   environment.systemPackages = with pkgs; [
-    # for sddm
-    plasma5Packages.plasma-framework
-    plasma5Packages.plasma-workspace
-
     qemu
     alsa-utils
     plasma5Packages.kio-admin
-    plasma5Packages.ksshaskpass
+    plasma5Packages.ksshaskpas
+    p7zip # for reshade
+    kio-admins
   ];
 }

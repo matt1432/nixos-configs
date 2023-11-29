@@ -1,5 +1,63 @@
-{...}: {
-  # Disable compositor in X11 for best performance
+{
+  pkgs,
+  nixpkgs-wayland,
+  ...
+}: let
+  waypkgs = nixpkgs-wayland.packages.x86_64-linux;
+in {
+  programs = {
+    obs-studio = {
+      enable = true;
+      plugins = with waypkgs; [
+        obs-wlrobs
+      ];
+    };
+
+    btop.enable = true;
+  };
+  home.packages =
+    (with pkgs; [
+      # FIXME: vlc stutters
+      mpv
+      nextcloud-client
+      libreoffice-fresh
+      photoqt
+      hunspell
+      hunspellDicts.en_CA
+      jellyfin-media-player
+      spotifywm
+      thunderbird
+      prismlauncher-qt5
+      (pkgs.discord.override {
+        withOpenASAR = true;
+        withVencord = true;
+      })
+
+      # School
+      virt-manager
+      bluej
+      xournalpp
+    ])
+    ++ (with pkgs.plasma5Packages; [
+      ark
+      kcharselect
+      kdenlive
+      okular
+
+      # Dolphin & co
+      dolphin
+      dolphin-plugins
+      kdegraphics-thumbnailers
+      ffmpegthumbs
+      kio
+      kio-admin # needs to be both here and in system pkgs
+      kio-extras
+      kmime
+    ])
+    ++ (with pkgs.gnome; [
+      gnome-calculator
+    ]);
+
   # TODO: add mic sound
   xdg.configFile."gsr.sh" = {
     executable = true;
@@ -15,6 +73,7 @@
       export MAKEFOLDERS=yes
       # export ADDITIONAL_ARGS=
 
+      # Disable compositor in X11 for best performance
       exec /bin/sh -c 'AUDIO="''${AUDIO_DEVICE:-$(pactl get-default-sink).monitor}"; gpu-screen-recorder -v no -w $WINDOW -c $CONTAINER -q $QUALITY -k $CODEC -ac $AUDIO_CODEC -a "$AUDIO" -f $FRAMERATE -r $REPLAYDURATION -o "$OUTPUTDIR" -mf $MAKEFOLDERS $ADDITIONAL_ARGS'
     '';
   };

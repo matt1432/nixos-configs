@@ -44,7 +44,7 @@ in {
       # School
       virt-manager
       bluej
-      #camunda-modeler
+      camunda-modeler
 
       # Misc Apps
       thunderbird # TODO: use programs.thunderbird

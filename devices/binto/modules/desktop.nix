@@ -42,29 +42,11 @@ in {
   };
 
   environment.systemPackages = with pkgs; [
+    qemu
+    alsa-utils
+    plasma5Packages.kio-admin
+    plasma5Packages.ksshaskpass
     p7zip # for reshade
-    xclip
-    wl-clipboard
-
-    # FIXME: vlc stutters
-    mpv
-    flat-remix-icon-theme
-    nextcloud-client
-    libreoffice-qt
-    hunspell
-    hunspellDicts.en_CA
-    jellyfin-media-player
-    spotifywm
-    thunderbird
-    prismlauncher-qt5
-    (pkgs.discord.override {
-      withOpenASAR = true;
-      withVencord = true;
-    })
-
-    # School
-    virt-manager
-    bluej
-    xournalpp
+    kio-admin
   ];
 }
