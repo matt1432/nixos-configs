@@ -1,5 +1,10 @@
 {...}: {
   imports = [
+    #./hardware-configuration.nix
+
+    ../../modules/tailscale.nix
+
+    ./modules/headscale.nix
   ];
 
   services.device-vars = {
@@ -12,6 +17,7 @@
       "wheel"
       "adm"
       "mlocate"
+      "headscale"
     ];
   };
   home-manager.users = {
