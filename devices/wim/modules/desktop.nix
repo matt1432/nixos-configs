@@ -47,8 +47,8 @@ in {
     qemu
     alsa-utils
     plasma5Packages.kio-admin
-    plasma5Packages.ksshaskpas
+    plasma5Packages.ksshaskpass
     p7zip # for reshade
-    kio-admins
+    kio-admin
   ];
 }
