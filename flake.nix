@@ -22,7 +22,8 @@
     };
 
     hyprland = {
-      url = "github:hyprwm/Hyprland";
+      # FIXME: https://github.com/NixOS/nixpkgs/pull/271096
+      url = "github:hyprwm/Hyprland/b80c72c7ddbf79147d64759c8659eb5939d0327e";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprgrass = {
