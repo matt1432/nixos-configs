@@ -19,10 +19,12 @@ export default () => Window({
         vertical: true,
         children: [
             CenterBox({
+                className: 'bar',
                 start_widget: Box({
                     hpack: 'start',
                     children: [
                         Separator(PADDING),
+
                         SysTray(),
                     ],
                 }),
@@ -35,7 +37,9 @@ export default () => Window({
                     hpack: 'end',
                     children: [
                         NotifButton(),
+                        Separator(PADDING/2),
                         Clock(),
+
                         Separator(PADDING),
                     ],
                 }),

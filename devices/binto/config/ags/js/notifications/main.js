@@ -19,7 +19,7 @@ export const NotifPopups = () => PopupWindow({
 export const NotifCenter = () => PopupWindow({
     name: 'notification-center',
     anchor: ['bottom', 'right'],
-    margins: [0, 169, 0, 0],
+    margins: [0, 187, 0, 0],
     transition: 'slide_up',
     monitor: 1,
 
