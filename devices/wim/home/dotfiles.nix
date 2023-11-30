@@ -6,6 +6,16 @@
   configDir = config.services.device-vars.configDir;
   symlink = config.lib.file.mkOutOfStoreSymlink;
 in {
+  wayland.windowManager.hyprland = {
+    settings = {
+      env = [
+        "AGS_PATH, ${configDir}/ags/bin"
+        "HYPR_PATH, ${configDir}/hypr/scripts"
+        "LOCK_PATH, ${configDir}/gtklock/scripts"
+      ];
+    };
+  };
+
   xdg.configFile = {
     "gtklock/config.ini".source = pkgs.writeText "config.ini" ''
       [main]

@@ -2,6 +2,7 @@
   imports = [
     ./hardware-configuration.nix
 
+    ../../modules/ags
     ../../modules/audio.nix
     ../../modules/greetd
     ../../modules/kmscon.nix
@@ -27,7 +28,6 @@
       "input"
       "uinput"
       "adm"
-      "mlocate"
       "video"
       "libvirtd"
     ];
@@ -41,7 +41,6 @@
 
         ./home/dotfiles.nix
         ./home/packages.nix
-        ./home/ags.nix
       ];
 
       # No touchy

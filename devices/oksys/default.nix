@@ -16,7 +16,6 @@
     extraGroups = [
       "wheel"
       "adm"
-      "mlocate"
     ];
   };
   home-manager.users = {

@@ -2,6 +2,7 @@
   imports = [
     ./hardware-configuration.nix
 
+    ../../modules/ags
     ../../modules/audio.nix
     ../../modules/greetd
     ../../modules/kmscon.nix
@@ -30,7 +31,6 @@
       "input"
       "uinput"
       "adm"
-      "mlocate"
       "video"
       "libvirtd"
     ];
@@ -42,7 +42,6 @@
         ../../home/firefox
         ../../home/hyprland
 
-        ./home/ags.nix
         ./home/packages.nix
       ];
 
