@@ -1,6 +1,10 @@
-{...}: {
+{config, ...}: let
+  user = config.services.device-vars.username;
+in {
   # https://github.com/MatthewVance/unbound-docker-rpi/issues/4#issuecomment-1001879602
   boot.kernel.sysctl."net.core.rmem_max" = 1048576;
+
+  users.users.${user}.extraGroups = ["unbound"];
 
   services.unbound = {
     enable = true;

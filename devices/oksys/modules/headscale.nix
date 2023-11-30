@@ -1,15 +1,18 @@
 {
   headscale,
   pkgs,
+  config,
   ...
-}: {
-  environment.systemPackages = [
-    headscale.packages.${pkgs.system}.headscale
-  ];
+}: let
+  headscale-flake = headscale.packages.${pkgs.system}.headscale;
+  user = config.services.device-vars.username;
+in {
+  environment.systemPackages = [headscale-flake];
+  users.users.${user}.extraGroups = ["headscale"];
 
   services.headscale = {
     enable = true;
-    package = headscale.packages.${pkgs.system}.headscale;
+    package = headscale-flake;
 
     address = "127.0.0.1";
     port = 8085;
