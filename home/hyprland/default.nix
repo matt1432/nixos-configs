@@ -11,6 +11,7 @@
   symlink = config.lib.file.mkOutOfStoreSymlink;
   optionals = lib.lists.optionals;
   isNvidia = osConfig.hardware.nvidia.modesetting.enable;
+  isTouchscreen = osConfig.hardware.sensor.iio.enable;
 
   gset = pkgs.gsettings-desktop-schemas;
   polkit = pkgs.plasma5Packages.polkit-kde-agent;
@@ -31,7 +32,7 @@ in {
 
     plugins =
       []
-      ++ (optionals (osConfig.hardware.sensor.iio.enable) [
+      ++ (optionals (isTouchscreen) [
         hyprgrass.packages.${pkgs.system}.default
       ]);
 

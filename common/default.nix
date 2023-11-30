@@ -56,9 +56,14 @@
   };
   environment.variables.FLAKE = "/home/matt/.nix";
 
-  services.xserver = {
-    layout = "ca";
-    xkbVariant = "multix";
+  services = {
+    fwupd.enable = true;
+
+    xserver = {
+      layout = "ca";
+      xkbVariant = "multix";
+    };
+
   };
 
   home-manager.users = let
