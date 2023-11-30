@@ -70,10 +70,11 @@ in {
           "2560x1440@60"
           "1920x120, 1"
         ])
-
-        # Desc of main monitor has comma, so force its default
-        # on everything and specify everything else
-        ",2560x1440@165, 1920x1560, 1"
+        (builtins.concatStringsSep "," [
+          "desc:GIGA-BYTE TECHNOLOGY CO. LTD. G27QC 0x00000B1D"
+          "2560x1440@165"
+          "1920x1560, 1"
+        ])
       ];
 
       input = {
