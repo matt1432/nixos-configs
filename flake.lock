@@ -20,6 +20,26 @@
         "type": "github"
       }
     },
+    "caddy-plugins": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1701313498,
+        "narHash": "sha256-nENCM5LlV3a/1NN9O2kRoSqxzJKxew+CQB/eqtM6l6I=",
+        "owner": "matt1432",
+        "repo": "nixos-caddy-patched",
+        "rev": "024433df425afbb0cda263336cc159598775de3d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "matt1432",
+        "repo": "nixos-caddy-patched",
+        "type": "github"
+      }
+    },
     "coc-stylelintplus-flake": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -816,6 +836,7 @@
     "root": {
       "inputs": {
         "ags": "ags",
+        "caddy-plugins": "caddy-plugins",
         "coc-stylelintplus-flake": "coc-stylelintplus-flake",
         "headscale": "headscale",
         "home-manager": "home-manager",

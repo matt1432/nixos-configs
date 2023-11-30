@@ -16,6 +16,10 @@
       url = "github:juanfont/headscale";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    caddy-plugins = {
+      url = "github:matt1432/nixos-caddy-patched";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     hyprland = {
       url = "github:hyprwm/Hyprland";
