@@ -20,8 +20,8 @@
     home-manager.nixosModules.default
     nh.nixosModules.default
 
-    ./modules/programs.nix
     ./modules/locale.nix
+    ./modules/locate.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
