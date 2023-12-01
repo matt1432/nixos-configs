@@ -1,10 +1,7 @@
 {
   config,
-  home-manager,
   lib,
   nixpkgs,
-  nixpkgs-wayland,
-  nix-index-database,
   nh,
   nur,
   nix-melt,
@@ -13,15 +10,13 @@
   ...
 }: {
   imports = [
-    ./cachix.nix
-    ./overlays
     ./device-vars.nix
 
-    home-manager.nixosModules.default
-    nh.nixosModules.default
+    ./modules
+    ./overlays
 
-    ./modules/locale.nix
-    ./modules/locate.nix
+    nur.nixosModules.nur
+    nh.nixosModules.default
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -42,9 +37,6 @@
       exact = false;
     };
   };
-  nixpkgs.overlays = [
-    nixpkgs-wayland.overlay
-  ];
 
   nh = {
     enable = true;
@@ -67,24 +59,13 @@
   };
 
   home-manager.users = let
+    user = config.services.device-vars.username;
+
     default = {
       imports = [
         nur.hmModules.nur
-        nix-index-database.hmModules.nix-index
-        {
-          programs = {
-            nix-index-database.comma.enable = true;
-            nix-index = {
-              enable = true;
-              enableBashIntegration = true;
-            };
-          };
-        }
 
-        ./home/bash
-        ./home/git.nix
-        ./home/neovim
-        ./home/tmux.nix
+        ./home
 
         ./device-vars.nix
         ({osConfig, ...}: {
@@ -115,11 +96,11 @@
           imagemagick
           usbutils
         ]);
-
       home.stateVersion = lib.mkDefault "23.05";
     };
   in {
     root = default;
-    matt = default;
+    # TODO: make user an array?
+    ${user} = default;
   };
 }

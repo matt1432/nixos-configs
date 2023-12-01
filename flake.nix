@@ -1,4 +1,42 @@
 {
+  outputs = {
+    self,
+    home-manager,
+    nixpkgs,
+    ...
+  } @ attrs: let
+    defaultModules = [
+      home-manager.nixosModules.home-manager
+      {
+        home-manager.extraSpecialArgs = attrs;
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+      }
+      ./common
+    ];
+  in {
+    nixosConfigurations = {
+      wim = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = attrs;
+        modules =
+          defaultModules
+          ++ [./devices/wim];
+      };
+
+      binto = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = attrs;
+        modules =
+          defaultModules
+          ++ [./devices/binto];
+      };
+    };
+
+    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
+    formatter.aarch64-linux = nixpkgs.legacyPackages.aarch64-linux.alejandra;
+  };
+
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
@@ -53,56 +91,9 @@
     nix-melt.url = "github:nix-community/nix-melt";
     nurl.url = "github:nix-community/nurl";
 
-    nix-index-database = {
+    nix-index-db = {
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-  };
-
-  outputs = {
-    self,
-    home-manager,
-    nix-gaming,
-    nixpkgs,
-    nur,
-    ...
-  } @ attrs: let
-    defaultModules = [
-      nur.nixosModules.nur
-
-      home-manager.nixosModules.home-manager
-      {
-        home-manager.extraSpecialArgs = attrs;
-        home-manager.useGlobalPkgs = true;
-        home-manager.useUserPackages = true;
-      }
-
-      ./common/default.nix
-    ];
-  in {
-    nixosConfigurations = {
-      wim = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = attrs;
-        modules =
-          defaultModules
-          ++ [
-            ./devices/wim
-          ];
-      };
-
-      binto = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = attrs;
-        modules =
-          defaultModules
-          ++ [
-            ./devices/binto
-          ];
-      };
-    };
-
-    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
-    formatter.aarch64-linux = nixpkgs.legacyPackages.aarch64-linux.alejandra;
   };
 }

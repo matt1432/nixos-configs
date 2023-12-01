@@ -1,4 +1,4 @@
-{neovim-flake, ...}: {
+{neovim-flake, nixpkgs-wayland, ...}: {
   imports = [
     ./dracula-theme.nix
     ./regreet.nix
@@ -7,7 +7,9 @@
   nixpkgs.overlays = [
     (import ./blueberry.nix)
     (import ./squeekboard.nix)
+
     neovim-flake.overlay
+    nixpkgs-wayland.overlay
 
     (final: prev: {
       spotifywm = final.callPackage ./pkgs/spotifywm.nix {};

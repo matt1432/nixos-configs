@@ -543,7 +543,7 @@
         "type": "github"
       }
     },
-    "nix-index-database": {
+    "nix-index-db": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
@@ -792,7 +792,7 @@
         "neovim-flake": "neovim-flake",
         "nh": "nh",
         "nix-gaming": "nix-gaming",
-        "nix-index-database": "nix-index-database",
+        "nix-index-db": "nix-index-db",
         "nix-melt": "nix-melt",
         "nixpkgs": "nixpkgs_4",
         "nixpkgs-wayland": "nixpkgs-wayland",
