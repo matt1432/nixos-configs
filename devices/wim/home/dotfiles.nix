@@ -17,7 +17,7 @@ in {
   };
 
   xdg.configFile = {
-    "gtklock/config.ini".source = pkgs.writeText "config.ini" ''
+    "gtklock/config.ini".text =  ''
       [main]
       modules=${builtins.concatStringsSep ";" [
         "${pkgs.gtklock-powerbar-module}/lib/gtklock/powerbar-module.so"
