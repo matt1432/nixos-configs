@@ -1,6 +1,4 @@
-{config, ...}: let
-  vars = config.services.device-vars;
-in {
+{config, ...}: {
   services = {
     tailscale = {
       enable = true;
@@ -11,7 +9,7 @@ in {
     };
   };
 
-  home-manager.users.${vars.username}.programs.bash.shellAliases = {
+  home-manager.users.${config.vars.user}.programs.bash.shellAliases = {
     tup = "tailscale up --login-server https://headscale.nelim.org";
 
     pc = "mosh matt@binto -- tmux -2u new -At laptop";

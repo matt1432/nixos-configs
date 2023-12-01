@@ -5,10 +5,9 @@
   ...
 }: let
   headscale-flake = headscale.packages.${pkgs.system}.headscale;
-  user = config.services.device-vars.username;
 in {
   environment.systemPackages = [headscale-flake];
-  users.users.${user}.extraGroups = ["headscale"];
+  users.users.${config.vars.user}.extraGroups = ["headscale"];
 
   services.headscale = {
     enable = true;

@@ -7,11 +7,15 @@
   lib,
   ...
 }: let
-  configDir = config.services.device-vars.configDir;
+  # Nix utils
   symlink = config.lib.file.mkOutOfStoreSymlink;
   optionals = lib.lists.optionals;
+
+  # Config stuff
   isNvidia = osConfig.hardware.nvidia.modesetting.enable;
   isTouchscreen = osConfig.hardware.sensor.iio.enable;
+  confPath = "${config.vars.configDir}/hypr/main.conf";
+  kdeconnect = osConfig.programs.kdeconnect;
 
   gset = pkgs.gsettings-desktop-schemas;
   polkit = pkgs.plasma5Packages.polkit-kde-agent;
@@ -22,9 +26,10 @@ in {
     ../wofi
   ];
 
-  xdg.configFile = lib.mkIf (configDir != null) {
-    "hypr/main.conf".source = symlink "${configDir}/hypr/main.conf";
-  };
+  xdg.configFile = with lib;
+    mkIf (pathExists confPath) {
+      "hypr/main.conf".source = symlink confPath;
+    };
 
   wayland.windowManager.hyprland = {
     enable = true;
@@ -32,7 +37,7 @@ in {
 
     plugins =
       []
-      ++ (optionals (isTouchscreen) [
+      ++ (optionals isTouchscreen [
         hyprgrass.packages.${pkgs.system}.default
       ]);
 
@@ -93,8 +98,8 @@ in {
           "swww init --no-cache && swww img -t none ${pkgs.dracula-theme}/wallpapers/waves.png"
           "wl-paste --watch cliphist store"
         ]
-        ++ (optionals (osConfig.programs.kdeconnect.enable) [
-          "${osConfig.programs.kdeconnect.package}/libexec/kdeconnectd"
+        ++ (optionals (kdeconnect.enable) [
+          "${kdeconnect.package}/libexec/kdeconnectd"
           "kdeconnect-indicator"
         ])
         ++ (optionals (osConfig.services.gnome.gnome-keyring.enable) [
@@ -179,7 +184,7 @@ in {
 
       source =
         []
-        ++ optionals (configDir != null) [
+        ++ optionals (lib.pathExists confPath) [
           "~/.config/hypr/main.conf"
         ];
     };

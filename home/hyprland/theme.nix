@@ -4,7 +4,6 @@
   config,
   ...
 }: let
-  fontSize = config.services.device-vars.fontSize;
   dracula-xresources = pkgs.fetchFromGitHub {
     owner = "dracula";
     repo = "xresources";
@@ -39,7 +38,7 @@ in {
 
     font = {
       name = "Sans Serif";
-      size = fontSize;
+      size = config.vars.fontSize;
     };
   };
 
@@ -57,8 +56,8 @@ in {
   xdg.configFile = let
     qtconf = ''
       [Fonts]
-      fixed="Sans Serif,${lib.strings.floatToString fontSize},-1,5,50,0,0,0,0,0"
-      general="Sans Serif,${lib.strings.floatToString fontSize},-1,5,50,0,0,0,0,0"
+      fixed="Sans Serif,${lib.strings.floatToString config.vars.fontSize},-1,5,50,0,0,0,0,0"
+      general="Sans Serif,${lib.strings.floatToString config.vars.fontSize},-1,5,50,0,0,0,0,0"
 
       [Appearance]
       icon_theme=Flat-Remix-Violet-Dark

@@ -3,7 +3,7 @@
   pkgs,
   ...
 }: let
-  configDir = config.services.device-vars.configDir;
+  configDir = config.vars.configDir;
   symlink = config.lib.file.mkOutOfStoreSymlink;
 in {
   wayland.windowManager.hyprland = {
@@ -17,7 +17,7 @@ in {
   };
 
   xdg.configFile = {
-    "gtklock/config.ini".text =  ''
+    "gtklock/config.ini".text = ''
       [main]
       modules=${builtins.concatStringsSep ";" [
         "${pkgs.gtklock-powerbar-module}/lib/gtklock/powerbar-module.so"

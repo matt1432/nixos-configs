@@ -1,4 +1,4 @@
-{...}: {
+{config, ...}: {
   imports = [
     ./hardware-configuration.nix
 
@@ -16,15 +16,15 @@
     ./modules/nvidia.nix
   ];
 
-  services.device-vars = {
-    username = "matt";
-    configDir = "/home/matt/.nix/devices/binto/config";
+  vars = {
+    user = "matt";
+    hostName = "binto";
     mainMonitor = "DP-5";
     greetdDupe = false;
     fontSize = 12.5;
   };
 
-  users.users.matt = {
+  users.users.${config.vars.user} = {
     isNormalUser = true;
     extraGroups = [
       "wheel"
@@ -35,23 +35,21 @@
       "libvirtd"
     ];
   };
-  home-manager.users = {
-    matt = {
-      imports = [
-        ../../home/dconf.nix
-        ../../home/firefox
-        ../../home/hyprland
+  home-manager.users.${config.vars.user} = {
+    imports = [
+      ../../home/dconf.nix
+      ../../home/firefox
+      ../../home/hyprland
 
-        ./home/packages.nix
-      ];
+      ./home/packages.nix
+    ];
 
-      # No touchy
-      home.stateVersion = "23.11";
-    };
+    # No touchy
+    home.stateVersion = "23.11";
   };
 
   networking = {
-    hostName = "binto";
+    inherit (config.vars) hostName;
     networkmanager.enable = true;
     firewall.enable = false;
   };

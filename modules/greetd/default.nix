@@ -7,17 +7,22 @@
   # Nix stuff
   optionals = lib.lists.optionals;
   isNvidia = config.hardware.nvidia.modesetting.enable;
-  vars = config.services.device-vars;
 
   # Executables' paths
   regreetBin = "${lib.getExe config.programs.regreet.package}";
-  hyprBin = "${config.home-manager.users.${vars.username}
-    .wayland.windowManager.hyprland.finalPackage}/bin";
+  hyprBin = "${config
+    .home-manager
+    .users
+    .${config.vars.user}
+    .wayland
+    .windowManager
+    .hyprland
+    .finalPackage}/bin";
 
   # Show Regreet on all monitors
   dupeMonitors = pkgs.writeShellScriptBin "dupeMonitors" ''
     names=($(${hyprBin}/hyprctl -j monitors | ${pkgs.jq}/bin/jq -r '.[] .name'))
-    main="${vars.mainMonitor}"
+    main="${config.vars.mainMonitor}"
 
     if [[ $(echo "$main") == "null" ]]; then
         main="''${names[0]}"
@@ -31,8 +36,9 @@
   '';
 
   # Check if user wants Regreet only on main monitor
-  setupMonitors = if vars.mainMonitor != null && !vars.greetdDupe
-    then "${hyprBin}/hyprctl dispatch focusmonitor ${vars.mainMonitor}"
+  setupMonitors =
+    if (config.vars.mainMonitor != null && !config.vars.greetdDupe)
+    then "${hyprBin}/hyprctl dispatch focusmonitor ${config.vars.mainMonitor}"
     else "${dupeMonitors}/bin/dupeMonitors";
 
   # Get css for regreet

@@ -3,14 +3,14 @@
   lib,
   nixpkgs,
   nh,
-  nur,
   nix-melt,
+  nur,
   nurl,
   pkgs,
   ...
 }: {
   imports = [
-    ./device-vars.nix
+    ./vars.nix
 
     ./modules
     ./overlays
@@ -56,22 +56,18 @@
       layout = "ca";
       xkbVariant = "multix";
     };
-
   };
 
   home-manager.users = let
-    user = config.services.device-vars.username;
-
     default = {
       imports = [
         nur.hmModules.nur
 
         ./home
 
-        ./device-vars.nix
-        ({osConfig, ...}: {
-          services.device-vars = osConfig.services.device-vars;
-        })
+        # Make the vars be the same on Nix and HM
+        ./vars.nix
+        ({osConfig, ...}: {vars = osConfig.vars;})
       ];
 
       home.packages =
@@ -102,6 +98,6 @@
   in {
     root = default;
     # TODO: make user an array?
-    ${user} = default;
+    ${config.vars.user} = default;
   };
 }

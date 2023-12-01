@@ -3,8 +3,15 @@
   config,
   ...
 }: let
-  user = config.services.device-vars.username;
-  hyprland = config.home-manager.users.${user}.wayland.windowManager.hyprland.finalPackage;
+  hyprland =
+    config
+    .home-manager
+    .users
+    .${config.vars.user}
+    .wayland
+    .windowManager
+    .hyprland
+    .finalPackage;
 in {
   programs.dconf.enable = true;
 

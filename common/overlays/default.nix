@@ -1,4 +1,8 @@
-{neovim-flake, nixpkgs-wayland, ...}: {
+{
+  neovim-flake,
+  nixpkgs-wayland,
+  ...
+}: {
   imports = [
     ./dracula-theme
     ./regreet

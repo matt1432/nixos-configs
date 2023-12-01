@@ -1,4 +1,4 @@
-{...}: {
+{config, ...}: {
   imports = [
     ./hardware-configuration.nix
 
@@ -15,13 +15,13 @@
     ./modules/security.nix
   ];
 
-  services.device-vars = {
-    username = "matt";
-    configDir = "/home/matt/.nix/devices/wim/config";
+  vars = {
+    user = "matt";
+    hostName = "wim";
     fontSize = 12.5;
   };
 
-  users.users.matt = {
+  users.users.${config.vars.user} = {
     isNormalUser = true;
     extraGroups = [
       "wheel"
@@ -32,24 +32,22 @@
       "libvirtd"
     ];
   };
-  home-manager.users = {
-    matt = {
-      imports = [
-        ../../home/dconf.nix
-        ../../home/firefox
-        ../../home/hyprland
+  home-manager.users .${config.vars.user} = {
+    imports = [
+      ../../home/dconf.nix
+      ../../home/firefox
+      ../../home/hyprland
 
-        ./home/dotfiles.nix
-        ./home/packages.nix
-      ];
+      ./home/dotfiles.nix
+      ./home/packages.nix
+    ];
 
-      # No touchy
-      home.stateVersion = "23.05";
-    };
+    # No touchy
+    home.stateVersion = "23.05";
   };
 
   networking = {
-    hostName = "wim";
+    inherit (config.vars) hostName;
     networkmanager = {
       enable = true;
       wifi.backend = "wpa_supplicant";

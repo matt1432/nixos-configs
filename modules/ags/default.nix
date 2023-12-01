@@ -4,13 +4,12 @@
   pkgs,
   ...
 }: let
-  vars = config.services.device-vars;
   isNvidia = config.hardware.nvidia.modesetting.enable;
   isTouchscreen = config.hardware.sensor.iio.enable;
 in {
   services.upower.enable = true;
 
-  home-manager.users.${vars.username}.imports = [
+  home-manager.users.${config.vars.user}.imports = [
     ags.homeManagerModules.default
 
     ({
@@ -23,7 +22,7 @@ in {
     in {
       programs.ags = {
         enable = true;
-        configDir = symlink "${vars.configDir}/ags";
+        configDir = symlink "${config.vars.configDir}/ags";
         package = ags.packages.x86_64-linux.default;
         extraPackages = [pkgs.libgudev];
       };

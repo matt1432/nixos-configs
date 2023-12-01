@@ -4,8 +4,6 @@
   config,
   ...
 }: let
-  user = config.services.device-vars.username;
-
   caddy = caddy-plugins.packages.${pkgs.system}.default;
 
   # TODO: use agenix?
@@ -13,7 +11,7 @@
 in {
   imports = [caddy-plugins.nixosModules.default];
   environment.systemPackages = [caddy];
-  users.users.${user}.extraGroups = ["caddy"];
+  users.users.${config.vars.user}.extraGroups = ["caddy"];
 
   services.caddy = {
     enable = true;
