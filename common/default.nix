@@ -14,6 +14,7 @@
 
     ./modules
     ./overlays
+    ./pkgs
 
     nur.nixosModules.nur
     nh.nixosModules.default

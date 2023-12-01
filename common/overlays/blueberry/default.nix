@@ -3,7 +3,7 @@ final: prev: {
     patches =
       (o.patches or [])
       ++ [
-        ./patches/wayland.patch
+        ./wayland.patch
       ];
     buildInputs =
       (o.buildInputs or [])

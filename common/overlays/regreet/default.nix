@@ -14,7 +14,7 @@
       });
 
       # temp fix until https://github.com/rharish101/ReGreet/issues/32 is solved
-      patches = [./patches/regreet.patch];
+      patches = [./crash-fix.patch];
     });
   };
 }

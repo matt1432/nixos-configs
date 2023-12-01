@@ -6,7 +6,7 @@
     hash = "sha256-7YwkBzkAND9lfH2ewuwna1zUkQStBBx4JHGw3/+svhA=";
   };
 
-  dracula-script = ./patches/dracula-plymouth.patch;
+  dracula-script = ./dracula-plymouth.patch;
 
   git-colors = pkgs.fetchFromGitHub {
     owner = "dracula";
@@ -29,7 +29,7 @@
 in {
   nixpkgs.overlays = [
     (final: prev: {
-      dracula-theme = prev.dracula-theme.overrideAttrs (oldAttrs: rec {
+      dracula-theme = prev.dracula-theme.overrideAttrs (oldAttrs: {
         src = prev.fetchFromGitHub {
           owner = "dracula";
           repo = "gtk";

@@ -1,30 +1,14 @@
 {neovim-flake, nixpkgs-wayland, ...}: {
   imports = [
-    ./dracula-theme.nix
-    ./regreet.nix
+    ./dracula-theme
+    ./regreet
   ];
 
   nixpkgs.overlays = [
-    (import ./blueberry.nix)
-    (import ./squeekboard.nix)
+    (import ./blueberry)
+    (import ./squeekboard)
 
     neovim-flake.overlay
     nixpkgs-wayland.overlay
-
-    (final: prev: {
-      spotifywm = final.callPackage ./pkgs/spotifywm.nix {};
-    })
-
-    (final: prev: {
-      input-emulator = final.callPackage ./pkgs/input-emulator.nix {};
-    })
-
-    (final: prev: {
-      pam-fprint-grosshack = final.callPackage ./pkgs/pam-fprint-grosshack.nix {};
-    })
-
-    (final: prev: {
-      coloryou = final.callPackage ./pkgs/coloryou/default.nix {};
-    })
   ];
 }
