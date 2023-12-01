@@ -43,6 +43,8 @@ in {
           # touchscreen
           lisgd
           squeekboard
+          ydotool
+          blueberry
         ]);
     })
   ];
