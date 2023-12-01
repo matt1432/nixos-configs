@@ -10,6 +10,7 @@
 
   nixpkgs.overlays = [
     (import ./blueberry)
+    (import ./spotifywm)
     (import ./squeekboard)
 
     neovim-flake.overlay

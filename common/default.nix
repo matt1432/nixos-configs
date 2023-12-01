@@ -64,6 +64,7 @@
         nur.hmModules.nur
 
         ./home
+        ./pkgs
 
         # Make the vars be the same on Nix and HM
         ./vars.nix

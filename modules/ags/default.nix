@@ -27,24 +27,24 @@ in {
         extraPackages = [pkgs.libgudev];
       };
 
-      home.packages = with pkgs;
-        [
+      home.packages =
+        [config.customPkgs.coloryou]
+        ++ (with pkgs; [
           # ags
           sassc
-          coloryou
           playerctl
 
           ## gui
           pavucontrol # TODO: replace with ags widget
           networkmanagerapplet # TODO: replace with ags widget
-        ]
-        ++ (optionals isTouchscreen [
+        ])
+        ++ (optionals isTouchscreen (with pkgs; [
           # touchscreen
           lisgd
           squeekboard
           ydotool
           blueberry
-        ]);
+        ]));
     })
   ];
 }

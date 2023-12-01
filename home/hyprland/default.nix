@@ -8,7 +8,6 @@
   ...
 }: let
   # Nix utils
-  symlink = config.lib.file.mkOutOfStoreSymlink;
   optionals = lib.lists.optionals;
 
   # Config stuff
@@ -25,11 +24,6 @@ in {
     ../alacritty.nix
     ../wofi
   ];
-
-  xdg.configFile = with lib;
-    mkIf (pathExists confPath) {
-      "hypr/main.conf".source = symlink confPath;
-    };
 
   wayland.windowManager.hyprland = {
     enable = true;
@@ -182,11 +176,7 @@ in {
         vfr = true;
       };
 
-      source =
-        []
-        ++ optionals (lib.pathExists confPath) [
-          "~/.config/hypr/main.conf"
-        ];
+      source = [confPath];
     };
   };
 
