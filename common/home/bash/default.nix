@@ -1,11 +1,5 @@
-{
-  config,
-  lib,
-  ...
-}: {
-  imports = [
-    ./programs.nix
-  ];
+{lib, ...}: {
+  imports = [./programs.nix];
 
   programs = {
     starship = let
@@ -125,30 +119,11 @@
         sudo = "sudo ";
         frick = "sudo $(fc -ln -1)";
 
-        nivm = "nvim";
-        nivim = "nvim";
-
-        tmux = "tmux -2";
         ls = "ls -lah --color=auto";
         tree = "tree -a -I node_modules";
         cp = "cp -r";
 
         chore = "(cd ~/.nix; git add flake.lock; git commit -m 'chore: update flake.lock'; git push)";
-
-        tup = "tailscale up --login-server https://headscale.nelim.org";
-
-        pc = "mosh matt@binto -- tmux -2u new -At laptop";
-        oksys = "mosh matt@oksys -- tmux -2u new -At laptop";
-        pve = "mosh matt@pve -- tmux -2u new -At laptop";
-
-        mc = "mosh mc@mc -- tmux -2u new -At laptop";
-        pod = "mosh matt@pve -- ssh -t -p 6768 matt@10.0.0.122 'tmux -2u new -At laptop'";
-        jelly = "mosh matt@pve -- ssh -t matt@10.0.0.123 'tmux -2u new -At laptop'";
-        qbit = "mosh matt@pve -- ssh -t matt@10.0.0.128 'tmux -2u new -At laptop'";
-      };
-      sessionVariables = {
-        # FIXME: why is this not set by home-manager?
-        "RIPGREP_CONFIG_PATH" = "${config.xdg.configHome}/ripgrep/ripgreprc";
       };
 
       profileExtra = ''

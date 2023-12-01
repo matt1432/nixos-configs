@@ -6,25 +6,34 @@
   ...
 }: let
   fileContents = lib.strings.fileContents;
+
+  javaSdk = pkgs.temurin-bin-17;
   nvim-treesitter-hypr = tree-sitter-hypr-flake.packages.${pkgs.system}.default;
   coc-stylelintplus = coc-stylelintplus-flake.packages.${pkgs.system}.default;
 in {
-  # TODO: make a gradle module and have java in device-vars.nix
-  xdg.dataFile = {
-    ".gradle/gradle.properties".source = pkgs.writeText "gradle.properties" ''
-      org.gradle.java.home = ${pkgs.temurin-bin-17}
-    '';
-  };
   home.packages = with pkgs; [
     gradle
     gradle-completion # FIXME: not working
     alejandra
   ];
 
+  # TODO: make a gradle/java module
+  xdg.dataFile = {
+    ".gradle/gradle.properties".text = ''
+      org.gradle.java.home = ${javaSdk}
+    '';
+  };
+
   programs = {
     java = {
       enable = true;
-      package = pkgs.temurin-bin-17;
+      package = javaSdk;
+    };
+
+    # I love doing typos
+    bash.shellAliases = {
+      nivm = "nvim";
+      nivim = "nvim";
     };
 
     neovim = {
@@ -113,7 +122,7 @@ in {
 
           # Java
           java.jdt.ls = {
-            java.home = "${pkgs.temurin-bin-17}";
+            java.home = "${javaSdk}";
             statusIcons = {
               "busy" = "Busy";
               "ready" = "OK";

@@ -1,5 +1,8 @@
 {pkgs, ...}: {
   programs = {
+    # Make sure we have color support
+    bash.shellAliases.tmux = "tmux -2";
+
     tmux = {
       enable = true;
       mouse = true;
@@ -8,9 +11,7 @@
       newSession = true;
       historyLimit = 30000;
 
-      plugins = with pkgs.tmuxPlugins; [
-        dracula
-      ];
+      plugins = with pkgs.tmuxPlugins; [dracula];
 
       extraConfig = ''
         bind-key -n Home send Escape "OH"

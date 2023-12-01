@@ -1,10 +1,14 @@
-{pkgs, ...}: {
+{pkgs, config, ...}: {
   programs = {
     fzf = {
       enable = true;
       enableBashIntegration = true;
     };
 
+    bash.sessionVariables = {
+      # FIXME: why is this not set by home-manager?
+      "RIPGREP_CONFIG_PATH" = "${config.xdg.configHome}/ripgrep/ripgreprc";
+    };
     ripgrep = {
       enable = true;
       arguments = [
