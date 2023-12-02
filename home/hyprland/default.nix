@@ -115,9 +115,9 @@ in {
         # Defaults
         "$mainMod, Q, exec, alacritty"
         "$mainMod, F, fullscreen"
-        "$mainMod, C, killactive,"
-        "$mainMod SHIFT, SPACE, togglefloating,"
-        "$mainMod, J, togglesplit,"
+        "$mainMod, C, killactive, "
+        "$mainMod SHIFT, SPACE, togglefloating, "
+        "$mainMod, J, layoutmsg, togglesplit"
 
         ## Move focus with arrow keys
         "$mainMod, left, movefocus, l"
@@ -174,6 +174,10 @@ in {
         disable_hyprland_logo = true;
         disable_splash_rendering = true;
         vfr = true;
+      };
+
+      dwindle = {
+        smart_split = true;
       };
 
       source = [confPath];
