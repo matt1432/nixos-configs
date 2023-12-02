@@ -1,5 +1,5 @@
 {
-  flakePath ? ../../../.,
+  flakePath ? null,
   hostnamePath ? "/etc/hostname",
   registryPath ? /etc/nix/registry.json,
 }: let

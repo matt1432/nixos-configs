@@ -16,7 +16,7 @@ in
       ;;
       *)
         if [ -z "$1" ]; then
-          nix repl ${repl}
+          nix repl --arg flakePath $(${coreutils}/bin/readlink -f "/etc/nixos") ${repl}
         else
           nix repl --arg flakePath $(${coreutils}/bin/readlink -f $1 | ${gnused}/bin/sed 's|/flake.nix||') ${repl}
         fi

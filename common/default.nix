@@ -73,6 +73,7 @@
 
       home.packages =
         [
+          config.customPkgs.repl
           nix-melt.packages.x86_64-linux.default
           nurl.packages.x86_64-linux.default
         ]
