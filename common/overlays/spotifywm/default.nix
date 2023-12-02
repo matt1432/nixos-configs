@@ -1,3 +1,3 @@
 (final: prev: {
-      spotifywm = final.callPackage ./spotifywm.nix {};
+  spotifywm = final.callPackage ./spotifywm.nix {};
 })
