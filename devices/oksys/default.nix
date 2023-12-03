@@ -4,7 +4,10 @@
 
     ../../modules/tailscale.nix
 
+    ./modules/caddy.nix
     ./modules/headscale.nix
+    ./modules/pihole.nix
+    ./modules/unbound.nix
   ];
 
   vars = {

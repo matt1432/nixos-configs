@@ -5,6 +5,14 @@
     nixpkgs,
     ...
   } @ attrs: let
+    supportedSystems = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
+
+    forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
+    nixpkgsFor = forAllSystems (system: import nixpkgs {inherit system;});
+
     defaultModules = [
       home-manager.nixosModules.home-manager
       {
@@ -33,8 +41,7 @@
       };
     };
 
-    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
-    formatter.aarch64-linux = nixpkgs.legacyPackages.aarch64-linux.alejandra;
+    formatter = forAllSystems (system: nixpkgsFor.${system}.alejandra);
   };
 
   inputs = {
@@ -50,12 +57,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Oksys flakes
     headscale = {
       url = "github:juanfont/headscale";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     caddy-plugins = {
       url = "github:matt1432/nixos-caddy-patched";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    pihole = {
+      url = "github:matt1432/pihole-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
