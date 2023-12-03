@@ -21,6 +21,7 @@
   ];
 
   nixpkgs.config.allowUnfree = true;
+  boot.tmp.cleanOnBoot = true;
 
   nix = {
     # Edit nix.conf
