@@ -1,47 +1,43 @@
 {
-  outputs = {
+  outputs = inputs @ {
     self,
     home-manager,
     nixpkgs,
     ...
-  } @ attrs: let
-    supportedSystems = [
-      "x86_64-linux"
-      "aarch64-linux"
-    ];
+  }: let
+    supportedSystems = ["x86_64-linux" "aarch64-linux"];
 
-    forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
-    nixpkgsFor = forAllSystems (system: import nixpkgs {inherit system;});
+    perSystem = attrs:
+      nixpkgs.lib.genAttrs supportedSystems (system: let
+        pkgs = nixpkgs.legacyPackages.${system};
+      in
+        attrs system pkgs);
 
+    # Default system
+    system = "x86_64-linux";
+    specialArgs = inputs;
     defaultModules = [
-      home-manager.nixosModules.home-manager
-      {
-        home-manager.extraSpecialArgs = attrs;
-        home-manager.useGlobalPkgs = true;
-        home-manager.useUserPackages = true;
-      }
+      {home-manager.extraSpecialArgs = inputs;}
       ./common
     ];
   in {
     nixosConfigurations = {
       wim = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = attrs;
+        inherit system specialArgs;
         modules =
           defaultModules
           ++ [./devices/wim];
       };
 
       binto = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = attrs;
+        inherit system specialArgs;
         modules =
           defaultModules
           ++ [./devices/binto];
       };
     };
 
-    formatter = forAllSystems (system: nixpkgsFor.${system}.alejandra);
+    formatter = perSystem (_: pkgs: pkgs.alejandra);
   };
 
   inputs = {

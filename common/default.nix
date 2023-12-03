@@ -2,6 +2,7 @@
   config,
   lib,
   nixpkgs,
+  home-manager,
   nh,
   nix-melt,
   nur,
@@ -18,6 +19,7 @@
 
     nur.nixosModules.nur
     nh.nixosModules.default
+    home-manager.nixosModules.home-manager
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -58,6 +60,10 @@
       xkbVariant = "multix";
     };
   };
+
+  # Global hm settings
+  home-manager.useGlobalPkgs = true;
+  home-manager.useUserPackages = true;
 
   home-manager.users = let
     default = {
