@@ -5,6 +5,7 @@
     ../../modules/ags
     ../../modules/audio.nix
     ../../modules/greetd
+    ../../modules/hyprland
     ../../modules/kmscon.nix
     ../../modules/printer.nix
     ../../modules/proton-bridge.nix
@@ -39,7 +40,6 @@
     imports = [
       ../../home/dconf.nix
       ../../home/firefox
-      ../../home/hyprland
 
       ./home/packages.nix
     ];
