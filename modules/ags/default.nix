@@ -36,7 +36,6 @@ in {
 
           ## gui
           pavucontrol # TODO: replace with ags widget
-          networkmanagerapplet # TODO: replace with ags widget
         ])
         ++ (optionals isTouchscreen (with pkgs; [
           # touchscreen

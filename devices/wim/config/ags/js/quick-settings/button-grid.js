@@ -10,6 +10,8 @@ import { SpeakerIcon, MicIcon } from '../misc/audio-icons.js';
 import EventBox from '../misc/cursorbox.js';
 import Separator from '../misc/separator.js';
 
+import { NetworkMenu } from './network.js';
+
 const SPACING = 28;
 
 
@@ -190,36 +192,7 @@ const FirstRow = () => Row({
                 self.label = Network.wifi?.ssid || Network.wired?.internet;
             }],
 
-            menu: Box({
-                className: 'menu',
-                vertical: true,
-
-                connections: [[Network, (box) => {
-                    box.children = Network.wifi
-                        ?.access_points.map((ap) => EventBox({
-                            isButton: true,
-
-                            on_clicked: () => {
-                                execAsync(`nmcli device wifi
-                                    connect ${ap.bssid}`).catch(print);
-                            },
-                            child: Box({
-
-                                children: [
-                                    Icon(ap.iconName),
-
-                                    Label(ap.ssid || ''),
-
-                                    ap.active && Icon({
-                                        icon: 'object-select-symbolic',
-                                        hexpand: true,
-                                        hpack: 'end',
-                                    }),
-                                ],
-                            }),
-                        }));
-                }]],
-            }),
+            menu: NetworkMenu(),
         }),
 
         GridButton({
