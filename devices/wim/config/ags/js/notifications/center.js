@@ -1,6 +1,8 @@
+import App from 'resource:///com/github/Aylur/ags/app.js';
 import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
 
 import { Button, Label, Box, Icon, Scrollable, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
+import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import { Notification, HasNotifs } from './base.js';
 import EventBox from '../misc/cursorbox.js';
@@ -53,7 +55,10 @@ const NotificationList = () => Box({
 // Needs to be wrapped to still have onHover when disabled
 const ClearButton = () => EventBox({
     child: Button({
-        onPrimaryClickRelease: () => Notifications.clear(),
+        onPrimaryClickRelease: () => {
+            Notifications.clear();
+            timeout(1000, () => App.closeWindow('notification-center'));
+        },
         binds: [['sensitive', HasNotifs]],
         child: Box({
             children: [
