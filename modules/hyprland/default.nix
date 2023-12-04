@@ -12,16 +12,12 @@
   # Config stuff
   isNvidia = config.hardware.nvidia.modesetting.enable;
   isTouchscreen = config.hardware.sensor.iio.enable;
-  confPath = "${config.vars.configDir}/hypr/main.conf";
-  kdeconnect = config.programs.kdeconnect;
-  gnomekey = config.services.gnome.gnome-keyring;
-  xserver = config.services.xserver;
-
-  gset = pkgs.gsettings-desktop-schemas;
-  polkit = pkgs.plasma5Packages.polkit-kde-agent;
 in {
   # SYSTEM CONFIG
-  imports = [../greetd];
+  imports = [
+    ../greetd
+    ../dolphin.nix
+  ];
 
   programs = {
     kdeconnect.enable = true;
@@ -29,6 +25,7 @@ in {
   };
 
   services = {
+    gnome.gnome-keyring.enable = true;
     dbus.enable = true;
     gvfs.enable = true;
   };
@@ -41,15 +38,13 @@ in {
     ];
   };
 
-  environment.systemPackages = with pkgs; [
-    plasma5Packages.kio-admin
-  ];
-
   # HOME-MANAGER CONFIG
   home-manager.users.${config.vars.user} = {
     imports = [
-      ../../home/theme.nix
       ../../home/alacritty.nix
+      ../../home/dconf.nix
+      ../../home/obs.nix
+      ../../home/theme.nix
       ../../home/wofi
     ];
 
@@ -64,8 +59,9 @@ in {
         ]);
 
       settings = {
-        env =
-          [
+        env = let
+            gset = pkgs.gsettings-desktop-schemas;
+          in [
             "XCURSOR_SIZE, 24"
             "XDG_DATA_DIRS, ${builtins.concatStringsSep ":" [
               "${gset}/share/gsettings-schemas/${gset.name}"
@@ -105,7 +101,9 @@ in {
           ])
         ];
 
-        input = {
+        input = let
+          xserver = config.services.xserver;
+        in {
           kb_layout = xserver.layout;
           kb_variant = xserver.xkbVariant;
           follow_mouse = true;
@@ -116,17 +114,13 @@ in {
         exec-once =
           [
             "hyprctl setcursor Dracula-cursors 24"
-            "${polkit}/libexec/polkit-kde-authentication-agent-1"
+            "${pkgs.plasma5Packages.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1"
             "swww init --no-cache && swww img -t none ${pkgs.dracula-theme}/wallpapers/waves.png"
             "wl-paste --watch cliphist store"
-          ]
-          ++ (optionals (kdeconnect.enable) [
-            "${kdeconnect.package}/libexec/kdeconnectd"
+            "${config.programs.kdeconnect.package}/libexec/kdeconnectd"
             "kdeconnect-indicator"
-          ])
-          ++ (optionals (gnomekey.enable) [
             "gnome-keyring-daemon --start --components=secrets"
-          ]);
+          ];
 
         windowrule = [
           "noborder,^(wofi)$"
@@ -209,13 +203,37 @@ in {
           special_scale_factor = 0.8;
         };
 
-        source = [confPath];
+        source = ["${config.vars.configDir}/hypr/main.conf"];
       };
     };
 
     home.packages = with pkgs; [
+      # School
+      virt-manager
+      bluej
+      camunda-modeler
+      libreoffice-fresh # TODO: declarative conf?
+      hunspell
+      hunspellDicts.en_CA
+
+      # Apps
+      thunderbird # TODO: use programs.thunderbird
+      spotifywm
+      photoqt
+      mpv
+      nextcloud-client
+      jellyfin-media-player
+      xournalpp
+      (pkgs.discord.override {
+        withOpenASAR = true;
+        withVencord = true;
+      })
+      prismlauncher-qt5
+
       # tools
       wl-color-picker
+      wl-clipboard
+      cliphist
       grim
       slurp
       swappy
@@ -240,8 +258,6 @@ in {
       xorg.xrandr
       libinput
       xclip
-      wl-clipboard
-      cliphist
       libnotify
     ];
   };

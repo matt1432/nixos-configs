@@ -36,7 +36,6 @@
   };
   home-manager.users.${config.vars.user} = {
     imports = [
-      ../../home/dconf.nix
       ../../home/firefox
 
       ./home/packages.nix

@@ -1,72 +1,12 @@
-{
-  pkgs,
-  nixpkgs-wayland,
-  ...
-}: let
-  waypkgs = nixpkgs-wayland.packages.x86_64-linux;
-in {
-  programs = {
-    obs-studio = {
-      enable = true;
-      plugins = with waypkgs; [
-        obs-wlrobs
-      ];
-    };
-
-    btop.enable = true;
-  };
-
+{pkgs, ...}: {
   home.packages =
     (with pkgs.python311Packages; [
       python
       pyclip
     ])
-    ++ (with pkgs.plasma5Packages; [
-      ark
-      kcharselect
-      kdenlive
-      okular
-
-      # Dolphin & co
-      dolphin
-      dolphin-plugins
-      kdegraphics-thumbnailers
-      ffmpegthumbs
-      kio
-      kio-admin # needs to be both here and in system pkgs
-      kio-extras
-      kmime
-    ])
-    ++ (with pkgs.gnome; [
-      gnome-calculator
-    ])
     ++ (with pkgs; [
-      # School
-      virt-manager
-      bluej
-      camunda-modeler
-
-      # Misc Apps
-      thunderbird # TODO: use programs.thunderbird
-      spotifywm
-      zeal
-      libreoffice-fresh # TODO: add spelling stuff and declarative conf?
-      photoqt
-      gimp-with-plugins # TODO: set plugins using nix
-      vlc
-      nextcloud-client
-      jellyfin-media-player
-      xournalpp
-      (pkgs.discord.override {
-        withOpenASAR = true;
-        withVencord = true;
-      })
-      prismlauncher-qt5
-
       # Misc CLI
       acpi
-      alsa-utils
-      fontfor
 
       (writeShellScriptBin "Gparted" ''
         (

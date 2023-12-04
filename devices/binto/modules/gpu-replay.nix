@@ -1,5 +1,6 @@
 {
   pkgs,
+  config,
   lib,
   ...
 }: let
@@ -48,6 +49,28 @@ in {
       group = "video";
       capabilities = "cap_sys_admin+ep";
       source = "${gsr}/bin/gsr-kms-server";
+    };
+  };
+
+  home-manager.users.${config.vars.user} = {
+    # TODO: add mic sound
+    xdg.configFile."gsr.sh" = {
+      executable = true;
+      text = ''
+        export WINDOW=DP-5
+        export CONTAINER=mkv
+        export QUALITY=very_high
+        export CODEC=auto
+        export AUDIO_CODEC=aac
+        export FRAMERATE=60
+        export REPLAYDURATION=1200
+        export OUTPUTDIR=/home/matt/Videos/Replay
+        export MAKEFOLDERS=yes
+        # export ADDITIONAL_ARGS=
+
+        # Disable compositor in X11 for best performance
+        exec /bin/sh -c 'AUDIO="''${AUDIO_DEVICE:-$(pactl get-default-sink).monitor}"; gpu-screen-recorder -v no -w $WINDOW -c $CONTAINER -q $QUALITY -k $CODEC -ac $AUDIO_CODEC -a "$AUDIO" -f $FRAMERATE -r $REPLAYDURATION -o "$OUTPUTDIR" -mf $MAKEFOLDERS $ADDITIONAL_ARGS'
+      '';
     };
   };
 }
