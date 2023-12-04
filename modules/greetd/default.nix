@@ -7,17 +7,19 @@
   # Nix stuff
   optionals = lib.lists.optionals;
   isNvidia = config.hardware.nvidia.modesetting.enable;
+  isTouchscreen = config.hardware.sensor.iio.enable;
 
-  # Executables' paths
-  regreetBin = "${lib.getExe config.programs.regreet.package}";
-  hyprBin = "${config
+  hyprland = config
     .home-manager
     .users
     .${config.vars.user}
     .wayland
     .windowManager
     .hyprland
-    .finalPackage}/bin";
+    .finalPackage;
+  # Executables' paths
+  hyprBin = "${hyprland}/bin";
+  regreetBin = "${lib.getExe config.programs.regreet.package}";
 
   # Show Regreet on all monitors
   dupeMonitors = pkgs.writeShellScriptBin "dupeMonitors" ''
@@ -88,12 +90,28 @@ in {
     };
   };
 
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${hyprBin}/Hyprland --config ${hyprConf}";
-        user = "greeter";
+  services = {
+    xserver = {
+      displayManager = {
+        sessionPackages = [hyprland];
+      };
+
+      libinput.enable = true;
+      wacom.enable = isTouchscreen;
+    };
+
+    greetd = {
+      enable = true;
+      settings = {
+        default_session = {
+          command = "${hyprBin}/Hyprland --config ${hyprConf}";
+          user = "greeter";
+        };
+
+        initial_session = {
+          command = "${hyprBin}/Hyprland";
+          user = config.vars.user;
+        };
       };
     };
   };

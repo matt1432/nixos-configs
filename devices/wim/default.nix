@@ -4,7 +4,6 @@
 
     ../../modules/ags
     ../../modules/audio.nix
-    ../../modules/greetd
     ../../modules/hyprland
     ../../modules/kmscon.nix
     ../../modules/plymouth.nix
@@ -12,7 +11,6 @@
     ../../modules/proton-bridge.nix
     ../../modules/tailscale.nix
 
-    ./modules/desktop.nix
     ./modules/security.nix
   ];
 

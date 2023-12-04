@@ -67,6 +67,9 @@
   virtualisation = {
     libvirtd.enable = true;
   };
+  environment.systemPackages = with pkgs; [
+    qemu
+  ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }

@@ -83,15 +83,22 @@
     libvirtd.enable = true;
     waydroid.enable = true;
   };
+  environment.systemPackages = with pkgs; [
+    qemu
+  ];
 
   # enable brightness control
   programs.light.enable = true;
 
-  services.udev.extraRules = ''
-    # give permanent path to keyboard XF86* binds
-    SUBSYSTEMS=="input", ATTRS{id/product}=="0006", ATTRS{id/vendor}=="0000", SYMLINK += "video-bus"
+  services = {
+    tlp.enable = true;
 
-    # give permanent path to touchpad
-    SUBSYSTEMS=="input", ATTRS{id/product}=="01e0", ATTRS{id/vendor}=="27c6", ATTRS{name}=="*Touchpad", SYMLINK += "touchpad"
-  '';
+    udev.extraRules = ''
+      # give permanent path to keyboard XF86* binds
+      SUBSYSTEMS=="input", ATTRS{id/product}=="0006", ATTRS{id/vendor}=="0000", SYMLINK += "video-bus"
+
+      # give permanent path to touchpad
+      SUBSYSTEMS=="input", ATTRS{id/product}=="01e0", ATTRS{id/vendor}=="27c6", ATTRS{name}=="*Touchpad", SYMLINK += "touchpad"
+    '';
+  };
 }

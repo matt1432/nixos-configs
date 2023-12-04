@@ -20,6 +20,32 @@
   gset = pkgs.gsettings-desktop-schemas;
   polkit = pkgs.plasma5Packages.polkit-kde-agent;
 in {
+  # SYSTEM CONFIG
+  imports = [../greetd];
+
+  programs = {
+    kdeconnect.enable = true;
+    dconf.enable = true;
+  };
+
+  services = {
+    dbus.enable = true;
+    gvfs.enable = true;
+  };
+
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+    ];
+  };
+
+  environment.systemPackages = with pkgs; [
+    plasma5Packages.kio-admin
+  ];
+
+  # HOME-MANAGER CONFIG
   home-manager.users.${config.vars.user} = {
     imports = [
       ../../home/theme.nix
@@ -197,9 +223,11 @@ in {
       bluez-tools
       brightnessctl
       pulseaudio
+      alsa-utils
       gnome.seahorse
+      p7zip # for reshade
 
-      gtklock
+      gtklock # FIXME: find replacement
       swww
 
       ## libs
