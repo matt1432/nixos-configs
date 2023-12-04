@@ -2,13 +2,11 @@ import App from 'resource:///com/github/Aylur/ags/app.js';
 import Network from 'resource:///com/github/Aylur/ags/service/network.js';
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 
-import { Box, Icon, Label, Overlay, Revealer, Scrollable, Widget } from 'resource:///com/github/Aylur/ags/widget.js';
+import { Box, Icon, Label, ListBox, Overlay, Revealer, Scrollable } from 'resource:///com/github/Aylur/ags/widget.js';
 import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import EventBox from '../misc/cursorbox.js';
 
-// FIXME: wait for https://github.com/Aylur/ags/pull/199
-const ListBox = Widget.subclass(imports.gi.Gtk.ListBox);
 const SCROLL_THRESHOLD_H = 200;
 const SCROLL_THRESHOLD_N = 7;
 
@@ -65,6 +63,7 @@ const AccessPoint = (ap) => {
 export const NetworkMenu = () => {
     const APList = new Map();
     const topArrow = Revealer({
+        transition: 'slide_down',
         child: Icon({
             icon: `${App.configDir }/icons/down-large.svg`,
             className: 'scrolled-indicator',
@@ -74,6 +73,7 @@ export const NetworkMenu = () => {
     });
 
     const bottomArrow = Revealer({
+        transition: 'slide_up',
         child: Icon({
             icon: `${App.configDir }/icons/down-large.svg`,
             className: 'scrolled-indicator',
