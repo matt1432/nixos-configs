@@ -27,9 +27,10 @@
     };
 
     mainMonitor = mkOption {
-      type = types.nullOr types.str;
+      type = types.str;
       description = ''
-        The name of the main monitor used for Hyprland and Regreet
+        The name of the main monitor used for Hyprland
+        and Regreet which also uses Hyprland
       '';
       default = "null";
     };

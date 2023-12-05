@@ -23,16 +23,20 @@
 
   # Show Regreet on all monitors
   dupeMonitors = pkgs.writeShellScriptBin "dupeMonitors" ''
-    names=($(${hyprBin}/hyprctl -j monitors | ${pkgs.jq}/bin/jq -r '.[] .name'))
     main="${config.vars.mainMonitor}"
+    names=($(${hyprBin}/hyprctl -j monitors | ${pkgs.jq}/bin/jq -r '.[] .description'))
 
-    if [[ $(echo "$main") == "null" ]]; then
+    if [[ "$main" == "null" ]]; then
         main="''${names[0]}"
     fi
 
     for (( i=0; i<''${#names[@]}; i++ )); do
-        if [[ ''${names[$i]} != "$main" ]]; then
-          ${hyprBin}/hyprctl keyword monitor ''${names[$i]},preferred,auto,1,mirror,"$main"
+
+        name=$(echo "''${names[$i]}" | sed 's/.*(\(.*\))/\1/')
+        desc=$(echo "''${names[$i]}" | sed 's/ (.*//')
+
+        if [[ "$name" != "$main" && "desc:$desc" != "$main" ]]; then
+          ${hyprBin}/hyprctl keyword monitor "$name",preferred,auto,1,mirror,"$main"
         fi
     done
   '';

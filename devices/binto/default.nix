@@ -18,7 +18,7 @@
   vars = {
     user = "matt";
     hostName = "binto";
-    mainMonitor = "DP-5";
+    mainMonitor = "desc:GIGA-BYTE TECHNOLOGY CO. LTD. G27QC 0x00000B1D";
     greetdDupe = false;
     fontSize = 12.5;
   };
