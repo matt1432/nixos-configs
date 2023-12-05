@@ -3,7 +3,7 @@ import App from 'resource:///com/github/Aylur/ags/app.js';
 import { Box, Label } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import Audio from './audio.js';
-import Battery from './battery.js';
+import Bluetooth from './bluetooth.js';
 import KeyboardLayout from './keyboard-layout.js';
 import Network from './network.js';
 
@@ -36,7 +36,7 @@ export default () => EventBox({
 
             Audio(),
 
-            Battery(),
+            Bluetooth(),
 
             Network(),
 

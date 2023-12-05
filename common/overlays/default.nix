@@ -9,7 +9,6 @@
   ];
 
   nixpkgs.overlays = [
-    (import ./blueberry)
     (import ./spotifywm)
     (import ./squeekboard)
 

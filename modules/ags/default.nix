@@ -42,7 +42,6 @@ in {
           lisgd
           squeekboard
           ydotool
-          blueberry
         ]));
     })
   ];

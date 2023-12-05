@@ -11,6 +11,7 @@ import EventBox from '../misc/cursorbox.js';
 import Separator from '../misc/separator.js';
 
 import { NetworkMenu } from './network.js';
+import { BluetoothMenu } from './bluetooth.js';
 
 const SPACING = 28;
 
@@ -19,6 +20,7 @@ const ButtonStates = [];
 const GridButton = ({
     command = () => { /**/ },
     secondaryCommand = () => { /**/ },
+    onOpen = () => { /**/ },
     icon,
     indicator,
     menu,
@@ -129,6 +131,7 @@ const GridButton = ({
 
                                 if (Activated.value) {
                                     deg = menu ? 360 : 450;
+                                    onOpen(menu);
                                 }
                                 self.setCss(`
                                     -gtk-icon-transform: rotate(${deg}deg);
@@ -156,7 +159,7 @@ const Row = ({ buttons } = {}) => {
                 hpack: 'center',
             }),
 
-            Box(),
+            Box({ vertical: true }),
         ],
     });
 
@@ -180,8 +183,7 @@ const FirstRow = () => Row({
             command: () => Network.toggleWifi(),
 
             secondaryCommand: () => {
-                execAsync(['bash', '-c', 'nm-connection-editor'])
-                    .catch(print);
+                // TODO: connection editor
             },
 
             icon: [Network, (icon) => {
@@ -193,62 +195,52 @@ const FirstRow = () => Row({
             }],
 
             menu: NetworkMenu(),
+            onOpen: () => Network.wifi.scan(),
         }),
 
+        // TODO: do vpn
         GridButton({
             command: () => {
-                execAsync(['bash', '-c', '$AGS_PATH/qs-toggles.sh blue-toggle'])
-                    .catch(print);
+                //
             },
 
             secondaryCommand: () => {
-                execAsync(['bash', '-c', 'blueberry'])
-                    .catch(print);
+                //
+            },
+
+            icon: 'airplane-mode-disabled-symbolic',
+        }),
+
+        GridButton({
+            command: () => Bluetooth.toggle(),
+
+            secondaryCommand: () => {
+                // TODO: bluetooth connection editor
             },
 
             icon: [Bluetooth, (self) => {
                 if (Bluetooth.enabled) {
-                    self.icon = 'bluetooth-active-symbolic';
-                    execAsync(['bash', '-c',
-                        'echo 󰂯 > $HOME/.config/.bluetooth']).catch(print);
+                    self.icon = Bluetooth.connectedDevices[0] ?
+                        Bluetooth.connectedDevices[0].iconName :
+                        'bluetooth-active-symbolic';
                 }
                 else {
                     self.icon = 'bluetooth-disabled-symbolic';
-                    execAsync(['bash', '-c',
-                        'echo 󰂲 > $HOME/.config/.bluetooth']).catch(print);
                 }
-            }, 'changed'],
+            }],
 
             indicator: [Bluetooth, (self) => {
-                if (Bluetooth.connectedDevices[0]) {
-                    self.label = String(Bluetooth.connectedDevices[0]);
-                }
-                else {
-                    self.label = 'Disconnected';
-                }
-            }, 'changed'],
-        }),
+                self.label = Bluetooth.connectedDevices[0] ?
+                    `${Bluetooth.connectedDevices[0]}` :
+                    'Disconnected';
+            }, 'notify::connected-devices'],
 
-        // TODO: replace with vpn
-        GridButton({
-            command: () => {
-                execAsync(['bash', '-c',
-                    '$AGS_PATH/qs-toggles.sh toggle-radio']).catch(print);
+            menu: BluetoothMenu(),
+            onOpen: (menu) => {
+                execAsync(`bluetoothctl scan ${menu.revealChild ?
+                    'on' :
+                    'off'}`);
             },
-
-            secondaryCommand: () => {
-                execAsync(['notify-send', 'set this up moron'])
-                    .catch(print);
-            },
-
-            icon: [Network, (self) => {
-                if (Network.wifi.enabled) {
-                    self.icon = 'airplane-mode-disabled-symbolic';
-                }
-                else {
-                    self.icon = 'airplane-mode-symbolic';
-                }
-            }, 'changed'],
         }),
 
     ],

@@ -1,9 +1,7 @@
 import App from 'resource:///com/github/Aylur/ags/app.js';
-import Network from 'resource:///com/github/Aylur/ags/service/network.js';
-import Variable from 'resource:///com/github/Aylur/ags/variable.js';
+import Bluetooth from 'resource:///com/github/Aylur/ags/service/bluetooth.js';
 
 import { Box, Icon, Label, ListBox, Overlay, Revealer, Scrollable } from 'resource:///com/github/Aylur/ags/widget.js';
-import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import EventBox from '../misc/cursorbox.js';
 
@@ -11,51 +9,39 @@ const SCROLL_THRESHOLD_H = 200;
 const SCROLL_THRESHOLD_N = 7;
 
 
-const AccessPoint = (ap) => {
+const BluetoothDevice = (dev) => {
     const widget = Box({
         className: 'menu-item',
     });
-
-    widget.ap = Variable(ap);
 
     const child = Box({
         hexpand: true,
         children: [
             Icon({
-                connections: [[widget.ap, (self) => {
-                    self.icon = widget.ap.value.iconName;
-                }]],
+                binds: [['icon', dev, 'icon-name']],
             }),
 
             Label({
-                connections: [[widget.ap, (self) => {
-                    self.label = widget.ap.value.ssid || '';
-                }]],
+                binds: [['label', dev, 'name']],
             }),
 
             Icon({
                 icon: 'object-select-symbolic',
                 hexpand: true,
                 hpack: 'end',
-                connections: [[Network, (self) => {
-                    self.setCss(`opacity: ${
-                        widget.ap.value.ssid === Network.wifi.ssid ?
-                            '1' :
-                            '0'
-                    };`);
+                connections: [[dev, (self) => {
+                    self.setCss(`opacity: ${dev.paired ? '1' : '0'};`);
                 }]],
             }),
         ],
     });
 
+    widget.dev = dev;
     widget.add(Revealer({
         revealChild: true,
         transition: 'slide_down',
         child: EventBox({
-            onPrimaryClickRelease: () => {
-                execAsync(`nmcli device wifi connect
-                    ${widget.ap.value.bssid}`).catch(print);
-            },
+            onPrimaryClickRelease: () => dev.setConnection(true),
             child,
         }),
     }));
@@ -63,8 +49,8 @@ const AccessPoint = (ap) => {
     return widget;
 };
 
-export const NetworkMenu = () => {
-    const APList = new Map();
+export const BluetoothMenu = () => {
+    const DevList = new Map();
     const topArrow = Revealer({
         transition: 'slide_down',
         child: Icon({
@@ -124,49 +110,45 @@ export const NetworkMenu = () => {
                 child: ListBox({
                     setup: (self) => {
                         self.set_sort_func((a, b) => {
-                            return b.get_children()[0].ap.value.strength -
-                                a.get_children()[0].ap.value.strength;
+                            return b.get_children()[0].dev.paired -
+                                a.get_children()[0].dev.paired;
                         });
                     },
 
-                    connections: [[Network, (box) => {
-                        // Add missing APs
-                        Network.wifi?.access_points.forEach((ap) => {
-                            if (ap.ssid !== 'Unknown') {
-                                if (APList.has(ap.ssid)) {
-                                    const accesPoint = APList.get(ap.ssid)
-                                        .ap.value;
+                    connections: [[Bluetooth, (box) => {
+                        // Get all devices
+                        const Devices = [].concat(
+                            Bluetooth.devices,
+                            Bluetooth.connectedDevices,
+                        );
 
-                                    if (accesPoint.strength < ap.strength) {
-                                        APList.get(ap.ssid).ap.value = ap;
-                                    }
-                                }
-                                else {
-                                    APList.set(ap.ssid, AccessPoint(ap));
+                        // Add missing devices
+                        Devices.forEach((dev) => {
+                            if (!DevList.has(dev) && dev.name) {
+                                DevList.set(dev, BluetoothDevice(dev));
 
-                                    box.add(APList.get(ap.ssid));
-                                    box.show_all();
-                                }
+                                box.add(DevList.get(dev));
+                                box.show_all();
                             }
                         });
 
                         // Delete ones that don't exist anymore
-                        const difference = Array.from(APList.keys())
-                            .filter((ssid) => !Network.wifi.access_points
-                                .find((ap) => ap.ssid === ssid) &&
-                                ssid !== 'Unknown');
+                        const difference = Array.from(DevList.keys())
+                            .filter((dev) => !Devices
+                                .find((d) => dev === d) &&
+                                    dev.name);
 
-                        difference.forEach((ssid) => {
-                            const apWidget = APList.get(ssid);
+                        difference.forEach((dev) => {
+                            const devWidget = DevList.get(dev);
 
-                            if (apWidget) {
-                                if (apWidget.toDestroy) {
-                                    apWidget.get_parent().destroy();
-                                    APList.delete(ssid);
+                            if (devWidget) {
+                                if (devWidget.toDestroy) {
+                                    devWidget.get_parent().destroy();
+                                    DevList.delete(dev);
                                 }
                                 else {
-                                    apWidget.children[0].revealChild = false;
-                                    apWidget.toDestroy = true;
+                                    devWidget.children[0].revealChild = false;
+                                    devWidget.toDestroy = true;
                                 }
                             }
                         });

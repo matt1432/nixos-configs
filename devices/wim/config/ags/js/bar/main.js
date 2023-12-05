@@ -2,6 +2,7 @@ import { Window, CenterBox, Box } from 'resource:///com/github/Aylur/ags/widget.
 
 import Separator from '../misc/separator.js';
 
+import Battery from './buttons/battery.js';
 import Brightness from './buttons/brightness.js';
 import Clock from './buttons/clock.js';
 import CurrentWindow from './buttons/current-window.js';
@@ -41,11 +42,11 @@ export default () => Window({
 
                     SysTray(),
 
-                    Brightness(),
+                    Workspaces(),
 
                     Separator(SPACING),
 
-                    Workspaces(),
+                    CurrentWindow(),
 
                 ],
             }),
@@ -54,7 +55,7 @@ export default () => Window({
                 children: [
                     Separator(SPACING),
 
-                    CurrentWindow(),
+                    Clock(),
 
                     Separator(SPACING),
                 ],
@@ -63,7 +64,11 @@ export default () => Window({
             endWidget: Box({
                 hpack: 'end',
                 children: [
-                    Clock(),
+                    Brightness(),
+
+                    Separator(SPACING),
+
+                    Battery(),
 
                     Separator(SPACING),
 

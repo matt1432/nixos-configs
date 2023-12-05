@@ -1,8 +1,6 @@
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 
-import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
-
 import Brightness from '../services/brightness.js';
 import Pointers from '../services/pointers.js';
 import Tablet from '../services/tablet.js';
@@ -15,8 +13,6 @@ export default () => {
     globalThis.Pointers = Pointers;
     globalThis.Tablet = Tablet;
     globalThis.closeAll = closeAll;
-
-    execAsync(['bash', '-c', '$AGS_PATH/startup.sh']).catch(print);
 
     TouchGestures.addGesture({
         name: 'openAppLauncher',
