@@ -1,11 +1,9 @@
 import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
 
-import { Label, Box, Icon } from 'resource:///com/github/Aylur/ags/widget.js';
-import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
+import { Label, Box, EventBox, Icon, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import { SpeakerIcon } from '../../misc/audio-icons.js';
 import Separator from '../../misc/separator.js';
-import EventBox from '../../misc/cursorbox.js';
 
 
 const SpeakerIndicator = (props) => Icon({
@@ -24,17 +22,35 @@ const SpeakerPercentLabel = (props) => Label({
 
 const SPACING = 5;
 
-export default () => EventBox({
-    className: 'toggle-off',
+export default () => {
+    const rev = Revealer({
+        transition: 'slide_right',
+        child: Box({
+            children: [
+                Separator(SPACING),
+                SpeakerPercentLabel(),
+            ],
+        }),
+    });
 
-    onPrimaryClickRelease: () => execAsync(['pavucontrol']).catch(print),
+    const widget = EventBox({
+        onHover: () => {
+            rev.revealChild = true;
+        },
+        onHoverLost: () => {
+            rev.revealChild = false;
+        },
+        child: Box({
+            className: 'audio',
+            children: [
+                SpeakerIndicator(),
 
-    child: Box({
-        className: 'audio',
-        children: [
-            SpeakerIndicator(),
-            Separator(SPACING),
-            SpeakerPercentLabel(),
-        ],
-    }),
-});
+                rev,
+            ],
+        }),
+    });
+
+    widget.rev = rev;
+
+    return widget;
+};

@@ -2,11 +2,21 @@ import App from 'resource:///com/github/Aylur/ags/app.js';
 
 import { Box, Label } from 'resource:///com/github/Aylur/ags/widget.js';
 
+import Audio from './audio.js';
+import Battery from './battery.js';
+import KeyboardLayout from './keyboard-layout.js';
+import Network from './network.js';
+
 import EventBox from '../../misc/cursorbox.js';
+import Separator from '../../misc/separator.js';
+
+const SPACING = 4;
 
 
 export default () => EventBox({
     className: 'toggle-off',
+
+    onHoverLost: () => { /**/ },
 
     onPrimaryClickRelease: () => App.toggleWindow('quick-settings'),
 
@@ -19,6 +29,20 @@ export default () => EventBox({
     child: Box({
         className: 'quick-settings-toggle',
         vertical: false,
-        child: Label('  '),
+        children: [
+            Separator(SPACING),
+
+            KeyboardLayout(),
+
+            Audio(),
+
+            Battery(),
+
+            Network(),
+
+            Label(' '),
+
+            Separator(SPACING),
+        ],
     }),
 });
