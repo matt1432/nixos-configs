@@ -14,27 +14,21 @@
         attrs system pkgs);
 
     # Default system
-    system = "x86_64-linux";
-    specialArgs = inputs;
-    defaultModules = [
-      {home-manager.extraSpecialArgs = inputs;}
-      ./common
-    ];
+    mkNixOS = mods:
+      nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = inputs;
+        modules =
+          [
+            {home-manager.extraSpecialArgs = inputs;}
+            ./common
+          ]
+          ++ mods;
+      };
   in {
     nixosConfigurations = {
-      wim = nixpkgs.lib.nixosSystem {
-        inherit system specialArgs;
-        modules =
-          defaultModules
-          ++ [./devices/wim];
-      };
-
-      binto = nixpkgs.lib.nixosSystem {
-        inherit system specialArgs;
-        modules =
-          defaultModules
-          ++ [./devices/binto];
-      };
+      wim = mkNixOS [./devices/wim];
+      binto = mkNixOS [./devices/binto];
     };
 
     formatter = perSystem (_: pkgs: pkgs.alejandra);
@@ -59,7 +53,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     caddy-plugins = {
-      url = "github:matt1432/nixos-caddy-patched";
+      url = "github:matt1432/nixos-caddy-cloudflare";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     pihole = {
@@ -95,6 +89,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # FIXME: some of these prevent from using nixos-install
     nh.url = "github:viperML/nh";
     nix-melt.url = "github:nix-community/nix-melt";
     nurl.url = "github:nix-community/nurl";
