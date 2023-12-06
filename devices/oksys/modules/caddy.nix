@@ -5,13 +5,13 @@
   ...
 }: let
   caddy = caddy-plugins.packages.${pkgs.system}.default;
-
-  # TODO: use agenix?
-  verySecretToken = "TODO";
 in {
   imports = [caddy-plugins.nixosModules.default];
   environment.systemPackages = [caddy];
   users.users.${config.vars.user}.extraGroups = ["caddy"];
+
+  systemd.services.caddy.serviceConfig.EnvironmentFile =
+    config.sops.secrets.caddy-cloudflare.path;
 
   services.caddy = {
     enable = true;
@@ -28,7 +28,7 @@ in {
         serverAliases = ["*.nelim.org"];
         extraConfig = ''
            tls {
-             dns cloudflare ${verySecretToken}
+             dns cloudflare {$TLS}
              resolvers 1.0.0.1
           }
         '';

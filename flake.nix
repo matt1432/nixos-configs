@@ -3,6 +3,7 @@
     self,
     home-manager,
     nixpkgs,
+    secrets,
     ...
   }: let
     supportedSystems = ["x86_64-linux" "aarch64-linux"];
@@ -36,6 +37,10 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    secrets = {
+      url = "git+ssh://git@git.nelim.org/matt1432/nixos-secrets";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
     nur.url = "github:nix-community/NUR";
