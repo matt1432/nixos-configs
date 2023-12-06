@@ -30,6 +30,11 @@
     nixosConfigurations = {
       wim = mkNixOS [./devices/wim];
       binto = mkNixOS [./devices/binto];
+
+      oksys = mkNixOS [
+        ./devices/oksys
+        secrets.nixosModules.oksys
+      ];
     };
 
     formatter = perSystem (_: pkgs: pkgs.alejandra);

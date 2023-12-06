@@ -4,7 +4,7 @@
   services.pihole = {
     enable = true;
 
-    dnsPort = 5353;
+    dnsPort = 53;
     webPort = 8080;
 
     piholeConfig = {
@@ -21,6 +21,13 @@
         virtualHost = "pi.hole";
         password = "password";
       };
+
+      # Declaratively set the DNS settings
+      # in Settings -> DNS -> Interface settings
+      dnsmasq.extraConfig = ''
+        interface=tailscale0
+        except-interface=nonexisting
+      '';
 
       # Handle it with unbound
       dns.upstreamServers = [
