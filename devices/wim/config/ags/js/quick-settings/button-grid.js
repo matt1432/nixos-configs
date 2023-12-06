@@ -282,8 +282,7 @@ const SecondRow = () => Row({
 
         GridButton({
             command: () => {
-                execAsync(['bash', '-c', '$LOCK_PATH/lock.sh'])
-                    .catch(print);
+                execAsync(['lock']).catch(print);
             },
             secondaryCommand: () => App.openWindow('powermenu'),
             icon: 'system-lock-screen-symbolic',

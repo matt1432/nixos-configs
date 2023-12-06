@@ -1,8 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}: let
+{config, ...}: let
   configDir = config.vars.configDir;
   symlink = config.lib.file.mkOutOfStoreSymlink;
 in {
@@ -11,21 +7,11 @@ in {
       env = [
         "AGS_PATH, ${configDir}/ags/bin"
         "HYPR_PATH, ${configDir}/hypr/scripts"
-        "LOCK_PATH, ${configDir}/gtklock/scripts"
       ];
     };
   };
 
   xdg.configFile = {
-    "gtklock/config.ini".text = ''
-      [main]
-      modules=${builtins.concatStringsSep ";" [
-        "${pkgs.gtklock-powerbar-module}/lib/gtklock/powerbar-module.so"
-        "${pkgs.gtklock-playerctl-module}/lib/gtklock/playerctl-module.so"
-      ]}
-    '';
-    "gtklock/style.css".source = symlink "${configDir}/gtklock/style.css";
-
     "dolphinrc".source = symlink "${configDir}/dolphinrc";
     "kdeglobals".source = symlink "${configDir}/kdeglobals";
     "kiorc".source = symlink "${configDir}/kiorc";

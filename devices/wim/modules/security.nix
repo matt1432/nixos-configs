@@ -23,8 +23,6 @@ in {
   '';
 
   security.pam.services = {
-    gtklock = {};
-
     # all the changes in /etc/pam.d/*
     sddm.text = lib.mkBefore ''
       auth      [success=1 new_authtok_reqd=1 default=ignore]  	pam_unix.so try_first_pass likeauth nullok

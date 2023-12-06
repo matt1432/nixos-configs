@@ -19,6 +19,8 @@ in {
     ../dolphin.nix
   ];
 
+  security.pam.services.swaylock = {};
+
   programs = {
     kdeconnect.enable = true;
     dconf.enable = true;
@@ -44,6 +46,7 @@ in {
       ../../home/alacritty.nix
       ../../home/dconf.nix
       ../../home/obs.nix
+      ../../home/swaylock.nix
       ../../home/theme.nix
       ../../home/wofi
     ];
@@ -135,6 +138,7 @@ in {
 
         bind = [
           # Defaults
+          "$mainMod, L, exec, lock"
           "$mainMod, Q, exec, alacritty"
           "$mainMod, F, fullscreen"
           "$mainMod, C, killactive, "
@@ -245,7 +249,6 @@ in {
       gnome.seahorse
       p7zip # for reshade
 
-      gtklock # FIXME: find replacement
       swww
 
       ## libs
