@@ -3,9 +3,9 @@ import { Window, CenterBox, Box } from 'resource:///com/github/Aylur/ags/widget.
 import Separator from '../misc/separator.js';
 
 import Battery from './buttons/battery.js';
-import Brightness from './buttons/brightness.js';
 import Clock from './buttons/clock.js';
 import CurrentWindow from './buttons/current-window.js';
+import Heart from './buttons/heart.js';
 import NotifButton from './buttons/notif-button.js';
 import OskToggle from './buttons/osk-toggle.js';
 import QsToggle from './buttons/quick-settings.js';
@@ -64,7 +64,7 @@ export default () => Window({
             endWidget: Box({
                 hpack: 'end',
                 children: [
-                    Brightness(),
+                    Heart(),
 
                     Separator(SPACING),
 

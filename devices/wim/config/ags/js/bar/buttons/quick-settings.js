@@ -4,6 +4,7 @@ import { Box, Label } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import Audio from './audio.js';
 import Bluetooth from './bluetooth.js';
+import Brightness from './brightness.js';
 import KeyboardLayout from './keyboard-layout.js';
 import Network from './network.js';
 
@@ -33,6 +34,8 @@ export default () => EventBox({
             Separator(SPACING),
 
             KeyboardLayout(),
+
+            Brightness(),
 
             Audio(),
 

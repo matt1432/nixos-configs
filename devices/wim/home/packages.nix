@@ -2,7 +2,7 @@
   home.packages =
     (with pkgs.python311Packages; [
       python
-      pyclip
+      pyclip # For Waydroid?
     ])
     ++ (with pkgs; [
       # Misc CLI

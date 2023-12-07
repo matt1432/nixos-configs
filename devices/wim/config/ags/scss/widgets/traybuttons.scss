@@ -10,6 +10,12 @@
   min-width: 53px;
 }
 
+.heart-toggle {
+  font-size: 28px;
+  min-height: 40px;
+  color: #CBA6F7;
+}
+
 .notif-panel {
   font-size: 20px;
   min-height: 37px;
@@ -54,7 +60,8 @@
 }
 
 .audio,
-.bluetooth {
+.bluetooth,
+.brightness {
   padding: 0 10px;
   font-size: 20px;
   margin-right: -10px;
@@ -103,20 +110,6 @@
   }
 }
 
-.brightness {
-  trough {
-    margin-right: -50px;
-
-    progress {
-      margin-right: 50px;
-      margin-top: -30px;
-      border-radius: 80px;
-      min-height: 36px;
-      background: rgba(#5e497c, 0.8);
-    }
-  }
-}
-  
 tooltip {
   background: rgba(0,0,0, 0.6);
   border-radius: 5px;

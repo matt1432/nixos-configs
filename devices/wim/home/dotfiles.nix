@@ -2,15 +2,6 @@
   configDir = config.vars.configDir;
   symlink = config.lib.file.mkOutOfStoreSymlink;
 in {
-  wayland.windowManager.hyprland = {
-    settings = {
-      env = [
-        "AGS_PATH, ${configDir}/ags/bin"
-        "HYPR_PATH, ${configDir}/hypr/scripts"
-      ];
-    };
-  };
-
   xdg.configFile = {
     "dolphinrc".source = symlink "${configDir}/dolphinrc";
     "kdeglobals".source = symlink "${configDir}/kdeglobals";

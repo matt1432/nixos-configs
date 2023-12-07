@@ -1,32 +1,46 @@
-import { ProgressBar, Overlay, Box } from 'resource:///com/github/Aylur/ags/widget.js';
+import { Box, EventBox, Icon, Label, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import Brightness from '../../../services/brightness.js';
 import Separator from '../../misc/separator.js';
-import Heart from './heart.js';
 
-const SPACING = 25;
-const BAR_CUTOFF = 0.33;
+const SPACING = 5;
 
 
-export default () => Overlay({
-    tooltipText: 'Brightness',
+const BrightnessPercentLabel = (props) => Label({
+    ...props,
+    connections: [[Brightness, (self) => {
+        self.label = `${Math.round(Brightness.screen * 100)}%`;
+    }, 'screen']],
+});
 
-    child: ProgressBar({
-        className: 'toggle-off brightness',
-        connections: [[Brightness, (self) => {
-            self.value = Brightness.screen > BAR_CUTOFF ?
-                Brightness.screen :
-                BAR_CUTOFF;
-        }, 'screen']],
-    }),
-
-    overlays: [
-        Box({
-            css: 'color: #CBA6F7;',
+export default () => {
+    const rev = Revealer({
+        transition: 'slide_right',
+        child: Box({
             children: [
                 Separator(SPACING),
-                Heart(),
+                BrightnessPercentLabel(),
             ],
         }),
-    ],
-});
+    });
+
+    const widget = EventBox({
+        onHover: () => {
+            rev.revealChild = true;
+        },
+        onHoverLost: () => {
+            rev.revealChild = false;
+        },
+        child: Box({
+            className: 'brightness',
+            children: [
+                Icon('display-brightness-symbolic'),
+                rev,
+            ],
+        }),
+    });
+
+    widget.rev = rev;
+
+    return widget;
+};
