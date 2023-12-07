@@ -1,31 +1,18 @@
 import { Box, Label } from 'resource:///com/github/Aylur/ags/widget.js';
-import { execAsync, readFileAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 
-const { get_home_dir } = imports.gi.GLib;
-
 import EventBox from '../../misc/cursorbox.js';
+import Persist from '../../misc/persist.js';
 
-const HeartState = Variable('');
-const heartFile = `${get_home_dir()}/.cache/ags/.heart`;
+const HeartState = Variable();
 
-const stateCmd = () => ['bash', '-c',
-    `echo ${HeartState.value === ''} > ${heartFile}`];
-const monitorState = () => {
-    HeartState.connect('changed', () => {
-        execAsync(stateCmd()).catch(print);
-    });
-};
-
-// On launch
-readFileAsync(heartFile).then((content) => {
-    HeartState.value = JSON.parse(content) ? '' : '󰣐';
-    monitorState();
-}).catch(() => {
-    execAsync(stateCmd()).then(() => {
-        monitorState();
-    }).catch(print);
+Persist({
+    name: 'heart',
+    gobject: HeartState,
+    prop: 'value',
+    condition: '',
+    whenFalse: '󰣐',
 });
 
 

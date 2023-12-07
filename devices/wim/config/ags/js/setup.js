@@ -1,15 +1,14 @@
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 import Bluetooth from 'resource:///com/github/Aylur/ags/service/bluetooth.js';
-import { execAsync, readFileAsync, timeout } from 'resource:///com/github/Aylur/ags/utils.js';
-
-const { get_home_dir } = imports.gi.GLib;
 
 import Brightness from '../services/brightness.js';
 import Pointers from '../services/pointers.js';
 import Tablet from '../services/tablet.js';
 import TouchGestures from '../services/touch-gestures.js';
+
 import closeAll from './misc/closer.js';
+import Persist from './misc/persist.js';
 
 
 export default () => {
@@ -18,28 +17,12 @@ export default () => {
     globalThis.Tablet = Tablet;
     globalThis.closeAll = closeAll;
 
-    // Persist Bluetooth state
-    const bluetoothFile = `${get_home_dir()}/.cache/ags/.bluetooth`;
-    const stateCmd = () => ['bash', '-c',
-        `echo ${Bluetooth.enabled} > ${bluetoothFile}`];
-    const monitorState = () => {
-        Bluetooth.connect('notify::enabled', () => {
-            execAsync(stateCmd()).catch(print);
-        });
-    };
-
-    // On launch
-    readFileAsync(bluetoothFile).then((content) => {
-        Bluetooth.enabled = JSON.parse(content);
-        timeout(1000, () => {
-            monitorState();
-        });
-    }).catch(() => {
-        execAsync(stateCmd()).then(() => {
-            monitorState();
-        }).catch(print);
+    Persist({
+        name: 'bluetooth',
+        gobject: Bluetooth,
+        prop: 'enabled',
+        signal: 'notify::enabled',
     });
-
 
     TouchGestures.addGesture({
         name: 'openAppLauncher',
