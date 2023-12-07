@@ -10,6 +10,10 @@
     font-size: 16px;
   }
 
+  list, row {
+    all: unset;
+  }
+
   .header {
     margin: 16.2px;
     margin-bottom: 0;

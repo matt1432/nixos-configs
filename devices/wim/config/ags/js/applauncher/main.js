@@ -1,8 +1,10 @@
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import Applications from 'resource:///com/github/Aylur/ags/service/applications.js';
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
+// TODO: find cleaner way to import this
+import { Fzf } from '../../node_modules/fzf/dist/fzf.es.js';
 
-import { Box, Entry, Icon, Label, Scrollable } from 'resource:///com/github/Aylur/ags/widget.js';
+import { Box, Entry, Icon, Label, ListBox, Scrollable } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import PopupWindow from '../misc/popup.js';
 import Separator from '../misc/separator.js';
@@ -12,24 +14,53 @@ import AppItem from './app-item.js';
 const Applauncher = ({ window_name = 'applauncher' } = {}) => {
     const ICON_SEPARATION = 4;
 
-    const children = () => [
-        ...Applications.query('').flatMap((app) => {
+    let fzfResults;
+    const list = ListBox();
+    const setSort = (text) => {
+        const fzf = new Fzf(Applications.list, {
+            selector: (app) => app.name,
+            tiebreakers: [(a, b) => b._frequency -
+                a._frequency],
+        });
+
+        fzfResults = fzf.find(text);
+        list.set_sort_func((a, b) => {
+            const row1 = a.get_children()[0].children[1]?.app.name;
+            const row2 = b.get_children()[0].children[1]?.app.name;
+
+            if (!row1 || !row2) {
+                return 0;
+            }
+
+            return fzfResults.indexOf(row1) -
+            fzfResults.indexOf(row1) || 0;
+        });
+    };
+
+    const makeNewChildren = () => {
+        list.get_children().forEach((ch) => {
+            ch.destroy();
+        });
+
+        [...Applications.query('').flatMap((app) => {
             const item = AppItem(app);
 
-            return [
-                Separator(ICON_SEPARATION, {
-                    binds: [['visible', item, 'visible']],
-                }),
-                item,
-            ];
+            return Box({
+                children: [
+                    Separator(ICON_SEPARATION, {
+                        binds: [['visible', item, 'visible']],
+                    }),
+                    item,
+                ],
+            });
         }),
-        Separator(ICON_SEPARATION),
-    ];
+        Separator(ICON_SEPARATION)]
+            .forEach(((ch) => {
+                list.add(ch);
+            }));
+    };
 
-    const list = Box({
-        vertical: true,
-        children: children(),
-    });
+    makeNewChildren();
 
     const placeholder = Label({
         label: "   Couldn't find a match",
@@ -45,7 +76,7 @@ const Applauncher = ({ window_name = 'applauncher' } = {}) => {
             const appList = Applications.query(text || '');
 
             if (appList[0]) {
-                App.toggleWindow(window_name);
+                App.closeWindow(window_name);
                 Hyprland.sendMessage(`dispatch exec sh -c
                     ${appList[0].executable}`);
                 ++appList[0].frequency;
@@ -53,13 +84,22 @@ const Applauncher = ({ window_name = 'applauncher' } = {}) => {
         },
 
         on_change: ({ text }) => {
+            setSort(text);
             let visibleApps = 0;
 
-            list.children.forEach((item) => {
-                if (item.app) {
-                    item.visible = item.app.match(text);
+            list.get_children().forEach((row) => {
+                row.changed();
 
-                    if (item.app.match(text)) {
+                const item = row.get_children()[0].children[1];
+
+                if (item?.app) {
+                    const isMatching = fzfResults.find((r) => {
+                        return r.item.name === item.app.name;
+                    });
+
+                    row.visible = isMatching;
+
+                    if (isMatching) {
                         ++visibleApps;
                     }
                 }
@@ -101,7 +141,7 @@ const Applauncher = ({ window_name = 'applauncher' } = {}) => {
                 entry.grab_focus();
             }
             else {
-                list.children = children();
+                makeNewChildren();
             }
         }]],
     });

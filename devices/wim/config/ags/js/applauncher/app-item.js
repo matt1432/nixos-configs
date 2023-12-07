@@ -44,13 +44,14 @@ export default (app) => {
 
 
     return Button({
+        hexpand: true,
         class_name: 'app',
 
         setup: (self) => {
             self.app = app;
         },
 
-        on_clicked: () => {
+        onPrimaryClickRelease: () => {
             App.closeWindow('applauncher');
             Hyprland.sendMessage(`dispatch exec sh -c ${app.executable}`);
             ++app.frequency;

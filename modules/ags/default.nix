@@ -38,7 +38,6 @@ in {
           pavucontrol # TODO: replace with ags widget
         ])
         ++ (optionals isTouchscreen (with pkgs; [
-          # touchscreen
           lisgd
           squeekboard
           ydotool
