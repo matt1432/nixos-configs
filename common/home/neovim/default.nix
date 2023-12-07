@@ -133,6 +133,12 @@ in {
 
           # Bash
           bashIde.shellcheckPath = "${pkgs.shellcheck}/bin/shellcheck";
+
+          markdownlint.config = {
+            no-trailing-spaces = true;
+            no-multiple-blanks = false;
+            no-duplicate-heading = false;
+          };
         };
       };
 
