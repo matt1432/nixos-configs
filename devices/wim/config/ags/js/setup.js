@@ -1,5 +1,7 @@
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
+import Bluetooth from 'resource:///com/github/Aylur/ags/service/bluetooth.js';
+import { execAsync, readFileAsync, timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import Brightness from '../services/brightness.js';
 import Pointers from '../services/pointers.js';
@@ -13,6 +15,33 @@ export default () => {
     globalThis.Pointers = Pointers;
     globalThis.Tablet = Tablet;
     globalThis.closeAll = closeAll;
+
+    // Persist Bluetooth state
+    const bluetoothStateFile = '/home/matt/.cache/ags/.bluetooth';
+    const stateCmd = () => ['bash', '-c',
+        `echo ${Bluetooth.enabled} > ${bluetoothStateFile}`];
+    const monitorState = () => {
+        Bluetooth.connect('notify::enabled', () => {
+            execAsync(stateCmd()).catch(print);
+        });
+    };
+
+    // On launch
+    readFileAsync(bluetoothStateFile)
+        .then((content) => {
+            Bluetooth.enabled = JSON.parse(content);
+            timeout(1000, () => {
+                monitorState();
+            });
+        })
+        .catch(() => {
+            execAsync(stateCmd())
+                .then(() => {
+                    monitorState();
+                })
+                .catch(print);
+        });
+
 
     TouchGestures.addGesture({
         name: 'openAppLauncher',
