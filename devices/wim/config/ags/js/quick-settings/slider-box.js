@@ -58,7 +58,7 @@ export default () => Box({
             children: [
                 Icon({
                     className: 'slider-label',
-                    icon: 'display-brightness-symbolic',
+                    binds: [['icon', Brightness, 'screen-icon']],
                 }),
 
                 Slider({

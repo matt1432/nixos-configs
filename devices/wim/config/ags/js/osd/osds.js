@@ -32,7 +32,7 @@ export const SpeakerOSD = (stack) => OSD({
 
 export const ScreenBrightnessOSD = (stack) => OSD({
     stack,
-    icon: 'display-brightness-symbolic',
+    icon: { binds: [['icon', Brightness, 'screen-icon']] },
     info: {
         mod: Brightness,
         signal: 'screen',

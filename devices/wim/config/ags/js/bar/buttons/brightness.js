@@ -6,6 +6,11 @@ import Separator from '../../misc/separator.js';
 const SPACING = 5;
 
 
+const Indicator = (props) => Icon({
+    ...props,
+    binds: [['icon', Brightness, 'screen-icon']],
+});
+
 const BrightnessPercentLabel = (props) => Label({
     ...props,
     connections: [[Brightness, (self) => {
@@ -34,7 +39,7 @@ export default () => {
         child: Box({
             className: 'brightness',
             children: [
-                Icon('display-brightness-symbolic'),
+                Indicator(),
                 rev,
             ],
         }),

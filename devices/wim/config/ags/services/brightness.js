@@ -5,6 +5,12 @@ import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 const KBD = 'tpacpi::kbd_backlight';
 const CAPS = 'input0::capslock';
 const INTERVAL = 500;
+const SCREEN_ICONS = {
+    90: 'display-brightness-high-symbolic',
+    70: 'display-brightness-medium-symbolic',
+    20: 'display-brightness-low-symbolic',
+    5: 'display-brightness-off-symbolic',
+};
 
 class Brightness extends Service {
     static {
@@ -13,12 +19,14 @@ class Brightness extends Service {
             kbd: ['float'],
             caps: ['int'],
         }, {
+            'screen-icon': ['string', 'rw'],
             'caps-icon': ['string', 'rw'],
         });
     }
 
     #kbd = 0;
     #screen = 0;
+    #screenIcon = 'display-brightness-symbolic';
     #caps = 0;
     #capsIcon = 'caps-lock-symbolic';
 
@@ -28,6 +36,10 @@ class Brightness extends Service {
 
     get screen() {
         return this.#screen;
+    }
+
+    get screenIcon() {
+        return this.#screenIcon;
     }
 
     get caps() {
@@ -55,6 +67,7 @@ class Brightness extends Service {
         execAsync(`brightnessctl s ${percent * 100}% -q`)
             .then(() => {
                 this.#screen = percent;
+                this.#getScreenIcon();
                 this.emit('screen', this.#screen);
             })
             .catch(console.error);
@@ -70,6 +83,18 @@ class Brightness extends Service {
         }
         catch (error) {
             console.error('missing dependancy: brightnessctl');
+        }
+    }
+
+    #getScreenIcon() {
+        const brightness = this.#screen * 100;
+
+        // eslint-disable-next-line
+        for (const threshold of [4, 19, 69, 89]) {
+            if (brightness > threshold + 1) {
+                this.#screenIcon = SCREEN_ICONS[threshold + 1];
+                this.notify('screen-icon');
+            }
         }
     }
 
