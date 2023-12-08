@@ -5,6 +5,7 @@ import { Box, EventBox, Icon, Label, Revealer } from 'resource:///com/github/Ayl
 import Separator from '../../misc/separator.js';
 
 const DEFAULT_KB = 'at-translated-set-2-keyboard';
+const SPACING = 4;
 
 
 export default () => {
@@ -12,7 +13,7 @@ export default () => {
         transition: 'slide_right',
         child: Box({
             children: [
-                Separator(4),
+                Separator(SPACING),
                 Label({
                     css: 'font-size: 20px;',
                     connections: [[Hyprland, (self, _n, layout) => {

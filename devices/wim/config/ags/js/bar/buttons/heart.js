@@ -1,4 +1,4 @@
-import { Box, Label } from 'resource:///com/github/Aylur/ags/widget.js';
+import { Label } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 
@@ -16,18 +16,13 @@ Persist({
 });
 
 
-export default () => {
-    return EventBox({
-        onPrimaryClickRelease: () => {
-            HeartState.value = HeartState.value === '' ? '󰣐' : '';
-        },
+export default () => EventBox({
+    onPrimaryClickRelease: () => {
+        HeartState.value = HeartState.value === '' ? '󰣐' : '';
+    },
 
-        child: Box({
-            className: 'heart-toggle',
-
-            child: Label({
-                binds: [['label', HeartState, 'value']],
-            }),
-        }),
-    });
-};
+    child: Label({
+        className: 'heart-toggle',
+        binds: [['label', HeartState, 'value']],
+    }),
+});
