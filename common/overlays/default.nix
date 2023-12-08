@@ -3,12 +3,8 @@
   nixpkgs-wayland,
   ...
 }: {
-  imports = [
-    ./dracula-theme
-    ./regreet
-  ];
-
   nixpkgs.overlays = [
+    (import ./dracula-theme)
     (import ./spotifywm)
     (import ./squeekboard)
 

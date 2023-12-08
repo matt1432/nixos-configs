@@ -71,6 +71,8 @@
         "    ${hyprBin}/hyprctl dispatch exit"
       ]));
 in {
+  imports = [./regreet.nix];
+
   users.users.greeter = {
     packages = with pkgs; [
       dracula-theme
