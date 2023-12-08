@@ -115,4 +115,18 @@
       transition: 200ms;
     }
   }
+
+  *:selected {
+    * {
+      font-weight: unset;
+    }
+
+    label.title {
+      color: $contrast-bg;
+    }
+
+    image {
+      -gtk-icon-shadow: 2px 2px $contrast-bg;
+    }
+  }
 }
