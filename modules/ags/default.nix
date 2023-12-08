@@ -23,7 +23,7 @@ in {
       programs.ags = {
         enable = true;
         configDir = symlink "${config.vars.configDir}/ags";
-        package = ags.packages.x86_64-linux.default;
+        package = ags.packages.${pkgs.system}.default;
         extraPackages = [pkgs.libgudev];
       };
 

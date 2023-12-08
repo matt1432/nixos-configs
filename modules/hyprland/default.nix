@@ -53,7 +53,7 @@ in {
 
     wayland.windowManager.hyprland = {
       enable = true;
-      package = hyprland.packages.x86_64-linux.default;
+      package = hyprland.packages.${pkgs.system}.default;
 
       plugins =
         []

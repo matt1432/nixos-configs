@@ -1,5 +1,9 @@
-{nixpkgs-wayland, ...}: let
-  waypkgs = nixpkgs-wayland.packages.x86_64-linux;
+{
+  nixpkgs-wayland,
+  pkgs,
+  ...
+}: let
+  waypkgs = nixpkgs-wayland.packages.${pkgs.system};
 in {
   programs = {
     obs-studio = {

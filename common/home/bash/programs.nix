@@ -40,8 +40,13 @@
       };
       themes = {
         dracula-bat = {
-          src = "${pkgs.dracula-theme}/bat";
-          file = "dracula-bat.tmTheme";
+          src = pkgs.fetchFromGitHub {
+            owner = "matt1432";
+            repo = "bat";
+            rev = "270bce892537311ac92494a2a7663e3ecf772092";
+            hash = "sha256-UyZ3WFfrEEBjtdb//5waVItmjKorkOiNGtu9eeB3lOw=";
+          };
+          file = "Dracula.tmTheme";
         };
       };
       extraPackages = with pkgs.bat-extras; [

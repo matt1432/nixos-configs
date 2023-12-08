@@ -68,21 +68,21 @@
   home-manager.users = let
     default = {
       imports = [
+        # Make the vars be the same on Nix and HM
+        ./vars.nix
+        ({osConfig, ...}: {vars = osConfig.vars;})
+
         nur.hmModules.nur
 
         ./home
         ./pkgs
-
-        # Make the vars be the same on Nix and HM
-        ./vars.nix
-        ({osConfig, ...}: {vars = osConfig.vars;})
       ];
 
       home.packages =
         [
           config.customPkgs.repl
-          nix-melt.packages.x86_64-linux.default
-          nurl.packages.x86_64-linux.default
+          nix-melt.packages.${pkgs.system}.default
+          nurl.packages.${pkgs.system}.default
         ]
         ++ (with config.nur.repos.rycee; [
           mozilla-addons-to-nix
