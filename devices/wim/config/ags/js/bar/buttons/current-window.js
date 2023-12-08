@@ -16,8 +16,10 @@ export default () => Box({
             connections: [[Hyprland.active.client, (self) => {
                 const app = Applications.query(Hyprland.active.client.class)[0];
 
-                self.icon = app.iconName;
-                self.visible = Hyprland.active.client.title !== '';
+                if (app) {
+                    self.icon = app.iconName;
+                    self.visible = Hyprland.active.client.title !== '';
+                }
             }]],
         }),
 
