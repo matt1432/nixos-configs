@@ -3,6 +3,8 @@
     self,
     home-manager,
     nixpkgs,
+    nix-on-droid,
+    neovim-flake,
     secrets,
     ...
   }: let
@@ -37,6 +39,25 @@
       ];
     };
 
+    nixOnDroidConfigurations.default = nix-on-droid.lib.nixOnDroidConfiguration {
+      extraSpecialArgs = inputs;
+      home-manager-path = home-manager.outPath;
+      pkgs = import nixpkgs {
+        system = "aarch64-linux";
+        overlays = [
+          nix-on-droid.overlays.default
+          neovim-flake.overlay
+          (import ./common/overlays/dracula-theme)
+        ];
+      };
+
+      modules = [
+        {home-manager.extraSpecialArgs = inputs;}
+        ./common/nix-on-droid.nix
+        ./devices/android
+      ];
+    };
+
     formatter = perSystem (_: pkgs: pkgs.alejandra);
   };
 
@@ -45,6 +66,12 @@
     secrets = {
       url = "git+ssh://git@git.nelim.org/matt1432/nixos-secrets";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-on-droid = {
+      url = "github:t184256/nix-on-droid";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
     };
 
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";

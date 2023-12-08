@@ -13,11 +13,13 @@ with lib; let
   nvim-treesitter-hypr = tree-sitter-hypr-flake.packages.${pkgs.system}.default;
   coc-stylelintplus = coc-stylelintplus-flake.packages.${pkgs.system}.default;
 in {
-  home.packages = optionalAttrs nvimIde (with pkgs; [
-    gradle
-    gradle-completion # FIXME: not working
-    alejandra
-  ]);
+  home = optionalAttrs nvimIde {
+    packages = with pkgs; [
+      gradle
+      gradle-completion # FIXME: not working
+      alejandra
+    ];
+  };
 
   xdg.dataFile = optionalAttrs nvimIde {
     ".gradle/gradle.properties".text = ''
