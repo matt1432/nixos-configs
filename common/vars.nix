@@ -46,5 +46,10 @@
     fontSize = mkOption {
       type = types.nullOr types.float;
     };
+
+    neovimIde = mkOption {
+      type = types.bool;
+      default = true;
+    };
   };
 }
