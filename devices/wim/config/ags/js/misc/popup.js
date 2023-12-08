@@ -1,4 +1,5 @@
 import App from 'resource:///com/github/Aylur/ags/app.js';
+import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 
 import { Revealer, Box, Window } from 'resource:///com/github/Aylur/ags/widget.js';
 import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
@@ -17,6 +18,7 @@ export default ({
     // Window props
     name,
     child,
+    blur = false,
     closeOnUnfocus = 'released',
     visible = false,
     layer = 'overlay',
@@ -28,14 +30,20 @@ export default ({
         visible: false,
         ...props,
 
-        // Add way to make window open on startup
         setup: () => {
+            // Add way to make window open on startup
             const id = App.connect('config-parsed', () => {
                 if (visible) {
                     App.openWindow(name);
                 }
                 App.disconnect(id);
             });
+
+            if (blur) {
+                Hyprland.sendMessage('[[BATCH]] ' +
+                    `keyword layerrule ignorealpha[0.97],${name}; ` +
+                    `keyword layerrule blur,${name}`);
+            }
         },
 
         // Wrapping the revealer inside a box is needed

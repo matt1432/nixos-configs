@@ -91,6 +91,7 @@ export const Overview = () => {
 export default () => {
     const window = PopupWindow({
         name: 'overview',
+        blur: true,
         closeOnUnfocus: 'none',
         onOpen: () => {
             window.setChild(Overview());

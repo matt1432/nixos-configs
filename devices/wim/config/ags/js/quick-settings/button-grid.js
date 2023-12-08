@@ -239,7 +239,7 @@ const FirstRow = () => Row({
             onOpen: (menu) => {
                 execAsync(`bluetoothctl scan ${menu.revealChild ?
                     'on' :
-                    'off'}`);
+                    'off'}`).catch(print);
             },
         }),
 
