@@ -7,15 +7,13 @@ import { Fzf } from '../../node_modules/fzf/dist/fzf.es.js';
 import { Box, Entry, Icon, Label, ListBox, Scrollable } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import PopupWindow from '../misc/popup.js';
-import Separator from '../misc/separator.js';
 import AppItem from './app-item.js';
 
 
 const Applauncher = ({ window_name = 'applauncher' } = {}) => {
-    const ICON_SEPARATION = 4;
-
     let fzfResults;
     const list = ListBox();
+
     const setSort = (text) => {
         const fzf = new Fzf(Applications.list, {
             selector: (app) => app.name,
@@ -25,8 +23,8 @@ const Applauncher = ({ window_name = 'applauncher' } = {}) => {
 
         fzfResults = fzf.find(text);
         list.set_sort_func((a, b) => {
-            const row1 = a.get_children()[0].children[1]?.app.name;
-            const row2 = b.get_children()[0].children[1]?.app.name;
+            const row1 = a.get_children()[0]?.app.name;
+            const row2 = b.get_children()[0]?.app.name;
 
             if (!row1 || !row2) {
                 return 0;
@@ -42,22 +40,13 @@ const Applauncher = ({ window_name = 'applauncher' } = {}) => {
             ch.destroy();
         });
 
-        [...Applications.query('').flatMap((app) => {
-            const item = AppItem(app);
+        const children = Applications.query('')
+            .flatMap((app) => AppItem(app));
 
-            return Box({
-                children: [
-                    Separator(ICON_SEPARATION, {
-                        binds: [['visible', item, 'visible']],
-                    }),
-                    item,
-                ],
-            });
-        }),
-        Separator(ICON_SEPARATION)]
-            .forEach(((ch) => {
-                list.add(ch);
-            }));
+        children.forEach((ch) => {
+            list.add(ch);
+        });
+        list.show_all();
     };
 
     makeNewChildren();
@@ -90,7 +79,7 @@ const Applauncher = ({ window_name = 'applauncher' } = {}) => {
             list.get_children().forEach((row) => {
                 row.changed();
 
-                const item = row.get_children()[0].children[1];
+                const item = row.get_children()[0];
 
                 if (item?.app) {
                     const isMatching = fzfResults.find((r) => {
