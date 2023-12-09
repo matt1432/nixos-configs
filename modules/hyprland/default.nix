@@ -5,10 +5,8 @@
   pkgs,
   lib,
   ...
-}: let
-  # Nix utils
-  optionals = lib.lists.optionals;
-
+}:
+with lib; let
   # Config stuff
   isNvidia = config.hardware.nvidia.modesetting.enable;
   isTouchscreen = config.hardware.sensor.iio.enable;
@@ -63,8 +61,9 @@ in {
 
       settings = {
         env = let
-            gset = pkgs.gsettings-desktop-schemas;
-          in [
+          gset = pkgs.gsettings-desktop-schemas;
+        in
+          [
             "XCURSOR_SIZE, 24"
             "XDG_DATA_DIRS, ${builtins.concatStringsSep ":" [
               "${gset}/share/gsettings-schemas/${gset.name}"
@@ -123,7 +122,9 @@ in {
             "${config.programs.kdeconnect.package}/libexec/kdeconnectd"
             "kdeconnect-indicator"
             "gnome-keyring-daemon --start --components=secrets"
-          ];
+          ]
+          ++ optionals (! isNull config.vars.mainMonitor)
+          ["hyprctl dispatch focusmonitor ${config.vars.mainMonitor}"];
 
         windowrule = [
           "noborder,^(wofi)$"
