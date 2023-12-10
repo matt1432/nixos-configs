@@ -55,9 +55,10 @@
       ];
 
       home.packages =
-        [
-          config.customPkgs.repl
-        ]
+        (with config.customPkgs; [
+          pokemon-colorscripts
+          repl
+        ])
         ++ (with pkgs.nodePackages; [
           undollar
         ])

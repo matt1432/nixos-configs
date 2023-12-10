@@ -1,5 +1,5 @@
 {python3Packages}:
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage {
   pname = "coloryou";
   version = "0.0.1";
 

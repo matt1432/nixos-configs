@@ -80,10 +80,13 @@
 
       home.packages =
         [
-          config.customPkgs.repl
           nix-melt.packages.${pkgs.system}.default
           nurl.packages.${pkgs.system}.default
         ]
+        ++ (with config.customPkgs; [
+          pokemon-colorscripts
+          repl
+        ])
         ++ (with config.nur.repos.rycee; [
           mozilla-addons-to-nix
         ])
