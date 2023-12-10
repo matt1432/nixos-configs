@@ -2,10 +2,16 @@
 (
     cd ~/.nix || exit 1
     git fetch --all > /dev/null
-    git -c color.status=always status |
-        grep -v -e branch \
-            -e 'use "git' \
-            -e "nothing to commit"
+    GIT=$(git -c color.status=always status |
+            grep -v -e branch \
+                -e 'use "git' \
+                -e "nothing to commit" |
+            sed '/^$/d')
+
+    if [ "$GIT" != "" ]; then
+        echo "$GIT"
+        echo
+    fi
 )
 
 # Pokemon Sprite
