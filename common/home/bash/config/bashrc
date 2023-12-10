@@ -3,7 +3,8 @@
     cd ~/.nix || exit 1
     git fetch --all > /dev/null
     GIT=$(git -c color.status=always status |
-            grep -v -e branch \
+            grep -v -e "On branch" \
+                -e "up to date" \
                 -e 'use "git' \
                 -e "nothing to commit" |
             sed '/^$/d')
