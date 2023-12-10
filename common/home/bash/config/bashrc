@@ -1,3 +1,13 @@
+# Check git status of nix configs
+(
+    cd ~/.nix || exit 1
+    git fetch --all > /dev/null
+    git -c color.status=always status |
+        grep -v -e branch \
+            -e 'use "git' \
+            -e "nothing to commit"
+)
+
 # Pokemon Sprite
 [ -x "$(command -v pokemon-colorscripts)" ] &&
 [ "$POKE" == "true" ] &&
