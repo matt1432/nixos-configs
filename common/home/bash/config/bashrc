@@ -6,10 +6,11 @@
             grep -v -e "On branch" \
                 -e "up to date" \
                 -e 'use "git' \
-                -e "nothing to commit" |
-            sed '/^$/d')
+                -e "nothing to commit")
 
-    if [ "$GIT" != "" ]; then
+    CHECK=$(echo "$GIT" | sed '/^$/d')
+
+    if [ "$CHECK" != "" ]; then
         echo "$GIT"
         echo
     fi
