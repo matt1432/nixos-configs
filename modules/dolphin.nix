@@ -1,10 +1,14 @@
-{config, pkgs, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   environment.systemPackages = with pkgs; [
     plasma5Packages.kio-admin
   ];
 
-  home-manager.users.${config.vars.user}.home.packages =
-    with pkgs; []
+  home-manager.users.${config.vars.user}.home.packages = with pkgs;
+    []
     ++ (with pkgs.plasma5Packages; [
       ark
       kcharselect

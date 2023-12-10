@@ -9,7 +9,8 @@
   isNvidia = config.hardware.nvidia.modesetting.enable;
   isTouchscreen = config.hardware.sensor.iio.enable;
 
-  hyprland = config
+  hyprland =
+    config
     .home-manager
     .users
     .${config.vars.user}

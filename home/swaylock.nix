@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   home.packages = [
     (pkgs.writeShellScriptBin "lock" ''
       ags -r 'Tablet.setLaptopMode()'
