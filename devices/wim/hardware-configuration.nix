@@ -8,7 +8,9 @@
   imports = [(modulesPath + "/installer/scan/not-detected.nix")];
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
+    # FIXME: 6.6.5 breaks wpa_supplicant
+    kernelPackages = pkgs.linuxPackages_6_5;
+
     kernelModules = ["kvm-amd" "acpi_call"];
     extraModulePackages = with config.boot.kernelPackages; [
       v4l2loopback
