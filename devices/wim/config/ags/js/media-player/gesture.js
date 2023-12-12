@@ -98,7 +98,7 @@ export default ({
                             ${TRANSITION}
                             margin-left:   ${OFFSCREEN}px;
                             margin-right: -${OFFSCREEN}px;
-                            opacity: 0; ${playerBox._bgStyle}
+                            opacity: 0.7; ${playerBox._bgStyle}
                         `);
                     }
 
@@ -108,7 +108,7 @@ export default ({
                             ${TRANSITION}
                             margin-left: -${OFFSCREEN}px;
                             margin-right: ${OFFSCREEN}px;
-                            opacity: 0; ${playerBox._bgStyle}`);
+                            opacity: 0.7; ${playerBox._bgStyle}`);
                     }
 
                     timeout(ANIM_DURATION, () => {
