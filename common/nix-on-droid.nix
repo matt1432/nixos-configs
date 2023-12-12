@@ -17,7 +17,6 @@
       experimental-features = nix-command flakes
       keep-outputs = true
       keep-derivations = true
-      auto-optimise-store = true
       warn-dirty = false
     '';
 
