@@ -126,10 +126,8 @@
         chore = "(cd ~/.nix; git add flake.lock; git commit -m 'chore: update flake.lock'; git push)";
       };
 
-      profileExtra = ''
-        export POKE=true
-        [[ -f ~/.bashrc ]] && . ~/.bashrc
-      '';
+      #profileExtra = ''
+      #'';
       bashrcExtra = ''
         ${lib.strings.fileContents ./config/dracula/less.sh}
         ${lib.strings.fileContents ./config/dracula/fzf.sh}

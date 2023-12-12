@@ -17,6 +17,4 @@
 )
 
 # Pokemon Sprite
-[ -x "$(command -v pokemon-colorscripts)" ] &&
-[ "$POKE" == "true" ] &&
 pokemon-colorscripts -r 1-5
