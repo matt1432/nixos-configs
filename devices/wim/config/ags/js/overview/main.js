@@ -93,9 +93,9 @@ export default () => {
         name: 'overview',
         blur: true,
         closeOnUnfocus: 'none',
-        onOpen: () => {
-            window.setChild(Overview());
-            window.getChild().getChild().update();
+        onOpen: (win) => {
+            win.setChild(Overview());
+            win.getChild().getChild().update();
         },
     });
 

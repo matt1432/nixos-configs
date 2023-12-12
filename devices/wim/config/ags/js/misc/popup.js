@@ -63,11 +63,11 @@ export default ({
                         rev.revealChild = isOpen;
 
                         if (isOpen) {
-                            onOpen(child);
+                            onOpen(window);
                         }
                         else {
                             timeout(transitionDuration, () => {
-                                onClose(child);
+                                onClose(window);
                             });
                         }
                     }
