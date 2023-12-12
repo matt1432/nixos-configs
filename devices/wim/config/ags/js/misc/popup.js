@@ -78,6 +78,29 @@ export default ({
         }),
     });
 
+    window.setXPos = (
+        alloc,
+        side = 'right',
+    ) => {
+        const width = window.get_display()
+            .get_monitor_at_point(alloc.x, alloc.y)
+            .get_geometry().width;
+
+        window.margins = [
+            window.margins[0],
+
+            side === 'right' ?
+                (width - alloc.x - alloc.width) :
+                window.margins[1],
+
+            window.margins[2],
+
+            side === 'right' ?
+                window.margins[3] :
+                (alloc.x - alloc.width),
+        ];
+    };
+
     // Make getting the original child passed in this
     // function easier when making more code for the widget
     window.getChild = () => window.child.children[0].child;

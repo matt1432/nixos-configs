@@ -12,7 +12,12 @@ const SPACING = 4;
 export default () => EventBox({
     className: 'toggle-off',
 
-    onPrimaryClickRelease: () => App.toggleWindow('notification-center'),
+    onPrimaryClickRelease: (self) => {
+        App.getWindow('notification-center')
+            .setXPos(self.get_allocation(), 'right');
+
+        App.toggleWindow('notification-center');
+    },
 
     connections: [[App, (self, windowName, visible) => {
         if (windowName === 'notification-center') {

@@ -19,7 +19,12 @@ export default () => EventBox({
 
     onHoverLost: () => { /**/ },
 
-    onPrimaryClickRelease: () => App.toggleWindow('quick-settings'),
+    onPrimaryClickRelease: (self) => {
+        App.getWindow('notification-center')
+            .setXPos(self.get_allocation(), 'right');
+
+        App.toggleWindow('quick-settings');
+    },
 
     connections: [[App, (self, windowName, visible) => {
         if (windowName === 'quick-settings') {
