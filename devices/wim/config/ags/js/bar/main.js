@@ -22,9 +22,11 @@ export default () => Window({
     name: 'bar',
     layer: 'overlay',
     anchor: ['top', 'left', 'right'],
+    margins: [-1, 0, 0, 0],
     exclusivity: 'exclusive',
     child: BarReveal({
         child: CenterBox({
+            css: 'margin: 6px 5px 5px 5px',
             className: 'bar',
             vertical: false,
 
