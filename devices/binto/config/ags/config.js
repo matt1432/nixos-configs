@@ -3,6 +3,7 @@ import { exec } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import Pointers from 'file:///home/matt/.nix/devices/wim/config/ags/services/pointers.js';
 
+import AppLauncher from 'file:///home/matt/.nix/devices/wim/config/ags/js/applauncher/main.js';
 import Bar from './js/bar/main.js';
 import { NotifPopups, NotifCenter } from './js/notifications/main.js';
 
@@ -18,15 +19,18 @@ export default {
     cacheNotificationActions: true,
 
     onConfigParsed: () => {
-        globalThis.Ponters = Pointers;
+        globalThis.Pointers = Pointers;
     },
 
     closeWindowDelay: {
+        'applauncher': 500,
         'notification-center': 500,
     },
     windows: [
-        Bar(),
+        AppLauncher(),
         NotifCenter(),
+
+        Bar(),
         NotifPopups(),
     ],
 };

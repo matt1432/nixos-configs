@@ -9,6 +9,7 @@ undershoot {
 }
 
 @import '/home/matt/.nix/devices/wim/config/ags/scss/common';
+@import './widgets/applauncher';
 @import './widgets/bar';
 @import './widgets/notification';
 @import './widgets/notification-center';
