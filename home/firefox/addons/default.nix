@@ -40,17 +40,17 @@ in
     inherit buildFirefoxXpiAddon;
 
     seventv = let
-      version = "v3.0.10.1000";
+      version = "4.0";
     in
       buildFirefoxXpiAddon {
-        pname = "seventv";
+        pname = "frankerfacez";
         inherit version;
-        addonId = "moz-addon@7tv.app";
-        url = "https://extension.7tv.gg/${version}/ext.xpi";
-        sha256 = "sha256-dZyjFayvnLebSZHjMTTQFjcsxxpmc1aL5q17mLF3kG8=";
+        addonId = "frankerfacez@frankerfacez.com";
+        url = "https://cdn.frankerfacez.com/script/frankerfacez-${version}-an+fx.xpi";
+        sha256 = "sha256-U/yAra2c+RlGSaQtHfBz9XYsoDaJ67gmPJBsFrpqoE8=";
         meta = with lib; {
-          homepage = "https://7tv.app/";
-          description = "The Web Extension for 7TV, bringing new features, emotes, vanity and performance to Twitch, Kick & YouTube";
+          homepage = "https://www.frankerfacez.com/";
+          description = "The Twitch Enhancement Suite. Get custom emotes and tons of new features you'll never want to go without.";
           license = licenses.asl20;
           platforms = platforms.all;
         };

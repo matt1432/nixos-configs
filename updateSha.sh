@@ -17,7 +17,15 @@ parseNurl() {
 # https://gitlab.com/mishakmak/pam-fprint-grosshack
 # https://github.com/tio/input-emulator
 
-# https://extension.7tv.gg/manifest.moz.json
+updateFFZ() {
+    FILE="/home/matt/.nix/home/firefox/addons/default.nix"
+    URL="https://cdn.frankerfacez.com/script/frankerfacez-4.0-an+fx.xpi"
+    HASH=$(nix store prefetch-file --refresh --json \
+        --hash-type sha256 $URL | jq -r .hash)
+
+    sed -i "s,sha256 = .*,sha256 = \"$HASH\";," "$FILE"
+}
+
 updateFirefoxAddons() {
     echo "Updating firefox addons using mozilla-addons-to-nix"
 
@@ -56,12 +64,14 @@ updateGSR() {
 }
 
 doAll() {
+    updateFFZ
     updateFirefoxAddons
     updateGSR
 }
 
 [[ "$1" == "-a" || "$1" == "--all" ]] && doAll
 [[ "$1" == "-f" || "$1" == "--firefox" ]] && updateFirefoxAddons
+[[ "$1" == "-ffz" || "$1" == "--frankerfacez" ]] && updateFFZ
 [[ "$1" == "-gsr" || "$1" == "--gpu-screen-recorder" ]] && updateGSR
 
 alejandra /home/matt/.nix
