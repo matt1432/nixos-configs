@@ -6,6 +6,7 @@ import Pointers from 'file:///home/matt/.nix/devices/wim/config/ags/services/poi
 import AppLauncher from 'file:///home/matt/.nix/devices/wim/config/ags/js/applauncher/main.js';
 import Bar from './js/bar/main.js';
 import { NotifPopups, NotifCenter } from './js/notifications/main.js';
+import Powermenu from 'file:///home/matt/.nix/devices/wim/config/ags/js/powermenu.js';
 
 const scss = App.configDir + '/scss/main.scss';
 const css  = App.configDir + '/style.css';
@@ -25,10 +26,12 @@ export default {
     closeWindowDelay: {
         'applauncher': 500,
         'notification-center': 500,
+        'powermenu': 500,
     },
     windows: [
         AppLauncher(),
         NotifCenter(),
+        Powermenu(),
 
         Bar(),
         NotifPopups(),
