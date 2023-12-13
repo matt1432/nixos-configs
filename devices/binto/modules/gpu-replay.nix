@@ -36,6 +36,9 @@ in {
     '')
   ];
 
+  # Allow CUDA on boot
+  boot.kernelModules = ["nvidia-uvm"];
+
   security.wrappers = {
     gpu-screen-recorder = {
       owner = "root";
