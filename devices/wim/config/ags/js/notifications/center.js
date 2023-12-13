@@ -115,6 +115,7 @@ export default () => Box({
                 Scrollable({
                     className: 'notification-list-box',
                     hscroll: 'never',
+                    vscroll: 'automatic',
                     child: Box({
                         className: 'notification-list',
                         vertical: true,

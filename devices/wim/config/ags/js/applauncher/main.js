@@ -112,6 +112,7 @@ const Applauncher = ({ window_name = 'applauncher' } = {}) => {
 
             Scrollable({
                 hscroll: 'never',
+                vscroll: 'automatic',
                 child: Box({
                     vertical: true,
                     children: [list, placeholder],
