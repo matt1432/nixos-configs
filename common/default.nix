@@ -104,6 +104,7 @@
           killall
           imagemagick
           usbutils
+          zip
         ]);
       home.stateVersion = lib.mkDefault "23.05";
     };
