@@ -11,11 +11,18 @@ parseNurl() {
 # TODO
 
 # https://github.com/dracula/xresources
-# https://github.com/dracula/plymouth
+#
 # https://github.com/dracula/gtk
-
-# https://gitlab.com/mishakmak/pam-fprint-grosshack
+# https://github.com/dracula/plymouth
+# https://github.com/matt1432/bat
+#
+# https://github.com/aynp/dracula-wallpapers/blob/main/Art/4k/Waves%201.png?raw=true
+#
+# https://github.com/dasJ/spotifywm
+#
 # https://github.com/tio/input-emulator
+# https://gitlab.com/mishakmak/pam-fprint-grosshack
+# https://gitlab.com/phoneybadger/pokemon-colorscripts
 
 updateFFZ() {
     FILE="/home/matt/.nix/home/firefox/addons/default.nix"

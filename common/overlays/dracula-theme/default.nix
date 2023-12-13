@@ -1,25 +1,10 @@
 (final: prev: {
   dracula-theme = prev.dracula-theme.overrideAttrs (oldAttrs: let
-    plymouth = prev.fetchFromGitHub {
-      owner = "dracula";
-      repo = "plymouth";
-      rev = "37aa09b27ecee4a825b43d2c1d20b502e8f19c96";
-      hash = "sha256-7YwkBzkAND9lfH2ewuwna1zUkQStBBx4JHGw3/+svhA=";
-    };
-
-    dracula-script = ./dracula-plymouth.patch;
-
-    git-colors = prev.fetchFromGitHub {
-      owner = "dracula";
-      repo = "git";
-      rev = "924d5fc32f7ca15d0dd3a8d2cf1747e81e063c73";
-      hash = "sha256-3tKjKn5IHIByj+xgi2AIL1vZANlb0vlYJsPjH6BHGxM=";
-    };
-
-    wallpaper = prev.fetchurl {
-      url = "https://github.com/aynp/dracula-wallpapers/blob/main/Art/4k/Waves%201.png?raw=true";
-      hash = "sha256-f9FwSOSvqTeDj4bOjYUQ6TM+/carCD9o5dhg/MnP/lk=";
-    };
+    bat-colors = prev.callPackage ./bat.nix prev;
+    git-colors = prev.callPackage ./git.nix prev;
+    plymouth = prev.callPackage ./plymouth.nix prev;
+    wallpaper = prev.callPackage ./wallpaper.nix prev;
+    Xresources = prev.callPackage ./xresources.nix prev;
   in {
     src = prev.fetchFromGitHub {
       owner = "dracula";
@@ -31,34 +16,13 @@
     installPhase = ''
       runHook preInstall
 
-      # Git colors
-      cp -a ${git-colors}/config/gitconfig ./git-colors
-      chmod 777 ./git-colors
-
-      line=$(grep -n 'Dracula Dark Theme' ./git-colors | cut -d: -f1)
-      sed -i "1,$((line-1))d" ./git-colors
-
-      mkdir -p $out
-      cp -a ./git-colors $out
-
-      # Plymouth
-      cp -a ${plymouth}/dracula ./dracula
-      chmod 777 ./dracula
-
-      rm ./dracula/dracula.script
-      cp -a ${dracula-script} ./dracula/dracula.script
-
-      sed -i "s@\/usr\/@$out\/@" ./dracula/dracula.plymouth
-
       mkdir -p $out/share/plymouth/themes
-      cp -a ./dracula $out/share/plymouth/themes/
 
-      # Wallpapers
-      cp -a ${wallpaper} ./waves.png
-
-      mkdir -p $out/wallpapers
-      cp -a ./waves.png $out/wallpapers/
-
+      cp -a ${bat-colors}/bat $out/bat
+      cp -a ${git-colors}/git-colors $out/git-colors
+      cp -a ${plymouth}/share/plymouth/themes/dracula $out/share/plymouth/themes/
+      cp -a ${wallpaper}/wallpapers $out/wallpapers
+      cp -a ${Xresources}/xres $out/xres
 
       # -------------------------------------------
       mkdir -p $out/share/themes/Dracula

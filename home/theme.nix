@@ -3,14 +3,7 @@
   lib,
   config,
   ...
-}: let
-  dracula-xresources = pkgs.fetchFromGitHub {
-    owner = "dracula";
-    repo = "xresources";
-    rev = "539ef24e9b0c5498a82d59bfa2bad9b618d832a3";
-    sha256 = "sha256-6fltsAluqOqYIh2NX0I/LC3WCWkb9Fn8PH6LNLBQbrY=";
-  };
-in {
+}: {
   home.pointerCursor = {
     name = "Dracula-cursors";
     package = pkgs.dracula-theme;
@@ -51,7 +44,9 @@ in {
     platformTheme = "qtct";
   };
 
-  xresources.extraConfig = builtins.readFile "${dracula-xresources}/Xresources";
+  xresources.extraConfig =
+    builtins.readFile
+    "${pkgs.dracula-theme}/xres/Xresources";
 
   xdg.configFile = let
     qtconf = ''
