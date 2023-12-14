@@ -1,5 +1,6 @@
 # Check git status of nix configs
-(
+
+fetchNix() {(
     cd ~/.nix || exit 1
     git fetch --all --quiet
     GIT=$(git -c color.status=always status |
@@ -14,7 +15,14 @@
         echo "$GIT"
         echo
     fi
-)
+)}
+
+# Check for internet
+if wget -q --spider https://nixos.org; then
+    fetchNix
+else
+    echo "Offline"
+fi
 
 # Pokemon Sprite
 pokemon-colorscripts -r 1-5
