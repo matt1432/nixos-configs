@@ -3,8 +3,8 @@
     bat-colors = prev.callPackage ./bat.nix prev;
     git-colors = prev.callPackage ./git.nix prev;
     plymouth = prev.callPackage ./plymouth.nix prev;
-    wallpaper = prev.callPackage ./wallpaper.nix prev;
     Xresources = prev.callPackage ./xresources.nix prev;
+    wallpaper = prev.fetchurl (import ./wallpaper.nix);
   in {
     src = prev.fetchFromGitHub {
       owner = "dracula";
@@ -16,12 +16,12 @@
     installPhase = ''
       runHook preInstall
 
-      mkdir -p $out/share/plymouth/themes
+      mkdir -p $out/share/plymouth/themes $out/wallpapers
+      cp -a ${wallpaper} $out/wallpapers/waves.png
 
       cp -a ${bat-colors}/bat $out/bat
       cp -a ${git-colors}/git-colors $out/git-colors
       cp -a ${plymouth}/share/plymouth/themes/dracula $out/share/plymouth/themes/
-      cp -a ${wallpaper}/wallpapers $out/wallpapers
       cp -a ${Xresources}/xres $out/xres
 
       # -------------------------------------------

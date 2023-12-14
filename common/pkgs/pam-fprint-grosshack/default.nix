@@ -13,11 +13,11 @@
   fetchFromGitLab,
 }:
 stdenv.mkDerivation rec {
-  pname = "pam-fprint-grosshack";
+  name = "pam-fprint-grosshack";
 
   src = fetchFromGitLab {
     owner = "mishakmak";
-    repo = pname;
+    repo = name;
     rev = "45b42524fb5783e1e555067743d7e0f70d27888a";
     hash = "sha256-obczZbf/oH4xGaVvp3y3ZyDdYhZnxlCWvL0irgEYIi0=";
   };
