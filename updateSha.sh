@@ -21,13 +21,11 @@ parseFetchurl() {
     sed -i "s,sha256 = .*,sha256 = \"$HASH\";," "$FILE"
 }
 
-# TODO
 
-# https://github.com/dasJ/spotifywm
-#
-# https://github.com/tio/input-emulator
-# https://gitlab.com/mishakmak/pam-fprint-grosshack
-# https://gitlab.com/phoneybadger/pokemon-colorscripts
+updateOverlays() {
+    FILE="/home/matt/.nix/common/overlays"
+    parseNurl "https://github.com/dasJ/spotifywm" "$FILE/spotifywm/spotifywm.nix"
+}
 
 updateDracula() {
     FILE="/home/matt/.nix/common/overlays/dracula-theme"
@@ -37,6 +35,13 @@ updateDracula() {
     parseNurl "https://github.com/dracula/git"        "$FILE/git.nix"
     parseNurl "https://github.com/dracula/xresources" "$FILE/xresources.nix"
     parseFetchurl "https://github.com/aynp/dracula-wallpapers/blob/main/Art/4k/Waves%201.png?raw=true" "$FILE/wallpaper.nix"
+}
+
+updateCustomPkgs() {
+    FILE="/home/matt/.nix/common/pkgs"
+    parseNurl "https://github.com/tio/input-emulator" "$FILE/input-emulator/default.nix"
+    parseNurl "https://gitlab.com/mishakmak/pam-fprint-grosshack" "$FILE/pam-fprint-grosshack/default.nix"
+    parseNurl "https://gitlab.com/phoneybadger/pokemon-colorscripts" "$FILE/pokemon-colorscripts/default.nix"
 }
 
 updateFFZ() {
@@ -80,15 +85,21 @@ updateGSR() {
     )
 }
 
+
 doAll() {
     updateFFZ
+    updateCustomPkgs
+    updateOverlays
     updateDracula
     updateFirefoxAddons
     updateGSR
 }
 
+
 [[ "$1" == "-a" || "$1" == "--all" ]] && doAll
 [[ "$1" == "-d" || "$1" == "--dracula" ]] && updateDracula
+[[ "$1" == "-c" || "$1" == "--custom" ]] && updateCustomPkgs
+[[ "$1" == "-o" || "$1" == "--overlays" ]] && updateOverlays
 [[ "$1" == "-f" || "$1" == "--firefox" ]] && updateFirefoxAddons
 [[ "$1" == "-ffz" || "$1" == "--frankerfacez" ]] && updateFFZ
 [[ "$1" == "-gsr" || "$1" == "--gpu-screen-recorder" ]] && updateGSR
