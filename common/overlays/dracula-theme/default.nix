@@ -9,8 +9,8 @@
     src = prev.fetchFromGitHub {
       owner = "dracula";
       repo = "gtk";
-      rev = "84dd7a3021938ceec8a0ee292a8561f8a6d47ebe";
-      hash = "sha256-xHf+f0RGMtbprJX+3c0cmp5LKkf0V7BHKcoiAW60du8=";
+      rev = "0b64e1108f4a222d40b333435a41d9f1963a3326";
+      hash = "sha256-SQHfHNE6OURAPYX5+0WLkm2sivWIrP0mMgkU+GZCCho=";
     };
 
     installPhase = ''
