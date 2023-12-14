@@ -74,8 +74,13 @@ updateGSR() {
     (
         cd /tmp || return
 
-        git clone https://repo.dec05eba.com/gpu-screen-recorder
-        cd gpu-screen-recorder || return
+        if [[ ! -d "gpu-screen-recorder" ]]; then
+            git clone https://repo.dec05eba.com/gpu-screen-recorder
+            cd gpu-screen-recorder || return
+        else
+            cd gpu-screen-recorder || return
+            git pull
+        fi
 
         REV=$(printf "r%s.%s\n" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)")
         URL=https://dec05eba.com/snapshot/gpu-screen-recorder.git."$REV".tar.gz
