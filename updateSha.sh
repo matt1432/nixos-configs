@@ -16,6 +16,9 @@ parseFetchurl() {
 
     sed -i "s,url = .*,url = \"$URL\";," "$FILE"
     sed -i "s,hash = .*,hash = \"$HASH\";," "$FILE"
+
+    # For Firefox addons
+    sed -i "s,sha256 = .*,sha256 = \"$HASH\";," "$FILE"
 }
 
 # TODO
