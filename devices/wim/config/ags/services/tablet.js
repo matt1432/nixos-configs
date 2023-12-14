@@ -58,8 +58,7 @@ class Tablet extends Service {
             '--device', '/dev/input/by-path/platform-i8042-serio-1-event-mouse',
             '--device', '/dev/input/by-path/platform-AMDI0010:02-event-mouse',
             '--device', '/dev/input/by-path/platform-thinkpad_acpi-event',
-            '--device', '/dev/video-bus',
-            '--device', '/dev/touchpad'],
+            '--device', '/dev/video-bus'],
         () => { /**/ },
         (err) => logError(err));
         this.emit('inputs-blocked', true);
