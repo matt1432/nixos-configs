@@ -41,7 +41,7 @@
       themes = {
         dracula-bat = {
           src = pkgs.dracula-theme;
-          file = "Dracula.tmTheme";
+          file = "bat/Dracula.tmTheme";
         };
       };
       extraPackages = with pkgs.bat-extras; [
