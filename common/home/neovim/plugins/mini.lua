@@ -6,7 +6,7 @@ map.setup({
     map.gen_integration.diagnostic(),
   },
   window = {
-    focusable = true,
+    focusable = false,
     width = 7,
     winblend = 75,
   },

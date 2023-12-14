@@ -25,3 +25,7 @@ set undodir=/home/matt/.cache/nvim/
 
 " remove highlight on words
 nnoremap <silent> <esc> :noh<cr><esc>
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved
+set signcolumn=yes
