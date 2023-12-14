@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  nixpkgs,
   home-manager,
   nh,
   nix-melt,
@@ -34,12 +33,6 @@
       auto-optimise-store = true;
       warn-dirty = false;
     };
-
-    # Minimize dowloads of indirect nixpkgs flakes
-    registry.nixpkgs = {
-      flake = nixpkgs;
-      exact = false;
-    };
   };
 
   nh = {
@@ -61,16 +54,12 @@
     };
   };
 
-  # Global hm settings
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
-
   home-manager.users = let
     default = {
       imports = [
         # Make the vars be the same on Nix and HM
         ./vars.nix
-        ({osConfig, ...}: {vars = osConfig.vars;})
+        {vars = config.vars;}
 
         nur.hmModules.nur
 
@@ -83,28 +72,8 @@
           nix-melt.packages.${pkgs.system}.default
           nurl.packages.${pkgs.system}.default
         ]
-        ++ (with config.customPkgs; [
-          pokemon-colorscripts
-          repl
-        ])
         ++ (with config.nur.repos.rycee; [
           mozilla-addons-to-nix
-        ])
-        ++ (with pkgs.nodePackages; [
-          undollar
-        ])
-        ++ (with pkgs; [
-          dracula-theme
-          neofetch
-          progress
-          wget
-          tree
-          mosh
-          rsync
-          killall
-          imagemagick
-          usbutils
-          zip
         ]);
       home.stateVersion = lib.mkDefault "23.05";
     };

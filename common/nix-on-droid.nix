@@ -1,13 +1,12 @@
 {
   config,
-  nixpkgs,
   nur,
-  pkgs,
   ...
 }: {
   imports = [
     ./vars.nix
     ./pkgs
+    ./modules/global.nix
     nur.nixosModules.nur
   ];
 
@@ -20,12 +19,6 @@
       warn-dirty = false
     '';
 
-    # Minimize dowloads of indirect nixpkgs flakes
-    registry.nixpkgs = {
-      flake = nixpkgs;
-      exact = false;
-    };
-
     substituters = [
       # Neovim and stuff
       "https://nix-community.cachix.org"
@@ -37,44 +30,18 @@
   };
 
   # Global hm settings
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
+  home-manager.config = {
+    imports = [
+      # Make the vars be the same on Nix and HM
+      ./vars.nix
+      {vars = config.vars;}
 
-    config = {
-      imports = [
-        # Make the vars be the same on Nix and HM
-        ./vars.nix
-        {vars = config.vars;}
+      nur.hmModules.nur
 
-        nur.hmModules.nur
+      ./home
+      ./pkgs
+    ];
 
-        ./home
-        ./pkgs
-      ];
-
-      home.packages =
-        (with config.customPkgs; [
-          pokemon-colorscripts
-          repl
-        ])
-        ++ (with pkgs.nodePackages; [
-          undollar
-        ])
-        ++ (with pkgs; [
-          dracula-theme
-          neofetch
-          progress
-          wget
-          tree
-          mosh
-          rsync
-          killall
-          imagemagick
-          usbutils
-        ]);
-
-      home.stateVersion = "23.05";
-    };
+    home.stateVersion = "23.05";
   };
 }
