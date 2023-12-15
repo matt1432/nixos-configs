@@ -1,4 +1,5 @@
 import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
+import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 
 import { Label } from 'resource:///com/github/Aylur/ags/widget.js';
 import OSD from './ctor.js';
@@ -10,12 +11,17 @@ import { MicIcon } from '../misc/audio-icons.js';
 const AUDIO_MAX = 1.5;
 
 
+const ShowSpeaker = Variable(true);
+
+globalThis.showSpeaker = () => {
+    ShowSpeaker.value = !ShowSpeaker.value;
+};
+
 export const SpeakerOSD = (stack) => OSD({
     stack,
     icon: { binds: [['icon', SpeakerIcon, 'value']] },
     info: {
-        mod: Audio,
-        signal: 'speaker-changed',
+        mod: ShowSpeaker,
         logic: (self) => {
             if (!Audio.speaker) {
                 return;

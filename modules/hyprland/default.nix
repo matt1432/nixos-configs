@@ -182,13 +182,13 @@ in {
           ",Print, exec, grim -g \"$(slurp)\" - | swappy -f -"
           "$mainMod SHIFT, C, exec, wl-color-picker"
 
-          ",XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle"
+          ",XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle & ags -r 'showSpeaker()' &"
           ",XF86AudioMicMute, exec, pactl set-source-mute @DEFAULT_SOURCE@ toggle"
         ];
 
         binde = [
-          ",XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"
-          ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+          ",XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+ & ags -r 'showSpeaker()' &"
+          ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- & ags -r 'showSpeaker()' &"
         ];
 
         # Mouse Binds
