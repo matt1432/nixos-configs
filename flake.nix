@@ -37,6 +37,12 @@
         ./devices/oksys
         secrets.nixosModules.oksys
       ];
+
+      live-image = mkNixOS [
+        ("${nixpkgs}/nixos/modules/installer/" +
+        "cd-dvd/installation-cd-minimal.nix")
+        {vars.user = "nixos";}
+      ];
     };
 
     nixOnDroidConfigurations.default = nix-on-droid.lib.nixOnDroidConfiguration {
@@ -59,6 +65,20 @@
     };
 
     formatter = perSystem (_: pkgs: pkgs.alejandra);
+
+    devShells = perSystem (_: pkgs: {
+      default = pkgs.mkShell {
+        packages = with pkgs; [
+          alejandra
+          git
+
+          (pkgs.writeShellScriptBin "mkIso" (lib.concatStrings [
+            "nix build $(realpath /etc/nixos)#nixosConfigurations."
+            "live-image.config.system.build.isoImage"
+          ]))
+        ];
+      };
+    });
   };
 
   inputs = {
