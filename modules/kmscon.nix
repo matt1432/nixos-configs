@@ -1,10 +1,14 @@
-{...}: {
+{config, ...}: {
   services.kmscon = {
     enable = true;
     hwRender = false;
     # FIXME: https://github.com/Aetf/kmscon/issues/18    // Icons not rendering properly
-    # FIXME: https://github.com/Aetf/kmscon/issues/56    // Mouse cursor stays
-    # FIXME: wrong keyboard layout
-    extraOptions = "--font-size 12.5 --font-dpi 170 --font-name 'JetBrainsMono Nerd Font'";
+    extraOptions = builtins.concatStringsSep " " [
+      "--font-size 12.5"
+      "--font-dpi 170"
+      "--xkb-layout ${config.services.xserver.layout}"
+      "--xkb-variant ${config.services.xserver.xkbVariant}"
+      "--font-name 'JetBrainsMono Nerd Font'"
+    ];
   };
 }
