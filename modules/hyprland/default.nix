@@ -43,6 +43,7 @@ in {
     imports = [
       ../../home/alacritty.nix
       ../../home/dconf.nix
+      ../../home/mpv
       ../../home/obs.nix
       ../../home/swaylock.nix
       ../../home/theme.nix
@@ -225,7 +226,6 @@ in {
       thunderbird # TODO: use programs.thunderbird
       spotifywm
       photoqt
-      mpv
       nextcloud-client
       jellyfin-media-player
       xournalpp
