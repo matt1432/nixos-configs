@@ -86,11 +86,13 @@ const ModKey = (key) => {
             self.child.toggleClassName('active', !Mod.value);
             Mod.value = !Mod.value;
         },
-        connections: [[NormalClick, (self) => {
-            Mod.value = false;
-            self.child.toggleClassName('active', false);
-            execAsync(`ydotool key ${key.keycode}:0`);
-        }]],
+        setup: (self) => {
+            self.hook(NormalClick, () => {
+                Mod.value = false;
+                self.child.toggleClassName('active', false);
+                execAsync(`ydotool key ${key.keycode}:0`);
+            });
+        },
         child: Label({
             class_name: `mod ${key.label}`,
             label: key.label,
@@ -114,40 +116,41 @@ const RegularKey = (key) => {
             class_name: `normal ${key.label}`,
             label: key.label,
 
-            connections: [
-                [Shift, (self) => {
-                    if (!key.labelShift) {
-                        return;
-                    }
+            setup: (self) => {
+                self
+                    .hook(Shift, () => {
+                        if (!key.labelShift) {
+                            return;
+                        }
 
-                    self.label = Shift.value ? key.labelShift : key.label;
-                }],
+                        self.label = Shift.value ? key.labelShift : key.label;
+                    })
+                    .hook(Caps, () => {
+                        if (key.label === 'Caps') {
+                            self.toggleClassName('active', Caps.value);
 
-                [Caps, (self) => {
-                    if (key.label === 'Caps') {
-                        self.toggleClassName('active', Caps.value);
+                            return;
+                        }
 
-                        return;
-                    }
+                        if (!key.labelShift) {
+                            return;
+                        }
 
-                    if (!key.labelShift) {
-                        return;
-                    }
+                        if (key.label.match(/[A-Za-z]/)) {
+                            self.label = Caps.value ?
+                                key.labelShift :
+                                key.label;
+                        }
+                    })
+                    .hook(AltGr, () => {
+                        if (!key.labelAltGr) {
+                            return;
+                        }
 
-                    if (key.label.match(/[A-Za-z]/)) {
-                        self.label = Caps.value ? key.labelShift : key.label;
-                    }
-                }],
-
-                [AltGr, (self) => {
-                    if (!key.labelAltGr) {
-                        return;
-                    }
-
-                    self.toggleClassName('altgr', AltGr.value);
-                    self.label = AltGr.value ? key.labelAltGr : key.label;
-                }],
-            ],
+                        self.toggleClassName('altgr', AltGr.value);
+                        self.label = AltGr.value ? key.labelAltGr : key.label;
+                    });
+            },
         }),
     });
 
@@ -156,7 +159,7 @@ const RegularKey = (key) => {
     gesture.delay_factor = 1.0;
 
     // Long press
-    widget.connectTo(gesture, () => {
+    widget.hook(gesture, () => {
         const pointer = gesture.get_point(null);
         const x = pointer[1];
         const y = pointer[2];
@@ -171,7 +174,7 @@ const RegularKey = (key) => {
     }, 'pressed');
 
     // OnPrimaryClickRelease
-    widget.connectTo(gesture, () => {
+    widget.hook(gesture, () => {
         const pointer = gesture.get_point(null);
         const x = pointer[1];
         const y = pointer[2];

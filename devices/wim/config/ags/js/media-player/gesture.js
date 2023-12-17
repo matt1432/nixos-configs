@@ -12,7 +12,7 @@ const TRANSITION = `transition: margin ${ANIM_DURATION}ms ease,
 
 export default ({
     properties,
-    connections,
+    setup = () => {/**/},
     props,
 } = {}) => {
     const widget = EventBox();
@@ -33,101 +33,103 @@ export default ({
 
         child: emptyPlayer,
 
-        connections: [
-            ...connections,
+        setup: (self) => {
+            setup(self);
 
-            [gesture, (overlay, realGesture) => {
-                if (realGesture) {
-                    overlay.list().forEach((over) => {
-                        over.visible = true;
-                    });
-                }
-                else {
-                    overlay.showTopOnly();
-                }
+            self
+                .hook(gesture, (overlay, realGesture) => {
+                    if (realGesture) {
+                        overlay.list().forEach((over) => {
+                            over.visible = true;
+                        });
+                    }
+                    else {
+                        overlay.showTopOnly();
+                    }
 
-                // Don't allow gesture when only one player
-                if (overlay.list().length <= 1) {
-                    return;
-                }
+                    // Don't allow gesture when only one player
+                    if (overlay.list().length <= 1) {
+                        return;
+                    }
 
-                overlay._dragging = true;
-                let offset = gesture.get_offset()[1];
+                    overlay._dragging = true;
+                    let offset = gesture.get_offset()[1];
 
-                const playerBox = overlay.list().at(-1);
+                    const playerBox = overlay.list().at(-1);
 
-                // Slide right
-                if (offset >= 0) {
-                    playerBox.setCss(`
-                        margin-left:   ${offset}px;
-                        margin-right: -${offset}px;
-                        ${playerBox._bgStyle}
-                    `);
-                }
-
-                // Slide left
-                else {
-                    offset = Math.abs(offset);
-                    playerBox.setCss(`
-                        margin-left: -${offset}px;
-                        margin-right: ${offset}px;
-                        ${playerBox._bgStyle}
-                    `);
-                }
-            }, 'drag-update'],
-
-            [gesture, (overlay) => {
-                // Don't allow gesture when only one player
-                if (overlay.list().length <= 1) {
-                    return;
-                }
-
-                overlay._dragging = false;
-                const offset = gesture.get_offset()[1];
-
-                const playerBox = overlay.list().at(-1);
-
-                // If crosses threshold after letting go, slide away
-                if (Math.abs(offset) > MAX_OFFSET) {
-                    // Disable inputs during animation
-                    widget.sensitive = false;
-
-                    // Slide away right
+                    // Slide right
                     if (offset >= 0) {
                         playerBox.setCss(`
-                            ${TRANSITION}
-                            margin-left:   ${OFFSCREEN}px;
-                            margin-right: -${OFFSCREEN}px;
-                            opacity: 0.7; ${playerBox._bgStyle}
+                            margin-left:   ${offset}px;
+                            margin-right: -${offset}px;
+                            ${playerBox._bgStyle}
                         `);
                     }
 
-                    // Slide away left
+                    // Slide left
                     else {
+                        offset = Math.abs(offset);
                         playerBox.setCss(`
-                            ${TRANSITION}
-                            margin-left: -${OFFSCREEN}px;
-                            margin-right: ${OFFSCREEN}px;
-                            opacity: 0.7; ${playerBox._bgStyle}`);
+                            margin-left: -${offset}px;
+                            margin-right: ${offset}px;
+                            ${playerBox._bgStyle}
+                        `);
+                    }
+                }, 'drag-update')
+
+                .hook(gesture, (overlay) => {
+                    // Don't allow gesture when only one player
+                    if (overlay.list().length <= 1) {
+                        return;
                     }
 
-                    timeout(ANIM_DURATION, () => {
-                        // Put the player in the back after anim
-                        overlay.reorder_overlay(playerBox, 0);
-                        // Recenter player
-                        playerBox.setCss(playerBox._bgStyle);
+                    overlay._dragging = false;
+                    const offset = gesture.get_offset()[1];
 
-                        widget.sensitive = true;
+                    const playerBox = overlay.list().at(-1);
 
-                        overlay.showTopOnly();
-                    });
-                }
-                else {
-                    // Recenter with transition for animation
-                    playerBox.setCss(`${TRANSITION} ${playerBox._bgStyle}`);
-                }
-            }, 'drag-end'],
-        ],
+                    // If crosses threshold after letting go, slide away
+                    if (Math.abs(offset) > MAX_OFFSET) {
+                        // Disable inputs during animation
+                        widget.sensitive = false;
+
+                        // Slide away right
+                        if (offset >= 0) {
+                            playerBox.setCss(`
+                                ${TRANSITION}
+                                margin-left:   ${OFFSCREEN}px;
+                                margin-right: -${OFFSCREEN}px;
+                                opacity: 0.7; ${playerBox._bgStyle}
+                            `);
+                        }
+
+                        // Slide away left
+                        else {
+                            playerBox.setCss(`
+                                ${TRANSITION}
+                                margin-left: -${OFFSCREEN}px;
+                                margin-right: ${OFFSCREEN}px;
+                                opacity: 0.7; ${playerBox._bgStyle}
+                            `);
+                        }
+
+                        timeout(ANIM_DURATION, () => {
+                            // Put the player in the back after anim
+                            overlay.reorder_overlay(playerBox, 0);
+                            // Recenter player
+                            playerBox.setCss(playerBox._bgStyle);
+
+                            widget.sensitive = true;
+
+                            overlay.showTopOnly();
+                        });
+                    }
+                    else {
+                        // Recenter with transition for animation
+                        playerBox.setCss(`${TRANSITION} ${playerBox._bgStyle}`);
+                    }
+                }, 'drag-end');
+        },
     });
 
     widget.add(content);

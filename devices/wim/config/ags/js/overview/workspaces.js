@@ -31,17 +31,17 @@ const Workspace = (id, name, normal = true) => {
         transition: 'slide_right',
         transitionDuration: 500,
 
-        connections: normal ?
+        setup: (self) => {
+            if (normal) {
+                self.hook(Hyprland, () => {
+                    const activeId = Hyprland.active.workspace.id;
+                    const active = activeId === self._id;
 
-            [[Hyprland, (box) => {
-                const activeId = Hyprland.active.workspace.id;
-                const active = activeId === box._id;
-
-                box.revealChild = Hyprland.getWorkspace(box._id)
-                    ?.windows > 0 || active;
-            }]] :
-
-            [],
+                    self.revealChild = Hyprland.getWorkspace(self._id)
+                        ?.windows > 0 || active;
+                });
+            }
+        },
 
         child: WorkspaceDrop({
             child: Box({
@@ -88,38 +88,42 @@ export const WorkspaceRow = (className, i) => {
         transition: 'slide_down',
         hpack: className === 'special' ? '' : 'start',
 
-        connections: [[Hyprland, (rev) => {
-            const minId = i * VARS.WORKSPACE_PER_ROW;
-            const activeId = Hyprland.active.workspace.id;
+        setup: (self) => {
+            self.hook(Hyprland, (rev) => {
+                const minId = i * VARS.WORKSPACE_PER_ROW;
+                const activeId = Hyprland.active.workspace.id;
 
-            const rowExists = Hyprland.workspaces.some((ws) => {
-                const isInRow = ws.id > minId;
-                const hasClients = ws.windows > 0;
-                const isActive = ws.id === activeId;
+                const rowExists = Hyprland.workspaces.some((ws) => {
+                    const isInRow = ws.id > minId;
+                    const hasClients = ws.windows > 0;
+                    const isActive = ws.id === activeId;
 
-                return isInRow && (hasClients || isActive);
+                    return isInRow && (hasClients || isActive);
+                });
+
+                rev.revealChild = rowExists;
             });
-
-            rev.revealChild = rowExists;
-        }]],
+        },
 
         child: CenterBox({
             children: [null, EventBox({
-                connections: [[Hyprland, () => {
-                    const maxId = (i + 1) * VARS.WORKSPACE_PER_ROW;
-                    const activeId = Hyprland.active.workspace.id;
+                setup: (self) => {
+                    self.hook(Hyprland, () => {
+                        const maxId = (i + 1) * VARS.WORKSPACE_PER_ROW;
+                        const activeId = Hyprland.active.workspace.id;
 
-                    const isSpecial = className === 'special';
-                    const nextRowExists = Hyprland.workspaces.some((ws) => {
-                        const isInNextRow = ws.id > maxId;
-                        const hasClients = ws.windows > 0;
-                        const isActive = ws.id === activeId;
+                        const isSpecial = className === 'special';
+                        const nextRowExists = Hyprland.workspaces.some((ws) => {
+                            const isInNextRow = ws.id > maxId;
+                            const hasClients = ws.windows > 0;
+                            const isActive = ws.id === activeId;
 
-                        return isInNextRow && (hasClients || isActive);
+                            return isInNextRow && (hasClients || isActive);
+                        });
+
+                        addWorkspace.revealChild = isSpecial || !nextRowExists;
                     });
-
-                    addWorkspace.revealChild = isSpecial || !nextRowExists;
-                }]],
+                },
 
                 child: Box({
                     className,

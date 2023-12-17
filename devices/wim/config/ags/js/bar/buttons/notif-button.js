@@ -19,11 +19,13 @@ export default () => EventBox({
         App.toggleWindow('notification-center');
     },
 
-    connections: [[App, (self, windowName, visible) => {
-        if (windowName === 'notification-center') {
-            self.toggleClassName('toggle-on', visible);
-        }
-    }]],
+    setup: (self) => {
+        self.hook(App, (_, windowName, visible) => {
+            if (windowName === 'notification-center') {
+                self.toggleClassName('toggle-on', visible);
+            }
+        });
+    },
 
     child: CenterBox({
         className: 'notif-panel',
@@ -31,17 +33,19 @@ export default () => EventBox({
         center_widget: Box({
             children: [
                 Icon({
-                    connections: [[Notifications, (self) => {
-                        if (Notifications.dnd) {
-                            self.icon = 'notification-disabled-symbolic';
-                        }
-                        else if (Notifications.notifications.length > 0) {
-                            self.icon = 'notification-new-symbolic';
-                        }
-                        else {
-                            self.icon = 'notification-symbolic';
-                        }
-                    }]],
+                    setup: (self) => {
+                        self.hook(Notifications, () => {
+                            if (Notifications.dnd) {
+                                self.icon = 'notification-disabled-symbolic';
+                            }
+                            else if (Notifications.notifications.length > 0) {
+                                self.icon = 'notification-new-symbolic';
+                            }
+                            else {
+                                self.icon = 'notification-symbolic';
+                            }
+                        });
+                    },
                 }),
 
                 Separator(SPACING),

@@ -16,17 +16,18 @@ export default () => {
         visible: false,
         anchor: ['left', 'bottom', 'right'],
 
-        connections: [
-            [Tablet, (self, state) => {
-                self.setVisible(state);
-            }, 'osk-toggled'],
+        setup: (self) => {
+            self
+                .hook(Tablet, (_, state) => {
+                    self.setVisible(state);
+                }, 'osk-toggled')
 
-            [Tablet, () => {
-                if (!Tablet.tabletMode && !Tablet.oskState) {
-                    window.visible = false;
-                }
-            }, 'mode-toggled'],
-        ],
+                .hook(Tablet, () => {
+                    if (!Tablet.tabletMode && !Tablet.oskState) {
+                        window.visible = false;
+                    }
+                }, 'mode-toggled');
+        },
     });
 
     window.child = Keyboard(window);

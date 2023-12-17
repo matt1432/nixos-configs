@@ -42,7 +42,7 @@ export default ({
 
     const gesture = Gtk.GestureLongPress.new(widget);
 
-    widget.connectTo(gesture, () => {
+    widget.hook(gesture, () => {
         const pointer = gesture.get_point(null);
         const x = pointer[1];
         const y = pointer[2];

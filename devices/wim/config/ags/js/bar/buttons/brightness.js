@@ -13,9 +13,11 @@ const Indicator = (props) => Icon({
 
 const BrightnessPercentLabel = (props) => Label({
     ...props,
-    connections: [[Brightness, (self) => {
-        self.label = `${Math.round(Brightness.screen * 100)}%`;
-    }, 'screen']],
+    setup: (self) => {
+        self.hook(Brightness, () => {
+            self.label = `${Math.round(Brightness.screen * 100)}%`;
+        }, 'screen');
+    },
 });
 
 export default () => {

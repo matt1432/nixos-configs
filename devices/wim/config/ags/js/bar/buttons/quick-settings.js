@@ -26,11 +26,13 @@ export default () => EventBox({
         App.toggleWindow('quick-settings');
     },
 
-    connections: [[App, (self, windowName, visible) => {
-        if (windowName === 'quick-settings') {
-            self.toggleClassName('toggle-on', visible);
-        }
-    }]],
+    setup: (self) => {
+        self.hook(App, (_, windowName, visible) => {
+            if (windowName === 'quick-settings') {
+                self.toggleClassName('toggle-on', visible);
+            }
+        });
+    },
 
     child: Box({
         className: 'quick-settings-toggle',

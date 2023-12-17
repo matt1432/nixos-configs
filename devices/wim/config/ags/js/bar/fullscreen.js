@@ -31,19 +31,20 @@ export default (props) => {
         hexpand: true,
         vertical: true,
 
-        connections: [
-            [Hyprland.active, () => {
-                const workspace = Hyprland.getWorkspace(
-                    Hyprland.active.workspace.id,
-                );
+        setup: (self) => {
+            self
+                .hook(Hyprland.active, () => {
+                    const workspace = Hyprland.getWorkspace(
+                        Hyprland.active.workspace.id,
+                    );
 
-                Revealed.value = !workspace?.hasfullscreen;
-            }],
+                    Revealed.value = !workspace?.hasfullscreen;
+                })
 
-            [Hyprland, (_, fullscreen) => {
-                Revealed.value = !fullscreen;
-            }, 'fullscreen'],
-        ],
+                .hook(Hyprland, (_, fullscreen) => {
+                    Revealed.value = !fullscreen;
+                }, 'fullscreen');
+        },
 
         children: [
             Revealer({

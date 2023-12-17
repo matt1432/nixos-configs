@@ -58,20 +58,22 @@ export default ({
                 transition,
                 transitionDuration,
 
-                connections: [[App, (rev, currentName, isOpen) => {
-                    if (currentName === name) {
-                        rev.revealChild = isOpen;
+                setup: (self) => {
+                    self.hook(App, (_, currentName, isOpen) => {
+                        if (currentName === name) {
+                            self.revealChild = isOpen;
 
-                        if (isOpen) {
-                            onOpen(window);
+                            if (isOpen) {
+                                onOpen(window);
+                            }
+                            else {
+                                timeout(transitionDuration, () => {
+                                    onClose(window);
+                                });
+                            }
                         }
-                        else {
-                            timeout(transitionDuration, () => {
-                                onClose(window);
-                            });
-                        }
-                    }
-                }]],
+                    });
+                },
 
                 child: child || Box(),
             }),

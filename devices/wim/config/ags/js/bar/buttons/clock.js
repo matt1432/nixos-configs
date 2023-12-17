@@ -8,36 +8,32 @@ const { DateTime } = GLib;
 import EventBox from '../../misc/cursorbox.js';
 
 
-const ClockModule = ({
-    interval = 1000,
-    ...props
-} = {}) => {
-    return Label({
-        ...props,
-        className: 'clock',
+const ClockModule = () => Label({
+    className: 'clock',
 
-        connections: [[interval, (self) => {
+    setup: (self) => {
+        self.poll(1000, () => {
             const time = DateTime.new_now_local();
 
             self.label = time.format('%a. ') +
                 time.get_day_of_month() +
                 time.format(' %b. %H:%M');
-        }]],
-    });
-};
+        });
+    },
+});
 
 export default () => EventBox({
     className: 'toggle-off',
 
     onPrimaryClickRelease: () => App.toggleWindow('calendar'),
 
-    connections: [
-        [App, (self, windowName, visible) => {
+    setup: (self) => {
+        self.hook(App, (_, windowName, visible) => {
             if (windowName === 'calendar') {
                 self.toggleClassName('toggle-on', visible);
             }
-        }],
-    ],
+        });
+    },
 
     child: ClockModule(),
 });

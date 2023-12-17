@@ -107,72 +107,72 @@ export default () => {
             ['setup', false],
         ],
 
-        connections: [
-            [Mpris, (overlay, busName) => {
-                if (overlay._players.has(busName)) {
-                    return;
-                }
-
-                // Sometimes the signal doesn't give the busName
-                if (!busName) {
-                    const player = Mpris.players.find((p) => {
-                        return !overlay._players.has(p.busName);
-                    });
-
-                    if (player) {
-                        busName = player.busName;
-                    }
-                    else {
+        setup: (self) => {
+            self
+                .hook(Mpris, (overlay, busName) => {
+                    if (overlay._players.has(busName)) {
                         return;
                     }
-                }
 
-                // Get the one on top so we can move it up later
-                const previousFirst = overlay.list().at(-1);
+                    // Sometimes the signal doesn't give the busName
+                    if (!busName) {
+                        const player = Mpris.players.find((p) => {
+                            return !overlay._players.has(p.busName);
+                        });
 
-                // Make the new player
-                const player = Mpris.getPlayer(busName);
+                        if (player) {
+                            busName = player.busName;
+                        }
+                        else {
+                            return;
+                        }
+                    }
 
-                player.colors = Variable();
-                overlay._players.set(
-                    busName,
-                    PlayerBox(player, content.getOverlay()),
-                );
-                overlay.overlays = Array.from(overlay._players.values())
-                    .map((widget) => widget);
+                    // Get the one on top so we can move it up later
+                    const previousFirst = overlay.list().at(-1);
 
-                // Select favorite player at startup
-                if (!overlay._setup && overlay._players.has(FAVE_PLAYER)) {
-                    overlay.moveToTop(overlay._players.get(FAVE_PLAYER));
-                    overlay._setup = true;
-                }
+                    // Make the new player
+                    const player = Mpris.getPlayer(busName);
 
-                // Move previousFirst on top again
-                else if (overlay.includesWidget(previousFirst)) {
-                    overlay.moveToTop(previousFirst);
-                }
-            }, 'player-added'],
+                    player.colors = Variable();
+                    overlay._players.set(
+                        busName,
+                        PlayerBox(player, content.getOverlay()),
+                    );
+                    overlay.overlays = Array.from(overlay._players.values())
+                        .map((widget) => widget);
 
+                    // Select favorite player at startup
+                    if (!overlay._setup && overlay._players.has(FAVE_PLAYER)) {
+                        overlay.moveToTop(overlay._players.get(FAVE_PLAYER));
+                        overlay._setup = true;
+                    }
 
-            [Mpris, (overlay, busName) => {
-                if (!busName || !overlay._players.has(busName)) {
-                    return;
-                }
+                    // Move previousFirst on top again
+                    else if (overlay.includesWidget(previousFirst)) {
+                        overlay.moveToTop(previousFirst);
+                    }
+                }, 'player-added')
 
-                // Get the one on top so we can move it up later
-                const previousFirst = overlay.list().at(-1);
+                .hook(Mpris, (overlay, busName) => {
+                    if (!busName || !overlay._players.has(busName)) {
+                        return;
+                    }
 
-                // Remake overlays without deleted one
-                overlay._players.delete(busName);
-                overlay.overlays = Array.from(overlay._players.values())
-                    .map((widget) => widget);
+                    // Get the one on top so we can move it up later
+                    const previousFirst = overlay.list().at(-1);
 
-                // Move previousFirst on top again
-                if (overlay.includesWidget(previousFirst)) {
-                    overlay.moveToTop(previousFirst);
-                }
-            }, 'player-closed'],
-        ],
+                    // Remake overlays without deleted one
+                    overlay._players.delete(busName);
+                    overlay.overlays = Array.from(overlay._players.values())
+                        .map((widget) => widget);
+
+                    // Move previousFirst on top again
+                    if (overlay.includesWidget(previousFirst)) {
+                        overlay.moveToTop(previousFirst);
+                    }
+                }, 'player-closed');
+        },
     });
 
     return Box({

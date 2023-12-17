@@ -101,6 +101,23 @@ const Applauncher = ({ window_name = 'applauncher' } = {}) => {
         className: 'applauncher',
         vertical: true,
 
+        setup: (self) => {
+            self.hook(App, (_, name, visible) => {
+                if (name !== window_name) {
+                    return;
+                }
+
+                entry.text = '';
+
+                if (visible) {
+                    entry.grab_focus();
+                }
+                else {
+                    makeNewChildren();
+                }
+            });
+        },
+
         children: [
             Box({
                 className: 'header',
@@ -119,21 +136,6 @@ const Applauncher = ({ window_name = 'applauncher' } = {}) => {
                 }),
             }),
         ],
-
-        connections: [[App, (_, name, visible) => {
-            if (name !== window_name) {
-                return;
-            }
-
-            entry.text = '';
-
-            if (visible) {
-                entry.grab_focus();
-            }
-            else {
-                makeNewChildren();
-            }
-        }]],
     });
 };
 

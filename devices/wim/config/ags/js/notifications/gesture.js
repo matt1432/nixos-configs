@@ -91,80 +91,80 @@ export default ({
 
     widget.add(Box({
         css: squeezeLeft,
-        connections: [
+        setup: (self) => {
+            self
+                // When dragging
+                .hook(gesture, () => {
+                    let offset = gesture.get_offset()[1];
 
-            // When dragging
-            [gesture, (self) => {
-                let offset = gesture.get_offset()[1];
+                    if (offset === 0) {
+                        return;
+                    }
 
-                if (offset === 0) {
-                    return;
-                }
-
-                // Slide right
-                if (offset > 0) {
-                    self.setCss(`
+                    // Slide right
+                    if (offset > 0) {
+                        self.setCss(`
                         margin-top: 0px; margin-bottom: 0px;
                         opacity: 1; transition: none;
                         margin-left:   ${offset}px;
                         margin-right: -${offset}px;
                     `);
-                }
+                    }
 
-                // Slide left
-                else {
-                    offset = Math.abs(offset);
-                    self.setCss(`
+                    // Slide left
+                    else {
+                        offset = Math.abs(offset);
+                        self.setCss(`
                         margin-top: 0px; margin-bottom: 0px;
                         opacity: 1; transition: none;
                         margin-right: ${offset}px;
                         margin-left: -${offset}px;
                     `);
-                }
+                    }
 
-                // Put a threshold on if a click is actually dragging
-                widget._dragging = Math.abs(offset) > SLIDE_MIN_THRESHOLD;
-                widget.cursor = 'grabbing';
-            }, 'drag-update'],
+                    // Put a threshold on if a click is actually dragging
+                    widget._dragging = Math.abs(offset) > SLIDE_MIN_THRESHOLD;
+                    widget.cursor = 'grabbing';
+                }, 'drag-update')
 
+                // On drag end
+                .hook(gesture, () => {
+                    // Make it slide in on init
+                    if (!widget.ready) {
+                        // Reverse of slideAway, so it started at squeeze, then we go to slide
+                        self.setCss(slideIn === 'Left' ?
+                            slideLeft :
+                            slideRight);
 
-            // On drag end
-            [gesture, (self) => {
-                // Make it slide in on init
-                if (!widget.ready) {
-                    // Reverse of slideAway, so it started at squeeze, then we go to slide
-                    self.setCss(slideIn === 'Left' ? slideLeft : slideRight);
-
-                    timeout(ANIM_DURATION, () => {
-                        // Then we go to center
-                        self.setCss(defaultStyle);
                         timeout(ANIM_DURATION, () => {
-                            widget.ready = true;
+                            // Then we go to center
+                            self.setCss(defaultStyle);
+                            timeout(ANIM_DURATION, () => {
+                                widget.ready = true;
+                            });
                         });
-                    });
 
-                    return;
-                }
+                        return;
+                    }
 
-                const offset = gesture.get_offset()[1];
+                    const offset = gesture.get_offset()[1];
 
-                // If crosses threshold after letting go, slide away
-                if (Math.abs(offset) > MAX_OFFSET) {
-                    if (offset > 0) {
-                        widget.slideAway('Right');
+                    // If crosses threshold after letting go, slide away
+                    if (Math.abs(offset) > MAX_OFFSET) {
+                        if (offset > 0) {
+                            widget.slideAway('Right');
+                        }
+                        else {
+                            widget.slideAway('Left');
+                        }
                     }
                     else {
-                        widget.slideAway('Left');
+                        self.setCss(defaultStyle);
+                        widget.cursor = 'grab';
+                        widget._dragging = false;
                     }
-                }
-                else {
-                    self.setCss(defaultStyle);
-                    widget.cursor = 'grab';
-                    widget._dragging = false;
-                }
-            }, 'drag-end'],
-
-        ],
+                }, 'drag-end');
+        },
     }));
 
     return widget;

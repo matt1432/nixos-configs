@@ -43,19 +43,19 @@ const Workspace = ({ i } = {}) => {
                             }
                         }
                     };
+
+                    self
+                        .hook(Hyprland, () => self.update())
+                        // Deal with urgent windows
+                        .hook(Hyprland, (_, a) => {
+                            self.update(a);
+                        }, 'urgent-window')
+                        .hook(Hyprland.active.workspace, () => {
+                            if (Hyprland.active.workspace.id === i) {
+                                self.toggleClassName('urgent', false);
+                            }
+                        });
                 },
-
-                connections: [
-                    [Hyprland, (self) => self.update()],
-
-                    // Deal with urgent windows
-                    [Hyprland, (self, a) => self.update(a), 'urgent-window'],
-                    [Hyprland.active.workspace, (self) => {
-                        if (Hyprland.active.workspace.id === i) {
-                            self.toggleClassName('urgent', false);
-                        }
-                    }],
-                ],
             }),
         }),
     });
@@ -81,7 +81,9 @@ export default () => {
         vpack: 'center',
         hpack: 'start',
         className: 'button active',
-        connections: [[Hyprland.active.workspace, updateHighlight]],
+        setup: (self) => {
+            self.hook(Hyprland.active.workspace, updateHighlight);
+        },
     });
 
     const widget = Overlay({
@@ -122,21 +124,23 @@ export default () => {
                     }],
                 ],
 
-                connections: [[Hyprland, (self) => {
-                    self._workspaces = self.children.filter((ch) => {
-                        return Hyprland.workspaces.find((ws) => {
-                            return ws.id === ch._id;
-                        });
-                    }).sort((a, b) => a._id - b._id);
+                setup: (self) => {
+                    self.hook(Hyprland, () => {
+                        self._workspaces = self.children.filter((ch) => {
+                            return Hyprland.workspaces.find((ws) => {
+                                return ws.id === ch._id;
+                            });
+                        }).sort((a, b) => a._id - b._id);
 
-                    self._updateWorkspaces(self);
-                    self._refresh(self);
+                        self._updateWorkspaces(self);
+                        self._refresh(self);
 
-                    // Make sure the highlight doesn't go too far
-                    const TEMP_TIMEOUT = 10;
+                        // Make sure the highlight doesn't go too far
+                        const TEMP_TIMEOUT = 10;
 
-                    timeout(TEMP_TIMEOUT, () => updateHighlight(highlight));
-                }]],
+                        timeout(TEMP_TIMEOUT, () => updateHighlight(highlight));
+                    });
+                },
             }),
         }),
     });

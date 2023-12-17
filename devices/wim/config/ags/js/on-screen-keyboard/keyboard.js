@@ -37,15 +37,17 @@ export default (window) => Box({
                             active: true,
                             vpack: 'center',
 
-                            connections: [['toggled', (self) => {
-                                self.toggleClassName(
-                                    'toggled',
-                                    self.get_active(),
-                                );
-                                window.exclusivity = self.get_active() ?
-                                    'exclusive' :
-                                    'normal';
-                            }]],
+                            setup: (self) => {
+                                self.on('toggled', () => {
+                                    self.toggleClassName(
+                                        'toggled',
+                                        self.get_active(),
+                                    );
+                                    window.exclusivity = self.get_active() ?
+                                        'exclusive' :
+                                        'normal';
+                                });
+                            },
 
                             child: Label('Exclusive'),
                         }),

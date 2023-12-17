@@ -13,11 +13,13 @@ const SpeakerIndicator = (props) => Icon({
 
 const SpeakerPercentLabel = (props) => Label({
     ...props,
-    connections: [[Audio, (label) => {
-        if (Audio.speaker) {
-            label.label = `${Math.round(Audio.speaker.volume * 100)}%`;
-        }
-    }, 'speaker-changed']],
+    setup: (self) => {
+        self.hook(Audio, (label) => {
+            if (Audio.speaker) {
+                label.label = `${Math.round(Audio.speaker.volume * 100)}%`;
+            }
+        }, 'speaker-changed');
+    },
 });
 
 const SPACING = 5;

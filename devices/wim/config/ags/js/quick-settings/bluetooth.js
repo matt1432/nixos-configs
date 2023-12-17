@@ -5,8 +5,8 @@ import { Box, Icon, Label, ListBox, Overlay, Revealer, Scrollable } from 'resour
 
 import EventBox from '../misc/cursorbox.js';
 
-const SCROLL_THRESHOLD_H = 200;
-const SCROLL_THRESHOLD_N = 7;
+const SCROLL_THRESH_H = 200;
+const SCROLL_THRESH_N = 7;
 
 
 const BluetoothDevice = (dev) => {
@@ -29,9 +29,11 @@ const BluetoothDevice = (dev) => {
                 icon: 'object-select-symbolic',
                 hexpand: true,
                 hpack: 'end',
-                connections: [[dev, (self) => {
-                    self.setCss(`opacity: ${dev.paired ? '1' : '0'};`);
-                }]],
+                setup: (self) => {
+                    self.hook(dev, () => {
+                        self.setCss(`opacity: ${dev.paired ? '1' : '0'};`);
+                    });
+                },
             }),
         ],
     });
@@ -95,17 +97,19 @@ export const BluetoothMenu = () => {
                 hscroll: 'never',
                 vscroll: 'never',
 
-                connections: [['edge-reached', (_, pos) => {
-                    // Manage scroll indicators
-                    if (pos === 2) {
-                        topArrow.revealChild = false;
-                        bottomArrow.revealChild = true;
-                    }
-                    else if (pos === 3) {
-                        topArrow.revealChild = true;
-                        bottomArrow.revealChild = false;
-                    }
-                }]],
+                setup: (self) => {
+                    self.on('edge-reached', (_, pos) => {
+                        // Manage scroll indicators
+                        if (pos === 2) {
+                            topArrow.revealChild = false;
+                            bottomArrow.revealChild = true;
+                        }
+                        else if (pos === 3) {
+                            topArrow.revealChild = true;
+                            bottomArrow.revealChild = false;
+                        }
+                    });
+                },
 
                 child: ListBox({
                     setup: (self) => {
@@ -113,78 +117,79 @@ export const BluetoothMenu = () => {
                             return b.get_children()[0].dev.paired -
                                 a.get_children()[0].dev.paired;
                         });
-                    },
 
-                    connections: [[Bluetooth, (box) => {
-                        // Get all devices
-                        const Devices = [].concat(
-                            Bluetooth.devices,
-                            Bluetooth.connectedDevices,
-                        );
+                        self.hook(Bluetooth, () => {
+                            // Get all devices
+                            const Devices = [].concat(
+                                Bluetooth.devices,
+                                Bluetooth.connectedDevices,
+                            );
 
-                        // Add missing devices
-                        Devices.forEach((dev) => {
-                            if (!DevList.has(dev) && dev.name) {
-                                DevList.set(dev, BluetoothDevice(dev));
+                            // Add missing devices
+                            Devices.forEach((dev) => {
+                                if (!DevList.has(dev) && dev.name) {
+                                    DevList.set(dev, BluetoothDevice(dev));
 
-                                box.add(DevList.get(dev));
-                                box.show_all();
-                            }
-                        });
+                                    self.add(DevList.get(dev));
+                                    self.show_all();
+                                }
+                            });
 
-                        // Delete ones that don't exist anymore
-                        const difference = Array.from(DevList.keys())
-                            .filter((dev) => !Devices
-                                .find((d) => dev === d) &&
+                            // Delete ones that don't exist anymore
+                            const difference = Array.from(DevList.keys())
+                                .filter((dev) => !Devices
+                                    .find((d) => dev === d) &&
                                     dev.name);
 
-                        difference.forEach((dev) => {
-                            const devWidget = DevList.get(dev);
+                            difference.forEach((dev) => {
+                                const devWidget = DevList.get(dev);
 
-                            if (devWidget) {
-                                if (devWidget.toDestroy) {
-                                    devWidget.get_parent().destroy();
-                                    DevList.delete(dev);
+                                if (devWidget) {
+                                    if (devWidget.toDestroy) {
+                                        devWidget.get_parent().destroy();
+                                        DevList.delete(dev);
+                                    }
+                                    else {
+                                        devWidget.children[0]
+                                            .revealChild = false;
+                                        devWidget.toDestroy = true;
+                                    }
                                 }
-                                else {
-                                    devWidget.children[0].revealChild = false;
-                                    devWidget.toDestroy = true;
+                            });
+
+                            // Start scrolling after a specified height
+                            // is reached by the children
+                            const height = Math.max(
+                                self.get_parent().get_allocated_height(),
+                                SCROLL_THRESH_H,
+                            );
+
+                            const scroll = self.get_parent().get_parent();
+
+                            if (self.get_children().length > SCROLL_THRESH_N) {
+                                scroll.vscroll = 'always';
+                                scroll.setCss(`min-height: ${height}px;`);
+
+                                // Make bottom scroll indicator appear only
+                                // when first getting overflowing children
+                                if (!(bottomArrow.revealChild === true ||
+                                    topArrow.revealChild === true)) {
+                                    bottomArrow.revealChild = true;
                                 }
                             }
-                        });
-
-                        // Start scrolling after a specified height
-                        // is reached by the children
-                        const height = Math.max(
-                            box.get_parent().get_allocated_height(),
-                            SCROLL_THRESHOLD_H,
-                        );
-
-                        const scroll = box.get_parent().get_parent();
-
-                        if (box.get_children().length > SCROLL_THRESHOLD_N) {
-                            scroll.vscroll = 'always';
-                            scroll.setCss(`min-height: ${height}px;`);
-
-                            // Make bottom scroll indicator appear only
-                            // when first getting overflowing children
-                            if (!(bottomArrow.revealChild === true ||
-                                topArrow.revealChild === true)) {
-                                bottomArrow.revealChild = true;
+                            else {
+                                scroll.vscroll = 'never';
+                                scroll.setCss('');
+                                topArrow.revealChild = false;
+                                bottomArrow.revealChild = false;
                             }
-                        }
-                        else {
-                            scroll.vscroll = 'never';
-                            scroll.setCss('');
-                            topArrow.revealChild = false;
-                            bottomArrow.revealChild = false;
-                        }
 
-                        // Trigger sort_func
-                        box.get_children().forEach((ch) => {
-                            ch.changed();
+                            // Trigger sort_func
+                            self.get_children().forEach((ch) => {
+                                ch.changed();
+                            });
                         });
-                    }]],
+                    },
                 }),
             }),
         }),

@@ -7,36 +7,40 @@ import Separator from '../../misc/separator.js';
 
 const Indicator = (props) => Icon({
     ...props,
-    connections: [[Network, (self) => {
-        if (Network.wifi.internet === 'connected' ||
-            Network.wifi.internet === 'connecting') {
-            self.icon = Network.wifi.iconName;
-        }
-        else if (Network.wired.internet === 'connected' ||
-                 Network.wired.internet === 'connecting') {
-            self.icon = Network.wired.iconName;
-        }
-        else {
-            self.icon = Network.wifi.iconName;
-        }
-    }]],
+    setup: (self) => {
+        self.hook(Network, () => {
+            if (Network.wifi.internet === 'connected' ||
+                Network.wifi.internet === 'connecting') {
+                self.icon = Network.wifi.iconName;
+            }
+            else if (Network.wired.internet === 'connected' ||
+                Network.wired.internet === 'connecting') {
+                self.icon = Network.wired.iconName;
+            }
+            else {
+                self.icon = Network.wifi.iconName;
+            }
+        });
+    },
 });
 
 const APLabel = (props) => Label({
     ...props,
-    connections: [[Network, (self) => {
-        if (Network.wifi.internet === 'connected' ||
-            Network.wifi.internet === 'connecting') {
-            self.label = Network.wifi.ssid;
-        }
-        else if (Network.wired.internet === 'connected' ||
-                 Network.wired.internet === 'connecting') {
-            self.label = 'Connected';
-        }
-        else {
-            self.label = 'Disconnected';
-        }
-    }]],
+    setup: (self) => {
+        self.hook(Network, () => {
+            if (Network.wifi.internet === 'connected' ||
+                Network.wifi.internet === 'connecting') {
+                self.label = Network.wifi.ssid;
+            }
+            else if (Network.wired.internet === 'connected' ||
+                Network.wired.internet === 'connecting') {
+                self.label = 'Connected';
+            }
+            else {
+                self.label = 'Disconnected';
+            }
+        });
+    },
 });
 
 const SPACING = 5;

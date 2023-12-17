@@ -28,28 +28,30 @@ const NotificationList = () => Box({
     vexpand: true,
     vpack: 'start',
     binds: [['visible', HasNotifs]],
-    connections: [
-        [Notifications, (box, id) => {
-            // Handle cached notifs
-            if (box.children.length === 0) {
-                Notifications.notifications.forEach((n) => {
-                    addNotif(box, n);
-                });
-            }
 
-            else if (id) {
-                addNotif(box, Notifications.getNotification(id));
-            }
-        }, 'notified'],
+    setup: (self) => {
+        self
+            .hook(Notifications, (box, id) => {
+                // Handle cached notifs
+                if (box.children.length === 0) {
+                    Notifications.notifications.forEach((n) => {
+                        addNotif(box, n);
+                    });
+                }
 
-        [Notifications, (box, id) => {
-            const notif = box.children.find((ch) => ch._id === id);
+                else if (id) {
+                    addNotif(box, Notifications.getNotification(id));
+                }
+            }, 'notified')
 
-            if (notif?.sensitive) {
-                notif.slideAway('Right');
-            }
-        }, 'closed'],
-    ],
+            .hook(Notifications, (box, id) => {
+                const notif = box.children.find((ch) => ch._id === id);
+
+                if (notif?.sensitive) {
+                    notif.slideAway('Right');
+                }
+            }, 'closed');
+    },
 });
 
 // Needs to be wrapped to still have onHover when disabled
@@ -64,11 +66,13 @@ const ClearButton = () => EventBox({
             children: [
                 Label('Clear '),
                 Icon({
-                    connections: [[Notifications, (self) => {
-                        self.icon = Notifications.notifications.length > 0 ?
-                            'user-trash-full-symbolic' :
-                            'user-trash-symbolic';
-                    }]],
+                    setup: (self) => {
+                        self.hook(Notifications, () => {
+                            self.icon = Notifications.notifications.length > 0 ?
+                                'user-trash-full-symbolic' :
+                                'user-trash-symbolic';
+                        });
+                    },
                 }),
             ],
         }),

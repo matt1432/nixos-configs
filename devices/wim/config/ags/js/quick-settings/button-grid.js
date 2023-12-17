@@ -34,24 +34,27 @@ const GridButton = ({
         icon = Icon({
             className: 'grid-label',
             icon,
-            connections: [[Activated, (self) => {
-                self.setCss(`color: ${Activated.value ?
-                    'rgba(189, 147, 249, 0.8)' :
-                    'unset'};`);
-            }]],
+            setup: (self) => {
+                self.hook(Activated, () => {
+                    self.setCss(`color: ${Activated.value ?
+                        'rgba(189, 147, 249, 0.8)' :
+                        'unset'};`);
+                });
+            },
         });
     }
     else {
         icon = Icon({
             className: 'grid-label',
-            connections: [
-                icon,
-                [Activated, (self) => {
-                    self.setCss(`color: ${Activated.value ?
-                        'rgba(189, 147, 249, 0.8)' :
-                        'unset'};`);
-                }],
-            ],
+            setup: (self) => {
+                self
+                    .hook(...icon)
+                    .hook(Activated, () => {
+                        self.setCss(`color: ${Activated.value ?
+                            'rgba(189, 147, 249, 0.8)' :
+                            'unset'};`);
+                    });
+            },
         });
     }
 
@@ -61,7 +64,9 @@ const GridButton = ({
             justification: 'left',
             truncate: 'end',
             maxWidthChars: 12,
-            connections: [indicator],
+            setup: (self) => {
+                self.hook(...indicator);
+            },
         });
     }
 
@@ -126,17 +131,19 @@ const GridButton = ({
                             icon: `${App.configDir }/icons/down-large.svg`,
                             className: 'grid-chev',
 
-                            connections: [[Activated, (self) => {
-                                let deg = 270;
+                            setup: (self) => {
+                                self.hook(Activated, () => {
+                                    let deg = 270;
 
-                                if (Activated.value) {
-                                    deg = menu ? 360 : 450;
-                                    onOpen(menu);
-                                }
-                                self.setCss(`
-                                    -gtk-icon-transform: rotate(${deg}deg);
-                                `);
-                            }]],
+                                    if (Activated.value) {
+                                        deg = menu ? 360 : 450;
+                                        onOpen(menu);
+                                    }
+                                    self.setCss(`
+                                        -gtk-icon-transform: rotate(${deg}deg);
+                                    `);
+                                });
+                            },
                         }),
                     }),
 

@@ -13,14 +13,17 @@ export default () => Box({
 
         Icon({
             size: 30,
-            connections: [[Hyprland.active.client, (self) => {
-                const app = Applications.query(Hyprland.active.client.class)[0];
+            setup: (self) => {
+                self.hook(Hyprland.active.client, () => {
+                    const app = Applications
+                        .query(Hyprland.active.client.class)[0];
 
-                if (app) {
-                    self.icon = app.iconName;
-                    self.visible = Hyprland.active.client.title !== '';
-                }
-            }]],
+                    if (app) {
+                        self.icon = app.iconName;
+                        self.visible = Hyprland.active.client.title !== '';
+                    }
+                });
+            },
         }),
 
         Separator(SPACING),

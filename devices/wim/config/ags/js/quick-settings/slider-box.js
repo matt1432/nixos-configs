@@ -34,18 +34,20 @@ export default () => Box({
                         Audio.speaker.volume = value;
                     },
 
-                    connections: [
-                        [Audio, (slider) => {
-                            slider.value = Audio.speaker?.volume;
-                        }, 'speaker-changed'],
+                    setup: (self) => {
+                        self
+                            .hook(Audio, () => {
+                                self.value = Audio.speaker?.volume;
+                            }, 'speaker-changed')
 
-                        ['button-press-event', (s) => {
-                            s.cursor = 'grabbing';
-                        }],
-                        ['button-release-event', (s) => {
-                            s.cursor = 'pointer';
-                        }],
-                    ],
+                            .on('button-press-event', () => {
+                                self.cursor = 'grabbing';
+                            })
+
+                            .on('button-release-event', () => {
+                                self.cursor = 'pointer';
+                            });
+                    },
                 }),
             ],
         }),
@@ -70,18 +72,20 @@ export default () => Box({
                         Brightness.screen = value;
                     },
 
-                    connections: [
-                        [Brightness, (slider) => {
-                            slider.value = Brightness.screen;
-                        }, 'screen'],
+                    setup: (self) => {
+                        self
+                            .hook(Brightness, () => {
+                                self.value = Brightness.screen;
+                            }, 'screen')
 
-                        ['button-press-event', (s) => {
-                            s.cursor = 'grabbing';
-                        }],
-                        ['button-release-event', (s) => {
-                            s.cursor = 'pointer';
-                        }],
-                    ],
+                            .on('button-press-event', () => {
+                                self.cursor = 'grabbing';
+                            })
+
+                            .on('button-release-event', () => {
+                                self.cursor = 'pointer';
+                            });
+                    },
                 }),
             ],
         }),

@@ -7,8 +7,8 @@ import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import EventBox from '../misc/cursorbox.js';
 
-const SCROLL_THRESHOLD_H = 200;
-const SCROLL_THRESHOLD_N = 7;
+const SCROLL_THRESH_H = 200;
+const SCROLL_THRESH_N = 7;
 
 
 const AccessPoint = (ap) => {
@@ -22,28 +22,37 @@ const AccessPoint = (ap) => {
         hexpand: true,
         children: [
             Icon({
-                connections: [[widget.ap, (self) => {
-                    self.icon = widget.ap.value.iconName;
-                }]],
+                setup: (self) => {
+                    self.hook(widget.ap, () => {
+                        self.icon = widget.ap.value.iconName;
+                    });
+                },
             }),
 
             Label({
-                connections: [[widget.ap, (self) => {
-                    self.label = widget.ap.value.ssid || '';
-                }]],
+                setup: (self) => {
+                    self.hook(widget.ap, () => {
+                        self.label = widget.ap.value.ssid || '';
+                    });
+                },
             }),
 
             Icon({
                 icon: 'object-select-symbolic',
                 hexpand: true,
                 hpack: 'end',
-                connections: [[Network, (self) => {
-                    self.setCss(`opacity: ${
-                        widget.ap.value.ssid === Network.wifi.ssid ?
-                            '1' :
-                            '0'
-                    };`);
-                }]],
+                setup: (self) => {
+                    self.hook(Network, () => {
+                        self.setCss(
+                            `opacity: ${
+                                widget.ap.value.ssid === Network.wifi.ssid ?
+                                    '1' :
+                                    '0'
+                            };
+                        `,
+                        );
+                    });
+                },
             }),
         ],
     });
@@ -109,17 +118,19 @@ export const NetworkMenu = () => {
                 hscroll: 'never',
                 vscroll: 'never',
 
-                connections: [['edge-reached', (_, pos) => {
-                    // Manage scroll indicators
-                    if (pos === 2) {
-                        topArrow.revealChild = false;
-                        bottomArrow.revealChild = true;
-                    }
-                    else if (pos === 3) {
-                        topArrow.revealChild = true;
-                        bottomArrow.revealChild = false;
-                    }
-                }]],
+                setup: (self) => {
+                    self.on('edge-reached', (_, pos) => {
+                        // Manage scroll indicators
+                        if (pos === 2) {
+                            topArrow.revealChild = false;
+                            bottomArrow.revealChild = true;
+                        }
+                        else if (pos === 3) {
+                            topArrow.revealChild = true;
+                            bottomArrow.revealChild = false;
+                        }
+                    });
+                },
 
                 child: ListBox({
                     setup: (self) => {
@@ -127,82 +138,83 @@ export const NetworkMenu = () => {
                             return b.get_children()[0].ap.value.strength -
                                 a.get_children()[0].ap.value.strength;
                         });
-                    },
 
-                    connections: [[Network, (box) => {
-                        // Add missing APs
-                        Network.wifi?.access_points.forEach((ap) => {
-                            if (ap.ssid !== 'Unknown') {
-                                if (APList.has(ap.ssid)) {
-                                    const accesPoint = APList.get(ap.ssid)
-                                        .ap.value;
+                        self.hook(Network, () => {
+                            // Add missing APs
+                            Network.wifi?.access_points.forEach((ap) => {
+                                if (ap.ssid !== 'Unknown') {
+                                    if (APList.has(ap.ssid)) {
+                                        const accesPoint = APList.get(ap.ssid)
+                                            .ap.value;
 
-                                    if (accesPoint.strength < ap.strength) {
-                                        APList.get(ap.ssid).ap.value = ap;
+                                        if (accesPoint.strength < ap.strength) {
+                                            APList.get(ap.ssid).ap.value = ap;
+                                        }
+                                    }
+                                    else {
+                                        APList.set(ap.ssid, AccessPoint(ap));
+
+                                        self.add(APList.get(ap.ssid));
+                                        self.show_all();
                                     }
                                 }
-                                else {
-                                    APList.set(ap.ssid, AccessPoint(ap));
+                            });
 
-                                    box.add(APList.get(ap.ssid));
-                                    box.show_all();
+                            // Delete ones that don't exist anymore
+                            const difference = Array.from(APList.keys())
+                                .filter((ssid) => !Network.wifi.access_points
+                                    .find((ap) => ap.ssid === ssid) &&
+                                    ssid !== 'Unknown');
+
+                            difference.forEach((ssid) => {
+                                const apWidget = APList.get(ssid);
+
+                                if (apWidget) {
+                                    if (apWidget.toDestroy) {
+                                        apWidget.get_parent().destroy();
+                                        APList.delete(ssid);
+                                    }
+                                    else {
+                                        apWidget.children[0]
+                                            .revealChild = false;
+                                        apWidget.toDestroy = true;
+                                    }
+                                }
+                            });
+
+                            // Start scrolling after a specified height
+                            // is reached by the children
+                            const height = Math.max(
+                                self.get_parent().get_allocated_height(),
+                                SCROLL_THRESH_H,
+                            );
+
+                            const scroll = self.get_parent().get_parent();
+
+                            if (self.get_children().length > SCROLL_THRESH_N) {
+                                scroll.vscroll = 'always';
+                                scroll.setCss(`min-height: ${height}px;`);
+
+                                // Make bottom scroll indicator appear only
+                                // when first getting overflowing children
+                                if (!(bottomArrow.revealChild === true ||
+                                    topArrow.revealChild === true)) {
+                                    bottomArrow.revealChild = true;
                                 }
                             }
-                        });
-
-                        // Delete ones that don't exist anymore
-                        const difference = Array.from(APList.keys())
-                            .filter((ssid) => !Network.wifi.access_points
-                                .find((ap) => ap.ssid === ssid) &&
-                                ssid !== 'Unknown');
-
-                        difference.forEach((ssid) => {
-                            const apWidget = APList.get(ssid);
-
-                            if (apWidget) {
-                                if (apWidget.toDestroy) {
-                                    apWidget.get_parent().destroy();
-                                    APList.delete(ssid);
-                                }
-                                else {
-                                    apWidget.children[0].revealChild = false;
-                                    apWidget.toDestroy = true;
-                                }
+                            else {
+                                scroll.vscroll = 'never';
+                                scroll.setCss('');
+                                topArrow.revealChild = false;
+                                bottomArrow.revealChild = false;
                             }
+
+                            // Trigger sort_func
+                            self.get_children().forEach((ch) => {
+                                ch.changed();
+                            });
                         });
-
-                        // Start scrolling after a specified height
-                        // is reached by the children
-                        const height = Math.max(
-                            box.get_parent().get_allocated_height(),
-                            SCROLL_THRESHOLD_H,
-                        );
-
-                        const scroll = box.get_parent().get_parent();
-
-                        if (box.get_children().length > SCROLL_THRESHOLD_N) {
-                            scroll.vscroll = 'always';
-                            scroll.setCss(`min-height: ${height}px;`);
-
-                            // Make bottom scroll indicator appear only
-                            // when first getting overflowing children
-                            if (!(bottomArrow.revealChild === true ||
-                                topArrow.revealChild === true)) {
-                                bottomArrow.revealChild = true;
-                            }
-                        }
-                        else {
-                            scroll.vscroll = 'never';
-                            scroll.setCss('');
-                            topArrow.revealChild = false;
-                            bottomArrow.revealChild = false;
-                        }
-
-                        // Trigger sort_func
-                        box.get_children().forEach((ch) => {
-                            ch.changed();
-                        });
-                    }]],
+                    },
                 }),
             }),
         }),

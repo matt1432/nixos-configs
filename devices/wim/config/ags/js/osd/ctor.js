@@ -36,7 +36,7 @@ export default ({ stack, icon, info } = {}) => {
         connectFunc = () => stack.popup(osd);
     }
 
-    osd.children[0].children[1].connectTo(info.mod, connectFunc, info.signal);
+    osd.children[0].children[1].hook(info.mod, connectFunc, info.signal);
 
     return osd;
 };

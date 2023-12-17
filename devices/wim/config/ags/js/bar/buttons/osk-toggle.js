@@ -9,9 +9,11 @@ export default () => EventBox({
 
     onPrimaryClickRelease: () => Tablet.toggleOsk(),
 
-    connections: [[Tablet, (self) => {
-        self.toggleClassName('toggle-on', Tablet.oskState);
-    }, 'osk-toggled']],
+    setup: (self) => {
+        self.hook(Tablet, () => {
+            self.toggleClassName('toggle-on', Tablet.oskState);
+        }, 'osk-toggled');
+    },
 
     child: Box({
         className: 'osk-toggle',

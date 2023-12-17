@@ -33,28 +33,28 @@ let hidden = 0;
 
 export const WorkspaceDrop = (props) => EventBox({
     ...props,
-    connections: [['drag-data-received', (self, _c, _x, _y, data) => {
-        let id = self.get_parent()._id;
-
-        if (id < -1) {
-            id = self.get_parent()._name;
-        }
-
-        else if (id === -1) {
-            id = `special:${++hidden}`;
-        }
-
-        else if (id === 1000) {
-            id = 'empty';
-        }
-
-        Hyprland.sendMessage('dispatch ' +
-            `movetoworkspacesilent ${id},address:${data.get_text()}`)
-            .catch(print);
-    }]],
-
     setup: (self) => {
         self.drag_dest_set(Gtk.DestDefaults.ALL, TARGET, Gdk.DragAction.COPY);
+
+        self.on('drag-data-received', (_, _c, _x, _y, data) => {
+            let id = self.get_parent()._id;
+
+            if (id < -1) {
+                id = self.get_parent()._name;
+            }
+
+            else if (id === -1) {
+                id = `special:${++hidden}`;
+            }
+
+            else if (id === 1000) {
+                id = 'empty';
+            }
+
+            Hyprland.sendMessage('dispatch ' +
+                `movetoworkspacesilent ${id},address:${data.get_text()}`)
+                .catch(print);
+        });
     },
 });
 
@@ -69,16 +69,16 @@ export const WindowButton = ({ address, mainBox, ...props } = {}) => Button({
             Gdk.DragAction.COPY,
         );
 
-        self.connect('drag-data-get', (_w, _c, data) => {
+        self.on('drag-data-get', (_w, _c, data) => {
             data.set_text(address, address.length);
         });
 
-        self.connect('drag-begin', (_, context) => {
+        self.on('drag-begin', (_, context) => {
             Gtk.drag_set_icon_surface(context, createSurfaceFromWidget(self));
             self.get_parent().revealChild = false;
         });
 
-        self.connect('drag-end', () => {
+        self.on('drag-end', () => {
             self.get_parent().destroy();
 
             updateClients(mainBox);

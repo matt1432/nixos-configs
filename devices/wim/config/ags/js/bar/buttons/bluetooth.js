@@ -7,25 +7,29 @@ import Separator from '../../misc/separator.js';
 
 const Indicator = (props) => Icon({
     ...props,
-    connections: [[Bluetooth, (self) => {
-        if (Bluetooth.enabled) {
-            self.icon = Bluetooth.connectedDevices[0] ?
-                Bluetooth.connectedDevices[0].iconName :
-                'bluetooth-active-symbolic';
-        }
-        else {
-            self.icon = 'bluetooth-disabled-symbolic';
-        }
-    }]],
+    setup: (self) => {
+        self.hook(Bluetooth, () => {
+            if (Bluetooth.enabled) {
+                self.icon = Bluetooth.connectedDevices[0] ?
+                    Bluetooth.connectedDevices[0].iconName :
+                    'bluetooth-active-symbolic';
+            }
+            else {
+                self.icon = 'bluetooth-disabled-symbolic';
+            }
+        });
+    },
 });
 
 const ConnectedLabel = (props) => Label({
     ...props,
-    connections: [[Bluetooth, (self) => {
-        self.label = Bluetooth.connectedDevices[0] ?
-            `${Bluetooth.connectedDevices[0]}` :
-            'Disconnected';
-    }, 'notify::connected-devices']],
+    setup: (self) => {
+        self.hook(Bluetooth, () => {
+            self.label = Bluetooth.connectedDevices[0] ?
+                `${Bluetooth.connectedDevices[0]}` :
+                'Disconnected';
+        }, 'notify::connected-devices');
+    },
 });
 
 const SPACING = 5;

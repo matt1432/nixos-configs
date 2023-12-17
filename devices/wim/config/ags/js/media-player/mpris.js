@@ -60,19 +60,18 @@ export const CoverArt = (player, props) => CenterBox({
                 self.setCss(self._bgStyle);
             }
         });
-    },
 
-    connections: [[player, (self) => {
-        execAsync(['bash', '-c', `[[ -f "${player.coverPath}" ]] &&
+        self.hook(player, () => {
+            execAsync(['bash', '-c', `[[ -f "${player.coverPath}" ]] &&
                   coloryou "${player.coverPath}" | grep -v Warning`])
-            .then((out) => {
-                if (!Mpris.players.find((p) => player === p)) {
-                    return;
-                }
+                .then((out) => {
+                    if (!Mpris.players.find((p) => player === p)) {
+                        return;
+                    }
 
-                player.colors.value = JSON.parse(out);
+                    player.colors.value = JSON.parse(out);
 
-                self._bgStyle = `
+                    self._bgStyle = `
                     background: radial-gradient(circle,
                                 rgba(0, 0, 0, 0.4) 30%,
                                 ${player.colors.value.imageAccent}),
@@ -81,15 +80,16 @@ export const CoverArt = (player, props) => CenterBox({
                     background-position: center;
                 `;
 
-                if (!self.get_parent()._dragging) {
-                    self.setCss(self._bgStyle);
-                }
-            }).catch((err) => {
-                if (err !== '') {
-                    print(err);
-                }
-            });
-    }]],
+                    if (!self.get_parent()._dragging) {
+                        self.setCss(self._bgStyle);
+                    }
+                }).catch((err) => {
+                    if (err !== '') {
+                        print(err);
+                    }
+                });
+        });
+    },
 });
 
 export const TitleLabel = (player, props) => Label({
@@ -127,27 +127,31 @@ export const PlayerIcon = (player, overlay, props) => {
             className: widget ? 'position-indicator' : 'player-icon',
             size: widget ? '' : ICON_SIZE,
 
-            connections: [[p, (self) => {
-                self.icon = lookUpIcon(p.entry) ?
-                    p.entry :
-                    icons.mpris.fallback;
-            }]],
+            setup: (self) => {
+                self.hook(p, () => {
+                    self.icon = lookUpIcon(p.entry) ?
+                        p.entry :
+                        icons.mpris.fallback;
+                });
+            },
         }),
     });
 
     return Box({
-        connections: [[Mpris, (self) => {
-            const thisIndex = overlay.list()
-                .indexOf(self.get_parent().get_parent());
+        setup: (self) => {
+            self.hook(Mpris, () => {
+                const thisIndex = overlay.list()
+                    .indexOf(self.get_parent().get_parent());
 
-            self.children = overlay.list().map((over, i) => {
-                self.children.push(Separator(2));
+                self.children = overlay.list().map((over, i) => {
+                    self.children.push(Separator(2));
 
-                return i === thisIndex ?
-                    playerIcon(player) :
-                    playerIcon(over._player, overlay, over);
-            }).reverse();
-        }]],
+                    return i === thisIndex ?
+                        playerIcon(player) :
+                        playerIcon(over._player, overlay, over);
+                }).reverse();
+            });
+        },
     });
 };
 
@@ -163,38 +167,38 @@ export const PositionSlider = (player, props) => Slider({
         player.position = player.length * value;
     },
 
-    properties: [['update', (slider) => {
-        if (!slider.dragging) {
-            slider.visible = player.length > 0;
-            if (player.length > 0) {
-                slider.value = player.position / player.length;
+    setup: (self) => {
+        const update = () => {
+            if (!self.dragging) {
+                self.visible = player.length > 0;
+                if (player.length > 0) {
+                    self.value = player.position / player.length;
+                }
             }
-        }
-    }]],
+        };
 
-    connections: [
-        [1000, (s) => s._update(s)],
-        [player, (s) => s._update(s), 'position'],
-        [player.colors, (s) => {
-            if (player.colors.value) {
-                const c = player.colors.value;
+        self
+            .poll(1000, () => update())
+            .hook(player, () => update(), 'position')
+            .hook(player.colors, () => {
+                if (player.colors.value) {
+                    const c = player.colors.value;
 
-                s.setCss(`
-                    highlight    { background-color: ${c.buttonAccent}; }
-                    slider       { background-color: ${c.buttonAccent}; }
-                    slider:hover { background-color: ${c.hoverAccent}; }
-                    trough       { background-color: ${c.buttonText}; }
-                `);
-            }
-        }],
-
-        ['button-press-event', (s) => {
-            s.cursor = 'grabbing';
-        }],
-        ['button-release-event', (s) => {
-            s.cursor = 'pointer';
-        }],
-    ],
+                    self.setCss(`
+                        highlight    { background-color: ${c.buttonAccent}; }
+                        slider       { background-color: ${c.buttonAccent}; }
+                        slider:hover { background-color: ${c.hoverAccent}; }
+                        trough       { background-color: ${c.buttonText}; }
+                    `);
+                }
+            })
+            .on('button-press-event', (s) => {
+                s.cursor = 'grabbing';
+            })
+            .on('button-release-event', (s) => {
+                s.cursor = 'pointer';
+            });
+    },
 });
 
 const PlayerButton = ({ player, items, onClick, prop }) => EventBox({
@@ -212,13 +216,13 @@ const PlayerButton = ({ player, items, onClick, prop }) => EventBox({
 
                 items.forEach((item) => {
                     item[1].setCss(`
-                    background-color: ${c.hoverAccent};
-                    color: ${c.buttonText};
-                    min-height: 40px;
-                    min-width: 36px;
-                    margin-bottom: 1px;
-                    margin-right: 1px;
-                `);
+                        background-color: ${c.hoverAccent};
+                        color: ${c.buttonText};
+                        min-height: 40px;
+                        min-width: 36px;
+                        margin-bottom: 1px;
+                        margin-right: 1px;
+                    `);
                 });
             }
         },
@@ -230,60 +234,61 @@ const PlayerButton = ({ player, items, onClick, prop }) => EventBox({
 
                 items.forEach((item) => {
                     item[1].setCss(`
-                    background-color: ${c.buttonAccent};
-                    color: ${c.buttonText};
-                    min-height: 42px;
-                    min-width: 38px;
-                `);
+                        background-color: ${c.buttonAccent};
+                        color: ${c.buttonText};
+                        min-height: 42px;
+                        min-width: 38px;
+                    `);
                 });
             }
         },
 
-        connections: [
-            [player, (button) => {
-                button.child.shown = `${player[prop]}`;
-            }],
+        setup: (self) => {
+            self
+                .hook(player, () => {
+                    self.child.shown = `${player[prop]}`;
+                })
+                .hook(player.colors, () => {
+                    if (!Mpris.players.find((p) => player === p)) {
+                        return;
+                    }
 
-            [player.colors, (button) => {
-                if (!Mpris.players.find((p) => player === p)) {
-                    return;
-                }
+                    if (player.colors.value) {
+                        const c = player.colors.value;
 
-                if (player.colors.value) {
-                    const c = player.colors.value;
-
-                    if (prop === 'playBackStatus') {
-                        if (button._hovered) {
-                            items.forEach((item) => {
-                                item[1].setCss(`
-                                background-color: ${c.hoverAccent};
-                                color: ${c.buttonText};
-                                min-height: 40px;
-                                min-width: 36px;
-                                margin-bottom: 1px;
-                                margin-right: 1px;
-                            `);
-                            });
+                        if (prop === 'playBackStatus') {
+                            if (self._hovered) {
+                                items.forEach((item) => {
+                                    item[1].setCss(`
+                                        background-color: ${c.hoverAccent};
+                                        color: ${c.buttonText};
+                                        min-height: 40px;
+                                        min-width: 36px;
+                                        margin-bottom: 1px;
+                                        margin-right: 1px;
+                                    `);
+                                });
+                            }
+                            else {
+                                items.forEach((item) => {
+                                    item[1].setCss(`
+                                        background-color: ${c.buttonAccent};
+                                        color: ${c.buttonText};
+                                        min-height: 42px;
+                                        min-width: 38px;
+                                    `);
+                                });
+                            }
                         }
                         else {
-                            items.forEach((item) => {
-                                item[1].setCss(`
-                                background-color: ${c.buttonAccent};
-                                color: ${c.buttonText};
-                                min-height: 42px;
-                                min-width: 38px;`);
-                            });
+                            self.setCss(`
+                                *       { color: ${c.buttonAccent}; }
+                                *:hover { color: ${c.hoverAccent}; }
+                            `);
                         }
                     }
-                    else {
-                        button.setCss(`
-                        *       { color: ${c.buttonAccent}; }
-                        *:hover { color: ${c.hoverAccent}; }
-                    `);
-                    }
-                }
-            }],
-        ],
+                });
+        },
     }),
 });
 

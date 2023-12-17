@@ -25,9 +25,11 @@ const Time = () => Box({
                 Label({
                     className: 'content',
                     label: 'hour',
-                    connections: [[1000, (self) => {
-                        self.label = DateTime.new_now_local().format('%H');
-                    }]],
+                    setup: (self) => {
+                        self.poll(1000, () => {
+                            self.label = DateTime.new_now_local().format('%H');
+                        });
+                    },
                 }),
 
                 Divider(),
@@ -35,9 +37,11 @@ const Time = () => Box({
                 Label({
                     className: 'content',
                     label: 'minute',
-                    connections: [[1000, (self) => {
-                        self.label = DateTime.new_now_local().format('%M');
-                    }]],
+                    setup: (self) => {
+                        self.poll(1000, () => {
+                            self.label = DateTime.new_now_local().format('%M');
+                        });
+                    },
                 }),
 
             ],
@@ -49,13 +53,15 @@ const Time = () => Box({
             child: Label({
                 css: 'font-size: 20px',
                 label: 'complete date',
-                connections: [[1000, (self) => {
-                    const time = DateTime.new_now_local();
+                setup: (self) => {
+                    self.poll(1000, () => {
+                        const time = DateTime.new_now_local();
 
-                    self.label = time.format('%A, %B ') +
-                                 time.get_day_of_month() +
-                                 time.format(', %Y');
-                }]],
+                        self.label = time.format('%A, %B ') +
+                            time.get_day_of_month() +
+                            time.format(', %Y');
+                    });
+                },
             }),
         }),
 

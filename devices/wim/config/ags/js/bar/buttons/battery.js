@@ -12,20 +12,24 @@ const Indicator = () => Icon({
 
     binds: [['icon', Battery, 'icon-name']],
 
-    connections: [[Battery, (self) => {
-        self.toggleClassName('charging', Battery.charging);
-        self.toggleClassName('charged', Battery.charged);
-        self.toggleClassName('low', Battery.percent < LOW_BATT);
-    }]],
+    setup: (self) => {
+        self.hook(Battery, () => {
+            self.toggleClassName('charging', Battery.charging);
+            self.toggleClassName('charged', Battery.charged);
+            self.toggleClassName('low', Battery.percent < LOW_BATT);
+        });
+    },
 });
 
 const LevelLabel = (props) => Label({
     ...props,
     className: 'label',
 
-    connections: [[Battery, (self) => {
-        self.label = `${Battery.percent}%`;
-    }]],
+    setup: (self) => {
+        self.hook(Battery, () => {
+            self.label = `${Battery.percent}%`;
+        });
+    },
 });
 
 const SPACING = 5;

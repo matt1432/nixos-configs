@@ -14,20 +14,20 @@ export default (rev) => CenterBox({
                 self.set_active(Mpris.players.length > 0);
                 Mpris.disconnect(id);
             });
-        },
 
-        connections: [['toggled', (self) => {
-            if (self.get_active()) {
-                self.get_children()[0]
-                    .setCss('-gtk-icon-transform: rotate(0deg);');
-                rev.revealChild = true;
-            }
-            else {
-                self.get_children()[0]
-                    .setCss('-gtk-icon-transform: rotate(180deg);');
-                rev.revealChild = false;
-            }
-        }]],
+            self.on('toggled', () => {
+                if (self.get_active()) {
+                    self.get_children()[0]
+                        .setCss('-gtk-icon-transform: rotate(0deg);');
+                    rev.revealChild = true;
+                }
+                else {
+                    self.get_children()[0]
+                        .setCss('-gtk-icon-transform: rotate(180deg);');
+                    rev.revealChild = false;
+                }
+            });
+        },
 
         child: Icon({
             icon: `${App.configDir }/icons/down-large.svg`,

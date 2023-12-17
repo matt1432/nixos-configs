@@ -40,13 +40,15 @@ export const Overview = () => {
             }),
         ],
 
-        connections: [[Hyprland, (self) => {
-            if (!App.getWindow('overview').visible) {
-                return;
-            }
+        setup: (self) => {
+            self.hook(Hyprland, () => {
+                if (!App.getWindow('overview').visible) {
+                    return;
+                }
 
-            self.update();
-        }]],
+                self.update();
+            });
+        },
 
         properties: [
             ['workspaces'],
@@ -72,15 +74,17 @@ export const Overview = () => {
         }),
 
         // TODO: throttle his?
-        connections: [['get-child-position', (self, ch) => {
-            if (ch === mainBox) {
-                self.child.setCss(`
-                    transition: min-height 0.2s ease, min-width 0.2s ease;
-                    min-height: ${mainBox.get_allocated_height()}px;
-                    min-width: ${mainBox.get_allocated_width()}px;
-                `);
-            }
-        }]],
+        setup: (self) => {
+            self.on('get-child-position', (_, ch) => {
+                if (ch === mainBox) {
+                    self.child.setCss(`
+                        transition: min-height 0.2s ease, min-width 0.2s ease;
+                        min-height: ${mainBox.get_allocated_height()}px;
+                        min-width: ${mainBox.get_allocated_width()}px;
+                    `);
+                }
+            });
+        },
     });
 
     widget.getChild = () => mainBox;
