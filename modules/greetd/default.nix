@@ -44,7 +44,7 @@
 
   # Check if user wants Regreet only on main monitor
   setupMonitors =
-    if (config.vars.mainMonitor != null && !config.vars.greetdDupe)
+    if (config.vars.mainMonitor != "null" && !config.vars.greetdDupe)
     then "${hyprBin}/hyprctl dispatch focusmonitor ${config.vars.mainMonitor}"
     else "${dupeMonitors}/bin/dupeMonitors";
 

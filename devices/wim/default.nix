@@ -18,6 +18,7 @@
     user = "matt";
     hostName = "wim";
     fontSize = 12.5;
+    mainMonitor = "eDP-1";
   };
 
   users.users.${config.vars.user} = {
