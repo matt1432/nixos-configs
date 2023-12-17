@@ -1,15 +1,29 @@
 {pkgs, ...}: {
+  # For kdialog-open-files
+  home.packages = with pkgs; [
+    kdialog
+  ];
+
   programs.mpv = {
     enable = true;
 
+    # https://github.com/mpv-player/mpv/wiki/User-Scripts
     scripts = with (import ./scripts pkgs); [
       modernx
       # Dep of touch-gestures
       pointer-event
       touch-gestures
+      # Ctrl + o
+      kdialog-open-files
+      persist-properties
+      undo-redo
     ];
 
     scriptOpts = {
+      persist_properties = {
+        properties = "volume,sub-scale";
+      };
+
       # Touch gestures default
       pointer-event = {
         margin_left = 0;
