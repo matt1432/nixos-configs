@@ -4,6 +4,7 @@ import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import { Box, EventBox, Revealer, Window } from 'resource:///com/github/Aylur/ags/widget.js';
 
 
+/** @param {import('types/variable.js').Variable} variable */
 const BarCloser = (variable) => Window({
     name: 'bar-closer',
     visible: false,
@@ -11,8 +12,9 @@ const BarCloser = (variable) => Window({
     layer: 'overlay',
 
     child: EventBox({
-        onHover: (self) => {
+        on_hover: (self) => {
             variable.value = false;
+            // @ts-expect-error
             self.get_parent().visible = false;
         },
 
@@ -22,6 +24,7 @@ const BarCloser = (variable) => Window({
     }),
 });
 
+/** @param {import('types/widgets/revealer').RevealerProps} props */
 export default (props) => {
     const Revealed = Variable(true);
     const barCloser = BarCloser(Revealed);
@@ -38,7 +41,9 @@ export default (props) => {
                         Hyprland.active.workspace.id,
                     );
 
-                    Revealed.value = !workspace?.hasfullscreen;
+                    if (workspace) {
+                        Revealed.value = !workspace['hasfullscreen'];
+                    }
                 })
 
                 .hook(Hyprland, (_, fullscreen) => {
@@ -50,7 +55,7 @@ export default (props) => {
             Revealer({
                 ...props,
                 transition: 'slide_down',
-                revealChild: true,
+                reveal_child: true,
 
                 binds: [['revealChild', Revealed, 'value']],
             }),
@@ -59,7 +64,7 @@ export default (props) => {
                 binds: [['revealChild', Revealed, 'value', (v) => !v]],
 
                 child: EventBox({
-                    onHover: () => {
+                    on_hover: () => {
                         barCloser.visible = true;
                         Revealed.value = true;
                     },

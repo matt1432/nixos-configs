@@ -14,17 +14,20 @@ const Applauncher = ({ window_name = 'applauncher' } = {}) => {
     let fzfResults;
     const list = ListBox();
 
+    /** @param {String} text */
     const setSort = (text) => {
         const fzf = new Fzf(Applications.list, {
             selector: (app) => app.name,
-            tiebreakers: [(a, b) => b._frequency -
-                a._frequency],
+            tiebreakers: [(a, b) => b.frequency -
+                a.frequency],
         });
 
         fzfResults = fzf.find(text);
         list.set_sort_func((a, b) => {
-            const row1 = a.get_children()[0]?.app.name;
-            const row2 = b.get_children()[0]?.app.name;
+            // @ts-expect-error
+            const row1 = a.get_children()[0]?.attribute.app.name;
+            // @ts-expect-error
+            const row2 = b.get_children()[0]?.attribute.app.name;
 
             if (!row1 || !row2) {
                 return 0;
@@ -51,9 +54,10 @@ const Applauncher = ({ window_name = 'applauncher' } = {}) => {
 
     makeNewChildren();
 
+    // FIXME: always visible
     const placeholder = Label({
         label: "   Couldn't find a match",
-        className: 'placeholder',
+        class_name: 'placeholder',
     });
 
     const entry = Entry({
@@ -73,17 +77,23 @@ const Applauncher = ({ window_name = 'applauncher' } = {}) => {
         },
 
         on_change: ({ text }) => {
+            if (!text) {
+                return;
+            }
+
             setSort(text);
             let visibleApps = 0;
 
             list.get_children().forEach((row) => {
+                // @ts-expect-error
                 row.changed();
 
+                // @ts-expect-error
                 const item = row.get_children()[0];
 
-                if (item?.app) {
+                if (item?.attribute.app) {
                     const isMatching = fzfResults.find((r) => {
-                        return r.item.name === item.app.name;
+                        return r.item.name === item.attribute.app.name;
                     });
 
                     row.visible = isMatching;
@@ -98,7 +108,7 @@ const Applauncher = ({ window_name = 'applauncher' } = {}) => {
     });
 
     return Box({
-        className: 'applauncher',
+        class_name: 'applauncher',
         vertical: true,
 
         setup: (self) => {
@@ -120,7 +130,7 @@ const Applauncher = ({ window_name = 'applauncher' } = {}) => {
 
         children: [
             Box({
-                className: 'header',
+                class_name: 'header',
                 children: [
                     Icon('preferences-system-search-symbolic'),
                     entry,

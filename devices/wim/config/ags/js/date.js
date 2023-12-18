@@ -1,29 +1,28 @@
 import { Box, Calendar, Label } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import GLib from 'gi://GLib';
-const { DateTime } = GLib;
+const { DateTime } = imports.gi.GLib;
 
 import PopupWindow from './misc/popup.js';
 
 
 const Divider = () => Box({
-    className: 'divider',
+    class_name: 'divider',
     vertical: true,
 });
 
 const Time = () => Box({
-    className: 'timebox',
+    class_name: 'timebox',
     vertical: true,
-    children: [
 
+    children: [
         Box({
-            className: 'time-container',
+            class_name: 'time-container',
             hpack: 'center',
             vpack: 'center',
-            children: [
 
+            children: [
                 Label({
-                    className: 'content',
+                    class_name: 'content',
                     label: 'hour',
                     setup: (self) => {
                         self.poll(1000, () => {
@@ -35,7 +34,7 @@ const Time = () => Box({
                 Divider(),
 
                 Label({
-                    className: 'content',
+                    class_name: 'content',
                     label: 'minute',
                     setup: (self) => {
                         self.poll(1000, () => {
@@ -48,11 +47,13 @@ const Time = () => Box({
         }),
 
         Box({
-            className: 'date-container',
+            class_name: 'date-container',
             hpack: 'center',
+
             child: Label({
                 css: 'font-size: 20px',
                 label: 'complete date',
+
                 setup: (self) => {
                     self.poll(1000, () => {
                         const time = DateTime.new_now_local();
@@ -69,23 +70,26 @@ const Time = () => Box({
 });
 
 const CalendarWidget = () => Box({
-    className: 'cal-box',
+    class_name: 'cal-box',
+
     child: Calendar({
-        showDayNames: true,
-        showHeading: true,
-        className: 'cal',
+        show_day_names: true,
+        show_heading: true,
+        class_name: 'cal',
     }),
 });
 
 const TOP_MARGIN = 6;
 
 export default () => PopupWindow({
+    name: 'calendar',
     anchor: ['top'],
     margins: [TOP_MARGIN, 0, 0, 0],
-    name: 'calendar',
+
     child: Box({
-        className: 'date',
+        class_name: 'date',
         vertical: true,
+
         children: [
             Time(),
             CalendarWidget(),

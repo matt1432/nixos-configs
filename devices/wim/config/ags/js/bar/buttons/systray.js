@@ -9,35 +9,40 @@ const REVEAL_DURATION = 500;
 const SPACING = 12;
 
 
+/** @param {import('types/service/systemtray').TrayItem} item */
 const SysTrayItem = (item) => {
     if (item.id === 'spotify-client') {
         return;
     }
 
     return MenuItem({
+        // @ts-expect-error
+        submenu: item.menu,
+        tooltip_markup: item.bind('tooltip_markup'),
+
         child: Revealer({
             transition: 'slide_right',
-            transitionDuration: REVEAL_DURATION,
+            transition_duration: REVEAL_DURATION,
 
             child: Icon({
                 size: 24,
-                binds: [['icon', item, 'icon']],
+                icon: item.bind('icon'),
             }),
         }),
-        submenu: item.menu,
-        binds: [['tooltipMarkup', item, 'tooltip-markup']],
     });
 };
 
 const SysTray = () => MenuBar({
-    setup: (self) => {
-        self.items = new Map();
+    attribute: {
+        items: new Map(),
+    },
 
+    setup: (self) => {
         self
             .hook(SystemTray, (_, id) => {
                 const item = SystemTray.getItem(id);
 
-                if (self.items.has(id) || !item) {
+                if (self.attribute.items.has(id) || !item) {
                     return;
                 }
 
@@ -48,21 +53,22 @@ const SysTray = () => MenuBar({
                     return;
                 }
 
-                self.items.set(id, w);
-                self.add(w);
+                self.attribute.items.set(id, w);
+                self.child = w;
                 self.show_all();
-                w.child.revealChild = true;
+                // @ts-expect-error
+                w.child.reveal_child = true;
             }, 'added')
 
             .hook(SystemTray, (_, id) => {
-                if (!self.items.has(id)) {
+                if (!self.attribute.items.has(id)) {
                     return;
                 }
 
-                self.items.get(id).child.revealChild = false;
+                self.attribute.items.get(id).child.reveal_child = false;
                 timeout(REVEAL_DURATION, () => {
-                    self.items.get(id).destroy();
-                    self.items.delete(id);
+                    self.attribute.items.get(id).destroy();
+                    self.attribute.items.delete(id);
                 });
             }, 'removed');
     },
@@ -74,21 +80,17 @@ export default () => {
     return Revealer({
         transition: 'slide_right',
 
-        setup: (self) => {
-            self.hook(SystemTray, () => {
-                self.revealChild = systray.get_children().length > 0;
-            });
-        },
-
         child: Box({
             children: [
                 Box({
-                    className: 'sys-tray',
+                    class_name: 'sys-tray',
                     children: [systray],
                 }),
 
                 Separator(SPACING),
             ],
         }),
+    }).hook(SystemTray, (self) => {
+        self.reveal_child = systray.get_children().length > 0;
     });
 };

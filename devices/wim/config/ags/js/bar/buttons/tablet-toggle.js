@@ -5,19 +5,16 @@ import EventBox from '../../misc/cursorbox.js';
 
 
 export default () => EventBox({
-    className: 'toggle-off',
+    class_name: 'toggle-off',
 
     onPrimaryClickRelease: () => Tablet.toggleMode(),
 
-    setup: (self) => {
-        self.hook(Tablet, () => {
-            self.toggleClassName('toggle-on', Tablet.tabletMode);
-        }, 'mode-toggled');
-    },
-
     child: Box({
-        className: 'tablet-toggle',
+        class_name: 'tablet-toggle',
         vertical: false,
         children: [Label(' 󰦧 ')],
     }),
-});
+
+}).hook(Tablet, (self) => {
+    self.toggleClassName('toggle-on', Tablet.tabletMode);
+}, 'mode-toggled');

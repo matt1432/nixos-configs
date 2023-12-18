@@ -4,7 +4,7 @@ import Gtk from 'gi://Gtk';
 const Lang = imports.lang;
 
 export default (
-    place,
+    place = 'top left',
     css = 'background-color: black;',
 ) => Box({
     hpack: place.includes('left') ? 'start' : 'end',
@@ -27,6 +27,7 @@ export default (
                 .get_property('border-radius', Gtk.StateFlags.NORMAL);
 
             widget.set_size_request(r, r);
+            // @ts-expect-error
             widget.connect('draw', Lang.bind(widget, (_, cr) => {
                 const c = widget.get_style_context()
                     .get_property('background-color', Gtk.StateFlags.NORMAL);

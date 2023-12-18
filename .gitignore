@@ -1,6 +1,7 @@
 *.egg-info
 *.temp
 *node_modules/
+*types/
 *package-lock.json
 **/ags/style.css
 result*

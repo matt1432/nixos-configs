@@ -20,8 +20,11 @@ export default () => EventBox({
     onHoverLost: () => { /**/ },
 
     onPrimaryClickRelease: (self) => {
-        App.getWindow('notification-center')
-            .setXPos(self.get_allocation(), 'right');
+        // @ts-expect-error
+        App.getWindow('notification-center').setXPos(
+            self.get_allocation(),
+            'right',
+        );
 
         App.toggleWindow('quick-settings');
     },
@@ -35,7 +38,7 @@ export default () => EventBox({
     },
 
     child: Box({
-        className: 'quick-settings-toggle',
+        class_name: 'quick-settings-toggle',
         vertical: false,
         children: [
             Separator(SPACING),

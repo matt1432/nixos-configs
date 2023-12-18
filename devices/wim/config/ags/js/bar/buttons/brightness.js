@@ -6,48 +6,44 @@ import Separator from '../../misc/separator.js';
 const SPACING = 5;
 
 
-const Indicator = (props) => Icon({
-    ...props,
-    binds: [['icon', Brightness, 'screen-icon']],
-});
-
-const BrightnessPercentLabel = (props) => Label({
-    ...props,
-    setup: (self) => {
-        self.hook(Brightness, () => {
-            self.label = `${Math.round(Brightness.screen * 100)}%`;
-        }, 'screen');
-    },
-});
-
 export default () => {
-    const rev = Revealer({
+    const icon = Icon({
+        // @ts-expect-error
+        icon: Brightness.bind('screenIcon'),
+    });
+
+    const hoverRevLabel = Revealer({
         transition: 'slide_right',
+
         child: Box({
+
             children: [
                 Separator(SPACING),
-                BrightnessPercentLabel(),
+
+                Label().hook(Brightness, (self) => {
+                    self.label = `${Math.round(Brightness.screen * 100)}%`;
+                }, 'screen'),
             ],
         }),
     });
 
     const widget = EventBox({
-        onHover: () => {
-            rev.revealChild = true;
+        on_hover: () => {
+            hoverRevLabel.reveal_child = true;
         },
-        onHoverLost: () => {
-            rev.revealChild = false;
+        on_hover_lost: () => {
+            hoverRevLabel.reveal_child = false;
         },
+
         child: Box({
-            className: 'brightness',
+            class_name: 'brightness',
+
             children: [
-                Indicator(),
-                rev,
+                icon,
+                hoverRevLabel,
             ],
         }),
     });
-
-    widget.rev = rev;
 
     return widget;
 };

@@ -5,7 +5,7 @@ import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import EventBox from '../../misc/cursorbox.js';
 import Persist from '../../misc/persist.js';
 
-const HeartState = Variable();
+const HeartState = Variable('');
 
 Persist({
     name: 'heart',
@@ -22,7 +22,7 @@ export default () => EventBox({
     },
 
     child: Label({
-        className: 'heart-toggle',
-        binds: [['label', HeartState, 'value']],
+        class_name: 'heart-toggle',
+        label: HeartState.bind(),
     }),
 });

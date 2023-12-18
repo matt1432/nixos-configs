@@ -13,8 +13,11 @@ export default () => EventBox({
     className: 'toggle-off',
 
     onPrimaryClickRelease: (self) => {
-        App.getWindow('notification-center')
-            .setXPos(self.get_allocation(), 'right');
+        // @ts-expect-error
+        App.getWindow('notification-center')?.setXPos(
+            self.get_allocation(),
+            'right',
+        );
 
         App.toggleWindow('notification-center');
     },
@@ -28,31 +31,27 @@ export default () => EventBox({
     },
 
     child: CenterBox({
-        className: 'notif-panel',
+        class_name: 'notif-panel',
 
         center_widget: Box({
             children: [
-                Icon({
-                    setup: (self) => {
-                        self.hook(Notifications, () => {
-                            if (Notifications.dnd) {
-                                self.icon = 'notification-disabled-symbolic';
-                            }
-                            else if (Notifications.notifications.length > 0) {
-                                self.icon = 'notification-new-symbolic';
-                            }
-                            else {
-                                self.icon = 'notification-symbolic';
-                            }
-                        });
-                    },
+                Icon().hook(Notifications, (self) => {
+                    if (Notifications.dnd) {
+                        self.icon = 'notification-disabled-symbolic';
+                    }
+                    else if (Notifications.notifications.length > 0) {
+                        self.icon = 'notification-new-symbolic';
+                    }
+                    else {
+                        self.icon = 'notification-symbolic';
+                    }
                 }),
 
                 Separator(SPACING),
 
                 Label({
-                    binds: [['label', Notifications, 'notifications',
-                        (n) => String(n.length)]],
+                    label: Notifications.bind('notifications')
+                        .transform((n) => String(n.length)),
                 }),
             ],
         }),

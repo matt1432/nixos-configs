@@ -11,27 +11,23 @@ export default () => Box({
     children: [
         Separator(SPACING / 2),
 
-        Icon({
-            size: 30,
-            setup: (self) => {
-                self.hook(Hyprland.active.client, () => {
-                    const app = Applications
-                        .query(Hyprland.active.client.class)[0];
+        Icon({ size: 30 })
+            .hook(Hyprland.active.client, (self) => {
+                const app = Applications
+                    .query(Hyprland.active.client.class)[0];
 
-                    if (app) {
-                        self.icon = app.iconName;
-                        self.visible = Hyprland.active.client.title !== '';
-                    }
-                });
-            },
-        }),
+                if (app) {
+                    self.icon = app.icon_name;
+                    self.visible = Hyprland.active.client.title !== '';
+                }
+            }),
 
         Separator(SPACING),
 
         Label({
             css: 'color: #CBA6F7; font-size: 18px',
             truncate: 'end',
-            binds: [['label', Hyprland.active.client, 'title']],
+            label: Hyprland.active.client.bind('title'),
         }),
     ],
 });

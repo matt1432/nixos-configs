@@ -1,4 +1,4 @@
-import { Box, Label } from 'resource:///com/github/Aylur/ags/widget.js';
+import { Label } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import Tablet from '../../../services/tablet.js';
 import EventBox from '../../misc/cursorbox.js';
@@ -9,14 +9,12 @@ export default () => EventBox({
 
     onPrimaryClickRelease: () => Tablet.toggleOsk(),
 
-    setup: (self) => {
-        self.hook(Tablet, () => {
-            self.toggleClassName('toggle-on', Tablet.oskState);
-        }, 'osk-toggled');
-    },
-
-    child: Box({
-        className: 'osk-toggle',
-        children: [Label(' 󰌌 ')],
+    child: Label({
+        class_name: 'osk-toggle',
+        xalign: 0.6,
+        label: '󰌌 ',
     }),
-});
+
+}).hook(Tablet, (self) => {
+    self.toggleClassName('toggle-on', Tablet.oskState);
+}, 'osk-toggled');

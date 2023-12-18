@@ -8,69 +8,75 @@ const DEFAULT_KB = 'at-translated-set-2-keyboard';
 const SPACING = 4;
 
 
-const Indicator = () => Label({
-    css: 'font-size: 20px;',
-    setup: (self) => {
-        self.hook(Hyprland, (_, _n, layout) => {
-            if (layout) {
-                if (layout === 'error') {
-                    return;
-                }
+/**
+ * @param {Label} self
+ * @param {string} layout
+ * @param {void} _
+ */
+const getKbdLayout = (self, _, layout) => {
+    if (layout) {
+        if (layout === 'error') {
+            return;
+        }
 
-                const shortName = layout.match(/\(([A-Za-z]+)\)/);
+        const shortName = layout.match(/\(([A-Za-z]+)\)/);
 
-                self.label = shortName ? shortName[1] : layout;
-            }
-            else {
-                // At launch, kb layout is undefined
-                Hyprland.sendMessage('j/devices').then((obj) => {
-                    const kb = JSON.parse(obj).keyboards
-                        .find((val) => val.name === DEFAULT_KB);
+        // @ts-expect-error
+        self.label = shortName ? shortName[1] : layout;
+    }
+    else {
+        // At launch, kb layout is undefined
+        Hyprland.sendMessage('j/devices').then((obj) => {
+            const kb = Array.from(JSON.parse(obj).keyboards)
+                .find((v) => v.name === DEFAULT_KB);
 
-                    layout = kb['active_keymap'];
+            layout = kb['active_keymap'];
 
-                    const shortName = layout
-                        .match(/\(([A-Za-z]+)\)/);
+            const shortName = layout
+                .match(/\(([A-Za-z]+)\)/);
 
-                    self.label = shortName ? shortName[1] : layout;
-                }).catch(print);
-            }
-        }, 'keyboard-layout');
-    },
-});
+            // @ts-expect-error
+            self.label = shortName ? shortName[1] : layout;
+        }).catch(print);
+    }
+};
 
 export default () => {
-    const rev = Revealer({
+    const hoverRevLabel = Revealer({
         transition: 'slide_right',
+
         child: Box({
+
             children: [
                 Separator(SPACING),
-                Indicator(),
+
+                Label({ css: 'font-size: 20px;' })
+                    .hook(Hyprland, getKbdLayout, 'keyboard-layout'),
             ],
         }),
     });
 
     const widget = EventBox({
-        onHover: () => {
-            rev.revealChild = true;
+        on_hover: () => {
+            hoverRevLabel.reveal_child = true;
         },
-        onHoverLost: () => {
-            rev.revealChild = false;
+        on_hover_lost: () => {
+            hoverRevLabel.reveal_child = false;
         },
+
         child: Box({
             css: 'padding: 0 10px; margin-right: -10px;',
+
             children: [
                 Icon({
                     icon: 'input-keyboard-symbolic',
                     size: 20,
                 }),
 
-                rev,
+                hoverRevLabel,
             ],
         }),
     });
-
-    widget.rev = rev;
 
     return widget;
 };

@@ -27,10 +27,9 @@ export default () => Window({
     child: BarReveal({
         child: CenterBox({
             css: 'margin: 6px 5px 5px 5px',
-            className: 'bar',
-            vertical: false,
+            class_name: 'bar',
 
-            startWidget: Box({
+            start_widget: Box({
                 hpack: 'start',
                 children: [
 
@@ -53,7 +52,7 @@ export default () => Window({
                 ],
             }),
 
-            centerWidget: Box({
+            center_widget: Box({
                 children: [
                     Separator(SPACING),
 
@@ -63,7 +62,7 @@ export default () => Window({
                 ],
             }),
 
-            endWidget: Box({
+            end_widget: Box({
                 hpack: 'end',
                 children: [
                     Heart(),

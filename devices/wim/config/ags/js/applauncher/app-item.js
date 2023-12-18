@@ -7,15 +7,24 @@ import { lookUpIcon } from 'resource:///com/github/Aylur/ags/utils.js';
 import EventBox from '../misc/cursorbox.js';
 
 
+/**
+ * @param {import('types/service/applications.js').Application} app
+ */
 export default (app) => {
-    const icon = Icon({
-        icon: lookUpIcon(app.icon_name) ?
-            app.icon_name :
-            app.app.get_string('Icon') === 'nix-snowflake' ?
-                '' :
-                app.app.get_string('Icon'),
-        size: 42,
-    });
+    const icon = Icon({ size: 42 });
+    const iconString = app.app.get_string('Icon');
+
+    if (app.icon_name) {
+        if (lookUpIcon(app.icon_name)) {
+            icon.icon = app.icon_name;
+        }
+        else if (iconString && iconString !== 'nix-snowflake') {
+            icon.icon = iconString;
+        }
+        else {
+            icon.icon = '';
+        }
+    }
 
     const textBox = Box({
         vertical: true,
@@ -46,14 +55,13 @@ export default (app) => {
         hexpand: true,
         class_name: 'app',
 
-        setup: (self) => {
-            self.app = app;
-        },
+        attribute: { app },
 
-        onPrimaryClickRelease: () => {
+        onPrimaryClickRelease: (self) => {
             App.closeWindow('applauncher');
-            Hyprland.sendMessage(`dispatch exec sh -c ${app.executable}`);
-            ++app.frequency;
+            Hyprland.sendMessage(`dispatch exec sh -c
+                ${self.attribute.app.executable}`);
+            ++self.attribute.app.frequency;
         },
 
         child: Box({

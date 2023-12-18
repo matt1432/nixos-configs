@@ -7,36 +7,52 @@ import EventBox from '../../misc/cursorbox.js';
 
 const URGENT_DURATION = 1000;
 
+/** @typedef {import('types/widget.js').Widget} Widget */
 
-const Workspace = ({ i } = {}) => {
+
+/** @property {number} id */
+const Workspace = ({ id }) => {
     return Revealer({
         transition: 'slide_right',
-        properties: [['id', i]],
+        attribute: { id },
 
         child: EventBox({
-            tooltipText: `${i}`,
+            tooltipText: `${id}`,
 
             onPrimaryClickRelease: () => {
-                Hyprland.sendMessage(`dispatch workspace ${i}`);
+                Hyprland.sendMessage(`dispatch workspace ${id}`);
             },
 
             child: Box({
                 vpack: 'center',
-                className: 'button',
+                class_name: 'button',
 
                 setup: (self) => {
-                    self.update = (addr) => {
-                        const occupied = Hyprland.getWorkspace(i)?.windows > 0;
+                    /**
+                     * @param {Widget} _
+                     * @param {string|undefined} addr
+                     */
+                    const update = (_, addr) => {
+                        const workspace = Hyprland.getWorkspace(id);
+                        const occupied = workspace && workspace['windows'] > 0;
 
                         self.toggleClassName('occupied', occupied);
                         self.toggleClassName('empty', !occupied);
 
+                        if (!addr) {
+                            return;
+                        }
+
                         // Deal with urgent windows
-                        if (Hyprland.getClient(addr)?.workspace.id === i) {
+                        const client = Hyprland.getClient(addr);
+                        const isThisUrgent = client &&
+                            client['workspace']['id'] === id;
+
+                        if (isThisUrgent) {
                             self.toggleClassName('urgent', true);
 
                             // Only show for a sec when urgent is current workspace
-                            if (Hyprland.active.workspace.id === i) {
+                            if (Hyprland.active.workspace.id === id) {
                                 timeout(URGENT_DURATION, () => {
                                     self.toggleClassName('urgent', false);
                                 });
@@ -45,13 +61,13 @@ const Workspace = ({ i } = {}) => {
                     };
 
                     self
-                        .hook(Hyprland, () => self.update())
+                        .hook(Hyprland, update)
+
                         // Deal with urgent windows
-                        .hook(Hyprland, (_, a) => {
-                            self.update(a);
-                        }, 'urgent-window')
+                        .hook(Hyprland, update, 'urgent-window')
+
                         .hook(Hyprland.active.workspace, () => {
-                            if (Hyprland.active.workspace.id === i) {
+                            if (Hyprland.active.workspace.id === id) {
                                 self.toggleClassName('urgent', false);
                             }
                         });
@@ -65,75 +81,80 @@ export default () => {
     const L_PADDING = 16;
     const WS_WIDTH = 30;
 
+    /** @param {Widget} self */
     const updateHighlight = (self) => {
         const currentId = Hyprland.active.workspace.id;
+        // @ts-expect-error
         const indicators = self.get_parent().get_children()[0].child.children;
-        const currentIndex = indicators.findIndex((w) => w._id === currentId);
+        const currentIndex = Array.from(indicators)
+            .findIndex((w) => w.attribute.id === currentId);
 
         if (currentIndex < 0) {
             return;
         }
 
+        // @ts-expect-error
         self.setCss(`margin-left: ${L_PADDING + (currentIndex * WS_WIDTH)}px`);
     };
 
     const highlight = Box({
         vpack: 'center',
         hpack: 'start',
-        className: 'button active',
-        setup: (self) => {
-            self.hook(Hyprland.active.workspace, updateHighlight);
-        },
-    });
+        class_name: 'button active',
+    }).hook(Hyprland.active.workspace, updateHighlight);
 
     const widget = Overlay({
         pass_through: true,
         overlays: [highlight],
         child: EventBox({
             child: Box({
-                className: 'workspaces',
+                class_name: 'workspaces',
 
-                properties: [
-                    ['workspaces'],
+                attribute: { workspaces: [] },
 
-                    ['refresh', (self) => {
-                        self.children.forEach((rev) => {
+                setup: (self) => {
+                    const refresh = () => {
+                        Array.from(self.children).forEach((rev) => {
+                            // @ts-expect-error
                             rev.reveal_child = false;
                         });
-                        self._workspaces.forEach((ws) => {
+                        Array.from(self.attribute.workspaces).forEach((ws) => {
                             ws.revealChild = true;
                         });
-                    }],
+                    };
 
-                    ['updateWorkspaces', (self) => {
+                    const updateWorkspaces = () => {
                         Hyprland.workspaces.forEach((ws) => {
-                            const currentWs = self.children.find((ch) => {
-                                return ch._id === ws.id;
-                            });
+                            const currentWs = Array.from(self.children)
+                                // @ts-expect-error
+                                .find((ch) => ch.attribute.id === ws['id']);
 
-                            if (!currentWs && ws.id > 0) {
-                                self.add(Workspace({ i: ws.id }));
+                            if (!currentWs && ws['id'] > 0) {
+                                self.add(Workspace({ id: ws['id'] }));
                             }
                         });
                         self.show_all();
 
                         // Make sure the order is correct
-                        self._workspaces.forEach((workspace, i) => {
-                            workspace.get_parent().reorder_child(workspace, i);
-                        });
-                    }],
-                ],
-
-                setup: (self) => {
-                    self.hook(Hyprland, () => {
-                        self._workspaces = self.children.filter((ch) => {
-                            return Hyprland.workspaces.find((ws) => {
-                                return ws.id === ch._id;
+                        Array.from(self.attribute.workspaces)
+                            .forEach((workspace, i) => {
+                                workspace.get_parent()
+                                    .reorder_child(workspace, i);
                             });
-                        }).sort((a, b) => a._id - b._id);
+                    };
 
-                        self._updateWorkspaces(self);
-                        self._refresh(self);
+                    self.hook(Hyprland, () => {
+                        self.attribute.workspaces =
+                            self.children.filter((ch) => {
+                                return Hyprland.workspaces.find((ws) => {
+                                    // @ts-expect-error
+                                    return ws['id'] === ch.attribute.id;
+                                });
+                            // @ts-expect-error
+                            }).sort((a, b) => a.attribute.id - b.attribute.id);
+
+                        updateWorkspaces();
+                        refresh();
 
                         // Make sure the highlight doesn't go too far
                         const TEMP_TIMEOUT = 10;

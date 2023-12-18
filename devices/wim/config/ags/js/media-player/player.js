@@ -8,10 +8,21 @@ import PlayerGesture from './gesture.js';
 import Separator from '../misc/separator.js';
 
 const FAVE_PLAYER = 'org.mpris.MediaPlayer2.spotify';
+const SPACING = 8;
+
+/**
+ * @typedef {import('types/service/mpris').MprisPlayer} Player
+ * @typedef {import('types/widgets/overlay').default} Overlay
+ * @typedef {import('types/variable').Variable} Variable
+ */
 
 
+/**
+ * @param {Player} player
+ * @param {Overlay} overlay
+ */
 const Top = (player, overlay) => Box({
-    className: 'top',
+    class_name: 'top',
     hpack: 'start',
     vpack: 'start',
 
@@ -20,16 +31,21 @@ const Top = (player, overlay) => Box({
     ],
 });
 
-const Center = (player) => Box({
-    className: 'center',
+/**
+ * @param {Player} player
+ * @param {Variable} colors
+ */
+const Center = (player, colors) => Box({
+    class_name: 'center',
 
     children: [
         CenterBox({
+            // @ts-expect-error
             vertical: true,
 
             children: [
                 Box({
-                    className: 'metadata',
+                    class_name: 'metadata',
                     vertical: true,
                     hpack: 'start',
                     vpack: 'center',
@@ -46,11 +62,12 @@ const Center = (player) => Box({
         }),
 
         CenterBox({
+            // @ts-expect-error
             vertical: true,
 
             children: [
                 null,
-                mpris.PlayPauseButton(player),
+                mpris.PlayPauseButton(player, colors),
                 null,
             ],
         }),
@@ -58,41 +75,43 @@ const Center = (player) => Box({
     ],
 });
 
-const SPACING = 8;
-
-const Bottom = (player) => Box({
-    className: 'bottom',
+/**
+ * @param {Player} player
+ * @param {Variable} colors
+ */
+const Bottom = (player, colors) => Box({
+    class_name: 'bottom',
 
     children: [
-        mpris.PreviousButton(player, {
-            vpack: 'end',
-            hpack: 'start',
-        }),
+        mpris.PreviousButton(player, colors),
         Separator(SPACING),
 
-        mpris.PositionSlider(player),
+        mpris.PositionSlider(player, colors),
         Separator(SPACING),
 
-        mpris.NextButton(player),
+        mpris.NextButton(player, colors),
         Separator(SPACING),
 
-        mpris.ShuffleButton(player),
+        mpris.ShuffleButton(player, colors),
         Separator(SPACING),
 
-        mpris.LoopButton(player),
+        mpris.LoopButton(player, colors),
     ],
 });
 
-const PlayerBox = (player, overlay) => {
-    const widget = mpris.CoverArt(player, {
-        className: `player ${player.name}`,
+/**
+ * @param {Player} player
+ * @param {Variable} colors
+ * @param {Overlay} overlay
+ */
+const PlayerBox = (player, colors, overlay) => {
+    const widget = mpris.CoverArt(player, colors, {
+        class_name: `player ${player.name}`,
         hexpand: true,
 
-        children: [
-            Top(player, overlay),
-            Center(player),
-            Bottom(player),
-        ],
+        start_widget: Top(player, overlay),
+        center_widget: Center(player, colors),
+        end_widget: Bottom(player, colors),
     });
 
     widget.visible = false;
@@ -102,26 +121,28 @@ const PlayerBox = (player, overlay) => {
 
 export default () => {
     const content = PlayerGesture({
-        properties: [
-            ['players', new Map()],
-            ['setup', false],
-        ],
+        attribute: {
+            players: new Map(),
+            setup: false,
+        },
 
         setup: (self) => {
             self
-                .hook(Mpris, (overlay, busName) => {
-                    if (overlay._players.has(busName)) {
+                .hook(Mpris, (overlay, bus_name) => {
+                    const players = overlay.attribute.players;
+
+                    if (players.has(bus_name)) {
                         return;
                     }
 
-                    // Sometimes the signal doesn't give the busName
-                    if (!busName) {
+                    // Sometimes the signal doesn't give the bus_name
+                    if (!bus_name) {
                         const player = Mpris.players.find((p) => {
-                            return !overlay._players.has(p.busName);
+                            return !players.has(p.bus_name);
                         });
 
                         if (player) {
-                            busName = player.busName;
+                            bus_name = player.bus_name;
                         }
                         else {
                             return;
@@ -129,54 +150,67 @@ export default () => {
                     }
 
                     // Get the one on top so we can move it up later
-                    const previousFirst = overlay.list().at(-1);
+                    const previousFirst = overlay.attribute.list().at(-1);
 
                     // Make the new player
-                    const player = Mpris.getPlayer(busName);
+                    const player = Mpris.getPlayer(bus_name);
+                    const Colors = Variable(null);
 
-                    player.colors = Variable();
-                    overlay._players.set(
-                        busName,
-                        PlayerBox(player, content.getOverlay()),
+                    if (!player) {
+                        return;
+                    }
+
+                    players.set(
+                        bus_name,
+                        // @ts-expect-error
+                        PlayerBox(player, Colors, content.child),
                     );
-                    overlay.overlays = Array.from(overlay._players.values())
+                    overlay.overlays = Array.from(players.values())
                         .map((widget) => widget);
 
+                    const includes = overlay.attribute
+                        .includesWidget(previousFirst);
+
                     // Select favorite player at startup
-                    if (!overlay._setup && overlay._players.has(FAVE_PLAYER)) {
-                        overlay.moveToTop(overlay._players.get(FAVE_PLAYER));
-                        overlay._setup = true;
+                    if (!overlay.attribute.setup && players.has(FAVE_PLAYER)) {
+                        overlay.attribute.moveToTop(players.get(FAVE_PLAYER));
+                        overlay.attribute.setup = true;
                     }
 
                     // Move previousFirst on top again
-                    else if (overlay.includesWidget(previousFirst)) {
-                        overlay.moveToTop(previousFirst);
+                    else if (includes) {
+                        overlay.attribute.moveToTop(previousFirst);
                     }
                 }, 'player-added')
 
-                .hook(Mpris, (overlay, busName) => {
-                    if (!busName || !overlay._players.has(busName)) {
+                .hook(Mpris, (overlay, bus_name) => {
+                    const players = overlay.attribute.players;
+
+                    if (!bus_name || !players.has(bus_name)) {
                         return;
                     }
 
                     // Get the one on top so we can move it up later
-                    const previousFirst = overlay.list().at(-1);
+                    const previousFirst = overlay.attribute.list().at(-1);
 
                     // Remake overlays without deleted one
-                    overlay._players.delete(busName);
-                    overlay.overlays = Array.from(overlay._players.values())
+                    players.delete(bus_name);
+                    overlay.overlays = Array.from(players.values())
                         .map((widget) => widget);
 
                     // Move previousFirst on top again
-                    if (overlay.includesWidget(previousFirst)) {
-                        overlay.moveToTop(previousFirst);
+                    const includes = overlay.attribute
+                        .includesWidget(previousFirst);
+
+                    if (includes) {
+                        overlay.attribute.moveToTop(previousFirst);
                     }
                 }, 'player-closed');
         },
     });
 
     return Box({
-        className: 'media',
+        class_name: 'media',
         child: content,
     });
 };

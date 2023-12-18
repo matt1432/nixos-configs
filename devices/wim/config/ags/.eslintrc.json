@@ -31,7 +31,6 @@
     "curly": ["warn"],
     "default-case-last": ["warn"],
     "default-param-last": ["error"],
-    "dot-notation": ["warn", { "allowPattern": ".*-|_.*" }],
     "eqeqeq": ["error", "smart"],
     "func-names": ["warn", "never"],
     "func-style": ["warn", "expression"],
@@ -53,7 +52,6 @@
       "ignoreDefaultValues": true
     }],
     "no-multi-assign": ["error"],
-    "no-negated-condition": ["warn"],
     "no-new": ["error"],
     "no-new-func": ["error"],
     "no-new-wrappers": ["error"],

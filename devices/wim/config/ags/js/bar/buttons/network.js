@@ -4,76 +4,66 @@ import { Label, Box, EventBox, Icon, Revealer } from 'resource:///com/github/Ayl
 
 import Separator from '../../misc/separator.js';
 
-
-const Indicator = (props) => Icon({
-    ...props,
-    setup: (self) => {
-        self.hook(Network, () => {
-            if (Network.wifi.internet === 'connected' ||
-                Network.wifi.internet === 'connecting') {
-                self.icon = Network.wifi.iconName;
-            }
-            else if (Network.wired.internet === 'connected' ||
-                Network.wired.internet === 'connecting') {
-                self.icon = Network.wired.iconName;
-            }
-            else {
-                self.icon = Network.wifi.iconName;
-            }
-        });
-    },
-});
-
-const APLabel = (props) => Label({
-    ...props,
-    setup: (self) => {
-        self.hook(Network, () => {
-            if (Network.wifi.internet === 'connected' ||
-                Network.wifi.internet === 'connecting') {
-                self.label = Network.wifi.ssid;
-            }
-            else if (Network.wired.internet === 'connected' ||
-                Network.wired.internet === 'connecting') {
-                self.label = 'Connected';
-            }
-            else {
-                self.label = 'Disconnected';
-            }
-        });
-    },
-});
-
 const SPACING = 5;
 
+
 export default () => {
-    const rev = Revealer({
+    const indicator = Icon().hook(Network, (self) => {
+        if (Network.wifi.internet === 'connected' ||
+            Network.wifi.internet === 'connecting') {
+            self.icon = Network.wifi.icon_name;
+        }
+        else if (Network.wired.internet === 'connected' ||
+                 Network.wired.internet === 'connecting') {
+            self.icon = Network.wired.icon_name;
+        }
+        else {
+            self.icon = Network.wifi.icon_name;
+        }
+    });
+
+    const label = Label().hook(Network, (self) => {
+        if (Network.wifi.internet === 'connected' ||
+            Network.wifi.internet === 'connecting') {
+            self.label = Network.wifi.ssid;
+        }
+        else if (Network.wired.internet === 'connected' ||
+                 Network.wired.internet === 'connecting') {
+            self.label = 'Connected';
+        }
+        else {
+            self.label = 'Disconnected';
+        }
+    });
+
+    const hoverRevLabel = Revealer({
         transition: 'slide_right',
         child: Box({
             children: [
                 Separator(SPACING),
-                APLabel(),
+                label,
             ],
         }),
     });
 
     const widget = EventBox({
-        onHover: () => {
-            rev.revealChild = true;
+        on_hover: () => {
+            hoverRevLabel.reveal_child = true;
         },
-        onHoverLost: () => {
-            rev.revealChild = false;
+        on_hover_lost: () => {
+            hoverRevLabel.reveal_child = false;
         },
-        child: Box({
-            className: 'network',
-            children: [
-                Indicator(),
 
-                rev,
+        child: Box({
+            class_name: 'network',
+
+            children: [
+                indicator,
+
+                hoverRevLabel,
             ],
         }),
     });
-
-    widget.rev = rev;
 
     return widget;
 };

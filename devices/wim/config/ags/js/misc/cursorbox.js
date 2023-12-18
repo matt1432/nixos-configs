@@ -6,19 +6,39 @@ import Gtk from 'gi://Gtk';
 
 
 // TODO: wrap in another EventBox for disabled cursor
+/**
+ * @typedef {import('types/widget.js').Widget} Widget
+ * @typedef {Widget & Object} CursorProps
+ * @property {boolean=} isButton
+ * @property {function(Widget):void=} onPrimaryClickRelease
+ *
+ * @param {CursorProps} obj
+ */
 export default ({
     isButton = false,
-    onPrimaryClickRelease = () => { /**/ },
+
+    onPrimaryClickRelease = (self) => {
+        self;
+    },
     ...props
 }) => {
     // Make this variable to know if the function should
     // be executed depending on where the click is released
     const CanRun = Variable(true);
 
-    const properties = {
+    let widgetFunc;
+
+    if (isButton) {
+        widgetFunc = Button;
+    }
+    else {
+        widgetFunc = EventBox;
+    }
+
+    const widget = widgetFunc({
         ...props,
         cursor: 'pointer',
-        onPrimaryClickRelease: (self) => {
+        on_primary_click_release: (self) => {
             // Every click, do a one shot connect to
             // CanRun to wait for location of click
             const id = CanRun.connect('changed', () => {
@@ -29,19 +49,11 @@ export default ({
                 CanRun.disconnect(id);
             });
         },
-    };
-
-    let widget;
-
-    if (isButton) {
-        widget = Button(properties);
-    }
-    else {
-        widget = EventBox(properties);
-    }
+    });
 
     const gesture = Gtk.GestureLongPress.new(widget);
 
+    // @ts-expect-error
     widget.hook(gesture, () => {
         const pointer = gesture.get_point(null);
         const x = pointer[1];

@@ -2,25 +2,10 @@ import App from 'resource:///com/github/Aylur/ags/app.js';
 
 import { Label } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import GLib from 'gi://GLib';
-const { DateTime } = GLib;
+const { DateTime } = imports.gi.GLib;
 
 import EventBox from '../../misc/cursorbox.js';
 
-
-const ClockModule = () => Label({
-    className: 'clock',
-
-    setup: (self) => {
-        self.poll(1000, () => {
-            const time = DateTime.new_now_local();
-
-            self.label = time.format('%a. ') +
-                time.get_day_of_month() +
-                time.format(' %b. %H:%M');
-        });
-    },
-});
 
 export default () => EventBox({
     className: 'toggle-off',
@@ -35,5 +20,12 @@ export default () => EventBox({
         });
     },
 
-    child: ClockModule(),
+    child: Label({ class_name: 'clock' })
+        .poll(1000, (self) => {
+            const time = DateTime.new_now_local();
+
+            self.label = time.format('%a. ') +
+                time.get_day_of_month() +
+                time.format(' %b. %H:%M');
+        }),
 });
