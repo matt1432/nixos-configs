@@ -11,7 +11,7 @@ const SPACING = 4;
 /**
  * @param {Label} self
  * @param {string} layout
- * @param {void} _
+ * @param {string} _
  */
 const getKbdLayout = (self, _, layout) => {
     if (layout) {

@@ -9,12 +9,16 @@ export default () => CursorBox({
 
     on_primary_click_release: () => Tablet.toggleMode(),
 
+    setup: (self) => {
+        self.hook(Tablet, () => {
+            self.toggleClassName('toggle-on', Tablet.tabletMode);
+        }, 'mode-toggled');
+    },
+
     child: Box({
         class_name: 'tablet-toggle',
         vertical: false,
         children: [Label(' 󰦧 ')],
     }),
 
-}).hook(Tablet, (self) => {
-    self.toggleClassName('toggle-on', Tablet.tabletMode);
-}, 'mode-toggled');
+});

@@ -9,7 +9,7 @@ export const NotifPopups = () => PopupWindow({
     anchor: ['bottom', 'left'],
     visible: true,
     transition: 'none',
-    closeOnUnfocus: 'stay',
+    close_on_unfocus: 'stay',
     monitor: 1,
 
     child: PopUpsWidget(),

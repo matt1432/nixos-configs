@@ -9,12 +9,16 @@ export default () => CursorBox({
 
     on_primary_click_release: () => Tablet.toggleOsk(),
 
+    setup: (self) => {
+        self.hook(Tablet, () => {
+            self.toggleClassName('toggle-on', Tablet.oskState);
+        }, 'osk-toggled');
+    },
+
     child: Label({
         class_name: 'osk-toggle',
         xalign: 0.6,
         label: '󰌌 ',
     }),
 
-}).hook(Tablet, (self) => {
-    self.toggleClassName('toggle-on', Tablet.oskState);
-}, 'osk-toggled');
+});

@@ -35,20 +35,27 @@ export default (props) => {
         vertical: true,
 
         setup: (self) => {
+            const checkCurrentWsFsState = () => {
+                const workspace = Hyprland.getWorkspace(
+                    Hyprland.active.workspace.id,
+                );
+
+                if (workspace) {
+                    Revealed.value = !workspace['hasfullscreen'];
+                }
+            };
+
+            /**
+             * @param {import('types/widgets/box').default} _
+             * @param {boolean} fullscreen
+             */
+            const checkGlobalFsState = (_, fullscreen) => {
+                Revealed.value = !fullscreen;
+            };
+
             self
-                .hook(Hyprland.active, () => {
-                    const workspace = Hyprland.getWorkspace(
-                        Hyprland.active.workspace.id,
-                    );
-
-                    if (workspace) {
-                        Revealed.value = !workspace['hasfullscreen'];
-                    }
-                })
-
-                .hook(Hyprland, (_, fullscreen) => {
-                    Revealed.value = !fullscreen;
-                }, 'fullscreen');
+                .hook(Hyprland.active, checkCurrentWsFsState)
+                .hook(Hyprland, checkGlobalFsState, 'fullscreen');
         },
 
         children: [

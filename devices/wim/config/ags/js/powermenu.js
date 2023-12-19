@@ -7,6 +7,7 @@ import PopupWindow from './misc/popup.js';
 import CursorBox from './misc/cursorbox.js';
 
 
+// FIXME: eventboxes are the wrong size
 const PowermenuWidget = () => CenterBox({
     class_name: 'powermenu',
     // @ts-expect-error

@@ -7,8 +7,6 @@ import CursorBox from '../../misc/cursorbox.js';
 
 const URGENT_DURATION = 1000;
 
-/** @typedef {import('types/widget.js').Widget} Widget */
-
 
 /** @property {number} id */
 const Workspace = ({ id }) => {
@@ -17,7 +15,7 @@ const Workspace = ({ id }) => {
         attribute: { id },
 
         child: CursorBox({
-            tooltipText: `${id}`,
+            tooltip_text: `${id}`,
 
             on_primary_click_release: () => {
                 Hyprland.sendMessage(`dispatch workspace ${id}`);
@@ -29,7 +27,7 @@ const Workspace = ({ id }) => {
 
                 setup: (self) => {
                     /**
-                     * @param {Widget} _
+                     * @param {import('types/widgets/box').default} _
                      * @param {string|undefined} addr
                      */
                     const update = (_, addr) => {
@@ -80,11 +78,11 @@ export default () => {
     const L_PADDING = 16;
     const WS_WIDTH = 30;
 
-    /** @param {Widget} self */
+    /** @param {import('types/widgets/box').default} self */
     const updateHighlight = (self) => {
         const currentId = Hyprland.active.workspace.id;
         // @ts-expect-error
-        const indicators = self.get_parent().get_children()[0].child.child.children;
+        const indicators = self?.get_parent()?.child.child.child.children;
         const currentIndex = Array.from(indicators)
             .findIndex((w) => w.attribute.id === currentId);
 
@@ -92,7 +90,6 @@ export default () => {
             return;
         }
 
-        // @ts-expect-error
         self.setCss(`margin-left: ${L_PADDING + (currentIndex * WS_WIDTH)}px`);
     };
 
@@ -100,6 +97,7 @@ export default () => {
         vpack: 'center',
         hpack: 'start',
         class_name: 'button active',
+
     }).hook(Hyprland.active.workspace, updateHighlight);
 
     const widget = Overlay({
@@ -118,7 +116,7 @@ export default () => {
                             rev.reveal_child = false;
                         });
                         Array.from(self.attribute.workspaces).forEach((ws) => {
-                            ws.revealChild = true;
+                            ws.reveal_child = true;
                         });
                     };
 

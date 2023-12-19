@@ -5,11 +5,11 @@ import { EventBox } from 'resource:///com/github/Aylur/ags/widget.js';
 const { Gtk } = imports.gi;
 
 
-// TODO: wrap in another EventBox for disabled cursor
 /**
- * @typedef {import('types/widgets/eventbox').EventBoxProps} EventBox
+ * @typedef {import('types/widgets/eventbox').EventBoxProps} EventBoxProps
+ * @typedef {import('types/widgets/eventbox').default} EventBox
  *
- * @param {EventBox & {
+ * @param {EventBoxProps & {
  *      on_primary_click_release?: function(EventBox):void
  * }} o
  */
@@ -23,22 +23,7 @@ export default ({
     const CanRun = Variable(true);
     const Disabled = Variable(false);
 
-    const widget = EventBox({
-        ...props,
-        sensitive: Disabled.bind().transform((v) => !v),
-
-        on_primary_click_release: (self) => {
-            // Every click, do a one shot connect to
-            // CanRun to wait for location of click
-            const id = CanRun.connect('changed', () => {
-                if (CanRun.value) {
-                    on_primary_click_release(self);
-                }
-
-                CanRun.disconnect(id);
-            });
-        },
-    });
+    let widget; // eslint-disable-line
 
     const wrapper = EventBox({
         cursor: 'pointer',
@@ -55,13 +40,30 @@ export default ({
             },
         },
 
-        child: widget,
-
     }).hook(Disabled, (self) => {
         self.cursor = Disabled.value ?
             'not-allowed' :
             'pointer';
     });
+
+    widget = EventBox({
+        ...props,
+        sensitive: Disabled.bind().transform((v) => !v),
+
+        on_primary_click_release: () => {
+            // Every click, do a one shot connect to
+            // CanRun to wait for location of click
+            const id = CanRun.connect('changed', () => {
+                if (CanRun.value) {
+                    on_primary_click_release(wrapper);
+                }
+
+                CanRun.disconnect(id);
+            });
+        },
+    });
+
+    wrapper.child = widget;
 
     const gesture = Gtk.GestureLongPress.new(widget);
 

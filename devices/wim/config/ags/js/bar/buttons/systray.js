@@ -38,39 +38,50 @@ const SysTray = () => MenuBar({
     },
 
     setup: (self) => {
+        /**
+         * @param {import('types/widget').default} _
+         * @param {string} id
+         */
+        const addTray = (_, id) => {
+            const item = SystemTray.getItem(id);
+
+            if (self.attribute.items.has(id) || !item) {
+                return;
+            }
+
+            const w = SysTrayItem(item);
+
+            // Early return if item is in blocklist
+            if (!w) {
+                return;
+            }
+
+            self.attribute.items.set(id, w);
+            self.child = w;
+            self.show_all();
+            // @ts-expect-error
+            w.child.reveal_child = true;
+        };
+
+        /**
+         * @param {import('types/widget').default} _
+         * @param {string} id
+         */
+        const removeTray = (_, id) => {
+            if (!self.attribute.items.has(id)) {
+                return;
+            }
+
+            self.attribute.items.get(id).child.reveal_child = false;
+            timeout(REVEAL_DURATION, () => {
+                self.attribute.items.get(id).destroy();
+                self.attribute.items.delete(id);
+            });
+        };
+
         self
-            .hook(SystemTray, (_, id) => {
-                const item = SystemTray.getItem(id);
-
-                if (self.attribute.items.has(id) || !item) {
-                    return;
-                }
-
-                const w = SysTrayItem(item);
-
-                // Early return if item is in blocklist
-                if (!w) {
-                    return;
-                }
-
-                self.attribute.items.set(id, w);
-                self.child = w;
-                self.show_all();
-                // @ts-expect-error
-                w.child.reveal_child = true;
-            }, 'added')
-
-            .hook(SystemTray, (_, id) => {
-                if (!self.attribute.items.has(id)) {
-                    return;
-                }
-
-                self.attribute.items.get(id).child.reveal_child = false;
-                timeout(REVEAL_DURATION, () => {
-                    self.attribute.items.get(id).destroy();
-                    self.attribute.items.delete(id);
-                });
-            }, 'removed');
+            .hook(SystemTray, addTray, 'added')
+            .hook(SystemTray, removeTray, 'removed');
     },
 });
 

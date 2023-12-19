@@ -16,6 +16,7 @@ export const NotifPopups = () => PopupWindow({
 
 const TOP_MARGIN = 6;
 
+// FIXME: opens at wrong place
 export const NotifCenter = () => PopupWindow({
     name: 'notification-center',
     anchor: ['top', 'right'],
