@@ -37,7 +37,6 @@ const Workspace = ({ id }) => {
                         const occupied = workspace && workspace['windows'] > 0;
 
                         self.toggleClassName('occupied', occupied);
-                        self.toggleClassName('empty', !occupied);
 
                         if (!addr) {
                             return;
