@@ -1,6 +1,14 @@
 import { Box } from 'resource:///com/github/Aylur/ags/widget.js';
 
 
+/**
+ * @param {number} size
+ * @param {{
+ *      vertical?: boolean
+ *      css?: string
+ *      props?: import('types/widgets/box').BoxProps
+ * }} o
+ */
 export default (size, {
     vertical = false,
     css = '',

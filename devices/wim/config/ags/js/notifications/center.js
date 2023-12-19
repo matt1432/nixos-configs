@@ -5,7 +5,7 @@ import { Button, Label, Box, Icon, Scrollable, Revealer } from 'resource:///com/
 import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import { Notification, HasNotifs } from './base.js';
-import EventBox from '../misc/cursorbox.js';
+import CursorBox from '../misc/cursorbox.js';
 
 
 const addNotif = (box, notif) => {
@@ -55,7 +55,7 @@ const NotificationList = () => Box({
 });
 
 // Needs to be wrapped to still have onHover when disabled
-const ClearButton = () => EventBox({
+const ClearButton = () => CursorBox({
     child: Button({
         onPrimaryClickRelease: () => {
             Notifications.clear();

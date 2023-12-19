@@ -1,7 +1,7 @@
 import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 import { Box, EventBox, Overlay } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import Gtk from 'gi://Gtk';
+const { Gtk } = imports.gi;
 
 const MAX_OFFSET = 200;
 const OFFSCREEN = 500;
@@ -61,10 +61,9 @@ export default ({
             setup(self);
 
             self
-                // @ts-expect-error
                 .hook(gesture, (overlay, realGesture) => {
                     if (realGesture) {
-                        overlay.attribute.list().forEach((over) => {
+                        Array.from(overlay.attribute.list()).forEach((over) => {
                             over.visible = true;
                         });
                     }

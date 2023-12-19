@@ -62,7 +62,7 @@ class Pointers extends Service {
         this.#getDevices();
         this.#udevClient.connect('uevent', (_, action) => {
             if (action === 'add' || action === 'remove') {
-                this.getDevices();
+                this.#getDevices();
                 if (this.#process) {
                     this.killProc();
                     this.startProc();
@@ -139,9 +139,9 @@ class Pointers extends Service {
     #initAppConnection() {
         App.connect('window-toggled', () => {
             const anyVisibleAndClosable = Array.from(App.windows).some((w) => {
-                const closable = w[1].closeOnUnfocus &&
-                                !(w[1].closeOnUnfocus === 'none' ||
-                                    w[1].closeOnUnfocus === 'stay');
+                const closable = w[1].attribute?.close_on_unfocus &&
+                                !(w[1].attribute?.close_on_unfocus === 'none' ||
+                                    w[1].attribute?.close_on_unfocus === 'stay');
 
                 return w[1].visible && closable;
             });
@@ -158,8 +158,8 @@ class Pointers extends Service {
 
     static detectClickedOutside(clickStage) {
         const toClose = Array.from(App.windows).some((w) => {
-            const closable = (w[1].closeOnUnfocus &&
-                              w[1].closeOnUnfocus === clickStage);
+            const closable = (w[1].attribute?.close_on_unfocus &&
+                              w[1].attribute?.close_on_unfocus === clickStage);
 
             return w[1].visible && closable;
         });
@@ -181,8 +181,8 @@ class Pointers extends Service {
                     const widgets = key.levels['3'].filter((n) => {
                         const window = App.getWindow(n.namespace);
 
-                        return window?.closeOnUnfocus &&
-                               window?.closeOnUnfocus === clickStage;
+                        return window?.attribute?.close_on_unfocus &&
+                               window?.attribute?.close_on_unfocus === clickStage;
                     });
 
                     if (pos.x > bar?.x && pos.x < bar?.x + bar?.w &&

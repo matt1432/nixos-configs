@@ -3,18 +3,18 @@ import Notifications from 'resource:///com/github/Aylur/ags/service/notification
 
 import { Box, CenterBox, Icon, Label } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import EventBox from '../../misc/cursorbox.js';
+import CursorBox from '../../misc/cursorbox.js';
 import Separator from '../../misc/separator.js';
 
 const SPACING = 4;
 
 
-export default () => EventBox({
-    className: 'toggle-off',
+export default () => CursorBox({
+    class_name: 'toggle-off',
 
-    onPrimaryClickRelease: (self) => {
+    on_primary_click_release: (self) => {
         // @ts-expect-error
-        App.getWindow('notification-center')?.setXPos(
+        App.getWindow('notification-center')?.attribute.set_x_pos(
             self.get_allocation(),
             'right',
         );

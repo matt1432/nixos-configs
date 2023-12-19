@@ -4,7 +4,7 @@ import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 import { Box, Icon, Label } from 'resource:///com/github/Aylur/ags/widget.js';
 import { lookUpIcon } from 'resource:///com/github/Aylur/ags/utils.js';
 
-import EventBox from '../misc/cursorbox.js';
+import CursorBox from '../misc/cursorbox.js';
 
 
 /**
@@ -50,14 +50,13 @@ export default (app) => {
         ],
     });
 
-
-    return EventBox({
+    return CursorBox({
         hexpand: true,
         class_name: 'app',
 
         attribute: { app },
 
-        onPrimaryClickRelease: (self) => {
+        on_primary_click_release: (self) => {
             App.closeWindow('applauncher');
             Hyprland.sendMessage(`dispatch exec sh -c
                 ${self.attribute.app.executable}`);

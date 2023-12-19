@@ -53,8 +53,8 @@ export default () => PopupWindow({
     name: 'osd',
     anchor: ['bottom'],
     exclusivity: 'ignore',
-    closeOnUnfocus: 'stay',
+    close_on_unfocus: 'stay',
     transition: 'slide_up',
-    transitionDuration: 200,
+    transition_duration: 200,
     child: OSDs(),
 });

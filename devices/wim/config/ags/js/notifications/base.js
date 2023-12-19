@@ -18,7 +18,7 @@ const getDragState = (box) => box.get_parent().get_parent()
     .get_parent().get_parent().get_parent()._dragging;
 
 import Gesture from './gesture.js';
-import EventBox from '../misc/cursorbox.js';
+import CursorBox from '../misc/cursorbox.js';
 
 
 const NotificationIcon = (notif) => {
@@ -75,8 +75,8 @@ const NotificationIcon = (notif) => {
     }
 
     if (notif.image) {
-        return EventBox({
-            onPrimaryClickRelease: iconCmd,
+        return CursorBox({
+            on_primary_click_release: iconCmd,
 
             child: Box({
                 vpack: 'start',
@@ -106,8 +106,8 @@ const NotificationIcon = (notif) => {
     }
 
 
-    return EventBox({
-        onPrimaryClickRelease: iconCmd,
+    return CursorBox({
+        on_primary_click_release: iconCmd,
 
         child: Box({
             vpack: 'start',
@@ -205,7 +205,7 @@ export const Notification = ({
                                         }),
 
                                         // Close button
-                                        EventBox({
+                                        CursorBox({
                                             child: Button({
                                                 className: 'close-button',
                                                 vpack: 'start',

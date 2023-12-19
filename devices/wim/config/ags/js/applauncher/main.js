@@ -78,10 +78,9 @@ const Applauncher = ({ window_name = 'applauncher' } = {}) => {
         },
 
         on_change: ({ text }) => {
-            if (!text) {
+            if (text === null) {
                 return;
             }
-
             setSort(text);
             let visibleApps = 0;
 

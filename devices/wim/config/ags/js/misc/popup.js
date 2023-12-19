@@ -4,24 +4,35 @@ import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 import { Revealer, Box, Window } from 'resource:///com/github/Aylur/ags/widget.js';
 import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 
+/**
+ * @typedef {import('types/widgets/revealer').RevealerProps} RevProp
+ * @typedef {import('types/widgets/window').WindowProps} WinProp
+ */
 
+
+/**
+ * @param {WinProp & {
+ *      transition?: RevProp['transition']
+ *      transition_duration?: RevProp['transition_duration']
+ *      onOpen?: function
+ *      onClose?: function
+ *      blur?: boolean
+ *      close_on_unfocus?: 'none'|'stay'|'released'|'clicked'
+ * }} o
+ */
 export default ({
-    // Revealer props
     transition = 'slide_down',
-    transitionDuration = 500,
-
-    // Optional: execute a function whenever
-    // the window pops up or goes away
+    transition_duration = 500,
     onOpen = () => { /**/ },
     onClose = () => { /**/ },
 
     // Window props
     name,
     child,
-    blur = false,
-    closeOnUnfocus = 'released',
     visible = false,
     layer = 'overlay',
+    blur = false,
+    close_on_unfocus = 'released',
     ...props
 }) => {
     const window = Window({
@@ -30,11 +41,49 @@ export default ({
         visible: false,
         ...props,
 
+        attribute: {
+            set_x_pos: (
+                alloc = {},
+                side = 'right',
+            ) => {
+                const width = window.get_display()
+                    .get_monitor_at_point(alloc.x, alloc.y)
+                    .get_geometry().width;
+
+                window.margins = [
+                    window.margins[0],
+
+                    side === 'right' ?
+                        (width - alloc.x - alloc.width) :
+                        window.margins[1],
+
+                    window.margins[2],
+
+                    side === 'right' ?
+                        window.margins[3] :
+                        (alloc.x - alloc.width),
+                ];
+            },
+
+            // @ts-expect-error
+            get_child: () => window.child.children[0].child,
+
+            set_child: (newChild) => {
+                // @ts-expect-error
+                window.child.children[0].child = newChild;
+                // @ts-expect-error
+                window.child.children[0].show_all();
+            },
+
+            // This is for my custom pointers.js
+            close_on_unfocus,
+        },
+
         setup: () => {
             // Add way to make window open on startup
             const id = App.connect('config-parsed', () => {
                 if (visible) {
-                    App.openWindow(name);
+                    App.openWindow(String(name));
                 }
                 App.disconnect(id);
             });
@@ -56,18 +105,18 @@ export default ({
             `,
             child: Revealer({
                 transition,
-                transitionDuration,
+                transition_duration,
 
                 setup: (self) => {
                     self.hook(App, (_, currentName, isOpen) => {
                         if (currentName === name) {
-                            self.revealChild = isOpen;
+                            self.reveal_child = isOpen;
 
                             if (isOpen) {
                                 onOpen(window);
                             }
                             else {
-                                timeout(transitionDuration, () => {
+                                timeout(Number(transition_duration), () => {
                                     onClose(window);
                                 });
                             }
@@ -79,40 +128,6 @@ export default ({
             }),
         }),
     });
-
-    window.setXPos = (
-        alloc,
-        side = 'right',
-    ) => {
-        const width = window.get_display()
-            .get_monitor_at_point(alloc.x, alloc.y)
-            .get_geometry().width;
-
-        window.margins = [
-            window.margins[0],
-
-            side === 'right' ?
-                (width - alloc.x - alloc.width) :
-                window.margins[1],
-
-            window.margins[2],
-
-            side === 'right' ?
-                window.margins[3] :
-                (alloc.x - alloc.width),
-        ];
-    };
-
-    // Make getting the original child passed in this
-    // function easier when making more code for the widget
-    window.getChild = () => window.child.children[0].child;
-    window.setChild = (newChild) => {
-        window.child.children[0].child = newChild;
-        window.child.children[0].show_all();
-    };
-
-    // This is for my custom pointers.js
-    window.closeOnUnfocus = closeOnUnfocus;
 
     return window;
 };

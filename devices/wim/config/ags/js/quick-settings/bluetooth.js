@@ -3,7 +3,7 @@ import Bluetooth from 'resource:///com/github/Aylur/ags/service/bluetooth.js';
 
 import { Box, Icon, Label, ListBox, Overlay, Revealer, Scrollable } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import EventBox from '../misc/cursorbox.js';
+import CursorBox from '../misc/cursorbox.js';
 
 const SCROLL_THRESH_H = 200;
 const SCROLL_THRESH_N = 7;
@@ -42,8 +42,8 @@ const BluetoothDevice = (dev) => {
     widget.add(Revealer({
         revealChild: true,
         transition: 'slide_down',
-        child: EventBox({
-            onPrimaryClickRelease: () => dev.setConnection(true),
+        child: CursorBox({
+            on_primary_click_release: () => dev.setConnection(true),
             child,
         }),
     }));

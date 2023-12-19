@@ -3,7 +3,7 @@ import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 import { Box, Overlay, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import EventBox from '../../misc/cursorbox.js';
+import CursorBox from '../../misc/cursorbox.js';
 
 const URGENT_DURATION = 1000;
 
@@ -16,10 +16,10 @@ const Workspace = ({ id }) => {
         transition: 'slide_right',
         attribute: { id },
 
-        child: EventBox({
+        child: CursorBox({
             tooltipText: `${id}`,
 
-            onPrimaryClickRelease: () => {
+            on_primary_click_release: () => {
                 Hyprland.sendMessage(`dispatch workspace ${id}`);
             },
 
@@ -84,7 +84,7 @@ export default () => {
     const updateHighlight = (self) => {
         const currentId = Hyprland.active.workspace.id;
         // @ts-expect-error
-        const indicators = self.get_parent().get_children()[0].child.children;
+        const indicators = self.get_parent().get_children()[0].child.child.children;
         const currentIndex = Array.from(indicators)
             .findIndex((w) => w.attribute.id === currentId);
 
@@ -105,7 +105,7 @@ export default () => {
     const widget = Overlay({
         pass_through: true,
         overlays: [highlight],
-        child: EventBox({
+        child: CursorBox({
             child: Box({
                 class_name: 'workspaces',
 

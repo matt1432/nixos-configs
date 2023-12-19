@@ -93,15 +93,15 @@ export const Overview = () => {
 };
 
 export default () => {
-    const window = PopupWindow({
+    const win = PopupWindow({
         name: 'overview',
         blur: true,
-        closeOnUnfocus: 'none',
-        onOpen: (win) => {
-            win.setChild(Overview());
-            win.getChild().getChild().update();
+        close_on_unfocus: 'none',
+        onOpen: () => {
+            win.attribute.set_child(Overview());
+            win.attribute.get_child().getChild().update();
         },
     });
 
-    return window;
+    return win;
 };

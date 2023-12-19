@@ -2,7 +2,7 @@ import { Label } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 
-import EventBox from '../../misc/cursorbox.js';
+import CursorBox from '../../misc/cursorbox.js';
 import Persist from '../../misc/persist.js';
 
 const HeartState = Variable('');
@@ -16,8 +16,8 @@ Persist({
 });
 
 
-export default () => EventBox({
-    onPrimaryClickRelease: () => {
+export default () => CursorBox({
+    on_primary_click_release: () => {
         HeartState.value = HeartState.value === '' ? '󰣐' : '';
     },
 

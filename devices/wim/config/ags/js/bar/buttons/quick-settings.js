@@ -8,20 +8,18 @@ import Brightness from './brightness.js';
 import KeyboardLayout from './keyboard-layout.js';
 import Network from './network.js';
 
-import EventBox from '../../misc/cursorbox.js';
+import CursorBox from '../../misc/cursorbox.js';
 import Separator from '../../misc/separator.js';
 
 const SPACING = 4;
 
 
-export default () => EventBox({
-    className: 'toggle-off',
+export default () => CursorBox({
+    class_name: 'toggle-off',
 
-    onHoverLost: () => { /**/ },
-
-    onPrimaryClickRelease: (self) => {
+    on_primary_click_release: (self) => {
         // @ts-expect-error
-        App.getWindow('notification-center').setXPos(
+        App.getWindow('notification-center').attribute.set_x_pos(
             self.get_allocation(),
             'right',
         );

@@ -1,12 +1,10 @@
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 
-import { EventBox } from 'resource:///com/github/Aylur/ags/widget.js';
+import { Button, EventBox } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import Gtk from 'gi://Gtk';
-import Gdk from 'gi://Gdk';
 import Cairo from 'cairo';
+const { Gtk, Gdk } = imports.gi;
 
-import Button from '../misc/cursorbox.js';
 import { updateClients } from './clients.js';
 
 const TARGET = [Gtk.TargetEntry.new('text/plain', Gtk.TargetFlags.SAME_APP, 0)];
@@ -58,9 +56,14 @@ export const WorkspaceDrop = (props) => EventBox({
     },
 });
 
-export const WindowButton = ({ address, mainBox, ...props } = {}) => Button({
-    isButton: true,
+export const WindowButton = ({
+    address,
+    mainBox,
+    ...props
+} = {}) => Button({
     ...props,
+
+    cursor: 'pointer',
 
     setup: (self) => {
         self.drag_source_set(

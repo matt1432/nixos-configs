@@ -1,13 +1,13 @@
 import { Label } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import Tablet from '../../../services/tablet.js';
-import EventBox from '../../misc/cursorbox.js';
+import CursorBox from '../../misc/cursorbox.js';
 
 
-export default () => EventBox({
-    className: 'toggle-off',
+export default () => CursorBox({
+    class_name: 'toggle-off',
 
-    onPrimaryClickRelease: () => Tablet.toggleOsk(),
+    on_primary_click_release: () => Tablet.toggleOsk(),
 
     child: Label({
         class_name: 'osk-toggle',

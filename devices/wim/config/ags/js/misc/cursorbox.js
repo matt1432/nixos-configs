@@ -1,49 +1,38 @@
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 
-import { Button, EventBox } from 'resource:///com/github/Aylur/ags/widget.js';
+import { EventBox } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import Gtk from 'gi://Gtk';
+const { Gtk } = imports.gi;
 
 
 // TODO: wrap in another EventBox for disabled cursor
 /**
- * @typedef {import('types/widget.js').Widget} Widget
- * @typedef {Widget & Object} CursorProps
- * @property {boolean=} isButton
- * @property {function(Widget):void=} onPrimaryClickRelease
+ * @typedef {import('types/widgets/eventbox').EventBoxProps} EventBox
  *
- * @param {CursorProps} obj
+ * @param {EventBox & {
+ *      on_primary_click_release?: function(EventBox):void
+ * }} o
  */
 export default ({
-    isButton = false,
-
-    onPrimaryClickRelease = (self) => {
-        self;
-    },
+    attribute,
+    on_primary_click_release = () => {/**/},
     ...props
 }) => {
     // Make this variable to know if the function should
     // be executed depending on where the click is released
     const CanRun = Variable(true);
+    const Disabled = Variable(false);
 
-    let widgetFunc;
-
-    if (isButton) {
-        widgetFunc = Button;
-    }
-    else {
-        widgetFunc = EventBox;
-    }
-
-    const widget = widgetFunc({
+    const widget = EventBox({
         ...props,
-        cursor: 'pointer',
+        sensitive: Disabled.bind().transform((v) => !v),
+
         on_primary_click_release: (self) => {
             // Every click, do a one shot connect to
             // CanRun to wait for location of click
             const id = CanRun.connect('changed', () => {
                 if (CanRun.value) {
-                    onPrimaryClickRelease(self);
+                    on_primary_click_release(self);
                 }
 
                 CanRun.disconnect(id);
@@ -51,9 +40,31 @@ export default ({
         },
     });
 
+    const wrapper = EventBox({
+        cursor: 'pointer',
+
+        attribute: {
+            ...attribute,
+
+            disabled: Disabled,
+
+            get_child: () => widget.child,
+
+            set_child: (new_child) => {
+                widget.child = new_child;
+            },
+        },
+
+        child: widget,
+
+    }).hook(Disabled, (self) => {
+        self.cursor = Disabled.value ?
+            'not-allowed' :
+            'pointer';
+    });
+
     const gesture = Gtk.GestureLongPress.new(widget);
 
-    // @ts-expect-error
     widget.hook(gesture, () => {
         const pointer = gesture.get_point(null);
         const x = pointer[1];
@@ -69,5 +80,5 @@ export default ({
         );
     }, 'end');
 
-    return widget;
+    return wrapper;
 };

@@ -4,13 +4,13 @@ import { Label } from 'resource:///com/github/Aylur/ags/widget.js';
 
 const { DateTime } = imports.gi.GLib;
 
-import EventBox from '../../misc/cursorbox.js';
+import CursorBox from '../../misc/cursorbox.js';
 
 
-export default () => EventBox({
-    className: 'toggle-off',
+export default () => CursorBox({
+    class_name: 'toggle-off',
 
-    onPrimaryClickRelease: () => App.toggleWindow('calendar'),
+    on_primary_click_release: () => App.toggleWindow('calendar'),
 
     setup: (self) => {
         self.hook(App, (_, windowName, visible) => {

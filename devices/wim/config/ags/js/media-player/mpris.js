@@ -4,7 +4,7 @@ import { Button, Icon, Label, Stack, Slider, CenterBox, Box } from 'resource:///
 import { execAsync, lookUpIcon, readFileAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import Separator from '../misc/separator.js';
-import EventBox from '../misc/cursorbox.js';
+import CursorBox from '../misc/cursorbox.js';
 
 /**
  * @typedef {import('types/service/mpris').MprisPlayer} Player
@@ -137,10 +137,10 @@ export const PlayerIcon = (player, overlay) => {
      * @param {Overlay=} widget
      * @param {Overlay=} over
      */
-    const playerIcon = (p, widget, over) => EventBox({
+    const playerIcon = (p, widget, over) => CursorBox({
         tooltip_text: p.identity || '',
 
-        onPrimaryClickRelease: () => {
+        on_primary_click_release: () => {
             widget?.attribute.moveToTop(over);
         },
 
@@ -223,7 +223,13 @@ export const PositionSlider = (player, colors) => Slider({
     },
 });
 
-const PlayerButton = ({ player, colors, items, onClick, prop }) => EventBox({
+const PlayerButton = ({
+    player,
+    colors,
+    items,
+    onClick,
+    prop,
+}) => CursorBox({
     child: Button({
         attribute: { hovered: false },
         child: Stack({ items }),

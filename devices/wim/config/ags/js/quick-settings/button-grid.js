@@ -7,7 +7,7 @@ import { Box, Icon, Label, Revealer } from 'resource:///com/github/Aylur/ags/wid
 import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import { SpeakerIcon, MicIcon } from '../misc/audio-icons.js';
-import EventBox from '../misc/cursorbox.js';
+import CursorBox from '../misc/cursorbox.js';
 import Separator from '../misc/separator.js';
 
 import { NetworkMenu } from './network.js';
@@ -85,10 +85,10 @@ const GridButton = ({
                 className: 'grid-button',
                 children: [
 
-                    EventBox({
+                    CursorBox({
                         className: 'left-part',
 
-                        onPrimaryClickRelease: () => {
+                        on_primary_click_release: () => {
                             if (Activated.value) {
                                 secondaryCommand();
                             }
@@ -100,10 +100,10 @@ const GridButton = ({
                         child: icon,
                     }),
 
-                    EventBox({
+                    CursorBox({
                         className: 'right-part',
 
-                        onPrimaryClickRelease: () => {
+                        on_primary_click_release: () => {
                             ButtonStates.forEach((state) => {
                                 if (state !== Activated) {
                                     state.value = false;
