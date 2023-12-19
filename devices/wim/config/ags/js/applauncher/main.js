@@ -4,7 +4,7 @@ import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 // TODO: find cleaner way to import this
 import { Fzf } from '../../node_modules/fzf/dist/fzf.es.js';
 
-import { Box, Entry, Icon, Label, ListBox, Scrollable } from 'resource:///com/github/Aylur/ags/widget.js';
+import { Box, Entry, Icon, Label, ListBox, Revealer, Scrollable } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import PopupWindow from '../misc/popup.js';
 import AppItem from './app-item.js';
@@ -54,10 +54,11 @@ const Applauncher = ({ window_name = 'applauncher' } = {}) => {
 
     makeNewChildren();
 
-    // FIXME: always visible
-    const placeholder = Label({
-        label: "   Couldn't find a match",
-        class_name: 'placeholder',
+    const placeholder = Revealer({
+        child: Label({
+            label: "   Couldn't find a match",
+            class_name: 'placeholder',
+        }),
     });
 
     const entry = Entry({
@@ -92,7 +93,7 @@ const Applauncher = ({ window_name = 'applauncher' } = {}) => {
                 const item = row.get_children()[0];
 
                 if (item?.attribute.app) {
-                    const isMatching = fzfResults.find((r) => {
+                    const isMatching = Array.from(fzfResults).find((r) => {
                         return r.item.name === item.attribute.app.name;
                     });
 
@@ -103,7 +104,7 @@ const Applauncher = ({ window_name = 'applauncher' } = {}) => {
                     }
                 }
             });
-            placeholder.visible = visibleApps <= 0;
+            placeholder.reveal_child = visibleApps <= 0;
         },
     });
 
