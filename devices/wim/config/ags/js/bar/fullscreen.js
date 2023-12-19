@@ -14,8 +14,11 @@ const BarCloser = (variable) => Window({
     child: EventBox({
         on_hover: (self) => {
             variable.value = false;
-            // @ts-expect-error
-            self.get_parent().visible = false;
+            const parent = self.get_parent();
+
+            if (parent) {
+                parent.visible = false;
+            }
         },
 
         child: Box({
@@ -64,11 +67,11 @@ export default (props) => {
                 transition: 'slide_down',
                 reveal_child: true,
 
-                binds: [['revealChild', Revealed, 'value']],
-            }),
+            }).bind('reveal_child', Revealed),
 
             Revealer({
-                binds: [['revealChild', Revealed, 'value', (v) => !v]],
+                reveal_child: Revealed.bind()
+                    .transform((v) => !v),
 
                 child: EventBox({
                     on_hover: () => {

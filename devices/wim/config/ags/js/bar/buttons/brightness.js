@@ -8,7 +8,6 @@ const SPACING = 5;
 
 export default () => {
     const icon = Icon({
-        // @ts-expect-error
         icon: Brightness.bind('screenIcon'),
     });
 

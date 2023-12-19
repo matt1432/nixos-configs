@@ -25,7 +25,7 @@ export default () => {
     const label = Label().hook(Network, (self) => {
         if (Network.wifi.internet === 'connected' ||
             Network.wifi.internet === 'connecting') {
-            self.label = Network.wifi.ssid;
+            self.label = Network.wifi.ssid || 'Unknown';
         }
         else if (Network.wired.internet === 'connected' ||
                  Network.wired.internet === 'connecting') {

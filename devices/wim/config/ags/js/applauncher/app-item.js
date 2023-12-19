@@ -7,9 +7,7 @@ import { lookUpIcon } from 'resource:///com/github/Aylur/ags/utils.js';
 import CursorBox from '../misc/cursorbox.js';
 
 
-/**
- * @param {import('types/service/applications.js').Application} app
- */
+/** @param {import('types/service/applications.js').Application} app */
 export default (app) => {
     const icon = Icon({ size: 42 });
     const iconString = app.app.get_string('Icon');

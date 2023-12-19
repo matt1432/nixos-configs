@@ -17,7 +17,7 @@ export default () => Box({
                     .query(Hyprland.active.client.class)[0];
 
                 if (app) {
-                    self.icon = app.icon_name;
+                    self.icon = app.icon_name || '';
                     self.visible = Hyprland.active.client.title !== '';
                 }
             }),

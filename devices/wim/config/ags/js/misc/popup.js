@@ -68,9 +68,10 @@ export default ({
             // @ts-expect-error
             get_child: () => window.child.children[0].child,
 
-            set_child: (newChild) => {
+            /** @param {import('types/widget').Widget} new_child */
+            set_child: (new_child) => {
                 // @ts-expect-error
-                window.child.children[0].child = newChild;
+                window.child.children[0].child = new_child;
                 // @ts-expect-error
                 window.child.children[0].show_all();
             },

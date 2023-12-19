@@ -9,7 +9,7 @@ const SPACING = 4;
 
 
 /**
- * @param {Label} self
+ * @param {import('types/widgets/label').default} self
  * @param {string} layout
  * @param {string} _
  */
@@ -21,7 +21,6 @@ const getKbdLayout = (self, _, layout) => {
 
         const shortName = layout.match(/\(([A-Za-z]+)\)/);
 
-        // @ts-expect-error
         self.label = shortName ? shortName[1] : layout;
     }
     else {
@@ -35,7 +34,6 @@ const getKbdLayout = (self, _, layout) => {
             const shortName = layout
                 .match(/\(([A-Za-z]+)\)/);
 
-            // @ts-expect-error
             self.label = shortName ? shortName[1] : layout;
         }).catch(print);
     }

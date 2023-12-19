@@ -14,7 +14,6 @@ export default () => Box({
     children: [
         Icon({
             class_name: 'battery-indicator',
-            // @ts-expect-error
             icon: Battery.bind('icon_name'),
         }).hook(Battery, (self) => {
             self.toggleClassName('charging', Battery.charging);

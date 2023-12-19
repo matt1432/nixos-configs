@@ -23,10 +23,9 @@ const Applauncher = ({ window_name = 'applauncher' } = {}) => {
         });
 
         fzfResults = fzf.find(text);
+        // @ts-expect-error
         list.set_sort_func((a, b) => {
-            // @ts-expect-error
             const row1 = a.get_children()[0]?.attribute.app.name;
-            // @ts-expect-error
             const row2 = b.get_children()[0]?.attribute.app.name;
 
             if (!row1 || !row2) {
@@ -39,7 +38,8 @@ const Applauncher = ({ window_name = 'applauncher' } = {}) => {
     };
 
     const makeNewChildren = () => {
-        list.get_children().forEach((ch) => {
+        // @ts-expect-error
+        Array.from(list.get_children()).forEach((ch) => {
             ch.destroy();
         });
 
@@ -47,6 +47,7 @@ const Applauncher = ({ window_name = 'applauncher' } = {}) => {
             .flatMap((app) => AppItem(app));
 
         children.forEach((ch) => {
+            // @ts-expect-error
             list.add(ch);
         });
         list.show_all();
@@ -84,11 +85,10 @@ const Applauncher = ({ window_name = 'applauncher' } = {}) => {
             setSort(text);
             let visibleApps = 0;
 
-            list.get_children().forEach((row) => {
-                // @ts-expect-error
+            // @ts-expect-error
+            Array.from(list.get_children()).forEach((row) => {
                 row.changed();
 
-                // @ts-expect-error
                 const item = row.get_children()[0];
 
                 if (item?.attribute.app) {

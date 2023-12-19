@@ -35,6 +35,7 @@ export default ({
 
             get_child: () => widget.child,
 
+            /** @param {import('types/widget').Widget} new_child */
             set_child: (new_child) => {
                 widget.child = new_child;
             },

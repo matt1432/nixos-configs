@@ -3,16 +3,15 @@ const { get_home_dir } = imports.gi.GLib;
 
 
 /**
- * @typedef {Object} Persist
- * @property {string} name
- * @property {typeof imports.gi.GObject} gobject
- * @property {string} prop
- * @property {boolean|string=} condition - if string, compare following props to this
- * @property {boolean|string=} whenTrue
- * @property {boolean|string=} whenFalse
- * @property {string=} signal
- *
- * @param {Persist} props
+ * @param {{
+ *      name: string
+ *      gobject: typeof imports.gi.GObject
+ *      prop: string
+ *      condition?: boolean|string // if string, compare following props to this
+ *      whenTrue?: boolean|string
+ *      whenFalse?: boolean|string
+ *      signal?: string
+ * }} o
  */
 export default ({
     name,
