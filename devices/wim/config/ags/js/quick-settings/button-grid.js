@@ -1,4 +1,5 @@
 import App from 'resource:///com/github/Aylur/ags/app.js';
+// @ts-expect-error
 import Bluetooth from 'resource:///com/github/Aylur/ags/service/bluetooth.js';
 import Network from 'resource:///com/github/Aylur/ags/service/network.js';
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
@@ -14,17 +15,29 @@ import { NetworkMenu } from './network.js';
 import { BluetoothMenu } from './bluetooth.js';
 
 const SPACING = 28;
-
-
 const ButtonStates = [];
+
+/** @typedef {import('types/widgets/widget').default} Widget */
+
+
+/**
+ * @param {{
+ *      command?: function
+ *      secondary_command?: function
+ *      onOpen?: function(Widget):void
+ *      icon: any
+ *      indicator?: any
+ *      menu?: any
+ * }} o
+ */
 const GridButton = ({
-    command = () => { /**/ },
-    secondaryCommand = () => { /**/ },
-    onOpen = () => { /**/ },
+    command = () => {/**/},
+    secondary_command = () => {/**/},
+    onOpen = () => {/**/},
     icon,
     indicator,
     menu,
-} = {}) => {
+}) => {
     const Activated = Variable(false);
 
     ButtonStates.push(Activated);
@@ -32,7 +45,7 @@ const GridButton = ({
     // Allow setting icon dynamically or statically
     if (typeof icon === 'string') {
         icon = Icon({
-            className: 'grid-label',
+            class_name: 'grid-label',
             icon,
             setup: (self) => {
                 self.hook(Activated, () => {
@@ -45,7 +58,7 @@ const GridButton = ({
     }
     else {
         icon = Icon({
-            className: 'grid-label',
+            class_name: 'grid-label',
             setup: (self) => {
                 self
                     .hook(...icon)
@@ -60,7 +73,7 @@ const GridButton = ({
 
     if (indicator) {
         indicator = Label({
-            className: 'sub-label',
+            class_name: 'sub-label',
             justification: 'left',
             truncate: 'end',
             maxWidthChars: 12,
@@ -82,15 +95,15 @@ const GridButton = ({
         vertical: true,
         children: [
             Box({
-                className: 'grid-button',
+                class_name: 'grid-button',
                 children: [
 
                     CursorBox({
-                        className: 'left-part',
+                        class_name: 'left-part',
 
                         on_primary_click_release: () => {
                             if (Activated.value) {
-                                secondaryCommand();
+                                secondary_command();
                             }
                             else {
                                 command();
@@ -101,7 +114,7 @@ const GridButton = ({
                     }),
 
                     CursorBox({
-                        className: 'right-part',
+                        class_name: 'right-part',
 
                         on_primary_click_release: () => {
                             ButtonStates.forEach((state) => {
@@ -112,10 +125,13 @@ const GridButton = ({
                             Activated.value = !Activated.value;
                         },
 
-                        onHover: (self) => {
+                        on_hover: (self) => {
                             if (menu) {
-                                const rowMenu = self.get_parent().get_parent()
-                                    .get_parent().get_parent().children[1];
+                                const rowMenu =
+                                    self.get_parent()
+                                        ?.get_parent()?.get_parent()
+                                        ?.get_parent()?.get_parent()
+                                        ?.children[1];
 
                                 const isSetup = rowMenu.get_children()
                                     .find((ch) => ch === menu);
@@ -129,7 +145,7 @@ const GridButton = ({
 
                         child: Icon({
                             icon: `${App.configDir }/icons/down-large.svg`,
-                            className: 'grid-chev',
+                            class_name: 'grid-chev',
 
                             setup: (self) => {
                                 self.hook(Activated, () => {
@@ -162,7 +178,7 @@ const Row = ({ buttons } = {}) => {
 
         children: [
             Box({
-                className: 'button-row',
+                class_name: 'button-row',
                 hpack: 'center',
             }),
 
@@ -189,7 +205,7 @@ const FirstRow = () => Row({
         GridButton({
             command: () => Network.toggleWifi(),
 
-            secondaryCommand: () => {
+            secondary_command: () => {
                 // TODO: connection editor
             },
 
@@ -211,7 +227,7 @@ const FirstRow = () => Row({
                 //
             },
 
-            secondaryCommand: () => {
+            secondary_command: () => {
                 //
             },
 
@@ -221,7 +237,7 @@ const FirstRow = () => Row({
         GridButton({
             command: () => Bluetooth.toggle(),
 
-            secondaryCommand: () => {
+            secondary_command: () => {
                 // TODO: bluetooth connection editor
             },
 
@@ -261,7 +277,7 @@ const SecondRow = () => Row({
                     '@DEFAULT_SINK@', 'toggle']).catch(print);
             },
 
-            secondaryCommand: () => {
+            secondary_command: () => {
                 execAsync(['bash', '-c', 'pavucontrol'])
                     .catch(print);
             },
@@ -277,7 +293,7 @@ const SecondRow = () => Row({
                     '@DEFAULT_SOURCE@', 'toggle']).catch(print);
             },
 
-            secondaryCommand: () => {
+            secondary_command: () => {
                 execAsync(['bash', '-c', 'pavucontrol'])
                     .catch(print);
             },
@@ -291,14 +307,14 @@ const SecondRow = () => Row({
             command: () => {
                 execAsync(['lock']).catch(print);
             },
-            secondaryCommand: () => App.openWindow('powermenu'),
+            secondary_command: () => App.openWindow('powermenu'),
             icon: 'system-lock-screen-symbolic',
         }),
     ],
 });
 
 export default () => Box({
-    className: 'button-grid',
+    class_name: 'button-grid',
     vertical: true,
     hpack: 'center',
     children: [

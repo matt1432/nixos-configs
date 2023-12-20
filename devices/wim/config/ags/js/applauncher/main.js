@@ -9,17 +9,25 @@ import { Box, Entry, Icon, Label, ListBox, Revealer, Scrollable } from 'resource
 import PopupWindow from '../misc/popup.js';
 import AppItem from './app-item.js';
 
+/** @typedef {import('types/service/applications.js').Application} App */
+
 
 const Applauncher = ({ window_name = 'applauncher' } = {}) => {
+    /** @type Array<any> */
     let fzfResults;
     const list = ListBox();
 
     /** @param {String} text */
     const setSort = (text) => {
         const fzf = new Fzf(Applications.list, {
-            selector: (app) => app.name,
-            tiebreakers: [(a, b) => b.frequency -
-                a.frequency],
+            selector: /** @param {App} app */ (app) => app.name,
+            tiebreakers: [
+                /**
+                 * @param {App} a
+                 * @param {App} b
+                 */
+                (a, b) => b.frequency - a.frequency,
+            ],
         });
 
         fzfResults = fzf.find(text);
@@ -38,8 +46,11 @@ const Applauncher = ({ window_name = 'applauncher' } = {}) => {
     };
 
     const makeNewChildren = () => {
+        /** @type Array<typeof imports.gi.Gtk.ListBoxRow> */
         // @ts-expect-error
-        Array.from(list.get_children()).forEach((ch) => {
+        const rows = list.get_children();
+
+        rows.forEach((ch) => {
             ch.destroy();
         });
 
@@ -85,14 +96,17 @@ const Applauncher = ({ window_name = 'applauncher' } = {}) => {
             setSort(text);
             let visibleApps = 0;
 
+            /** @type Array<typeof imports.gi.Gtk.ListBoxRow> */
             // @ts-expect-error
-            Array.from(list.get_children()).forEach((row) => {
+            const rows = list.get_children();
+
+            rows.forEach((row) => {
                 row.changed();
 
                 const item = row.get_children()[0];
 
                 if (item?.attribute.app) {
-                    const isMatching = Array.from(fzfResults).find((r) => {
+                    const isMatching = fzfResults.find((r) => {
                         return r.item.name === item.attribute.app.name;
                     });
 

@@ -7,6 +7,8 @@ import CursorBox from '../../misc/cursorbox.js';
 
 const URGENT_DURATION = 1000;
 
+/** @typedef {import('types/widgets/revealer.js').default} Revealer */
+
 
 /** @property {number} id */
 const Workspace = ({ id }) => {
@@ -32,7 +34,7 @@ const Workspace = ({ id }) => {
                      */
                     const update = (_, addr) => {
                         const workspace = Hyprland.getWorkspace(id);
-                        const occupied = workspace && workspace['windows'] > 0;
+                        const occupied = workspace && workspace.windows > 0;
 
                         self.toggleClassName('occupied', occupied);
 
@@ -43,7 +45,7 @@ const Workspace = ({ id }) => {
                         // Deal with urgent windows
                         const client = Hyprland.getClient(addr);
                         const isThisUrgent = client &&
-                            client['workspace']['id'] === id;
+                            client.workspace.id === id;
 
                         if (isThisUrgent) {
                             self.toggleClassName('urgent', true);
@@ -81,9 +83,12 @@ export default () => {
     /** @param {import('types/widgets/box').default} self */
     const updateHighlight = (self) => {
         const currentId = Hyprland.active.workspace.id;
+
+        /** @type Array<Revealer> */
         // @ts-expect-error
         const indicators = self?.get_parent()?.child.child.child.children;
-        const currentIndex = Array.from(indicators)
+
+        const currentIndex = indicators
             .findIndex((w) => w.attribute.id === currentId);
 
         if (currentIndex < 0) {
@@ -107,37 +112,46 @@ export default () => {
             child: Box({
                 class_name: 'workspaces',
 
-                attribute: { workspaces: [] },
+                attribute: {
+                    /** @type Array<Revealer> */
+                    workspaces: [],
+                },
 
                 setup: (self) => {
+                    /** @type function(void):Array<Revealer> */
+                    const workspaces = () => self.attribute.workspaces;
+
                     const refresh = () => {
-                        Array.from(self.children).forEach((rev) => {
-                            // @ts-expect-error
+                        self.children.forEach((rev) => {
+                            // @ts-expect-error they are in fact revealers
                             rev.reveal_child = false;
                         });
-                        Array.from(self.attribute.workspaces).forEach((ws) => {
+
+                        workspaces().forEach((ws) => {
                             ws.reveal_child = true;
                         });
                     };
 
                     const updateWorkspaces = () => {
                         Hyprland.workspaces.forEach((ws) => {
-                            const currentWs = Array.from(self.children)
-                                // @ts-expect-error
-                                .find((ch) => ch.attribute.id === ws['id']);
+                            const currentWs = self.children.find((ch) => {
+                                return ch.attribute.id === ws.id;
+                            });
 
-                            if (!currentWs && ws['id'] > 0) {
-                                self.add(Workspace({ id: ws['id'] }));
+                            if (!currentWs && ws.id > 0) {
+                                self.add(Workspace({ id: ws.id }));
                             }
                         });
                         self.show_all();
 
                         // Make sure the order is correct
-                        Array.from(self.attribute.workspaces)
-                            .forEach((workspace, i) => {
-                                workspace.get_parent()
-                                    .reorder_child(workspace, i);
-                            });
+                        workspaces().forEach((workspace, i) => {
+                            // @ts-expect-error
+                            workspace?.get_parent()?.reorder_child(
+                                workspace,
+                                i,
+                            );
+                        });
                     };
 
                     self.hook(Hyprland, () => {
@@ -145,7 +159,7 @@ export default () => {
                             self.children.filter((ch) => {
                                 return Hyprland.workspaces.find((ws) => {
                                     // @ts-expect-error
-                                    return ws['id'] === ch.attribute.id;
+                                    return ws.id === ch.attribute.id;
                                 });
                             // @ts-expect-error
                             }).sort((a, b) => a.attribute.id - b.attribute.id);
