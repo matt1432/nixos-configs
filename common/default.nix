@@ -32,6 +32,9 @@
       keep-derivations = true;
       auto-optimise-store = true;
       warn-dirty = false;
+
+      # remote building
+      trusted-users = ["matt"];
     };
   };
 
