@@ -4,9 +4,9 @@
 
     ../../modules/tailscale.nix
 
+    ./modules/blocky.nix
     ./modules/caddy.nix
     ./modules/headscale.nix
-    ./modules/pihole.nix
     ./modules/unbound.nix
   ];
 

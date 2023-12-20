@@ -39,8 +39,8 @@
       ];
 
       live-image = mkNixOS [
-        ("${nixpkgs}/nixos/modules/installer/" +
-        "cd-dvd/installation-cd-minimal.nix")
+        ("${nixpkgs}/nixos/modules/installer/"
+          + "cd-dvd/installation-cd-minimal.nix")
         {vars.user = "nixos";}
       ];
     };
@@ -111,10 +111,6 @@
     };
     caddy-plugins = {
       url = "github:matt1432/nixos-caddy-cloudflare";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    pihole = {
-      url = "github:matt1432/pihole-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
