@@ -40,6 +40,16 @@
     firewall.enable = false;
   };
 
+  services = {
+    openssh = {
+      enable = true;
+      settings = {
+        PasswordAuthentication = false;
+        PermitRootLogin = "no";
+      };
+    };
+  };
+
   # Set your time zone.
   time.timeZone = "America/Montreal";
 
