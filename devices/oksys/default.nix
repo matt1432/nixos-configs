@@ -1,6 +1,6 @@
 {config, ...}: {
   imports = [
-    #./hardware-configuration.nix
+    ./hardware-configuration.nix
 
     ../../modules/tailscale.nix
 

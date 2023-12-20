@@ -6,6 +6,7 @@
 }: let
   headscale-flake = headscale.packages.${pkgs.system}.headscale;
 in {
+  # FIXME: no permissions
   environment.systemPackages = [headscale-flake];
   users.users.${config.vars.user}.extraGroups = ["headscale"];
 

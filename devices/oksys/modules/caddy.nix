@@ -6,6 +6,7 @@
 }: let
   caddy = caddy-plugins.packages.${pkgs.system}.default;
 in {
+  # FIXME: doesn't close on shutdown
   imports = [caddy-plugins.nixosModules.default];
   environment.systemPackages = [caddy];
   users.users.${config.vars.user}.extraGroups = ["caddy"];
