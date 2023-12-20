@@ -7,7 +7,16 @@ import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 import { Notification, HasNotifs } from './base.js';
 import CursorBox from '../misc/cursorbox.js';
 
+/**
+ * @typedef {import('types/service/notifications').Notification} NotifObj
+ * @typedef {import('types/widgets/box').default} Box
+ */
 
+
+/**
+ * @param {Box} box
+ * @param {NotifObj} notif
+ */
 const addNotif = (box, notif) => {
     if (notif) {
         const NewNotif = Notification({
@@ -27,7 +36,7 @@ const NotificationList = () => Box({
     vertical: true,
     vexpand: true,
     vpack: 'start',
-    binds: [['visible', HasNotifs]],
+    visible: HasNotifs.bind(),
 
     setup: (self) => {
         self
@@ -40,31 +49,42 @@ const NotificationList = () => Box({
                 }
 
                 else if (id) {
-                    addNotif(box, Notifications.getNotification(id));
+                    const notifObj = Notifications.getNotification(id);
+
+                    if (notifObj) {
+                        addNotif(box, notifObj);
+                    }
                 }
             }, 'notified')
 
             .hook(Notifications, (box, id) => {
-                const notif = box.children.find((ch) => ch._id === id);
+                // @ts-expect-error
+                const notif = box.children.find((ch) => ch.attribute.id === id);
 
                 if (notif?.sensitive) {
-                    notif.slideAway('Right');
+                    // @ts-expect-error
+                    notif.attribute.slideAway('Right');
                 }
             }, 'closed');
     },
 });
 
+// TODO: use cursorbox feature for this
 // Needs to be wrapped to still have onHover when disabled
 const ClearButton = () => CursorBox({
     child: Button({
-        onPrimaryClickRelease: () => {
+        sensitive: HasNotifs.bind(),
+
+        on_primary_click_release: () => {
             Notifications.clear();
             timeout(1000, () => App.closeWindow('notification-center'));
         },
-        binds: [['sensitive', HasNotifs]],
+
         child: Box({
+
             children: [
                 Label('Clear '),
+
                 Icon({
                     setup: (self) => {
                         self.hook(Notifications, () => {
@@ -80,7 +100,7 @@ const ClearButton = () => CursorBox({
 });
 
 const Header = () => Box({
-    className: 'header',
+    class_name: 'header',
     children: [
         Label({
             label: 'Notifications',
@@ -93,14 +113,17 @@ const Header = () => Box({
 
 const Placeholder = () => Revealer({
     transition: 'crossfade',
-    binds: [['revealChild', HasNotifs, 'value', (value) => !value]],
+    reveal_child: HasNotifs.bind()
+        .transform((v) => !v),
+
     child: Box({
-        className: 'placeholder',
+        class_name: 'placeholder',
         vertical: true,
         vpack: 'center',
         hpack: 'center',
         vexpand: true,
         hexpand: true,
+
         children: [
             Icon('notification-disabled-symbolic'),
             Label('Your inbox is empty'),
@@ -109,22 +132,27 @@ const Placeholder = () => Revealer({
 });
 
 export default () => Box({
-    className: 'notification-center',
+    class_name: 'notification-center',
     vertical: true,
     children: [
         Header(),
+
         Box({
-            className: 'notification-wallpaper-box',
+            class_name: 'notification-wallpaper-box',
+
             children: [
                 Scrollable({
-                    className: 'notification-list-box',
+                    class_name: 'notification-list-box',
                     hscroll: 'never',
                     vscroll: 'automatic',
+
                     child: Box({
-                        className: 'notification-list',
+                        class_name: 'notification-list',
                         vertical: true,
+
                         children: [
                             NotificationList(),
+
                             Placeholder(),
                         ],
                     }),

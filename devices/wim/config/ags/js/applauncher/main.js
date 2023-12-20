@@ -9,7 +9,10 @@ import { Box, Entry, Icon, Label, ListBox, Revealer, Scrollable } from 'resource
 import PopupWindow from '../misc/popup.js';
 import AppItem from './app-item.js';
 
-/** @typedef {import('types/service/applications.js').Application} App */
+/**
+ * @typedef {import('types/service/applications.js').Application} App
+ * @typedef {typeof imports.gi.Gtk.ListBoxRow} ListBoxRow
+ */
 
 
 const Applauncher = ({ window_name = 'applauncher' } = {}) => {
@@ -32,17 +35,23 @@ const Applauncher = ({ window_name = 'applauncher' } = {}) => {
 
         fzfResults = fzf.find(text);
         // @ts-expect-error
-        list.set_sort_func((a, b) => {
-            const row1 = a.get_children()[0]?.attribute.app.name;
-            const row2 = b.get_children()[0]?.attribute.app.name;
+        list.set_sort_func(
+            /**
+             * @param {ListBoxRow} a
+             * @param {ListBoxRow} b
+             */
+            (a, b) => {
+                const row1 = a.get_children()[0]?.attribute.app.name;
+                const row2 = b.get_children()[0]?.attribute.app.name;
 
-            if (!row1 || !row2) {
-                return 0;
-            }
+                if (!row1 || !row2) {
+                    return 0;
+                }
 
-            return fzfResults.indexOf(row1) -
+                return fzfResults.indexOf(row1) -
             fzfResults.indexOf(row1) || 0;
-        });
+            },
+        );
     };
 
     const makeNewChildren = () => {
@@ -96,7 +105,7 @@ const Applauncher = ({ window_name = 'applauncher' } = {}) => {
             setSort(text);
             let visibleApps = 0;
 
-            /** @type Array<typeof imports.gi.Gtk.ListBoxRow> */
+            /** @type Array<ListBoxRow> */
             // @ts-expect-error
             const rows = list.get_children();
 

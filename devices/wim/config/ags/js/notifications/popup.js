@@ -14,6 +14,7 @@ export default () => Box({
     vertical: true,
 
     setup: (self) => {
+        /** @param {number} id */
         const addPopup = (id) => {
             if (!id) {
                 return;
@@ -21,38 +22,49 @@ export default () => Box({
 
             const notif = Notifications.getNotification(id);
 
-            const NewNotif = Notification({
-                notif,
-                command: () => notif.dismiss(),
-            });
+            if (notif) {
+                const NewNotif = Notification({
+                    notif,
+                    command: () => notif.dismiss(),
+                });
 
-            if (NewNotif) {
-                // Use this instead of add to put it at the top
-                self.pack_end(NewNotif, false, false, 0);
-                self.show_all();
+                if (NewNotif) {
+                    // Use this instead of add to put it at the top
+                    self.pack_end(NewNotif, false, false, 0);
+                    self.show_all();
+                }
             }
         };
 
+        /**
+         * @param {number} id
+         * @param {boolean} force
+         */
         const handleDismiss = (id, force = false) => {
-            const notif = self.children.find((ch) => ch._id === id);
+            // @ts-expect-error
+            const notif = self.children.find((ch) => ch.attribute.id === id);
 
             if (!notif) {
                 return;
             }
 
             // If notif isn't hovered or was closed, slide away
-            if (!notif._hovered || force) {
-                notif.slideAway('Left');
+            // @ts-expect-error
+            if (!notif.attribute.hovered || force) {
+                // @ts-expect-error
+                notif.attribute.slideAway('Left');
             }
 
             // If notif is hovered, delay close
-            else if (notif._hovered) {
-                notif.interval = interval(DELAY, () => {
-                    if (!notif._hovered && notif.interval) {
-                        notif.slideAway('Left');
+            // @ts-expect-error
+            else if (notif.attribute.hovered) {
+                const intervalId = interval(DELAY, () => {
+                    // @ts-expect-error
+                    if (!notif.attribute.hovered && intervalId) {
+                        // @ts-expect-error
+                        notif.attribute.slideAway('Left');
 
-                        GLib.source_remove(notif.interval);
-                        notif.interval = null;
+                        GLib.source_remove(intervalId);
                     }
                 });
             }

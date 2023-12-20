@@ -23,8 +23,8 @@ import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 export default ({
     transition = 'slide_down',
     transition_duration = 500,
-    onOpen = () => { /**/ },
-    onClose = () => { /**/ },
+    onOpen = () => {/**/},
+    onClose = () => {/**/},
 
     // Window props
     name,
@@ -42,8 +42,12 @@ export default ({
         ...props,
 
         attribute: {
+            /**
+             * @param {typeof imports.gi.Gtk.Allocation} alloc
+             * @param {'left'|'right'} side
+             */
             set_x_pos: (
-                alloc = {},
+                alloc,
                 side = 'right',
             ) => {
                 const width = window.get_display()

@@ -135,6 +135,7 @@ export default () => {
                     const updateWorkspaces = () => {
                         Hyprland.workspaces.forEach((ws) => {
                             const currentWs = self.children.find((ch) => {
+                                // @ts-expect-error
                                 return ch.attribute.id === ws.id;
                             });
 

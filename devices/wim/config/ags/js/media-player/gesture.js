@@ -9,12 +9,13 @@ const ANIM_DURATION = 500;
 const TRANSITION = `transition: margin ${ANIM_DURATION}ms ease,
                                 opacity ${ANIM_DURATION}ms ease;`;
 
-
 /**
  * @typedef {import('types/widgets/overlay').OverlayProps} OverlayProps
  * @typedef {import('types/widgets/overlay').default} Overlay
- *
- * @param {OverlayProps & {
+ */
+
+
+/** @param {OverlayProps & {
  *      setup?: function(Overlay):void
  * }} o
  */

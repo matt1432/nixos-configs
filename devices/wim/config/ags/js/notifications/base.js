@@ -8,28 +8,35 @@ import { lookUpIcon } from 'resource:///com/github/Aylur/ags/utils.js';
 
 const { GLib } = imports.gi;
 
+/** @typedef {import('types/service/notifications').Notification} Notification */
+
+/** @param {number} time */
 const setTime = (time) => {
     return GLib.DateTime
         .new_from_unix_local(time)
         .format('%H:%M');
 };
 
-const getDragState = (box) => box.get_parent().get_parent()
-    .get_parent().get_parent().get_parent()._dragging;
+/** @param {import('types/widgets/eventbox').default} box */
+const getDragState = (box) => box.get_parent()?.get_parent()
+    // @ts-expect-error
+    ?.get_parent()?.get_parent()?.get_parent()?.attribute.dragging;
 
 import Gesture from './gesture.js';
 import CursorBox from '../misc/cursorbox.js';
 
 
+/** @param {Notification} notif */
 const NotificationIcon = (notif) => {
-    let iconCmd = () => { /**/ };
+    /** @type function(import('types/widgets/eventbox').default):void */
+    let iconCmd = () => {/**/};
 
-    if (Applications.query(notif.appEntry).length > 0) {
-        const app = Applications.query(notif.appEntry)[0];
+    if (notif._appEntry && Applications.query(notif._appEntry).length > 0) {
+        const app = Applications.query(notif._appEntry)[0];
 
         let wmClass = app.app.get_string('StartupWMClass');
 
-        if (app.app.get_filename().includes('discord')) {
+        if (app.app?.get_filename()?.includes('discord')) {
             wmClass = 'discord';
         }
 
@@ -45,17 +52,19 @@ const NotificationIcon = (notif) => {
                             'togglespecialworkspace spot');
                     }
                     else {
-                        Hyprland.sendMessage('j/clients').then((out) => {
-                            out = JSON.parse(out);
+                        Hyprland.sendMessage('j/clients').then((msg) => {
+                            /** @type {Array<import('types/service/hyprland').Client>} */
+                            const clients = JSON.parse(msg);
+
                             const classes = [];
 
-                            for (const key of out) {
+                            for (const key of clients) {
                                 if (key.class) {
                                     classes.push(key.class);
                                 }
                             }
 
-                            if (classes.includes(wmClass)) {
+                            if (wmClass && classes.includes(wmClass)) {
                                 Hyprland.sendMessage('dispatch ' +
                                     `focuswindow ^(${wmClass})`);
                             }
@@ -81,7 +90,7 @@ const NotificationIcon = (notif) => {
             child: Box({
                 vpack: 'start',
                 hexpand: false,
-                className: 'icon img',
+                class_name: 'icon img',
                 css: `
                     background-image: url("${notif.image}");
                     background-size: contain;
@@ -96,13 +105,13 @@ const NotificationIcon = (notif) => {
 
     let icon = 'dialog-information-symbolic';
 
-    if (lookUpIcon(notif.appIcon)) {
-        icon = notif.appIcon;
+    if (lookUpIcon(notif._appIcon)) {
+        icon = notif._appIcon;
     }
 
 
-    if (lookUpIcon(notif.appEntry)) {
-        icon = notif.appEntry;
+    if (notif._appEntry && lookUpIcon(notif._appEntry)) {
+        icon = notif._appEntry;
     }
 
 
@@ -112,7 +121,7 @@ const NotificationIcon = (notif) => {
         child: Box({
             vpack: 'start',
             hexpand: false,
-            className: 'icon',
+            class_name: 'icon',
             css: `
                 min-width: 78px;
                 min-height: 78px;
@@ -132,11 +141,18 @@ const NotificationIcon = (notif) => {
 // to know when there are notifs or not
 export const HasNotifs = Variable(false);
 
+/**
+ * @param {{
+ *      notif: Notification
+ *      slideIn?: 'Left'|'Right'
+ *      command?: () => void
+ * }} o
+ */
 export const Notification = ({
     notif,
     slideIn = 'Left',
     command = () => { /**/ },
-} = {}) => {
+}) => {
     if (!notif) {
         return;
     }
@@ -145,7 +161,7 @@ export const Notification = ({
         'Spotify',
     ];
 
-    if (BlockedApps.find((app) => app === notif.appName)) {
+    if (BlockedApps.find((app) => app === notif._appName)) {
         notif.close();
 
         return;
@@ -161,8 +177,9 @@ export const Notification = ({
     });
 
     // Add body to notif
+    // @ts-expect-error
     notifWidget.child.add(Box({
-        className: `notification ${notif.urgency}`,
+        class_name: `notification ${notif.urgency}`,
         vexpand: false,
 
         // Notification
@@ -174,6 +191,7 @@ export const Notification = ({
                 Box({
                     children: [
                         NotificationIcon(notif),
+
                         Box({
                             hexpand: true,
                             vertical: true,
@@ -185,21 +203,21 @@ export const Notification = ({
 
                                         // Title
                                         Label({
-                                            className: 'title',
+                                            class_name: 'title',
                                             xalign: 0,
                                             justification: 'left',
                                             hexpand: true,
-                                            maxWidthChars: 24,
+                                            max_width_chars: 24,
                                             truncate: 'end',
                                             wrap: true,
                                             label: notif.summary,
-                                            useMarkup: notif.summary
+                                            use_markup: notif.summary
                                                 .startsWith('<'),
                                         }),
 
                                         // Time
                                         Label({
-                                            className: 'time',
+                                            class_name: 'time',
                                             vpack: 'start',
                                             label: setTime(notif.time),
                                         }),
@@ -207,9 +225,12 @@ export const Notification = ({
                                         // Close button
                                         CursorBox({
                                             child: Button({
-                                                className: 'close-button',
+                                                class_name: 'close-button',
                                                 vpack: 'start',
-                                                onClicked: () => notif.close(),
+
+                                                on_primary_click_release: () =>
+                                                    notif.close(),
+
                                                 child: Icon('window-close' +
                                                     '-symbolic'),
                                             }),
@@ -219,9 +240,9 @@ export const Notification = ({
 
                                 // Description
                                 Label({
-                                    className: 'description',
+                                    class_name: 'description',
                                     hexpand: true,
-                                    useMarkup: true,
+                                    use_markup: true,
                                     xalign: 0,
                                     justification: 'left',
                                     label: notif.body,
@@ -234,11 +255,13 @@ export const Notification = ({
 
                 // Actions
                 Box({
-                    className: 'actions',
+                    class_name: 'actions',
                     children: notif.actions.map((action) => Button({
-                        className: 'action-button',
-                        onClicked: () => notif.invoke(action.id),
+                        class_name: 'action-button',
                         hexpand: true,
+
+                        on_primary_click_release: () => notif.invoke(action.id),
+
                         child: Label(action.label),
                     })),
                 }),

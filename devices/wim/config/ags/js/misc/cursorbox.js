@@ -4,12 +4,13 @@ import { EventBox } from 'resource:///com/github/Aylur/ags/widget.js';
 
 const { Gtk } = imports.gi;
 
-
 /**
  * @typedef {import('types/widgets/eventbox').EventBoxProps} EventBoxProps
  * @typedef {import('types/widgets/eventbox').default} EventBox
- *
- * @param {EventBoxProps & {
+ */
+
+
+/** @param {EventBoxProps & {
  *      on_primary_click_release?: function(EventBox):void
  * }} o
  */
@@ -23,7 +24,7 @@ export default ({
     const CanRun = Variable(true);
     const Disabled = Variable(false);
 
-    let widget; // eslint-disable-line
+    let widget = EventBox();
 
     const wrapper = EventBox({
         cursor: 'pointer',
@@ -35,7 +36,7 @@ export default ({
 
             get_child: () => widget.child,
 
-            /** @param {import('types/widget').Widget} new_child */
+            /** @param {import('types/widgets/box').default} new_child */
             set_child: (new_child) => {
                 widget.child = new_child;
             },
