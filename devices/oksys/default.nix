@@ -30,10 +30,12 @@
   };
 
   networking = {
-    networkmanager = {
-      inherit (config.vars) hostName;
+    inherit (config.vars) hostName;
+    resolvconf = {
       enable = true;
-      wifi.backend = "wpa_supplicant";
+      extraConfig = ''
+        name_servers='1.0.0.1'
+      '';
     };
     firewall.enable = false;
   };
