@@ -1,5 +1,4 @@
 import App from 'resource:///com/github/Aylur/ags/app.js';
-import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 
 import { Box, Icon, Label } from 'resource:///com/github/Aylur/ags/widget.js';
 import { lookUpIcon } from 'resource:///com/github/Aylur/ags/utils.js';
@@ -54,11 +53,9 @@ export default (app) => {
 
         attribute: { app },
 
-        on_primary_click_release: (self) => {
+        on_primary_click_release: () => {
             App.closeWindow('applauncher');
-            Hyprland.sendMessage(`dispatch exec sh -c
-                ${self.attribute.app.executable}`);
-            ++self.attribute.app.frequency;
+            app.launch();
         },
 
         child: Box({
