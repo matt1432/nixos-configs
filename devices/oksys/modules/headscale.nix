@@ -6,7 +6,6 @@
 }: let
   headscale-flake = headscale.packages.${pkgs.system}.headscale;
 in {
-  # FIXME: no permissions
   environment.systemPackages = [headscale-flake];
   users.users.${config.vars.user}.extraGroups = ["headscale"];
 
@@ -24,6 +23,7 @@ in {
       grpc_listen_addr = "0.0.0.0:50443";
       grpc_allow_insecure = false;
       disable_check_updates = true;
+      unix_socket_permission = "0770";
 
       db_type = "sqlite3";
       db_path = "/var/lib/headscale/db.sqlite";
