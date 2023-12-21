@@ -19,7 +19,7 @@ export default () => {
         setup: (self) => {
             self
                 .hook(Tablet, (_, state) => {
-                    self.setVisible(state);
+                    self.attribute.setVisible(state);
                 }, 'osk-toggled')
 
                 .hook(Tablet, () => {

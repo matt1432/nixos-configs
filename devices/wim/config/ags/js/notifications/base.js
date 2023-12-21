@@ -69,10 +69,10 @@ const NotificationIcon = (notif) => {
                                     `focuswindow ^(${wmClass})`);
                             }
                             else {
-                                Hyprland.sendMessage('[[BATCH]] ' +
-                                    'dispatch workspace empty; ' +
-                                    `dispatch exec sh -c ${app.executable}
-                                `);
+                                Hyprland.sendMessage('dispatch workspace empty')
+                                    .then(() => {
+                                        app.launch();
+                                    });
                             }
                         });
                     }

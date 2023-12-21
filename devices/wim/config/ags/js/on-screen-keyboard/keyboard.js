@@ -13,6 +13,7 @@ const COLOR = 'rgba(0, 0, 0, 0.3)';
 const SPACING = 4;
 
 
+/** @param {import('types/widgets/window').default} window */
 export default (window) => Box({
     vertical: true,
     children: [
@@ -26,6 +27,7 @@ export default (window) => Box({
             center_widget: CenterBox({
                 class_name: 'thingy',
                 css: `background: ${COLOR};`,
+
                 center_widget: Box({
                     hpack: 'center',
                     class_name: 'settings',
@@ -41,8 +43,10 @@ export default (window) => Box({
                                 self.on('toggled', () => {
                                     self.toggleClassName(
                                         'toggled',
+                                        // @ts-expect-error
                                         self.get_active(),
                                     );
+                                    // @ts-expect-error
                                     window.exclusivity = self.get_active() ?
                                         'exclusive' :
                                         'normal';
@@ -70,26 +74,33 @@ export default (window) => Box({
                 hpack: 'start',
                 vertical: true,
 
-                children: keyboardJson.keys.map((row, rowIndex) => Box({
-                    vertical: true,
+                children: keyboardJson.keys.map((row, rowIndex) => {
+                    const keys = [];
 
-                    children: [
-                        Box({
-                            class_name: 'row',
+                    row.forEach((key, keyIndex) => {
+                        if (keyIndex < L_KEY_PER_ROW[rowIndex]) {
+                            keys.push(Key(key));
+                        }
+                    });
 
-                            children: [
-                                Separator(SPACING),
-                                ...row.map((key, keyIndex) => {
-                                    return keyIndex < L_KEY_PER_ROW[rowIndex] ?
-                                        Key(key) :
-                                        null;
-                                }),
-                            ],
-                        }),
+                    return Box({
+                        vertical: true,
 
-                        Separator(SPACING, { vertical: true }),
-                    ],
-                })),
+                        children: [
+                            Box({
+                                class_name: 'row',
+
+                                children: [
+                                    Separator(SPACING),
+
+                                    ...keys,
+                                ],
+                            }),
+
+                            Separator(SPACING, { vertical: true }),
+                        ],
+                    });
+                }),
             }),
 
             center_widget: Box({
@@ -105,24 +116,30 @@ export default (window) => Box({
                 hpack: 'end',
                 vertical: true,
 
-                children: keyboardJson.keys.map((row, rowIndex) => Box({
-                    vertical: true,
+                children: keyboardJson.keys.map((row, rowIndex) => {
+                    const keys = [];
 
-                    children: [
-                        Box({
-                            hpack: 'end',
-                            class_name: 'row',
+                    row.forEach((key, keyIndex) => {
+                        if (keyIndex >= L_KEY_PER_ROW[rowIndex]) {
+                            keys.push(Key(key));
+                        }
+                    });
 
-                            children: row.map((key, keyIndex) => {
-                                return keyIndex >= L_KEY_PER_ROW[rowIndex] ?
-                                    Key(key) :
-                                    null;
+                    return Box({
+                        vertical: true,
+
+                        children: [
+                            Box({
+                                hpack: 'end',
+                                class_name: 'row',
+
+                                children: keys,
                             }),
-                        }),
 
-                        Separator(SPACING, { vertical: true }),
-                    ],
-                })),
+                            Separator(SPACING, { vertical: true }),
+                        ],
+                    });
+                }),
             }),
         }),
     ],

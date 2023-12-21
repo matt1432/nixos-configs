@@ -19,19 +19,22 @@ const HIDE_DELAY = 2000;
 const OSDs = () => {
     const stack = Stack({
         transition: 'over_up_down',
-        transitionDuration: 200,
+        transition_duration: 200,
+
+        attribute: {
+            popup: () => {/**/},
+        },
     });
 
     stack.items = OSDList.map((osd, i) => [`${i}`, osd(stack)]);
-
-    stack.popup = () => { /**/ };
 
     // Delay popup method so it
     // doesn't show any OSDs at launch
     timeout(1000, () => {
         let count = 0;
 
-        stack.popup = (osd) => {
+        /** @param {import('types/widgets/box').default} osd */
+        stack.attribute.popup = (osd) => {
             ++count;
             stack.set_visible_child(osd);
             App.openWindow('osd');

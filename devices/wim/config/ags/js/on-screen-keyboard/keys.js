@@ -4,7 +4,7 @@ import Brightness from '../../services/brightness.js';
 import { Box, EventBox, Label } from 'resource:///com/github/Aylur/ags/widget.js';
 import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
-import Gtk from 'gi://Gtk';
+const { Gtk } = imports.gi;
 
 import Separator from '../misc/separator.js';
 
@@ -44,6 +44,7 @@ const LALT_CODE = 56;
 const LCTRL_CODE = 29;
 
 
+/** @param {Object} key */
 const ModKey = (key) => {
     let Mod;
 
@@ -79,16 +80,20 @@ const ModKey = (key) => {
     const button = EventBox({
         cursor: 'pointer',
         class_name: 'key',
-        onPrimaryClickRelease: (self) => {
+        on_primary_click_release: (self) => {
             console.log('mod toggled');
 
             execAsync(`ydotool key ${key.keycode}:${Mod.value ? 0 : 1}`);
+
+            // @ts-expect-error
             self.child.toggleClassName('active', !Mod.value);
             Mod.value = !Mod.value;
         },
         setup: (self) => {
             self.hook(NormalClick, () => {
                 Mod.value = false;
+
+                // @ts-expect-error
                 self.child.toggleClassName('active', false);
                 execAsync(`ydotool key ${key.keycode}:0`);
             });
@@ -107,6 +112,7 @@ const ModKey = (key) => {
     });
 };
 
+/** @param {Object} key */
 const RegularKey = (key) => {
     const widget = EventBox({
         cursor: 'pointer',
@@ -198,6 +204,7 @@ const RegularKey = (key) => {
     });
 };
 
+/** @param {Object} key */
 export default (key) => key.keytype === 'normal' ?
     RegularKey(key) :
     ModKey(key);
