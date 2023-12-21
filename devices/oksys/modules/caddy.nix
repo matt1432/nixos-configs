@@ -5,27 +5,31 @@
   ...
 }: let
   caddy = caddy-plugins.packages.${pkgs.system}.default;
+  secrets = config.sops.secrets;
 in {
-  # FIXME: doesn't close on shutdown
   imports = [caddy-plugins.nixosModules.default];
   environment.systemPackages = [caddy];
   users.users.${config.vars.user}.extraGroups = ["caddy"];
 
-  systemd.services.caddy.serviceConfig.EnvironmentFile =
-    config.sops.secrets.caddy-cloudflare.path;
+  systemd.services.caddy.serviceConfig = {
+    EnvironmentFile = secrets.caddy-cloudflare.path;
+
+    # For some reason the service
+    # doesn't shutdown normally
+    KillSignal = "SIGKILL";
+    RestartKillSignal = "SIGKILL";
+  };
 
   services.caddy = {
     enable = true;
     enableReload = false;
     package = caddy;
 
-    virtualHosts = {
-      "http://pi.hole".reverseProxy = "localhost:8000";
-
-      "nelim.org" = let
-        mainIP = "10.0.0.122";
-        jellyIP = "10.0.0.123";
-      in {
+    virtualHosts = let
+      dockerIP = "10.0.0.122";
+      jellyIP = "10.0.0.123";
+    in {
+      "nelim.org" = {
         serverAliases = ["*.nelim.org"];
         extraConfig = ''
            tls {
@@ -36,18 +40,18 @@ in {
 
         subDomains = {
           # Misc one-liners
-          vault.reverseProxy = "${mainIP}:8781";
-          hauk.reverseProxy = "${mainIP}:3003";
+          vault.reverseProxy = "${dockerIP}:8781";
+          hauk.reverseProxy = "${dockerIP}:3003";
           headscale.reverseProxy = "localhost:8085";
           jelly.reverseProxy = "${jellyIP}:80";
 
           # Resume builder
-          resume.reverseProxy = "${mainIP}:3060";
-          resauth.reverseProxy = "${mainIP}:3100";
+          resume.reverseProxy = "${dockerIP}:3060";
+          resauth.reverseProxy = "${dockerIP}:3100";
 
           # Nextcloud & Co
-          bakail.reverseProxy = "${mainIP}:8077";
-          office.reverseProxy = "http://${mainIP}:8055";
+          bakail.reverseProxy = "${dockerIP}:8077";
+          office.reverseProxy = "http://${dockerIP}:8055";
           nextcloud = {
             subDomainName = "cloud";
             extraConfig = ''
@@ -56,37 +60,37 @@ in {
               redir /.well-known/webfinger /index.php/.well-known/webfinger 301
               redir /.well-known/nodeinfo /index.php/.well-known/nodeinfo 301
             '';
-            reverseProxy = "${mainIP}:8042";
+            reverseProxy = "${dockerIP}:8042";
           };
 
           forgejo = {
             subDomainName = "git";
-            reverseProxy = "${mainIP}:3000";
+            reverseProxy = "${dockerIP}:3000";
           };
 
           calibre = {
             subDomainName = "books";
-            reverseProxy = "${mainIP}:8083";
+            reverseProxy = "${dockerIP}:8083";
           };
 
           immich = {
             subDomainName = "photos";
-            reverseProxy = "${mainIP}:2283";
+            reverseProxy = "${dockerIP}:2283";
           };
 
           # FreshRSS & Co
-          drss.reverseProxy = "${mainIP}:3007";
+          drss.reverseProxy = "${dockerIP}:3007";
           freshrss = {
             subDomainName = "rss";
-            reverseProxy = "${mainIP}:2800";
+            reverseProxy = "${dockerIP}:2800";
           };
 
           jellyseer = {
             subDomainName = "seerr";
-            reverseProxy = "${mainIP}:5055";
+            reverseProxy = "${dockerIP}:5055";
           };
 
-          games.reverseProxy = "${mainIP}:8074";
+          games.reverseProxy = "${dockerIP}:8074";
 
           # FIXME: what's the IP?
           #wgui.extraConfig = ''
@@ -94,26 +98,26 @@ in {
           #'';
 
           lan = {
-            reverseProxy = "10.0.0.122:3020";
+            reverseProxy = "${dockerIP}:3020";
             extraConfig = ''
               redir /index.html /
             '';
 
             subDirectories = {
-              bazarr.reverseProxy = "10.0.0.122:6767";
+              bazarr.reverseProxy = "${dockerIP}:6767";
               bazarr-french = {
                 subDirName = "bafrr";
-                reverseProxy = "10.0.0.122:6766";
+                reverseProxy = "${dockerIP}:6766";
               };
 
-              prowlarr.reverseProxy = "10.0.0.122:9696";
-              radarr.reverseProxy = "10.0.0.122:7878";
-              sabnzbd.reverseProxy = "10.0.0.122:8382";
-              sonarr.reverseProxy = "10.0.0.122:8989";
+              prowlarr.reverseProxy = "${dockerIP}:9696";
+              radarr.reverseProxy = "${dockerIP}:7878";
+              sabnzbd.reverseProxy = "${dockerIP}:8382";
+              sonarr.reverseProxy = "${dockerIP}:8989";
 
               calibre = {
                 experimental = true;
-                reverseProxy = "10.0.0.122:8580";
+                reverseProxy = "${dockerIP}:8580";
               };
 
               qbittorent = {
@@ -125,7 +129,7 @@ in {
               vaultwarden = {
                 subDirName = "vault";
                 experimental = true;
-                reverseProxy = "10.0.0.122:8780";
+                reverseProxy = "${dockerIP}:8780";
               };
             };
           };
@@ -134,12 +138,12 @@ in {
           joal.extraConfig = ''
             route {
               rewrite * /joal/ui{uri}
-              reverse_proxy * ${mainIP}:5656
+              reverse_proxy * ${dockerIP}:5656
             }
           '';
           joalws.extraConfig = ''
             route {
-              reverse_proxy ${mainIP}:5656
+              reverse_proxy ${dockerIP}:5656
             }
           '';
         };
