@@ -12,6 +12,8 @@
         "https://nix-community.cachix.org"
         # Nh
         "https://viperml.cachix.org"
+        # Caddy
+        "https://caddycf.cachix.org"
       ];
       trusted-public-keys = [
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
@@ -23,6 +25,8 @@
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         # Nh
         "viperml.cachix.org-1:qZhKBMTfmcLL+OG6fj/hzsMEedgKvZVFRRAhq7j8Vh8="
+        # Caddy
+        "caddycf.cachix.org-1:6vbQaeiec/zKv9XfEwi9yWVCe7opbeJMu6w81UEXugY="
       ];
     };
   };
