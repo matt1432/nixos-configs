@@ -7,6 +7,7 @@
   imports = [(modulesPath + "/installer/scan/not-detected.nix")];
 
   services.logind.lidSwitchExternalPower = "ignore";
+  services.logind.lidSwitchDocked = "ignore";
 
   boot = {
     loader = {
