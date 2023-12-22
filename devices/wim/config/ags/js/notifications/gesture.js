@@ -46,15 +46,19 @@ export default ({
     const widget = EventBox({
         ...props,
         cursor: 'grab',
-        on_hover: (self) => {
-            if (!self.attribute.hovered) {
-                self.attribute.hovered = true;
-            }
-        },
-        on_hover_lost: (self) => {
-            if (self.attribute.hovered) {
-                self.attribute.hovered = false;
-            }
+
+        setup: (self) => {
+            self
+                .on('leave-notify-event', () => {
+                    if (self.attribute.hovered) {
+                        self.attribute.hovered = false;
+                    }
+                })
+                .on('enter-notify-event', () => {
+                    if (!self.attribute.hovered) {
+                        self.attribute.hovered = true;
+                    }
+                });
         },
 
         attribute: {

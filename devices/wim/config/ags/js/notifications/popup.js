@@ -25,7 +25,11 @@ export default () => Box({
             if (notif) {
                 const NewNotif = Notification({
                     notif,
-                    command: () => notif.dismiss(),
+                    command: () => {
+                        if (notif.popup) {
+                            notif.dismiss();
+                        }
+                    },
                 });
 
                 if (NewNotif) {
