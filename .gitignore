@@ -2,5 +2,6 @@
 *.temp
 *node_modules/
 *types/
+*build/
 **/ags/style.css
 result*

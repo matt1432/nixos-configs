@@ -11,6 +11,7 @@ autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
 
 " for js/coffee/jade files, 4 spaces
 autocmd Filetype javascript setlocal ts=4 sw=4 sts=0 expandtab
+autocmd Filetype typescript setlocal ts=4 sw=4 sts=0 expandtab
 autocmd Filetype java setlocal ts=4 sw=4 sts=0 expandtab
 autocmd Filetype sh setlocal ts=4 sw=4 sts=0 expandtab
 
