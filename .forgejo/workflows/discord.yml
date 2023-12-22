@@ -1,0 +1,27 @@
+name: Discord
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'devices/oksys/*'
+
+jobs:
+  discord_commits:
+    runs-on: ubuntu-latest
+    name: discord commits
+    env:
+      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+
+    steps:
+      - name: Checkout
+        uses: https://github.com/actions/checkout@v3
+
+      - name: setup-nix
+        uses: https://github.com/cachix/install-nix-action@v24
+
+      - name: update
+        working-directory: ./common/pkgs/discommit
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        run: nix run . $DISCORD_WEBHOOK
