@@ -233,7 +233,6 @@ in {
               '';
             }
           ])
-
         # Treesitter
         ++ (with pkgs.vimPlugins; [
           nvim-treesitter-context

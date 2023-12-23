@@ -16,7 +16,6 @@
         pkgs = nixpkgs.legacyPackages.${system};
       in
         attrs system pkgs);
-
   in {
     packages = perSystem (system: pkgs: {
       discommit = pkgs.buildNpmPackage {

@@ -6,8 +6,8 @@
 }: let
   gsr = pkgs.gpu-screen-recorder.overrideAttrs (o: {
     src = pkgs.fetchurl {
-      url = "https://dec05eba.com/snapshot/gpu-screen-recorder.git.r444.02ee8b8.tar.gz";
-      hash = "sha256-RkHg2OpgaFrKhLa+sa6IMt0j/3wZ6OehSKmD/M63S5Q=";
+      url = "https://dec05eba.com/snapshot/gpu-screen-recorder.git.r445.84f9a04.tar.gz";
+      hash = "sha256-YKGLv7QFBxTZDW9HKS6tEeP1pX91idtuy0oUr4mbjjU=";
     };
 
     postPatch = "";
