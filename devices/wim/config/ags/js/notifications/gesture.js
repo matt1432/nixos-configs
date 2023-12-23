@@ -91,7 +91,7 @@ export default ({
                             .notifications.length > 0;
 
                         // @ts-expect-error
-                        widget.get_parent()?.remove;
+                        widget.get_parent()?.remove(widget);
                     });
                 });
             },
