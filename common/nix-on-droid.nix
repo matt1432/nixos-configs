@@ -43,13 +43,14 @@
 
       {
         programs.bash.shellAliases = {
-          pc = "mosh matt@100.64.0.6 -- tmux -2u new -At laptop";
-          oksys = "mosh matt@100.64.0.1 -- tmux -2u new -At laptop";
-          pve = "mosh matt@100.64.0.4 -- tmux -2u new -At laptop";
+          pc = "mosh matt@100.64.0.6 -- tmux -2u new -At phone";
+          oksys = "mosh matt@100.64.0.1 -- tmux -2u new -At phone";
+          servivi = "mosh matt@100.64.0.7 -- tmux -2u new -At phone";
+          pve = "mosh matt@100.64.0.4 -- tmux -2u new -At phone";
 
-          pod = "mosh matt@100.64.0.4 -- ssh -t -p 6768 matt@10.0.0.122 'tmux -2u new -At laptop'";
-          jelly = "mosh matt@100.64.0.4 -- ssh -t matt@10.0.0.123 'tmux -2u new -At laptop'";
-          qbit = "mosh matt@100.64.0.4 -- ssh -t matt@10.0.0.128 'tmux -2u new -At laptop'";
+          pod = "mosh matt@100.64.0.4 -- ssh -t -p 6768 matt@10.0.0.122 'tmux -2u new -At phone'";
+          jelly = "mosh matt@100.64.0.4 -- ssh -t matt@10.0.0.123 'tmux -2u new -At phone'";
+          qbit = "mosh matt@100.64.0.4 -- ssh -t matt@10.0.0.128 'tmux -2u new -At phone'";
         };
       }
     ];
