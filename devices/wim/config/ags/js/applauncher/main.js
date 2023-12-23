@@ -1,6 +1,5 @@
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import Applications from 'resource:///com/github/Aylur/ags/service/applications.js';
-import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 // TODO: find cleaner way to import this
 import { Fzf } from '../../node_modules/fzf/dist/fzf.es.js';
 

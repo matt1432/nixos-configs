@@ -1,4 +1,3 @@
-// @ts-expect-error
 import Bluetooth from 'resource:///com/github/Aylur/ags/service/bluetooth.js';
 
 import { Label, Box, EventBox, Icon, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
@@ -11,8 +10,8 @@ const SPACING = 5;
 export default () => {
     const icon = Icon().hook(Bluetooth, (self) => {
         if (Bluetooth.enabled) {
-            self.icon = Bluetooth.connectedDevices[0] ?
-                Bluetooth.connectedDevices[0].iconName :
+            self.icon = Bluetooth.connected_devices[0] ?
+                Bluetooth.connected_devices[0].icon_name :
                 'bluetooth-active-symbolic';
         }
         else {
@@ -29,8 +28,8 @@ export default () => {
                 Separator(SPACING),
 
                 Label().hook(Bluetooth, (self) => {
-                    self.label = Bluetooth.connectedDevices[0] ?
-                        `${Bluetooth.connectedDevices[0]}` :
+                    self.label = Bluetooth.connected_devices[0] ?
+                        `${Bluetooth.connected_devices[0]}` :
                         'Disconnected';
                 }, 'notify::connected-devices'),
             ],

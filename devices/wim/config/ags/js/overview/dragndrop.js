@@ -9,7 +9,15 @@ import { updateClients } from './clients.js';
 
 const TARGET = [Gtk.TargetEntry.new('text/plain', Gtk.TargetFlags.SAME_APP, 0)];
 
+/**
+ * @typedef {import('types/widgets/button').default} Button
+ * @typedef {import('types/widgets/button').ButtonProps} ButtonProps
+ * @typedef {import('types/widgets/eventbox').EventBoxProps=} EventBoxProps
+ * @typedef {import('types/widgets/box').default} Box
+ */
 
+
+/** @param {Button} widget */
 const createSurfaceFromWidget = (widget) => {
     const alloc = widget.get_allocation();
     const surface = new Cairo.ImageSurface(
@@ -29,16 +37,19 @@ const createSurfaceFromWidget = (widget) => {
 
 let hidden = 0;
 
-export const WorkspaceDrop = (props) => EventBox({
+/** @params {EventBoxProps} props */
+export const WorkspaceDrop = ({ ...props }) => EventBox({
     ...props,
     setup: (self) => {
         self.drag_dest_set(Gtk.DestDefaults.ALL, TARGET, Gdk.DragAction.COPY);
 
         self.on('drag-data-received', (_, _c, _x, _y, data) => {
-            let id = self.get_parent()._id;
+            // @ts-expect-error
+            let id = self.get_parent()?.attribute.id;
 
             if (id < -1) {
-                id = self.get_parent()._name;
+                // @ts-expect-error
+                id = self.get_parent()?.attribute.name;
             }
 
             else if (id === -1) {
@@ -56,11 +67,17 @@ export const WorkspaceDrop = (props) => EventBox({
     },
 });
 
+/**
+ * @param {ButtonProps & {
+ *      address: string
+ *      mainBox: Box
+ * }} o
+ */
 export const WindowButton = ({
     address,
     mainBox,
     ...props
-} = {}) => Button({
+}) => Button({
     ...props,
 
     cursor: 'pointer',
@@ -78,11 +95,12 @@ export const WindowButton = ({
 
         self.on('drag-begin', (_, context) => {
             Gtk.drag_set_icon_surface(context, createSurfaceFromWidget(self));
-            self.get_parent().revealChild = false;
+            // @ts-expect-error
+            self.get_parent()?.set_reveal_child(false);
         });
 
         self.on('drag-end', () => {
-            self.get_parent().destroy();
+            self.get_parent()?.destroy();
 
             updateClients(mainBox);
         });

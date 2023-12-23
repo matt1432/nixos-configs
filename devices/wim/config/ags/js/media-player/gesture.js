@@ -70,113 +70,104 @@ export default ({
             setup(self);
 
             self
-                .hook(gesture,
-                    /**
-                     * @param {Overlay} overlay
-                     * @param {number} realGesture
-                     */
-                    (overlay, realGesture) => {
-                        if (realGesture) {
-                            Array.from(overlay.attribute.list())
-                                .forEach((over) => {
-                                    over.visible = true;
-                                });
-                        }
-                        else {
-                            overlay.attribute.showTopOnly();
-                        }
+                .hook(gesture, (_, realGesture) => {
+                    if (realGesture) {
+                        Array.from(self.attribute.list())
+                            .forEach((over) => {
+                                over.visible = true;
+                            });
+                    }
+                    else {
+                        self.attribute.showTopOnly();
+                    }
 
-                        // Don't allow gesture when only one player
-                        if (overlay.attribute.list().length <= 1) {
-                            return;
-                        }
+                    // Don't allow gesture when only one player
+                    if (self.attribute.list().length <= 1) {
+                        return;
+                    }
 
-                        overlay.attribute.dragging = true;
-                        let offset = gesture.get_offset()[1];
-                        const playerBox = overlay.attribute.list().at(-1);
+                    self.attribute.dragging = true;
+                    let offset = gesture.get_offset()[1];
+                    const playerBox = self.attribute.list().at(-1);
 
-                        if (!offset) {
-                            return;
-                        }
+                    if (!offset) {
+                        return;
+                    }
 
-                        // Slide right
-                        if (offset >= 0) {
-                            playerBox.setCss(`
+                    // Slide right
+                    if (offset >= 0) {
+                        playerBox.setCss(`
                             margin-left:   ${offset}px;
                             margin-right: -${offset}px;
                             ${playerBox.attribute.bgStyle}
                         `);
-                        }
+                    }
 
-                        // Slide left
-                        else {
-                            offset = Math.abs(offset);
-                            playerBox.setCss(`
+                    // Slide left
+                    else {
+                        offset = Math.abs(offset);
+                        playerBox.setCss(`
                             margin-left: -${offset}px;
                             margin-right: ${offset}px;
                             ${playerBox.attribute.bgStyle}
                         `);
-                        }
-                    },
-                    'drag-update')
+                    }
+                }, 'drag-update')
 
 
-                .hook(gesture,
-                    /** @param {Overlay} overlay */
-                    (overlay) => {
-                        // Don't allow gesture when only one player
-                        if (overlay.attribute.list().length <= 1) {
-                            return;
-                        }
+                .hook(gesture, () => {
+                    // Don't allow gesture when only one player
+                    if (self.attribute.list().length <= 1) {
+                        return;
+                    }
 
-                        overlay.attribute.dragging = false;
-                        const offset = gesture.get_offset()[1];
+                    self.attribute.dragging = false;
+                    const offset = gesture.get_offset()[1];
 
-                        const playerBox = overlay.attribute.list().at(-1);
+                    const playerBox = self.attribute.list().at(-1);
 
-                        // If crosses threshold after letting go, slide away
-                        if (offset && Math.abs(offset) > MAX_OFFSET) {
-                            // Disable inputs during animation
-                            widget.sensitive = false;
+                    // If crosses threshold after letting go, slide away
+                    if (offset && Math.abs(offset) > MAX_OFFSET) {
+                        // Disable inputs during animation
+                        widget.sensitive = false;
 
-                            // Slide away right
-                            if (offset >= 0) {
-                                playerBox.setCss(`
+                        // Slide away right
+                        if (offset >= 0) {
+                            playerBox.setCss(`
                                 ${TRANSITION}
                                 margin-left:   ${OFFSCREEN}px;
                                 margin-right: -${OFFSCREEN}px;
                                 opacity: 0.7; ${playerBox.attribute.bgStyle}
                             `);
-                            }
+                        }
 
-                            // Slide away left
-                            else {
-                                playerBox.setCss(`
+                        // Slide away left
+                        else {
+                            playerBox.setCss(`
                                 ${TRANSITION}
                                 margin-left: -${OFFSCREEN}px;
                                 margin-right: ${OFFSCREEN}px;
                                 opacity: 0.7; ${playerBox.attribute.bgStyle}
                             `);
-                            }
-
-                            timeout(ANIM_DURATION, () => {
-                                // Put the player in the back after anim
-                                overlay.reorder_overlay(playerBox, 0);
-                                // Recenter player
-                                playerBox.setCss(playerBox.attribute.bgStyle);
-
-                                widget.sensitive = true;
-
-                                overlay.attribute.showTopOnly();
-                            });
                         }
-                        else {
-                            // Recenter with transition for animation
-                            playerBox.setCss(`${TRANSITION}
+
+                        timeout(ANIM_DURATION, () => {
+                            // Put the player in the back after anim
+                            self.reorder_overlay(playerBox, 0);
+                            // Recenter player
+                            playerBox.setCss(playerBox.attribute.bgStyle);
+
+                            widget.sensitive = true;
+
+                            self.attribute.showTopOnly();
+                        });
+                    }
+                    else {
+                        // Recenter with transition for animation
+                        playerBox.setCss(`${TRANSITION}
                             ${playerBox.attribute.bgStyle}`);
-                        }
-                    },
-                    'drag-end');
+                    }
+                }, 'drag-end');
         },
     });
 

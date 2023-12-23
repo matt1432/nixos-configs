@@ -14,18 +14,18 @@ const QuickSettingsWidget = () => {
     });
 
     return Box({
-        className: 'qs-container',
+        class_name: 'qs-container',
         vertical: true,
         children: [
 
             Box({
-                className: 'quick-settings',
+                class_name: 'quick-settings',
                 vertical: true,
                 children: [
 
                     Label({
                         label: 'Control Center',
-                        className: 'title',
+                        class_name: 'title',
                         hpack: 'start',
                         css: `
                         margin-left: 20px;

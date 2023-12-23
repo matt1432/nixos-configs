@@ -1,5 +1,4 @@
 import App from 'resource:///com/github/Aylur/ags/app.js';
-// @ts-expect-error
 import Bluetooth from 'resource:///com/github/Aylur/ags/service/bluetooth.js';
 import Network from 'resource:///com/github/Aylur/ags/service/network.js';
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
@@ -17,16 +16,23 @@ import { BluetoothMenu } from './bluetooth.js';
 const SPACING = 28;
 const ButtonStates = [];
 
-/** @typedef {import('types/widgets/widget').default} Widget */
+/**
+ * @typedef {import('types/widgets/widget').default} Widget
+ * @typedef {import('types/widgets/box').default} Box
+ * @typedef {import('types/widgets/icon').default} Icon
+ * @typedef {import('types/widgets/label').default} Label
+ * @typedef {import('types/widgets/revealer').default} Revealer
+ * @typedef {[any, function, (string|undefined)?]} BindTuple
+ */
 
 
 /**
  * @param {{
  *      command?: function
  *      secondary_command?: function
- *      onOpen?: function(Widget):void
- *      icon: any
- *      indicator?: any
+ *      onOpen?: function(Revealer):void
+ *      icon: string|BindTuple
+ *      indicator?: BindTuple
  *      menu?: any
  * }} o
  */
@@ -41,10 +47,13 @@ const GridButton = ({
     const Activated = Variable(false);
 
     ButtonStates.push(Activated);
+    let iconWidget;
+    /** @type Label */
+    let indicatorWidget = Label();
 
     // Allow setting icon dynamically or statically
     if (typeof icon === 'string') {
-        icon = Icon({
+        iconWidget = Icon({
             class_name: 'grid-label',
             icon,
             setup: (self) => {
@@ -56,11 +65,12 @@ const GridButton = ({
             },
         });
     }
-    else {
-        icon = Icon({
+    else if (Array.isArray(icon)) {
+        iconWidget = Icon({
             class_name: 'grid-label',
             setup: (self) => {
                 self
+                    // @ts-expect-error
                     .hook(...icon)
                     .hook(Activated, () => {
                         self.setCss(`color: ${Activated.value ?
@@ -72,12 +82,13 @@ const GridButton = ({
     }
 
     if (indicator) {
-        indicator = Label({
+        indicatorWidget = Label({
             class_name: 'sub-label',
             justification: 'left',
             truncate: 'end',
-            maxWidthChars: 12,
+            max_width_chars: 12,
             setup: (self) => {
+                // @ts-expect-error
                 self.hook(...indicator);
             },
         });
@@ -87,7 +98,7 @@ const GridButton = ({
         menu = Revealer({
             transition: 'slide_down',
             child: menu,
-            binds: [['revealChild', Activated, 'value']],
+            reveal_child: Activated.bind(),
         });
     }
 
@@ -110,7 +121,7 @@ const GridButton = ({
                             }
                         },
 
-                        child: icon,
+                        child: iconWidget,
                     }),
 
                     CursorBox({
@@ -131,10 +142,13 @@ const GridButton = ({
                                     self.get_parent()
                                         ?.get_parent()?.get_parent()
                                         ?.get_parent()?.get_parent()
+                                        // @ts-expect-error
                                         ?.children[1];
 
-                                const isSetup = rowMenu.get_children()
-                                    .find((ch) => ch === menu);
+                                const isSetup = rowMenu.get_children().find(
+                                    /** @param {Box} ch */
+                                    (ch) => ch === menu,
+                                );
 
                                 if (!isSetup) {
                                     rowMenu.add(menu);
@@ -165,14 +179,14 @@ const GridButton = ({
 
                 ],
             }),
-            indicator,
+            indicatorWidget,
         ],
     });
 
     return widget;
 };
 
-const Row = ({ buttons } = {}) => {
+const Row = ({ buttons }) => {
     const widget = Box({
         vertical: true,
 
@@ -188,10 +202,13 @@ const Row = ({ buttons } = {}) => {
 
     for (let i = 0; i < buttons.length; ++i) {
         if (i === buttons.length - 1) {
+            // @ts-expect-error
             widget.children[0].add(buttons[i]);
         }
         else {
+            // @ts-expect-error
             widget.children[0].add(buttons[i]);
+            // @ts-expect-error
             widget.children[0].add(Separator(SPACING));
         }
     }
@@ -209,13 +226,17 @@ const FirstRow = () => Row({
                 // TODO: connection editor
             },
 
-            icon: [Network, (icon) => {
-                icon.icon = Network.wifi?.iconName;
-            }],
+            icon: [Network,
+                /** @param {Icon} self */
+                (self) => {
+                    self.icon = Network.wifi?.icon_name;
+                }],
 
-            indicator: [Network, (self) => {
-                self.label = Network.wifi?.ssid || Network.wired?.internet;
-            }],
+            indicator: [Network,
+                /** @param {Label} self */
+                (self) => {
+                    self.label = Network.wifi?.ssid || Network.wired?.internet;
+                }],
 
             menu: NetworkMenu(),
             onOpen: () => Network.wifi.scan(),
@@ -241,26 +262,30 @@ const FirstRow = () => Row({
                 // TODO: bluetooth connection editor
             },
 
-            icon: [Bluetooth, (self) => {
-                if (Bluetooth.enabled) {
-                    self.icon = Bluetooth.connectedDevices[0] ?
-                        Bluetooth.connectedDevices[0].iconName :
-                        'bluetooth-active-symbolic';
-                }
-                else {
-                    self.icon = 'bluetooth-disabled-symbolic';
-                }
-            }],
+            icon: [Bluetooth,
+                /** @param {Icon} self */
+                (self) => {
+                    if (Bluetooth.enabled) {
+                        self.icon = Bluetooth.connected_devices[0] ?
+                            Bluetooth.connected_devices[0].icon_name :
+                            'bluetooth-active-symbolic';
+                    }
+                    else {
+                        self.icon = 'bluetooth-disabled-symbolic';
+                    }
+                }],
 
-            indicator: [Bluetooth, (self) => {
-                self.label = Bluetooth.connectedDevices[0] ?
-                    `${Bluetooth.connectedDevices[0]}` :
-                    'Disconnected';
-            }, 'notify::connected-devices'],
+            indicator: [Bluetooth,
+                /** @param {Label} self */
+                (self) => {
+                    self.label = Bluetooth.connected_devices[0] ?
+                        `${Bluetooth.connected_devices[0]}` :
+                        'Disconnected';
+                }, 'notify::connected-devices'],
 
             menu: BluetoothMenu(),
             onOpen: (menu) => {
-                execAsync(`bluetoothctl scan ${menu.revealChild ?
+                execAsync(`bluetoothctl scan ${menu.reveal_child ?
                     'on' :
                     'off'}`).catch(print);
             },
@@ -282,9 +307,11 @@ const SecondRow = () => Row({
                     .catch(print);
             },
 
-            icon: [SpeakerIcon, (self) => {
-                self.icon = SpeakerIcon.value;
-            }],
+            icon: [SpeakerIcon,
+                /** @param {Icon} self */
+                (self) => {
+                    self.icon = SpeakerIcon.value;
+                }],
         }),
 
         GridButton({
@@ -298,9 +325,11 @@ const SecondRow = () => Row({
                     .catch(print);
             },
 
-            icon: [MicIcon, (self) => {
-                self.icon = MicIcon.value;
-            }],
+            icon: [MicIcon,
+                /** @param {Icon} self */
+                (self) => {
+                    self.icon = MicIcon.value;
+                }],
         }),
 
         GridButton({

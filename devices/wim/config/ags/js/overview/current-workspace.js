@@ -11,23 +11,39 @@ const DEFAULT_STYLE = `
     border-radius: 10px;
 `;
 
+/**
+ * @typedef {import('types/widgets/box').default} Box
+ * @typedef {import('types/widgets/revealer').default} Revealer
+ */
+
 
 export const Highlighter = () => Box({
     vpack: 'start',
     hpack: 'start',
-    className: 'workspace active',
+    class_name: 'workspace active',
     css: DEFAULT_STYLE,
 });
 
+/**
+ * @param {Box} main
+ * @param {Box} highlighter
+ */
 export const updateCurrentWorkspace = (main, highlighter) => {
     const currentId = Hyprland.active.workspace.id;
     const row = Math.floor((currentId - 1) / VARS.WORKSPACE_PER_ROW);
 
+    // @ts-expect-error
     const rowObject = main.children[0].children[row];
     const workspaces = rowObject.child.centerWidget.child
-        .get_children().filter((w) => w.revealChild);
+        .get_children().filter(
+            /** @param {Revealer} w */
+            (w) => w.reveal_child,
+        );
 
-    const currentIndex = workspaces.findIndex((w) => w._id === currentId);
+    const currentIndex = workspaces.findIndex(
+        /** @param {Revealer} w */
+        (w) => w.attribute.id === currentId,
+    );
     const left = currentIndex * ((VARS.SCREEN.X * VARS.SCALE) + PADDING);
     const height = row * ((VARS.SCREEN.Y * VARS.SCALE) + (PADDING / 2));
 

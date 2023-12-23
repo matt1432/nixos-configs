@@ -10,42 +10,41 @@ import CursorBox from '../misc/cursorbox.js';
 const SCROLL_THRESH_H = 200;
 const SCROLL_THRESH_N = 7;
 
+/** @typedef {import('types/widgets/box').default} Box */
 
+
+/** @param {any} ap */
 const AccessPoint = (ap) => {
     const widget = Box({
-        className: 'menu-item',
+        class_name: 'menu-item',
+        attribute: {
+            ap: Variable(ap),
+        },
     });
 
-    widget.ap = Variable(ap);
 
     const child = Box({
         hexpand: true,
         children: [
-            Icon({
-                setup: (self) => {
-                    self.hook(widget.ap, () => {
-                        self.icon = widget.ap.value.iconName;
-                    });
-                },
+            Icon().hook(widget.attribute.ap, (self) => {
+                self.icon = widget.attribute.ap.value.iconName;
             }),
 
-            Label({
-                setup: (self) => {
-                    self.hook(widget.ap, () => {
-                        self.label = widget.ap.value.ssid || '';
-                    });
-                },
+            Label().hook(widget.attribute.ap, (self) => {
+                self.label = widget.attribute.ap.value.ssid || '';
             }),
 
             Icon({
                 icon: 'object-select-symbolic',
                 hexpand: true,
                 hpack: 'end',
+
                 setup: (self) => {
                     self.hook(Network, () => {
                         self.setCss(
                             `opacity: ${
-                                widget.ap.value.ssid === Network.wifi.ssid ?
+                                widget.attribute.ap.value.ssid ===
+                                    Network.wifi.ssid ?
                                     '1' :
                                     '0'
                             };
@@ -58,12 +57,13 @@ const AccessPoint = (ap) => {
     });
 
     widget.add(Revealer({
-        revealChild: true,
+        reveal_child: true,
         transition: 'slide_down',
+
         child: CursorBox({
             on_primary_click_release: () => {
                 execAsync(`nmcli device wifi connect
-                    ${widget.ap.value.bssid}`).catch(print);
+                    ${widget.attribute.ap.value.bssid}`).catch(print);
             },
             child,
         }),
@@ -74,11 +74,13 @@ const AccessPoint = (ap) => {
 
 export const NetworkMenu = () => {
     const APList = new Map();
+
     const topArrow = Revealer({
         transition: 'slide_down',
+
         child: Icon({
             icon: `${App.configDir }/icons/down-large.svg`,
-            className: 'scrolled-indicator',
+            class_name: 'scrolled-indicator',
             size: 16,
             css: '-gtk-icon-transform: rotate(180deg);',
         }),
@@ -86,15 +88,17 @@ export const NetworkMenu = () => {
 
     const bottomArrow = Revealer({
         transition: 'slide_up',
+
         child: Icon({
             icon: `${App.configDir }/icons/down-large.svg`,
-            className: 'scrolled-indicator',
+            class_name: 'scrolled-indicator',
             size: 16,
         }),
     });
 
     return Overlay({
         pass_through: true,
+
         overlays: [
             Box({
                 vpack: 'start',
@@ -112,7 +116,7 @@ export const NetworkMenu = () => {
         ],
 
         child: Box({
-            className: 'menu',
+            class_name: 'menu',
 
             child: Scrollable({
                 hscroll: 'never',
@@ -122,22 +126,32 @@ export const NetworkMenu = () => {
                     self.on('edge-reached', (_, pos) => {
                         // Manage scroll indicators
                         if (pos === 2) {
-                            topArrow.revealChild = false;
-                            bottomArrow.revealChild = true;
+                            topArrow.reveal_child = false;
+                            bottomArrow.reveal_child = true;
                         }
                         else if (pos === 3) {
-                            topArrow.revealChild = true;
-                            bottomArrow.revealChild = false;
+                            topArrow.reveal_child = true;
+                            bottomArrow.reveal_child = false;
                         }
                     });
                 },
 
                 child: ListBox({
                     setup: (self) => {
-                        self.set_sort_func((a, b) => {
-                            return b.get_children()[0].ap.value.strength -
-                                a.get_children()[0].ap.value.strength;
-                        });
+                        // @ts-expect-error
+                        self.set_sort_func(
+                            /**
+                             * @param {Box} a
+                             * @param {Box} b
+                             */
+                            (a, b) => {
+                                return b.get_children()[0]
+                                    // @ts-expect-error
+                                    .attribute.ap.value.strength -
+                                // @ts-expect-error
+                                a.get_children()[0].attribute.ap.value.strength;
+                            },
+                        );
 
                         self.hook(Network, () => {
                             // Add missing APs
@@ -145,15 +159,17 @@ export const NetworkMenu = () => {
                                 if (ap.ssid !== 'Unknown') {
                                     if (APList.has(ap.ssid)) {
                                         const accesPoint = APList.get(ap.ssid)
-                                            .ap.value;
+                                            .attribute.ap.value;
 
                                         if (accesPoint.strength < ap.strength) {
-                                            APList.get(ap.ssid).ap.value = ap;
+                                            APList.get(ap.ssid).attribute
+                                                .ap.value = ap;
                                         }
                                     }
                                     else {
                                         APList.set(ap.ssid, AccessPoint(ap));
 
+                                        // @ts-expect-error
                                         self.add(APList.get(ap.ssid));
                                         self.show_all();
                                     }
@@ -176,7 +192,7 @@ export const NetworkMenu = () => {
                                     }
                                     else {
                                         apWidget.children[0]
-                                            .revealChild = false;
+                                            .reveal_child = false;
                                         apWidget.toDestroy = true;
                                     }
                                 }
@@ -185,34 +201,48 @@ export const NetworkMenu = () => {
                             // Start scrolling after a specified height
                             // is reached by the children
                             const height = Math.max(
-                                self.get_parent().get_allocated_height(),
+                                self.get_parent()?.get_allocated_height() || 0,
                                 SCROLL_THRESH_H,
                             );
 
-                            const scroll = self.get_parent().get_parent();
+                            const scroll = self.get_parent()?.get_parent();
 
-                            if (self.get_children().length > SCROLL_THRESH_N) {
-                                scroll.vscroll = 'always';
-                                scroll.setCss(`min-height: ${height}px;`);
+                            if (scroll) {
+                                // @ts-expect-error
+                                const n_child = self.get_children().length;
 
-                                // Make bottom scroll indicator appear only
-                                // when first getting overflowing children
-                                if (!(bottomArrow.revealChild === true ||
-                                    topArrow.revealChild === true)) {
-                                    bottomArrow.revealChild = true;
+                                if (n_child > SCROLL_THRESH_N) {
+                                    // @ts-expect-error
+                                    scroll.vscroll = 'always';
+                                    // @ts-expect-error
+                                    scroll.setCss(`min-height: ${height}px;`);
+
+                                    // Make bottom scroll indicator appear only
+                                    // when first getting overflowing children
+                                    if (!(bottomArrow.reveal_child === true ||
+                                        topArrow.reveal_child === true)) {
+                                        bottomArrow.reveal_child = true;
+                                    }
                                 }
-                            }
-                            else {
-                                scroll.vscroll = 'never';
-                                scroll.setCss('');
-                                topArrow.revealChild = false;
-                                bottomArrow.revealChild = false;
+                                else {
+                                    // @ts-expect-error
+                                    scroll.vscroll = 'never';
+                                    // @ts-expect-error
+                                    scroll.setCss('');
+                                    topArrow.reveal_child = false;
+                                    bottomArrow.reveal_child = false;
+                                }
                             }
 
                             // Trigger sort_func
-                            self.get_children().forEach((ch) => {
-                                ch.changed();
-                            });
+                            // @ts-expect-error
+                            self.get_children().forEach(
+                                /** @param {Box} ListBoxRow */
+                                (ListBoxRow) => {
+                                    // @ts-expect-error
+                                    ListBoxRow.changed();
+                                },
+                            );
                         });
                     },
                 }),

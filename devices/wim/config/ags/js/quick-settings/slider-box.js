@@ -7,20 +7,20 @@ import { SpeakerIcon } from '../misc/audio-icons.js';
 
 
 export default () => Box({
-    className: 'slider-box',
+    class_name: 'slider-box',
     vertical: true,
     hpack: 'center',
     children: [
 
         Box({
-            className: 'slider',
+            class_name: 'slider',
             vpack: 'start',
             hpack: 'center',
 
             children: [
                 Icon({
                     size: 26,
-                    className: 'slider-label',
+                    class_name: 'slider-label',
                     binds: [['icon', SpeakerIcon, 'value']],
                 }),
 
@@ -30,14 +30,16 @@ export default () => Box({
                     max: 0.999,
                     draw_value: false,
 
-                    onChange: ({ value }) => {
-                        Audio.speaker.volume = value;
+                    on_change: ({ value }) => {
+                        if (Audio.speaker) {
+                            Audio.speaker.volume = value;
+                        }
                     },
 
                     setup: (self) => {
                         self
                             .hook(Audio, () => {
-                                self.value = Audio.speaker?.volume;
+                                self.value = Audio.speaker?.volume || 0;
                             }, 'speaker-changed')
 
                             .on('button-press-event', () => {
@@ -53,13 +55,13 @@ export default () => Box({
         }),
 
         Box({
-            className: 'slider',
+            class_name: 'slider',
             vpack: 'start',
             hpack: 'center',
 
             children: [
                 Icon({
-                    className: 'slider-label',
+                    class_name: 'slider-label',
                     binds: [['icon', Brightness, 'screen-icon']],
                 }),
 
@@ -68,7 +70,7 @@ export default () => Box({
                     vpack: 'center',
                     draw_value: false,
 
-                    onChange: ({ value }) => {
+                    on_change: ({ value }) => {
                         Brightness.screen = value;
                     },
 

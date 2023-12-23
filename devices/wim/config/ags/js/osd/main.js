@@ -26,6 +26,7 @@ const OSDs = () => {
         },
     });
 
+    // Send reference of stack to all items
     stack.items = OSDList.map((osd, i) => [`${i}`, osd(stack)]);
 
     // Delay popup method so it

@@ -13,7 +13,7 @@ const PowermenuWidget = () => CenterBox({
     // @ts-expect-error
     vertical: false,
 
-    startWidget: CursorBox({
+    start_widget: CursorBox({
         class_name: 'shutdown',
         on_primary_click_release: () => execAsync(['systemctl', 'poweroff'])
             .catch(print),
@@ -23,7 +23,7 @@ const PowermenuWidget = () => CenterBox({
         }),
     }),
 
-    centerWidget: CursorBox({
+    center_widget: CursorBox({
         class_name: 'reboot',
         on_primary_click_release: () => execAsync(['systemctl', 'reboot'])
             .catch(print),
@@ -33,7 +33,7 @@ const PowermenuWidget = () => CenterBox({
         }),
     }),
 
-    endWidget: CursorBox({
+    end_widget: CursorBox({
         class_name: 'logout',
         on_primary_click_release: () => Hyprland.sendMessage('dispatch exit')
             .catch(print),
