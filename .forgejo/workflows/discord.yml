@@ -5,6 +5,7 @@ on:
   push:
     paths:
       - 'devices/oksys/*'
+      - 'devices/servivi/*'
 
 jobs:
   discord_commits:

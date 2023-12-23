@@ -33,6 +33,7 @@
       wim = mkNixOS [./devices/wim];
       binto = mkNixOS [./devices/binto];
 
+      servivi = mkNixOS [./devices/servivi];
       oksys = mkNixOS [
         ./devices/oksys
         secrets.nixosModules.oksys
