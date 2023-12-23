@@ -13,6 +13,7 @@
   vars = {
     user = "matt";
     hostName = "oksys";
+    neovimIde = false;
   };
 
   users.users.${config.vars.user} = {
