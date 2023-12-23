@@ -150,94 +150,167 @@ in {
       extraConfig = fileContents ./base.vim;
       extraLuaConfig = fileContents ./base.lua;
 
-      plugins = with pkgs.vimPlugins; ([
-          fzfWrapper
-          fzf-vim
-          fugitive
+      plugins = with pkgs.vimPlugins;
+        ([
+            fzfWrapper
+            fzf-vim
+            fugitive
 
-          {
-            plugin = dracula-nvim;
-            type = "viml";
-            config = fileContents ./plugins/dracula.vim;
-          }
-          {
-            plugin = lualine-nvim;
-            type = "lua";
-            config = fileContents ./plugins/lualine.lua;
-          }
-          {
-            plugin = todo-comments-nvim;
-            type = "lua";
-            config = "require('todo-comments').setup()";
-          }
-          {
-            plugin = gitsigns-nvim;
-            type = "lua";
-            config = fileContents ./plugins/gitsigns.lua;
-          }
-          {
-            plugin = nvim-autopairs;
-            type = "lua";
-            config = fileContents ./plugins/autopairs.lua;
-          }
+            {
+              plugin = dracula-nvim;
+              type = "viml";
+              config = fileContents ./plugins/dracula.vim;
+            }
+            {
+              plugin = lualine-nvim;
+              type = "lua";
+              config = fileContents ./plugins/lualine.lua;
+            }
+            {
+              plugin = todo-comments-nvim;
+              type = "lua";
+              config = "require('todo-comments').setup()";
+            }
+            {
+              plugin = gitsigns-nvim;
+              type = "lua";
+              config = fileContents ./plugins/gitsigns.lua;
+            }
+            {
+              plugin = nvim-autopairs;
+              type = "lua";
+              config = fileContents ./plugins/autopairs.lua;
+            }
+            {
+              plugin = indent-blankline-nvim;
+              type = "lua";
+              config = fileContents ./plugins/indent.lua;
+            }
+            {
+              plugin = mini-nvim;
+              type = "lua";
+              config = fileContents ./plugins/mini.lua;
+            }
+          ]
+          ++ optionals nvimIde [
+            # Coc configured
+            coc-css
+            coc-eslint
+            coc-java
+            coc-sh
+            coc-stylelintplus
+            {
+              plugin = coc-snippets;
+              type = "viml";
+              config = fileContents ./plugins/snippets.vim;
+            }
+
+            ## Lua
+            coc-sumneko-lua
+            neodev-nvim
+
+            ## Fzf
+            coc-fzf
+
+            coc-highlight
+            coc-json
+            coc-pyright
+            coc-vimlsp
+            coc-yaml
+            coc-toml
+            coc-markdownlint
+            coc-tsserver
+
+            {
+              plugin = neo-tree-nvim;
+              type = "viml";
+              config = ''
+                ${fileContents ./plugins/neotree.vim}
+
+                lua << EOF
+                  ${fileContents ./plugins/neotree.lua}
+                EOF
+              '';
+            }
+          ])
+
+        # Treesitter
+        ++ (with pkgs.vimPlugins; [
           nvim-treesitter-context
           nvim-treesitter-textobjects
           nvim-treesitter-hypr
           {
-            plugin = nvim-treesitter.withAllGrammars;
             type = "viml";
             config = fileContents ./plugins/treesitter.vim;
-          }
-          {
-            plugin = indent-blankline-nvim;
-            type = "lua";
-            config = fileContents ./plugins/indent.lua;
-          }
-          {
-            plugin = mini-nvim;
-            type = "lua";
-            config = fileContents ./plugins/mini.lua;
-          }
-        ]
-        ++ optionals nvimIde [
-          # Coc configured
-          coc-css
-          coc-eslint
-          coc-java
-          coc-sh
-          coc-stylelintplus
-          {
-            plugin = coc-snippets;
-            type = "viml";
-            config = fileContents ./plugins/snippets.vim;
-          }
-
-          ## Lua
-          coc-sumneko-lua
-          neodev-nvim
-
-          ## Fzf
-          coc-fzf
-
-          coc-highlight
-          coc-json
-          coc-pyright
-          coc-vimlsp
-          coc-yaml
-          coc-toml
-          coc-markdownlint
-          coc-tsserver
-
-          {
-            plugin = neo-tree-nvim;
-            type = "viml";
-            config = ''
-              ${fileContents ./plugins/neotree.vim}
-
-              lua << EOF
-                ${fileContents ./plugins/neotree.lua}
-              EOF
-            '';
+            plugin = nvim-treesitter.withPlugins (p: [
+              p.awk
+              p.bash
+              p.c
+              p.c_sharp
+              p.cairo
+              p.cmake
+              p.comment
+              p.cpp
+              p.css
+              p.csv
+              p.cuda
+              p.diff
+              p.dockerfile
+              p.dot
+              p.git_config
+              p.git_rebase
+              p.gitattributes
+              p.gitcommit
+              p.gitignore
+              p.go
+              p.gomod
+              p.gosum
+              p.groovy
+              p.haskell
+              p.haskell_persistent
+              p.html
+              p.ini
+              p.java
+              p.javascript
+              p.jq
+              p.jsdoc
+              p.json
+              p.json5
+              p.jsonc
+              p.jsonnet
+              p.kotlin
+              p.latex
+              p.lua
+              p.luadoc
+              p.make
+              p.markdown
+              p.meson
+              p.ninja
+              p.nix
+              p.passwd
+              p.perl
+              p.php
+              p.phpdoc
+              p.properties
+              p.python
+              p.rasi
+              p.regex
+              p.requirements
+              p.ruby
+              p.rust
+              p.scss
+              p.sql
+              p.ssh_config
+              p.toml
+              p.todotxt
+              p.typescript
+              p.udev
+              p.vim
+              p.vimdoc
+              p.vue
+              p.xml
+              p.yaml
+            ]);
           }
         ]);
     };
