@@ -17,10 +17,10 @@ jobs:
       - name: Checkout
         uses: https://github.com/actions/checkout@v3
 
-      - name: setup-nix
+      - name: Setup-Nix
         uses: https://github.com/cachix/install-nix-action@v24
 
-      - name: update
+      - name: Send-Embed
         working-directory: ./common/pkgs/discommit
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
