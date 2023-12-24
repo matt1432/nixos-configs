@@ -67,6 +67,7 @@
         nur.hmModules.nur
 
         ./home
+        ./home/trash-d
         ./pkgs
       ];
 
