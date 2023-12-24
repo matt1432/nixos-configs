@@ -15,13 +15,13 @@ const commit = JSON.stringify({
     embeds: [{
         title: 'New commit containing changes to server configs:',
         description: commitInfo.commit.message,
-        url: commitInfo.url,
+        url: commitInfo.html_url,
         author: {
             name: commitInfo.author.username,
             icon_url: commitInfo.author.avatar_url,
         },
     }],
-    // Diff: await (await fetch(`${last['url']}.diff`)).text()
+    // Diff: await (await fetch(`${commitInfo.url}.diff`)).text()
 });
 
 const post = await fetch(`${DATA.webhook}?wait=true`, {

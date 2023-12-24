@@ -1,11 +1,8 @@
 name: Discord
 
 on:
-  workflow_dispatch:
-  push:
-    paths:
-      - 'devices/oksys/*'
-      - 'devices/servivi/*'
+  - workflow_dispatch
+  - push
 
 jobs:
   discord_commits:
@@ -13,6 +10,8 @@ jobs:
     name: discord commits
     env:
       DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+
+    if: contains(github.event.head_commit.message, '(servers)')
 
     steps:
       - name: Checkout
