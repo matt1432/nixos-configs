@@ -7,14 +7,13 @@ import PopupWindow from './misc/popup.js';
 import CursorBox from './misc/cursorbox.js';
 
 
-// FIXME: eventboxes are the wrong size
 const PowermenuWidget = () => CenterBox({
     class_name: 'powermenu',
     // @ts-expect-error
     vertical: false,
 
     start_widget: CursorBox({
-        class_name: 'shutdown',
+        class_name: 'shutdown button',
         on_primary_click_release: () => execAsync(['systemctl', 'poweroff'])
             .catch(print),
 
@@ -24,7 +23,7 @@ const PowermenuWidget = () => CenterBox({
     }),
 
     center_widget: CursorBox({
-        class_name: 'reboot',
+        class_name: 'reboot button',
         on_primary_click_release: () => execAsync(['systemctl', 'reboot'])
             .catch(print),
 
@@ -34,7 +33,7 @@ const PowermenuWidget = () => CenterBox({
     }),
 
     end_widget: CursorBox({
-        class_name: 'logout',
+        class_name: 'logout button',
         on_primary_click_release: () => Hyprland.sendMessage('dispatch exit')
             .catch(print),
 
