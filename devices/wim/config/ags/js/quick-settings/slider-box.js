@@ -21,7 +21,7 @@ export default () => Box({
                 Icon({
                     size: 26,
                     class_name: 'slider-label',
-                    binds: [['icon', SpeakerIcon, 'value']],
+                    icon: SpeakerIcon.bind(),
                 }),
 
                 Slider({
@@ -62,7 +62,7 @@ export default () => Box({
             children: [
                 Icon({
                     class_name: 'slider-label',
-                    binds: [['icon', Brightness, 'screen-icon']],
+                    icon: Brightness.bind('screenIcon'),
                 }),
 
                 Slider({

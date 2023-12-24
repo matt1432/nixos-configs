@@ -1,8 +1,10 @@
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 import Service from 'resource:///com/github/Aylur/ags/service.js';
+
 import { subprocess } from 'resource:///com/github/Aylur/ags/utils.js';
-import GUdev from 'gi://GUdev';
+
+const { GUdev } = imports.gi;
 
 const UDEV_POINTERS = [
     'ID_INPUT_MOUSE',
@@ -34,8 +36,10 @@ class Pointers extends Service {
         });
     }
 
+    /** @type typeof imports.gi.Gio.Subprocess */
     #process;
     #lastLine = '';
+    /** @type Array<string> */
     #pointers = [];
     #udevClient = GUdev.Client.new(['input']);
 
@@ -60,32 +64,42 @@ class Pointers extends Service {
     // FIXME: logitech mouse screws everything up on disconnect
     #initUdevConnection() {
         this.#getDevices();
-        this.#udevClient.connect('uevent', (_, action) => {
-            if (action === 'add' || action === 'remove') {
-                this.#getDevices();
-                if (this.#process) {
-                    this.killProc();
-                    this.startProc();
+        this.#udevClient.connect('uevent',
+            /**
+             * @param {typeof imports.gi.GUdev.Client} _
+             * @param {string} action
+             */
+            (_, action) => {
+                if (action === 'add' || action === 'remove') {
+                    this.#getDevices();
+                    if (this.#process) {
+                        this.killProc();
+                        this.startProc();
+                    }
                 }
-            }
-        });
+            });
     }
 
     #getDevices() {
         this.#pointers = [];
-        this.#udevClient.query_by_subsystem('input').forEach((dev) => {
-            const isPointer = UDEV_POINTERS.some((p) => dev.has_property(p));
+        this.#udevClient.query_by_subsystem('input').forEach(
+            /** @param {typeof imports.gi.GUdev.Device} dev */
+            (dev) => {
+                const isPointer = UDEV_POINTERS.some(
+                    (p) => dev.has_property(p),
+                );
 
-            if (isPointer) {
-                const hasEventFile = dev.has_property('DEVNAME') &&
+                if (isPointer) {
+                    const hasEventFile = dev.has_property('DEVNAME') &&
                                      dev.get_property('DEVNAME')
                                          .includes('event');
 
-                if (hasEventFile) {
-                    this.#pointers.push(dev.get_property('DEVNAME'));
+                    if (hasEventFile) {
+                        this.#pointers.push(dev.get_property('DEVNAME'));
+                    }
                 }
-            }
-        });
+            },
+        );
 
         this.emit('device-fetched', true);
     }
@@ -123,7 +137,6 @@ class Pointers extends Service {
                     this.emit('new-line', output);
                 }
             },
-            (err) => logError(err),
         );
         this.emit('proc-started', true);
     }
@@ -139,9 +152,12 @@ class Pointers extends Service {
     #initAppConnection() {
         App.connect('window-toggled', () => {
             const anyVisibleAndClosable = Array.from(App.windows).some((w) => {
+                // @ts-expect-error
                 const closable = w[1].attribute?.close_on_unfocus &&
+                                // @ts-expect-error
                                 !(w[1].attribute?.close_on_unfocus === 'none' ||
-                                    w[1].attribute?.close_on_unfocus === 'stay');
+                                // @ts-expect-error
+                                w[1].attribute?.close_on_unfocus === 'stay');
 
                 return w[1].visible && closable;
             });
@@ -156,9 +172,12 @@ class Pointers extends Service {
         });
     }
 
+    /** @param {string} clickStage */
     static detectClickedOutside(clickStage) {
         const toClose = Array.from(App.windows).some((w) => {
+            // @ts-expect-error
             const closable = (w[1].attribute?.close_on_unfocus &&
+                              // @ts-expect-error
                               w[1].attribute?.close_on_unfocus === clickStage);
 
             return w[1].visible && closable;
@@ -168,22 +187,31 @@ class Pointers extends Service {
             return;
         }
 
-        Hyprland.sendMessage('j/layers').then((layers) => {
-            layers = JSON.parse(layers);
+        Hyprland.sendMessage('j/layers').then((response) => {
+            // /** @type import('types/service/hyprland').Layer */
+            const layers = JSON.parse(response);
 
-            Hyprland.sendMessage('j/cursorpos').then((pos) => {
-                pos = JSON.parse(pos);
+            Hyprland.sendMessage('j/cursorpos').then((res) => {
+                const pos = JSON.parse(res);
 
                 Object.values(layers).forEach((key) => {
-                    const bar = key.levels['3']
-                        .find((n) => n.namespace === 'bar');
+                    const bar = key.levels['3'].find(
+                        /** @param {{ namespace: string }} n */
+                        (n) => n.namespace === 'bar',
+                    );
 
-                    const widgets = key.levels['3'].filter((n) => {
-                        const window = App.getWindow(n.namespace);
+                    const widgets = key.levels['3'].filter(
+                        /** @param {{ namespace: string }} n */
+                        (n) => {
+                            const window = App.getWindow(n.namespace);
 
-                        return window?.attribute?.close_on_unfocus &&
-                               window?.attribute?.close_on_unfocus === clickStage;
-                    });
+                        // @ts-expect-error
+                            return window?.attribute?.close_on_unfocus &&
+                               // @ts-expect-error
+                               window?.attribute
+                                   ?.close_on_unfocus === clickStage;
+                        },
+                    );
 
                     if (pos.x > bar?.x && pos.x < bar?.x + bar?.w &&
                         pos.y > bar?.y && pos.y < bar?.y + bar?.h) {
@@ -192,12 +220,22 @@ class Pointers extends Service {
                         // TODO: make this configurable
                     }
                     else {
-                        widgets.forEach((w) => {
-                            if (!(pos.x > w.x && pos.x < w.x + w.w &&
+                        widgets.forEach(
+                            /** @param {{
+                             *      namespace: string
+                             *      x: number
+                             *      y: number
+                             *      h: number
+                             *      w: number
+                             * }} w
+                             */
+                            (w) => {
+                                if (!(pos.x > w.x && pos.x < w.x + w.w &&
                                   pos.y > w.y && pos.y < w.y + w.h)) {
-                                App.closeWindow(w.namespace);
-                            }
-                        });
+                                    App.closeWindow(w.namespace);
+                                }
+                            },
+                        );
                     }
                 });
             }).catch(print);

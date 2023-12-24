@@ -80,6 +80,7 @@ const ModKey = (key) => {
     const button = EventBox({
         cursor: 'pointer',
         class_name: 'key',
+
         on_primary_click_release: (self) => {
             console.log('mod toggled');
 
@@ -89,6 +90,7 @@ const ModKey = (key) => {
             self.child.toggleClassName('active', !Mod.value);
             Mod.value = !Mod.value;
         },
+
         setup: (self) => {
             self.hook(NormalClick, () => {
                 Mod.value = false;

@@ -21,7 +21,6 @@ exec(`sassc ${scss} ${css}`);
 Setup();
 
 
-// TODO: get rid of 'properties' and 'binds' prop
 export default {
     style: css,
     notificationPopupTimeout: 5000,
