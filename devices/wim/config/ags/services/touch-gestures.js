@@ -44,10 +44,15 @@ class TouchGestures extends Service {
     }
 
     #gestures = new Map();
+    /** @type typeof imports.gi.Gio.Subprocess */
     #gestureDaemon;
 
     get gestures() {
         return this.#gestures;
+    }
+
+    get gestureDaemon() {
+        return this.#gestureDaemon;
     }
 
     addGesture({
@@ -57,7 +62,7 @@ class TouchGestures extends Service {
         edge = '*',
         distance = '*',
         command,
-    } = {}) {
+    }) {
         gesture = String(gesture).toUpperCase();
         if (!GESTURE_VERIF.includes(gesture)) {
             logError('Wrong gesture id');
@@ -119,7 +124,6 @@ class TouchGestures extends Service {
         this.#gestureDaemon = subprocess(
             command,
             () => { /**/ },
-            (err) => logError(err),
         );
         this.emit('daemon-started', true);
     }

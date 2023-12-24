@@ -2,7 +2,6 @@ import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 import Service from 'resource:///com/github/Aylur/ags/service.js';
 import TouchGestures from './touch-gestures.js';
 import { execAsync, subprocess } from 'resource:///com/github/Aylur/ags/utils.js';
-import GUdev from 'gi://GUdev';
 
 const ROTATION_MAP = {
     'normal': 0,
@@ -11,6 +10,10 @@ const ROTATION_MAP = {
     'left-up': 1,
 };
 const SCREEN = 'desc:BOE 0x0964';
+const DEVICES = [
+    'wacom-hid-52eb-finger',
+    'wacom-hid-52eb-pen',
+];
 
 
 class Tablet extends Service {
@@ -30,9 +33,10 @@ class Tablet extends Service {
 
     #tabletMode = false;
     #oskState = false;
+    /** @type typeof imports.gi.Gio.Subprocess */
     #autorotate;
+    /** @type typeof imports.gi.Gio.Subprocess */
     #blockedInputs;
-    #udevClient = GUdev.Client.new(['input']);
 
     get tabletMode() {
         return this.#tabletMode;
@@ -44,7 +48,6 @@ class Tablet extends Service {
 
     constructor() {
         super();
-        this.#initUdevConnection();
         this.#listenOskState();
     }
 
@@ -59,8 +62,7 @@ class Tablet extends Service {
             '--device', '/dev/input/by-path/platform-AMDI0010:02-event-mouse',
             '--device', '/dev/input/by-path/platform-thinkpad_acpi-event',
             '--device', '/dev/video-bus'],
-        () => { /**/ },
-        (err) => logError(err));
+        () => { /**/ });
         this.emit('inputs-blocked', true);
     }
 
@@ -113,31 +115,6 @@ class Tablet extends Service {
         this.emit('mode-toggled', true);
     }
 
-    #initUdevConnection() {
-        this.#getDevices();
-        this.#udevClient.connect('uevent', (_, action) => {
-            if (action === 'add' || action === 'remove') {
-                this.#getDevices();
-            }
-        });
-    }
-
-    #getDevices() {
-        this.devices = [];
-        Hyprland.sendMessage('j/devices').then((out) => {
-            const devices = JSON.parse(out);
-
-            devices.touch.forEach((dev) => {
-                this.devices.push(dev.name);
-            });
-            devices.tablets.forEach((dev) => {
-                this.devices.push(dev.name);
-            });
-        }).catch(print);
-
-        this.emit('device-fetched', true);
-    }
-
     startAutorotate() {
         if (this.#autorotate) {
             return;
@@ -153,7 +130,7 @@ class Tablet extends Service {
                         `keyword monitor ${SCREEN},transform,${orientation}`,
                     ).catch(print);
 
-                    const batchRotate = this.devices.map((dev) =>
+                    const batchRotate = DEVICES.map((dev) =>
                         `keyword device:${dev}:transform ${orientation}; `);
 
                     Hyprland.sendMessage(`[[BATCH]] ${batchRotate.flat()}`);
@@ -164,7 +141,6 @@ class Tablet extends Service {
                     }
                 }
             },
-            (err) => logError(err),
         );
         this.emit('autorotate-started', true);
     }
@@ -182,11 +158,14 @@ class Tablet extends Service {
             ['bash', '-c', 'busctl monitor --user sm.puri.OSK0'],
             (output) => {
                 if (output.includes('BOOLEAN')) {
-                    this.#oskState = output.match('true|false')[0] === 'true';
-                    this.emit('osk-toggled', this.#oskState);
+                    const match = output.match('true|false');
+
+                    if (match) {
+                        this.#oskState = match[0] === 'true';
+                        this.emit('osk-toggled', this.#oskState);
+                    }
                 }
             },
-            (err) => logError(err),
         );
     }
 
