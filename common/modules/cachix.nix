@@ -14,6 +14,8 @@
         "https://viperml.cachix.org"
         # Caddy
         "https://caddycf.cachix.org"
+        # Personal config cache
+        "https://archives.cachix.org"
       ];
       trusted-public-keys = [
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
@@ -27,6 +29,8 @@
         "viperml.cachix.org-1:qZhKBMTfmcLL+OG6fj/hzsMEedgKvZVFRRAhq7j8Vh8="
         # Caddy
         "caddycf.cachix.org-1:6vbQaeiec/zKv9XfEwi9yWVCe7opbeJMu6w81UEXugY="
+        # Personal config cache
+        "archives.cachix.org-1:6fvCc0qfKnnYVUmNw0TeT4qH/ZNAGLOzw7SlgWN5bV0="
       ];
     };
   };
