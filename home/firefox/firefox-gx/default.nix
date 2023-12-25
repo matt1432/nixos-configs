@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }: let
   pname = "firefox-gx";
-  version = "8.6";
+  version = "8.7";
 in
   stdenvNoCC.mkDerivation {
     inherit pname version;
@@ -13,7 +13,7 @@ in
       owner = "Godiesc";
       repo = pname;
       rev = "v.${version}";
-      sha256 = "sha256-AaufMjeK66y/3ymz7TkiIgvtmAvD/pjou7+wVglUFGc=";
+      sha256 = "sha256-lMco3TYQNVTQEF5TpKiHUbexdB5pD3OmqjACD2BJZaY=";
     };
 
     installPhase = ''
