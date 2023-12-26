@@ -11,6 +11,11 @@
   --uc-vertical-toolbar-width: 46px !important;
 }
 
+/* Fix left side of tabs going past what it should */
+scrollbox {
+  margin-left: 5px;
+}
+
 /* https://github.com/Godiesc/firefox-gx/blob/main/Tricks/README.md */
 /* Extensions button into the "left-sidebar" - Immovable */
 
