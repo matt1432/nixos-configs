@@ -17,6 +17,7 @@
       progress
       wget
       tree
+      openssh
       mosh
       rsync
       killall

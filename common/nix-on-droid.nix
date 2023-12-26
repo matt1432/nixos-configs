@@ -43,10 +43,10 @@
 
       {
         programs.bash.shellAliases = {
-          pc = "mosh matt@100.64.0.6 -- tmux -2u new -At phone";
-          oksys = "mosh matt@100.64.0.1 -- tmux -2u new -At phone";
-          servivi = "mosh matt@100.64.0.7 -- tmux -2u new -At phone";
-          pve = "mosh matt@100.64.0.4 -- tmux -2u new -At phone";
+          pc = "ssh -t matt@100.64.0.6 'tmux -2u new -At phone'";
+          oksys = "ssh -t matt@100.64.0.1 'tmux -2u new -At phone'";
+          servivi = "ssh -t matt@100.64.0.7 'tmux -2u new -At phone'";
+          pve = "ssh -t matt@100.64.0.4 'tmux -2u new -At phone'";
 
           pod = "mosh matt@100.64.0.4 -- ssh -t -p 6768 matt@10.0.0.122 'tmux -2u new -At phone'";
           jelly = "mosh matt@100.64.0.4 -- ssh -t matt@10.0.0.123 'tmux -2u new -At phone'";
