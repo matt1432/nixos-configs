@@ -15,7 +15,7 @@
         # Caddy
         "https://caddycf.cachix.org"
         # Personal config cache
-        "https://archives.cachix.org"
+        "https://cache.nelim.org"
       ];
       trusted-public-keys = [
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
@@ -30,7 +30,7 @@
         # Caddy
         "caddycf.cachix.org-1:6vbQaeiec/zKv9XfEwi9yWVCe7opbeJMu6w81UEXugY="
         # Personal config cache
-        "archives.cachix.org-1:6fvCc0qfKnnYVUmNw0TeT4qH/ZNAGLOzw7SlgWN5bV0="
+        "cache.nelim.org:JmFqkUdH11EA9EZOFAGVHuRYp7EbsdJDHvTQzG2pPyY="
       ];
     };
   };

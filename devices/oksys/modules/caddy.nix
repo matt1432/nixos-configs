@@ -28,6 +28,7 @@ in {
     virtualHosts = let
       dockerIP = "10.0.0.122";
       jellyIP = "10.0.0.123";
+      servivi = "10.0.0.249";
     in {
       "nelim.org" = {
         serverAliases = ["*.nelim.org"];
@@ -66,6 +67,11 @@ in {
           forgejo = {
             subDomainName = "git";
             reverseProxy = "${dockerIP}:3000";
+          };
+
+          nix-binary-cache = {
+            subDomainName = "cache";
+            reverseProxy = "${servivi}:5000";
           };
 
           calibre = {

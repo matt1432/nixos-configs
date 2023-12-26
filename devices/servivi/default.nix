@@ -4,6 +4,8 @@
 
     ../../modules/kmscon.nix
     ../../modules/tailscale.nix
+
+    ./modules/binary-cache.nix
   ];
 
   vars = {
