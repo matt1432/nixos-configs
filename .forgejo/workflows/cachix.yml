@@ -14,11 +14,13 @@ jobs:
 
     - name: Setup-Nix
       uses: https://github.com/cachix/install-nix-action@v24
+      with:
+        github_access_token: ${{ secrets.TOKEN_GH }}
 
     - name: Install-nixci
       uses: https://github.com/yaxitech/nix-install-pkgs-action@v3
       with:
-        packages: "nixpkgs#nixci"
+        packages: "nixpkgs#nixci, dig"
 
     - name: Setup-cachix
       uses: https://github.com/cachix/cachix-action@v12
@@ -26,9 +28,15 @@ jobs:
         name: archives
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
+    - name: Install SSH key
+      run: |
+        install -m 600 -D /dev/null ~/.ssh/id_rsa
+        echo "${{ secrets.PRIVATE_SSH_KEY }}" > ~/.ssh/id_rsa
+        host='git.nelim.org'
+        hosts="$(dig +short "$host" | grep -v '\.$' | sed -z 's|\n|,|g')$host"
+        ssh-keyscan -H "$hosts" > ~/.ssh/known_hosts
+
     - name: Build-configs
       run: |
-        eval `ssh-agent -s`
-        ssh-add - <<< '${{ secrets.PRIVATE_SSH_KEY }}'
         nix flake update
         nixci
