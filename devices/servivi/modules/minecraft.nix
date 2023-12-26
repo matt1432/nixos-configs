@@ -27,7 +27,7 @@
 
         serverConfig =
           {
-            server-port = 25566;
+            server-port = 25569;
 
             extra-options = {
             };
@@ -46,7 +46,7 @@
 
         serverConfig =
           {
-            server-port = 25569;
+            server-port = 25566;
             motd = "creative mode gaming";
 
             extra-options = {
@@ -72,8 +72,8 @@
 
         serverConfig =
           {
-            server-port = 25560;
-            motd = "motd=Nomi CEu Server, v1.7-alpha-2";
+            server-port = 25569;
+            motd = "Nomi CEu Server, v1.7-alpha-2";
 
             extra-options = {
               max-players = 8;
