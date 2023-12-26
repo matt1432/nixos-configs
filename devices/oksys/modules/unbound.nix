@@ -32,13 +32,13 @@
 
           "\"git.nelim.org. IN A 24.200.126.219\""
 
-          "\"mc.nelim.org IN A 100.64.0.4\""
+          "\"mc.nelim.org IN A 100.64.0.7\""
           "\"_minecraft._tcp.mc.nelim.org. 180 IN SRV 0 0 25569 mc.nelim.org.\""
 
-          "\"cv.nelim.org IN A 100.64.0.4\""
+          "\"cv.nelim.org IN A 100.64.0.7\""
           "\"_minecraft._tcp.cv.nelim.org. 180 IN SRV 0 0 25566 cv.nelim.org.\""
 
-          "\"mc2.nelim.org IN A 100.64.0.4\""
+          "\"mc2.nelim.org IN A 100.64.0.7\""
           "\"_minecraft._tcp.mc2.nelim.org. 180 IN SRV 0 0 25560 mc2.nelim.org.\""
 
           "\"ota.nelim.org. IN A 100.64.0.5\""

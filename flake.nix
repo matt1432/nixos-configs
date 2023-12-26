@@ -118,6 +118,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nms = {
+      url = "github:matt1432/nixos-minecraft-servers";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     hyprland = {
       url = "github:hyprwm/Hyprland";
       inputs.nixpkgs.follows = "nixpkgs";

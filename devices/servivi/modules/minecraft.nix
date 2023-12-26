@@ -1,0 +1,90 @@
+{
+  config,
+  nms,
+  pkgs,
+  ...
+}: {
+  imports = [nms.nixosModules.default];
+
+  services.modded-minecraft-servers = {
+    eula = true;
+    user = config.vars.user;
+    group = "users";
+
+    instances = let
+      jre8 = pkgs.temurin-bin-8;
+      jre17 = pkgs.temurin-bin-17;
+
+      defaults = {
+        spawn-protection = 0;
+        max-tick-time = 5 * 60 * 1000;
+        allow-flight = true;
+      };
+    in {
+      # Vanilla Survival
+      sv = {
+        enable = false;
+
+        serverConfig =
+          {
+            server-port = 25566;
+
+            extra-options = {
+            };
+          }
+          // defaults;
+      };
+
+      # Vanilla Creative
+      cv = {
+        enable = true;
+
+        jvmMaxAllocation = "6G";
+        jvmInitialAllocation = "2G";
+        jvmPackage = jre17;
+        jvmOpts = "";
+
+        serverConfig =
+          {
+            server-port = 25569;
+            motd = "creative mode gaming";
+
+            extra-options = {
+              difficulty = "hard";
+              enable-command-block = true;
+              enforce-whitelist = true;
+              gamemode = "creative";
+              max-players = 6;
+              view-distance = 16;
+            };
+          }
+          // defaults;
+      };
+
+      # Modded https://www.curseforge.com/minecraft/modpacks/nomi-ceu
+      nomi = {
+        enable = true;
+
+        jvmMaxAllocation = "10G";
+        jvmInitialAllocation = "2G";
+        jvmPackage = jre8;
+        jvmOpts = "";
+
+        serverConfig =
+          {
+            server-port = 25560;
+            motd = "motd=Nomi CEu Server, v1.7-alpha-2";
+
+            extra-options = {
+              max-players = 8;
+              difficulty = 1;
+              view-distance = 10;
+              simulation-distance = 10;
+              level-type = "lostcities";
+            };
+          }
+          // defaults;
+      };
+    };
+  };
+}
