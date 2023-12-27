@@ -10,7 +10,6 @@
     modded-minecraft-servers = {
       eula = true;
       user = config.vars.user;
-      group = "users";
 
       instances = let
         jre8 = pkgs.temurin-bin-8;
@@ -89,18 +88,11 @@
       };
     };
 
-    borgmatic.configurations.mc =
-      config.services.borgmatic.defaults
+    borgbackup.jobs.mc =
+      config.services.borgbackup.defaults
       // {
-        source_directories = [
+        paths = [
           "/var/lib/minecraft"
-        ];
-
-        repositories = [
-          {
-            label = "PVE";
-            path = "ssh://matt@pve/data/backups/borg";
-          }
         ];
       };
   };

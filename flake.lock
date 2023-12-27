@@ -719,11 +719,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1703628847,
-        "narHash": "sha256-CiMGqa1twXq50Ub2gGqwZ6jZuWWbISgvj61pUC5uAXc=",
+        "lastModified": 1703654106,
+        "narHash": "sha256-2VoiAD/zzZ6/KiN18qm2pEclBP611+YRRzmiikTRdpc=",
         "owner": "nix-community",
         "repo": "nixpkgs-wayland",
-        "rev": "34e93cad9a011f28c094ba4d94adc7f59cec08ad",
+        "rev": "454c1fc492b82c28ab3ec8ef6edae0ec6eef41ad",
         "type": "github"
       },
       "original": {
@@ -766,11 +766,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1703255338,
-        "narHash": "sha256-Z6wfYJQKmDN9xciTwU3cOiOk+NElxdZwy/FiHctCzjU=",
+        "lastModified": 1703438236,
+        "narHash": "sha256-aqVBq1u09yFhL7bj1/xyUeJjzr92fXVvQSSEx6AdB1M=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "6df37dc6a77654682fe9f071c62b4242b5342e04",
+        "rev": "5f64a12a728902226210bf01d25ec6cbb9d9265b",
         "type": "github"
       },
       "original": {
@@ -867,11 +867,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1703619116,
-        "narHash": "sha256-FAs/EoccWduokTKuqYeRzW2o3Eb6T3SpgWDoqHGeFwU=",
+        "lastModified": 1703659416,
+        "narHash": "sha256-+S75gs0rUWlWpiozAh3sCPar+gfZ96efG7Ifpo5rleA=",
         "owner": "matt1432",
         "repo": "nixos-minecraft-servers",
-        "rev": "cffa361baa1990558f96b18e454502b8ed74a8f1",
+        "rev": "cee4e78311e225aae0af6a49f410d5da23d40b66",
         "type": "github"
       },
       "original": {
@@ -898,11 +898,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1703646418,
-        "narHash": "sha256-+O5UYPoboInEqQM0KeNVTz8Dff2dTxDwZOSRTgdOejM=",
+        "lastModified": 1703659518,
+        "narHash": "sha256-MhYyeYf6vLB8Itrbfd6v8osQqxfo7RcHgNQUd2/KaqM=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "4b648583aa2718a55740bd6f7e2916c9771762c8",
+        "rev": "6561f85abf01b5f47ce49407d34ea7b3332d11a7",
         "type": "github"
       },
       "original": {
@@ -961,11 +961,11 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1703648158,
-        "narHash": "sha256-z2My4To69oyY4xYofSJCAKK6BOMcbA9qRZJoUBpi6+U=",
+        "lastModified": 1703659676,
+        "narHash": "sha256-GV7aDQygrPSXwR6auRHpanMzvXvKBbw1F2o78BA/ZeM=",
         "ref": "refs/heads/main",
-        "rev": "22a1a1c6a18639e11e4e47a667870dffa527623e",
-        "revCount": 17,
+        "rev": "792df10f43731b75e4d11ce76e0cde911381869e",
+        "revCount": 18,
         "type": "git",
         "url": "ssh://git@git.nelim.org/matt1432/nixos-secrets"
       },

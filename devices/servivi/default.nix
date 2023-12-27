@@ -6,7 +6,7 @@
     ../../modules/tailscale.nix
 
     ./modules/binary-cache.nix
-    ./modules/borgmatic.nix
+    ./modules/borgbackup.nix
     ./modules/minecraft.nix
   ];
 
