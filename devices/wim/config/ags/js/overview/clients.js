@@ -137,8 +137,18 @@ export const updateClients = (box) => {
                         const active =
                         client.address === Hyprland.active.client.address;
 
-                        // TODO: fix multi monitor issue. this is just a temp fix
-                        client.at[1] -= 2920;
+                        // TODO: see if this works on multi monitor setup
+                        const alloc = box.get_allocation();
+                        let monitor = box.get_display()
+                            .get_monitor_at_point(alloc.x, alloc.y);
+
+                        monitor = Hyprland.monitors.find((mon) => {
+                            return mon.make === monitor.manufacturer &&
+                                mon.model === monitor.model;
+                        });
+
+                        client.at[0] -= monitor.x;
+                        client.at[1] -= monitor.y;
 
                         // Special workspaces that haven't been opened yet
                         // return a size of 0. We need to set them to default

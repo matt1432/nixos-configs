@@ -75,7 +75,7 @@ export const Overview = () => {
             `,
         }),
 
-        // TODO: throttle his?
+        // TODO: throttle this?
         setup: (self) => {
             self.on('get-child-position', (_, ch) => {
                 if (ch === mainBox) {
