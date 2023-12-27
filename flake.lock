@@ -898,11 +898,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1703684713,
-        "narHash": "sha256-fcT+86f6nzP3U0fNaLmU2zjU0OBknHkvuhfKCOmUbYo=",
+        "lastModified": 1703685203,
+        "narHash": "sha256-S6O1gyPlMdWwPAdt/fyMbAY2dkN7c2OSdXQ33B0XUNs=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "363ffe2170c5ff1bb78ee7c156cfd26fb587e383",
+        "rev": "37316d96a2d37c8d399922483dac769ffd5dbf38",
         "type": "github"
       },
       "original": {
@@ -961,11 +961,11 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1703659676,
-        "narHash": "sha256-GV7aDQygrPSXwR6auRHpanMzvXvKBbw1F2o78BA/ZeM=",
+        "lastModified": 1703687968,
+        "narHash": "sha256-wkdaj8F/uD8Rm3HmNcy7IVRguzWeCd4svuVPILIWbq4=",
         "ref": "refs/heads/main",
-        "rev": "792df10f43731b75e4d11ce76e0cde911381869e",
-        "revCount": 18,
+        "rev": "77c68ba0cbc6da18531dedfcf864038a6e4aaf9f",
+        "revCount": 19,
         "type": "git",
         "url": "ssh://git@git.nelim.org/matt1432/nixos-secrets"
       },

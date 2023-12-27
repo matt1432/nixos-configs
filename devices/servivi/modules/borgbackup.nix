@@ -3,10 +3,18 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+with lib; let
+  cfg = config.services.borgbackup;
+  secrets = config.sops.secrets;
+in {
   # Make this file declare default settings
-  options.services.borgbackup = with lib; {
+  options.services.borgbackup = {
+    #
     defaults = mkOption {
+      type = types.attrs;
+    };
+    configs = mkOption {
       type = types.attrs;
     };
   };
@@ -15,6 +23,7 @@
     users.groups.borg = {};
     users.users.borg = {
       isSystemUser = true;
+      # https://mynixos.com/nixpkgs/option/services.borgbackup.jobs.%3Cname%3E.readWritePaths
       createHome = true;
       home = "/var/lib/borg";
       group = "borg";
@@ -28,17 +37,14 @@
     services.borgbackup = {
       defaults = {
         user = "borg";
-        environment = {
-          # TODO: use secrets
-          BORG_RSH = "ssh -i ${config.users.users.borg.home}/.ssh/id_ed25519";
-        };
+        environment = {BORG_RSH = "ssh -i ${secrets.borg-ssh.path}";};
 
         repo = "ssh://matt@pve/data/backups/borg";
         encryption = {
           mode = "repokey";
           passCommand = let
             cat = "${pkgs.coreutils}/bin/cat";
-            key = config.sops.secrets.borg-repo.path;
+            key = secrets.borg-repo.path;
           in "${cat} ${key}";
         };
 
@@ -46,6 +52,8 @@
         startAt = "00/3:00";
         compression = "auto,lzma";
       };
+
+      jobs = mapAttrs (_: v: v // cfg.defaults) cfg.configs;
     };
   };
 }

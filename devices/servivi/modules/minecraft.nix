@@ -88,12 +88,10 @@
       };
     };
 
-    borgbackup.jobs.mc =
-      config.services.borgbackup.defaults
-      // {
-        paths = [
-          "/var/lib/minecraft"
-        ];
-      };
+    borgbackup.configs.mc = {
+      paths = [
+        "/var/lib/minecraft"
+      ];
+    };
   };
 }

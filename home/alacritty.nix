@@ -3,8 +3,6 @@
     enable = true;
     settings = {
       env = {
-        POKE = "true";
-
         # fix wrong colors in tmux
         TERM = "xterm-256color";
       };

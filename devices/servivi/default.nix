@@ -3,6 +3,7 @@
     ./hardware-configuration.nix
 
     ../../modules/kmscon.nix
+    ../../modules/sshd.nix
     ../../modules/tailscale.nix
 
     ./modules/binary-cache.nix
@@ -39,16 +40,6 @@
     inherit (config.vars) hostName;
     resolvconf.enable = true;
     firewall.enable = false;
-  };
-
-  services = {
-    openssh = {
-      enable = true;
-      settings = {
-        PasswordAuthentication = false;
-        PermitRootLogin = "no";
-      };
-    };
   };
 
   # Set your time zone.

@@ -2,6 +2,7 @@
   services = {
     blocky = {
       enable = true;
+
       settings = {
         upstream = {
           default = [

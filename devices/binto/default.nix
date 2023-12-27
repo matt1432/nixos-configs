@@ -8,6 +8,7 @@
     ../../modules/kmscon.nix
     ../../modules/printer.nix
     ../../modules/proton-bridge.nix
+    ../../modules/sshd.nix
     ../../modules/tailscale.nix
 
     ./modules/gpu-replay.nix
@@ -54,16 +55,6 @@
     inherit (config.vars) hostName;
     networkmanager.enable = true;
     firewall.enable = false;
-  };
-
-  services = {
-    openssh = {
-      enable = true;
-      settings = {
-        PasswordAuthentication = false;
-        PermitRootLogin = "no";
-      };
-    };
   };
 
   # Set your time zone.

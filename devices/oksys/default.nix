@@ -2,6 +2,7 @@
   imports = [
     ./hardware-configuration.nix
 
+    ../../modules/sshd.nix
     ../../modules/tailscale.nix
 
     ./modules/blocky.nix
@@ -45,16 +46,6 @@
       '';
     };
     firewall.enable = false;
-  };
-
-  services = {
-    openssh = {
-      enable = true;
-      settings = {
-        PasswordAuthentication = false;
-        PermitRootLogin = "no";
-      };
-    };
   };
 
   # Set your time zone.

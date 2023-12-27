@@ -3,9 +3,8 @@
   pkgs,
   config,
   ...
-}: let
+}: with lib; let
   # Nix stuff
-  optionals = lib.lists.optionals;
   isNvidia = config.hardware.nvidia.modesetting.enable;
   isTouchscreen = config.hardware.sensor.iio.enable;
 
@@ -20,7 +19,7 @@
     .finalPackage;
   # Executables' paths
   hyprBin = "${hyprland}/bin";
-  regreetBin = "${lib.getExe config.programs.regreet.package}";
+  regreetBin = "${getExe config.programs.regreet.package}";
 
   # Show Regreet on all monitors
   dupeMonitors = pkgs.writeShellScriptBin "dupeMonitors" ''
@@ -49,7 +48,7 @@
     else "${dupeMonitors}/bin/dupeMonitors";
 
   # Get css for regreet
-  style = pkgs.writeText "style.css" ''${builtins.readFile ./style.css}'';
+  style = pkgs.writeText "style.css" ''${readFile ./style.css}'';
 
   # Setup Hyprland as regreet's compositor
   hyprConf =
@@ -66,7 +65,7 @@
         "    sleep 1; swww init --no-cache &&"
         "    swww img -t none ${pkgs.dracula-theme}/wallpapers/waves.png\n"
 
-        "${builtins.readFile ./hyprland.conf}\n"
+        "${readFile ./hyprland.conf}\n"
 
         "exec-once = ${regreetBin} -s ${style};"
         "    ${hyprBin}/hyprctl dispatch exit"

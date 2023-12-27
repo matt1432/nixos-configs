@@ -82,22 +82,22 @@ in {
 
         xwayland.force_zero_scaling = true;
         monitor = [
-          (builtins.concatStringsSep "," [
+          (concatStringsSep "," [
             "desc:Acer Technologies Acer K212HQL T3EAA0014201"
             "1920x1080@60"
             "840x1000, 1, transform, 3"
           ])
-          (builtins.concatStringsSep "," [
+          (concatStringsSep "," [
             "desc:BOE 0x0964"
             "1920x1200@60"
             "0x2920, 1"
           ])
-          (builtins.concatStringsSep "," [
+          (concatStringsSep "," [
             "desc:Samsung Electric Company C27JG5x HTOM100586"
             "2560x1440@60"
             "1920x120, 1"
           ])
-          (builtins.concatStringsSep "," [
+          (concatStringsSep "," [
             "desc:GIGA-BYTE TECHNOLOGY CO. LTD. G27QC 0x00000B1D"
             "2560x1440@165"
             "1920x1560, 1"

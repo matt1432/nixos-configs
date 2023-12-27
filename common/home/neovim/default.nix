@@ -162,11 +162,6 @@ in {
               config = fileContents ./plugins/dracula.vim;
             }
             {
-              plugin = lualine-nvim;
-              type = "lua";
-              config = fileContents ./plugins/lualine.lua;
-            }
-            {
               plugin = todo-comments-nvim;
               type = "lua";
               config = "require('todo-comments').setup()";
@@ -175,11 +170,6 @@ in {
               plugin = gitsigns-nvim;
               type = "lua";
               config = fileContents ./plugins/gitsigns.lua;
-            }
-            {
-              plugin = nvim-autopairs;
-              type = "lua";
-              config = fileContents ./plugins/autopairs.lua;
             }
             {
               plugin = indent-blankline-nvim;
@@ -221,6 +211,16 @@ in {
             coc-markdownlint
             coc-tsserver
 
+            {
+              plugin = nvim-autopairs;
+              type = "lua";
+              config = fileContents ./plugins/autopairs.lua;
+            }
+            {
+              plugin = lualine-nvim;
+              type = "lua";
+              config = fileContents ./plugins/lualine.lua;
+            }
             {
               plugin = neo-tree-nvim;
               type = "viml";
