@@ -31,6 +31,7 @@ in {
     pulseaudio # for getting audio sink
     gsr
 
+    # TODO: add notif on success
     (writeShellScriptBin "gpu-save-replay" ''
       exec ${pkgs.procps}/bin/pkill --signal SIGUSR1 -f gpu-screen-recorder
     '')
