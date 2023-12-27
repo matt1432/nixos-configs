@@ -5,6 +5,7 @@
 }: {
   nixpkgs.overlays = [
     (import ./dracula-theme)
+    (import ./plymouth)
     (import ./spotifywm)
     (import ./squeekboard)
 
