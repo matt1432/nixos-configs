@@ -86,7 +86,7 @@ export default () => {
 
         /** @type Array<Revealer> */
         // @ts-expect-error
-        const indicators = self?.get_parent()?.child.child.child.children;
+        const indicators = self?.get_parent()?.child.child.children;
 
         const currentIndex = indicators
             .findIndex((w) => w.attribute.id === currentId);

@@ -140,8 +140,9 @@ const GridButton = ({
                             if (menu) {
                                 const rowMenu =
                                     self.get_parent()
-                                        ?.get_parent()?.get_parent()
-                                        ?.get_parent()?.get_parent()
+                                        ?.get_parent()
+                                        ?.get_parent()
+                                        ?.get_parent()
                                         // @ts-expect-error
                                         ?.children[1];
 

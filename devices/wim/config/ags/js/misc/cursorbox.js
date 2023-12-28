@@ -2,7 +2,8 @@ import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 
 import { EventBox } from 'resource:///com/github/Aylur/ags/widget.js';
 
-const { Gtk } = imports.gi;
+const { Gtk, Gdk } = imports.gi;
+const display = Gdk.Display.get_default();
 
 /**
  * @typedef {import('types/widgets/eventbox').EventBoxProps} EventBoxProps
@@ -12,11 +13,15 @@ const { Gtk } = imports.gi;
 
 /** @param {EventBoxProps & {
  *      on_primary_click_release?: function(EventBox):void
+ *      on_hover?: function(EventBox):void
+ *      on_hover_lost?: function(EventBox):void
  * }} o
  */
 export default ({
-    attribute,
     on_primary_click_release = () => {/**/},
+    on_hover = () => {/**/},
+    on_hover_lost = () => {/**/},
+    attribute,
     ...props
 }) => {
     // Make this variable to know if the function should
@@ -24,52 +29,53 @@ export default ({
     const CanRun = Variable(true);
     const Disabled = Variable(false);
 
-    let widget = EventBox();
-
-    const wrapper = EventBox({
-        cursor: 'pointer',
+    const cursorBox = EventBox({
+        ...props,
 
         attribute: {
             ...attribute,
-
             disabled: Disabled,
-
-            get_child: () => widget.child,
-
-            /** @param {import('types/widgets/box').default} new_child */
-            set_child: (new_child) => {
-                widget.child = new_child;
-            },
         },
 
-    }).hook(Disabled, (self) => {
-        self.cursor = Disabled.value ?
-            'not-allowed' :
-            'pointer';
-    });
-
-    widget = EventBox({
-        ...props,
-        sensitive: Disabled.bind().transform((v) => !v),
-
-        on_primary_click_release: () => {
+        on_primary_click_release: (self) => {
             // Every click, do a one shot connect to
             // CanRun to wait for location of click
             const id = CanRun.connect('changed', () => {
-                if (CanRun.value) {
-                    on_primary_click_release(wrapper);
+                if (CanRun.value && !Disabled.value) {
+                    on_primary_click_release(self);
                 }
 
                 CanRun.disconnect(id);
             });
         },
+
+    // OnHover
+    }).on('enter-notify-event', (self) => {
+        on_hover(self);
+
+        self.window.set_cursor(Gdk.Cursor.new_from_name(
+            display,
+            Disabled.value ?
+                'not-allowed' :
+                'pointer',
+        ));
+        self.toggleClassName('hover', true);
+
+    // OnHoverLost
+    }).on('leave-notify-event', (self) => {
+        on_hover_lost(self);
+
+        self.window.set_cursor(null);
+        self.toggleClassName('hover', false);
+
+    // Disabled class
+    }).hook(Disabled, (self) => {
+        self.toggleClassName('disabled', Disabled.value);
     });
 
-    wrapper.child = widget;
+    const gesture = Gtk.GestureLongPress.new(cursorBox);
 
-    const gesture = Gtk.GestureLongPress.new(widget);
-
-    widget.hook(gesture, () => {
+    cursorBox.hook(gesture, () => {
         const pointer = gesture.get_point(null);
         const x = pointer[1];
         const y = pointer[2];
@@ -79,10 +85,10 @@ export default ({
         }
 
         CanRun.value = !(
-            x > widget.get_allocated_width() ||
-            y > widget.get_allocated_height()
+            x > cursorBox.get_allocated_width() ||
+            y > cursorBox.get_allocated_height()
         );
     }, 'end');
 
-    return wrapper;
+    return cursorBox;
 };

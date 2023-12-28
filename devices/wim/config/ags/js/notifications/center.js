@@ -1,7 +1,7 @@
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
 
-import { Button, Label, Box, Icon, Scrollable, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
+import { Label, Box, Icon, Scrollable, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
 import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import { Notification, HasNotifs } from './base.js';
@@ -69,33 +69,35 @@ const NotificationList = () => Box({
     },
 });
 
-// TODO: use cursorbox feature for this
-// Needs to be wrapped to still have onHover when disabled
 const ClearButton = () => CursorBox({
-    child: Button({
-        sensitive: HasNotifs.bind(),
+    class_name: 'clear',
 
-        on_primary_click_release: () => {
-            Notifications.clear();
-            timeout(1000, () => App.closeWindow('notification-center'));
-        },
+    on_primary_click_release: () => {
+        Notifications.clear();
+        timeout(1000, () => App.closeWindow('notification-center'));
+    },
 
-        child: Box({
+    setup: (self) => {
+        self.hook(HasNotifs, () => {
+            self.attribute.disabled?.setValue(!HasNotifs.value);
+        });
+    },
 
-            children: [
-                Label('Clear '),
+    child: Box({
 
-                Icon({
-                    setup: (self) => {
-                        self.hook(Notifications, () => {
-                            self.icon = Notifications.notifications.length > 0 ?
-                                'user-trash-full-symbolic' :
-                                'user-trash-symbolic';
-                        });
-                    },
-                }),
-            ],
-        }),
+        children: [
+            Label('Clear '),
+
+            Icon({
+                setup: (self) => {
+                    self.hook(Notifications, () => {
+                        self.icon = Notifications.notifications.length > 0 ?
+                            'user-trash-full-symbolic' :
+                            'user-trash-symbolic';
+                    });
+                },
+            }),
+        ],
     }),
 });
 
