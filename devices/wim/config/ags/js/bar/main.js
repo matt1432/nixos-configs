@@ -2,16 +2,16 @@ import { Window, CenterBox, Box } from 'resource:///com/github/Aylur/ags/widget.
 
 import Separator from '../misc/separator.js';
 
-import Battery from './buttons/battery.js';
-import Clock from './buttons/clock.js';
-import CurrentWindow from './buttons/current-window.js';
-import Heart from './buttons/heart.js';
-import NotifButton from './buttons/notif-button.js';
-import OskToggle from './buttons/osk-toggle.js';
-import QsToggle from './buttons/quick-settings.js';
-import SysTray from './buttons/systray.js';
-import TabletToggle from './buttons/tablet-toggle.js';
-import Workspaces from './buttons/workspaces.js';
+import Battery from './items/battery.js';
+import Clock from './items/clock.js';
+import CurrentWindow from './items/current-window.js';
+import Heart from './items/heart.js';
+import NotifButton from './items/notif-button.js';
+import OskToggle from './items/osk-toggle.js';
+import QsToggle from './items/quick-settings.js';
+import SysTray from './items/systray.js';
+import TabletToggle from './items/tablet-toggle.js';
+import Workspaces from './items/workspaces.js';
 
 import BarReveal from './fullscreen.js';
 
