@@ -25,6 +25,7 @@ class Brightness extends Service {
     }
 
     #kbd = 0;
+    #kbdMax = 0;
     #screen = 0;
     #screenIcon = 'display-brightness-symbolic';
     #caps = 0;
@@ -51,8 +52,16 @@ class Brightness extends Service {
     }
 
     set kbd(value) {
-        this.#kbd = value;
-        // TODO
+        if (value < 0 || value > this.#kbdMax) {
+            return;
+        }
+
+        execAsync(`brightnessctl -d ${KBD} s ${value} -q`)
+            .then(() => {
+                this.#kbd = value;
+                this.emit('kbd', this.#kbd);
+            })
+            .catch(console.error);
     }
 
     set screen(percent) {
@@ -77,6 +86,7 @@ class Brightness extends Service {
         super();
         try {
             this.#monitorKbdState();
+            this.#kbdMax = Number(exec(`brightnessctl -d ${KBD} m`));
             this.#caps = Number(exec(`brightnessctl -d ${CAPS} g`));
             this.#screen = Number(exec('brightnessctl g')) /
                 Number(exec('brightnessctl m'));
