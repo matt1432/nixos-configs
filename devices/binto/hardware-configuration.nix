@@ -69,6 +69,7 @@
   };
   environment.systemPackages = with pkgs; [
     qemu
+    virtiofsd
   ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";

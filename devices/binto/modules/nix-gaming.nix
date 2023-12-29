@@ -18,4 +18,15 @@
       ];
     };
   };
+
+  environment.systemPackages = with pkgs; [
+    (lutris.override {
+      extraLibraries = pkgs: [
+        # List library dependencies here
+      ];
+      extraPkgs = pkgs: [
+        nix-gaming.packages.${pkgs.system}.wine-ge
+      ];
+    })
+  ];
 }
