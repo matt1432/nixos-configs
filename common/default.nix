@@ -34,7 +34,7 @@
       warn-dirty = false;
 
       # remote building
-      trusted-users = ["matt"];
+      trusted-users = ["matt" "nixremote"];
     };
   };
 
