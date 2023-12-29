@@ -12,6 +12,8 @@ const DELAY = 2000;
 
 export default () => Box({
     vertical: true,
+    // Needed so it occupies space at the start
+    css: 'padding: 1px;',
 
     setup: (self) => {
         /** @param {number} id */

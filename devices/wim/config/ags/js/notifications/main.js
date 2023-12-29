@@ -1,15 +1,12 @@
-import PopUpsWidget from './popup.js';
+import { Window } from 'resource:///com/github/Aylur/ags/widget.js';
 import NotifCenterWidget from './center.js';
+import PopUpsWidget from './popup.js';
 
 import PopupWindow from '../misc/popup.js';
 
-export const NotifPopups = () => PopupWindow({
+export const NotifPopups = () => Window({
     name: 'notifications',
     anchor: ['top', 'left'],
-    visible: true,
-    transition: 'none',
-    close_on_unfocus: 'stay',
-
     child: PopUpsWidget(),
 });
 

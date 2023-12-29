@@ -1,15 +1,14 @@
-import PopUpsWidget from 'file:///home/matt/.nix/devices/wim/config/ags/js/notifications/popup.js';
+import { Window } from 'resource:///com/github/Aylur/ags/widget.js';
+
 import NotifCenterWidget from 'file:///home/matt/.nix/devices/wim/config/ags/js/notifications/center.js';
+import PopUpsWidget from 'file:///home/matt/.nix/devices/wim/config/ags/js/notifications/popup.js';
 
 import PopupWindow from 'file:///home/matt/.nix/devices/wim/config/ags/js/misc/popup.js';
 
 
-export const NotifPopups = () => PopupWindow({
+export const NotifPopups = () => Window({
     name: 'notifications',
     anchor: ['bottom', 'left'],
-    visible: true,
-    transition: 'none',
-    close_on_unfocus: 'stay',
     monitor: 1,
 
     child: PopUpsWidget(),
