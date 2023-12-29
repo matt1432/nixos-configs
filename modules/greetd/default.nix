@@ -3,7 +3,8 @@
   pkgs,
   config,
   ...
-}: with lib; let
+}:
+with lib; let
   # Nix stuff
   isNvidia = config.hardware.nvidia.modesetting.enable;
   isTouchscreen = config.hardware.sensor.iio.enable;

@@ -95,22 +95,24 @@
           jvmPackage = jre17;
           jvmOpts = "";
 
-          serverConfig = {
-            server-port = 25569;
-            motd = "we do a little hunting of the vaults";
+          serverConfig =
+            {
+              server-port = 25569;
+              motd = "we do a little hunting of the vaults";
 
-            extra-options = {
-              difficulty = "hard";
-              enable-command-block = true;
-              entity-broadcast-range-percentage = 150;
-              level-type = "default";
-              max-players = 8;
-              spawn-protection = 0;
-              sync-chunk-writes = true;
-              use-native-transport = true;
-              view-distance = 10;
-            };
-          } // defaults;
+              extra-options = {
+                difficulty = "hard";
+                enable-command-block = true;
+                entity-broadcast-range-percentage = 150;
+                level-type = "default";
+                max-players = 8;
+                spawn-protection = 0;
+                sync-chunk-writes = true;
+                use-native-transport = true;
+                view-distance = 10;
+              };
+            }
+            // defaults;
         };
       };
     };
