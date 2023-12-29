@@ -129,6 +129,9 @@
       #profileExtra = ''
       #'';
       bashrcExtra = ''
+        # Check if shell is interactive
+        [[ $- == *i* ]] || return 0
+
         ${lib.strings.fileContents ./config/dracula/less.sh}
         ${lib.strings.fileContents ./config/dracula/fzf.sh}
 

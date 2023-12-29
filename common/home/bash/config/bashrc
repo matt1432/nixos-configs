@@ -1,5 +1,4 @@
 # Check git status of nix configs
-
 fetchNix() {(
     cd ~/.nix || exit 1
     git fetch --all --quiet
