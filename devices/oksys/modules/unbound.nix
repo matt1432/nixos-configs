@@ -16,7 +16,7 @@
 
         # Custom DNS
         local-zone = [
-          "pve.lan redirect"
+          "pve.nelim.org redirect"
           "headscale.nelim.org redirect"
           "git.nelim.org redirect"
           "mc.nelim.org transparent"
@@ -26,7 +26,7 @@
           "nelim.org redirect"
         ];
         local-data = [
-          "\"pve.lan IN A 100.64.0.2\""
+          "\"pve.nelim.org IN A 100.64.0.4\""
 
           "\"headscale.nelim.org. IN A 24.200.126.219\""
 
