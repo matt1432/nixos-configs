@@ -16,6 +16,7 @@ import QSettings from './js/quick-settings/main.js';
 
 const scss = `${App.configDir }/scss/main.scss`;
 const css = `${App.configDir }/style.css`;
+const closeWinDelay = 500;
 
 exec(`sassc ${scss} ${css}`);
 Setup();
@@ -26,14 +27,14 @@ export default {
     notificationPopupTimeout: 5000,
     cacheNotificationActions: true,
     closeWindowDelay: {
-        'applauncher': 500,
-        'calendar': 500,
-        'notification-center': 500,
-        'osd': 500,
-        'osk': 500,
-        'overview': 500,
-        'powermenu': 500,
-        'quick-settings': 500,
+        'applauncher': closeWinDelay,
+        'calendar': closeWinDelay,
+        'notification-center': closeWinDelay,
+        'osd': closeWinDelay,
+        'osk': closeWinDelay,
+        'overview': closeWinDelay,
+        'powermenu': closeWinDelay,
+        'quick-settings': closeWinDelay,
     },
     windows: [
         // Put the corners first so they
