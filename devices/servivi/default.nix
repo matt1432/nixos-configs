@@ -31,6 +31,7 @@
       ];
     };
 
+    # https://nixos.wiki/wiki/Distributed_build
     nixremote = {
       isNormalUser = true;
       createHome = true;

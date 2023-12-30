@@ -15,16 +15,7 @@
       acpi_call
     ];
 
-    kernelParams = [
-      "cryptdevice=UUID=ab82b477-2477-453f-b95f-28e5553ad10d:root"
-      "root=/dev/mapper/root"
-    ];
-
-    consoleLogLevel = 0;
-
     initrd = {
-      verbose = false;
-      systemd.enable = true;
       availableKernelModules = ["nvme" "xhci_pci" "usb_storage" "sd_mod"];
 
       luks.devices."root" = {

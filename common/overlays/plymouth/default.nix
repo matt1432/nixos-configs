@@ -1,14 +1,16 @@
 final: prev: {
   plymouth = prev.plymouth.overrideAttrs (o: {
-    # https://gitlab.freedesktop.org/plymouth/plymouth/-/issues/236
-    version = "unstable-2023-06-17";
+    version = "unstable-2023-12-08";
 
     src = prev.fetchFromGitLab {
       domain = "gitlab.freedesktop.org";
       owner = "plymouth";
       repo = "plymouth";
-      rev = "b1d5aa9d2a6033bba52cf63643e5878f8a9b68a0";
-      hash = "sha256-8DXcwt8CZTni5Ma+I63LzNejlIB0Cr1ATA7Nl3z9z6I=";
+
+      # https://gitlab.freedesktop.org/plymouth/plymouth/-/issues/236
+      # Last commit that works
+      rev = "58cc9f84e456ab0510b13d7bdbc13697467ca7be";
+      hash = "sha256-hgQ8nCphR4hc+WTNtS8GgBrC54uYnvTCp7kjgB/u5lE=";
     };
   });
 }

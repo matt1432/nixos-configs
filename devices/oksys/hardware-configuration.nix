@@ -6,8 +6,10 @@
   nixpkgs.hostPlatform = "x86_64-linux";
   imports = [(modulesPath + "/installer/scan/not-detected.nix")];
 
-  services.logind.lidSwitchExternalPower = "ignore";
-  services.logind.lidSwitchDocked = "ignore";
+  services.logind = {
+    lidSwitchDocked = "ignore";
+    lidSwitchExternalPower = "ignore";
+  };
 
   boot = {
     loader = {
