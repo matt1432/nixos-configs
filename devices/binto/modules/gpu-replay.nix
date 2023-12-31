@@ -5,12 +5,30 @@
   gpu-screen-recorder-src,
   ...
 }: let
-  gsr = pkgs.gpu-screen-recorder.overrideAttrs (o: {
+  gsr = pkgs.stdenv.mkDerivation {
+    name = "gpu-screen-recorder";
     version = gpu-screen-recorder-src.rev;
 
     src = gpu-screen-recorder-src;
 
-    postPatch = "";
+    nativeBuildInputs = with pkgs; [
+      pkg-config
+      makeWrapper
+    ];
+
+    buildInputs = with pkgs; [
+      libpulseaudio
+      ffmpeg
+      wayland
+      libdrm
+      libva
+      xorg.libXcomposite
+      xorg.libXrandr
+    ];
+
+    buildPhase = ''
+      ./build.sh
+    '';
 
     installPhase = ''
       strip gsr-kms-server
@@ -25,7 +43,7 @@
         pkgs.libglvnd
       ]}"
     '';
-  });
+  };
 in {
   environment.systemPackages = with pkgs; [
     pulseaudio # for getting audio sink
