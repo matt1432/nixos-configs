@@ -30,7 +30,7 @@ const ButtonStates = [];
  * @param {{
  *      command?: function
  *      secondary_command?: function
- *      onOpen?: function(Revealer):void
+ *      on_open?: function(Revealer):void
  *      icon: string|BindTuple
  *      indicator?: BindTuple
  *      menu?: any
@@ -39,7 +39,7 @@ const ButtonStates = [];
 const GridButton = ({
     command = () => {/**/},
     secondary_command = () => {/**/},
-    onOpen = () => {/**/},
+    on_open = () => {/**/},
     icon,
     indicator,
     menu,
@@ -168,7 +168,7 @@ const GridButton = ({
 
                                     if (Activated.value) {
                                         deg = menu ? 360 : 450;
-                                        onOpen(menu);
+                                        on_open(menu);
                                     }
                                     self.setCss(`
                                         -gtk-icon-transform: rotate(${deg}deg);
@@ -240,7 +240,7 @@ const FirstRow = () => Row({
                 }],
 
             menu: NetworkMenu(),
-            onOpen: () => Network.wifi.scan(),
+            on_open: () => Network.wifi.scan(),
         }),
 
         // TODO: do vpn
@@ -285,7 +285,7 @@ const FirstRow = () => Row({
                 }, 'notify::connected-devices'],
 
             menu: BluetoothMenu(),
-            onOpen: (menu) => {
+            on_open: (menu) => {
                 execAsync(`bluetoothctl scan ${menu.reveal_child ?
                     'on' :
                     'off'}`).catch(print);

@@ -14,8 +14,8 @@ import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
  * @param {WinProp & {
  *      transition?: RevProp['transition']
  *      transition_duration?: RevProp['transition_duration']
- *      onOpen?: function
- *      onClose?: function
+ *      on_open?: function
+ *      on_close?: function
  *      blur?: boolean
  *      close_on_unfocus?: 'none'|'stay'|'released'|'clicked'
  * }} o
@@ -23,8 +23,8 @@ import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 export default ({
     transition = 'slide_down',
     transition_duration = 800,
-    onOpen = () => {/**/},
-    onClose = () => {/**/},
+    on_open = () => {/**/},
+    on_close = () => {/**/},
 
     // Window props
     name,
@@ -118,11 +118,11 @@ export default ({
                             self.reveal_child = isOpen;
 
                             if (isOpen) {
-                                onOpen(window);
+                                on_open(window);
                             }
                             else {
                                 timeout(Number(transition_duration), () => {
-                                    onClose(window);
+                                    on_close(window);
                                 });
                             }
                         }
