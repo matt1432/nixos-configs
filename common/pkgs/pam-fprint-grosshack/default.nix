@@ -10,17 +10,14 @@
   systemd,
   pam,
   libpam-wrapper,
-  fetchFromGitLab,
+  pam-fprint-grosshack-src,
+  ...
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   name = "pam-fprint-grosshack";
+  version = pam-fprint-grosshack-src.rev;
 
-  src = fetchFromGitLab {
-    owner = "mishakmak";
-    repo = name;
-    rev = "45b42524fb5783e1e555067743d7e0f70d27888a";
-    hash = "sha256-obczZbf/oH4xGaVvp3y3ZyDdYhZnxlCWvL0irgEYIi0=";
-  };
+  src = pam-fprint-grosshack-src;
 
   nativeBuildInputs = [
     meson

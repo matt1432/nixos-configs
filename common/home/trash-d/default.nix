@@ -1,5 +1,5 @@
-{pkgs, ...}: let
-  trash = pkgs.callPackage ./trash-d.nix pkgs;
+{pkgs, ...} @ inputs: let
+  trash = pkgs.callPackage ./trash-d.nix inputs;
 in {
   home.packages = [trash];
 

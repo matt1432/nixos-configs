@@ -3,6 +3,7 @@
   coreutils,
   gnused,
   writeShellScriptBin,
+  ...
 }: let
   repl = ./repl.nix;
   example = command: desc: ''\n\u001b[33m ${command}\u001b[0m - ${desc}'';

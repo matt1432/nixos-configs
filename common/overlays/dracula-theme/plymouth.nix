@@ -1,17 +1,13 @@
 {
   stdenv,
-  fetchFromGitHub,
+  plymouth-theme-src,
   ...
 }:
 stdenv.mkDerivation {
   name = "dracula-plymouth";
+  version = plymouth-theme-src.rev;
 
-  src = fetchFromGitHub {
-    owner = "dracula";
-    repo = "plymouth";
-    rev = "37aa09b27ecee4a825b43d2c1d20b502e8f19c96";
-    hash = "sha256-7YwkBzkAND9lfH2ewuwna1zUkQStBBx4JHGw3/+svhA=";
-  };
+  src = plymouth-theme-src;
 
   installPhase = let
     dracula-script = ./dracula-plymouth.patch;

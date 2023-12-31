@@ -2,26 +2,20 @@
 {
   lib,
   stdenv,
-  fetchFromGitHub,
+  spotifywm-src,
   libX11,
   makeBinaryWrapper,
   spotify,
   symlinkJoin,
+  ...
 }: let
   spotifywm = stdenv.mkDerivation {
     pname = "spotifywm";
-    version = "unstable-2022-10-25";
+    version = spotifywm-src.rev;
 
-    src = fetchFromGitHub {
-      owner = "dasJ";
-      repo = "spotifywm";
-      rev = "8624f539549973c124ed18753881045968881745";
-      hash = "sha256-AsXqcoqUXUFxTG+G+31lm45gjP6qGohEnUSUtKypew0=";
-    };
+    src = spotifywm-src;
 
-    buildInputs = [
-      libX11
-    ];
+    buildInputs = [libX11];
 
     installPhase = ''
       runHook preInstall
@@ -35,9 +29,7 @@ in
   symlinkJoin {
     inherit (spotifywm) name;
 
-    nativeBuildInputs = [
-      makeBinaryWrapper
-    ];
+    nativeBuildInputs = [makeBinaryWrapper];
 
     paths = [
       spotify

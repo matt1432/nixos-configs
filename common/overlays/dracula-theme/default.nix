@@ -1,17 +1,14 @@
-(final: prev: {
+{
+  bat-theme-src,
+  xresources-theme-src,
+  ...
+} @ inputs: (final: prev: {
   dracula-theme = prev.dracula-theme.overrideAttrs (oldAttrs: let
-    bat-colors = prev.callPackage ./bat.nix prev;
-    git-colors = prev.callPackage ./git.nix prev;
-    plymouth = prev.callPackage ./plymouth.nix prev;
-    Xresources = prev.callPackage ./xresources.nix prev;
+    git-colors = prev.callPackage ./git.nix inputs;
+    plymouth = prev.callPackage ./plymouth.nix inputs;
     wallpaper = prev.fetchurl (import ./wallpaper.nix);
   in {
-    src = prev.fetchFromGitHub {
-      owner = "dracula";
-      repo = "gtk";
-      rev = "80d5a3fedf280e9cc7f2df3b100a1082c3bcd1cc";
-      hash = "sha256-BPL0Msva1/sPQKPeRJHgvU+xXU3m8b2E6aDBLmXbkkA=";
-    };
+    src = inputs.gtk-theme-src;
 
     installPhase = ''
       runHook preInstall
@@ -19,10 +16,10 @@
       mkdir -p $out/share/plymouth/themes $out/wallpapers
       cp -a ${wallpaper} $out/wallpapers/waves.png
 
-      cp -a ${bat-colors}/bat $out/bat
+      cp -a ${bat-theme-src}/Dracula.tmTheme $out/bat
       cp -a ${git-colors}/git-colors $out/git-colors
       cp -a ${plymouth}/share/plymouth/themes/dracula $out/share/plymouth/themes/
-      cp -a ${Xresources}/xres $out/xres
+      cp -a ${xresources-theme-src}/Xresources $out/xres
 
       # -------------------------------------------
       mkdir -p $out/share/themes/Dracula

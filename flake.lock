@@ -20,6 +20,22 @@
         "type": "github"
       }
     },
+    "bat-theme-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1697829826,
+        "narHash": "sha256-UyZ3WFfrEEBjtdb//5waVItmjKorkOiNGtu9eeB3lOw=",
+        "owner": "matt1432",
+        "repo": "bat",
+        "rev": "270bce892537311ac92494a2a7663e3ecf772092",
+        "type": "github"
+      },
+      "original": {
+        "owner": "matt1432",
+        "repo": "bat",
+        "type": "github"
+      }
+    },
     "caddy-plugins": {
       "inputs": {
         "nixpkgs": [
@@ -264,6 +280,54 @@
         "type": "github"
       }
     },
+    "git-theme-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1672784534,
+        "narHash": "sha256-3tKjKn5IHIByj+xgi2AIL1vZANlb0vlYJsPjH6BHGxM=",
+        "owner": "dracula",
+        "repo": "git",
+        "rev": "924d5fc32f7ca15d0dd3a8d2cf1747e81e063c73",
+        "type": "github"
+      },
+      "original": {
+        "owner": "dracula",
+        "repo": "git",
+        "type": "github"
+      }
+    },
+    "gpu-screen-recorder-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1704038996,
+        "narHash": "sha256-u1xBU0eq1BbWAKS3p0UH+BKlxOmM6pcKXHwTrjaBMKE=",
+        "ref": "refs/heads/master",
+        "rev": "275d4d1b3277b69dbb2942645cda1b92e31ead76",
+        "revCount": 450,
+        "type": "git",
+        "url": "https://repo.dec05eba.com/gpu-screen-recorder"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://repo.dec05eba.com/gpu-screen-recorder"
+      }
+    },
+    "gtk-theme-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1702763567,
+        "narHash": "sha256-BPL0Msva1/sPQKPeRJHgvU+xXU3m8b2E6aDBLmXbkkA=",
+        "owner": "dracula",
+        "repo": "gtk",
+        "rev": "80d5a3fedf280e9cc7f2df3b100a1082c3bcd1cc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "dracula",
+        "repo": "gtk",
+        "type": "github"
+      }
+    },
     "headscale": {
       "inputs": {
         "flake-utils": "flake-utils_2",
@@ -314,11 +378,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1703838268,
-        "narHash": "sha256-SRg5nXcdPnrsQR2MTAp7en0NyJnQ2wB1ivmsgEbvN+o=",
+        "lastModified": 1703995158,
+        "narHash": "sha256-oYMwbObpWheGeeNWY1LjO/+omrbAWDNdyzNDxTr2jo8=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "2aff324cf65f5f98f89d878c056b779466b17db8",
+        "rev": "2e8634c252890cb38c60ab996af04926537cbc27",
         "type": "github"
       },
       "original": {
@@ -358,11 +422,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1703951941,
-        "narHash": "sha256-OWWeq3/ENX2Bo3F/OkhG3HFcgcdqJnsapjA3tD7B+fk=",
+        "lastModified": 1704027264,
+        "narHash": "sha256-RzzCNXrSjQAIB4C84/WZ5eYna20d2ZBKhE/PtWK89SM=",
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "94d6b2d2c12663efe90f6d0410528b0d7bcc671e",
+        "rev": "46997a764304366d772456c20b1c719960927aa7",
         "type": "github"
       },
       "original": {
@@ -402,11 +466,11 @@
         "nixpkgs-lib": "nixpkgs-lib_2"
       },
       "locked": {
-        "lastModified": 1703419730,
-        "narHash": "sha256-ZRqj/irxTzRoGne2eWmuNaSO1/rz22S1EGj+MJXINeo=",
+        "lastModified": 1704024543,
+        "narHash": "sha256-hmKcKSuTqVK47l2G0PkLAinZN1oCOb6XdPPJhNCQ2rg=",
         "owner": "nix-community",
         "repo": "lib-aggregate",
-        "rev": "7deb8249793fd2e9244c4e652c18d95351eb1111",
+        "rev": "4608880f02f8f868e1b7f85c60abdfc5cb0cf9ec",
         "type": "github"
       },
       "original": {
@@ -682,11 +746,11 @@
     },
     "nixpkgs-lib_2": {
       "locked": {
-        "lastModified": 1703378839,
-        "narHash": "sha256-wJDrJji9XNMgAsO+Ah34BaraG8bAw9GF7poJQPE0TqU=",
+        "lastModified": 1703983607,
+        "narHash": "sha256-YECXW8P0bqFM5e65Mu2fL4wZlonNWCuNEk7UQPsuJZ0=",
         "owner": "nix-community",
         "repo": "nixpkgs.lib",
-        "rev": "9b3a550ca7d42f5ceb3acc13f95dae1a69e6de56",
+        "rev": "a6c99b57d2e58f7fc6d52a08b0ba40160e75f738",
         "type": "github"
       },
       "original": {
@@ -719,11 +783,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1703989714,
-        "narHash": "sha256-CnFwl02DcUj4J9BVd8RCg0LzBy0OaRS/sN75JNADwYM=",
+        "lastModified": 1704046694,
+        "narHash": "sha256-8mDyaw+n1gVAzT5O2F/qZCp+i7O8gzDoDHcvv/dIwZU=",
         "owner": "nix-community",
         "repo": "nixpkgs-wayland",
-        "rev": "d1d5860ae4ff1283f4bca0d7319da06dac54472a",
+        "rev": "39a5058639690de025b5d71c366d7e422763dde7",
         "type": "github"
       },
       "original": {
@@ -898,11 +962,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1703994130,
-        "narHash": "sha256-yuTGcrmNVHc9f9u6nlYqX4td2TIiLaXei3hIwEqq5tw=",
+        "lastModified": 1704050432,
+        "narHash": "sha256-gPHL0esqZX1ziS2DZpG42vp+/os7kliqNDbmBVRY6l0=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "796747b378e54debbca6324327ca33b886f54612",
+        "rev": "e3a2c227b7de1a72acd98028d8c0cb6f3e2cec60",
         "type": "github"
       },
       "original": {
@@ -929,11 +993,82 @@
         "type": "github"
       }
     },
+    "pam-fprint-grosshack-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1658952526,
+        "narHash": "sha256-obczZbf/oH4xGaVvp3y3ZyDdYhZnxlCWvL0irgEYIi0=",
+        "owner": "mishakmak",
+        "repo": "pam-fprint-grosshack",
+        "rev": "45b42524fb5783e1e555067743d7e0f70d27888a",
+        "type": "gitlab"
+      },
+      "original": {
+        "owner": "mishakmak",
+        "repo": "pam-fprint-grosshack",
+        "type": "gitlab"
+      }
+    },
+    "plymouth-src": {
+      "flake": false,
+      "locked": {
+        "host": "gitlab.freedesktop.org",
+        "lastModified": 1702057553,
+        "narHash": "sha256-hgQ8nCphR4hc+WTNtS8GgBrC54uYnvTCp7kjgB/u5lE=",
+        "owner": "plymouth",
+        "repo": "plymouth",
+        "rev": "58cc9f84e456ab0510b13d7bdbc13697467ca7be",
+        "type": "gitlab"
+      },
+      "original": {
+        "host": "gitlab.freedesktop.org",
+        "owner": "plymouth",
+        "repo": "plymouth",
+        "rev": "58cc9f84e456ab0510b13d7bdbc13697467ca7be",
+        "type": "gitlab"
+      }
+    },
+    "plymouth-theme-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1610597442,
+        "narHash": "sha256-7YwkBzkAND9lfH2ewuwna1zUkQStBBx4JHGw3/+svhA=",
+        "owner": "dracula",
+        "repo": "plymouth",
+        "rev": "37aa09b27ecee4a825b43d2c1d20b502e8f19c96",
+        "type": "github"
+      },
+      "original": {
+        "owner": "dracula",
+        "repo": "plymouth",
+        "type": "github"
+      }
+    },
+    "pokemon-colorscripts-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1666991310,
+        "narHash": "sha256-rj0qKYHCu9SyNsj1PZn1g7arjcHuIDGHwubZg/yJt7A=",
+        "owner": "phoneybadger",
+        "repo": "pokemon-colorscripts",
+        "rev": "0483c85b93362637bdd0632056ff986c07f30868",
+        "type": "gitlab"
+      },
+      "original": {
+        "owner": "phoneybadger",
+        "repo": "pokemon-colorscripts",
+        "type": "gitlab"
+      }
+    },
     "root": {
       "inputs": {
         "ags": "ags",
+        "bat-theme-src": "bat-theme-src",
         "caddy-plugins": "caddy-plugins",
         "coc-stylelintplus-flake": "coc-stylelintplus-flake",
+        "git-theme-src": "git-theme-src",
+        "gpu-screen-recorder-src": "gpu-screen-recorder-src",
+        "gtk-theme-src": "gtk-theme-src",
         "headscale": "headscale",
         "home-manager": "home-manager",
         "hyprgrass": "hyprgrass",
@@ -949,8 +1084,15 @@
         "nms": "nms",
         "nur": "nur",
         "nurl": "nurl",
+        "pam-fprint-grosshack-src": "pam-fprint-grosshack-src",
+        "plymouth-src": "plymouth-src",
+        "plymouth-theme-src": "plymouth-theme-src",
+        "pokemon-colorscripts-src": "pokemon-colorscripts-src",
         "secrets": "secrets",
-        "tree-sitter-hypr-flake": "tree-sitter-hypr-flake"
+        "spotifywm-src": "spotifywm-src",
+        "trash-d-src": "trash-d-src",
+        "tree-sitter-hypr-flake": "tree-sitter-hypr-flake",
+        "xresources-theme-src": "xresources-theme-src"
       }
     },
     "secrets": {
@@ -993,6 +1135,22 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
+        "type": "github"
+      }
+    },
+    "spotifywm-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1666732863,
+        "narHash": "sha256-AsXqcoqUXUFxTG+G+31lm45gjP6qGohEnUSUtKypew0=",
+        "owner": "dasJ",
+        "repo": "spotifywm",
+        "rev": "8624f539549973c124ed18753881045968881745",
+        "type": "github"
+      },
+      "original": {
+        "owner": "dasJ",
+        "repo": "spotifywm",
         "type": "github"
       }
     },
@@ -1086,6 +1244,22 @@
         "type": "github"
       }
     },
+    "trash-d-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1692895205,
+        "narHash": "sha256-oPxeoEqOYf6DCg5rJxINqAIlMbxqzAJcZDUY/EzADzY=",
+        "owner": "rushsteve1",
+        "repo": "trash-d",
+        "rev": "d88bb672612761c8e299e717857bf9c85a903e99",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rushsteve1",
+        "repo": "trash-d",
+        "type": "github"
+      }
+    },
     "tree-sitter-hypr-flake": {
       "inputs": {
         "flake-utils": "flake-utils_5",
@@ -1174,6 +1348,22 @@
       "original": {
         "owner": "hyprwm",
         "repo": "xdg-desktop-portal-hyprland",
+        "type": "github"
+      }
+    },
+    "xresources-theme-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1647833631,
+        "narHash": "sha256-6fltsAluqOqYIh2NX0I/LC3WCWkb9Fn8PH6LNLBQbrY=",
+        "owner": "dracula",
+        "repo": "xresources",
+        "rev": "539ef24e9b0c5498a82d59bfa2bad9b618d832a3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "dracula",
+        "repo": "xresources",
         "type": "github"
       }
     }

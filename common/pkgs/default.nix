@@ -2,10 +2,10 @@
   lib,
   pkgs,
   ...
-}:
+} @ inputs:
 with lib; let
   mkPackage = name: v: {
-    ${name} = pkgs.callPackage ./${name} {};
+    ${name} = pkgs.callPackage ./${name} inputs;
   };
 
   rmNotPackage = name: value:

@@ -3,9 +3,7 @@
   pkgs,
   ...
 }: {
-  imports = [
-    nix-gaming.nixosModules.steamCompat
-  ];
+  imports = [nix-gaming.nixosModules.steamCompat];
 
   programs = {
     steam = {

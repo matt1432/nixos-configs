@@ -1,7 +1,5 @@
 {nix-gaming, ...}: {
-  imports = [
-    nix-gaming.nixosModules.pipewireLowLatency
-  ];
+  imports = [nix-gaming.nixosModules.pipewireLowLatency];
 
   hardware.pulseaudio.enable = false;
 

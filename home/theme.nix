@@ -46,7 +46,7 @@
 
   xresources.extraConfig =
     builtins.readFile
-    "${pkgs.dracula-theme}/xres/Xresources";
+    "${pkgs.dracula-theme}/xres";
 
   xdg.configFile = let
     qtconf = ''

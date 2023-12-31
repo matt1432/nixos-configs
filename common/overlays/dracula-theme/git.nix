@@ -1,17 +1,13 @@
 {
   stdenv,
-  fetchFromGitHub,
+  git-theme-src,
   ...
 }:
 stdenv.mkDerivation {
   name = "dracula-git";
+  version = git-theme-src.rev;
 
-  src = fetchFromGitHub {
-    owner = "dracula";
-    repo = "git";
-    rev = "924d5fc32f7ca15d0dd3a8d2cf1747e81e063c73";
-    hash = "sha256-3tKjKn5IHIByj+xgi2AIL1vZANlb0vlYJsPjH6BHGxM=";
-  };
+  src = git-theme-src;
 
   installPhase = ''
     # Git colors

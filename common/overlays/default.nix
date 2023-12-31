@@ -2,11 +2,11 @@
   neovim-flake,
   nixpkgs-wayland,
   ...
-}: {
+} @ inputs: {
   nixpkgs.overlays = [
-    (import ./dracula-theme)
-    (import ./plymouth)
-    (import ./spotifywm)
+    (import ./dracula-theme inputs)
+    (import ./plymouth inputs)
+    (import ./spotifywm inputs)
     (import ./squeekboard)
 
     neovim-flake.overlay

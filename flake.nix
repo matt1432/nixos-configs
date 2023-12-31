@@ -86,79 +86,248 @@
   };
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # Main inputs
+    nixpkgs = {
+      type = "github";
+      owner = "NixOS";
+      repo = "nixpkgs";
+      ref = "nixos-unstable";
+    };
+
+    home-manager = {
+      type = "github";
+      owner = "nix-community";
+      repo = "home-manager";
+
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     secrets = {
-      url = "git+ssh://git@git.nelim.org/matt1432/nixos-secrets";
+      type = "git";
+      url = "ssh://git@git.nelim.org/matt1432/nixos-secrets";
+
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nix-on-droid = {
-      url = "github:t184256/nix-on-droid";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
+      type = "github";
+      owner = "t184256";
+      repo = "nix-on-droid";
+
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
     };
 
-    nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
-    nur.url = "github:nix-community/NUR";
-
-    nix-gaming.url = "github:fufexan/nix-gaming";
-
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
+    # Overlays
+    nixpkgs-wayland = {
+      type = "github";
+      owner = "nix-community";
+      repo = "nixpkgs-wayland";
     };
 
-    # Oksys flakes
+    nur = {
+      type = "github";
+      owner = "nix-community";
+      repo = "NUR";
+    };
+
+    nix-gaming = {
+      type = "github";
+      owner = "fufexan";
+      repo = "nix-gaming";
+    };
+
+    # Oksys inputs
     headscale = {
-      url = "github:juanfont/headscale";
+      type = "github";
+      owner = "juanfont";
+      repo = "headscale";
+
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     caddy-plugins = {
-      url = "github:matt1432/nixos-caddy-cloudflare";
+      type = "github";
+      owner = "matt1432";
+      repo = "nixos-caddy-cloudflare";
+
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Servivi inputs
     nms = {
-      url = "github:matt1432/nixos-minecraft-servers";
+      type = "github";
+      owner = "matt1432";
+      repo = "nixos-minecraft-servers";
+
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Desktop inputs
     hyprland = {
-      url = "github:hyprwm/Hyprland";
+      type = "github";
+      owner = "hyprwm";
+      repo = "Hyprland";
+
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     hyprgrass = {
-      url = "github:horriblename/hyprgrass";
+      type = "github";
+      owner = "horriblename";
+      repo = "hyprgrass";
+
       inputs.hyprland.follows = "hyprland";
     };
 
     ags = {
-      url = "github:Aylur/ags";
+      type = "github";
+      owner = "Aylur";
+      repo = "ags";
+
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Neovim inputs
     neovim-flake = {
-      url = "github:nix-community/neovim-nightly-overlay";
+      type = "github";
+      owner = "nix-community";
+      repo = "neovim-nightly-overlay";
+
       # to make sure plugins and nvim have same binaries
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     coc-stylelintplus-flake = {
-      url = "github:matt1432/coc-stylelintplus";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    tree-sitter-hypr-flake = {
-      url = "github:luckasRanarison/tree-sitter-hypr";
+      type = "github";
+      owner = "matt1432";
+      repo = "coc-stylelintplus";
+
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # FIXME: some of these prevent from using nixos-install
-    nh.url = "github:viperML/nh";
-    nix-melt.url = "github:nix-community/nix-melt";
-    nurl.url = "github:nix-community/nurl";
+    tree-sitter-hypr-flake = {
+      type = "github";
+      owner = "luckasRanarison";
+      repo = "tree-sitter-hypr";
+
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Nix tools
+    nurl = {
+      type = "github";
+      owner = "nix-community";
+      repo = "nurl";
+    };
 
     nix-index-db = {
-      url = "github:Mic92/nix-index-database";
+      type = "github";
+      owner = "Mic92";
+      repo = "nix-index-database";
+
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # FIXME: these prevent from using nixos-install
+    nh = {
+      type = "github";
+      owner = "viperML";
+      repo = "nh";
+    };
+
+    nix-melt = {
+      type = "github";
+      owner = "nix-community";
+      repo = "nix-melt";
+    };
+
+    # -= Non-flake inputs =-
+
+    ## Custom packages
+    trash-d-src = {
+      type = "github";
+      owner = "rushsteve1";
+      repo = "trash-d";
+      flake = false;
+    };
+
+    pam-fprint-grosshack-src = {
+      type = "gitlab";
+      owner = "mishakmak";
+      repo = "pam-fprint-grosshack";
+      flake = false;
+    };
+
+    pokemon-colorscripts-src = {
+      type = "gitlab";
+      owner = "phoneybadger";
+      repo = "pokemon-colorscripts";
+      flake = false;
+    };
+
+    ## Overlays
+    plymouth-src = {
+      type = "gitlab";
+      host = "gitlab.freedesktop.org";
+      owner = "plymouth";
+      repo = "plymouth";
+
+      # https://gitlab.freedesktop.org/plymouth/plymouth/-/issues/236
+      # Last commit that works
+      rev = "58cc9f84e456ab0510b13d7bdbc13697467ca7be";
+      flake = false;
+    };
+
+    spotifywm-src = {
+      type = "github";
+      owner = "dasJ";
+      repo = "spotifywm";
+      flake = false;
+    };
+
+    gpu-screen-recorder-src = {
+      type = "git";
+      url = "https://repo.dec05eba.com/gpu-screen-recorder";
+      flake = false;
+    };
+
+    ## Dracula src
+    bat-theme-src = {
+      type = "github";
+      owner = "matt1432";
+      repo = "bat";
+      flake = false;
+    };
+
+    git-theme-src = {
+      type = "github";
+      owner = "dracula";
+      repo = "git";
+      flake = false;
+    };
+
+    gtk-theme-src = {
+      type = "github";
+      owner = "dracula";
+      repo = "gtk";
+      flake = false;
+    };
+
+    plymouth-theme-src = {
+      type = "github";
+      owner = "dracula";
+      repo = "plymouth";
+      flake = false;
+    };
+
+    xresources-theme-src = {
+      type = "github";
+      owner = "dracula";
+      repo = "xresources";
+      flake = false;
     };
   };
 }

@@ -1,6 +1,6 @@
 {
+  trash-d-src,
   stdenv,
-  fetchFromGitHub,
   dmd,
   dub,
   ronn,
@@ -8,14 +8,9 @@
 }:
 stdenv.mkDerivation {
   name = "trash";
-  version = "unstable";
+  version = trash-d-src.rev;
 
-  src = fetchFromGitHub {
-    owner = "rushsteve1";
-    repo = "trash-d";
-    rev = "d88bb672612761c8e299e717857bf9c85a903e99";
-    hash = "sha256-oPxeoEqOYf6DCg5rJxINqAIlMbxqzAJcZDUY/EzADzY=";
-  };
+  src = trash-d-src;
 
   buildInputs = [dub dmd ronn];
 
