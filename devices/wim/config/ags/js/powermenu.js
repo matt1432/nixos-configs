@@ -45,6 +45,5 @@ const PowermenuWidget = () => CenterBox({
 
 export default () => PopupWindow({
     name: 'powermenu',
-    transition: 'crossfade',
     child: PowermenuWidget(),
 });

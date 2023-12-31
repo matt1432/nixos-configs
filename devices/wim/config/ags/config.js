@@ -16,7 +16,7 @@ import QSettings from './js/quick-settings/main.js';
 
 const scss = `${App.configDir }/scss/main.scss`;
 const css = `${App.configDir }/style.css`;
-const closeWinDelay = 500;
+const closeWinDelay = 800;
 
 exec(`sassc ${scss} ${css}`);
 Setup();

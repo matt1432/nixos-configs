@@ -22,7 +22,7 @@ import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
  */
 export default ({
     transition = 'slide_down',
-    transition_duration = 500,
+    transition_duration = 800,
     onOpen = () => {/**/},
     onClose = () => {/**/},
 

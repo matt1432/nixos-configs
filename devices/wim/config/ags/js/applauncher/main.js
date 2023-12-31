@@ -17,7 +17,7 @@ import AppItem from './app-item.js';
 const Applauncher = ({ window_name = 'applauncher' } = {}) => {
     /** @type Array<any> */
     let fzfResults;
-    const list = ListBox();
+    const list = ListBox({});
 
     /** @param {String} text */
     const setSort = (text) => {
@@ -33,7 +33,6 @@ const Applauncher = ({ window_name = 'applauncher' } = {}) => {
         });
 
         fzfResults = fzf.find(text);
-        // @ts-expect-error
         list.set_sort_func(
             /**
              * @param {ListBoxRow} a
@@ -55,7 +54,6 @@ const Applauncher = ({ window_name = 'applauncher' } = {}) => {
 
     const makeNewChildren = () => {
         /** @type Array<typeof imports.gi.Gtk.ListBoxRow> */
-        // @ts-expect-error
         const rows = list.get_children();
 
         rows.forEach((ch) => {
@@ -66,7 +64,6 @@ const Applauncher = ({ window_name = 'applauncher' } = {}) => {
             .flatMap((app) => AppItem(app));
 
         children.forEach((ch) => {
-            // @ts-expect-error
             list.add(ch);
         });
         list.show_all();
@@ -103,7 +100,6 @@ const Applauncher = ({ window_name = 'applauncher' } = {}) => {
             let visibleApps = 0;
 
             /** @type Array<ListBoxRow> */
-            // @ts-expect-error
             const rows = list.get_children();
 
             rows.forEach((row) => {
