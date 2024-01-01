@@ -57,7 +57,7 @@
         overlays = [
           nix-on-droid.overlays.default
           neovim-flake.overlay
-          (import ./common/overlays/dracula-theme)
+          (import ./common/overlays/dracula-theme inputs)
         ];
       };
 

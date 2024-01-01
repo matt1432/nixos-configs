@@ -1,5 +1,6 @@
 {
   bat-theme-src,
+  gtk-theme-src,
   xresources-theme-src,
   ...
 } @ inputs: (final: prev: {
@@ -8,7 +9,7 @@
     plymouth = prev.callPackage ./plymouth.nix inputs;
     wallpaper = prev.fetchurl (import ./wallpaper.nix);
   in {
-    src = inputs.gtk-theme-src;
+    src = gtk-theme-src;
 
     installPhase = ''
       runHook preInstall
