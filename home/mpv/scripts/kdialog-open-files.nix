@@ -1,6 +1,7 @@
 {
   fetchurl,
   buildLua,
+  ...
 }:
 buildLua rec {
   pname = "zenity-open-files";

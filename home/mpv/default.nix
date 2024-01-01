@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs, ...} @ inputs: {
   # For kdialog-open-files
   home.packages = with pkgs; [
     kdialog
@@ -8,7 +8,7 @@
     enable = true;
 
     # https://github.com/mpv-player/mpv/wiki/User-Scripts
-    scripts = with (import ./scripts pkgs); [
+    scripts = with (import ./scripts inputs); [
       modernx
       # Dep of touch-gestures
       pointer-event

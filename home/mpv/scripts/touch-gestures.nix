@@ -1,15 +1,11 @@
 {
-  fetchFromGitHub,
+  touch-gestures-src,
   buildLua,
+  ...
 }:
 buildLua {
   pname = "touch-gestures";
-  version = "unstable";
+  version = touch-gestures-src.rev;
 
-  src = fetchFromGitHub {
-    owner = "christoph-heinrich";
-    repo = "mpv-touch-gestures";
-    rev = "f4aa499f038997c1824ff3bfa64ee1d5438d72f2";
-    hash = "sha256-gmo6sTwN85WS/+wtlylfI22LxyZH48DvXYP5JGCnyU4=";
-  };
+  src = touch-gestures-src;
 }

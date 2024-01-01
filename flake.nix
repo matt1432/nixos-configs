@@ -294,6 +294,42 @@
       flake = false;
     };
 
+    # MPV scripts
+    modernx-src = {
+      type = "github";
+      owner = "cyl0";
+      repo = "ModernX";
+      flake = false;
+    };
+
+    persist-properties-src = {
+      type = "github";
+      owner = "d87";
+      repo = "mpv-persist-properties";
+      flake = false;
+    };
+
+    pointer-event-src = {
+      type = "github";
+      owner = "christoph-heinrich";
+      repo = "mpv-pointer-event";
+      flake = false;
+    };
+
+    touch-gestures-src = {
+      type = "github";
+      owner = "christoph-heinrich";
+      repo = "mpv-touch-gestures";
+      flake = false;
+    };
+
+    eisa-scripts-src = {
+      type = "github";
+      owner = "Eisa01";
+      repo = "mpv-scripts";
+      flake = false;
+    };
+
     ## Dracula src
     bat-theme-src = {
       type = "github";

@@ -1,10 +1,10 @@
-{pkgs, ...}: let
+{pkgs, ...} @ inputs: let
   buildLua =
     pkgs.callPackage
     "${pkgs.path}/pkgs/applications/video/mpv/scripts/buildLua.nix" {};
 
   buildLuaScript = file:
-    pkgs.callPackage file {inherit buildLua;};
+    pkgs.callPackage file (inputs // {inherit buildLua;});
 in
   pkgs.recurseIntoAttrs {
     modernx = buildLuaScript ./modernx.nix;

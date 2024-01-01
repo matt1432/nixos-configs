@@ -1,18 +1,14 @@
 {
-  fetchFromGitHub,
+  modernx-src,
   makeFontsConf,
   buildLua,
+  ...
 }:
 buildLua (finalAttrs: {
   pname = "modernx";
-  version = "unstable";
+  version = modernx-src.rev;
 
-  src = fetchFromGitHub {
-    owner = "cyl0";
-    repo = "ModernX";
-    rev = "d053ea602d797bdd85d8b2275d7f606be067dc21";
-    hash = "sha256-Gpofl529VbmdN7eOThDAsNfNXNkUDDF82Rd+csXGOQg=";
-  };
+  src = modernx-src;
 
   # Make font available to script
   postInstall = ''
