@@ -114,10 +114,11 @@ export default () => {
         attribute: { close_on_unfocus: 'none' },
 
         setup: (self) => {
+            const name = 'overview';
+
             Hyprland.sendMessage('[[BATCH]] ' +
-                `keyword layerrule ignorealpha[0.97],${self.name}; ` +
-                `keyword layerrule blur,${self.name}
-            `);
+                    `keyword layerrule ignorealpha[0.97],${name}; ` +
+                    `keyword layerrule blur,${name}`);
 
             self.hook(App, (_, currentName, isOpen) => {
                 if (currentName === self.name) {
