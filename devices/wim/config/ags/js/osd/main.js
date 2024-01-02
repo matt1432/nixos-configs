@@ -61,5 +61,6 @@ export default () => PopupWindow({
     close_on_unfocus: 'stay',
     transition: 'slide_up',
     transition_duration,
+    bezier: 'ease',
     child: OSDs(),
 });
