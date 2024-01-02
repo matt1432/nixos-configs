@@ -32,7 +32,7 @@ export default () => {
 
         on_primary_click_release: (self) => {
             // @ts-expect-error
-            App.getWindow('notification-center').attribute.set_x_pos(
+            App.getWindow('quick-settings').attribute.set_x_pos(
                 self.get_allocation(),
                 'right',
             );

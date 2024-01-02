@@ -49,11 +49,10 @@ const QuickSettingsWidget = () => {
 };
 
 const TOP_MARGIN = 6;
-const RIGHT_MARGIN = 5;
 
 export default () => PopupWindow({
     name: 'quick-settings',
     anchor: ['top', 'right'],
-    margins: [TOP_MARGIN, RIGHT_MARGIN, 0, 0],
+    margins: [TOP_MARGIN, 0, 0, 0],
     child: QuickSettingsWidget(),
 });
