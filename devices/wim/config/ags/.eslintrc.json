@@ -36,7 +36,6 @@
     "func-style": ["warn", "expression"],
     "logical-assignment-operators": ["warn", "always"],
     "no-array-constructor": ["error"],
-    "no-else-return": ["error"],
     "no-empty-function": ["warn"],
     "no-empty-static-block": ["warn"],
     "no-extend-native": ["error"],

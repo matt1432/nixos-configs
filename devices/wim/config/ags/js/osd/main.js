@@ -14,12 +14,13 @@ for (const osd in Modules) {
 } // Array
 
 const HIDE_DELAY = 2000;
+const transition_duration = 300;
 
 
 const OSDs = () => {
     const stack = Stack({
         transition: 'over_up_down',
-        transition_duration: 200,
+        transition_duration,
 
         attribute: {
             popup: () => {/**/},
@@ -59,6 +60,6 @@ export default () => PopupWindow({
     exclusivity: 'ignore',
     close_on_unfocus: 'stay',
     transition: 'slide_up',
-    transition_duration: 200,
+    transition_duration,
     child: OSDs(),
 });

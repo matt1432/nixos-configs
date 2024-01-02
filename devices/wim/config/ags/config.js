@@ -30,7 +30,7 @@ export default {
         'applauncher': closeWinDelay,
         'calendar': closeWinDelay,
         'notification-center': closeWinDelay,
-        'osd': closeWinDelay,
+        'osd': 300,
         'osk': closeWinDelay,
         'overview': closeWinDelay,
         'powermenu': closeWinDelay,
