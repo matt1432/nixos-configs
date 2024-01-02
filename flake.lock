@@ -438,11 +438,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1704209910,
-        "narHash": "sha256-M+FImUWkeJUsdZd+X9cWNmhqJDguoKKmzX0kGMQIXnA=",
+        "lastModified": 1704230318,
+        "narHash": "sha256-aYjwKz4ybEEGqG45xFlnQbb0eN5GUxj9NMRcEYBPT3w=",
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "4f26c4e1ebf868243dc628182c88d7feb52c8472",
+        "rev": "1512b81126dd115f089fd21244692d92034c78f8",
         "type": "github"
       },
       "original": {
@@ -994,11 +994,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1704210337,
-        "narHash": "sha256-rRLL+IAanCm/aL55YgSNZvSHbC7oZLJe0lDtRVL6HiQ=",
+        "lastModified": 1704239045,
+        "narHash": "sha256-aNz5++TgVZtd8ToaSNGdaOxZW1MPB1Pv6ATz7vUh2r4=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "5aaff8bf9354976e682c034b184a3298c8c30f3e",
+        "rev": "aec84dd179f5624519bb6de40a851bc478d95087",
         "type": "github"
       },
       "original": {
@@ -1012,11 +1012,11 @@
         "nixpkgs": "nixpkgs_7"
       },
       "locked": {
-        "lastModified": 1704154864,
-        "narHash": "sha256-L1SqRj4VxWBJgeaJaN5aPEr0HFOE97rXuq9wKOriiAM=",
+        "lastModified": 1704231800,
+        "narHash": "sha256-erVAVc74jmelovyxqjqUS8pDEF772uL7t05vrt4dkYw=",
         "owner": "nix-community",
         "repo": "nurl",
-        "rev": "2c347653cba9ffe5af713ff03a1be6f0e1c5ffb2",
+        "rev": "b3d3c5b1a24c0102c32c73dade7107161f0271d4",
         "type": "github"
       },
       "original": {
@@ -1061,18 +1061,18 @@
       "flake": false,
       "locked": {
         "host": "gitlab.freedesktop.org",
-        "lastModified": 1702057553,
-        "narHash": "sha256-hgQ8nCphR4hc+WTNtS8GgBrC54uYnvTCp7kjgB/u5lE=",
+        "lastModified": 1704165415,
+        "narHash": "sha256-7rD3sSXUXi5dluc6VhdIiIPRWYRRTr7efUfaNyEqFQ8=",
         "owner": "plymouth",
         "repo": "plymouth",
-        "rev": "58cc9f84e456ab0510b13d7bdbc13697467ca7be",
+        "rev": "741662be5e7c4f49c0cd3a2cd736c93cd4e6ca92",
         "type": "gitlab"
       },
       "original": {
         "host": "gitlab.freedesktop.org",
         "owner": "plymouth",
+        "ref": "dont-set-keyboard-mode-so-much",
         "repo": "plymouth",
-        "rev": "58cc9f84e456ab0510b13d7bdbc13697467ca7be",
         "type": "gitlab"
       }
     },

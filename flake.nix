@@ -275,9 +275,9 @@
       owner = "plymouth";
       repo = "plymouth";
 
-      # https://gitlab.freedesktop.org/plymouth/plymouth/-/issues/236
-      # Last commit that works
-      rev = "58cc9f84e456ab0510b13d7bdbc13697467ca7be";
+      # Wait for this to get merged
+      # https://gitlab.freedesktop.org/plymouth/plymouth/-/merge_requests/294
+      ref = "dont-set-keyboard-mode-so-much";
       flake = false;
     };
 
