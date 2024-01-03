@@ -17,21 +17,23 @@
       font-size: 22px;
     }
 
-    button {
-      all: unset;
-      transition: 200ms;
-      color: #eee;
-      background-color: #664C90;
-      box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
-      padding: 4.5px 9px;
+    .clear {
+      box {
+        all: unset;
+        transition: 200ms;
+        color: #eee;
+        background-color: #664C90;
+        box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
+        padding: 4.5px 9px;
+      }
 
-      &:hover {
+      &.hover box {
         box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.03);
         background-color: rgba(238, 238, 238, 0.154);
         color: #f1f1f1;
       }
 
-      &:disabled {
+      &.disabled box {
         box-shadow: none;
         background-color: rgba(#664C90, 0.3);
         color: rgba(238, 238, 238, 0.3);

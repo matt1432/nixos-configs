@@ -10,7 +10,8 @@ import Powermenu from 'file:///home/matt/.nix/devices/wim/config/ags/js/powermen
 
 const scss = App.configDir + '/scss/main.scss';
 const css  = App.configDir + '/style.css';
-exec(`sassc ${scss} ${css}`);
+exec(`sassc ${scss} ${css}`)
+const closeWinDelay = 800;;
 
 
 export default {
@@ -24,9 +25,9 @@ export default {
     },
 
     closeWindowDelay: {
-        'applauncher': 500,
-        'notification-center': 500,
-        'powermenu': 500,
+        'applauncher': closeWinDelay,
+        'notification-center': closeWinDelay,
+        'powermenu': closeWinDelay,
     },
     windows: [
         AppLauncher(),
