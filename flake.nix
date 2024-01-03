@@ -272,12 +272,10 @@
     plymouth-src = {
       type = "gitlab";
       host = "gitlab.freedesktop.org";
+      # Wait for https://gitlab.freedesktop.org/plymouth/plymouth/-/commit/38964e5eafdfc7d8eccf29aa65056f303cad0b25
+      # to reach nixpkgs
       owner = "plymouth";
       repo = "plymouth";
-
-      # Wait for this to get merged
-      # https://gitlab.freedesktop.org/plymouth/plymouth/-/merge_requests/294
-      ref = "dont-set-keyboard-mode-so-much";
       flake = false;
     };
 

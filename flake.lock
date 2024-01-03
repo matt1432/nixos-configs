@@ -1061,17 +1061,16 @@
       "flake": false,
       "locked": {
         "host": "gitlab.freedesktop.org",
-        "lastModified": 1704165415,
+        "lastModified": 1704243381,
         "narHash": "sha256-7rD3sSXUXi5dluc6VhdIiIPRWYRRTr7efUfaNyEqFQ8=",
         "owner": "plymouth",
         "repo": "plymouth",
-        "rev": "741662be5e7c4f49c0cd3a2cd736c93cd4e6ca92",
+        "rev": "38964e5eafdfc7d8eccf29aa65056f303cad0b25",
         "type": "gitlab"
       },
       "original": {
         "host": "gitlab.freedesktop.org",
         "owner": "plymouth",
-        "ref": "dont-set-keyboard-mode-so-much",
         "repo": "plymouth",
         "type": "gitlab"
       }
