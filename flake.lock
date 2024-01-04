@@ -43,11 +43,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1703195663,
-        "narHash": "sha256-N5F407xhbcqiBlhMJ77hWwG2vxSINQL7gkSux3QtwwQ=",
+        "lastModified": 1704347159,
+        "narHash": "sha256-tEzuEg2c1MgPYQjeXbEFD23ZKWBIRMwVa/NalQvpQF8=",
         "owner": "matt1432",
         "repo": "nixos-caddy-cloudflare",
-        "rev": "6987095bd39c8cdc07c49e479e6dadfd974c96f4",
+        "rev": "aa13646304589699b5d97c917ec9be7a7e3ef245",
         "type": "github"
       },
       "original": {
