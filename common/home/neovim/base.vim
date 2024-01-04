@@ -21,6 +21,7 @@ autocmd FileType scss setl iskeyword+=@-@
 set number
 set relativenumber
 
+" TODO: make this work for nix-on-droid
 set undofile
 set undodir=/home/matt/.cache/nvim/
 

@@ -4,7 +4,6 @@
   pkgs,
   ...
 }: let
-  isNvidia = config.hardware.nvidia.modesetting.enable;
   isTouchscreen = config.hardware.sensor.iio.enable;
 in {
   services.upower.enable = true;

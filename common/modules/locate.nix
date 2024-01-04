@@ -25,6 +25,7 @@ in {
     locateGroup
   ];
 
+  # TODO: add timer
   systemd.services.locate = {
     wantedBy = ["default.target"];
     serviceConfig = {

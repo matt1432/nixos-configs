@@ -1,4 +1,5 @@
 {pkgs, ...}: {
+  # TODO: try other greeters https://git.sr.ht/~kennylevinsen/gtkgreet
   programs.regreet = {
     package = pkgs.greetd.regreet.overrideAttrs (self: super: rec {
       version = "0.1.1-patched";

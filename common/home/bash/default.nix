@@ -3,6 +3,7 @@
 
   programs = {
     starship = let
+      # TODO: have different colors depending on host
       textColor = "#e3e5e5";
       firstColor = "#bd93f9";
       secondColor = "#715895";

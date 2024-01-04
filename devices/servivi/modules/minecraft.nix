@@ -7,6 +7,10 @@
   imports = [nms.nixosModules.default];
 
   services = {
+    borgbackup.configs.mc = {
+      paths = ["/var/lib/minecraft"];
+    };
+
     modded-minecraft-servers = {
       eula = true;
       user = config.vars.user;
@@ -115,12 +119,6 @@
             // defaults;
         };
       };
-    };
-
-    borgbackup.configs.mc = {
-      paths = [
-        "/var/lib/minecraft"
-      ];
     };
   };
 }

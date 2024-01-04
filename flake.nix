@@ -208,10 +208,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    tree-sitter-hypr-flake = {
+    tree-sitter-hyprlang-flake = {
       type = "github";
       owner = "luckasRanarison";
-      repo = "tree-sitter-hypr";
+      repo = "tree-sitter-hyprlang";
 
       inputs.nixpkgs.follows = "nixpkgs";
     };

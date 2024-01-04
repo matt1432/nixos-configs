@@ -1,4 +1,5 @@
 {
+  # TODO: make this into a public github action
   #inputs.main.url = "path:../../../";
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 

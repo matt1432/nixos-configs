@@ -14,6 +14,7 @@ exec(`sassc ${scss} ${css}`)
 const closeWinDelay = 800;;
 
 
+// TODO: add OSD, workspace indicator / overview and current window indicator
 export default {
     style: css,
 

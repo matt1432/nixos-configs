@@ -29,7 +29,7 @@ in
     '';
 
     meta = with lib; {
-      description = "Firefox Theme CSS to Opera GX Lovers ";
+      description = "Firefox Theme CSS to Opera GX Lovers";
       homepage = "https://github.com/Godiesc/firefox-gx";
       license = licenses.mspl;
     };

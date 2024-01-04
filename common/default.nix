@@ -1,6 +1,5 @@
 {
   config,
-  lib,
   home-manager,
   nh,
   nix-melt,
@@ -58,6 +57,9 @@
   };
 
   home-manager.users = let
+    mainUser = config.vars.user;
+    mainUserConf = config.home-manager.users.${mainUser};
+
     default = {
       imports = [
         # Make the vars be the same on Nix and HM
@@ -79,11 +81,15 @@
         ++ (with config.nur.repos.rycee; [
           mozilla-addons-to-nix
         ]);
-      home.stateVersion = lib.mkDefault "23.05";
     };
   in {
-    root = default;
+    root =
+      default
+      // {
+        home.stateVersion = mainUserConf.home.stateVersion;
+      };
+
     # TODO: make user an array?
-    ${config.vars.user} = default;
+    ${mainUser} = default;
   };
 }

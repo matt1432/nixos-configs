@@ -49,10 +49,11 @@
     "${pkgs.dracula-theme}/xres";
 
   xdg.configFile = let
+    fontSize = lib.strings.floatToString config.vars.fontSize;
     qtconf = ''
       [Fonts]
-      fixed="Sans Serif,${lib.strings.floatToString config.vars.fontSize},-1,5,50,0,0,0,0,0"
-      general="Sans Serif,${lib.strings.floatToString config.vars.fontSize},-1,5,50,0,0,0,0,0"
+      fixed="Sans Serif,${fontSize},-1,5,50,0,0,0,0,0"
+      general="Sans Serif,${fontSize},-1,5,50,0,0,0,0,0"
 
       [Appearance]
       icon_theme=Flat-Remix-Violet-Dark
