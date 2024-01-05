@@ -165,6 +165,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    arion = {
+      type = "github";
+      owner = "hercules-ci";
+      repo = "arion";
+
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Desktop inputs
     hyprland = {
       type = "github";
