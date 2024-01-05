@@ -34,7 +34,7 @@ in {
         serverAliases = ["*.nelim.org"];
         extraConfig = ''
            tls {
-             dns cloudflare {$TLS}
+             dns cloudflare {$CLOUDFLARE_API_TOKEN}
              resolvers 1.0.0.1
           }
         '';
