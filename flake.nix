@@ -45,6 +45,7 @@
       live-image = mkNixOS [
         ("${nixpkgs}/nixos/modules/installer/"
           + "cd-dvd/installation-cd-minimal.nix")
+        {home-manager.users.nixos.home.stateVersion = "24.05";}
         {vars.user = "nixos";}
       ];
     };
