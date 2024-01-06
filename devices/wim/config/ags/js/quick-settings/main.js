@@ -28,9 +28,9 @@ const QuickSettingsWidget = () => {
                         class_name: 'title',
                         hpack: 'start',
                         css: `
-                        margin-left: 20px;
-                        margin-bottom: 30px;
-                    `,
+                            margin-left: 20px;
+                            margin-bottom: 30px;
+                        `,
                     }),
 
                     ButtonGrid(),

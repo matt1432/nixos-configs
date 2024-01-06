@@ -45,7 +45,7 @@ export const getWorkspaces = (box) => {
  * @param {boolean} normal
  */
 const Workspace = (id, name, normal = true) => {
-    const fixed = Fixed();
+    const fixed = Fixed({});
 
     const workspace = Revealer({
         transition: 'slide_right',

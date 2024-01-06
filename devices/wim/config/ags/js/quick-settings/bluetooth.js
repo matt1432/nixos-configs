@@ -121,12 +121,7 @@ export const BluetoothMenu = () => {
 
                 child: ListBox({
                     setup: (self) => {
-                        // @ts-expect-error
                         self.set_sort_func(
-                            /**
-                             * @param {Box} a
-                             * @param {Box} b
-                             */
                             (a, b) => {
                                 // @ts-expect-error
                                 return b.get_children()[0].attribute.dev.paired - // eslint-disable-line
@@ -146,7 +141,6 @@ export const BluetoothMenu = () => {
                                 if (!DevList.has(dev) && dev.name) {
                                     DevList.set(dev, BluetoothDevice(dev));
 
-                                    // @ts-expect-error
                                     self.add(DevList.get(dev));
                                     self.show_all();
                                 }
@@ -167,8 +161,7 @@ export const BluetoothMenu = () => {
                                         DevList.delete(dev);
                                     }
                                     else {
-                                        devWidget.children[0]
-                                            .reveal_child = false;
+                                        devWidget.child.reveal_child = false;
                                         devWidget.toDestroy = true;
                                     }
                                 }
@@ -184,7 +177,6 @@ export const BluetoothMenu = () => {
                             const scroll = self.get_parent()?.get_parent();
 
                             if (scroll) {
-                                // @ts-expect-error
                                 const n_child = self.get_children().length;
 
                                 if (n_child > SCROLL_THRESH_N) {
@@ -211,9 +203,7 @@ export const BluetoothMenu = () => {
                             }
 
                             // Trigger sort_func
-                            // @ts-expect-error
                             self.get_children().forEach(
-                                /** @param {Box} ListBoxRow */
                                 (ListBoxRow) => {
                                     // @ts-expect-error
                                     ListBoxRow.changed();

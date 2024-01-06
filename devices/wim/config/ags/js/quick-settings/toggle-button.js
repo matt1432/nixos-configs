@@ -12,13 +12,11 @@ export default (rev) => CenterBox({
         setup: (self) => {
             // Open at startup if there are players
             const id = Mpris.connect('changed', () => {
-                // @ts-expect-error
                 self.set_active(Mpris.players.length > 0);
                 Mpris.disconnect(id);
             });
 
             self.on('toggled', () => {
-                // @ts-expect-error
                 if (self.get_active()) {
                     self.child
                         // @ts-expect-error

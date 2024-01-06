@@ -92,7 +92,6 @@ export default () => {
             ],
         }),
     }).hook(SystemTray, (self) => {
-        // @ts-expect-error
         self.reveal_child = systray.get_children().length > 0;
     });
 };

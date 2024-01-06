@@ -43,10 +43,8 @@ export default (window) => Box({
                                 self.on('toggled', () => {
                                     self.toggleClassName(
                                         'toggled',
-                                        // @ts-expect-error
                                         self.get_active(),
                                     );
-                                    // @ts-expect-error
                                     window.exclusivity = self.get_active() ?
                                         'exclusive' :
                                         'normal';

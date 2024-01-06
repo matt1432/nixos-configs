@@ -138,12 +138,7 @@ export const NetworkMenu = () => {
 
                 child: ListBox({
                     setup: (self) => {
-                        // @ts-expect-error
                         self.set_sort_func(
-                            /**
-                             * @param {Box} a
-                             * @param {Box} b
-                             */
                             (a, b) => {
                                 return b.get_children()[0]
                                     // @ts-expect-error
@@ -169,7 +164,6 @@ export const NetworkMenu = () => {
                                     else {
                                         APList.set(ap.ssid, AccessPoint(ap));
 
-                                        // @ts-expect-error
                                         self.add(APList.get(ap.ssid));
                                         self.show_all();
                                     }
@@ -191,8 +185,7 @@ export const NetworkMenu = () => {
                                         APList.delete(ssid);
                                     }
                                     else {
-                                        apWidget.children[0]
-                                            .reveal_child = false;
+                                        apWidget.child.reveal_child = false;
                                         apWidget.toDestroy = true;
                                     }
                                 }
@@ -208,7 +201,6 @@ export const NetworkMenu = () => {
                             const scroll = self.get_parent()?.get_parent();
 
                             if (scroll) {
-                                // @ts-expect-error
                                 const n_child = self.get_children().length;
 
                                 if (n_child > SCROLL_THRESH_N) {
@@ -235,9 +227,7 @@ export const NetworkMenu = () => {
                             }
 
                             // Trigger sort_func
-                            // @ts-expect-error
                             self.get_children().forEach(
-                                /** @param {Box} ListBoxRow */
                                 (ListBoxRow) => {
                                     // @ts-expect-error
                                     ListBoxRow.changed();
