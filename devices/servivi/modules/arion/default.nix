@@ -3,7 +3,7 @@
   config,
   lib,
   ...
-}:
+} @ inputs:
 with lib;
 with builtins; let
   user = config.vars.user;
@@ -26,15 +26,21 @@ in {
       backend = "podman-socket";
 
       projects = let
+        configPath = "/var/lib/arion";
+
         composeFiles =
           filter (n: hasSuffix "compose.nix" (toString n))
           (filesystem.listFilesRecursive ./.);
 
-        projects = listToAttrs (map (p: {
+        projects = filterAttrs (n: v: v.enabled or true) (listToAttrs (map (p: {
             name = elemAt (match ".*\/(.*)\/compose\.nix" (toString p)) 0;
-            value = import p;
+
+            value = import p (inputs
+              // {
+                rwPath = configPath + "/" + elemAt (match "[^-]*-(.*)" "${dirOf p}") 0;
+              });
           })
-          composeFiles);
+          composeFiles));
       in
         mapAttrs (n: v: {
           # https://docs.hercules-ci.com/arion/options
@@ -42,10 +48,12 @@ in {
             enableDefaultNetwork = v.enableDefaultNetwork or true;
             networks = optionalAttrs (hasAttr "networks" v) v.networks;
 
-            services = mapAttrs (n': v': {
-              image = optionalAttrs (hasAttr "customImage" v') v'.customImage;
-              service = filterAttrs (n: v: n != "customImage") v';
-            }) v.services;
+            services =
+              mapAttrs (n': v': {
+                image = optionalAttrs (hasAttr "customImage" v') v'.customImage;
+                service = filterAttrs (n: v: n != "customImage") v';
+              })
+              v.services;
           };
         })
         projects;

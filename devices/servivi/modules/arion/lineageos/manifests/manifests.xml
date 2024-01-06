@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+    <remote  name="gitea" fetch="https://git.nelim.org/" />
+
+    <project name="matt1432/android_vendor_customs"                 path="vendor/alternatives" remote="gitea"  revision="master" />
+
+    <project name="lineageos4microg/android_vendor_partner_gms"     path="vendor/partner_gms"  remote="github" revision="master" />
+    <project name="matt1432/android_vendor_mulchwebview"            path="vendor/mulch"        remote="gitea"  revision="main" />
+    <project name="jgudec/android_vendor_lawnchair"                 path="vendor/lawnchair"    remote="github" revision="13" />
+</manifest>
