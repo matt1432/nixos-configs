@@ -361,8 +361,8 @@
 
     plymouth-theme-src = {
       type = "github";
-      owner = "dracula";
-      repo = "plymouth";
+      owner = "matt1432";
+      repo = "dracula-plymouth";
       flake = false;
     };
 

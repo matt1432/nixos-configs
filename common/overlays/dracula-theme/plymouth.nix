@@ -9,13 +9,8 @@ stdenv.mkDerivation {
 
   src = plymouth-theme-src;
 
-  installPhase = let
-    dracula-script = ./dracula-plymouth.patch;
-  in ''
+  installPhase = ''
     chmod 777 ./dracula
-
-    rm ./dracula/dracula.script
-    cp -a ${dracula-script} ./dracula/dracula.script
 
     sed -i "s@\/usr\/@$out\/@" ./dracula/dracula.plymouth
 

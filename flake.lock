@@ -1215,16 +1215,16 @@
     "plymouth-theme-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1610597442,
-        "narHash": "sha256-7YwkBzkAND9lfH2ewuwna1zUkQStBBx4JHGw3/+svhA=",
-        "owner": "dracula",
-        "repo": "plymouth",
-        "rev": "37aa09b27ecee4a825b43d2c1d20b502e8f19c96",
+        "lastModified": 1704576657,
+        "narHash": "sha256-nHirp6UMvBd4rMpXu5xWtBf9GN/jasHhZrUol6HGXpA=",
+        "owner": "matt1432",
+        "repo": "dracula-plymouth",
+        "rev": "54c523dbae26bf68683f27cda79c92da87229ab0",
         "type": "github"
       },
       "original": {
-        "owner": "dracula",
-        "repo": "plymouth",
+        "owner": "matt1432",
+        "repo": "dracula-plymouth",
         "type": "github"
       }
     },
