@@ -914,11 +914,11 @@
     },
     "nixpkgs-stable": {
       "locked": {
-        "lastModified": 1703950681,
-        "narHash": "sha256-veU5bE4eLOmi7aOzhE7LfZXcSOONRMay0BKv01WHojo=",
+        "lastModified": 1704290814,
+        "narHash": "sha256-LWvKHp7kGxk/GEtlrGYV68qIvPHkU9iToomNFGagixU=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "0aad9113182747452dbfc68b93c86e168811fa6c",
+        "rev": "70bdadeb94ffc8806c0570eb5c2695ad29f0e421",
         "type": "github"
       },
       "original": {
@@ -1309,11 +1309,11 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1704489655,
-        "narHash": "sha256-IdSc549wIwVKOk8QNn5F0JFyIT0Pe45zd6jC9kOWN7g=",
+        "lastModified": 1704604320,
+        "narHash": "sha256-tg8zrdwd4po2vaiGGm4mNmhnaEOWtbcAA05atam5LjM=",
         "ref": "refs/heads/main",
-        "rev": "a01a3508a5de7c50a226b3d028d74973b46649d6",
-        "revCount": 22,
+        "rev": "c9ed7f5dfe70d863e1f0553a9761b072c0a133b7",
+        "revCount": 25,
         "type": "git",
         "url": "ssh://git@git.nelim.org/matt1432/nixos-secrets"
       },
@@ -1331,11 +1331,11 @@
         "nixpkgs-stable": "nixpkgs-stable"
       },
       "locked": {
-        "lastModified": 1703991717,
-        "narHash": "sha256-XfBg2dmDJXPQEB8EdNBnzybvnhswaiAkUeeDj7fa/hQ=",
+        "lastModified": 1704596510,
+        "narHash": "sha256-tupdwwg1WeX2hNMOQrvtyafTaTVty0QC/gQp7yaYJic=",
         "owner": "Mic92",
         "repo": "sops-nix",
-        "rev": "cfdbaf68d00bc2f9e071f17ae77be4b27ff72fa6",
+        "rev": "f5fbcc0f50e7fc60c4f806fa7a09abccf0826d8a",
         "type": "github"
       },
       "original": {

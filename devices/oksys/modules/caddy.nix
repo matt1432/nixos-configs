@@ -66,7 +66,7 @@ in {
 
           forgejo = {
             subDomainName = "git";
-            reverseProxy = "${dockerIP}:3000";
+            reverseProxy = "${servivi}:3000";
           };
 
           nix-binary-cache = {
