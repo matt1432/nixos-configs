@@ -11,10 +11,7 @@ with builtins; let
 in {
   imports = [arion.nixosModules.arion];
 
-  users.extraUsers.${user}.extraGroups = ["podman"];
-  home-manager.users.${user}.programs.bash.shellAliases = {
-    podman = "sudo podman";
-  };
+  users.extraUsers.${user}.extraGroups = ["docker"];
 
   services.borgbackup.configs.arion = {
     paths = [configPath];
@@ -22,14 +19,13 @@ in {
   };
 
   virtualisation = {
-    podman = {
+    docker = {
       enable = true;
-      dockerSocket.enable = true;
-      defaultNetwork.settings.dns_enabled = true;
+      storageDriver = "btrfs";
     };
 
     arion = {
-      backend = "podman-socket";
+      backend = "docker";
 
       projects = let
         composeFiles =
