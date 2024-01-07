@@ -7,12 +7,18 @@
 with lib;
 with builtins; let
   user = config.vars.user;
+  configPath = "/var/lib/arion";
 in {
   imports = [arion.nixosModules.arion];
 
   users.extraUsers.${user}.extraGroups = ["podman"];
   home-manager.users.${user}.programs.bash.shellAliases = {
-    podman = "sudo podman ";
+    podman = "sudo podman";
+  };
+
+  services.borgbackup.configs.arion = {
+    paths = [configPath];
+    exclude = ["**/lineageos*"];
   };
 
   virtualisation = {
@@ -26,8 +32,6 @@ in {
       backend = "podman-socket";
 
       projects = let
-        configPath = "/var/lib/arion";
-
         composeFiles =
           filter (n: hasSuffix "compose.nix" (toString n))
           (filesystem.listFilesRecursive ./.);
@@ -37,7 +41,10 @@ in {
 
             value = import p (inputs
               // {
-                rwPath = configPath + "/" + elemAt (match "[^-]*-(.*)" "${dirOf p}") 0;
+                rwPath =
+                  configPath
+                  + "/"
+                  + elemAt (match "[^-]*-(.*)" "${dirOf p}") 0;
               });
           })
           composeFiles));

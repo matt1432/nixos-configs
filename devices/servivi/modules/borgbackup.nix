@@ -19,23 +19,12 @@ in {
   };
 
   config = {
-    users.groups.borg = {};
-    users.users.borg = {
-      isSystemUser = true;
-      # https://mynixos.com/nixpkgs/option/services.borgbackup.jobs.%3Cname%3E.readWritePaths
-      createHome = true;
-      home = "/var/lib/borg";
-      group = "borg";
-      extraGroups = ["mc"];
-    };
-
     programs.ssh.knownHosts = {
       pve.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG/4mrp8E4Ittwg8feRmPtDHSDR2+Pq4uZHeF5MweVcW";
     };
 
     services.borgbackup = {
       defaults = {
-        user = mkDefault "borg";
         environment = mkDefault {BORG_RSH = "ssh -i ${secrets.borg-ssh.path}";};
 
         repo = mkDefault "ssh://matt@pve/data/backups/borg";
@@ -52,7 +41,31 @@ in {
         compression = mkDefault "auto,lzma";
       };
 
-      jobs = mapAttrs (_: v: cfg.defaults // v) cfg.configs;
+      jobs = let
+        tempJobs = mapAttrs (_: v: cfg.defaults // v) cfg.configs;
+      in
+        mapAttrs (n: v: let
+          attrs = filterAttrs (n: _: n != "preHook" || n != "postHook" || n != "paths") v;
+          pathPrefix = "/root/snaps";
+          snapPath = "${pathPrefix}/${n}";
+        in
+          attrs
+          // {
+            paths = map (x: snapPath + x) v.paths;
+
+            preHook = v.preHook or "" + ''
+              if [[ ! -d ${pathPrefix} ]]; then
+                mkdir -p ${pathPrefix}
+              fi
+
+              ${pkgs.btrfs-progs}/bin/btrfs subvolume snapshot -r / ${snapPath}
+            '';
+
+            postHook = ''
+              ${pkgs.btrfs-progs}/bin/btrfs subvolume delete ${snapPath}
+            '' + v.postHook or "";
+          })
+        tempJobs;
     };
   };
 }
