@@ -2,7 +2,9 @@
   config,
   rwPath,
   ...
-}: {
+}: let
+  secrets = config.sops.secrets;
+in {
   # FIXME: crashes when building
 
   # This should only be ran when an update is needed
@@ -66,7 +68,7 @@
         "${toString ./.}/Caddyfile:/etc/caddy/Caddyfile:ro"
       ];
 
-      env_file = [config.sops.secrets.caddy-cloudflare.path];
+      env_file = [secrets.caddy-cloudflare.path];
       environment = {
         CLOUDFLARE_EMAIL = "matt@nelim.rg";
         ACME_AGREE = "true";

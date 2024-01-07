@@ -10,7 +10,6 @@ with lib; let
 in {
   # Make this file declare default settings
   options.services.borgbackup = {
-    #
     defaults = mkOption {
       type = types.attrs;
     };
@@ -36,11 +35,11 @@ in {
 
     services.borgbackup = {
       defaults = {
-        user = "borg";
-        environment = {BORG_RSH = "ssh -i ${secrets.borg-ssh.path}";};
+        user = mkDefault "borg";
+        environment = mkDefault {BORG_RSH = "ssh -i ${secrets.borg-ssh.path}";};
 
-        repo = "ssh://matt@pve/data/backups/borg";
-        encryption = {
+        repo = mkDefault "ssh://matt@pve/data/backups/borg";
+        encryption = mkDefault {
           mode = "repokey";
           passCommand = let
             cat = "${pkgs.coreutils}/bin/cat";
@@ -49,11 +48,11 @@ in {
         };
 
         # Run every 3 hours
-        startAt = "00/3:00";
-        compression = "auto,lzma";
+        startAt = mkDefault "00/3:00";
+        compression = mkDefault "auto,lzma";
       };
 
-      jobs = mapAttrs (_: v: v // cfg.defaults) cfg.configs;
+      jobs = mapAttrs (_: v: cfg.defaults // v) cfg.configs;
     };
   };
 }
