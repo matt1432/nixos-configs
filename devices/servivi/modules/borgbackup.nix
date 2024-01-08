@@ -53,17 +53,29 @@ in {
           // {
             paths = map (x: snapPath + x) v.paths;
 
-            preHook = v.preHook or "" + ''
-              if [[ ! -d ${pathPrefix} ]]; then
-                mkdir -p ${pathPrefix}
-              fi
+            preHook =
+              v.preHook
+              or ""
+              +
+              /*
+              bash
+              */
+              ''
+                if [[ ! -d ${pathPrefix} ]]; then
+                    mkdir -p ${pathPrefix}
+                fi
 
-              ${pkgs.btrfs-progs}/bin/btrfs subvolume snapshot -r / ${snapPath}
-            '';
+                ${pkgs.btrfs-progs}/bin/btrfs subvolume snapshot -r / ${snapPath}
+              '';
 
-            postHook = ''
-              ${pkgs.btrfs-progs}/bin/btrfs subvolume delete ${snapPath}
-            '' + v.postHook or "";
+            postHook =
+              /*
+              bash
+              */
+              ''
+                ${pkgs.btrfs-progs}/bin/btrfs subvolume delete ${snapPath}
+              ''
+              + v.postHook or "";
           })
         tempJobs;
     };

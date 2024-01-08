@@ -164,7 +164,11 @@ in {
             {
               plugin = todo-comments-nvim;
               type = "lua";
-              config = "require('todo-comments').setup()";
+              config =
+                /*
+                lua
+                */
+                ''require('todo-comments').setup()'';
             }
             {
               plugin = gitsigns-nvim;

@@ -117,6 +117,8 @@
       ];
 
       shellAliases = {
+        # Add whitespace after, to allow
+        # sudo to inherit all other aliases
         sudo = "sudo ";
         frick = "sudo $(fc -ln -1)";
 
@@ -124,21 +126,36 @@
         tree = "tree -a -I node_modules";
         cp = "cp -r";
 
-        chore = "(cd ~/.nix; git add flake.lock; git commit -m 'chore: update flake.lock'; git push)";
+        chore =
+          /*
+          bash
+          */
+          ''
+            (
+            cd ~/.nix
+            git add flake.lock
+            git commit -m 'chore: update flake.lock'
+            git push
+            )
+          '';
       };
 
       #profileExtra = ''
       #'';
-      bashrcExtra = ''
-        # Check if shell is interactive
-        [[ $- == *i* ]] || return 0
+      bashrcExtra =
+        /*
+        bash
+        */
+        ''
+          # Check if shell is interactive
+          [[ $- == *i* ]] || return 0
 
-        ${lib.strings.fileContents ./config/dracula/less.sh}
-        ${lib.strings.fileContents ./config/dracula/fzf.sh}
+          ${lib.strings.fileContents ./config/dracula/less.sh}
+          ${lib.strings.fileContents ./config/dracula/fzf.sh}
 
-        ${lib.strings.fileContents ./config/colorgrid.sh}
-        ${lib.strings.fileContents ./config/bashrc}
-      '';
+          ${lib.strings.fileContents ./config/colorgrid.sh}
+          ${lib.strings.fileContents ./config/bashrc}
+        '';
       #initExtra = ''
       #'';
       #logoutExtra = ''

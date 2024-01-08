@@ -3,15 +3,19 @@
 in {
   # https://nixos.wiki/wiki/Distributed_build
   home-manager.users.root = {
-    home.file.".ssh/config".text = ''
-      Host ${servivi}
-        # Prevent using ssh-agent or another keyfile, useful for testing
-        IdentitiesOnly yes
-        IdentityFile ${config.sops.secrets.nixremote.path}
+    home.file.".ssh/config".text =
+      /*
+      ssh_config
+      */
+      ''
+        Host ${servivi}
+          # Prevent using ssh-agent or another keyfile, useful for testing
+          IdentitiesOnly yes
+          IdentityFile ${config.sops.secrets.nixremote.path}
 
-        # The weakly privileged user on the remote builder – if not set, 'root' is used – which will hopefully fail
-        User nixremote
-    '';
+          # The weakly privileged user on the remote builder – if not set, 'root' is used – which will hopefully fail
+          User nixremote
+      '';
   };
 
   programs.ssh.knownHosts = {
