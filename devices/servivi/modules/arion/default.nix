@@ -2,6 +2,7 @@
   arion,
   config,
   lib,
+  pkgs,
   ...
 } @ inputs:
 with lib;
@@ -37,6 +38,7 @@ in {
 
             value = import p (inputs
               // {
+                importImage = file: pkgs.callPackage file pkgs;
                 rwPath =
                   configPath
                   + "/"
@@ -49,12 +51,26 @@ in {
           # https://docs.hercules-ci.com/arion/options
           settings = {
             enableDefaultNetwork = v.enableDefaultNetwork or true;
-            networks = optionalAttrs (hasAttr "networks" v) v.networks;
+
+            networks =
+              optionalAttrs (hasAttr "networks" v)
+              v.networks;
 
             services =
               mapAttrs (n': v': {
-                image = optionalAttrs (hasAttr "customImage" v') v'.customImage;
-                service = filterAttrs (n: v: n != "customImage") v';
+                # https://github.com/hercules-ci/arion/issues/169#issuecomment-1301370634
+                build.image =
+                  optionalAttrs (hasAttr "hostImage" v')
+                  (mkForce v'.hostImage);
+
+                image =
+                  optionalAttrs (hasAttr "customImage" v')
+                  v'.customImage;
+
+                service =
+                  filterAttrs
+                  (n: v: n != "customImage" && n != "hostImage")
+                  v';
               })
               v.services;
           };

@@ -1,14 +1,15 @@
 {
   config,
   rwPath,
+  importImage,
   ...
 }: let
   secrets = config.sops.secrets;
 in {
   services = {
     "forgejo" = {
-      image = "codeberg.org/forgejo/forgejo:1.21.3-0";
       container_name = "forgejo";
+      hostImage = importImage ./images/forgejo.nix;
 
       ports = [
         # Redirect WAN port 22 to this port
@@ -17,7 +18,6 @@ in {
       ];
 
       restart = "always";
-      privileged = true;
       depends_on = ["forgejo-db"];
 
       env_file = [secrets.forgejo.path];
@@ -41,29 +41,32 @@ in {
       ];
     };
 
-    "runner" = {
-      image = "gitea/act_runner";
-
-      # TODO: change name
-      container_name = "podman-runner";
-
-      restart = "always";
-      depends_on = ["forgejo"];
-
-      volumes = [
-        "${secrets.forgejo-runner.path}:/data/.runner"
-        "/var/run/docker.sock:/var/run/docker.sock"
-      ];
-    };
-
     "forgejo-db" = {
-      image = "public.ecr.aws/docker/library/postgres:14";
       container_name = "forgejo-db";
+      hostImage = importImage ./images/postgres.nix;
+
       restart = "always";
 
       env_file = [secrets.forgejo-db.path];
 
       volumes = ["${rwPath}/db:/var/lib/postgresql/data"];
+    };
+
+    "runner" = {
+      container_name = "act_runner";
+      hostImage = importImage ./images/act_runner.nix;
+      privileged = true;
+
+      restart = "always";
+      depends_on = ["forgejo"];
+
+      env_file = [secrets.forgejo-runner.path];
+      environment = {
+        GITEA_INSTANCE_URL = "https://git.nelim.org";
+        GITEA_RUNNER_NAME = "DinD";
+      };
+
+      volumes = ["${rwPath}/act:/data"];
     };
   };
 }
