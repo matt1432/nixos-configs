@@ -1,6 +1,7 @@
 {
   neovim-flake,
   nixpkgs-wayland,
+  nixd,
   ...
 } @ inputs: {
   nixpkgs.overlays = [
@@ -11,5 +12,6 @@
 
     neovim-flake.overlay
     nixpkgs-wayland.overlay
+    nixd.overlays.default
   ];
 }

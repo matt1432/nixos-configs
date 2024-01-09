@@ -5,3 +5,5 @@
 *build/
 **/ags/style.css
 result*
+.nixd.json
+default.nix

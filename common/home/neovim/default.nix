@@ -7,28 +7,63 @@
   ...
 }:
 with lib; let
-  nvimIde = config.vars.neovimIde;
+  inherit (config.vars) neovimIde hostName user;
 
   javaSdk = pkgs.temurin-bin-17;
   nvim-treesitter-hyprlang = tree-sitter-hyprlang-flake.packages.${pkgs.system}.default;
   coc-stylelintplus = coc-stylelintplus-flake.packages.${pkgs.system}.default;
 in {
-  home = optionalAttrs nvimIde {
+  home = optionalAttrs neovimIde {
     packages = with pkgs; [
       gradle
       gradle-completion # FIXME: not working
       alejandra
     ];
-  };
 
-  xdg.dataFile = optionalAttrs nvimIde {
-    ".gradle/gradle.properties".text = ''
-      org.gradle.java.home = ${javaSdk}
-    '';
+    file = optionalAttrs neovimIde {
+      ".gradle/gradle.properties".text = ''
+        org.gradle.java.home = ${javaSdk}
+      '';
+
+      ".nix/.nixd.json".text = builtins.toJSON {
+        eval = {
+          target = {
+            args = ["-f" "default.nix"];
+            installable = "nixosConfigurations.${hostName}.config.system.build.toplevel";
+          };
+          workers = 1;
+        };
+        formatting.command = "alejandra";
+        options = {
+          enable = true;
+          target = {
+            args = [];
+            installable = ".#nixosConfigurations.${hostName}.options";
+          };
+        };
+      };
+
+      ".nix/default.nix".text =
+        /*
+        nix
+        */
+        ''
+          (import
+            (
+              let lock = builtins.fromJSON (builtins.readFile /home/${user}/.nix/flake.lock); in
+              fetchTarball {
+                url = "https://github.com/edolstra/flake-compat/archive/''${lock.nodes.flake-compat.locked.rev}.tar.gz";
+                sha256 = lock.nodes.flake-compat.locked.narHash;
+              }
+            )
+            { src = /home/${user}/.nix; }
+          ).defaultNix
+        '';
+    };
   };
 
   programs = {
-    java = optionalAttrs nvimIde {
+    java = optionalAttrs neovimIde {
       enable = true;
       package = javaSdk;
     };
@@ -54,20 +89,20 @@ in {
           bat
           gcc
         ]
-        ++ optionals nvimIde [
+        ++ optionals neovimIde [
           nodejs_latest
           nodePackages.npm
           nodePackages.neovim
           gradle
-          nil
+          nixd
         ]);
 
       extraPython3Packages = ps:
-        optionals nvimIde [
+        optionals neovimIde [
           ps.pylint
         ];
 
-      coc = optionalAttrs nvimIde {
+      coc = optionalAttrs neovimIde {
         enable = true;
         settings = {
           # General
@@ -114,14 +149,10 @@ in {
           languageserver = {
             # Nix
             nix = {
-              command = "nil";
+              command = "nixd";
+              args = ["-log=debug"];
               filetypes = ["nix"];
-              rootPatterns = ["flake.nix"];
-              settings = {
-                nil = {
-                  formatting = {command = ["alejandra"];};
-                };
-              };
+              rootPatterns = [".nixd.json"];
             };
           };
 
@@ -186,7 +217,7 @@ in {
               config = fileContents ./plugins/mini.lua;
             }
           ]
-          ++ optionals nvimIde [
+          ++ optionals neovimIde [
             # Coc configured
             coc-css
             coc-eslint

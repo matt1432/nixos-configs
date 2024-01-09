@@ -225,6 +225,21 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    ## For nixd
+    flake-compat = {
+      type = "github";
+      owner = "inclyc";
+      repo = "flake-compat";
+
+      flake = false;
+    };
+
+    nixd = {
+      type = "github";
+      owner = "nix-community";
+      repo = "nixd";
+    };
+
     # Nix tools
     nurl = {
       type = "github";
