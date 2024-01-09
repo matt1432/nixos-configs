@@ -30,7 +30,10 @@
       };
   in {
     nixosConfigurations = {
-      wim = mkNixOS [./devices/wim];
+      wim = mkNixOS [
+        ./devices/wim
+        secrets.nixosModules.default
+      ];
       binto = mkNixOS [./devices/binto];
 
       servivi = mkNixOS [
