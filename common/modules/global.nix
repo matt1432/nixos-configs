@@ -4,14 +4,17 @@
   nixpkgs,
   ...
 }:
-with lib; {
+with lib; let
+  inherit (config.sops.secrets) access-token;
+in {
   # Minimize dowloads of indirect nixpkgs flakes
   nix = {
     registry.nixpkgs.flake = nixpkgs;
     nixPath = ["nixpkgs=${nixpkgs}"];
-    extraOptions = optionalAttrs (hasAttr "sops" config) ''
-      !include ${config.sops.secrets.access-token.path}
-    '';
+    extraOptions =
+      if (hasAttr "sops" config)
+      then "!include ${access-token.path}"
+      else "";
   };
 
   # Global hm settings
