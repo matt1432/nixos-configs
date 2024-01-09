@@ -14,6 +14,33 @@ in {
 
   users.extraUsers.${mainUser}.extraGroups = ["docker"];
 
+  environment.systemPackages = with pkgs; [
+    nix-prefetch-docker
+    (writeShellScriptBin "updateImages" ''
+      pull() {
+          FILE="$1"
+          IMAGE=$(sed -n 's/.*imageName = "\([^"]*\).*/\1/p' "$FILE")
+          TAG=$(sed -n 's/.*finalImageTag = "\([^"]*\).*/\1/p' "$FILE")
+
+          echo "$IMAGE $TAG"
+
+          PREFETCH=$(nix-prefetch-docker "$IMAGE" "$TAG")
+
+          echo -e "pkgs:\npkgs.dockerTools.pullImage $PREFETCH" > "$FILE"
+      }
+
+      DIR="$1"
+      if [ -z "$DIR" ]; then
+          DIR="."
+      fi
+
+      IFS=$'\n'
+      for i in $(find "$DIR"/images -type f); do
+          pull "$i"
+      done
+      unset IFS
+    '')
+  ];
 
   services.borgbackup.configs.arion = {
     paths = [configPath];

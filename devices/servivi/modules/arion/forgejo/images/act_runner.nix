@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage {
   imageName = "vegardit/gitea-act-runner";
-  imageDigest = "sha256:b785240f713d93f4a2d2a82926eacd0ac1deeae360d8ddfbd456102850285efb";
-  sha256 = "0z2vd663zyyfcz0rnl2ksivxmh63nhh4g42qx2idqb6j27s426bq";
+  imageDigest = "sha256:cebdf60a65a2bba2e3d59d906f65ee45c05643cb5ee74be4d2a73a93708084cd";
+  sha256 = "1pfbad0k719s094qhmcy2kmnvsjvllzr19cnx5jlf9cfm9cglvr1";
   finalImageName = "vegardit/gitea-act-runner";
   finalImageTag = "dind-latest";
 }
