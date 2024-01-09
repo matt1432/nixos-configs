@@ -8,6 +8,7 @@
 }:
 with lib; let
   # Config stuff
+  inherit (config.vars) configDir mainUser mainMonitor;
   isNvidia = config.hardware.nvidia.modesetting.enable;
   isTouchscreen = config.hardware.sensor.iio.enable;
 in {
@@ -39,7 +40,7 @@ in {
   };
 
   # HOME-MANAGER CONFIG
-  home-manager.users.${config.vars.user} = {
+  home-manager.users.${mainUser} = {
     imports = [
       ../../home/alacritty.nix
       ../../home/dconf.nix
@@ -105,7 +106,7 @@ in {
         ];
 
         input = let
-          xserver = config.services.xserver;
+          inherit (config.services) xserver;
         in {
           kb_layout = xserver.layout;
           kb_variant = xserver.xkbVariant;
@@ -124,8 +125,8 @@ in {
             "kdeconnect-indicator"
             "gnome-keyring-daemon --start --components=secrets"
           ]
-          ++ optionals (! isNull config.vars.mainMonitor)
-          ["hyprctl dispatch focusmonitor ${config.vars.mainMonitor}"];
+          ++ optionals (! isNull mainMonitor)
+          ["hyprctl dispatch focusmonitor ${mainMonitor}"];
 
         windowrule = [
           "noborder,^(wofi)$"
@@ -209,7 +210,7 @@ in {
           special_scale_factor = 0.8;
         };
 
-        source = ["${config.vars.configDir}/hypr/main.conf"];
+        source = ["${configDir}/hypr/main.conf"];
       };
     };
 

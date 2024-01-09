@@ -1,4 +1,6 @@
-{config, ...}: {
+{config, ...}: let
+  inherit (config.vars) mainUser hostName;
+in {
   imports = [
     ./hardware-configuration.nix
 
@@ -13,12 +15,12 @@
   ];
 
   vars = {
-    user = "matt";
+    mainUser = "matt";
     hostName = "oksys";
     neovimIde = false;
   };
 
-  users.users.${config.vars.user} = {
+  users.users.${mainUser} = {
     isNormalUser = true;
     extraGroups = [
       "wheel"
@@ -31,7 +33,7 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJGbLu+Gb7PiyNgNXMHemaQLnKixebx1/4cdJGna9OQp matt@wim"
     ];
   };
-  home-manager.users.${config.vars.user} = {
+  home-manager.users.${mainUser} = {
     imports = [];
 
     # No touchy
@@ -39,7 +41,7 @@
   };
 
   networking = {
-    inherit (config.vars) hostName;
+    inherit hostName;
     resolvconf = {
       enable = true;
       extraConfig = ''

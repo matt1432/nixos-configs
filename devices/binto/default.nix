@@ -1,4 +1,6 @@
-{config, ...}: {
+{config, ...}: let
+  inherit (config.vars) mainUser hostName;
+in {
   imports = [
     ./hardware-configuration.nix
 
@@ -17,14 +19,14 @@
   ];
 
   vars = {
-    user = "matt";
+    mainUser = "matt";
     hostName = "binto";
     mainMonitor = "desc:GIGA-BYTE TECHNOLOGY CO. LTD. G27QC 0x00000B1D";
     greetdDupe = false;
     fontSize = 12.5;
   };
 
-  users.users.${config.vars.user} = {
+  users.users.${mainUser} = {
     isNormalUser = true;
     extraGroups = [
       "wheel"
@@ -40,7 +42,7 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJGbLu+Gb7PiyNgNXMHemaQLnKixebx1/4cdJGna9OQp matt@wim"
     ];
   };
-  home-manager.users.${config.vars.user} = {
+  home-manager.users.${mainUser} = {
     imports = [
       ../../home/firefox
 
@@ -52,7 +54,7 @@
   };
 
   networking = {
-    inherit (config.vars) hostName;
+    inherit hostName;
     networkmanager.enable = true;
     firewall.enable = false;
   };

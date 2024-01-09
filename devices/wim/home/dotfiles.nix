@@ -1,5 +1,5 @@
 {config, ...}: let
-  configDir = config.vars.configDir;
+  inherit (config.vars) configDir;
   symlink = config.lib.file.mkOutOfStoreSymlink;
 in {
   xdg.configFile = {

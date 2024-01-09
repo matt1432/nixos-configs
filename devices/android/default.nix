@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   vars = {
-    user = "nix-on-droid";
+    mainUser = "nix-on-droid";
     hostName = "localhost";
     neovimIde = false;
   };

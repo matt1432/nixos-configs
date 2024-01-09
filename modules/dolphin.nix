@@ -2,12 +2,14 @@
   config,
   pkgs,
   ...
-}: {
+}: let
+  inherit (config.vars) mainUser;
+in {
   environment.systemPackages = with pkgs; [
     plasma5Packages.kio-admin
   ];
 
-  home-manager.users.${config.vars.user}.home.packages = with pkgs;
+  home-manager.users.${mainUser}.home.packages = with pkgs;
     []
     ++ (with pkgs.plasma5Packages; [
       ark

@@ -3,7 +3,9 @@
   lib,
   config,
   ...
-}: {
+}: let
+  inherit (config.vars) fontSize;
+in {
   home.pointerCursor = {
     name = "Dracula-cursors";
     package = pkgs.dracula-theme;
@@ -31,7 +33,7 @@
 
     font = {
       name = "Sans Serif";
-      size = config.vars.fontSize;
+      size = fontSize;
     };
   };
 
@@ -49,15 +51,15 @@
     "${pkgs.dracula-theme}/xres";
 
   xdg.configFile = let
-    fontSize = lib.strings.floatToString config.vars.fontSize;
+    floatFont = lib.strings.floatToString fontSize;
     qtconf =
       /*
       ini
       */
       ''
         [Fonts]
-        fixed="Sans Serif,${fontSize},-1,5,50,0,0,0,0,0"
-        general="Sans Serif,${fontSize},-1,5,50,0,0,0,0,0"
+        fixed="Sans Serif,${floatFont},-1,5,50,0,0,0,0,0"
+        general="Sans Serif,${floatFont},-1,5,50,0,0,0,0,0"
 
         [Appearance]
         icon_theme=Flat-Remix-Violet-Dark

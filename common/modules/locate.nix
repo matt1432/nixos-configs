@@ -4,6 +4,7 @@
   lib,
   ...
 }: let
+  inherit (config.vars) mainUser;
   cfg = config.services.locate;
 
   locateGroup = lib.getName cfg.package.name;
@@ -21,7 +22,7 @@
       --prunepaths "${prunePaths}" --prunenames "${pruneNames}"
   '';
 in {
-  users.users.${config.vars.user}.extraGroups = [
+  users.users.${mainUser}.extraGroups = [
     locateGroup
   ];
 
@@ -29,7 +30,7 @@ in {
   systemd.services.locate = {
     wantedBy = ["default.target"];
     serviceConfig = {
-      User = config.vars.user;
+      User = mainUser;
       Group = locateGroup;
       StateDirectory = "locate";
       StateDirectoryMode = "0770";
@@ -37,7 +38,7 @@ in {
     };
   };
 
-  home-manager.users.${config.vars.user}.programs.bash.shellAliases = {
+  home-manager.users.${mainUser}.programs.bash.shellAliases = {
     locate = "${pkgs.writeShellScriptBin "lct" ''
       exec ${locate} -d ${database} "$@" 2> >(grep -v "/var/cache/locatedb")
     ''}/bin/lct";

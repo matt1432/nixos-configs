@@ -57,7 +57,7 @@
   };
 
   home-manager.users = let
-    mainUser = config.vars.user;
+    inherit (config.vars) mainUser;
     mainUserConf = config.home-manager.users.${mainUser};
 
     default = {

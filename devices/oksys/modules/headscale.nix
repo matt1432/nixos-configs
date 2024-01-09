@@ -4,10 +4,11 @@
   config,
   ...
 }: let
+  inherit (config.vars) mainUser;
   headscale-flake = headscale.packages.${pkgs.system}.headscale;
 in {
   environment.systemPackages = [headscale-flake];
-  users.users.${config.vars.user}.extraGroups = ["headscale"];
+  users.users.${mainUser}.extraGroups = ["headscale"];
 
   services.headscale = {
     enable = true;

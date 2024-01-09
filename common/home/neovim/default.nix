@@ -7,13 +7,13 @@
   ...
 }:
 with lib; let
-  nvimIde = config.vars.neovimIde;
+  inherit (config.vars) neovimIde;
 
   javaSdk = pkgs.temurin-bin-17;
   nvim-treesitter-hyprlang = tree-sitter-hyprlang-flake.packages.${pkgs.system}.default;
   coc-stylelintplus = coc-stylelintplus-flake.packages.${pkgs.system}.default;
 in {
-  home = optionalAttrs nvimIde {
+  home = optionalAttrs neovimIde {
     packages = with pkgs; [
       gradle
       gradle-completion # FIXME: not working
@@ -21,14 +21,14 @@ in {
     ];
   };
 
-  xdg.dataFile = optionalAttrs nvimIde {
+  xdg.dataFile = optionalAttrs neovimIde {
     ".gradle/gradle.properties".text = ''
       org.gradle.java.home = ${javaSdk}
     '';
   };
 
   programs = {
-    java = optionalAttrs nvimIde {
+    java = optionalAttrs neovimIde {
       enable = true;
       package = javaSdk;
     };
@@ -54,7 +54,7 @@ in {
           bat
           gcc
         ]
-        ++ optionals nvimIde [
+        ++ optionals neovimIde [
           nodejs_latest
           nodePackages.npm
           nodePackages.neovim
@@ -63,11 +63,11 @@ in {
         ]);
 
       extraPython3Packages = ps:
-        optionals nvimIde [
+        optionals neovimIde [
           ps.pylint
         ];
 
-      coc = optionalAttrs nvimIde {
+      coc = optionalAttrs neovimIde {
         enable = true;
         settings = {
           # General
@@ -186,7 +186,7 @@ in {
               config = fileContents ./plugins/mini.lua;
             }
           ]
-          ++ optionals nvimIde [
+          ++ optionals neovimIde [
             # Coc configured
             coc-css
             coc-eslint

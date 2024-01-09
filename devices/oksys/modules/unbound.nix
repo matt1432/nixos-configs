@@ -1,8 +1,10 @@
-{config, ...}: {
+{config, ...}: let
+  inherit (config.vars) mainUser;
+in {
   # https://github.com/MatthewVance/unbound-docker-rpi/issues/4#issuecomment-1001879602
   boot.kernel.sysctl."net.core.rmem_max" = 1048576;
 
-  users.users.${config.vars.user}.extraGroups = ["unbound"];
+  users.users.${mainUser}.extraGroups = ["unbound"];
 
   services.unbound = {
     enable = true;

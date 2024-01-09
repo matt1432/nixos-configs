@@ -4,12 +4,14 @@
   config,
   ...
 }: let
+  inherit (config.vars) mainUser;
+  inherit (config.sops) secrets;
+
   caddy = caddy-plugins.packages.${pkgs.system}.default;
-  secrets = config.sops.secrets;
 in {
   imports = [caddy-plugins.nixosModules.default];
   environment.systemPackages = [caddy];
-  users.users.${config.vars.user}.extraGroups = ["caddy"];
+  users.users.${mainUser}.extraGroups = ["caddy"];
 
   systemd.services.caddy.serviceConfig = {
     EnvironmentFile = secrets.caddy-cloudflare.path;

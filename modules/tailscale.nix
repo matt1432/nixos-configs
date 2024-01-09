@@ -1,4 +1,6 @@
-{config, ...}: {
+{config, ...}: let
+  inherit (config.vars) hostName mainUser;
+in {
   services = {
     tailscale = {
       enable = true;
@@ -10,9 +12,7 @@
     };
   };
 
-  home-manager.users.${config.vars.user} = let
-    hostName = config.vars.hostName;
-  in {
+  home-manager.users.${mainUser} = {
     programs.bash.shellAliases = {
       tup = "tailscale up --login-server https://headscale.nelim.org";
 

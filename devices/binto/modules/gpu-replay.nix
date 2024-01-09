@@ -5,6 +5,8 @@
   gpu-screen-recorder-src,
   ...
 }: let
+  inherit (config.vars) mainUser;
+
   gsr = pkgs.stdenv.mkDerivation {
     name = "gpu-screen-recorder";
     version = gpu-screen-recorder-src.rev;
@@ -74,7 +76,7 @@ in {
     };
   };
 
-  home-manager.users.${config.vars.user} = {
+  home-manager.users.${mainUser} = {
     # TODO: add mic sound
     xdg.configFile."gsr.sh" = {
       executable = true;

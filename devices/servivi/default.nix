@@ -1,4 +1,6 @@
-{config, ...}: {
+{config, ...}: let
+  inherit (config.vars) mainUser hostName;
+in {
   imports = [
     ./hardware-configuration.nix
 
@@ -13,12 +15,12 @@
   ];
 
   vars = {
-    user = "matt";
+    mainUser = "matt";
     hostName = "servivi";
   };
 
   users.users = {
-    ${config.vars.user} = {
+    ${mainUser} = {
       isNormalUser = true;
       extraGroups = [
         "wheel"
@@ -45,7 +47,7 @@
     };
   };
 
-  home-manager.users.${config.vars.user} = {
+  home-manager.users.${mainUser} = {
     imports = [];
 
     # No touchy
@@ -53,7 +55,7 @@
   };
 
   networking = {
-    inherit (config.vars) hostName;
+    inherit hostName;
     resolvconf.enable = true;
     firewall.enable = false;
   };

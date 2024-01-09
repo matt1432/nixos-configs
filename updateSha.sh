@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# Deps:
+#   - nurl
+#   - jq
+#   - mozilla-addons-to-nix
+#   - alejandra
+
 parseNurl() {
     REV=$(nurl -j "$1" | jq '.["args"].["rev"]')
     HASH=$(nurl -j "$1" | jq '.["args"].["hash"]')
@@ -22,7 +28,7 @@ parseFetchurl() {
 }
 
 updateFFZ() {
-    FILE="/home/matt/.nix/home/firefox/addons/default.nix"
+    FILE="$FLAKE/home/firefox/addons/default.nix"
     URL="https://cdn.frankerfacez.com/script/frankerfacez-4.0-an+fx.xpi"
 
     parseFetchurl "$URL" "$FILE"
@@ -31,20 +37,22 @@ updateFFZ() {
 updateFirefoxAddons() {
     echo "Updating firefox addons using mozilla-addons-to-nix"
 
-    (cd /home/matt/.nix/home/firefox/addons || return;
+    (
+        cd "$FLAKE/home/firefox/addons" || return;
 
-    file=generated-firefox-addons.nix
-    if [[ -f $file ]]; then
-        printf "\nOld versions: \n"
+        file=generated-firefox-addons.nix
+        if [[ -f $file ]]; then
+            printf "\nOld versions: \n"
 
-        grep -A 1 --no-group-separator 'pname' "$file" |
-            awk '{ gsub(/"/, ""); gsub(/;/, ""); print $3 }' |
-            awk 'NR%2{printf $0" version ";next;}1' | paste -sd'\n' -
+            grep -A 1 --no-group-separator 'pname' "$file" |
+                awk '{ gsub(/"/, ""); gsub(/;/, ""); print $3 }' |
+                awk 'NR%2{printf $0" version ";next;}1' | paste -sd'\n' -
 
-        printf "\nNew versions: \n"
-    fi
+            printf "\nNew versions: \n"
+        fi
 
-    mozilla-addons-to-nix addons.json generated-firefox-addons.nix)
+        mozilla-addons-to-nix addons.json generated-firefox-addons.nix
+    )
 }
 
 
@@ -58,4 +66,4 @@ doAll() {
 [[ "$1" == "-f" || "$1" == "--firefox" ]] && updateFirefoxAddons
 [[ "$1" == "-ffz" || "$1" == "--frankerfacez" ]] && updateFFZ
 
-alejandra /home/matt/.nix
+alejandra "$FLAKE"

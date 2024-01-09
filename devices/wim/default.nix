@@ -1,4 +1,6 @@
-{config, ...}: {
+{config, ...}: let
+  inherit (config.vars) mainUser hostName;
+in {
   imports = [
     ./hardware-configuration.nix
 
@@ -15,13 +17,13 @@
   ];
 
   vars = {
-    user = "matt";
+    mainUser = "matt";
     hostName = "wim";
     fontSize = 12.5;
     mainMonitor = "eDP-1";
   };
 
-  users.users.${config.vars.user} = {
+  users.users.${mainUser} = {
     isNormalUser = true;
     extraGroups = [
       "wheel"
@@ -32,7 +34,7 @@
       "libvirtd"
     ];
   };
-  home-manager.users .${config.vars.user} = {
+  home-manager.users.${mainUser} = {
     imports = [
       ../../home/firefox
 
@@ -45,7 +47,7 @@
   };
 
   networking = {
-    inherit (config.vars) hostName;
+    inherit hostName;
     networkmanager = {
       enable = true;
       wifi.backend = "wpa_supplicant";

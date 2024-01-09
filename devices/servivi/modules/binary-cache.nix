@@ -3,8 +3,8 @@
   pkgs,
   ...
 }: let
-  secrets = config.sops.secrets;
-  vars = config.vars;
+  inherit (config.vars) mainUser;
+  inherit (config.sops) secrets;
 in {
   services.nix-serve = {
     enable = true;
@@ -16,8 +16,8 @@ in {
     services.buildAll = {
       serviceConfig = {
         Type = "oneshot";
-        User = vars.user;
-        Group = config.users.users.${vars.user}.group;
+        User = mainUser;
+        Group = config.users.users.${mainUser}.group;
       };
 
       path = with pkgs; [

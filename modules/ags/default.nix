@@ -4,11 +4,12 @@
   pkgs,
   ...
 }: let
+  inherit (config.vars) configDir mainUser;
   isTouchscreen = config.hardware.sensor.iio.enable;
 in {
   services.upower.enable = true;
 
-  home-manager.users.${config.vars.user}.imports = [
+  home-manager.users.${mainUser}.imports = [
     ags.homeManagerModules.default
 
     ({
@@ -21,7 +22,7 @@ in {
     in {
       programs.ags = {
         enable = true;
-        configDir = symlink "${config.vars.configDir}/ags";
+        configDir = symlink "${configDir}/ags";
         package = ags.packages.${pkgs.system}.default;
         extraPackages = with pkgs; [
           libgudev

@@ -5,6 +5,8 @@
   ...
 }:
 with lib; let
+  inherit (config.vars) mainUser greetdDupe mainMonitor;
+
   # Nix stuff
   isNvidia = config.hardware.nvidia.modesetting.enable;
   isTouchscreen = config.hardware.sensor.iio.enable;
@@ -13,7 +15,7 @@ with lib; let
     config
     .home-manager
     .users
-    .${config.vars.user}
+    .${mainUser}
     .wayland
     .windowManager
     .hyprland
@@ -24,7 +26,7 @@ with lib; let
 
   # Show Regreet on all monitors
   dupeMonitors = pkgs.writeShellScriptBin "dupeMonitors" ''
-    main="${config.vars.mainMonitor}"
+    main="${mainMonitor}"
     names=($(${hyprBin}/hyprctl -j monitors | ${pkgs.jq}/bin/jq -r '.[] .description'))
 
     if [[ "$main" == "null" ]]; then
@@ -44,8 +46,8 @@ with lib; let
 
   # Check if user wants Regreet only on main monitor
   setupMonitors =
-    if (config.vars.mainMonitor != "null" && !config.vars.greetdDupe)
-    then "${hyprBin}/hyprctl dispatch focusmonitor ${config.vars.mainMonitor}"
+    if (mainMonitor != "null" && !greetdDupe)
+    then "${hyprBin}/hyprctl dispatch focusmonitor ${mainMonitor}"
     else "${dupeMonitors}/bin/dupeMonitors";
 
   # Get css for regreet
@@ -117,7 +119,7 @@ in {
 
         initial_session = {
           command = "${hyprBin}/Hyprland";
-          user = config.vars.user;
+          user = mainUser;
         };
       };
     };

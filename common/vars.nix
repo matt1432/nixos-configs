@@ -3,8 +3,10 @@
   lib,
   ...
 }: {
-  options.vars = with lib; {
-    user = mkOption {
+  options.vars = with lib; let
+    inherit (config.vars) mainUser hostName;
+  in {
+    mainUser = mkOption {
       type = types.str;
       description = ''
         Username that was defined at the initial setup process
@@ -20,7 +22,7 @@
 
     configDir = mkOption {
       type = types.str;
-      default = "/home/${config.vars.user}/.nix/devices/${config.vars.hostName}/config";
+      default = "/home/${mainUser}/.nix/devices/${hostName}/config";
       description = ''
         The path to where most of the devices' configs are in the .nix folder
       '';

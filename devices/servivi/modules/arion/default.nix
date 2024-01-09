@@ -7,12 +7,13 @@
 } @ inputs:
 with lib;
 with builtins; let
-  user = config.vars.user;
+  inherit (config.vars) mainUser;
   configPath = "/var/lib/arion";
 in {
   imports = [arion.nixosModules.arion];
 
-  users.extraUsers.${user}.extraGroups = ["docker"];
+  users.extraUsers.${mainUser}.extraGroups = ["docker"];
+
 
   services.borgbackup.configs.arion = {
     paths = [configPath];

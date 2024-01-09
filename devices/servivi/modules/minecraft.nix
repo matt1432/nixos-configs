@@ -3,7 +3,9 @@
   nms,
   pkgs,
   ...
-}: {
+}: let
+  inherit (config.vars) mainUser;
+in {
   imports = [nms.nixosModules.default];
 
   services = {
@@ -13,7 +15,7 @@
 
     modded-minecraft-servers = {
       eula = true;
-      user = config.vars.user;
+      user = mainUser;
 
       instances = let
         jre8 = pkgs.temurin-bin-8;

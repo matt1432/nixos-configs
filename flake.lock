@@ -497,11 +497,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1704498488,
-        "narHash": "sha256-yINKdShHrtjdiJhov+q0s3Y3B830ujRoSbHduUNyKag=",
+        "lastModified": 1704809957,
+        "narHash": "sha256-Z8sBeoeeY2O+BNqh5C+4Z1h1F1wQ2mij7yPZ2GY397M=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "51e44a13acea71b36245e8bd8c7db53e0a3e61ee",
+        "rev": "e13aa9e287b3365473e5897e3667ea80a899cdfb",
         "type": "github"
       },
       "original": {
@@ -541,11 +541,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1704802675,
-        "narHash": "sha256-oRktPUvQ8pUtOpFPpK5EwmIlVxPBFJG7PtKQgLA5Jro=",
+        "lastModified": 1704820448,
+        "narHash": "sha256-qUMiBYk7VEzZQILTmnqlbksFxfCPeod1q6X9tFSV/X0=",
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "252aaaecfa3b57eb07822177a8bf3b609aff7115",
+        "rev": "71166ef40b5f7640fcddb1951d84f0f086e198d2",
         "type": "github"
       },
       "original": {
@@ -1131,11 +1131,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1704802111,
-        "narHash": "sha256-JNDqLLuJKeH7QCNDB/+Yyb3tkz8bniceznXJn5giWEE=",
+        "lastModified": 1704822284,
+        "narHash": "sha256-CEVaqLRlay5Xm4wmfQmZtoa7bvJ+ZO195CluqL1yOzs=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "6fabda405e6bae2a19226883283a2572a230e7b5",
+        "rev": "dba520515e209f3be2fc388374c671635e1a478e",
         "type": "github"
       },
       "original": {
@@ -1309,11 +1309,11 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1704809509,
-        "narHash": "sha256-KygbTsZQ16uoRlRokSVv9BHAn3vbgB0dB7aE4QryikU=",
+        "lastModified": 1704823353,
+        "narHash": "sha256-PeEW/pp2OdyMuZTplvIdwo9fsXD5oiTCfaaZhtupDmw=",
         "ref": "refs/heads/main",
-        "rev": "3de6fc43bf9fa891e2be693df2382a5cef33ba0e",
-        "revCount": 29,
+        "rev": "00ecdb9a7c5eeb6554bfebd467d26766dccc31f3",
+        "revCount": 30,
         "type": "git",
         "url": "ssh://git@git.nelim.org/matt1432/nixos-secrets"
       },
