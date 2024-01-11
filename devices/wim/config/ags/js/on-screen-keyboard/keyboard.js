@@ -1,5 +1,8 @@
 import { Box, CenterBox, Label, ToggleButton } from 'resource:///com/github/Aylur/ags/widget.js';
 
+const { Gdk } = imports.gi;
+const display = Gdk.Display.get_default();
+
 import Separator from '../misc/separator.js';
 import RoundedCorner from '../corners/screen-corners.js';
 import Key from './keys.js';
@@ -34,21 +37,38 @@ export default (window) => Box({
 
                     children: [
                         ToggleButton({
-                            cursor: 'pointer',
                             class_name: 'button',
                             active: true,
                             vpack: 'center',
 
                             setup: (self) => {
-                                self.on('toggled', () => {
-                                    self.toggleClassName(
-                                        'toggled',
-                                        self.get_active(),
-                                    );
-                                    window.exclusivity = self.get_active() ?
-                                        'exclusive' :
-                                        'normal';
-                                });
+                                self
+                                    .on('toggled', () => {
+                                        self.toggleClassName(
+                                            'toggled',
+                                            self.get_active(),
+                                        );
+                                        window.exclusivity = self.get_active() ?
+                                            'exclusive' :
+                                            'normal';
+                                    })
+
+                                    // OnHover
+                                    .on('enter-notify-event', () => {
+                                        self.window.set_cursor(
+                                            Gdk.Cursor.new_from_name(
+                                                display,
+                                                'pointer',
+                                            ),
+                                        );
+                                        self.toggleClassName('hover', true);
+                                    })
+
+                                    // OnHoverLost
+                                    .on('leave-notify-event', () => {
+                                        self.window.set_cursor(null);
+                                        self.toggleClassName('hover', false);
+                                    });
                             },
 
                             child: Label('Exclusive'),

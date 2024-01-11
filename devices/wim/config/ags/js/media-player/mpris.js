@@ -174,13 +174,15 @@ export const PlayerIcon = (player, overlay) => {
     });
 };
 
+const { Gdk } = imports.gi;
+const display = Gdk.Display.get_default();
+
 /**
  * @param {Player} player
  * @param {Variable} colors
  */
 export const PositionSlider = (player, colors) => Slider({
     class_name: 'position-slider',
-    cursor: 'pointer',
     vpack: 'center',
     hexpand: true,
     draw_value: false,
@@ -214,11 +216,36 @@ export const PositionSlider = (player, colors) => Slider({
                     `);
                 }
             })
+
+            // OnClick
             .on('button-press-event', () => {
-                self.cursor = 'grabbing';
+                self.window.set_cursor(Gdk.Cursor.new_from_name(
+                    display,
+                    'grabbing',
+                ));
             })
+
+            // OnRelease
             .on('button-release-event', () => {
-                self.cursor = 'pointer';
+                self.window.set_cursor(Gdk.Cursor.new_from_name(
+                    display,
+                    'pointer',
+                ));
+            })
+
+            // OnHover
+            .on('enter-notify-event', () => {
+                self.window.set_cursor(Gdk.Cursor.new_from_name(
+                    display,
+                    'pointer',
+                ));
+                self.toggleClassName('hover', true);
+            })
+
+            // OnHoverLost
+            .on('leave-notify-event', () => {
+                self.window.set_cursor(null);
+                self.toggleClassName('hover', false);
             });
     },
 });

@@ -5,7 +5,8 @@ import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import { HasNotifs } from './base.js';
 
-const { Gtk } = imports.gi;
+const { Gdk, Gtk } = imports.gi;
+const display = Gdk.Display.get_default();
 
 const MAX_OFFSET = 200;
 const OFFSCREEN = 300;
@@ -45,18 +46,44 @@ export default ({
 }) => {
     const widget = EventBox({
         ...props,
-        cursor: 'grab',
 
         setup: (self) => {
             self
-                .on('leave-notify-event', () => {
-                    if (self.attribute.hovered) {
-                        self.attribute.hovered = false;
-                    }
+                // OnClick
+                .on('button-press-event', () => {
+                    self.window.set_cursor(Gdk.Cursor.new_from_name(
+                        display,
+                        'grabbing',
+                    ));
                 })
+
+                // OnRelease
+                .on('button-release-event', () => {
+                    self.window.set_cursor(Gdk.Cursor.new_from_name(
+                        display,
+                        'grab',
+                    ));
+                })
+
+                // OnHover
                 .on('enter-notify-event', () => {
+                    self.window.set_cursor(Gdk.Cursor.new_from_name(
+                        display,
+                        'grab',
+                    ));
+                    self.toggleClassName('hover', true);
                     if (!self.attribute.hovered) {
                         self.attribute.hovered = true;
+                    }
+                })
+
+                // OnHoverLost
+                .on('leave-notify-event', () => {
+                    self.window.set_cursor(null);
+                    self.toggleClassName('hover', false);
+
+                    if (self.attribute.hovered) {
+                        self.attribute.hovered = false;
                     }
                 });
         },

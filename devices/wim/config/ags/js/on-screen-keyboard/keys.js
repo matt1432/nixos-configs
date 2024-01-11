@@ -4,7 +4,8 @@ import Brightness from '../../services/brightness.js';
 import { Box, EventBox, Label } from 'resource:///com/github/Aylur/ags/widget.js';
 import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
-const { Gtk } = imports.gi;
+const { Gdk, Gtk } = imports.gi;
+const display = Gdk.Display.get_default();
 
 import Separator from '../misc/separator.js';
 
@@ -78,7 +79,6 @@ const ModKey = (key) => {
     }
 
     const button = EventBox({
-        cursor: 'pointer',
         class_name: 'key',
 
         on_primary_click_release: (self) => {
@@ -92,13 +92,29 @@ const ModKey = (key) => {
         },
 
         setup: (self) => {
-            self.hook(NormalClick, () => {
-                Mod.value = false;
+            self
+                .hook(NormalClick, () => {
+                    Mod.value = false;
 
-                // @ts-expect-error
-                self.child.toggleClassName('active', false);
-                execAsync(`ydotool key ${key.keycode}:0`);
-            });
+                    // @ts-expect-error
+                    self.child.toggleClassName('active', false);
+                    execAsync(`ydotool key ${key.keycode}:0`);
+                })
+
+                // OnHover
+                .on('enter-notify-event', () => {
+                    self.window.set_cursor(Gdk.Cursor.new_from_name(
+                        display,
+                        'pointer',
+                    ));
+                    self.toggleClassName('hover', true);
+                })
+
+                // OnHoverLost
+                .on('leave-notify-event', () => {
+                    self.window.set_cursor(null);
+                    self.toggleClassName('hover', false);
+                });
         },
         child: Label({
             class_name: `mod ${key.label}`,
@@ -117,7 +133,6 @@ const ModKey = (key) => {
 /** @param {Object} key */
 const RegularKey = (key) => {
     const widget = EventBox({
-        cursor: 'pointer',
         class_name: 'key',
 
         child: Label({
@@ -157,6 +172,21 @@ const RegularKey = (key) => {
 
                         self.toggleClassName('altgr', AltGr.value);
                         self.label = AltGr.value ? key.labelAltGr : key.label;
+                    })
+
+                    // OnHover
+                    .on('enter-notify-event', () => {
+                        self.window.set_cursor(Gdk.Cursor.new_from_name(
+                            display,
+                            'pointer',
+                        ));
+                        self.toggleClassName('hover', true);
+                    })
+
+                    // OnHoverLost
+                    .on('leave-notify-event', () => {
+                        self.window.set_cursor(null);
+                        self.toggleClassName('hover', false);
                     });
             },
         }),

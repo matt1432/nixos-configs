@@ -8,6 +8,7 @@ const { Gtk, Gdk } = imports.gi;
 import { updateClients } from './clients.js';
 
 const TARGET = [Gtk.TargetEntry.new('text/plain', Gtk.TargetFlags.SAME_APP, 0)];
+const display = Gdk.Display.get_default();
 
 /**
  * @typedef {import('types/widgets/button').default} Button
@@ -80,8 +81,6 @@ export const WindowButton = ({
 }) => Button({
     ...props,
 
-    cursor: 'pointer',
-
     setup: (self) => {
         self.drag_source_set(
             Gdk.ModifierType.BUTTON1_MASK,
@@ -89,20 +88,39 @@ export const WindowButton = ({
             Gdk.DragAction.COPY,
         );
 
-        self.on('drag-data-get', (_w, _c, data) => {
-            data.set_text(address, address.length);
-        });
+        self
+            .on('drag-data-get', (_w, _c, data) => {
+                data.set_text(address, address.length);
+            })
 
-        self.on('drag-begin', (_, context) => {
-            Gtk.drag_set_icon_surface(context, createSurfaceFromWidget(self));
-            // @ts-expect-error
-            self.get_parent()?.set_reveal_child(false);
-        });
+            .on('drag-begin', (_, context) => {
+                Gtk.drag_set_icon_surface(
+                    context,
+                    createSurfaceFromWidget(self),
+                );
+                // @ts-expect-error
+                self.get_parent()?.set_reveal_child(false);
+            })
 
-        self.on('drag-end', () => {
-            self.get_parent()?.destroy();
+            .on('drag-end', () => {
+                self.get_parent()?.destroy();
 
-            updateClients(mainBox);
-        });
+                updateClients(mainBox);
+            })
+
+            // OnHover
+            .on('enter-notify-event', () => {
+                self.window.set_cursor(Gdk.Cursor.new_from_name(
+                    display,
+                    'pointer',
+                ));
+                self.toggleClassName('hover', true);
+            })
+
+            // OnHoverLost
+            .on('leave-notify-event', () => {
+                self.window.set_cursor(null);
+                self.toggleClassName('hover', false);
+            });
     },
 });
