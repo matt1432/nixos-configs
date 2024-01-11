@@ -14,7 +14,7 @@ import AppItem from './app-item.js';
  */
 
 
-const Applauncher = ({ window_name = 'applauncher' } = {}) => {
+const Applauncher = (window_name = 'applauncher') => {
     /** @type Array<any> */
     let fzfResults;
     const list = ListBox({});
@@ -22,7 +22,9 @@ const Applauncher = ({ window_name = 'applauncher' } = {}) => {
     /** @param {String} text */
     const setSort = (text) => {
         const fzf = new Fzf(Applications.list, {
-            selector: /** @param {App} app */ (app) => app.name,
+            selector: /** @param {App} app */ (app) => {
+                return app.name + app.executable;
+            },
             tiebreakers: [
                 /**
                  * @param {App} a
