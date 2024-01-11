@@ -19,7 +19,6 @@
           "[   ](bg:${firstColor} fg:#090c0c)"
           "[](bg:${secondColor} fg:${firstColor})"
           "$username$hostname"
-          "$sudo"
           "[](fg:${secondColor} bg:${thirdColor})"
           "$directory"
           "[](fg:${thirdColor} bg:${fourthColor})"
@@ -27,12 +26,6 @@
           "[](fg:${fourthColor})"
           "\n╰╴$shlvl$nix_shell$character"
         ];
-
-        sudo = {
-          disabled = false;
-          style = "fg:${textColor} bg:${secondColor}";
-          format = "[as root ]($style)";
-        };
 
         username = {
           show_always = true;
