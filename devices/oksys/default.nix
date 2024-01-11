@@ -42,12 +42,8 @@ in {
 
   networking = {
     inherit hostName;
-    resolvconf = {
-      enable = true;
-      extraConfig = ''
-        name_servers='1.0.0.1'
-      '';
-    };
+    resolvconf.enable = true;
+    nameservers = config.services.headscale.settings.dns_config.nameservers ++ ["1.0.0.1"];
     firewall.enable = false;
   };
 
