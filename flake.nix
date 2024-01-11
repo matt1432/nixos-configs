@@ -208,6 +208,9 @@
       owner = "nix-community";
       repo = "neovim-nightly-overlay";
 
+      # FIXME: memory leak on latest neovim git
+      rev = "c4caeb6f9e87ea08baece83e6cac351d9bd3bb2f";
+
       # to make sure plugins and nvim have same binaries
       inputs.nixpkgs.follows = "nixpkgs";
     };
