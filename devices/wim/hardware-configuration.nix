@@ -8,12 +8,14 @@
   imports = [(modulesPath + "/installer/scan/not-detected.nix")];
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
-    kernelModules = ["kvm-amd" "acpi_call"];
-    extraModulePackages = with config.boot.kernelPackages; [
-      v4l2loopback
-      acpi_call
-    ];
+    kernelPackages = pkgs.linuxPackages_zen;
+
+    kernelParams = ["amd_pstate=active"];
+    kernelModules = ["amdgpu" "kvm-amd"];
+
+    # Zenpower for ryzen cpu monitoring
+    extraModulePackages = with config.boot.kernelPackages; [zenpower];
+    blacklistedKernelModules = ["k10temp"];
 
     initrd = {
       availableKernelModules = ["nvme" "xhci_pci" "usb_storage" "sd_mod"];
@@ -59,10 +61,17 @@
   hardware = {
     cpu.amd.updateMicrocode = config.hardware.enableRedistributableFirmware;
 
-    sensor.iio.enable = true;
-    opengl.enable = true;
-    opengl.driSupport32Bit = true;
     uinput.enable = true;
+    sensor.iio.enable = true;
+
+    opengl = {
+      enable = true;
+      driSupport32Bit = true;
+      extraPackages =
+        if pkgs ? rocmPackages.clr
+        then with pkgs.rocmPackages; [clr clr.icd]
+        else with pkgs; [rocm-opencl-icd rocm-opencl-runtime];
+    };
 
     bluetooth = {
       enable = true;
@@ -76,13 +85,39 @@
   };
   environment.systemPackages = with pkgs; [
     qemu
+    powertop
   ];
 
   # enable brightness control
   programs.light.enable = true;
 
   services = {
-    tlp.enable = true;
+    xserver.videoDrivers = ["modesetting"];
+    tlp = {
+      enable = true;
+      settings = {
+        NMI_WATCHDOG = 0;
+
+        RADEON_DPM_PERF_LEVEL_ON_AC = "auto";
+        RADEON_DPM_PERF_LEVEL_ON_BAT = "low";
+        RADEON_DPM_STATE_ON_AC = "performance";
+        RADEON_DPM_STATE_ON_BAT = "battery";
+
+        CPU_BOOST_ON_AC = 1;
+        CPU_BOOST_ON_BAT = 0;
+        CPU_SCALING_GOVERNOR_ON_AC = "performance";
+        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+
+        CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+        CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+
+        CPU_MIN_PERF_ON_AC = 0;
+        CPU_MAX_PERF_ON_AC = 100;
+        CPU_MIN_PERF_ON_BAT = 0;
+        CPU_MAX_PERF_ON_BAT = 20;
+      };
+    };
+    power-profiles-daemon.enable = false;
 
     udev.extraRules =
       /*
