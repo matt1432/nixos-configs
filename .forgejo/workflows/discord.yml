@@ -8,20 +8,12 @@ jobs:
   discord_commits:
     runs-on: ubuntu-latest
     name: discord commits
-    env:
-      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-
     if: contains(github.event.head_commit.message, '(servers)')
 
     steps:
-      - name: Checkout
-        uses: https://github.com/actions/checkout@v3
-
-      - name: Setup-Nix
-        uses: https://github.com/cachix/install-nix-action@v24
-
-      - name: Send-Embed
-        working-directory: ./common/pkgs/discommit
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        run: nix run . $DISCORD_WEBHOOK
+      - name: Discommit
+        uses: https://github.com/matt1432/discommit@v0.0.2
+        with:
+          discord_webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          api_url: 'https://git.nelim.org/api/v1/repos/$OWNER/$REPO/git/commits/$REF'
+          title: 'New commit containing changes to server configs:'
