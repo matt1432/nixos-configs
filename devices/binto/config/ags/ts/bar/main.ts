@@ -1,8 +1,8 @@
 import { Box, CenterBox, Window } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import SysTray from 'file:///home/matt/.nix/devices/wim/config/ags/js/bar/items/systray.js';
-import Separator from 'file:///home/matt/.nix/devices/wim/config/ags/js/misc/separator.js';
-import NotifButton from 'file:///home/matt/.nix/devices/wim/config/ags/js/bar/items/notif-button.js';
+import SysTray from '../../wim/ts/bar/items/systray.js';
+import Separator from '../../wim/ts/misc/separator.js';
+import NotifButton from '../../wim/ts/bar/items/notif-button.js';
 import Clock from './buttons/clock.js';
 
 const PADDING = 20;
@@ -19,7 +19,7 @@ export default () => Window({
         vertical: true,
         children: [
             CenterBox({
-                className: 'bar',
+                class_name: 'bar',
                 start_widget: Box({
                     hpack: 'start',
                     children: [
@@ -37,14 +37,14 @@ export default () => Window({
                     hpack: 'end',
                     children: [
                         NotifButton(),
-                        Separator(PADDING/2),
+                        Separator(PADDING / 2),
                         Clock(),
 
                         Separator(PADDING),
                     ],
                 }),
             }),
-            Separator(PADDING, {vertical: true}),
+            Separator(PADDING, { vertical: true }),
         ],
     }),
 });

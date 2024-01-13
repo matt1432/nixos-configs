@@ -1,7 +1,7 @@
 import { Label } from 'resource:///com/github/Aylur/ags/widget.js';
 
 
-export default () => Label({ className: 'clock' })
+export default () => Label({ class_name: 'clock' })
     .poll(1000, (self) => {
         const time = imports.gi.GLib
             .DateTime.new_now_local();
