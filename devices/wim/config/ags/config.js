@@ -5,7 +5,7 @@ import { execAsync, monitorFile } from 'resource:///com/github/Aylur/ags/utils.j
 const watchAndCompileSass = () => {
     const reloadCss = () => {
         const scss = `${App.configDir}/scss/main.scss`;
-        const css = `${App.configDir}/style.css`;
+        const css = '/tmp/ags/style.css';
 
         execAsync(`sassc ${scss} ${css}`).then(() => {
             App.resetCss();

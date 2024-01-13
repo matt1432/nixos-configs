@@ -3,6 +3,4 @@
 *node_modules/
 *types/
 *build/
-**/ags/style.css
-**/ags/flake.lock
 result*
