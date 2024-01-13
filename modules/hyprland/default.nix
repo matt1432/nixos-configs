@@ -217,8 +217,7 @@ in {
     home.packages = with pkgs; [
       # School
       virt-manager
-      bluej
-      camunda-modeler
+      jetbrains.idea-ultimate
       libreoffice-fresh # TODO: declarative conf?
       hunspell
       hunspellDicts.en_CA
