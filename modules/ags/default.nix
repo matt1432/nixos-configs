@@ -26,7 +26,6 @@ in {
         package = ags.packages.${pkgs.system}.default;
         extraPackages = with pkgs; [
           libgudev
-          webkitgtk
         ];
       };
 
@@ -35,6 +34,7 @@ in {
         ++ (with pkgs; [
           # ags
           sassc
+          bun
           playerctl
 
           ## gui
