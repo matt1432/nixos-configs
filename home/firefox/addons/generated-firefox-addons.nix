@@ -41,6 +41,28 @@
       platforms = platforms.all;
     };
   };
+  "floccus" = buildFirefoxXpiAddon {
+    pname = "floccus";
+    version = "5.0.8";
+    addonId = "floccus@handmadeideas.org";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4218289/floccus-5.0.8.xpi";
+    sha256 = "72c05ea95f1ec5ac3327d2060c9369e026117c17e90c7436cf124b833040e75e";
+    meta = with lib; {
+      homepage = "https://floccus.org";
+      description = "Sync your bookmarks across browsers via Nextcloud, WebDAV or Google Drive";
+      license = licenses.mpl20;
+      mozPermissions = [
+        "*://*/*"
+        "alarms"
+        "bookmarks"
+        "storage"
+        "unlimitedStorage"
+        "tabs"
+        "identity"
+      ];
+      platforms = platforms.all;
+    };
+  };
   "google-container" = buildFirefoxXpiAddon {
     pname = "google-container";
     version = "1.5.4";

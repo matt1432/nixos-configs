@@ -192,13 +192,13 @@ in {
         ++ (with rycee.firefox-addons; [
           bitwarden
           darkreader
-          floccus
           istilldontcareaboutcookies
           image-search-options
           return-youtube-dislikes
           undoclosetabbutton
         ])
         ++ (with firefox-addons; [
+          floccus
           sound-volume
           google-container
           checkmarks-web-ext
