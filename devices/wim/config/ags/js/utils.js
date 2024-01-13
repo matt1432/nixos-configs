@@ -10,7 +10,7 @@ export const watchAndCompileSass = () => {
         execAsync(`sassc ${scss} ${css}`).then(() => {
             App.resetCss();
             App.applyCss(css);
-        });
+        }).catch(reloadCss);
     };
 
     monitorFile(
