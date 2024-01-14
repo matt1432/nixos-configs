@@ -3,6 +3,7 @@
   config,
   lib,
   pkgs,
+  self,
   ...
 } @ inputs:
 with lib;
@@ -57,9 +58,11 @@ in {
       backend = "docker";
 
       projects = let
+        basePath = "${self}/devices/${config.vars.hostName}/modules/arion";
+
         composeFiles =
           filter (n: hasSuffix "compose.nix" (toString n))
-          (filesystem.listFilesRecursive ./.);
+          (filesystem.listFilesRecursive basePath);
 
         projects = filterAttrs (n: v: v.enabled or true) (listToAttrs (map (p: {
             name = elemAt (match ".*\/(.*)\/compose\.nix" (toString p)) 0;
@@ -70,7 +73,7 @@ in {
                 rwPath =
                   configPath
                   + "/"
-                  + elemAt (match "[^-]*-(.*)" "${dirOf p}") 0;
+                  + removePrefix basePath "${dirOf p}";
               });
           })
           composeFiles));

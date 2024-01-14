@@ -10,8 +10,8 @@
       restart = "always";
 
       volumes = [
-        "${rwPath}/data/be/config.txt:/app/config.txt:ro"
-        "${rwPath}/data/be/playlists:/app/playlists:rw"
+        "${rwPath}/be/config.txt:/app/config.txt:ro"
+        "${rwPath}/be/playlists:/app/playlists:rw"
       ];
     };
 
@@ -21,8 +21,8 @@
       restart = "always";
 
       volumes = [
-        "${rwPath}/data/br/config.txt:/app/config.txt:ro"
-        "${rwPath}/data/br/playlists:/app/playlists:rw"
+        "${rwPath}/br/config.txt:/app/config.txt:ro"
+        "${rwPath}/br/playlists:/app/playlists:rw"
       ];
     };
   };
