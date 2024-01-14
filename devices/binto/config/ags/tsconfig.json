@@ -5,6 +5,7 @@
     "lib": [
       "ES2022"
     ],
+    "allowImportingTsExtensions": true,
     "allowJs": true,
     "checkJs": true,
     "strict": true,

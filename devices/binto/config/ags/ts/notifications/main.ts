@@ -1,9 +1,11 @@
 import { Window } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import NotifCenterWidget from '../../wim/ts/notifications/center.ts';
-import PopUpsWidget from '../../wim/ts/notifications/popup.ts';
+import NotifCenterWidget from
+    '../../../../../wim/config/ags/ts/notifications/center.ts';
+import PopUpsWidget from
+    '../../../../../wim/config/ags/ts/notifications/popup.ts';
 
-import PopupWindow from '../../wim/ts/misc/popup.ts';
+import PopupWindow from '../../../../../wim/config/ags/ts/misc/popup.ts';
 
 
 export const NotifPopups = () => Window({

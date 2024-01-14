@@ -1,9 +1,9 @@
-import Pointers from '../wim/services/pointers.ts';
+import Pointers from '../../../../wim/config/ags/services/pointers.ts';
 
-import AppLauncher from '../wim/ts/applauncher/main.ts';
+import AppLauncher from '../../../../wim/config/ags/ts/applauncher/main.ts';
 import Bar from './bar/main.ts';
 import { NotifPopups, NotifCenter } from './notifications/main.ts';
-import Powermenu from '../wim/ts/powermenu.ts';
+import Powermenu from '../../../../wim/config/ags/ts/powermenu.ts';
 
 const closeWinDelay = 800;
 
