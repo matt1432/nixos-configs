@@ -3,13 +3,13 @@ import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 
 import { Box, Overlay, Window } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import { WorkspaceRow, getWorkspaces, updateWorkspaces } from './workspaces.js';
-import { Highlighter, updateCurrentWorkspace } from './current-workspace.js';
-import { updateClients } from './clients.js';
+import { WorkspaceRow, getWorkspaces, updateWorkspaces } from './workspaces.ts';
+import { Highlighter, updateCurrentWorkspace } from './current-workspace.ts';
+import { updateClients } from './clients.ts';
 
 // Types
-import AgsBox from 'types/widgets/box.js';
-import AgsOverlay from 'types/widgets/overlay.js';
+import AgsBox from 'types/widgets/box.ts';
+import AgsOverlay from 'types/widgets/overlay.ts';
 
 
 // TODO: have a 'page' for each monitor, arrows on both sides to loop through

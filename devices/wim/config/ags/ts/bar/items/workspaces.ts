@@ -3,15 +3,15 @@ import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 import { Box, Overlay, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import CursorBox from '../../misc/cursorbox.js';
+import CursorBox from '../../misc/cursorbox.ts';
 
 const URGENT_DURATION = 1000;
 
 // Types
-import AgsBox from 'types/widgets/box.js';
-import AgsRevealer from 'types/widgets/revealer.js';
-import AgsOverlay from 'types/widgets/overlay.js';
-import AgsEventBox from 'types/widgets/eventbox.js';
+import AgsBox from 'types/widgets/box.ts';
+import AgsRevealer from 'types/widgets/revealer.ts';
+import AgsOverlay from 'types/widgets/overlay.ts';
+import AgsEventBox from 'types/widgets/eventbox.ts';
 
 
 const Workspace = ({ id }: { id: number }) => {

@@ -2,11 +2,11 @@ import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 
 import { Label } from 'resource:///com/github/Aylur/ags/widget.js';
-import OSD from './ctor.js';
+import OSD from './ctor.ts';
 
-import Brightness from '../../services/brightness.js';
-import { SpeakerIcon } from '../misc/audio-icons.js';
-import { MicIcon } from '../misc/audio-icons.js';
+import Brightness from '../../services/brightness.ts';
+import { SpeakerIcon } from '../misc/audio-icons.ts';
+import { MicIcon } from '../misc/audio-icons.ts';
 
 const AUDIO_MAX = 1.5;
 
@@ -17,7 +17,7 @@ globalThis.showSpeaker = () => {
 };
 
 // Types
-import AgsStack from 'types/widgets/stack.js';
+import AgsStack from 'types/widgets/stack.ts';
 
 
 export const SpeakerOSD = (stack: AgsStack) => OSD({

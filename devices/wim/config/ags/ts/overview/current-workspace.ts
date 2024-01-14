@@ -1,7 +1,7 @@
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 
 import { Box } from 'resource:///com/github/Aylur/ags/widget.js';
-import * as VARS from './variables.js';
+import * as VARS from './variables.ts';
 
 const PADDING = 34;
 const MARGIN = 9;
@@ -12,10 +12,10 @@ const DEFAULT_STYLE = `
 `;
 
 // Types
-import AgsBox from 'types/widgets/box.js';
-import AgsRevealer from 'types/widgets/revealer.js';
-import AgsCenterBox from 'types/widgets/centerbox.js';
-import AgsEventBox from 'types/widgets/eventbox.js';
+import AgsBox from 'types/widgets/box.ts';
+import AgsRevealer from 'types/widgets/revealer.ts';
+import AgsCenterBox from 'types/widgets/centerbox.ts';
+import AgsEventBox from 'types/widgets/eventbox.ts';
 
 
 export const Highlighter = () => Box({

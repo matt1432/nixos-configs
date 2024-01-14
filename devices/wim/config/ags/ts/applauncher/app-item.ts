@@ -3,10 +3,10 @@ import App from 'resource:///com/github/Aylur/ags/app.js';
 import { Box, Icon, Label } from 'resource:///com/github/Aylur/ags/widget.js';
 import { lookUpIcon } from 'resource:///com/github/Aylur/ags/utils.js';
 
-import CursorBox from '../misc/cursorbox.js';
+import CursorBox from '../misc/cursorbox.ts';
 
 // Types
-import { Application } from 'types/service/applications.js';
+import { Application } from 'types/service/applications.ts';
 
 
 export default (app: Application) => {

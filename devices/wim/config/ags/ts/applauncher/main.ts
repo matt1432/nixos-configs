@@ -6,11 +6,11 @@ import { Fzf } from 'file:///home/matt/.config/ags/node_modules/fzf/dist/fzf.es.
 
 import { Box, Entry, Icon, Label, ListBox, Revealer, Scrollable } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import PopupWindow from '../misc/popup.js';
-import AppItem from './app-item.js';
+import PopupWindow from '../misc/popup.ts';
+import AppItem from './app-item.ts';
 
 // Types
-import { Application } from 'types/service/applications.js';
+import { Application } from 'types/service/applications.ts';
 type ListBoxRow = typeof imports.gi.Gtk.ListBoxRow;
 
 

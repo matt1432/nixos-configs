@@ -89,7 +89,7 @@ export default ({
             App.getWindow(name)?.child.show_all();
         },
 
-        // This is for my custom pointers.js
+        // This is for my custom pointers.ts
         close_on_unfocus,
     };
 

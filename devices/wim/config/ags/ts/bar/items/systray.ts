@@ -3,14 +3,14 @@ import SystemTray from 'resource:///com/github/Aylur/ags/service/systemtray.js';
 import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 import { Box, Icon, MenuItem, MenuBar, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import Separator from '../../misc/separator.js';
+import Separator from '../../misc/separator.ts';
 
 const REVEAL_DURATION = 500;
 const SPACING = 12;
 
 // Types
-import { TrayItem } from 'types/service/systemtray.js';
-import AgsRevealer from 'types/widgets/revealer.js';
+import { TrayItem } from 'types/service/systemtray.ts';
+import AgsRevealer from 'types/widgets/revealer.ts';
 type Menu = typeof imports.gi.Gtk.Menu;
 
 

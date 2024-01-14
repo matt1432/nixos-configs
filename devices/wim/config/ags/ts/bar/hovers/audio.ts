@@ -2,8 +2,8 @@ import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
 
 import { Label, Icon } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import { SpeakerIcon } from '../../misc/audio-icons.js';
-import HoverRevealer from './hover-revealer.js';
+import { SpeakerIcon } from '../../misc/audio-icons.ts';
+import HoverRevealer from './hover-revealer.ts';
 
 
 export default () => HoverRevealer({

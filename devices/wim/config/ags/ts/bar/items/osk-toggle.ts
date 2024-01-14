@@ -1,7 +1,7 @@
 import { Label } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import Tablet from '../../../services/tablet.js';
-import CursorBox from '../../misc/cursorbox.js';
+import Tablet from '../../../services/tablet.ts';
+import CursorBox from '../../misc/cursorbox.ts';
 
 
 export default () => CursorBox({

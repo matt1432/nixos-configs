@@ -5,12 +5,12 @@ import { interval } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import GLib from 'gi://GLib';
 
-import { Notification } from './base.js';
+import { Notification } from './base.ts';
 
 const DELAY = 2000;
 
 // Types
-import AgsBox from 'types/widgets/box.js';
+import AgsBox from 'types/widgets/box.ts';
 
 
 export default () => Box({

@@ -3,8 +3,8 @@ import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 import { CenterBox, Label } from 'resource:///com/github/Aylur/ags/widget.js';
 import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
-import PopupWindow from './misc/popup.js';
-import CursorBox from './misc/cursorbox.js';
+import PopupWindow from './misc/popup.ts';
+import CursorBox from './misc/cursorbox.ts';
 
 
 const PowermenuWidget = () => CenterBox({

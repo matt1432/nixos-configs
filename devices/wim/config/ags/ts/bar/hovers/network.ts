@@ -2,7 +2,7 @@ import Network from 'resource:///com/github/Aylur/ags/service/network.js';
 
 import { Label, Icon } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import HoverRevealer from './hover-revealer.js';
+import HoverRevealer from './hover-revealer.ts';
 
 
 export default () => HoverRevealer({

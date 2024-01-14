@@ -3,11 +3,11 @@ import { Box, CenterBox, Label, ToggleButton } from 'resource:///com/github/Aylu
 const { Gdk } = imports.gi;
 const display = Gdk.Display.get_default();
 
-import Separator from '../misc/separator.js';
-import RoundedCorner from '../corners/screen-corners.js';
-import Key from './keys.js';
+import Separator from '../misc/separator.ts';
+import RoundedCorner from '../corners/screen-corners.ts';
+import Key from './keys.ts';
 
-import { defaultOskLayout, oskLayouts } from './keyboard-layouts.js';
+import { defaultOskLayout, oskLayouts } from './keyboard-layouts.ts';
 const keyboardLayout = defaultOskLayout;
 const keyboardJson = oskLayouts[keyboardLayout];
 
@@ -16,8 +16,8 @@ const COLOR = 'rgba(0, 0, 0, 0.3)';
 const SPACING = 4;
 
 // Types
-import AgsWindow from 'types/widgets/window.js';
-import AgsBox from 'types/widgets/box.js';
+import AgsWindow from 'types/widgets/window.ts';
+import AgsBox from 'types/widgets/box.ts';
 
 
 export default (window: AgsWindow) => Box({

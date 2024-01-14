@@ -1,10 +1,10 @@
 import { Box, Label, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import ButtonGrid from './button-grid.js';
-import SliderBox from './slider-box.js';
-import Player from '../media-player/player.js';
-import PopupWindow from '../misc/popup.js';
-import ToggleButton from './toggle-button.js';
+import ButtonGrid from './button-grid.ts';
+import SliderBox from './slider-box.ts';
+import Player from '../media-player/player.ts';
+import PopupWindow from '../misc/popup.ts';
+import ToggleButton from './toggle-button.ts';
 
 
 const QuickSettingsWidget = () => {

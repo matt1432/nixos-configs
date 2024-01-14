@@ -1,6 +1,6 @@
 import { Window } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import RoundedCorner from './screen-corners.js';
+import RoundedCorner from './screen-corners.ts';
 
 
 const TopLeft = () => Window({

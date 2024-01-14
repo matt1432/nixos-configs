@@ -3,8 +3,8 @@ import Mpris from 'resource:///com/github/Aylur/ags/service/mpris.js';
 import { Button, Icon, Label, Stack, Slider, CenterBox, Box } from 'resource:///com/github/Aylur/ags/widget.js';
 import { execAsync, lookUpIcon, readFileAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
-import Separator from '../misc/separator.js';
-import CursorBox from '../misc/cursorbox.js';
+import Separator from '../misc/separator.ts';
+import CursorBox from '../misc/cursorbox.ts';
 
 const ICON_SIZE = 32;
 
@@ -29,13 +29,13 @@ const icons = {
 };
 
 // Types
-import { MprisPlayer } from 'types/service/mpris.js';
+import { MprisPlayer } from 'types/service/mpris.ts';
 import { Variable as Var } from 'types/variable';
-import AgsOverlay from 'types/widgets/overlay.js';
-import AgsCenterBox, { CenterBoxProps } from 'types/widgets/centerbox.js';
-import AgsLabel from 'types/widgets/label.js';
-import AgsIcon from 'types/widgets/icon.js';
-import AgsStack from 'types/widgets/stack.js';
+import AgsOverlay from 'types/widgets/overlay.ts';
+import AgsCenterBox, { CenterBoxProps } from 'types/widgets/centerbox.ts';
+import AgsLabel from 'types/widgets/label.ts';
+import AgsIcon from 'types/widgets/icon.ts';
+import AgsStack from 'types/widgets/stack.ts';
 
 
 export const CoverArt = (

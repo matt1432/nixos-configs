@@ -3,14 +3,14 @@ import App from 'resource:///com/github/Aylur/ags/app.js';
 import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 import { Stack } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import PopupWindow from '../misc/popup.js';
-import AgsBox from 'types/widgets/box.js';
-import AgsStack from 'types/widgets/stack.js';
+import PopupWindow from '../misc/popup.ts';
+import AgsBox from 'types/widgets/box.ts';
+import AgsStack from 'types/widgets/stack.ts';
 
 // Import all the OSDs as an array
 const OSDList = [] as Array<(stack: AgsStack) => AgsBox>;
 
-import * as Modules from './osds.js';
+import * as Modules from './osds.ts';
 for (const osd in Modules) {
     OSDList.push(Modules[osd]);
 } // Array

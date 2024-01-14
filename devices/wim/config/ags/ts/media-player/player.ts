@@ -3,18 +3,18 @@ import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 
 import { Box, CenterBox } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import * as mpris from './mpris.js';
-import PlayerGesture from './gesture.js';
-import Separator from '../misc/separator.js';
+import * as mpris from './mpris.ts';
+import PlayerGesture from './gesture.ts';
+import Separator from '../misc/separator.ts';
 
 const FAVE_PLAYER = 'org.mpris.MediaPlayer2.spotify';
 const SPACING = 8;
 
 // Types
-import { MprisPlayer } from 'types/service/mpris.js';
-import AgsOverlay from 'types/widgets/overlay.js';
+import { MprisPlayer } from 'types/service/mpris.ts';
+import AgsOverlay from 'types/widgets/overlay.ts';
 import { Variable as Var } from 'types/variable';
-import AgsBox from 'types/widgets/box.js';
+import AgsBox from 'types/widgets/box.ts';
 
 
 const Top = (

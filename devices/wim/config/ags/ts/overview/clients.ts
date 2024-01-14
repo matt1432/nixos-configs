@@ -4,15 +4,15 @@ import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 import { Icon, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
 import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 
-import { WindowButton } from './dragndrop.js';
-import * as VARS from './variables.js';
+import { WindowButton } from './dragndrop.ts';
+import * as VARS from './variables.ts';
 
 // Types
-import { Client as HyprClient } from 'types/service/hyprland.js';
-import AgsRevealer from 'types/widgets/revealer.js';
-import AgsBox from 'types/widgets/box.js';
-import AgsButton from 'types/widgets/button.js';
-import AgsIcon from 'types/widgets/icon.js';
+import { Client as HyprClient } from 'types/service/hyprland.ts';
+import AgsRevealer from 'types/widgets/revealer.ts';
+import AgsBox from 'types/widgets/box.ts';
+import AgsButton from 'types/widgets/button.ts';
+import AgsIcon from 'types/widgets/icon.ts';
 
 const scale = (size: number) => (size * VARS.SCALE) - VARS.MARGIN;
 

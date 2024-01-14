@@ -5,17 +5,17 @@ import { Button, EventBox } from 'resource:///com/github/Aylur/ags/widget.js';
 import Cairo from 'cairo';
 const { Gtk, Gdk } = imports.gi;
 
-import { updateClients } from './clients.js';
+import { updateClients } from './clients.ts';
 
 const TARGET = [Gtk.TargetEntry.new('text/plain', Gtk.TargetFlags.SAME_APP, 0)];
 const display = Gdk.Display.get_default();
 
 // Types
-import AgsBox from 'types/widgets/box.js';
-import AgsButton from 'types/widgets/button.js';
-import AgsRevealer from 'types/widgets/revealer.js';
-import { ButtonProps } from 'types/widgets/button.js';
-import { EventBoxProps } from 'types/widgets/eventbox.js';
+import AgsBox from 'types/widgets/box.ts';
+import AgsButton from 'types/widgets/button.ts';
+import AgsRevealer from 'types/widgets/revealer.ts';
+import { ButtonProps } from 'types/widgets/button.ts';
+import { EventBoxProps } from 'types/widgets/eventbox.ts';
 type WindowButtonType = ButtonProps & {
     address: string
     mainBox: AgsBox

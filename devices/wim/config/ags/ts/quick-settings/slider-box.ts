@@ -5,8 +5,8 @@ import { Box, Slider, Icon } from 'resource:///com/github/Aylur/ags/widget.js';
 const { Gdk } = imports.gi;
 const display = Gdk.Display.get_default();
 
-import Brightness from '../../services/brightness.js';
-import { SpeakerIcon } from '../misc/audio-icons.js';
+import Brightness from '../../services/brightness.ts';
+import { SpeakerIcon } from '../misc/audio-icons.ts';
 
 
 export default () => Box({

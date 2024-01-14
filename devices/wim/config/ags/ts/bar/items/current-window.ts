@@ -2,7 +2,7 @@ import Applications from 'resource:///com/github/Aylur/ags/service/applications.
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 
 import { Box, Icon, Label } from 'resource:///com/github/Aylur/ags/widget.js';
-import Separator from '../../misc/separator.js';
+import Separator from '../../misc/separator.ts';
 
 const SPACING = 8;
 

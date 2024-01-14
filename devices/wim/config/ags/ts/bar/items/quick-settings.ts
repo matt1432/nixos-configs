@@ -2,21 +2,21 @@ import App from 'resource:///com/github/Aylur/ags/app.js';
 
 import { Box, Label } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import Audio from '../hovers/audio.js';
-import Bluetooth from '../hovers/bluetooth.js';
-import Brightness from '../hovers/brightness.js';
-import KeyboardLayout from '../hovers/keyboard-layout.js';
-import Network from '../hovers/network.js';
+import Audio from '../hovers/audio.ts';
+import Bluetooth from '../hovers/bluetooth.ts';
+import Brightness from '../hovers/brightness.ts';
+import KeyboardLayout from '../hovers/keyboard-layout.ts';
+import Network from '../hovers/network.ts';
 
-import CursorBox from '../../misc/cursorbox.js';
-import Separator from '../../misc/separator.js';
+import CursorBox from '../../misc/cursorbox.ts';
+import Separator from '../../misc/separator.ts';
 
 const SPACING = 4;
 
 // Types
-import AgsRevealer from 'types/widgets/revealer.js';
-import AgsBox from 'types/widgets/box.js';
-import AgsWindow from 'types/widgets/window.js';
+import AgsRevealer from 'types/widgets/revealer.ts';
+import AgsBox from 'types/widgets/box.ts';
+import AgsWindow from 'types/widgets/window.ts';
 
 
 export default () => {

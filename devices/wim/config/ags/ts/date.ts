@@ -2,7 +2,7 @@ import { Box, Calendar, Label } from 'resource:///com/github/Aylur/ags/widget.js
 
 const { DateTime } = imports.gi.GLib;
 
-import PopupWindow from './misc/popup.js';
+import PopupWindow from './misc/popup.ts';
 
 
 const Divider = () => Box({

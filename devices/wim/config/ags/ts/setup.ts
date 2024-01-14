@@ -2,13 +2,13 @@ import App from 'resource:///com/github/Aylur/ags/app.js';
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 import Bluetooth from 'resource:///com/github/Aylur/ags/service/bluetooth.js';
 
-import Brightness from '../services/brightness.js';
-import Pointers from '../services/pointers.js';
-import Tablet from '../services/tablet.js';
-import TouchGestures from '../services/touch-gestures.js';
+import Brightness from '../services/brightness.ts';
+import Pointers from '../services/pointers.ts';
+import Tablet from '../services/tablet.ts';
+import TouchGestures from '../services/touch-gestures.ts';
 
-import closeAll from './misc/closer.js';
-import Persist from './misc/persist.js';
+import closeAll from './misc/closer.ts';
+import Persist from './misc/persist.ts';
 
 
 export default () => {

@@ -2,8 +2,8 @@ import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 
 import { Revealer, CenterBox, Box, EventBox, Fixed, Label } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import { WorkspaceDrop } from './dragndrop.js';
-import * as VARS from './variables.js';
+import { WorkspaceDrop } from './dragndrop.ts';
+import * as VARS from './variables.ts';
 
 const DEFAULT_STYLE = `
     min-width:  ${VARS.SCREEN.X * VARS.SCALE}px;
@@ -11,10 +11,10 @@ const DEFAULT_STYLE = `
 `;
 
 // Types
-import AgsBox from 'types/widgets/box.js';
-import AgsRevealer from 'types/widgets/revealer.js';
-import AgsCenterBox from 'types/widgets/centerbox.js';
-import AgsEventBox from 'types/widgets/eventbox.js';
+import AgsBox from 'types/widgets/box.ts';
+import AgsRevealer from 'types/widgets/revealer.ts';
+import AgsCenterBox from 'types/widgets/centerbox.ts';
+import AgsEventBox from 'types/widgets/eventbox.ts';
 
 
 export const getWorkspaces = (box: AgsBox) => {

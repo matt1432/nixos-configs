@@ -2,11 +2,11 @@ import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 
 import { Icon, Label } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import HoverRevealer from './hover-revealer.js';
+import HoverRevealer from './hover-revealer.ts';
 
 const DEFAULT_KB = 'at-translated-set-2-keyboard';
 
-import AgsLabel from 'types/widgets/label.js';
+import AgsLabel from 'types/widgets/label.ts';
 type Keyboard = {
     address: string;
     name: string;

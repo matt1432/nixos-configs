@@ -2,7 +2,7 @@ import App from 'resource:///com/github/Aylur/ags/app.js';
 import { execAsync, monitorFile } from 'resource:///com/github/Aylur/ags/utils.js';
 
 
-export const watchAndCompileSass = () => {
+const watchAndCompileSass = () => {
     const reloadCss = () => {
         const scss = `${App.configDir}/scss/main.scss`;
         const css = '/tmp/ags/style.css';
@@ -10,7 +10,7 @@ export const watchAndCompileSass = () => {
         execAsync(`sassc ${scss} ${css}`).then(() => {
             App.resetCss();
             App.applyCss(css);
-        }).catch(reloadCss);
+        }).catch(print);
     };
 
     monitorFile(
@@ -21,36 +21,19 @@ export const watchAndCompileSass = () => {
     reloadCss();
 };
 
-export const transpileTypeScript = async(
-    src = App.configDir,
-    out = '/tmp/ags',
-) => {
-    const promises = [];
-    const files = (await execAsync([
-        'find', `${src}/`,
-        '-wholename', `${src}/services/*.ts`,
-        '-o',
-        '-wholename', `${src}/ts/*.ts`,
-    ])).split('\n');
+export const transpileTypeScript = async() => {
+    await execAsync([
+        'bun', 'build', `${App.configDir}/ts/main.ts`,
+        '--outdir', '/tmp/ags',
+        '--external', 'resource:///*',
+        '--external', 'gi://*',
+        '--external', 'cairo',
+        '--external', '*/fzf.es.js',
+    ]).catch(print);
 
-    /** @param {string} p */
-    const getDirectoryPath = (p) => p.substring(0, p.lastIndexOf('/'));
+    watchAndCompileSass();
 
-    files.forEach((file) => {
-        const outDir = getDirectoryPath(out + file
-            .replace(`${src}/ts`, '/ts')
-            .replace(`${src}/services`, '/services'));
-
-        promises.push(
-            execAsync([
-                'bun', 'build', file,
-                '--outdir', outDir,
-                '--external', '*',
-            ]).catch(print),
-        );
-    });
-
-    await Promise.all(promises);
-
-    return `file://${out}/ts/main.js`;
+    // The file is going to be there after transpilation
+    // @ts-ignore
+    return await import('file:///tmp/ags/main.js');
 };

@@ -2,8 +2,8 @@ import { Label } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 
-import CursorBox from '../../misc/cursorbox.js';
-import Persist from '../../misc/persist.js';
+import CursorBox from '../../misc/cursorbox.ts';
+import Persist from '../../misc/persist.ts';
 
 const HeartState = Variable('');
 

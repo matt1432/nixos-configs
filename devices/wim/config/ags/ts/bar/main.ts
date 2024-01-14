@@ -1,19 +1,19 @@
 import { Window, CenterBox, Box } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import Separator from '../misc/separator.js';
+import Separator from '../misc/separator.ts';
 
-import Battery from './items/battery.js';
-import Clock from './items/clock.js';
-import CurrentWindow from './items/current-window.js';
-import Heart from './items/heart.js';
-import NotifButton from './items/notif-button.js';
-import OskToggle from './items/osk-toggle.js';
-import QsToggle from './items/quick-settings.js';
-import SysTray from './items/systray.js';
-import TabletToggle from './items/tablet-toggle.js';
-import Workspaces from './items/workspaces.js';
+import Battery from './items/battery.ts';
+import Clock from './items/clock.ts';
+import CurrentWindow from './items/current-window.ts';
+import Heart from './items/heart.ts';
+import NotifButton from './items/notif-button.ts';
+import OskToggle from './items/osk-toggle.ts';
+import QsToggle from './items/quick-settings.ts';
+import SysTray from './items/systray.ts';
+import TabletToggle from './items/tablet-toggle.ts';
+import Workspaces from './items/workspaces.ts';
 
-import BarReveal from './fullscreen.js';
+import BarReveal from './fullscreen.ts';
 
 const SPACING = 12;
 

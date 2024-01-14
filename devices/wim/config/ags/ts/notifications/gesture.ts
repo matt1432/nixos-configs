@@ -3,13 +3,13 @@ import Notifications from 'resource:///com/github/Aylur/ags/service/notification
 import { Box, EventBox } from 'resource:///com/github/Aylur/ags/widget.js';
 import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 
-import { HasNotifs } from './base.js';
+import { HasNotifs } from './base.ts';
 
 const { Gdk, Gtk } = imports.gi;
 const display = Gdk.Display.get_default();
 
 // Types
-import AgsBox from 'types/widgets/box.js';
+import AgsBox from 'types/widgets/box.ts';
 
 const MAX_OFFSET = 200;
 const OFFSCREEN = 300;

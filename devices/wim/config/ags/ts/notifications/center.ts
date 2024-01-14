@@ -4,11 +4,11 @@ import Notifications from 'resource:///com/github/Aylur/ags/service/notification
 import { Label, Box, Icon, Scrollable, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
 import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 
-import { Notification, HasNotifs } from './base.js';
-import CursorBox from '../misc/cursorbox.js';
+import { Notification, HasNotifs } from './base.ts';
+import CursorBox from '../misc/cursorbox.ts';
 
 // Types
-import AgsBox from 'types/widgets/box.js';
+import AgsBox from 'types/widgets/box.ts';
 import { Notification as NotifObj } from 'resource:///com/github/Aylur/ags/service/notifications.js';
 
 

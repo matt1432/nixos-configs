@@ -1,7 +1,7 @@
 import { Icon, Label } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import Brightness from '../../../services/brightness.js';
-import HoverRevealer from './hover-revealer.js';
+import Brightness from '../../../services/brightness.ts';
+import HoverRevealer from './hover-revealer.ts';
 
 
 export default () => HoverRevealer({

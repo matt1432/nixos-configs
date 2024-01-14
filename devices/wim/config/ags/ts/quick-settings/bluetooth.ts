@@ -3,16 +3,16 @@ import Bluetooth from 'resource:///com/github/Aylur/ags/service/bluetooth.js';
 
 import { Box, Icon, Label, ListBox, Overlay, Revealer, Scrollable } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import CursorBox from '../misc/cursorbox.js';
+import CursorBox from '../misc/cursorbox.ts';
 
 const SCROLL_THRESH_H = 200;
 const SCROLL_THRESH_N = 7;
 
 // Types
-import AgsBox from 'types/widgets/box.js';
-import AgsScrollable from 'types/widgets/scrollable.js';
+import AgsBox from 'types/widgets/box.ts';
+import AgsScrollable from 'types/widgets/scrollable.ts';
 type ListBoxRow = typeof imports.gi.Gtk.ListBoxRow;
-import { BluetoothDevice as BTDev } from 'types/service/bluetooth.js';
+import { BluetoothDevice as BTDev } from 'types/service/bluetooth.ts';
 
 
 const BluetoothDevice = (dev: BTDev) => Box({

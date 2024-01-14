@@ -4,15 +4,15 @@ import { execAsync, timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 
 const { Gtk } = imports.gi;
 
-import Tablet from '../../services/tablet.js';
+import Tablet from '../../services/tablet.ts';
 
 const KEY_N = 249;
 const HIDDEN_MARGIN = 340;
 const ANIM_DURATION = 700;
 
 // Types
-import AgsWindow from 'types/widgets/window.js';
-import AgsBox from 'types/widgets/box.js';
+import AgsWindow from 'types/widgets/window.ts';
+import AgsBox from 'types/widgets/box.ts';
 
 
 const releaseAllKeys = () => {

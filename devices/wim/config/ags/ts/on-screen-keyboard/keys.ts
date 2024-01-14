@@ -1,5 +1,5 @@
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
-import Brightness from '../../services/brightness.js';
+import Brightness from '../../services/brightness.ts';
 
 import { Box, EventBox, Label } from 'resource:///com/github/Aylur/ags/widget.js';
 import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
@@ -7,7 +7,7 @@ import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 const { Gdk, Gtk } = imports.gi;
 const display = Gdk.Display.get_default();
 
-import Separator from '../misc/separator.js';
+import Separator from '../misc/separator.ts';
 
 // Keep track of when a non modifier key
 // is clicked to release all modifiers
@@ -45,7 +45,7 @@ const LALT_CODE = 56;
 const LCTRL_CODE = 29;
 
 // Types
-import { Variable as Var } from 'types/variable.js';
+import { Variable as Var } from 'types/variable.ts';
 type Key = {
     keytype: 'normal',
     label: string,

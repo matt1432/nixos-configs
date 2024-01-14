@@ -8,13 +8,13 @@ import { lookUpIcon } from 'resource:///com/github/Aylur/ags/utils.js';
 
 const { GLib } = imports.gi;
 
-import Gesture from './gesture.js';
-import CursorBox from '../misc/cursorbox.js';
+import Gesture from './gesture.ts';
+import CursorBox from '../misc/cursorbox.ts';
 
 // Types
-import { Notification as NotifObj } from 'types/service/notifications.js';
-import AgsEventBox from 'types/widgets/eventbox.js';
-import { Client } from 'types/service/hyprland.js';
+import { Notification as NotifObj } from 'types/service/notifications.ts';
+import AgsEventBox from 'types/widgets/eventbox.ts';
+import { Client } from 'types/service/hyprland.ts';
 type NotificationWidget = {
     notif: NotifObj
     slideIn?: 'Left' | 'Right'

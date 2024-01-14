@@ -5,14 +5,14 @@ import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import { Box, Icon, Label, ListBox, Overlay, Revealer, Scrollable } from 'resource:///com/github/Aylur/ags/widget.js';
 import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
-import CursorBox from '../misc/cursorbox.js';
+import CursorBox from '../misc/cursorbox.ts';
 
 const SCROLL_THRESH_H = 200;
 const SCROLL_THRESH_N = 7;
 
 // Types
-import AgsBox from 'types/widgets/box.js';
-import AgsScrollable from 'types/widgets/scrollable.js';
+import AgsBox from 'types/widgets/box.ts';
+import AgsScrollable from 'types/widgets/scrollable.ts';
 type ListBoxRow = typeof imports.gi.Gtk.ListBoxRow;
 type APType = {
     bssid: string

@@ -6,20 +6,20 @@ import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import { Box, Icon, Label, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
 import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
-import { SpeakerIcon, MicIcon } from '../misc/audio-icons.js';
-import CursorBox from '../misc/cursorbox.js';
-import Separator from '../misc/separator.js';
+import { SpeakerIcon, MicIcon } from '../misc/audio-icons.ts';
+import CursorBox from '../misc/cursorbox.ts';
+import Separator from '../misc/separator.ts';
 
-import { NetworkMenu } from './network.js';
-import { BluetoothMenu } from './bluetooth.js';
+import { NetworkMenu } from './network.ts';
+import { BluetoothMenu } from './bluetooth.ts';
 
 // Types
 import { GObject } from 'gi://GObject';
-import AgsBox from 'types/widgets/box.js';
-import AgsIcon from 'types/widgets/icon.js';
-import AgsLabel from 'types/widgets/label.js';
-import AgsRevealer from 'types/widgets/revealer.js';
-import { Variable as Var } from 'types/variable.js';
+import AgsBox from 'types/widgets/box.ts';
+import AgsIcon from 'types/widgets/icon.ts';
+import AgsLabel from 'types/widgets/label.ts';
+import AgsRevealer from 'types/widgets/revealer.ts';
+import { Variable as Var } from 'types/variable.ts';
 type IconTuple = [
     GObject.Object,
     (self: AgsIcon) => void,

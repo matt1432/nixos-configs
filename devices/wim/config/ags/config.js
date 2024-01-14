@@ -1,4 +1,4 @@
-import { watchAndCompileSass, transpileTypeScript } from './js/utils.js';
+import { transpileTypeScript } from './js/utils.js';
 
-watchAndCompileSass();
-export default (await import(await transpileTypeScript())).default;
+// See ./ts/main.ts for actual code
+export default (await transpileTypeScript()).default;

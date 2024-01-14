@@ -3,13 +3,13 @@ import Notifications from 'resource:///com/github/Aylur/ags/service/notification
 
 import { Box, CenterBox, Icon, Label } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import CursorBox from '../../misc/cursorbox.js';
-import Separator from '../../misc/separator.js';
+import CursorBox from '../../misc/cursorbox.ts';
+import Separator from '../../misc/separator.ts';
 
 const SPACING = 4;
 
 // Types
-import AgsWindow from 'types/widgets/window.js';
+import AgsWindow from 'types/widgets/window.ts';
 
 
 export default () => CursorBox({

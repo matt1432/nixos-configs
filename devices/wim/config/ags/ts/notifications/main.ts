@@ -1,8 +1,8 @@
 import { Window } from 'resource:///com/github/Aylur/ags/widget.js';
-import NotifCenterWidget from './center.js';
-import PopUpsWidget from './popup.js';
+import NotifCenterWidget from './center.ts';
+import PopUpsWidget from './popup.ts';
 
-import PopupWindow from '../misc/popup.js';
+import PopupWindow from '../misc/popup.ts';
 
 export const NotifPopups = () => Window({
     name: 'notifications',

@@ -1,9 +1,9 @@
 import { Window } from 'resource:///com/github/Aylur/ags/widget.js';
 import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
-import Tablet from '../../services/tablet.js';
-import Gesture from './gesture.js';
-import Keyboard from './keyboard.js';
+import Tablet from '../../services/tablet.ts';
+import Gesture from './gesture.ts';
+import Keyboard from './keyboard.ts';
 
 
 // Start ydotool daemon

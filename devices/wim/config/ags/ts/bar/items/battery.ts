@@ -2,7 +2,7 @@ import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
 
 import { Label, Icon, Box } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import Separator from '../../misc/separator.js';
+import Separator from '../../misc/separator.ts';
 
 const LOW_BATT = 20;
 const SPACING = 5;

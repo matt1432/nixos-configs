@@ -1,7 +1,7 @@
 import { Box, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import Separator from '../../misc/separator.js';
-import CursorBox from '../../misc/cursorbox.js';
+import Separator from '../../misc/separator.ts';
+import CursorBox from '../../misc/cursorbox.ts';
 
 
 export default ({

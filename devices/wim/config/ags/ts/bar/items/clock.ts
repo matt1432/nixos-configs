@@ -4,7 +4,7 @@ import { Label } from 'resource:///com/github/Aylur/ags/widget.js';
 
 const { DateTime } = imports.gi.GLib;
 
-import CursorBox from '../../misc/cursorbox.js';
+import CursorBox from '../../misc/cursorbox.ts';
 
 
 export default () => CursorBox({
