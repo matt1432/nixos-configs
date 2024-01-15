@@ -291,7 +291,7 @@
       type = "gitlab";
       host = "gitlab.freedesktop.org";
       # Wait for https://gitlab.freedesktop.org/plymouth/plymouth/-/commit/38964e5eafdfc7d8eccf29aa65056f303cad0b25
-      # to reach nixpkgs
+      # to reach https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/os-specific/linux/plymouth/default.nix
       owner = "plymouth";
       repo = "plymouth";
       flake = false;
