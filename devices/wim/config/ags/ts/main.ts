@@ -30,8 +30,6 @@ export default {
         'quick-settings': closeWinDelay,
     },
     windows: [
-        // Put the corners first so they
-        // don't block the cursor on the bar
         ...Corners(),
 
         AppLauncher(),

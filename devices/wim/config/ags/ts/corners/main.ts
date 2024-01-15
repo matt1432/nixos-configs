@@ -9,6 +9,7 @@ const TopLeft = () => Window({
     exclusivity: 'ignore',
     anchor: ['top', 'left'],
     visible: true,
+    click_through: true,
     child: RoundedCorner('topleft'),
 });
 
@@ -18,6 +19,7 @@ const TopRight = () => Window({
     exclusivity: 'ignore',
     anchor: ['top', 'right'],
     visible: true,
+    click_through: true,
     child: RoundedCorner('topright'),
 });
 
@@ -27,6 +29,7 @@ const BottomLeft = () => Window({
     exclusivity: 'ignore',
     anchor: ['bottom', 'left'],
     visible: true,
+    click_through: true,
     child: RoundedCorner('bottomleft'),
 });
 
@@ -36,6 +39,7 @@ const BottomRight = () => Window({
     exclusivity: 'ignore',
     anchor: ['bottom', 'right'],
     visible: true,
+    click_through: true,
     child: RoundedCorner('bottomright'),
 });
 

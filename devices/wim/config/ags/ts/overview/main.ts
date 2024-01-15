@@ -58,7 +58,7 @@ export const Overview = () => {
                     return;
                 }
 
-                self?.attribute.update();
+                self.attribute.update();
             });
         },
     });
@@ -128,17 +128,20 @@ export default () => {
                     if (isOpen) {
                         self.child = Overview();
                         self.show_all();
+
                         (self.child as AgsOverlay)
                             .attribute.get_child().attribute.update();
                     }
                     else {
                         (self.child as AgsOverlay).attribute.closing = true;
-                        ((self.child as AgsOverlay).child as AgsBox).css = `
-                            min-height: 1px;
-                            min-width: 1px;
-                            transition: all
-                                ${transition_duration - 10}ms ease;
-                        `;
+
+                        ((self.child as AgsOverlay)
+                            .child as AgsBox).css = `
+                                min-height: 1px;
+                                min-width: 1px;
+                                transition: all
+                                    ${transition_duration - 10}ms ease;
+                            `;
                     }
                 }
             });
