@@ -1,5 +1,5 @@
 [General]
-TerminalApplication=alacritty
+TerminalApplication=foot
 
 [KFileDialog Settings]
 Allow Expansion=false

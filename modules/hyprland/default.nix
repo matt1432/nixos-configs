@@ -42,7 +42,7 @@ in {
   # HOME-MANAGER CONFIG
   home-manager.users.${mainUser} = {
     imports = [
-      ../../home/alacritty.nix
+      ../../home/foot.nix
       ../../home/dconf.nix
       ../../home/mpv
       ../../home/obs.nix
@@ -142,7 +142,7 @@ in {
         bind = [
           # Defaults
           "$mainMod, L, exec, lock"
-          "$mainMod, Q, exec, alacritty"
+          "$mainMod, Q, exec, foot"
           "$mainMod, F, fullscreen"
           "$mainMod, C, killactive, "
           "$mainMod SHIFT, SPACE, togglefloating, "
