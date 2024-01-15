@@ -39,7 +39,7 @@ export const updateCurrentWorkspace = (main: AgsBox, highlighter: AgsBox) => {
     const currentIndex = workspaces.findIndex(
         (w) => w.attribute.id === currentId,
     );
-    const left = currentIndex * ((VARS.SCREEN.X * VARS.SCALE) + PADDING);
+    const left = currentIndex * ((VARS.SCREEN.X * VARS.SCALE) + 2 + PADDING);
     const height = row * ((VARS.SCREEN.Y * VARS.SCALE) + (PADDING / 2));
 
     highlighter.setCss(`

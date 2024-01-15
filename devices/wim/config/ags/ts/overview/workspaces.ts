@@ -5,8 +5,9 @@ import { Revealer, CenterBox, Box, EventBox, Fixed, Label } from 'resource:///co
 import { WorkspaceDrop } from './dragndrop.ts';
 import * as VARS from './variables.ts';
 
+const EMPTY_OFFSET = 16;
 const DEFAULT_STYLE = `
-    min-width:  ${VARS.SCREEN.X * VARS.SCALE}px;
+    min-width:  ${(VARS.SCREEN.X * VARS.SCALE) + EMPTY_OFFSET}px;
     min-height: ${VARS.SCREEN.Y * VARS.SCALE}px;
 `;
 
@@ -72,7 +73,8 @@ const Workspace = (id: number, name: string, normal = true) => {
                     DEFAULT_STYLE :
 
                     `
-                      min-width:  ${VARS.SCREEN.X * VARS.SCALE / 2}px;
+                      min-width:  ${(VARS.SCREEN.X * VARS.SCALE / 2) +
+                        EMPTY_OFFSET}px;
                       min-height: ${VARS.SCREEN.Y * VARS.SCALE}px;
                     `,
 
