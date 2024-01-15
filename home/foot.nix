@@ -38,9 +38,8 @@ in {
 
           # FIXME: Figure out font size with Dpi-aware
           font = "JetBrainsMono Nerd Font:size=${
-            lib.strings.floatToString (fontSize - 5)
+            lib.strings.floatToString fontSize
           }";
-          dpi-aware = true;
           pad = "0x10";
         };
 
