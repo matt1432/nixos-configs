@@ -44,7 +44,6 @@ export const CoverArt = (
     props: CenterBoxProps,
 ) => CenterBox({
     ...props,
-    // @ts-expect-error
     vertical: true,
 
     attribute: {

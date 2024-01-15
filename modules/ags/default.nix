@@ -39,6 +39,22 @@ in {
 
           ## gui
           pavucontrol # TODO: replace with ags widget
+
+          (writeShellApplication {
+            name = "updateTypes";
+            runtimeInputs = [ nodejs_18 typescript git ];
+            text = ''
+              if [[ -d /tmp/ags-types ]]; then
+                rm -r /tmp/ags-types
+              fi
+              rm -r ~/.config/ags/types
+
+              git clone https://github.com/Aylur/ags.git /tmp/ags-types
+              /tmp/ags-types/example/starter-config/setup.sh
+
+              rm -r /tmp/ags-types
+            '';
+          })
         ])
         ++ (optionals isTouchscreen (with pkgs; [
           lisgd

@@ -37,8 +37,8 @@ const NotificationIcon = (notif: NotifObj) => {
         console.log(box);
     };
 
-    if (notif._appEntry && Applications.query(notif._appEntry).length > 0) {
-        const app = Applications.query(notif._appEntry)[0];
+    if (notif.app_entry && Applications.query(notif.app_entry).length > 0) {
+        const app = Applications.query(notif.app_entry)[0];
 
         let wmClass = app.app.get_string('StartupWMClass');
 
@@ -109,13 +109,13 @@ const NotificationIcon = (notif: NotifObj) => {
 
     let icon = 'dialog-information-symbolic';
 
-    if (lookUpIcon(notif._appIcon)) {
-        icon = notif._appIcon;
+    if (lookUpIcon(notif.app_icon)) {
+        icon = notif.app_icon;
     }
 
 
-    if (notif._appEntry && lookUpIcon(notif._appEntry)) {
-        icon = notif._appEntry;
+    if (notif.app_entry && lookUpIcon(notif.app_entry)) {
+        icon = notif.app_entry;
     }
 
 
@@ -158,7 +158,7 @@ export const Notification = ({
         'Spotify',
     ];
 
-    if (BlockedApps.find((app) => app === notif._appName)) {
+    if (BlockedApps.find((app) => app === notif.app_name)) {
         notif.close();
 
         return;

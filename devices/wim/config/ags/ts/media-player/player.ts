@@ -38,36 +38,26 @@ const Center = (
 
     children: [
         CenterBox({
-            // @ts-expect-error
             vertical: true,
 
-            children: [
-                Box({
-                    class_name: 'metadata',
-                    vertical: true,
-                    hpack: 'start',
-                    vpack: 'center',
-                    hexpand: true,
+            start_widget: Box({
+                class_name: 'metadata',
+                vertical: true,
+                hpack: 'start',
+                vpack: 'center',
+                hexpand: true,
 
-                    children: [
-                        mpris.TitleLabel(player),
-                        mpris.ArtistLabel(player),
-                    ],
-                }),
-                null,
-                null,
-            ],
+                children: [
+                    mpris.TitleLabel(player),
+                    mpris.ArtistLabel(player),
+                ],
+            }),
         }),
 
         CenterBox({
-            // @ts-expect-error
             vertical: true,
 
-            children: [
-                null,
-                mpris.PlayPauseButton(player, colors),
-                null,
-            ],
+            center_widget: mpris.PlayPauseButton(player, colors),
         }),
 
     ],

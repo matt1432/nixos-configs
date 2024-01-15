@@ -9,7 +9,6 @@ import CursorBox from './misc/cursorbox.ts';
 
 const PowermenuWidget = () => CenterBox({
     class_name: 'powermenu',
-    // @ts-expect-error
     vertical: false,
 
     start_widget: CursorBox({
