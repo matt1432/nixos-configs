@@ -14,6 +14,7 @@ export default () => {
     const window = Window({
         name: 'osk',
         visible: false,
+        layer: 'overlay',
         anchor: ['left', 'bottom', 'right'],
 
         setup: (self) => {

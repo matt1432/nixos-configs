@@ -117,8 +117,8 @@ class Pointers extends Service {
                 (Array.from(App.windows) as Array<[string, AgsWindow]>)
                     .some((w) => {
                         const closable = w[1].attribute?.close_on_unfocus &&
-                                !(w[1].attribute?.close_on_unfocus === 'none' ||
-                                w[1].attribute?.close_on_unfocus === 'stay');
+                            !(w[1].attribute.close_on_unfocus === 'none' ||
+                            w[1].attribute.close_on_unfocus === 'stay');
 
                         return w[1].visible && closable;
                     });
@@ -137,7 +137,7 @@ class Pointers extends Service {
         const toClose = (Array.from(App.windows) as Array<[string, AgsWindow]>)
             .some((w) => {
                 const closable = (w[1].attribute?.close_on_unfocus &&
-                              w[1].attribute?.close_on_unfocus === clickStage);
+                    w[1].attribute.close_on_unfocus === clickStage);
 
                 return w[1].visible && closable;
             });
@@ -153,38 +153,61 @@ class Pointers extends Service {
                 const pos = JSON.parse(res) as CursorPos;
 
                 Object.values(layers).forEach((key) => {
-                    const bar = key.levels['3']?.find(
-                        (n) => n.namespace === 'bar',
-                    ) ||
-                    // Return an empty Layer if bar doesn't exist
-                        { address: '', x: 0, y: 0, w: 0, h: 0, namespace: '' };
+                    const overlayLayer = key.levels['3'];
 
-                    const widgets = key.levels['3']?.filter(
-                        (n) => {
+                    if (overlayLayer) {
+                        const noCloseWidgetsNames = ['bar', 'osk'];
+
+                        const getNoCloseWidgets = (names: Array<string>) => {
+                            const arr = [] as Array<Layer>;
+
+                            names.forEach((name) => {
+                                arr.push(
+                                    overlayLayer.find(
+                                        (n) => n.namespace === name,
+                                    ) ||
+                                    // Return an empty Layer if widget doesn't exist
+                                    {
+                                        address: '',
+                                        x: 0, y: 0, w: 0, h: 0,
+                                        namespace: '',
+                                    },
+                                );
+                            });
+
+                            return arr;
+                        };
+                        const clickIsOnWidget = (w: Layer) => {
+                            return pos.x > w.x && pos.x < w.x + w.w &&
+                                   pos.y > w.y && pos.y < w.y + w.h;
+                        };
+
+                        const noCloseWidgets =
+                            getNoCloseWidgets(noCloseWidgetsNames);
+
+                        const widgets = overlayLayer.filter((n) => {
                             const window =
-                                (App.getWindow(n.namespace) as AgsWindow);
+                                    (App.getWindow(n.namespace) as AgsWindow);
 
-                            return window?.attribute?.close_on_unfocus &&
-                               window?.attribute
-                                   ?.close_on_unfocus === clickStage;
-                        },
-                    );
+                            return window &&
+                                window.attribute?.close_on_unfocus &&
+                                window.attribute?.close_on_unfocus ===
+                                    clickStage;
+                        });
 
-                    if (pos.x > bar?.x && pos.x < bar?.x + bar?.w &&
-                        pos.y > bar?.y && pos.y < bar?.y + bar?.h) {
-
-                        // Don't handle clicks when on bar
-                        // TODO: make this configurable
-                    }
-                    else {
-                        widgets?.forEach(
-                            (w) => {
-                                if (!(pos.x > w.x && pos.x < w.x + w.w &&
-                                  pos.y > w.y && pos.y < w.y + w.h)) {
-                                    App.closeWindow(w.namespace);
-                                }
-                            },
-                        );
+                        if (noCloseWidgets.some(clickIsOnWidget)) {
+                            // Don't handle clicks when on certain widgets
+                        }
+                        else {
+                            widgets?.forEach(
+                                (w) => {
+                                    if (!(pos.x > w.x && pos.x < w.x + w.w &&
+                                        pos.y > w.y && pos.y < w.y + w.h)) {
+                                        App.closeWindow(w.namespace);
+                                    }
+                                },
+                            );
+                        }
                     }
                 });
             }).catch(print);
