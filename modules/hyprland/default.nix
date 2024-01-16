@@ -221,6 +221,7 @@ in {
       libreoffice-fresh # TODO: declarative conf?
       hunspell
       hunspellDicts.en_CA
+      config.customPkgs.rars-flatlaf
 
       # Apps
       thunderbird # TODO: use programs.thunderbird
