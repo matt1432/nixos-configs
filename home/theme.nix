@@ -63,8 +63,8 @@ in {
 
         [Appearance]
         icon_theme=Flat-Remix-Violet-Dark
-        style=
-      '';
+        style='';
+        # The newline before this must be there
   in {
     "Kvantum/Dracula/Dracula.kvconfig".source = "${pkgs.dracula-theme}/share/Kvantum/Dracula-purple-solid/Dracula-purple-solid.kvconfig";
     "Kvantum/Dracula/Dracula.svg".source = "${pkgs.dracula-theme}/share/Kvantum/Dracula-purple-solid/Dracula-purple-solid.svg";
