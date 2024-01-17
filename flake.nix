@@ -191,6 +191,7 @@
       owner = "horriblename";
       repo = "hyprgrass";
 
+      # FIXME: https://github.com/horriblename/hyprgrass/issues/76
       # Commit before PR #73 that breaks swiping
       rev = "0165a9ed8679f3f2c62cc868bdaf620e4520d504";
 
