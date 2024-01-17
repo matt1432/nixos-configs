@@ -380,11 +380,11 @@
     "gpu-screen-recorder-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1705483328,
-        "narHash": "sha256-8p19+lWPkfwzz0u8hJAu2paOInj+7C1RUeT4zlJFLtw=",
+        "lastModified": 1705528797,
+        "narHash": "sha256-MdZLOK6h8DZOqupBpwM2n1uiaZvLzAQVmBJeID+m458=",
         "ref": "refs/heads/master",
-        "rev": "fc38c6edb6fa36fa77f7ab77e4bddcb2f042e1af",
-        "revCount": 459,
+        "rev": "89309215c39cb7f9d4db7ae2760840d6655f1088",
+        "revCount": 460,
         "type": "git",
         "url": "https://repo.dec05eba.com/gpu-screen-recorder"
       },
@@ -1137,11 +1137,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1705517127,
-        "narHash": "sha256-WDypYfTH9t7WEULLB66UUprDa5JjhMk2oFmvaSDQEBU=",
+        "lastModified": 1705527861,
+        "narHash": "sha256-h8X6fmxxmzRYxKE0Ms8LgY0P2szcnueKE+AiPXy8Ido=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "94e443e3b7a9f1c84848420a6518a01b849865ef",
+        "rev": "58f1c69c63adcaa2fb02697a0f8f3ca9eccca528",
         "type": "github"
       },
       "original": {
@@ -1316,11 +1316,11 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1704823353,
-        "narHash": "sha256-PeEW/pp2OdyMuZTplvIdwo9fsXD5oiTCfaaZhtupDmw=",
+        "lastModified": 1705530924,
+        "narHash": "sha256-AQZ5Ojmxv8W97b2L7ZrcKnGt6rIqzDdItNF/AzqBIaU=",
         "ref": "refs/heads/main",
-        "rev": "00ecdb9a7c5eeb6554bfebd467d26766dccc31f3",
-        "revCount": 30,
+        "rev": "43ac719e0cfe8ae908630a28fe3ed3cf8ab46aa2",
+        "revCount": 33,
         "type": "git",
         "url": "ssh://git@git.nelim.org/matt1432/nixos-secrets"
       },
