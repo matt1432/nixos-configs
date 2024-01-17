@@ -6,15 +6,22 @@
 }: {
   "600-sound-volume" = buildFirefoxXpiAddon {
     pname = "600-sound-volume";
-    version = "1.5.3";
+    version = "1.5.5";
     addonId = "{c4b582ec-4343-438c-bda2-2f691c16c262}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4133303/600_sound_volume-1.5.3.xpi";
-    sha256 = "7045a812608338f95181459ae3e518bb51c8dc9a724a4083afb687d14075c304";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4219765/600_sound_volume-1.5.5.xpi";
+    sha256 = "efc686d54727f29b5c796f4037f19a5d5f31f77354c9c5f8f47d8768ba24fe98";
     meta = with lib; {
       homepage = "http://resourcefulman.net/";
       description = "Up to 600% volume boost";
       license = licenses.mpl20;
-      mozPermissions = ["<all_urls>" "tabs" "activeTab" "storage"];
+      mozPermissions = [
+        "<all_urls>"
+        "tabs"
+        "activeTab"
+        "storage"
+        "webRequest"
+        "webRequestBlocking"
+      ];
       platforms = platforms.all;
     };
   };

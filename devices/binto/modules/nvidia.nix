@@ -3,6 +3,8 @@
   pkgs,
   ...
 }: {
+  # FIXME: move this to hardware-config?
+
   # Enable OpenGL
   hardware.opengl = {
     enable = true;

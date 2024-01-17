@@ -42,7 +42,7 @@ in {
 
           (writeShellApplication {
             name = "updateTypes";
-            runtimeInputs = [ nodejs_18 typescript git ];
+            runtimeInputs = [nodejs_18 typescript git];
             text = ''
               if [[ -d /tmp/ags-types ]]; then
                 rm -r /tmp/ags-types

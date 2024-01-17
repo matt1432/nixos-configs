@@ -8,7 +8,7 @@
 } @ inputs:
 with lib;
 with builtins; let
-  inherit (config.vars) mainUser;
+  inherit (config.vars) mainUser hostName;
   configPath = "/var/lib/arion";
 in {
   imports = [arion.nixosModules.arion];
@@ -58,7 +58,7 @@ in {
       backend = "docker";
 
       projects = let
-        basePath = "${self}/devices/${config.vars.hostName}/modules/arion";
+        basePath = "${self}/devices/${hostName}/modules/arion";
 
         composeFiles =
           filter (n: hasSuffix "compose.nix" (toString n))
