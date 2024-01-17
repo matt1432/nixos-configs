@@ -7,11 +7,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1705439375,
-        "narHash": "sha256-C3LAdGResLyo7bdd92bP7bOURC/qf12I0yf2GqiwQQI=",
+        "lastModified": 1705507872,
+        "narHash": "sha256-MDP9IMzOPxfQHi29SNg9TEi6SreciV8CLfzAJ7YzfWk=",
         "owner": "Aylur",
         "repo": "ags",
-        "rev": "1813f51a16de3079bbf0c77a9175865b25781bbe",
+        "rev": "abf4c95c2ba52faee885538d698f547d434fe45f",
         "type": "github"
       },
       "original": {
@@ -380,11 +380,11 @@
     "gpu-screen-recorder-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1705445017,
-        "narHash": "sha256-s9o52e0FJDJr/XLOyL+ttO9gMFX/8gUVnk8kT6l1ePA=",
+        "lastModified": 1705483328,
+        "narHash": "sha256-8p19+lWPkfwzz0u8hJAu2paOInj+7C1RUeT4zlJFLtw=",
         "ref": "refs/heads/master",
-        "rev": "1cf27ab33a825d2ea7a3a79952b91f853d460f65",
-        "revCount": 458,
+        "rev": "fc38c6edb6fa36fa77f7ab77e4bddcb2f042e1af",
+        "revCount": 459,
         "type": "git",
         "url": "https://repo.dec05eba.com/gpu-screen-recorder"
       },
@@ -542,11 +542,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1705332646,
-        "narHash": "sha256-D/7HUGGYBZHn8Zjs8Agf2i8mL64uqksKEjXz1QAd80c=",
+        "lastModified": 1705503680,
+        "narHash": "sha256-e+ou1KvZeZp104yeCgvgTTp5G+DB380CUZuUkijZxAc=",
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "3c964a9fdc220250a85b1c498e5b6fad9390272f",
+        "rev": "c4365f20ed8ff0dd480b7ed7cf1bfff1a0b6911a",
         "type": "github"
       },
       "original": {
@@ -814,11 +814,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1705444203,
-        "narHash": "sha256-EYM4KnsEAG4BsDwR9PyiO56FcSbFiiyKbfF8kuhA06M=",
+        "lastModified": 1705465574,
+        "narHash": "sha256-Z691uo8sGAohicDwGMZdJY/zlwJR3xjnU3ygCQTHdnw=",
         "owner": "nix-community",
         "repo": "nix-melt",
-        "rev": "ef81a3136f05ece9417675f4fdf01f600c3a7387",
+        "rev": "c073986c3ce9f2aae4eba250732d54f93c531e6b",
         "type": "github"
       },
       "original": {
@@ -915,6 +915,22 @@
       "original": {
         "owner": "nix-community",
         "repo": "nixpkgs.lib",
+        "type": "github"
+      }
+    },
+    "nixpkgs-pacemaker": {
+      "locked": {
+        "lastModified": 1691894234,
+        "narHash": "sha256-AlBJ1EDwQNVFRxblWVsOu+7WSYmlq8KutLULpikPB2I=",
+        "owner": "mitchty",
+        "repo": "nixpkgs",
+        "rev": "c51014d54a39a2277eac3a72ddbdf33e22c972f5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mitchty",
+        "ref": "corosync-pacemaker-ocf",
+        "repo": "nixpkgs",
         "type": "github"
       }
     },
@@ -1121,11 +1137,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1705448708,
-        "narHash": "sha256-pMu1e7D5Krlp0JA0gVo9lMusCne8vsIimSy+ONUYFSI=",
+        "lastModified": 1705517127,
+        "narHash": "sha256-WDypYfTH9t7WEULLB66UUprDa5JjhMk2oFmvaSDQEBU=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "a519fb76da9fed5f8afd734c2d0eb676b6942795",
+        "rev": "94e443e3b7a9f1c84848420a6518a01b849865ef",
         "type": "github"
       },
       "original": {
@@ -1139,11 +1155,11 @@
         "nixpkgs": "nixpkgs_7"
       },
       "locked": {
-        "lastModified": 1705443964,
-        "narHash": "sha256-8VpV+1aygoXCWyAIAwzfOCMpscs9TZAY5aMSHCFNJ7k=",
+        "lastModified": 1705465585,
+        "narHash": "sha256-kAh2Nqk18MFMyBFgz8Bd6tYrI7upIlZLeW4QyAeZLxU=",
         "owner": "nix-community",
         "repo": "nurl",
-        "rev": "f49405dd5f9382df866f9e0dbde3e177cde7e7f6",
+        "rev": "7ceb2108cb164e6ed3265553e1431add6c7f5861",
         "type": "github"
       },
       "original": {
@@ -1273,6 +1289,7 @@
         "nix-melt": "nix-melt",
         "nix-on-droid": "nix-on-droid",
         "nixpkgs": "nixpkgs_4",
+        "nixpkgs-pacemaker": "nixpkgs-pacemaker",
         "nixpkgs-wayland": "nixpkgs-wayland",
         "nms": "nms",
         "nur": "nur",

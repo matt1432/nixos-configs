@@ -143,6 +143,14 @@
       repo = "nix-gaming";
     };
 
+    # Cluster Inputs
+    nixpkgs-pacemaker = {
+      type = "github";
+      owner = "mitchty";
+      repo = "nixpkgs";
+      ref = "corosync-pacemaker-ocf";
+    };
+
     # Oksys inputs
     headscale = {
       type = "github";
