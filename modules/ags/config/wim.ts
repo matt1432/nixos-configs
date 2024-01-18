@@ -1,15 +1,15 @@
-import Setup from './setup.ts';
-import AppLauncher from './applauncher/main.ts';
-import Bar from './bar/main.ts';
-import BgFade from './misc/background-fade.ts';
-import Calendar from './date.ts';
-import Corners from './corners/main.ts';
-import { NotifPopups, NotifCenter } from './notifications/main.ts';
-import OSD from './osd/main.ts';
-import OSK from './on-screen-keyboard/main.ts';
-import Overview from './overview/main.ts';
-import Powermenu from './powermenu.ts';
-import QSettings from './quick-settings/main.ts';
+import Setup from './ts/setup.ts';
+import AppLauncher from './ts/applauncher/main.ts';
+import Bar from './ts/bar/wim.ts';
+import BgFade from './ts/misc/background-fade.ts';
+import Calendar from './ts/date.ts';
+import Corners from './ts/corners/main.ts';
+import { NotifPopups, NotifCenter } from './ts/notifications/wim.ts';
+import OSD from './ts/osd/main.ts';
+import OSK from './ts/on-screen-keyboard/main.ts';
+import Overview from './ts/overview/main.ts';
+import Powermenu from './ts/powermenu.ts';
+import QSettings from './ts/quick-settings/main.ts';
 
 Setup();
 

@@ -2,9 +2,10 @@ import App from 'resource:///com/github/Aylur/ags/app.js';
 import { execAsync, monitorFile } from 'resource:///com/github/Aylur/ags/utils.js';
 
 
-const watchAndCompileSass = () => {
+/** @param {string} host */
+const watchAndCompileSass = (host) => {
     const reloadCss = () => {
-        const scss = `${App.configDir}/scss/main.scss`;
+        const scss = `${App.configDir}/scss/${host}.scss`;
         const css = '/tmp/ags/style.css';
 
         execAsync(`sassc ${scss} ${css}`).then(() => {
@@ -21,9 +22,10 @@ const watchAndCompileSass = () => {
     reloadCss();
 };
 
-export const transpileTypeScript = async() => {
+/** @param {string} host */
+export const transpileTypeScript = async(host) => {
     await execAsync([
-        'bun', 'build', `${App.configDir}/ts/main.ts`,
+        'bun', 'build', `${App.configDir}/${host}.ts`,
         '--outdir', '/tmp/ags',
         '--external', 'resource:///*',
         '--external', 'gi://*',
@@ -31,7 +33,7 @@ export const transpileTypeScript = async() => {
         '--external', '*/fzf.es.js',
     ]).catch(print);
 
-    watchAndCompileSass();
+    watchAndCompileSass(host);
 
     // The file is going to be there after transpilation
     // @ts-ignore

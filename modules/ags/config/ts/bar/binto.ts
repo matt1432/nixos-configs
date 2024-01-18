@@ -1,10 +1,9 @@
 import { Box, CenterBox, Window } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import SysTray from '../../../../../wim/config/ags/ts/bar/items/systray.ts';
-import Separator from '../../../../../wim/config/ags/ts/misc/separator.ts';
-import NotifButton from
-    '../../../../../wim/config/ags/ts/bar/items/notif-button.ts';
-import Clock from './buttons/clock.ts';
+import SysTray from './items/systray.ts';
+import Separator from '../misc/separator.ts';
+import NotifButton from './items/notif-button.ts';
+import Clock from './items/clock.ts';
 
 const PADDING = 20;
 

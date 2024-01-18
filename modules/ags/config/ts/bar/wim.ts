@@ -3,7 +3,7 @@ import { Window, CenterBox, Box } from 'resource:///com/github/Aylur/ags/widget.
 import Separator from '../misc/separator.ts';
 
 import Battery from './items/battery.ts';
-import Clock from './items/clock.ts';
+import Clock from './items/cal-opener.ts';
 import CurrentWindow from './items/current-window.ts';
 import Heart from './items/heart.ts';
 import NotifButton from './items/notif-button.ts';

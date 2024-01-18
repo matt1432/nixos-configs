@@ -2,7 +2,7 @@ import App from 'resource:///com/github/Aylur/ags/app.js';
 import Applications from 'resource:///com/github/Aylur/ags/service/applications.js';
 // FIXME: find cleaner way to import this
 // @ts-expect-error
-import { Fzf } from 'file:///home/matt/.config/ags/node_modules/fzf/dist/fzf.es.js';
+import { Fzf } from 'file:///home/matt/.nix/modules/ags/config/node_modules/fzf/dist/fzf.es.js';
 
 import { Box, Entry, Icon, Label, ListBox, Revealer, Scrollable } from 'resource:///com/github/Aylur/ags/widget.js';
 

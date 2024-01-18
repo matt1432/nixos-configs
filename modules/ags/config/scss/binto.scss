@@ -1,0 +1,16 @@
+window,
+button,
+eventbox,
+box,
+progressbar,
+trough,
+undershoot {
+  all: unset;
+}
+
+@import "./common";
+@import './binto-widgets/applauncher';
+@import './binto-widgets/bar';
+@import './binto-widgets/notification';
+@import './binto-widgets/notification-center';
+@import './binto-widgets/powermenu';
