@@ -187,6 +187,8 @@ in {
             }
           ]
           ++ optionals neovimIde [
+            markdown-preview-nvim
+
             # Coc configured
             coc-css
             coc-eslint

@@ -321,6 +321,7 @@ const SecondRow = () => Row({
             }],
         }),
 
+        // TODO: replace this with Rotation Toggle and move lock to a separate section
         GridButton({
             command: () => {
                 execAsync(['lock']).catch(print);

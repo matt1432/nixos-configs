@@ -216,6 +216,7 @@ in {
 
     home.packages = with pkgs; [
       # School
+      xournalpp
       virt-manager
       jetbrains.idea-ultimate
       libreoffice-fresh # TODO: declarative conf?
@@ -229,12 +230,17 @@ in {
       photoqt
       nextcloud-client
       jellyfin-media-player
-      xournalpp
+      prismlauncher-qt5
+
+      /*
+      Discord themes for Vencord
+      https://markchan0225.github.io/RoundedDiscord/RoundedDiscord.theme.css
+      https://raw.githubusercontent.com/dracula/BetterDiscord/master/Dracula_Official.theme.css
+      */
       (pkgs.discord.override {
         withOpenASAR = true;
         withVencord = true;
       })
-      prismlauncher-qt5
 
       # tools
       wl-color-picker
