@@ -28,6 +28,9 @@
           ]
           ++ mods;
       };
+
+    # Nix-On-Droid
+    inherit (nix-on-droid.lib) nixOnDroidConfiguration;
   in {
     nixosConfigurations = {
       wim = mkNixOS [
@@ -53,7 +56,9 @@
       ];
     };
 
-    nixOnDroidConfigurations.default = nix-on-droid.lib.nixOnDroidConfiguration (import ./devices/android inputs);
+    nixOnDroidConfigurations.default = nixOnDroidConfiguration (
+      import ./devices/android inputs
+    );
 
     formatter = perSystem (_: pkgs: pkgs.alejandra);
 

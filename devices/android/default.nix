@@ -1,7 +1,5 @@
 {
   home-manager,
-  neovim-flake,
-  nix-on-droid,
   nixpkgs,
   ...
 } @ inputs: {
@@ -9,11 +7,7 @@
   home-manager-path = home-manager.outPath;
   pkgs = import nixpkgs {
     system = "aarch64-linux";
-    overlays = [
-      nix-on-droid.overlays.default
-      neovim-flake.overlay
-      (import ../../common/overlays/dracula-theme inputs)
-    ];
+    overlays = import ../../common/overlays inputs;
   };
 
   modules = [

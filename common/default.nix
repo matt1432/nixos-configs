@@ -7,12 +7,11 @@
   nurl,
   pkgs,
   ...
-}: {
+} @ inputs: {
   imports = [
     ./vars.nix
 
     ./modules
-    ./overlays
     ./pkgs
 
     nur.nixosModules.nur
@@ -20,7 +19,10 @@
     home-manager.nixosModules.home-manager
   ];
 
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs = {
+    config.allowUnfree = true;
+    overlays = import ./overlays inputs;
+  };
   boot.tmp.cleanOnBoot = true;
 
   nix = {
