@@ -1,45 +1,24 @@
-{pkgs, ...}: {
-  vars = {
-    mainUser = "nix-on-droid";
-    hostName = "localhost";
-    neovimIde = false;
+{
+  home-manager,
+  neovim-flake,
+  nix-on-droid,
+  nixpkgs,
+  ...
+} @ inputs: {
+  extraSpecialArgs = inputs;
+  home-manager-path = home-manager.outPath;
+  pkgs = import nixpkgs {
+    system = "aarch64-linux";
+    overlays = [
+      nix-on-droid.overlays.default
+      neovim-flake.overlay
+      (import ../../common/overlays/dracula-theme inputs)
+    ];
   };
 
-  terminal.font = "${(pkgs.nerdfonts.override {
-    fonts = [
-      "JetBrainsMono"
-    ];
-  })}/share/fonts/truetype/NerdFonts/JetBrainsMonoNerdFontMono-Regular.ttf";
-
-  environment.packages = with pkgs; [
-    diffutils
-    findutils
-    utillinux
-    tzdata
-    hostname
-    man
-    gnugrep
-    ripgrep
-    gnupg
-    gnused
-    gnutar
-    bzip2
-    gzip
-    xz
-    zip
-    unzip
-    openssh
-    perl
-    alejandra
+  modules = [
+    {home-manager.extraSpecialArgs = inputs;}
+    ../../common/nix-on-droid.nix
+    ./nix-on-droid.nix
   ];
-
-  environment.etcBackupExtension = ".bak";
-  environment.motd = null;
-  home-manager.backupFileExtension = "hm-bak";
-
-  # Set your time zone.
-  time.timeZone = "America/Montreal";
-
-  # No touchy
-  system.stateVersion = "23.05";
 }

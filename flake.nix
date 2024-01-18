@@ -53,24 +53,7 @@
       ];
     };
 
-    nixOnDroidConfigurations.default = nix-on-droid.lib.nixOnDroidConfiguration {
-      extraSpecialArgs = inputs;
-      home-manager-path = home-manager.outPath;
-      pkgs = import nixpkgs {
-        system = "aarch64-linux";
-        overlays = [
-          nix-on-droid.overlays.default
-          neovim-flake.overlay
-          (import ./common/overlays/dracula-theme inputs)
-        ];
-      };
-
-      modules = [
-        {home-manager.extraSpecialArgs = inputs;}
-        ./common/nix-on-droid.nix
-        ./devices/android
-      ];
-    };
+    nixOnDroidConfigurations.default = nix-on-droid.lib.nixOnDroidConfiguration (import ./devices/android inputs);
 
     formatter = perSystem (_: pkgs: pkgs.alejandra);
 
