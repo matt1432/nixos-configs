@@ -37,5 +37,5 @@ export const transpileTypeScript = async(host) => {
 
     // The file is going to be there after transpilation
     // @ts-ignore
-    return await import('file:///tmp/ags/main.js');
+    return await import(`file:///tmp/ags/${host}.js`);
 };
