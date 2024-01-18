@@ -1,5 +1,11 @@
 # My NixOS configs
 
+## Ags
+
+You might find it weird that most of my config is written in TypeScript.
+That is because all my desktops run [AGS](https://github.com/Aylur/ags) for UI.
+Click on [this](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/modules/ags) to see my configuration.
+
 ## About
 
 This repo is my complete configuration of machines I own,

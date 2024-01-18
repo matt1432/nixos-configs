@@ -35,7 +35,7 @@ in {
             ''
               import { transpileTypeScript } from './js/utils.js';
 
-              export default (await transpileTypeScript("${hostName}")).default;
+              export default (await transpileTypeScript('${hostName}')).default;
             '';
         };
 
