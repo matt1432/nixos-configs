@@ -7,11 +7,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1705507872,
-        "narHash": "sha256-MDP9IMzOPxfQHi29SNg9TEi6SreciV8CLfzAJ7YzfWk=",
+        "lastModified": 1705718133,
+        "narHash": "sha256-G2ydoWQD6fNFKj57jyrz+1eqCwR5kreQLRiqodbSMec=",
         "owner": "Aylur",
         "repo": "ags",
-        "rev": "abf4c95c2ba52faee885538d698f547d434fe45f",
+        "rev": "ee76e6068c8510e17e9117c11ced2e6b1d8817dd",
         "type": "github"
       },
       "original": {
@@ -380,11 +380,11 @@
     "gpu-screen-recorder-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1705528797,
-        "narHash": "sha256-MdZLOK6h8DZOqupBpwM2n1uiaZvLzAQVmBJeID+m458=",
+        "lastModified": 1705686069,
+        "narHash": "sha256-xcPKRQ9SlSTsvk3bzF10eXmFQY/7xKgm06O0PvgO1C0=",
         "ref": "refs/heads/master",
-        "rev": "89309215c39cb7f9d4db7ae2760840d6655f1088",
-        "revCount": 460,
+        "rev": "496e00e947bd37c5eed6e9d96950bd06722278f7",
+        "revCount": 461,
         "type": "git",
         "url": "https://repo.dec05eba.com/gpu-screen-recorder"
       },
@@ -433,11 +433,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1705592207,
-        "narHash": "sha256-ldLdLvvAu+b1cQ9VdD3pGtmNYiYftXDync+9bNdCiV4=",
+        "lastModified": 1705595425,
+        "narHash": "sha256-oNlCsosFl+ZsStSrEXk5SmirJCjc3H+Jr7Ro0C8EQ5U=",
         "owner": "juanfont",
         "repo": "headscale",
-        "rev": "65376e2842e667d58c0f166b8fc533e09af2b3e0",
+        "rev": "1e22f17f36f8c13185dff269e6a00424b49b9568",
         "type": "github"
       },
       "original": {
@@ -497,11 +497,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1705535278,
-        "narHash": "sha256-V5+XKfNbiY0bLKLQlH+AXyhHttEL7XcZBH9iSbxxexA=",
+        "lastModified": 1705708511,
+        "narHash": "sha256-3f4BkRY70Fj7yvuo87c4QQPAjnt571g2wJ50jY7hnYc=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "b84191db127c16a92cbdf7f7b9969d58bb456699",
+        "rev": "ce4b88c465d928f4f8b75d0920f1788d5b65ca94",
         "type": "github"
       },
       "original": {
@@ -542,11 +542,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1705503680,
-        "narHash": "sha256-e+ou1KvZeZp104yeCgvgTTp5G+DB380CUZuUkijZxAc=",
+        "lastModified": 1705687772,
+        "narHash": "sha256-f+x5Abvo53yjjEkWIs1KtClSL4SAYRoiI69vl0x216E=",
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "c4365f20ed8ff0dd480b7ed7cf1bfff1a0b6911a",
+        "rev": "b86ed02d8ae7c955e1f42cc27a19fe18d82c50b7",
         "type": "github"
       },
       "original": {
@@ -958,11 +958,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1705585910,
-        "narHash": "sha256-5pvcEdTiVn5F+6gpyQbTxeLhcRlV/oN8nNiwjgLqigs=",
+        "lastModified": 1705702790,
+        "narHash": "sha256-MsSJ1fPmOVn6MS2dWVNJDhnkVeTh4qOWgaLyQA1A0zE=",
         "owner": "nix-community",
         "repo": "nixpkgs-wayland",
-        "rev": "5b2b874c87882a5fc7f30be353410432e685ca0d",
+        "rev": "7ebe6e903734b24f0680d890bd7f56575212f698",
         "type": "github"
       },
       "original": {
@@ -1137,11 +1137,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1705588933,
-        "narHash": "sha256-W47+gUkJ4TW4jhYegKPjLIocead23smTW+yz64DrE1A=",
+        "lastModified": 1705721063,
+        "narHash": "sha256-ywTex2vfYZSyHHrpYjhzBPgINP3vHSUw9ah42Q5VFjc=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "ac0ade06f6ef7b095567c58b2a62c62837358480",
+        "rev": "48b3de8c458d1b144b183cace158edfae75391c6",
         "type": "github"
       },
       "original": {
@@ -1497,11 +1497,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1704800608,
-        "narHash": "sha256-aeZpunW1TXH5/gt7iC0HaC/byBCF/tv+UgazOyQdvPY=",
+        "lastModified": 1705683253,
+        "narHash": "sha256-x7l6V93lq6SLThLrJa2fLdEUyOOjE3dNu3FWkARZAhA=",
         "owner": "luckasRanarison",
         "repo": "tree-sitter-hyprlang",
-        "rev": "42aa7274b5f093cec92b7a5bab629ba26b4be439",
+        "rev": "e60fc858e6327a15c0b26f99ec96945fecd1e4ee",
         "type": "github"
       },
       "original": {
