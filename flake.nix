@@ -48,6 +48,14 @@
         secrets.nixosModules.oksys
       ];
 
+      # Cluster
+      thingone = mkNixOS [
+        (import ./devices/cluster "thingone")
+      ];
+      thingtwo = mkNixOS [
+        (import ./devices/cluster "thingtwo")
+      ];
+
       live-image = mkNixOS [
         ("${nixpkgs}/nixos/modules/installer/"
           + "cd-dvd/installation-cd-minimal.nix")
