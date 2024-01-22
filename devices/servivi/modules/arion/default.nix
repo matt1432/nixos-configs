@@ -6,6 +6,7 @@
   self,
   ...
 } @ inputs: let
+  inherit (builtins) match;
   inherit
     (lib)
     filter
@@ -16,11 +17,11 @@
     filterAttrs
     listToAttrs
     elemAt
-    match
     removePrefix
     optionalAttrs
     mkForce
     ;
+
   inherit (config.vars) mainUser hostName;
 
   configPath = "/var/lib/arion";
