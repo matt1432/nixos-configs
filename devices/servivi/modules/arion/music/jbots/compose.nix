@@ -1,12 +1,12 @@
-{
-  rwPath,
-  importImage,
-  ...
-}: {
-  services = {
+{config, ...}: let
+  inherit (config.arion) rwDataDir;
+
+  rwPath = rwDataDir + "/music/jbots";
+in {
+  arion.projects."jbots" = {
     "musicbot_be" = {
       container_name = "benis";
-      hostImage = importImage ./images/jmusicbot.nix;
+      image = ./images/jmusicbot.nix;
       restart = "always";
 
       volumes = [
@@ -17,7 +17,7 @@
 
     "musicbot_br" = {
       container_name = "bruh";
-      hostImage = importImage ./images/jmusicbot.nix;
+      image = ./images/jmusicbot.nix;
       restart = "always";
 
       volumes = [

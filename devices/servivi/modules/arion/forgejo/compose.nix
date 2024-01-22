@@ -1,15 +1,12 @@
-{
-  config,
-  rwPath,
-  importImage,
-  ...
-}: let
-  secrets = config.sops.secrets;
+{config, ...}: let
+  inherit (config.sops) secrets;
+  inherit (config.arion) rwDataDir;
+
+  rwPath = rwDataDir + "/forgejo";
 in {
-  services = {
+  arion.projects."forgejo" = {
     "forgejo" = {
-      container_name = "forgejo";
-      hostImage = importImage ./images/forgejo.nix;
+      image = ./images/forgejo.nix;
 
       ports = [
         # Redirect WAN port 22 to this port
@@ -42,8 +39,7 @@ in {
     };
 
     "forgejo-db" = {
-      container_name = "forgejo-db";
-      hostImage = importImage ./images/postgres.nix;
+      image = ./images/postgres.nix;
 
       restart = "always";
 
@@ -52,9 +48,8 @@ in {
       volumes = ["${rwPath}/db:/var/lib/postgresql/data"];
     };
 
-    "runner" = {
-      container_name = "act_runner";
-      hostImage = importImage ./images/act_runner.nix;
+    "act_runner" = {
+      image = ./images/act_runner.nix;
       privileged = true;
 
       restart = "always";

@@ -1,16 +1,13 @@
-{
-  config,
-  rwPath,
-  ...
-}: let
-  secrets = config.sops.secrets;
+{config, ...}: let
+  inherit (config.sops) secrets;
+  inherit (config.arion) rwDataDir;
+
+  rwPath = rwDataDir + "/lineageos";
 in {
   # FIXME: crashes when building
+  # TODO: make sure it works with latest arion custom module
 
-  # This should only be ran when an update is needed
-  enabled = false;
-
-  services = {
+  arion.projects."lineageos" = {
     "builder" = {
       image = "lineageos4microg/docker-lineage-cicd";
       container_name = "lineage_builder";
@@ -54,7 +51,6 @@ in {
 
     "caddy" = {
       image = "quay.io/slothcroissant/caddy-cloudflaredns:latest";
-      container_name = "caddy";
 
       ports = [
         "80:80"
