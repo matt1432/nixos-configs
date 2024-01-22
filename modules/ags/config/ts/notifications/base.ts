@@ -131,7 +131,8 @@ const NotificationIcon = (notif: NotifObj) => {
                 min-height: 78px;
             `,
             children: [Icon({
-                icon, size: 58,
+                icon,
+                size: 58,
                 hpack: 'center',
                 hexpand: true,
                 vpack: 'center',

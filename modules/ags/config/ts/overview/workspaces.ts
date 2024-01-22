@@ -25,8 +25,8 @@ export const getWorkspaces = (box: AgsBox) => {
         (type.children as Array<AgsRevealer>).forEach(
             (row) => {
                 ((((row.child as AgsCenterBox)
-                    ?.center_widget as AgsEventBox)
-                    ?.child as AgsBox)
+                    .center_widget as AgsEventBox)
+                    .child as AgsBox)
                     .children as Array<AgsRevealer>)
                     .forEach((workspace) => {
                         children.push(workspace);
@@ -40,7 +40,8 @@ export const getWorkspaces = (box: AgsBox) => {
 };
 
 const Workspace = (id: number, name: string, normal = true) => {
-    const fixed = Fixed({});
+    // @ts-expect-error
+    const fixed = Fixed();
 
     const workspace = Revealer({
         transition: 'slide_right',

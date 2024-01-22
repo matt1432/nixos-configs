@@ -6,8 +6,7 @@ import { Box, Overlay, Window } from 'resource:///com/github/Aylur/ags/widget.js
 import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 
 // Types
-type Allocation = typeof imports.gi.Gtk.Allocation;
-type Widget = typeof imports.gi.Gtk.Widget;
+import { Allocation, Widget } from 'types/@girs/gtk-3.0/gtk-3.0.cjs';
 import { RevealerProps } from 'types/widgets/revealer';
 import { WindowProps } from 'types/widgets/window';
 import AgsWindow from 'types/widgets/window';

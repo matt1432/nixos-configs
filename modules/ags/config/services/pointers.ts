@@ -16,7 +16,7 @@ const ON_CLICK_TRIGGERS = [
 
 // Types
 import AgsWindow from 'types/widgets/window';
-type Subprocess = typeof imports.gi.Gio.Subprocess;
+import { Subprocess } from 'types/@girs/gio-2.0/gio-2.0.cjs';
 type Layer = {
     address: string;
     x: number;
@@ -52,7 +52,7 @@ class Pointers extends Service {
         });
     }
 
-    #process: Subprocess;
+    #process = null as Subprocess | null;
     #lastLine = '';
     #pointers = [] as Array<String>;
 
@@ -169,7 +169,10 @@ class Pointers extends Service {
                                     // Return an empty Layer if widget doesn't exist
                                     {
                                         address: '',
-                                        x: 0, y: 0, w: 0, h: 0,
+                                        x: 0,
+                                        y: 0,
+                                        w: 0,
+                                        h: 0,
                                         namespace: '',
                                     },
                                 );

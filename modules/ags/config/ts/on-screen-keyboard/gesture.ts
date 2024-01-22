@@ -33,6 +33,8 @@ export default (window: AgsWindow) => {
     let signals = [] as Array<number>;
 
     window.attribute = {
+        startY: null,
+
         setVisible: (state: boolean) => {
             if (state) {
                 window.visible = true;
@@ -66,6 +68,7 @@ export default (window: AgsWindow) => {
                 gesture.disconnect(id);
             });
             signals = [];
+            window.attribute.startY = null;
         },
 
         setSlideUp: () => {
@@ -75,7 +78,7 @@ export default (window: AgsWindow) => {
             signals.push(
                 gesture.connect('drag-begin', () => {
                     Hyprland.sendMessage('j/cursorpos').then((out) => {
-                        gesture.startY = JSON.parse(out).y;
+                        window.attribute.startY = JSON.parse(out).y;
                     });
                 }),
             );
@@ -85,7 +88,7 @@ export default (window: AgsWindow) => {
                 gesture.connect('drag-update', () => {
                     Hyprland.sendMessage('j/cursorpos').then((out) => {
                         const currentY = JSON.parse(out).y;
-                        const offset = gesture.startY - currentY;
+                        const offset = window.attribute.startY - currentY;
 
                         if (offset < 0) {
                             return;
@@ -116,7 +119,7 @@ export default (window: AgsWindow) => {
             signals.push(
                 gesture.connect('drag-begin', () => {
                     Hyprland.sendMessage('j/cursorpos').then((out) => {
-                        gesture.startY = JSON.parse(out).y;
+                        window.attribute.startY = JSON.parse(out).y;
                     });
                 }),
             );
@@ -126,7 +129,7 @@ export default (window: AgsWindow) => {
                 gesture.connect('drag-update', () => {
                     Hyprland.sendMessage('j/cursorpos').then((out) => {
                         const currentY = JSON.parse(out).y;
-                        const offset = gesture.startY - currentY;
+                        const offset = window.attribute.startY - currentY;
 
                         if (offset > 0) {
                             return;

@@ -1,6 +1,6 @@
 import { Box, Calendar, Label } from 'resource:///com/github/Aylur/ags/widget.js';
 
-const { DateTime } = imports.gi.GLib;
+const { new_now_local } = imports.gi.GLib.DateTime;
 
 import PopupWindow from './misc/popup.ts';
 
@@ -26,7 +26,7 @@ const Time = () => Box({
                     label: 'hour',
                     setup: (self) => {
                         self.poll(1000, () => {
-                            self.label = DateTime.new_now_local().format('%H');
+                            self.label = new_now_local().format('%H') || '';
                         });
                     },
                 }),
@@ -38,7 +38,7 @@ const Time = () => Box({
                     label: 'minute',
                     setup: (self) => {
                         self.poll(1000, () => {
-                            self.label = DateTime.new_now_local().format('%M');
+                            self.label = new_now_local().format('%M') || '';
                         });
                     },
                 }),
@@ -56,11 +56,15 @@ const Time = () => Box({
 
                 setup: (self) => {
                     self.poll(1000, () => {
-                        const time = DateTime.new_now_local();
+                        const time = new_now_local();
 
-                        self.label = time.format('%A, %B ') +
-                            time.get_day_of_month() +
-                            time.format(', %Y');
+                        const dayNameMonth = time.format('%A, %B ');
+                        const dayNum = time.get_day_of_month();
+                        const date = time.format(', %Y');
+
+                        if (dayNum && dayNameMonth && date) {
+                            self.label = dayNameMonth + dayNum + date;
+                        }
                     });
                 },
             }),

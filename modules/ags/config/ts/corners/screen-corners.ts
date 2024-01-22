@@ -1,6 +1,6 @@
 import { Box, DrawingArea } from 'resource:///com/github/Aylur/ags/widget.js';
 
-import Gtk from 'gi://Gtk';
+const { Gtk } = imports.gi;
 
 export default (
     place = 'top left',
@@ -26,7 +26,10 @@ export default (
                 .get_property('border-radius', Gtk.StateFlags.NORMAL);
 
             widget.set_size_request(r, r);
-            widget.connect('draw', (_, cr) => {
+            widget.connect('draw', (_, context) => {
+                // FIXME: get proper Context type
+                const cr = context as any;
+
                 const c = widget.get_style_context()
                     .get_property('background-color', Gtk.StateFlags.NORMAL);
 

@@ -16,7 +16,7 @@ const DEVICES = [
 ];
 
 // Types
-type Subprocess = typeof imports.gi.Gio.Subprocess;
+import { Subprocess } from 'types/@girs/gio-2.0/gio-2.0.cjs';
 
 
 class Tablet extends Service {
@@ -36,8 +36,8 @@ class Tablet extends Service {
 
     #tabletMode = false;
     #oskState = false;
-    #autorotate: Subprocess;
-    #blockedInputs: Subprocess;
+    #autorotate = null as Subprocess | null;
+    #blockedInputs = null as Subprocess | null;
 
     get tabletMode() {
         return this.#tabletMode;

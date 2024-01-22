@@ -18,12 +18,11 @@ in {
       ...
     }: let
       symlink = config.lib.file.mkOutOfStoreSymlink;
-      optionals = lib.lists.optionals;
+      inherit (lib) optionals;
     in {
       programs.ags = {
         enable = true;
         configDir = symlink /home/${mainUser}/.nix/modules/ags/config;
-        package = ags.packages.${pkgs.system}.default;
       };
 
       home = {
@@ -49,22 +48,6 @@ in {
 
             ## gui
             pavucontrol # TODO: replace with ags widget
-
-            (writeShellApplication {
-              name = "updateTypes";
-              runtimeInputs = [nodejs_18 typescript git];
-              text = ''
-                if [[ -d /tmp/ags-types ]]; then
-                  rm -r /tmp/ags-types
-                fi
-                rm -r ~/.config/ags/types
-
-                git clone https://github.com/Aylur/ags.git /tmp/ags-types
-                /tmp/ags-types/example/starter-config/setup.sh
-
-                rm -r /tmp/ags-types
-              '';
-            })
           ])
           ++ (optionals isTouchscreen (with pkgs; [
             lisgd

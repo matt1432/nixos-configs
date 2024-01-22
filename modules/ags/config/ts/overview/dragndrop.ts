@@ -103,6 +103,9 @@ export const WindowButton = ({
 
             // OnHover
             .on('enter-notify-event', () => {
+                if (!display) {
+                    return;
+                }
                 self.window.set_cursor(Gdk.Cursor.new_from_name(
                     display,
                     'pointer',

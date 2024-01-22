@@ -54,6 +54,9 @@ export default ({
             self
                 // OnClick
                 .on('button-press-event', () => {
+                    if (!display) {
+                        return;
+                    }
                     self.window.set_cursor(Gdk.Cursor.new_from_name(
                         display,
                         'grabbing',
@@ -62,6 +65,9 @@ export default ({
 
                 // OnRelease
                 .on('button-release-event', () => {
+                    if (!display) {
+                        return;
+                    }
                     self.window.set_cursor(Gdk.Cursor.new_from_name(
                         display,
                         'grab',
@@ -70,6 +76,9 @@ export default ({
 
                 // OnHover
                 .on('enter-notify-event', () => {
+                    if (!display) {
+                        return;
+                    }
                     self.window.set_cursor(Gdk.Cursor.new_from_name(
                         display,
                         'grab',
@@ -98,7 +107,6 @@ export default ({
             id,
 
             slideAway: (side: 'Left' | 'Right') => {
-                // Slide away
                 (widget.child as AgsBox)
                     .setCss(side === 'Left' ? slideLeft : slideRight);
 
@@ -135,7 +143,7 @@ export default ({
                 .hook(gesture, () => {
                     let offset = gesture.get_offset()[1];
 
-                    if (offset === 0) {
+                    if (!offset || offset === 0) {
                         return;
                     }
 
@@ -188,6 +196,10 @@ export default ({
                     }
 
                     const offset = gesture.get_offset()[1];
+
+                    if (!offset) {
+                        return;
+                    }
 
                     // If crosses threshold after letting go, slide away
                     if (Math.abs(offset) > MAX_OFFSET) {

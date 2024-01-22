@@ -14,7 +14,7 @@ import { NetworkMenu } from './network.ts';
 import { BluetoothMenu } from './bluetooth.ts';
 
 // Types
-import { GObject } from 'gi://GObject';
+import GObject from 'types/@girs/gobject-2.0/gobject-2.0';
 import AgsBox from 'types/widgets/box.ts';
 import AgsIcon from 'types/widgets/icon.ts';
 import AgsLabel from 'types/widgets/label.ts';

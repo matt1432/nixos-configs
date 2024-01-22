@@ -33,7 +33,7 @@ const DISTANCE_VERIF = [
 ];
 
 // Types
-type Subprocess = typeof imports.gi.Gio.Subprocess;
+import { Subprocess } from 'types/@girs/gio-2.0/gio-2.0.cjs';
 
 
 // TODO: add actmode param
@@ -47,7 +47,7 @@ class TouchGestures extends Service {
     }
 
     #gestures = new Map();
-    #gestureDaemon: Subprocess;
+    #gestureDaemon = null as Subprocess | null;
 
     get gestures() {
         return this.#gestures;

@@ -46,6 +46,9 @@ export default () => Box({
 
                             // OnClick
                             .on('button-press-event', () => {
+                                if (!display) {
+                                    return;
+                                }
                                 self.window.set_cursor(Gdk.Cursor.new_from_name(
                                     display,
                                     'grabbing',
@@ -54,6 +57,9 @@ export default () => Box({
 
                             // OnRelease
                             .on('button-release-event', () => {
+                                if (!display) {
+                                    return;
+                                }
                                 self.window.set_cursor(Gdk.Cursor.new_from_name(
                                     display,
                                     'pointer',
@@ -62,6 +68,9 @@ export default () => Box({
 
                             // OnHover
                             .on('enter-notify-event', () => {
+                                if (!display) {
+                                    return;
+                                }
                                 self.window.set_cursor(Gdk.Cursor.new_from_name(
                                     display,
                                     'pointer',
@@ -106,6 +115,9 @@ export default () => Box({
 
                             // OnClick
                             .on('button-press-event', () => {
+                                if (!display) {
+                                    return;
+                                }
                                 self.window.set_cursor(Gdk.Cursor.new_from_name(
                                     display,
                                     'grabbing',
@@ -114,6 +126,9 @@ export default () => Box({
 
                             // OnRelease
                             .on('button-release-event', () => {
+                                if (!display) {
+                                    return;
+                                }
                                 self.window.set_cursor(Gdk.Cursor.new_from_name(
                                     display,
                                     'pointer',
@@ -122,6 +137,9 @@ export default () => Box({
 
                             // OnHover
                             .on('enter-notify-event', () => {
+                                if (!display) {
+                                    return;
+                                }
                                 self.window.set_cursor(Gdk.Cursor.new_from_name(
                                     display,
                                     'pointer',

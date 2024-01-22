@@ -49,6 +49,9 @@ export default ({
     }).on('enter-notify-event', (self) => {
         on_hover(self);
 
+        if (!display) {
+            return;
+        }
         self.window.set_cursor(Gdk.Cursor.new_from_name(
             display,
             Disabled.value ?

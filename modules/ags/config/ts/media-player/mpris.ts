@@ -218,6 +218,9 @@ export const PositionSlider = (
 
             // OnClick
             .on('button-press-event', () => {
+                if (!display) {
+                    return;
+                }
                 self.window.set_cursor(Gdk.Cursor.new_from_name(
                     display,
                     'grabbing',
@@ -226,6 +229,9 @@ export const PositionSlider = (
 
             // OnRelease
             .on('button-release-event', () => {
+                if (!display) {
+                    return;
+                }
                 self.window.set_cursor(Gdk.Cursor.new_from_name(
                     display,
                     'pointer',
@@ -234,6 +240,9 @@ export const PositionSlider = (
 
             // OnHover
             .on('enter-notify-event', () => {
+                if (!display) {
+                    return;
+                }
                 self.window.set_cursor(Gdk.Cursor.new_from_name(
                     display,
                     'pointer',

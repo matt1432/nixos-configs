@@ -11,7 +11,6 @@ const SPACING = 12;
 // Types
 import { TrayItem } from 'types/service/systemtray.ts';
 import AgsRevealer from 'types/widgets/revealer.ts';
-type Menu = typeof imports.gi.Gtk.Menu;
 
 
 const SysTrayItem = (item: TrayItem) => {
@@ -20,7 +19,7 @@ const SysTrayItem = (item: TrayItem) => {
     }
 
     return MenuItem({
-        submenu: <Menu> item.menu,
+        submenu: item.menu,
         tooltip_markup: item.bind('tooltip_markup'),
 
         child: Revealer({

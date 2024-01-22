@@ -114,6 +114,7 @@
     "@stylistic/no-whitespace-before-property": ["warn"],
     "@stylistic/nonblock-statement-body-position": ["error", "below"],
     "@stylistic/object-curly-newline": ["warn", { "consistent": true }],
+    "@stylistic/object-property-newline": ["warn", {"allowAllPropertiesOnSameLine": false}],
     "@stylistic/object-curly-spacing": ["warn", "always"],
     "@stylistic/operator-linebreak": ["warn", "after"],
     "@stylistic/padded-blocks": ["error", "never"],

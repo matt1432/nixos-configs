@@ -1,9 +1,11 @@
 import { execAsync, readFileAsync, timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 const { get_home_dir } = imports.gi.GLib;
 
+import GObject from 'types/@girs/gobject-2.0/gobject-2.0';
+
 type Persist = {
     name: string
-    gobject: typeof imports.gi.GObject
+    gobject: GObject.Object
     prop: string
     condition?: boolean | string // If string, compare following props to this
     whenTrue?: boolean | string

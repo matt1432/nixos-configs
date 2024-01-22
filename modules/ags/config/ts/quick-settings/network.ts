@@ -13,7 +13,7 @@ const SCROLL_THRESH_N = 7;
 // Types
 import AgsBox from 'types/widgets/box.ts';
 import AgsScrollable from 'types/widgets/scrollable.ts';
-type ListBoxRow = typeof imports.gi.Gtk.ListBoxRow;
+import { ListBoxRow } from 'types/@girs/gtk-3.0/gtk-3.0.cjs';
 type APType = {
     bssid: string
     address: string

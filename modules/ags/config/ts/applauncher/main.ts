@@ -11,12 +11,14 @@ import AppItem from './app-item.ts';
 
 // Types
 import { Application } from 'types/service/applications.ts';
-type ListBoxRow = typeof imports.gi.Gtk.ListBoxRow;
+import { ListBoxRow } from 'types/@girs/gtk-3.0/gtk-3.0.cjs';
+import AgsEventBox from 'types/widgets/eventbox';
 
 
 const Applauncher = (window_name = 'applauncher') => {
     let fzfResults: Array<any>;
-    const list = ListBox({});
+    // @ts-expect-error
+    const list = ListBox();
 
     const setSort = (text: string) => {
         const fzf = new Fzf(Applications.list, {
@@ -31,8 +33,10 @@ const Applauncher = (window_name = 'applauncher') => {
         fzfResults = fzf.find(text);
         list.set_sort_func(
             (a: ListBoxRow, b: ListBoxRow) => {
-                const row1 = a.get_children()[0]?.attribute.app.name;
-                const row2 = b.get_children()[0]?.attribute.app.name;
+                const row1 = (a.get_children()[0] as AgsEventBox)
+                    ?.attribute.app.name;
+                const row2 = (b.get_children()[0] as AgsEventBox)
+                    ?.attribute.app.name;
 
                 if (!row1 || !row2) {
                     return 0;
@@ -95,7 +99,7 @@ const Applauncher = (window_name = 'applauncher') => {
             rows.forEach((row) => {
                 row.changed();
 
-                const item = row.get_children()[0];
+                const item = (row.get_children()[0] as AgsEventBox);
 
                 if (item?.attribute.app) {
                     const isMatching = fzfResults.find((r) => {

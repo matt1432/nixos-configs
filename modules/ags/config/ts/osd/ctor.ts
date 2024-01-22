@@ -5,9 +5,9 @@ const Y_POS = 80;
 // Types
 import AgsBox from 'types/widgets/box';
 import { IconProps } from 'types/widgets/icon';
-import { GObject } from 'gi://GObject';
+import GObject from 'types/@girs/gobject-2.0/gobject-2.0';
 import AgsStack from 'types/widgets/stack';
-type Widget = typeof imports.gi.Gtk.Widget;
+import { Widget } from 'types/@girs/gtk-3.0/gtk-3.0.cjs';
 import { Connectable } from 'types/widgets/widget';
 import AgsProgressBar from 'types/widgets/progressbar';
 type ConnectFunc = (self?: AgsProgressBar) => void;
@@ -37,9 +37,9 @@ export default ({ stack, icon, info }: OSD) => {
                     ...(typeof icon === 'string' ? { icon } : icon),
                 }),
                 // Can take a static widget instead of a progressbar
-                info.logic ?
-                    ProgressBar({ vpack: 'center' }) :
-                    info.widget,
+                info.widget ?
+                    info.widget :
+                    ProgressBar({ vpack: 'center' }),
             ],
         })],
     });
