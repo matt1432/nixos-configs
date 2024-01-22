@@ -3,6 +3,7 @@
   pkgs,
   ...
 }: let
+  inherit (builtins) readFile;
   firefox-addons = pkgs.recurseIntoAttrs (pkgs.callPackage ./addons {});
   sound-volume = firefox-addons."600-sound-volume";
 
@@ -22,10 +23,10 @@ in {
       id = 0;
 
       userChrome = ''
-        ${builtins.readFile "${firefox-gx}/chrome/userChrome.css"}
-        ${builtins.readFile ./custom.css}
+        ${readFile "${firefox-gx}/chrome/userChrome.css"}
+        ${readFile ./custom.css}
       '';
-      extraConfig = builtins.readFile "${firefox-gx}/user.js";
+      extraConfig = readFile "${firefox-gx}/user.js";
 
       settings = {
         # Theme
@@ -123,7 +124,7 @@ in {
           "Noogle" = {
             urls = [
               {
-                template = "https://noogle.dev/?term={searchTerms}";
+                template = "https://noogle.dev/q?term={searchTerms}";
               }
             ];
             iconUpdateURL = "https://noogle.dev/favicon.ico";

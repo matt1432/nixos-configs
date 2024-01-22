@@ -5,6 +5,7 @@
   pkgs,
   ...
 }: let
+  inherit (builtins) readFile;
   inherit (config.vars) mainUser;
   headscale-flake = headscale.packages.${pkgs.system}.headscale;
 in {
@@ -12,7 +13,7 @@ in {
   users.users.${mainUser}.extraGroups = ["headscale"];
 
   home-manager.users.${mainUser}
-    .programs.bash.bashrcExtra = lib.mkAfter (builtins.readFile ./completion.bash);
+    .programs.bash.bashrcExtra = lib.mkAfter (readFile ./completion.bash);
 
   services.headscale = {
     enable = true;

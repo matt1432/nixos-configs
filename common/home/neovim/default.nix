@@ -5,9 +5,9 @@
   coc-stylelintplus-flake,
   tree-sitter-hyprlang-flake,
   ...
-}:
-with lib; let
+}: let
   inherit (config.vars) neovimIde;
+  inherit (lib) fileContents optionalAttrs optionals;
 
   javaSdk = pkgs.temurin-bin-17;
   nvim-treesitter-hyprlang = tree-sitter-hyprlang-flake.packages.${pkgs.system}.default;

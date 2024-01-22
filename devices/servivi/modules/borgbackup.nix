@@ -3,8 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) filterAttrs mapAttrs mkDefault mkOption types;
+
   cfg = config.services.borgbackup;
   secrets = config.sops.secrets;
 in {

@@ -3,8 +3,8 @@
   pkgs,
   config,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) getExe optionals readFile;
   inherit (config.vars) mainUser greetdDupe mainMonitor;
 
   # Nix stuff

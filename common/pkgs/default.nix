@@ -3,7 +3,9 @@
   pkgs,
   ...
 } @ inputs:
-with lib; let
+let
+  inherit (lib) concatMapAttrs filterAttrs mkOption pathExists types;
+
   mkPackage = name: v: {
     ${name} = pkgs.callPackage ./${name} inputs;
   };

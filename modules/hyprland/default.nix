@@ -5,10 +5,10 @@
   pkgs,
   lib,
   ...
-}:
-with lib; let
-  # Config stuff
+}: let
+  inherit (lib) concatStringsSep optionals;
   inherit (config.vars) configDir mainUser mainMonitor;
+
   isNvidia = config.hardware.nvidia.modesetting.enable;
   isTouchscreen = config.hardware.sensor.iio.enable;
 in {

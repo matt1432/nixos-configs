@@ -5,10 +5,24 @@
   pkgs,
   self,
   ...
-} @ inputs:
-with lib;
-with builtins; let
+} @ inputs: let
+  inherit
+    (lib)
+    filter
+    hasSuffix
+    filesystem
+    hasAttr
+    mapAttrs
+    filterAttrs
+    listToAttrs
+    elemAt
+    match
+    removePrefix
+    optionalAttrs
+    mkForce
+    ;
   inherit (config.vars) mainUser hostName;
+
   configPath = "/var/lib/arion";
 in {
   imports = [arion.nixosModules.arion];

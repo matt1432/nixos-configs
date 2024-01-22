@@ -1,15 +1,17 @@
-{lib, ...}: {
+{lib, ...}: let
+  inherit (lib) fileContents;
+
+  # TODO: have different colors depending on host
+  textColor = "#e3e5e5";
+  firstColor = "#bd93f9";
+  secondColor = "#715895";
+  thirdColor = "#382c4a";
+  fourthColor = "#120e18";
+in {
   imports = [./programs.nix];
 
   programs = {
-    starship = let
-      # TODO: have different colors depending on host
-      textColor = "#e3e5e5";
-      firstColor = "#bd93f9";
-      secondColor = "#715895";
-      thirdColor = "#382c4a";
-      fourthColor = "#120e18";
-    in {
+    starship = {
       enable = true;
       enableBashIntegration = true;
       settings = {
@@ -143,11 +145,11 @@
           # Check if shell is interactive
           [[ $- == *i* ]] || return 0
 
-          ${lib.strings.fileContents ./config/dracula/less.sh}
-          ${lib.strings.fileContents ./config/dracula/fzf.sh}
+          ${fileContents ./config/dracula/less.sh}
+          ${fileContents ./config/dracula/fzf.sh}
 
-          ${lib.strings.fileContents ./config/colorgrid.sh}
-          ${lib.strings.fileContents ./config/bashrc}
+          ${fileContents ./config/colorgrid.sh}
+          ${fileContents ./config/bashrc}
         '';
       #initExtra = ''
       #'';

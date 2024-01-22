@@ -1,5 +1,12 @@
 {config, ...}: let
   inherit (config.vars) mainUser hostName;
+  tailscaleNameservers =
+    config
+    .services
+    .headscale
+    .settings
+    .dns_config
+    .nameservers;
 in {
   imports = [
     ./hardware-configuration.nix
@@ -37,7 +44,7 @@ in {
   networking = {
     inherit hostName;
     resolvconf.enable = true;
-    nameservers = config.services.headscale.settings.dns_config.nameservers ++ ["1.0.0.1"];
+    nameservers = tailscaleNameservers ++ ["1.0.0.1"];
     firewall.enable = false;
   };
 

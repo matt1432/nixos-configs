@@ -13,7 +13,8 @@ in {
           IdentitiesOnly yes
           IdentityFile ${config.sops.secrets.nixremote.path}
 
-          # The weakly privileged user on the remote builder – if not set, 'root' is used – which will hopefully fail
+          # The weakly privileged user on the remote builder – if not set,
+          # 'root' is used – which will hopefully fail
           User nixremote
       '';
   };

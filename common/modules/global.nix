@@ -3,18 +3,18 @@
   lib,
   nixpkgs,
   ...
-}:
-with lib; let
+}: let
   inherit (config.sops.secrets) access-token;
+  inherit (lib) hasAttr optionalString;
 in {
   # Minimize dowloads of indirect nixpkgs flakes
   nix = {
     registry.nixpkgs.flake = nixpkgs;
     nixPath = ["nixpkgs=${nixpkgs}"];
+
     extraOptions =
-      if (hasAttr "sops" config)
-      then "!include ${access-token.path}"
-      else "";
+      optionalString (hasAttr "sops" config)
+      "!include ${access-token.path}";
   };
 
   # Global hm settings
