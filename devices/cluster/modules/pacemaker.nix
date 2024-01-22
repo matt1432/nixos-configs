@@ -13,5 +13,7 @@ in {
   ];
 
   disabledModules = [pacemakerPath];
-  import = ["${nixpkgs-pacemaker}/nixos/modules/${pacemakerPath}"];
+  imports = ["${nixpkgs-pacemaker}/nixos/modules/${pacemakerPath}"];
+
+  services.pacemaker.enable = true;
 }

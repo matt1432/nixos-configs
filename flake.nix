@@ -51,9 +51,11 @@
       # Cluster
       thingone = mkNixOS [
         (import ./devices/cluster "thingone")
+        secrets.nixosModules.thingy
       ];
       thingtwo = mkNixOS [
         (import ./devices/cluster "thingtwo")
+        secrets.nixosModules.thingy
       ];
 
       live-image = mkNixOS [

@@ -7,6 +7,9 @@ in {
     ../../modules/kmscon.nix
     ../../modules/sshd.nix
     ../../modules/tailscale.nix
+
+    ./modules/corosync.nix
+    ./modules/pacemaker.nix
   ];
 
   vars = {
