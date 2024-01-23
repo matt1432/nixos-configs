@@ -27,7 +27,7 @@
 
     rpcbind.enable = true; # needed for NFS
   };
-
+  boot.supportedFilesystems = ["nfs"];
   environment.systemPackages = with pkgs; [nfs-utils];
 
   systemd.mounts = [
