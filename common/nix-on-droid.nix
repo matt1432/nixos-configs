@@ -58,7 +58,7 @@
 
           # Cluster nodes
           thingone = "ssh -t matt@100.64.0.8 'tmux -2u new -At phone'";
-          thingtwo = "ssh -t matt@100.64.0.9'tmux -2u new -At phone'";
+          thingtwo = "ssh -t matt@100.64.0.9 'tmux -2u new -At phone'";
 
           # Proxmox
           pve = "ssh -t matt@100.64.0.4 'tmux -2u new -At phone'";
