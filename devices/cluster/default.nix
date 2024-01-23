@@ -9,7 +9,7 @@ in {
     ../../modules/tailscale.nix
 
     ./modules/corosync.nix
-    ./modules/pacemaker.nix
+    ./modules/pacemaker
   ];
 
   vars = {
