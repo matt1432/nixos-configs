@@ -204,6 +204,7 @@ in {
 
           script = ''
             # The config needs to be installed from one node only
+            # TODO: add assertion, corosync must be enabled with at least one node
             if [ "$(uname -n)" = ${host1} ]; then
                 # TODO: setup stonith / fencing
                 crm_attribute --type crm_config --name stonith-enabled --update false

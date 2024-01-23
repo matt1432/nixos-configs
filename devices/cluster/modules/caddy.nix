@@ -10,6 +10,8 @@
   caddy = caddy-plugins.packages.${pkgs.system}.default;
 in {
   imports = [caddy-plugins.nixosModules.default];
+
+  # User stuff
   environment.systemPackages = [caddy];
   users.users.${mainUser}.extraGroups = ["caddy"];
 
