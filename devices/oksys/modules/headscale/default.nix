@@ -19,7 +19,7 @@ in {
     enable = true;
     package = headscale-flake;
 
-    address = "127.0.0.1";
+    address = "10.0.0.213";
     port = 8085;
 
     settings = {

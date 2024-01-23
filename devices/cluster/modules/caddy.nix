@@ -31,6 +31,7 @@ in {
       dockerIP = "10.0.0.122";
       jellyIP = "10.0.0.123";
       servivi = "10.0.0.249";
+      oksysIP = "10.0.0.213";
     in {
       "nelim.org" = {
         serverAliases = ["*.nelim.org"];
@@ -45,7 +46,7 @@ in {
           # Misc one-liners
           vault.reverseProxy = "${dockerIP}:8781";
           hauk.reverseProxy = "${dockerIP}:3003";
-          headscale.reverseProxy = "localhost:8085";
+          headscale.reverseProxy = "${oksysIP}:8085";
           jelly.reverseProxy = "${jellyIP}:80";
 
           # Resume builder
@@ -53,7 +54,6 @@ in {
           resauth.reverseProxy = "${dockerIP}:3100";
 
           # Nextcloud & Co
-          bakail.reverseProxy = "${dockerIP}:8077";
           office.reverseProxy = "http://${dockerIP}:8055";
           nextcloud = {
             subDomainName = "cloud";

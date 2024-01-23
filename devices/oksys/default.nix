@@ -15,7 +15,6 @@ in {
     ../../modules/tailscale.nix
 
     ./modules/blocky.nix
-    ./modules/caddy.nix
     ./modules/headscale
     ./modules/remote-builder.nix
     ./modules/unbound.nix
