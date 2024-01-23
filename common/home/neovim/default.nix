@@ -2,16 +2,17 @@
   config,
   pkgs,
   lib,
-  coc-stylelintplus-flake,
-  tree-sitter-hyprlang-flake,
+  nvim-theme-src,
+  coc-stylelintplus,
+  tree-sitter-hyprlang,
   ...
 }: let
   inherit (config.vars) neovimIde;
   inherit (lib) fileContents optionalAttrs optionals;
 
   javaSdk = pkgs.temurin-bin-17;
-  nvim-treesitter-hyprlang = tree-sitter-hyprlang-flake.packages.${pkgs.system}.default;
-  coc-stylelintplus = coc-stylelintplus-flake.packages.${pkgs.system}.default;
+  nvim-treesitter-hyprlang = tree-sitter-hyprlang.packages.${pkgs.system}.default;
+  coc-stylelintplus-flake = coc-stylelintplus.packages.${pkgs.system}.default;
 in {
   home = optionalAttrs neovimIde {
     packages = with pkgs; [
@@ -41,7 +42,6 @@ in {
 
     neovim = {
       enable = true;
-      package = pkgs.neovim-nightly;
       withNodeJs = true;
       withPython3 = true;
       withRuby = false;
@@ -157,7 +157,9 @@ in {
             fugitive
 
             {
-              plugin = dracula-nvim;
+              plugin = dracula-nvim.overrideAttrs {
+                src = nvim-theme-src;
+              };
               type = "viml";
               config = fileContents ./plugins/dracula.vim;
             }
@@ -194,7 +196,7 @@ in {
             coc-eslint
             coc-java
             coc-sh
-            coc-stylelintplus
+            coc-stylelintplus-flake
             {
               plugin = coc-snippets;
               type = "viml";

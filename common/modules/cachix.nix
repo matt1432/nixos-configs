@@ -8,7 +8,7 @@
         "https://cache.nixos.org"
         "https://nixpkgs-wayland.cachix.org"
         "https://nix-community.cachix.org"
-        # Neovim and stuff
+        # Nix-community
         "https://nix-community.cachix.org"
         # Nh
         "https://viperml.cachix.org"
@@ -23,7 +23,7 @@
         # Nixpkgs-Wayland
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
         "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
-        # Neovim and stuff
+        # Nix-community
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         # Nh
         "viperml.cachix.org-1:qZhKBMTfmcLL+OG6fj/hzsMEedgKvZVFRRAhq7j8Vh8="

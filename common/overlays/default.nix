@@ -1,5 +1,4 @@
 {
-  neovim-flake,
   nixpkgs-wayland,
   ...
 } @ inputs: [
@@ -8,6 +7,5 @@
   (import ./spotifywm inputs)
   (import ./squeekboard)
 
-  neovim-flake.overlay
   nixpkgs-wayland.overlay
 ]

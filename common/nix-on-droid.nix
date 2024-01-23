@@ -20,16 +20,18 @@
     '';
 
     substituters = [
-      # Neovim and stuff
+      # Nix-community
       "https://nix-community.cachix.org"
+
+      # FIXME: cache doesn't work
       # Personal config cache
-      "https://cache.nelim.org"
+      # "https://cache.nelim.org"
     ];
     trustedPublicKeys = [
-      # Neovim and stuff
+      # Nix-community
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       # Personal config cache
-      "cache.nelim.org:JmFqkUdH11EA9EZOFAGVHuRYp7EbsdJDHvTQzG2pPyY="
+      # "cache.nelim.org:JmFqkUdH11EA9EZOFAGVHuRYp7EbsdJDHvTQzG2pPyY="
     ];
   };
 

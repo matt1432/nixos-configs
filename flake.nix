@@ -4,7 +4,6 @@
     home-manager,
     nixpkgs,
     nix-on-droid,
-    neovim-flake,
     secrets,
     ...
   }: let
@@ -192,14 +191,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # FIXME: https://github.com/horriblename/hyprgrass/issues/76
     hyprgrass = {
       type = "github";
       owner = "horriblename";
       repo = "hyprgrass";
-
-      # FIXME: https://github.com/horriblename/hyprgrass/issues/76
-      # Commit before PR #73 that breaks swiping
-      rev = "0165a9ed8679f3f2c62cc868bdaf620e4520d504";
 
       inputs.hyprland.follows = "hyprland";
     };
@@ -212,20 +208,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Neovim inputs
-    neovim-flake = {
-      type = "github";
-      owner = "nix-community";
-      repo = "neovim-nightly-overlay";
-
-      # FIXME: memory leak on latest neovim git
-      rev = "c4caeb6f9e87ea08baece83e6cac351d9bd3bb2f";
-
-      # to make sure plugins and nvim have same binaries
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    coc-stylelintplus-flake = {
+    coc-stylelintplus = {
       type = "github";
       owner = "matt1432";
       repo = "coc-stylelintplus";
@@ -233,7 +216,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    tree-sitter-hyprlang-flake = {
+    tree-sitter-hyprlang = {
       type = "github";
       owner = "luckasRanarison";
       repo = "tree-sitter-hyprlang";
@@ -354,6 +337,13 @@
     };
 
     ## Dracula src
+    nvim-theme-src = {
+      type = "github";
+      owner = "Mofiqul";
+      repo = "dracula.nvim";
+      flake = false;
+    };
+
     bat-theme-src = {
       type = "github";
       owner = "matt1432";
