@@ -8,7 +8,7 @@
   ...
 }: let
   inherit (config.vars) neovimIde;
-  inherit (lib) fileContents optionalAttrs optionals;
+  inherit (lib) fileContents hasAttr optionalAttrs optionals;
 
   javaSdk = pkgs.temurin-bin-17;
   nvim-treesitter-hyprlang = tree-sitter-hyprlang.packages.${pkgs.system}.default;
@@ -119,7 +119,12 @@ in {
               rootPatterns = ["flake.nix"];
               settings = {
                 nil = {
-                  formatting = {command = ["alejandra"];};
+                  formatting.command = ["alejandra"];
+
+                  nix = {
+                    maxMemoryMB = 2560;
+                    flake.autoArchive = hasAttr "sops" config;
+                  };
                 };
               };
             };
