@@ -12,6 +12,7 @@
     concatMapStringsSep
     elemAt
     filterAttrs
+    isAttrs
     mkIf
     mkOption
     types
@@ -25,11 +26,6 @@ in {
   imports = ["${nixpkgs-pacemaker}/nixos/modules/${pacemakerPath}"];
 
   options.services.pacemaker = {
-    networkInterface = mkOption {
-      default = "eno1";
-      type = types.str;
-    };
-
     resources = mkOption {
       default = {};
       type = with types;
@@ -45,14 +41,36 @@ in {
               type = types.str;
             };
 
-            virtualIp = mkOption {
-              default = null;
-              type = types.nullOr types.str;
+            # TODO: add assertion to not have same id
+            virtualIps = mkOption {
+              default = [];
+              type = with types;
+                listOf (submodule {
+                  options = {
+                    id = mkOption {
+                      type = types.str;
+                    };
+
+                    interface = mkOption {
+                      default = "eno1";
+                      type = types.str;
+                    };
+
+                    ip = mkOption {
+                      type = types.str;
+                    };
+
+                    cidr = mkOption {
+                      default = 24;
+                      type = types.int;
+                    };
+                  };
+                });
             };
 
+            # TODO: add assertion, needs to be an existing systemdName
             dependsOn = mkOption {
               default = [];
-              # TODO: implement dependsOn
               type = types.listOf types.str;
             };
 
@@ -64,46 +82,48 @@ in {
 
   config = mkIf cfg.enable {
     systemd.services = let
-      mkVirtIp = res: ''
-        <primitive class="ocf" id="${res.systemdName}vip" provider="heartbeat" type="IPaddr2">
-            <instance_attributes id="${res.systemdName}vip-attrs">
-                <nvpair
-                    id="${res.systemdName}vip-attrs-cidr_netmask"
-                    name="cidr_netmask"
-                    value="24"
-                />
-                <nvpair
-                    id="${res.systemdName}vip-attrs-ip"
-                    name="ip"
-                    value="${res.virtualIp}"
-                />
-                <nvpair
-                    id="${res.systemdName}vip-attrs-nic"
-                    name="nic"
-                    value="${cfg.networkInterface}"
-                />
-            </instance_attributes>
-            <operations>
-                <op
-                    id="${res.systemdName}vip-monitor-interval-30s"
-                    interval="30s"
-                    name="monitor"
-                />
-                <op
-                    id="${res.systemdName}vip-start-interval-0s"
-                    interval="0s"
-                    name="start"
-                    timeout="20s"
-                />
-                <op
-                    id="${res.systemdName}vip-stop-interval-0s"
-                    interval="0s"
-                    name="stop"
-                    timeout="20s"
-                />
-            </operations>
-        </primitive>
-      '';
+      mkVirtIps = res:
+        concatMapStringsSep "\n" (vip: ''
+          <primitive class="ocf" id="${res.systemdName}-${vip.id}-vip" provider="heartbeat" type="IPaddr2">
+              <instance_attributes id="${res.systemdName}-${vip.id}-vip-attrs">
+                  <nvpair
+                      id="${res.systemdName}-${vip.id}-vip-attrs-cidr_netmask"
+                      name="cidr_netmask"
+                      value="${toString vip.cidr}"
+                  />
+                  <nvpair
+                      id="${res.systemdName}-${vip.id}-vip-attrs-ip"
+                      name="ip"
+                      value="${vip.ip}"
+                  />
+                  <nvpair
+                      id="${res.systemdName}-${vip.id}-vip-attrs-nic"
+                      name="nic"
+                      value="${vip.interface}"
+                  />
+              </instance_attributes>
+              <operations>
+                  <op
+                      id="${res.systemdName}-${vip.id}-vip-monitor-interval-30s"
+                      interval="30s"
+                      name="monitor"
+                  />
+                  <op
+                      id="${res.systemdName}-${vip.id}-vip-start-interval-0s"
+                      interval="0s"
+                      name="start"
+                      timeout="20s"
+                  />
+                  <op
+                      id="${res.systemdName}-${vip.id}-vip-stop-interval-0s"
+                      interval="0s"
+                      name="stop"
+                      timeout="20s"
+                  />
+              </operations>
+          </primitive>
+        '')
+        res.virtualIps;
 
       mkSystemdResource = res: ''
         <primitive id="${res.systemdName}" class="systemd" type="${res.systemdName}">
@@ -115,25 +135,40 @@ in {
         </primitive>
       '';
 
-      mkConstraint = first: res: ''
+      mkConstraint = res: first: let
+        firstName =
+          if isAttrs first
+          then first.systemdName
+          else first;
+      in ''
         <rsc_order
-            id="order-${res.systemdName}"
-            first="${first}"
+            id="order-${res.systemdName}-${firstName}"
+            first="${firstName}"
             then="${res.systemdName}"
             kind="Mandatory"
         />
         <rsc_colocation
-            id="colocate-${res.systemdName}"
-            rsc="${first}"
+            id="colocate-${res.systemdName}-${firstName}"
+            rsc="${firstName}"
             with-rsc="${res.systemdName}"
             score="INFINITY"
         />
       '';
 
+      mkDependsOn = res: let
+        mkConstraint' = first:
+          mkConstraint res first;
+      in
+        concatMapStringsSep "\n" mkConstraint' res.dependsOn;
+
       mkVipConstraint = res:
-        mkConstraint
-        (res.systemdName + "vip")
-        res;
+        concatMapStringsSep "\n" (
+          vip:
+            mkConstraint
+            res
+            "${res.systemdName}-${vip.id}-vip"
+        )
+        res.virtualIps;
 
       # If we're updating resources we have to kill constraints to add new resources
       constraintsEmpty = toFile "constraints.xml" ''
@@ -143,11 +178,11 @@ in {
 
       resEnabled = filterAttrs (n: v: v.enable) cfg.resources;
 
-      resWithIp = filterAttrs (n: v: ! isNull v.virtualIp) resEnabled;
+      resWithIp = filterAttrs (n: v: ! isNull v.virtualIps) resEnabled;
 
       resources = toFile "resources.xml" ''
         <resources>
-            ${concatMapStringsSep "\n" mkVirtIp (attrValues resWithIp)}
+            ${concatMapStringsSep "\n" mkVirtIps (attrValues resWithIp)}
             ${concatMapStringsSep "\n" mkSystemdResource (attrValues resEnabled)}
         </resources>
       '';
@@ -155,6 +190,7 @@ in {
       constraints = toFile "constraints.xml" ''
         <constraints>
             ${concatMapStringsSep "\n" mkVipConstraint (attrValues resWithIp)}
+            ${concatMapStringsSep "\n" mkDependsOn (attrValues resEnabled)}
         </constraints>
       '';
 

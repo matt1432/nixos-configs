@@ -13,7 +13,13 @@
     resources = {
       "caddy" = {
         enable = true;
-        virtualIp = "10.0.0.130";
+        virtualIps = [
+          {
+            id = "main";
+            interface = "eno1";
+            ip = "10.0.0.130";
+          }
+        ];
       };
     };
   };
