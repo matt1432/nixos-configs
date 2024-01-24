@@ -18,18 +18,18 @@ color: let
 
     "red" = {
       textColor = "#e3e5e5";
-      firstColor = "#9d0909";
-      secondColor = "#700707";
-      thirdColor = "#430404";
-      fourthColor = "#160101";
+      firstColor = "#e04242";
+      secondColor = "#9c2e2e";
+      thirdColor = "#591a1a";
+      fourthColor = "#160606";
     };
 
     "blue" = {
       textColor = "#e3e5e5";
-      firstColor = "#092a9d";
-      secondColor = "#071e70";
-      thirdColor = "#041243";
-      fourthColor = "#010616";
+      firstColor = "#6684ee";
+      secondColor = "#475ca6";
+      thirdColor = "#28345f";
+      fourthColor = "#010617";
     };
 
     # Template
