@@ -1,5 +1,5 @@
 {config, ...}: let
-  inherit (config.vars) mainUser;
+  inherit (config.vars) mainUser hostName;
 in {
   # https://github.com/MatthewVance/unbound-docker-rpi/issues/4#issuecomment-1001879602
   boot.kernel.sysctl."net.core.rmem_max" = 1048576;
@@ -27,7 +27,12 @@ in {
           "ota.nelim.org redirect"
           "nelim.org redirect"
         ];
-        local-data = [
+        local-data = let
+          caddyIp =
+            if hostName == "thingone"
+            then "100.64.0.8"
+            else "100.64.0.9";
+        in [
           "\"pve.nelim.org IN A 100.64.0.4\""
 
           "\"headscale.nelim.org. IN A 24.200.126.219\""
@@ -45,9 +50,8 @@ in {
 
           "\"ota.nelim.org. IN A 100.64.0.5\""
 
-          "\"nelim.org IN A 100.64.0.1\""
+          "\"nelim.org 0 A ${caddyIp}\""
         ];
-        #
 
         do-ip4 = true;
         do-ip6 = false;

@@ -1,5 +1,7 @@
 deviceName: {config, ...}: let
   inherit (config.vars) mainUser hostName;
+
+  clusterIP = (builtins.elemAt config.services.pacemaker.resources.caddy.virtualIps 0).ip;
 in {
   imports = [
     ./hardware-configuration.nix
@@ -34,6 +36,10 @@ in {
   networking = {
     inherit hostName;
     resolvconf.enable = true;
+    nameservers = [
+      clusterIP
+      "1.0.0.1"
+    ];
     firewall.enable = false;
   };
 

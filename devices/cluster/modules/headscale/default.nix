@@ -6,8 +6,10 @@
   ...
 }: let
   inherit (builtins) readFile;
-  inherit (config.vars) mainUser;
+  inherit (config.vars) mainUser hostName;
   headscale-flake = headscale.packages.${pkgs.system}.headscale;
+
+  clusterIP = (builtins.elemAt config.services.pacemaker.resources.caddy.virtualIps 0).ip;
 in {
   environment.systemPackages = [headscale-flake];
   users.users.${mainUser}.extraGroups = ["headscale"];
@@ -19,7 +21,7 @@ in {
     enable = true;
     package = headscale-flake;
 
-    address = "10.0.0.213";
+    address = clusterIP;
     port = 8085;
 
     settings = {
@@ -36,10 +38,15 @@ in {
       private_key_path = "/var/lib/headscale/private.key";
       noise.private_key_path = "/var/lib/headscale/noise_private.key";
 
-      dns_config = {
+      dns_config = let
+        caddyIp =
+          if hostName == "thingone"
+          then "100.64.0.8"
+          else "100.64.0.9";
+      in {
         magic_dns = false;
         override_local_dns = true;
-        nameservers = ["100.64.0.1"];
+        nameservers = [caddyIp];
       };
 
       derp = {
@@ -47,7 +54,7 @@ in {
 
         server = {
           enabled = true;
-          stun_listen_addr = "0.0.0.0:3479";
+          stun_listen_addr = "${clusterIP}:3479";
           private_key_path = "/var/lib/headscale/derp_server_private.key";
 
           region_id = 995;

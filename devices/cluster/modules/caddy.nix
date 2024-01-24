@@ -8,6 +8,8 @@
   inherit (config.sops) secrets;
 
   caddy = caddy-plugins.packages.${pkgs.system}.default;
+
+  clusterIP = (builtins.elemAt config.services.pacemaker.resources.caddy.virtualIps 0).ip;
 in {
   imports = [caddy-plugins.nixosModules.default];
 
@@ -33,7 +35,6 @@ in {
       dockerIP = "10.0.0.122";
       jellyIP = "10.0.0.123";
       servivi = "10.0.0.249";
-      oksysIP = "10.0.0.213";
     in {
       "nelim.org" = {
         serverAliases = ["*.nelim.org"];
@@ -48,7 +49,7 @@ in {
           # Misc one-liners
           vault.reverseProxy = "${dockerIP}:8781";
           hauk.reverseProxy = "${dockerIP}:3003";
-          headscale.reverseProxy = "${oksysIP}:8085";
+          headscale.reverseProxy = "${clusterIP}:8085";
           jelly.reverseProxy = "${jellyIP}:80";
 
           # Resume builder

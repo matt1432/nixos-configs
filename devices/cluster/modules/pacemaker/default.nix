@@ -3,42 +3,71 @@
     ./options.nix
     ../corosync.nix
 
+    ../blocky.nix
     ../caddy.nix
+    ../headscale
+    ../unbound.nix
   ];
 
   # TODO: update script
-  services = {
-    pacemaker = {
-      enable = true;
+  services.pacemaker = {
+    enable = true;
 
-      resources = {
-        "caddy" = {
-          enable = true;
-          virtualIps = [
-            {
-              id = "main";
-              interface = "eno1";
-              ip = "10.0.0.130";
-            }
-          ];
-        };
+    resources = {
+      "blocky" = {
+        enable = true;
+        dependsOn = ["unbound"];
+      };
+
+      "caddy" = {
+        enable = true;
+        virtualIps = [
+          {
+            id = "main";
+            interface = "eno1";
+            ip = "10.0.0.130";
+          }
+        ];
+      };
+
+      "headscale" = {
+        enable = true;
+        dependsOn = ["caddy"];
+      };
+
+      "unbound" = {
+        enable = true;
+        dependsOn = ["caddy"];
       };
     };
-
-    rpcbind.enable = true; # needed for NFS
   };
+
+  # NFS client setup
+  services.rpcbind.enable = true;
   boot.supportedFilesystems = ["nfs"];
   environment.systemPackages = with pkgs; [nfs-utils];
 
-  systemd.mounts = [
+  systemd.mounts = let
+    host = "10.0.0.249";
+  in [
     {
       type = "nfs";
       mountConfig = {
         Options = "noatime";
       };
-      what = "servivi:/caddy";
+      what = "${host}:/caddy";
       where = "/var/lib/caddy";
       requiredBy = ["caddy.service"];
+    }
+
+    {
+      type = "nfs";
+      mountConfig = {
+        Options = "noatime";
+      };
+      what = "${host}:/headscale";
+      where = "/var/lib/headscale";
+      requiredBy = ["headscale.service"];
     }
   ];
 }
