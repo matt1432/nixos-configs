@@ -18,6 +18,7 @@ in {
   vars = {
     mainUser = "matt";
     hostName = "servivi";
+    promptMainColor = "blue";
   };
 
   users.users = {

@@ -21,6 +21,32 @@
       '';
     };
 
+    promptMainColor = mkOption {
+      type = types.enum ["red" "green" "blue" "purple"];
+      default = "purple";
+    };
+
+    promptColors = mkOption {
+      description = ''
+        Colors used in starship prompt
+      '';
+
+      default = import ./prompt-schemes.nix cfg.promptMainColor;
+
+      # FIXME: doesn't work when passing vars to home-manager
+      # readOnly = true;
+      type = with types;
+        submodule {
+          options = {
+            textColor = mkOption {type = str;};
+            firstColor = mkOption {type = str;};
+            secondColor = mkOption {type = str;};
+            thirdColor = mkOption {type = str;};
+            fourthColor = mkOption {type = str;};
+          };
+        };
+    };
+
     configDir = mkOption {
       type = types.str;
       default = "/home/${cfg.mainUser}/.nix/devices/${cfg.hostName}/config";
@@ -35,11 +61,12 @@
         The name of the main monitor used for Hyprland
         and Regreet which also uses Hyprland
       '';
+      # This is to allow a bash script to know wether this value exists
       default = "null";
     };
 
     greetdDupe = mkOption {
-      type = types.nullOr types.bool;
+      type = types.bool;
       description = ''
         If we should duplicate regreet on all monitors
       '';

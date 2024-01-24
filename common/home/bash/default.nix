@@ -1,12 +1,10 @@
-{lib, ...}: let
-  inherit (lib) fileContents;
-
-  # TODO: have different colors depending on host
-  textColor = "#e3e5e5";
-  firstColor = "#bd93f9";
-  secondColor = "#715895";
-  thirdColor = "#382c4a";
-  fourthColor = "#120e18";
+{
+  config,
+  lib,
+  ...
+}: let
+  inherit (lib) concatStrings fileContents;
+  inherit (config.vars) promptColors;
 in {
   imports = [./programs.nix];
 
@@ -14,36 +12,37 @@ in {
     starship = {
       enable = true;
       enableBashIntegration = true;
+
       settings = {
-        format = lib.concatStrings [
+        format = concatStrings [
           "╭╴"
-          "[](fg:${firstColor})"
-          "[   ](bg:${firstColor} fg:#090c0c)"
-          "[](bg:${secondColor} fg:${firstColor})"
+          "[](fg:${promptColors.firstColor})"
+          "[   ](bg:${promptColors.firstColor} fg:#090c0c)"
+          "[](bg:${promptColors.secondColor} fg:${promptColors.firstColor})"
           "$username$hostname"
-          "[](fg:${secondColor} bg:${thirdColor})"
+          "[](fg:${promptColors.secondColor} bg:${promptColors.thirdColor})"
           "$directory"
-          "[](fg:${thirdColor} bg:${fourthColor})"
+          "[](fg:${promptColors.thirdColor} bg:${promptColors.fourthColor})"
           "$git_branch"
-          "[](fg:${fourthColor})"
+          "[](fg:${promptColors.fourthColor})"
           "\n╰╴$shlvl$nix_shell$character"
         ];
 
         username = {
           show_always = true;
-          style_user = "fg:${textColor} bg:${secondColor}";
-          style_root = "fg:red bg:${secondColor} blink";
+          style_user = "fg:${promptColors.textColor} bg:${promptColors.secondColor}";
+          style_root = "fg:red bg:${promptColors.secondColor} blink";
           format = "[ $user]($style)";
         };
 
         hostname = {
           ssh_only = false;
-          style = "fg:${textColor} bg:${secondColor}";
+          style = "fg:${promptColors.textColor} bg:${promptColors.secondColor}";
           format = "[@$hostname ]($style)";
         };
 
         directory = {
-          style = "fg:${firstColor} bg:${thirdColor}";
+          style = "fg:${promptColors.firstColor} bg:${promptColors.thirdColor}";
           format = "[ $path ]($style)";
           truncate_to_repo = false;
           truncation_length = 0;
@@ -57,7 +56,7 @@ in {
         };
 
         git_branch = {
-          style = "fg:${secondColor} bg:${fourthColor}";
+          style = "fg:${promptColors.secondColor} bg:${promptColors.fourthColor}";
           symbol = "";
           format = "[ $symbol $branch ]($style)";
         };

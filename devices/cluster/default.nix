@@ -16,6 +16,12 @@ in {
   vars = {
     mainUser = "matt";
     hostName = deviceName;
+    promptMainColor =
+      if deviceName == "thingone"
+      then "green"
+      else if deviceName == "thingtwo"
+      then "red"
+      else "purple";
   };
 
   users.users.${mainUser} = {

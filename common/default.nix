@@ -9,7 +9,7 @@
   ...
 } @ inputs: {
   imports = [
-    ./vars.nix
+    ./vars
 
     ./modules
     ./pkgs
@@ -65,7 +65,7 @@
     default = {
       imports = [
         # Make the vars be the same on Nix and HM
-        ./vars.nix
+        ./vars
         {vars = config.vars;}
 
         nur.hmModules.nur

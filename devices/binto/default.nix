@@ -21,6 +21,7 @@ in {
   vars = {
     mainUser = "matt";
     hostName = "binto";
+    promptMainColor = "purple";
     mainMonitor = "desc:GIGA-BYTE TECHNOLOGY CO. LTD. G27QC 0x00000B1D";
     greetdDupe = false;
     fontSize = 12.5;

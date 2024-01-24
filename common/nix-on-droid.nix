@@ -4,7 +4,7 @@
   ...
 }: {
   imports = [
-    ./vars.nix
+    ./vars
     ./pkgs
     ./modules/global.nix
     nur.nixosModules.nur
@@ -39,7 +39,7 @@
   home-manager.config = {
     imports = [
       # Make the vars be the same on Nix and HM
-      ./vars.nix
+      ./vars
       {vars = config.vars;}
 
       nur.hmModules.nur

@@ -19,6 +19,7 @@ in {
   vars = {
     mainUser = "matt";
     hostName = "wim";
+    promptMainColor = "purple";
     fontSize = 12.5;
     mainMonitor = "eDP-1";
   };
