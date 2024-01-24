@@ -5,6 +5,9 @@ in {
     tailscale = {
       enable = true;
       # TODO: add authKeyFile to get extraUpFlags to work
+      # https://github.com/juanfont/headscale/issues/1550
+      # https://github.com/juanfont/headscale/blob/main/docs/running-headscale-linux-manual.md#register-machine-using-a-pre-authenticated-key
+      # https://www.reddit.com/r/NixOS/comments/18kz1nb/tailscale_extraupflags_not_working/
       extraUpFlags = [
         "--login-server https://headscale.nelim.org"
         "--operator=matt"
