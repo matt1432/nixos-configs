@@ -4,11 +4,38 @@
       enable = true;
       lfs.enable = true;
 
-      userName = "matt1432";
-      userEmail = "matt@nelim.org";
-
       includes = [
         {path = "${pkgs.dracula-theme}/git-colors";}
+
+        {
+          condition = "hasconfig:remote.*.url:git@github.com:*/**";
+          contents = {
+            user = {
+              email = "matt@nelim.org";
+              name = "matt1432";
+            };
+          };
+        }
+
+        {
+          condition = "hasconfig:remote.*.url:git@git.nelim.org:*/**";
+          contents = {
+            user = {
+              email = "matt@nelim.org";
+              name = "matt1432";
+            };
+          };
+        }
+
+        {
+          condition = "hasconfig:remote.*.url:git@gitlab.info.uqam.ca:*/**";
+          contents = {
+            user = {
+              email = "gj591944@ens.uqam.ca";
+              name = "Mathis Hurtubise";
+            };
+          };
+        }
       ];
 
       delta = {
