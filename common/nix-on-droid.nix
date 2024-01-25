@@ -49,6 +49,11 @@
 
       {
         programs.bash.shellAliases = {
+          # Make ping work on nix-on-droid
+          # https://github.com/nix-community/nix-on-droid/issues/185#issuecomment-1659294700
+          ping = "/android/system/bin/linker64 /android/system/bin/ping";
+
+          # SSH
           # Desktop
           pc = "ssh -t matt@100.64.0.6 'tmux -2u new -At phone'";
 
