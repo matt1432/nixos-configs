@@ -141,11 +141,12 @@
     };
 
     # Cluster Inputs
-    nixpkgs-pacemaker = {
+    pacemaker = {
       type = "github";
-      owner = "mitchty";
-      repo = "nixpkgs";
-      ref = "corosync-pacemaker-ocf";
+      owner = "matt1432";
+      repo = "nixos-pacemaker";
+
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Oksys inputs

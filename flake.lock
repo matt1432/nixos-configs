@@ -1036,6 +1036,27 @@
         "type": "github"
       }
     },
+    "pacemaker": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "nixpkgs-pacemaker": "nixpkgs-pacemaker"
+      },
+      "locked": {
+        "lastModified": 1706296989,
+        "narHash": "sha256-qpaRjqvPVio4T3qV6Hws1kr1ohwY+Dhx82KFEPeSiLU=",
+        "owner": "matt1432",
+        "repo": "nixos-pacemaker",
+        "rev": "f819e743d2e2329f7c306978a5ea084955c0364d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "matt1432",
+        "repo": "nixos-pacemaker",
+        "type": "github"
+      }
+    },
     "pam-fprint-grosshack-src": {
       "flake": false,
       "locked": {
@@ -1156,12 +1177,12 @@
         "nix-melt": "nix-melt",
         "nix-on-droid": "nix-on-droid",
         "nixpkgs": "nixpkgs_4",
-        "nixpkgs-pacemaker": "nixpkgs-pacemaker",
         "nixpkgs-wayland": "nixpkgs-wayland",
         "nms": "nms",
         "nur": "nur",
         "nurl": "nurl",
         "nvim-theme-src": "nvim-theme-src",
+        "pacemaker": "pacemaker",
         "pam-fprint-grosshack-src": "pam-fprint-grosshack-src",
         "persist-properties-src": "persist-properties-src",
         "plymouth-src": "plymouth-src",
@@ -1184,11 +1205,11 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1705981759,
-        "narHash": "sha256-4Cvwx1i+fgNOdvKheGvNiK8ZB7FENj2O7j4FLW1sLO8=",
+        "lastModified": 1706296642,
+        "narHash": "sha256-If1RZSkzjcp8IhQlObt8Ih3zW/xPof9HPlenF3ZbWq8=",
         "ref": "refs/heads/main",
-        "rev": "4655ce03e395f6438f66d521da3614379c8f9354",
-        "revCount": 36,
+        "rev": "418f51a455052c9344d2dc90731ffdf008472b56",
+        "revCount": 38,
         "type": "git",
         "url": "ssh://git@git.nelim.org/matt1432/nixos-secrets"
       },

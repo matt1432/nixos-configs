@@ -9,7 +9,7 @@
   inherit (config.vars) mainUser hostName;
   headscale-flake = headscale.packages.${pkgs.system}.headscale;
 
-  clusterIP = (builtins.elemAt config.services.pacemaker.resources.caddy.virtualIps 0).ip;
+  clusterIP = config.services.pacemaker.virtualIps.caddy-vip.ip;
 in {
   environment.systemPackages = [headscale-flake];
   users.users.${mainUser}.extraGroups = ["headscale"];

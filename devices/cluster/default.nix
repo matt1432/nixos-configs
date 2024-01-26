@@ -1,7 +1,7 @@
 deviceName: {config, ...}: let
   inherit (config.vars) mainUser hostName;
 
-  clusterIP = (builtins.elemAt config.services.pacemaker.resources.caddy.virtualIps 0).ip;
+  clusterIP = config.services.pacemaker.virtualIps.caddy-vip.ip;
 in {
   imports = [
     ./hardware-configuration.nix
@@ -10,7 +10,7 @@ in {
     ../../modules/sshd.nix
     ../../modules/tailscale.nix
 
-    ./modules/pacemaker
+    ./modules/pacemaker.nix
   ];
 
   vars = {
