@@ -146,7 +146,8 @@
       owner = "matt1432";
       repo = "nixos-pacemaker";
 
-      inputs.nixpkgs.follows = "nixpkgs";
+      # FIXME: OCF resources break on latest
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Oksys inputs
