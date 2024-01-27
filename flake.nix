@@ -208,7 +208,7 @@
       repo = "ags";
 
       # FIXME: some bugs in latest
-      rev = "c706e43fab6f1845b6e16fa3106200ac801f6749";
+      rev = "8e94d3b465e76372056c76242e5c013950113be9";
 
       inputs.nixpkgs.follows = "nixpkgs";
     };

@@ -161,6 +161,6 @@ const Applauncher = (window_name = 'applauncher') => {
 
 export default () => PopupWindow({
     name: 'applauncher',
-    focusable: true,
+    keymode: 'on-demand',
     child: Applauncher(),
 });
