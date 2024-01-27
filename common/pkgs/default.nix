@@ -2,8 +2,7 @@
   lib,
   pkgs,
   ...
-} @ inputs:
-let
+} @ inputs: let
   inherit (lib) concatMapAttrs filterAttrs mkOption pathExists types;
 
   mkPackage = name: v: {
