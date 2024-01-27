@@ -1044,11 +1044,11 @@
         "nixpkgs-pacemaker": "nixpkgs-pacemaker"
       },
       "locked": {
-        "lastModified": 1706319439,
-        "narHash": "sha256-bsKLDWLv+jCsQ4ToNkDwJT1tbJusekVzE84nRRX3Zko=",
+        "lastModified": 1706324661,
+        "narHash": "sha256-mApmcg3D+mbTvOXlThLD+G4yMK3/SN0jbL8yZDFpGdo=",
         "owner": "matt1432",
         "repo": "nixos-pacemaker",
-        "rev": "09659272afc0790e08d19b608aaa4a06eb989803",
+        "rev": "060a819e97bb94805bda5ae70f1d6fd0baa27e3d",
         "type": "github"
       },
       "original": {

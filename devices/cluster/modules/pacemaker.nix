@@ -40,19 +40,19 @@ in {
       "unbound" = {
         enable = true;
         group = "caddy-grp";
-        startAfter = ["caddy"];
+        startAfter = ["caddy-vip"];
       };
 
       "blocky" = {
         enable = true;
         group = "caddy-grp";
-        startAfter = ["unbound"];
+        startAfter = ["caddy-vip"];
       };
 
       "headscale" = {
         enable = true;
         group = "caddy-grp";
-        startAfter = ["blocky"];
+        startAfter = ["caddy-vip"];
       };
     };
 
