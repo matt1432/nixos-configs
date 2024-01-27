@@ -46,6 +46,10 @@ in {
       clusterIP
       "1.0.0.1"
     ];
+    extraHosts = ''
+      10.0.0.244 thingone
+      10.0.0.159 thingtwo
+    '';
     firewall.enable = false;
   };
 

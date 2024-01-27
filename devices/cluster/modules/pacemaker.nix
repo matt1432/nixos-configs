@@ -26,32 +26,32 @@ in {
       "caddy-vip" = {
         ip = "10.0.0.130";
         interface = "eno1";
-        group = "caddy";
+        group = "caddy-grp";
       };
     };
 
     systemdResources = {
       "caddy" = {
         enable = true;
-        group = "caddy";
+        group = "caddy-grp";
         startAfter = ["caddy-vip"];
       };
 
       "unbound" = {
         enable = true;
-        group = "caddy";
+        group = "caddy-grp";
         startAfter = ["caddy"];
       };
 
       "blocky" = {
         enable = true;
-        group = "caddy";
+        group = "caddy-grp";
         startAfter = ["unbound"];
       };
 
       "headscale" = {
         enable = true;
-        group = "caddy";
+        group = "caddy-grp";
         startAfter = ["blocky"];
       };
     };
