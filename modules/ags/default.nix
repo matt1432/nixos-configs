@@ -20,14 +20,12 @@ in {
       symlink = config.lib.file.mkOutOfStoreSymlink;
       inherit (lib) optionals;
     in {
-      programs.ags = {
-        enable = true;
-        configDir = symlink /home/${mainUser}/.nix/modules/ags/config;
-      };
+      programs.ags.enable = true;
 
       home = {
         file = {
-          ".config/ags/config.js".text =
+          ".config/ags".source = symlink /home/${mainUser}/.nix/modules/ags/config;
+          ".nix/modules/ags/config/config.js".text =
             /*
             javascript
             */
