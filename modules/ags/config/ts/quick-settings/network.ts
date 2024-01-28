@@ -199,7 +199,8 @@ export const NetworkMenu = () => {
                                         APList.delete(ssid);
                                     }
                                     else {
-                                        apWidget.child.reveal_child = false;
+                                        apWidget.children[0]
+                                            .reveal_child = false;
                                         apWidget.toDestroy = true;
                                     }
                                 }

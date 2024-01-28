@@ -131,6 +131,11 @@ export default ({
 
         child: Overlay({
             overlays: [Box({
+                css: `
+                    min-height: 1px;
+                    min-width: 1px;
+                    padding: 1px;
+                `,
                 setup: (self) => {
                     // Make sure child doesn't
                     // get bigger than it should
@@ -239,11 +244,10 @@ export default ({
 
                     if (ch === overlay) {
                         const alloc = overlay.get_allocation();
-                        const setAlloc = (v: number) => v - 2 < 0 ? 1 : v;
 
                         (self.child as AgsBox).css = `
-                            min-height: ${setAlloc(alloc.height - 2)}px;
-                            min-width:  ${setAlloc(alloc.width - 2)}px;
+                            min-height: ${alloc.height}px;
+                            min-width:  ${alloc.width}px;
                         `;
                     }
                 });

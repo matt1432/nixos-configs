@@ -207,9 +207,6 @@
       owner = "Aylur";
       repo = "ags";
 
-      # FIXME: some bugs in latest
-      rev = "8e94d3b465e76372056c76242e5c013950113be9";
-
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
