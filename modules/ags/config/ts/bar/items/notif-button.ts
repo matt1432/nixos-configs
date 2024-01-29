@@ -9,15 +9,15 @@ import Separator from '../../misc/separator.ts';
 const SPACING = 4;
 
 // Types
-import AgsWindow from 'types/widgets/window.ts';
+import { PopupWindow } from 'global-types';
 
 
 export default () => CursorBox({
     class_name: 'toggle-off',
 
     on_primary_click_release: (self) => {
-        (App.getWindow('notification-center') as AgsWindow)
-            ?.attribute.set_x_pos(
+        (App.getWindow('notification-center') as PopupWindow)
+            .set_x_pos(
                 self.get_allocation(),
                 'right',
             );

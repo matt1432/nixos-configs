@@ -44,5 +44,5 @@ const PowermenuWidget = () => CenterBox({
 
 export default () => PopupWindow({
     name: 'powermenu',
-    child: PowermenuWidget(),
+    content: PowermenuWidget(),
 });

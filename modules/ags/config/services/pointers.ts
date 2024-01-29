@@ -15,7 +15,7 @@ const ON_CLICK_TRIGGERS = [
 ];
 
 // Types
-import AgsWindow from 'types/widgets/window';
+import { PopupWindow } from 'global-types';
 import { Subprocess } from 'types/@girs/gio-2.0/gio-2.0.cjs';
 type Layer = {
     address: string;
@@ -54,7 +54,7 @@ class Pointers extends Service {
 
     #process = null as Subprocess | null;
     #lastLine = '';
-    #pointers = [] as Array<String>;
+    #pointers = [] as Array<string>;
 
     get process() {
         return this.#process;
@@ -114,11 +114,11 @@ class Pointers extends Service {
     #initAppConnection() {
         App.connect('window-toggled', () => {
             const anyVisibleAndClosable =
-                (Array.from(App.windows) as Array<[string, AgsWindow]>)
+                (Array.from(App.windows) as Array<[string, PopupWindow]>)
                     .some((w) => {
-                        const closable = w[1].attribute?.close_on_unfocus &&
-                            !(w[1].attribute.close_on_unfocus === 'none' ||
-                            w[1].attribute.close_on_unfocus === 'stay');
+                        const closable = w[1].close_on_unfocus &&
+                            !(w[1].close_on_unfocus === 'none' ||
+                            w[1].close_on_unfocus === 'stay');
 
                         return w[1].visible && closable;
                     });
@@ -134,10 +134,10 @@ class Pointers extends Service {
     }
 
     static detectClickedOutside(clickStage: string) {
-        const toClose = (Array.from(App.windows) as Array<[string, AgsWindow]>)
+        const toClose = (Array.from(App.windows) as Array<[string, PopupWindow]>)
             .some((w) => {
-                const closable = (w[1].attribute?.close_on_unfocus &&
-                    w[1].attribute.close_on_unfocus === clickStage);
+                const closable = (w[1].close_on_unfocus &&
+                    w[1].close_on_unfocus === clickStage);
 
                 return w[1].visible && closable;
             });
@@ -190,11 +190,11 @@ class Pointers extends Service {
 
                         const widgets = overlayLayer.filter((n) => {
                             const window =
-                                    (App.getWindow(n.namespace) as AgsWindow);
+                                    (App.getWindow(n.namespace) as PopupWindow);
 
                             return window &&
-                                window.attribute?.close_on_unfocus &&
-                                window.attribute?.close_on_unfocus ===
+                                window.close_on_unfocus &&
+                                window.close_on_unfocus ===
                                     clickStage;
                         });
 

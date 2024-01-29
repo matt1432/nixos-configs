@@ -6,22 +6,11 @@ import HoverRevealer from './hover-revealer.ts';
 
 const DEFAULT_KB = 'at-translated-set-2-keyboard';
 
-import AgsLabel from 'types/widgets/label.ts';
-type Keyboard = {
-    address: string;
-    name: string;
-    rules: string;
-    model: string;
-    layout: string;
-    variant: string;
-    options: string;
-    active_keymap: string;
-    main: boolean;
-};
+// Types
+import { Keyboard, LabelGeneric } from 'global-types';
 
 
-
-const getKbdLayout = (self: AgsLabel, _: string, layout: string) => {
+const getKbdLayout = (self: LabelGeneric, _: string, layout: string) => {
     if (layout) {
         if (layout === 'error') {
             return;
@@ -35,7 +24,7 @@ const getKbdLayout = (self: AgsLabel, _: string, layout: string) => {
         // At launch, kb layout is undefined
         Hyprland.sendMessage('j/devices').then((obj) => {
             const keyboards = Array.from(JSON.parse(obj)
-                .keyboards) as Array<Keyboard>;
+                .keyboards) as Keyboard[];
             const kb = keyboards.find((v) => v.name === DEFAULT_KB);
 
             if (kb) {

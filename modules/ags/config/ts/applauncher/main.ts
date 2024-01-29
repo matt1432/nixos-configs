@@ -1,8 +1,7 @@
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import Applications from 'resource:///com/github/Aylur/ags/service/applications.js';
-// FIXME: find cleaner way to import this
-// @ts-expect-error
-import { Fzf } from 'file:///home/matt/.nix/modules/ags/config/node_modules/fzf/dist/fzf.es.js';
+// @ts-expect-error find cleaner way to import this
+import { Fzf, FzfResultItem } from 'file:///home/matt/.nix/modules/ags/config/node_modules/fzf/dist/fzf.es.js';
 
 import { Box, Entry, Icon, Label, ListBox, Revealer, Scrollable } from 'resource:///com/github/Aylur/ags/widget.js';
 
@@ -10,14 +9,13 @@ import PopupWindow from '../misc/popup.ts';
 import AppItem from './app-item.ts';
 
 // Types
-import { Application } from 'types/service/applications.ts';
 import { ListBoxRow } from 'types/@girs/gtk-3.0/gtk-3.0.cjs';
-import AgsEventBox from 'types/widgets/eventbox';
+import { Application } from 'types/service/applications.ts';
+import { AgsAppItem } from 'global-types';
 
 
 const Applauncher = (window_name = 'applauncher') => {
-    let fzfResults: Array<any>;
-    // @ts-expect-error
+    let fzfResults: FzfResultItem<Application>[];
     const list = ListBox();
 
     const setSort = (text: string) => {
@@ -31,25 +29,21 @@ const Applauncher = (window_name = 'applauncher') => {
         });
 
         fzfResults = fzf.find(text);
-        list.set_sort_func(
-            (a: ListBoxRow, b: ListBoxRow) => {
-                const row1 = (a.get_children()[0] as AgsEventBox)
-                    ?.attribute.app.name;
-                const row2 = (b.get_children()[0] as AgsEventBox)
-                    ?.attribute.app.name;
+        list.set_sort_func((a, b) => {
+            const row1 = (a.get_children()[0] as AgsAppItem).attribute.app.name;
+            const row2 = (b.get_children()[0] as AgsAppItem).attribute.app.name;
 
-                if (!row1 || !row2) {
-                    return 0;
-                }
+            if (!row1 || !row2) {
+                return 0;
+            }
 
-                return fzfResults.indexOf(row1) -
+            return fzfResults.indexOf(row1) -
             fzfResults.indexOf(row1) || 0;
-            },
-        );
+        });
     };
 
     const makeNewChildren = () => {
-        const rows = list.get_children() as Array<ListBoxRow>;
+        const rows = list.get_children() as ListBoxRow[];
 
         rows.forEach((ch) => {
             ch.destroy();
@@ -94,14 +88,14 @@ const Applauncher = (window_name = 'applauncher') => {
             setSort(text);
             let visibleApps = 0;
 
-            const rows = list.get_children() as Array<ListBoxRow>;
+            const rows = list.get_children() as ListBoxRow[];
 
             rows.forEach((row) => {
                 row.changed();
 
-                const item = (row.get_children()[0] as AgsEventBox);
+                const item = (row.get_children()[0] as AgsAppItem);
 
-                if (item?.attribute.app) {
+                if (item.attribute.app) {
                     const isMatching = fzfResults.find((r) => {
                         return r.item.name === item.attribute.app.name;
                     });
@@ -162,5 +156,5 @@ const Applauncher = (window_name = 'applauncher') => {
 export default () => PopupWindow({
     name: 'applauncher',
     keymode: 'on-demand',
-    child: Applauncher(),
+    content: Applauncher(),
 });

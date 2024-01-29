@@ -13,13 +13,19 @@ import CursorBox from '../misc/cursorbox.ts';
 
 // Types
 import { Notification as NotifObj } from 'types/service/notifications.ts';
-import AgsEventBox from 'types/widgets/eventbox.ts';
+import AgsEventBox from 'types/widgets/eventbox';
+import { Widget } from 'types/@girs/gtk-3.0/gtk-3.0.cjs';
 import { Client } from 'types/service/hyprland.ts';
 type NotificationWidget = {
     notif: NotifObj
     slideIn?: 'Left' | 'Right'
     command?(): void
 };
+import {
+    EventBoxGeneric,
+    CursorBox as CBox,
+} from 'global-types';
+
 
 const setTime = (time: number) => {
     return GLib.DateTime
@@ -27,13 +33,17 @@ const setTime = (time: number) => {
         .format('%H:%M');
 };
 
-const getDragState = (box: AgsEventBox) => (box.get_parent()?.get_parent()
-    ?.get_parent()?.get_parent()?.get_parent() as AgsEventBox)
+const getDragState = (box: EventBoxGeneric) => (box
+    .get_parent()
+    ?.get_parent()
+    ?.get_parent()
+    ?.get_parent()
+    ?.get_parent() as AgsEventBox<Widget, { dragging: boolean }>)
     ?.attribute.dragging;
 
 
 const NotificationIcon = (notif: NotifObj) => {
-    let iconCmd = (box: AgsEventBox):void => {
+    let iconCmd = (box: CBox):void => {
         console.log(box);
     };
 
@@ -89,7 +99,9 @@ const NotificationIcon = (notif: NotifObj) => {
 
     if (notif.image) {
         return CursorBox({
-            on_primary_click_release: iconCmd,
+            on_primary_click_release: (self) => {
+                iconCmd(self);
+            },
 
             child: Box({
                 vpack: 'start',
@@ -120,7 +132,9 @@ const NotificationIcon = (notif: NotifObj) => {
 
 
     return CursorBox({
-        on_primary_click_release: iconCmd,
+        on_primary_click_release: (self) => {
+            iconCmd(self);
+        },
 
         child: Box({
             vpack: 'start',
@@ -175,7 +189,7 @@ export const Notification = ({
     });
 
     // Add body to notif
-    (notifWidget.child as AgsEventBox).add(Box({
+    (notifWidget.child as EventBoxGeneric).add(Box({
         class_name: `notification ${notif.urgency}`,
         vexpand: false,
 

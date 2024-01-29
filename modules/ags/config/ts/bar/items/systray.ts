@@ -10,7 +10,6 @@ const SPACING = 12;
 
 // Types
 import { TrayItem } from 'types/service/systemtray.ts';
-import AgsRevealer from 'types/widgets/revealer.ts';
 
 
 const SysTrayItem = (item: TrayItem) => {
@@ -54,7 +53,7 @@ const SysTray = () => MenuBar({
                 self.child = w;
                 self.show_all();
 
-                (<AgsRevealer> w.child).reveal_child = true;
+                w.child.reveal_child = true;
             }, 'added')
 
             .hook(SystemTray, (_, id) => {

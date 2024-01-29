@@ -23,7 +23,7 @@ Audio.connect('speaker-changed', () => {
         return;
     }
 
-    if (Audio.speaker.stream.is_muted) {
+    if (Audio.speaker.stream?.is_muted) {
         SpeakerIcon.value = speakerIcons[0];
     }
     else {
@@ -43,7 +43,7 @@ Audio.connect('microphone-changed', () => {
         return;
     }
 
-    if (Audio.microphone.stream.is_muted) {
+    if (Audio.microphone.stream?.is_muted) {
         MicIcon.value = micIcons[0];
     }
     else {

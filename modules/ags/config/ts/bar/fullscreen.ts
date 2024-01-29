@@ -5,8 +5,8 @@ import { Box, EventBox, Revealer, Window } from 'resource:///com/github/Aylur/ag
 
 // Types
 import { Variable as Var } from 'types/variable';
-import AgsBox from 'types/widgets/box';
-import { RevealerProps } from 'types/widgets/revealer';
+import { BoxGeneric, DefaultProps } from 'global-types';
+
 
 const BarCloser = (variable: Var<boolean>) => Window({
     name: 'bar-closer',
@@ -30,7 +30,7 @@ const BarCloser = (variable: Var<boolean>) => Window({
     }),
 });
 
-export default (props: RevealerProps) => {
+export default (props?: DefaultProps) => {
     const Revealed = Variable(true);
     const barCloser = BarCloser(Revealed);
 
@@ -50,7 +50,7 @@ export default (props: RevealerProps) => {
                 }
             };
 
-            const checkGlobalFsState = (_: AgsBox, fullscreen: boolean) => {
+            const checkGlobalFsState = (_: BoxGeneric, fullscreen: boolean) => {
                 Revealed.value = !fullscreen;
             };
 

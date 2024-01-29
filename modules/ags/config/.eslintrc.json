@@ -2,7 +2,7 @@
   "env": {
     "es2021": true
   },
-  "extends": "eslint:recommended",
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
   "parser": "@typescript-eslint/parser",
   "overrides": [],
   "parserOptions": {
@@ -19,9 +19,6 @@
     "no-unreachable-loop": ["error", { "ignore": [
       "ForInStatement", "ForOfStatement"
     ]}],
-    "no-use-before-define": ["error", {
-      "functions": false
-    }],
 
 
     "block-scoped-var": ["error"],
@@ -79,6 +76,7 @@
 
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/no-unsafe-declaration-merging": "off",
 
     "@stylistic/array-bracket-newline": ["warn", "consistent"],
     "@stylistic/array-bracket-spacing": ["warn", "never"],

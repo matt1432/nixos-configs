@@ -14,9 +14,7 @@ import Separator from '../../misc/separator.ts';
 const SPACING = 4;
 
 // Types
-import AgsRevealer from 'types/widgets/revealer.ts';
-import AgsBox from 'types/widgets/box.ts';
-import AgsWindow from 'types/widgets/window.ts';
+import { PopupWindow } from 'global-types';
 
 
 export default () => {
@@ -36,8 +34,8 @@ export default () => {
         class_name: 'toggle-off',
 
         on_primary_click_release: (self) => {
-            (App.getWindow('quick-settings') as AgsWindow)
-                ?.attribute.set_x_pos(
+            (App.getWindow('quick-settings') as PopupWindow)
+                .set_x_pos(
                     self.get_allocation(),
                     'right',
                 );
@@ -55,17 +53,15 @@ export default () => {
 
         attribute: {
             hoverRevealers: hoverRevealers.map((rev) => {
-                const box = rev.child as AgsBox;
+                const box = rev.child;
 
                 return box.children[1];
             }),
         },
         on_hover_lost: (self) => {
-            self.attribute.hoverRevealers.forEach(
-                (rev: AgsRevealer) => {
-                    rev.reveal_child = false;
-                },
-            );
+            self.attribute.hoverRevealers.forEach((rev) => {
+                rev.reveal_child = false;
+            });
         },
 
         child: Box({

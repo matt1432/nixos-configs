@@ -10,7 +10,10 @@
     "strict": true,
     "noImplicitAny": false,
     "baseUrl": ".",
-    "typeRoots": ["./types"],
+    "typeRoots": [
+      "./types",
+      "./global-types.d.ts"
+    ],
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   }

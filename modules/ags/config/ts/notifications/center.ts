@@ -8,11 +8,11 @@ import { Notification, HasNotifs } from './base.ts';
 import CursorBox from '../misc/cursorbox.ts';
 
 // Types
-import AgsBox from 'types/widgets/box.ts';
 import { Notification as NotifObj } from 'resource:///com/github/Aylur/ags/service/notifications.js';
+import { BoxGeneric } from 'global-types';
 
 
-const addNotif = (box: AgsBox, notif: NotifObj) => {
+const addNotif = (box: BoxGeneric, notif: NotifObj) => {
     if (notif) {
         const NewNotif = Notification({
             notif,
@@ -53,7 +53,7 @@ const NotificationList = () => Box({
             }, 'notified')
 
             .hook(Notifications, (box, id) => {
-                const notif = (box.children as Array<AgsBox>)
+                const notif = (box.children as BoxGeneric[])
                     .find((ch) => ch.attribute.id === id);
 
                 if (notif?.sensitive) {
@@ -73,7 +73,7 @@ const ClearButton = () => CursorBox({
 
     setup: (self) => {
         self.hook(HasNotifs, () => {
-            self.attribute.disabled?.setValue(!HasNotifs.value);
+            self.disabled = !HasNotifs.value;
         });
     },
 

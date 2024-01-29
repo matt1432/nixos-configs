@@ -8,10 +8,13 @@ import CursorBox from '../../misc/cursorbox.ts';
 const URGENT_DURATION = 1000;
 
 // Types
-import AgsBox from 'types/widgets/box.ts';
-import AgsRevealer from 'types/widgets/revealer.ts';
-import AgsOverlay from 'types/widgets/overlay.ts';
-import AgsEventBox from 'types/widgets/eventbox.ts';
+import {
+    BoxGeneric,
+    EventBoxGeneric,
+    OverlayGeneric,
+    RevealerGeneric,
+    Workspace,
+} from 'global-types';
 
 
 const Workspace = ({ id }: { id: number }) => {
@@ -31,7 +34,10 @@ const Workspace = ({ id }: { id: number }) => {
                 class_name: 'button',
 
                 setup: (self) => {
-                    const update = (_: AgsBox, addr: string | undefined) => {
+                    const update = (
+                        _: BoxGeneric,
+                        addr: string | undefined,
+                    ) => {
                         const workspace = Hyprland.getWorkspace(id);
                         const occupied = workspace && workspace.windows > 0;
 
@@ -79,13 +85,13 @@ export default () => {
     const L_PADDING = 16;
     const WS_WIDTH = 30;
 
-    const updateHighlight = (self: AgsBox) => {
+    const updateHighlight = (self: BoxGeneric) => {
         const currentId = Hyprland.active.workspace.id;
 
-        const indicators = (((self.get_parent() as AgsOverlay)
-            .child as AgsEventBox)
-            .child as AgsBox)
-            .children as Array<AgsRevealer>;
+        const indicators = (((self.get_parent() as OverlayGeneric)
+            .child as EventBoxGeneric)
+            .child as BoxGeneric)
+            .children as Workspace[];
 
         const currentIndex = indicators
             .findIndex((w) => w.attribute.id === currentId);
@@ -111,26 +117,26 @@ export default () => {
             child: Box({
                 class_name: 'workspaces',
 
-                attribute: { workspaces: [] },
+                attribute: { workspaces: [] as Workspace[] },
 
                 setup: (self) => {
-                    const workspaces = (): Array<AgsRevealer> =>
-                        self.attribute.workspaces;
-
                     const refresh = () => {
-                        (self.children as Array<AgsRevealer>).forEach((rev) => {
-                            rev.reveal_child = false;
-                        });
+                        (self.children as RevealerGeneric[])
+                            .forEach((rev) => {
+                                rev.reveal_child = false;
+                            });
 
-                        workspaces().forEach((ws) => {
-                            ws.reveal_child = true;
-                        });
+                        self.attribute.workspaces
+                            .forEach((ws) => {
+                                ws.reveal_child = true;
+                            });
                     };
 
                     const updateWorkspaces = () => {
                         Hyprland.workspaces.forEach((ws) => {
-                            const currentWs = (self.children as Array<AgsBox>)
-                                .find((ch) => ch.attribute.id === ws.id);
+                            const currentWs =
+                                (self.children as Workspace[])
+                                    .find((ch) => ch.attribute.id === ws.id);
 
                             if (!currentWs && ws.id > 0) {
                                 self.add(Workspace({ id: ws.id }));
@@ -139,21 +145,22 @@ export default () => {
                         self.show_all();
 
                         // Make sure the order is correct
-                        workspaces().forEach((workspace, i) => {
-                            (<AgsBox> workspace.get_parent()).reorder_child(
-                                workspace,
-                                i,
-                            );
+                        self.attribute.workspaces.forEach((workspace, i) => {
+                            (workspace.get_parent() as BoxGeneric)
+                                .reorder_child(workspace, i);
                         });
                     };
 
                     self.hook(Hyprland, () => {
                         self.attribute.workspaces =
-                            (self.children as Array<AgsBox>).filter((ch) => {
-                                return Hyprland.workspaces.find((ws) => {
-                                    return ws.id === ch.attribute.id;
-                                });
-                            }).sort((a, b) => a.attribute.id - b.attribute.id);
+                            (self.children as Workspace[])
+                                .filter((ch) => {
+                                    return Hyprland.workspaces.find((ws) => {
+                                        return ws.id === ch.attribute.id;
+                                    });
+                                })
+                                .sort((a, b) =>
+                                    a.attribute.id - b.attribute.id);
 
                         updateWorkspaces();
                         refresh();

@@ -61,5 +61,5 @@ export default () => PopupWindow({
     transition: 'slide_up',
     transition_duration,
     bezier: 'ease',
-    child: OSDs(),
+    content: OSDs(),
 });

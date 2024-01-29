@@ -12,14 +12,13 @@ const SPACING = 8;
 
 // Types
 import { MprisPlayer } from 'types/service/mpris.ts';
-import AgsOverlay from 'types/widgets/overlay.ts';
 import { Variable as Var } from 'types/variable';
-import AgsBox from 'types/widgets/box.ts';
+import { Colors, PlayerBox, PlayerOverlay } from 'global-types';
 
 
 const Top = (
     player: MprisPlayer,
-    overlay: AgsOverlay,
+    overlay: PlayerOverlay,
 ) => Box({
     class_name: 'top',
     hpack: 'start',
@@ -32,7 +31,7 @@ const Top = (
 
 const Center = (
     player: MprisPlayer,
-    colors: Var<any>,
+    colors: Var<Colors>,
 ) => Box({
     class_name: 'center',
 
@@ -65,7 +64,7 @@ const Center = (
 
 const Bottom = (
     player: MprisPlayer,
-    colors: Var<any>,
+    colors: Var<Colors>,
 ) => Box({
     class_name: 'bottom',
 
@@ -88,8 +87,8 @@ const Bottom = (
 
 const PlayerBox = (
     player: MprisPlayer,
-    colors: Var<any>,
-    overlay: AgsOverlay,
+    colors: Var<Colors>,
+    overlay: PlayerOverlay,
 ) => {
     const widget = mpris.CoverArt(player, colors, {
         class_name: `player ${player.name}`,
@@ -107,14 +106,9 @@ const PlayerBox = (
 
 export default () => {
     const content = PlayerGesture({
-        attribute: {
-            players: new Map(),
-            setup: false,
-        },
-
-        setup: (self) => {
+        setup: (self: PlayerOverlay) => {
             self
-                .hook(Mpris, (_: AgsOverlay, bus_name: string) => {
+                .hook(Mpris, (_, bus_name) => {
                     const players = self.attribute.players;
 
                     if (players.has(bus_name)) {
@@ -136,11 +130,16 @@ export default () => {
                     }
 
                     // Get the one on top so we can move it up later
-                    const previousFirst = self.overlays.at(-1);
+                    const previousFirst = self.overlays.at(-1) as PlayerBox;
 
                     // Make the new player
                     const player = Mpris.getPlayer(bus_name);
-                    const Colors = Variable(null);
+                    const colorsVar = Variable({
+                        imageAccent: '#6b4fa2',
+                        buttonAccent: '#ecdcff',
+                        buttonText: '#25005a',
+                        hoverAccent: '#d4baff',
+                    });
 
                     if (!player) {
                         return;
@@ -148,19 +147,15 @@ export default () => {
 
                     players.set(
                         bus_name,
-                        PlayerBox(
-                            player,
-                            Colors,
-                            content.get_children()[0] as AgsOverlay,
-                        ),
+                        PlayerBox(player, colorsVar, self),
                     );
                     self.overlays = Array.from(players.values())
-                        .map((widget) => widget) as Array<AgsBox>;
+                        .map((widget) => widget) as PlayerBox[];
 
                     const includes = self.attribute
                         .includesWidget(previousFirst);
 
-                        // Select favorite player at startup
+                    // Select favorite player at startup
                     const attrs = self.attribute;
 
                     if (!attrs.setup && players.has(FAVE_PLAYER)) {
@@ -168,28 +163,28 @@ export default () => {
                         attrs.setup = true;
                     }
 
-                        // Move previousFirst on top again
+                    // Move previousFirst on top again
                     else if (includes) {
                         attrs.moveToTop(previousFirst);
                     }
                 }, 'player-added')
 
-                .hook(Mpris, (_: AgsOverlay, bus_name: string) => {
+                .hook(Mpris, (_, bus_name) => {
                     const players = self.attribute.players;
 
                     if (!bus_name || !players.has(bus_name)) {
                         return;
                     }
 
-                        // Get the one on top so we can move it up later
-                    const previousFirst = self.overlays.at(-1);
+                    // Get the one on top so we can move it up later
+                    const previousFirst = self.overlays.at(-1) as PlayerBox;
 
-                        // Remake overlays without deleted one
+                    // Remake overlays without deleted one
                     players.delete(bus_name);
                     self.overlays = Array.from(players.values())
-                        .map((widget) => widget) as Array<AgsBox>;
+                        .map((widget) => widget) as PlayerBox[];
 
-                        // Move previousFirst on top again
+                    // Move previousFirst on top again
                     const includes = self.attribute
                         .includesWidget(previousFirst);
 

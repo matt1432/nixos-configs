@@ -10,20 +10,15 @@ const TRANSITION = `transition: margin ${ANIM_DURATION}ms ease,
                                 opacity ${ANIM_DURATION}ms ease;`;
 
 // Types
-import AgsOverlay from 'types/widgets/overlay';
-import OverlayProps from 'types/widgets/overlay';
-import AgsBox from 'types/widgets/box';
-import AgsCenterBox from 'types/widgets/centerbox';
-import { Connectable } from 'types/widgets/widget';
-type Gesture = {
-    attribute?: Object
-    setup?(self: Connectable<AgsOverlay> & AgsOverlay): void
-    props?: OverlayProps
-};
+import {
+    CenterBoxGeneric,
+    Gesture,
+    OverlayGeneric,
+    PlayerBox,
+} from 'global-types';
 
 
 export default ({
-    attribute = {},
     setup = () => {/**/},
     ...props
 }: Gesture) => {
@@ -39,10 +34,11 @@ export default ({
     const content = Overlay({
         ...props,
         attribute: {
-            ...attribute,
+            players: new Map(),
+            setup: false,
             dragging: false,
 
-            includesWidget: (playerW: AgsOverlay) => {
+            includesWidget: (playerW: OverlayGeneric) => {
                 return content.overlays.find((w) => w === playerW);
             },
 
@@ -50,7 +46,7 @@ export default ({
                 over.visible = over === content.overlays.at(-1);
             }),
 
-            moveToTop: (player: AgsCenterBox) => {
+            moveToTop: (player: CenterBoxGeneric) => {
                 player.visible = true;
                 content.reorder_overlay(player, -1);
                 timeout(ANIM_DURATION, () => {
@@ -82,7 +78,7 @@ export default ({
 
                     self.attribute.dragging = true;
                     let offset = gesture.get_offset()[1];
-                    const playerBox = self.overlays.at(-1) as AgsBox;
+                    const playerBox = self.overlays.at(-1) as PlayerBox;
 
                     if (!offset) {
                         return;
@@ -118,7 +114,7 @@ export default ({
                     self.attribute.dragging = false;
                     const offset = gesture.get_offset()[1];
 
-                    const playerBox = self.overlays.at(-1) as AgsBox;
+                    const playerBox = self.overlays.at(-1) as PlayerBox;
 
                     // If crosses threshold after letting go, slide away
                     if (offset && Math.abs(offset) > MAX_OFFSET) {

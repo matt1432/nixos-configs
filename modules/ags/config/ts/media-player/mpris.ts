@@ -31,17 +31,23 @@ const icons = {
 // Types
 import { MprisPlayer } from 'types/service/mpris.ts';
 import { Variable as Var } from 'types/variable';
-import AgsOverlay from 'types/widgets/overlay.ts';
-import AgsCenterBox, { CenterBoxProps } from 'types/widgets/centerbox.ts';
-import AgsLabel from 'types/widgets/label.ts';
-import AgsIcon from 'types/widgets/icon.ts';
-import AgsStack from 'types/widgets/stack.ts';
+
+import {
+    AgsWidget,
+    CenterBoxPropsGeneric,
+    Colors,
+    PlayerBox,
+    PlayerButtonType,
+    PlayerDrag,
+    PlayerOverlay,
+    StackGeneric,
+} from 'global-types';
 
 
 export const CoverArt = (
     player: MprisPlayer,
-    colors: Var<any>,
-    props: CenterBoxProps,
+    colors: Var<Colors>,
+    props: CenterBoxPropsGeneric,
 ) => CenterBox({
     ...props,
     vertical: true,
@@ -51,7 +57,7 @@ export const CoverArt = (
         player,
     },
 
-    setup: (self) => {
+    setup: (self: PlayerBox) => {
         // Give temp cover art
         readFileAsync(player.cover_path).catch(() => {
             if (!colors.value && !player.track_cover_url) {
@@ -93,7 +99,7 @@ export const CoverArt = (
                         background-position: center;
                     `;
 
-                    if (!(self.get_parent() as AgsCenterBox)
+                    if (!(self.get_parent() as PlayerDrag)
                         .attribute.dragging) {
                         self.setCss(self.attribute.bgStyle);
                     }
@@ -126,16 +132,18 @@ export const ArtistLabel = (player: MprisPlayer) => Label({
 });
 
 
-export const PlayerIcon = (player: MprisPlayer, overlay: AgsOverlay) => {
+export const PlayerIcon = (player: MprisPlayer, overlay: PlayerOverlay) => {
     const playerIcon = (
         p: MprisPlayer,
-        widget?: AgsOverlay,
-        over?: AgsOverlay,
+        widget?: PlayerOverlay,
+        playerBox?: PlayerBox,
     ) => CursorBox({
         tooltip_text: p.identity || '',
 
         on_primary_click_release: () => {
-            widget?.attribute.moveToTop(over);
+            if (widget && playerBox) {
+                widget.attribute.moveToTop(playerBox);
+            }
         },
 
         child: Icon({
@@ -153,7 +161,7 @@ export const PlayerIcon = (player: MprisPlayer, overlay: AgsOverlay) => {
     });
 
     return Box().hook(Mpris, (self) => {
-        const grandPa = self.get_parent()?.get_parent();
+        const grandPa = self.get_parent()?.get_parent() as AgsWidget;
 
         if (!grandPa) {
             return;
@@ -162,13 +170,13 @@ export const PlayerIcon = (player: MprisPlayer, overlay: AgsOverlay) => {
         const thisIndex = overlay.overlays
             .indexOf(grandPa);
 
-        self.children = (overlay.overlays as Array<AgsOverlay>)
-            .map((over, i) => {
+        self.children = (overlay.overlays as PlayerBox[])
+            .map((playerBox, i) => {
                 self.children.push(Separator(2));
 
                 return i === thisIndex ?
                     playerIcon(player) :
-                    playerIcon(over.attribute.player, overlay, over);
+                    playerIcon(playerBox.attribute.player, overlay, playerBox);
             })
             .reverse();
     });
@@ -179,7 +187,7 @@ const display = Gdk.Display.get_default();
 
 export const PositionSlider = (
     player: MprisPlayer,
-    colors: Var<any>,
+    colors: Var<Colors>,
 ) => Slider({
     class_name: 'position-slider',
     vpack: 'center',
@@ -258,13 +266,6 @@ export const PositionSlider = (
     },
 });
 
-type PlayerButtonType = {
-    player: MprisPlayer
-    colors: Var<any>
-    items: Array<[name: string, widget: AgsLabel | AgsIcon]>
-    onClick: string
-    prop: string
-};
 const PlayerButton = ({
     player,
     colors,
@@ -316,7 +317,7 @@ const PlayerButton = ({
         setup: (self) => {
             self
                 .hook(player, () => {
-                    (self.child as AgsStack).shown = `${player[prop]}`;
+                    (self.child as StackGeneric).shown = `${player[prop]}`;
                 })
                 .hook(colors, () => {
                     if (!Mpris.players.find((p) => player === p)) {
@@ -364,7 +365,7 @@ const PlayerButton = ({
 
 export const ShuffleButton = (
     player: MprisPlayer,
-    colors: Var<any>,
+    colors: Var<Colors>,
 ) => PlayerButton({
     player,
     colors,
@@ -384,7 +385,7 @@ export const ShuffleButton = (
 
 export const LoopButton = (
     player: MprisPlayer,
-    colors: Var<any>,
+    colors: Var<Colors>,
 ) => PlayerButton({
     player,
     colors,
@@ -408,7 +409,7 @@ export const LoopButton = (
 
 export const PlayPauseButton = (
     player: MprisPlayer,
-    colors: Var<any>,
+    colors: Var<Colors>,
 ) => PlayerButton({
     player,
     colors,
@@ -432,7 +433,7 @@ export const PlayPauseButton = (
 
 export const PreviousButton = (
     player: MprisPlayer,
-    colors: Var<any>,
+    colors: Var<Colors>,
 ) => PlayerButton({
     player,
     colors,
@@ -452,7 +453,7 @@ export const PreviousButton = (
 
 export const NextButton = (
     player: MprisPlayer,
-    colors: Var<any>,
+    colors: Var<Colors>,
 ) => PlayerButton({
     player,
     colors,
