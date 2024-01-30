@@ -112,7 +112,10 @@ in {
           kb_variant = xserver.xkbVariant;
           follow_mouse = true;
 
-          touchpad.natural_scroll = true;
+          touchpad = {
+            natural_scroll = true;
+            disable_while_typing = false;
+          };
         };
 
         exec-once =
