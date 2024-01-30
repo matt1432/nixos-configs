@@ -13,7 +13,7 @@ in
       owner = "Godiesc";
       repo = pname;
       rev = "${version}";
-      sha256 = "sha256-lMco3TYQNVTQEF5TpKiHUbexdB5pD3OmqjACD2BJZaY=";
+      sha256 = "sha256-FCx5mADqrjAN27lLaZViOFGUNDg/2jpern8sem8u49w=";
     };
 
     installPhase = ''

@@ -29,6 +29,9 @@ in {
 
       script = ''
         cd /tmp
+        if [[ -d ./nix-clone ]]; then
+            rm -r ./nix-clone
+        fi
         git clone https://git.nelim.org/matt1432/nixos-configs.git nix-clone
         cd nix-clone
         nix flake update
