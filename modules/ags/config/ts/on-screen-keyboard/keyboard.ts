@@ -1,4 +1,4 @@
-import { Box, CenterBox, Label, ToggleButton } from 'resource:///com/github/Aylur/ags/widget.js';
+const { Box, CenterBox, Label, ToggleButton } = Widget;
 
 const { Gdk } = imports.gi;
 const display = Gdk.Display.get_default();

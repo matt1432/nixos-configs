@@ -1,7 +1,7 @@
-import Applications from 'resource:///com/github/Aylur/ags/service/applications.js';
-import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
+const Applications = await Service.import('applications');
+const Hyprland = await Service.import('hyprland');
+const { Box, Icon, Label } = Widget;
 
-import { Box, Icon, Label } from 'resource:///com/github/Aylur/ags/widget.js';
 import Separator from '../../misc/separator.ts';
 
 const SPACING = 8;

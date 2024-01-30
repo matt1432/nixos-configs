@@ -1,7 +1,6 @@
-import App from 'resource:///com/github/Aylur/ags/app.js';
-import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
+const Hyprland = await Service.import('hyprland');
 
-import { Box, Overlay, Window } from 'resource:///com/github/Aylur/ags/widget.js';
+const { Box, Overlay, Window } = Widget;
 
 import { WorkspaceRow, getWorkspaces, updateWorkspaces } from './workspaces.ts';
 import { Highlighter, updateCurrentWorkspace } from './current-workspace.ts';

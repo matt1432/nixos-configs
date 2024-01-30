@@ -1,7 +1,6 @@
-import Mpris from 'resource:///com/github/Aylur/ags/service/mpris.js';
-import Variable from 'resource:///com/github/Aylur/ags/variable.js';
+const Mpris = await Service.import('mpris');
 
-import { Box, CenterBox } from 'resource:///com/github/Aylur/ags/widget.js';
+const { Box, CenterBox } = Widget;
 
 import * as mpris from './mpris.ts';
 import PlayerGesture from './gesture.ts';

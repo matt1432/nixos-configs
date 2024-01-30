@@ -1,8 +1,7 @@
-import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import Brightness from '../../services/brightness.ts';
 
-import { Box, EventBox, Label } from 'resource:///com/github/Aylur/ags/widget.js';
-import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
+const { Box, EventBox, Label } = Widget;
+const { execAsync } = Utils;
 
 const { Gdk, Gtk } = imports.gi;
 const display = Gdk.Display.get_default();

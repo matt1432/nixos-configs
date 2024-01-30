@@ -1,4 +1,4 @@
-import { Box } from 'resource:///com/github/Aylur/ags/widget.js';
+const { Box } = Widget;
 
 
 export default (size: number, {

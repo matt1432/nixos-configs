@@ -1,7 +1,5 @@
-import App from 'resource:///com/github/Aylur/ags/app.js';
-
-import { Box, Icon, Label } from 'resource:///com/github/Aylur/ags/widget.js';
-import { lookUpIcon } from 'resource:///com/github/Aylur/ags/utils.js';
+const { Box, Icon, Label } = Widget;
+const { lookUpIcon } = Utils;
 
 import CursorBox from '../misc/cursorbox.ts';
 

@@ -1,9 +1,8 @@
-import App from 'resource:///com/github/Aylur/ags/app.js';
-import Applications from 'resource:///com/github/Aylur/ags/service/applications.js';
+const Applications = await Service.import('applications');
+const { Box, Entry, Icon, Label, ListBox, Revealer, Scrollable } = Widget;
+
 // @ts-expect-error find cleaner way to import this
 import { Fzf, FzfResultItem } from 'file:///home/matt/.nix/modules/ags/config/node_modules/fzf/dist/fzf.es.js';
-
-import { Box, Entry, Icon, Label, ListBox, Revealer, Scrollable } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import PopupWindow from '../misc/popup.ts';
 import AppItem from './app-item.ts';

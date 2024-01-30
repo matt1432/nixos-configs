@@ -1,9 +1,7 @@
-import App from 'resource:///com/github/Aylur/ags/app.js';
-import Network from 'resource:///com/github/Aylur/ags/service/network.js';
-import Variable from 'resource:///com/github/Aylur/ags/variable.js';
+const Network = await Service.import('network');
 
-import { Box, Icon, Label, ListBox, Overlay, Revealer, Scrollable } from 'resource:///com/github/Aylur/ags/widget.js';
-import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
+const { Box, Icon, Label, ListBox, Overlay, Revealer, Scrollable } = Widget;
+const { execAsync } = Utils;
 
 import CursorBox from '../misc/cursorbox.ts';
 

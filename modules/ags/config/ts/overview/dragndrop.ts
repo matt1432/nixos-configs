@@ -1,6 +1,6 @@
-import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
+const Hyprland = await Service.import('hyprland');
 
-import { Button, EventBox } from 'resource:///com/github/Aylur/ags/widget.js';
+const { Button, EventBox } = Widget;
 
 import Cairo from 'cairo';
 const { Gtk, Gdk } = imports.gi;

@@ -1,6 +1,5 @@
-import Bluetooth from 'resource:///com/github/Aylur/ags/service/bluetooth.js';
-
-import { Label, Icon } from 'resource:///com/github/Aylur/ags/widget.js';
+const Bluetooth = await Service.import('bluetooth');
+const { Label, Icon } = Widget;
 
 import HoverRevealer from './hover-revealer.ts';
 

@@ -1,6 +1,6 @@
-import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
+const Hyprland = await Service.import('hyprland');
 
-import { Revealer, CenterBox, Box, EventBox, Fixed, Label } from 'resource:///com/github/Aylur/ags/widget.js';
+const { Revealer, CenterBox, Box, EventBox, Fixed, Label } = Widget;
 
 import { WorkspaceDrop } from './dragndrop.ts';
 import * as VARS from './variables.ts';

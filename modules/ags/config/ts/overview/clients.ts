@@ -1,8 +1,7 @@
-import App from 'resource:///com/github/Aylur/ags/app.js';
-import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
+const Hyprland = await Service.import('hyprland');
 
-import { Icon, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
-import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
+const { Icon, Revealer } = Widget;
+const { timeout } = Utils;
 
 import { WindowButton } from './dragndrop.ts';
 import * as VARS from './variables.ts';
@@ -34,7 +33,7 @@ const IconStyle = (client: HyprClient) => `
 
 const Client = (
     client: HyprClient,
-    active: Boolean,
+    active: boolean,
     clients: Array<HyprClient>,
     box: AgsBox,
 ) => {

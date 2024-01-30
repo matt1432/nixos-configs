@@ -1,6 +1,6 @@
-import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
+const Audio = await Service.import('audio');
 
-import { Box, Slider, Icon } from 'resource:///com/github/Aylur/ags/widget.js';
+const { Box, Slider, Icon } = Widget;
 
 const { Gdk } = imports.gi;
 const display = Gdk.Display.get_default();

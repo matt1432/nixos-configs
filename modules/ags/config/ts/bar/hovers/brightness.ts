@@ -1,4 +1,4 @@
-import { Icon, Label } from 'resource:///com/github/Aylur/ags/widget.js';
+const { Icon, Label } = Widget;
 
 import Brightness from '../../../services/brightness.ts';
 import HoverRevealer from './hover-revealer.ts';

@@ -1,6 +1,4 @@
-import { Label } from 'resource:///com/github/Aylur/ags/widget.js';
-
-import Variable from 'resource:///com/github/Aylur/ags/variable.js';
+const { Label } = Widget;
 
 import CursorBox from '../../misc/cursorbox.ts';
 import Persist from '../../misc/persist.ts';

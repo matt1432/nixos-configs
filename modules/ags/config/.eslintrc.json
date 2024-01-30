@@ -140,6 +140,11 @@
     "console": "readonly",
     "logError": "readonly",
     "setTimeout": "readonly",
-    "setInterval": "readonly"
+    "setInterval": "readonly",
+    "Widget": "readonly",
+    "Service": "readonly",
+    "Variable": "readonly",
+    "Utils": "readonly",
+    "App": "readonly"
   }
 }

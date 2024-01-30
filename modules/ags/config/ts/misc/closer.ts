@@ -1,5 +1,3 @@
-import App from 'resource:///com/github/Aylur/ags/app.js';
-
 // Types
 import { PopupWindow } from 'global-types';
 

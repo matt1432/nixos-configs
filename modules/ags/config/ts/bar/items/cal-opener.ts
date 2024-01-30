@@ -1,5 +1,3 @@
-import App from 'resource:///com/github/Aylur/ags/app.js';
-
 import CursorBox from '../../misc/cursorbox.ts';
 import Clock from './clock';
 

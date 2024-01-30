@@ -1,7 +1,6 @@
-import App from 'resource:///com/github/Aylur/ags/app.js';
-import Mpris from 'resource:///com/github/Aylur/ags/service/mpris.js';
+const Mpris = await Service.import('mpris');
 
-import { CenterBox, Icon, ToggleButton } from 'resource:///com/github/Aylur/ags/widget.js';
+const { CenterBox, Icon, ToggleButton } = Widget;
 
 // Types
 import AgsRevealer from 'types/widgets/revealer';

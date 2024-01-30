@@ -1,6 +1,5 @@
-import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
-
-import { Icon, Label } from 'resource:///com/github/Aylur/ags/widget.js';
+const Hyprland = await Service.import('hyprland');
+const { Icon, Label } = Widget;
 
 import HoverRevealer from './hover-revealer.ts';
 

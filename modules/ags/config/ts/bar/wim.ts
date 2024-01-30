@@ -1,4 +1,4 @@
-import { Window, CenterBox, Box } from 'resource:///com/github/Aylur/ags/widget.js';
+const { Window, CenterBox, Box } = Widget;
 
 import Separator from '../misc/separator.ts';
 

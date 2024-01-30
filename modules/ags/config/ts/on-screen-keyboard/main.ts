@@ -1,5 +1,5 @@
-import { Window } from 'resource:///com/github/Aylur/ags/widget.js';
-import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
+const { Window } = Widget;
+const { execAsync } = Utils;
 
 import Tablet from '../../services/tablet.ts';
 import Gesture from './gesture.ts';

@@ -1,7 +1,6 @@
-import App from 'resource:///com/github/Aylur/ags/app.js';
-import Bluetooth from 'resource:///com/github/Aylur/ags/service/bluetooth.js';
+const Bluetooth = await Service.import('bluetooth');
 
-import { Box, Icon, Label, ListBox, Overlay, Revealer, Scrollable } from 'resource:///com/github/Aylur/ags/widget.js';
+const { Box, Icon, Label, ListBox, Overlay, Revealer, Scrollable } = Widget;
 
 import CursorBox from '../misc/cursorbox.ts';
 

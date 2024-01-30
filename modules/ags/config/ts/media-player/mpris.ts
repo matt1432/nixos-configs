@@ -1,7 +1,7 @@
-import Mpris from 'resource:///com/github/Aylur/ags/service/mpris.js';
+const Mpris = await Service.import('mpris');
 
-import { Button, Icon, Label, Stack, Slider, CenterBox, Box } from 'resource:///com/github/Aylur/ags/widget.js';
-import { execAsync, lookUpIcon, readFileAsync } from 'resource:///com/github/Aylur/ags/utils.js';
+const { Button, Icon, Label, Stack, Slider, CenterBox, Box } = Widget;
+const { execAsync, lookUpIcon, readFileAsync } = Utils;
 
 import Separator from '../misc/separator.ts';
 import CursorBox from '../misc/cursorbox.ts';

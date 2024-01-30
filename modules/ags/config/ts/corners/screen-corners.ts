@@ -1,4 +1,4 @@
-import { Box, DrawingArea } from 'resource:///com/github/Aylur/ags/widget.js';
+const { Box, DrawingArea } = Widget;
 
 const { Gtk } = imports.gi;
 

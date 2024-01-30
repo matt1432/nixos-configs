@@ -1,4 +1,4 @@
-import { Box, Icon, ProgressBar } from 'resource:///com/github/Aylur/ags/widget.js';
+const { Box, Icon, ProgressBar } = Widget;
 
 const Y_POS = 80;
 

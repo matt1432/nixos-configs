@@ -1,5 +1,4 @@
-import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
-import Variable from 'resource:///com/github/Aylur/ags/variable.js';
+const Audio = await Service.import('audio');
 
 const speakerIcons = {
     101: 'audio-volume-overamplified-symbolic',

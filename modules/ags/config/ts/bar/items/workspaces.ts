@@ -1,7 +1,7 @@
-import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
+const Hyprland = await Service.import('hyprland');
 
-import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
-import { Box, Overlay, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
+const { timeout } = Utils;
+const { Box, Overlay, Revealer } = Widget;
 
 import CursorBox from '../../misc/cursorbox.ts';
 

@@ -1,6 +1,6 @@
-import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
+const Hyprland = await Service.import('hyprland');
 
-import { execAsync, timeout } from 'resource:///com/github/Aylur/ags/utils.js';
+const { execAsync, timeout } = Utils;
 
 const { Gtk } = imports.gi;
 

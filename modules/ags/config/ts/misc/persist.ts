@@ -1,4 +1,4 @@
-import { execAsync, readFileAsync, timeout } from 'resource:///com/github/Aylur/ags/utils.js';
+const { execAsync, readFileAsync, timeout } = Utils;
 const { get_home_dir } = imports.gi.GLib;
 
 import GObject from 'types/@girs/gobject-2.0/gobject-2.0';

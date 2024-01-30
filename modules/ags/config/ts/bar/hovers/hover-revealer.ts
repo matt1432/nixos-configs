@@ -1,4 +1,4 @@
-import { Box, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
+const { Box, Revealer } = Widget;
 
 import Separator from '../../misc/separator.ts';
 import CursorBox from '../../misc/cursorbox.ts';

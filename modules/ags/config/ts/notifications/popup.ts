@@ -1,9 +1,9 @@
-import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
+const Notifications = await Service.import('notifications');
 
-import { Box } from 'resource:///com/github/Aylur/ags/widget.js';
-import { interval } from 'resource:///com/github/Aylur/ags/utils.js';
+const { Box } = Widget;
+const { interval } = Utils;
 
-import GLib from 'gi://GLib';
+const { GLib } = imports.gi;
 
 import { Notification } from './base.ts';
 

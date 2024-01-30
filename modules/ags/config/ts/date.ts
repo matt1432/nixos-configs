@@ -1,4 +1,4 @@
-import { Box, Calendar, Label } from 'resource:///com/github/Aylur/ags/widget.js';
+const { Box, Calendar, Label } = Widget;
 
 const { new_now_local } = imports.gi.GLib.DateTime;
 

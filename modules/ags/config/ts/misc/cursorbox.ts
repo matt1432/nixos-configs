@@ -1,9 +1,8 @@
-import { register } from 'resource:///com/github/Aylur/ags/widget.js';
 import Gtk from 'gi://Gtk?version=3.0';
 import Gdk from 'gi://Gdk?version=3.0';
 
 // Types
-import { BaseProps, Widget } from 'types/widgets/widget';
+import { BaseProps, Widget as AgsWidget } from 'types/widgets/widget';
 type EventHandler<Self> = (self: Self, event: Gdk.Event) => boolean | unknown;
 
 export type CursorBoxProps<
@@ -28,12 +27,12 @@ export type CursorBoxProps<
 }, Attr>;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export interface CursorBox<Child, Attr> extends Widget<Attr> { }
+export interface CursorBox<Child, Attr> extends AgsWidget<Attr> { }
 
 
 export class CursorBox<Child extends Gtk.Widget, Attr> extends Gtk.EventBox {
     static {
-        register(this, {
+        Widget.register(this, {
             properties: {
                 'on-clicked': ['jsobject', 'rw'],
 

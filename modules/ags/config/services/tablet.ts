@@ -1,7 +1,7 @@
-import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
-import Service from 'resource:///com/github/Aylur/ags/service.js';
+const Hyprland = await Service.import('hyprland');
+const { execAsync, subprocess } = Utils;
+
 import TouchGestures from './touch-gestures.ts';
-import { execAsync, subprocess } from 'resource:///com/github/Aylur/ags/utils.js';
 
 const ROTATION_MAP = {
     'normal': 0,

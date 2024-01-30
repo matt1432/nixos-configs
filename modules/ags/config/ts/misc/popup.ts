@@ -1,13 +1,12 @@
-import App from 'resource:///com/github/Aylur/ags/app.js';
-import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
-import Variable from 'resource:///com/github/Aylur/ags/variable.js';
+import Gtk from 'gi://Gtk?version=3.0';
+const Hyprland = await Service.import('hyprland');
 
-import { Box, Overlay, register } from 'resource:///com/github/Aylur/ags/widget.js';
-import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
+const { Box, Overlay, register } = Widget;
+
+const { timeout } = Utils;
 
 // Types
 import { Window } from 'resource:///com/github/Aylur/ags/widgets/window.js';
-import { Allocation, Widget } from 'types/@girs/gtk-3.0/gtk-3.0.cjs';
 import { Variable as Var } from 'types/variable';
 
 import {
@@ -23,7 +22,7 @@ import {
 
 
 export class PopupWindow<
-    Child extends Widget,
+    Child extends Gtk.Widget,
     Attr,
 > extends Window<Child, Attr> {
     static {
@@ -34,7 +33,7 @@ export class PopupWindow<
         });
     }
 
-    #content: Var<Widget>;
+    #content: Var<Gtk.Widget>;
     #antiClip: Var<boolean>;
     #needsAnticlipping: boolean;
     #close_on_unfocus: CloseType;
@@ -43,7 +42,7 @@ export class PopupWindow<
         return this.#content.value;
     }
 
-    set content(value: Widget) {
+    set content(value: Gtk.Widget) {
         this.#content.value = value;
         this.child.show_all();
     }
@@ -76,7 +75,7 @@ export class PopupWindow<
     }: PopupWindowProps<Child, Attr>) {
         const needsAnticlipping = bezier.match(/-[0-9]/) !== null &&
             transition !== 'crossfade';
-        const contentVar = Variable(Box() as Widget);
+        const contentVar = Variable(Box() as Gtk.Widget);
         const antiClip = Variable(false);
 
         if (content) {
@@ -364,7 +363,7 @@ export class PopupWindow<
     }
 
     set_x_pos(
-        alloc: Allocation,
+        alloc: Gtk.Allocation,
         side = 'right' as 'left' | 'right',
     ) {
         const width = this.get_display()
@@ -387,6 +386,6 @@ export class PopupWindow<
     }
 }
 
-export default <Child extends Widget, Attr>(
+export default <Child extends Gtk.Widget, Attr>(
     props: PopupWindowProps<Child, Attr>,
 ) => new PopupWindow(props);

@@ -1,8 +1,5 @@
-import App from 'resource:///com/github/Aylur/ags/app.js';
-import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
-import Service from 'resource:///com/github/Aylur/ags/service.js';
-
-import { subprocess } from 'resource:///com/github/Aylur/ags/utils.js';
+const Hyprland = await Service.import('hyprland');
+const { subprocess } = Utils;
 
 const ON_RELEASE_TRIGGERS = [
     'released',

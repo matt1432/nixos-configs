@@ -1,6 +1,5 @@
-import Network from 'resource:///com/github/Aylur/ags/service/network.js';
-
-import { Label, Icon } from 'resource:///com/github/Aylur/ags/widget.js';
+const Network = await Service.import('network');
+const { Label, Icon } = Widget;
 
 import HoverRevealer from './hover-revealer.ts';
 

@@ -1,5 +1,4 @@
-import App from 'resource:///com/github/Aylur/ags/app.js';
-import { execAsync, monitorFile } from 'resource:///com/github/Aylur/ags/utils.js';
+const { execAsync, monitorFile } = Utils;
 
 
 /** @param {string} host */

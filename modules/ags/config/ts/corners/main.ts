@@ -1,4 +1,4 @@
-import { Window } from 'resource:///com/github/Aylur/ags/widget.js';
+const { Window } = Widget;
 
 import RoundedCorner from './screen-corners.ts';
 

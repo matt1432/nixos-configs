@@ -1,4 +1,4 @@
-import { Box, Label } from 'resource:///com/github/Aylur/ags/widget.js';
+const { Box, Label } = Widget;
 
 import Tablet from '../../../services/tablet.ts';
 import CursorBox from '../../misc/cursorbox.ts';

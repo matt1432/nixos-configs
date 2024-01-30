@@ -1,7 +1,5 @@
-import App from 'resource:///com/github/Aylur/ags/app.js';
-
-import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
-import { Stack } from 'resource:///com/github/Aylur/ags/widget.js';
+const { timeout } = Utils;
+const { Stack } = Widget;
 
 import PopupWindow from '../misc/popup.ts';
 

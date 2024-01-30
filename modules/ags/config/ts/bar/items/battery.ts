@@ -1,6 +1,5 @@
-import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
-
-import { Label, Icon, Box } from 'resource:///com/github/Aylur/ags/widget.js';
+const Battery = await Service.import('battery');
+const { Label, Icon, Box } = Widget;
 
 import Separator from '../../misc/separator.ts';
 

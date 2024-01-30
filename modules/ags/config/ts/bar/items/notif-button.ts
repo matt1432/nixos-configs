@@ -1,7 +1,5 @@
-import App from 'resource:///com/github/Aylur/ags/app.js';
-import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
-
-import { Box, CenterBox, Icon, Label } from 'resource:///com/github/Aylur/ags/widget.js';
+const Notifications = await Service.import('notifications');
+const { Box, CenterBox, Icon, Label } = Widget;
 
 import CursorBox from '../../misc/cursorbox.ts';
 import Separator from '../../misc/separator.ts';

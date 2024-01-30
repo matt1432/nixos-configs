@@ -1,10 +1,8 @@
-import App from 'resource:///com/github/Aylur/ags/app.js';
-import Bluetooth from 'resource:///com/github/Aylur/ags/service/bluetooth.js';
-import Network from 'resource:///com/github/Aylur/ags/service/network.js';
-import Variable from 'resource:///com/github/Aylur/ags/variable.js';
+const Bluetooth = await Service.import('bluetooth');
+const Network = await Service.import('network');
 
-import { Box, Icon, Label, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
-import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
+const { Box, Icon, Label, Revealer } = Widget;
+const { execAsync } = Utils;
 
 import { SpeakerIcon, MicIcon } from '../misc/audio-icons.ts';
 import CursorBox from '../misc/cursorbox.ts';

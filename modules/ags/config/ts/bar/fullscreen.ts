@@ -1,7 +1,6 @@
-import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
-import Variable from 'resource:///com/github/Aylur/ags/variable.js';
+const Hyprland = await Service.import('hyprland');
 
-import { Box, EventBox, Revealer, Window } from 'resource:///com/github/Aylur/ags/widget.js';
+const { Box, EventBox, Revealer, Window } = Widget;
 
 // Types
 import { Variable as Var } from 'types/variable';

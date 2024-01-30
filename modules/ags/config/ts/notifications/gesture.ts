@@ -1,7 +1,7 @@
-import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
+const Notifications = await Service.import('notifications');
 
-import { Box, EventBox } from 'resource:///com/github/Aylur/ags/widget.js';
-import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
+const { Box, EventBox } = Widget;
+const { timeout } = Utils;
 
 import { HasNotifs } from './base.ts';
 

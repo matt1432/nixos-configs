@@ -1,5 +1,5 @@
-import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
-import { Box, EventBox, Overlay } from 'resource:///com/github/Aylur/ags/widget.js';
+const { timeout } = Utils;
+const { Box, EventBox, Overlay } = Widget;
 
 const { Gtk } = imports.gi;
 

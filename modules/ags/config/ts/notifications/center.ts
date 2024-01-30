@@ -1,8 +1,7 @@
-import App from 'resource:///com/github/Aylur/ags/app.js';
-import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
+const Notifications = await Service.import('notifications');
 
-import { Label, Box, Icon, Scrollable, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
-import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
+const { Label, Box, Icon, Scrollable, Revealer } = Widget;
+const { timeout } = Utils;
 
 import { Notification, HasNotifs } from './base.ts';
 import CursorBox from '../misc/cursorbox.ts';

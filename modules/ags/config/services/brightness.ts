@@ -1,6 +1,4 @@
-import Service from 'resource:///com/github/Aylur/ags/service.js';
-import Variable from 'resource:///com/github/Aylur/ags/variable.js';
-import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
+const { exec, execAsync } = Utils;
 
 const KBD = 'tpacpi::kbd_backlight';
 const CAPS = 'input0::capslock';

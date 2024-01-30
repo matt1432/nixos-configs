@@ -1,6 +1,7 @@
-import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
+const Hyprland = await Service.import('hyprland');
 
-import { Box } from 'resource:///com/github/Aylur/ags/widget.js';
+const { Box } = Widget;
+
 import * as VARS from './variables.ts';
 
 const PADDING = 34;

@@ -1,6 +1,5 @@
-import App from 'resource:///com/github/Aylur/ags/app.js';
-import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
-import Bluetooth from 'resource:///com/github/Aylur/ags/service/bluetooth.js';
+const Hyprland = await Service.import('hyprland');
+const Bluetooth = await Service.import('bluetooth');
 
 import Brightness from '../services/brightness.ts';
 import Pointers from '../services/pointers.ts';

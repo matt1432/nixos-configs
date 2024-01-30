@@ -1,6 +1,5 @@
-import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
-
-import { Label, Icon } from 'resource:///com/github/Aylur/ags/widget.js';
+const Audio = await Service.import('audio');
+const { Label, Icon } = Widget;
 
 import { SpeakerIcon } from '../../misc/audio-icons.ts';
 import HoverRevealer from './hover-revealer.ts';

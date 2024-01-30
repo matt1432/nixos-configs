@@ -1,7 +1,7 @@
-import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
-import Variable from 'resource:///com/github/Aylur/ags/variable.js';
+const Audio = await Service.import('audio');
 
-import { Label } from 'resource:///com/github/Aylur/ags/widget.js';
+const { Label } = Widget;
+
 import OSD from './ctor.ts';
 
 import Brightness from '../../services/brightness.ts';

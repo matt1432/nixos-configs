@@ -1,7 +1,7 @@
-import SystemTray from 'resource:///com/github/Aylur/ags/service/systemtray.js';
+const SystemTray = await Service.import('systemtray');
 
-import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
-import { Box, Icon, MenuItem, MenuBar, Revealer } from 'resource:///com/github/Aylur/ags/widget.js';
+const { timeout } = Utils;
+const { Box, Icon, MenuItem, MenuBar, Revealer } = Widget;
 
 import Separator from '../../misc/separator.ts';
 

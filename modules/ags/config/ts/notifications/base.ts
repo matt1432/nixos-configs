@@ -1,10 +1,9 @@
-import Applications from 'resource:///com/github/Aylur/ags/service/applications.js';
-import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
-import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
-import Variable from 'resource:///com/github/Aylur/ags/variable.js';
+const Applications = await Service.import('applications');
+const Hyprland = await Service.import('hyprland');
+const Notifications = await Service.import('notifications');
 
-import { Box, Icon, Label, Button } from 'resource:///com/github/Aylur/ags/widget.js';
-import { lookUpIcon } from 'resource:///com/github/Aylur/ags/utils.js';
+const { Box, Icon, Label, Button } = Widget;
+const { lookUpIcon } = Utils;
 
 const { GLib } = imports.gi;
 
