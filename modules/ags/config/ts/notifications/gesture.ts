@@ -9,7 +9,7 @@ const { Gdk, Gtk } = imports.gi;
 const display = Gdk.Display.get_default();
 
 // Types
-import AgsBox from 'types/widgets/box.ts';
+import { BoxGeneric } from 'global-types';
 
 const MAX_OFFSET = 200;
 const OFFSCREEN = 300;
@@ -107,7 +107,7 @@ export default ({
             id,
 
             slideAway: (side: 'Left' | 'Right') => {
-                (widget.child as AgsBox)
+                (widget.child as BoxGeneric)
                     .setCss(side === 'Left' ? slideLeft : slideRight);
 
                 // Make it uninteractable
@@ -115,7 +115,7 @@ export default ({
 
                 timeout(ANIM_DURATION - 100, () => {
                     // Reduce height after sliding away
-                    (widget.child as AgsBox)?.setCss(side === 'Left' ?
+                    (widget.child as BoxGeneric)?.setCss(side === 'Left' ?
                         squeezeLeft :
                         squeezeRight);
 
@@ -126,7 +126,7 @@ export default ({
                         HasNotifs.value = Notifications
                             .notifications.length > 0;
 
-                        (widget.get_parent() as AgsBox)?.remove(widget);
+                        (widget.get_parent() as BoxGeneric)?.remove(widget);
                     });
                 });
             },

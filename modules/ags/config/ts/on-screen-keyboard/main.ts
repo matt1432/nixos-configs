@@ -20,6 +20,7 @@ export default () => {
         setup: (self) => {
             self
                 .hook(Tablet, (_, state) => {
+                    // @ts-expect-error too lazy to do keyboard type
                     self.attribute.setVisible(state);
                 }, 'osk-toggled')
 

@@ -1,4 +1,5 @@
 import { Widget } from 'types/@girs/gtk-3.0/gtk-3.0.cjs';
+import GObject from 'types/@girs/gobject-2.0/gobject-2.0';
 
 import { Widget as agsWidget } from 'types/widgets/widget';
 export type AgsWidget = agsWidget<unknown> & Widget;
@@ -72,6 +73,32 @@ export type PlayerButtonType = {
     prop: string
 };
 
+// For ./ts/notifications/gesture.js
+type NotifGestureProps = {
+    dragging: boolean;
+    hovered: boolean
+    ready: boolean
+    id: number;
+    slideAway(side: 'Left' | 'Right'): void;
+};
+export type NotifGesture = AgsEventBox<BoxGeneric, NotifGestureProps>;
+
+// For ./ts/osd/ctor.ts
+export type OSDStack = AgsStack<unknown & Widget, {
+    popup(osd: BoxGeneric): void,
+}>;
+export type ConnectFunc = (self?: ProgressBarGeneric) => void;
+export type OSD = {
+    stack: OSDStack;
+    icon: string | IconPropsGeneric;
+    info: {
+        mod: GObject.Object;
+        signal?: string;
+        logic?(self: ProgressBarGeneric): void;
+        widget?: Widget;
+    }
+};
+
 // For CursorBox
 import { CursorBox, CursorBoxProps } from 'ts/misc/cursorbox';
 export type CursorBox = CursorBox;
@@ -89,8 +116,8 @@ WindowProps<Child> & {
     transition?: RevealerProps<Widget>['transition']
     transition_duration?: number
     bezier?: string
-    on_open?(self: AgsWindow<Widget, unknown>): void
-    on_close?(self: AgsWindow<Widget, unknown>): void
+    on_open?(self: PopupWindow<Child, Attr>): void
+    on_close?(self: PopupWindow<Child, Attr>): void
     blur?: boolean
     close_on_unfocus?: CloseType
     attribute?: Attr;
@@ -113,17 +140,27 @@ export type CenterBoxPropsGeneric = CenterBoxProps<
 unknown & Widget, unknown & Widget, unknown & Widget, unknown
 >;
 
-import AgsEventBox from 'types/widgets/eventbox.ts';
+import AgsEventBox from 'types/widgets/eventbox';
 export type EventBoxGeneric = AgsEventBox<unknown & Widget, unknown>;
 
-import AgsLabel from 'types/widgets/label.ts';
+import AgsIcon, { IconProps } from 'types/widgets/icon';
+export type IconGeneric = AgsIcon<unknown>;
+export type IconPropsGeneric = IconProps<unknown>;
+
+import AgsLabel from 'types/widgets/label';
 export type LabelGeneric = AgsLabel<unknown>;
 
-import AgsOverlay, { OverlayProps } from 'types/widgets/overlay.ts';
+import AgsOverlay, { OverlayProps } from 'types/widgets/overlay';
 export type OverlayGeneric = AgsOverlay<unknown & Widget, unknown>;
 
-import AgsRevealer, { RevealerProps } from 'types/widgets/revealer.ts';
+import AgsProgressBar from 'types/widgets/progressbar';
+export type ProgressBarGeneric = AgsProgressBar<unknown & Widget, unknown>;
+
+import AgsRevealer, { RevealerProps } from 'types/widgets/revealer';
 export type RevealerGeneric = AgsRevealer<unknown & Widget, unknown>;
 
-import AgsStack from 'types/widgets/stack.ts';
+import AgsStack from 'types/widgets/stack';
 export type StackGeneric = AgsStack<unknown & Widget, unknown>;
+
+import AgsWindow from 'types/widgets/window';
+export type WindowGeneric = AgsWindow<unknown & Widget, unknown>;

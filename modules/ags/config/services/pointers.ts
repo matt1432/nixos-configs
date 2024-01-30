@@ -134,13 +134,16 @@ class Pointers extends Service {
     }
 
     static detectClickedOutside(clickStage: string) {
-        const toClose = (Array.from(App.windows) as Array<[string, PopupWindow]>)
-            .some((w) => {
-                const closable = (w[1].close_on_unfocus &&
-                    w[1].close_on_unfocus === clickStage);
+        const toClose = (
+            Array.from(App.windows) as Array<[string, PopupWindow]>
+        ).some((w) => {
+            const closable = (
+                w[1].close_on_unfocus &&
+                w[1].close_on_unfocus === clickStage
+            );
 
-                return w[1].visible && closable;
-            });
+            return w[1].visible && closable;
+        });
 
         if (!toClose) {
             return;

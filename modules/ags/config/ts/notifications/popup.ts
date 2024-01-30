@@ -10,7 +10,7 @@ import { Notification } from './base.ts';
 const DELAY = 2000;
 
 // Types
-import AgsBox from 'types/widgets/box.ts';
+import { NotifGesture } from 'global-types';
 
 
 export default () => Box({
@@ -45,7 +45,7 @@ export default () => Box({
         };
 
         const handleDismiss = (id: number, force = false) => {
-            const notif = (self.children as Array<AgsBox>)
+            const notif = (self.children as NotifGesture[])
                 .find((ch) => ch.attribute.id === id);
 
             if (!notif) {

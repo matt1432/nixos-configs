@@ -9,7 +9,7 @@ import CursorBox from '../misc/cursorbox.ts';
 
 // Types
 import { Notification as NotifObj } from 'resource:///com/github/Aylur/ags/service/notifications.js';
-import { BoxGeneric } from 'global-types';
+import { BoxGeneric, NotifGesture } from 'global-types';
 
 
 const addNotif = (box: BoxGeneric, notif: NotifObj) => {
@@ -53,7 +53,7 @@ const NotificationList = () => Box({
             }, 'notified')
 
             .hook(Notifications, (box, id) => {
-                const notif = (box.children as BoxGeneric[])
+                const notif = (box.children as NotifGesture[])
                     .find((ch) => ch.attribute.id === id);
 
                 if (notif?.sensitive) {

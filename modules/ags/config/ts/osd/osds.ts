@@ -17,10 +17,10 @@ globalThis.showSpeaker = () => {
 };
 
 // Types
-import AgsStack from 'types/widgets/stack.ts';
+import { OSDStack } from 'global-types';
 
 
-export const SpeakerOSD = (stack: AgsStack) => OSD({
+export const SpeakerOSD = (stack: OSDStack) => OSD({
     stack,
     icon: { icon: SpeakerIcon.bind() },
     info: {
@@ -35,12 +35,12 @@ export const SpeakerOSD = (stack: AgsStack) => OSD({
                 Audio.speaker.volume / AUDIO_MAX :
                 0;
 
-            self.sensitive = !Audio.speaker?.stream.is_muted;
+            self.sensitive = !Audio.speaker.stream?.is_muted;
         },
     },
 });
 
-export const ScreenBrightnessOSD = (stack: AgsStack) => OSD({
+export const ScreenBrightnessOSD = (stack: OSDStack) => OSD({
     stack,
     icon: { icon: Brightness.bind('screenIcon') },
     info: {
@@ -53,7 +53,7 @@ export const ScreenBrightnessOSD = (stack: AgsStack) => OSD({
     },
 });
 
-export const KbdBrightnessOSD = (stack: AgsStack) => OSD({
+export const KbdBrightnessOSD = (stack: OSDStack) => OSD({
     stack,
     icon: 'keyboard-brightness-symbolic',
     info: {
@@ -72,7 +72,7 @@ export const KbdBrightnessOSD = (stack: AgsStack) => OSD({
     },
 });
 
-export const MicOSD = (stack: AgsStack) => OSD({
+export const MicOSD = (stack: OSDStack) => OSD({
     stack,
     icon: { icon: MicIcon.bind() },
     info: {
@@ -85,12 +85,12 @@ export const MicOSD = (stack: AgsStack) => OSD({
             }
 
             self.value = Audio.microphone ? Audio.microphone.volume : 0;
-            self.sensitive = !Audio.microphone?.stream.is_muted;
+            self.sensitive = !Audio.microphone.stream?.is_muted;
         },
     },
 });
 
-export const CapsLockOSD = (stack: AgsStack) => OSD({
+export const CapsLockOSD = (stack: OSDStack) => OSD({
     stack,
     icon: { icon: Brightness.bind('capsIcon') },
     info: {

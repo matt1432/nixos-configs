@@ -11,8 +11,7 @@ const HIDDEN_MARGIN = 340;
 const ANIM_DURATION = 700;
 
 // Types
-import AgsWindow from 'types/widgets/window.ts';
-import AgsBox from 'types/widgets/box.ts';
+import { BoxGeneric } from 'global-types';
 
 
 const releaseAllKeys = () => {
@@ -24,9 +23,9 @@ const releaseAllKeys = () => {
     ]).catch(print);
 };
 
-export default (window: AgsWindow) => {
+export default (window) => {
     const gesture = Gtk.GestureDrag.new(window);
-    const child = window.child as AgsBox;
+    const child = window.child as BoxGeneric;
 
     child.setCss(`margin-bottom: -${HIDDEN_MARGIN}px;`);
 
@@ -94,7 +93,7 @@ export default (window: AgsWindow) => {
                             return;
                         }
 
-                        (window.child as AgsBox).setCss(`
+                        (window.child as BoxGeneric).setCss(`
                             margin-bottom: ${offset - HIDDEN_MARGIN}px;
                         `);
                     });
@@ -104,7 +103,7 @@ export default (window: AgsWindow) => {
             // End drag
             signals.push(
                 gesture.connect('drag-end', () => {
-                    (window.child as AgsBox).setCss(`
+                    (window.child as BoxGeneric).setCss(`
                         transition: margin-bottom 0.5s ease-in-out;
                         margin-bottom: -${HIDDEN_MARGIN}px;
                     `);
@@ -135,7 +134,7 @@ export default (window: AgsWindow) => {
                             return;
                         }
 
-                        (window.child as AgsBox).setCss(`
+                        (window.child as BoxGeneric).setCss(`
                             margin-bottom: ${offset}px;
                         `);
                     });
@@ -145,7 +144,7 @@ export default (window: AgsWindow) => {
             // End drag
             signals.push(
                 gesture.connect('drag-end', () => {
-                    (window.child as AgsBox).setCss(`
+                    (window.child as BoxGeneric).setCss(`
                         transition: margin-bottom 0.5s ease-in-out;
                         margin-bottom: 0px;
                     `);

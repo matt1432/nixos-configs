@@ -4,11 +4,12 @@ import { timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 import { Stack } from 'resource:///com/github/Aylur/ags/widget.js';
 
 import PopupWindow from '../misc/popup.ts';
-import AgsBox from 'types/widgets/box.ts';
-import AgsStack from 'types/widgets/stack.ts';
+
+// Types
+import { BoxGeneric, StackGeneric } from 'global-types';
 
 // Import all the OSDs as an array
-const OSDList = [] as Array<(stack: AgsStack) => AgsBox>;
+const OSDList = [] as Array<(stack: StackGeneric) => BoxGeneric>;
 
 import * as Modules from './osds.ts';
 for (const osd in Modules) {
@@ -24,7 +25,9 @@ const OSDs = () => {
         transition: 'over_up_down',
         transition_duration,
 
-        attribute: { popup: () => {/**/} },
+        attribute: { popup: (osd: BoxGeneric) => {
+            console.log(osd);
+        } },
     });
 
     // Send reference of stack to all items
@@ -35,7 +38,7 @@ const OSDs = () => {
     timeout(1000, () => {
         let count = 0;
 
-        stack.attribute.popup = (osd: AgsBox) => {
+        stack.attribute.popup = (osd: BoxGeneric) => {
             ++count;
             stack.set_visible_child(osd);
             App.openWindow('osd');

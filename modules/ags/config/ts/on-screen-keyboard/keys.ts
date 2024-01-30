@@ -57,7 +57,7 @@ type Key = {
 
 
 const ModKey = (key: Key) => {
-    let Mod: Var<any>;
+    let Mod: Var<boolean>;
 
     if (key.label === 'Super') {
         Mod = Super;

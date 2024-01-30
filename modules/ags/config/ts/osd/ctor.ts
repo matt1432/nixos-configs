@@ -3,24 +3,7 @@ import { Box, Icon, ProgressBar } from 'resource:///com/github/Aylur/ags/widget.
 const Y_POS = 80;
 
 // Types
-import AgsBox from 'types/widgets/box';
-import { IconProps } from 'types/widgets/icon';
-import GObject from 'types/@girs/gobject-2.0/gobject-2.0';
-import AgsStack from 'types/widgets/stack';
-import { Widget } from 'types/@girs/gtk-3.0/gtk-3.0.cjs';
-import { Connectable } from 'types/widgets/widget';
-import AgsProgressBar from 'types/widgets/progressbar';
-type ConnectFunc = (self?: AgsProgressBar) => void;
-type OSD = {
-    stack: AgsStack
-    icon: string | IconProps
-    info: {
-        mod: GObject.Object
-        signal?: string
-        logic?(self: AgsProgressBar): void
-        widget?: Widget
-    }
-};
+import { ConnectFunc, OSD, ProgressBarGeneric } from 'global-types';
 
 
 export default ({ stack, icon, info }: OSD) => {
@@ -58,7 +41,7 @@ export default ({ stack, icon, info }: OSD) => {
         connectFunc = () => stack.attribute.popup(osd);
     }
 
-    ((osd.children[0] as AgsBox).children[1] as Connectable<AgsProgressBar>)
+    (osd.children[0].children[1] as ProgressBarGeneric)
         .hook(info.mod, connectFunc, info.signal);
 
     return osd;

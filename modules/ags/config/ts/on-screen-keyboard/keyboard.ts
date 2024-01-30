@@ -16,11 +16,10 @@ const COLOR = 'rgba(0, 0, 0, 0.3)';
 const SPACING = 4;
 
 // Types
-import AgsWindow from 'types/widgets/window.ts';
-import AgsBox from 'types/widgets/box.ts';
+import { BoxGeneric, WindowGeneric } from 'global-types';
 
 
-export default (window: AgsWindow) => Box({
+export default (window: WindowGeneric) => Box({
     vertical: true,
     children: [
         CenterBox({
@@ -99,7 +98,7 @@ export default (window: AgsWindow) => Box({
                 vertical: true,
 
                 children: keyboardJson.keys.map((row, rowIndex) => {
-                    const keys = [] as Array<AgsBox>;
+                    const keys = [] as BoxGeneric[];
 
                     row.forEach((key, keyIndex) => {
                         if (keyIndex < L_KEY_PER_ROW[rowIndex]) {
@@ -141,7 +140,7 @@ export default (window: AgsWindow) => Box({
                 vertical: true,
 
                 children: keyboardJson.keys.map((row, rowIndex) => {
-                    const keys = [] as Array<AgsBox>;
+                    const keys = [] as BoxGeneric[];
 
                     row.forEach((key, keyIndex) => {
                         if (keyIndex >= L_KEY_PER_ROW[rowIndex]) {

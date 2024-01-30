@@ -13,8 +13,6 @@ import CursorBox from '../misc/cursorbox.ts';
 
 // Types
 import { Notification as NotifObj } from 'types/service/notifications.ts';
-import AgsEventBox from 'types/widgets/eventbox';
-import { Widget } from 'types/@girs/gtk-3.0/gtk-3.0.cjs';
 import { Client } from 'types/service/hyprland.ts';
 type NotificationWidget = {
     notif: NotifObj
@@ -22,8 +20,9 @@ type NotificationWidget = {
     command?(): void
 };
 import {
-    EventBoxGeneric,
     CursorBox as CBox,
+    EventBoxGeneric,
+    NotifGesture,
 } from 'global-types';
 
 
@@ -38,7 +37,7 @@ const getDragState = (box: EventBoxGeneric) => (box
     ?.get_parent()
     ?.get_parent()
     ?.get_parent()
-    ?.get_parent() as AgsEventBox<Widget, { dragging: boolean }>)
+    ?.get_parent() as NotifGesture)
     ?.attribute.dragging;
 
 
