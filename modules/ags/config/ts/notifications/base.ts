@@ -43,7 +43,9 @@ const getDragState = (box: EventBoxGeneric) => (box
 
 const NotificationIcon = (notif: NotifObj) => {
     let iconCmd = (box: CBox):void => {
-        console.log(box);
+        if (!box) {
+            console.log();
+        }
     };
 
     if (notif.app_entry && Applications.query(notif.app_entry).length > 0) {

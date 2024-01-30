@@ -26,7 +26,9 @@ const OSDs = () => {
         transition_duration,
 
         attribute: { popup: (osd: BoxGeneric) => {
-            console.log(osd);
+            if (!osd) {
+                console.log();
+            }
         } },
     });
 
