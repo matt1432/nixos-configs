@@ -100,6 +100,22 @@
         "type": "github"
       }
     },
+    "curseforge-server-downloader-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1691252534,
+        "narHash": "sha256-GqFj2Rms6BxzWdQTQ9imXKSlov3sDk8Cwwl9lwjIGzM=",
+        "owner": "Malpiszonekx4",
+        "repo": "curseforge-server-downloader",
+        "rev": "91901b2efc64ac54c9135d537e4118e2ac0bd286",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Malpiszonekx4",
+        "repo": "curseforge-server-downloader",
+        "type": "github"
+      }
+    },
     "eisa-scripts-src": {
       "flake": false,
       "locked": {
@@ -1176,6 +1192,7 @@
         "bat-theme-src": "bat-theme-src",
         "caddy-plugins": "caddy-plugins",
         "coc-stylelintplus": "coc-stylelintplus",
+        "curseforge-server-downloader-src": "curseforge-server-downloader-src",
         "eisa-scripts-src": "eisa-scripts-src",
         "git-theme-src": "git-theme-src",
         "gpu-screen-recorder-src": "gpu-screen-recorder-src",

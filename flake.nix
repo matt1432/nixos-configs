@@ -278,6 +278,13 @@
       flake = false;
     };
 
+    curseforge-server-downloader-src = {
+      type = "github";
+      owner = "Malpiszonekx4";
+      repo = "curseforge-server-downloader";
+      flake = false;
+    };
+
     ## Overlays
     plymouth-src = {
       type = "gitlab";

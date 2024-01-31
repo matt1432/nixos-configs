@@ -8,6 +8,10 @@
 in {
   imports = [nms.nixosModules.default];
 
+  environment.systemPackages = [
+    config.customPkgs.curseforge-server-downloader
+  ];
+
   services = {
     borgbackup.configs.mc = {
       paths = ["/var/lib/minecraft"];
@@ -18,7 +22,6 @@ in {
       user = mainUser;
 
       instances = let
-        jre8 = pkgs.temurin-bin-8;
         jre17 = pkgs.temurin-bin-17;
 
         defaults = {
@@ -67,26 +70,37 @@ in {
             // defaults;
         };
 
-        # Modded https://www.curseforge.com/minecraft/modpacks/nomi-ceu
-        nomi = {
+        # Modded https://www.curseforge.com/minecraft/modpacks/steam-punk
+        # curseforge-server-downloader --pack 643605 --version latest
+        steampunk = {
           enable = false;
 
-          jvmMaxAllocation = "10G";
+          jvmMaxAllocation = "12G";
           jvmInitialAllocation = "2G";
-          jvmPackage = jre8;
+          jvmPackage = jre17;
           jvmOpts = "";
 
           serverConfig =
             {
               server-port = 25569;
-              motd = "Nomi CEu Server, v1.7-alpha-2";
+              motd = "";
 
               extra-options = {
+                allow-nether = true;
+                enable-command-block = true;
+                enable-status = true;
+                entity-broadcast-range-percentage = 100;
+                force-gamemode = false;
+                function-permission-level = 2;
+                gamemode = "survival";
+                generate-structures = true;
+                max-build-height = 256;
                 max-players = 8;
-                difficulty = 1;
-                view-distance = 10;
+                difficulty = "normal";
+                view-distance = 12;
                 simulation-distance = 10;
-                level-type = "lostcities";
+                sync-chunk-writes = true;
+                use-native-transport = true;
               };
             }
             // defaults;
