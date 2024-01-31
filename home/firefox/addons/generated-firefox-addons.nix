@@ -108,10 +108,10 @@
   };
   "ttv-lol-pro" = buildFirefoxXpiAddon {
     pname = "ttv-lol-pro";
-    version = "2.2.3";
+    version = "2.3.3";
     addonId = "{76ef94a4-e3d0-4c6f-961a-d38a429a332b}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4209247/ttv_lol_pro-2.2.3.xpi";
-    sha256 = "46c772c7216a0c9ead396e8ebcf93e2e9e885a7dba8df9b7efa2b8a4d9af8bf2";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4229054/ttv_lol_pro-2.3.3.xpi";
+    sha256 = "f4e7e29ca2cdcc07a2db3bfa69892384d51bd899e65779eb660825787ba2c83d";
     meta = with lib; {
       homepage = "https://github.com/younesaassila/ttv-lol-pro";
       description = "TTV LOL PRO removes most livestream ads from Twitch.";
