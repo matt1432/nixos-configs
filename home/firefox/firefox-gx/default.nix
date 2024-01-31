@@ -22,7 +22,7 @@ in
 
       # Fix new tab background for nix
       substituteInPlace ./chrome/components/ogx_root-personal.css \
-        --replace '../images/newtab/wallpaper-dark.png' "$out/chrome/images/newtab/private-dark.png"
+        --replace '../newtab/wallpaper-dark.png' "$out/chrome/newtab/private-dark.png"
 
       mkdir -p $out
       cp -r ./* $out
