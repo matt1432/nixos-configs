@@ -25,6 +25,10 @@ import {
 } from 'global-types';
 
 
+// Set Notifications settings
+Notifications.popupTimeout = 5000;
+Notifications.cacheActions = true;
+
 const setTime = (time: number) => {
     return GLib.DateTime
         .new_from_unix_local(time)

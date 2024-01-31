@@ -17,8 +17,6 @@ const closeWinDelay = 800;
 
 
 export default {
-    notificationPopupTimeout: 5000,
-    cacheNotificationActions: true,
     closeWindowDelay: {
         'applauncher': closeWinDelay,
         'calendar': closeWinDelay,

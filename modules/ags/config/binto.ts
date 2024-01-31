@@ -10,9 +10,6 @@ const closeWinDelay = 800;
 
 // TODO: add OSD, workspace indicator / overview and current window indicator
 export default {
-    notificationPopupTimeout: 5000,
-    cacheNotificationActions: true,
-
     onConfigParsed: () => {
         globalThis.Pointers = Pointers;
     },

@@ -111,14 +111,15 @@ class Pointers extends Service {
     #initAppConnection() {
         App.connect('window-toggled', () => {
             const anyVisibleAndClosable =
-                (Array.from(App.windows) as Array<[string, PopupWindow]>)
-                    .some((w) => {
-                        const closable = w[1].close_on_unfocus &&
-                            !(w[1].close_on_unfocus === 'none' ||
-                            w[1].close_on_unfocus === 'stay');
+                (App.windows as Array<PopupWindow>).some((w) => {
+                    const closable = w.close_on_unfocus &&
+                        !(
+                            w.close_on_unfocus === 'none' ||
+                            w.close_on_unfocus === 'stay'
+                        );
 
-                        return w[1].visible && closable;
-                    });
+                    return w.visible && closable;
+                });
 
             if (anyVisibleAndClosable) {
                 this.startProc();
@@ -131,15 +132,13 @@ class Pointers extends Service {
     }
 
     static detectClickedOutside(clickStage: string) {
-        const toClose = (
-            Array.from(App.windows) as Array<[string, PopupWindow]>
-        ).some((w) => {
+        const toClose = ((App.windows as Array<PopupWindow>)).some((w) => {
             const closable = (
-                w[1].close_on_unfocus &&
-                w[1].close_on_unfocus === clickStage
+                w.close_on_unfocus &&
+                w.close_on_unfocus === clickStage
             );
 
-            return w[1].visible && closable;
+            return w.visible && closable;
         });
 
         if (!toClose) {
