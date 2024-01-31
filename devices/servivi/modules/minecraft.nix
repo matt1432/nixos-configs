@@ -12,6 +12,8 @@ in {
     config.customPkgs.curseforge-server-downloader
   ];
 
+  systemd.services.mc-steampunk.path = with pkgs; [curl];
+
   services = {
     borgbackup.configs.mc = {
       paths = ["/var/lib/minecraft"];
@@ -23,6 +25,7 @@ in {
 
       instances = let
         jre17 = pkgs.temurin-bin-17;
+        jre18 = pkgs.temurin-bin-18;
 
         defaults = {
           spawn-protection = 0;
@@ -73,11 +76,11 @@ in {
         # Modded https://www.curseforge.com/minecraft/modpacks/steam-punk
         # curseforge-server-downloader --pack 643605 --version latest
         steampunk = {
-          enable = false;
+          enable = true;
 
           jvmMaxAllocation = "12G";
           jvmInitialAllocation = "2G";
-          jvmPackage = jre17;
+          jvmPackage = jre18;
           jvmOpts = "";
 
           serverConfig =
