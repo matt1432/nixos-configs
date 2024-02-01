@@ -9,7 +9,7 @@
 
   caddy = caddy-plugins.packages.${pkgs.system}.default;
 
-  clusterIP = config.services.pacemaker.virtualIps.caddy-vip.ip;
+  clusterIP = config.services.pcsd.virtualIps.caddy-vip.ip;
 in {
   imports = [caddy-plugins.nixosModules.default];
 

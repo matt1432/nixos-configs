@@ -1,12 +1,12 @@
 {
   config,
-  pacemaker,
+  pcsd,
   ...
 }: let
   inherit (config.sops) secrets;
 in {
   imports = [
-    pacemaker.nixosModules.default
+    pcsd.nixosModules.default
 
     ./blocky.nix
     ./caddy.nix
@@ -15,7 +15,7 @@ in {
     ./unbound.nix
   ];
 
-  services.pacemaker = {
+  services.pcsd = {
     enable = true;
     clusterName = "thingies";
 
@@ -58,14 +58,18 @@ in {
 
     nodes = [
       {
-        nodeid = 1;
         name = "thingone";
-        ring_addrs = ["10.0.0.244"];
+        nodeid = "1";
+        addrs = [
+          {addr = "10.0.0.244";}
+        ];
       }
       {
-        nodeid = 2;
         name = "thingtwo";
-        ring_addrs = ["10.0.0.159"];
+        nodeid = "2";
+        addrs = [
+          {addr = "10.0.0.159";}
+        ];
       }
     ];
   };

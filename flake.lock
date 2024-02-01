@@ -948,6 +948,7 @@
         "owner": "NixOS",
         "ref": "nixos-unstable",
         "repo": "nixpkgs",
+        "rev": "612f97239e2cc474c13c9dafa0df378058c5ad8d",
         "type": "github"
       }
     },
@@ -1068,25 +1069,6 @@
         "type": "github"
       }
     },
-    "pacemaker": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_8",
-        "nixpkgs-pacemaker": "nixpkgs-pacemaker"
-      },
-      "locked": {
-        "lastModified": 1706586193,
-        "narHash": "sha256-TxBiyKYsIxQY6zZZb3XcZ9tF8BupRJwMpoCjyJVCxQc=",
-        "owner": "matt1432",
-        "repo": "nixos-pacemaker",
-        "rev": "fe7e11faaa4cc81e1e71c7865520bc7a53329508",
-        "type": "github"
-      },
-      "original": {
-        "owner": "matt1432",
-        "repo": "nixos-pacemaker",
-        "type": "github"
-      }
-    },
     "pam-fprint-grosshack-src": {
       "flake": false,
       "locked": {
@@ -1101,6 +1083,25 @@
         "owner": "mishakmak",
         "repo": "pam-fprint-grosshack",
         "type": "gitlab"
+      }
+    },
+    "pcsd": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_8",
+        "nixpkgs-pacemaker": "nixpkgs-pacemaker"
+      },
+      "locked": {
+        "lastModified": 1706805944,
+        "narHash": "sha256-LEDTPr4QJohJGQQKPNyb+hDmPGN3pZBmSkItepStxCs=",
+        "owner": "matt1432",
+        "repo": "nixos-pcsd",
+        "rev": "0b9b8e37c0ad404d0d5bf24333b8df420d16dcf2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "matt1432",
+        "repo": "nixos-pcsd",
+        "type": "github"
       }
     },
     "persist-properties-src": {
@@ -1213,8 +1214,8 @@
         "nur": "nur",
         "nurl": "nurl",
         "nvim-theme-src": "nvim-theme-src",
-        "pacemaker": "pacemaker",
         "pam-fprint-grosshack-src": "pam-fprint-grosshack-src",
+        "pcsd": "pcsd",
         "persist-properties-src": "persist-properties-src",
         "plymouth-src": "plymouth-src",
         "plymouth-theme-src": "plymouth-theme-src",

@@ -141,10 +141,10 @@
     };
 
     # Cluster Inputs
-    pacemaker = {
+    pcsd = {
       type = "github";
       owner = "matt1432";
-      repo = "nixos-pacemaker";
+      repo = "nixos-pcsd";
 
       # FIXME: OCF resources break on latest
       # inputs.nixpkgs.follows = "nixpkgs";
