@@ -131,13 +131,20 @@ in {
           };
 
           # Java
-          java.jdt.ls = {
-            java.home = "${javaSdk}";
-            statusIcons = {
-              "busy" = "Busy";
-              "ready" = "OK";
-              "warning" = "Warning";
-              "error" = "Error";
+          java = {
+            maven.downloadSources = true;
+            eclipse.downloadSources = true;
+
+            format.settings.url = "eclipse-formatter.xml";
+
+            jdt.ls = {
+              java.home = "${javaSdk}";
+              statusIcons = {
+                "busy" = "Busy";
+                "ready" = "OK";
+                "warning" = "Warning";
+                "error" = "Error";
+              };
             };
           };
 
