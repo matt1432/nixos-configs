@@ -68,7 +68,7 @@ export type PlayerOverlay = AgsOverlay<AgsWidget, {
 export type PlayerButtonType = {
     player: MprisPlayer
     colors: Var<Colors>
-    items: Array<[name: string, widget: AgsWidget]>
+    children: StackProps['children']
     onClick: string
     prop: string
 };
@@ -159,8 +159,8 @@ export type ProgressBarGeneric = AgsProgressBar<unknown & Widget, unknown>;
 import AgsRevealer, { RevealerProps } from 'types/widgets/revealer';
 export type RevealerGeneric = AgsRevealer<unknown & Widget, unknown>;
 
-import AgsStack from 'types/widgets/stack';
-export type StackGeneric = AgsStack<unknown & Widget, unknown>;
+import AgsStack, { StackProps } from 'types/widgets/stack';
+export type StackGeneric = AgsStack<{ [name: string]: Widget; }, unknown>;
 
 import AgsWindow from 'types/widgets/window';
 export type WindowGeneric = AgsWindow<unknown & Widget, unknown>;

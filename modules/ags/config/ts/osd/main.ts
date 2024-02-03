@@ -25,13 +25,15 @@ const OSDs = () => {
 
         attribute: { popup: (osd: BoxGeneric) => {
             if (!osd) {
-                console.log();
+                //
             }
         } },
     });
 
-    // Send reference of stack to all items
-    stack.items = OSDList.map((osd, i) => [`${i}`, osd(stack)]);
+    // Send reference of stack to all children
+    stack.children = Object.fromEntries(
+        OSDList.map((osd, i) => [`${i}`, osd(stack)]),
+    );
 
     // Delay popup method so it
     // doesn't show any OSDs at launch

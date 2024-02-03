@@ -40,7 +40,6 @@ import {
     PlayerButtonType,
     PlayerDrag,
     PlayerOverlay,
-    StackGeneric,
 } from 'global-types';
 
 
@@ -269,13 +268,13 @@ export const PositionSlider = (
 const PlayerButton = ({
     player,
     colors,
-    items,
+    children = {},
     onClick,
     prop,
 }: PlayerButtonType) => CursorBox({
     child: Button({
         attribute: { hovered: false },
-        child: Stack({ items }),
+        child: Stack({ children }),
 
         on_primary_click_release: () => player[onClick](),
 
@@ -285,8 +284,8 @@ const PlayerButton = ({
             if (prop === 'playBackStatus' && colors.value) {
                 const c = colors.value;
 
-                items.forEach((item) => {
-                    item[1].setCss(`
+                Object.values(children).forEach((ch: AgsWidget) => {
+                    ch.setCss(`
                         background-color: ${c.hoverAccent};
                         color: ${c.buttonText};
                         min-height: 40px;
@@ -303,8 +302,8 @@ const PlayerButton = ({
             if (prop === 'playBackStatus' && colors.value) {
                 const c = colors.value;
 
-                items.forEach((item) => {
-                    item[1].setCss(`
+                Object.values(children).forEach((ch: AgsWidget) => {
+                    ch.setCss(`
                         background-color: ${c.buttonAccent};
                         color: ${c.buttonText};
                         min-height: 42px;
@@ -317,7 +316,7 @@ const PlayerButton = ({
         setup: (self) => {
             self
                 .hook(player, () => {
-                    (self.child as StackGeneric).shown = `${player[prop]}`;
+                    self.child.shown = `${player[prop]}`;
                 })
                 .hook(colors, () => {
                     if (!Mpris.players.find((p) => player === p)) {
@@ -329,26 +328,28 @@ const PlayerButton = ({
 
                         if (prop === 'playBackStatus') {
                             if (self.attribute.hovered) {
-                                Array.from(items).forEach((item) => {
-                                    item[1].setCss(`
-                                        background-color: ${c.hoverAccent};
-                                        color: ${c.buttonText};
-                                        min-height: 40px;
-                                        min-width: 36px;
-                                        margin-bottom: 1px;
-                                        margin-right: 1px;
-                                    `);
-                                });
+                                Object.values(children)
+                                    .forEach((ch: AgsWidget) => {
+                                        ch.setCss(`
+                                            background-color: ${c.hoverAccent};
+                                            color: ${c.buttonText};
+                                            min-height: 40px;
+                                            min-width: 36px;
+                                            margin-bottom: 1px;
+                                            margin-right: 1px;
+                                        `);
+                                    });
                             }
                             else {
-                                items.forEach((item) => {
-                                    item[1].setCss(`
-                                        background-color: ${c.buttonAccent};
-                                        color: ${c.buttonText};
-                                        min-height: 42px;
-                                        min-width: 38px;
-                                    `);
-                                });
+                                Object.values(children)
+                                    .forEach((ch: AgsWidget) => {
+                                        ch.setCss(`
+                                            background-color: ${c.buttonAccent};
+                                            color: ${c.buttonText};
+                                            min-height: 42px;
+                                            min-width: 38px;
+                                        `);
+                                    });
                             }
                         }
                         else {
@@ -369,16 +370,16 @@ export const ShuffleButton = (
 ) => PlayerButton({
     player,
     colors,
-    items: [
-        ['true', Label({
+    children: {
+        true: Label({
             class_name: 'shuffle enabled',
             label: icons.mpris.shuffle.enabled,
-        })],
-        ['false', Label({
+        }),
+        false: Label({
             class_name: 'shuffle disabled',
             label: icons.mpris.shuffle.disabled,
-        })],
-    ],
+        }),
+    },
     onClick: 'shuffle',
     prop: 'shuffleStatus',
 });
@@ -389,20 +390,20 @@ export const LoopButton = (
 ) => PlayerButton({
     player,
     colors,
-    items: [
-        ['None', Label({
+    children: {
+        None: Label({
             class_name: 'loop none',
             label: icons.mpris.loop.none,
-        })],
-        ['Track', Label({
+        }),
+        Track: Label({
             class_name: 'loop track',
             label: icons.mpris.loop.track,
-        })],
-        ['Playlist', Label({
+        }),
+        Playlist: Label({
             class_name: 'loop playlist',
             label: icons.mpris.loop.playlist,
-        })],
-    ],
+        }),
+    },
     onClick: 'loop',
     prop: 'loopStatus',
 });
@@ -413,20 +414,20 @@ export const PlayPauseButton = (
 ) => PlayerButton({
     player,
     colors,
-    items: [
-        ['Playing', Label({
+    children: {
+        Playing: Label({
             class_name: 'pausebutton playing',
             label: icons.mpris.playing,
-        })],
-        ['Paused', Label({
+        }),
+        Paused: Label({
             class_name: 'pausebutton paused',
             label: icons.mpris.paused,
-        })],
-        ['Stopped', Label({
+        }),
+        Stopped: Label({
             class_name: 'pausebutton stopped paused',
             label: icons.mpris.stopped,
-        })],
-    ],
+        }),
+    },
     onClick: 'playPause',
     prop: 'playBackStatus',
 });
@@ -437,16 +438,16 @@ export const PreviousButton = (
 ) => PlayerButton({
     player,
     colors,
-    items: [
-        ['true', Label({
+    children: {
+        true: Label({
             class_name: 'previous',
             label: icons.mpris.prev,
-        })],
-        ['false', Label({
+        }),
+        false: Label({
             class_name: 'previous',
             label: icons.mpris.prev,
-        })],
-    ],
+        }),
+    },
     onClick: 'previous',
     prop: 'canGoPrev',
 });
@@ -457,16 +458,16 @@ export const NextButton = (
 ) => PlayerButton({
     player,
     colors,
-    items: [
-        ['true', Label({
+    children: {
+        true: Label({
             class_name: 'next',
             label: icons.mpris.next,
-        })],
-        ['false', Label({
+        }),
+        false: Label({
             class_name: 'next',
             label: icons.mpris.next,
-        })],
-    ],
+        }),
+    },
     onClick: 'next',
     prop: 'canGoNext',
 });
