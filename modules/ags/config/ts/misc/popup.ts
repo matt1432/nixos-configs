@@ -90,11 +90,16 @@ export class PopupWindow<
             layer,
             attribute,
             setup: () => {
-                // Add way to make window open on startup
                 const id = App.connect('config-parsed', () => {
+                    // Set close delay dynamically
+                    App.closeWindowDelay[name] = transition_duration;
+
+                    // Add way to make window open on startup
                     if (visible) {
                         App.openWindow(`${name}`);
                     }
+
+                    // This connection should always run only once
                     App.disconnect(id);
                 });
 

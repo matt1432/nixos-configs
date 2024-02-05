@@ -12,19 +12,8 @@ import QSettings from './ts/quick-settings/main.ts';
 
 Setup();
 
-const closeWinDelay = 800;
-
 
 export default {
-    closeWindowDelay: {
-        'applauncher': closeWinDelay,
-        'calendar': closeWinDelay,
-        'notification-center': closeWinDelay,
-        'osd': 300,
-        'osk': closeWinDelay,
-        'powermenu': closeWinDelay,
-        'quick-settings': closeWinDelay,
-    },
     windows: [
         ...Corners(),
 

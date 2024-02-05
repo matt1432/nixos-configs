@@ -50,7 +50,6 @@ class Tablet extends Service {
     constructor() {
         super();
         this.#listenOskState();
-        execAsync('squeekboard').catch(print);
     }
 
     #blockInputs() {

@@ -5,8 +5,6 @@ import Bar from './ts/bar/binto.ts';
 import { NotifPopups, NotifCenter } from './ts/notifications/binto.ts';
 import Powermenu from './ts/powermenu.ts';
 
-const closeWinDelay = 800;
-
 
 // TODO: add OSD, workspace indicator and current window indicator
 export default {
@@ -14,11 +12,6 @@ export default {
         globalThis.Pointers = Pointers;
     },
 
-    closeWindowDelay: {
-        'applauncher': closeWinDelay,
-        'notification-center': closeWinDelay,
-        'powermenu': closeWinDelay,
-    },
     windows: [
         AppLauncher(),
         NotifCenter(),

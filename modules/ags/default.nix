@@ -19,9 +19,7 @@ in {
       ...
     }: let
       symlink = config.lib.file.mkOutOfStoreSymlink;
-      inherit (lib) optionalAttrs optionals;
-
-      cfgHypr = config.wayland.windowManager.hyprland;
+      inherit (lib) optionals;
     in {
       programs.ags.enable = true;
 
@@ -59,10 +57,12 @@ in {
 
       wayland.windowManager.hyprland = {
         settings = {
-          exec-once = [
-            "ags"
-            "sleep 3; ags -r 'App.openWindow(\"applauncher\")'"
-          ];
+          exec-once =
+            [
+              "ags"
+              "sleep 3; ags -r 'App.openWindow(\"applauncher\")'"
+            ]
+            ++ optionals isTouchscreen ["squeekboard"];
 
           bindn = [",Escape, exec, ags run-js 'closeAll()'"];
           bind = [
