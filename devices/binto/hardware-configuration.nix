@@ -2,11 +2,24 @@
   config,
   lib,
   modulesPath,
+  nixpkgs-nvidia-fix,
   pkgs,
   ...
 }: {
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   imports = [(modulesPath + "/installer/scan/not-detected.nix")];
+
+  # FIXME: remove this once PR reaches unstable
+  nixpkgs.overlays = [
+    (self: super: (let
+      patched-pkgs = import nixpkgs-nvidia-fix {
+        inherit (self) system;
+        config.allowUnfree = true;
+      };
+    in {
+      linuxPackages_zen = patched-pkgs.linuxPackages_zen;
+    }))
+  ];
 
   boot = {
     kernelPackages = pkgs.linuxPackages_zen;

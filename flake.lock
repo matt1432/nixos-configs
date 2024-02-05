@@ -806,6 +806,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-nvidia-fix": {
+      "locked": {
+        "lastModified": 1706975488,
+        "narHash": "sha256-arYN4yIKU1cN5sde1+hsRNrTsgEIsU+mrwT5N8jX+BQ=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "468a37e6ba01c45c91460580f345d48ecdb5a4db",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "468a37e6ba01c45c91460580f345d48ecdb5a4db",
+        "type": "github"
+      }
+    },
     "nixpkgs-pacemaker": {
       "locked": {
         "lastModified": 1691894234,
@@ -1230,6 +1246,7 @@
         "nix-melt": "nix-melt",
         "nix-on-droid": "nix-on-droid",
         "nixpkgs": "nixpkgs_4",
+        "nixpkgs-nvidia-fix": "nixpkgs-nvidia-fix",
         "nixpkgs-wayland": "nixpkgs-wayland",
         "nms": "nms",
         "nur": "nur",

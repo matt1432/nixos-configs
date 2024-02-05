@@ -28,8 +28,7 @@
     # Experimental and only works on modern Nvidia GPUs (Turing or newer).
     powerManagement.finegrained = false;
 
-    # FIXME: https://github.com/NVIDIA/open-gpu-kernel-modules/pull/589
-    open = false;
+    open = true;
 
     # Enable the Nvidia settings menu,
     # accessible via `nvidia-settings`.
