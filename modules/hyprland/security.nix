@@ -41,6 +41,10 @@ in {
           "float,^(org.kde.polkit-kde-authentication-agent-1)$"
           "size 741 288,^(org.kde.polkit-kde-authentication-agent-1)$"
           "center,^(org.kde.polkit-kde-authentication-agent-1)$"
+
+          # For GParted auth
+          "size 741 288,^(org.kde.ksshaskpass)$"
+          "move cursor -370 -144,^(org.kde.ksshaskpass)$"
         ];
 
         bind = [

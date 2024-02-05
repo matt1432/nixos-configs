@@ -6,7 +6,7 @@
   ...
 }: let
   inherit (lib) concatStringsSep optionals;
-  inherit (config.vars) configDir mainUser mainMonitor;
+  inherit (config.vars) mainUser mainMonitor;
 
   isNvidia = config.hardware.nvidia.modesetting.enable;
 in {
@@ -34,10 +34,10 @@ in {
   # HOME-MANAGER CONFIG
   home-manager.users.${mainUser} = {
     imports = [
-      ../../home/theme.nix
-
       ./hycov.nix
       ./hyprgrass.nix
+      ./inputs.nix
+      ./style.nix
     ];
 
     wayland.windowManager.hyprland = {
@@ -49,8 +49,7 @@ in {
           gset = pkgs.gsettings-desktop-schemas;
         in
           [
-            "XCURSOR_SIZE, 24"
-            "XDG_DATA_DIRS, ${builtins.concatStringsSep ":" [
+            "XDG_DATA_DIRS, ${concatStringsSep ":" [
               "${gset}/share/gsettings-schemas/${gset.name}"
               "${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}"
               "$XDG_DATA_DIRS"
@@ -87,27 +86,6 @@ in {
             "1920x1560, 1"
           ])
         ];
-
-        input = let
-          inherit (config.services.xserver) xkb;
-        in {
-          kb_layout = xkb.layout;
-          kb_variant = xkb.variant;
-          follow_mouse = true;
-
-          touchpad = {
-            natural_scroll = true;
-            disable_while_typing = false;
-          };
-        };
-
-        exec-once =
-          [
-            "hyprctl setcursor Dracula-cursors 24"
-            "swww init --no-cache && swww img -t none ${pkgs.dracula-theme}/wallpapers/waves.png"
-          ]
-          ++ optionals (! isNull mainMonitor)
-          ["hyprctl dispatch focusmonitor ${mainMonitor}"];
 
         "$mainMod" = "SUPER";
 
@@ -173,8 +151,6 @@ in {
           smart_split = true;
           special_scale_factor = 0.8;
         };
-
-        source = ["${configDir}/hypr/main.conf"];
       };
     };
 
@@ -186,8 +162,6 @@ in {
       pulseaudio
       alsa-utils
       p7zip # for reshade
-
-      swww
 
       qt5.qtwayland
       qt6.qtwayland
