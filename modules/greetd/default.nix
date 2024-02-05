@@ -73,7 +73,7 @@
       ]));
 in {
   # Add home folder for home-manager to work
-  users.users.greeter.home = "/var/lib/greetd";
+  users.users.greeter.home = "/var/lib/greeter";
 
   home-manager.users.greeter = {
     imports = [
