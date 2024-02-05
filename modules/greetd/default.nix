@@ -4,7 +4,7 @@
   config,
   ...
 }: let
-  inherit (lib) getExe optionals readFile;
+  inherit (lib) optionals readFile;
   inherit (config.vars) mainUser greetdDupe mainMonitor;
 
   # Nix stuff
@@ -20,9 +20,10 @@
     .windowManager
     .hyprland
     .finalPackage;
-  # Executables' paths
   hyprBin = "${hyprland}/bin";
-  regreetBin = "${getExe config.programs.regreet.package}";
+
+  ags = config.home-manager.users.${mainUser}.programs.ags.package;
+  agsBin = "${ags}/bin";
 
   # Show Regreet on all monitors
   dupeMonitors = pkgs.writeShellScriptBin "dupeMonitors" ''
@@ -44,16 +45,13 @@
     done
   '';
 
-  # Check if user wants Regreet only on main monitor
+  # Check if user wants the greeter only on main monitor
   setupMonitors =
     if (mainMonitor != "null" && !greetdDupe)
     then "${hyprBin}/hyprctl dispatch focusmonitor ${mainMonitor}"
     else "${dupeMonitors}/bin/dupeMonitors";
 
-  # Get css for regreet
-  style = pkgs.writeText "style.css" ''${readFile ./style.css}'';
-
-  # Setup Hyprland as regreet's compositor
+  # Setup Hyprland as the greeter's compositor
   hyprConf =
     pkgs.writeText "greetd-hypr-config"
     (lib.strings.concatStrings ((optionals isNvidia [
@@ -65,38 +63,32 @@
       ])
       ++ [
         "exec-once = ${setupMonitors} &&"
-        "    sleep 1; swww init --no-cache &&"
+        "    swww init --no-cache &&"
         "    swww img -t none ${pkgs.dracula-theme}/wallpapers/waves.png\n"
 
         "${readFile ./hyprland.conf}\n"
 
-        "exec-once = ${regreetBin} -s ${style};"
+        "exec-once = ${agsBin}/ags --config ${./greetd.js};"
         "    ${hyprBin}/hyprctl dispatch exit"
       ]));
 in {
-  imports = [./regreet.nix];
+  # Add home folder for home-manager to work
+  users.users.greeter.home = "/var/lib/greetd";
 
-  users.users.greeter = {
-    packages = with pkgs; [
-      dracula-theme
-      flat-remix-icon-theme
+  home-manager.users.greeter = {
+    imports = [
+      ../../common/vars
+      ../../home/theme.nix
+    ];
+
+    home.packages = with pkgs; [
       swww
       gtk3
       glib
     ];
-  };
 
-  # See overlay
-  programs.regreet = {
-    enable = true;
-    settings = {
-      GTK = {
-        cursor_theme_name = "Dracula-cursors";
-        font_name = "Sans Serif";
-        icon_theme_name = "Flat-Remix-Violet-Dark";
-        theme_name = "Dracula";
-      };
-    };
+    vars = config.vars;
+    home.stateVersion = "24.05";
   };
 
   services = {
