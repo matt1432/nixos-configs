@@ -1,4 +1,6 @@
-{config, ...}: {
+{config, ...}: let
+  inherit (config.services.xserver) xkb;
+in {
   services.kmscon = {
     enable = true;
     hwRender = false;
@@ -6,8 +8,8 @@
     extraOptions = builtins.concatStringsSep " " [
       "--font-size 12.5"
       "--font-dpi 170"
-      "--xkb-layout ${config.services.xserver.layout}"
-      "--xkb-variant ${config.services.xserver.xkbVariant}"
+      "--xkb-layout ${xkb.layout}"
+      "--xkb-variant ${xkb.variant}"
       "--font-name 'JetBrainsMono Nerd Font'"
     ];
   };

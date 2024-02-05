@@ -52,9 +52,9 @@
   services = {
     fwupd.enable = true;
 
-    xserver = {
+    xserver.xkb = {
       layout = "ca";
-      xkbVariant = "multix";
+      variant = "multix";
     };
   };
 

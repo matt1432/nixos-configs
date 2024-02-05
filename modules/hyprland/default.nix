@@ -89,10 +89,10 @@ in {
         ];
 
         input = let
-          inherit (config.services) xserver;
+          inherit (config.services.xserver) xkb;
         in {
-          kb_layout = xserver.layout;
-          kb_variant = xserver.xkbVariant;
+          kb_layout = xkb.layout;
+          kb_variant = xkb.variant;
           follow_mouse = true;
 
           touchpad = {
