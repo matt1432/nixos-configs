@@ -7,7 +7,6 @@ import Corners from './ts/corners/main.ts';
 import { NotifPopups, NotifCenter } from './ts/notifications/wim.ts';
 import OSD from './ts/osd/main.ts';
 import OSK from './ts/on-screen-keyboard/main.ts';
-import Overview from './ts/overview/main.ts';
 import Powermenu from './ts/powermenu.ts';
 import QSettings from './ts/quick-settings/main.ts';
 
@@ -23,7 +22,6 @@ export default {
         'notification-center': closeWinDelay,
         'osd': 300,
         'osk': closeWinDelay,
-        'overview': closeWinDelay,
         'powermenu': closeWinDelay,
         'quick-settings': closeWinDelay,
     },
@@ -35,7 +33,6 @@ export default {
         NotifCenter(),
         OSD(),
         OSK(),
-        Overview(),
         Powermenu(),
         QSettings(),
 

@@ -202,6 +202,14 @@
       inputs.hyprland.follows = "hyprland";
     };
 
+    hycov = {
+      type = "github";
+      owner = "DreamMaoMao";
+      repo = "hycov";
+
+      inputs.hyprland.follows = "hyprland";
+    };
+
     ags = {
       type = "github";
       owner = "Aylur";

@@ -1,7 +1,6 @@
 {
   config,
   hyprland,
-  hyprgrass,
   pkgs,
   lib,
   ...
@@ -10,23 +9,16 @@
   inherit (config.vars) configDir mainUser mainMonitor;
 
   isNvidia = config.hardware.nvidia.modesetting.enable;
-  isTouchscreen = config.hardware.sensor.iio.enable;
 in {
   # SYSTEM CONFIG
   imports = [
-    ../greetd
-    ../dolphin.nix
+    ../dconf.nix
+
+    ./packages.nix
+    ./security.nix
   ];
 
-  security.pam.services.swaylock = {};
-
-  programs = {
-    kdeconnect.enable = true;
-    dconf.enable = true;
-  };
-
   services = {
-    gnome.gnome-keyring.enable = true;
     dbus.enable = true;
     gvfs.enable = true;
   };
@@ -42,24 +34,15 @@ in {
   # HOME-MANAGER CONFIG
   home-manager.users.${mainUser} = {
     imports = [
-      ../../home/foot.nix
-      ../../home/dconf.nix
-      ../../home/mpv
-      ../../home/obs.nix
-      ../../home/swaylock.nix
       ../../home/theme.nix
-      ../../home/wofi
+
+      ./hycov.nix
+      ./hyprgrass.nix
     ];
 
     wayland.windowManager.hyprland = {
       enable = true;
       package = hyprland.packages.${pkgs.system}.default;
-
-      plugins =
-        []
-        ++ (optionals isTouchscreen [
-          hyprgrass.packages.${pkgs.system}.default
-        ]);
 
       settings = {
         env = let
@@ -121,31 +104,15 @@ in {
         exec-once =
           [
             "hyprctl setcursor Dracula-cursors 24"
-            "${pkgs.plasma5Packages.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1"
             "swww init --no-cache && swww img -t none ${pkgs.dracula-theme}/wallpapers/waves.png"
-            "wl-paste --watch cliphist store"
-            "${config.programs.kdeconnect.package}/libexec/kdeconnectd"
-            "kdeconnect-indicator"
-            "gnome-keyring-daemon --start --components=secrets"
           ]
           ++ optionals (! isNull mainMonitor)
           ["hyprctl dispatch focusmonitor ${mainMonitor}"];
-
-        windowrule = [
-          "noborder,^(wofi)$"
-
-          # Polkit
-          "float,^(org.kde.polkit-kde-authentication-agent-1)$"
-          "size 741 288,^(org.kde.polkit-kde-authentication-agent-1)$"
-          "center,^(org.kde.polkit-kde-authentication-agent-1)$"
-        ];
 
         "$mainMod" = "SUPER";
 
         bind = [
           # Defaults
-          "$mainMod, L, exec, lock"
-          "$mainMod, Q, exec, foot"
           "$mainMod, F, fullscreen"
           "$mainMod, C, killactive, "
           "$mainMod SHIFT, SPACE, togglefloating, "
@@ -181,12 +148,6 @@ in {
           "$mainMod SHIFT, 9, movetoworkspace, 9"
           "$mainMod SHIFT, 0, movetoworkspace, 10"
 
-          # Clipboard History
-          "$mainMod, V, exec, killall -r wofi || cliphist list | wofi --dmenu | cliphist decode | wl-copy"
-
-          ",Print, exec, grim -g \"$(slurp)\" - | swappy -f -"
-          "$mainMod SHIFT, C, exec, wl-color-picker"
-
           ",XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle & ags -r 'showSpeaker()' &"
           ",XF86AudioMicMute, exec, pactl set-source-mute @DEFAULT_SOURCE@ toggle"
         ];
@@ -217,52 +178,17 @@ in {
       };
     };
 
+    # libs
     home.packages = with pkgs; [
-      # School
-      xournalpp
-      virt-manager
-      jetbrains.idea-ultimate
-      libreoffice-fresh # TODO: declarative conf?
-      hunspell
-      hunspellDicts.en_CA
-      config.customPkgs.rars-flatlaf
-
-      # Apps
-      thunderbird # TODO: use programs.thunderbird
-      spotifywm
-      photoqt
-      nextcloud-client
-      jellyfin-media-player
-      prismlauncher-qt5
-
-      /*
-      Discord themes for Vencord
-      https://markchan0225.github.io/RoundedDiscord/RoundedDiscord.theme.css
-      https://raw.githubusercontent.com/dracula/BetterDiscord/master/Dracula_Official.theme.css
-      */
-      (pkgs.discord.override {
-        withOpenASAR = true;
-        withVencord = true;
-      })
-
       # tools
-      wl-color-picker
-      wl-clipboard
-      cliphist
-      grim
-      slurp
-      swappy
-      swayidle
       bluez-tools
       brightnessctl
       pulseaudio
       alsa-utils
-      gnome.seahorse
       p7zip # for reshade
 
       swww
 
-      ## libs
       qt5.qtwayland
       qt6.qtwayland
       libayatana-appindicator

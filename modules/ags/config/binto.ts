@@ -8,7 +8,7 @@ import Powermenu from './ts/powermenu.ts';
 const closeWinDelay = 800;
 
 
-// TODO: add OSD, workspace indicator / overview and current window indicator
+// TODO: add OSD, workspace indicator and current window indicator
 export default {
     onConfigParsed: () => {
         globalThis.Pointers = Pointers;
