@@ -68,12 +68,15 @@
 
         "${readFile ./hyprland.conf}\n"
 
-        "exec-once = ${agsBin}/ags --config ${./greetd.js};"
+        "exec-once = ${agsBin}/ags -b greeter --config ${./greetd.js};"
         "    ${hyprBin}/hyprctl dispatch exit"
       ]));
 in {
   # Add home folder for home-manager to work
-  users.users.greeter.home = "/var/lib/greeter";
+  users.users.greeter = {
+    home = "/var/lib/greeter";
+    createHome = true;
+  };
 
   home-manager.users.greeter = {
     imports = [
