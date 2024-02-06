@@ -95,14 +95,6 @@
       ref = "nixos-unstable";
     };
 
-    # FIXME: wait for this rev to reach unstable
-    nixpkgs-nvidia-fix = {
-      type = "github";
-      owner = "NixOS";
-      repo = "nixpkgs";
-      rev = "468a37e6ba01c45c91460580f345d48ecdb5a4db";
-    };
-
     home-manager = {
       type = "github";
       owner = "nix-community";
