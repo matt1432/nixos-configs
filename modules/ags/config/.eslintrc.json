@@ -22,9 +22,6 @@
 
 
     "block-scoped-var": ["error"],
-    "capitalized-comments": ["warn", "always", {
-      "ignoreConsecutiveComments": true
-    }],
     "class-methods-use-this": ["error"],
     "curly": ["warn"],
     "default-case-last": ["warn"],
