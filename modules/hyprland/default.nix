@@ -6,7 +6,7 @@
   ...
 }: let
   inherit (lib) concatStringsSep optionals;
-  inherit (config.vars) mainUser mainMonitor;
+  inherit (config.vars) mainUser;
 
   isNvidia = config.hardware.nvidia.modesetting.enable;
 in {
