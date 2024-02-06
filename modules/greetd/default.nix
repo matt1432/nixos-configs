@@ -13,6 +13,7 @@
   isTouchscreen = config.hardware.sensor.iio.enable;
 
   hyprland = config.home-manager.users.${mainUser}.wayland.windowManager.hyprland.finalPackage;
+  monitors = config.home-manager.users.${mainUser}.wayland.windowManager.hyprland.settings.monitor;
 
   # Show Regreet on all monitors
   dupeMonitors = pkgs.writeShellApplication {
@@ -56,6 +57,7 @@
         "env = __GLX_VENDOR_LIBRARY_NAME,nvidia\n"
         "env = WLR_NO_HARDWARE_CURSORS,1\n"
       ])
+      ++ map (x: "monitor=${x}\n") monitors
       ++ [
         "exec-once = ${setupMonitors}\n"
 
