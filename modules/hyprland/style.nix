@@ -15,7 +15,7 @@ in {
 
       exec-once = [
         "hyprctl setcursor Dracula-cursors 24"
-        "swww init --no-cache && swww img -t none ${pkgs.dracula-theme}/wallpapers/waves.png"
+        "sleep 0.1 && swww init --no-cache && swww img -t none ${pkgs.dracula-theme}/wallpapers/waves.png"
       ];
 
       windowrule = [

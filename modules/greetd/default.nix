@@ -62,7 +62,7 @@
         "env = WLR_NO_HARDWARE_CURSORS,1\n"
       ])
       ++ [
-        "exec-once = ${setupMonitors} &&"
+        "exec-once = ${setupMonitors} && sleep 0.1 &&"
         "    swww init --no-cache &&"
         "    swww img -t none ${pkgs.dracula-theme}/wallpapers/waves.png\n"
 
