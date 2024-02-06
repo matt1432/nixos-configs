@@ -57,10 +57,7 @@
         "env = WLR_NO_HARDWARE_CURSORS,1\n"
       ])
       ++ [
-        "exec-once = ${setupMonitors} && sleep 0.5 &&"
-        # FIXME: doesn't start
-        "    swww init --no-cache &&"
-        "    swww img -t none ${pkgs.dracula-theme}/wallpapers/waves.png\n"
+        "exec-once = ${setupMonitors}\n"
 
         "${readFile ./hyprland.conf}\n"
 
@@ -94,6 +91,8 @@ in {
       ];
 
       file = {
+        ".config/ags/.wallpaper".source = "${pkgs.dracula-theme}/wallpapers/waves.png";
+
         ".config/ags" = {
           source = ../ags/config;
           recursive = true;

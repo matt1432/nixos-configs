@@ -1,11 +1,20 @@
 const { Box, Button, Entry, Label, Menu, MenuItem, Window } = Widget;
-const { idle, readFileAsync } = Utils;
+const { execAsync, idle, readFileAsync } = Utils;
 
 const greetd = await Service.import('greetd');
 
 const { Gdk } = imports.gi;
 
 const DEFAULT_NAME = 'matt';
+
+
+execAsync(['swww', 'init', '--no-cache']).then(() => {
+    execAsync([
+        'swww', 'img', '-t', 'none',
+        `${App.configDir}/.wallpaper`,
+    ]).catch(print);
+}).catch(print);
+
 const name = Label(DEFAULT_NAME);
 let menu;
 
