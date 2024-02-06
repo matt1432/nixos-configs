@@ -1,7 +1,8 @@
 {
+  ags,
+  config,
   lib,
   pkgs,
-  config,
   ...
 }: let
   inherit (lib) optionals readFile;
@@ -12,7 +13,6 @@
   isTouchscreen = config.hardware.sensor.iio.enable;
 
   hyprland = config.home-manager.users.${mainUser}.wayland.windowManager.hyprland.finalPackage;
-  ags = config.home-manager.users.${mainUser}.programs.ags.package;
 
   # Show Regreet on all monitors
   dupeMonitors = pkgs.writeShellApplication {
@@ -57,13 +57,14 @@
         "env = WLR_NO_HARDWARE_CURSORS,1\n"
       ])
       ++ [
-        "exec-once = ${setupMonitors} && sleep 0.1 &&"
+        "exec-once = ${setupMonitors} && sleep 0.5 &&"
+        # FIXME: doesn't start
         "    swww init --no-cache &&"
         "    swww img -t none ${pkgs.dracula-theme}/wallpapers/waves.png\n"
 
         "${readFile ./hyprland.conf}\n"
 
-        "exec-once = ags -b greeter; hyprctl dispatch exit"
+        "exec-once = ags -b greeter &> /tmp/ags.log; hyprctl dispatch exit"
       ]));
 in {
   # Add home folder for home-manager to work
@@ -74,14 +75,16 @@ in {
 
   home-manager.users.greeter = {
     imports = [
+      ags.homeManagerModules.default
       ../../common/vars
       ../../home/theme.nix
     ];
 
+    programs.ags.enable = true;
+
     home = {
       packages = [
         hyprland
-        ags
         dupeMonitors
         pkgs.bun
         pkgs.sassc

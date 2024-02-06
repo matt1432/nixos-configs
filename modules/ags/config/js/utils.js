@@ -5,7 +5,7 @@ const { execAsync, monitorFile } = Utils;
 const watchAndCompileSass = (host) => {
     const reloadCss = () => {
         const scss = `${App.configDir}/scss/${host}.scss`;
-        const css = '/tmp/ags/style.css';
+        const css = `/tmp/ags-${host}/style.css`;
 
         execAsync(`sassc ${scss} ${css}`).then(() => {
             App.resetCss();
@@ -23,20 +23,26 @@ const watchAndCompileSass = (host) => {
 
 /** @param {string} host */
 export const transpileTypeScript = async(host) => {
+    const outPath = `/tmp/ags-${host}/index.js`;
+
     await execAsync([
-        'bun', 'build', `${App.configDir}/${host}.ts`,
-        '--outdir', '/tmp/ags',
-        '--external', 'resource:///*',
-        '--external', 'gi://*',
-        '--external', 'cairo',
-        '--external', '*/fzf.es.js',
+        'bash', '-c',
+        // Create the dir if it doesn't exist
+        `mkdir -p /tmp/ags-${host}; ` +
+
+        `bun build ${App.configDir}/${host}.ts ` +
+        '--external resource:///* ' +
+        '--external gi://* ' +
+        '--external cairo ' +
+        '--external */fzf.es.js ' +
+
+        // Since bun wants to right in cwd, we just redirect stdin instead
+        `> ${outPath}`,
     ]).catch(print);
 
     if (host !== 'greeter') {
         watchAndCompileSass(host);
     }
 
-    // The file is going to be there after transpilation
-    // @ts-ignore
-    return await import(`file:///tmp/ags/${host}.js`);
+    return await import(`file://${outPath}`);
 };
