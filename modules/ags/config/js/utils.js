@@ -32,7 +32,9 @@ export const transpileTypeScript = async(host) => {
         '--external', '*/fzf.es.js',
     ]).catch(print);
 
-    watchAndCompileSass(host);
+    if (host !== 'greeter') {
+        watchAndCompileSass(host);
+    }
 
     // The file is going to be there after transpilation
     // @ts-ignore

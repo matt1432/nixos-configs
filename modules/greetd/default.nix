@@ -11,45 +11,40 @@
   isNvidia = config.hardware.nvidia.modesetting.enable;
   isTouchscreen = config.hardware.sensor.iio.enable;
 
-  hyprland =
-    config
-    .home-manager
-    .users
-    .${mainUser}
-    .wayland
-    .windowManager
-    .hyprland
-    .finalPackage;
-  hyprBin = "${hyprland}/bin";
-
+  hyprland = config.home-manager.users.${mainUser}.wayland.windowManager.hyprland.finalPackage;
   ags = config.home-manager.users.${mainUser}.programs.ags.package;
-  agsBin = "${ags}/bin";
 
   # Show Regreet on all monitors
-  dupeMonitors = pkgs.writeShellScriptBin "dupeMonitors" ''
-    main="${mainMonitor}"
-    names=($(${hyprBin}/hyprctl -j monitors | ${pkgs.jq}/bin/jq -r '.[] .description'))
+  dupeMonitors = pkgs.writeShellApplication {
+    name = "dupeMonitors";
+    runtimeInputs = [hyprland pkgs.jq];
+    text = ''
+      main="${mainMonitor}"
+      names="($(hyprctl -j monitors | jq -r '.[] .description'))"
 
-    if [[ "$main" == "null" ]]; then
-        main="''${names[0]}"
-    fi
+      if [[ "$main" == "null" ]]; then
+          main="''${names[0]}"
+      fi
 
-    for (( i=0; i<''${#names[@]}; i++ )); do
+      for (( i=0; i<''${#names[@]}; i++ )); do
 
-        name=$(echo "''${names[$i]}" | sed 's/.*(\(.*\))/\1/')
-        desc=$(echo "''${names[$i]}" | sed 's/ (.*//')
+          # shellcheck disable=SC2001
+          name=$(echo "''${names[$i]}" | sed 's/.*(\(.*\))/\1/')
+          # shellcheck disable=SC2001
+          desc=$(echo "''${names[$i]}" | sed 's/ (.*//')
 
-        if [[ "$name" != "$main" && "desc:$desc" != "$main" ]]; then
-          ${hyprBin}/hyprctl keyword monitor "$name",preferred,auto,1,mirror,"$main"
-        fi
-    done
-  '';
+          if [[ "$name" != "$main" && "desc:$desc" != "$main" ]]; then
+              hyprctl keyword monitor "$name",preferred,auto,1,mirror,"$main"
+          fi
+      done
+    '';
+  };
 
   # Check if user wants the greeter only on main monitor
   setupMonitors =
     if (mainMonitor != "null" && !greetdDupe)
-    then "${hyprBin}/hyprctl dispatch focusmonitor ${mainMonitor}"
-    else "${dupeMonitors}/bin/dupeMonitors";
+    then "hyprctl dispatch focusmonitor ${mainMonitor}"
+    else "dupeMonitors";
 
   # Setup Hyprland as the greeter's compositor
   hyprConf =
@@ -68,8 +63,7 @@
 
         "${readFile ./hyprland.conf}\n"
 
-        "exec-once = ${agsBin}/ags -b greeter --config ${./greetd.js};"
-        "    ${hyprBin}/hyprctl dispatch exit"
+        "exec-once = ags -b greeter; hyprctl dispatch exit"
       ]));
 in {
   # Add home folder for home-manager to work
@@ -84,11 +78,35 @@ in {
       ../../home/theme.nix
     ];
 
-    home.packages = with pkgs; [
-      swww
-      gtk3
-      glib
-    ];
+    home = {
+      packages = [
+        hyprland
+        ags
+        dupeMonitors
+        pkgs.bun
+        pkgs.sassc
+        pkgs.swww
+        pkgs.gtk3
+        pkgs.glib
+      ];
+
+      file = {
+        ".config/ags" = {
+          source = ../ags/config;
+          recursive = true;
+        };
+
+        ".config/ags/config.js".text =
+          /*
+          javascript
+          */
+          ''
+            import { transpileTypeScript } from './js/utils.js';
+
+            export default (await transpileTypeScript('greeter')).default;
+          '';
+      };
+    };
 
     vars = config.vars;
     home.stateVersion = "24.05";
@@ -108,12 +126,12 @@ in {
       enable = true;
       settings = {
         default_session = {
-          command = "${hyprBin}/Hyprland --config ${hyprConf}";
+          command = "Hyprland --config ${hyprConf}";
           user = "greeter";
         };
 
         initial_session = {
-          command = "${hyprBin}/Hyprland";
+          command = "Hyprland";
           user = mainUser;
         };
       };
