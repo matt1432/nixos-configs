@@ -107,11 +107,12 @@ const password = Entry({
             password.text || '',
             'Hyprland',
 
-        ).catch((err) => {
-            response.label = JSON.stringify(err);
+        ).catch((error) => {
+            response.label = JSON.stringify(error);
         });
     },
-});
+
+}).on('realize', (entry) => entry.grab_focus());
 
 const response = Label();
 
@@ -119,13 +120,7 @@ const win = Window({
     name: 'greeter',
     css: 'background-color: transparent;',
     anchor: ['top', 'left', 'right', 'bottom'],
-    keymode: 'exclusive',
-
-    setup: () => {
-        idle(() => {
-            password.grab_focus();
-        });
-    },
+    keymode: 'on-demand',
 
     child: Box({
         vertical: true,
