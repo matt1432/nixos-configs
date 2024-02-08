@@ -31,8 +31,8 @@ in {
 
   # https://stackoverflow.com/a/47041843
   security.pam.services = {
-    sudo.text = mkDefault(mkBefore grosshackConf);
-    login.text = mkDefault(mkBefore grosshackConf);
-    polkit-1.text = mkDefault(mkBefore grosshackConf);
+    sudo.text = mkDefault (mkBefore grosshackConf);
+    login.text = mkDefault (mkBefore grosshackConf);
+    polkit-1.text = mkDefault (mkBefore grosshackConf);
   };
 }
