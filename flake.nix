@@ -231,6 +231,9 @@
       owner = "luckasRanarison";
       repo = "tree-sitter-hyprlang";
 
+      # FIXME: remove this input once hyprlang makes it to nixpkgs
+      rev = "e60fc858e6327a15c0b26f99ec96945fecd1e4ee";
+
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
