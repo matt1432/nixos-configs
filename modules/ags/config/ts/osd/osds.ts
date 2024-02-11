@@ -13,7 +13,7 @@ const AUDIO_MAX = 1.5;
 const ShowSpeaker = Variable(true);
 
 globalThis.showSpeaker = () => {
-    ShowSpeaker.value = !ShowSpeaker.value;
+    ShowSpeaker.setValue(!ShowSpeaker.value);
 };
 
 // Types

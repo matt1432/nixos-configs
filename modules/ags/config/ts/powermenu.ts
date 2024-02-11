@@ -33,7 +33,7 @@ const PowermenuWidget = () => CenterBox({
 
     end_widget: CursorBox({
         class_name: 'logout button',
-        on_primary_click_release: () => Hyprland.sendMessage('dispatch exit')
+        on_primary_click_release: () => Hyprland.messageAsync('dispatch exit')
             .catch(print),
 
         child: Label({

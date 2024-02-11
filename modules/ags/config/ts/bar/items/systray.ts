@@ -50,7 +50,7 @@ const SysTray = () => MenuBar({
                 }
 
                 self.attribute.items.set(id, w);
-                self.child = w;
+                self.add(w);
                 self.show_all();
 
                 w.child.reveal_child = true;

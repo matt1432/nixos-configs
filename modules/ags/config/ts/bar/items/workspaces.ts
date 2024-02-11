@@ -26,7 +26,7 @@ const Workspace = ({ id }: { id: number }) => {
             tooltip_text: `${id}`,
 
             on_primary_click_release: () => {
-                Hyprland.sendMessage(`dispatch workspace ${id}`);
+                Hyprland.messageAsync(`dispatch workspace ${id}`);
             },
 
             child: Box({

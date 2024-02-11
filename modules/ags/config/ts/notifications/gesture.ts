@@ -123,8 +123,8 @@ export default ({
                         // Kill notif and update HasNotifs after anim is done
                         command();
 
-                        HasNotifs.value = Notifications
-                            .notifications.length > 0;
+                        HasNotifs.setValue(Notifications
+                            .notifications.length > 0);
 
                         (widget.get_parent() as BoxGeneric)?.remove(widget);
                     });

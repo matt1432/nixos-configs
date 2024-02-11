@@ -132,10 +132,10 @@ const GridButton = ({
                         on_primary_click_release: () => {
                             ButtonStates.forEach((state) => {
                                 if (state !== Activated) {
-                                    state.value = false;
+                                    state.setValue(false);
                                 }
                             });
-                            Activated.value = !Activated.value;
+                            Activated.setValue(!Activated.value);
                         },
 
                         on_hover: (self) => {

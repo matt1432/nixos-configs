@@ -15,7 +15,7 @@ const BarCloser = (variable: Var<boolean>) => Window({
 
     child: EventBox({
         on_hover: (self) => {
-            variable.value = false;
+            variable.setValue(false);
             const parent = self.get_parent();
 
             if (parent) {
@@ -45,12 +45,12 @@ export default (props?: DefaultProps) => {
                 );
 
                 if (workspace) {
-                    Revealed.value = !workspace['hasfullscreen'];
+                    Revealed.setValue(!workspace['hasfullscreen']);
                 }
             };
 
             const checkGlobalFsState = (_: BoxGeneric, fullscreen: boolean) => {
-                Revealed.value = !fullscreen;
+                Revealed.setValue(!fullscreen);
             };
 
             self
@@ -73,7 +73,7 @@ export default (props?: DefaultProps) => {
                 child: EventBox({
                     on_hover: () => {
                         barCloser.visible = true;
-                        Revealed.value = true;
+                        Revealed.setValue(true);
                     },
 
                     child: Box({

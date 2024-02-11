@@ -50,7 +50,7 @@ export default () => {
         name: 'swipeSpotify1',
         gesture: 'LR',
         edge: 'L',
-        command: () => Hyprland.sendMessage(
+        command: () => Hyprland.messageAsync(
             'dispatch togglespecialworkspace spot',
         ),
     });
@@ -59,7 +59,7 @@ export default () => {
         name: 'swipeSpotify2',
         gesture: 'RL',
         edge: 'L',
-        command: () => Hyprland.sendMessage(
+        command: () => Hyprland.messageAsync(
             'dispatch togglespecialworkspace spot',
         ),
     });

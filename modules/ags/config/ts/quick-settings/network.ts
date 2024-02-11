@@ -170,7 +170,7 @@ export const NetworkMenu = () => {
 
                                         if (accesPoint.strength < ap.strength) {
                                             APList.get(ap.ssid).attribute
-                                                .ap.value = ap;
+                                                .ap.setValue(ap);
                                         }
                                     }
                                     else {

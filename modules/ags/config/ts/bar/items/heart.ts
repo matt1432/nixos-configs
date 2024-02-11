@@ -16,7 +16,7 @@ Persist({
 
 export default () => CursorBox({
     on_primary_click_release: () => {
-        HeartState.value = HeartState.value === '' ? '󰣐' : '';
+        HeartState.setValue(HeartState.value === '' ? '󰣐' : '');
     },
 
     child: Label({

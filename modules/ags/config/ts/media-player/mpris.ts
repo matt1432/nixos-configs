@@ -60,17 +60,17 @@ export const CoverArt = (
         // Give temp cover art
         readFileAsync(player.cover_path).catch(() => {
             if (!colors.value && !player.track_cover_url) {
-                colors.value = {
+                colors.setValue({
                     imageAccent: '#6b4fa2',
                     buttonAccent: '#ecdcff',
                     buttonText: '#25005a',
                     hoverAccent: '#d4baff',
-                };
+                });
 
                 self.attribute.bgStyle = `
                     background: radial-gradient(circle,
                                 rgba(0, 0, 0, 0.4) 30%,
-                                ${colors.value.imageAccent}),
+                                ${(colors as Var<Colors>).value.imageAccent}),
                                 rgb(0, 0, 0);
                     background-size: cover;
                     background-position: center;
@@ -87,7 +87,7 @@ export const CoverArt = (
                         return;
                     }
 
-                    colors.value = JSON.parse(out);
+                    colors.setValue(JSON.parse(out));
 
                     self.attribute.bgStyle = `
                         background: radial-gradient(circle,

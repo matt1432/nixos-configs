@@ -64,15 +64,15 @@ const NotificationIcon = (notif: NotifObj) => {
             iconCmd = (box) => {
                 if (!getDragState(box)) {
                     if (wmClass === 'thunderbird') {
-                        Hyprland.sendMessage('dispatch ' +
+                        Hyprland.messageAsync('dispatch ' +
                             'togglespecialworkspace thunder');
                     }
                     else if (wmClass === 'Spotify') {
-                        Hyprland.sendMessage('dispatch ' +
+                        Hyprland.messageAsync('dispatch ' +
                             'togglespecialworkspace spot');
                     }
                     else {
-                        Hyprland.sendMessage('j/clients').then((msg) => {
+                        Hyprland.messageAsync('j/clients').then((msg) => {
                             const clients = JSON.parse(msg) as Array<Client>;
                             const classes = [] as Array<string>;
 
@@ -83,11 +83,11 @@ const NotificationIcon = (notif: NotifObj) => {
                             }
 
                             if (wmClass && classes.includes(wmClass)) {
-                                Hyprland.sendMessage('dispatch ' +
+                                Hyprland.messageAsync('dispatch ' +
                                     `focuswindow ^(${wmClass})`);
                             }
                             else {
-                                Hyprland.sendMessage('dispatch workspace empty')
+                                Hyprland.messageAsync('dispatch workspace empty')
                                     .then(() => {
                                         app.launch();
                                     });
@@ -183,7 +183,7 @@ export const Notification = ({
         return;
     }
 
-    HasNotifs.value = Notifications.notifications.length > 0;
+    HasNotifs.setValue(Notifications.notifications.length > 0);
 
     // Init notif
     const notifWidget = Gesture({

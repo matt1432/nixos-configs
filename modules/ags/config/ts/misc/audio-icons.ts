@@ -23,14 +23,14 @@ Audio.connect('speaker-changed', () => {
     }
 
     if (Audio.speaker.stream?.is_muted) {
-        SpeakerIcon.value = speakerIcons[0];
+        SpeakerIcon.setValue(speakerIcons[0]);
     }
     else {
         const vol = Audio.speaker.volume * 100;
 
         for (const threshold of [-1, 0, 33, 66, 100]) {
             if (vol > threshold + 1) {
-                SpeakerIcon.value = speakerIcons[threshold + 1];
+                SpeakerIcon.setValue(speakerIcons[threshold + 1]);
             }
         }
     }
@@ -43,14 +43,14 @@ Audio.connect('microphone-changed', () => {
     }
 
     if (Audio.microphone.stream?.is_muted) {
-        MicIcon.value = micIcons[0];
+        MicIcon.setValue(micIcons[0]);
     }
     else {
         const vol = Audio.microphone.volume * 100;
 
         for (const threshold of [-1, 0, 33, 66]) {
             if (vol > threshold + 1) {
-                MicIcon.value = micIcons[threshold + 1];
+                MicIcon.setValue(micIcons[threshold + 1]);
             }
         }
     }

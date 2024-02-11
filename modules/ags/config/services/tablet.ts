@@ -133,14 +133,14 @@ class Tablet extends Service {
 
                     const orientation = ROTATION_MAP[index];
 
-                    Hyprland.sendMessage(
+                    Hyprland.messageAsync(
                         `keyword monitor ${SCREEN},transform,${orientation}`,
                     ).catch(print);
 
                     const batchRotate = DEVICES.map((dev) =>
                         `keyword device:${dev}:transform ${orientation}; `);
 
-                    Hyprland.sendMessage(`[[BATCH]] ${batchRotate.flat()}`);
+                    Hyprland.messageAsync(`[[BATCH]] ${batchRotate.flat()}`);
 
                     if (TouchGestures.gestureDaemon) {
                         TouchGestures.killDaemon();

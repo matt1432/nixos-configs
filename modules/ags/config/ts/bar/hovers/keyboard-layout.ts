@@ -21,7 +21,7 @@ const getKbdLayout = (self: LabelGeneric, _: string, layout: string) => {
     }
     else {
         // At launch, kb layout is undefined
-        Hyprland.sendMessage('j/devices').then((obj) => {
+        Hyprland.messageAsync('j/devices').then((obj) => {
             const keyboards = Array.from(JSON.parse(obj)
                 .keyboards) as Keyboard[];
             const kb = keyboards.find((v) => v.name === DEFAULT_KB);

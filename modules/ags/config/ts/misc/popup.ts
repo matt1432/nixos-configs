@@ -43,7 +43,7 @@ export class PopupWindow<
     }
 
     set content(value: Gtk.Widget) {
-        this.#content.value = value;
+        this.#content.setValue(value);
         this.child.show_all();
     }
 
@@ -79,7 +79,7 @@ export class PopupWindow<
         const antiClip = Variable(false);
 
         if (content) {
-            contentVar.value = content;
+            contentVar.setValue(content);
         }
 
         super({
@@ -104,7 +104,7 @@ export class PopupWindow<
                 });
 
                 if (blur) {
-                    Hyprland.sendMessage('[[BATCH]] ' +
+                    Hyprland.messageAsync('[[BATCH]] ' +
                         `keyword layerrule ignorealpha[0.97],${name}; ` +
                         `keyword layerrule blur,${name}`);
                 }
@@ -254,7 +254,7 @@ export class PopupWindow<
                                     alloc.height + 10;
 
                                 if (needsAnticlipping) {
-                                    antiClip.value = true;
+                                    antiClip.setValue(true);
 
                                     const thisTimeout = timeout(
                                         transition_duration,
@@ -262,7 +262,7 @@ export class PopupWindow<
                                             // Only run the timeout if there isn't a newer timeout
                                             if (thisTimeout ===
                                                 currentTimeout) {
-                                                antiClip.value = false;
+                                                antiClip.setValue(false);
                                             }
                                         },
                                     );

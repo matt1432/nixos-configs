@@ -70,10 +70,10 @@ export class CursorBox<Child extends Gtk.Widget, Attr> extends Gtk.EventBox {
                 return;
             }
 
-            this.#canRun.value = !(
+            this.#canRun.setValue(!(
                 x > this.get_allocated_width() ||
                 y > this.get_allocated_height()
-            );
+            ));
         }, 'end');
 
         this.connect('enter-notify-event', (_, event: Gdk.Event) => {
@@ -169,7 +169,7 @@ export class CursorBox<Child extends Gtk.Widget, Attr> extends Gtk.EventBox {
     }
 
     set disabled(value: boolean) {
-        this.#disabled.value = value;
+        this.#disabled.setValue(value);
     }
 
     get child() {

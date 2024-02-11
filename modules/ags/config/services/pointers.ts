@@ -145,10 +145,10 @@ class Pointers extends Service {
             return;
         }
 
-        Hyprland.sendMessage('j/layers').then((response) => {
+        Hyprland.messageAsync('j/layers').then((response) => {
             const layers = JSON.parse(response) as { Layers: Layers };
 
-            Hyprland.sendMessage('j/cursorpos').then((res) => {
+            Hyprland.messageAsync('j/cursorpos').then((res) => {
                 const pos = JSON.parse(res) as CursorPos;
 
                 Object.values(layers).forEach((key) => {

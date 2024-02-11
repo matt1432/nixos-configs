@@ -76,7 +76,7 @@ export default (window) => {
             // Begin drag
             signals.push(
                 gesture.connect('drag-begin', () => {
-                    Hyprland.sendMessage('j/cursorpos').then((out) => {
+                    Hyprland.messageAsync('j/cursorpos').then((out) => {
                         window.attribute.startY = JSON.parse(out).y;
                     });
                 }),
@@ -85,7 +85,7 @@ export default (window) => {
             // Update drag
             signals.push(
                 gesture.connect('drag-update', () => {
-                    Hyprland.sendMessage('j/cursorpos').then((out) => {
+                    Hyprland.messageAsync('j/cursorpos').then((out) => {
                         const currentY = JSON.parse(out).y;
                         const offset = window.attribute.startY - currentY;
 
@@ -117,7 +117,7 @@ export default (window) => {
             // Begin drag
             signals.push(
                 gesture.connect('drag-begin', () => {
-                    Hyprland.sendMessage('j/cursorpos').then((out) => {
+                    Hyprland.messageAsync('j/cursorpos').then((out) => {
                         window.attribute.startY = JSON.parse(out).y;
                     });
                 }),
@@ -126,7 +126,7 @@ export default (window) => {
             // Update drag
             signals.push(
                 gesture.connect('drag-update', () => {
-                    Hyprland.sendMessage('j/cursorpos').then((out) => {
+                    Hyprland.messageAsync('j/cursorpos').then((out) => {
                         const currentY = JSON.parse(out).y;
                         const offset = window.attribute.startY - currentY;
 

@@ -22,7 +22,7 @@ const RCtrl = Variable(false);
 const Caps = Variable(false);
 
 Brightness.connect('caps', (_, state) => {
-    Caps.value = state;
+    Caps.setValue(state);
 });
 
 // Assume both shifts are the same for key.labelShift
@@ -32,10 +32,10 @@ const RShift = Variable(false);
 const Shift = Variable(false);
 
 LShift.connect('changed', () => {
-    Shift.value = LShift.value || RShift.value;
+    Shift.setValue(LShift.value || RShift.value);
 });
 RShift.connect('changed', () => {
-    Shift.value = LShift.value || RShift.value;
+    Shift.setValue(LShift.value || RShift.value);
 });
 
 const SPACING = 4;
@@ -100,13 +100,13 @@ const ModKey = (key: Key) => {
             execAsync(`ydotool key ${key.keycode}:${Mod.value ? 0 : 1}`);
 
             label.toggleClassName('active', !Mod.value);
-            Mod.value = !Mod.value;
+            Mod.setValue(!Mod.value);
         },
 
         setup: (self) => {
             self
                 .hook(NormalClick, () => {
-                    Mod.value = false;
+                    Mod.setValue(false);
 
                     label.toggleClassName('active', false);
                     execAsync(`ydotool key ${key.keycode}:0`);
@@ -238,7 +238,7 @@ const RegularKey = (key: Key) => {
 
         execAsync(`ydotool key ${key.keycode}:1`);
         execAsync(`ydotool key ${key.keycode}:0`);
-        NormalClick.value = true;
+        NormalClick.setValue(true);
     }, 'cancelled');
 
     return Box({
