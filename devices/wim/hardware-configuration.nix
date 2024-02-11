@@ -27,17 +27,11 @@
 
     loader = {
       efi.canTouchEfiVariables = true;
-      timeout = 2;
+      timeout = 0;
 
-      grub = {
+      systemd-boot = {
         enable = true;
-        device = "nodev";
-        efiSupport = true;
-        extraConfig = ''
-          set timeout_style=hidden
-        '';
-        # Because it still draws that image otherwise
-        splashImage = null;
+        configurationLimit = 30;
       };
     };
 
