@@ -28,16 +28,7 @@
     loader = {
       efi.canTouchEfiVariables = true;
       timeout = 2;
-
-      grub = {
-        enable = true;
-        device = "nodev";
-        efiSupport = true;
-        extraConfig = ''
-          set timeout_style=hidden
-        '';
-        splashImage = null;
-      };
+      systemd-boot.enable = true;
     };
   };
 
