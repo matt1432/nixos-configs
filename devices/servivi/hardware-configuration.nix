@@ -1,18 +1,14 @@
 {
   config,
   modulesPath,
+  pkgs,
   ...
 }: {
   nixpkgs.hostPlatform = "x86_64-linux";
   imports = [(modulesPath + "/installer/scan/not-detected.nix")];
 
   boot = {
-    loader = {
-      timeout = 2;
-
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-    };
+    kernelPackages = pkgs.linuxPackages_latest;
 
     kernelModules = ["kvm-amd"];
     initrd.availableKernelModules = [
@@ -23,6 +19,13 @@
       "usbhid"
       "sd_mod"
     ];
+
+    loader = {
+      timeout = 2;
+
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
   };
 
   fileSystems = {
