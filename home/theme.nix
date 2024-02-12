@@ -39,7 +39,7 @@ in {
 
   home.packages = with pkgs; [
     libsForQt5.qtstyleplugin-kvantum
-    qt6Packages.qtstyleplugin-kvantum #FIXME: doesn't work with qt6ct
+    qt6Packages.qtstyleplugin-kvantum
   ];
   qt = {
     enable = true;
@@ -71,5 +71,6 @@ in {
     "Kvantum/kvantum.kvconfig".text = "[General]\ntheme=Dracula";
 
     "qt5ct/qt5ct.conf".text = qtconf + "kvantum";
+    "qt6ct/qt6ct.conf".text = qtconf + "kvantum";
   };
 }

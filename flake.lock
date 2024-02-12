@@ -1158,24 +1158,6 @@
         "type": "github"
       }
     },
-    "plymouth-src": {
-      "flake": false,
-      "locked": {
-        "host": "gitlab.freedesktop.org",
-        "lastModified": 1707269358,
-        "narHash": "sha256-wwXw0gMYtX4fWgeU5S+LIKIiepuVL5mV9TYxV3emO2I=",
-        "owner": "plymouth",
-        "repo": "plymouth",
-        "rev": "5113860332a3c2d645cb1452e2a7f51f4744c06b",
-        "type": "gitlab"
-      },
-      "original": {
-        "host": "gitlab.freedesktop.org",
-        "owner": "plymouth",
-        "repo": "plymouth",
-        "type": "gitlab"
-      }
-    },
     "plymouth-theme-src": {
       "flake": false,
       "locked": {
@@ -1273,7 +1255,6 @@
         "pam-fprint-grosshack-src": "pam-fprint-grosshack-src",
         "pcsd": "pcsd",
         "persist-properties-src": "persist-properties-src",
-        "plymouth-src": "plymouth-src",
         "plymouth-theme-src": "plymouth-theme-src",
         "pointer-event-src": "pointer-event-src",
         "pokemon-colorscripts-src": "pokemon-colorscripts-src",

@@ -145,9 +145,6 @@
       type = "github";
       owner = "matt1432";
       repo = "nixos-pcsd";
-
-      # FIXME: OCF resources break on latest
-      # inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Oksys inputs
@@ -300,17 +297,8 @@
     };
 
     ## Overlays
-    plymouth-src = {
-      type = "gitlab";
-      host = "gitlab.freedesktop.org";
-      # Wait for https://gitlab.freedesktop.org/plymouth/plymouth/-/commit/38964e5eafdfc7d8eccf29aa65056f303cad0b25
-      # to reach https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/os-specific/linux/plymouth/default.nix
-      owner = "plymouth";
-      repo = "plymouth";
-      flake = false;
-    };
-
     spotifywm-src = {
+      # FIXME: remove this input once this gets merged: https://github.com/NixOS/nixpkgs/pull/261501
       type = "github";
       owner = "dasJ";
       repo = "spotifywm";
