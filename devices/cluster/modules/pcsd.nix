@@ -31,12 +31,6 @@ in {
     };
 
     systemdResources = {
-      "caddy" = {
-        enable = true;
-        group = "caddy-grp";
-        startAfter = ["caddy-vip"];
-      };
-
       "unbound" = {
         enable = true;
         group = "caddy-grp";
@@ -46,13 +40,19 @@ in {
       "blocky" = {
         enable = true;
         group = "caddy-grp";
-        startAfter = ["caddy-vip"];
+        startAfter = ["unbound"];
+      };
+
+      "caddy" = {
+        enable = true;
+        group = "caddy-grp";
+        startAfter = ["blocky"];
       };
 
       "headscale" = {
         enable = true;
         group = "caddy-grp";
-        startAfter = ["caddy-vip"];
+        startAfter = ["caddy"];
       };
     };
 
