@@ -24,6 +24,7 @@
       imagemagick
       usbutils
       zip
+      unzip
       dig.dnsutils
     ]);
 }

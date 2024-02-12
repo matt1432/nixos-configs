@@ -18,6 +18,7 @@ in {
     packages = with pkgs; [
       gradle
       gradle-completion # FIXME: not working
+      maven
       alejandra
     ];
   };
