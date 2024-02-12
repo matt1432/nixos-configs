@@ -7,11 +7,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1707671181,
-        "narHash": "sha256-U6DiVWJlwqDogptD579eRwP7+obFwFrsvKPv2hOo9D4=",
+        "lastModified": 1707745842,
+        "narHash": "sha256-lKuGScvAr3Vosm9ix0bCT0G9lJydbNr274u9O/kv7Qw=",
         "owner": "Aylur",
         "repo": "ags",
-        "rev": "e11775883475c9cfbc988fadcfe34803aef4118d",
+        "rev": "7d0945a5589973049cfa7f8fa9ebdcc0ce6a9f3a",
         "type": "github"
       },
       "original": {
@@ -809,16 +809,16 @@
     },
     "nixpkgs-pacemaker": {
       "locked": {
-        "lastModified": 1691894234,
-        "narHash": "sha256-AlBJ1EDwQNVFRxblWVsOu+7WSYmlq8KutLULpikPB2I=",
-        "owner": "mitchty",
+        "lastModified": 1707746079,
+        "narHash": "sha256-oaN25Bz/8ZvqUTigsSsw/G+CQGzYe/VseMVwqi761co=",
+        "owner": "matt1432",
         "repo": "nixpkgs",
-        "rev": "c51014d54a39a2277eac3a72ddbdf33e22c972f5",
+        "rev": "c23dfe7eababf4387a5d154a8a4a2336dd33e406",
         "type": "github"
       },
       "original": {
-        "owner": "mitchty",
-        "ref": "corosync-pacemaker-ocf",
+        "owner": "matt1432",
+        "ref": "ocf-fix",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -847,11 +847,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1707736366,
-        "narHash": "sha256-BcJC0dZq+kbsHMXyudkqMDw/cFsegIVdlt0pES6aq4I=",
+        "lastModified": 1707743864,
+        "narHash": "sha256-aGO43uZR62j2zemScm43xLmAn9wuGsauCb2wPfgcULY=",
         "owner": "nix-community",
         "repo": "nixpkgs-wayland",
-        "rev": "f15fee0c1bffe25a590083779fb5ef37da2d6519",
+        "rev": "971a0ce1af7cb776fde2e8586eeb53c4a6bed868",
         "type": "github"
       },
       "original": {
@@ -958,18 +958,17 @@
     },
     "nixpkgs_8": {
       "locked": {
-        "lastModified": 1705856552,
-        "narHash": "sha256-JXfnuEf5Yd6bhMs/uvM67/joxYKoysyE3M2k6T3eWbg=",
+        "lastModified": 1707546158,
+        "narHash": "sha256-nYYJTpzfPMDxI8mzhQsYjIUX+grorqjKEU9Np6Xwy/0=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "612f97239e2cc474c13c9dafa0df378058c5ad8d",
+        "rev": "d934204a0f8d9198e1e4515dd6fec76a139c87f0",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
         "ref": "nixos-unstable",
         "repo": "nixpkgs",
-        "rev": "612f97239e2cc474c13c9dafa0df378058c5ad8d",
         "type": "github"
       }
     },
@@ -1043,11 +1042,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1707739682,
-        "narHash": "sha256-zMlutAB1FVg9F/GBSAyv/88iyXKXsctxPsWGvv2e+28=",
+        "lastModified": 1707744338,
+        "narHash": "sha256-giOjQA0hAjAWtDcqHHhHGHr5JxEhVBOy6PeA7voqWYQ=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "26e9a8e46faaf3c55cdfba0a9c7adcf90677d3fa",
+        "rev": "835bffd3ca5761f73a60cee4fe0a328b81bbbd7d",
         "type": "github"
       },
       "original": {
@@ -1130,11 +1129,11 @@
         "pyagentx-src": "pyagentx-src"
       },
       "locked": {
-        "lastModified": 1707714684,
-        "narHash": "sha256-S2ITv//MB99VMEj1QFV33XImOCLvQgU75SnVgUpPEoM=",
+        "lastModified": 1707746880,
+        "narHash": "sha256-RFozKHx8df6IiKpDoxKi2PdhvhtEeBDumeNHZT+86p0=",
         "owner": "matt1432",
         "repo": "nixos-pcsd",
-        "rev": "d677c88f327c9c60fee53b84af781397b58ed074",
+        "rev": "358dc4db65fdb7f9a5e77a33c20d5f3f8e544e9f",
         "type": "github"
       },
       "original": {
