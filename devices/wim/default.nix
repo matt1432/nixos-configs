@@ -10,7 +10,6 @@ in {
     ../../modules/kmscon.nix
     ../../modules/plymouth.nix
     ../../modules/printer.nix
-    ../../modules/proton-bridge.nix
     ../../modules/tailscale.nix
 
     ./modules/security.nix

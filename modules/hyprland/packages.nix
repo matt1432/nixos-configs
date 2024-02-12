@@ -28,6 +28,7 @@ in {
 
       # Apps
       thunderbird # TODO: use programs.thunderbird
+      protonmail-bridge
       spotifywm
       photoqt
       nextcloud-client
@@ -62,6 +63,7 @@ in {
           "wl-paste --watch cliphist store"
 
           "sleep 3; nextcloud --background"
+          "sleep 3; protonmail-bridge --noninteractive --log-level info"
 
           "[workspace special:thunder silent] thunderbird"
           "[workspace special:spot silent] spotify"
