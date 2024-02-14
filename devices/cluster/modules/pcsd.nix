@@ -59,17 +59,13 @@ in {
     nodes = [
       {
         name = "thingone";
-        nodeid = "1";
-        addrs = [
-          {addr = "10.0.0.244";}
-        ];
+        nodeid = 1;
+        ring_addrs = ["10.0.0.244"];
       }
       {
         name = "thingtwo";
-        nodeid = "2";
-        addrs = [
-          {addr = "10.0.0.159";}
-        ];
+        nodeid = 2;
+        ring_addrs = ["10.0.0.159"];
       }
     ];
   };
