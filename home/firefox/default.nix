@@ -79,24 +79,15 @@ in {
         default = "DuckDuckGo";
         force = true;
         engines = {
-          "Nix Packages" = {
+          "Nixpkgs" = {
             urls = [
               {
-                template = "https://search.nixos.org/packages";
-                params = [
-                  {
-                    name = "type";
-                    value = "packages";
-                  }
-                  {
-                    name = "query";
-                    value = "{searchTerms}";
-                  }
-                ];
+                template = "https://github.com/search?q=repo%3ANixOS%2Fnixpkgs%20{searchTerms}&type=code";
               }
             ];
-            icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake-white.svg";
-            definedAliases = ["@np"];
+            iconUpdateURL = "https://github.githubassets.com/favicons/favicon.png";
+            updateInterval = 24 * 60 * 60 * 1000; # every day
+            definedAliases = ["@pkgs"];
           };
 
           "NixOS Wiki" = {
@@ -173,7 +164,7 @@ in {
           "DuckDuckGo"
           "MyNixos"
           "NixOS Wiki"
-          "Nix Packages"
+          "Nixpkgs"
           "Noogle"
           "Wikipedia (en)"
           "YouTube"
