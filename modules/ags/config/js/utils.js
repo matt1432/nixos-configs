@@ -16,7 +16,6 @@ const watchAndCompileSass = (host) => {
     monitorFile(
         `${App.configDir}/scss`,
         reloadCss,
-        'directory',
     );
     reloadCss();
 };

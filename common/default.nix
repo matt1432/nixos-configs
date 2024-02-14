@@ -28,11 +28,16 @@
   nix = {
     # Edit nix.conf
     settings = {
-      experimental-features = ["nix-command" "flakes"];
+      # Store
       keep-outputs = true;
       keep-derivations = true;
       auto-optimise-store = true;
+
+      # Commands
+      experimental-features = ["nix-command" "flakes"];
+      http-connections = 0; # unlimited for local cache
       warn-dirty = false;
+      show-trace = true;
 
       # remote building
       trusted-users = ["matt" "nixremote"];
