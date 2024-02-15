@@ -66,11 +66,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1707289580,
-        "narHash": "sha256-6WtBhFt6mFoljoHmW5cTjHeh/mcbBrTUxKg8Hm5mHYk=",
+        "lastModified": 1707942897,
+        "narHash": "sha256-xsAZyNQma4fP+Xl37sED+rbf7OXDeSumgC0gOt4jeWI=",
         "owner": "matt1432",
         "repo": "nixos-caddy-cloudflare",
-        "rev": "216501e5530c76e0eeef36c61fad8ccf0c669bd1",
+        "rev": "bd22afebaee159bddca0d3be976ea423492b7fca",
         "type": "github"
       },
       "original": {
@@ -480,11 +480,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1707933508,
-        "narHash": "sha256-ahEQU9mq9ZN/CoXiZIRfQGxKvZ8TcjoC7HIGzW+YhkQ=",
+        "lastModified": 1707950030,
+        "narHash": "sha256-gQM+2KGn6uFnqqJ9uGkKjApA5p+vgNDbDvW7PzEIIes=",
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "d5950f7719d3c9ec5305208265366df5ce81b6c3",
+        "rev": "9c3f3b00183c9bcca528d1c74fa29eed0bd747fa",
         "type": "github"
       },
       "original": {
@@ -729,11 +729,11 @@
         "nmd": "nmd_2"
       },
       "locked": {
-        "lastModified": 1694604941,
-        "narHash": "sha256-KsoRStRs8dNRRMWQhuB3eUOpzQhOc4dcBQB85tEq3wY=",
+        "lastModified": 1707944604,
+        "narHash": "sha256-WDWbfzOfvau5AlkfMlv1li2Fx3siYdVUN0IxWZCD07g=",
         "owner": "t184256",
         "repo": "nix-on-droid",
-        "rev": "039379abeee67144d4094d80bbdaf183fb2eabe5",
+        "rev": "82b4cd68fc6f354c2003e68e937e683dd5159ec1",
         "type": "github"
       },
       "original": {
@@ -847,11 +847,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1707934790,
-        "narHash": "sha256-sR5jvNuF3PEk52L7gzCsoUdt48U59srMgxns83cHCIg=",
+        "lastModified": 1707945249,
+        "narHash": "sha256-aSznbSxKMObUHCHtnrZ1p3aQck76JhPn5EdHF+DUBvQ=",
         "owner": "nix-community",
         "repo": "nixpkgs-wayland",
-        "rev": "cbd0fe0046c48c8e900865ef2c3dc9dfe335d027",
+        "rev": "05db27aafee410c0460baeb74195dbd0781c92a8",
         "type": "github"
       },
       "original": {
@@ -958,11 +958,11 @@
     },
     "nixpkgs_8": {
       "locked": {
-        "lastModified": 1707546158,
-        "narHash": "sha256-nYYJTpzfPMDxI8mzhQsYjIUX+grorqjKEU9Np6Xwy/0=",
+        "lastModified": 1707689078,
+        "narHash": "sha256-UUGmRa84ZJHpGZ1WZEBEUOzaPOWG8LZ0yPg1pdDF/yM=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "d934204a0f8d9198e1e4515dd6fec76a139c87f0",
+        "rev": "f9d39fb9aff0efee4a3d5f4a6d7c17701d38a1d8",
         "type": "github"
       },
       "original": {
@@ -1042,11 +1042,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1707935145,
-        "narHash": "sha256-5R+40ZO7DjQkhCv4dDXVzQUZndKxI+4dx4q9VwQXvwc=",
+        "lastModified": 1707955948,
+        "narHash": "sha256-c6yXOnxO63cjm0D9PGkqLixqjkvKZxHVofpP1iNV/1s=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "0a0af4ae70f79b5c68cf3f706b9e465ed40fbee6",
+        "rev": "ef1f67d787f406be2be12afd7c10346c9c93d650",
         "type": "github"
       },
       "original": {
@@ -1108,11 +1108,11 @@
     "pcs-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1707412104,
-        "narHash": "sha256-chMFztmrRtsEM0BjqvYhU9HxVQE7/GREflMj7N3tV8U=",
+        "lastModified": 1707811828,
+        "narHash": "sha256-2w0UImL5qTrcE2AUz5huKMt2fUv0jfEdgU2Yuv6iXSM=",
         "owner": "ClusterLabs",
         "repo": "pcs",
-        "rev": "f03b730cee3eca1f354f19e69f6a8e120d50a706",
+        "rev": "d8f3212c1141dffd2b4ed3e789ab7cca883f7c20",
         "type": "github"
       },
       "original": {
@@ -1129,11 +1129,11 @@
         "pyagentx-src": "pyagentx-src"
       },
       "locked": {
-        "lastModified": 1707949525,
-        "narHash": "sha256-TsiZMUfCM/h78oC68V/VPoTgmM1ktGsnyBFWmsAyS2U=",
+        "lastModified": 1707956439,
+        "narHash": "sha256-jEWAL6WP0SLnURriMq/Ju37Lc92ve17ueiTu1GnFc24=",
         "owner": "matt1432",
         "repo": "nixos-pcsd",
-        "rev": "2bbd5cd642bcfb76db1d9624826bd116ef7eb039",
+        "rev": "4ce229aba5f083b9cd47ca6378e9cffb168bcbb2",
         "type": "github"
       },
       "original": {
