@@ -1,4 +1,6 @@
 {
+  config,
+  writeShellApplication,
   stdenvNoCC,
   jre,
   fetchFromGitHub,
@@ -19,10 +21,17 @@ stdenvNoCC.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  desktopItem = makeDesktopItem {
+  desktopItem = let
+    hyprland = config.home-manager.users.${config.vars.mainUser}.wayland.windowManager.hyprland.finalPackage;
+    execScript = writeShellApplication {
+      name = "execScript";
+      runtimeInputs = [hyprland];
+      text = "(sleep 1; hyprctl dispatch togglefloating) & ${name}";
+    };
+  in makeDesktopItem {
     name = "RARS";
     desktopName = "RARS";
-    exec = name;
+    exec = "${execScript}/bin/execScript";
     icon = name;
   };
 
