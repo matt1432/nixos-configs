@@ -7,6 +7,7 @@
 }: let
   inherit (config.vars) mainUser;
 
+  # TODO: manage this with ags
   gsr = pkgs.stdenv.mkDerivation {
     name = "gpu-screen-recorder";
     version = gpu-screen-recorder-src.rev;
@@ -77,6 +78,9 @@ in {
   };
 
   home-manager.users.${mainUser} = {
+    wayland.windowManager.hyprland.settings.bind = [
+      ", F8, exec, gpu-save-replay"
+    ];
     # TODO: add mic sound
     xdg.configFile."gsr.sh" = {
       executable = true;
@@ -97,7 +101,7 @@ in {
           # export ADDITIONAL_ARGS=
 
           # Disable compositor in X11 for best performance
-          exec /bin/sh -c 'AUDIO="''${AUDIO_DEVICE:-$(pactl get-default-sink).monitor}"; gpu-screen-recorder -v no -w $WINDOW -c $CONTAINER -q $QUALITY -k $CODEC -ac $AUDIO_CODEC -a "$AUDIO" -f $FRAMERATE -r $REPLAYDURATION -o "$OUTPUTDIR" -mf $MAKEFOLDERS $ADDITIONAL_ARGS'
+          exec /bin/sh -c 'AUDIO="''${AUDIO_DEVICE:-$(pactl get-default-sink).monitor}"; gpu-screen-recorder -v no -w $WINDOW -c $CONTAINER -q $QUALITY -k $CODEC -ac $AUDIO_CODEC -a "$(pactl get-default-source)" -a "$AUDIO" -f $FRAMERATE -r $REPLAYDURATION -o "$OUTPUTDIR" -mf $MAKEFOLDERS $ADDITIONAL_ARGS'
         '';
     };
   };
