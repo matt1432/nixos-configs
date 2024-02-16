@@ -5,7 +5,9 @@
   gpu-screen-recorder-src,
   ...
 }: let
-  inherit (config.vars) mainUser;
+  inherit (config.vars) mainUser mainMonitor;
+  inherit (lib) concatStringsSep removePrefix;
+  hyprPkgs = config.home-manager.users.${mainUser}.wayland.windowManager.hyprland.finalPackage;
 
   # TODO: manage this with ags
   gsr = pkgs.stdenv.mkDerivation {
@@ -48,16 +50,6 @@
     '';
   };
 in {
-  environment.systemPackages = with pkgs; [
-    pulseaudio # for getting audio sink
-    gsr
-
-    # TODO: add notif on success
-    (writeShellScriptBin "gpu-save-replay" ''
-      exec ${pkgs.procps}/bin/pkill --signal SIGUSR1 -f gpu-screen-recorder
-    '')
-  ];
-
   # Allow CUDA on boot
   boot.kernelModules = ["nvidia-uvm"];
 
@@ -78,31 +70,54 @@ in {
   };
 
   home-manager.users.${mainUser} = {
-    wayland.windowManager.hyprland.settings.bind = [
-      ", F8, exec, gpu-save-replay"
-    ];
-    # TODO: add mic sound
-    xdg.configFile."gsr.sh" = {
-      executable = true;
-      text =
-        /*
-        bash
-        */
-        ''
-          export WINDOW=DP-5
-          export CONTAINER=mkv
-          export QUALITY=very_high
-          export CODEC=auto
-          export AUDIO_CODEC=aac
-          export FRAMERATE=60
-          export REPLAYDURATION=1200
-          export OUTPUTDIR=/home/matt/Videos/Replay
-          export MAKEFOLDERS=yes
-          # export ADDITIONAL_ARGS=
+    home.packages = with pkgs; [
+      gsr
 
-          # Disable compositor in X11 for best performance
-          exec /bin/sh -c 'AUDIO="''${AUDIO_DEVICE:-$(pactl get-default-sink).monitor}"; gpu-screen-recorder -v no -w $WINDOW -c $CONTAINER -q $QUALITY -k $CODEC -ac $AUDIO_CODEC -a "$(pactl get-default-source)" -a "$AUDIO" -f $FRAMERATE -r $REPLAYDURATION -o "$OUTPUTDIR" -mf $MAKEFOLDERS $ADDITIONAL_ARGS'
+      (writeShellApplication {
+        name = "gpu-save-replay";
+        runtimeInputs = [procps];
+        text = ''
+          # TODO: add notif on success
+          pkill --signal SIGUSR1 -f gpu-screen-recorder
         '';
+      })
+
+      (writeShellApplication {
+        name = "gsr-start";
+        runtimeInputs = [pulseaudio hyprPkgs xorg.xrandr];
+        text = ''
+          main="${removePrefix "desc:" mainMonitor}"
+          WINDOW=$(hyprctl -j monitors | jq '.[] |= (.description |= gsub(","; ""))' | jq -r ".[] | select(.description | test(\"$main\")) | .name")
+
+          # Fix fullscreen game resolution
+          xrandr --output "$WINDOW" --primary
+
+          gpu-screen-recorder ${concatStringsSep " " [
+            ''-v no''
+            ''-r 1200''
+            ''-mf yes''
+            ''-o /home/matt/Videos/Replay''
+            # Audio settings
+            ''-ac aac''
+            ''-a "$(pactl get-default-sink).monitor"''
+            ''-a "$(pactl get-default-source)"''
+            # Video settings
+            ''-w "$WINDOW"''
+            ''-f 60''
+            ''-c mkv''
+            ''-k hevc''
+            ''-q very_high''
+          ]}
+        '';
+      })
+    ];
+
+    wayland.windowManager.hyprland.settings = {
+      bind = [",F8, exec, gpu-save-replay"];
+
+      exec-once = [
+        "sleep 10; tmux new-session -s gsr -d gsr-start"
+      ];
     };
   };
 }
