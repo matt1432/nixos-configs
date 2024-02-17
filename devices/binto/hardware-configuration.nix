@@ -10,10 +10,16 @@
 
   boot = {
     kernelPackages = pkgs.linuxPackages_zen;
+
+    kernelParams = ["amd_pstate=active"];
     kernelModules = ["kvm-amd"];
+
+    # Zenpower for ryzen cpu monitoring
     extraModulePackages = with config.boot.kernelPackages; [
       v4l2loopback
+      zenpower
     ];
+    blacklistedKernelModules = ["k10temp"];
 
     supportedFilesystems = ["ntfs"];
 
@@ -28,7 +34,12 @@
     loader = {
       efi.canTouchEfiVariables = true;
       timeout = 2;
-      systemd-boot.enable = true;
+
+      systemd-boot = {
+        enable = true;
+        consoleMode = "max";
+        configurationLimit = 30;
+      };
     };
   };
 

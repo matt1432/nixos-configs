@@ -8,10 +8,14 @@
 
   boot = {
     loader = {
+      efi.canTouchEfiVariables = true;
       timeout = 2;
 
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
+      systemd-boot = {
+        enable = true;
+        consoleMode = "max";
+        configurationLimit = 30;
+      };
     };
 
     initrd.availableKernelModules = [

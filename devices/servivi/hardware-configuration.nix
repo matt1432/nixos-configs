@@ -8,9 +8,15 @@
   imports = [(modulesPath + "/installer/scan/not-detected.nix")];
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_zen;
 
+    kernelParams = ["amd_pstate=active"];
     kernelModules = ["kvm-amd"];
+
+    # Zenpower for ryzen cpu monitoring
+    extraModulePackages = with config.boot.kernelPackages; [zenpower];
+    blacklistedKernelModules = ["k10temp"];
+
     initrd.availableKernelModules = [
       "nvme"
       "xhci_pci"
@@ -21,10 +27,14 @@
     ];
 
     loader = {
+      efi.canTouchEfiVariables = true;
       timeout = 2;
 
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
+      systemd-boot = {
+        enable = true;
+        consoleMode = "max";
+        configurationLimit = 30;
+      };
     };
   };
 
