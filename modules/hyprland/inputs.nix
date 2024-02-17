@@ -38,6 +38,13 @@ in {
           };
         };
 
+        bind = [
+          ",XF86AudioPlay, exec, playerctl play-pause"
+          ",XF86AudioStop, exec, playerctl stop"
+          ",XF86AudioNext, exec, playerctl next"
+          ",XF86AudioPrev, exec, playerctl previous"
+        ];
+
         exec-once =
           optionals (! isNull mainMonitor)
           ["hyprctl dispatch focusmonitor ${mainMonitor}"];
