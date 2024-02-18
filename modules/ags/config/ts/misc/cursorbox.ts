@@ -155,6 +155,10 @@ export class CursorBox<Child extends Gtk.Widget, Attr> extends Gtk.EventBox {
                 return this.on_scroll_down?.(this, event);
             }
         });
+
+        this.hook(this.#disabled, () => {
+            this.toggleClassName('disabled', this.#disabled.value);
+        });
     }
 
     #display = Gdk.Display.get_default();
