@@ -109,7 +109,7 @@ in {
           #'';
 
           lan = {
-            reverseProxy = "${dockerIP}:3020";
+            reverseProxy = "${servivi}:3020";
             extraConfig = ''
               redir /index.html /
             '';
