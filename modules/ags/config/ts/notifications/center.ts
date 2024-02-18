@@ -33,6 +33,15 @@ const NotificationList = () => Box({
     visible: HasNotifs.bind(),
 
     setup: (self) => {
+        const initNotifId = 1337;
+        const delay = 200;
+
+        // Fix the no notif placement with a fake notif
+        Notifications.Notify('', initNotifId, '', '', '', [''], {}, 0);
+        setTimeout(() => {
+            Notifications.getNotification(initNotifId)?.close();
+        }, delay);
+
         self
             .hook(Notifications, (box, id) => {
                 // Handle cached notifs
