@@ -6,7 +6,6 @@
 }: let
   inherit (config.vars) mainUser;
   hyprland = config.home-manager.users.${mainUser}.wayland.windowManager.hyprland.finalPackage;
-
 in {
   # Add home folder for home-manager to work
   users.users.greeter = {

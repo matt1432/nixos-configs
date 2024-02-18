@@ -28,12 +28,13 @@ stdenvNoCC.mkDerivation rec {
       runtimeInputs = [hyprland];
       text = "(sleep 1; hyprctl dispatch togglefloating) & ${name}";
     };
-  in makeDesktopItem {
-    name = "RARS";
-    desktopName = "RARS";
-    exec = "${execScript}/bin/execScript";
-    icon = name;
-  };
+  in
+    makeDesktopItem {
+      name = "RARS";
+      desktopName = "RARS";
+      exec = "${execScript}/bin/execScript";
+      icon = name;
+    };
 
   nativeBuildInputs = [makeWrapper rsync jre];
 

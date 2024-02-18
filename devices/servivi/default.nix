@@ -8,11 +8,11 @@ in {
     ../../modules/sshd.nix
     ../../modules/tailscale.nix
 
-    ./modules/arion
     ./modules/binary-cache.nix
-    ./modules/borgbackup.nix
     ./modules/minecraft.nix
-    ./modules/nfs.nix
+
+    # WIP
+    ../nas
   ];
 
   vars = {

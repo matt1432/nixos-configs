@@ -8,8 +8,9 @@ This directory encompasses every device's main configuration file.
 | ---------- | ------------------------------------------------------------------------------------------------------- |
 | `android`  | My [Nix-On-Droid](https://github.com/nix-community/nix-on-droid) configuration for my OnePlus 9 Pro |
 | `binto`    | My desktop PC with a multi-monitor setup and an NVIDIA (cringe) 3070 |
-| `cluster`  | WIP |
-| `oksys`    | A very old Acer laptop that went from sailing the seas for years to becoming my web server and VPN host |
+| `cluster`  | Two Lenovo mini pcs that make use of [NixOS-pcsd](https://github.com/matt1432/nixos-pcsd) to form a cluster |
+| `nas`      | My current custom built server running Proxmox. Conversion to NixOS wip |
+| `oksys`    | A very old Acer laptop that went from sailing the seas for years to becoming my web server and VPN host. It is now retired indefinitely. |
 | `servivi`  | A gaming PC in a previous life, it is now used to slowly convert my Proxmox server to NixOS |
 | `wim`      | My 2-1 Lenovo Laptop that I use for uni |
 

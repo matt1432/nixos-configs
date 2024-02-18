@@ -42,10 +42,6 @@
         ./devices/servivi
         secrets.nixosModules.servivi
       ];
-      oksys = mkNixOS [
-        ./devices/oksys
-        secrets.nixosModules.oksys
-      ];
 
       # Cluster
       thingone = mkNixOS [

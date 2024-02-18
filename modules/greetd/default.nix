@@ -10,7 +10,6 @@
   # Nix stuff
   isTouchscreen = config.hardware.sensor.iio.enable;
   hyprland = config.home-manager.users.${mainUser}.wayland.windowManager.hyprland.finalPackage;
-
 in {
   imports = [./ags.nix];
 

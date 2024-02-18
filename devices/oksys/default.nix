@@ -1,3 +1,5 @@
+# Not currently operational
+
 {config, ...}: let
   inherit (config.vars) mainUser hostName;
 in {
