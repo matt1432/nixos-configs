@@ -49,11 +49,11 @@ in {
 
         # Vanilla Creative
         cv = {
-          enable = true;
+          enable = false;
 
           jvmMaxAllocation = "6G";
           jvmInitialAllocation = "2G";
-          jvmPackage = jre17;
+          jvmPackage = jre18;
           jvmOpts = "";
 
           serverConfig =
@@ -64,7 +64,7 @@ in {
               extra-options = {
                 difficulty = "hard";
                 enable-command-block = true;
-                enforce-whitelist = true;
+                enforce-white-list = true;
                 gamemode = "creative";
                 max-players = 6;
                 view-distance = 16;
@@ -104,6 +104,35 @@ in {
                 simulation-distance = 10;
                 sync-chunk-writes = true;
                 use-native-transport = true;
+              };
+            }
+            // defaults;
+        };
+
+        # Modded https://www.curseforge.com/minecraft/modpacks/ultimate-building-modpack
+        # With https://www.curseforge.com/minecraft/mc-mods/bits-and-chisels
+        builder = {
+          enable = true;
+
+          jvmMaxAllocation = "6G";
+          jvmInitialAllocation = "2G";
+          jvmPackage = jre18;
+          jvmOpts = "";
+
+          serverConfig =
+            {
+              server-port = 25566;
+              motd = "creative mode gaming with mods";
+
+              extra-options = {
+                generate-structures = false;
+                level-type = "minecraft:flat";
+                difficulty = "hard";
+                enable-command-block = true;
+                enforce-white-list = false;
+                gamemode = "creative";
+                max-players = 6;
+                view-distance = 16;
               };
             }
             // defaults;
