@@ -112,14 +112,15 @@ in {
             runtimeInputs = [nix-prefetch-docker];
             text = ''
               FILE="$1"
+
               IMAGE=$(sed -n 's/.*imageName = "\([^"]*\).*/\1/p' "$FILE")
               TAG=$(sed -n 's/.*finalImageTag = "\([^"]*\).*/\1/p' "$FILE")
-
               echo "$IMAGE $TAG"
 
-              PREFETCH=$(nix-prefetch-docker "$IMAGE" "$TAG")
-
-              echo -e "pkgs:\npkgs.dockerTools.pullImage $PREFETCH" > "$FILE"
+              if ! grep "Locked" "$FILE"; then
+                  PREFETCH=$(nix-prefetch-docker "$IMAGE" "$TAG")
+                  echo -e "pkgs:\npkgs.dockerTools.pullImage $PREFETCH" > "$FILE"
+              fi
             '';
           })
         ];

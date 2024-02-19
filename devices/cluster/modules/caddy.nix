@@ -86,7 +86,7 @@ in {
 
           immich = {
             subDomainName = "photos";
-            reverseProxy = "${dockerIP}:2283";
+            reverseProxy = "${servivi}:2283";
           };
 
           # FreshRSS & Co
