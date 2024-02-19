@@ -17,6 +17,8 @@ in {
 
   services.pcsd = {
     enable = true;
+    enableBinaryCache = true;
+
     clusterName = "thingies";
 
     corosyncKeyFile = secrets.corosync.path;
