@@ -11,6 +11,10 @@ require('treesitter-context').setup({
   min_window_height = 20,
 })
 
+vim.filetype.add({
+  pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
+})
+
 EOF
 
 " Add line under context

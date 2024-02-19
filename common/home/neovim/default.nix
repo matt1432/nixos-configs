@@ -15,7 +15,6 @@ in {
   home = optionalAttrs neovimIde {
     packages = with pkgs; [
       gradle
-      gradle-completion # FIXME: not working
       maven
       alejandra
     ];
