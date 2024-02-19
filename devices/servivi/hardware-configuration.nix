@@ -10,7 +10,6 @@
   boot = {
     kernelPackages = pkgs.linuxPackages_zen;
 
-    kernelParams = ["amd_pstate=active"];
     kernelModules = ["kvm-amd"];
 
     # Zenpower for ryzen cpu monitoring
