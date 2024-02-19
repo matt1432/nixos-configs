@@ -17,6 +17,7 @@ in {
   services = {
     borgbackup.configs.mc = {
       paths = ["/var/lib/minecraft"];
+      startAt = "01/3:00";
     };
 
     modded-minecraft-servers = {
