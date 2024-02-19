@@ -283,24 +283,6 @@
         "type": "github"
       }
     },
-    "flake-utils_4": {
-      "inputs": {
-        "systems": "systems_5"
-      },
-      "locked": {
-        "lastModified": 1694529238,
-        "narHash": "sha256-zsNZZGTGnMOf9YpHKJqMSsa0dXbfmxeoJ7xHlrt+xmY=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "ff7b65b44d01cf9ba6a71320833626af21126384",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
     "git-theme-src": {
       "flake": false,
       "locked": {
@@ -416,15 +398,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1708294481,
-        "narHash": "sha256-DZtxmeb4OR7iCaKUUuq05ADV2rX8WReZEF7Tq//W0+Y=",
-        "owner": "nix-community",
+        "lastModified": 1708354127,
+        "narHash": "sha256-upcUfwI5BDrM4AoyJNYqeatGcFMOVJc1zAlPNwe5EFk=",
+        "owner": "matt1432",
         "repo": "home-manager",
-        "rev": "a54e05bc12d88ff2df941d0dc1183cb5235fa438",
+        "rev": "c64bd6d784d4eb4ab69fd5b9a6535ed9789c8c2f",
         "type": "github"
       },
       "original": {
-        "owner": "nix-community",
+        "owner": "matt1432",
         "repo": "home-manager",
         "type": "github"
       }
@@ -1290,7 +1272,6 @@
         "spotifywm-src": "spotifywm-src",
         "touch-gestures-src": "touch-gestures-src",
         "trash-d-src": "trash-d-src",
-        "tree-sitter-hyprlang": "tree-sitter-hyprlang",
         "xresources-theme-src": "xresources-theme-src"
       }
     },
@@ -1429,21 +1410,6 @@
         "type": "github"
       }
     },
-    "systems_5": {
-      "locked": {
-        "lastModified": 1681028828,
-        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
-        "owner": "nix-systems",
-        "repo": "default",
-        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-systems",
-        "repo": "default",
-        "type": "github"
-      }
-    },
     "touch-gestures-src": {
       "flake": false,
       "locked": {
@@ -1473,28 +1439,6 @@
       "original": {
         "owner": "rushsteve1",
         "repo": "trash-d",
-        "type": "github"
-      }
-    },
-    "tree-sitter-hyprlang": {
-      "inputs": {
-        "flake-utils": "flake-utils_4",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1705683253,
-        "narHash": "sha256-x7l6V93lq6SLThLrJa2fLdEUyOOjE3dNu3FWkARZAhA=",
-        "owner": "luckasRanarison",
-        "repo": "tree-sitter-hyprlang",
-        "rev": "e60fc858e6327a15c0b26f99ec96945fecd1e4ee",
-        "type": "github"
-      },
-      "original": {
-        "owner": "luckasRanarison",
-        "repo": "tree-sitter-hyprlang",
-        "rev": "e60fc858e6327a15c0b26f99ec96945fecd1e4ee",
         "type": "github"
       }
     },

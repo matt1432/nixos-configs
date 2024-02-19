@@ -93,7 +93,8 @@
 
     home-manager = {
       type = "github";
-      owner = "nix-community";
+      # FIXME: wait for https://github.com/nix-community/home-manager/pull/5038
+      owner = "matt1432";
       repo = "home-manager";
 
       inputs.nixpkgs.follows = "nixpkgs";
@@ -218,17 +219,6 @@
       type = "github";
       owner = "matt1432";
       repo = "coc-stylelintplus";
-
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    tree-sitter-hyprlang = {
-      type = "github";
-      owner = "luckasRanarison";
-      repo = "tree-sitter-hyprlang";
-
-      # FIXME: remove this input once hyprlang makes it to nixpkgs
-      rev = "e60fc858e6327a15c0b26f99ec96945fecd1e4ee";
 
       inputs.nixpkgs.follows = "nixpkgs";
     };

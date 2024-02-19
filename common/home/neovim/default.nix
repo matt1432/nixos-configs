@@ -4,14 +4,12 @@
   lib,
   nvim-theme-src,
   coc-stylelintplus,
-  tree-sitter-hyprlang,
   ...
 }: let
   inherit (config.vars) neovimIde;
   inherit (lib) fileContents hasAttr optionalAttrs optionals;
 
   javaSdk = pkgs.temurin-bin-17;
-  nvim-treesitter-hyprlang = tree-sitter-hyprlang.packages.${pkgs.system}.default;
   coc-stylelintplus-flake = coc-stylelintplus.packages.${pkgs.system}.default;
 in {
   home = optionalAttrs neovimIde {
@@ -258,7 +256,6 @@ in {
         ++ (with pkgs.vimPlugins; [
           nvim-treesitter-context
           nvim-treesitter-textobjects
-          nvim-treesitter-hyprlang
           {
             type = "viml";
             config = fileContents ./plugins/treesitter.vim;
@@ -288,6 +285,7 @@ in {
               p.groovy
               p.haskell
               p.haskell_persistent
+              p.hyprlang
               p.html
               p.ini
               p.java
