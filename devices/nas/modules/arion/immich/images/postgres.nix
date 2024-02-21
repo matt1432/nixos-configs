@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage {
   imageName = "tensorchord/pgvecto-rs";
-  imageDigest = "sha256:0335a1a22f8c5dd1b697f14f079934f5152eaaa216c09b61e293be285491f8ee";
-  sha256 = "1930m92kd3jxn1d6fj5py6b6rldvswhc4vyn9qkx98cc9v81yamc";
+  imageDigest = "sha256:90724186f0a3517cf6914295b5ab410db9ce23190a2d9d0b9dd6463e3fa298f0";
+  sha256 = "0h1s11z5d4svg2whm7gw11dwpddg5k90fp62q3zirycms787f4d3";
   finalImageName = "tensorchord/pgvecto-rs";
-  finalImageTag = "pg14-v0.1.11";
+  finalImageTag = "pg14-v0.2.0";
 }
