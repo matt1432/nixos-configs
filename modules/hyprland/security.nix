@@ -32,7 +32,7 @@ in {
     };
   in {
     imports = [
-      ../../home/swaylock.nix
+      ./swaylock.nix
       hypridle.homeManagerModules.default
     ];
 
@@ -42,7 +42,6 @@ in {
 
     services.hypridle = mkIf isLaptop {
       enable = true;
-      listeners = [];
       lockCmd = "${lockPkg}/bin/lock";
     };
 
