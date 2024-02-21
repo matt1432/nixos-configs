@@ -1,11 +1,4 @@
 {pkgs, ...}: {
-  home.packages = [
-    (pkgs.writeShellScriptBin "lock" ''
-      ags -r 'Tablet.setLaptopMode()'
-      swaylock
-    '')
-  ];
-
   programs.swaylock = {
     enable = true;
     package = pkgs.swaylock-effects;

@@ -189,6 +189,13 @@
 
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hypridle = {
+      type = "github";
+      owner = "hyprwm";
+      repo = "hypridle";
+
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # FIXME: https://github.com/horriblename/hyprgrass/issues/76
     hyprgrass = {
