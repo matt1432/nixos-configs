@@ -1,5 +1,5 @@
 # WIP
-{...}:  {
+{...}: {
   imports = [
     ./modules/arion
     ./modules/borgbackup.nix

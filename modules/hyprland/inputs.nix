@@ -25,9 +25,9 @@
   };
 in {
   wayland.windowManager.hyprland = {
-    device = map (d: (nagaConf d)) nagaProNames;
-
     settings = {
+      device = map (d: (nagaConf d)) nagaProNames;
+
       input = {
         kb_layout = xkb.layout;
         kb_variant = xkb.variant;
