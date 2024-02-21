@@ -41,8 +41,6 @@ in {
 
         # Prefs
         "layout.css.devPixelsPerPx" = 1.12;
-        "browser.tabs.firefox-view" = false;
-        "browser.tabs.firefox-view-next" = false;
         "browser.search.widget.inNavBar" = true;
         "browser.toolbars.bookmarks.visibility" = "always";
         "browser.toolbars.bookmarks.showInPrivateBrowsing" = true;
