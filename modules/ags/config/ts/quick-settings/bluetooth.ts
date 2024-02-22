@@ -8,10 +8,9 @@ const SCROLL_THRESH_H = 200;
 const SCROLL_THRESH_N = 7;
 
 // Types
-import AgsBox from 'types/widgets/box.ts';
-import AgsScrollable from 'types/widgets/scrollable.ts';
 import { ListBoxRow } from 'types/@girs/gtk-3.0/gtk-3.0.cjs';
 import { BluetoothDevice as BTDev } from 'types/service/bluetooth.ts';
+import { DeviceBox, ScrollableGeneric } from 'global-types';
 
 
 const BluetoothDevice = (dev: BTDev) => Box({
@@ -122,10 +121,10 @@ export const BluetoothMenu = () => {
                 child: ListBox({
                     setup: (self) => {
                         self.set_sort_func((a, b) => {
-                            const bState = (b.get_children()[0] as AgsBox)
+                            const bState = (b.get_children()[0] as DeviceBox)
                                 .attribute.dev.paired;
 
-                            const aState = (a.get_children()[0] as AgsBox)
+                            const aState = (a.get_children()[0] as DeviceBox)
                                 .attribute.dev.paired;
 
                             return bState - aState;
@@ -176,7 +175,7 @@ export const BluetoothMenu = () => {
                             );
 
                             const scroll = (self.get_parent() as ListBoxRow)
-                                ?.get_parent() as AgsScrollable;
+                                ?.get_parent() as ScrollableGeneric;
 
                             if (scroll) {
                                 const n_child = self.get_children().length;

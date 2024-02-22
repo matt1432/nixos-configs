@@ -2,14 +2,14 @@ const Mpris = await Service.import('mpris');
 
 const { CenterBox, Icon, ToggleButton } = Widget;
 
-// Types
-import AgsRevealer from 'types/widgets/revealer';
-
 const { Gdk } = imports.gi;
 const display = Gdk.Display.get_default();
 
+// Types
+import { RevealerGeneric } from 'global-types';
 
-export default (rev: AgsRevealer) => {
+
+export default (rev: RevealerGeneric) => {
     const child = Icon({
         icon: `${App.configDir}/icons/down-large.svg`,
         class_name: 'arrow',

@@ -13,32 +13,35 @@ import { BluetoothMenu } from './bluetooth.ts';
 
 // Types
 import GObject from 'types/@girs/gobject-2.0/gobject-2.0';
-import AgsBox from 'types/widgets/box.ts';
-import AgsIcon from 'types/widgets/icon.ts';
-import AgsLabel from 'types/widgets/label.ts';
-import AgsRevealer from 'types/widgets/revealer.ts';
 import { Variable as Var } from 'types/variable.ts';
+import {
+    BoxGeneric,
+    IconGeneric,
+    LabelGeneric,
+    RevealerGeneric,
+} from 'global-types';
 type IconTuple = [
     GObject.Object,
-    (self: AgsIcon) => void,
+    (self: IconGeneric) => void,
     signal?: string,
 ];
 type IndicatorTuple = [
     GObject.Object,
-    (self: AgsLabel) => void,
+    (self: LabelGeneric) => void,
     signal?: string,
 ];
 type GridButtonType = {
     command?(): void
     secondary_command?(): void
-    on_open?(menu: AgsRevealer): void
+    on_open?(menu: RevealerGeneric): void
     icon: string | IconTuple
     indicator?: IndicatorTuple
-    menu?: any
+    // @ts-expect-error me is lazy
+    menu?: Widget
 };
 
 const SPACING = 28;
-const ButtonStates = [] as Array<Var<any>>;
+const ButtonStates = [] as Array<Var<boolean>>;
 
 
 const GridButton = ({
@@ -141,14 +144,14 @@ const GridButton = ({
                         on_hover: (self) => {
                             if (menu) {
                                 const rowMenu =
-                                    ((((self.get_parent() as AgsBox)
-                                        ?.get_parent() as AgsBox)
-                                        ?.get_parent() as AgsBox)
-                                        ?.get_parent() as AgsBox)
-                                        ?.children[1] as AgsBox;
+                                    ((((self.get_parent() as BoxGeneric)
+                                        ?.get_parent() as BoxGeneric)
+                                        ?.get_parent() as BoxGeneric)
+                                        ?.get_parent() as BoxGeneric)
+                                        ?.children[1] as BoxGeneric;
 
                                 const isSetup = (rowMenu
-                                    .get_children() as Array<AgsBox>)
+                                    .get_children() as Array<BoxGeneric>)
                                     .find((ch) => ch === menu);
 
                                 if (!isSetup) {

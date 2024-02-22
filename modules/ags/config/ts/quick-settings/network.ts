@@ -9,18 +9,8 @@ const SCROLL_THRESH_H = 200;
 const SCROLL_THRESH_N = 7;
 
 // Types
-import AgsBox from 'types/widgets/box.ts';
-import AgsScrollable from 'types/widgets/scrollable.ts';
+import { APType, APBox, ScrollableGeneric } from 'global-types';
 import { ListBoxRow } from 'types/@girs/gtk-3.0/gtk-3.0.cjs';
-type APType = {
-    bssid: string
-    address: string
-    lastSeen: number
-    ssid: string
-    active: boolean
-    strength: number
-    iconName: string
-};
 
 
 const AccessPoint = (ap: APType) => {
@@ -148,10 +138,10 @@ export const NetworkMenu = () => {
                 child: ListBox({
                     setup: (self) => {
                         self.set_sort_func((a, b) => {
-                            const bState = (b.get_children()[0] as AgsBox)
+                            const bState = (b.get_children()[0] as APBox)
                                 .attribute.ap.value.strength;
 
-                            const aState = (a.get_children()[0] as AgsBox)
+                            const aState = (a.get_children()[0] as APBox)
                                 .attribute.ap.value.strength;
 
                             return bState - aState;
@@ -212,7 +202,7 @@ export const NetworkMenu = () => {
                             );
 
                             const scroll = (self.get_parent() as ListBoxRow)
-                                ?.get_parent() as AgsScrollable;
+                                ?.get_parent() as ScrollableGeneric;
 
                             if (scroll) {
                                 const n_child = self.get_children().length;

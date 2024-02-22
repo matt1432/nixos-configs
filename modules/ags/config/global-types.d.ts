@@ -1,6 +1,7 @@
 import { Widget } from 'types/@girs/gtk-3.0/gtk-3.0.cjs';
 import GObject from 'types/@girs/gobject-2.0/gobject-2.0';
 
+import { Variable as Var } from 'types/variable';
 import { Widget as agsWidget } from 'types/widgets/widget';
 export type AgsWidget = agsWidget<unknown> & Widget;
 
@@ -127,6 +128,20 @@ WindowProps<Child> & {
 import { PopupWindow } from 'ts/misc/popup';
 export type PopupWindow = PopupWindow;
 
+// For ./ts/quick-settings
+import { BluetoothDevice as BTDev } from 'types/service/bluetooth.ts';
+export type APType = {
+    bssid: string
+    address: string
+    lastSeen: number
+    ssid: string
+    active: boolean
+    strength: number
+    iconName: string
+};
+export type APBox = AgsBox<unknown & Widget, { ap: Var<APType> }>;
+export type DeviceBox = AgsBox<unknown & Widget, { dev: BTDev }>;
+
 
 // Generic widgets
 import AgsBox from 'types/widgets/box.ts';
@@ -161,6 +176,9 @@ export type RevealerGeneric = AgsRevealer<unknown & Widget, unknown>;
 
 import AgsStack, { StackProps } from 'types/widgets/stack';
 export type StackGeneric = AgsStack<{ [name: string]: Widget; }, unknown>;
+
+import AgsScrollable from 'types/widgets/scrollable';
+export type ScrollableGeneric = AgsScrollable<unkown & Widget, unknown>;
 
 import AgsWindow from 'types/widgets/window';
 export type WindowGeneric = AgsWindow<unknown & Widget, unknown>;
