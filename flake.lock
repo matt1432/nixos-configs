@@ -7,11 +7,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1708631826,
-        "narHash": "sha256-dWhecyCZiNH9gz7jolHSIl7lzeST5pu9osOKgFBimek=",
+        "lastModified": 1708694763,
+        "narHash": "sha256-n+F24e9Dr7MS0W4laNGgiTMStE+uR1fbt+Y///KkRFk=",
         "owner": "Aylur",
         "repo": "ags",
-        "rev": "958b9c3869eb3c273b404122c45d79576690502a",
+        "rev": "e1f2d311ceb496a69ef6daa6aebb46ce511b2f22",
         "type": "github"
       },
       "original": {
@@ -302,11 +302,11 @@
     "gpu-screen-recorder-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1708452244,
-        "narHash": "sha256-emvvOij2g91RQYgRMtReN69oVSERjiarVlVjS2S0xas=",
+        "lastModified": 1708694643,
+        "narHash": "sha256-Wi71nFdRAs/ArzA+fHM93/Kk89XF7OvtZs73kpmbsS8=",
         "ref": "refs/heads/master",
-        "rev": "d56db4acb43fa141dcd91bc2793e45dceb420603",
-        "revCount": 493,
+        "rev": "752dac41390df3aaccf822fdd404af1c89ce3a3d",
+        "revCount": 498,
         "type": "git",
         "url": "https://repo.dec05eba.com/gpu-screen-recorder"
       },
@@ -484,11 +484,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1708623203,
-        "narHash": "sha256-4/q2/O+A8o/UO1D9fOU8Q/c+JacZkFJb2noFjN6K66c=",
+        "lastModified": 1708706907,
+        "narHash": "sha256-DaFP42uIu+Ajqq6tFflNJphDyAioP23T9YD+lQ5jreM=",
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "d9757b61bfb7dcfaf3d903092435a1aaff52b7ed",
+        "rev": "f389f77015ebeee30a2527b8eb7488879dd626e0",
         "type": "github"
       },
       "original": {
@@ -1094,11 +1094,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1708633445,
-        "narHash": "sha256-K8qjcprq4g6TCaf0sc5QISLpj8sNJ53PuqvzxITTHuo=",
+        "lastModified": 1708710364,
+        "narHash": "sha256-Unfv9jF7SEqxGEunLyPsUBMQHFFer4zEbn7YJWJq9WU=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "74865ce680458a3b48338ab7251de9eae21bd504",
+        "rev": "f910d8ab283889f9eae8985ab79cec99faf54ee5",
         "type": "github"
       },
       "original": {
