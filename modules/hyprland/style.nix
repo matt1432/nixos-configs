@@ -26,6 +26,10 @@ in {
         "float,title:^(Open File)$"
       ];
 
+      layerrule = [
+        "noanim, selection"
+      ];
+
       # This file should only be used for theming
       source = ["${configDir}/hypr/main.conf"];
     };
