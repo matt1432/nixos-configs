@@ -1,4 +1,5 @@
 {config, ...}: let
+  inherit (config.sops) secrets;
   inherit (config.arion) rwDataDir;
 
   rwPath = rwDataDir + "/immich";
@@ -9,7 +10,10 @@ in {
     "immich_server" = {
       image = ./images/server.nix;
       command = ["start.sh" "immich"];
-      env_file = ["${./.env}"];
+      env_file = [
+        "${./.env}"
+        secrets.immich.path
+      ];
 
       volumes = [
         "${UPLOAD_LOCATION}:/usr/src/app/upload:rw"
@@ -27,7 +31,10 @@ in {
     "immich_microservices" = {
       image = ./images/server.nix;
       command = ["start.sh" "microservices"];
-      env_file = ["${./.env}"];
+      env_file = [
+        "${./.env}"
+        secrets.immich.path
+      ];
 
       volumes = [
         "${UPLOAD_LOCATION}:/usr/src/app/upload:rw"
@@ -40,7 +47,10 @@ in {
     "immich_machine_learning" = {
       image = ./images/machine-learning.nix;
       restart = "always";
-      env_file = ["${./.env}"];
+      env_file = [
+        "${./.env}"
+        secrets.immich.path
+      ];
 
       volumes = [
         "${rwPath}/cache:/cache"
@@ -51,13 +61,19 @@ in {
       image = ./images/redis.nix;
       restart = "always";
       tmpfs = ["/data"];
-      env_file = ["${./.env}"];
+      env_file = [
+        "${./.env}"
+        secrets.immich.path
+      ];
     };
 
     "immich_postgres" = {
       image = ./images/postgres.nix;
       restart = "always";
-      env_file = ["${./.env}"];
+      env_file = [
+        "${./.env}"
+        secrets.immich.path
+      ];
 
       volumes = [
         "${rwPath}/db:/var/lib/postgresql/data"

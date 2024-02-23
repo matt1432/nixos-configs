@@ -57,7 +57,7 @@ in {
           resauth.reverseProxy = "${dockerIP}:3100";
 
           # Nextcloud & Co
-          office.reverseProxy = "http://${dockerIP}:8055";
+          office.reverseProxy = "http://${servivi}:8055";
           nextcloud = {
             subDomainName = "cloud";
             extraConfig = ''
@@ -66,7 +66,7 @@ in {
               redir /.well-known/webfinger /index.php/.well-known/webfinger 301
               redir /.well-known/nodeinfo /index.php/.well-known/nodeinfo 301
             '';
-            reverseProxy = "${dockerIP}:8042";
+            reverseProxy = "${servivi}:8042";
           };
 
           forgejo = {
