@@ -8,6 +8,7 @@ in {
     ./homepage/compose.nix
     ./immich/compose.nix
     ./music/jbots/compose.nix
+    ./nextcloud/compose.nix
   ];
 
   arion = {
