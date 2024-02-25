@@ -29,6 +29,10 @@ in {
       home = {
         file = {
           ".config/ags".source = symlink /home/${mainUser}/.nix/modules/ags/config;
+          ".nix/modules/ags/config/icons/mouse-razer-symbolic.svg".source = pkgs.fetchurl {
+            url = "https://raw.githubusercontent.com/bithatch/razer-icon-font/main/src/devices/mouse.svg";
+            hash = "sha256-A1+eIp2VEFDyY23GIHKhbnByHXrnVS3QgIJ9sjjtuZw=";
+          };
           ".nix/modules/ags/config/types".source = agsTypes.source;
           ".nix/modules/ags/config/config.js".text =
             /*

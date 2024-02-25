@@ -14,6 +14,8 @@ Setup();
 
 
 export default {
+    icons: './icons',
+
     windows: [
         ...Corners(),
 

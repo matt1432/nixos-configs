@@ -12,6 +12,8 @@ export default {
         globalThis.Pointers = Pointers;
     },
 
+    icons: './icons',
+
     windows: [
         AppLauncher(),
         NotifCenter(),

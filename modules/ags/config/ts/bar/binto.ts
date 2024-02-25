@@ -1,9 +1,11 @@
 const { Box, CenterBox, Window } = Widget;
 
-import SysTray from './items/systray.ts';
 import Separator from '../misc/separator.ts';
-import NotifButton from './items/notif-button.ts';
+
 import Clock from './items/clock.ts';
+import NotifButton from './items/notif-button.ts';
+import RazerStats from './items/razer-stats.ts';
+import SysTray from './items/systray.ts';
 
 const PADDING = 20;
 
@@ -26,6 +28,10 @@ export default () => Window({
                         Separator(PADDING),
 
                         SysTray(),
+
+                        Separator(PADDING / 2 / 2),
+
+                        RazerStats(),
                     ],
                 }),
 

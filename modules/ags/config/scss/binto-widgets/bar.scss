@@ -5,7 +5,6 @@
   }
 
   .sys-tray {
-
     menubar {
       background-color: $bgfull;
       padding: 2.5px;
@@ -19,5 +18,51 @@
         font-size: 25px;
       }
     }
+  }
+}
+
+.razer {
+  padding: 0 5px;
+  background: $bgfull;
+
+  .low progress {
+    background: $red;
+  }
+
+  .medium progress {
+    background: $yellow;
+  }
+
+  .high progress {
+    background: $green;
+  }
+
+  progressbar:disabled {
+    opacity: 0.5;
+  }
+
+  progressbar {
+    min-height: 6px;
+    background: transparent;
+    border: none;
+
+    trough {
+      background: #363847;
+      min-height: inherit;
+      border-radius: inherit;
+      border: 0.3px solid black;
+    }
+
+    progress {
+      min-height: inherit;
+      border-radius: inherit;
+      border: none;
+    }
+  }
+
+  image {
+    padding-right: 5px;
+    font-size: 22px;
+    color: white;
   }
 }
