@@ -20,12 +20,16 @@ in {
     }: let
       symlink = config.lib.file.mkOutOfStoreSymlink;
       inherit (lib) optionals;
+
+      # https://github.com/Aylur/ags/blob/e1f2d311ceb496a69ef6daa6aebb46ce511b2f22/nix/hm-module.nix#L69
+      agsTypes = config.home.file.".local//share/com.github.Aylur.ags/types";
     in {
       programs.ags.enable = true;
 
       home = {
         file = {
           ".config/ags".source = symlink /home/${mainUser}/.nix/modules/ags/config;
+          ".nix/modules/ags/config/types".source = agsTypes.source;
           ".nix/modules/ags/config/config.js".text =
             /*
             javascript
