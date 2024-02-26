@@ -53,53 +53,41 @@ const fetchInfo = () => {
 
 interval(RAZER_POLL, fetchInfo);
 
-// TODO: add charging indicator
-export default () => Box({
-    class_name: 'razer',
-    children: [
-        Icon({
-            hpack: 'start',
-            icon: RazerBat.bind().transform((v) => {
-                return v.disconnected ?
-                    'content-loading-symbolic' :
-                    'mouse-razer-symbolic';
-            }),
-            setup: (self) => {
-                self.hook(RazerBat, () => {
-                    const v = RazerBat.value;
+export default () => {
+    const percentage = Label({ vpack: 'center' });
 
-                    self.setCss(
-                        v.disconnected ?
-                            'margin-right: -5px;' :
-                            '',
-                    );
+    const icon = Icon({ hpack: 'start' })
+        .hook(RazerBat, (self) => {
+            const v = RazerBat.value;
 
-                    self.toggleClassName(
-                        'high',
-                        v.battery > 66,
-                    );
-                    self.toggleClassName(
-                        'medium',
-                        v.battery > LOW_BATT && v.battery <= 66,
-                    );
-                    self.toggleClassName(
-                        'low',
-                        v.battery <= LOW_BATT,
-                    );
-                });
-            },
-        }),
+            percentage.visible = !(v.disconnected || v.charging);
+            percentage.label = `${v.battery}%`;
 
-        Label({
-            vpack: 'center',
-            label: RazerBat.bind().transform((v) => {
-                if (!v.disconnected) {
-                    // TODO: find better way to indicate charging
-                    return v.battery + (v.charging ? '󱐋' : '%');
-                }
+            self.icon = v.disconnected ?
+                'content-loading-symbolic' :
+                'mouse-razer-symbolic';
+            self.setCss(
+                v.disconnected || v.charging ?
+                    'margin-right: -5px;' :
+                    '',
+            );
 
-                return '';
-            }),
-        }),
-    ],
-});
+            self.toggleClassName(
+                'high',
+                v.battery > 66,
+            );
+            self.toggleClassName(
+                'medium',
+                v.battery > LOW_BATT && v.battery <= 66,
+            );
+            self.toggleClassName(
+                'low',
+                v.battery <= LOW_BATT,
+            );
+        });
+
+    return Box({
+        class_name: 'razer',
+        children: [icon, percentage],
+    });
+};
