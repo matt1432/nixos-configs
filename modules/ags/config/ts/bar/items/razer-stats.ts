@@ -1,9 +1,11 @@
-const { Box, Icon, ProgressBar } = Widget;
+
+const { Box, Icon, Label } = Widget;
 
 const RAZER_POLL = 30000;
 const LOW_BATT = 20;
 
 
+// TODO: add charging indicator
 const RazerBat = Variable(-1, {
     poll: [
         RAZER_POLL,
@@ -15,11 +17,20 @@ const RazerBat = Variable(-1, {
             "polychromatic-cli -n 'Razer Naga Pro (Wireless)' -k",
         ],
         (out) => {
-            const battery = out.split('\n')
+            const batteryMatches = out.split('\n')
                 .filter((i) => i.includes('Battery'))[0]
                 .match(/[0-9]+/);
 
-            return battery !== null ? parseInt(battery[0]) : -1;
+            let battery = batteryMatches !== null ?
+                parseInt(batteryMatches[0]) :
+                -1;
+
+            // Don't set to zero when in sleep mode
+            if (battery === 0 && RazerBat.value > 10) {
+                battery = RazerBat.value;
+            }
+
+            return battery;
         },
     ],
 });
@@ -34,11 +45,6 @@ export default () => Box({
                     'mouse-razer-symbolic' :
                     'content-loading-symbolic';
             }),
-        }),
-
-        ProgressBar({
-            vpack: 'center',
-            value: RazerBat.bind().transform((v) => v >= 0 ? v / 100 : 0),
             setup: (self) => {
                 self.hook(RazerBat, () => {
                     self.toggleClassName(
@@ -57,5 +63,11 @@ export default () => Box({
             },
         }),
 
+        Label({
+            vpack: 'center',
+            label: RazerBat.bind().transform((v) => {
+                return v !== -1 ? `${v}%` : '';
+            }),
+        }),
     ],
 });

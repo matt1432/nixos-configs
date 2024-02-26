@@ -25,39 +25,16 @@
   padding: 0 5px;
   background: $bgfull;
 
-  .low progress {
-    background: $red;
+  .low {
+    color: $red;
   }
 
-  .medium progress {
-    background: $yellow;
+  .medium {
+    color: $yellow;
   }
 
-  .high progress {
-    background: $green;
-  }
-
-  progressbar:disabled {
-    opacity: 0.5;
-  }
-
-  progressbar {
-    min-height: 6px;
-    background: transparent;
-    border: none;
-
-    trough {
-      background: #363847;
-      min-height: inherit;
-      border-radius: inherit;
-      border: 0.3px solid black;
-    }
-
-    progress {
-      min-height: inherit;
-      border-radius: inherit;
-      border: none;
-    }
+  .high {
+    color: $green;
   }
 
   image {
