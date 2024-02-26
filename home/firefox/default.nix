@@ -1,13 +1,16 @@
 {
   config,
   pkgs,
+  firefox-gx-src,
   ...
 }: let
   inherit (builtins) readFile;
   firefox-addons = pkgs.recurseIntoAttrs (pkgs.callPackage ./addons {});
   sound-volume = firefox-addons."600-sound-volume";
 
-  firefox-gx = pkgs.callPackage ./firefox-gx {};
+  firefox-gx = pkgs.callPackage ./firefox-gx {
+    inherit firefox-gx-src;
+  };
 in {
   home.file = {
     ".mozilla/firefox/matt/chrome/components".source = "${firefox-gx}/chrome/components";

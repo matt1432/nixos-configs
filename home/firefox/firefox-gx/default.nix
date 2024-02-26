@@ -1,18 +1,13 @@
 {
   lib,
   stdenvNoCC,
-  fetchFromGitHub,
+  firefox-gx-src,
 }:
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation {
   pname = "firefox-gx";
-  version = "9.0";
+  version = firefox-gx-src.rev;
 
-  src = fetchFromGitHub {
-    owner = "Godiesc";
-    repo = pname;
-    rev = "v${version}";
-    sha256 = "sha256-FCx5mADqrjAN27lLaZViOFGUNDg/2jpern8sem8u49w=";
-  };
+  src = firefox-gx-src;
 
   installPhase = ''
     # Personal changes

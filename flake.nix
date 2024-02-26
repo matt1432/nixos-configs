@@ -340,18 +340,19 @@
       flake = false;
     };
 
-    ## Dracula src
-    nvim-theme-src = {
-      type = "github";
-      owner = "Mofiqul";
-      repo = "dracula.nvim";
-      flake = false;
-    };
-
+    ## Dracula and theme src
     bat-theme-src = {
       type = "github";
       owner = "matt1432";
       repo = "bat";
+      flake = false;
+    };
+
+    firefox-gx-src = {
+      type = "github";
+      owner = "Godiesc";
+      repo = "firefox-gx";
+      ref = "v.9.0";
       flake = false;
     };
 
@@ -366,6 +367,13 @@
       type = "github";
       owner = "dracula";
       repo = "gtk";
+      flake = false;
+    };
+
+    nvim-theme-src = {
+      type = "github";
+      owner = "Mofiqul";
+      repo = "dracula.nvim";
       flake = false;
     };
 
