@@ -11,7 +11,7 @@ import { RevealerGeneric } from 'global-types';
 
 export default (rev: RevealerGeneric) => {
     const child = Icon({
-        icon: `${App.configDir}/icons/down-large.svg`,
+        icon: 'down-large-symbolic',
         class_name: 'arrow',
         css: '-gtk-icon-transform: rotate(180deg);',
     });

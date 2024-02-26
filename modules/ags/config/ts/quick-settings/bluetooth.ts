@@ -61,7 +61,7 @@ export const BluetoothMenu = () => {
         transition: 'slide_down',
 
         child: Icon({
-            icon: `${App.configDir }/icons/down-large.svg`,
+            icon: 'down-large-symbolic',
             class_name: 'scrolled-indicator',
             size: 16,
             css: '-gtk-icon-transform: rotate(180deg);',
@@ -72,7 +72,7 @@ export const BluetoothMenu = () => {
         transition: 'slide_up',
 
         child: Icon({
-            icon: `${App.configDir }/icons/down-large.svg`,
+            icon: 'down-large-symbolic',
             class_name: 'scrolled-indicator',
             size: 16,
         }),

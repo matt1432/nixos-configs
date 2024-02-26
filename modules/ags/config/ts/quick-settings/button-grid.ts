@@ -162,7 +162,7 @@ const GridButton = ({
                         },
 
                         child: Icon({
-                            icon: `${App.configDir }/icons/down-large.svg`,
+                            icon: 'down-large-symbolic',
                             class_name: 'grid-chev',
 
                             setup: (self) => {
