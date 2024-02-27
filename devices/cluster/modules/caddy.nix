@@ -134,7 +134,7 @@ in {
               qbittorent = {
                 subDirName = "qbt";
                 experimental = true;
-                reverseProxy = "10.0.0.128:8080";
+                reverseProxy = "${servivi}:8080";
               };
 
               vaultwarden = {

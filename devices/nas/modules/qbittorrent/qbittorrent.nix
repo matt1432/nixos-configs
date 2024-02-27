@@ -102,6 +102,7 @@ in {
       wantedBy = ["multi-user.target"];
       path = [pkg];
       script = ''
+        rm -rf ${cfg.configDir}/vuetorrent
         ln -sf ${vue} ${cfg.configDir}/vuetorrent
         qbittorrent-nox \
           --profile=${cfg.configDir} \
