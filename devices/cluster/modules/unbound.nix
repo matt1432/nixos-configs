@@ -28,6 +28,7 @@ in {
           "nelim.org redirect"
         ];
         local-data = let
+          wanIP = "166.62.179.208";
           caddyIp =
             if hostName == "thingone"
             then "100.64.0.8"
@@ -35,9 +36,9 @@ in {
         in [
           "\"pve.nelim.org IN A 100.64.0.4\""
 
-          "\"headscale.nelim.org. IN A 24.200.126.219\""
+          "\"headscale.nelim.org. IN A ${wanIP}\""
 
-          "\"git.nelim.org. IN A 24.200.126.219\""
+          "\"git.nelim.org. IN A ${wanIP}\""
 
           "\"mc.nelim.org IN A 100.64.0.7\""
           "\"_minecraft._tcp.mc.nelim.org. 180 IN SRV 0 0 25569 mc.nelim.org.\""
