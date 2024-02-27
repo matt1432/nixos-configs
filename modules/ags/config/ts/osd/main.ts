@@ -23,16 +23,22 @@ const OSDs = () => {
         transition: 'over_up_down',
         transition_duration,
 
-        attribute: { popup: (osd: BoxGeneric) => {
-            if (!osd) {
-                //
-            }
-        } },
+        attribute: {
+            popup: (osd: string) => {
+                if (!osd) {
+                    //
+                }
+            },
+        },
     });
 
     // Send reference of stack to all children
     stack.children = Object.fromEntries(
-        OSDList.map((osd, i) => [`${i}`, osd(stack)]),
+        OSDList.map((osd) => {
+            const widget = osd(stack);
+
+            return [widget.name, widget];
+        }),
     );
 
     // Delay popup method so it
@@ -40,9 +46,9 @@ const OSDs = () => {
     timeout(1000, () => {
         let count = 0;
 
-        stack.attribute.popup = (osd: BoxGeneric) => {
+        stack.attribute.popup = (osd: string) => {
             ++count;
-            stack.set_visible_child(osd);
+            stack.shown = osd;
             App.openWindow('osd');
 
             timeout(HIDE_DELAY, () => {
@@ -53,6 +59,8 @@ const OSDs = () => {
                 }
             });
         };
+
+        globalThis['popup_osd'] = stack.attribute.popup;
     });
 
     return stack;

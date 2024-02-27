@@ -3,28 +3,32 @@ const { Box, Icon, ProgressBar } = Widget;
 const Y_POS = 80;
 
 // Types
-import { ConnectFunc, OSD, ProgressBarGeneric } from 'global-types';
+import { ConnectFunc, OSD } from 'global-types';
 
 
-export default ({ stack, icon, info }: OSD) => {
+export default ({ name, stack, icon, info }: OSD) => {
     let connectFunc: ConnectFunc;
+    const status = info.widget ?
+        info.widget :
+        ProgressBar({ vpack: 'center' });
 
+    // Wrapper to get sliding up anim
     const osd = Box({
+        name,
         css: `margin-bottom: ${Y_POS}px;`,
-        children: [Box({
-            class_name: 'osd',
-            children: [
-                Icon({
-                    hpack: 'start',
-                    // Can take a string or an object of props
-                    ...(typeof icon === 'string' ? { icon } : icon),
-                }),
-                // Can take a static widget instead of a progressbar
-                info.widget ?
-                    info.widget :
-                    ProgressBar({ vpack: 'center' }),
-            ],
-        })],
+        children: [
+            // Actual OSD
+            Box({
+                class_name: 'osd',
+                children: [
+                    Icon({
+                        hpack: 'start',
+                        icon,
+                    }),
+                    status,
+                ],
+            }),
+        ],
     });
 
     // Handle requests to show the OSD
@@ -35,14 +39,22 @@ export default ({ stack, icon, info }: OSD) => {
                 info.logic(self);
             }
             r();
-        }).then(() => stack.attribute.popup(osd));
+        }).then(() => stack.attribute.popup(name));
     }
     else {
-        connectFunc = () => stack.attribute.popup(osd);
+        connectFunc = () => stack.attribute.popup(name);
     }
 
-    (osd.children[0].children[1] as ProgressBarGeneric)
-        .hook(info.mod, connectFunc, info.signal);
+    if (info.signal) {
+        if (typeof info.signal === 'string') {
+            status.hook(info.mod, connectFunc, info.signal);
+        }
+        else {
+            info.signal.forEach((sig) => {
+                status.hook(info.mod, connectFunc, sig);
+            });
+        }
+    }
 
     return osd;
 };

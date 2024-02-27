@@ -86,17 +86,18 @@ export type NotifGesture = AgsEventBox<BoxGeneric, NotifGestureProps>;
 
 // For ./ts/osd/ctor.ts
 export type OSDStack = AgsStack<unknown & Widget, {
-    popup(osd: BoxGeneric): void,
+    popup(osd: string): void,
 }>;
 export type ConnectFunc = (self?: ProgressBarGeneric) => void;
 export type OSD = {
+    name: string;
     stack: OSDStack;
-    icon: string | IconPropsGeneric;
+    icon: IconPropsGeneric['icon'];
     info: {
         mod: GObject.Object;
-        signal?: string;
+        signal?: string | string[];
         logic?(self: ProgressBarGeneric): void;
-        widget?: Widget;
+        widget?: AgsWidget;
     }
 };
 

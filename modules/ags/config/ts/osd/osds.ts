@@ -10,21 +10,17 @@ import { MicIcon } from '../misc/audio-icons.ts';
 
 const AUDIO_MAX = 1.5;
 
-const ShowSpeaker = Variable(true);
-
-globalThis.showSpeaker = () => {
-    ShowSpeaker.setValue(!ShowSpeaker.value);
-};
-
 // Types
 import { OSDStack } from 'global-types';
 
 
 export const SpeakerOSD = (stack: OSDStack) => OSD({
+    name: 'speaker',
     stack,
-    icon: { icon: SpeakerIcon.bind() },
+    icon: SpeakerIcon.bind(),
     info: {
-        mod: ShowSpeaker,
+        mod: Audio.speaker,
+        signal: ['notify::volume', 'notify::is-muted'],
 
         logic: (self) => {
             if (!Audio.speaker) {
@@ -41,8 +37,9 @@ export const SpeakerOSD = (stack: OSDStack) => OSD({
 });
 
 export const ScreenBrightnessOSD = (stack: OSDStack) => OSD({
+    name: 'screen',
     stack,
-    icon: { icon: Brightness.bind('screenIcon') },
+    icon: Brightness.bind('screenIcon'),
     info: {
         mod: Brightness,
         signal: 'screen',
@@ -54,6 +51,7 @@ export const ScreenBrightnessOSD = (stack: OSDStack) => OSD({
 });
 
 export const KbdBrightnessOSD = (stack: OSDStack) => OSD({
+    name: 'kbd',
     stack,
     icon: 'keyboard-brightness-symbolic',
     info: {
@@ -73,11 +71,12 @@ export const KbdBrightnessOSD = (stack: OSDStack) => OSD({
 });
 
 export const MicOSD = (stack: OSDStack) => OSD({
+    name: 'mic',
     stack,
-    icon: { icon: MicIcon.bind() },
+    icon: MicIcon.bind(),
     info: {
-        mod: Audio,
-        signal: 'microphone-changed',
+        mod: Audio.microphone,
+        signal: ['notify::volume', 'notify::is-muted'],
 
         logic: (self) => {
             if (!Audio.microphone) {
@@ -91,8 +90,9 @@ export const MicOSD = (stack: OSDStack) => OSD({
 });
 
 export const CapsLockOSD = (stack: OSDStack) => OSD({
+    name: 'caps',
     stack,
-    icon: { icon: Brightness.bind('capsIcon') },
+    icon: Brightness.bind('capsIcon'),
     info: {
         mod: Brightness,
         signal: 'caps',
