@@ -91,7 +91,6 @@ export type OSDStack = AgsStack<unknown & Widget, {
 export type ConnectFunc = (self?: ProgressBarGeneric) => void;
 export type OSD = {
     name: string;
-    stack: OSDStack;
     icon: IconPropsGeneric['icon'];
     info: {
         mod: GObject.Object;

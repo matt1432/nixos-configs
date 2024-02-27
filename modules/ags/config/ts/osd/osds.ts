@@ -10,13 +10,9 @@ import { MicIcon } from '../misc/audio-icons.ts';
 
 const AUDIO_MAX = 1.5;
 
-// Types
-import { OSDStack } from 'global-types';
 
-
-export const SpeakerOSD = (stack: OSDStack) => OSD({
+export const SpeakerOSD = () => OSD({
     name: 'speaker',
-    stack,
     icon: SpeakerIcon.bind(),
     info: {
         mod: Audio.speaker,
@@ -36,9 +32,8 @@ export const SpeakerOSD = (stack: OSDStack) => OSD({
     },
 });
 
-export const ScreenBrightnessOSD = (stack: OSDStack) => OSD({
+export const ScreenBrightnessOSD = () => OSD({
     name: 'screen',
-    stack,
     icon: Brightness.bind('screenIcon'),
     info: {
         mod: Brightness,
@@ -50,9 +45,8 @@ export const ScreenBrightnessOSD = (stack: OSDStack) => OSD({
     },
 });
 
-export const KbdBrightnessOSD = (stack: OSDStack) => OSD({
+export const KbdBrightnessOSD = () => OSD({
     name: 'kbd',
-    stack,
     icon: 'keyboard-brightness-symbolic',
     info: {
         mod: Brightness,
@@ -70,9 +64,8 @@ export const KbdBrightnessOSD = (stack: OSDStack) => OSD({
     },
 });
 
-export const MicOSD = (stack: OSDStack) => OSD({
+export const MicOSD = () => OSD({
     name: 'mic',
-    stack,
     icon: MicIcon.bind(),
     info: {
         mod: Audio.microphone,
@@ -89,9 +82,8 @@ export const MicOSD = (stack: OSDStack) => OSD({
     },
 });
 
-export const CapsLockOSD = (stack: OSDStack) => OSD({
+export const CapsLockOSD = () => OSD({
     name: 'caps',
-    stack,
     icon: Brightness.bind('capsIcon'),
     info: {
         mod: Brightness,

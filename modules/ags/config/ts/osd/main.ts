@@ -4,10 +4,10 @@ const { Stack } = Widget;
 import PopupWindow from '../misc/popup.ts';
 
 // Types
-import { BoxGeneric, StackGeneric } from 'global-types';
+import { BoxGeneric } from 'global-types';
 
 // Import all the OSDs as an array
-const OSDList = [] as Array<(stack: StackGeneric) => BoxGeneric>;
+const OSDList = [] as Array<() => BoxGeneric>;
 
 import * as Modules from './osds.ts';
 for (const osd in Modules) {
@@ -35,7 +35,7 @@ const OSDs = () => {
     // Send reference of stack to all children
     stack.children = Object.fromEntries(
         OSDList.map((osd) => {
-            const widget = osd(stack);
+            const widget = osd();
 
             return [widget.name, widget];
         }),

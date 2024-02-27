@@ -3,10 +3,10 @@ const { Box, Icon, ProgressBar } = Widget;
 const Y_POS = 80;
 
 // Types
-import { ConnectFunc, OSD } from 'global-types';
+import { ConnectFunc, OSD, OSDStack } from 'global-types';
 
 
-export default ({ name, stack, icon, info }: OSD) => {
+export default ({ name, icon, info }: OSD) => {
     let connectFunc: ConnectFunc;
     const status = info.widget ?
         info.widget :
@@ -39,10 +39,12 @@ export default ({ name, stack, icon, info }: OSD) => {
                 info.logic(self);
             }
             r();
-        }).then(() => stack.attribute.popup(name));
+        }).then(() => (osd.get_parent() as OSDStack)?.attribute?.popup(name))
+            .catch(console.error);
     }
     else {
-        connectFunc = () => stack.attribute.popup(name);
+        connectFunc = () => (osd.get_parent() as OSDStack)
+            ?.attribute?.popup(name);
     }
 
     if (info.signal) {
