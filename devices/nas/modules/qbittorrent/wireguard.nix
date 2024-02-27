@@ -42,6 +42,7 @@ in {
       description = "Forward to ${service} in wireguard namespace";
       requires = ["${service}.service"];
       after = ["${service}.service"];
+      partOf = ["${service}.service"];
       serviceConfig = {
         Restart = "on-failure";
         TimeoutStopSec = 300;
@@ -66,5 +67,8 @@ in {
       };
     };
     "wireguard-wg0".wants = ["netns@wg.service"];
+
+    "qbittorrent" = joinWgNamespace;
+    "qbittorrent-port-route" = mkPortRoute "qbittorrent" "8080";
   };
 }
