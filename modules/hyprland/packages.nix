@@ -58,7 +58,7 @@ in {
         ];
         buildInputs = [makeWrapper];
         postBuild = ''
-          wrapProgram $out/bin/discord --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [
+          wrapProgram $out/bin/Discord --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [
             addOpenGLRunpath.driverLink
             libglvnd
           ]}" \
