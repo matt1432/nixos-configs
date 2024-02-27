@@ -1,9 +1,12 @@
 {
   config,
+  lib,
   pkgs,
   ...
 }: let
   inherit (config.vars) mainUser;
+
+  isNvidia = config.hardware.nvidia.modesetting.enable;
 in {
   imports = [../dolphin.nix];
 
@@ -58,10 +61,11 @@ in {
         ];
         buildInputs = [makeWrapper];
         postBuild = ''
-          wrapProgram $out/bin/Discord --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [
-            addOpenGLRunpath.driverLink
-            libglvnd
-          ]}" \
+          wrapProgram $out/bin/Discord ${lib.optionalString isNvidia
+            ''--prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [
+                addOpenGLRunpath.driverLink
+                libglvnd
+              ]}"''} \
           --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland"
         '';
       })
