@@ -35,16 +35,6 @@ in {
       jellyfin-media-player
       prismlauncher-qt5
 
-      /*
-      Discord themes for Vencord
-      https://markchan0225.github.io/RoundedDiscord/RoundedDiscord.theme.css
-      https://raw.githubusercontent.com/dracula/BetterDiscord/master/Dracula_Official.theme.css
-      */
-      (pkgs.discord.override {
-        withOpenASAR = true;
-        withVencord = true;
-      })
-
       # tools
       wl-color-picker
       wl-clipboard
@@ -52,6 +42,29 @@ in {
       grim
       slurp
       swappy
+
+      /*
+      Discord themes for Vencord
+      https://markchan0225.github.io/RoundedDiscord/RoundedDiscord.theme.css
+      https://raw.githubusercontent.com/dracula/BetterDiscord/master/Dracula_Official.theme.css
+      */
+      (symlinkJoin {
+        name = "discord";
+        paths = [
+          (discord.override {
+            withOpenASAR = true;
+            withVencord = true;
+          })
+        ];
+        buildInputs = [makeWrapper];
+        postBuild = ''
+          wrapProgram $out/bin/discord --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [
+            addOpenGLRunpath.driverLink
+            libglvnd
+          ]}" \
+          --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland"
+        '';
+      })
     ];
 
     wayland.windowManager.hyprland = {
