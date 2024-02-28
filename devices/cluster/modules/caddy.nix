@@ -48,7 +48,7 @@ in {
         subDomains = {
           # Misc one-liners
           vault.reverseProxy = "${dockerIP}:8781";
-          hauk.reverseProxy = "${dockerIP}:3003";
+          hauk.reverseProxy = "${servivi}:3003";
           headscale.reverseProxy = "${clusterIP}:8085";
           jelly.reverseProxy = "${jellyIP}:80";
 
