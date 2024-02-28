@@ -1342,11 +1342,11 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1708798000,
-        "narHash": "sha256-UPQaG6sF5O9bLKba09gG7IokXeVbQk5R4SbvKJzha98=",
+        "lastModified": 1709140468,
+        "narHash": "sha256-L6sJbSY7ckfk4BY2E28+0+XIE5r7YupiQuCCiLRZ4WI=",
         "ref": "refs/heads/main",
-        "rev": "0e7607e1ae9b536eb5ad7f87d42abbb267d38b7e",
-        "revCount": 45,
+        "rev": "e55f4bbd9179f9cb2d3b9770942f6e9eaf259ab2",
+        "revCount": 46,
         "type": "git",
         "url": "ssh://git@git.nelim.org/matt1432/nixos-secrets"
       },

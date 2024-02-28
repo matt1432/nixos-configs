@@ -90,10 +90,10 @@ in {
           };
 
           # FreshRSS & Co
-          drss.reverseProxy = "${dockerIP}:3007";
+          drss.reverseProxy = "${servivi}:3007";
           freshrss = {
             subDomainName = "rss";
-            reverseProxy = "${dockerIP}:2800";
+            reverseProxy = "${servivi}:2800";
           };
 
           jellyseer = {

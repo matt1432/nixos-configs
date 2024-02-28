@@ -5,6 +5,7 @@ in {
     ../../../../modules/arion.nix
 
     ./forgejo/compose.nix
+    ./freshrss/compose.nix
     ./homepage/compose.nix
     ./immich/compose.nix
     ./music/jbots/compose.nix

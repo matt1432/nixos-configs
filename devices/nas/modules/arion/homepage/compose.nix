@@ -2,6 +2,9 @@
   inherit (config.arion) toYAML;
   inherit (config.sops) secrets;
 in {
+  # FIXME: Try to get homepage to resolve lan.nelim.org
+  #systemd.services."arion-homepage".after = ["tailscaled.service"];
+
   arion.projects."homepage" = {
     "homepage" = {
       image = ./images/homepage.nix;
