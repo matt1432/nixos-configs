@@ -8,7 +8,6 @@
     alsa.enable = true;
     jack.enable = true;
     pulse.enable = true;
-    # FIXME: https://github.com/fufexan/nix-gaming/issues/161
-    lowLatency.enable = false;
+    lowLatency.enable = true;
   };
 }

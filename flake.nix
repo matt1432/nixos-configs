@@ -133,7 +133,9 @@
 
     nix-gaming = {
       type = "github";
-      owner = "fufexan";
+      # FIXME: https://github.com/fufexan/nix-gaming/issues/161
+      # owner = "fufexan";
+      owner = "NotAShelf";
       repo = "nix-gaming";
     };
 
