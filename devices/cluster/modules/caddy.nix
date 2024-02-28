@@ -103,10 +103,7 @@ in {
 
           games.reverseProxy = "${dockerIP}:8074";
 
-          # FIXME: what's the IP?
-          #wgui.extraConfig = ''
-          #  reverse_proxy ???:51821
-          #'';
+          wgui.reverseProxy = "${servivi}:51821";
 
           lan = {
             reverseProxy = "${servivi}:3020";
