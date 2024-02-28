@@ -12,6 +12,7 @@ in {
     ./music/jbots/compose.nix
     ./nextcloud/compose.nix
     ./resume/compose.nix
+    ./vaultwarden/compose.nix
     ./wg-easy/compose.nix
   ];
 
