@@ -53,8 +53,8 @@ in {
           jelly.reverseProxy = "${jellyIP}:80";
 
           # Resume builder
-          resume.reverseProxy = "${dockerIP}:3060";
-          resauth.reverseProxy = "${dockerIP}:3100";
+          resume.reverseProxy = "${servivi}:3060";
+          resauth.reverseProxy = "${servivi}:3100";
 
           # Nextcloud & Co
           office.reverseProxy = "http://${servivi}:8055";

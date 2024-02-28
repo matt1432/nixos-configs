@@ -11,6 +11,7 @@ in {
     ./immich/compose.nix
     ./music/jbots/compose.nix
     ./nextcloud/compose.nix
+    ./resume/compose.nix
   ];
 
   arion = {
