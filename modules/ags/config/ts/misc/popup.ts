@@ -92,10 +92,7 @@ export class PopupWindow<
             setup: () => {
                 const id = App.connect('config-parsed', () => {
                     // Set close delay dynamically
-                    App.closeWindowDelay = {
-                        ...App.closeWindowDelay,
-                        [name]: transition_duration,
-                    };
+                    App.closeWindowDelay[name] = transition_duration;
 
                     // Add way to make window open on startup
                     if (visible) {
