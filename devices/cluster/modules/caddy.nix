@@ -101,7 +101,10 @@ in {
             reverseProxy = "${dockerIP}:5055";
           };
 
-          games.reverseProxy = "${dockerIP}:8074";
+          gameyfin = {
+            subDomainName = "games";
+            reverseProxy = "${servivi}:8074";
+          };
 
           wgui.reverseProxy = "${servivi}:51821";
 

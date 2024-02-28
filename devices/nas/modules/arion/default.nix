@@ -6,6 +6,7 @@ in {
 
     ./forgejo/compose.nix
     ./freshrss/compose.nix
+    ./gameyfin/compose.nix
     ./hauk/compose.nix
     ./homepage/compose.nix
     ./immich/compose.nix
