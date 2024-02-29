@@ -2,8 +2,6 @@
   configPath = "/var/lib/arion";
 in {
   imports = [
-    ../../../../modules/arion.nix
-
     ./forgejo/compose.nix
     ./freshrss/compose.nix
     ./gameyfin/compose.nix

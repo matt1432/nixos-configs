@@ -17,6 +17,8 @@
     nur.nixosModules.nur
     nh.nixosModules.default
     home-manager.nixosModules.home-manager
+
+    ../modules/arion
   ];
 
   nixpkgs = {
