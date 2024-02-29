@@ -86,13 +86,18 @@ in {
                     mkForce (importImage v'.image);
 
                   service =
-                    (filterAttrs
-                      (attrName: _: attrName != "image")
-                      v')
+                    (filterAttrs (attrName: _:
+                      attrName != "image" && attrName != "extraOptions")
+                    v')
                     # By default set the container_name to the attrset's name
                     // (optionalAttrs (! hasAttr "container_name" v') {
                       container_name = n';
                     });
+
+                  out.service =
+                    optionalAttrs
+                    (hasAttr "extraOptions" v')
+                    v'.extraOptions;
                 })
                 v;
             };

@@ -15,6 +15,15 @@ in {
     ./resume/compose.nix
     ./vaultwarden/compose.nix
     ./wg-easy/compose.nix
+
+    ./media/bazarr/compose.nix
+    ./media/calibre/compose.nix
+    ./media/joal/compose.nix
+    ./media/prowlarr/compose.nix
+    ./media/radarr/compose.nix
+    ./media/sabnzbd/compose.nix
+    ./media/seerr/compose.nix
+    ./media/sonarr/compose.nix
   ];
 
   arion = {
