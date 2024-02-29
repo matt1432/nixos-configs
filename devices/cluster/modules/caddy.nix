@@ -81,7 +81,7 @@ in {
 
           calibre = {
             subDomainName = "books";
-            reverseProxy = "${dockerIP}:8083";
+            reverseProxy = "${servivi}:8083";
           };
 
           immich = {
@@ -98,7 +98,7 @@ in {
 
           jellyseer = {
             subDomainName = "seerr";
-            reverseProxy = "${dockerIP}:5055";
+            reverseProxy = "${servivi}:5055";
           };
 
           gameyfin = {
@@ -115,20 +115,20 @@ in {
             '';
 
             subDirectories = {
-              bazarr.reverseProxy = "${dockerIP}:6767";
+              bazarr.reverseProxy = "${servivi}:6767";
               bazarr-french = {
                 subDirName = "bafrr";
-                reverseProxy = "${dockerIP}:6766";
+                reverseProxy = "${servivi}:6766";
               };
 
-              prowlarr.reverseProxy = "${dockerIP}:9696";
-              radarr.reverseProxy = "${dockerIP}:7878";
-              sabnzbd.reverseProxy = "${dockerIP}:8382";
-              sonarr.reverseProxy = "${dockerIP}:8989";
+              prowlarr.reverseProxy = "${servivi}:9696";
+              radarr.reverseProxy = "${servivi}:7878";
+              sabnzbd.reverseProxy = "${servivi}:8382";
+              sonarr.reverseProxy = "${servivi}:8989";
 
               calibre = {
                 experimental = true;
-                reverseProxy = "${dockerIP}:8580";
+                reverseProxy = "${servivi}:8580";
               };
 
               qbittorent = {
@@ -149,12 +149,12 @@ in {
           joal.extraConfig = ''
             route {
               rewrite * /joal/ui{uri}
-              reverse_proxy * ${dockerIP}:5656
+              reverse_proxy * ${servivi}:5656
             }
           '';
           joalws.extraConfig = ''
             route {
-              reverse_proxy ${dockerIP}:5656
+              reverse_proxy ${servivi}:5656
             }
           '';
         };
