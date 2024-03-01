@@ -46,15 +46,19 @@
         };
       };
 
-      # https://github.com/dandavison/delta/issues/630#issuecomment-860046929
-      extraConfig.pager = let
-        cmd = "LESS='LRc --mouse' ${pkgs.delta}/bin/delta";
-      in {
-        diff = cmd;
-        show = cmd;
-        stash = cmd;
-        log = cmd;
-        reflog = cmd;
+      extraConfig = {
+        diff.sopsdiffer.textconv = "sops --config /dev/null -d";
+
+        # https://github.com/dandavison/delta/issues/630#issuecomment-860046929
+        pager = let
+          cmd = "LESS='LRc --mouse' ${pkgs.delta}/bin/delta";
+        in {
+          diff = cmd;
+          show = cmd;
+          stash = cmd;
+          log = cmd;
+          reflog = cmd;
+        };
       };
     };
   };

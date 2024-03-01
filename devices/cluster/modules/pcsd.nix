@@ -22,7 +22,7 @@ in {
     clusterName = "thingies";
 
     corosyncKeyFile = secrets.corosync.path;
-    clusterUserPasswordFile = secrets.PASSWORD.path;
+    clusterUserPasswordFile = secrets.pcs-pass.path;
 
     virtualIps = {
       "caddy-vip" = {
