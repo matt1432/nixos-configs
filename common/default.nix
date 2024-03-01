@@ -19,6 +19,7 @@
     home-manager.nixosModules.home-manager
 
     ../modules/arion
+    ../modules/borgbackup.nix
   ];
 
   nixpkgs = {

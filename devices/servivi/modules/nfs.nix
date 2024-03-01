@@ -1,4 +1,3 @@
-# TODO: move this to NAS?
 {lib, ...}: let
   inherit (lib) concatMapStringsSep concatStringsSep;
 in {

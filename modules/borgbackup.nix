@@ -20,6 +20,7 @@ in {
   };
 
   config = {
+    # TODO: change this to nos
     programs.ssh.knownHosts = {
       pve.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG/4mrp8E4Ittwg8feRmPtDHSDR2+Pq4uZHeF5MweVcW";
     };
@@ -28,6 +29,7 @@ in {
       defaults = {
         environment = mkDefault {BORG_RSH = "ssh -i ${secrets.borg-ssh.path}";};
 
+        # TODO: change this to nos
         repo = mkDefault "ssh://matt@pve/data/backups/borg";
         encryption = mkDefault {
           mode = "repokey";

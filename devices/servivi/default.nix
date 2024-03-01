@@ -10,9 +10,10 @@ in {
 
     ./modules/binary-cache.nix
     ./modules/minecraft.nix
+    ./modules/nfs.nix
 
     # WIP
-    ../nas
+    ../nos
   ];
 
   vars = {
