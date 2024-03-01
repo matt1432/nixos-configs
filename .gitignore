@@ -6,3 +6,4 @@
 result*
 *config.js
 *icons
+*.direnv/
