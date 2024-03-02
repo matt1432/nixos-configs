@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) filterAttrs mapAttrs mkDefault mkOption types;
+  inherit (lib) filterAttrs mapAttrs mkDefault mkIf mkOption types;
 
   cfg = config.services.borgbackup;
   secrets = config.sops.secrets;
@@ -16,6 +16,7 @@ in {
     };
     configs = mkOption {
       type = types.attrs;
+      default = {};
     };
   };
 
@@ -25,7 +26,7 @@ in {
       pve.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG/4mrp8E4Ittwg8feRmPtDHSDR2+Pq4uZHeF5MweVcW";
     };
 
-    services.borgbackup = {
+    services.borgbackup = mkIf (cfg.configs != {}) {
       defaults = {
         environment = mkDefault {BORG_RSH = "ssh -i ${secrets.borg-ssh.path}";};
 
