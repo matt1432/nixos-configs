@@ -32,6 +32,7 @@ in {
     virtualHosts = let
       clusterIP = config.services.pcsd.virtualIps.caddy-vip.ip;
       nosIP = "10.0.0.121";
+      serviviIP = "10.0.0.249";
     in {
       "nelim.org" = {
         serverAliases = ["*.nelim.org"];
@@ -73,7 +74,7 @@ in {
 
           nix-binary-cache = {
             subDomainName = "cache";
-            reverseProxy = "${nosIP}:5000";
+            reverseProxy = "${serviviIP}:5000";
           };
 
           calibre = {
