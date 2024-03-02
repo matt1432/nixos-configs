@@ -38,6 +38,11 @@
       ];
       binto = mkNixOS [./devices/binto];
 
+      nos = mkNixOS [
+        ./devices/nos
+        secrets.nixosModules.nos
+      ];
+
       servivi = mkNixOS [
         ./devices/servivi
         secrets.nixosModules.servivi

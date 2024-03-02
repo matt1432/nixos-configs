@@ -1,5 +1,8 @@
 {...}: {
-  systemd.services."arion-jfa-go".after = ["jellyfin.service"];
+  systemd.services."arion-jfa-go" = {
+    after = ["jellyfin.service"];
+    partOf = ["jellyfin.service"];
+  };
 
   arion.projects."jfa-go"."jfa-go" = {
     image = ./images/jfa-go.nix;

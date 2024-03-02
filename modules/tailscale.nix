@@ -23,18 +23,15 @@ in {
       # Desktop
       pc = "ssh -t matt@binto 'tmux -2u new -At ${hostName}'";
 
-      # Misc Nix servers
+      # NAS
+      nos = "ssh -t matt@nos 'tmux -2u new -At ${hostName}'";
+
+      # Experimenting server
       servivi = "ssh -t matt@servivi 'tmux -2u new -At ${hostName}'";
 
       # Cluster nodes
       thingone = "ssh -t matt@thingone 'tmux -2u new -At ${hostName}'";
       thingtwo = "ssh -t matt@thingtwo 'tmux -2u new -At ${hostName}'";
-
-      # Proxmox
-      pve = "ssh -t matt@pve 'tmux -2u new -At ${hostName}'";
-
-      # Proxmox LXC instances
-      jelly = "mosh matt@pve -- ssh -t matt@10.0.0.123 'tmux -2u new -At ${hostName}'";
     };
   };
 }

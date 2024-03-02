@@ -36,7 +36,7 @@ in {
       parityDrives);
 
     contentFiles =
-      ["/var/snapraid/content"]
+      ["/var/snapraid.content"]
       ++ map (fs: "${fs.mountPoint}/content") (attrValues dataDrives);
 
     exclude = [

@@ -57,18 +57,15 @@
           # Desktop
           pc = "ssh -t matt@100.64.0.6 'tmux -2u new -At phone'";
 
-          # Misc Nix servers
+          # NAS
+          nos = "ssh -t matt@100.64.0.4 'tmux -2u new -At phone'";
+
+          # Experimenting server
           servivi = "ssh -t matt@100.64.0.7 'tmux -2u new -At phone'";
 
           # Cluster nodes
           thingone = "ssh -t matt@100.64.0.8 'tmux -2u new -At phone'";
           thingtwo = "ssh -t matt@100.64.0.9 'tmux -2u new -At phone'";
-
-          # Proxmox
-          pve = "ssh -t matt@100.64.0.4 'tmux -2u new -At phone'";
-
-          # Proxmox LXC instances
-          jelly = "mosh matt@100.64.0.4 -- ssh -t matt@10.0.0.123 'tmux -2u new -At phone'";
         };
       }
     ];

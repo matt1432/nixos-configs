@@ -4,25 +4,6 @@ in {
   system.fsPackages = fsPkgs;
   environment.systemPackages = fsPkgs;
 
-  fileSystems."/data" = {
-    device = "//10.0.0.121/public";
-    fsType = "cifs";
-    options = [
-      "x-systemd.automount"
-      "noauto"
-      "x-systemd.idle-timeout=60"
-      "x-systemd.device-timeout=5s"
-      "x-systemd.mount-timeout=5s"
-      "uid=1000"
-      "gid=1000"
-      "credentials=${builtins.toFile "creds.txt" ''
-        username=root
-        domain=WORKGROUP
-      ''}"
-    ];
-  };
-
-  /*
   fileSystems = {
     "MergerFS Data" = {
       mountPoint = "/data";
@@ -90,6 +71,11 @@ in {
       fsType = "ext4";
       device = "/dev/disk/by-id/ata-WDC_WD80EAZZ-00BKLB0_WD-CA1GN0GK-part1";
     };
+
+    "d8 8tb-6" = {
+      mountPoint = "/mnt/drives/8tb6";
+      fsType = "ext4";
+      device = "/dev/disk/by-id/ata-ST8000DM004-2U9188_ZR15JMHV-part1";
+    };
   };
-  */
 }
