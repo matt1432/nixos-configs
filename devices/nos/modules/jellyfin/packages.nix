@@ -1,15 +1,24 @@
 {
-  pkgs,
+  config,
   lib,
+  pkgs,
   ...
 }: let
   inherit (lib) hasAttr optionals;
-in {
-  environment.systemPackages = [
-    pkgs.jellyfin
-    pkgs.jellyfin-ffmpeg
 
-    (pkgs.jellyfin-web.overrideAttrs (_: o: {
+  isNvidia = config.hardware.nvidia.modesetting.enable;
+  jellyPkgs =
+    if isNvidia
+    then pkgs.cudaPackages.pkgs
+    else pkgs;
+in {
+  services.jellyfin.package = jellyPkgs.jellyfin;
+
+  environment.systemPackages = [
+    jellyPkgs.jellyfin
+    jellyPkgs.jellyfin-ffmpeg
+
+    (jellyPkgs.jellyfin-web.overrideAttrs (_: o: {
       patches =
         [
           (pkgs.fetchpatch {
