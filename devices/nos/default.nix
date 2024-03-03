@@ -26,6 +26,7 @@ in {
       extraGroups = [
         "wheel"
         "adm"
+        "borg"
       ];
   };
 

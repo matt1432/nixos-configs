@@ -29,8 +29,8 @@ in {
     rwDataDir = configPath;
   };
 
-  #services.borgbackup.configs.arion = {
-  #  paths = [configPath];
-  #  exclude = ["**/lineageos*"];
-  #};
+  services.borgbackup.configs.arion = {
+    paths = [configPath];
+    exclude = ["**/lineageos*"];
+  };
 }

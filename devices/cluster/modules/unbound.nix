@@ -18,7 +18,6 @@ in {
 
         # Custom DNS
         local-zone = [
-          "pve.nelim.org redirect"
           "headscale.nelim.org redirect"
           "git.nelim.org redirect"
           "mc.nelim.org transparent"
@@ -34,8 +33,6 @@ in {
             then "100.64.0.8"
             else "100.64.0.9";
         in [
-          "\"pve.nelim.org IN A 100.64.0.4\""
-
           "\"headscale.nelim.org. IN A ${wanIP}\""
 
           "\"git.nelim.org. IN A ${wanIP}\""
