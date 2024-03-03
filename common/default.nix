@@ -20,6 +20,7 @@
 
     ../modules/arion
     ../modules/borgbackup
+    ../modules/nvidia.nix
   ];
 
   nixpkgs = {

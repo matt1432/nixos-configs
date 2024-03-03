@@ -75,4 +75,11 @@
     qemu
     virtiofsd
   ];
+
+  nvidia = {
+    enable = true;
+    enableNvidiaSettings = true;
+    enableWayland = true;
+    enableCUDA = true;
+  };
 }

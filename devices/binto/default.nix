@@ -15,7 +15,6 @@ in {
 
     ./modules/gpu-replay.nix
     ./modules/nix-gaming.nix
-    ./modules/nvidia.nix
   ];
 
   vars = {
