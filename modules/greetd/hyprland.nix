@@ -20,7 +20,6 @@
   inherit (import ./setupMonitors.nix {inherit config pkgs;}) setupMonitors;
 
   # Nix stuff
-  isNvidia = config.hardware.nvidia.modesetting.enable;
   cfgHypr = config.home-manager.users.${mainUser}.wayland.windowManager.hyprland;
 
   devices = filterAttrs (n: v: hasPrefix "device:" n) cfgHypr.settings;
@@ -44,7 +43,7 @@
       attrs);
 in {
   hyprConf = pkgs.writeText "greetd-hypr-config" (
-    (optionalString isNvidia
+    (optionalString config.nvidia.enable
       /*
       hyprlang
       */

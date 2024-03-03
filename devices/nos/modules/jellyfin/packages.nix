@@ -6,9 +6,8 @@
 }: let
   inherit (lib) hasAttr optionals;
 
-  isNvidia = config.hardware.nvidia.modesetting.enable;
   jellyPkgs =
-    if isNvidia
+    if config.nvidia.enableCUDA
     then pkgs.cudaPackages.pkgs
     else pkgs;
 in {

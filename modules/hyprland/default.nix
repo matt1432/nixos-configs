@@ -7,8 +7,6 @@
 }: let
   inherit (lib) concatStringsSep optionals;
   inherit (config.vars) mainUser;
-
-  isNvidia = config.hardware.nvidia.modesetting.enable;
 in {
   # SYSTEM CONFIG
   imports = [
@@ -61,7 +59,7 @@ in {
               "$XDG_DATA_DIRS"
             ]}"
           ]
-          ++ (optionals isNvidia [
+          ++ (optionals config.nvidia.enable [
             "LIBVA_DRIVER_NAME, nvidia"
             "XDG_SESSION_TYPE, wayland"
             "GBM_BACKEND, nvidia-drm"

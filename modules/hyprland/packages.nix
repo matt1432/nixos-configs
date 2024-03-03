@@ -4,9 +4,8 @@
   pkgs,
   ...
 }: let
+  inherit (lib) makeLibraryPath optionalString;
   inherit (config.vars) mainUser;
-
-  isNvidia = config.hardware.nvidia.modesetting.enable;
 in {
   imports = [../dolphin.nix];
 
@@ -61,8 +60,8 @@ in {
         ];
         buildInputs = [makeWrapper];
         postBuild = ''
-          wrapProgram $out/bin/Discord ${lib.optionalString isNvidia
-            ''--prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [
+          wrapProgram $out/bin/Discord ${optionalString config.nvidia.enable
+            ''--prefix LD_LIBRARY_PATH : "${makeLibraryPath [
                 addOpenGLRunpath.driverLink
                 libglvnd
               ]}"''} \
