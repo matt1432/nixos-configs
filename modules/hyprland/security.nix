@@ -14,7 +14,7 @@ in {
     ../greetd
   ];
 
-  security.pam.services.swaylock = {};
+  security.pam.services.hyprlock = {};
   services.gnome.gnome-keyring.enable = true;
 
   home-manager.users.${mainUser} = let
@@ -23,16 +23,16 @@ in {
       name = "lock";
       runtimeInputs = [
         hmCfg.programs.ags.finalPackage
-        hmCfg.programs.swaylock.package
+        hmCfg.programs.hyprlock.package
       ];
       text = ''
         ags -r 'Tablet.setLaptopMode()'
-        swaylock -C ${hmCfg.xdg.configHome}/swaylock/config
+        hyprlock
       '';
     };
   in {
     imports = [
-      ./swaylock.nix
+      ./hyprlock.nix
       hypridle.homeManagerModules.default
     ];
 

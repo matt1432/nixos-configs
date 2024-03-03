@@ -210,6 +210,13 @@
 
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hyprlock = {
+      type = "github";
+      owner = "hyprwm";
+      repo = "hyprlock";
+
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # FIXME: https://github.com/horriblename/hyprgrass/issues/76
     hyprgrass = {
