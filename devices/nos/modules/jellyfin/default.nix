@@ -105,6 +105,17 @@ in {
           downMixAudioBoost = 1;
         };
 
+        plugins.pluginRepositories = [
+          {
+            name = "Jellyfin Stable";
+            url = "https://repo.jellyfin.org/releases/plugin/manifest-stable.json";
+          }
+          {
+            name = "Intro Skipper";
+            url = "https://raw.githubusercontent.com/jumoog/intro-skipper/master/manifest.json";
+          }
+        ];
+
         advanced.logs.enableSlowResponseWarning = false;
       };
     };
