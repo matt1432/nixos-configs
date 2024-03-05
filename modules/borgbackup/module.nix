@@ -206,10 +206,6 @@ in {
       }
     ];
 
-    programs.ssh.knownHosts = {
-      nos.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG/4mrp8E4Ittwg8feRmPtDHSDR2+Pq4uZHeF5MweVcW";
-    };
-
     services.borgbackup = let
       backupDir = "/data/borgbackups";
     in {
@@ -236,7 +232,11 @@ in {
         snapPath = "${pathPrefix}/${n}";
       in
         {
-          environment = v.environment // (mkIf (hostName != "nos") {BORG_RSH = "ssh -i ${secrets.borg-ssh.path}";});
+          environment =
+            v.environment
+            // (mkIf (hostName != "nos") {
+              BORG_RSH = "ssh -o 'StrictHostKeyChecking=no' -i ${secrets.borg-ssh.path}";
+            });
 
           paths = map (x: snapPath + x) v.paths;
 
@@ -258,7 +258,7 @@ in {
 
           repo =
             if (hostName != "nos")
-            then "ssh://matt@nos${backupDir}/${v.repo}"
+            then "ssh://borg@nos${backupDir}/${v.repo}"
             else "${backupDir}/${v.repo}";
         }
         // otherAttrs)
