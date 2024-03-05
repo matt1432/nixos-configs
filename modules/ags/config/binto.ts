@@ -5,15 +5,16 @@ import Bar from './ts/bar/binto.ts';
 import { NotifPopups, NotifCenter } from './ts/notifications/binto.ts';
 import Powermenu from './ts/powermenu.ts';
 
-App.addIcons(`${App.configDir}/icons`);
 
 // TODO: add OSD, workspace indicator and current window indicator
-export default {
+App.config({
+    icons: './icons',
+
     onConfigParsed: () => {
         globalThis.Pointers = Pointers;
     },
 
-    windows: [
+    windows: () => [
         AppLauncher(),
         NotifCenter(),
         Powermenu(),
@@ -21,4 +22,4 @@ export default {
         Bar(),
         NotifPopups(),
     ],
-};
+});

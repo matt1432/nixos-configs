@@ -10,12 +10,15 @@ import OSK from './ts/on-screen-keyboard/main.ts';
 import Powermenu from './ts/powermenu.ts';
 import QSettings from './ts/quick-settings/main.ts';
 
-App.addIcons(`${App.configDir}/icons`);
-Setup();
 
+App.config({
+    icons: './icons',
 
-export default {
-    windows: [
+    onConfigParsed: () => {
+        Setup();
+    },
+
+    windows: () => [
         ...Corners(),
 
         AppLauncher(),
@@ -30,4 +33,4 @@ export default {
         BgFade(),
         NotifPopups(),
     ],
-};
+});
