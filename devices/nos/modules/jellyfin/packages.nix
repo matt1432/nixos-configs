@@ -27,6 +27,11 @@ in {
           })
         ]
         ++ optionals (hasAttr "patches" o) o.patches;
+
+      # Enable backdrops by default
+      postInstall = ''
+        sed -E -i 's/enableBackdrops\:function\(\)\{return P\}/enableBackdrops\:function\(\)\{return \_\}/' $out/share/jellyfin-web/main.jellyfin.bundle.js
+      '';
     }))
   ];
 }
