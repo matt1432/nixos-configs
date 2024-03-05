@@ -1,4 +1,6 @@
-{...}: {
+{config, ...}: let
+  jellyService = config.systemd.services.jellyfin.serviceConfig;
+in {
   systemd.services."arion-jfa-go" = {
     after = ["jellyfin.service"];
     partOf = ["jellyfin.service"];
@@ -11,7 +13,7 @@
     ports = ["8056:8056"];
 
     volumes = [
-      "/var/lib/jellyfin/jfa-go:/data"
+      "${jellyService.WorkingDirectory}/jfa-go:/data"
       "/etc/localtime:/etc/localtime:ro"
     ];
   };

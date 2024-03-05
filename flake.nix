@@ -157,7 +157,6 @@
       repo = "nixos-pcsd";
     };
 
-    # Oksys inputs
     headscale = {
       type = "github";
       owner = "juanfont";
@@ -186,10 +185,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Nos inputs
     arion = {
       type = "github";
       owner = "hercules-ci";
       repo = "arion";
+
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    jellyfin-flake = {
+      type = "github";
+      owner = "matt1432";
+      repo = "nixos-jellyfin";
 
       inputs.nixpkgs.follows = "nixpkgs";
     };

@@ -630,6 +630,26 @@
         "type": "github"
       }
     },
+    "jellyfin-flake": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1709648545,
+        "narHash": "sha256-TyhCoG1py0dRMFvjHo9DxExj5GERwXSdCI8hri5NI0M=",
+        "owner": "matt1432",
+        "repo": "nixos-jellyfin",
+        "rev": "5b423ad2e5566b404c58b790a46b7cee7592101a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "matt1432",
+        "repo": "nixos-jellyfin",
+        "type": "github"
+      }
+    },
     "lib-aggregate": {
       "inputs": {
         "flake-utils": "flake-utils_3",
@@ -1339,6 +1359,7 @@
         "hypridle": "hypridle",
         "hyprland": "hyprland",
         "hyprlock": "hyprlock",
+        "jellyfin-flake": "jellyfin-flake",
         "modernx-src": "modernx-src",
         "nh": "nh",
         "nix-gaming": "nix-gaming",
