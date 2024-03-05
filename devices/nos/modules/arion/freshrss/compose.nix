@@ -20,7 +20,7 @@ in {
 
       environment = {
         TZ = "America/New_York";
-        CRON_MIN = "'3,33'";
+        CRON_MIN = "3,33";
       };
     };
 
