@@ -650,6 +650,22 @@
         "type": "github"
       }
     },
+    "jellyfin-ultrachromic-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1688568900,
+        "narHash": "sha256-DnmvmRTkgmaZVNeOpnqPF6vBouFYGTypRxjyvq0AWI0=",
+        "owner": "CTalvio",
+        "repo": "Ultrachromic",
+        "rev": "b56db9cfdd40c83e563158d50787374708e92c9b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "CTalvio",
+        "repo": "Ultrachromic",
+        "type": "github"
+      }
+    },
     "lib-aggregate": {
       "inputs": {
         "flake-utils": "flake-utils_3",
@@ -1360,6 +1376,7 @@
         "hyprland": "hyprland",
         "hyprlock": "hyprlock",
         "jellyfin-flake": "jellyfin-flake",
+        "jellyfin-ultrachromic-src": "jellyfin-ultrachromic-src",
         "modernx-src": "modernx-src",
         "nh": "nh",
         "nix-gaming": "nix-gaming",

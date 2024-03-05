@@ -369,6 +369,13 @@
     };
 
     ## Dracula and theme src
+    jellyfin-ultrachromic-src = {
+      type = "github";
+      owner = "CTalvio";
+      repo = "Ultrachromic";
+      flake = false;
+    };
+
     bat-theme-src = {
       type = "github";
       owner = "matt1432";
