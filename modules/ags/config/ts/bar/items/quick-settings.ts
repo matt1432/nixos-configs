@@ -1,4 +1,4 @@
-const { Box, Label } = Widget;
+const { Box, Icon } = Widget;
 
 import Audio from '../hovers/audio.ts';
 import Bluetooth from '../hovers/bluetooth.ts';
@@ -70,7 +70,7 @@ export default () => {
 
                 ...hoverRevealers,
 
-                Label(' '),
+                Icon('nixos-logo-symbolic'),
 
                 Separator(SPACING),
             ],

@@ -28,30 +28,22 @@ in {
       programs.ags.enable = true;
 
       home = {
-        file = {
-          ".config/ags".source = symlink /home/${mainUser}/.nix/modules/ags/config;
+        file =
+          {
+            ".config/ags".source = symlink /home/${mainUser}/.nix/modules/ags/config;
 
-          # Icons
-          "${agsConfigDir}/icons/mouse-razer-symbolic.svg".source = pkgs.fetchurl {
-            url = "https://raw.githubusercontent.com/bithatch/razer-icon-font/main/src/devices/mouse.svg";
-            hash = "sha256-A1+eIp2VEFDyY23GIHKhbnByHXrnVS3QgIJ9sjjtuZw=";
-          };
-          "${agsConfigDir}/icons/down-large-symbolic.svg".source = pkgs.fetchurl {
-            url = "https://www.svgrepo.com/download/158537/down-chevron.svg";
-            hash = "sha256-mOfNjgZh0rt6XosKA2kpLY22lJldSS1XCphgrnvZH1s=";
-          };
+            "${agsConfigDir}/types".source = agsTypes.source;
+            "${agsConfigDir}/config.js".text =
+              /*
+              javascript
+              */
+              ''
+                import { transpileTypeScript } from './js/utils.js';
 
-          "${agsConfigDir}/types".source = agsTypes.source;
-          "${agsConfigDir}/config.js".text =
-            /*
-            javascript
-            */
-            ''
-              import { transpileTypeScript } from './js/utils.js';
-
-              export default (await transpileTypeScript('${hostName}')).default;
-            '';
-        };
+                export default (await transpileTypeScript('${hostName}')).default;
+              '';
+          }
+          // (import ./icons.nix {inherit pkgs agsConfigDir;});
 
         packages =
           [config.customPkgs.coloryou]
