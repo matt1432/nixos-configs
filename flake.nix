@@ -249,6 +249,13 @@
 
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    astal = {
+      type = "github";
+      owner = "Aylur";
+      repo = "Astal";
+
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     coc-stylelintplus = {
       type = "github";

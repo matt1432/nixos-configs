@@ -1,5 +1,6 @@
 {
   ags,
+  astal,
   config,
   pkgs,
   ...
@@ -8,10 +9,15 @@
 
   isTouchscreen = config.hardware.sensor.iio.enable;
 in {
+  # Enable pam for ags and astal
+  security.pam.services.ags = {};
+  security.pam.services.astal = {};
+
   services.upower.enable = true;
 
   home-manager.users.${mainUser}.imports = [
     ags.homeManagerModules.default
+    astal.homeManagerModules.default
 
     ({
       config,
@@ -25,6 +31,14 @@ in {
       agsTypes = config.home.file.".local//share/com.github.Aylur.ags/types";
       agsConfigDir = ".nix/modules/ags/config";
     in {
+      # Experimental Gtk4 ags
+      programs.astal = {
+        enable = true;
+        extraPackages = with pkgs; [
+          libadwaita
+        ];
+      };
+
       programs.ags.enable = true;
 
       home = {
