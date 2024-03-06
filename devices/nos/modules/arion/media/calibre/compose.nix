@@ -12,6 +12,11 @@ in {
         PUID = "1000";
         PGID = "1000";
         TZ = "America/New_York";
+
+        # WebUI vars
+        SUBFOLDER = "/calibre/";
+        TITLE = "CalibreDB";
+        NO_DECOR = "true";
       };
 
       volumes = ["${rwPath}/data-db:/config"];

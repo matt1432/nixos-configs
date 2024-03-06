@@ -123,11 +123,7 @@ in {
               radarr.reverseProxy = "${nosIP}:7878";
               sabnzbd.reverseProxy = "${nosIP}:8382";
               sonarr.reverseProxy = "${nosIP}:8989";
-
-              calibre = {
-                experimental = true;
-                reverseProxy = "${nosIP}:8580";
-              };
+              calibre.reverseProxy = "${nosIP}:8580";
 
               qbittorent = {
                 subDirName = "qbt";
