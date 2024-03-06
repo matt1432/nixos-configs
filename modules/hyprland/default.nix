@@ -23,7 +23,8 @@ in {
 
   xdg.portal = {
     enable = true;
-    xdgOpenUsePortal = true;
+    # FIXME: should I be using this?
+    # xdgOpenUsePortal = true;
 
     config = {
       common.default = ["gtk"];
