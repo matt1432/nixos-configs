@@ -7,7 +7,7 @@ const watchAndCompileSass = (host) => {
         const scss = `${App.configDir}/scss/${host}.scss`;
         const css = `/tmp/ags-${host}/style.css`;
 
-        execAsync(`sassc ${scss} ${css}`).then(() => {
+        execAsync(`sass ${scss} ${css}`).then(() => {
             App.resetCss();
             App.applyCss(css);
         }).catch(print);

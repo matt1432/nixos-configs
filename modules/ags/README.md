@@ -30,7 +30,7 @@ as your `config.js` after copying the contents of `./config` to
 The main dependencies to try it are as follows:
 
 - **bun** to transpile TS to JS
-- **sassc** to compile SCSS to CSS
+- **dart-sass** to compile SCSS to CSS
 - **[coloryou](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/common/pkgs/coloryou)** for media player colors
 - **playerctl** for media player functionality
 

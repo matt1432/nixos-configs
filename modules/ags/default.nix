@@ -63,7 +63,7 @@ in {
           [config.customPkgs.coloryou]
           ++ (with pkgs; [
             # ags
-            sassc
+            dart-sass
             bun
             playerctl
 

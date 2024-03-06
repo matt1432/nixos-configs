@@ -26,7 +26,7 @@ in {
       packages = [
         hyprland
         pkgs.bun
-        pkgs.sassc
+        pkgs.dart-sass
         pkgs.swww
         pkgs.gtk3
         pkgs.glib
