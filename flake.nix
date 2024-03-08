@@ -202,6 +202,16 @@
     };
 
     # Desktop inputs
+    nixpkgs-nvidia = {
+      type = "github";
+      owner = "NixOS";
+      repo = "nixpkgs";
+
+      # This was the last commit where my nvidia drivers
+      # were working correctly while gaming
+      rev = "1536926ef5621b09bba54035ae2bb6d806d72ac8";
+    };
+
     hyprland = {
       type = "github";
       owner = "hyprwm";

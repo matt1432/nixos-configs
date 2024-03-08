@@ -2,14 +2,20 @@
   config,
   lib,
   modulesPath,
+  nixpkgs-nvidia,
   pkgs,
   ...
-}: {
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+}: let
+  nvidiaPkgs = import nixpkgs-nvidia {
+    inherit (pkgs) system;
+    config.allowUnfree = true;
+  };
+in {
+  nixpkgs.hostPlatform = "x86_64-linux";
   imports = [(modulesPath + "/installer/scan/not-detected.nix")];
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_zen;
+    kernelPackages = nvidiaPkgs.linuxPackages_zen;
 
     kernelParams = ["amd_pstate=active"];
     kernelModules = ["kvm-amd"];
