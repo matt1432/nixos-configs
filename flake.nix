@@ -206,7 +206,6 @@
       type = "github";
       owner = "hyprwm";
       repo = "Hyprland";
-      rev = "f590505daf90dfb4059289a906863b59663e70a6";
 
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -236,7 +235,7 @@
 
     hycov = {
       type = "github";
-      owner = "DreamMaoMao";
+      owner = "Ayuei";
       repo = "hycov";
 
       inputs.hyprland.follows = "hyprland";
