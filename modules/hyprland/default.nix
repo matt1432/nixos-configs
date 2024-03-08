@@ -16,6 +16,12 @@ in {
     ./security.nix
   ];
 
+  # Needed for hycov fork
+  environment.systemPackages = with pkgs; [
+    gcc
+    pciutils
+  ];
+
   services = {
     dbus.enable = true;
     gvfs.enable = true;
