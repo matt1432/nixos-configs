@@ -18,7 +18,7 @@
   parityDrives = filterAttrs (n: v: hasPrefix "p" n) config.fileSystems;
   dataDrives = filterAttrs (n: v: hasPrefix "d" n) config.fileSystems;
 in {
-  snapraid = {
+  services.snapraid = {
     enable = true;
 
     dataDisks = listToAttrs (attrValues (mapAttrs (n: fs: {
