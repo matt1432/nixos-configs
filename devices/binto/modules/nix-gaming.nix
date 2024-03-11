@@ -3,8 +3,6 @@
   pkgs,
   ...
 }: {
-  imports = [nix-gaming.nixosModules.steamCompat];
-
   programs = {
     steam = {
       # Disable HW accel to fix flickers
