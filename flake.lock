@@ -1355,19 +1355,36 @@
         "type": "github"
       }
     },
+    "pcs-web-ui-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1706898094,
+        "narHash": "sha256-MkSYjztQ7AquDCTaCEDNZRLxbqZqHHGjKG0k57j+kr4=",
+        "owner": "ClusterLabs",
+        "repo": "pcs-web-ui",
+        "rev": "726fa9ec0c70e9c3885be4631e1dbc2de9ddec05",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ClusterLabs",
+        "repo": "pcs-web-ui",
+        "type": "github"
+      }
+    },
     "pcsd": {
       "inputs": {
         "nixpkgs": "nixpkgs_8",
         "nixpkgs-pacemaker": "nixpkgs-pacemaker",
         "pcs-src": "pcs-src",
+        "pcs-web-ui-src": "pcs-web-ui-src",
         "pyagentx-src": "pyagentx-src"
       },
       "locked": {
-        "lastModified": 1709792437,
-        "narHash": "sha256-Ify/2rUQeYnNEo6ZNXb91AiMswBgkNWDqE4qfZyBA5w=",
+        "lastModified": 1710114520,
+        "narHash": "sha256-sfZtJDMRg2P3r/m0CPaApwD6AyB4mCI1BlArL5Jndso=",
         "owner": "matt1432",
         "repo": "nixos-pcsd",
-        "rev": "5f457d49a233dd7bb98e91ed6d1040d6e720356d",
+        "rev": "7e4cd1dd6ad8d0c86f5ecfdf4b09ae8630ad429f",
         "type": "github"
       },
       "original": {

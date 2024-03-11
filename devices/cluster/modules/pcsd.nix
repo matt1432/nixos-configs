@@ -18,6 +18,7 @@ in {
   services.pcsd = {
     enable = true;
     enableBinaryCache = true;
+    enableWebUI = true;
 
     clusterName = "thingies";
 

@@ -37,9 +37,9 @@ in {
       "nelim.org" = {
         serverAliases = ["*.nelim.org"];
         extraConfig = ''
-           tls {
-             dns cloudflare {$CLOUDFLARE_API_TOKEN}
-             resolvers 1.0.0.1
+          tls {
+            dns cloudflare {$CLOUDFLARE_API_TOKEN}
+            resolvers 1.0.0.1
           }
         '';
 
@@ -49,6 +49,16 @@ in {
           hauk.reverseProxy = "${nosIP}:3003";
           headscale.reverseProxy = "${clusterIP}:8085";
           jelly.reverseProxy = "${nosIP}:8097";
+
+          pcsd = {
+            extraConfig = ''
+              reverse_proxy https://${clusterIP}:2224 {
+                  transport http {
+                      tls_insecure_skip_verify
+                  }
+              }
+            '';
+          };
 
           # Resume builder
           resume.reverseProxy = "${nosIP}:3060";
