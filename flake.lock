@@ -1520,6 +1520,7 @@
         "spotifywm-src": "spotifywm-src",
         "touch-gestures-src": "touch-gestures-src",
         "trash-d-src": "trash-d-src",
+        "vimplugin-riscv-src": "vimplugin-riscv-src",
         "xresources-theme-src": "xresources-theme-src"
       }
     },
@@ -1754,6 +1755,22 @@
       "original": {
         "owner": "numtide",
         "repo": "treefmt-nix",
+        "type": "github"
+      }
+    },
+    "vimplugin-riscv-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1708141837,
+        "narHash": "sha256-9OByJMfa85gu98g8rGJKtDgXqQdzZ8pc0du4UVomeqY=",
+        "owner": "henry-hsieh",
+        "repo": "riscv-asm-vim",
+        "rev": "4a287063af666292af74d912fd97b7af5fa32925",
+        "type": "github"
+      },
+      "original": {
+        "owner": "henry-hsieh",
+        "repo": "riscv-asm-vim",
         "type": "github"
       }
     },

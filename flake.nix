@@ -333,6 +333,13 @@
       flake = false;
     };
 
+    vimplugin-riscv-src = {
+      type = "github";
+      owner = "henry-hsieh";
+      repo = "riscv-asm-vim";
+      flake = false;
+    };
+
     ## Overlays
     spotifywm-src = {
       # FIXME: remove this input once this gets merged: https://github.com/NixOS/nixpkgs/pull/261501

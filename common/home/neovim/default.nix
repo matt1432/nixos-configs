@@ -4,6 +4,7 @@
   lib,
   nvim-theme-src,
   coc-stylelintplus,
+  vimplugin-riscv-src,
   ...
 }: let
   inherit (config.vars) neovimIde;
@@ -250,6 +251,10 @@ in {
                 EOF
               '';
             }
+            (pkgs.vimUtils.buildVimPlugin {
+              name = "riscv-asm";
+              src = vimplugin-riscv-src;
+            })
           ])
         # Treesitter
         ++ (with pkgs.vimPlugins; [
