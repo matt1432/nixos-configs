@@ -23,6 +23,7 @@ in {
         blur_size = 5;
         blur_passes = 2;
         vibrancy_darkness = 0.0;
+        brightness = 1.0;
       }
     ];
 
@@ -40,8 +41,17 @@ in {
     labels = [
       {
         inherit monitor;
+        text = "$TIME";
+        font_size = 80;
+        font_family = "Ubuntu Mono";
+        position.y = 240;
+        shadow_passes = 3;
+      }
+      {
+        inherit monitor;
         text = "<i> Groovy </i>";
         font_family = "Ubuntu Mono";
+        shadow_passes = 3;
       }
     ];
   };
