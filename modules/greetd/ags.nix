@@ -17,7 +17,7 @@ in {
     imports = [
       ags.homeManagerModules.default
       ../../common/vars
-      ../../home/theme.nix
+      ../../home/theme
     ];
 
     programs.ags.enable = true;

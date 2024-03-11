@@ -5,7 +5,7 @@
 }: let
   inherit (config.vars) configDir;
 in {
-  imports = [../../home/theme.nix];
+  imports = [../../home/theme];
 
   home.packages = with pkgs; [swww];
 
