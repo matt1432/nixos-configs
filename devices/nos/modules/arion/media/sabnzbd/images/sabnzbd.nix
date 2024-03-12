@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage {
   imageName = "lscr.io/linuxserver/sabnzbd";
-  imageDigest = "sha256:0048320fe830e5c6a06167ac57625b7777f7d1dff18c404181bd2bc2e6914e8f";
-  sha256 = "0x8fk41ppnc9fhnm9zrfbjmqzlx7falz8a9awc8ys1ipi1hnmxa2";
+  imageDigest = "sha256:e211fb0366a98952dd8befd92184a2a37b7a4c2c1652ee1d91f7fa2487151b5a";
+  sha256 = "14fkslik1i1p9bmgl03hjqa36pzl8r7l2mjb60qg4x661g651nas";
   finalImageName = "lscr.io/linuxserver/sabnzbd";
   finalImageTag = "latest";
 }
