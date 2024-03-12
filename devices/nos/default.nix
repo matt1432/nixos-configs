@@ -22,12 +22,12 @@ in {
   };
 
   users.users.${mainUser} = {
-      isNormalUser = true;
-      extraGroups = [
-        "wheel"
-        "adm"
-        "borg"
-      ];
+    isNormalUser = true;
+    extraGroups = [
+      "wheel"
+      "adm"
+      "borg"
+    ];
   };
 
   home-manager.users.${mainUser} = {

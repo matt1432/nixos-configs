@@ -27,8 +27,8 @@ in {
       WG_DEFAULT_DNS = "1.0.0.1";
     };
 
-    volumes =[
-       "${rwPath}/data:/etc/wireguard"
+    volumes = [
+      "${rwPath}/data:/etc/wireguard"
     ];
 
     ports = [

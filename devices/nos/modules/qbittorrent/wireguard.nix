@@ -31,9 +31,9 @@ in {
 
   systemd.services = let
     joinWgNamespace = {
-      bindsTo = [ "netns@wg.service" ];
-      requires = [ "network-online.target" ];
-      after = [ "wireguard-wg0.service" ];
+      bindsTo = ["netns@wg.service"];
+      requires = ["network-online.target"];
+      after = ["wireguard-wg0.service"];
       unitConfig.JoinsNamespaceOf = "netns@wg.service";
       serviceConfig.NetworkNamespacePath = "/var/run/netns/wg";
     };
