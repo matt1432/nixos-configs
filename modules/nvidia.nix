@@ -64,8 +64,9 @@ in {
 
       package = with config.boot.kernelPackages.nvidiaPackages;
         if cfg.enableWayland
-        # Vulkan is much more stable in Wayland
-        then vulkan_beta
+        # Keep the driver version at 535.xx.xx for Wayland desktop
+        # games stutter on more recent versions
+        then production
         else stable;
     };
 

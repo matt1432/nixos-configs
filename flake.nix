@@ -104,8 +104,7 @@
 
     home-manager = {
       type = "github";
-      # FIXME: wait for https://github.com/nix-community/home-manager/pull/5038
-      owner = "matt1432";
+      owner = "nix-community";
       repo = "home-manager";
 
       inputs.nixpkgs.follows = "nixpkgs";
@@ -120,7 +119,7 @@
 
     nix-on-droid = {
       type = "github";
-      owner = "t184256";
+      owner = "nix-community";
       repo = "nix-on-droid";
 
       inputs = {
@@ -144,9 +143,7 @@
 
     nix-gaming = {
       type = "github";
-      # FIXME: https://github.com/fufexan/nix-gaming/issues/161
-      # owner = "fufexan";
-      owner = "NotAShelf";
+      owner = "fufexan";
       repo = "nix-gaming";
     };
 
@@ -202,16 +199,6 @@
     };
 
     # Desktop inputs
-    nixpkgs-nvidia = {
-      type = "github";
-      owner = "NixOS";
-      repo = "nixpkgs";
-
-      # This was the last commit where my nvidia drivers
-      # were working correctly while gaming
-      rev = "1536926ef5621b09bba54035ae2bb6d806d72ac8";
-    };
-
     hyprland = {
       type = "github";
       owner = "hyprwm";
@@ -341,14 +328,6 @@
     };
 
     ## Overlays
-    spotifywm-src = {
-      # FIXME: remove this input once this gets merged: https://github.com/NixOS/nixpkgs/pull/261501
-      type = "github";
-      owner = "dasJ";
-      repo = "spotifywm";
-      flake = false;
-    };
-
     gpu-screen-recorder-src = {
       type = "git";
       url = "https://repo.dec05eba.com/gpu-screen-recorder";
