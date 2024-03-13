@@ -63,11 +63,29 @@ in {
       open = cfg.enableWayland;
 
       package = with config.boot.kernelPackages.nvidiaPackages;
-        if cfg.enableWayland
-        # Keep the driver version at 535.xx.xx for Wayland desktop
-        # games stutter on more recent versions
-        then production
-        else stable;
+        if !cfg.enableWayland
+        then stable
+        else let
+          rcu_patch = pkgs.fetchpatch {
+            url = "https://github.com/gentoo/gentoo/raw/c64caf53/x11-drivers/nvidia-drivers/files/nvidia-drivers-470.223.02-gpl-pfn_valid.patch";
+            hash = "sha256-eZiQQp2S/asE7MfGvfe6dA/kdCvek9SYa/FFGp24dVg=";
+          };
+        in
+          # Keep the driver version at 535.xx.xx for Wayland desktop
+          # games stutter on more recent versions
+          # https://github.com/NixOS/nixpkgs/blob/e256f39bec8e01808c0a3e411d961cbced3f4e09/pkgs/os-specific/linux/nvidia-x11/default.nix#L70
+          mkDriver rec {
+            version = "535.43.28";
+            persistencedVersion = "535.98";
+            settingsVersion = "535.98";
+            sha256_64bit = "sha256-ic7r3MPp65fdEwqDRyc0WiKonL5eF6KZUpfD/C3vYaU=";
+            openSha256 = "sha256-a5iccyISHheOfTwpsrz6puqrVhgzYWFvNlykVG3+PVc=";
+            settingsSha256 = "sha256-jCRfeB1w6/dA27gaz6t5/Qo7On0zbAPIi74LYLel34s=";
+            persistencedSha256 = "sha256-WviDU6B50YG8dO64CGvU3xK8WFUX8nvvVYm/fuGyroM=";
+            url = "https://developer.nvidia.com/downloads/vulkan-beta-${lib.concatStrings (lib.splitVersion version)}-linux";
+
+            patches = [rcu_patch];
+          };
     };
 
     environment.systemPackages = with pkgs; ([
