@@ -114,24 +114,10 @@ in {
         # Add whitespace after, to allow
         # sudo to inherit all other aliases
         sudo = "sudo ";
-        frick = "sudo $(fc -ln -1)";
 
         ls = "ls -lah --color=auto";
         tree = "tree -a -I node_modules";
         cp = "cp -r";
-
-        chore =
-          /*
-          bash
-          */
-          ''
-            (
-            cd ~/.nix
-            git add flake.lock
-            git commit -m 'chore: update flake.lock'
-            git push
-            )
-          '';
       };
 
       #profileExtra = ''
