@@ -11,7 +11,7 @@ in {
       image = ./images/server.nix;
       command = ["start.sh" "immich"];
       env_file = [
-        "${./.env}"
+        "${./env}"
         secrets.immich.path
       ];
 
@@ -32,7 +32,7 @@ in {
       image = ./images/server.nix;
       command = ["start.sh" "microservices"];
       env_file = [
-        "${./.env}"
+        "${./env}"
         secrets.immich.path
       ];
 
@@ -48,7 +48,7 @@ in {
       image = ./images/machine-learning.nix;
       restart = "always";
       env_file = [
-        "${./.env}"
+        "${./env}"
         secrets.immich.path
       ];
 
@@ -62,7 +62,7 @@ in {
       restart = "always";
       tmpfs = ["/data"];
       env_file = [
-        "${./.env}"
+        "${./env}"
         secrets.immich.path
       ];
     };
@@ -71,7 +71,7 @@ in {
       image = ./images/postgres.nix;
       restart = "always";
       env_file = [
-        "${./.env}"
+        "${./env}"
         secrets.immich.path
       ];
 

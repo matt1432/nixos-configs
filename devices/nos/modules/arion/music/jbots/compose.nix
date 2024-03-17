@@ -10,8 +10,8 @@ in {
       restart = "always";
 
       volumes = [
-        "${rwPath}/be/config.txt:/app/config.txt:ro"
-        "${rwPath}/be/playlists:/app/playlists:rw"
+        "${rwPath}/be/config.txt:/jmb/config/config.txt:ro"
+        "${rwPath}/be/playlists:/jmb/config/playlists:rw"
       ];
     };
 
@@ -21,8 +21,8 @@ in {
       restart = "always";
 
       volumes = [
-        "${rwPath}/br/config.txt:/app/config.txt:ro"
-        "${rwPath}/br/playlists:/app/playlists:rw"
+        "${rwPath}/br/config.txt:/jmb/config/config.txt:ro"
+        "${rwPath}/br/playlists:/jmb/config/playlists:rw"
       ];
     };
   };

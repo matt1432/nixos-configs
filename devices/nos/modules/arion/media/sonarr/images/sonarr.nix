@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage {
   imageName = "lscr.io/linuxserver/sonarr";
-  imageDigest = "sha256:86122cfebc3bdb59cc9c49e531bc79bf26e8f6aec2df2172c9aadb09f3d589b0";
-  sha256 = "0g6halgbryar0f88c7p20phg17a7y3sxsghgdb9fyvwpsq2qgnsn";
+  imageDigest = "sha256:29fc87e914b8e288651271e2ba304bbdf2b2e7d2b3cbe700345c997d0e90a821";
+  sha256 = "1rhw9ymbw8mdrfs5w8pdnd7wnlnw79ajb5wrzbxsrq57wvqk1ns6";
   finalImageName = "lscr.io/linuxserver/sonarr";
   finalImageTag = "latest";
 }

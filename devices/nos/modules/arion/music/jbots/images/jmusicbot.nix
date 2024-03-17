@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage {
-  imageName = "alexandreteles/jmusicbot";
-  imageDigest = "sha256:7c687716becfcbd4315997ece76287afbac6ceea3d64c74637f862db0a07b3a5";
-  sha256 = "07kh6kxkziyqni48k23phz4c2gvvp01v3sb861jg7jjh96icigbw";
-  finalImageName = "alexandreteles/jmusicbot";
+  imageName = "craumix/jmusicbot";
+  imageDigest = "sha256:361930342510033352a489bcfa0e2eda86de5b33f4057cd4ce2c2cbe1616ea11";
+  sha256 = "0rb1nrjinpiyavybclghbizqzg2jy0yrldb0qanfnf9qyr2p7k08";
+  finalImageName = "craumix/jmusicbot";
   finalImageTag = "latest";
 }
