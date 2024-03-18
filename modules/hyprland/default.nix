@@ -18,7 +18,10 @@ in {
     ./security.nix
   ];
 
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+    GTK_USE_PORTAL = "1";
+  };
 
   environment.systemPackages = with pkgs; [
     # Needed for hycov fork
@@ -33,13 +36,22 @@ in {
 
   programs.hyprland = with hyprland.packages.${pkgs.system}; {
     enable = true;
-    package = default;
+    package = default.overrideAttrs (o: {
+      postFixup = ''
+        rm "$out/share/xdg-desktop-portal/hyprland-portals.conf"
+
+        cat <<EOF > "$out/share/xdg-desktop-portal/hyprland-portals.conf"
+        [preferred]
+        default=hyprland;gtk
+        org.freedesktop.impl.portal.FileChooser=kde
+        EOF
+      '';
+    });
     portalPackage = xdg-desktop-portal-hyprland;
   };
 
   xdg.portal.extraPortals = [
-    cfg.portalPackage
-    pkgs.xdg-desktop-portal-gtk
+    pkgs.xdg-desktop-portal-kde
   ];
 
   # HOME-MANAGER CONFIG

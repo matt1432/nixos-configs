@@ -38,6 +38,7 @@ in {
         "userChrome.tab.bottom_rounded_corner" = true;
         "userChrome.tab.bottom_rounded_corner.wave" = false;
         "userChrome.tab.bottom_rounded_corner.australis" = true;
+        "widget.use-xdg-desktop-portal.file-picker" = 1;
 
         # Open previous windows and tabs
         "browser.startup.page" = 3;
