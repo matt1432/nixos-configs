@@ -79,7 +79,7 @@ in {
                 addOpenGLRunpath.driverLink
                 libglvnd
               ]}"''} \
-          --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland"
+          --add-flags "--enable-features=UseOzonePlatform,WebRTCPipeWireCapturer --ozone-platform=wayland"
         '';
       })
     ];

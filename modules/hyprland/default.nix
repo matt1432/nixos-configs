@@ -16,8 +16,10 @@ in {
     ./security.nix
   ];
 
-  # Needed for hycov fork
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
   environment.systemPackages = with pkgs; [
+    # Needed for hycov fork
     gcc
     pciutils
   ];
@@ -27,19 +29,10 @@ in {
     gvfs.enable = true;
   };
 
-  xdg.portal = {
+  programs.hyprland = with hyprland.packages.${pkgs.system}; {
     enable = true;
-    # FIXME: should I be using this?
-    # xdgOpenUsePortal = true;
-
-    config = {
-      common.default = ["gtk"];
-      hyprland.default = ["gtk" "hyprland"];
-    };
-
-    extraPortals = [
-      pkgs.xdg-desktop-portal-gtk
-    ];
+    package = default;
+    portalPackage = xdg-desktop-portal-hyprland;
   };
 
   # HOME-MANAGER CONFIG
@@ -53,7 +46,9 @@ in {
 
     wayland.windowManager.hyprland = {
       enable = true;
-      package = hyprland.packages.${pkgs.system}.default;
+      package = config.programs.hyprland.finalPackage;
+
+      systemd.variables = ["-all"];
 
       settings = {
         env = let
