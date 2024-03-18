@@ -7,6 +7,8 @@
 }: let
   inherit (lib) concatStringsSep optionals;
   inherit (config.vars) mainUser;
+
+  cfg = config.programs.hyprland;
 in {
   # SYSTEM CONFIG
   imports = [
@@ -35,6 +37,11 @@ in {
     portalPackage = xdg-desktop-portal-hyprland;
   };
 
+  xdg.portal.extraPortals = [
+    cfg.portalPackage
+    pkgs.xdg-desktop-portal-gtk
+  ];
+
   # HOME-MANAGER CONFIG
   home-manager.users.${mainUser} = {
     imports = [
@@ -46,7 +53,7 @@ in {
 
     wayland.windowManager.hyprland = {
       enable = true;
-      package = config.programs.hyprland.finalPackage;
+      package = cfg.finalPackage;
 
       systemd.variables = ["-all"];
 
