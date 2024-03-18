@@ -17,6 +17,20 @@ in {
       ../../home/mpv
       ../../home/obs.nix
       ../../home/wofi
+
+      ({config, ...}: let
+        symlink = config.lib.file.mkOutOfStoreSymlink;
+        configDir = "/home/${mainUser}/.nix/modules/hyprland/config";
+      in {
+        xdg.configFile = {
+          "dolphinrc".source = symlink "${configDir}/dolphinrc";
+          "kdeglobals".source = symlink "${configDir}/kdeglobals";
+          "kiorc".source = symlink "${configDir}/kiorc";
+          "mimeapps.list".source = symlink "${configDir}/mimeapps.list";
+          "neofetch".source = symlink "${configDir}/neofetch";
+          "swappy".source = symlink "${configDir}/swappy";
+        };
+      })
     ];
 
     home.packages = with pkgs; [

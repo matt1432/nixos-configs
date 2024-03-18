@@ -38,7 +38,6 @@ in {
     imports = [
       ../../home/firefox
 
-      ./home/dotfiles.nix
       ./home/packages.nix
     ];
 

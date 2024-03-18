@@ -1,10 +1,12 @@
 [Added Associations]
 application/pdf=firefox.desktop;
+text/x-java=nvim.desktop;
 x-scheme-handler/mailto=userapp-Thunderbird-9ME591.desktop;
 x-scheme-handler/mid=userapp-Thunderbird-9ME591.desktop;
 
 [Default Applications]
 application/pdf=firefox.desktop;
 message/rfc822=userapp-Thunderbird-9ME591.desktop
+text/x-java=nvim.desktop;
 x-scheme-handler/mailto=userapp-Thunderbird-9ME591.desktop
 x-scheme-handler/mid=userapp-Thunderbird-9ME591.desktop
