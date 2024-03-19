@@ -9,8 +9,8 @@
       enable = true;
       remotePlay.openFirewall = true;
 
-      extraCompatPackages = [
-        nix-gaming.packages.${pkgs.system}.proton-ge
+      extraCompatPackages = with pkgs; [
+        proton-ge-bin
       ];
     };
   };
