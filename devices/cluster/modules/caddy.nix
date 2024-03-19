@@ -98,6 +98,7 @@ in {
           };
 
           # FreshRSS & Co
+          bridge.reverseProxy = "${nosIP}:3006";
           drss.reverseProxy = "${nosIP}:3007";
           freshrss = {
             subDomainName = "rss";

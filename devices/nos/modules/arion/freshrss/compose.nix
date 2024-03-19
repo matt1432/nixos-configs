@@ -1,4 +1,8 @@
-{config, ...}: let
+{
+  config,
+  pkgs,
+  ...
+}: let
   inherit (config.sops) secrets;
   inherit (config.arion) rwDataDir;
 
@@ -10,10 +14,29 @@ in {
       restart = "always";
 
       ports = ["2800:80"];
+      extra_hosts = [
+        "drss.nelim.org=10.0.0.130"
+        "bridge.nelim.org=10.0.0.130"
+      ];
 
-      volumes = [
+      volumes = let
+        rss-bridge = pkgs.stdenv.mkDerivation {
+          name = "rss-bridge-ext";
+          version = "unstable";
+          src = pkgs.fetchFromGitHub {
+            owner = "DevonHess";
+            repo = "FreshRSS-Extensions";
+            rev = "299c1febc279be77fa217ff5c2965a620903b974";
+            hash = "sha256-++kgbrGJohKeOeLjcy7YV3QdCf9GyZDtbntlFmmIC5k=";
+          };
+          installPhase = ''
+            mkdir $out
+            cp -ar ./xExtension-RssBridge $out/
+          '';
+        };
+      in [
         "${rwPath}/data:/var/www/FreshRSS/data"
-        "${rwPath}/data-extensions:/var/www/FreshRSS/extensions"
+        "${rss-bridge}/xExtension-RssBridge:/var/www/FreshRSS/extensions/xExtension-RssBridge:ro"
       ];
 
       env_file = [secrets.freshrss.path];
@@ -45,6 +68,16 @@ in {
       image = ./images/docker-hub-rss.nix;
       restart = "always";
       ports = ["3007:3000"];
+    };
+
+    "rss-bridge" = {
+      image = ./images/rss-bridge.nix;
+      restart = "always";
+
+      volumes = [
+        "${rwPath}/bridge:/config"
+      ];
+      ports = ["3006:80"];
     };
   };
 }

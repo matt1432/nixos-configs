@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage {
-  imageName = "weejewel/wg-easy";
-  imageDigest = "sha256:ea65f283dfeb62628ce942ce38974f9db05177aa27ab69b787115b78591552f3";
-  sha256 = "1cv9s2pgqxqwp7lq2jzf8l58jn9cdhl3gkql6xjf0v5xgj0wifw1";
-  finalImageName = "weejewel/wg-easy";
+  imageName = "ghcr.io/wg-easy/wg-easy";
+  imageDigest = "sha256:daa94b77901bdef3cb10151416c095e64cf66a6539fa8f748c09812b60b97f49";
+  sha256 = "02880zh6fdmjlyi9nrvz1vzj4qa5642079xyzpbx3c1rplg033md";
+  finalImageName = "ghcr.io/wg-easy/wg-easy";
   finalImageTag = "latest";
 }
