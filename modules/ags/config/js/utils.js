@@ -29,13 +29,15 @@ export const transpileTypeScript = async(host) => {
         // Create the dir if it doesn't exist
         `mkdir -p /tmp/ags-${host}; ` +
 
+        // Let bun see tsconfig.json
+        `cd ${App.configDir};` +
+
         `bun build ${App.configDir}/${host}.ts ` +
         '--external resource:///* ' +
         '--external gi://* ' +
         '--external cairo ' +
-        '--external */fzf.es.js ' +
 
-        // Since bun wants to right in cwd, we just redirect stdin instead
+        // Since bun wants to write in cwd, we just redirect stdin instead
         `> ${outPath}`,
     ]).catch(print);
 

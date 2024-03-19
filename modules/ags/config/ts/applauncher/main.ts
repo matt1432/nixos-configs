@@ -1,8 +1,7 @@
 const Applications = await Service.import('applications');
 const { Box, Entry, Icon, Label, ListBox, Revealer, Scrollable } = Widget;
 
-// @ts-expect-error find cleaner way to import this
-import { Fzf, FzfResultItem } from 'file:///home/matt/.nix/modules/ags/config/node_modules/fzf/dist/fzf.es.js';
+import { Fzf, FzfResultItem } from 'fzf';
 
 import PopupWindow from '../misc/popup.ts';
 import AppItem from './app-item.ts';
@@ -19,11 +18,10 @@ const Applauncher = (window_name = 'applauncher') => {
 
     const setSort = (text: string) => {
         const fzf = new Fzf(Applications.list, {
-            selector: (app: Application) => {
-                return app.name + app.executable;
-            },
+            selector: (app) => app.name + app.executable,
+
             tiebreakers: [
-                (a: Application, b: Application) => b.frequency - a.frequency,
+                (a, b) => b.item.frequency - a.item.frequency,
             ],
         });
 
@@ -32,12 +30,14 @@ const Applauncher = (window_name = 'applauncher') => {
             const row1 = (a.get_children()[0] as AgsAppItem).attribute.app.name;
             const row2 = (b.get_children()[0] as AgsAppItem).attribute.app.name;
 
-            if (!row1 || !row2) {
+            const rowRes1 = fzfResults.find((r) => r.item.name === row1)?.score;
+            const rowRes2 = fzfResults.find((r) => r.item.name === row2)?.score;
+
+            if (!rowRes1 || !rowRes2) {
                 return 0;
             }
 
-            return fzfResults.indexOf(row1) -
-            fzfResults.indexOf(row1) || 0;
+            return rowRes1 - rowRes2;
         });
     };
 
@@ -95,7 +95,7 @@ const Applauncher = (window_name = 'applauncher') => {
                 const item = (row.get_children()[0] as AgsAppItem);
 
                 if (item.attribute.app) {
-                    const isMatching = fzfResults.find((r) => {
+                    const isMatching = fzfResults.some((r) => {
                         return r.item.name === item.attribute.app.name;
                     });
 

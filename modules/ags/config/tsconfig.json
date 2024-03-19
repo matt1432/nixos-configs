@@ -10,9 +10,13 @@
     "strict": true,
     "noImplicitAny": false,
     "baseUrl": ".",
+    "paths": {
+      "fzf": ["./node_modules/fzf/dist/types"],
+    },
     "typeRoots": [
       "./types",
-      "./global-types.d.ts"
+      "./global-types.d.ts",
+      "./node_modules",
     ],
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
