@@ -27,6 +27,8 @@ in {
       symlink = config.lib.file.mkOutOfStoreSymlink;
       inherit (lib) optionals;
 
+      astalTypes = config.home.file.".local/share/io.Aylur.Astal/types";
+
       # https://github.com/Aylur/ags/blob/e1f2d311ceb496a69ef6daa6aebb46ce511b2f22/nix/hm-module.nix#L69
       agsTypes = config.home.file.".local//share/com.github.Aylur.ags/types";
       agsConfigDir = ".nix/modules/ags/config";
@@ -44,8 +46,9 @@ in {
       home = {
         file =
           {
-            ".config/ags".source = symlink /home/${mainUser}/.nix/modules/ags/config;
+            ".config/astal/types".source = astalTypes.source;
 
+            ".config/ags".source = symlink /home/${mainUser}/.nix/modules/ags/config;
             "${agsConfigDir}/types".source = agsTypes.source;
             "${agsConfigDir}/config.js".text =
               /*
