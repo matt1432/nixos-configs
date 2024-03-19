@@ -30,14 +30,10 @@ const Applauncher = (window_name = 'applauncher') => {
             const row1 = (a.get_children()[0] as AgsAppItem).attribute.app.name;
             const row2 = (b.get_children()[0] as AgsAppItem).attribute.app.name;
 
-            const rowRes1 = fzfResults.find((r) => r.item.name === row1)?.score;
-            const rowRes2 = fzfResults.find((r) => r.item.name === row2)?.score;
+            const s1 = fzfResults.find((r) => r.item.name === row1)?.score ?? 0;
+            const s2 = fzfResults.find((r) => r.item.name === row2)?.score ?? 0;
 
-            if (!rowRes1 || !rowRes2) {
-                return 0;
-            }
-
-            return rowRes1 - rowRes2;
+            return s1 - s2;
         });
     };
 
