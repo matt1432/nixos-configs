@@ -27,17 +27,6 @@ in {
   options.arion = {
     enable = mkEnableOption (lib.mdDoc "My custom arion config layer module");
 
-    # TODO: move this somewhere else
-    toYAML = mkOption {
-      type = types.anything;
-      readOnly = true;
-      default = name: attrs:
-        pkgs.runCommandCC name {} ''
-          echo '${builtins.toJSON attrs}' |
-          ${pkgs.remarshal}/bin/remarshal --if json --of yaml > $out
-        '';
-    };
-
     rwDataDir = mkOption {
       default = "/var/lib/arion";
       type = types.str;

@@ -1,6 +1,10 @@
-{config, ...}: let
-  inherit (config.arion) toYAML;
+{
+  config,
+  pkgs,
+  ...
+}: let
   inherit (config.sops) secrets;
+  inherit (pkgs.writers) writeYAML;
 in {
   arion.projects."homepage"."homepage" = {
     image = ./images/homepage.nix;
@@ -15,11 +19,11 @@ in {
     env_file = [secrets.homepage.path];
 
     volumes = let
-      services = toYAML "services.yaml" (import ./services.nix);
+      services = writeYAML "services.yaml" (import ./services.nix);
 
-      bookmarks = toYAML "bookmarks.yaml" {};
+      bookmarks = writeYAML "bookmarks.yaml" {};
 
-      settings = toYAML "settings.yaml" {
+      settings = writeYAML "settings.yaml" {
         # FIXME: title not working
         title = "bruh";
         theme = "dark";
@@ -33,7 +37,7 @@ in {
         };
       };
 
-      widgets = toYAML "widgets.yaml" [
+      widgets = writeYAML "widgets.yaml" [
         {
           resources = {
             cpu = true;
