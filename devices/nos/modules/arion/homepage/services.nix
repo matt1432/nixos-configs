@@ -208,6 +208,13 @@
         };
       }
       {
+        rss-bridge = {
+          href = "https://bridge.nelim.org";
+          icon = "rss-bridge.png";
+          description = "make rss feeds from anything";
+        };
+      }
+      {
         calibre = {
           href = "https://lan.nelim.org/calibre";
           icon = "calibre.png";

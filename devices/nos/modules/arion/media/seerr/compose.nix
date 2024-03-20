@@ -16,6 +16,7 @@ in {
       "${rwPath}/data:/app/config"
     ];
 
+    extra_hosts = ["lan.nelim.org=10.0.0.130"];
     ports = ["5055:5055"];
   };
 }

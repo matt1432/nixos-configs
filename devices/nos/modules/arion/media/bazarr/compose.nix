@@ -14,6 +14,7 @@ in {
         TZ = "America/New_York";
       };
 
+      extra_hosts = ["lan.nelim.org=10.0.0.130"];
       ports = [
         "6767:6767"
       ];
@@ -38,6 +39,7 @@ in {
         TZ = "America/New_York";
       };
 
+      extra_hosts = ["lan.nelim.org=10.0.0.130"];
       ports = [
         "6766:6767"
       ];

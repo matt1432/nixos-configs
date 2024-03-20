@@ -7,6 +7,7 @@ in {
     image = ./images/radarr.nix;
     restart = "always";
 
+    extra_hosts = ["lan.nelim.org=10.0.0.130"];
     ports = ["7878:7878"];
 
     environment = {

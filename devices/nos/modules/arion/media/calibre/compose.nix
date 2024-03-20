@@ -21,6 +21,7 @@ in {
 
       volumes = ["${rwPath}/data-db:/config"];
 
+      extra_hosts = ["lan.nelim.org=10.0.0.130"];
       ports = [
         "8580:8080"
         #"8081:8081"
@@ -44,6 +45,7 @@ in {
         "${rwPath}/data-db/Calibre Library:/books"
       ];
 
+      extra_hosts = ["lan.nelim.org=10.0.0.130"];
       ports = ["8083:8083"];
     };
   };

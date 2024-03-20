@@ -7,6 +7,7 @@ in {
     image = ./images/sonarr.nix;
     restart = "always";
 
+    extra_hosts = ["lan.nelim.org=10.0.0.130"];
     ports = ["8989:8989"];
 
     environment = {
