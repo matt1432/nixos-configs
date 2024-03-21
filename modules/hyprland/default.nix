@@ -5,7 +5,7 @@
   lib,
   ...
 }: let
-  inherit (lib) concatStringsSep optionals;
+  inherit (lib) concatStringsSep mkIf optionals;
   inherit (config.vars) mainUser;
 
   cfg = config.programs.hyprland;
@@ -18,10 +18,13 @@ in {
     ./security.nix
   ];
 
-  environment.sessionVariables = {
-    NIXOS_OZONE_WL = "1";
-    GTK_USE_PORTAL = "1";
-  };
+  environment.sessionVariables =
+    {
+      GTK_USE_PORTAL = "1";
+    }
+    // mkIf (!config.nvidia.enable) {
+      NIXOS_OZONE_WL = "1";
+    };
 
   environment.systemPackages = with pkgs; [
     # Needed for hycov fork
