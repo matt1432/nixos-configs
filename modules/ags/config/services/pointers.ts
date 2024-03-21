@@ -188,8 +188,13 @@ class Pointers extends Service {
                             getNoCloseWidgets(noCloseWidgetsNames);
 
                         const widgets = overlayLayer.filter((n) => {
-                            const window =
-                                    (App.getWindow(n.namespace) as PopupWindow);
+                            let window = null as null | PopupWindow;
+
+                            if (App.windows.some((win) =>
+                                win.name === n.namespace)) {
+                                window = (App
+                                    .getWindow(n.namespace) as PopupWindow);
+                            }
 
                             return window &&
                                 window.close_on_unfocus &&
@@ -201,10 +206,10 @@ class Pointers extends Service {
                             // Don't handle clicks when on certain widgets
                         }
                         else {
-                            widgets?.forEach(
+                            widgets.forEach(
                                 (w) => {
                                     if (!(pos.x > w.x && pos.x < w.x + w.w &&
-                                        pos.y > w.y && pos.y < w.y + w.h)) {
+                                          pos.y > w.y && pos.y < w.y + w.h)) {
                                         App.closeWindow(w.namespace);
                                     }
                                 },
