@@ -1,6 +1,8 @@
-const { Box, CenterBox, Window } = Widget;
+const { Box, CenterBox } = Widget;
 
 import Separator from '../misc/separator.ts';
+
+import BarRevealer from './fullscreen.ts';
 
 import Clock from './items/clock.ts';
 import NotifButton from './items/notif-button.ts';
@@ -9,19 +11,17 @@ import SysTray from './items/systray.ts';
 
 const PADDING = 20;
 
-
-export default () => Window({
-    name: 'bar',
-    layer: 'overlay',
+export default () => BarRevealer({
+    monitor: 1,
     exclusivity: 'exclusive',
     anchor: ['bottom', 'left', 'right'],
-    monitor: 1,
-
-    child: Box({
+    bar: Box({
         vertical: true,
         children: [
             CenterBox({
                 class_name: 'bar',
+                hexpand: true,
+
                 start_widget: Box({
                     hpack: 'start',
                     children: [

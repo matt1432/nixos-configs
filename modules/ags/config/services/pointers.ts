@@ -155,7 +155,13 @@ class Pointers extends Service {
                     const overlayLayer = key.levels['3'];
 
                     if (overlayLayer) {
-                        const noCloseWidgetsNames = ['bar', 'osk'];
+                        const noCloseWidgetsNames = [
+                            'bar-0',
+                            'bar-1',
+                            'bar-2',
+                            'bar-3',
+                            'osk',
+                        ];
 
                         const getNoCloseWidgets = (names: Array<string>) => {
                             const arr = [] as Array<Layer>;

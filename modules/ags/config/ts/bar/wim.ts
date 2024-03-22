@@ -1,4 +1,4 @@
-const { Window, CenterBox, Box } = Widget;
+const { CenterBox, Box } = Widget;
 
 import Separator from '../misc/separator.ts';
 
@@ -13,73 +13,68 @@ import SysTray from './items/systray.ts';
 import TabletToggle from './items/tablet-toggle.ts';
 import Workspaces from './items/workspaces.ts';
 
-import BarReveal from './fullscreen.ts';
+import BarRevealer from './fullscreen.ts';
 
 const SPACING = 12;
 
 
-export default () => Window({
-    name: 'bar',
-    layer: 'overlay',
+export default () => BarRevealer({
     anchor: ['top', 'left', 'right'],
-    margins: [-1, 0, 0, 0],
     exclusivity: 'exclusive',
-    child: BarReveal({
-        child: CenterBox({
-            css: 'margin: 6px 5px 5px 5px',
-            class_name: 'bar',
+    bar: CenterBox({
+        css: 'margin: 5px 5px 5px 5px',
+        class_name: 'bar',
 
-            start_widget: Box({
-                hpack: 'start',
-                children: [
+        start_widget: Box({
+            hpack: 'start',
+            children: [
 
-                    OskToggle(),
+                OskToggle(),
 
-                    Separator(SPACING),
+                Separator(SPACING),
 
-                    TabletToggle(),
+                TabletToggle(),
 
-                    Separator(SPACING),
+                Separator(SPACING),
 
-                    SysTray(),
+                SysTray(),
 
-                    Workspaces(),
+                Workspaces(),
 
-                    Separator(SPACING),
+                Separator(SPACING),
 
-                    CurrentWindow(),
+                CurrentWindow(),
 
-                ],
-            }),
+            ],
+        }),
 
-            center_widget: Box({
-                children: [
-                    Separator(SPACING),
+        center_widget: Box({
+            children: [
+                Separator(SPACING),
 
-                    Clock(),
+                Clock(),
 
-                    Separator(SPACING),
-                ],
-            }),
+                Separator(SPACING),
+            ],
+        }),
 
-            end_widget: Box({
-                hpack: 'end',
-                children: [
-                    Heart(),
+        end_widget: Box({
+            hpack: 'end',
+            children: [
+                Heart(),
 
-                    Separator(SPACING),
+                Separator(SPACING),
 
-                    Battery(),
+                Battery(),
 
-                    Separator(SPACING),
+                Separator(SPACING),
 
-                    NotifButton(),
+                NotifButton(),
 
-                    Separator(SPACING),
+                Separator(SPACING),
 
-                    QsToggle(),
-                ],
-            }),
+                QsToggle(),
+            ],
         }),
     }),
 });
