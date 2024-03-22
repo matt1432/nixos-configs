@@ -42,6 +42,25 @@ export default ({ bar, transition, monitor = 0, ...rest }) => {
         BarVisible.setValue(!v.value.monitors.includes(monitor));
     });
 
+    const barCloser = Window({
+        name: `bar-${monitor}-closer`,
+        visible: false,
+        monitor,
+        anchor: ['top', 'bottom', 'left', 'right'],
+        layer: 'overlay',
+
+        child: EventBox({
+            on_hover: () => {
+                barCloser.set_visible(false);
+                BarVisible.setValue(false);
+            },
+
+            child: Box({
+                css: 'padding: 1px;',
+            }),
+        }),
+    });
+
     // Hide bar instantly when out of focus
     Hyprland.active.workspace.connect('changed', () => {
         const addr = FullscreenState.value.clientAddrs.get(monitor);
@@ -51,29 +70,9 @@ export default ({ bar, transition, monitor = 0, ...rest }) => {
 
             if (client!.workspace.id !== Hyprland.active.workspace.id) {
                 BarVisible.setValue(false);
+                barCloser.visible = false;
             }
         }
-    });
-
-    const barCloser = Window({
-        name: `bar-${monitor}-closer`,
-        visible: false,
-        monitor,
-        anchor: ['top', 'bottom', 'left', 'right'],
-        layer: 'overlay',
-
-        child: EventBox({
-            on_hover: (self) => {
-                const parent = self.get_parent();
-
-                parent?.set_visible(false);
-                BarVisible.setValue(false);
-            },
-
-            child: Box({
-                css: 'padding: 1px;',
-            }),
-        }),
     });
 
     const buffer = Box({
