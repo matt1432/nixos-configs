@@ -1,0 +1,12 @@
+diff --git a/src/libstore/path.cc b/src/libstore/path.cc
+index e642abcd5..0e584ef33 100644
+--- a/src/libstore/path.cc
++++ b/src/libstore/path.cc
+@@ -12,7 +12,7 @@ static void checkName(std::string_view path, std::string_view name)
+         if (!((c >= '0' && c <= '9')
+                 || (c >= 'a' && c <= 'z')
+                 || (c >= 'A' && c <= 'Z')
+-                || c == '+' || c == '-' || c == '.' || c == '_' || c == '?' || c == '='))
++                || c == '+' || c == '-' || c == '.' || c == '_' || c == '?' || c == '=' || c == '!'))
+             throw BadStorePath("store path '%s' contains illegal character '%s'", path, c);
+ }

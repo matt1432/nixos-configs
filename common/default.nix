@@ -30,6 +30,14 @@
   boot.tmp.cleanOnBoot = true;
 
   nix = {
+    # Allow deleting store files with '.' in the name
+    package = pkgs.nixUnstable.overrideAttrs (oldAttrs: {
+      patches =
+        (oldAttrs.patches or [])
+        ++ [
+          ./overlays/nix/patch
+        ];
+    });
     # Edit nix.conf
     settings = {
       # Store
