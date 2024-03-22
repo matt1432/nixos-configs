@@ -3,7 +3,6 @@ const { Box, EventBox, Revealer, Window } = Widget;
 
 
 const FullscreenState = Variable({
-    fullscreen: false,
     monitors: [] as number[],
     clientAddrs: new Map() as Map<number, string>,
 });
@@ -11,24 +10,28 @@ const FullscreenState = Variable({
 Hyprland.connect('event', (hyprObj) => {
     const arrayEquals = (a1: unknown[], a2: unknown[]) =>
         a1.sort().toString() === a2.sort().toString();
+
     const mapEquals = (m1: Map<number, string>, m2: Map<number, string>) =>
         m1.size === m2.size &&
         Array.from(m1.keys()).every((key) => m1.get(key) === m2.get(key));
 
     const fs = FullscreenState.value;
-    const fsClients = hyprObj.clients.filter((c) => c.fullscreen);
+    const fsClients = hyprObj.clients.filter((c) => {
+        const mon = Hyprland.getMonitor(c.monitor);
 
-    const fullscreen = fsClients.length > 0;
+        return c.fullscreen &&
+            c.workspace.id === mon?.activeWorkspace.id;
+    });
+
     const monitors = fsClients.map((c) => c.monitor);
     const clientAddrs = new Map(fsClients.map((c) => [c.monitor, c.address]));
 
-    const hasChanged = fullscreen !== fs.fullscreen ||
+    const hasChanged =
         !arrayEquals(monitors, fs.monitors) ||
         !mapEquals(clientAddrs, fs.clientAddrs);
 
     if (hasChanged) {
         FullscreenState.setValue({
-            fullscreen,
             monitors,
             clientAddrs,
         });
