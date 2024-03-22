@@ -121,10 +121,8 @@ class Brightness extends Service {
     }
 
     #monitorKbdState() {
-        Variable(0, {
-            poll: [
-                INTERVAL,
-                `brightnessctl -d ${KBD} g`,
+        const interval = setInterval(() => {
+            execAsync(`brightnessctl -d ${KBD} g`).then(
                 (out) => {
                     if (parseInt(out) !== this.#kbd) {
                         this.#kbd = parseInt(out);
@@ -133,8 +131,10 @@ class Brightness extends Service {
                         return this.#kbd;
                     }
                 },
-            ],
-        });
+            ).catch(() => {
+                interval.destroy();
+            });
+        }, INTERVAL);
     }
 }
 
