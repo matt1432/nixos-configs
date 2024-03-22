@@ -1,10 +1,9 @@
 {
-  buildGo120Module,
+  buildGoModule,
   curseforge-server-downloader-src,
-  lib,
   ...
 }:
-buildGo120Module {
+buildGoModule {
   pname = "curseforge-server-downloader";
   version = "unstable";
 
