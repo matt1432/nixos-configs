@@ -35,7 +35,7 @@ Hyprland.connect('event', (hyprObj) => {
     }
 });
 
-export default ({ bar, monitor = 0, ...rest }) => {
+export default ({ bar, transition, monitor = 0, ...rest }) => {
     const BarVisible = Variable(true);
 
     FullscreenState.connect('changed', (v) => {
@@ -76,6 +76,17 @@ export default ({ bar, monitor = 0, ...rest }) => {
         }),
     });
 
+    const buffer = Box({
+        css: 'min-height: 10px',
+        visible: BarVisible.bind().as((v) => !v),
+    });
+
+    const rev = Revealer({
+        transition,
+        reveal_child: BarVisible.bind(),
+        child: bar,
+    });
+
     return Window({
         name: `bar-${monitor}`,
         layer: 'overlay',
@@ -92,20 +103,13 @@ export default ({ bar, monitor = 0, ...rest }) => {
                 css: 'min-height: 1px; padding: 1px;',
                 hexpand: true,
                 hpack: 'fill',
-                vertical: true,
+                vertical: transition === 'slide_up' ||
+                    transition === 'slide_down',
 
-                children: [
-                    Box({
-                        css: 'min-height: 10px',
-                        visible: BarVisible.bind().as((v) => !v),
-                    }),
-
-                    Revealer({
-                        transition: 'slide_up',
-                        reveal_child: BarVisible.bind(),
-                        child: bar,
-                    }),
-                ],
+                children: transition === 'slide_up' ||
+                        transition === 'slide_left' ?
+                    [buffer, rev] :
+                    [rev, buffer],
             }),
         }).on('enter-notify-event', () => {
             if (!BarVisible.value) {
