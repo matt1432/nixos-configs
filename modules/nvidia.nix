@@ -91,7 +91,7 @@ in {
     environment.systemPackages = with pkgs; ([
         libva-utils
         nvidia-vaapi-driver
-        nvtop-nvidia
+        nvtopPackages.nvidia
         pciutils
         vdpauinfo
       ]
