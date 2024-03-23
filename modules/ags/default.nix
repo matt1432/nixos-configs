@@ -28,10 +28,21 @@ in {
       inherit (lib) optionals;
 
       astalTypes = config.home.file.".local/share/io.Aylur.Astal/types";
+      astalConfigDir = ".nix/modules/ags/astal";
 
       # https://github.com/Aylur/ags/blob/e1f2d311ceb496a69ef6daa6aebb46ce511b2f22/nix/hm-module.nix#L69
       agsTypes = config.home.file.".local//share/com.github.Aylur.ags/types";
       agsConfigDir = ".nix/modules/ags/config";
+
+      configJs =
+        /*
+        javascript
+        */
+        ''
+          import { transpileTypeScript } from './js/utils.js';
+
+          export default (await transpileTypeScript('${hostName}')).default;
+        '';
     in {
       # Experimental Gtk4 ags
       programs.astal = {
@@ -46,19 +57,13 @@ in {
       home = {
         file =
           {
-            ".config/astal/types".source = astalTypes.source;
+            ".config/astal".source = symlink /home/${mainUser}/.nix/modules/ags/astal;
+            "${astalConfigDir}/types".source = astalTypes.source;
+            "${astalConfigDir}/config.js".text = configJs;
 
             ".config/ags".source = symlink /home/${mainUser}/.nix/modules/ags/config;
             "${agsConfigDir}/types".source = agsTypes.source;
-            "${agsConfigDir}/config.js".text =
-              /*
-              javascript
-              */
-              ''
-                import { transpileTypeScript } from './js/utils.js';
-
-                export default (await transpileTypeScript('${hostName}')).default;
-              '';
+            "${agsConfigDir}/config.js".text = configJs;
           }
           // (import ./icons.nix {inherit pkgs agsConfigDir;});
 

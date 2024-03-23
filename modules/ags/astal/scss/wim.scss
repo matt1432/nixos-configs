@@ -1,0 +1,10 @@
+window {
+  all: unset;
+}
+
+
+.base {
+  background-color: #{"@window_bg_color"};
+  border: 1px solid #{"@accent_bg_color"};
+  padding: 5px;
+}
