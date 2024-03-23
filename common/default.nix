@@ -31,7 +31,7 @@
 
   nix = {
     # Allow deleting store files with '.' in the name
-    package = pkgs.nixUnstable.overrideAttrs (oldAttrs: {
+    package = pkgs.nix.overrideAttrs (oldAttrs: {
       patches =
         (oldAttrs.patches or [])
         ++ [
