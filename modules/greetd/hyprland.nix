@@ -93,7 +93,7 @@ in {
       }
 
       exec-once = ${setupMonitors}
-      exec-once = ags -b greeter &> /tmp/ags.log; hyprctl dispatch exit
+      exec-once = astal -b greeter &> /tmp/astal.log; hyprctl dispatch exit
     ''
   );
 }

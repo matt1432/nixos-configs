@@ -41,9 +41,7 @@ export const transpileTypeScript = async(host) => {
         `> ${outPath}`,
     ]).catch(print);
 
-    if (host !== 'greeter') {
-        watchAndCompileSass(host);
-    }
+    watchAndCompileSass(host);
 
     return await import(`file://${outPath}`);
 };

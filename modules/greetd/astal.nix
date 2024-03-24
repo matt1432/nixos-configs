@@ -1,5 +1,5 @@
 {
-  ags,
+  astal,
   config,
   pkgs,
   ...
@@ -15,12 +15,12 @@ in {
 
   home-manager.users.greeter = {
     imports = [
-      ags.homeManagerModules.default
+      astal.homeManagerModules.default
       ../../common/vars
       ../../home/theme
     ];
 
-    programs.ags.enable = true;
+    programs.astal.enable = true;
 
     home = {
       packages = [
@@ -33,14 +33,14 @@ in {
       ];
 
       file = {
-        ".config/ags/.wallpaper".source = "${pkgs.dracula-theme}/wallpapers/waves.png";
+        ".config/astal/.wallpaper".source = "${pkgs.dracula-theme}/wallpapers/waves.png";
 
-        ".config/ags" = {
-          source = ../ags/config;
+        ".config/astal" = {
+          source = ../ags/astal;
           recursive = true;
         };
 
-        ".config/ags/config.js".text =
+        ".config/astal/config.js".text =
           /*
           javascript
           */
