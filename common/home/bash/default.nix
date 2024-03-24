@@ -65,13 +65,13 @@ in {
           disabled = false;
           repeat = true;
           symbol = "󰔳 ";
-          format = "[$symbol]($style)";
+          format = "[ $symbol]($style)";
           threshold = 1;
         };
 
         nix_shell = {
           symbol = "❄️ ";
-          format = "[$symbol]($style)";
+          format = "[ $symbol]($style)";
         };
 
         character = {
