@@ -204,9 +204,6 @@
       owner = "hyprwm";
       repo = "Hyprland";
 
-      # FIXME: https://github.com/hyprwm/Hyprland/issues/5231
-      rev = "8c88689faf691a4369528e6d3d52c024cd61125d";
-
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hypridle = {
