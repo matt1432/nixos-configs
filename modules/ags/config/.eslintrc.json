@@ -43,7 +43,8 @@
     "no-loop-func": ["error"],
     "no-magic-numbers": ["error", {
       "ignore": [-1, 0.1, 0, 1, 2, 3, 10, 33, 66, 100, 255, 360, 450, 1000],
-      "ignoreDefaultValues": true
+      "ignoreDefaultValues": true,
+      "ignoreArrayIndexes": true
     }],
     "no-multi-assign": ["error"],
     "no-new": ["error"],
@@ -94,7 +95,7 @@
     "@stylistic/linebreak-style": ["error", "unix"],
     "@stylistic/lines-between-class-members": ["warn", "always", { "exceptAfterSingleLine": true }],
     "@stylistic/max-len": ["warn", {
-      "code": 80,
+      "code": 100,
       "ignoreComments": true,
       "ignoreTrailingComments": true,
       "ignoreUrls": true
