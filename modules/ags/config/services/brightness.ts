@@ -1,7 +1,6 @@
 const { exec, execAsync } = Utils;
 
 const KBD = 'tpacpi::kbd_backlight';
-const CAPS = 'input0::capslock';
 const INTERVAL = 500;
 const SCREEN_ICONS = {
     90: 'display-brightness-high-symbolic',
@@ -26,8 +25,17 @@ class Brightness extends Service {
     #kbdMax = 0;
     #screen = 0;
     #screenIcon = 'display-brightness-symbolic';
+    #capsName = 'input0::capslock';
     #caps = 0;
     #capsIcon = 'caps-lock-symbolic';
+
+    get capsName() {
+        return this.#capsName;
+    }
+
+    set capsName(value: string) {
+        this.#capsName = value;
+    }
 
     get kbd() {
         return this.#kbd;
@@ -85,7 +93,7 @@ class Brightness extends Service {
         try {
             this.#monitorKbdState();
             this.#kbdMax = Number(exec(`brightnessctl -d ${KBD} m`));
-            this.#caps = Number(exec(`brightnessctl -d ${CAPS} g`));
+            this.#caps = Number(exec(`bash -c brightnessctl -d ${this.#capsName} g`));
             this.#screen = Number(exec('brightnessctl g')) /
                 Number(exec('brightnessctl m'));
         }
@@ -107,7 +115,7 @@ class Brightness extends Service {
     }
 
     fetchCapsState() {
-        execAsync(`brightnessctl -d ${CAPS} g`)
+        execAsync(`brightnessctl -d ${this.#capsName} g`)
             .then((out) => {
                 this.#caps = Number(out);
                 this.#capsIcon = this.#caps ?
