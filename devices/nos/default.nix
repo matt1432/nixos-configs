@@ -14,6 +14,7 @@ in {
     ./modules/qbittorrent
     ./modules/snapraid.nix
     ./modules/subtitles/sub-clean.nix
+    ./modules/subtitles/subsync
   ];
 
   vars = {

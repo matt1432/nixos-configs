@@ -1,0 +1,65 @@
+diff --git a/gizmo/media/speechrec.h b/gizmo/media/speechrec.h
+index de7a932..076c8fe 100644
+--- a/gizmo/media/speechrec.h
++++ b/gizmo/media/speechrec.h
+@@ -5,6 +5,7 @@
+ #include "text/words.h"
+ #include <pocketsphinx.h>
+ #include <string>
++#include <util/cmd_ln.h>
+
+
+ class SpeechRecognition : public AVOutput
+
+diff --git a/gizmo/media/speechrec.cpp b/gizmo/media/speechrec.cpp
+index 4fe0bf7..fd041b9 100644
+--- a/gizmo/media/speechrec.cpp
++++ b/gizmo/media/speechrec.cpp
+@@ -3,6 +3,7 @@
+ #include "general/exception.h"
+ #include <cstring>
+ #include <cstdint>
++#include <util/cmd_ln.h>
+
+ using namespace std;
+
+@@ -30,28 +31,13 @@ SpeechRecognition::~SpeechRecognition()
+
+ void SpeechRecognition::setParam(const string &key, const string &val)
+ {
+-	arg_t const *args = ps_args();
++	ps_arg_t const *args = ps_args();
+
+ 	for (size_t i = 0; args[i].name != NULL; i++)
+ 	{
+ 		if (key == args[i].name)
+ 		{
+-			int type = args[i].type;
+-			if (type & ARG_INTEGER)
+-				cmd_ln_set_int_r(m_config, key.c_str(), atol(val.c_str()));
+-			else if (type & ARG_FLOATING)
+-				cmd_ln_set_float_r(m_config, key.c_str(), atof(val.c_str()));
+-			else if (type & ARG_STRING)
+-				cmd_ln_set_str_r(m_config, key.c_str(), val.c_str());
+-			else if (type & ARG_BOOLEAN)
+-				cmd_ln_set_boolean_r(m_config, key.c_str(),
+-						!(val.empty() || val == "0"));
+-			else
+-				throw EXCEPTION("invalid parameter type")
+-					.module("SpeechRecognition", "setParameter")
+-					.add("parameter", key)
+-					.add("value", val)
+-					.add("type", type);
++			cmd_ln_set_str_extra_r(m_config, key.c_str(), val.c_str());
+
+ 			return;
+ 		}
+@@ -89,7 +75,7 @@ void SpeechRecognition::start(const AVStream *stream)
+ 		throw EXCEPTION("can't init Sphinx engine")
+ 			.module("SpeechRecognition", "ps_init");
+
+-	int32_t frate = cmd_ln_int32_r(m_config, "-frate");
++	int32_t frate = ((cmd_ln_access_r(m_config, "-frate"))->val).fl;
+ 	m_framePeriod = 1.0 / (double)frate;
+
+ 	if (frate == 0)
