@@ -9,7 +9,6 @@
   inherit (lib) concatStringsSep removePrefix;
   hyprPkgs = config.home-manager.users.${mainUser}.wayland.windowManager.hyprland.finalPackage;
 
-  # TODO: manage this with ags
   gsr = pkgs.stdenv.mkDerivation {
     name = "gpu-screen-recorder";
     version = gpu-screen-recorder-src.rev;
@@ -74,7 +73,6 @@ in {
         name = "gpu-save-replay";
         runtimeInputs = [procps];
         text = ''
-          # TODO: add notif on success
           pkill --signal SIGUSR1 -f gpu-screen-recorder
         '';
       })
@@ -110,11 +108,7 @@ in {
     ];
 
     wayland.windowManager.hyprland.settings = {
-      bind = [",F8, exec, gpu-save-replay"];
-
-      exec-once = [
-        "sleep 10; tmux new-session -s gsr -d gsr-start"
-      ];
+      bind = [",F8, exec, ags -r 'GSR.saveReplay()'"];
     };
   };
 }

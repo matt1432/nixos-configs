@@ -52,8 +52,6 @@ export default () => Box({
                 return;
             }
 
-            console.log(notif.attribute.hovered);
-
             // If notif isn't hovered or was closed, slide away
             if (!notif.attribute.hovered || force) {
                 notif.attribute.slideAway('Left');
