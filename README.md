@@ -9,6 +9,9 @@ for UI. Click on
 [this](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/modules/ags)
 to see my configuration.
 
+I'm also a victim of Stockholm syndrome at this point and make my scripts
+in TypeScript because it's the scripting language I am most comfortable with.
+
 ## About
 
 ### General
@@ -21,7 +24,7 @@ explained
 
 ### Flake Location
 
-This git repo will always be located at `/home/${mainUser}/.nix`
+This git repo will always be located at `$FLAKE` (`config.environment.variables.FLAKE`)
 and symlinked to `/etc/nixos` to have everything where NixOS tools
 expect things to be.
 
@@ -29,6 +32,9 @@ ie.
 
 ```bash
 sudo rm -r /etc/nixos
+
+echo "$FLAKE" # /home/matt/.nix
+
 sudo ln -sf /home/matt/.nix /etc/nixos
 ```
 

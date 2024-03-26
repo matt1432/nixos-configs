@@ -1,6 +1,6 @@
 # Check git status of nix configs
 fetchNix() {(
-    cd ~/.nix || exit 1
+    cd "$FLAKE" || exit 1
     git fetch --all --quiet
     GIT=$(git -c color.status=always status |
             grep -v -e "On branch" \

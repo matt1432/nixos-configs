@@ -1,6 +1,7 @@
 {
   config,
   home-manager,
+  lib,
   nh,
   nix-melt,
   nur,
@@ -64,7 +65,7 @@
       extraArgs = "--keep-since 30d";
     };
   };
-  environment.variables.FLAKE = "/home/matt/.nix";
+  environment.variables.FLAKE = lib.mkDefault "/home/matt/.nix";
 
   services = {
     fwupd.enable = true;

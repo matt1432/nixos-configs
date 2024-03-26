@@ -38,5 +38,6 @@ readdir(DIR, (_, files) => {
         '--overwrite',
     ];
 
+    // TODO: actually call the command
     console.log(cmd);
 });

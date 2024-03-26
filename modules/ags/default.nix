@@ -7,6 +7,7 @@
 }: let
   inherit (config.vars) mainUser hostName;
 
+  flakeDir = config.environment.variables.FLAKE;
   isTouchscreen = config.hardware.sensor.iio.enable;
 in {
   # Enable pam for ags and astal
@@ -28,11 +29,11 @@ in {
       inherit (lib) optionals;
 
       astalTypes = config.home.file.".local/share/io.Aylur.Astal/types";
-      astalConfigDir = ".nix/modules/ags/astal";
+      astalConfigDir = ".nix/modules/ags/astal"; # FIXME: figure out way to use $FLAKE
 
       # https://github.com/Aylur/ags/blob/e1f2d311ceb496a69ef6daa6aebb46ce511b2f22/nix/hm-module.nix#L69
       agsTypes = config.home.file.".local//share/com.github.Aylur.ags/types";
-      agsConfigDir = ".nix/modules/ags/config";
+      agsConfigDir = ".nix/modules/ags/config"; # FIXME: figure out way to use $FLAKE
 
       configJs =
         /*
@@ -57,11 +58,11 @@ in {
       home = {
         file =
           {
-            ".config/astal".source = symlink /home/${mainUser}/.nix/modules/ags/astal;
+            ".config/astal".source = symlink "${flakeDir}/modules/ags/astal";
             "${astalConfigDir}/types".source = astalTypes.source;
             "${astalConfigDir}/config.js".text = configJs;
 
-            ".config/ags".source = symlink /home/${mainUser}/.nix/modules/ags/config;
+            ".config/ags".source = symlink "${flakeDir}/modules/ags/config";
             "${agsConfigDir}/types".source = agsTypes.source;
             "${agsConfigDir}/config.js".text = configJs;
           }

@@ -1,10 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}: let
-  inherit (config.vars) mainUser;
-in {
+{pkgs, ...}: {
   programs = {
     git = {
       enable = true;
@@ -75,9 +69,10 @@ in {
       runtimeInputs = [git];
 
       text = ''
-        DIR=''${1:-"/home/${mainUser}/.nix"}
+        DIR=''${1:-"$FLAKE"}
 
-        cd "$DIR"
+        cd "$DIR" || exit 1
+
         git add flake.lock
         git commit -m 'chore: update flake.lock'
         git push

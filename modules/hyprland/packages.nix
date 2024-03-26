@@ -6,6 +6,7 @@
 }: let
   inherit (lib) makeLibraryPath optionalString;
   inherit (config.vars) mainUser;
+  flakeDir = config.environment.variables.FLAKE;
 in {
   imports = [../dolphin.nix];
 
@@ -20,7 +21,7 @@ in {
 
       ({config, ...}: let
         symlink = config.lib.file.mkOutOfStoreSymlink;
-        configDir = "/home/${mainUser}/.nix/modules/hyprland/config";
+        configDir = "${flakeDir}/modules/hyprland/config";
       in {
         xdg.configFile = {
           "dolphinrc".source = symlink "${configDir}/dolphinrc";

@@ -5,6 +5,7 @@
 }: {
   options.vars = let
     inherit (lib) mkOption types;
+    flakeDir = config.environment.variables.FLAKE;
     cfg = config.vars;
   in {
     mainUser = mkOption {
@@ -49,7 +50,7 @@
 
     configDir = mkOption {
       type = types.str;
-      default = "/home/${cfg.mainUser}/.nix/devices/${cfg.hostName}/config";
+      default = "${flakeDir}/devices/${cfg.hostName}/config";
       description = ''
         The path to where most of the devices' configs are in the .nix folder
       '';
@@ -61,7 +62,7 @@
         The name of the main monitor used for Hyprland
         and Regreet which also uses Hyprland
       '';
-      # This is to allow a bash script to know wether this value exists
+      # This is to allow a bash script to know whether this value exists
       default = "null";
     };
 
