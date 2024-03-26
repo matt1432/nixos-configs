@@ -10,7 +10,12 @@
   subsync = pkgs.callPackage ./subsync {
     inherit pocketsphinx-src subsync-src;
   };
+  node-syncsub = pkgs.callPackage ./node-syncsub {
+    inherit subsync;
+  };
 in {
+  environment.systemPackages = [subsync node-syncsub];
+
   systemd = {
     services.subsync-job = {
       serviceConfig = {
@@ -22,6 +27,7 @@ in {
       path = with pkgs; [
         findutils
         subsync
+        node-syncsub
       ];
 
       script = ''
