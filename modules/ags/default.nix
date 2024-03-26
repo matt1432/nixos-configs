@@ -26,14 +26,7 @@ in {
       ...
     }: let
       symlink = config.lib.file.mkOutOfStoreSymlink;
-      inherit (lib) optionals;
-
-      astalTypes = config.home.file.".local/share/io.Aylur.Astal/types";
-      astalConfigDir = ".nix/modules/ags/astal"; # FIXME: figure out way to use $FLAKE
-
-      # https://github.com/Aylur/ags/blob/e1f2d311ceb496a69ef6daa6aebb46ce511b2f22/nix/hm-module.nix#L69
-      agsTypes = config.home.file.".local//share/com.github.Aylur.ags/types";
-      agsConfigDir = ".nix/modules/ags/config"; # FIXME: figure out way to use $FLAKE
+      inherit (lib) hasPrefix mdDoc optionals removePrefix;
 
       configJs =
         /*
@@ -44,7 +37,19 @@ in {
 
           export default (await transpileTypeScript('${hostName}')).default;
         '';
+
+      agsConfigDir = "${removePrefix "/home/${mainUser}/" flakeDir}/modules/ags";
     in {
+      assertions = [
+        {
+          assertion = hasPrefix "/home/${mainUser}/" flakeDir;
+          message = mdDoc ''
+            Your $FLAKE environment variable needs to point to a directory in
+            the main users' home to use the AGS module.
+          '';
+        }
+      ];
+
       # Experimental Gtk4 ags
       programs.astal = {
         enable = true;
@@ -58,13 +63,15 @@ in {
       home = {
         file =
           {
+            # Astal symlinks. ${./astal}, types and config.js
             ".config/astal".source = symlink "${flakeDir}/modules/ags/astal";
-            "${astalConfigDir}/types".source = astalTypes.source;
-            "${astalConfigDir}/config.js".text = configJs;
+            "${agsConfigDir}/astal/types".source = "${config.programs.astal.finalPackage}/share/io.Aylur.Astal/types";
+            "${agsConfigDir}/astal/config.js".text = configJs;
 
+            # AGS symlinks. ${./config}, types and config.js
             ".config/ags".source = symlink "${flakeDir}/modules/ags/config";
-            "${agsConfigDir}/types".source = agsTypes.source;
-            "${agsConfigDir}/config.js".text = configJs;
+            "${agsConfigDir}/config/types".source = "${config.programs.ags.finalPackage}/share/com.github.Aylur.ags/types";
+            "${agsConfigDir}/config/config.js".text = configJs;
           }
           // (import ./icons.nix {inherit pkgs agsConfigDir;});
 
@@ -96,15 +103,15 @@ in {
             ++ optionals isTouchscreen ["squeekboard"];
 
           bind = [
-            "$mainMod SHIFT, E     , exec, ags -t powermenu"
-            "$mainMod      , D     , exec, ags -t applauncher"
+            "$mainMod SHIFT, E, exec, ags -t powermenu"
+            "$mainMod      , D, exec, ags -t applauncher"
           ];
           binde = [
             ## Brightness control
             ", XF86MonBrightnessUp,   exec, ags -r 'Brightness.screen += 0.05'"
             ", XF86MonBrightnessDown, exec, ags -r 'Brightness.screen -= 0.05'"
           ];
-          bindn = [",Escape, exec, ags run-js 'closeAll()'"];
+          bindn = ["    , Escape,    exec, ags -r 'closeAll()'"];
           bindr = ["CAPS, Caps_Lock, exec, ags -r 'Brightness.fetchCapsState()'"];
         };
       };

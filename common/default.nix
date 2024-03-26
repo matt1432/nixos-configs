@@ -32,9 +32,9 @@
 
   nix = {
     # Allow deleting store files with '.' in the name
-    package = pkgs.nix.overrideAttrs (oldAttrs: {
+    package = pkgs.nix.overrideAttrs (o: {
       patches =
-        (oldAttrs.patches or [])
+        (o.patches or [])
         ++ [
           ./overlays/nix/patch
         ];
@@ -65,7 +65,6 @@
       extraArgs = "--keep-since 30d";
     };
   };
-  environment.variables.FLAKE = lib.mkDefault "/home/matt/.nix";
 
   services = {
     fwupd.enable = true;
@@ -83,8 +82,13 @@
     default = {
       imports = [
         # Make the vars be the same on Nix and HM
-        ./vars
-        {vars = config.vars;}
+        {
+          options.vars = lib.mkOption {
+            type = lib.types.attrs;
+            readOnly = true;
+            default = config.vars;
+          };
+        }
 
         nur.hmModules.nur
 
@@ -109,7 +113,12 @@
         home.stateVersion = mainUserConf.home.stateVersion;
       };
 
-    # TODO: make user an array?
+    greeter =
+      default
+      // {
+        home.stateVersion = mainUserConf.home.stateVersion;
+      };
+
     ${mainUser} = default;
   };
 }

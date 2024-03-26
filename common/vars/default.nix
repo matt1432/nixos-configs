@@ -2,12 +2,12 @@
   config,
   lib,
   ...
-}: {
-  options.vars = let
-    inherit (lib) mkOption types;
-    flakeDir = config.environment.variables.FLAKE;
-    cfg = config.vars;
-  in {
+}: let
+  inherit (lib) mkOption types;
+  flakeDir = config.environment.variables.FLAKE;
+  cfg = config.vars;
+in {
+  options.vars = {
     mainUser = mkOption {
       type = types.str;
       description = ''
@@ -34,8 +34,7 @@
 
       default = import ./prompt-schemes.nix cfg.promptMainColor;
 
-      # FIXME: doesn't work when passing vars to home-manager
-      # readOnly = true;
+      readOnly = true;
       type = with types;
         submodule {
           options = {
@@ -82,5 +81,9 @@
       type = types.bool;
       default = true;
     };
+  };
+
+  config = {
+    environment.variables.FLAKE = lib.mkDefault "/home/${cfg.mainUser}/.nix";
   };
 }

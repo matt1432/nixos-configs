@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   nur,
   ...
 }: {
@@ -39,8 +40,13 @@
   home-manager.config = {
     imports = [
       # Make the vars be the same on Nix and HM
-      ./vars
-      {vars = config.vars;}
+      {
+        options.vars = lib.mkOption {
+          type = lib.types.attrs;
+          readOnly = true;
+          default = config.vars;
+        };
+      }
 
       nur.hmModules.nur
 

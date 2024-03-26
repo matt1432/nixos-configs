@@ -16,7 +16,6 @@ in {
   home-manager.users.greeter = {
     imports = [
       astal.homeManagerModules.default
-      ../../common/vars
       ../../home/theme
     ];
 
@@ -51,8 +50,5 @@ in {
           '';
       };
     };
-
-    vars = config.vars;
-    home.stateVersion = "24.05";
   };
 }
