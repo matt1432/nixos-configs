@@ -90,6 +90,17 @@
           nodejs_18
         ];
       };
+
+      node-dev = pkgs.mkShell {
+        packages = with pkgs;
+          [
+            nodejs_latest
+            typescript
+          ]
+          ++ (with nodePackages; [
+            ts-node
+          ]);
+      };
     });
   };
 
