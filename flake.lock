@@ -1409,6 +1409,22 @@
         "type": "github"
       }
     },
+    "pocketsphinx-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1707149455,
+        "narHash": "sha256-imrwUIpORpfInitVjU11SKPPpjvObKyfI8IB4f41hfY=",
+        "owner": "cmusphinx",
+        "repo": "pocketsphinx",
+        "rev": "7be89aae3e76568e02e4f3d41cf1adcb7654430c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cmusphinx",
+        "repo": "pocketsphinx",
+        "type": "github"
+      }
+    },
     "pointer-event-src": {
       "flake": false,
       "locked": {
@@ -1497,9 +1513,11 @@
         "pcsd": "pcsd",
         "persist-properties-src": "persist-properties-src",
         "plymouth-theme-src": "plymouth-theme-src",
+        "pocketsphinx-src": "pocketsphinx-src",
         "pointer-event-src": "pointer-event-src",
         "pokemon-colorscripts-src": "pokemon-colorscripts-src",
         "secrets": "secrets",
+        "subsync-src": "subsync-src",
         "touch-gestures-src": "touch-gestures-src",
         "trash-d-src": "trash-d-src",
         "vimplugin-riscv-src": "vimplugin-riscv-src",
@@ -1562,6 +1580,22 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
+        "type": "github"
+      }
+    },
+    "subsync-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1681249928,
+        "narHash": "sha256-jUur1U1yNShQx70/mj36+sGoVk8+E5hQUV/G79q2A2k=",
+        "owner": "sc0ty",
+        "repo": "subsync",
+        "rev": "8e0cf71960b9a5418acb60a1910cf3295d67e6bf",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sc0ty",
+        "repo": "subsync",
         "type": "github"
       }
     },

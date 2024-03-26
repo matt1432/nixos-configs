@@ -5,7 +5,7 @@
 }:
 stdenv.mkDerivation {
   name = "dracula-plymouth";
-  version = plymouth-theme-src.rev;
+  version = plymouth-theme-src.shortRev;
 
   src = plymouth-theme-src;
 

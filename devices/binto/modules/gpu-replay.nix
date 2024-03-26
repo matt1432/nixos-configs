@@ -11,7 +11,7 @@
 
   gsr = pkgs.stdenv.mkDerivation {
     name = "gpu-screen-recorder";
-    version = gpu-screen-recorder-src.rev;
+    version = gpu-screen-recorder-src.shortRev;
 
     src = gpu-screen-recorder-src;
 

@@ -5,7 +5,7 @@
 }:
 buildLua {
   pname = "persist-properties";
-  version = persist-properties-src.rev;
+  version = persist-properties-src.shortRev;
 
   src = persist-properties-src;
 }

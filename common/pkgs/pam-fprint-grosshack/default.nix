@@ -15,7 +15,7 @@
 }:
 stdenv.mkDerivation {
   name = "pam-fprint-grosshack";
-  version = pam-fprint-grosshack-src.rev;
+  version = pam-fprint-grosshack-src.shortRev;
 
   src = pam-fprint-grosshack-src;
 

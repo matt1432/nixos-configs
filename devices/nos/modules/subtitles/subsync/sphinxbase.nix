@@ -10,7 +10,7 @@
 }:
 stdenv.mkDerivation {
   name = "sphinxbase";
-  version = "unstable";
+  version = "5prealpha"; # Deprecated
 
   buildInputs = [bison pkg-config python3 swig2];
   nativeBuildInputs = [autoreconfHook];

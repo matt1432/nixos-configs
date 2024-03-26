@@ -1,13 +1,21 @@
 {
   config,
   pkgs,
+  pocketsphinx-src,
+  subsync-src,
   ...
 }: let
   inherit (config.vars) mainUser;
 
   sphinxbase = pkgs.callPackage ./sphinxbase.nix {};
-  pocketsphinx = pkgs.callPackage ./pocketsphinx.nix {inherit sphinxbase;};
-  subsync = pkgs.callPackage ./subsync.nix {inherit sphinxbase pocketsphinx;};
+
+  pocketsphinx = pkgs.callPackage ./pocketsphinx.nix {
+    inherit sphinxbase pocketsphinx-src;
+  };
+
+  subsync = pkgs.callPackage ./subsync.nix {
+    inherit sphinxbase pocketsphinx subsync-src;
+  };
 in {
   systemd = {
     services.subsync-job = {

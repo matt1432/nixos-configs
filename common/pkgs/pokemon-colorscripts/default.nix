@@ -6,7 +6,7 @@
 }:
 stdenv.mkDerivation {
   name = "pokemon-colorscripts";
-  version = pokemon-colorscripts-src.rev;
+  version = pokemon-colorscripts-src.shortRev;
 
   src = pokemon-colorscripts-src;
 

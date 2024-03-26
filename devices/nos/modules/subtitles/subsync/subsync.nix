@@ -1,24 +1,19 @@
 {
-  fetchFromGitHub,
   ffmpeg,
   pkg-config,
   pocketsphinx,
   python3Packages,
   sphinxbase,
+  subsync-src,
   ...
 }: let
   inherit (builtins) concatStringsSep;
 in
 python3Packages.buildPythonPackage {
   pname = "subsync";
-  version = "unstable";
+  version = subsync-src.shortRev;
 
-  src = fetchFromGitHub {
-    owner = "sc0ty";
-    repo = "subsync";
-    rev = "8e0cf71960b9a5418acb60a1910cf3295d67e6bf";
-    hash = "sha256-jUur1U1yNShQx70/mj36+sGoVk8+E5hQUV/G79q2A2k=";
-  };
+  src = subsync-src;
 
   buildInputs = [
     ffmpeg

@@ -1,26 +1,29 @@
 {
   cmake,
-  fetchFromGitHub,
   pkg-config,
+  pocketsphinx-src,
   sphinxbase,
   stdenv,
   ...
-}:
-stdenv.mkDerivation rec {
-  name = "pocketsphinx";
-  version = "unstable";
+}: let
+  pyproject =
+    (
+      fromTOML (
+        builtins.readFile "${pocketsphinx-src}/pyproject.toml"
+      )
+    )
+    .project;
+in
+  stdenv.mkDerivation rec {
+    name = "pocketsphinx";
+    inherit (pyproject) version;
 
-  src = fetchFromGitHub {
-    owner = "cmusphinx";
-    repo = "pocketsphinx";
-    rev = "7be89aae3e76568e02e4f3d41cf1adcb7654430c";
-    hash = "sha256-imrwUIpORpfInitVjU11SKPPpjvObKyfI8IB4f41hfY=";
-  };
+    src = pocketsphinx-src;
 
-  buildInputs = [pkg-config];
-  nativeBuildInputs = [cmake sphinxbase];
+    buildInputs = [pkg-config];
+    nativeBuildInputs = [cmake sphinxbase];
 
-  postFixup = ''
-    cp -ar ${src}/src/util $out/include
-  '';
-}
+    postFixup = ''
+      cp -ar ${src}/src/util $out/include
+    '';
+  }

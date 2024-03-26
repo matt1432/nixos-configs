@@ -292,6 +292,20 @@
     # -= Non-flake inputs =-
 
     ## Custom packages
+    pocketsphinx-src = {
+      type = "github";
+      owner = "cmusphinx";
+      repo = "pocketsphinx";
+      flake = false;
+    };
+
+    subsync-src = {
+      type = "github";
+      owner = "sc0ty";
+      repo = "subsync";
+      flake = false;
+    };
+
     trash-d-src = {
       type = "github";
       owner = "rushsteve1";

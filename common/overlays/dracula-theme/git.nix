@@ -5,7 +5,7 @@
 }:
 stdenv.mkDerivation {
   name = "dracula-git";
-  version = git-theme-src.rev;
+  version = git-theme-src.shortRev;
 
   src = git-theme-src;
 

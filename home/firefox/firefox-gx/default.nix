@@ -5,7 +5,7 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "firefox-gx";
-  version = firefox-gx-src.rev;
+  version = firefox-gx-src.shortRev;
 
   src = firefox-gx-src;
 

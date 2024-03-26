@@ -5,7 +5,7 @@
 }:
 buildLua {
   pname = "pointer-event";
-  version = pointer-event-src.rev;
+  version = pointer-event-src.shortRev;
 
   src = pointer-event-src;
 }

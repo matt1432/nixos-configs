@@ -8,7 +8,7 @@
 }:
 stdenv.mkDerivation {
   name = "trash";
-  version = trash-d-src.rev;
+  version = trash-d-src.shortRev;
 
   src = trash-d-src;
 

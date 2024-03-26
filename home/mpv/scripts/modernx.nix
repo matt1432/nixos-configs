@@ -6,7 +6,7 @@
 }:
 buildLua (finalAttrs: {
   pname = "modernx";
-  version = modernx-src.rev;
+  version = modernx-src.shortRev;
 
   src = modernx-src;
 

@@ -9,6 +9,7 @@
     plymouth = prev.callPackage ./plymouth.nix inputs;
     wallpaper = prev.fetchurl (import ./wallpaper.nix);
   in {
+    version = gtk-theme-src.shortRev;
     src = gtk-theme-src;
 
     installPhase = ''
