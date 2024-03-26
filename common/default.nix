@@ -75,7 +75,7 @@
     };
   };
 
-  home-manager.users = let
+  home-manager = let
     inherit (config.vars) mainUser;
     mainUserConf = config.home-manager.users.${mainUser};
 
@@ -107,18 +107,20 @@
         ]);
     };
   in {
-    root =
-      default
-      // {
-        home.stateVersion = mainUserConf.home.stateVersion;
-      };
+    users = {
+      root =
+        default
+        // {
+          home.stateVersion = mainUserConf.home.stateVersion;
+        };
+      greeter =
+        lib.mkIf (config.services.greetd.enable)
+        (default
+          // {
+            home.stateVersion = mainUserConf.home.stateVersion;
+          });
 
-    greeter =
-      default
-      // {
-        home.stateVersion = mainUserConf.home.stateVersion;
-      };
-
-    ${mainUser} = default;
+      ${mainUser} = default;
+    };
   };
 }
