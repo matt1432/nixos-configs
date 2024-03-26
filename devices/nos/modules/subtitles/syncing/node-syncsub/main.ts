@@ -4,40 +4,52 @@ const SUB_EXT_LENGTH = 7;
 
 
 const FILE = process.argv[2];
-const BASE_NAME = FILE.substring(
-    FILE.lastIndexOf('/') + 1,
-    FILE.length - SUB_EXT_LENGTH,
-);
 
-const DIR = FILE.substring(0, FILE.lastIndexOf('/'));
+const main = () => {
+    const BASE_NAME = FILE.substring(
+        FILE.lastIndexOf('/') + 1,
+        FILE.length - SUB_EXT_LENGTH,
+    );
 
-readdir(DIR, (_, files) => {
-    const VIDEO = files.filter((f) =>
-        f.includes(BASE_NAME) &&
-        !f.endsWith('.nfo') &&
-        !f.endsWith('.srt'))[0];
+    const DIR = FILE.substring(0, FILE.lastIndexOf('/'));
 
-    let lang = FILE.split('.').at(-2);
+    readdir(DIR, (_, files) => {
+        const VIDEO = files.filter((f) =>
+            f.includes(BASE_NAME) &&
+            !f.endsWith('.nfo') &&
+            !f.endsWith('.srt'))[0];
 
-    if (lang === 'fr') {
-        lang = 'fre';
-    }
-    else if (lang === 'en') {
-        lang = 'eng';
-    }
+        let lang = FILE.split('.').at(-2);
 
-    const cmd = [
-        'subsync --cli sync',
-        `--sub-lang ${lang}`,
-        `--ref-lang ${lang}`,
+        if (lang === 'fr') {
+            lang = 'fre';
+        }
+        else if (lang === 'en') {
+            lang = 'eng';
+        }
 
-        `--sub-file '${FILE}'`,
-        `--out-file '${FILE}'`,
-        `--ref-file '${VIDEO}'`,
+        const cmd = [
+            'subsync --cli sync',
+            `--sub-lang ${lang}`,
+            `--ref-lang ${lang}`,
 
-        '--overwrite',
-    ];
+            `--sub-file '${FILE}'`,
+            `--out-file '${FILE}'`,
+            `--ref-file '${VIDEO}'`,
 
-    // TODO: actually call the command
-    console.log(cmd);
-});
+            '--overwrite',
+        ];
+
+        // TODO: actually call the command
+        console.log(cmd);
+    });
+};
+
+if (FILE) {
+    main();
+    process.exit();
+}
+else {
+    console.error('Error: no argument passed');
+    process.exit(1);
+}
