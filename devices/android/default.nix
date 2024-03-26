@@ -2,7 +2,7 @@
   home-manager,
   nixpkgs,
   ...
-} @ inputs: {
+} @ inputs: rec {
   extraSpecialArgs = inputs;
   home-manager-path = home-manager.outPath;
   pkgs = import nixpkgs {
@@ -11,6 +11,13 @@
   };
 
   modules = [
+    {
+      options = with pkgs.lib; {
+        environment.variables.FLAKE = mkOption {
+          type = with types; nullOr str;
+        };
+      };
+    }
     {home-manager.extraSpecialArgs = inputs;}
     ../../common/nix-on-droid.nix
     ./nix-on-droid.nix
