@@ -1,4 +1,6 @@
 import { readdir } from 'fs';
+import { ffprobe } from 'fluent-ffmpeg';
+import { exec } from 'child_process';
 
 const SUB_EXT_LENGTH = 7;
 
@@ -14,40 +16,53 @@ const main = () => {
     const DIR = FILE.substring(0, FILE.lastIndexOf('/'));
 
     readdir(DIR, (_, files) => {
-        const VIDEO = files.filter((f) =>
+        const VIDEO = `${DIR}/${files.filter((f) =>
             f.includes(BASE_NAME) &&
             !f.endsWith('.nfo') &&
-            !f.endsWith('.srt'))[0];
+            !f.endsWith('.srt'))[0]}`;
 
-        let lang = FILE.split('.').at(-2);
+        ffprobe(VIDEO, (_e, data) => {
+            const other = (lang: string) => lang === 'fre' ? 'eng' : 'fre';
 
-        if (lang === 'fr') {
-            lang = 'fre';
-        }
-        else if (lang === 'en') {
-            lang = 'eng';
-        }
+            let lang = FILE.split('.').at(-2) ?? 'en';
 
-        const cmd = [
-            'subsync --cli sync',
-            `--sub-lang ${lang}`,
-            `--ref-lang ${lang}`,
+            if (lang === 'fr') {
+                lang = 'fre';
+            }
+            else if (lang === 'en') {
+                lang = 'eng';
+            }
 
-            `--sub-file '${FILE}'`,
-            `--out-file '${FILE}'`,
-            `--ref-file '${VIDEO}'`,
+            const availLangs = data.streams
+                .filter((s) => s.codec_type === 'audio')
+                .map((s) => s['tags']['language']);
 
-            '--overwrite',
-        ];
+            const cmd = [
+                'subsync --cli sync',
+                `--sub-lang ${lang}`,
 
-        // TODO: actually call the command
-        console.log(cmd);
+                `--ref-stream-by-lang ${availLangs.includes(lang) ? lang : other(lang)}`,
+                '--ref-stream-by-type "audio"',
+
+                `--sub '${FILE}'`,
+                `--out '${DIR}/${BASE_NAME}.synced.${lang.substring(0, 2)}.srt'`,
+                // `--out '${FILE}'`,
+                `--ref '${VIDEO}'`,
+
+                // '--overwrite',
+            ].join(' ');
+
+            exec(cmd, (error, stdout, stderr) => {
+                console.log(error);
+                console.log(stdout);
+                console.log(stderr);
+            });
+        });
     });
 };
 
 if (FILE) {
     main();
-    process.exit();
 }
 else {
     console.error('Error: no argument passed');

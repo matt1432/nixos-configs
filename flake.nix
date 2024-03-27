@@ -95,6 +95,7 @@
         packages = with pkgs;
           [
             nodejs_latest
+            ffmpeg
             typescript
           ]
           ++ (with nodePackages; [

@@ -31,9 +31,9 @@ in {
       ];
 
       script = ''
-        find /data/anime  -name '*.srt' -exec node-syncsub "{}" \;
-        find /data/movies -name '*.srt' -exec node-syncsub "{}" \;
-        find /data/tv     -name '*.srt' -exec node-syncsub "{}" \;
+        # find /data/anime  -name '*.srt' -exec node-syncsub "{}" \;
+        # find /data/movies -name '*.srt' -exec node-syncsub "{}" \;
+        # find /data/tv     -name '*.srt' -exec node-syncsub "{}" \;
       '';
     };
     timers.subsync-job = {

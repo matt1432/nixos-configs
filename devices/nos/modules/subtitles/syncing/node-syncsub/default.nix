@@ -1,5 +1,6 @@
 {
   buildNpmPackage,
+  ffmpeg,
   nodejs_20,
   subsync,
   typescript,
@@ -8,13 +9,13 @@
 buildNpmPackage {
   name = "node-syncsub";
   src = ./.;
-  npmDepsHash = "sha256-kQBZ13bTMxZnv45IwyIV0cYA5tjr4KKU1cpDNx02th0=
-";
+  npmDepsHash = "sha256-O00VQPCUX6T+rtK3VcAibBipXFwNs4AFA3251qycPBQ=";
 
   nativeBuildInputs = [
+    nodejs_20
+    ffmpeg
     subsync
     typescript
-    nodejs_20
   ];
 
   buildPhase = ''
