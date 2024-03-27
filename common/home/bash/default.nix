@@ -24,8 +24,8 @@ in {
           "$directory"
           "[](fg:${promptColors.thirdColor} bg:${promptColors.fourthColor})"
           "$git_branch"
-          "[](fg:${promptColors.fourthColor})"
-          "\n╰╴$shlvl$nix_shell$character"
+          "[](fg:${promptColors.fourthColor})$shlvl$nix_shell"
+          "\n╰╴$character"
         ];
 
         username = {
