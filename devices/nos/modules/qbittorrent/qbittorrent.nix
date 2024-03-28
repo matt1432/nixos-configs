@@ -7,19 +7,23 @@
   cfg = config.services.qbittorrent;
   pkg = pkgs.qbittorrent-nox;
 
-  vue = pkgs.stdenv.mkDerivation {
-    name = "vuetorrent";
-    nativeBuildInputs = [pkgs.unzip];
-    buildInputs = [pkgs.unzip];
-    src = pkgs.fetchurl {
-      url = "https://github.com/VueTorrent/VueTorrent/releases/download/v2.7.1/vuetorrent.zip";
-      hash = "sha256-/6biiWVgYQF7SpiY3JmcW4NDAvePLwPyD+j12/BqPIE=";
+  vue = let
+    gen = import ./vuetorrent.nix;
+  in
+    pkgs.stdenv.mkDerivation {
+      name = "vuetorrent";
+      inherit (gen) version;
+
+      nativeBuildInputs = [pkgs.unzip];
+      src = pkgs.fetchurl {
+        inherit (gen) url hash;
+      };
+
+      postInstall = ''
+        mkdir $out
+        cp -a ./* $out
+      '';
     };
-    postInstall = ''
-      mkdir $out
-      cp -a ./* $out
-    '';
-  };
 
   inherit
     (lib)
