@@ -4,6 +4,7 @@ in {
   imports = [
     ./hardware-configuration.nix
 
+    ../../modules/arion
     ../../modules/kmscon.nix
     ../../modules/sshd.nix
     ../../modules/tailscale.nix
@@ -47,6 +48,8 @@ in {
     # No touchy
     home.stateVersion = "24.05";
   };
+
+  arion.enable = true;
 
   networking = {
     inherit hostName;
