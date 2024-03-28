@@ -9,7 +9,7 @@ import OSD from './ts/osd/main.ts';
 import Powermenu from './ts/powermenu.ts';
 
 
-// TODO: add workspace indicator and current window indicator
+// TODO: add workspace indicator
 App.config({
     icons: './icons',
 

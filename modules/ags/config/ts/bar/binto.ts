@@ -5,6 +5,7 @@ import Separator from '../misc/separator.ts';
 import BarRevealer from './fullscreen.ts';
 
 import Clock from './items/clock.ts';
+import CurrentWindow from './items/current-window';
 import NotifButton from './items/notif-button.ts';
 import RazerStats from './items/razer-stats.ts';
 import SysTray from './items/systray.ts';
@@ -37,7 +38,9 @@ export default () => BarRevealer({
                 }),
 
                 center_widget: Box({
-                    children: [],
+                    children: [
+                        CurrentWindow(),
+                    ],
                 }),
 
                 end_widget: Box({

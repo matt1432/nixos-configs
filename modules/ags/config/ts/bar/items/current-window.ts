@@ -8,6 +8,8 @@ const SPACING = 8;
 
 
 export default () => Box({
+    class_name: 'current-window',
+
     children: [
         Separator(SPACING / 2),
 
