@@ -95,6 +95,11 @@ in {
 
       wayland.windowManager.hyprland = {
         settings = {
+          animations.animation = [
+            # Ags takes care of doing the animations
+            "layers, 0"
+          ];
+
           exec-once =
             [
               "ags"
