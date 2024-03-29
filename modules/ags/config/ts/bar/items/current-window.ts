@@ -18,10 +18,7 @@ export default () => Box({
                 const app = Applications
                     .query(Hyprland.active.client.class)[0];
 
-                if (app) {
-                    self.icon = app.icon_name || '';
-                    self.visible = Hyprland.active.client.title !== '';
-                }
+                self.icon = app?.icon_name || '';
             }),
 
         Separator(SPACING),
@@ -32,4 +29,6 @@ export default () => Box({
             label: Hyprland.active.client.bind('title'),
         }),
     ],
+}).hook(Hyprland.active.client, (self) => {
+    self.visible = Hyprland.active.client.title !== '';
 });
