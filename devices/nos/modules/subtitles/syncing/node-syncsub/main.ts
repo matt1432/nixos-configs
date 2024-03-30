@@ -1,6 +1,6 @@
 import { readdir } from 'fs';
 import { ffprobe } from 'fluent-ffmpeg';
-import { exec } from 'child_process';
+import { spawn } from 'child_process';
 
 const SUB_EXT_LENGTH = 7;
 
@@ -38,7 +38,7 @@ const main = () => {
                 .map((s) => s['tags']['language']);
 
             const cmd = [
-                'subsync --cli sync',
+                '--cli sync',
                 `--sub-lang ${lang}`,
 
                 `--ref-stream-by-lang ${availLangs.includes(lang) ? lang : other(lang)}`,
@@ -50,12 +50,11 @@ const main = () => {
                 `--ref '${VIDEO}'`,
 
                 // '--overwrite',
-            ].join(' ');
+            ];
 
-            exec(cmd, (error, stdout, stderr) => {
-                console.log(error);
-                console.log(stdout);
-                console.log(stderr);
+            spawn('subsync', cmd, {
+                shell: true,
+                stdio: [process.stdin, process.stdout, process.stderr],
             });
         });
     });
