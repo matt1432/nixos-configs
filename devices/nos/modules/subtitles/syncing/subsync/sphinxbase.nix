@@ -25,4 +25,8 @@ stdenv.mkDerivation {
     rev = "617e53691889336a482631380f75b453445d0dae";
     hash = "sha256-w/Huz4+crTzdiSyQVAx0h3lhtTTrtPyKp3xpQD5EG9g=";
   };
+
+  postFixup = ''
+    cp $out/include/sphinxbase/* $out/include/
+  '';
 }

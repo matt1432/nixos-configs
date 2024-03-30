@@ -24,8 +24,8 @@ in
     buildInputs = [
       ffmpeg
       pkg-config
-      pocketsphinx
       sphinxbase
+      pocketsphinx
     ];
 
     nativeBuildInputs = with python3Packages; [
@@ -45,10 +45,7 @@ in
       utils
     ];
 
-    patches = [
-      ./patches/cmd_ln.patch
-      ./patches/cstdint.patch
-    ];
+    patches = [./patches/cstdint.patch];
 
     # The tests are for the GUI
     doCheck = false;

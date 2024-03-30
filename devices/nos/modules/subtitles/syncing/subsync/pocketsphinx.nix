@@ -1,29 +1,40 @@
 {
-  cmake,
+  autoreconfHook,
+  fetchFromGitHub,
   pkg-config,
-  pocketsphinx-src,
+  python3,
   sphinxbase,
   stdenv,
+  swig2,
   ...
-}: let
-  pyproject =
-    (
-      fromTOML (
-        builtins.readFile "${pocketsphinx-src}/pyproject.toml"
-      )
-    )
-    .project;
-in
-  stdenv.mkDerivation rec {
-    name = "pocketsphinx";
-    inherit (pyproject) version;
+}:
+stdenv.mkDerivation {
+  pname = "pocketsphinx";
+  version = "5prealpha";
 
-    src = pocketsphinx-src;
+  src = fetchFromGitHub {
+    owner = "cmusphinx";
+    repo = "pocketsphinx";
+    rev = "5da71f0a05350c923676b02a69423d1291825d5b";
+    hash = "sha256-YZwuVYg8Uqt1gOYXeYC8laRj+IObbuO9f/BjcQKRwkY=";
+  };
 
-    buildInputs = [pkg-config];
-    nativeBuildInputs = [cmake sphinxbase];
+  patches = [./patches/distutils.patch];
 
-    postFixup = ''
-      cp -ar ${src}/src/util $out/include
-    '';
-  }
+  autoreconfPhase = ''
+    ./autogen.sh
+  '';
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    swig2
+    python3
+  ];
+  propagatedBuildInputs = [
+    sphinxbase
+  ];
+
+  postFixup = ''
+    cp $out/include/pocketsphinx/* $out/include
+  '';
+}
