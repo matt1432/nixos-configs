@@ -33,6 +33,14 @@ const main = () => {
                 lang = 'eng';
             }
 
+            const OUT_FILE = `${BASE_NAME}.synced.${lang.substring(0, 2)}.srt`;
+            const OUT_PATH = `${DIR}/${OUT_FILE}`;
+
+            if (files.includes(OUT_FILE)) {
+                console.warn('Synced subtitles already exist, not doing anything');
+                process.exit(0);
+            }
+
             const availLangs = data.streams
                 .filter((s) => s.codec_type === 'audio')
                 .map((s) => s['tags']['language']);
@@ -45,8 +53,8 @@ const main = () => {
                 '--ref-stream-by-type "audio"',
 
                 `--sub '${FILE}'`,
-                `--out '${DIR}/${BASE_NAME}.synced.${lang.substring(0, 2)}.srt'`,
-                // `--out '${FILE}'`,
+                `--out '${OUT_PATH}'`,
+                // `--out '${PATH}'`,
                 `--ref '${VIDEO}'`,
 
                 // '--overwrite',
@@ -61,7 +69,13 @@ const main = () => {
 };
 
 if (FILE) {
-    main();
+    if (FILE.includes('synced.srt')) {
+        console.warn('Won\'t sync already synced subtitles, not doing anything');
+        process.exit(0);
+    }
+    else {
+        main();
+    }
 }
 else {
     console.error('Error: no argument passed');
