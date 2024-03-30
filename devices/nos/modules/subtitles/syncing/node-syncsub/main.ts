@@ -1,6 +1,7 @@
 import { readdir } from 'fs';
 import { ffprobe } from 'fluent-ffmpeg';
 import { spawn } from 'child_process';
+import { iso6391To3 } from './lang-codes';
 
 const SUB_EXT_LENGTH = 7;
 
@@ -22,18 +23,9 @@ const main = () => {
             !f.endsWith('.srt'))[0]}`;
 
         ffprobe(VIDEO, (_e, data) => {
-            const other = (lang: string) => lang === 'fre' ? 'eng' : 'fre';
+            const LANG = iso6391To3.get(FILE.split('.').at(-2) ?? 'en') ?? 'eng';
 
-            let lang = FILE.split('.').at(-2) ?? 'en';
-
-            if (lang === 'fr') {
-                lang = 'fre';
-            }
-            else if (lang === 'en') {
-                lang = 'eng';
-            }
-
-            const OUT_FILE = `${BASE_NAME}.synced.${lang.substring(0, 2)}.srt`;
+            const OUT_FILE = `${BASE_NAME}.synced.${LANG.substring(0, 2)}.srt`;
             const OUT_PATH = `${DIR}/${OUT_FILE}`;
 
             if (files.includes(OUT_FILE)) {
@@ -47,14 +39,14 @@ const main = () => {
 
             const cmd = [
                 '--cli sync',
-                `--sub-lang ${lang}`,
+                `--sub-lang ${LANG}`,
 
-                `--ref-stream-by-lang ${availLangs.includes(lang) ? lang : other(lang)}`,
+                `--ref-stream-by-lang ${availLangs.includes(LANG) ? LANG : availLangs[0]}`,
                 '--ref-stream-by-type "audio"',
 
                 `--sub '${FILE}'`,
                 `--out '${OUT_PATH}'`,
-                // `--out '${PATH}'`,
+                // `--out '${OUT_PATH}'`,
                 `--ref '${VIDEO}'`,
 
                 // '--overwrite',
