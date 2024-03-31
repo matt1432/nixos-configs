@@ -28,7 +28,6 @@
     "default-param-last": ["error"],
     "eqeqeq": ["error", "smart"],
     "func-names": ["warn", "never"],
-    "func-style": ["warn", "expression"],
     "logical-assignment-operators": ["warn", "always"],
     "no-array-constructor": ["error"],
     "no-empty-function": ["warn"],
