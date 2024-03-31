@@ -232,6 +232,7 @@ export const ISO6393To1 = new Map([
     ['fij', 'fj'],
     ['fin', 'fi'],
     ['fra', 'fr'],
+    ['fre', 'fr'],
     ['fry', 'fy'],
     ['ful', 'ff'],
     ['gla', 'gd'],

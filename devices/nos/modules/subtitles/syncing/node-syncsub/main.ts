@@ -38,6 +38,13 @@ function getVideoPath(files: string[]) {
         !f.endsWith('.srt'))[0]}`;
 }
 
+function runSubSync(cmd: string[]) {
+    spawn('subsync', cmd, {
+        shell: true,
+        stdio: [process.stdin, process.stdout, process.stderr],
+    });
+}
+
 async function main() {
     const files = await readDir(DIR);
 
@@ -74,13 +81,6 @@ async function main() {
             const IN_FILE = `${DIR}/.srt.bak/${FILE_NAME}`;
             const OUT_FILE = `${DIR}/${FILE_NAME}`;
 
-            if (files.includes(FILE_NAME)) {
-                await mv(OUT_FILE, IN_FILE);
-            }
-            else {
-                // TODO: check data and extract sub
-            }
-
             const cmd = [
                 '--cli sync',
                 `--sub-lang ${lang}`,
@@ -95,10 +95,40 @@ async function main() {
                 `--ref '${VIDEO}'`,
             ];
 
-            spawn('subsync', cmd, {
-                shell: true,
-                stdio: [process.stdin, process.stdout, process.stderr],
-            });
+            if (files.includes(FILE_NAME)) {
+                await mv(OUT_FILE, IN_FILE);
+                runSubSync(cmd);
+            }
+            else {
+                let stream = data.streams.find((s) => {
+                    return s['tags']['language'] === lang &&
+                           s.disposition!.forced === 0 &&
+                           s.codec_type === 'subtitle';
+                })!.index;
+
+                if (!stream) {
+                    stream = data.streams.find((s) => {
+                        return s['tags']['language'] === lang &&
+                           s.codec_type === 'subtitle';
+                    })!.index;
+                }
+
+                if (!stream) {
+                    console.warn(`No subtitle tracks were found for ${lang}`);
+                    process.exit(0);
+                }
+
+                spawn('ffmpeg', [
+                    '-i', `'${VIDEO}'`,
+                    '-map', `0:${stream}`, `'${IN_FILE}'`,
+                ], {
+                    shell: true,
+                    stdio: [process.stdin, process.stdout, process.stderr],
+
+                }).on('close', () => {
+                    runSubSync(cmd);
+                });
+            }
         });
     });
 }
