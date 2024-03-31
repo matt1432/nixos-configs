@@ -5,6 +5,8 @@
     neovimIde = false;
   };
 
+  environment.variables.FLAKE = "/data/data/com.termux.nix/files/home/.nix";
+
   terminal.font = "${(pkgs.nerdfonts.override {
     fonts = [
       "JetBrainsMono"

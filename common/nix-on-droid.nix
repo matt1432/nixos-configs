@@ -54,6 +54,10 @@
       ./pkgs
 
       {
+        programs.bash.sessionVariables = {
+          FLAKE = config.environment.variables.FLAKE;
+        };
+
         programs.bash.shellAliases = {
           # Make ping work on nix-on-droid
           # https://github.com/nix-community/nix-on-droid/issues/185#issuecomment-1659294700
