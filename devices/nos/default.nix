@@ -20,7 +20,7 @@ in {
   vars = {
     mainUser = "matt";
     hostName = "nos";
-    #promptMainColor = "?";
+    promptMainColor = "orange";
   };
 
   users.users.${mainUser} = {

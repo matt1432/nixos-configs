@@ -23,7 +23,7 @@ in {
     };
 
     promptMainColor = mkOption {
-      type = types.enum ["red" "green" "blue" "purple"];
+      type = types.enum ["red" "green" "blue" "purple" "orange" "yellow" "cyan" "pink"];
       default = "purple";
     };
 
