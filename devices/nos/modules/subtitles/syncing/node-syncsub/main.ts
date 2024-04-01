@@ -37,9 +37,7 @@ function getVideoPath(files: string[]) {
     const fileName = DIR.split('/').at(-1) ?? '';
 
     const videoFiles = files.filter((f) =>
-        f.includes(fileName) &&
-        !f.endsWith('.nfo') &&
-        !f.endsWith('.srt'));
+        f.includes(fileName) && f.endsWith('mkv'));
 
     if (videoFiles.length === 0) {
         console.warn('No video files were found');
@@ -156,13 +154,13 @@ async function main() {
                     console.warn(`No subtitle tracks were found for ${lang}`);
                 }
                 else {
-                    // Extract subtitles
+                    // Extract subtitle
                     spawn('ffmpeg', [
                         '-i', `'${VIDEO}'`,
                         '-map', `"0:${subs[0].index}"`, `'${IN_FILE}'`,
                     ], SPAWN_OPTS);
 
-                    // Delete subtitles from video
+                    // Delete subtitle from video
                     spawn('mv', [`'${VIDEO}'`, `'${VIDEO}.bak'`], SPAWN_OPTS);
 
                     spawn('ffmpeg', [
@@ -174,6 +172,7 @@ async function main() {
 
                     spawn('rm', [`'${VIDEO}.bak'`], SPAWN_OPTS);
 
+                    // Sync extracted subtitle
                     runSubSync(cmd, async() => {
                         await mv(IN_FILE, OUT_FILE);
                     });
