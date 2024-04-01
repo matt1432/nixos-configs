@@ -5,10 +5,14 @@ import {
 } from 'fs/promises';
 
 import { ffprobe as ffProbe } from 'fluent-ffmpeg';
-import { spawn } from 'child_process';
+import { spawnSync as spawn } from 'child_process';
 
 import { ISO6391To3, ISO6393To1 } from './lang-codes';
 
+const SPAWN_OPTS = {
+    shell: true,
+    stdio: [process.stdin, process.stdout, process.stderr],
+};
 
 /**
  * These are the cli arguments
@@ -38,19 +42,7 @@ function getVideoPath(files: string[]) {
         !f.endsWith('.srt'))[0]}`;
 }
 
-function runSubSync(cmd: string[]) {
-    spawn('subsync', cmd, {
-        shell: true,
-        stdio: [process.stdin, process.stdout, process.stderr],
-    });
-}
-
-async function main() {
-    const files = await readDir(DIR);
-
-    const VIDEO = getVideoPath(files);
-    const BASE_NAME = VIDEO.split('/').at(-1)?.replace(/\.[^.]*$/, '');
-
+async function backupSubs(files: string[]) {
     // Check if backup folder already exists and create it if not
     if (!files.some((f) => f.endsWith('.srt.bak'))) {
         await mkdir(`${DIR}/.srt.bak`);
@@ -61,13 +53,42 @@ async function main() {
         // Remove synced subtitles from the list to sync
         // langs - backups
         langs = langs.filter((n) => !backups
-            .some((s) => n === ISO6391To3.get(s.split('.').at(-2) ?? '')));
+            .some((s) => {
+                const l2 = s.split('.').at(-2) ?? '';
+                const l3 = ISO6391To3.get(l2);
+
+                return n === l3;
+            }));
     }
 
     if (langs.length === 0) {
         console.warn('Subtitles have already been synced');
         process.exit(0);
     }
+}
+
+function runSubSync(
+    cmd: string[],
+    onError = (error?: string) => {
+        console.error(error);
+    },
+) {
+    const { error } = spawn('subsync', cmd, SPAWN_OPTS);
+
+    if (error) {
+        onError(error.message);
+    }
+
+    spawn('chmod', ['-R', '775', `'${DIR}'`], SPAWN_OPTS);
+}
+
+async function main() {
+    const files = await readDir(DIR);
+
+    const VIDEO = getVideoPath(files);
+    const BASE_NAME = VIDEO.split('/').at(-1)?.replace(/\.[^.]*$/, '');
+
+    backupSubs(files);
 
     // ffprobe the video file to see available audio tracks
     ffProbe(VIDEO, (_e, data) => {
@@ -97,36 +118,51 @@ async function main() {
 
             if (files.includes(FILE_NAME)) {
                 await mv(OUT_FILE, IN_FILE);
-                runSubSync(cmd);
+
+                runSubSync(cmd, async() => {
+                    await mv(IN_FILE, OUT_FILE);
+                });
             }
             else {
                 let stream = data.streams.find((s) => {
                     return s['tags']['language'] === lang &&
-                           s.disposition!.forced === 0 &&
+                           s.disposition?.forced === 0 &&
                            s.codec_type === 'subtitle';
-                })!.index;
+                })?.index ?? -1;
 
-                if (!stream) {
+                if (stream === -1) {
                     stream = data.streams.find((s) => {
                         return s['tags']['language'] === lang &&
-                           s.codec_type === 'subtitle';
-                    })!.index;
+                               s.codec_type === 'subtitle';
+                    })?.index ?? -1;
                 }
 
-                if (!stream) {
+                if (stream === -1) {
                     console.warn(`No subtitle tracks were found for ${lang}`);
-                    process.exit(0);
+
+                    return;
                 }
 
+                // Extract subtitles
                 spawn('ffmpeg', [
                     '-i', `'${VIDEO}'`,
-                    '-map', `0:${stream}`, `'${IN_FILE}'`,
-                ], {
-                    shell: true,
-                    stdio: [process.stdin, process.stdout, process.stderr],
+                    '-map', `"0:${stream}"`, `'${IN_FILE}'`,
+                ], SPAWN_OPTS);
 
-                }).on('close', () => {
-                    runSubSync(cmd);
+                // Delete subtitles from video
+                spawn('mv', [`'${VIDEO}'`, `'${VIDEO}.bak'`], SPAWN_OPTS);
+
+                spawn('ffmpeg', [
+                    '-i', `'${VIDEO}.bak'`,
+                    '-map', '0',
+                    '-map', `-0:${stream}`,
+                    '-c', 'copy', `'${VIDEO}'`,
+                ], SPAWN_OPTS);
+
+                spawn('rm', [`'${VIDEO}.bak'`], SPAWN_OPTS);
+
+                runSubSync(cmd, async() => {
+                    await mv(IN_FILE, OUT_FILE);
                 });
             }
         });
