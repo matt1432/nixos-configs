@@ -4,6 +4,7 @@
 #   - jq
 #   - mozilla-addons-to-nix
 #   - alejandra
+#   - updateImages
 
 parseFetchurl() {
     URL="$1"
@@ -16,6 +17,12 @@ parseFetchurl() {
 
     # For Firefox addons
     sed -i "s,sha256 = .*,sha256 = \"$HASH\";," "$FILE"
+}
+
+updateDocker() {
+    find "$FLAKE/devices/nos/modules/arion" \
+        -name "*compose.nix" \
+        -exec sh -c 'updateImages $(dirname "{}")' \;
 }
 
 updateFFZ() {
@@ -67,6 +74,13 @@ updateVuetorrent() {
 
 
 doAll() {
+    updateDocker
+    updateFFZ
+    updateFirefoxAddons
+    updateVuetorrent
+}
+
+doAllWithoutDocker() {
     updateFFZ
     updateFirefoxAddons
     updateVuetorrent
@@ -74,6 +88,8 @@ doAll() {
 
 
 [[ "$1" == "-a" || "$1" == "--all" ]] && doAll
+[[ "$1" == "-ad" || "$1" == "--all-no-docker" ]] && doAllWithoutDocker
+[[ "$1" == "-d" || "$1" == "--docker" ]] && updateDocker
 [[ "$1" == "-f" || "$1" == "--firefox" ]] && updateFirefoxAddons
 [[ "$1" == "-ffz" || "$1" == "--frankerfacez" ]] && updateFFZ
 [[ "$1" == "-v" || "$1" == "--vuetorrent" ]] && updateVuetorrent
