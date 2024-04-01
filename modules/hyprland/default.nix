@@ -26,12 +26,6 @@ in {
       NIXOS_OZONE_WL = "1";
     };
 
-  environment.systemPackages = with pkgs; [
-    # Needed for hycov fork
-    gcc
-    pciutils
-  ];
-
   services = {
     dbus.enable = true;
     gvfs.enable = true;
@@ -60,7 +54,6 @@ in {
   # HOME-MANAGER CONFIG
   home-manager.users.${mainUser} = {
     imports = [
-      ./hycov.nix
       ./hyprgrass.nix
       ./inputs.nix
       ./style.nix
