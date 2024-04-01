@@ -36,10 +36,17 @@ else {
 function getVideoPath(files: string[]) {
     const fileName = DIR.split('/').at(-1) ?? '';
 
-    return `${DIR}/${files.filter((f) =>
+    const videoFiles = files.filter((f) =>
         f.includes(fileName) &&
         !f.endsWith('.nfo') &&
-        !f.endsWith('.srt'))[0]}`;
+        !f.endsWith('.srt'));
+
+    if (videoFiles.length === 0) {
+        console.warn('No video files were found');
+        process.exit(0);
+    }
+
+    return `${DIR}/${videoFiles[0]}`;
 }
 
 async function backupSubs(files: string[]) {
