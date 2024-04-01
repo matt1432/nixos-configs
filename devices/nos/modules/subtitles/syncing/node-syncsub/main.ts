@@ -101,7 +101,7 @@ async function main() {
     ffProbe(VIDEO, (_e, data) => {
         const AVAIL_LANGS = data.streams
             .filter((s) => s.codec_type === 'audio')
-            .map((s) => s['tags']['language']);
+            .map((s) => s['tags'] && s['tags']['language']);
 
         // Sync subtitles one by one
         langs.forEach(async(lang) => {
@@ -131,46 +131,53 @@ async function main() {
                 });
             }
             else {
-                let stream = data.streams.find((s) => {
-                    return s['tags']['language'] === lang &&
-                           s.disposition?.forced === 0 &&
+                let subs = data.streams.filter((s) => {
+                    return s['tags'] &&
+                           s['tags']['language'] &&
+                           s['tags']['language'] === lang &&
                            s.codec_type === 'subtitle';
-                })?.index ?? -1;
-
-                if (stream === -1) {
-                    stream = data.streams.find((s) => {
-                        return s['tags']['language'] === lang &&
-                               s.codec_type === 'subtitle';
-                    })?.index ?? -1;
-                }
-
-                if (stream === -1) {
-                    console.warn(`No subtitle tracks were found for ${lang}`);
-
-                    return;
-                }
-
-                // Extract subtitles
-                spawn('ffmpeg', [
-                    '-i', `'${VIDEO}'`,
-                    '-map', `"0:${stream}"`, `'${IN_FILE}'`,
-                ], SPAWN_OPTS);
-
-                // Delete subtitles from video
-                spawn('mv', [`'${VIDEO}'`, `'${VIDEO}.bak'`], SPAWN_OPTS);
-
-                spawn('ffmpeg', [
-                    '-i', `'${VIDEO}.bak'`,
-                    '-map', '0',
-                    '-map', `-0:${stream}`,
-                    '-c', 'copy', `'${VIDEO}'`,
-                ], SPAWN_OPTS);
-
-                spawn('rm', [`'${VIDEO}.bak'`], SPAWN_OPTS);
-
-                runSubSync(cmd, async() => {
-                    await mv(IN_FILE, OUT_FILE);
                 });
+
+                const pgs = subs.filter((s) => s.codec_name === 'hdmv_pgs_subtitle');
+
+                // If we only have PGS subs, warn user
+                if (pgs.length === subs.length) {
+                    console.warn(`No SRT subtitle tracks were found for ${lang}`);
+                }
+                // Remove PGS streams from subs
+                subs = subs.filter((s) => s.codec_name !== 'hdmv_pgs_subtitle');
+
+                // Prefer normal subs
+                if (subs.length !== 1) {
+                    subs = subs.filter((s) => s.disposition?.forced === 0);
+                }
+
+                if (subs.length === 0) {
+                    console.warn(`No subtitle tracks were found for ${lang}`);
+                }
+                else {
+                    // Extract subtitles
+                    spawn('ffmpeg', [
+                        '-i', `'${VIDEO}'`,
+                        '-map', `"0:${subs[0].index}"`, `'${IN_FILE}'`,
+                    ], SPAWN_OPTS);
+
+                    // Delete subtitles from video
+                    spawn('mv', [`'${VIDEO}'`, `'${VIDEO}.bak'`], SPAWN_OPTS);
+
+                    spawn('ffmpeg', [
+                        '-i', `'${VIDEO}.bak'`,
+                        '-map', '0',
+                        '-map', `-0:${subs[0].index}`,
+                        '-c', 'copy', `'${VIDEO}'`,
+                    ], SPAWN_OPTS);
+
+                    spawn('rm', [`'${VIDEO}.bak'`], SPAWN_OPTS);
+
+                    runSubSync(cmd, async() => {
+                        await mv(IN_FILE, OUT_FILE);
+                    });
+                }
             }
         });
     });
