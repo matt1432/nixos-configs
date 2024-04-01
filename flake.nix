@@ -171,9 +171,6 @@
       owner = "juanfont";
       repo = "headscale";
 
-      # FIXME: wait for nixpkgs to reach this : https://github.com/juanfont/headscale/commit/94b30abf56ae09d82a1541bbc3d19557914f9b27
-      rev = "00e7550e760b2d3d759471ff55d2b6e2dc81ad2b";
-
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
