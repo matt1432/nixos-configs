@@ -34,7 +34,7 @@ const NotificationList = () => Box({
 
     setup: (self) => {
         const initNotifId = 1337;
-        const delay = 1000;
+        const delay = 2000;
 
         // Fix the no notif placement with a fake notif
         Notifications.Notify('', initNotifId, '', '', '', [''], {}, 0);
