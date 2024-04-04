@@ -1405,6 +1405,23 @@
         "type": "github"
       }
     },
+    "pocketsphinx-src_2": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1645539790,
+        "narHash": "sha256-YZwuVYg8Uqt1gOYXeYC8laRj+IObbuO9f/BjcQKRwkY=",
+        "owner": "cmusphinx",
+        "repo": "pocketsphinx",
+        "rev": "5da71f0a05350c923676b02a69423d1291825d5b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cmusphinx",
+        "ref": "last-pre-1.0",
+        "repo": "pocketsphinx",
+        "type": "github"
+      }
+    },
     "pointer-event-src": {
       "flake": false,
       "locked": {
@@ -1496,7 +1513,7 @@
         "pointer-event-src": "pointer-event-src",
         "pokemon-colorscripts-src": "pokemon-colorscripts-src",
         "secrets": "secrets",
-        "subsync-src": "subsync-src",
+        "subsync": "subsync",
         "touch-gestures-src": "touch-gestures-src",
         "trash-d-src": "trash-d-src",
         "vimplugin-riscv-src": "vimplugin-riscv-src",
@@ -1562,19 +1579,43 @@
         "type": "github"
       }
     },
-    "subsync-src": {
+    "sphinxbase-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1681249928,
-        "narHash": "sha256-jUur1U1yNShQx70/mj36+sGoVk8+E5hQUV/G79q2A2k=",
-        "owner": "sc0ty",
-        "repo": "subsync",
-        "rev": "8e0cf71960b9a5418acb60a1910cf3295d67e6bf",
+        "lastModified": 1654774494,
+        "narHash": "sha256-w/Huz4+crTzdiSyQVAx0h3lhtTTrtPyKp3xpQD5EG9g=",
+        "owner": "cmusphinx",
+        "repo": "sphinxbase",
+        "rev": "617e53691889336a482631380f75b453445d0dae",
         "type": "github"
       },
       "original": {
-        "owner": "sc0ty",
+        "owner": "cmusphinx",
+        "repo": "sphinxbase",
+        "rev": "617e53691889336a482631380f75b453445d0dae",
+        "type": "github"
+      }
+    },
+    "subsync": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "pocketsphinx-src": "pocketsphinx-src_2",
+        "sphinxbase-src": "sphinxbase-src"
+      },
+      "locked": {
+        "lastModified": 1712018289,
+        "narHash": "sha256-JYG+GQuyvDoZ6TWD0lDjaWDNTq5FxNh3AymTHxWyggI=",
+        "owner": "matt1432",
         "repo": "subsync",
+        "rev": "ee9e1592ae4ec7c694d8857aa72be079d81ea209",
+        "type": "github"
+      },
+      "original": {
+        "owner": "matt1432",
+        "repo": "subsync",
+        "rev": "ee9e1592ae4ec7c694d8857aa72be079d81ea209",
         "type": "github"
       }
     },

@@ -97,6 +97,11 @@ async function main() {
 
     // ffprobe the video file to see available audio tracks
     ffProbe(VIDEO, (_e, data) => {
+        if (!data?.streams) {
+            console.error('Couldn\'t find streams in video file');
+            process.exit(1);
+        }
+
         const AVAIL_LANGS = data.streams
             .filter((s) => s.codec_type === 'audio')
             .map((s) => s['tags'] && s['tags']['language']);

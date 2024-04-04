@@ -1,20 +1,18 @@
 {
   config,
   pkgs,
-  pocketsphinx-src,
-  subsync-src,
+  subsync,
   ...
 }: let
   inherit (config.vars) mainUser;
 
-  subsync = pkgs.callPackage ./subsync {
-    inherit pocketsphinx-src subsync-src;
-  };
+  subsyncPkg = subsync.packages.${pkgs.system}.default;
+
   node-syncsub = pkgs.callPackage ./node-syncsub {
-    inherit subsync;
+    subsync = subsyncPkg;
   };
 in {
-  environment.systemPackages = [subsync node-syncsub];
+  environment.systemPackages = [subsyncPkg node-syncsub];
 
   systemd = {
     services.subsync-job = {
@@ -26,7 +24,6 @@ in {
 
       path = with pkgs; [
         findutils
-        subsync
         node-syncsub
       ];
 
@@ -36,10 +33,10 @@ in {
         # find /data/tv -name '*.mkv' -printf "%h\0" | xargs -0 -I '{}' node-syncsub '{}' "eng,fra"
       '';
     };
-    timers.subsync-job = {
-      wantedBy = ["timers.target"];
-      partOf = ["subsync-job.service"];
-      timerConfig.OnCalendar = ["0:00:00"];
-    };
+    #timers.subsync-job = {
+    #  wantedBy = ["timers.target"];
+    #  partOf = ["subsync-job.service"];
+    #  timerConfig.OnCalendar = ["0:00:00"];
+    #};
   };
 }

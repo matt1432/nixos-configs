@@ -199,10 +199,22 @@
 
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     jellyfin-flake = {
       type = "github";
       owner = "matt1432";
       repo = "nixos-jellyfin";
+
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    subsync = {
+      type = "github";
+      owner = "matt1432";
+      repo = "subsync";
+
+      # Keep version that uses Sphinxbase
+      rev = "ee9e1592ae4ec7c694d8857aa72be079d81ea209";
 
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -297,13 +309,6 @@
       type = "github";
       owner = "cmusphinx";
       repo = "pocketsphinx";
-      flake = false;
-    };
-
-    subsync-src = {
-      type = "github";
-      owner = "sc0ty";
-      repo = "subsync";
       flake = false;
     };
 
