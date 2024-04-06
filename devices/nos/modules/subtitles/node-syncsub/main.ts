@@ -33,7 +33,7 @@ else {
     process.exit(1);
 }
 
-const escapePath = (p: string) => p.replaceAll("'", "\\'");
+const escapePath = (p: string) => p.replaceAll("'", "'\\''");
 
 function getVideoPath(files: string[]) {
     const fileName = DIR.split('/').at(-1) ?? '';
@@ -102,7 +102,7 @@ async function main() {
     ffProbe(VIDEO, (_e, data) => {
         if (!data?.streams) {
             console.error('Couldn\'t find streams in video file');
-            process.exit(1);
+            process.exit(0);
         }
 
         const AVAIL_LANGS = data.streams
