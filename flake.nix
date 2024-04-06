@@ -250,6 +250,13 @@
 
       inputs.hyprland.follows = "hyprland";
     };
+    hypr-official-plugins = {
+      type = "github";
+      owner = "hyprwm";
+      repo = "hyprland-plugins";
+
+      inputs.hyprland.follows = "hyprland";
+    };
 
     ags = {
       type = "github";

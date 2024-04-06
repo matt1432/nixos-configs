@@ -54,6 +54,7 @@ in {
   # HOME-MANAGER CONFIG
   home-manager.users.${mainUser} = {
     imports = [
+      ./hyprexpo.nix
       ./hyprgrass.nix
       ./inputs.nix
       ./style.nix

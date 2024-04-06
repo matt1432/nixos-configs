@@ -447,6 +447,31 @@
         "type": "github"
       }
     },
+    "hypr-official-plugins": {
+      "inputs": {
+        "hyprland": [
+          "hyprland"
+        ],
+        "systems": [
+          "hypr-official-plugins",
+          "hyprland",
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1712281995,
+        "narHash": "sha256-NoRAAqed5t3b3/Ebt5SW9BWh8dyKRmw9i9KjLcMdLsE=",
+        "owner": "hyprwm",
+        "repo": "hyprland-plugins",
+        "rev": "a7145f019254a7d953d56945c168d1bc698c35e4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hyprwm",
+        "repo": "hyprland-plugins",
+        "type": "github"
+      }
+    },
     "hyprcursor": {
       "inputs": {
         "hyprlang": "hyprlang_2",
@@ -1487,6 +1512,7 @@
         "gtk-theme-src": "gtk-theme-src",
         "headscale": "headscale",
         "home-manager": "home-manager",
+        "hypr-official-plugins": "hypr-official-plugins",
         "hyprgrass": "hyprgrass",
         "hypridle": "hypridle",
         "hyprland": "hyprland",
