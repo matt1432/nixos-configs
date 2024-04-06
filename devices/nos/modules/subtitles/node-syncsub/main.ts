@@ -33,6 +33,8 @@ else {
     process.exit(1);
 }
 
+const escapePath = (p: string) => p.replaceAll("'", "\\'");
+
 function getVideoPath(files: string[]) {
     const fileName = DIR.split('/').at(-1) ?? '';
 
@@ -53,6 +55,7 @@ async function backupSubs(files: string[]) {
         await mkdir(`${DIR}/.srt.bak`);
     }
     else {
+        // TODO: compare with subs outside of backup dir
         const backups = await readDir(`${DIR}/.srt.bak`);
 
         // Remove synced subtitles from the list to sync
@@ -84,7 +87,7 @@ function runSubSync(
         onError(error.message);
     }
 
-    spawn('chmod', ['-R', '775', `'${DIR}'`], SPAWN_OPTS);
+    spawn('chmod', ['-R', '775', `'${escapePath(DIR)}'`], SPAWN_OPTS);
 }
 
 async function main() {
@@ -121,9 +124,9 @@ async function main() {
                     AVAIL_LANGS[0]}`,
                 '--ref-stream-by-type "audio"',
 
-                `--sub '${IN_FILE}'`,
-                `--out '${OUT_FILE}'`,
-                `--ref '${VIDEO}'`,
+                `--sub '${escapePath(IN_FILE)}'`,
+                `--out '${escapePath(OUT_FILE)}'`,
+                `--ref '${escapePath(VIDEO)}'`,
             ];
 
             if (files.includes(FILE_NAME)) {
@@ -161,21 +164,24 @@ async function main() {
                 else {
                     // Extract subtitle
                     spawn('ffmpeg', [
-                        '-i', `'${VIDEO}'`,
-                        '-map', `"0:${subs[0].index}"`, `'${IN_FILE}'`,
+                        '-i', `'${escapePath(VIDEO)}'`,
+                        '-map', `"0:${subs[0].index}"`, `'${escapePath(IN_FILE)}'`,
                     ], SPAWN_OPTS);
 
                     // Delete subtitle from video
-                    spawn('mv', [`'${VIDEO}'`, `'${VIDEO}.bak'`], SPAWN_OPTS);
-
-                    spawn('ffmpeg', [
-                        '-i', `'${VIDEO}.bak'`,
-                        '-map', '0',
-                        '-map', `-0:${subs[0].index}`,
-                        '-c', 'copy', `'${VIDEO}'`,
+                    spawn('mv', [
+                        `'${escapePath(VIDEO)}'`,
+                        `'${escapePath(VIDEO)}.bak'`,
                     ], SPAWN_OPTS);
 
-                    spawn('rm', [`'${VIDEO}.bak'`], SPAWN_OPTS);
+                    spawn('ffmpeg', [
+                        '-i', `'${escapePath(VIDEO)}.bak'`,
+                        '-map', '0',
+                        '-map', `-0:${subs[0].index}`,
+                        '-c', 'copy', `'${escapePath(VIDEO)}'`,
+                    ], SPAWN_OPTS);
+
+                    spawn('rm', [`'${escapePath(VIDEO)}.bak'`], SPAWN_OPTS);
 
                     // Sync extracted subtitle
                     runSubSync(cmd, async() => {
