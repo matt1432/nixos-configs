@@ -88,7 +88,6 @@ in {
           ])
           ++ (optionals isTouchscreen (with pkgs; [
             lisgd
-            squeekboard
             ydotool
           ]));
       };
@@ -100,12 +99,10 @@ in {
             "layers, 0"
           ];
 
-          exec-once =
-            [
-              "ags"
-              "sleep 3; ags -r 'App.openWindow(\"applauncher\")'"
-            ]
-            ++ optionals isTouchscreen ["squeekboard"];
+          exec-once = [
+            "ags"
+            "sleep 3; ags -r 'App.openWindow(\"applauncher\")'"
+          ];
 
           bind = [
             "$mainMod SHIFT, E, exec, ags -t powermenu"

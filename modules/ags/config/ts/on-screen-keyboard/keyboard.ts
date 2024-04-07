@@ -16,10 +16,10 @@ const COLOR = 'rgba(0, 0, 0, 0.3)';
 const SPACING = 4;
 
 // Types
-import { BoxGeneric, WindowGeneric } from 'global-types';
+import { BoxGeneric, OskWindow } from 'global-types';
 
 
-export default (window: WindowGeneric) => Box({
+export default (window: OskWindow) => Box({
     vertical: true,
     children: [
         CenterBox({

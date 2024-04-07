@@ -1,4 +1,3 @@
-const Hyprland = await Service.import('hyprland');
 const Bluetooth = await Service.import('bluetooth');
 
 import Brightness from '../services/brightness.ts';
@@ -34,33 +33,17 @@ export default () => {
         name: 'oskOn',
         gesture: 'DU',
         edge: 'B',
-        command: 'busctl call --user sm.puri.OSK0 /sm/puri/OSK0 sm.puri.OSK0 ' +
-            'SetVisible b true',
+        command: () => {
+            Tablet.oskState = true;
+        },
     });
 
     TouchGestures.addGesture({
         name: 'oskOff',
         gesture: 'UD',
         edge: 'B',
-        command: 'busctl call --user sm.puri.OSK0 /sm/puri/OSK0 sm.puri.OSK0 ' +
-            'SetVisible b false',
-    });
-
-    TouchGestures.addGesture({
-        name: 'swipeSpotify1',
-        gesture: 'LR',
-        edge: 'L',
-        command: () => Hyprland.messageAsync(
-            'dispatch togglespecialworkspace spot',
-        ),
-    });
-
-    TouchGestures.addGesture({
-        name: 'swipeSpotify2',
-        gesture: 'RL',
-        edge: 'L',
-        command: () => Hyprland.messageAsync(
-            'dispatch togglespecialworkspace spot',
-        ),
+        command: () => {
+            Tablet.oskState = false;
+        },
     });
 };

@@ -37,7 +37,5 @@ The main dependencies to try it are as follows:
 If you're interested in my 2-1 laptop setup, you'll need:
 
 - **ydotool** for my custom on-screen keyboard
-- my [patched](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/common/overlays/squeekboard/remove-panel.patch)
-version of **squeekboard** to get a dbus interface for keyboard
-control (I'm looking into implementing this by itself)
 - **lisgd** to have touch screen gestures # TODO: switch to hyprgrass
+when it has better binds

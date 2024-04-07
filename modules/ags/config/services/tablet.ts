@@ -47,9 +47,9 @@ class Tablet extends Service {
         return this.#oskState;
     }
 
-    constructor() {
-        super();
-        this.#listenOskState();
+    set oskState(value: boolean) {
+        this.#oskState = value;
+        this.emit('osk-toggled', this.#oskState);
     }
 
     #blockInputs() {
@@ -76,9 +76,6 @@ class Tablet extends Service {
     }
 
     setTabletMode() {
-        execAsync(['gsettings', 'set', 'org.gnome.desktop.a11y.applications',
-            'screen-keyboard-enabled', 'true']).catch(print);
-
         execAsync(['brightnessctl', '-d', 'tpacpi::kbd_backlight', 's', '0'])
             .catch(print);
 
@@ -91,9 +88,6 @@ class Tablet extends Service {
     }
 
     setLaptopMode() {
-        execAsync(['gsettings', 'set', 'org.gnome.desktop.a11y.applications',
-            'screen-keyboard-enabled', 'false']).catch(print);
-
         execAsync(['brightnessctl', '-d', 'tpacpi::kbd_backlight', 's', '2'])
             .catch(print);
 
@@ -160,43 +154,9 @@ class Tablet extends Service {
         }
     }
 
-    #listenOskState() {
-        subprocess(
-            ['bash', '-c', 'busctl monitor --user sm.puri.OSK0'],
-            (output) => {
-                if (output.includes('BOOLEAN')) {
-                    const match = output.match('true|false');
-
-                    if (match) {
-                        this.#oskState = match[0] === 'true';
-                        this.emit('osk-toggled', this.#oskState);
-                    }
-                }
-            },
-        );
-    }
-
-    static openOsk() {
-        execAsync(['busctl', 'call', '--user',
-            'sm.puri.OSK0', '/sm/puri/OSK0', 'sm.puri.OSK0',
-            'SetVisible', 'b', 'true'])
-            .catch(print);
-    }
-
-    static closeOsk() {
-        execAsync(['busctl', 'call', '--user',
-            'sm.puri.OSK0', '/sm/puri/OSK0', 'sm.puri.OSK0',
-            'SetVisible', 'b', 'false'])
-            .catch(print);
-    }
-
     toggleOsk() {
-        if (this.#oskState) {
-            Tablet.closeOsk();
-        }
-        else {
-            Tablet.openOsk();
-        }
+        this.#oskState = !this.#oskState;
+        this.emit('osk-toggled', this.#oskState);
     }
 }
 

@@ -11,7 +11,7 @@ const HIDDEN_MARGIN = 340;
 const ANIM_DURATION = 700;
 
 // Types
-import { BoxGeneric } from 'global-types';
+import { OskWindow } from 'global-types';
 
 
 const releaseAllKeys = () => {
@@ -23,11 +23,10 @@ const releaseAllKeys = () => {
     ]).catch(print);
 };
 
-export default (window) => {
+export default (window: OskWindow) => {
     const gesture = Gtk.GestureDrag.new(window);
-    const child = window.child as BoxGeneric;
 
-    child.setCss(`margin-bottom: -${HIDDEN_MARGIN}px;`);
+    window.child.setCss(`margin-bottom: -${HIDDEN_MARGIN}px;`);
 
     let signals = [] as Array<number>;
 
@@ -39,14 +38,14 @@ export default (window) => {
                 window.visible = true;
                 window.attribute.setSlideDown();
 
-                child.setCss(`
+                window.child.setCss(`
                     transition: margin-bottom 0.7s
                         cubic-bezier(0.36, 0, 0.66, -0.56);
                     margin-bottom: 0px;
                 `);
             }
             else {
-                timeout(ANIM_DURATION + 10, () => {
+                timeout(ANIM_DURATION + 100 + 100, () => {
                     if (!Tablet.tabletMode) {
                         window.visible = false;
                     }
@@ -54,7 +53,7 @@ export default (window) => {
                 releaseAllKeys();
                 window.attribute.setSlideUp();
 
-                child.setCss(`
+                window.child.setCss(`
                     transition: margin-bottom 0.7s
                         cubic-bezier(0.36, 0, 0.66, -0.56);
                     margin-bottom: -${HIDDEN_MARGIN}px;
@@ -86,6 +85,10 @@ export default (window) => {
             signals.push(
                 gesture.connect('drag-update', () => {
                     Hyprland.messageAsync('j/cursorpos').then((out) => {
+                        if (!window.attribute.startY) {
+                            return;
+                        }
+
                         const currentY = JSON.parse(out).y;
                         const offset = window.attribute.startY - currentY;
 
@@ -93,7 +96,7 @@ export default (window) => {
                             return;
                         }
 
-                        (window.child as BoxGeneric).setCss(`
+                        window.child.setCss(`
                             margin-bottom: ${offset - HIDDEN_MARGIN}px;
                         `);
                     });
@@ -103,7 +106,7 @@ export default (window) => {
             // End drag
             signals.push(
                 gesture.connect('drag-end', () => {
-                    (window.child as BoxGeneric).setCss(`
+                    window.child.setCss(`
                         transition: margin-bottom 0.5s ease-in-out;
                         margin-bottom: -${HIDDEN_MARGIN}px;
                     `);
@@ -127,6 +130,10 @@ export default (window) => {
             signals.push(
                 gesture.connect('drag-update', () => {
                     Hyprland.messageAsync('j/cursorpos').then((out) => {
+                        if (!window.attribute.startY) {
+                            return;
+                        }
+
                         const currentY = JSON.parse(out).y;
                         const offset = window.attribute.startY - currentY;
 
@@ -134,7 +141,7 @@ export default (window) => {
                             return;
                         }
 
-                        (window.child as BoxGeneric).setCss(`
+                        window.child.setCss(`
                             margin-bottom: ${offset}px;
                         `);
                     });
@@ -144,7 +151,7 @@ export default (window) => {
             // End drag
             signals.push(
                 gesture.connect('drag-end', () => {
-                    (window.child as BoxGeneric).setCss(`
+                    window.child.setCss(`
                         transition: margin-bottom 0.5s ease-in-out;
                         margin-bottom: 0px;
                     `);

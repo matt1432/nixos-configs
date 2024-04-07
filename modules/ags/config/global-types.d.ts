@@ -100,6 +100,15 @@ export type OSD = {
     }
 };
 
+// For ./ts/on-screen-keyboard
+export type OskWindow = Window<BoxGeneric, {
+    startY: null | number;
+    setVisible: (state: boolean) => void;
+    killGestureSigs: () => void;
+    setSlideUp: () => void;
+    setSlideDown: () => void;
+}>;
+
 // For CursorBox
 import { CursorBox, CursorBoxProps } from 'ts/misc/cursorbox';
 export type CursorBox = CursorBox;
