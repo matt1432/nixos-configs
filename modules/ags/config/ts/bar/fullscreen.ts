@@ -38,7 +38,7 @@ Hyprland.connect('event', (hyprObj) => {
     }
 });
 
-export default ({ bar, transition, monitor = 0, ...rest }) => {
+export default ({ anchor, bar, monitor = 0, ...rest }) => {
     const BarVisible = Variable(true);
 
     FullscreenState.connect('changed', (v) => {
@@ -83,9 +83,25 @@ export default ({ bar, transition, monitor = 0, ...rest }) => {
         visible: BarVisible.bind().as((v) => !v),
     });
 
-    const rev = Revealer({
-        transition,
+    const vertical = anchor.includes('left') && anchor.includes('right');
+    const isBottomOrLeft = (
+        anchor.includes('left') && anchor.includes('right') && anchor.includes('bottom')
+    ) || (
+        anchor.includes('top') && anchor.includes('bottom') && anchor.includes('left')
+    );
+
+    let transition: 'slide_up' | 'slide_down' | 'slide_left' | 'slide_right';
+
+    if (vertical) {
+        transition = isBottomOrLeft ? 'slide_up' : 'slide_down';
+    }
+    else {
+        transition = isBottomOrLeft ? 'slide_right' : 'slide_left';
+    }
+
+    const barWrap = Revealer({
         reveal_child: BarVisible.bind(),
+        transition,
         child: bar,
     });
 
@@ -94,6 +110,7 @@ export default ({ bar, transition, monitor = 0, ...rest }) => {
         layer: 'overlay',
         monitor,
         margins: [-1, -1, -1, -1],
+        anchor,
         ...rest,
 
         attribute: {
@@ -105,13 +122,11 @@ export default ({ bar, transition, monitor = 0, ...rest }) => {
                 css: 'min-height: 1px; padding: 1px;',
                 hexpand: true,
                 hpack: 'fill',
-                vertical: transition === 'slide_up' ||
-                    transition === 'slide_down',
+                vertical,
 
-                children: transition === 'slide_up' ||
-                        transition === 'slide_left' ?
-                    [buffer, rev] :
-                    [rev, buffer],
+                children: isBottomOrLeft ?
+                    [buffer, barWrap] :
+                    [barWrap, buffer],
             }),
         }).on('enter-notify-event', () => {
             if (!BarVisible.value) {

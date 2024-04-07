@@ -32,18 +32,18 @@ export default () => {
         class_name: 'toggle-off',
 
         on_primary_click_release: (self) => {
-            (App.getWindow('quick-settings') as PopupWindow)
+            (App.getWindow('win-quick-settings') as PopupWindow)
                 .set_x_pos(
                     self.get_allocation(),
                     'right',
                 );
 
-            App.toggleWindow('quick-settings');
+            App.toggleWindow('win-quick-settings');
         },
 
         setup: (self) => {
             self.hook(App, (_, windowName, visible) => {
-                if (windowName === 'quick-settings') {
+                if (windowName === 'win-quick-settings') {
                     self.toggleClassName('toggle-on', visible);
                 }
             });

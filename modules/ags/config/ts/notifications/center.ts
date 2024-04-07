@@ -76,7 +76,7 @@ const ClearButton = () => CursorBox({
 
     on_primary_click_release: () => {
         Notifications.clear();
-        timeout(1000, () => App.closeWindow('notification-center'));
+        timeout(1000, () => App.closeWindow('win-notification-center'));
     },
 
     setup: (self) => {

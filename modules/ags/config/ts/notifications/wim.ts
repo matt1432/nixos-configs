@@ -8,6 +8,7 @@ import PopupWindow from '../misc/popup.ts';
 
 export const NotifPopups = () => Window({
     name: 'notifications',
+    layer: 'overlay',
     anchor: ['top', 'left'],
     child: PopUpsWidget(),
 });

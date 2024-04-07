@@ -41,6 +41,8 @@ const OSDs = () => {
         }),
     );
 
+    stack.show_all();
+
     // Delay popup method so it
     // doesn't show any OSDs at launch
     timeout(1000, () => {
@@ -49,13 +51,13 @@ const OSDs = () => {
         stack.attribute.popup = (osd: string) => {
             ++count;
             stack.shown = osd;
-            App.openWindow('osd');
+            App.openWindow('win-osd');
 
             timeout(HIDE_DELAY, () => {
                 --count;
 
                 if (count === 0) {
-                    App.closeWindow('osd');
+                    App.closeWindow('win-osd');
                 }
             });
         };
@@ -71,8 +73,6 @@ export default () => PopupWindow({
     anchor: ['bottom'],
     exclusivity: 'ignore',
     close_on_unfocus: 'stay',
-    transition: 'slide_up',
-    transition_duration,
-    bezier: 'ease',
+    transition: 'slide bottom',
     content: OSDs(),
 });

@@ -5,11 +5,11 @@ import Clock from './clock';
 export default () => CursorBox({
     class_name: 'toggle-off',
 
-    on_primary_click_release: () => App.toggleWindow('calendar'),
+    on_primary_click_release: () => App.toggleWindow('win-calendar'),
 
     setup: (self) => {
         self.hook(App, (_, windowName, visible) => {
-            if (windowName === 'calendar') {
+            if (windowName === 'win-calendar') {
                 self.toggleClassName('toggle-on', visible);
             }
         });

@@ -94,19 +94,30 @@ in {
 
       wayland.windowManager.hyprland = {
         settings = {
-          animations.animation = [
-            # Ags takes care of doing the animations
-            "layers, 0"
+          animations = {
+            bezier = [
+              "easeInOutBack,   0.68, -0.6, 0.32, 1.6"
+            ];
+
+            animation = [
+              "fadeLayersIn, 0"
+              "fadeLayersOut, 1, 3000, default"
+              "layers, 1, 8, easeInOutBack, slide left"
+            ];
+          };
+
+          layerrule = [
+            "noanim, ^(?!win-).*"
           ];
 
           exec-once = [
             "ags"
-            "sleep 3; ags -r 'App.openWindow(\"applauncher\")'"
+            "sleep 3; ags -r 'App.openWindow(\"win-applauncher\")'"
           ];
 
           bind = [
-            "$mainMod SHIFT, E, exec, ags -t powermenu"
-            "$mainMod      , D, exec, ags -t applauncher"
+            "$mainMod SHIFT, E, exec, ags -t win-powermenu"
+            "$mainMod      , D, exec, ags -t win-applauncher"
           ];
           binde = [
             ## Brightness control

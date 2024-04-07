@@ -21,7 +21,6 @@ const SPACING = 12;
 export default () => BarRevealer({
     anchor: ['top', 'left', 'right'],
     exclusivity: 'exclusive',
-    transition: 'slide_down',
     bar: CenterBox({
         css: 'margin: 5px 5px 5px 5px',
         class_name: 'bar',

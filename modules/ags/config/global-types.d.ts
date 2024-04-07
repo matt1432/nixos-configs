@@ -120,12 +120,12 @@ Var<Widget>,
 'is_listening' | 'is_polling' | 'value',
 Widget[]
 >;
+export type HyprTransition = 'slide' | 'slide top' | 'slide bottom' | 'slide left' |
+'slide right' | 'popin' | 'fade';
 export type CloseType = 'none' | 'stay' | 'released' | 'clicked';
 export type PopupWindowProps<Child extends Widget, Attr = unknown> =
 WindowProps<Child> & {
-    transition?: RevealerProps<Widget>['transition']
-    transition_duration?: number
-    bezier?: string
+    transition?: HyprTransition;
     on_open?(self: PopupWindow<Child, Attr>): void
     on_close?(self: PopupWindow<Child, Attr>): void
     blur?: boolean

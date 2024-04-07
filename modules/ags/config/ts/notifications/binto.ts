@@ -9,6 +9,7 @@ import PopupWindow from '../misc/popup.ts';
 export const NotifPopups = () => Window({
     name: 'notifications',
     anchor: ['bottom', 'left'],
+    layer: 'overlay',
     monitor: 1,
 
     child: PopUpsWidget(),
@@ -18,7 +19,7 @@ export const NotifPopups = () => Window({
 export const NotifCenter = () => PopupWindow({
     name: 'notification-center',
     anchor: ['bottom', 'right'],
-    transition: 'slide_up',
+    transition: 'slide bottom',
     monitor: 1,
 
     content: NotifCenterWidget(),

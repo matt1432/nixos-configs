@@ -54,7 +54,7 @@ export default (app: Application) => {
         attribute: { app },
 
         on_primary_click_release: () => {
-            App.closeWindow('applauncher');
+            App.closeWindow('win-applauncher');
             app.launch();
         },
 

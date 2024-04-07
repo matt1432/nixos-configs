@@ -327,7 +327,7 @@ const SecondRow = () => Row({
             command: () => {
                 execAsync(['lock']).catch(print);
             },
-            secondary_command: () => App.openWindow('powermenu'),
+            secondary_command: () => App.openWindow('win-powermenu'),
             icon: 'system-lock-screen-symbolic',
         }),
     ],

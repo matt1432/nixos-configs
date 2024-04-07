@@ -71,7 +71,7 @@ const Applauncher = (window_name = 'applauncher') => {
             const appList = Applications.query(text || '');
 
             if (appList[0]) {
-                App.closeWindow(window_name);
+                App.closeWindow(`win-${window_name}`);
                 appList[0].launch();
             }
         },
@@ -112,7 +112,7 @@ const Applauncher = (window_name = 'applauncher') => {
 
         setup: (self) => {
             self.hook(App, (_, name, visible) => {
-                if (name !== window_name) {
+                if (name !== `win-${window_name}`) {
                     return;
                 }
 
@@ -150,6 +150,7 @@ const Applauncher = (window_name = 'applauncher') => {
 
 export default () => PopupWindow({
     name: 'applauncher',
+    transition: 'slide top',
     keymode: 'on-demand',
     content: Applauncher(),
 });

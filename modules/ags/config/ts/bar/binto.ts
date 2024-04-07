@@ -16,7 +16,6 @@ export default () => BarRevealer({
     monitor: 1,
     exclusivity: 'exclusive',
     anchor: ['bottom', 'left', 'right'],
-    transition: 'slide_up',
     bar: Box({
         vertical: true,
         children: [

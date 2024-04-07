@@ -26,7 +26,7 @@ export default () => {
         name: 'openAppLauncher',
         gesture: 'UD',
         edge: 'T',
-        command: () => App.openWindow('applauncher'),
+        command: () => App.openWindow('win-applauncher'),
     });
 
     TouchGestures.addGesture({

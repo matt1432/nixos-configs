@@ -14,18 +14,18 @@ export default () => CursorBox({
     class_name: 'toggle-off',
 
     on_primary_click_release: (self) => {
-        (App.getWindow('notification-center') as PopupWindow)
+        (App.getWindow('win-notification-center') as PopupWindow)
             .set_x_pos(
                 self.get_allocation(),
                 'right',
             );
 
-        App.toggleWindow('notification-center');
+        App.toggleWindow('win-notification-center');
     },
 
     setup: (self) => {
         self.hook(App, (_, windowName, visible) => {
-            if (windowName === 'notification-center') {
+            if (windowName === 'win-notification-center') {
                 self.toggleClassName('toggle-on', visible);
             }
         });
