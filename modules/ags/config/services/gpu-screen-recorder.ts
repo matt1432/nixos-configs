@@ -65,10 +65,8 @@ class GSR extends Service {
                 {},
                 Notifications.popupTimeout,
             );
-        });
+        }).catch(logError);
     }
 }
 
-const gsrService = new GSR();
-
-export default gsrService;
+export default GSR;

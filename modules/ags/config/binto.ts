@@ -17,7 +17,9 @@ App.config({
         Brightness.capsName = 'input30::capslock';
         globalThis.Brightness = Brightness;
         globalThis.Pointers = Pointers;
-        globalThis.GSR = GSR;
+        setTimeout(() => {
+            globalThis.GSR = new GSR();
+        }, 1000);
     },
 
     windows: () => [
