@@ -28,9 +28,9 @@ in {
       ];
 
       script = ''
-        find /data/movies -name '*.mkv' -printf "%h\0" | xargs -0 -I '{}' node-syncsub '{}' "eng,fra"
-        # find /data/anime -name '*.mkv' -printf "%h\0" | xargs -0 -I '{}' node-syncsub '{}' "eng,fra"
-        # find /data/tv -name '*.mkv' -printf "%h\0" | xargs -0 -I '{}' node-syncsub '{}' "eng,fra"
+        find /data/movies -name '*.mkv' -printf "%h\0" | xargs -0 -I '{}' node-syncsub '{}' "eng,fre"
+        # find /data/anime -name '*.mkv' -printf "%h\0" | xargs -0 -I '{}' node-syncsub '{}' "eng,fre"
+        # find /data/tv -name '*.mkv' -printf "%h\0" | xargs -0 -I '{}' node-syncsub '{}' "eng,fre"
       '';
     };
     #timers.subsync-job = {
