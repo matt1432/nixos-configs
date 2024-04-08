@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage {
   imageName = "ghcr.io/gethomepage/homepage";
-  imageDigest = "sha256:fc0d6e8b469ea8756d7c5bc542eb5c89064b9c47c3fa85f19b70a695c65cb782";
-  sha256 = "08alpwh3g7c65blrql5zz87jgzr48nqq2wsv59zdknw2ir3zf6d2";
+  imageDigest = "sha256:13d1bf9c5cf7d2b0f3af90ddfe59302f32374b8f48a56c6f6afc2a475bf919df";
+  sha256 = "12kzw2dvlfv78nh6y0iqygjndbizxra39kpsrif5026p2hjm4gyp";
   finalImageName = "ghcr.io/gethomepage/homepage";
   finalImageTag = "latest";
 }
