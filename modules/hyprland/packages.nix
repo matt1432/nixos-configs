@@ -17,6 +17,7 @@ in {
       ../../home/foot.nix
       ../../home/mpv
       ../../home/obs.nix
+      ../../home/wezterm
       ../../home/wofi
 
       ({config, ...}: let
