@@ -36,13 +36,24 @@ in {
       in {
         # Vanilla Survival
         sv = {
-          enable = false;
+          enable = true;
+
+          jvmMaxAllocation = "10G";
+          jvmInitialAllocation = "2G";
+          jvmPackage = jre18;
+          jvmOpts = "";
 
           serverConfig =
             {
               server-port = 25569;
+              motd = "1.20.4 gaming";
 
               extra-options = {
+                difficulty = "hard";
+                enable-command-block = true;
+                max-players = 10;
+                view-distance = 16;
+                level-seed = "8764718009920";
               };
             }
             // defaults;
@@ -77,7 +88,7 @@ in {
         # Modded https://www.curseforge.com/minecraft/modpacks/steam-punk
         # curseforge-server-downloader --pack 643605 --version latest
         steampunk = {
-          enable = true;
+          enable = false;
 
           jvmMaxAllocation = "12G";
           jvmInitialAllocation = "2G";
@@ -113,7 +124,7 @@ in {
         # Modded https://www.curseforge.com/minecraft/modpacks/ultimate-building-modpack
         # With https://www.curseforge.com/minecraft/mc-mods/bits-and-chisels
         builder = {
-          enable = true;
+          enable = false;
 
           jvmMaxAllocation = "6G";
           jvmInitialAllocation = "2G";
@@ -122,7 +133,7 @@ in {
 
           serverConfig =
             {
-              server-port = 25566;
+              server-port = 25567;
               motd = "creative mode gaming with mods";
 
               extra-options = {
