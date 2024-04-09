@@ -9,12 +9,22 @@
       enableBashIntegration = true;
     };
 
-    bash.sessionVariables = {
-      # FIXME: why is this not set by home-manager?
-      RIPGREP_CONFIG_PATH = "${config.xdg.configHome}/ripgrep/ripgreprc";
+    bash = {
+      sessionVariables = {
+        inherit (config.home.sessionVariables) RIPGREP_CONFIG_PATH;
+      };
+
+      shellAliases = {
+        rg = "rga";
+        cat = "bat ";
+        man = "BAT_THEME='default' batman ";
+      };
     };
+
     ripgrep = {
       enable = true;
+      package = pkgs.ripgrep-all;
+
       arguments = [
         "--max-columns=150"
         "--max-columns-preview"
@@ -29,10 +39,6 @@
     jq.enable = true;
     htop.enable = true;
 
-    bash.shellAliases = {
-      cat = "bat ";
-      man = "BAT_THEME='default' batman ";
-    };
     bat = {
       enable = true;
       config = {

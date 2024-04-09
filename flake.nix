@@ -296,7 +296,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # FIXME: these prevent from using nixos-install
     nh = {
       type = "github";
       owner = "viperML";
