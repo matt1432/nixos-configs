@@ -46,4 +46,11 @@ export default () => {
             Tablet.oskState = false;
         },
     });
+
+    TouchGestures.addGesture({
+        name: 'openOverview',
+        nFingers: '4',
+        gesture: 'UD',
+        command: 'hyprctl dispatch hyprexpo:expo on',
+    });
 };
