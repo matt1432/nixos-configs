@@ -126,7 +126,15 @@
       type = "git";
       url = "ssh://git@git.nelim.org/matt1432/nixos-secrets";
 
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        sops-nix = {
+          type = "github";
+          owner = "Mic92";
+          repo = "sops-nix";
+          inputs.nixpkgs.follows = "nixpkgs";
+        };
+      };
     };
 
     nix-on-droid = {
