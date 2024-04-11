@@ -152,5 +152,5 @@ export default () => PopupWindow({
     name: 'applauncher',
     transition: 'slide top',
     keymode: 'on-demand',
-    content: Applauncher(),
+    child: Applauncher(),
 });

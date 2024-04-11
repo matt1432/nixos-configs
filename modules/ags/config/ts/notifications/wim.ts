@@ -21,5 +21,5 @@ export const NotifCenter = () => PopupWindow({
     anchor: ['top', 'right'],
     margins: [TOP_MARGIN, 0, 0, 0],
 
-    content: NotifCenterWidget(),
+    child: NotifCenterWidget(),
 });

@@ -74,5 +74,5 @@ export default () => PopupWindow({
     exclusivity: 'ignore',
     close_on_unfocus: 'stay',
     transition: 'slide bottom',
-    content: OSDs(),
+    child: OSDs(),
 });

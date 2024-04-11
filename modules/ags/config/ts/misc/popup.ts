@@ -1,12 +1,8 @@
 import Gtk from 'gi://Gtk?version=3.0';
 const Hyprland = await Service.import('hyprland');
 
-const { Box, register } = Widget;
-const { timeout } = Utils;
-
-// Types
+/* Types */
 import { Window } from 'resource:///com/github/Aylur/ags/widgets/window.js';
-import { Variable as Var } from 'types/variable';
 
 import {
     CloseType,
@@ -20,25 +16,16 @@ export class PopupWindow<
     Attr,
 > extends Window<Child, Attr> {
     static {
-        register(this, {
+        Widget.register(this, {
             properties: {
-                content: ['widget', 'rw'],
+                close_on_unfocus: ['string', 'rw'],
+                transition: ['string', 'rw'],
             },
         });
     }
 
-    #content: Var<Gtk.Widget>;
     #close_on_unfocus: CloseType;
     #transition: HyprTransition;
-
-    get content() {
-        return this.#content.value;
-    }
-
-    set content(value: Gtk.Widget) {
-        this.#content.setValue(value);
-        this.child.show_all();
-    }
 
     get close_on_unfocus() {
         return this.#close_on_unfocus;
@@ -59,7 +46,6 @@ export class PopupWindow<
 
     constructor({
         transition = 'slide top',
-        transition_duration = 800,
         on_open = () => {/**/},
         on_close = () => {/**/},
 
@@ -68,25 +54,15 @@ export class PopupWindow<
         visible = false,
         anchor = [],
         layer = 'overlay',
-        attribute,
-        content = Box(),
-        blur = false,
         close_on_unfocus = 'released',
         ...rest
     }: PopupWindowProps<Child, Attr>) {
-        const contentVar = Variable(Box() as Gtk.Widget);
-
-        if (content) {
-            contentVar.setValue(content);
-        }
-
         super({
             ...rest,
             name: `win-${name}`,
             visible,
             anchor,
             layer,
-            attribute,
             setup: () => {
                 const id = App.connect('config-parsed', () => {
                     // Add way to make window open on startup
@@ -98,17 +74,10 @@ export class PopupWindow<
                     App.disconnect(id);
                 });
 
-                if (blur) {
-                    Hyprland.messageAsync('[[BATCH]] ' +
-                        `keyword layerrule ignorealpha 0.97, win-${name}; ` +
-                        `keyword layerrule blur, win-${name}`);
-                }
-
                 Hyprland.messageAsync(
                     `keyword layerrule animation ${transition}, win-${name}`,
                 );
             },
-            child: contentVar.bind(),
         });
 
         this.hook(App, (_, currentName, isOpen) => {
@@ -117,14 +86,11 @@ export class PopupWindow<
                     on_open(this);
                 }
                 else {
-                    timeout(Number(transition_duration), () => {
-                        on_close(this);
-                    });
+                    on_close(this);
                 }
             }
         });
 
-        this.#content = contentVar;
         this.#close_on_unfocus = close_on_unfocus;
         this.#transition = transition;
     }

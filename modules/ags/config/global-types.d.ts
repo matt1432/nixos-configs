@@ -128,10 +128,7 @@ WindowProps<Child> & {
     transition?: HyprTransition;
     on_open?(self: PopupWindow<Child, Attr>): void
     on_close?(self: PopupWindow<Child, Attr>): void
-    blur?: boolean
     close_on_unfocus?: CloseType
-    attribute?: Attr;
-    content?: Widget
     anchor?: Array<'top' | 'bottom' | 'right' | 'left'>;
 };
 import { PopupWindow } from 'ts/misc/popup';

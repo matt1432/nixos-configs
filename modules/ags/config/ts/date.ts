@@ -90,7 +90,7 @@ export default () => PopupWindow({
     anchor: ['top'],
     margins: [TOP_MARGIN, 0, 0, 0],
 
-    content: Box({
+    child: Box({
         class_name: 'date',
         vertical: true,
 

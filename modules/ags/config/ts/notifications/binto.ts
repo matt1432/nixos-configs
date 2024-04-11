@@ -22,5 +22,5 @@ export const NotifCenter = () => PopupWindow({
     transition: 'slide bottom',
     monitor: 1,
 
-    content: NotifCenterWidget(),
+    child: NotifCenterWidget(),
 });
