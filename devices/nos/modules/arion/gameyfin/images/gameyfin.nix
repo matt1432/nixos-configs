@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage {
   imageName = "grimsi/gameyfin";
-  imageDigest = "sha256:97842e65252e0854ccced478c10a007ee57e7a35c98c3cb26ecce9d0fd5be41c";
-  sha256 = "19gbbaqg4n188piyh3lb54rfwz5xpj6f6fkvpqsbls3v9a4ambjw";
+  imageDigest = "sha256:f7994b4d4da378d909c173115d71cfeb704980184e42db432bd309d51d92725e";
+  sha256 = "07a10aw1x2qbfpcva30l0b33lhxshrsacxr1ia0lbbsch655iymq";
   finalImageName = "grimsi/gameyfin";
   finalImageTag = "latest";
 }
