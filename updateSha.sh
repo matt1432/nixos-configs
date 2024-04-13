@@ -40,16 +40,21 @@ updateFirefoxAddons() {
 
         file=generated-firefox-addons.nix
         if [[ -f $file ]]; then
-            printf "\nOld versions: \n"
-
-            grep -A 1 --no-group-separator 'pname' "$file" |
+            readarray -t OLD_VERS <<< "$(grep -A 1 --no-group-separator 'pname' "$file" |
                 awk '{ gsub(/"/, ""); gsub(/;/, ""); print $3 }' |
-                awk 'NR%2{printf $0" version ";next;}1' | paste -sd'\n' -
+                awk 'NR%2{printf $0" version ";next;}1' | paste -sd'\n' -)"
 
-            printf "\nNew versions: \n"
+            readarray -t NEW_VERS <<< "$(sed 's/Fetched //' <(mozilla-addons-to-nix addons.json generated-firefox-addons.nix) |
+                sort)"
+
+            for (( i=0; i<${#OLD_VERS[@]}; i++ )); do
+                if [[ "${OLD_VERS[$i]}" != "${NEW_VERS[$i]}" ]]; then
+                    echo "${OLD_VERS[$i]} -> $(echo "${NEW_VERS[$i]}" | awk '{print $NF}')"
+                fi
+            done
+        else
+            mozilla-addons-to-nix addons.json generated-firefox-addons.nix
         fi
-
-        mozilla-addons-to-nix addons.json generated-firefox-addons.nix
     )
 }
 
@@ -94,4 +99,4 @@ doAllWithoutDocker() {
 [[ "$1" == "-ffz" || "$1" == "--frankerfacez" ]] && updateFFZ
 [[ "$1" == "-v" || "$1" == "--vuetorrent" ]] && updateVuetorrent
 
-alejandra "$FLAKE"
+alejandra -q "$FLAKE"
