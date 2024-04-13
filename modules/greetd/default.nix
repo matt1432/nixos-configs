@@ -14,11 +14,11 @@ in {
   imports = [./astal.nix];
 
   services = {
-    xserver = {
-      displayManager = {
-        sessionPackages = [hyprland];
-      };
+    displayManager = {
+      sessionPackages = [hyprland];
+    };
 
+    xserver = {
       libinput.enable = true;
       wacom.enable = isTouchscreen;
     };

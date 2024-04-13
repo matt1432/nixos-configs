@@ -55,7 +55,6 @@ in {
   home-manager.users.${mainUser} = {
     imports = [
       ./hyprexpo.nix
-      ./hyprgrass.nix
       ./inputs.nix
       ./style.nix
     ];
@@ -108,6 +107,12 @@ in {
             "1920x1560, 1"
           ])
         ];
+
+        gestures = {
+          workspace_swipe = true;
+          workspace_swipe_fingers = 3;
+          workspace_swipe_cancel_ratio = 0.15;
+        };
 
         "$mainMod" = "SUPER";
 

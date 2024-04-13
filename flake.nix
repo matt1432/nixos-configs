@@ -235,6 +235,7 @@
 
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     hypridle = {
       type = "github";
       owner = "hyprwm";
@@ -242,6 +243,7 @@
 
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     hyprlock = {
       type = "github";
       owner = "hyprwm";
@@ -250,14 +252,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # FIXME: https://github.com/horriblename/hyprgrass/issues/76
-    hyprgrass = {
-      type = "github";
-      owner = "horriblename";
-      repo = "hyprgrass";
-
-      inputs.hyprland.follows = "hyprland";
-    };
     hypr-official-plugins = {
       type = "github";
       owner = "hyprwm";
@@ -273,6 +267,7 @@
 
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     astal = {
       type = "github";
       owner = "Aylur";

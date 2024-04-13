@@ -37,5 +37,4 @@ The main dependencies to try it are as follows:
 If you're interested in my 2-1 laptop setup, you'll need:
 
 - **ydotool** for my custom on-screen keyboard
-- **lisgd** to have touch screen gestures # TODO: switch to hyprgrass
-when it has better binds
+- **lisgd** to have touch screen gestures
