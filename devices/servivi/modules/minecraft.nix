@@ -61,9 +61,9 @@ in {
 
         # Vanilla Creative
         cv = {
-          enable = false;
+          enable = true;
 
-          jvmMaxAllocation = "6G";
+          jvmMaxAllocation = "8G";
           jvmInitialAllocation = "2G";
           jvmPackage = jre18;
           jvmOpts = "";

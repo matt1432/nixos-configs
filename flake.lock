@@ -1345,11 +1345,11 @@
         "pyagentx-src": "pyagentx-src"
       },
       "locked": {
-        "lastModified": 1712978724,
-        "narHash": "sha256-xqbBt9fpMb0EeZzjNrrqHADNjPZB1FRtDlDX3uE/Oyc=",
+        "lastModified": 1712994016,
+        "narHash": "sha256-OBCYbrIT2J47UuZRBN9W9n3QZ6NIRDAkztJKb4KZmH0=",
         "owner": "matt1432",
         "repo": "nixos-pcsd",
-        "rev": "7c0cc48a0b44eda985d99597500e9c51b03fa7c2",
+        "rev": "a3c55b6c5d7c3fa75de3908ee57e1e33f17f15ef",
         "type": "github"
       },
       "original": {
@@ -1564,11 +1564,11 @@
         "nixpkgs-stable": "nixpkgs-stable"
       },
       "locked": {
-        "lastModified": 1712617241,
-        "narHash": "sha256-a4hbls4vlLRMciv62YrYT/Xs/3Cubce8WFHPUDWwzf8=",
+        "lastModified": 1713066950,
+        "narHash": "sha256-ZaefFyvt5369XdjzSw43NhfbPM9MN5b9YXhzx4lFIRc=",
         "owner": "Mic92",
         "repo": "sops-nix",
-        "rev": "538c114cfdf1f0458f507087b1dcf018ce1c0c4c",
+        "rev": "226062b47fe0e2130ba3ee9f4f1c880dc815cf87",
         "type": "github"
       },
       "original": {
