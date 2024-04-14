@@ -4,6 +4,7 @@ in {
   imports = [
     ./hardware-configuration.nix
 
+    ../../modules/android.nix
     ../../modules/ags
     ../../modules/audio.nix
     ../../modules/hyprland
