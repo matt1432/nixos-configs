@@ -11,6 +11,10 @@ in {
     secretKeyFile = secrets.binary-cache-key.path;
   };
 
+  environment.systemPackages = with pkgs; [
+    nixci
+  ];
+
   # Populate cache
   systemd = {
     services.buildAll = {

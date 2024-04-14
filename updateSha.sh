@@ -5,6 +5,7 @@
 #   - mozilla-addons-to-nix
 #   - alejandra
 #   - updateImages
+#   - nixci
 
 parseFetchurl() {
     URL="$1"
@@ -79,10 +80,12 @@ updateVuetorrent() {
 
 
 doAll() {
+    nix flake update
     updateDocker
     updateFFZ
     updateFirefoxAddons
     updateVuetorrent
+    nixci
 }
 
 doAllWithoutDocker() {
