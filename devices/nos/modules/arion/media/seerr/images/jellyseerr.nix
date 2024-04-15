@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage {
   imageName = "fallenbagel/jellyseerr";
-  imageDigest = "sha256:6dcdb5ba50913a14b2bd7df6388607ce175121f3416679c2746501256ac9f075";
-  sha256 = "0bcs4dfw6n78yp1br0z5ra6bf6f5hppxrs86b3b6pszzlp3ijjfw";
+  imageDigest = "sha256:f59bee4e90a020a3544265cd1b7a35a5dd6ec55df76b370048afd292e93be0e7";
+  sha256 = "13vninzz7kva1paqy7p71cwr9naygyj9qgrb896w38fjl1vavpbj";
   finalImageName = "fallenbagel/jellyseerr";
   finalImageTag = "latest";
 }
