@@ -24,25 +24,53 @@ export class PopupWindow<
         });
     }
 
-    #close_on_unfocus: CloseType;
-    #transition: HyprTransition;
+
+    private _close_on_unfocus: CloseType;
 
     get close_on_unfocus() {
-        return this.#close_on_unfocus;
+        return this._close_on_unfocus;
     }
 
     set close_on_unfocus(value: CloseType) {
-        this.#close_on_unfocus = value;
+        this._close_on_unfocus = value;
     }
 
+
+    private _transition = 'unset' as HyprTransition;
+
     get transition() {
-        return this.#transition;
+        return this._transition;
     }
 
     set transition(t: HyprTransition) {
-        this.#transition = t;
-        Hyprland.messageAsync(`keyword layerrule animation ${t}, ${this.name}`);
+        Hyprland.messageAsync(
+            `keyword layerrule animation ${t}, ${this.name}`,
+        ).catch(logError);
+        this._transition = t;
     }
+
+
+    private _on_open: (self: PopupWindow<Child, Attr>) => void;
+
+    get on_open() {
+        return this._on_open;
+    }
+
+    set on_open(fun: (self: PopupWindow<Child, Attr>) => void) {
+        this._on_open = fun;
+    }
+
+
+    private _on_close: (self: PopupWindow<Child, Attr>) => void;
+
+    get on_close() {
+        return this._on_close;
+    }
+
+    set on_close(fun: (self: PopupWindow<Child, Attr>) => void) {
+        this._on_close = fun;
+    }
+
 
     constructor({
         transition = 'slide top',
@@ -70,29 +98,29 @@ export class PopupWindow<
                         App.openWindow(`win-${name}`);
                     }
 
+                    // Make sure Hyprland got the message
+                    this.transition = transition;
+
                     // This connection should always run only once
                     App.disconnect(id);
                 });
-
-                Hyprland.messageAsync(
-                    `keyword layerrule animation ${transition}, win-${name}`,
-                );
             },
         });
+
+        this._close_on_unfocus = close_on_unfocus;
+        this._on_open = on_open;
+        this._on_close = on_close;
 
         this.hook(App, (_, currentName, isOpen) => {
             if (currentName === `win-${name}`) {
                 if (isOpen) {
-                    on_open(this);
+                    this.on_open(this);
                 }
                 else {
-                    on_close(this);
+                    this.on_close(this);
                 }
             }
         });
-
-        this.#close_on_unfocus = close_on_unfocus;
-        this.#transition = transition;
     }
 
     set_x_pos(
