@@ -30,12 +30,17 @@ in {
     input-fields = [
       {
         inherit monitor;
+        size.height = 70;
         fade_on_empty = false;
         outer_color = "rgba(10, 10, 10, 1.0)";
         inner_color = "rgb(151515)";
         font_color = "rgba(240, 240, 240, 1.0)"; # This is the dot color
         capslock_color = "rgba(171, 12, 8, 1.0)";
-        placeholder_text = ''<span foreground="##cccccc" style="italic">Input Password...</span>'';
+        placeholder_text = let
+          span = "<span foreground='##cccccc' style='italic' size='15pt' allow_breaks='true'>";
+          mkSpan = s: "${span}${s}</span>";
+        in
+          mkSpan "\r$PROMPT";
       }
     ];
 
