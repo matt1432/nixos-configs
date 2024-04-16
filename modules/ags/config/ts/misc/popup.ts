@@ -98,9 +98,6 @@ export class PopupWindow<
                         App.openWindow(`win-${name}`);
                     }
 
-                    // Make sure Hyprland got the message
-                    this.transition = transition;
-
                     // This connection should always run only once
                     App.disconnect(id);
                 });
@@ -113,6 +110,9 @@ export class PopupWindow<
 
         this.hook(App, (_, currentName, isOpen) => {
             if (currentName === `win-${name}`) {
+                // Make sure we have the right animation
+                this.transition = transition;
+
                 if (isOpen) {
                     this.on_open(this);
                 }
