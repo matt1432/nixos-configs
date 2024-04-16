@@ -252,10 +252,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hypr-official-plugins = {
+    Hyprspace = {
       type = "github";
-      owner = "hyprwm";
-      repo = "hyprland-plugins";
+      owner = "KZDKM";
+      repo = "Hyprspace";
 
       inputs.hyprland.follows = "hyprland";
     };
