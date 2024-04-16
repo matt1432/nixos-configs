@@ -5,6 +5,7 @@ import { Fzf, FzfResultItem } from 'fzf';
 
 import PopupWindow from '../misc/popup.ts';
 import AppItem from './app-item.ts';
+import { launchApp } from './launch.ts';
 
 // Types
 import { ListBoxRow } from 'types/@girs/gtk-3.0/gtk-3.0.cjs';
@@ -72,7 +73,7 @@ const Applauncher = (window_name = 'applauncher') => {
 
             if (appList[0]) {
                 App.closeWindow(`win-${window_name}`);
-                appList[0].launch();
+                launchApp(appList[0]);
             }
         },
 

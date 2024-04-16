@@ -9,6 +9,7 @@ const { GLib } = imports.gi;
 
 import Gesture from './gesture.ts';
 import CursorBox from '../misc/cursorbox.ts';
+import { launchApp } from '../applauncher/launch.ts';
 
 // Types
 import { Notification as NotifObj } from 'types/service/notifications.ts';
@@ -89,7 +90,7 @@ const NotificationIcon = (notif: NotifObj) => {
                             else {
                                 Hyprland.messageAsync('dispatch workspace empty')
                                     .then(() => {
-                                        app.launch();
+                                        launchApp(app);
                                     });
                             }
                         });
