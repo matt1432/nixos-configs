@@ -54,6 +54,7 @@ in {
           gcc
         ]
         ++ optionals neovimIde [
+          clang-tools
           nodejs_latest
           nodePackages.npm
           nodePackages.neovim
@@ -203,6 +204,8 @@ in {
             markdown-preview-nvim
 
             # Coc configured
+            coc-clangd
+            coc-cmake
             coc-css
             coc-eslint
             coc-java
