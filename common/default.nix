@@ -16,7 +16,6 @@
     ./pkgs
 
     nur.nixosModules.nur
-    nh.nixosModules.default
     home-manager.nixosModules.home-manager
 
     ../modules/arion
@@ -28,7 +27,7 @@
     config.allowUnfree = true;
     overlays = import ./overlays inputs;
   };
-  boot.tmp.cleanOnBoot = true;
+  boot.tmp.useTmpfs = true;
 
   nix = {
     # Allow deleting store files with '.' in the name
@@ -57,8 +56,10 @@
     };
   };
 
-  nh = {
+  programs.nh = {
     enable = true;
+    package = nh.packages.${pkgs.system}.default;
+
     # weekly cleanup
     clean = {
       enable = true;

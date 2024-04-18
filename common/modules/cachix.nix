@@ -6,7 +6,7 @@
   environment.systemPackages = with pkgs; [
     (writeShellApplication {
       name = "rebuild-no-cache";
-      runtimeInputs = [config.nh.package];
+      runtimeInputs = [config.programs.nh.package];
       text = ''
         nh os switch -- --option binary-caches "https://cache.nixos.org" "$@"
       '';
