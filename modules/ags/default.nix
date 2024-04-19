@@ -57,7 +57,6 @@ in {
         enable = true;
         extraPackages = with pkgs; [
           libadwaita
-          gtkSessionLock
         ];
       };
 
