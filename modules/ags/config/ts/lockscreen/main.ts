@@ -1,8 +1,10 @@
-const { Box, Entry, Label, Separator, Window } = Widget;
+const { Box, Entry, Label, Window } = Widget;
 
 import Gdk from 'gi://Gdk?version=3.0';
 import Gtk from 'gi://Gtk?version=3.0';
 import Lock from 'gi://GtkSessionLock?version=0.1';
+
+import Separator from '../misc/separator.ts';
 
 /* Types */
 import { Box as AgsBox } from 'types/widgets/box';
@@ -13,8 +15,10 @@ const windows: Gtk.Window[] = [];
 const blurBGs: AgsBox<Gtk.Widget, { geometry: { w: number, h: number }; }>[] = [];
 
 const transition_duration = 1000;
-const windowMargins = -2;
-const bgCSS = ({ w = 1, h = 1 } = {}) =>`
+const WINDOW_MARGINS = -2;
+const ENTRY_SPACING = 20;
+const CLOCK_SPACING = 60;
+const bgCSS = ({ w = 1, h = 1 } = {}) => `
     border: 2px solid rgba(189, 147, 249, 0.8);
     background: rgba(0, 0, 0, 0.2);
     min-height: ${h}px;
@@ -43,6 +47,17 @@ const unlock = () => {
         App.quit();
     });
 };
+
+const Clock = () => Label({ class_name: 'clock' })
+    .poll(1000, (self) => {
+        self.label = (new Date().toLocaleString([], {
+            hour: 'numeric',
+            minute: 'numeric',
+            hour12: true,
+        }) ?? '')
+            .replace('a.m.', 'AM')
+            .replace('p.m.', 'PM');
+    });
 
 const PasswordPrompt = (monitor: Gdk.Monitor) => {
     const rev = Box({
@@ -78,7 +93,7 @@ const PasswordPrompt = (monitor: Gdk.Monitor) => {
         gdkmonitor: monitor,
         layer: 'overlay',
         anchor: ['top', 'bottom', 'right', 'left'],
-        margins: [windowMargins],
+        margins: [WINDOW_MARGINS],
         exclusivity: 'ignore',
 
         child: Box({
@@ -93,13 +108,17 @@ const PasswordPrompt = (monitor: Gdk.Monitor) => {
     const label = Label('Enter password:');
 
     return new Gtk.Window({
-        child: Widget.Box({
+        child: Box({
             vertical: true,
             vpack: 'center',
             hpack: 'center',
             spacing: 16,
 
             children: [
+                Clock(),
+
+                Separator(CLOCK_SPACING, { vertical: true }),
+
                 Box({
                     hpack: 'center',
                     class_name: 'avatar',
@@ -111,7 +130,7 @@ const PasswordPrompt = (monitor: Gdk.Monitor) => {
                     children: [
                         label,
 
-                        Separator(),
+                        Separator(ENTRY_SPACING, { vertical: true }),
 
                         Entry({
                             hpack: 'center',
