@@ -36,6 +36,6 @@ in {
     polkit-1.text = mkDefault (mkBefore grosshackConf);
 
     # FIXME: sometimes can't use password
-    hyprlock.text = mkDefault (mkBefore grosshackConf);
+    ags.text = mkDefault (mkBefore grosshackConf);
   };
 }

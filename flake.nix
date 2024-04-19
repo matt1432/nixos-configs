@@ -244,14 +244,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprlock = {
-      type = "github";
-      owner = "hyprwm";
-      repo = "hyprlock";
-
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     Hyprspace = {
       type = "github";
       owner = "KZDKM";

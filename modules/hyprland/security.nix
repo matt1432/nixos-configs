@@ -14,7 +14,6 @@ in {
     ../greetd
   ];
 
-  security.pam.services.hyprlock = {};
   services.gnome.gnome-keyring.enable = true;
 
   home-manager.users.${mainUser} = let
@@ -23,16 +22,14 @@ in {
       name = "lock";
       runtimeInputs = [
         hmCfg.programs.ags.finalPackage
-        hmCfg.programs.hyprlock.package
       ];
       text = ''
         ags -r 'Tablet.setLaptopMode()'
-        hyprlock
+        ags -b lockscreen -c ~/.config/ags/lockscreen.js
       '';
     };
   in {
     imports = [
-      ./hyprlock.nix
       hypridle.homeManagerModules.default
     ];
 

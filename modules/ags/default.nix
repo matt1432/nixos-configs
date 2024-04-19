@@ -10,7 +10,7 @@
 
   flakeDir = config.environment.variables.FLAKE;
   isTouchscreen = config.hardware.sensor.iio.enable;
-  gtk-lock = gtk-session-lock.packages.${pkgs.system}.default;
+  gtkSessionLock = gtk-session-lock.packages.${pkgs.system}.default;
 in {
   # Enable pam for ags and astal
   security.pam.services.ags = {};
@@ -57,14 +57,14 @@ in {
         enable = true;
         extraPackages = with pkgs; [
           libadwaita
-          gtk-lock
+          gtkSessionLock
         ];
       };
 
       programs.ags = {
         enable = true;
         extraPackages = [
-          gtk-lock
+          gtkSessionLock
         ];
       };
 
@@ -82,7 +82,7 @@ in {
               source = "${config.programs.ags.finalPackage}/share/com.github.Aylur.ags/types";
               recursive = true;
             };
-            "${agsConfigDir}/config/types/gtk-session-lock".source = pkgs.callPackage ./gtk-session-lock-types {inherit gtk-lock;};
+            "${agsConfigDir}/config/types/gtk-session-lock".source = pkgs.callPackage ./gtk-session-lock-types {inherit gtkSessionLock;};
             "${agsConfigDir}/config/config.js".text = configJs;
           }
           // (import ./icons.nix {inherit pkgs agsConfigDir;});
@@ -120,6 +120,8 @@ in {
 
           layerrule = [
             "noanim, ^(?!win-).*"
+            "blur, ^(blur-bg.*)"
+            "ignorealpha 0.19, ^(blur-bg.*)"
           ];
 
           exec-once = [

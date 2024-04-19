@@ -4,7 +4,7 @@
   gdk-pixbuf,
   gobject-introspection,
   gtk3,
-  gtk-lock,
+  gtkSessionLock,
   harfbuzz,
   pango,
   ...
@@ -20,7 +20,7 @@ buildNpmPackage {
 
   installPhase = ''
     npx @ts-for-gir/cli generate ${builtins.concatStringsSep " " [
-      "-g ${gtk-lock.dev}/share/gir-1.0"
+      "-g ${gtkSessionLock.dev}/share/gir-1.0"
       "-g ${gobject-introspection.dev}/share/gir-1.0"
       "-g ${gtk3.dev}/share/gir-1.0"
       "-g ${pango.dev}/share/gir-1.0"
