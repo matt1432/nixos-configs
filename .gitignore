@@ -1,7 +1,7 @@
 *.egg-info
 *.temp
 *node_modules/
-*types
+**/types
 *build/
 result*
 *config.js

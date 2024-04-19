@@ -161,7 +161,6 @@ const createWindow = (monitor: Gdk.Monitor) => {
     const win = PasswordPrompt(monitor);
 
     windows.push(win);
-    // @ts-expect-error should be fine
     lock.new_surface(win, monitor);
     win.show();
 };

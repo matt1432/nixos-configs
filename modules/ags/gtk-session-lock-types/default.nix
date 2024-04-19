@@ -27,6 +27,12 @@ buildNpmPackage {
       "-g ${gdk-pixbuf.dev}/share/gir-1.0"
       "-g ${harfbuzz.dev}/share/gir-1.0"
       "-g ${atk.dev}/share/gir-1.0"
-    ]} -o $out
+    ]} -e gjs -o ./types
+
+    mkdir -p $out
+    cp ./types/gtksessionlock* $out/
+
+    substituteInPlace $out/gtksessionlock* --replace-warn \
+      "from '." "from '@girs"
   '';
 }
