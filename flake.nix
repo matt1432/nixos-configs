@@ -276,6 +276,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    gtk-session-lock = {
+      type = "github";
+      owner = "Cu3PO42";
+      repo = "gtk-session-lock";
+
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     coc-stylelintplus = {
       type = "github";
       owner = "matt1432";

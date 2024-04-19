@@ -2,6 +2,7 @@
   ags,
   astal,
   config,
+  gtk-session-lock,
   pkgs,
   ...
 }: let
@@ -9,6 +10,7 @@
 
   flakeDir = config.environment.variables.FLAKE;
   isTouchscreen = config.hardware.sensor.iio.enable;
+  gtk-lock = gtk-session-lock.packages.${pkgs.system}.default;
 in {
   # Enable pam for ags and astal
   security.pam.services.ags = {};
@@ -55,10 +57,16 @@ in {
         enable = true;
         extraPackages = with pkgs; [
           libadwaita
+          gtk-lock
         ];
       };
 
-      programs.ags.enable = true;
+      programs.ags = {
+        enable = true;
+        extraPackages = [
+          gtk-lock
+        ];
+      };
 
       home = {
         file =
@@ -70,7 +78,11 @@ in {
 
             # AGS symlinks. ${./config}, types and config.js
             ".config/ags".source = symlink "${flakeDir}/modules/ags/config";
-            "${agsConfigDir}/config/types".source = "${config.programs.ags.finalPackage}/share/com.github.Aylur.ags/types";
+            "${agsConfigDir}/config/types" = {
+              source = "${config.programs.ags.finalPackage}/share/com.github.Aylur.ags/types";
+              recursive = true;
+            };
+            "${agsConfigDir}/config/types/gtk-session-lock".source = pkgs.callPackage ./gtk-session-lock-types {inherit gtk-lock;};
             "${agsConfigDir}/config/config.js".text = configJs;
           }
           // (import ./icons.nix {inherit pkgs agsConfigDir;});

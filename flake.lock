@@ -378,6 +378,26 @@
         "url": "https://repo.dec05eba.com/gpu-screen-recorder"
       }
     },
+    "gtk-session-lock": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1712778835,
+        "narHash": "sha256-SHKAYmdev08oRB/V6UpfSFqYwplF59IaNSOoWcACPig=",
+        "owner": "Cu3PO42",
+        "repo": "gtk-session-lock",
+        "rev": "b3544f361498d716b1ceef1ad6ac9bdf024bf782",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Cu3PO42",
+        "repo": "gtk-session-lock",
+        "type": "github"
+      }
+    },
     "gtk-theme-src": {
       "flake": false,
       "locked": {
@@ -1515,6 +1535,7 @@
         "firefox-gx-src": "firefox-gx-src",
         "git-theme-src": "git-theme-src",
         "gpu-screen-recorder-src": "gpu-screen-recorder-src",
+        "gtk-session-lock": "gtk-session-lock",
         "gtk-theme-src": "gtk-theme-src",
         "headscale": "headscale",
         "home-manager": "home-manager",
@@ -1593,11 +1614,11 @@
         "nixpkgs-stable": "nixpkgs-stable"
       },
       "locked": {
-        "lastModified": 1713457024,
-        "narHash": "sha256-31MpStyXedDL1fvuOvn6iz3JURSVShDtDVMyP1PTjtc=",
+        "lastModified": 1713532771,
+        "narHash": "sha256-vfKxhYVMzG2tg48/1rewBoSLCrKIjQsG1j7Nm/Y2gf4=",
         "owner": "Mic92",
         "repo": "sops-nix",
-        "rev": "b94c6edbb8355756c53efc8ca3874c63622f287a",
+        "rev": "a929a011a09db735abc45a8a45d1ff7fdee62755",
         "type": "github"
       },
       "original": {
