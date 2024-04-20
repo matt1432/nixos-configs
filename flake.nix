@@ -252,6 +252,14 @@
       inputs.hyprland.follows = "hyprland";
     };
 
+    solaar = {
+      type = "github";
+      owner = "Svenum";
+      repo = "Solaar-Flake";
+
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     ags = {
       type = "github";
       owner = "Aylur";

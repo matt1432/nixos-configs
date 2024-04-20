@@ -7,7 +7,7 @@
   inherit (osConfig.services.xserver) xkb;
   inherit (osConfig.vars) mainMonitor;
 
-  nagaProNames = [
+  miceNames = [
     # Wireless
     "razer-razer-naga-pro"
 
@@ -17,6 +17,7 @@
     "razer-naga-pro-1"
     "razer-naga-pro-2"
     "razer-naga-pro-3"
+    "logitech-g502-hero-gaming-mouse"
   ];
   nagaConf = name: {
     inherit name;
@@ -26,7 +27,7 @@
 in {
   wayland.windowManager.hyprland = {
     settings = {
-      device = map (d: (nagaConf d)) nagaProNames;
+      device = map (d: (nagaConf d)) miceNames;
 
       input = {
         kb_layout = xkb.layout;

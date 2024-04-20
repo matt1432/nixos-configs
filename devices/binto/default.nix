@@ -11,6 +11,7 @@ in {
     ../../modules/kmscon.nix
     ../../modules/printer.nix
     ../../modules/razer.nix
+    ../../modules/logitech.nix
     ../../modules/sshd.nix
     ../../modules/tailscale.nix
 
