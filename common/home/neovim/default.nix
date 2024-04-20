@@ -4,6 +4,7 @@
   lib,
   nvim-theme-src,
   coc-stylelintplus,
+  vimplugin-easytables-src,
   vimplugin-riscv-src,
   ...
 }: let
@@ -259,8 +260,18 @@ in {
             }
             (pkgs.vimUtils.buildVimPlugin {
               name = "riscv-asm";
+              version = vimplugin-riscv-src.shortRev;
               src = vimplugin-riscv-src;
             })
+            {
+              plugin = (pkgs.vimUtils.buildVimPlugin {
+                name = "easytables-nvim";
+                version = vimplugin-easytables-src.shortRev;
+                src = vimplugin-easytables-src;
+              });
+              type = "lua";
+              config = ''require("easytables").setup();'';
+            }
           ])
         # Treesitter
         ++ (with pkgs.vimPlugins; [

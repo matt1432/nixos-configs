@@ -364,6 +364,13 @@
       flake = false;
     };
 
+    vimplugin-easytables-src = {
+      type = "github";
+      owner = "Myzel394";
+      repo = "easytables.nvim";
+      flake = false;
+    };
+
     ## Overlays
     gpu-screen-recorder-src = {
       type = "git";

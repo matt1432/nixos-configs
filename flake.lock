@@ -1506,6 +1506,7 @@
         "subsync": "subsync",
         "touch-gestures-src": "touch-gestures-src",
         "trash-d-src": "trash-d-src",
+        "vimplugin-easytables-src": "vimplugin-easytables-src",
         "vimplugin-riscv-src": "vimplugin-riscv-src",
         "xresources-theme-src": "xresources-theme-src"
       }
@@ -1768,6 +1769,22 @@
       "original": {
         "owner": "numtide",
         "repo": "treefmt-nix",
+        "type": "github"
+      }
+    },
+    "vimplugin-easytables-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1708936809,
+        "narHash": "sha256-fzfTQrpc4Z4kagpFDfB/1k09nvgCcUeeSsljF3J3YWk=",
+        "owner": "Myzel394",
+        "repo": "easytables.nvim",
+        "rev": "a00222ffc64dc31e69e32e8a0fc34f520540bc97",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Myzel394",
+        "repo": "easytables.nvim",
         "type": "github"
       }
     },
