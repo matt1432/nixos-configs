@@ -7,3 +7,4 @@ result*
 *config.js
 *icons
 *.direnv/
+modules/ags/config/ts/lockscreen/vars.ts

@@ -35,6 +35,7 @@ in {
 
     home.packages = with pkgs; [
       gnome.seahorse
+      lockPkg
     ];
 
     services.hypridle = mkIf isLaptop {

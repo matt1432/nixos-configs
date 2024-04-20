@@ -3,10 +3,12 @@
   astal,
   config,
   gtk-session-lock,
+  lib,
   pkgs,
   ...
 }: let
-  inherit (config.vars) mainUser hostName;
+  inherit (lib) boolToString;
+  inherit (config.vars) mainUser hostName mainMonitor greetdDupe;
 
   flakeDir = config.environment.variables.FLAKE;
   isTouchscreen = config.hardware.sensor.iio.enable;
@@ -83,6 +85,17 @@ in {
             };
             "${agsConfigDir}/config/types/gtk-session-lock".source = pkgs.callPackage ./gtk-session-lock-types {inherit gtkSessionLock;};
             "${agsConfigDir}/config/config.js".text = configJs;
+
+            "${agsConfigDir}/config/ts/lockscreen/vars.ts".text =
+              /*
+              javascript
+              */
+              ''
+                export default {
+                    mainMonitor: '${mainMonitor}',
+                    dupeLockscreen: ${boolToString greetdDupe},
+                };
+              '';
           }
           // (import ./icons.nix {inherit pkgs agsConfigDir;});
 
@@ -119,6 +132,8 @@ in {
 
           layerrule = [
             "noanim, ^(?!win-).*"
+
+            # Lockscreen blur
             "blur, ^(blur-bg.*)"
             "ignorealpha 0.19, ^(blur-bg.*)"
           ];
