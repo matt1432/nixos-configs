@@ -94,6 +94,7 @@ in {
                 export default {
                     mainMonitor: '${mainMonitor}',
                     dupeLockscreen: ${boolToString greetdDupe},
+                    hasFprintd: ${boolToString (hostName == "wim")},
                 };
               '';
           }

@@ -204,5 +204,11 @@ const on_finished = () => {
 lock.connect('locked', on_locked);
 lock.connect('finished', on_finished);
 
+if (Vars.hasFprintd) {
+    Utils.authenticate('')
+        .then(() => unlock())
+        .catch(logError);
+}
+
 
 export default () => lock.lock_lock();
