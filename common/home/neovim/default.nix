@@ -155,6 +155,9 @@ in {
             no-trailing-spaces = true;
             no-multiple-blanks = false;
             no-duplicate-heading = false;
+            line-length = {
+              tables = false;
+            };
           };
         };
       };
