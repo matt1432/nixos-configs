@@ -25,7 +25,7 @@ in {
       ];
       text = ''
         ags -r 'Tablet.setLaptopMode()'
-        ags -b lockscreen -c ~/.config/ags/lockscreen.js
+        ags -b lockscreen -c /home/${mainUser}/.config/ags/lockscreen.js
       '';
     };
   in {
