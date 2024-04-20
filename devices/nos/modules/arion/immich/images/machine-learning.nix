@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage {
   imageName = "ghcr.io/immich-app/immich-machine-learning";
-  imageDigest = "sha256:b0a22ca87496019f495ed5ce89df08da237e0987d389376b435b2226a8c29463";
-  sha256 = "001nj0dsqzb3lhvjrm88wv3cmm5yx8wldw3i7kq1vs80gi4ckhs1";
+  imageDigest = "sha256:bd8300efeade567181252ced1a76d386473cfd2a40aaf0b56f19f1771a359632";
+  sha256 = "0w0c13jiz30idbpbkp547p1icc2w58x98614vw9hqlrk0sfpv7b5";
   finalImageName = "ghcr.io/immich-app/immich-machine-learning";
-  finalImageTag = "v1.101.0";
+  finalImageTag = "v1.102.0";
 }
