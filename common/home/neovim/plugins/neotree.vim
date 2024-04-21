@@ -5,7 +5,6 @@ function! OpenTree() abort
     Neotree close
     Neotree show
   endif
-  lua MiniMap.open()
 endfunction
 
 autocmd VimEnter * call OpenTree()

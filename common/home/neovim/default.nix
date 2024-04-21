@@ -203,6 +203,11 @@ in {
               type = "lua";
               config = fileContents ./plugins/mini.lua;
             }
+            {
+              plugin = codewindow-nvim;
+              type = "lua";
+              config = fileContents ./plugins/codewindow.lua;
+            }
           ]
           ++ optionals neovimIde [
             markdown-preview-nvim
@@ -264,11 +269,11 @@ in {
               src = vimplugin-riscv-src;
             })
             {
-              plugin = (pkgs.vimUtils.buildVimPlugin {
+              plugin = pkgs.vimUtils.buildVimPlugin {
                 name = "easytables-nvim";
                 version = vimplugin-easytables-src.shortRev;
                 src = vimplugin-easytables-src;
-              });
+              };
               type = "lua";
               config = ''require("easytables").setup();'';
             }
