@@ -1,5 +1,5 @@
 const { Box, Entry, Label, Window } = Widget;
-const { execAsync, idle, readFileAsync } = Utils;
+const { idle, readFileAsync } = Utils;
 
 const greetd = await Service.import('greetd');
 
@@ -10,10 +10,6 @@ const DEFAULT_NAME = 'matt';
 // Types
 import { StringObject } from 'types/@girs/gtk-4.0/gtk-4.0.cjs';
 
-
-// Run Wallpaper daemon here to not cause issues at startup
-execAsync(['bash', '-c',
-    `swww init --no-cache && swww img -t none ${App.configDir}/.wallpaper`]).catch(print);
 
 const parsePasswd = (fileContent: string) => {
     const splitUsers = fileContent.split('\n');

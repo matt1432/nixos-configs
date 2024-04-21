@@ -1534,6 +1534,7 @@
         "trash-d-src": "trash-d-src",
         "vimplugin-easytables-src": "vimplugin-easytables-src",
         "vimplugin-riscv-src": "vimplugin-riscv-src",
+        "wpaperd": "wpaperd",
         "xresources-theme-src": "xresources-theme-src"
       }
     },
@@ -1744,6 +1745,21 @@
         "type": "github"
       }
     },
+    "systems_7": {
+      "locked": {
+        "lastModified": 1689347949,
+        "narHash": "sha256-12tWmuL2zgBgZkdoB6qXZsgJEH9LR3oUgpaQq2RbI80=",
+        "owner": "nix-systems",
+        "repo": "default-linux",
+        "rev": "31732fcf5e8fea42e59c2488ad31a0e651500f68",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default-linux",
+        "type": "github"
+      }
+    },
     "touch-gestures-src": {
       "flake": false,
       "locked": {
@@ -1844,6 +1860,27 @@
         "owner": "hyprwm",
         "repo": "wlroots-hyprland",
         "rev": "611a4f24cd2384378f6e500253983107c6656c64",
+        "type": "github"
+      }
+    },
+    "wpaperd": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": "systems_7"
+      },
+      "locked": {
+        "lastModified": 1713427743,
+        "narHash": "sha256-5riZ/6yjgsW++SUIyJP5rFG65tkjJKgtvDLIGaoiHN0=",
+        "owner": "danyspin97",
+        "repo": "wpaperd",
+        "rev": "ee109b08066ed9893cf898b24e16354f547475a4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "danyspin97",
+        "repo": "wpaperd",
         "type": "github"
       }
     },

@@ -17,38 +17,36 @@ in {
     imports = [
       astal.homeManagerModules.default
       ../../home/theme
+      ../../home/wpaperd.nix
     ];
 
     programs.astal.enable = true;
 
-    home = {
-      packages = [
-        hyprland
-        pkgs.bun
-        pkgs.dart-sass
-        pkgs.swww
-        pkgs.gtk3
-        pkgs.glib
-      ];
+    home.packages = [
+      hyprland
+      pkgs.bun
+      pkgs.dart-sass
+      pkgs.gtk3
+      pkgs.glib
+    ];
 
-      file = {
-        ".config/astal/.wallpaper".source = "${pkgs.dracula-theme}/wallpapers/waves.png";
-
-        ".config/astal" = {
-          source = ../ags/astal;
-          recursive = true;
-        };
-
-        ".config/astal/config.js".text =
-          /*
-          javascript
-          */
-          ''
-            import { transpileTypeScript } from './js/utils.js';
-
-            export default (await transpileTypeScript('greeter')).default;
-          '';
+    xdg.configFile = {
+      "astal" = {
+        source = ../ags/astal;
+        recursive = true;
       };
+
+      "astal/config.js".text =
+        /*
+        javascript
+        */
+        ''
+          import { transpileTypeScript } from './js/utils.js';
+
+          Utils.execAsync('wpaperd -d');
+
+          export default (await transpileTypeScript('greeter')).default;
+        '';
     };
   };
 }

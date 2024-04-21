@@ -1,13 +1,10 @@
-{
-  config,
-  pkgs,
-  ...
-}: let
+{config, ...}: let
   inherit (config.vars) configDir;
 in {
-  imports = [../../home/theme];
-
-  home.packages = with pkgs; [swww];
+  imports = [
+    ../../home/theme
+    ../../home/wpaperd.nix
+  ];
 
   wayland.windowManager.hyprland = {
     settings = {
@@ -15,7 +12,7 @@ in {
 
       exec-once = [
         "hyprctl setcursor Dracula-cursors 24"
-        "sleep 0.1 && swww init --no-cache && swww img -t none ${pkgs.dracula-theme}/wallpapers/waves.png"
+        "wpaperd -d"
       ];
 
       windowrule = [

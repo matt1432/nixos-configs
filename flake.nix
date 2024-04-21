@@ -252,6 +252,14 @@
       inputs.hyprland.follows = "hyprland";
     };
 
+    wpaperd = {
+      type = "github";
+      owner = "danyspin97";
+      repo = "wpaperd";
+
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     solaar = {
       type = "github";
       owner = "Svenum";
