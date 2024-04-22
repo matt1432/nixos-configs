@@ -1,7 +1,5 @@
 {
   outputs = inputs @ {
-    self,
-    home-manager,
     nixpkgs,
     nix-on-droid,
     secrets,
@@ -13,7 +11,7 @@
       nixpkgs.lib.genAttrs supportedSystems (system: let
         pkgs = nixpkgs.legacyPackages.${system};
       in
-        attrs system pkgs);
+        attrs pkgs);
 
     # Default system
     mkNixOS = mods:
@@ -70,9 +68,9 @@
       import ./devices/android inputs
     );
 
-    formatter = perSystem (_: pkgs: pkgs.alejandra);
+    formatter = perSystem (pkgs: pkgs.alejandra);
 
-    devShells = perSystem (_: pkgs: {
+    devShells = perSystem (pkgs: {
       default = pkgs.mkShell {
         packages = with pkgs; [
           alejandra
@@ -122,21 +120,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    secrets = {
-      type = "git";
-      url = "ssh://git@git.nelim.org/matt1432/nixos-secrets";
-
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        sops-nix = {
-          type = "github";
-          owner = "Mic92";
-          repo = "sops-nix";
-          inputs.nixpkgs.follows = "nixpkgs";
-        };
-      };
-    };
-
     nix-on-droid = {
       type = "github";
       owner = "nix-community";
@@ -147,6 +130,24 @@
         home-manager.follows = "home-manager";
       };
     };
+
+    sops-nix = {
+      type = "github";
+      owner = "Mic92";
+      repo = "sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    secrets = {
+      type = "git";
+      url = "ssh://git@git.nelim.org/matt1432/nixos-secrets";
+
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        sops-nix.follows = "sops-nix";
+      };
+    };
+    #
 
     # Overlays
     nixpkgs-wayland = {
@@ -166,6 +167,7 @@
       owner = "fufexan";
       repo = "nix-gaming";
     };
+    #
 
     # Cluster Inputs
     pcsd = {
@@ -189,6 +191,7 @@
 
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    #
 
     # Servivi inputs
     nms = {
@@ -198,6 +201,7 @@
 
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    #
 
     # Nos inputs
     arion = {
@@ -226,8 +230,18 @@
 
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    #
 
     # Desktop inputs
+    solaar = {
+      type = "github";
+      owner = "Svenum";
+      repo = "Solaar-Flake";
+
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    ## Hyprland
     hyprland = {
       type = "github";
       owner = "hyprwm";
@@ -251,7 +265,9 @@
 
       inputs.hyprland.follows = "hyprland";
     };
+    ##
 
+    ## Wayland
     wpaperd = {
       type = "github";
       owner = "danyspin97";
@@ -259,15 +275,9 @@
 
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    ##
 
-    solaar = {
-      type = "github";
-      owner = "Svenum";
-      repo = "Solaar-Flake";
-
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
+    ## AGS
     ags = {
       type = "github";
       owner = "Aylur";
@@ -291,7 +301,10 @@
 
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    ##
+    #
 
+    # Neovim inputs
     coc-stylelintplus = {
       type = "github";
       owner = "matt1432";
@@ -299,6 +312,13 @@
 
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixd = {
+      type = "github";
+      owner = "nix-community";
+      repo = "nixd";
+    };
+    #
 
     # Nix tools
     nurl = {
@@ -326,17 +346,11 @@
       owner = "nix-community";
       repo = "nix-melt";
     };
+    #
 
     # -= Non-flake inputs =-
 
     ## Custom packages
-    pocketsphinx-src = {
-      type = "github";
-      owner = "cmusphinx";
-      repo = "pocketsphinx";
-      flake = false;
-    };
-
     trash-d-src = {
       type = "github";
       owner = "rushsteve1";
@@ -378,6 +392,7 @@
       repo = "easytables.nvim";
       flake = false;
     };
+    ##
 
     ## Overlays
     gpu-screen-recorder-src = {
@@ -385,8 +400,9 @@
       url = "https://repo.dec05eba.com/gpu-screen-recorder";
       flake = false;
     };
+    ##
 
-    # MPV scripts
+    ## MPV scripts
     modernx-src = {
       type = "github";
       owner = "cyl0";
@@ -421,8 +437,9 @@
       repo = "mpv-scripts";
       flake = false;
     };
+    ##
 
-    ## Dracula and theme src
+    ## Theme sources
     jellyfin-ultrachromic-src = {
       type = "github";
       owner = "CTalvio";
@@ -479,5 +496,7 @@
       repo = "xresources";
       flake = false;
     };
+    ##
+    #
   };
 }

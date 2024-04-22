@@ -8,3 +8,4 @@ result*
 *icons
 *.direnv/
 modules/ags/config/ts/lockscreen/vars.ts
+.nixd.json

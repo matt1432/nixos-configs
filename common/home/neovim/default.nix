@@ -1,25 +1,57 @@
 {
   config,
+  osConfig,
   pkgs,
   lib,
   nvim-theme-src,
   coc-stylelintplus,
+  nixd,
   vimplugin-easytables-src,
   vimplugin-riscv-src,
   ...
 }: let
-  inherit (config.vars) neovimIde;
-  inherit (lib) fileContents hasAttr optionalAttrs optionals;
+  inherit (config.vars) hostName mainUser neovimIde;
+  inherit (lib) fileContents hasPrefix mdDoc optionalAttrs optionals removePrefix;
 
   javaSdk = pkgs.temurin-bin-17;
   coc-stylelintplus-flake = coc-stylelintplus.packages.${pkgs.system}.default;
+  nixdPkg = nixd.packages.${pkgs.system}.default;
+
+  flakeEnv = osConfig.environment.variables.FLAKE;
+  flakeDir = "${removePrefix "/home/${mainUser}/" flakeEnv}";
 in {
+  assertions = [
+    {
+      assertion = hasPrefix "/home/${mainUser}/" flakeEnv;
+      message = mdDoc ''
+        Your $FLAKE environment variable needs to point to a directory in
+        the main users' home to use the neovim module.
+      '';
+    }
+  ];
+
   home = optionalAttrs neovimIde {
     packages = with pkgs; [
       gradle
       maven
       alejandra
+
+      # FIXME: set nixd to use alejandra
+      (writeShellApplication {
+        name = "nixpkgs-fmt";
+        runtimeInputs = [alejandra];
+        text = "alejandra \"$@\"";
+      })
     ];
+
+    file."${flakeDir}/.nixd.json".text = builtins.toJSON {
+      nixpkgs = {
+        expr = "import (builtins.getFlake \"${flakeDir}\").inputs.nixpkgs {}";
+      };
+      options.nixos = {
+        expr = "(builtins.getFlake \"${flakeDir}\").nixosConfigurations.${hostName}.options";
+      };
+    };
   };
 
   xdg.dataFile = optionalAttrs neovimIde {
@@ -60,7 +92,7 @@ in {
           nodePackages.npm
           nodePackages.neovim
           gradle
-          nil
+          nixdPkg
         ]);
 
       extraPython3Packages = ps:
@@ -115,19 +147,8 @@ in {
           languageserver = {
             # Nix
             nix = {
-              command = "nil";
+              command = "nixd";
               filetypes = ["nix"];
-              rootPatterns = ["flake.nix"];
-              settings = {
-                nil = {
-                  formatting.command = ["alejandra"];
-
-                  nix = {
-                    maxMemoryMB = 2560;
-                    flake.autoArchive = hasAttr "sops" config;
-                  };
-                };
-              };
             };
           };
 
