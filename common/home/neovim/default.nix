@@ -43,8 +43,14 @@ in {
         text = "alejandra \"$@\"";
       })
     ];
+  };
 
-    file."${flakeDir}/.nixd.json".text = builtins.toJSON {
+  xdg.dataFile = optionalAttrs neovimIde {
+    ".gradle/gradle.properties".text = ''
+      org.gradle.java.home = ${javaSdk}
+    '';
+
+    "${flakeDir}/.nixd.json".text = builtins.toJSON {
       nixpkgs = {
         expr = "import (builtins.getFlake \"${flakeDir}\").inputs.nixpkgs {}";
       };
@@ -52,12 +58,6 @@ in {
         expr = "(builtins.getFlake \"${flakeDir}\").nixosConfigurations.${hostName}.options";
       };
     };
-  };
-
-  xdg.dataFile = optionalAttrs neovimIde {
-    ".gradle/gradle.properties".text = ''
-      org.gradle.java.home = ${javaSdk}
-    '';
   };
 
   programs = {

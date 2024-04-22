@@ -1,5 +1,6 @@
 {
   outputs = inputs @ {
+    self,
     nixpkgs,
     nix-on-droid,
     secrets,
@@ -11,7 +12,7 @@
       nixpkgs.lib.genAttrs supportedSystems (system: let
         pkgs = nixpkgs.legacyPackages.${system};
       in
-        attrs pkgs);
+        attrs system pkgs);
 
     # Default system
     mkNixOS = mods:
@@ -60,7 +61,12 @@
         ("${nixpkgs}/nixos/modules/installer/"
           + "cd-dvd/installation-cd-minimal.nix")
         {home-manager.users.nixos.home.stateVersion = "24.05";}
-        {vars.mainUser = "nixos";}
+        {
+          vars = {
+            mainUser = "nixos";
+            hostName = "nixos";
+          };
+        }
       ];
     };
 
@@ -68,9 +74,20 @@
       import ./devices/android inputs
     );
 
-    formatter = perSystem (pkgs: pkgs.alejandra);
+    formatter = perSystem (_: pkgs: pkgs.alejandra);
 
-    devShells = perSystem (pkgs: {
+    # CI: https://github.com/Mic92/dotfiles/blob/c2f538934d67417941f83d8bb65b8263c43d32ca/flake.nix#L168
+    checks = perSystem (system: pkgs: let
+      inherit (pkgs.lib) filterAttrs mapAttrs' nameValuePair;
+
+      nixosMachines = mapAttrs' (
+        name: config: nameValuePair "nixos-${name}" config.config.system.build.toplevel
+      ) ((filterAttrs (_: config: config.pkgs.system == system)) self.nixosConfigurations);
+      devShells = mapAttrs' (n: nameValuePair "devShell-${n}") self.devShells;
+    in
+      nixosMachines // devShells);
+
+    devShells = perSystem (_: pkgs: {
       default = pkgs.mkShell {
         packages = with pkgs; [
           alejandra

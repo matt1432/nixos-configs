@@ -5,7 +5,7 @@
 #   - mozilla-addons-to-nix
 #   - alejandra
 #   - updateImages
-#   - nixci
+#   - nix-fast-build
 
 parseFetchurl() {
     URL="$1"
@@ -85,7 +85,7 @@ doAll() {
     updateFFZ
     updateFirefoxAddons
     updateVuetorrent
-    nixci
+    nix-fast-build
 }
 
 doAllWithoutDocker() {

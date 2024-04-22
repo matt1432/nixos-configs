@@ -5,14 +5,19 @@
 }: let
   inherit (config.vars) mainUser;
   inherit (config.sops) secrets;
+
+  nix-fast-buildPkg = pkgs.writeShellApplication {
+    name = "nix-fast-build";
+    text = "nix run github:Mic92/nix-fast-build \"$@\"";
+  };
 in {
   services.nix-serve = {
     enable = true;
     secretKeyFile = secrets.binary-cache-key.path;
   };
 
-  environment.systemPackages = with pkgs; [
-    nixci
+  environment.systemPackages = [
+    nix-fast-buildPkg
   ];
 
   # Populate cache
@@ -27,7 +32,7 @@ in {
       path = with pkgs; [
         git
         nix
-        nixci
+        nix-fast-buildPkg
         openssh
       ];
 
@@ -38,8 +43,7 @@ in {
         fi
         git clone https://git.nelim.org/matt1432/nixos-configs.git nix-clone
         cd nix-clone
-        nix flake update
-        nixci .
+        nix-fast-build
         cd ..
         rm -r nix-clone
       '';
