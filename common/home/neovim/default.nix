@@ -1,6 +1,5 @@
 {
   config,
-  osConfig,
   pkgs,
   lib,
   nvim-theme-src,
@@ -17,7 +16,7 @@
   coc-stylelintplus-flake = coc-stylelintplus.packages.${pkgs.system}.default;
   nixdPkg = nixd.packages.${pkgs.system}.default;
 
-  flakeEnv = osConfig.environment.variables.FLAKE;
+  flakeEnv = config.programs.bash.sessionVariables.FLAKE;
   flakeDir = "${removePrefix "/home/${mainUser}/" flakeEnv}";
 in {
   assertions = [

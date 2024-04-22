@@ -91,6 +91,12 @@
           };
         }
 
+        {
+          programs.bash.sessionVariables = {
+            FLAKE = config.environment.variables.FLAKE;
+          };
+        }
+
         nur.hmModules.nur
 
         ./home
