@@ -21,8 +21,8 @@
 in {
   assertions = [
     {
-      assertion = hasPrefix "/home/${mainUser}/" flakeEnv;
-      message = mdDoc ''
+      assertion = neovimIde && hasPrefix "/home/${mainUser}/" flakeEnv || !neovimIde;
+      message = ''
         Your $FLAKE environment variable needs to point to a directory in
         the main users' home to use the neovim module.
       '';
