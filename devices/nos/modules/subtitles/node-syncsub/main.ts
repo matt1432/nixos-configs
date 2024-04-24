@@ -75,16 +75,16 @@ async function backupSubs(files: string[]) {
     }
 }
 
-function runSubSync(
+async function runSubSync(
     cmd: string[],
-    onError = (error?: string) => {
-        console.error(error);
-    },
+    input: string,
+    output: string,
 ) {
-    const { error } = spawn('subsync', cmd, SPAWN_OPTS);
+    spawn('subsync', cmd, SPAWN_OPTS);
 
-    if (error) {
-        onError(error.message);
+    if (!(await readDir(DIR)).includes(output)) {
+        await mv(input, output);
+        console.log('Subtitle was moved back');
     }
 
     spawn('chmod', ['-R', '775', `'${escapePath(DIR)}'`], SPAWN_OPTS);
@@ -132,9 +132,7 @@ async function main() {
             if (files.includes(FILE_NAME)) {
                 await mv(OUT_FILE, IN_FILE);
 
-                runSubSync(cmd, async() => {
-                    await mv(IN_FILE, OUT_FILE);
-                });
+                runSubSync(cmd, IN_FILE, OUT_FILE);
             }
             else {
                 let subs = data.streams.filter((s) => {
@@ -184,9 +182,7 @@ async function main() {
                     spawn('rm', [`'${escapePath(VIDEO)}.bak'`], SPAWN_OPTS);
 
                     // Sync extracted subtitle
-                    runSubSync(cmd, async() => {
-                        await mv(IN_FILE, OUT_FILE);
-                    });
+                    runSubSync(cmd, IN_FILE, OUT_FILE);
                 }
             }
         });
