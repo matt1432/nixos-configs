@@ -41,7 +41,7 @@ export default () => Box({
                     setup: (self) => {
                         self
                             .hook(Audio, () => {
-                                self.value = Audio.speaker?.volume || 0;
+                                self.value = Audio.speaker.volume || 0;
                             }, 'speaker-changed')
 
                             // OnClick

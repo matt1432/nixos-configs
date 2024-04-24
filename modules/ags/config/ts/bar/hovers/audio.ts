@@ -13,9 +13,9 @@ export default () => HoverRevealer({
     }),
 
     label: Label().hook(Audio, (self) => {
-        if (Audio.speaker?.volume) {
+        if (Audio.speaker.volume) {
             self.label =
-                `${Math.round(Audio.speaker?.volume * 100)}%`;
+                `${Math.round(Audio.speaker.volume * 100)}%`;
         }
     }, 'speaker-changed'),
 });

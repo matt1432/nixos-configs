@@ -28,7 +28,7 @@ export default () => {
         Network(),
     ];
 
-    return CursorBox({
+    const widget = CursorBox({
         class_name: 'toggle-off',
 
         on_primary_click_release: (self) => {
@@ -76,4 +76,10 @@ export default () => {
             ],
         }),
     });
+
+    widget.attribute.hoverRevealers.forEach((hv) => {
+        hv.attribute.var.setValue(widget);
+    });
+
+    return widget;
 };
