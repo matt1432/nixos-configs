@@ -60,12 +60,16 @@ in {
         "/var/lib/onlyoffice"
       ];
 
-      # Fix mobile editing
       entrypoint = ''bash -c "${let
           filePath = "/var/www/onlyoffice/documentserver/web-apps/apps/*/mobile/dist/js/app.js";
           func = "isSupportEditFeature=function()";
         in
           concatStrings [
+            # Fix proxies
+            ''sed -i 's/"allowPrivateIPAddress": false,/"allowPrivateIPAddress": true,/' /etc/onlyoffice/documentserver/default.json''
+            ''sed -i 's/"allowMetaIPAddress": false/"allowMetaIPAddress": true/' /etc/onlyoffice/documentserver/default.json''
+
+            # Fix mobile editing
             "sed -i 's/${func}{return!1}/${func}{return 1}/g' ${filePath};"
             "/app/ds/run-document-server.sh;"
             "apt update;"
