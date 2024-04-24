@@ -250,14 +250,6 @@
     #
 
     # Desktop inputs
-    solaar = {
-      type = "github";
-      owner = "Svenum";
-      repo = "Solaar-Flake";
-
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     ## Hyprland
     hyprland = {
       type = "github";

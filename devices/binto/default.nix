@@ -10,8 +10,8 @@ in {
     ../../modules/hyprland
     ../../modules/kmscon.nix
     ../../modules/printer.nix
+    ../../modules/ratbag-mice.nix
     ../../modules/razer.nix
-    ../../modules/logitech.nix
     ../../modules/sshd.nix
     ../../modules/tailscale.nix
 

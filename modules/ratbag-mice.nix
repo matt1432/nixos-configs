@@ -1,7 +1,7 @@
 {
   config,
   lib,
-  solaar,
+  pkgs,
   ...
 }: let
   inherit (config.vars) mainUser;
@@ -15,16 +15,14 @@
     .windowManager
     .hyprland;
 in {
-  imports = [
-    solaar.nixosModules.default
-  ];
-
-  programs.solaar.enable = true;
+  services.ratbagd.enable = true;
 
   # HOME-MANAGER CONFIG
   home-manager.users.${mainUser} = {
+    home.packages = with pkgs; [piper];
+
     wayland.windowManager.hyprland = mkIf (cfgHypr.enable) {
-      settings.exec-once = ["solaar -w hide -b symbolic"];
+      # settings.exec-once = [""];
     };
   };
 }
