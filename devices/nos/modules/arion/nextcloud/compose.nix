@@ -1,16 +1,18 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
   inherit (config.sops) secrets;
   inherit (config.arion) rwDataDir;
   inherit (lib) concatStrings;
 
+  mainContainerName = "app-server";
   rwPath = rwDataDir + "/nextcloud";
 in {
   arion.projects."nextcloud" = {
-    "app-server" = {
+    "${mainContainerName}" = {
       image = ./images/nextcloud.nix;
       restart = "always";
 
@@ -31,7 +33,7 @@ in {
         POSTGRES_HOST = "nextcloud-db";
         REDIS_HOST = "nextcloud-cache";
         REDIS_HOST_PASSWORD = "password";
-        TRUSTED_PROXIES = "cloud.nelim.org";
+        TRUSTED_PROXIES = "cloud.nelim.org nginx-server";
         NEXTCLOUD_INIT_HTACCESS = "true";
       };
     };
@@ -101,6 +103,25 @@ in {
       tmpfs = [
         "/data"
       ];
+    };
+  };
+
+  # Cron job
+  systemd.timers.nextcloud-cron = {
+    description = "Timer For Nextcloud Cron";
+    wantedBy = ["timers.target"];
+
+    timerConfig.OnBootSec = "5m";
+    timerConfig.OnUnitActiveSec = "5m";
+  };
+  systemd.services.nextcloud-cron = {
+    description = "Nextcloud Cron";
+    requires = ["arion-nextcloud.service"];
+    after = ["arion-nextcloud.service"];
+
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.docker}/bin/docker exec -u www-data ${mainContainerName} php -f /var/www/html/cron.php";
     };
   };
 }
