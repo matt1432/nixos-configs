@@ -13,6 +13,26 @@
     all: unset;
   }
 
+  .header {
+    margin: 16.2px;
+    margin-bottom: 0;
+
+    image, entry {
+      all: unset;
+      border-radius: 9px;
+      color: #f8f8f2;
+      background-color: rgba(#44475a, 0.6);
+      border: 1px solid #44475a;
+      padding: 4.5px;
+    }
+
+    image {
+      margin-right: 9px;
+      -gtk-icon-transform: scale(0.8);
+      font-size: 25.6px;
+    }
+  }
+
   scrolledwindow {
     padding: 10px;
     padding-bottom: 0;
