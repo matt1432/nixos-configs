@@ -33,7 +33,6 @@ in {
         POSTGRES_HOST = "nextcloud-db";
         REDIS_HOST = "nextcloud-cache";
         REDIS_HOST_PASSWORD = "password";
-        TRUSTED_PROXIES = "cloud.nelim.org nginx-server";
         NEXTCLOUD_INIT_HTACCESS = "true";
       };
     };
