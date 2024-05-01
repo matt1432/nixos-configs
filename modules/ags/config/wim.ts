@@ -3,6 +3,7 @@ import AppLauncher from './ts/applauncher/main.ts';
 import Bar from './ts/bar/wim.ts';
 import BgFade from './ts/misc/background-fade.ts';
 import Calendar from './ts/date.ts';
+import Clipboard from './ts/clipboard/main.ts';
 import Corners from './ts/corners/main.ts';
 import { NotifPopups, NotifCenter } from './ts/notifications/wim.ts';
 import OSD from './ts/osd/main.ts';
@@ -23,6 +24,7 @@ App.config({
 
         AppLauncher(),
         Calendar(),
+        Clipboard(),
         NotifCenter(),
         OSD(),
         OSK(),

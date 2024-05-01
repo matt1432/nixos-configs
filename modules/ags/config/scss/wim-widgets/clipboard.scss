@@ -1,0 +1,64 @@
+.clipboard {
+  all: unset;
+  border: 2px solid $contrast-bg;
+  border-radius: 25px;
+  background-color: $bg;
+  color: #f8f8f2;
+  padding: 2px;
+
+  * {
+    font-size: 16px;
+  }
+
+  list, row {
+    all: unset;
+  }
+
+  scrolledwindow {
+    padding: 10px;
+    padding-bottom: 0;
+    min-width: 900px;
+    min-height: 750px;
+
+    scrollbar, scrollbar * {
+      all: unset;
+    }
+
+    scrollbar.vertical {
+      transition: 200ms;
+      background-color: rgba(23, 23, 23, 0.3);
+      margin: 20px 0;
+
+      &:hover {
+        background-color: rgba(23, 23, 23, 0.7);
+
+        slider {
+          background-color: rgba(238, 238, 238, 0.7);
+          min-width: .6em;
+        }
+      }
+
+      slider {
+        background-color: rgba(238, 238, 238, 0.5);
+        border-radius: 9px;
+        min-width: .4em;
+        min-height: 2em;
+        transition: 200ms;
+      }
+    }
+  }
+
+  .item {
+    all: unset;
+    transition: 200ms;
+    border-radius: 9px;
+
+    box {
+      padding: 10px;
+    }
+  }
+
+  *:selected, .item:hover, .item:focus {
+    background-color: #363449;
+  }
+}

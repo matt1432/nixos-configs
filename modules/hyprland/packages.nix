@@ -17,7 +17,6 @@ in {
       ../../home/foot.nix
       ../../home/mpv
       ../../home/obs.nix
-      ../../home/wofi
 
       ({config, ...}: let
         symlink = config.lib.file.mkOutOfStoreSymlink;
@@ -115,7 +114,6 @@ in {
         ];
 
         windowrule = [
-          "noborder,^(wofi)$"
           "tile,^(libreoffice)$"
           "float,^(org.gnome.Calculator)$"
           "float,^(com.gabm.satty)$"
@@ -133,7 +131,7 @@ in {
           "$mainMod, Q, exec, foot"
 
           # Clipboard History
-          "$mainMod, V, exec, killall -r wofi || cliphist list | wofi --dmenu | cliphist decode | wl-copy"
+          "$mainMod, V, exec, ags -t win-clipboard"
 
           "        , Print, exec, screenshot"
           "$mainMod, Print, exec, grim -g \"$(slurp)\" - | satty -f - --output-filename \"screenshot-$(date --iso-8601=seconds)\""

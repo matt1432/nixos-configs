@@ -107,6 +107,7 @@ in {
             dart-sass
             bun
             playerctl
+            (callPackage ./clipboard {})
 
             ## gui
             pavucontrol # TODO: replace with ags widget
