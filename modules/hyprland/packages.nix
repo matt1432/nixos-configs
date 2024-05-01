@@ -29,7 +29,6 @@ in {
           "kiorc".source = symlink "${configDir}/kiorc";
           "mimeapps.list".source = symlink "${configDir}/mimeapps.list";
           "neofetch".source = symlink "${configDir}/neofetch";
-          "swappy".source = symlink "${configDir}/swappy";
         };
       })
     ];
@@ -58,7 +57,22 @@ in {
       cliphist
       grim
       slurp
-      swappy
+      satty
+
+      # TODO: make an ags widget to select windows, screens or a selection
+      (writeShellApplication {
+        name = "screenshot";
+        runtimeInputs = [
+          config.programs.hyprland.package
+          satty
+          grim
+          jq
+        ];
+        text = ''
+          screen=$(hyprctl monitors -j | jq -r '.[] | select(.focused == true).name')
+          exec grim -o "$screen" - | satty -f - --output-filename "/home/matt/Pictures/Screenshots/screenshot-$(date --iso-8601=seconds).png"
+        '';
+      })
 
       /*
       Discord themes for Vencord
@@ -104,6 +118,8 @@ in {
           "noborder,^(wofi)$"
           "tile,^(libreoffice)$"
           "float,^(org.gnome.Calculator)$"
+          "float,^(com.gabm.satty)$"
+          "size 1000 700,^(com.gabm.satty)$"
 
           "float,^(com.nextcloud.desktopclient.nextcloud)$"
           "move cursor -15 -10,^(com.nextcloud.desktopclient.nextcloud)$"
@@ -119,7 +135,8 @@ in {
           # Clipboard History
           "$mainMod, V, exec, killall -r wofi || cliphist list | wofi --dmenu | cliphist decode | wl-copy"
 
-          ",Print, exec, grim -g \"$(slurp)\" - | swappy -f -"
+          "        , Print, exec, screenshot"
+          "$mainMod, Print, exec, grim -g \"$(slurp)\" - | satty -f - --output-filename \"screenshot-$(date --iso-8601=seconds)\""
           "$mainMod SHIFT, C, exec, wl-color-picker"
 
           "$mainMod, T, togglespecialworkspace, thunder"
