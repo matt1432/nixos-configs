@@ -8,20 +8,12 @@
   inherit (import ./hyprland.nix {inherit config lib pkgs;}) hyprConf;
 
   # Nix stuff
-  isTouchscreen = config.hardware.sensor.iio.enable;
   hyprland = config.home-manager.users.${mainUser}.wayland.windowManager.hyprland.finalPackage;
 in {
   imports = [./astal.nix];
 
   services = {
-    displayManager = {
-      sessionPackages = [hyprland];
-    };
-
-    xserver = {
-      libinput.enable = true;
-      wacom.enable = isTouchscreen;
-    };
+    displayManager.sessionPackages = [hyprland];
 
     greetd = {
       enable = true;

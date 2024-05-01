@@ -62,7 +62,7 @@ in {
       photoqt
       nextcloud-client
       jellyfin-media-player
-      prismlauncher-qt5
+      prismlauncher
 
       # tools
       wl-color-picker

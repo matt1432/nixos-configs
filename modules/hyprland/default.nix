@@ -9,6 +9,7 @@
   inherit (config.vars) mainUser;
 
   cfg = config.programs.hyprland;
+  isTouchscreen = config.hardware.sensor.iio.enable;
 in {
   # SYSTEM CONFIG
   imports = [
@@ -29,6 +30,8 @@ in {
   services = {
     dbus.enable = true;
     gvfs.enable = true;
+    libinput.enable = true;
+    xserver.wacom.enable = isTouchscreen;
   };
 
   programs.hyprland = with hyprland.packages.${pkgs.system}; {
@@ -56,7 +59,7 @@ in {
   # HOME-MANAGER CONFIG
   home-manager.users.${mainUser} = {
     imports = [
-      ./Hyprspace.nix
+      ./hyprexpo.nix
       ./inputs.nix
       ./style.nix
     ];
