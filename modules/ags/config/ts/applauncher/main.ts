@@ -34,7 +34,7 @@ const Applauncher = (window_name = 'applauncher') => {
             const s1 = fzfResults.find((r) => r.item.name === row1)?.score ?? 0;
             const s2 = fzfResults.find((r) => r.item.name === row2)?.score ?? 0;
 
-            return s1 - s2;
+            return s2 - s1;
         });
     };
 
