@@ -49,7 +49,7 @@ class GSR extends Service {
                     },
                 );
             },
-            logError,
+            () => {/**/},
         );
     }
 
@@ -65,7 +65,7 @@ class GSR extends Service {
                 {},
                 Notifications.popupTimeout,
             );
-        }).catch(logError);
+        }).catch(console.error);
     }
 }
 
