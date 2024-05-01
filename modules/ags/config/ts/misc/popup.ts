@@ -3,12 +3,28 @@ const Hyprland = await Service.import('hyprland');
 
 /* Types */
 import { Window } from 'resource:///com/github/Aylur/ags/widgets/window.js';
+import type { WindowProps } from 'types/widgets/window';
+import type { Widget as AgsWidget } from 'types/widgets/widget';
 
 import {
     CloseType,
     HyprTransition,
-    PopupWindowProps,
 } from 'global-types';
+
+export type PopupWindowProps<
+    Child extends Gtk.Widget,
+    Attr = unknown,
+    Self = PopupWindow<Child, Attr>,
+> = WindowProps<Child, Attr, Self> & {
+    transition?: HyprTransition;
+    on_open?(self: PopupWindow<Child, Attr>): void;
+    on_close?(self: PopupWindow<Child, Attr>): void;
+    close_on_unfocus?: CloseType;
+    anchor?: Array<'top' | 'bottom' | 'right' | 'left'>;
+};
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export interface PopupWindow<Child, Attr> extends AgsWidget<Attr> { }
 
 
 export class PopupWindow<
@@ -50,7 +66,7 @@ export class PopupWindow<
     }
 
 
-    private _on_open: (self: PopupWindow<Child, Attr>) => void;
+    protected _on_open: (self: PopupWindow<Child, Attr>) => void;
 
     get on_open() {
         return this._on_open;
@@ -114,10 +130,10 @@ export class PopupWindow<
                 this.transition = transition;
 
                 if (isOpen) {
-                    this.on_open(this);
+                    this._on_open(this);
                 }
                 else {
-                    this.on_close(this);
+                    this._on_close(this);
                 }
             }
         });
@@ -147,6 +163,6 @@ export class PopupWindow<
     }
 }
 
-export default <Child extends Gtk.Widget, Attr>(
+export default <Child extends Gtk.Widget, Attr> (
     props: PopupWindowProps<Child, Attr>,
 ) => new PopupWindow(props);

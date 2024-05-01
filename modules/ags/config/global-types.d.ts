@@ -115,22 +115,9 @@ export type CursorBox = CursorBox;
 export type CursorBoxProps = CursorBoxProps;
 
 // For PopupWindow
-export type PopupChild = Binding<
-Var<Widget>,
-'is_listening' | 'is_polling' | 'value',
-Widget[]
->;
 export type HyprTransition = 'slide' | 'slide top' | 'slide bottom' | 'slide left' |
 'slide right' | 'popin' | 'fade';
 export type CloseType = 'none' | 'stay' | 'released' | 'clicked';
-export type PopupWindowProps<Child extends Widget, Attr = unknown> =
-WindowProps<Child> & {
-    transition?: HyprTransition;
-    on_open?(self: PopupWindow<Child, Attr>): void
-    on_close?(self: PopupWindow<Child, Attr>): void
-    close_on_unfocus?: CloseType
-    anchor?: Array<'top' | 'bottom' | 'right' | 'left'>;
-};
 import { PopupWindow } from 'ts/misc/popup';
 export type PopupWindow = PopupWindow;
 

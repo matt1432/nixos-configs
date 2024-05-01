@@ -2,7 +2,6 @@ const { Box, Icon, Label } = Widget;
 const { lookUpIcon } = Utils;
 
 import CursorBox from '../misc/cursorbox.ts';
-import { launchApp } from './launch.ts';
 
 /* Types */
 import { Application } from 'types/service/applications.ts';
@@ -53,11 +52,6 @@ export default (app: Application) => {
         class_name: 'app',
 
         attribute: { app },
-
-        on_primary_click_release: () => {
-            App.closeWindow('win-applauncher');
-            launchApp(app);
-        },
 
         child: Box({
             children: [

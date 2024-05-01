@@ -11,12 +11,12 @@
     "noImplicitAny": false,
     "baseUrl": ".",
     "paths": {
-      "fzf": ["./node_modules/fzf/dist/types"],
+      "fzf": ["./node_modules/fzf/dist/types"]
     },
     "typeRoots": [
       "./types",
       "./global-types.d.ts",
-      "./node_modules",
+      "./node_modules"
     ],
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
