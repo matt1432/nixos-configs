@@ -14,7 +14,7 @@ import { Box as AgsBox } from 'types/widgets/box';
 
 
 const lock = Lock.prepare_lock();
-const windows: Gtk.Window[] = [];
+const windows: Map<Gdk.Monitor, Gtk.Window> = new Map();
 const blurBGs: AgsBox<Gtk.Widget, { geometry: { w: number, h: number }; }>[] = [];
 
 const transition_duration = 1000;
@@ -175,12 +175,10 @@ const createWindow = (monitor: Gdk.Monitor) => {
     const entryVisible = Vars.mainMonitor.startsWith(hyprDesc) || Vars.dupeLockscreen;
     const win = PasswordPrompt(monitor, entryVisible);
 
-    windows.push(win);
-    lock.new_surface(win, monitor);
-    win.show();
+    windows.set(monitor, win);
 };
 
-const on_locked = () => {
+const lock_screen = () => {
     const display = Gdk.Display.get_default();
 
     for (let m = 0; m < (display?.get_n_monitors() ?? 0); m++) {
@@ -193,6 +191,11 @@ const on_locked = () => {
     display?.connect('monitor-added', (_, monitor) => {
         createWindow(monitor);
     });
+    lock.lock_lock();
+    windows.forEach((win, monitor) => {
+        lock.new_surface(win, monitor);
+        win.show();
+    });
 };
 
 const on_finished = () => {
@@ -201,7 +204,6 @@ const on_finished = () => {
     App.quit();
 };
 
-lock.connect('locked', on_locked);
 lock.connect('finished', on_finished);
 
 if (Vars.hasFprintd) {
@@ -211,4 +213,4 @@ if (Vars.hasFprintd) {
 }
 
 
-export default () => lock.lock_lock();
+export default () => lock_screen();
