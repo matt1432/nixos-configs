@@ -293,11 +293,8 @@
     ## AGS
     ags = {
       type = "github";
-      owner = "matt1432"; # "Aylur";
+      owner = "Aylur";
       repo = "ags";
-
-      # FIXME: wait for this to get merged
-      ref = "fix-hypr-path";
 
       inputs.nixpkgs.follows = "nixpkgs";
     };
