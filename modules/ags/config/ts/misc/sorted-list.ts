@@ -169,7 +169,7 @@ export class SortedList<
         this._entry = makeChildResult.entry;
 
         this._entry.on_change = ({ text }) => {
-            if (text !== null) {
+            if (text !== null || typeof text === 'string') {
                 this._set_sort(text, this._list, this._placeholder);
                 (this._list.get_children() as ListBoxRow[]).forEach((r) => {
                     r.changed();
