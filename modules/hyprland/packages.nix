@@ -5,6 +5,7 @@
   ...
 }: let
   inherit (lib) makeLibraryPath optionalString;
+  inherit (pkgs.writers) writeTOML;
   inherit (config.vars) mainUser;
   flakeDir = config.environment.variables.FLAKE;
 in {
@@ -28,6 +29,19 @@ in {
           "kiorc".source = symlink "${configDir}/kiorc";
           "mimeapps.list".source = symlink "${configDir}/mimeapps.list";
           "neofetch".source = symlink "${configDir}/neofetch";
+
+          "satty/config.toml".source = writeTOML "satty.toml" {
+            general = {
+              early-exit = true;
+              copy-command = "wl-copy";
+              initial-tool = "crop";
+              output-filename = "${config.home.homeDirectory}/Pictures/Screenshots/screen-%d-%m-%Y_%H:%M:%S.png";
+            };
+
+            font = {
+              family = "Ubuntu Mono";
+            };
+          };
         };
       })
     ];
@@ -69,7 +83,7 @@ in {
         ];
         text = ''
           screen=$(hyprctl monitors -j | jq -r '.[] | select(.focused == true).name')
-          exec grim -o "$screen" - | satty -f - --output-filename "/home/matt/Pictures/Screenshots/screenshot-$(date --iso-8601=seconds).png"
+          exec grim -o "$screen" - | satty -f -
         '';
       })
 
@@ -134,7 +148,7 @@ in {
           "$mainMod, V, exec, ags -t win-clipboard"
 
           "        , Print, exec, screenshot"
-          "$mainMod, Print, exec, grim -g \"$(slurp)\" - | satty -f - --output-filename \"screenshot-$(date --iso-8601=seconds)\""
+          "$mainMod, Print, exec, grim -g \"$(slurp)\" - | satty -f -"
           "$mainMod SHIFT, C, exec, wl-color-picker"
 
           "$mainMod, T, togglespecialworkspace, thunder"
