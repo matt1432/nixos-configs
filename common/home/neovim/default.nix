@@ -10,7 +10,7 @@
   ...
 }: let
   inherit (config.vars) hostName mainUser neovimIde;
-  inherit (lib) fileContents hasPrefix mdDoc optionalAttrs optionals removePrefix;
+  inherit (lib) fileContents hasPrefix optionalAttrs optionals removePrefix;
 
   javaSdk = pkgs.temurin-bin-17;
   coc-stylelintplus-flake = coc-stylelintplus.packages.${pkgs.system}.default;

@@ -152,6 +152,7 @@
       type = "github";
       owner = "Mic92";
       repo = "sops-nix";
+
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -354,6 +355,22 @@
       type = "github";
       owner = "nix-community";
       repo = "nix-melt";
+    };
+
+    nix-eval-jobs = {
+      type = "github";
+      owner = "nix-community";
+      repo = "nix-eval-jobs";
+
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-fast-build = {
+      type = "github";
+      owner = "Mic92";
+      repo = "nix-fast-build";
+
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     #
 

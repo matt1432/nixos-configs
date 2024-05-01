@@ -1,14 +1,19 @@
 {
   config,
+  nix-eval-jobs,
+  nix-fast-build,
   pkgs,
   ...
 }: let
   inherit (config.vars) mainUser;
   inherit (config.sops) secrets;
 
-  nix-fast-buildPkg = pkgs.writeShellApplication {
-    name = "nix-fast-build";
-    text = "nix run github:Mic92/nix-fast-build \"$@\"";
+  nixPkg = {
+    nix = config.nix.package;
+  };
+  nix-fast-buildPkg = nix-fast-build.packages.${pkgs.system}.nix-fast-build.override {
+    nix-eval-jobs =
+      nix-eval-jobs.packages.${pkgs.system}.default.override nixPkg // nixPkg;
   };
 in {
   services.nix-serve = {
@@ -31,7 +36,6 @@ in {
 
       path = with pkgs; [
         git
-        nix
         nix-fast-buildPkg
         openssh
       ];
