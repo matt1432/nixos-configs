@@ -199,6 +199,9 @@
       owner = "juanfont";
       repo = "headscale";
 
+      # FIXME: doesn't work on latest
+      rev = "fef8261339899fe526777a7aa42df57ca02021c5";
+
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
