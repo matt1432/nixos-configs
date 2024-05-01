@@ -33,23 +33,25 @@ in {
 
   programs.hyprland = with hyprland.packages.${pkgs.system}; {
     enable = true;
-    package = default.overrideAttrs (o: {
-      postFixup = ''
-        rm "$out/share/xdg-desktop-portal/hyprland-portals.conf"
-
-        cat <<EOF > "$out/share/xdg-desktop-portal/hyprland-portals.conf"
-        [preferred]
-        default=hyprland;gtk
-        org.freedesktop.impl.portal.FileChooser=kde
-        EOF
-      '';
-    });
+    package = default;
     portalPackage = xdg-desktop-portal-hyprland;
   };
 
-  xdg.portal.extraPortals = [
-    pkgs.xdg-desktop-portal-kde
-  ];
+  xdg.portal = {
+    enable = true;
+
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-kde
+    ];
+
+    config.hyprland = {
+      default = [
+        "hyprland"
+        "gtk"
+      ];
+      "org.freedesktop.impl.portal.FileChooser" = ["kde"];
+    };
+  };
 
   # HOME-MANAGER CONFIG
   home-manager.users.${mainUser} = {
