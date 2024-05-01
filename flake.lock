@@ -789,6 +789,22 @@
         "type": "github"
       }
     },
+    "libratbag-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1709658456,
+        "narHash": "sha256-9rlnGQ7kcXqX+8mFb0imnzLo0X6Nuca6fcMv+H6ZwEw=",
+        "owner": "libratbag",
+        "repo": "libratbag",
+        "rev": "8444ceb638b19c3fbeb073a5cd29f17c6d34dd07",
+        "type": "github"
+      },
+      "original": {
+        "owner": "libratbag",
+        "repo": "libratbag",
+        "type": "github"
+      }
+    },
     "modernx-src": {
       "flake": false,
       "locked": {
@@ -1566,6 +1582,22 @@
         "type": "github"
       }
     },
+    "piper-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1708275645,
+        "narHash": "sha256-ar1f0d2dzgUCL9F/AI1la26i/4Ab6SgxmeTjiI1J4z0=",
+        "owner": "libratbag",
+        "repo": "piper",
+        "rev": "66c1897540d107e48227ce05c5ac51ea41454feb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "libratbag",
+        "repo": "piper",
+        "type": "github"
+      }
+    },
     "plymouth-theme-src": {
       "flake": false,
       "locked": {
@@ -1670,6 +1702,7 @@
         "hyprland": "hyprland",
         "jellyfin-flake": "jellyfin-flake",
         "jellyfin-ultrachromic-src": "jellyfin-ultrachromic-src",
+        "libratbag-src": "libratbag-src",
         "modernx-src": "modernx-src",
         "nh": "nh",
         "nix-eval-jobs": "nix-eval-jobs",
@@ -1688,6 +1721,7 @@
         "pam-fprint-grosshack-src": "pam-fprint-grosshack-src",
         "pcsd": "pcsd",
         "persist-properties-src": "persist-properties-src",
+        "piper-src": "piper-src",
         "plymouth-theme-src": "plymouth-theme-src",
         "pointer-event-src": "pointer-event-src",
         "pokemon-colorscripts-src": "pokemon-colorscripts-src",

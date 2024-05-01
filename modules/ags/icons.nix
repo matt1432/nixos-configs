@@ -3,11 +3,6 @@
   pkgs,
   ...
 }: {
-  "${agsConfigDir}/config/icons/mouse-razer-symbolic.svg".source = pkgs.fetchurl {
-    url = "https://raw.githubusercontent.com/bithatch/razer-icon-font/main/src/devices/mouse.svg";
-    hash = "sha256-A1+eIp2VEFDyY23GIHKhbnByHXrnVS3QgIJ9sjjtuZw=";
-  };
-
   "${agsConfigDir}/config/icons/down-large-symbolic.svg".source = pkgs.fetchurl {
     url = "https://www.svgrepo.com/download/158537/down-chevron.svg";
     hash = "sha256-mOfNjgZh0rt6XosKA2kpLY22lJldSS1XCphgrnvZH1s=";

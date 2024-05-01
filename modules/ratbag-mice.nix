@@ -1,28 +1,26 @@
 {
-  config,
-  lib,
+  libratbag-src,
   pkgs,
+  piper-src,
   ...
-}: let
-  inherit (config.vars) mainUser;
-  inherit (lib) mkIf;
-  cfgHypr =
-    config
-    .home-manager
-    .users
-    .${mainUser}
-    .wayland
-    .windowManager
-    .hyprland;
-in {
-  services.ratbagd.enable = true;
+}: {
+  services.ratbagd = {
+    enable = true;
 
-  # HOME-MANAGER CONFIG
-  home-manager.users.${mainUser} = {
-    home.packages = with pkgs; [piper];
-
-    wayland.windowManager.hyprland = mkIf (cfgHypr.enable) {
-      # settings.exec-once = [""];
+    package = pkgs.libratbag.overrideAttrs {
+      version = libratbag-src.shortRev;
+      src = libratbag-src;
     };
   };
+
+  environment.systemPackages = with pkgs; [
+    (piper.overrideAttrs {
+      name = "piper-${piper-src.shortRev}";
+      src = piper-src;
+
+      mesonFlags = [
+        "-Druntime-dependency-checks=false"
+      ];
+    })
+  ];
 }

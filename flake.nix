@@ -426,6 +426,20 @@
       url = "https://repo.dec05eba.com/gpu-screen-recorder";
       flake = false;
     };
+
+    libratbag-src = {
+      type = "github";
+      owner = "libratbag";
+      repo = "libratbag";
+      flake = false;
+    };
+
+    piper-src = {
+      type = "github";
+      owner = "libratbag";
+      repo = "piper";
+      flake = false;
+    };
     ##
 
     ## MPV scripts

@@ -11,7 +11,6 @@ in {
     ../../modules/kmscon.nix
     ../../modules/printer.nix
     ../../modules/ratbag-mice.nix
-    ../../modules/razer.nix
     ../../modules/sshd.nix
     ../../modules/tailscale.nix
 

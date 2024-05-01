@@ -8,15 +8,7 @@
   inherit (osConfig.vars) mainMonitor;
 
   miceNames = [
-    # Wireless
-    "razer-razer-naga-pro"
-
-    # Wired (it always changes)
-    "razer-razer-naga-pro-1"
-    "razer-naga-pro"
-    "razer-naga-pro-1"
-    "razer-naga-pro-2"
-    "razer-naga-pro-3"
+    "logitech-g502-x"
     "logitech-g502-hero-gaming-mouse"
   ];
   nagaConf = name: {

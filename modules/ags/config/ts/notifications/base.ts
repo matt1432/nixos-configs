@@ -176,7 +176,6 @@ export const Notification = ({
 
     const BlockedApps = [
         'Spotify',
-        'OpenRazer',
     ];
 
     if (BlockedApps.find((app) => app === notif.app_name)) {

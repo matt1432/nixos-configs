@@ -25,26 +25,3 @@
     background-color: $bgfull;
   }
 }
-
-.razer {
-  padding: 0 5px;
-  background: $bgfull;
-
-  .low {
-    color: $red;
-  }
-
-  .medium {
-    color: $yellow;
-  }
-
-  .high {
-    color: $green;
-  }
-
-  image {
-    padding-right: 5px;
-    font-size: 22px;
-    color: white;
-  }
-}
