@@ -93,7 +93,7 @@
           alejandra
           git
 
-          (pkgs.writeShellScriptBin "mkIso" (lib.concatStrings [
+          (writeShellScriptBin "mkIso" (lib.concatStrings [
             "nix build $(realpath /etc/nixos)#nixosConfigurations."
             "live-image.config.system.build.isoImage"
           ]))
@@ -102,7 +102,7 @@
 
       ags = pkgs.mkShell {
         packages = with pkgs; [
-          nodejs_18
+          nodejs_latest
         ];
       };
 
@@ -293,8 +293,11 @@
     ## AGS
     ags = {
       type = "github";
-      owner = "Aylur";
+      owner = "matt1432"; # "Aylur";
       repo = "ags";
+
+      # FIXME: wait for this to get merged
+      ref = "fix-hypr-path";
 
       inputs.nixpkgs.follows = "nixpkgs";
     };
