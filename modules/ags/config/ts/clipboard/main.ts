@@ -1,11 +1,14 @@
 const { Box, Entry, Icon, Label, ListBox, Scrollable } = Widget;
 const { execAsync } = Utils;
 
+const Hyprland = await Service.import('hyprland');
+
 import { Fzf, FzfResultItem } from 'fzf';
 import Gtk from 'gi://Gtk?version=3.0';
 
 import CursorBox from '../misc/cursorbox.ts';
 import PopupWindow from '../misc/popup.ts';
+import { Monitor } from 'types/service/hyprland';
 
 
 const N_ITEMS = 30;
@@ -20,11 +23,13 @@ const copyOldItem = (key: string | number): void => {
 
 export default () => {
     let CopiedItems = [] as [string, number][];
-
     let fzfResults: FzfResultItem<[string, number]>[];
-    const list = ListBox();
 
     const getKey = (r: Gtk.ListBoxRow) => parseInt(r.get_child()?.name ?? '');
+
+    const list = ListBox().on('row-activated', (_, row) => {
+        copyOldItem(getKey(row));
+    });
 
     const updateItems = () => {
         (list.get_children() as Gtk.ListBoxRow[]).forEach((r) => {
@@ -99,14 +104,6 @@ export default () => {
         text: '-',
         hexpand: true,
 
-        on_accept: () => {
-            const copiedItem = CopiedItems.find((c) => c === fzfResults[0].item);
-
-            if (copiedItem) {
-                copyOldItem(copiedItem[1]);
-            }
-        },
-
         on_change: ({ text }) => {
             if (text !== null) {
                 setSort(text);
@@ -118,7 +115,7 @@ export default () => {
         CopiedItems = [];
         entry.text = '';
 
-        execAsync('clipboard-manager').then((out) => {
+        execAsync('clipboard-manager').then(async(out) => {
             list.get_children()?.forEach((ch) => {
                 ch.destroy();
             });
@@ -133,6 +130,36 @@ export default () => {
                     decodeItem(items[i]);
                 }
             }
+
+            let x: number;
+            let y: number;
+            const monitor = (JSON.parse(await Hyprland.messageAsync('j/monitors')) as Monitor[])
+                .find((m) => m.focused) as Monitor;
+
+            switch (monitor.transform) {
+                case 1:
+                    x = monitor.x - (monitor.height / 2);
+                    y = monitor.y - (monitor.width / 2);
+                    break;
+
+                case 2:
+                    x = monitor.x - (monitor.width / 2);
+                    y = monitor.y - (monitor.height / 2);
+                    break;
+
+                case 3:
+                    x = monitor.x + (monitor.height / 2);
+                    y = monitor.y + (monitor.width / 2);
+                    break;
+
+                default:
+                    x = monitor.x + (monitor.width / 2);
+                    y = monitor.y + (monitor.height / 2);
+                    break;
+            }
+
+            await Hyprland.messageAsync(`dispatch movecursor ${x} ${y}`);
+            entry.grab_focus();
         }).catch(console.log);
     };
 
