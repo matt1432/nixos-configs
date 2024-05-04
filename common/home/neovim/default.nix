@@ -6,11 +6,17 @@
   coc-stylelintplus,
   nixd,
   vimplugin-easytables-src,
-  vimplugin-riscv-src,
   ...
 }: let
   inherit (config.vars) hostName mainUser neovimIde;
   inherit (lib) fileContents hasPrefix optionalAttrs optionals removePrefix;
+  inherit (pkgs) vimPlugins;
+
+  buildPlugin = pname: src:
+    pkgs.vimUtils.buildVimPlugin {
+      inherit pname src;
+      version = src.shortRev;
+    };
 
   javaSdk = pkgs.temurin-bin-17;
   coc-stylelintplus-flake = coc-stylelintplus.packages.${pkgs.system}.default;
@@ -81,18 +87,21 @@ in {
       viAlias = true;
       vimAlias = true;
 
-      extraPackages = with pkgs; ([
+      extraPackages =
+        (with pkgs; [
           bat
           gcc
-        ]
-        ++ optionals neovimIde [
-          clang-tools
-          nodejs_latest
-          nodePackages.npm
-          nodePackages.neovim
-          gradle
-          nixdPkg
-        ]);
+        ])
+        ++ (optionals neovimIde [
+            nixdPkg
+          ]
+          ++ (with pkgs; [
+            clang-tools
+            nodejs_latest
+            nodePackages.npm
+            nodePackages.neovim
+            gradle
+          ]));
 
       extraPython3Packages = ps:
         optionals neovimIde [
@@ -186,126 +195,121 @@ in {
       extraConfig = fileContents ./base.vim;
       extraLuaConfig = fileContents ./base.lua;
 
-      plugins = with pkgs.vimPlugins;
-        ([
-            fzfWrapper
-            fzf-vim
-            fugitive
+      plugins =
+        [
+          vimPlugins.fzfWrapper
+          vimPlugins.fzf-vim
+          vimPlugins.fugitive
 
-            {
-              plugin = dracula-nvim.overrideAttrs {
-                src = nvim-theme-src;
-              };
-              type = "viml";
-              config = fileContents ./plugins/dracula.vim;
-            }
-            {
-              plugin = todo-comments-nvim;
-              type = "lua";
-              config =
-                /*
-                lua
-                */
-                ''require('todo-comments').setup()'';
-            }
-            {
-              plugin = gitsigns-nvim;
-              type = "lua";
-              config = fileContents ./plugins/gitsigns.lua;
-            }
-            {
-              plugin = indent-blankline-nvim;
-              type = "lua";
-              config = fileContents ./plugins/indent.lua;
-            }
-            {
-              plugin = mini-nvim;
-              type = "lua";
-              config = fileContents ./plugins/mini.lua;
-            }
-            {
-              plugin = codewindow-nvim;
-              type = "lua";
-              config = fileContents ./plugins/codewindow.lua;
-            }
-          ]
-          ++ optionals neovimIde [
-            markdown-preview-nvim
+          {
+            plugin = vimPlugins.dracula-nvim.overrideAttrs {
+              src = nvim-theme-src;
+            };
+            type = "viml";
+            config = fileContents ./plugins/dracula.vim;
+          }
+          {
+            plugin = vimPlugins.todo-comments-nvim;
+            type = "lua";
+            config =
+              /*
+              lua
+              */
+              ''require('todo-comments').setup()'';
+          }
+          {
+            plugin = vimPlugins.gitsigns-nvim;
+            type = "lua";
+            config = fileContents ./plugins/gitsigns.lua;
+          }
+          {
+            plugin = vimPlugins.indent-blankline-nvim;
+            type = "lua";
+            config = fileContents ./plugins/indent.lua;
+          }
+          {
+            plugin = vimPlugins.mini-nvim;
+            type = "lua";
+            config = fileContents ./plugins/mini.lua;
+          }
+          {
+            plugin = vimPlugins.codewindow-nvim;
+            type = "lua";
+            config = fileContents ./plugins/codewindow.lua;
+          }
+        ]
+        ++ optionals neovimIde [
+          vimPlugins.markdown-preview-nvim
 
-            # Coc configured
-            coc-clangd
-            coc-cmake
-            coc-css
-            coc-eslint
-            coc-java
-            coc-sh
-            coc-stylelintplus-flake
-            {
-              plugin = coc-snippets;
-              type = "viml";
-              config = fileContents ./plugins/snippets.vim;
-            }
+          # Coc configured
+          vimPlugins.coc-clangd
+          vimPlugins.coc-cmake
+          vimPlugins.coc-css
+          vimPlugins.coc-eslint
+          vimPlugins.coc-java
+          vimPlugins.coc-sh
+          coc-stylelintplus-flake
+          {
+            plugin = vimPlugins.coc-snippets;
+            type = "viml";
+            config = fileContents ./plugins/snippets.vim;
+          }
 
-            ## Lua
-            coc-sumneko-lua
-            neodev-nvim
+          ## Lua
+          vimPlugins.coc-sumneko-lua
+          vimPlugins.neodev-nvim
 
-            ## Fzf
-            coc-fzf
+          ## Fzf
+          vimPlugins.coc-fzf
 
-            coc-highlight
-            coc-json
-            coc-pyright
-            coc-vimlsp
-            coc-yaml
-            coc-toml
-            coc-markdownlint
-            coc-tsserver
+          vimPlugins.coc-highlight
+          vimPlugins.coc-json
+          vimPlugins.coc-pyright
+          vimPlugins.coc-vimlsp
+          vimPlugins.coc-yaml
+          vimPlugins.coc-toml
+          vimPlugins.coc-markdownlint
+          vimPlugins.coc-tsserver
 
-            {
-              plugin = nvim-autopairs;
-              type = "lua";
-              config = fileContents ./plugins/autopairs.lua;
-            }
-            {
-              plugin = lualine-nvim;
-              type = "lua";
-              config = fileContents ./plugins/lualine.lua;
-            }
-            {
-              plugin = neo-tree-nvim;
-              type = "viml";
-              config = ''
-                ${fileContents ./plugins/neotree.vim}
+          {
+            plugin = vimPlugins.nvim-autopairs;
+            type = "lua";
+            config = fileContents ./plugins/autopairs.lua;
+          }
+          {
+            plugin = vimPlugins.lualine-nvim;
+            type = "lua";
+            config = fileContents ./plugins/lualine.lua;
+          }
+          {
+            plugin = vimPlugins.neo-tree-nvim;
+            type = "viml";
+            config = ''
+              ${fileContents ./plugins/neotree.vim}
 
-                lua << EOF
-                  ${fileContents ./plugins/neotree.lua}
-                EOF
-              '';
-            }
-            (pkgs.vimUtils.buildVimPlugin {
-              name = "riscv-asm";
-              version = vimplugin-riscv-src.shortRev;
-              src = vimplugin-riscv-src;
-            })
-            {
-              plugin = pkgs.vimUtils.buildVimPlugin {
-                name = "easytables-nvim";
-                version = vimplugin-easytables-src.shortRev;
-                src = vimplugin-easytables-src;
-              };
-              type = "lua";
-              config = ''require("easytables").setup();'';
-            }
-          ])
+              lua << EOF
+                ${fileContents ./plugins/neotree.lua}
+              EOF
+            '';
+          }
+          {
+            plugin = buildPlugin "easytables-nvim" vimplugin-easytables-src;
+            type = "lua";
+            config =
+              /*
+              lua
+              */
+              ''require('easytables').setup();'';
+          }
+        ]
         # Treesitter
-        ++ (with pkgs.vimPlugins; [
-          nvim-treesitter-context
-          nvim-treesitter-textobjects
+        ++ [
+          vimPlugins.nvim-treesitter-context
+          vimPlugins.nvim-treesitter-textobjects
           {
             type = "viml";
             config = fileContents ./plugins/treesitter.vim;
-            plugin = nvim-treesitter.withPlugins (p: [
+            plugin = vimPlugins.nvim-treesitter.withPlugins (p: [
               p.awk
               p.bash
               p.c
@@ -376,7 +380,7 @@ in {
               p.yaml
             ]);
           }
-        ]);
+        ];
     };
   };
 }

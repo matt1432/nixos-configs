@@ -331,6 +331,13 @@
       owner = "nix-community";
       repo = "nixd";
     };
+
+    vimplugin-easytables-src = {
+      type = "github";
+      owner = "Myzel394";
+      repo = "easytables.nvim";
+      flake = false;
+    };
     #
 
     # Nix tools
@@ -405,20 +412,6 @@
       type = "github";
       owner = "Malpiszonekx4";
       repo = "curseforge-server-downloader";
-      flake = false;
-    };
-
-    vimplugin-riscv-src = {
-      type = "github";
-      owner = "henry-hsieh";
-      repo = "riscv-asm-vim";
-      flake = false;
-    };
-
-    vimplugin-easytables-src = {
-      type = "github";
-      owner = "Myzel394";
-      repo = "easytables.nvim";
       flake = false;
     };
     ##

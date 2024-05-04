@@ -1731,7 +1731,6 @@
         "touch-gestures-src": "touch-gestures-src",
         "trash-d-src": "trash-d-src",
         "vimplugin-easytables-src": "vimplugin-easytables-src",
-        "vimplugin-riscv-src": "vimplugin-riscv-src",
         "wpaperd": "wpaperd",
         "xresources-theme-src": "xresources-theme-src"
       }
@@ -2050,22 +2049,6 @@
       "original": {
         "owner": "Myzel394",
         "repo": "easytables.nvim",
-        "type": "github"
-      }
-    },
-    "vimplugin-riscv-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1713286691,
-        "narHash": "sha256-LGEjiJnqSUYFWGw5Elplfw4X6hQpNrkLMnaZpRzKmpg=",
-        "owner": "henry-hsieh",
-        "repo": "riscv-asm-vim",
-        "rev": "8f8271338a7dec472c11cceac2195dc812e21255",
-        "type": "github"
-      },
-      "original": {
-        "owner": "henry-hsieh",
-        "repo": "riscv-asm-vim",
         "type": "github"
       }
     },
