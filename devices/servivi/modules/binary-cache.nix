@@ -34,11 +34,14 @@ in {
         Group = config.users.users.${mainUser}.group;
       };
 
-      path = with pkgs; [
-        git
-        nix-fast-buildPkg
-        openssh
-      ];
+      path =
+        [
+          nix-fast-buildPkg
+        ]
+        ++ (with pkgs; [
+          git
+          openssh
+        ]);
 
       script = ''
         cd /tmp

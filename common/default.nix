@@ -30,15 +30,7 @@
   boot.tmp.useTmpfs = true;
 
   nix = {
-    # FIXME: https://github.com/nix-community/home-manager/issues/4692#issuecomment-2054003365
-    package = pkgs.nixVersions.unstable.overrideAttrs (o: {
-      src = pkgs.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nix";
-        rev = "60824fa97c588a0faf68ea61260a47e388b0a4e5";
-        sha256 = "10z/SoidVl9/lh56cMLj7ntJZHtVrumFvmn1YEqXmaM=";
-      };
-    });
+    package = pkgs.nixVersions.nix_2_21;
 
     # Edit nix.conf
     settings = {
