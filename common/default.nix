@@ -30,7 +30,17 @@
   boot.tmp.useTmpfs = true;
 
   nix = {
-    package = pkgs.nixVersions.nix_2_21;
+    # Keep a version that works with nix-eval-jobs
+    package = pkgs.nixVersions.git.overrideAttrs (oldAttrs: {
+      pname = "nix";
+      version = "2.21.3";
+      src = pkgs.fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nix";
+        rev = "60824fa97c588a0faf68ea61260a47e388b0a4e5";
+        sha256 = "10z/SoidVl9/lh56cMLj7ntJZHtVrumFvmn1YEqXmaM=";
+      };
+    });
 
     # Edit nix.conf
     settings = {
