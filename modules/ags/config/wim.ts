@@ -10,6 +10,7 @@ import OSD from './ts/osd/main.ts';
 import OSK from './ts/on-screen-keyboard/main.ts';
 import Powermenu from './ts/powermenu.ts';
 import QSettings from './ts/quick-settings/main.ts';
+import Screenshot from './ts/screenshot/main.ts';
 
 
 App.config({
@@ -30,6 +31,7 @@ App.config({
         OSK(),
         Powermenu(),
         QSettings(),
+        Screenshot(),
 
         Bar(),
         BgFade(),

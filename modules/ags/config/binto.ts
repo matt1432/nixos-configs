@@ -8,6 +8,7 @@ import Clipboard from './ts/clipboard/main.ts';
 import { NotifPopups, NotifCenter } from './ts/notifications/binto.ts';
 import OSD from './ts/osd/main.ts';
 import Powermenu from './ts/powermenu.ts';
+import Screenshot from './ts/screenshot/main.ts';
 
 
 // TODO: add workspace indicator
@@ -28,6 +29,7 @@ App.config({
         Clipboard(),
         NotifCenter(),
         Powermenu(),
+        Screenshot(),
 
         Bar(),
         NotifPopups(),

@@ -146,15 +146,17 @@ in {
           ];
 
           bind = [
-            "$mainMod SHIFT, E, exec, ags -t win-powermenu"
-            "$mainMod      , D, exec, ags -t win-applauncher"
+            "$mainMod SHIFT, E    , exec, ags -t win-powermenu"
+            "$mainMod      , D    , exec, ags -t win-applauncher"
+            "$mainMod      , V    , exec, ags -t win-clipboard"
+            "              , Print, exec, ags -t win-screenshot"
           ];
           binde = [
             ## Brightness control
-            ", XF86MonBrightnessUp,   exec, ags -r 'Brightness.screen += 0.05'"
+            ", XF86MonBrightnessUp  , exec, ags -r 'Brightness.screen += 0.05'"
             ", XF86MonBrightnessDown, exec, ags -r 'Brightness.screen -= 0.05'"
           ];
-          bindn = ["    , Escape,    exec, ags -r 'closeAll()'"];
+          bindn = ["    , Escape   , exec, ags -r 'closeAll()'"];
           bindr = ["CAPS, Caps_Lock, exec, ags -r 'Brightness.fetchCapsState()'"];
         };
       };

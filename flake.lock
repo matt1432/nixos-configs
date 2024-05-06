@@ -424,6 +424,26 @@
         "url": "https://repo.dec05eba.com/gpu-screen-recorder"
       }
     },
+    "grim-hyprland": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1713288659,
+        "narHash": "sha256-AWH3lJ2gLDMlc7N+ImQ8VCOa5Nj6Mjmnj4L2J910HR0=",
+        "owner": "eriedaberrie",
+        "repo": "grim-hyprland",
+        "rev": "d5e775f62717ece2ab352876d0136d9493f80cee",
+        "type": "github"
+      },
+      "original": {
+        "owner": "eriedaberrie",
+        "repo": "grim-hyprland",
+        "type": "github"
+      }
+    },
     "gtk-session-lock": {
       "inputs": {
         "nixpkgs": [
@@ -1693,6 +1713,7 @@
         "firefox-gx-src": "firefox-gx-src",
         "git-theme-src": "git-theme-src",
         "gpu-screen-recorder-src": "gpu-screen-recorder-src",
+        "grim-hyprland": "grim-hyprland",
         "gtk-session-lock": "gtk-session-lock",
         "gtk-theme-src": "gtk-theme-src",
         "headscale": "headscale",

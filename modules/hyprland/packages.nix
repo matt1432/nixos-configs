@@ -6,6 +6,7 @@
 }: let
   inherit (lib) makeLibraryPath optionalString;
   inherit (pkgs.writers) writeTOML;
+
   inherit (config.vars) mainUser;
   flakeDir = config.environment.variables.FLAKE;
 in {
@@ -46,71 +47,57 @@ in {
       })
     ];
 
-    home.packages = with pkgs; [
-      # School
-      xournalpp
-      virt-manager
-      libreoffice-fresh # TODO: declarative conf?
-      hunspell
-      hunspellDicts.en_CA
-      config.customPkgs.rars-flatlaf
+    home.packages =
+      (with pkgs; [
+        # School
+        xournalpp
+        virt-manager
+        libreoffice-fresh # TODO: declarative conf?
+        hunspell
+        hunspellDicts.en_CA
 
-      # Apps
-      thunderbird # TODO: use programs.thunderbird
-      protonmail-bridge
-      spotifywm
-      photoqt
-      nextcloud-client
-      jellyfin-media-player
-      prismlauncher
+        # Apps
+        thunderbird # TODO: use programs.thunderbird
+        protonmail-bridge
+        spotifywm
+        photoqt
+        nextcloud-client
+        jellyfin-media-player
+        prismlauncher
 
-      # tools
-      wl-color-picker
-      wl-clipboard
-      cliphist
-      grim
-      slurp
-      satty
-
-      # TODO: make an ags widget to select windows, screens or a selection
-      (writeShellApplication {
-        name = "screenshot";
-        runtimeInputs = [
-          config.programs.hyprland.package
-          satty
-          grim
-          jq
-        ];
-        text = ''
-          screen=$(hyprctl monitors -j | jq -r '.[] | select(.focused == true).name')
-          exec grim -o "$screen" - | satty -f -
-        '';
-      })
-
-      /*
-      Discord themes for Vencord
-      https://markchan0225.github.io/RoundedDiscord/RoundedDiscord.theme.css
-      https://raw.githubusercontent.com/dracula/BetterDiscord/master/Dracula_Official.theme.css
-      */
-      (symlinkJoin {
-        name = "discord";
-        paths = [
-          (discord.override {
-            withOpenASAR = true;
-            withVencord = true;
-          })
-        ];
-        buildInputs = [makeWrapper];
-        postBuild = ''
-          wrapProgram $out/bin/Discord ${optionalString config.nvidia.enable
-            ''--prefix LD_LIBRARY_PATH : "${makeLibraryPath [
-                addOpenGLRunpath.driverLink
-                libglvnd
-              ]}"''} \
-          --add-flags "--enable-features=UseOzonePlatform,WebRTCPipeWireCapturer --ozone-platform=wayland"
-        '';
-      })
-    ];
+        # tools
+        wl-color-picker
+        wl-clipboard
+        cliphist
+        grim-hyprland
+        slurp
+        satty
+      ])
+      ++ [
+        /*
+        Discord themes for Vencord
+        https://markchan0225.github.io/RoundedDiscord/RoundedDiscord.theme.css
+        https://raw.githubusercontent.com/dracula/BetterDiscord/master/Dracula_Official.theme.css
+        */
+        (pkgs.symlinkJoin {
+          name = "discord";
+          paths = [
+            (pkgs.discord.override {
+              withOpenASAR = true;
+              withVencord = true;
+            })
+          ];
+          buildInputs = [pkgs.makeWrapper];
+          postBuild = ''
+            wrapProgram $out/bin/Discord ${optionalString config.nvidia.enable
+              ''--prefix LD_LIBRARY_PATH : "${makeLibraryPath [
+                  pkgs.addOpenGLRunpath.driverLink
+                  pkgs.libglvnd
+                ]}"''} \
+            --add-flags "--enable-features=UseOzonePlatform,WebRTCPipeWireCapturer --ozone-platform=wayland"
+          '';
+        })
+      ];
 
     wayland.windowManager.hyprland = {
       settings = {
@@ -144,11 +131,6 @@ in {
         bind = [
           "$mainMod, Q, exec, foot"
 
-          # Clipboard History
-          "$mainMod, V, exec, ags -t win-clipboard"
-
-          "        , Print, exec, screenshot"
-          "$mainMod, Print, exec, grim -g \"$(slurp)\" - | satty -f -"
           "$mainMod SHIFT, C, exec, wl-color-picker"
 
           "$mainMod, T, togglespecialworkspace, thunder"

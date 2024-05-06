@@ -278,6 +278,14 @@
 
       inputs.hyprland.follows = "hyprland";
     };
+
+    grim-hyprland = {
+      type = "github";
+      owner = "eriedaberrie";
+      repo = "grim-hyprland";
+
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     ##
 
     ## Wayland
