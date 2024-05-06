@@ -1,8 +1,11 @@
-.workspaces {
-  background-color: $bg;
-  border-radius: 80px;
-  border: 2px solid $bg-secondary;
-  padding: 3px 12px;
+.bar {
+  .workspaces {
+    background-color: $bg;
+    border-radius: 80px;
+    border: 2px solid $bg-secondary;
+    padding: 3px 12px;
+  }
+
 
   .button {
     margin: 0 2.5px;
