@@ -35,16 +35,17 @@ in {
       default = import ./prompt-schemes.nix cfg.promptMainColor;
 
       readOnly = true;
-      type = with types;
-        submodule {
-          options = {
-            textColor = mkOption {type = str;};
-            firstColor = mkOption {type = str;};
-            secondColor = mkOption {type = str;};
-            thirdColor = mkOption {type = str;};
-            fourthColor = mkOption {type = str;};
-          };
+      type = types.submodule {
+        options = let
+          inherit (types) str;
+        in {
+          textColor = mkOption {type = str;};
+          firstColor = mkOption {type = str;};
+          secondColor = mkOption {type = str;};
+          thirdColor = mkOption {type = str;};
+          fourthColor = mkOption {type = str;};
         };
+      };
     };
 
     configDir = mkOption {

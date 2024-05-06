@@ -15,8 +15,8 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    (lutris.override {
+  environment.systemPackages = [
+    (pkgs.lutris.override {
       extraLibraries = pkgs: [
         # List library dependencies here
       ];

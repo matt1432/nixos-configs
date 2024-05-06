@@ -62,9 +62,9 @@ in {
 
       open = cfg.enableWayland;
 
-      package = with config.boot.kernelPackages.nvidiaPackages;
+      package =
         if !cfg.enableWayland
-        then stable
+        then config.boot.kernelPackages.nvidiaPackages.stable
         else let
           rcu_patch = pkgs.fetchpatch {
             url = "https://github.com/gentoo/gentoo/raw/c64caf53/x11-drivers/nvidia-drivers/files/nvidia-drivers-470.223.02-gpl-pfn_valid.patch";
@@ -74,7 +74,7 @@ in {
           # Keep the driver version at 535.xx.xx for Wayland desktop
           # games stutter on more recent versions
           # https://github.com/NixOS/nixpkgs/blob/e256f39bec8e01808c0a3e411d961cbced3f4e09/pkgs/os-specific/linux/nvidia-x11/default.nix#L70
-          mkDriver rec {
+          config.boot.kernelPackages.nvidiaPackages.mkDriver rec {
             version = "535.43.28";
             persistencedVersion = "535.98";
             settingsVersion = "535.98";
@@ -88,14 +88,15 @@ in {
           };
     };
 
-    environment.systemPackages = with pkgs; ([
+    environment.systemPackages =
+      optionals cfg.enableCUDA [pkgs.cudaPackages.cudatoolkit]
+      ++ (with pkgs; [
         libva-utils
         nvidia-vaapi-driver
         nvtopPackages.nvidia
         pciutils
         vdpauinfo
-      ]
-      ++ optionals cfg.enableCUDA [cudaPackages.cudatoolkit]);
+      ]);
 
     boot.kernelModules = optionals cfg.enableCUDA ["nvidia-uvm"];
   };

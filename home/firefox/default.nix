@@ -176,14 +176,14 @@ in {
         ];
       };
 
-      extensions = with config.nur.repos;
-        (with bandithedoge.firefoxAddons; [
+      extensions =
+        (with config.nur.repos.bandithedoge.firefoxAddons; [
           sponsorblock
           stylus
           #tridactyl
           ublock-origin
         ])
-        ++ (with rycee.firefox-addons; [
+        ++ (with config.nur.repos.rycee.firefox-addons; [
           bitwarden
           darkreader
           istilldontcareaboutcookies
@@ -193,13 +193,13 @@ in {
         ])
         ++ (with firefox-addons; [
           floccus
-          sound-volume
           google-container
           checkmarks-web-ext
           ttv-lol-pro
           seventv
           opera-gx-witchcraft-purple
-        ]);
+        ])
+        ++ [sound-volume];
     };
   };
 }

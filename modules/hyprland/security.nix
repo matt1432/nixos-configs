@@ -33,8 +33,8 @@ in {
       hypridle.homeManagerModules.default
     ];
 
-    home.packages = with pkgs; [
-      gnome.seahorse
+    home.packages = [
+      pkgs.gnome.seahorse
       lockPkg
     ];
 

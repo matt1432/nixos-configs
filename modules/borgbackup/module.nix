@@ -26,7 +26,7 @@ in {
           }: {
             options = {
               paths = mkOption {
-                type = with types; nullOr (coercedTo str lib.singleton (listOf str));
+                type = types.nullOr (types.coercedTo types.str lib.singleton (types.listOf types.str));
                 default = null;
               };
               dumpCommand = mkOption {
@@ -177,18 +177,17 @@ in {
     };
 
     existingRepos = mkOption {
-      type = with types;
-        listOf (submodule {
-          options = {
-            name = mkOption {
-              type = str;
-            };
-            authorizedKeys = mkOption {
-              type = listOf str;
-              default = [];
-            };
+      type = types.listOf (types.submodule {
+        options = {
+          name = mkOption {
+            type = types.str;
           };
-        });
+          authorizedKeys = mkOption {
+            type = types.listOf types.str;
+            default = [];
+          };
+        };
+      });
       default = [];
     };
   };

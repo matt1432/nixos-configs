@@ -19,7 +19,7 @@
             fi
           done
         ) &
-        exec env SUDO_ASKPASS=${pkgs.plasma5Packages.ksshaskpass}/bin/${pkgs.plasma5Packages.ksshaskpass.pname} sudo -k -EA "${gparted}/bin/${gparted.pname}" "$@"
+        exec env SUDO_ASKPASS=${plasma5Packages.ksshaskpass}/bin/${plasma5Packages.ksshaskpass.pname} sudo -k -EA "${gparted}/bin/${gparted.pname}" "$@"
       '')
     ]);
 

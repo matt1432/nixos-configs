@@ -13,8 +13,8 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    (piper.overrideAttrs {
+  environment.systemPackages = [
+    (pkgs.piper.overrideAttrs {
       name = "piper-${piper-src.shortRev}";
       src = piper-src;
 

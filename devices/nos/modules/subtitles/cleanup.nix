@@ -26,11 +26,12 @@ in {
         Group = config.users.users.${mainUser}.group;
       };
 
-      path = with pkgs; [
-        findutils
-        (writeShellApplication {
+      path = [
+        pkgs.findutils
+
+        (pkgs.writeShellApplication {
           name = "sub-clean";
-          runtimeInputs = [findutils gnugrep gawk];
+          runtimeInputs = with pkgs; [findutils gnugrep gawk];
           text = ''
             exec ${script} "$@"
           '';

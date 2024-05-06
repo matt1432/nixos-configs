@@ -1,8 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}: let
+{config, ...}: let
   inherit (config.vars) mainUser;
 in {
   programs.adb.enable = true;

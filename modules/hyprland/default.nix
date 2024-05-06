@@ -34,7 +34,9 @@ in {
     xserver.wacom.enable = isTouchscreen;
   };
 
-  programs.hyprland = with hyprland.packages.${pkgs.system}; {
+  programs.hyprland = let
+    inherit (hyprland.packages.${pkgs.system}) default xdg-desktop-portal-hyprland;
+  in {
     enable = true;
     package = default;
     portalPackage = xdg-desktop-portal-hyprland;

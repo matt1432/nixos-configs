@@ -22,8 +22,8 @@ in {
         Group = config.users.users.${mainUser}.group;
       };
 
-      path = with pkgs; [
-        findutils
+      path = [
+        pkgs.findutils
         node-syncsub
       ];
 

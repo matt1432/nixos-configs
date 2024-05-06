@@ -27,7 +27,7 @@ in {
 
   home-manager.users.${mainUser}.home.packages = with pkgs;
     []
-    ++ (with pkgs.plasma5Packages; [
+    ++ (with plasma5Packages; [
       ark
       kcharselect
       kdenlive
@@ -43,7 +43,7 @@ in {
       kio-extras
       kmime
     ])
-    ++ (with pkgs.gnome; [
+    ++ (with gnome; [
       gnome-calculator
     ]);
 }

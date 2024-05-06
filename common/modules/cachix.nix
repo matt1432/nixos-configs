@@ -3,8 +3,8 @@
   pkgs,
   ...
 }: {
-  environment.systemPackages = with pkgs; [
-    (writeShellApplication {
+  environment.systemPackages = [
+    (pkgs.writeShellApplication {
       name = "rebuild-no-cache";
       runtimeInputs = [config.programs.nh.package];
       text = ''

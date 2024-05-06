@@ -66,20 +66,20 @@ in {
   };
 
   home-manager.users.${mainUser} = {
-    home.packages = with pkgs; [
+    home.packages = [
       gsr
 
-      (writeShellApplication {
+      (pkgs.writeShellApplication {
         name = "gpu-save-replay";
-        runtimeInputs = [procps];
+        runtimeInputs = [pkgs.procps];
         text = ''
           pkill --signal SIGUSR1 -f gpu-screen-recorder
         '';
       })
 
-      (writeShellApplication {
+      (pkgs.writeShellApplication {
         name = "gsr-start";
-        runtimeInputs = [pulseaudio hyprPkgs xorg.xrandr];
+        runtimeInputs = [pkgs.pulseaudio hyprPkgs pkgs.xorg.xrandr];
         text = ''
           main="${removePrefix "desc:" mainMonitor}"
           WINDOW=$(hyprctl -j monitors | jq '.[] |= (.description |= gsub(","; ""))' | jq -r ".[] | select(.description | test(\"$main\")) | .name")
