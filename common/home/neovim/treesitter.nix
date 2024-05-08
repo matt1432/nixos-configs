@@ -19,7 +19,7 @@ in {
               });
 
               vim.cmd(
-                'hi TreesitterContextBottom gui=underline guisp=Grey'
+                  'hi TreesitterContextBottom gui=underline guisp=Grey'
               );
             '';
         }
