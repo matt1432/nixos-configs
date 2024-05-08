@@ -256,17 +256,9 @@
     # Desktop inputs
     ## Hyprland
     hyprland = {
-      type = "github";
-      owner = "hyprwm";
-      repo = "Hyprland";
-
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    hypridle = {
-      type = "github";
-      owner = "hyprwm";
-      repo = "hypridle";
+      type = "git";
+      url = "https://github.com/hyprwm/Hyprland";
+      submodules = true;
 
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -277,6 +269,22 @@
       repo = "hyprland-plugins";
 
       inputs.hyprland.follows = "hyprland";
+    };
+
+    Hyprspace = {
+      type = "github";
+      owner = "KZDKM";
+      repo = "Hyprspace";
+
+      inputs.hyprland.follows = "hyprland";
+    };
+
+    hypridle = {
+      type = "github";
+      owner = "hyprwm";
+      repo = "hypridle";
+
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     grim-hyprland = {

@@ -50,13 +50,13 @@
   };
   "floccus" = buildFirefoxXpiAddon {
     pname = "floccus";
-    version = "5.0.10";
+    version = "5.1.0";
     addonId = "floccus@handmadeideas.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4247541/floccus-5.0.10.xpi";
-    sha256 = "8e8ef6e0737df84405c98bf902b1d4b4ffaff743aa880e9205759c8c16dac236";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4282487/floccus-5.1.0.xpi";
+    sha256 = "21ed631b1597f05087b13bb171ccd38091171fdc9e5fc9ed16d4d37f700f03b5";
     meta = with lib; {
       homepage = "https://floccus.org";
-      description = "Sync your bookmarks across browsers via Nextcloud, WebDAV or Google Drive";
+      description = "Sync your bookmarks and tabs across browsers via Nextcloud, any WebDAV service, any Git service, via a local file, via Google Drive.";
       license = licenses.mpl20;
       mozPermissions = [
         "*://*/*"
@@ -108,10 +108,10 @@
   };
   "ttv-lol-pro" = buildFirefoxXpiAddon {
     pname = "ttv-lol-pro";
-    version = "2.3.6";
+    version = "2.3.7";
     addonId = "{76ef94a4-e3d0-4c6f-961a-d38a429a332b}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4252535/ttv_lol_pro-2.3.6.xpi";
-    sha256 = "5d9a5f4b4b4d46a39e9d6c9df28fc1d342a1af6d6389196c9c1bd0006036a647";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4280177/ttv_lol_pro-2.3.7.xpi";
+    sha256 = "2e71c1fa3f5108cf77b1ca8b5a32955584be893ae151a27cd32d10073ae56820";
     meta = with lib; {
       homepage = "https://github.com/younesaassila/ttv-lol-pro";
       description = "TTV LOL PRO removes most livestream ads from Twitch.";

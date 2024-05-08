@@ -61,7 +61,9 @@ in {
   # HOME-MANAGER CONFIG
   home-manager.users.${mainUser} = {
     imports = [
-      ./hyprexpo.nix
+      # FIXME: plugins broken https://github.com/hyprwm/hyprland-plugins/issues/164
+      # ./hyprexpo.nix
+      # ./Hyprspace.nix
       ./inputs.nix
       ./style.nix
     ];

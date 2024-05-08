@@ -29,10 +29,6 @@ in {
       '';
     };
   in {
-    imports = [
-      hypridle.homeManagerModules.default
-    ];
-
     home.packages = [
       pkgs.gnome.seahorse
       lockPkg
@@ -40,7 +36,7 @@ in {
 
     services.hypridle = mkIf isLaptop {
       enable = true;
-      lockCmd = "${lockPkg}/bin/lock";
+      settings.lockCmd = "${lockPkg}/bin/lock";
     };
 
     wayland.windowManager.hyprland = {
