@@ -31,7 +31,7 @@ in
           lua
           */
           ''
-            vim.api.nvim_create_autocmd("FileType", {
+            vim.api.nvim_create_autocmd('FileType', {
                pattern = 'java',
                command = 'setlocal ts=4 sw=4 sts=0 expandtab',
             });

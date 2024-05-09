@@ -354,6 +354,13 @@
       repo = "easytables.nvim";
       flake = false;
     };
+
+    vimplugin-ts-error-translator-src = {
+      type = "github";
+      owner = "dmmulroy";
+      repo = "ts-error-translator.nvim";
+      flake = false;
+    };
     #
 
     # Nix tools

@@ -1730,6 +1730,7 @@
         "touch-gestures-src": "touch-gestures-src",
         "trash-d-src": "trash-d-src",
         "vimplugin-easytables-src": "vimplugin-easytables-src",
+        "vimplugin-ts-error-translator-src": "vimplugin-ts-error-translator-src",
         "wpaperd": "wpaperd",
         "xresources-theme-src": "xresources-theme-src"
       }
@@ -2053,6 +2054,22 @@
       "original": {
         "owner": "Myzel394",
         "repo": "easytables.nvim",
+        "type": "github"
+      }
+    },
+    "vimplugin-ts-error-translator-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1712269172,
+        "narHash": "sha256-NJ0qfKvkwZ/0GolAeATlQLyQ7nGN6Z6q3uRqI+73wPk=",
+        "owner": "dmmulroy",
+        "repo": "ts-error-translator.nvim",
+        "rev": "11ae55b28bde02663b5f983f59b0e3fd9c4e845b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "dmmulroy",
+        "repo": "ts-error-translator.nvim",
         "type": "github"
       }
     },
