@@ -27,7 +27,7 @@ in {
         */
         ''
           -- Start completion / snippet stuff
-          vim.g.coq_settings = { auto_start = true };
+          vim.g.coq_settings = { auto_start = 'shut-up' };
 
           -- Add formatting cmd
           vim.api.nvim_create_user_command(
@@ -38,11 +38,16 @@ in {
               {}
           );
 
+          -- LSP-Status setup
+          local lsp_status = require('lsp-status');
+          lsp_status.register_progress();
+
           -- Remove LSP highlighting to use Treesitter
           vim.api.nvim_create_autocmd("LspAttach", {
               callback = function(args)
-                  local client = vim.lsp.get_client_by_id(args.data.client_id)
-                  client.server_capabilities.semanticTokensProvider = nil
+                  local client = vim.lsp.get_client_by_id(args.data.client_id);
+                  client.server_capabilities.semanticTokensProvider = nil;
+                  lsp_status.on_attach(client);
               end,
           });
         '';
@@ -51,6 +56,7 @@ in {
         vimPlugins.coq_nvim
         vimPlugins.coq-artifacts
         vimPlugins.coq-thirdparty
+        vimPlugins.lsp-status-nvim
       ];
     };
   };

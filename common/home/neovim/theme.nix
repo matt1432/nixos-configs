@@ -95,7 +95,7 @@ in {
                         globalstatus = true,
                     },
                     sections = {
-                        lualine_x = { 'bo:filetype' },
+                        lualine_x = { "require('lsp-status').status()", 'bo:filetype' },
                     },
                 });
               '';
