@@ -50,13 +50,23 @@ in {
                   lsp_status.on_attach(client);
               end,
           });
+
+          -- Disable virtual_text since it's redundant due to lsp_lines.
+          vim.diagnostic.config({
+              virtual_text = false,
+          });
+
+          require('lsp_lines').setup();
         '';
       plugins = [
         vimPlugins.nvim-lspconfig
+
         vimPlugins.coq_nvim
         vimPlugins.coq-artifacts
         vimPlugins.coq-thirdparty
+
         vimPlugins.lsp-status-nvim
+        vimPlugins.lsp_lines-nvim
       ];
     };
   };

@@ -1,6 +1,6 @@
 -- Override netrw
-vim.g.loaded_netrw = 0
-vim.g.loaded_netrwPlugin = 0
+vim.g.loaded_netrw = 0;
+vim.g.loaded_netrwPlugin = 0;
 
 require('neo-tree').setup({
   close_if_last_window = true,
@@ -28,21 +28,20 @@ require('neo-tree').setup({
 
   source_selector = {
     winbar = true,
-    statusline = false
+    statusline = false,
   },
 
   follow_current_file = {
     enabled = true,
     leave_dirs_open = true,
-  }
-})
+  },
+});
 
 local function is_neotree_open()
-  local manager = require("neo-tree.sources.manager")
-  local renderer = require("neo-tree.ui.renderer")
-  local state = manager.get_state("filesystem")
-  local window_exists = renderer.window_exists(state)
-  return window_exists
+  local manager = require("neo-tree.sources.manager");
+  local renderer = require("neo-tree.ui.renderer");
+  local state = manager.get_state("filesystem");
+  return renderer.window_exists(state);
 end
 
 -- Auto open Neo-Tree on big enough window

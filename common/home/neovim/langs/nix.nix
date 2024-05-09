@@ -55,7 +55,7 @@ in
           lua
           */
           ''
-            local lsp = require('lspconfig')
+            local lsp = require('lspconfig');
 
             lsp.nixd.setup({});
             lsp.nixd.setup(require('coq').lsp_ensure_capabilities({}));
