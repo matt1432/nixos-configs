@@ -334,10 +334,10 @@
     #
 
     # Neovim inputs
-    coc-stylelintplus = {
+    stylelint-lsp = {
       type = "github";
       owner = "matt1432";
-      repo = "coc-stylelintplus";
+      repo = "stylelint-lsp";
 
       inputs.nixpkgs.follows = "nixpkgs";
     };

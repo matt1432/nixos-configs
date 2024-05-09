@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  stylelint-lsp,
   ...
 }: let
   inherit (config.vars) neovimIde;
@@ -12,10 +13,13 @@ in
       neovim = {
         withNodeJs = true;
 
-        extraPackages = with pkgs; [
-          nodejs_latest
-          nodePackages.npm
-          nodePackages.neovim
+        extraPackages = [
+          pkgs.nodejs_latest
+          pkgs.nodePackages.npm
+          pkgs.nodePackages.neovim
+
+          stylelint-lsp.packages.${pkgs.system}.default
+          pkgs.vscode-langservers-extracted
         ];
 
         extraLuaConfig =
@@ -24,7 +28,7 @@ in
           */
           ''
             vim.api.nvim_create_autocmd("FileType", {
-               pattern = { 'javascript' , 'typescript'},
+               pattern = { 'javascript', 'typescript', 'css', 'scss' },
                command = 'setlocal ts=4 sw=4 sts=0 expandtab',
             });
 
@@ -35,11 +39,48 @@ in
 
             vim.api.nvim_create_autocmd("FileType", {
                pattern = 'scss',
-               command = 'setl iskeyword+=@-@',
+               command = 'setlocal iskeyword+=@-@',
             });
+
+            local lsp = require('lspconfig');
+            local coq = require('coq');
+            local tsserver = require("typescript-tools");
+
+            tsserver.setup(coq.lsp_ensure_capabilities({}));
+
+            lsp.eslint.setup(coq.lsp_ensure_capabilities({
+                -- auto-save
+                on_attach = function(client, bufnr)
+                    vim.api.nvim_create_autocmd('BufWritePre', {
+                        buffer = bufnr,
+                        command = 'EslintFixAll',
+                    });
+                end,
+            }));
+
+            lsp.cssls.setup(coq.lsp_ensure_capabilities({
+                settings = {
+                    css = {
+                        validate = false,
+                    },
+                    less = {
+                        validate = false,
+                    },
+                    scss = {
+                        validate = false,
+                    },
+                },
+            }));
+
+            require('lspconfig').stylelint_lsp.setup(coq.lsp_ensure_capabilities({
+                settings = {
+                    stylelintplus = {},
+                },
+            }));
           '';
 
         plugins = [
+          vimPlugins.typescript-tools-nvim
         ];
       };
     };
