@@ -26,13 +26,6 @@ in
 
     home.packages = with pkgs; [
       alejandra
-
-      # FIXME: set nixd to use alejandra
-      (writeShellApplication {
-        name = "nixpkgs-fmt";
-        runtimeInputs = [alejandra];
-        text = "alejandra \"$@\"";
-      })
     ];
 
     xdg.dataFile."${flakeDir}/.nixd.json".text = builtins.toJSON {
@@ -55,10 +48,15 @@ in
           lua
           */
           ''
-            local lsp = require('lspconfig');
-
-            lsp.nixd.setup({});
-            lsp.nixd.setup(require('coq').lsp_ensure_capabilities({}));
+            require('lspconfig').nixd.setup(require('coq').lsp_ensure_capabilities({
+                settings = {
+                    nixd = {
+                       formatting = {
+                           command = { "alejandra" },
+                       },
+                    },
+                },
+            }));
           '';
       };
     };
