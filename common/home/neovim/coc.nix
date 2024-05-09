@@ -5,7 +5,6 @@
   ...
 }: let
   inherit (config.vars) neovimIde;
-  inherit (lib) fileContents;
   inherit (pkgs) vimPlugins;
 in
   lib.mkIf neovimIde {
@@ -26,11 +25,6 @@ in
           lua
           */
           ''
-            vim.api.nvim_create_autocmd("FileType", {
-               pattern = 'hyprlang',
-               command = 'setlocal ts=4 sw=4 sts=0 expandtab',
-            });
-
             vim.api.nvim_create_user_command("Format", "call CocAction('format')", {});
 
             -- Always show the signcolumn, otherwise it would shift the text each time
@@ -42,7 +36,25 @@ in
           {
             plugin = vimPlugins.coc-snippets;
             type = "viml";
-            config = fileContents ./plugins/snippets.vim;
+            config =
+              /*
+              vim
+              */
+              ''
+                " use vscode keybinds for snippets completion
+                inoremap <silent><expr> <TAB>
+                    \ coc#pum#visible() ? coc#_select_confirm() :
+                    \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump','''])\<CR>" :
+                    \ CheckBackspace() ? "\<TAB>" :
+                    \ coc#refresh()
+
+                function! CheckBackspace() abort
+                    let col = col('.') - 1
+                    return !col || getline('.')[col - 1]  =~# '\s'
+                endfunction
+
+                let g:coc_snippet_next = '<tab>'
+              '';
           }
 
           ## Fzf
@@ -52,6 +64,33 @@ in
           vimPlugins.coc-json
           vimPlugins.coc-yaml
           vimPlugins.coc-toml
+
+          {
+            plugin = vimPlugins.nvim-autopairs;
+            type = "lua";
+            config =
+              /*
+              lua
+              */
+              ''
+                -- Auto indent when pressing Enter between brackets
+                local remap = vim.api.nvim_set_keymap
+                local npairs = require('nvim-autopairs')
+                npairs.setup({map_cr=false})
+
+                _G.MUtils= {}
+
+                MUtils.completion_confirm=function()
+                    if vim.fn["coc#pum#visible"]() ~= 0  then
+                        return vim.fn["coc#pum#confirm"]()
+                    else
+                        return npairs.autopairs_cr()
+                    end
+                end
+
+                remap('i' , '<CR>','v:lua.MUtils.completion_confirm()', {expr = true , noremap = true})
+              '';
+          }
         ];
       };
     };

@@ -18,9 +18,7 @@ in {
                   min_window_height = 20,
               });
 
-              vim.cmd(
-                  'hi TreesitterContextBottom gui=underline guisp=Grey'
-              );
+              vim.cmd.hi('TreesitterContextBottom', 'gui=underline guisp=Grey');
             '';
         }
 
@@ -36,10 +34,6 @@ in {
               require('nvim-treesitter.configs').setup({
                   highlight = { enable = true },
                   indent = { enable = true },
-              });
-
-              vim.filetype.add({
-                  pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
               });
             '';
           plugin = vimPlugins.nvim-treesitter.withPlugins (p: [

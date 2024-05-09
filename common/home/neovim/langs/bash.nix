@@ -32,7 +32,6 @@ in
           '';
 
         coc.settings = {
-          # Bash
           bashIde.shellcheckPath = "${pkgs.shellcheck}/bin/shellcheck";
         };
 

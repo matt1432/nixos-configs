@@ -1,15 +1,13 @@
 {
   config,
   pkgs,
-  lib,
   ...
 }: let
-  inherit (config.vars) neovimIde;
-  inherit (lib) fileContents optionals;
   inherit (pkgs) vimPlugins;
 in {
   imports = [
     ./coc.nix
+    ./git.nix
     ./langs
     ./theme.nix
     ./treesitter.nix
@@ -38,59 +36,49 @@ in {
           vim.opt.undodir = '${config.xdg.cacheHome}/nvim/';
 
           -- remove highlight on words
-          vim.cmd[[nnoremap <silent> <esc> :noh<cr><esc>]];
+          vim.keymap.set('n', '<esc>', ':noh<cr><esc>', { noremap = true, silent = true });
         '';
 
-      plugins =
-        [
-          vimPlugins.fzfWrapper
-          vimPlugins.fzf-vim
-          vimPlugins.fugitive
-          {
-            plugin = vimPlugins.todo-comments-nvim;
-            type = "lua";
-            config =
-              /*
-              lua
-              */
-              ''
-                require('todo-comments').setup();
-              '';
-          }
-          {
-            plugin = vimPlugins.gitsigns-nvim;
-            type = "lua";
-            config = fileContents ./plugins/gitsigns.lua;
-          }
-          {
-            plugin = vimPlugins.mini-nvim;
-            type = "lua";
-            config = fileContents ./plugins/mini.lua;
-          }
-          {
-            plugin = vimPlugins.codewindow-nvim;
-            type = "lua";
-            config =
-              /*
-              lua
-              */
-              ''
-                require('codewindow').setup({
-                    auto_enable = true,
-                    minimap_width = 8,
-                    relative = 'editor',
-                    window_border = 'none',
-                });
-              '';
-          }
-        ]
-        ++ optionals neovimIde [
-          {
-            plugin = vimPlugins.nvim-autopairs;
-            type = "lua";
-            config = fileContents ./plugins/autopairs.lua;
-          }
-        ];
+      plugins = [
+        vimPlugins.fzfWrapper
+        vimPlugins.fzf-vim
+
+        {
+          plugin = vimPlugins.todo-comments-nvim;
+          type = "lua";
+          config =
+            /*
+            lua
+            */
+            ''
+              require('todo-comments').setup();
+            '';
+        }
+        {
+          plugin = vimPlugins.mini-nvim;
+          type = "lua";
+          config =
+            /*
+            lua
+            */
+            ''
+              -- TODO: see how this works
+              local ts_input = require('mini.surround').gen_spec.input.treesitter;
+
+              require('mini.surround').setup({
+                  custom_surroundings = {
+                      -- Use tree-sitter to search for function call
+                      f = {
+                          input = ts_input({
+                            outer = '@call.outer',
+                            inner = '@call.inner',
+                          });
+                      },
+                  },
+              });
+            '';
+        }
+      ];
     };
   };
 }
