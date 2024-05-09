@@ -6,7 +6,6 @@
   inherit (pkgs) vimPlugins;
 in {
   imports = [
-    ./coc.nix
     ./git.nix
     ./langs
     ./theme.nix
@@ -35,8 +34,15 @@ in {
           vim.opt.undofile = true;
           vim.opt.undodir = '${config.xdg.cacheHome}/nvim/';
 
+          -- Always show the signcolumn, otherwise it would shift
+          -- the text each time diagnostics appear/become resolved
+          vim.opt.signcolumn = 'yes';
+
           -- remove highlight on words
-          vim.keymap.set('n', '<esc>', ':noh<cr><esc>', { noremap = true, silent = true });
+          vim.keymap.set('n', '<esc>', ':noh<cr><esc>', {
+            noremap = true,
+            silent = true,
+          });
         '';
 
       plugins = [

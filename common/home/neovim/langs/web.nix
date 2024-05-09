@@ -2,13 +2,10 @@
   config,
   pkgs,
   lib,
-  coc-stylelintplus,
   ...
 }: let
   inherit (config.vars) neovimIde;
   inherit (pkgs) vimPlugins;
-
-  coc-stylelintplus-flake = coc-stylelintplus.packages.${pkgs.system}.default;
 in
   lib.mkIf neovimIde {
     programs = {
@@ -42,31 +39,7 @@ in
             });
           '';
 
-        coc.settings = {
-          # ESLint
-          eslint = {
-            format.enable = true;
-            autoFixOnSave = true;
-          };
-
-          # Stylelint
-          stylelintplus = {
-            enable = true;
-            cssInJs = true;
-            autoFixOnSave = true;
-            autoFixOnFormat = true;
-          };
-          css.validate = false;
-          less.validate = false;
-          scss.validate = false;
-          wxss.validate = false;
-        };
-
         plugins = [
-          vimPlugins.coc-css
-          vimPlugins.coc-eslint
-          coc-stylelintplus-flake
-          vimPlugins.coc-tsserver
         ];
       };
     };

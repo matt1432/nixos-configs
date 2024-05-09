@@ -16,8 +16,6 @@ in
         ];
 
         plugins = [
-          vimPlugins.coc-clangd
-          vimPlugins.coc-cmake
         ];
       };
     };

@@ -31,12 +31,7 @@ in
             });
           '';
 
-        coc.settings = {
-          bashIde.shellcheckPath = "${pkgs.shellcheck}/bin/shellcheck";
-        };
-
         plugins = [
-          vimPlugins.coc-sh
         ];
       };
     };

@@ -17,7 +17,6 @@ in
         ];
 
         plugins = [
-          vimPlugins.coc-pyright
         ];
       };
     };

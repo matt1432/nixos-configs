@@ -17,20 +17,8 @@ in
   lib.mkIf neovimIde {
     programs = {
       neovim = {
-        coc.settings = {
-          markdownlint.config = {
-            no-trailing-spaces = true;
-            no-multiple-blanks = false;
-            no-duplicate-heading = false;
-            line-length = {
-              tables = false;
-            };
-          };
-        };
-
         plugins = [
           vimPlugins.markdown-preview-nvim
-          vimPlugins.coc-markdownlint
           {
             plugin = buildPlugin "easytables-nvim" vimplugin-easytables-src;
             type = "lua";

@@ -95,7 +95,7 @@ in {
                         globalstatus = true,
                     },
                     sections = {
-                        lualine_x = { 'g:coc_status', 'bo:filetype' },
+                        lualine_x = { 'bo:filetype' },
                     },
                 });
               '';

@@ -50,12 +50,16 @@ in
           nixdPkg
         ];
 
-        coc.settings.languageserver = {
-          nix = {
-            command = "nixd";
-            filetypes = ["nix"];
-          };
-        };
+        extraLuaConfig =
+          /*
+          lua
+          */
+          ''
+            local lsp = require('lspconfig')
+
+            lsp.nixd.setup({});
+            lsp.nixd.setup(require('coq').lsp_ensure_capabilities({}));
+          '';
       };
     };
   }
