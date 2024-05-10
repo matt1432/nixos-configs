@@ -257,7 +257,9 @@
     ## Hyprland
     hyprland = {
       type = "git";
-      url = "https://github.com/hyprwm/Hyprland";
+      # FIXME: wait for https://github.com/hyprwm/Hyprland/pull/5952
+      url = "https://github.com/andresilva/Hyprland";
+      ref = "nix-build-improvements";
       submodules = true;
 
       inputs.nixpkgs.follows = "nixpkgs";
@@ -394,6 +396,7 @@
       type = "github";
       owner = "nix-community";
       repo = "nix-eval-jobs";
+      ref = "release-2.21";
 
       inputs.nixpkgs.follows = "nixpkgs";
     };

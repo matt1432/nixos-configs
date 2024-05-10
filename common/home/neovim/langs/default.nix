@@ -21,7 +21,8 @@ in {
 
   programs = lib.mkIf neovimIde {
     neovim = {
-      extraLuaConfig = lib.mkBefore
+      extraLuaConfig =
+        lib.mkBefore
         /*
         lua
         */
