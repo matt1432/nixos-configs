@@ -5,7 +5,6 @@
   ...
 }: let
   inherit (config.vars) neovimIde;
-  inherit (pkgs) vimPlugins;
 in {
   programs = {
     # I love doing typos
@@ -20,6 +19,7 @@ in {
       vimAlias = true;
 
       extraLuaConfig =
+        lib.mkIf neovimIde
         /*
         lua
         */
@@ -28,11 +28,20 @@ in {
              pattern = 'sh',
              command = 'setlocal ts=4 sw=4 sts=0 expandtab',
           });
+
+          require('lspconfig').bashls.setup(require('coq').lsp_ensure_capabilities({
+              settings = {
+                  bashIde = {
+                      shellcheckPath = '${pkgs.shellcheck}',
+                  },
+              },
+          }));
         '';
 
-      plugins =
-        lib.mkIf neovimIde [
-        ];
+      extraPackages = lib.mkIf neovimIde [
+        pkgs.nodePackages.bash-language-server
+        pkgs.shellcheck
+      ];
     };
   };
 }
