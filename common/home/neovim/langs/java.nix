@@ -38,6 +38,46 @@ in
           '';
 
         plugins = [
+          {
+            # TOOD: setup debugger https://github.com/mfussenegger/nvim-jdtls#debugger-via-nvim-dap
+            plugin = vimPlugins.nvim-jdtls;
+            type = "lua";
+            config =
+              /*
+              lua
+              */
+              ''
+                local startJdtls = function()
+                    local config = require('coq').lsp_ensure_capabilities({
+                        cmd = { '${pkgs.jdt-language-server}/bin/jdtls' },
+                        root_dir = vim.fs.dirname(vim.fs.find(
+                            { 'gradlew', '.git', 'mvnw', 'pom.xml' },
+                            { upward = true }
+                        )[1]),
+
+                        settings = {
+                            java = {
+                                configuration = {
+                                    runtimes = {
+                                        {
+                                            name = 'JavaSE-17',
+                                            path = '${javaSdk}',
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                    });
+
+                    require('jdtls').start_or_attach(config);
+                end
+
+                vim.api.nvim_create_autocmd('FileType', {
+                    pattern = 'java',
+                    callback = startJdtls,
+                });
+              '';
+          }
         ];
       };
     };

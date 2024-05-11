@@ -18,6 +18,11 @@ in {
       viAlias = true;
       vimAlias = true;
 
+      extraPackages = lib.mkIf neovimIde [
+        pkgs.nodePackages.bash-language-server
+        pkgs.shellcheck
+      ];
+
       extraLuaConfig =
         lib.mkIf neovimIde
         /*
@@ -37,11 +42,6 @@ in {
               },
           }));
         '';
-
-      extraPackages = lib.mkIf neovimIde [
-        pkgs.nodePackages.bash-language-server
-        pkgs.shellcheck
-      ];
     };
   };
 }
