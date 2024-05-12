@@ -83,6 +83,22 @@
         "type": "github"
       }
     },
+    "basedpyright": {
+      "locked": {
+        "lastModified": 1715279725,
+        "narHash": "sha256-dy+5OXWNvz7tFIXdbP72baRxkdqSywATNsHcYDxGfHw=",
+        "owner": "kiike",
+        "repo": "nixpkgs",
+        "rev": "695099b46a475665c25a2d1851d25e92c2711dcb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kiike",
+        "ref": "pkgs/basedpyright",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "bat-theme-src": {
       "flake": false,
       "locked": {
@@ -1686,6 +1702,7 @@
         "ags": "ags",
         "arion": "arion",
         "astal": "astal",
+        "basedpyright": "basedpyright",
         "bat-theme-src": "bat-theme-src",
         "caddy-plugins": "caddy-plugins",
         "curseforge-server-downloader-src": "curseforge-server-downloader-src",

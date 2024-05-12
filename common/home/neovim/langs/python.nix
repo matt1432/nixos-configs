@@ -2,22 +2,28 @@
   config,
   lib,
   pkgs,
+  basedpyright,
   ...
 }: let
   inherit (config.vars) neovimIde;
-  inherit (pkgs) vimPlugins;
 in
   lib.mkIf neovimIde {
     programs = {
       neovim = {
         withPython3 = true;
 
-        extraPython3Packages = ps: [
-          ps.pylint
+        extraPackages = [
+          basedpyright.legacyPackages.${pkgs.system}.basedpyright
         ];
 
-        plugins = [
-        ];
+        extraLuaConfig =
+          /*
+          lua
+          */
+          ''
+            require('lspconfig').basedpyright.setup(
+                require('coq').lsp_ensure_capabilities({}));
+          '';
       };
     };
   }

@@ -349,6 +349,7 @@
       owner = "nix-community";
       repo = "nixd";
     };
+    basedpyright.url = "github:kiike/nixpkgs/pkgs/basedpyright";
 
     vimplugin-easytables-src = {
       type = "github";

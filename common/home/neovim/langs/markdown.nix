@@ -19,6 +19,7 @@ in
       neovim = {
         plugins = [
           vimPlugins.markdown-preview-nvim
+
           {
             plugin = buildPlugin "easytables-nvim" vimplugin-easytables-src;
             type = "lua";
