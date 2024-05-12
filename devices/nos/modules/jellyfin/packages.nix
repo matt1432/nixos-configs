@@ -1,35 +1,18 @@
 {
   config,
-  lib,
+  jellyfin-overlays,
   pkgs,
   ...
 }: let
-  inherit (lib) hasAttr optionals;
+  overlays = jellyfin-overlays.legacyPackages.${pkgs.system};
 
   jellyPkgs =
     if config.nvidia.enableCUDA
-    then pkgs.cudaPackages.pkgs
-    else pkgs;
+    then overlays.cudaPackages.pkgs
+    else overlays;
 
   jellyWeb = jellyPkgs.jellyfin-web.overrideAttrs (_: o: {
-    # Inject skip intro button
-    patches =
-      [
-        (pkgs.fetchpatch {
-          name = "skipintro.patch";
-          url = "https://pastebin.com/raw/EEgvReaw";
-          hash = "sha256-kfvOz0ukDY09kkbmZi24ch5KWJsVcThNEVnjlk4sAC0=";
-        })
-      ]
-      ++ optionals (hasAttr "patches" o) o.patches;
-
-    # Enable backdrops by default. Not sure if it actually works
-    postInstall = ''
-      substituteInPlace $out/share/jellyfin-web/main.jellyfin.bundle.js \
-        --replace-fail \
-        'enableBackdrops:function(){return P}' \
-        'enableBackdrops:function(){return _}'
-    '';
+    # TODO: Inject skip intro button for 10.9.0
   });
 
   jellyfinPkg = jellyPkgs.jellyfin.overrideAttrs (_: o: {

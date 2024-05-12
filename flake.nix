@@ -241,6 +241,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    jellyfin-overlays = {
+      type = "github";
+      owner = "minijackson";
+      repo = "nixpkgs";
+      ref = "jellyfin-10.9.0";
+    };
+
     subsync = {
       type = "github";
       owner = "matt1432";
@@ -257,9 +264,8 @@
     ## Hyprland
     hyprland = {
       type = "git";
-      # FIXME: wait for https://github.com/hyprwm/Hyprland/pull/5952
-      url = "https://github.com/andresilva/Hyprland";
-      ref = "nix-build-improvements";
+      url = "https://github.com/hyprwm/Hyprland";
+      ref = "nix";
       submodules = true;
 
       inputs.nixpkgs.follows = "nixpkgs";
@@ -349,6 +355,8 @@
       owner = "nix-community";
       repo = "nixd";
     };
+
+    # FIXME: get it from nixpkgs when it gets merged
     basedpyright.url = "github:kiike/nixpkgs/pkgs/basedpyright";
 
     vimplugin-easytables-src = {
