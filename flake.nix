@@ -241,6 +241,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # FIXME: remove this when it reaches nixpkgs
     jellyfin-overlays = {
       type = "github";
       owner = "minijackson";
@@ -265,7 +266,6 @@
     hyprland = {
       type = "git";
       url = "https://github.com/hyprwm/Hyprland";
-      ref = "nix";
       submodules = true;
 
       inputs.nixpkgs.follows = "nixpkgs";
