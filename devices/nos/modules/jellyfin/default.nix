@@ -110,7 +110,9 @@ in {
             "vp9"
             "av1"
           ];
-          enableThrottling = true;
+          allowHevcEncoding = true;
+          allowAv1Encoding = true;
+          enableThrottling = false;
           enableTonemapping = true;
           downMixAudioBoost = 1;
         };
