@@ -1,15 +1,13 @@
 {
   config,
-  jellyfin-overlays,
+  jellyfin-flake,
   pkgs,
   ...
 }: let
-  overlays = jellyfin-overlays.legacyPackages.${pkgs.system};
-
   jellyPkgs =
     if config.nvidia.enableCUDA
-    then overlays.cudaPackages.pkgs
-    else overlays;
+    then jellyfin-flake.packages.${pkgs.system}.cudaPackages // {inherit (pkgs.cudaPackages.pkgs) jellyfin-ffmpeg;}
+    else jellyfin-flake.packages.${pkgs.system} // {inherit (pkgs) jellyfin-ffmpeg;};
 
   jellyWeb = jellyPkgs.jellyfin-web.overrideAttrs (_: o: {
     # TODO: Inject skip intro button for 10.9.0

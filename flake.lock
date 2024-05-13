@@ -762,16 +762,18 @@
     },
     "jellyfin-flake": {
       "inputs": {
+        "jellyfin-src": "jellyfin-src",
+        "jellyfin-web-src": "jellyfin-web-src",
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1709785905,
-        "narHash": "sha256-RUI/to18Mx76ocQmmKAlrbRSN+/sewNt+fdp9iDYWGM=",
+        "lastModified": 1715565229,
+        "narHash": "sha256-WwdEBaANjwcnnSDuz/upMjMbwUfRUxz6uf9Tf5ZP4QI=",
         "owner": "matt1432",
         "repo": "nixos-jellyfin",
-        "rev": "50274dcec43e2179d6cbf1e045eea5354e6af606",
+        "rev": "e8b4b977bcd667d833b1d19dfe0df0d1993cedf9",
         "type": "github"
       },
       "original": {
@@ -780,19 +782,20 @@
         "type": "github"
       }
     },
-    "jellyfin-overlays": {
+    "jellyfin-src": {
+      "flake": false,
       "locked": {
-        "lastModified": 1715515598,
-        "narHash": "sha256-nYm7AZUBa9iE1uLto4EXroxXFdV1bNGRywHTih2fOtY=",
-        "owner": "minijackson",
-        "repo": "nixpkgs",
-        "rev": "22e41692a4e9991413b4cf562f52b0c676a9a0ee",
+        "lastModified": 1715559024,
+        "narHash": "sha256-ZvXz4gnpYE9bMvOHbmLhqJLUomPmk1K9ysw+Wlsyhr4=",
+        "owner": "jellyfin",
+        "repo": "jellyfin",
+        "rev": "717afcdc8237e12607b68d8a05c2438388e958bf",
         "type": "github"
       },
       "original": {
-        "owner": "minijackson",
-        "ref": "jellyfin-10.9.0",
-        "repo": "nixpkgs",
+        "owner": "jellyfin",
+        "ref": "v10.9.1",
+        "repo": "jellyfin",
         "type": "github"
       }
     },
@@ -809,6 +812,23 @@
       "original": {
         "owner": "CTalvio",
         "repo": "Ultrachromic",
+        "type": "github"
+      }
+    },
+    "jellyfin-web-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1715559027,
+        "narHash": "sha256-KkPZ8OvGN/0gdoSVh9q0qEilae3tccgHRQQvrTsvycA=",
+        "owner": "jellyfin",
+        "repo": "jellyfin-web",
+        "rev": "ac8c2239ca7258e006f2acdb7acb02749a6ec824",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jellyfin",
+        "ref": "v10.9.1",
+        "repo": "jellyfin-web",
         "type": "github"
       }
     },
@@ -1734,7 +1754,6 @@
         "hypridle": "hypridle",
         "hyprland": "hyprland",
         "jellyfin-flake": "jellyfin-flake",
-        "jellyfin-overlays": "jellyfin-overlays",
         "jellyfin-ultrachromic-src": "jellyfin-ultrachromic-src",
         "libratbag-src": "libratbag-src",
         "modernx-src": "modernx-src",

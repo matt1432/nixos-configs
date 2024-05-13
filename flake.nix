@@ -241,14 +241,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # FIXME: remove this when it reaches nixpkgs
-    jellyfin-overlays = {
-      type = "github";
-      owner = "minijackson";
-      repo = "nixpkgs";
-      ref = "jellyfin-10.9.0";
-    };
-
     subsync = {
       type = "github";
       owner = "matt1432";
