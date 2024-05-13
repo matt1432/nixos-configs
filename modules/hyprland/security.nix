@@ -36,7 +36,7 @@ in {
 
     services.hypridle = mkIf isLaptop {
       enable = true;
-      settings.lockCmd = "${lockPkg}/bin/lock";
+      settings.general.lock_cmd = "${lockPkg}/bin/lock";
     };
 
     wayland.windowManager.hyprland = {
