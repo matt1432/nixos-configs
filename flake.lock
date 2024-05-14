@@ -760,8 +760,26 @@
         "type": "github"
       }
     },
+    "jellyfin-ffmpeg-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1714081542,
+        "narHash": "sha256-jy5LPurjuSIMZlzVZcuaqAwAZunbYc9/6aJf+hna0Kw=",
+        "owner": "jellyfin",
+        "repo": "jellyfin-ffmpeg",
+        "rev": "38aaefefec762dd185b631298752d489dcf084fe",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jellyfin",
+        "ref": "v6.0.1-6",
+        "repo": "jellyfin-ffmpeg",
+        "type": "github"
+      }
+    },
     "jellyfin-flake": {
       "inputs": {
+        "jellyfin-ffmpeg-src": "jellyfin-ffmpeg-src",
         "jellyfin-src": "jellyfin-src",
         "jellyfin-web-src": "jellyfin-web-src",
         "nixpkgs": [
@@ -769,11 +787,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1715574112,
-        "narHash": "sha256-UrvwGrZqWkHUd3y3RWap8T9pcoEidPvTNl59F9aYMEI=",
+        "lastModified": 1715653242,
+        "narHash": "sha256-/1scM1+8PoM90oVUva8voiuzPCNUr69aCn+jgKznPI8=",
         "owner": "matt1432",
         "repo": "nixos-jellyfin",
-        "rev": "37600c9569edf09f6f1e984f662973fa4f625998",
+        "rev": "debe824dd69d98dc63e0f9ca434411cd10516848",
         "type": "github"
       },
       "original": {

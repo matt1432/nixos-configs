@@ -24,7 +24,8 @@ in {
     optionalGroup mainUser
     ++ optionalGroup "input"
     ++ optionalGroup "media"
-    ++ optionalGroup "render";
+    ++ optionalGroup "render"
+    ++ optionalGroup "video";
 
   services = {
     jellyfin = {
@@ -110,8 +111,7 @@ in {
             "vp9"
             "av1"
           ];
-          allowHevcEncoding = true;
-          allowAv1Encoding = true;
+          allowHevcEncoding = false;
           enableThrottling = false;
           enableTonemapping = true;
           downMixAudioBoost = 1;
