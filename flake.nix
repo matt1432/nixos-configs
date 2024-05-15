@@ -334,6 +334,15 @@
     #
 
     # Neovim inputs
+    neovim-nightly = {
+      type = "github";
+      owner = "nix-community";
+      repo = "neovim-nightly-overlay";
+
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    ## LSPs
     stylelint-lsp = {
       type = "github";
       owner = "matt1432";
@@ -351,6 +360,7 @@
     # FIXME: get it from nixpkgs when it gets merged
     basedpyright.url = "github:kiike/nixpkgs/pkgs/basedpyright";
 
+    ## Plugin sources
     vimplugin-easytables-src = {
       type = "github";
       owner = "Myzel394";

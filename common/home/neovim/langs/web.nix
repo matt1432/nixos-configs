@@ -96,10 +96,7 @@ in
 
         plugins = [
           vimPlugins.typescript-tools-nvim
-
-          {
-            plugin = buildPlugin "ts-error-translator" vimplugin-ts-error-translator-src;
-          }
+          (buildPlugin "ts-error-translator" vimplugin-ts-error-translator-src)
         ];
       };
     };

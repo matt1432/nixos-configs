@@ -49,7 +49,7 @@ in
               ''
                 local startJdtls = function()
                     local config = require('coq').lsp_ensure_capabilities({
-                        cmd = { '${pkgs.jdt-language-server}/bin/jdtls' },
+                        cmd = { '${lib.getExe pkgs.jdt-language-server}' },
                         root_dir = vim.fs.dirname(vim.fs.find(
                             { 'gradlew', '.git', 'mvnw', 'pom.xml' },
                             { upward = true }

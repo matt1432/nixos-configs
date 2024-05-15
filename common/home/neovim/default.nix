@@ -1,5 +1,6 @@
 {
   config,
+  neovim-nightly,
   pkgs,
   ...
 }: let
@@ -15,6 +16,7 @@ in {
   programs = {
     neovim = {
       enable = true;
+      package = neovim-nightly.packages.${pkgs.system}.neovim;
 
       extraLuaConfig =
         /*

@@ -55,7 +55,7 @@ in
                 settings = {
                     nixd = {
                        formatting = {
-                           command = { "alejandra" },
+                           command = { '${lib.getExe pkgs.alejandra}' },
                        },
                     },
                 },

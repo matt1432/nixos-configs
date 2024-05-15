@@ -37,7 +37,7 @@ in {
           require('lspconfig').bashls.setup(require('coq').lsp_ensure_capabilities({
               settings = {
                   bashIde = {
-                      shellcheckPath = '${pkgs.shellcheck}/bin/shellcheck',
+                      shellcheckPath = '${lib.getExe pkgs.shellcheck}',
                   },
               },
           }));
