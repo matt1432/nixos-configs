@@ -59,22 +59,20 @@ export class CursorBox<Child extends Gtk.Widget, Attr> extends Gtk.EventBox {
         this.add_events(Gdk.EventMask.SMOOTH_SCROLL_MASK);
 
         // Gesture stuff
-        const gesture = Gtk.GestureLongPress.new(this);
+        const gesture = Gtk.GestureMultiPress.new(this);
 
-        this.hook(gesture, () => {
-            const pointer = gesture.get_point(null);
-            const x = pointer[1];
-            const y = pointer[2];
-
-            if ((!x || !y) || (x === 0 && y === 0)) {
+        this.hook(gesture, (_, _n, x, y) => {
+            if (!x || !y) {
                 return;
             }
 
             this.#canRun.setValue(!(
                 x > this.get_allocated_width() ||
-                y > this.get_allocated_height()
+                x <= 0 ||
+                y > this.get_allocated_height() ||
+                y <= 0
             ));
-        }, 'end');
+        }, 'released');
 
         this.connect('enter-notify-event', (_, event: Gdk.Event) => {
             this.set_state_flags(Gtk.StateFlags.PRELIGHT, false);
