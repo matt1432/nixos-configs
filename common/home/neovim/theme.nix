@@ -83,7 +83,6 @@ in {
           }
 
           # Deps of heirline config
-          vimPlugins.nvim-navic
           vimPlugins.nvim-web-devicons
           {
             plugin = vimPlugins.heirline-nvim;
