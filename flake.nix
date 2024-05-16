@@ -531,7 +531,7 @@
       type = "github";
       owner = "Godiesc";
       repo = "firefox-gx";
-      ref = "v.9.0";
+      ref = "v.9.1";
       flake = false;
     };
 

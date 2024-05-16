@@ -11,6 +11,11 @@
   --uc-vertical-toolbar-width: 46px !important;
 }
 
+/* Fix url font-size */
+#urlbar-input {
+    font-size: large !important;
+}
+
 /* Fix left side of tabs going past what it should */
 scrollbox {
   margin-left: 5px;
