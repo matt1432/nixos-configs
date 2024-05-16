@@ -25,6 +25,11 @@ in
               lua
               */
               ''
+                vim.api.nvim_create_autocmd('FileType', {
+                    pattern = 'lua',
+                    command = 'setlocal ts=4 sw=4 sts=0 expandtab',
+                });
+
                 -- IMPORTANT: make sure to setup neodev BEFORE lspconfig
                 require("neodev").setup({
                     override = function(root_dir, library)
