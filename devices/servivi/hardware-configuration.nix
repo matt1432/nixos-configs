@@ -35,6 +35,9 @@
         configurationLimit = 30;
       };
     };
+
+    # Support building binaries for arm64
+    binfmt.emulatedSystems = ["aarch64-linux"];
   };
 
   fileSystems = {
