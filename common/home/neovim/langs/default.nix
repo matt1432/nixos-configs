@@ -12,6 +12,7 @@ in {
     ./clang.nix
     ./hyprlang.nix
     ./java.nix
+    ./json.nix
     ./lua.nix
     ./markdown.nix
     ./nix.nix
