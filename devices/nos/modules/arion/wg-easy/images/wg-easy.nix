@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage {
   imageName = "ghcr.io/wg-easy/wg-easy";
-  imageDigest = "sha256:6fc9a00456237d0f8c39739f7b265e5b804f50d49266d9951580afb953f2e723";
-  sha256 = "0clg2y3d0jdhc0lp3k84ipmr06r2k5r469rjg8av56p356pzbp8i";
+  imageDigest = "sha256:60239081482ffccf53db88dacf71349e09651fe353fe6cf6592ded75f6ddcdee";
+  sha256 = "0fvcfq8gim7pfvw261j0hjyx6csdymrha0dmwvxayy032d5wn6ii";
   finalImageName = "ghcr.io/wg-easy/wg-easy";
   finalImageTag = "latest";
 }
