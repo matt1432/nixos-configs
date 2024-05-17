@@ -115,6 +115,27 @@
         "type": "github"
       }
     },
+    "bazarr-bulk": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1715912570,
+        "narHash": "sha256-Fyxsn7OLo8dHtKGKc1PcirQBBbQTD6tzHDDedEYlXnQ=",
+        "owner": "matt1432",
+        "repo": "bazarr-bulk",
+        "rev": "81be58cff86f0ef525735dfe9cdf7f899ae75899",
+        "type": "github"
+      },
+      "original": {
+        "owner": "matt1432",
+        "ref": "nix",
+        "repo": "bazarr-bulk",
+        "type": "github"
+      }
+    },
     "caddy-plugins": {
       "inputs": {
         "nixpkgs": [
@@ -1903,6 +1924,7 @@
         "astal": "astal",
         "basedpyright": "basedpyright",
         "bat-theme-src": "bat-theme-src",
+        "bazarr-bulk": "bazarr-bulk",
         "caddy-plugins": "caddy-plugins",
         "curseforge-server-downloader-src": "curseforge-server-downloader-src",
         "eisa-scripts-src": "eisa-scripts-src",
@@ -1981,11 +2003,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1712775289,
-        "narHash": "sha256-jSY9GD1NCMqHrYjka0aI5mV8bAxykXDWsO2F9QctRD8=",
+        "lastModified": 1715913475,
+        "narHash": "sha256-omx63Z5ZnK/tWz5Uz7/XWGzKpDKWgpVZa5paYB2iFao=",
         "ref": "refs/heads/main",
-        "rev": "d8dfe460c665cdcc497328fda79603b114bc5cc1",
-        "revCount": 55,
+        "rev": "015f7916d2f8bbb461850ee765933e4ca66f8a23",
+        "revCount": 62,
         "type": "git",
         "url": "ssh://git@git.nelim.org/matt1432/nixos-secrets"
       },

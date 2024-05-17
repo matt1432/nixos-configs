@@ -241,6 +241,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    bazarr-bulk = {
+      type = "github";
+      owner = "matt1432";
+      repo = "bazarr-bulk";
+      ref = "nix";
+
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     subsync = {
       type = "github";
       owner = "matt1432";

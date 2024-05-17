@@ -1,5 +1,7 @@
 {
+  bazarr-bulk,
   config,
+  lib,
   pkgs,
   subsync,
   ...
@@ -7,12 +9,30 @@
   inherit (config.vars) mainUser;
 
   subsyncPkg = subsync.packages.${pkgs.system}.default;
+  bbPkg = bazarr-bulk.packages.${pkgs.system}.default;
 
   node-syncsub = pkgs.callPackage ./node-syncsub {
     subsync = subsyncPkg;
   };
 in {
-  environment.systemPackages = [subsyncPkg node-syncsub];
+  environment.systemPackages = [
+    subsyncPkg
+    node-syncsub
+
+    (pkgs.writeShellApplication {
+      name = "bb";
+      text = ''
+        exec ${lib.getExe bbPkg} --config ${config.sops.secrets.bazarr-bulk.path} "$@"
+      '';
+    })
+
+    (pkgs.writeShellApplication {
+      name = "bb-fr";
+      text = ''
+        exec ${lib.getExe bbPkg} --config ${config.sops.secrets.bazarr-bulk-fr.path} "$@"
+      '';
+    })
+  ];
 
   systemd = {
     services.subsync-job = {
