@@ -106,11 +106,11 @@
         ];
       };
 
-      node-dev = pkgs.mkShell {
+      subtitles-dev = pkgs.mkShell {
         packages = with pkgs;
           [
             nodejs_latest
-            ffmpeg
+            ffmpeg-full
             typescript
           ]
           ++ (with nodePackages; [

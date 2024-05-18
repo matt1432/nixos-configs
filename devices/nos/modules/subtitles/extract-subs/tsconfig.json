@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
+    "target": "ESNEXT",
     "module": "commonjs",
     "lib": [
       "ES2022"
@@ -9,8 +9,8 @@
     "strict": true,
     "moduleResolution": "node",
     "baseUrl": ".",
-    "typeRoots": [
-      "./node_modules/@types",
+    "types": [
+      "@types/fluent-ffmpeg"
     ],
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
