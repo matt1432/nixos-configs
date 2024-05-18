@@ -13,8 +13,7 @@ in {
     ./modules/mergerfs.nix
     ./modules/qbittorrent
     ./modules/snapraid.nix
-    ./modules/subtitles/cleanup.nix
-    ./modules/subtitles/syncing.nix
+    ./modules/subtitles
   ];
 
   vars = {

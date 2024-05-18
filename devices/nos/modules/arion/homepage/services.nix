@@ -156,18 +156,6 @@
         };
       }
       {
-        "bazarr french" = rec {
-          href = "https://lan.nelim.org/bafrr";
-          icon = "bazarr.png";
-          description = "fetches subs";
-          widget = {
-            type = "bazarr";
-            url = href;
-            key = "{{HOMEPAGE_VAR_BAZARRFR_API}}";
-          };
-        };
-      }
-      {
         prowlarr = rec {
           href = "https://lan.nelim.org/prowlarr";
           icon = "prowlarr.png";

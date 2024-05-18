@@ -125,10 +125,6 @@ in {
 
             subDirectories = {
               bazarr.reverseProxy = "${nosIP}:6767";
-              bazarr-french = {
-                subDirName = "bafrr";
-                reverseProxy = "${nosIP}:6766";
-              };
 
               prowlarr.reverseProxy = "${nosIP}:9696";
               radarr.reverseProxy = "${nosIP}:7878";

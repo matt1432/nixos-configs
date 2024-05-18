@@ -245,7 +245,6 @@
       type = "github";
       owner = "matt1432";
       repo = "bazarr-bulk";
-      ref = "nix";
 
       inputs.nixpkgs.follows = "nixpkgs";
     };

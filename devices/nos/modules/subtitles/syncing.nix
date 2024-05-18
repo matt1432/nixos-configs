@@ -22,13 +22,6 @@ in {
         exec ${lib.getExe bbPkg} --config ${config.sops.secrets.bazarr-bulk.path} "$@"
       '';
     })
-
-    (pkgs.writeShellApplication {
-      name = "bb-fr";
-      text = ''
-        exec ${lib.getExe bbPkg} --config ${config.sops.secrets.bazarr-bulk-fr.path} "$@"
-      '';
-    })
   ];
 
   systemd = {
