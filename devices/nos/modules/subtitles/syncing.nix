@@ -16,9 +16,6 @@
   };
 in {
   environment.systemPackages = [
-    subsyncPkg
-    node-syncsub
-
     (pkgs.writeShellApplication {
       name = "bb";
       text = ''

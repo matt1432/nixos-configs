@@ -906,11 +906,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1715653242,
-        "narHash": "sha256-/1scM1+8PoM90oVUva8voiuzPCNUr69aCn+jgKznPI8=",
+        "lastModified": 1715997236,
+        "narHash": "sha256-YnN5E/l4+bRXrTq0gaSH6oRlpkRDCMoRfWbHwDtEpZU=",
         "owner": "matt1432",
         "repo": "nixos-jellyfin",
-        "rev": "debe824dd69d98dc63e0f9ca434411cd10516848",
+        "rev": "c801836437574d9e4c8eab6014d63e4871257d8f",
         "type": "github"
       },
       "original": {
@@ -922,16 +922,16 @@
     "jellyfin-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1715559024,
-        "narHash": "sha256-ZvXz4gnpYE9bMvOHbmLhqJLUomPmk1K9ysw+Wlsyhr4=",
+        "lastModified": 1715976574,
+        "narHash": "sha256-G4lI1SCsz/8+lh3MOppp7vna9SsKDtaUhKD1DeTSq/Y=",
         "owner": "jellyfin",
         "repo": "jellyfin",
-        "rev": "717afcdc8237e12607b68d8a05c2438388e958bf",
+        "rev": "76854b5eff6df2024da3b1230b4d0b6d71951151",
         "type": "github"
       },
       "original": {
         "owner": "jellyfin",
-        "ref": "v10.9.1",
+        "ref": "v10.9.2",
         "repo": "jellyfin",
         "type": "github"
       }
@@ -955,16 +955,16 @@
     "jellyfin-web-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1715559027,
-        "narHash": "sha256-KkPZ8OvGN/0gdoSVh9q0qEilae3tccgHRQQvrTsvycA=",
+        "lastModified": 1715976577,
+        "narHash": "sha256-0MBVcMajRk+CR0nZ8Dtd3Mg4tKdLiHGs3AhI8BEqZyE=",
         "owner": "jellyfin",
         "repo": "jellyfin-web",
-        "rev": "ac8c2239ca7258e006f2acdb7acb02749a6ec824",
+        "rev": "ed321c4cdb56e45b1ec170e63eeb93e594d846bf",
         "type": "github"
       },
       "original": {
         "owner": "jellyfin",
-        "ref": "v10.9.1",
+        "ref": "v10.9.2",
         "repo": "jellyfin-web",
         "type": "github"
       }
