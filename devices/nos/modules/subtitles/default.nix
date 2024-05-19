@@ -2,20 +2,22 @@
   config,
   pkgs,
   ...
-}: let
+} @ inputs: let
   inherit (config.vars) mainUser;
 
   convertMkv = pkgs.callPackage ./convert.nix {inherit pkgs;};
-  exportSubs = pkgs.callPackage ./extract-subs {inherit pkgs;};
+  extractSubs = pkgs.callPackage ./extract-subs {inherit pkgs;};
   sub-clean = pkgs.callPackage ./cleanup.nix {inherit pkgs;};
+  bazarr-bulk = pkgs.callPackage ./syncing.nix inputs;
 in {
-  imports = [
-    ./syncing.nix
-    # TODO:
-    # - Improve cleanup
-    # - Sync with bazarr-bulk
-    # - figure out bazarr postprocessing with subsync
+  # TODO:
+  # - Improve cleanup
+  # - figure out bazarr postprocessing with subsync
+
+  environment.systemPackages = [
+    bazarr-bulk
   ];
+
   systemd = {
     services.manage-subs = {
       serviceConfig = {
@@ -26,8 +28,9 @@ in {
 
       path = [
         convertMkv
-        exportSubs
+        extractSubs
         sub-clean
+        bazarr-bulk
       ];
 
       script = ''
@@ -40,15 +43,17 @@ in {
 
         # Remove ads and stuff in subs
         find /data/{anime,history,movies,tv} -name '*.srt' -exec sub-clean "{}" \;
+
+        # Bulk sync everything
+        bb movies sync
+        bb tv-shows sync
       '';
     };
 
-    /*
-    timers.sub-clean = {
+    timers.manage-subs = {
       wantedBy = ["timers.target"];
       partOf = ["manage-subs.service"];
       timerConfig.OnCalendar = ["0:00:00"];
     };
-    */
   };
 }
