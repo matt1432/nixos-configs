@@ -347,7 +347,8 @@
       owner = "nix-community";
       repo = "neovim-nightly-overlay";
 
-      inputs.nixpkgs.follows = "nixpkgs";
+      # FIXME: issue with grammars on latest unstable
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
 
     ## LSPs

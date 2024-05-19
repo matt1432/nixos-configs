@@ -76,8 +76,7 @@ with `src` to make it clear what they are.
 
 All my secrets are in a private git repo that makes use of
 [sops-nix](https://github.com/Mic92/sops-nix).
-I only use secrets stored in `JSON` and generate `.sops.yaml`
-from `.sops.nix`:
+I generate `.sops.yaml` from `.sops.nix`:
 
 ```nix
 let
