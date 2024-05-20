@@ -1,11 +1,11 @@
 {
-  persist-properties-src,
+  mpv-persist-properties-src,
   buildLua,
   ...
 }:
 buildLua {
   pname = "persist-properties";
-  version = persist-properties-src.shortRev;
+  version = mpv-persist-properties-src.shortRev;
 
-  src = persist-properties-src;
+  src = mpv-persist-properties-src;
 }

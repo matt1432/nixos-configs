@@ -49,7 +49,10 @@ sudo ln -sf /home/matt/.nix /etc/nixos
 
 ### Flake Inputs
 
-I prefer using a more descriptive format for my inputs like so:
+To allow use of the nix language for my inputs, I use [genflake](https://github.com/jorsn/flakegen).
+Therefore, the flake I edit is located at `./flake.in.nix`.
+
+I also prefer using a more descriptive format for my inputs like so:
 
 ```nix
 nixpkgs = {
@@ -66,11 +69,6 @@ nixpkgs = {
 ```
 
 to make it more clear what is what in the flake URI
-
-I also have a long list of inputs with `flake = false;` because
-it makes it easier to update non-flake custom packages or overlays
-to have the latest git. I make sure to end the names of these inputs
-with `src` to make it clear what they are.
 
 ### Secrets
 

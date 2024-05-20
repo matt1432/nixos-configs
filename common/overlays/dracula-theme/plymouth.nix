@@ -1,13 +1,13 @@
 {
   stdenv,
-  plymouth-theme-src,
+  dracula-plymouth-src,
   ...
 }:
 stdenv.mkDerivation {
   name = "dracula-plymouth";
-  version = plymouth-theme-src.shortRev;
+  version = dracula-plymouth-src.shortRev;
 
-  src = plymouth-theme-src;
+  src = dracula-plymouth-src;
 
   installPhase = ''
     chmod 777 ./dracula

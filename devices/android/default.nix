@@ -1,8 +1,10 @@
 {
   home-manager,
+  nix-on-droid,
   nixpkgs,
   ...
-} @ inputs: rec {
+} @ inputs:
+nix-on-droid.lib.nixOnDroidConfiguration rec {
   extraSpecialArgs = inputs;
   home-manager-path = home-manager.outPath;
   pkgs = import nixpkgs {

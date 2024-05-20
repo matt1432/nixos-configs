@@ -52,6 +52,7 @@ in
           */
           ''
             require('lspconfig').nixd.setup(require('coq').lsp_ensure_capabilities({
+                filetypes = { 'nix', 'in.nix' },
                 settings = {
                     nixd = {
                        formatting = {

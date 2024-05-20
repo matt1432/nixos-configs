@@ -1,7 +1,7 @@
 {
   bat-theme-src,
   gtk-theme-src,
-  xresources-theme-src,
+  xresources-src,
   ...
 } @ inputs: (final: prev: {
   dracula-theme = prev.dracula-theme.overrideAttrs (oldAttrs: let
@@ -21,7 +21,7 @@
       cp -a ${bat-theme-src}/Dracula.tmTheme $out/bat
       cp -a ${git-colors}/git-colors $out/git-colors
       cp -a ${plymouth}/share/plymouth/themes/dracula $out/share/plymouth/themes/
-      cp -a ${xresources-theme-src}/Xresources $out/xres
+      cp -a ${xresources-src}/Xresources $out/xres
 
       # -------------------------------------------
       mkdir -p $out/share/themes/Dracula
