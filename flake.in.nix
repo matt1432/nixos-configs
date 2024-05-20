@@ -1,6 +1,6 @@
 {
   inputs = let
-    inherit (import ./input.nix) mkDep mkInput otherInputs;
+    inherit (import ./inputs.nix) mkDep mkInput otherInputs;
 
     mainInputs = {
       nixpkgs = mkInput {

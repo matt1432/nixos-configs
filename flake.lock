@@ -122,15 +122,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1716075802,
-        "narHash": "sha256-FOsceX6qDdhQs7Pe0W61kem5NOcsKCscJyB8e9XaMsI=",
-        "owner": "matt1432",
+        "lastModified": 1716207360,
+        "narHash": "sha256-m6w2pd9ZBa2cW9EFIcZW8/1MnGQGRodLrGzAnmtSU5Q=",
+        "owner": "mateoradman",
         "repo": "bazarr-bulk",
-        "rev": "ae0ec433ff22600fb36c1a747aa4182eed997bd8",
+        "rev": "d9bb1308349a13f5e1cdad97dadd44a7a1dcb9e5",
         "type": "github"
       },
       "original": {
-        "owner": "matt1432",
+        "owner": "mateoradman",
         "repo": "bazarr-bulk",
         "type": "github"
       }

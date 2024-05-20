@@ -119,7 +119,7 @@ let
     };
 
     bazarr-bulk = mkDep {
-      owner = "matt1432";
+      owner = "mateoradman";
       repo = "bazarr-bulk";
     };
 

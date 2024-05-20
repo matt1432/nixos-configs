@@ -35,7 +35,7 @@
     };
     bazarr-bulk = {
       inputs.nixpkgs.follows = "nixpkgs";
-      owner = "matt1432";
+      owner = "mateoradman";
       repo = "bazarr-bulk";
       type = "github";
     };
