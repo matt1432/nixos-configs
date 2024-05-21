@@ -74,10 +74,21 @@ const makeChild = (class_name: string | Binding<any, any, string>) => {
         hexpand: true,
     });
 
+    const scrollable = Scrollable({
+        hscroll: 'never',
+        vscroll: 'automatic',
+        child: Box({
+            vertical: true,
+            children: [list, placeholder],
+        }),
+    });
+
     return {
         list,
         entry,
         placeholder,
+        scrollable,
+
         child: Box({
             class_name,
             vertical: true,
@@ -90,14 +101,7 @@ const makeChild = (class_name: string | Binding<any, any, string>) => {
                     ],
                 }),
 
-                Scrollable({
-                    hscroll: 'never',
-                    vscroll: 'automatic',
-                    child: Box({
-                        vertical: true,
-                        children: [list, placeholder],
-                    }),
-                }),
+                scrollable,
             ],
         }),
     };
@@ -116,6 +120,7 @@ export class SortedList<
     private _list: MakeChild['list'];
     private _entry: MakeChild['entry'];
     private _placeholder: MakeChild['placeholder'];
+    private _scrollable: MakeChild['scrollable'];
     private _on_select: (row: ListBoxRow) => void;
     private _init_rows: (list: MakeChild['list']) => void;
     private _set_sort: (
@@ -130,6 +135,10 @@ export class SortedList<
             fun(this);
             this._init_rows(this._list);
             centerCursor();
+
+            const adjustScroll = this._scrollable.vadjustment;
+
+            this._scrollable.vadjustment.set_value(adjustScroll.lower);
             this._entry.grab_focus();
         };
     }
@@ -138,7 +147,7 @@ export class SortedList<
         on_select,
         init_rows,
         set_sort,
-        on_open = () => {/**/},
+        on_open = () => { /**/ },
         class_name = '',
         keymode = 'on-demand',
         ...rest
@@ -160,6 +169,7 @@ export class SortedList<
         this._set_sort = set_sort;
 
         this._placeholder = makeChildResult.placeholder;
+        this._scrollable = makeChildResult.scrollable;
 
         this._list = makeChildResult.list;
         this._list.on('row-activated', (_, row) => {
