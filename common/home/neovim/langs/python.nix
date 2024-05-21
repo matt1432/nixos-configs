@@ -1,8 +1,7 @@
 {
+  basedpyrightPkgs,
   config,
   lib,
-  pkgs,
-  basedpyright,
   ...
 }: let
   inherit (config.vars) neovimIde;
@@ -13,7 +12,7 @@ in
         withPython3 = true;
 
         extraPackages = [
-          basedpyright.legacyPackages.${pkgs.system}.basedpyright
+          basedpyrightPkgs.basedpyright
         ];
 
         extraLuaConfig =

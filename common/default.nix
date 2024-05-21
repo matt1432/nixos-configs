@@ -23,10 +23,6 @@
     ../modules/nvidia.nix
   ];
 
-  nixpkgs = {
-    config.allowUnfree = true;
-    overlays = import ./overlays inputs;
-  };
   boot.tmp.useTmpfs = true;
 
   nix = {

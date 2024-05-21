@@ -42,39 +42,29 @@
     secrets,
     ...
   }: let
+    inherit (import ./lib.nix inputs) mkNixOS mkNixOnDroid mkPkgs;
+
     supportedSystems = ["x86_64-linux" "aarch64-linux"];
 
     perSystem = attrs:
-      nixpkgs.lib.genAttrs supportedSystems (system: let
-        pkgs = nixpkgs.legacyPackages.${system};
-      in
-        attrs system pkgs);
-
-    # Default system
-    mkNixOS = mods:
-      nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = inputs;
-        modules =
-          [
-            {home-manager.extraSpecialArgs = inputs;}
-            ./common
-          ]
-          ++ mods;
-      };
+      nixpkgs.lib.genAttrs supportedSystems (system:
+        attrs system (mkPkgs system nixpkgs));
   in {
     nixosConfigurations = {
+      # Desktops
       wim = mkNixOS [
         ./devices/wim
         secrets.nixosModules.default
       ];
       binto = mkNixOS [./devices/binto];
 
+      # NAS
       nos = mkNixOS [
         ./devices/nos
         secrets.nixosModules.nos
       ];
 
+      # Build / test server
       servivi = mkNixOS [
         ./devices/servivi
         secrets.nixosModules.servivi
@@ -103,20 +93,7 @@
       ];
     };
 
-    nixOnDroidConfigurations.default = import ./devices/android inputs;
-
-    formatter = perSystem (_: pkgs: pkgs.alejandra);
-
-    # CI: https://github.com/Mic92/dotfiles/blob/c2f538934d67417941f83d8bb65b8263c43d32ca/flake.nix#L168
-    checks = perSystem (system: pkgs: let
-      inherit (pkgs.lib) filterAttrs mapAttrs' nameValuePair;
-
-      nixosMachines = mapAttrs' (
-        name: config: nameValuePair "nixos-${name}" config.config.system.build.toplevel
-      ) ((filterAttrs (_: config: config.pkgs.system == system)) self.nixosConfigurations);
-      devShells = mapAttrs' (n: nameValuePair "devShell-${n}") self.devShells;
-    in
-      nixosMachines // devShells);
+    nixOnDroidConfigurations.default = mkNixOnDroid [./devices/android];
 
     devShells = perSystem (_: pkgs: {
       default = pkgs.mkShell {
@@ -149,5 +126,12 @@
           ]);
       };
     });
+
+    formatter = perSystem (_: pkgs: pkgs.alejandra);
+
+    # For nix-fast-build
+    checks =
+      perSystem (system: pkgs:
+        import ./ci.nix {inherit system pkgs self;});
   };
 }
