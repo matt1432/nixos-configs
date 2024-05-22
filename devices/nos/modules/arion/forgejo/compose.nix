@@ -63,6 +63,7 @@ in {
 
       volumes = ["${rwPath}/act:/data"];
 
+      dns = ["1.0.0.1"];
       extra_hosts = [
         "git.nelim.org=10.0.0.130"
       ];
