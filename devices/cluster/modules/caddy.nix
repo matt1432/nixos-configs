@@ -48,7 +48,18 @@ in {
           vault.reverseProxy = "${nosIP}:8781";
           hauk.reverseProxy = "${nosIP}:3003";
           headscale.reverseProxy = "${clusterIP}:8085";
-          jelly.reverseProxy = "${nosIP}:8097";
+
+          jellyfin = {
+            subDomainName = "jelly";
+            reverseProxy = "${nosIP}:8096";
+
+            subDirectories = {
+              jfa-go = {
+                subDirName = "accounts";
+                reverseProxy = "${nosIP}:8056";
+              };
+            };
+          };
 
           pcsd = {
             extraConfig = ''
