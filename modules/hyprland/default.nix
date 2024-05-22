@@ -5,7 +5,7 @@
   lib,
   ...
 }: let
-  inherit (lib) concatStringsSep mkIf optionals;
+  inherit (lib) concatStringsSep optionals;
   inherit (config.vars) mainUser;
 
   cfg = config.programs.hyprland;
@@ -19,13 +19,10 @@ in {
     ./security.nix
   ];
 
-  environment.sessionVariables =
-    {
-      GTK_USE_PORTAL = "1";
-    }
-    // mkIf (!config.nvidia.enable) {
-      NIXOS_OZONE_WL = "1";
-    };
+  environment.sessionVariables = {
+    GTK_USE_PORTAL = "1";
+    NIXOS_OZONE_WL = "1";
+  };
 
   services = {
     dbus.enable = true;
