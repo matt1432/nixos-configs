@@ -13,9 +13,8 @@ const N_ITEMS = 30;
 const copyOldItem = (key: string | number): void => {
     execAsync([
         'bash', '-c', `cliphist list | grep ${key} | cliphist decode | wl-copy`,
-    ]).then(() => {
-        App.closeWindow('win-clipboard');
-    });
+    ]);
+    App.closeWindow('win-clipboard');
 };
 
 export default () => {

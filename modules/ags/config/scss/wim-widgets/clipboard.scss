@@ -51,7 +51,7 @@
     }
   }
 
-  *:selected, .item:hover, .item:focus {
+  *:selected .item, .item:hover, .item:focus {
     background-color: #363449;
   }
 }
