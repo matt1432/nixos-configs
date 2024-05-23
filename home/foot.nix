@@ -36,7 +36,6 @@ in {
         main = {
           term = "xterm-256color";
 
-          # FIXME: Figure out font size with Dpi-aware
           font = "JetBrainsMono Nerd Font:size=${
             lib.strings.floatToString fontSize
           }";

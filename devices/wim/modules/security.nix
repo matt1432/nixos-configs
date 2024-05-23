@@ -34,8 +34,6 @@ in {
     sudo.text = mkDefault (mkBefore grosshackConf);
     login.text = mkDefault (mkBefore grosshackConf);
     polkit-1.text = mkDefault (mkBefore grosshackConf);
-
-    # FIXME: sometimes can't use password
     ags.text = mkDefault (mkBefore grosshackConf);
   };
 }

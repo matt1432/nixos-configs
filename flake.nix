@@ -1,4 +1,5 @@
 # Do not modify! This file is generated.
+
 {
   inputs = {
     Hyprspace = {
@@ -178,6 +179,7 @@
       type = "github";
     };
     nh = {
+      inputs.nixpkgs.follows = "nixpkgs";
       owner = "viperML";
       repo = "nh";
       type = "github";
@@ -196,6 +198,7 @@
       type = "github";
     };
     nix-gaming = {
+      inputs.nixpkgs.follows = "nixpkgs";
       owner = "fufexan";
       repo = "nix-gaming";
       type = "github";
@@ -207,6 +210,7 @@
       type = "github";
     };
     nix-melt = {
+      inputs.nixpkgs.follows = "nixpkgs";
       owner = "nix-community";
       repo = "nix-melt";
       type = "github";
@@ -218,6 +222,7 @@
       type = "github";
     };
     nixd = {
+      inputs.nixpkgs.follows = "nixpkgs";
       owner = "nix-community";
       repo = "nixd";
       type = "github";
@@ -229,6 +234,7 @@
       type = "github";
     };
     nixpkgs-wayland = {
+      inputs.nixpkgs.follows = "nixpkgs";
       owner = "nix-community";
       repo = "nixpkgs-wayland";
       type = "github";

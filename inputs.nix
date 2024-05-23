@@ -4,6 +4,7 @@ let
   # Misc functions
   mkInput = {type ? "github", ...} @ info: info // {inherit type;};
   mkDep = info: (mkInput info) // {inputs.nixpkgs.follows = "nixpkgs";};
+  mkHyprDep = info: (mkInput info) // {inputs.hyprland.follows = "hyprland";};
   mkSrc = info: (mkInput info) // {flake = false;};
 
   # Inputs
@@ -18,19 +19,19 @@ let
       repo = "nix-index-database";
     };
 
-    nh = mkInput {
+    nh = mkDep {
       owner = "viperML";
       repo = "nh";
     };
 
-    nix-melt = mkInput {
+    nix-melt = mkDep {
       owner = "nix-community";
       repo = "nix-melt";
     };
   };
 
   overlays = {
-    nixpkgs-wayland = mkInput {
+    nixpkgs-wayland = mkDep {
       owner = "nix-community";
       repo = "nixpkgs-wayland";
     };
@@ -40,7 +41,7 @@ let
       repo = "NUR";
     };
 
-    nix-gaming = mkInput {
+    nix-gaming = mkDep {
       owner = "fufexan";
       repo = "nix-gaming";
     };
@@ -60,7 +61,7 @@ let
       repo = "stylelint-lsp";
     };
 
-    nixd = mkInput {
+    nixd = mkDep {
       owner = "nix-community";
       repo = "nixd";
     };
@@ -140,18 +141,14 @@ let
         submodules = true;
       };
 
-      hypr-official-plugins = mkInput {
+      hypr-official-plugins = mkHyprDep {
         owner = "hyprwm";
         repo = "hyprland-plugins";
-
-        inputs.hyprland.follows = "hyprland";
       };
 
-      Hyprspace = mkInput {
+      Hyprspace = mkHyprDep {
         owner = "KZDKM";
         repo = "Hyprspace";
-
-        inputs.hyprland.follows = "hyprland";
       };
 
       hypridle = mkDep {
@@ -164,7 +161,6 @@ let
         repo = "grim-hyprland";
       };
 
-      ## Wayland
       wpaperd = mkDep {
         owner = "danyspin97";
         repo = "wpaperd";
