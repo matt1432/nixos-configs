@@ -1,5 +1,4 @@
 # Do not modify! This file is generated.
-
 {
   inputs = {
     Hyprspace = {
@@ -174,6 +173,7 @@
       type = "github";
     };
     neovim-nightly = {
+      inputs.nixpkgs.follows = "nixpkgs";
       owner = "nix-community";
       repo = "neovim-nightly-overlay";
       type = "github";

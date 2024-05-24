@@ -48,12 +48,9 @@ let
   };
 
   nvimInputs = {
-    neovim-nightly = mkInput {
+    neovim-nightly = mkDep {
       owner = "nix-community";
       repo = "neovim-nightly-overlay";
-
-      # FIXME: issue with grammars on latest unstable
-      # inputs.nixpkgs.follows = "nixpkgs";
     };
 
     stylelint-lsp = mkDep {
