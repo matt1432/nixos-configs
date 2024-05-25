@@ -126,6 +126,7 @@
     };
     hyprland = {
       inputs.nixpkgs.follows = "nixpkgs";
+      ref = "xwayland-rewrite";
       submodules = true;
       type = "git";
       url = "https://github.com/hyprwm/Hyprland";

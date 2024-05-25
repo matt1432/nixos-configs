@@ -29,6 +29,22 @@ in {
         lua
         */
         ''
+          -- Get rid of deprecated functions
+          vim.tbl_add_reverse_lookup = function(tbl)
+              for k, v in pairs(tbl) do
+                  tbl[v] = k;
+              end
+          end;
+          vim.diagnostic.is_disabled = function()
+              return not vim.diagnostic.is_enabled();
+          end;
+          vim.tbl_islist = function(tbl)
+              return vim.islist(tbl);
+          end;
+          vim.lsp.buf_get_clients = function()
+              return vim.lsp.get_clients();
+          end;
+
           -- Start completion / snippet stuff
           vim.g.coq_settings = {
             auto_start = 'shut-up',

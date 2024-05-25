@@ -136,6 +136,9 @@ let
         type = "git";
         url = "https://github.com/hyprwm/Hyprland";
         submodules = true;
+
+        # FIXME: remove when this is merged https://github.com/hyprwm/Hyprland/pull/6086
+        ref = "xwayland-rewrite";
       };
 
       hypr-official-plugins = mkHyprDep {
