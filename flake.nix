@@ -103,7 +103,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "juanfont";
       repo = "headscale";
-      rev = "fef8261339899fe526777a7aa42df57ca02021c5";
       type = "github";
     };
     home-manager = {
