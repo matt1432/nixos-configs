@@ -11,7 +11,11 @@
 in {
   services.jellyfin = {
     package = jellyPkgs.jellyfin;
-    webPackage = jellyPkgs.jellyfin-web;
+    webPackage = jellyPkgs.jellyfin-web.overrideAttrs {
+      postInstall = ''
+        sed -E -i 's/enableBackdrops\:function\(\)\{return \_\}/enableBackdrops\:function\(\)\{return P\}/' $out/share/jellyfin-web/main.jellyfin.bundle.js
+      '';
+    };
     ffmpegPackage = jellyPkgs.jellyfin-ffmpeg;
   };
 

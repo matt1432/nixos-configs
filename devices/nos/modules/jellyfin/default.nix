@@ -48,6 +48,10 @@ in {
             name = "Intro Skipper";
             url = "https://raw.githubusercontent.com/jumoog/intro-skipper/master/manifest.json";
           }
+          {
+            name = "Merge Versions Plugin";
+            url = "https://raw.githubusercontent.com/danieladov/JellyfinPluginManifest/master/manifest.json";
+          }
         ];
 
         enableSlowResponseWarning = false;
