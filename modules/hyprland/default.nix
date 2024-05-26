@@ -94,7 +94,7 @@ in {
           (concatStringsSep "," [
             "desc:Acer Technologies Acer K212HQL T3EAA0014201"
             "1920x1080@60"
-            "840x1000, 1, transform, 3"
+            "840x450, 1, transform, 3"
           ])
           (concatStringsSep "," [
             "desc:BOE 0x0964"
