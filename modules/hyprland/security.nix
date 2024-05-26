@@ -5,7 +5,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib) mkIf optionals;
   inherit (config.vars) mainUser;
 
   isLaptop = config.services.logind.lidSwitch == "lock";
@@ -36,15 +36,20 @@ in {
 
     services.hypridle = mkIf isLaptop {
       enable = true;
+      package = hypridle.packages.${pkgs.system}.default;
       settings.general.lock_cmd = "${lockPkg}/bin/lock";
     };
 
     wayland.windowManager.hyprland = {
       settings = {
-        exec-once = [
-          "gnome-keyring-daemon --start --components=secrets"
-          "${pkgs.plasma5Packages.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1"
-        ];
+        exec-once =
+          [
+            "gnome-keyring-daemon --start --components=secrets"
+            "${pkgs.plasma5Packages.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1"
+          ]
+          ++ optionals isLaptop [
+            "systemctl --user restart hypridle"
+          ];
 
         windowrule = [
           "float,^(org.kde.polkit-kde-authentication-agent-1)$"
