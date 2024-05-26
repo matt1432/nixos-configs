@@ -25,7 +25,6 @@
       repo = "Astal";
       type = "github";
     };
-    basedpyright.url = "github:kiike/nixpkgs/pkgs/basedpyright";
     bat-theme-src = {
       flake = false;
       owner = "matt1432";
@@ -125,7 +124,6 @@
     };
     hyprland = {
       inputs.nixpkgs.follows = "nixpkgs";
-      ref = "xwayland-rewrite";
       submodules = true;
       type = "git";
       url = "https://github.com/hyprwm/Hyprland";
@@ -229,7 +227,7 @@
     };
     nixpkgs = {
       owner = "NixOS";
-      ref = "nixos-unstable";
+      ref = "nixos-unstable-small";
       repo = "nixpkgs";
       type = "github";
     };

@@ -62,9 +62,6 @@ let
       owner = "nix-community";
       repo = "nixd";
     };
-
-    # FIXME: get it from nixpkgs when it gets merged
-    basedpyright.url = "github:kiike/nixpkgs/pkgs/basedpyright";
   };
 
   clusterInputs = {
@@ -133,9 +130,6 @@ let
         type = "git";
         url = "https://github.com/hyprwm/Hyprland";
         submodules = true;
-
-        # FIXME: remove when this is merged https://github.com/hyprwm/Hyprland/pull/6086
-        ref = "xwayland-rewrite";
       };
 
       hypr-official-plugins = mkHyprDep {

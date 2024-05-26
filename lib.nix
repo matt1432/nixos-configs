@@ -1,5 +1,4 @@
 {
-  basedpyright,
   home-manager,
   nix-on-droid,
   nixpkgs,
@@ -18,7 +17,6 @@
     inputs
     // {
       pkgs = mkPkgs system nixpkgs;
-      basedpyrightPkgs = mkPkgs system basedpyright;
     };
 
   # Default system

@@ -6,7 +6,7 @@
       nixpkgs = mkInput {
         owner = "NixOS";
         repo = "nixpkgs";
-        ref = "nixos-unstable";
+        ref = "nixos-unstable-small";
       };
 
       home-manager = mkDep {
