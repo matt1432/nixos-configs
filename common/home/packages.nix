@@ -12,19 +12,20 @@
       undollar
     ])
     ++ (with pkgs; [
-      dracula-theme
-      neofetch
-      progress
-      wget
-      tree
-      openssh
-      mosh
-      rsync
-      killall
-      imagemagick
-      usbutils
-      zip
-      unzip
       dig.dnsutils
+      dracula-theme
+      imagemagick
+      killall
+      mosh
+      neofetch
+      nix-output-monitor
+      openssh
+      progress
+      rsync
+      tree
+      unzip
+      usbutils
+      wget
+      zip
     ]);
 }
