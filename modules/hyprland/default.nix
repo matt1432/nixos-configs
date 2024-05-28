@@ -8,7 +8,7 @@
   inherit (lib) concatStringsSep optionals;
   inherit (config.vars) mainUser;
 
-  cfg = config.programs.hyprland;
+  cfg = config.home-manager.users.${mainUser}.wayland.windowManager.hyprland;
   isTouchscreen = config.hardware.sensor.iio.enable;
 in {
   # SYSTEM CONFIG
@@ -32,10 +32,10 @@ in {
   };
 
   programs.hyprland = let
-    inherit (hyprland.packages.${pkgs.system}) default xdg-desktop-portal-hyprland;
+    inherit (hyprland.packages.${pkgs.system}) xdg-desktop-portal-hyprland;
   in {
     enable = true;
-    package = default;
+    package = cfg.finalPackage;
     portalPackage = xdg-desktop-portal-hyprland;
   };
 
@@ -66,7 +66,7 @@ in {
 
     wayland.windowManager.hyprland = {
       enable = true;
-      package = cfg.finalPackage;
+      package = hyprland.packages.${pkgs.system}.default;
 
       systemd.variables = ["-all"];
 
