@@ -10,11 +10,15 @@
   boot = {
     kernelPackages = pkgs.linuxPackages_zen;
 
-    kernelParams = ["amd_pstate=active"];
-    kernelModules = ["amdgpu" "kvm-amd"];
+    kernelParams = [
+      "amd_pstate=active"
+    ];
+    kernelModules = ["amdgpu" "kvm-amd" "acpi_call"];
 
-    # Zenpower for ryzen cpu monitoring
-    extraModulePackages = with config.boot.kernelPackages; [zenpower];
+    extraModulePackages = with config.boot.kernelPackages; [
+      acpi_call
+      zenpower
+    ];
     blacklistedKernelModules = ["k10temp"];
 
     initrd = {
