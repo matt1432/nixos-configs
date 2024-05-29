@@ -1,4 +1,5 @@
 # Do not modify! This file is generated.
+
 {
   inputs = {
     Hyprspace = {
@@ -114,12 +115,6 @@
       inputs.hyprland.follows = "hyprland";
       owner = "hyprwm";
       repo = "hyprland-plugins";
-      type = "github";
-    };
-    hypridle = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      owner = "hyprwm";
-      repo = "hypridle";
       type = "github";
     };
     hyprland = {

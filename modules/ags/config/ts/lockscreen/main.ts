@@ -207,9 +207,10 @@ const on_finished = () => {
 lock.connect('finished', on_finished);
 
 if (Vars.hasFprintd) {
-    Utils.authenticate('')
+    globalThis.authFinger = () => Utils.authenticate('')
         .then(() => unlock())
         .catch(logError);
+    globalThis.authFinger();
 }
 
 
