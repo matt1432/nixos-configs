@@ -222,7 +222,7 @@
     };
     nixpkgs = {
       owner = "NixOS";
-      ref = "nixos-unstable-small";
+      ref = "nixos-unstable";
       repo = "nixpkgs";
       type = "github";
     };
@@ -323,6 +323,7 @@
     wpaperd = {
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "danyspin97";
+      ref = "21fafdc0b8e8c8e8aa2524acb5890e3cb860ded9";
       repo = "wpaperd";
       type = "github";
     };

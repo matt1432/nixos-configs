@@ -150,6 +150,9 @@ let
       wpaperd = mkDep {
         owner = "danyspin97";
         repo = "wpaperd";
+
+        # FIXME: latest has dep issues with 'dav1d'
+        ref = "21fafdc0b8e8c8e8aa2524acb5890e3cb860ded9";
       };
     };
 
