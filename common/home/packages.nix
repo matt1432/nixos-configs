@@ -27,5 +27,14 @@
       usbutils
       wget
       zip
-    ]);
+    ])
+    ++ [
+      # This could help as well: nix derivation show -r /run/current-system
+      (pkgs.writeShellApplication {
+        name = "listDerivs";
+        text = ''
+          nix-store --query --requisites /run/current-system | cut -d- -f2- | sort -u
+        '';
+      })
+    ];
 }

@@ -26,7 +26,6 @@
   boot.tmp.useTmpfs = true;
 
   nix = {
-    # Keep a version that works with nix-eval-jobs
     package = pkgs.nixVersions.git.overrideAttrs (oldAttrs: {
       pname = "nix";
       version = "2.21.3";
@@ -107,7 +106,10 @@
       home.packages =
         [
           nix-melt.packages.${pkgs.system}.default
-          nurl.packages.${pkgs.system}.default
+
+          (nurl.packages.${pkgs.system}.default.override {
+            nix = config.nix.package;
+          })
         ]
         ++ (with config.nur.repos.rycee; [
           mozilla-addons-to-nix

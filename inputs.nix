@@ -9,8 +9,8 @@ let
 
   # Inputs
   nixTools = {
-    nurl = mkInput {
-      owner = "nix-community";
+    nurl = mkDep {
+      owner = "matt1432";
       repo = "nurl";
     };
 
@@ -58,6 +58,7 @@ let
       repo = "stylelint-lsp";
     };
 
+    # uses nixVersions.nix_2_19
     nixd = mkDep {
       owner = "nix-community";
       repo = "nixd";

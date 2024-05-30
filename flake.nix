@@ -244,7 +244,8 @@
       type = "github";
     };
     nurl = {
-      owner = "nix-community";
+      inputs.nixpkgs.follows = "nixpkgs";
+      owner = "matt1432";
       repo = "nurl";
       type = "github";
     };

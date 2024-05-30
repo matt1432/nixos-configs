@@ -8,12 +8,16 @@
   inherit (config.vars) mainUser;
   inherit (config.sops) secrets;
 
-  nixPkg = {
-    nix = config.nix.package;
-  };
+  nix-eval-jobsPkg =
+    nix-eval-jobs.packages.${pkgs.system}.default.override {
+      nix = config.nix.package;
+    }
+    // {
+      nix = config.nix.package;
+    };
+
   nix-fast-buildPkg = nix-fast-build.packages.${pkgs.system}.nix-fast-build.override {
-    nix-eval-jobs =
-      nix-eval-jobs.packages.${pkgs.system}.default.override nixPkg // nixPkg;
+    nix-eval-jobs = nix-eval-jobsPkg;
   };
 in {
   services.nix-serve = {
