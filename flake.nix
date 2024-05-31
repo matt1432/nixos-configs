@@ -1,5 +1,4 @@
 # Do not modify! This file is generated.
-
 {
   inputs = {
     Hyprspace = {
@@ -222,7 +221,7 @@
     };
     nixpkgs = {
       owner = "NixOS";
-      ref = "nixos-unstable";
+      ref = "nixos-unstable-small";
       repo = "nixpkgs";
       type = "github";
     };
