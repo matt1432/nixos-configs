@@ -30,7 +30,6 @@ in
           };
         in {
           startup_commands = "toggle_custom_color";
-          # TODO: make sure the font is applied
           ui_font = "JetBrainsMono Nerd Font Mono Regular";
           font_size = "24";
           source = "${dracula-theme}/dracula.config";
@@ -55,7 +54,18 @@ in
             local lsp = require('lspconfig');
             local coq = require('coq');
 
-            lsp.texlab.setup(coq.lsp_ensure_capabilities({}));
+            lsp.texlab.setup(coq.lsp_ensure_capabilities({
+                settings = {
+                    texlab = {
+                        formatterLineLength = 100,
+                        latexFormatter = 'latexindent',
+                        latexindent = {
+                            modifyLineBreaks = false,
+                            ["local"] = '.indentconfig.yaml';
+                        },
+                    },
+                },
+            }));
           '';
 
         plugins = [
@@ -79,6 +89,11 @@ in
               lua
               */
               ''
+                vim.api.nvim_create_autocmd('FileType', {
+                    pattern = 'tex',
+                    command = 'setlocal ts=4 sw=4 sts=0 expandtab',
+                });
+
                 local gknapsettings = {
                     -- HTML
                     htmloutputext = "html",
