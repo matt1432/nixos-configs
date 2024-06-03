@@ -51,6 +51,8 @@ in {
             keymap = {
               recommended = false,
             },
+            -- https://github.com/NixOS/nixpkgs/issues/168928#issuecomment-1109581739
+            xdg = true,
           };
 
           -- Add formatting cmd
