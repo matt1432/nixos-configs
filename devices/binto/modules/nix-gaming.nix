@@ -36,6 +36,7 @@ in {
     })
 
     pkgs.r2modman
+    pkgs.ryujinx
   ];
 
   # Give wine a constant path for lutris

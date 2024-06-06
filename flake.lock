@@ -2222,16 +2222,15 @@
         "systems": "systems_6"
       },
       "locked": {
-        "lastModified": 1716199546,
-        "narHash": "sha256-JBgTKrTE3nPb9RkPLNTjKDjY/r0THrCEnwE2/hkr8rg=",
+        "lastModified": 1717623141,
+        "narHash": "sha256-f4gcGtTbG4HzMX+REA04F5itVMn/oS+sZYYz3NYCbEE=",
         "owner": "danyspin97",
         "repo": "wpaperd",
-        "rev": "21fafdc0b8e8c8e8aa2524acb5890e3cb860ded9",
+        "rev": "c3593c10f3731120b3d734caf520d74dcef79069",
         "type": "github"
       },
       "original": {
         "owner": "danyspin97",
-        "ref": "21fafdc0b8e8c8e8aa2524acb5890e3cb860ded9",
         "repo": "wpaperd",
         "type": "github"
       }
