@@ -12,6 +12,7 @@ in {
   xdg.configFile."wpaperd/config.toml".source = writeTOML "config.toml" {
     default = {
       path = wallpaper;
+      mode = "stretch";
     };
   };
 }
