@@ -1,5 +1,6 @@
 {
   config,
+  jellyfin-flake,
   lib,
   pkgs,
   ...
@@ -62,7 +63,6 @@ in {
         spotifywm
         photoqt
         nextcloud-client
-        jellyfin-media-player
         prismlauncher
 
         # tools
@@ -74,6 +74,8 @@ in {
         satty
       ])
       ++ [
+        jellyfin-flake.packages.${pkgs.system}.jellyfin-media-player
+
         /*
         Discord themes for Vencord
         https://markchan0225.github.io/RoundedDiscord/RoundedDiscord.theme.css
