@@ -1749,11 +1749,11 @@
         "pyagentx-src": "pyagentx-src"
       },
       "locked": {
-        "lastModified": 1717821984,
-        "narHash": "sha256-jsuL2UJ/VxY/0PSnGW6iJAbeAVEMhR5V0UlqLUChWx4=",
+        "lastModified": 1717825843,
+        "narHash": "sha256-RcDYpL8GsRVcsHqf6O4n34q8VBPW4aJhYsgUNESkuE8=",
         "owner": "matt1432",
         "repo": "nixos-pcsd",
-        "rev": "4461485c6c53fdea3dbd0d10093c05f1d8f7e523",
+        "rev": "ace141a921d1091058e128dd0006d21f784a1090",
         "type": "github"
       },
       "original": {
