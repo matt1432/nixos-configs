@@ -1,18 +1,19 @@
 {
-  config,
   lib,
+  pkgs,
+  self,
   ...
 }: let
   inherit (lib) mkDefault mkBefore;
-  inherit (config.customPkgs) pam-fprint-grosshack;
+  inherit (self.packages.${pkgs.system}) pam-fprint-grosshack;
 
   pam_fprintd_grosshackSo = "${pam-fprint-grosshack}/lib/security/pam_fprintd_grosshack.so";
 
   # https://wiki.archlinux.org/title/Fprint#Login_configuration
   grosshackConf = ''
     # pam-fprint-grosshack
-    auth		sufficient  	${pam_fprintd_grosshackSo} timeout=99
-    auth		sufficient  	pam_unix.so try_first_pass nullok
+    auth  sufficient  ${pam_fprintd_grosshackSo} timeout=99
+    auth  sufficient  pam_unix.so try_first_pass nullok
   '';
 in {
   services.fprintd.enable = true;

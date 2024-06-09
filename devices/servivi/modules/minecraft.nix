@@ -2,6 +2,7 @@
   config,
   nms,
   pkgs,
+  self,
   ...
 }: let
   inherit (config.vars) mainUser;
@@ -9,7 +10,7 @@ in {
   imports = [nms.nixosModules.default];
 
   environment.systemPackages = [
-    config.customPkgs.curseforge-server-downloader
+    self.packages.${pkgs.system}.curseforge-server-downloader
   ];
 
   systemd.services.mc-steampunk.path = with pkgs; [curl];

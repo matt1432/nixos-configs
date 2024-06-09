@@ -13,7 +13,6 @@
     ./vars
 
     ./modules
-    ./pkgs
 
     nur.nixosModules.nur
     home-manager.nixosModules.home-manager
@@ -100,7 +99,6 @@
 
         ./home
         ./home/trash-d
-        ./pkgs
       ];
 
       home.packages =

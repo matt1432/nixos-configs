@@ -95,6 +95,10 @@
 
     nixOnDroidConfigurations.default = mkNixOnDroid [./devices/android];
 
+    packages =
+      perSystem (system: pkgs:
+        import ./pkgs ({inherit self system pkgs;} // inputs));
+
     devShells = perSystem (_: pkgs: {
       default = pkgs.mkShell {
         packages = with pkgs; [

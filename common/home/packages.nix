@@ -1,10 +1,10 @@
 {
-  config,
   pkgs,
+  self,
   ...
 }: {
   home.packages =
-    (with config.customPkgs; [
+    (with self.packages.${pkgs.system}; [
       pokemon-colorscripts
       repl
     ])

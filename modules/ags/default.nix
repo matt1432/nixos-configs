@@ -5,6 +5,7 @@
   gtk-session-lock,
   lib,
   pkgs,
+  self,
   ...
 }: let
   inherit (lib) boolToString;
@@ -101,7 +102,7 @@ in {
           // (import ./icons.nix {inherit pkgs agsConfigDir;});
 
         packages =
-          [config.customPkgs.coloryou]
+          [self.packages.${pkgs.system}.coloryou]
           ++ (with pkgs; [
             # ags
             dart-sass
