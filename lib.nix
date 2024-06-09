@@ -1,7 +1,9 @@
 {
+  grim-hyprland,
   home-manager,
   nix-on-droid,
   nixpkgs,
+  nixpkgs-wayland,
   ...
 } @ inputs: rec {
   # Import pkgs from a nixpkgs
@@ -9,7 +11,10 @@
     import input {
       inherit system;
       config.allowUnfree = true;
-      overlays = import ./common/overlays inputs;
+      overlays = [
+        grim-hyprland.overlays.default
+        nixpkgs-wayland.overlays.default
+      ];
     };
 
   # Function that makes the attrs that make up the specialArgs
