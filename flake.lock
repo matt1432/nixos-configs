@@ -1878,6 +1878,7 @@
         "piper-src": "piper-src",
         "pokemon-colorscripts-src": "pokemon-colorscripts-src",
         "secrets": "secrets",
+        "sioyek-theme-src": "sioyek-theme-src",
         "sops-nix": "sops-nix_2",
         "stylelint-lsp": "stylelint-lsp",
         "subsync": "subsync",
@@ -1923,6 +1924,22 @@
       "original": {
         "type": "git",
         "url": "ssh://git@git.nelim.org/matt1432/nixos-secrets"
+      }
+    },
+    "sioyek-theme-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1669165291,
+        "narHash": "sha256-+HzxZA8Bb+cGogK+w4JES4ZFG+ueXEAuLu+0T18fvbc=",
+        "owner": "dracula",
+        "repo": "sioyek",
+        "rev": "b832ab04d880fbe243c0fe9043612be61226426e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "dracula",
+        "repo": "sioyek",
+        "type": "github"
       }
     },
     "sops-nix": {

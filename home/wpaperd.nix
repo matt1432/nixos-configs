@@ -1,17 +1,17 @@
 {
   pkgs,
+  self,
   wpaperd,
   ...
 }: let
   inherit (pkgs.writers) writeTOML;
   wpaperdPkg = wpaperd.packages.${pkgs.system}.default;
-  wallpaper = "${pkgs.dracula-theme}/wallpapers/waves.png";
 in {
   home.packages = [wpaperdPkg];
 
   xdg.configFile."wpaperd/config.toml".source = writeTOML "config.toml" {
     default = {
-      path = wallpaper;
+      path = toString self.packages.${pkgs.system}.dracula.wallpaper;
       mode = "stretch";
     };
   };

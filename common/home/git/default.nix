@@ -1,11 +1,15 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  self,
+  ...
+}: {
   programs = {
     git = {
       enable = true;
       lfs.enable = true;
 
       includes = [
-        {path = "${pkgs.dracula-theme}/git-colors";}
+        {path = toString self.packages.${pkgs.system}.dracula.git;}
 
         {
           condition = "hasconfig:remote.*.url:git@github.com:*/**";

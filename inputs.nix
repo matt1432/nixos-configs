@@ -281,6 +281,11 @@ let
       owner = "dracula";
       repo = "xresources";
     }
+    {
+      name = "sioyek-theme-src";
+      owner = "dracula";
+      repo = "sioyek";
+    }
   ];
 in {
   inherit mkDep mkInput mkSrc;

@@ -3,6 +3,7 @@
   jellyfin-flake,
   lib,
   pkgs,
+  self,
   ...
 }: let
   inherit (lib) makeLibraryPath optionalString;
@@ -51,19 +52,11 @@ in {
     programs.sioyek = {
       enable = true;
 
-      config = let
-        # TODO: put this with the rest of the themes
-        dracula-theme = pkgs.fetchFromGitHub {
-          owner = "dracula";
-          repo = "sioyek";
-          rev = "b832ab04d880fbe243c0fe9043612be61226426e";
-          hash = "sha256-+HzxZA8Bb+cGogK+w4JES4ZFG+ueXEAuLu+0T18fvbc=";
-        };
-      in {
+      config = {
         startup_commands = "toggle_custom_color";
         ui_font = "JetBrainsMono Nerd Font Mono Regular";
         font_size = "24";
-        source = "${dracula-theme}/dracula.config";
+        source = toString self.packages.${pkgs.system}.dracula.sioyek;
       };
     };
 

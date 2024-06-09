@@ -283,6 +283,12 @@
       type = "git";
       url = "ssh://git@git.nelim.org/matt1432/nixos-secrets";
     };
+    sioyek-theme-src = {
+      flake = false;
+      owner = "dracula";
+      repo = "sioyek";
+      type = "github";
+    };
     sops-nix = {
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "Mic92";

@@ -1,4 +1,10 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  self,
+  ...
+}: let
+  inherit (self.packages.${pkgs.system}) dracula;
+in {
   imports = [
     ./gtk.nix
     ./qt.nix
@@ -6,7 +12,7 @@
 
   home.pointerCursor = {
     name = "Dracula-cursors";
-    package = pkgs.dracula-theme;
+    package = dracula.gtk;
     size = 24;
 
     gtk.enable = true;
@@ -19,5 +25,5 @@
 
   xresources.extraConfig =
     builtins.readFile
-    "${pkgs.dracula-theme}/xres";
+    "${dracula.xresources}";
 }

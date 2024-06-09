@@ -1,10 +1,12 @@
 {
-  pkgs,
-  lib,
   config,
+  lib,
+  pkgs,
+  self,
   ...
 }: let
   inherit (config.vars) fontSize;
+  inherit (self.packages.${pkgs.system}) dracula;
 in {
   home.packages = with pkgs; [
     libsForQt5.qtstyleplugin-kvantum
@@ -32,8 +34,8 @@ in {
         style='';
     # The newline before this must be there
   in {
-    "Kvantum/Dracula/Dracula.kvconfig".source = "${pkgs.dracula-theme}/share/Kvantum/Dracula-purple-solid/Dracula-purple-solid.kvconfig";
-    "Kvantum/Dracula/Dracula.svg".source = "${pkgs.dracula-theme}/share/Kvantum/Dracula-purple-solid/Dracula-purple-solid.svg";
+    "Kvantum/Dracula/Dracula.kvconfig".source = "${dracula.gtk}/share/Kvantum/Dracula-purple-solid/Dracula-purple-solid.kvconfig";
+    "Kvantum/Dracula/Dracula.svg".source = "${dracula.gtk}/share/Kvantum/Dracula-purple-solid/Dracula-purple-solid.svg";
     "Kvantum/kvantum.kvconfig".text = "[General]\ntheme=Dracula";
 
     "qt5ct/qt5ct.conf".text = qtconf + "kvantum";

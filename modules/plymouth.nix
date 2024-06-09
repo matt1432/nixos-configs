@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  self,
+  ...
+}: {
   boot = {
     initrd = {
       verbose = false;
@@ -20,7 +24,7 @@
 
     plymouth = {
       enable = true;
-      themePackages = [pkgs.dracula-theme];
+      themePackages = [self.packages.${pkgs.system}.dracula.plymouth];
       theme = "dracula";
     };
   };

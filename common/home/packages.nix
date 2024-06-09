@@ -13,7 +13,6 @@
     ])
     ++ (with pkgs; [
       dig.dnsutils
-      dracula-theme
       imagemagick
       killall
       mosh

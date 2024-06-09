@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  self,
   ...
 }: {
   programs = {
@@ -41,15 +42,10 @@
 
     bat = {
       enable = true;
-      config = {
-        theme = "dracula-bat";
-      };
-      themes = {
-        dracula-bat = {
-          src = pkgs.dracula-theme;
-          file = "bat";
-        };
-      };
+
+      config.theme = "dracula-bat";
+      themes.dracula-bat.src = self.packages.${pkgs.system}.dracula.bat;
+
       extraPackages = with pkgs.bat-extras; [
         batman
       ];

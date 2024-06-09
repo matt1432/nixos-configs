@@ -4,7 +4,7 @@
   ...
 }:
 stdenv.mkDerivation {
-  name = "dracula-plymouth";
+  pname = "dracula-plymouth";
   version = dracula-plymouth-src.shortRev;
 
   src = dracula-plymouth-src;
