@@ -6,7 +6,6 @@
 }: {
   imports = [
     ./vars
-    ./pkgs
     ./modules/global.nix
     nur.nixosModules.nur
   ];
@@ -45,7 +44,6 @@
       nur.hmModules.nur
 
       ./home
-      ./pkgs
 
       {
         programs.bash.sessionVariables = {
