@@ -27,9 +27,7 @@ in
         extraPackages = javaPkgs;
 
         extraLuaConfig =
-          /*
-          lua
-          */
+          # lua
           ''
             vim.api.nvim_create_autocmd('FileType', {
                pattern = 'java',
@@ -43,10 +41,9 @@ in
             plugin = vimPlugins.nvim-jdtls;
             type = "lua";
             config =
-              /*
-              lua
-              */
+              # lua
               ''
+                --
                 local startJdtls = function()
                     local config = require('coq').lsp_ensure_capabilities({
                         cmd = { '${lib.getExe pkgs.jdt-language-server}' },

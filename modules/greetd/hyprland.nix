@@ -44,9 +44,7 @@
 in {
   hyprConf = pkgs.writeText "greetd-hypr-config" (
     (optionalString config.nvidia.enable
-      /*
-      hyprlang
-      */
+      # hyprlang
       ''
         env = LIBVA_DRIVER_NAME,nvidia
         env = XDG_SESSION_TYPE,wayland
@@ -56,11 +54,8 @@ in {
       '')
     + (concatStringsSep "\n" (map (x: "monitor=${x}") monitors))
     +
-    /*
-    hyprlang
-    */
+    # hyprlang
     ''
-
       misc {
       ${mkHyprBlock misc}
       }
@@ -74,10 +69,9 @@ in {
 
     ''
     +
-    /*
-    hyprlang
-    */
+    # hyprlang
     ''
+      #
       env = XCURSOR_SIZE,24
       exec-once = hyprctl setcursor Dracula-cursors 24
 

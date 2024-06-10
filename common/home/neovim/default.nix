@@ -19,9 +19,7 @@ in {
       package = neovim-nightly.packages.${pkgs.system}.neovim;
 
       extraLuaConfig =
-        /*
-        lua
-        */
+        # lua
         ''
           -- by default, the indent is 2 spaces.
           vim.opt.smartindent = true;
@@ -55,9 +53,7 @@ in {
           plugin = vimPlugins.todo-comments-nvim;
           type = "lua";
           config =
-            /*
-            lua
-            */
+            # lua
             ''
               require('todo-comments').setup();
             '';
@@ -66,9 +62,7 @@ in {
           plugin = vimPlugins.mini-nvim;
           type = "lua";
           config =
-            /*
-            lua
-            */
+            # lua
             ''
               -- TODO: see how this works
               local ts_input = require('mini.surround').gen_spec.input.treesitter;

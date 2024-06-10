@@ -21,9 +21,7 @@ in {
   xdg.configFile = let
     floatFont = lib.strings.floatToString fontSize;
     qtconf =
-      /*
-      ini
-      */
+      # ini
       ''
         [Fonts]
         fixed="Sans Serif,${floatFont},-1,5,50,0,0,0,0,0"

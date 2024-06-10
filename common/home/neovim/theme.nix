@@ -23,9 +23,7 @@ in {
             };
             type = "lua";
             config =
-              /*
-              lua
-              */
+              # lua
               ''
                 -- set dot icon in place of trailing whitespaces
                 vim.opt.listchars = {
@@ -48,10 +46,9 @@ in {
             plugin = vimPlugins.indent-blankline-nvim;
             type = "lua";
             config =
-              /*
-              lua
-              */
+              # lua
               ''
+                --
                 local highlight = {
                     "RainbowRed",
                     "RainbowYellow",
@@ -100,10 +97,9 @@ in {
             plugin = vimPlugins.codewindow-nvim;
             type = "lua";
             config =
-              /*
-              lua
-              */
+              # lua
               ''
+                --
                 local codewindow = require('codewindow');
 
                 codewindow.setup({
@@ -130,19 +126,35 @@ in {
             plugin = vimPlugins.transparent-nvim;
             type = "lua";
             config =
-              /*
-              lua
-              */
+              # lua
               ''
-                require("transparent").setup({
+                require('transparent').setup({
                     groups = {
-                      'Normal', 'NormalNC', 'Comment', 'Constant',
-                      'Special', 'Identifier', 'Statement', 'PreProc',
-                      'Type', 'Underlined', 'Todo', 'String', 'Function',
-                      'Conditional', 'Repeat', 'Operator', 'Structure',
-                      'LineNr', 'NonText', 'SignColumn', 'CursorLine',
-                      'CursorLineNr', 'StatusLine', 'StatusLineNC',
-                      'EndOfBuffer',
+                        'Normal',
+                        'NormalNC',
+                        'Comment',
+                        'Constant',
+                        'Special',
+                        'Identifier',
+                        'Statement',
+                        'PreProc',
+                        'Type',
+                        'Underlined',
+                        'Todo',
+                        'String',
+                        'Function',
+                        'Conditional',
+                        'Repeat',
+                        'Operator',
+                        'Structure',
+                        'LineNr',
+                        'NonText',
+                        'SignColumn',
+                        'CursorLine',
+                        'CursorLineNr',
+                        'StatusLine',
+                        'StatusLineNC',
+                        'EndOfBuffer',
                     },
                     extra_groups = {},
                     exclude_groups = {},

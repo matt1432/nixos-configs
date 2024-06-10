@@ -10,9 +10,7 @@ in {
           plugin = vimPlugins.gitsigns-nvim;
           type = "lua";
           config =
-            /*
-            lua
-            */
+            # lua
             ''
               local gitsigns = require("gitsigns");
 

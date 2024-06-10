@@ -8,9 +8,7 @@ in {
           plugin = vimPlugins.nvim-treesitter-context;
           type = "lua";
           config =
-            /*
-            lua
-            */
+            # lua
             ''
               require('treesitter-context').setup({
                   enable = true,
@@ -28,9 +26,7 @@ in {
           plugin = vimPlugins.nvim-treesitter.withAllGrammars;
           type = "lua";
           config =
-            /*
-            lua
-            */
+            # lua
             ''
               require('nvim-treesitter.configs').setup({
                   highlight = { enable = true },

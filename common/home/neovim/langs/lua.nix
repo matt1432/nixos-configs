@@ -21,9 +21,7 @@ in
             plugin = vimPlugins.neodev-nvim;
             type = "lua";
             config =
-              /*
-              lua
-              */
+              # lua
               ''
                 vim.api.nvim_create_autocmd('FileType', {
                     pattern = 'lua',

@@ -37,9 +37,7 @@ in {
       };
 
       "astal/config.js".text =
-        /*
-        javascript
-        */
+        # javascript
         ''
           import { transpileTypeScript } from './js/utils.js';
 

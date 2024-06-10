@@ -9,9 +9,7 @@ in
     programs = {
       neovim = {
         extraLuaConfig =
-          /*
-          lua
-          */
+          # lua
           ''
             vim.filetype.add({
                 pattern = { ['.*/hypr/.*%.conf'] = 'hyprlang' },

@@ -30,9 +30,7 @@ in
         ];
 
         extraLuaConfig =
-          /*
-          lua
-          */
+          # lua
           ''
             vim.api.nvim_create_autocmd('FileType', {
                pattern = { 'javascript', 'typescript', 'css', 'scss' },

@@ -17,9 +17,7 @@ in
         ];
 
         extraLuaConfig =
-          /*
-          lua
-          */
+          # lua
           ''
             vim.api.nvim_create_autocmd('FileType', {
                pattern = { 'rust' },

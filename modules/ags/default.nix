@@ -34,9 +34,7 @@ in {
       inherit (lib) hasPrefix mdDoc optionals removePrefix;
 
       configJs =
-        /*
-        javascript
-        */
+        # javascript
         ''
           import { transpileTypeScript } from './js/utils.js';
 
@@ -88,10 +86,9 @@ in {
             "${agsConfigDir}/config/config.js".text = configJs;
 
             "${agsConfigDir}/config/ts/lockscreen/vars.ts".text =
-              /*
-              javascript
-              */
+              # javascript
               ''
+                //
                 export default {
                     mainMonitor: '${mainMonitor}',
                     dupeLockscreen: ${boolToString greetdDupe},

@@ -12,6 +12,7 @@
         {path = toString self.packages.${pkgs.system}.dracula.git;}
 
         {
+          # FIXME: add https config
           condition = "hasconfig:remote.*.url:git@github.com:*/**";
           contents = {
             user = {

@@ -4,9 +4,7 @@ in {
   # https://nixos.wiki/wiki/Distributed_build
   home-manager.users.root = {
     home.file.".ssh/config".text =
-      /*
-      ssh_config
-      */
+      # ssh_config
       ''
         Host ${servivi}
           # Prevent using ssh-agent or another keyfile, useful for testing

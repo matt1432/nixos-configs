@@ -27,9 +27,7 @@ in
         ];
 
         extraLuaConfig =
-          /*
-          lua
-          */
+          # lua
           ''
             local lsp = require('lspconfig');
             local coq = require('coq');
@@ -53,9 +51,7 @@ in
             plugin = buildPlugin "easytables-nvim" vimplugin-easytables-src;
             type = "lua";
             config =
-              /*
-              lua
-              */
+              # lua
               ''
                 require('easytables').setup();
               '';
@@ -65,10 +61,9 @@ in
             plugin = vimPlugins.knap;
             type = "lua";
             config =
-              /*
-              lua
-              */
+              # lua
               ''
+                --
                 vim.api.nvim_create_autocmd('FileType', {
                     pattern = 'tex',
                     command = 'setlocal ts=4 sw=4 sts=0 expandtab',

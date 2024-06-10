@@ -9,9 +9,7 @@
   };
 
   "${agsConfigDir}/config/icons/nixos-logo-symbolic.svg".text =
-    /*
-    xml
-    */
+    # xml
     ''
       <svg viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <defs>

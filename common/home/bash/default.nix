@@ -123,9 +123,7 @@ in {
       #profileExtra = ''
       #'';
       bashrcExtra =
-        /*
-        bash
-        */
+        # bash
         ''
           # Check if shell is interactive
           [[ $- == *i* ]] || return 0

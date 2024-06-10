@@ -14,9 +14,7 @@
       plugins = with pkgs.tmuxPlugins; [dracula];
 
       extraConfig =
-        /*
-        bash
-        */
+        # bash
         ''
           bind-key -n Home send Escape "OH"
           bind-key -n End send Escape "OF"

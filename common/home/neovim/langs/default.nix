@@ -25,9 +25,7 @@ in {
     neovim = {
       extraLuaConfig =
         lib.mkBefore
-        /*
-        lua
-        */
+        # lua
         ''
           -- Get rid of deprecated functions
           vim.tbl_add_reverse_lookup = function(tbl)
@@ -47,12 +45,12 @@ in {
 
           -- Start completion / snippet stuff
           vim.g.coq_settings = {
-            auto_start = 'shut-up',
-            keymap = {
-              recommended = false,
-            },
-            -- https://github.com/NixOS/nixpkgs/issues/168928#issuecomment-1109581739
-            xdg = true,
+              auto_start = 'shut-up',
+              keymap = {
+                  recommended = false,
+              },
+              -- https://github.com/NixOS/nixpkgs/issues/168928#issuecomment-1109581739
+              xdg = true,
           };
 
           -- Add formatting cmd

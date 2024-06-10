@@ -47,17 +47,16 @@ in
         ];
 
         extraLuaConfig =
-          /*
-          lua
-          */
+          # lua
           ''
             require('lspconfig').nixd.setup(require('coq').lsp_ensure_capabilities({
                 filetypes = { 'nix', 'in.nix' },
                 settings = {
                     nixd = {
-                       formatting = {
-                           command = { '${lib.getExe pkgs.alejandra}' },
-                       },
+                        formatting = {
+                            -- TODO: Try to find <flake>.formatter
+                            command = { '${lib.getExe pkgs.alejandra}' },
+                        },
                     },
                 },
             }));

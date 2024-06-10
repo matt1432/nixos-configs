@@ -8,9 +8,7 @@ in {
   programs = {
     # https://codeberg.org/dnkl/foot/wiki#spawning-new-terminal-instances-in-the-current-working-directory
     bash.bashrcExtra =
-      /*
-      bash
-      */
+      # bash
       ''
         osc7_cwd() {
             local strlen=''${#PWD}

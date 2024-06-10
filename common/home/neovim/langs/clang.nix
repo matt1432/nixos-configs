@@ -17,9 +17,7 @@ in
         ];
 
         extraLuaConfig =
-          /*
-          lua
-          */
+          # lua
           ''
             local lsp = require('lspconfig');
             local coq = require('coq');
