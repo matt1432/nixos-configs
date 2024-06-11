@@ -9,7 +9,6 @@ in {
   arion.projects."immich" = {
     "immich_server" = {
       image = ./images/server.nix;
-      command = ["start.sh" "immich"];
       env_file = [
         "${./env}"
         secrets.immich.path
@@ -26,22 +25,6 @@ in {
       restart = "always";
 
       environment.NODE_ENV = "production";
-    };
-
-    "immich_microservices" = {
-      image = ./images/server.nix;
-      command = ["start.sh" "microservices"];
-      env_file = [
-        "${./env}"
-        secrets.immich.path
-      ];
-
-      volumes = [
-        "${UPLOAD_LOCATION}:/usr/src/app/upload:rw"
-      ];
-
-      depends_on = ["immich_redis" "immich_postgres"];
-      restart = "always";
     };
 
     "immich_machine_learning" = {
