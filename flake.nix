@@ -106,8 +106,7 @@
     };
     home-manager = {
       inputs.nixpkgs.follows = "nixpkgs";
-      owner = "matt1432";
-      ref = "fix-mpv-pkg";
+      owner = "nix-community";
       repo = "home-manager";
       type = "github";
     };

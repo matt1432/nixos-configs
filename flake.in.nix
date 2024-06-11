@@ -10,12 +10,8 @@
       };
 
       home-manager = mkDep {
-        # owner = "nix-community";
-        owner = "matt1432";
+        owner = "nix-community";
         repo = "home-manager";
-
-        # FIXME: go back to upstream once https://github.com/nix-community/home-manager/pull/5524 is accepted
-        ref = "fix-mpv-pkg";
       };
 
       nix-on-droid = mkDep {
