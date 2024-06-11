@@ -10,10 +10,5 @@
     mapAttrs'
     (name: config: nameValuePair "nixos-${name}" config.config.system.build.toplevel)
     ((filterAttrs (_: config: config.pkgs.system == system)) self.nixosConfigurations);
-
-  devShells =
-    mapAttrs'
-    (n: nameValuePair "devShell-${n}")
-    self.devShells;
 in
-  nixosMachines // devShells
+  nixosMachines

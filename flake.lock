@@ -1886,8 +1886,7 @@
         "trash-d-src": "trash-d-src",
         "vimplugin-easytables-src": "vimplugin-easytables-src",
         "vimplugin-ts-error-translator-src": "vimplugin-ts-error-translator-src",
-        "wpaperd": "wpaperd",
-        "xresources-src": "xresources-src"
+        "wpaperd": "wpaperd"
       }
     },
     "scss-reset": {
@@ -2296,22 +2295,6 @@
       "original": {
         "owner": "hyprwm",
         "repo": "xdg-desktop-portal-hyprland",
-        "type": "github"
-      }
-    },
-    "xresources-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1647833631,
-        "narHash": "sha256-6fltsAluqOqYIh2NX0I/LC3WCWkb9Fn8PH6LNLBQbrY=",
-        "owner": "dracula",
-        "repo": "xresources",
-        "rev": "539ef24e9b0c5498a82d59bfa2bad9b618d832a3",
-        "type": "github"
-      },
-      "original": {
-        "owner": "dracula",
-        "repo": "xresources",
         "type": "github"
       }
     }

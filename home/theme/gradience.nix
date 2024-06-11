@@ -38,16 +38,14 @@
 
     build = pkgs.stdenv.mkDerivation {
       name = "gradience-build";
-      preset = lib.fileContents "${presets}/curated/dracula-dark.json";
-      passAsFile = ["preset"];
       phases = ["buildPhase" "installPhase"];
       nativeBuildInputs = [gnomeShellStub];
       buildPhase = ''
         export HOME=$TMPDIR
         export XDG_CURRENT_DESKTOP=GNOME
         mkdir -p $HOME/.config/presets
-        ${package}/bin/gradience-cli apply -p $presetPath --gtk both
-        ${package}/bin/gradience-cli gnome-shell -p $presetPath -v dark
+        ${package}/bin/gradience-cli apply -p "${presets}/curated/dracula-dark.json" --gtk both
+        ${package}/bin/gradience-cli gnome-shell -p "${presets}/curated/dracula-dark.json" -v dark
       '';
       installPhase = ''
         mkdir -p $out

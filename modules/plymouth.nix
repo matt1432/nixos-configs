@@ -24,7 +24,7 @@
 
     plymouth = {
       enable = true;
-      themePackages = [self.packages.${pkgs.system}.dracula.plymouth];
+      themePackages = [self.legacyPackages.${pkgs.system}.dracula.plymouth];
       theme = "dracula";
     };
   };

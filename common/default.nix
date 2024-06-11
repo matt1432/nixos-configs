@@ -48,6 +48,7 @@
       http-connections = 0; # unlimited for local cache
       warn-dirty = false;
       show-trace = true;
+      allow-import-from-derivation = true;
 
       # remote building
       trusted-users = ["matt" "nixremote"];

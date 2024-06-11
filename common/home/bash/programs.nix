@@ -44,7 +44,7 @@
       enable = true;
 
       config.theme = "dracula-bat";
-      themes.dracula-bat.src = self.packages.${pkgs.system}.dracula.bat;
+      themes.dracula-bat.src = self.legacyPackages.${pkgs.system}.dracula.bat;
 
       extraPackages = with pkgs.bat-extras; [
         batman

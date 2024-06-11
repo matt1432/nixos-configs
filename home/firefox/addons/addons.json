@@ -1,20 +1,54 @@
 [
   {
+    "pname": "sound-volume",
     "slug": "600-sound-volume"
   },
   {
-    "slug": "google-container"
+    "pname": "bitwarden",
+    "slug": "bitwarden-password-manager"
   },
   {
     "slug": "checkmarks-web-ext"
   },
   {
-    "slug": "ttv-lol-pro"
+    "slug": "darkreader"
   },
   {
     "slug": "floccus"
   },
   {
+    "slug": "google-container"
+  },
+  {
+    "slug": "istilldontcareaboutcookies"
+  },
+  {
+    "slug": "image-search-options",
+    "license": {
+      "tag": "predefined",
+      "shortName": "mpl11"
+    }
+  },
+  {
     "slug": "opera-gx-witchcraft-purple"
+  },
+  {
+    "slug": "return-youtube-dislikes"
+  },
+  {
+    "slug": "sponsorblock"
+  },
+  {
+    "pname": "stylus",
+    "slug": "styl-us"
+  },
+  {
+    "slug": "ttv-lol-pro"
+  },
+  {
+    "slug": "ublock-origin"
+  },
+  {
+    "slug": "undoclosetabbutton"
   }
 ]

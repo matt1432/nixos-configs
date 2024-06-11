@@ -11,8 +11,6 @@
     inherit curseforge-server-downloader-src;
   };
 
-  dracula = import ./dracula inputs;
-
   pam-fprint-grosshack = pkgs.callPackage ./pam-fprint-grosshack {
     inherit pam-fprint-grosshack-src;
   };

@@ -3,10 +3,13 @@
   pkgs,
   lib,
   nixd,
+  self,
   ...
 }: let
   inherit (config.vars) hostName mainUser neovimIde;
-  inherit (lib) hasPrefix removePrefix;
+  inherit (lib) getExe hasPrefix removePrefix;
+
+  defaultFormat = self.formatter.${pkgs.system};
 
   nixdPkg = nixd.packages.${pkgs.system}.default;
 
@@ -27,8 +30,8 @@ in
       }
     ];
 
-    home.packages = with pkgs; [
-      alejandra
+    home.packages = [
+      defaultFormat
     ];
 
     xdg.dataFile."${flakeDir}/.nixd.json".text = builtins.toJSON {
@@ -55,7 +58,7 @@ in
                     nixd = {
                         formatting = {
                             -- TODO: Try to find <flake>.formatter
-                            command = { '${lib.getExe pkgs.alejandra}' },
+                            command = { '${getExe defaultFormat}' },
                         },
                     },
                 },

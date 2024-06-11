@@ -278,10 +278,6 @@ let
       repo = "dracula-plymouth";
     }
     {
-      owner = "dracula";
-      repo = "xresources";
-    }
-    {
       name = "sioyek-theme-src";
       owner = "dracula";
       repo = "sioyek";

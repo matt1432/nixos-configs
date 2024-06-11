@@ -1,22 +1,19 @@
 {
-  config,
   pkgs,
   firefox-gx-src,
   ...
 }: let
-  inherit (builtins) readFile;
   firefox-addons = pkgs.recurseIntoAttrs (pkgs.callPackage ./addons {});
-  sound-volume = firefox-addons."600-sound-volume";
 
   firefox-gx = pkgs.callPackage ./firefox-gx {
     inherit firefox-gx-src;
   };
 in {
   home.file = {
-    ".mozilla/firefox/matt/chrome/components".source = "${firefox-gx}/chrome/components";
-    ".mozilla/firefox/matt/chrome/icons".source = "${firefox-gx}/chrome/icons";
-    ".mozilla/firefox/matt/chrome/images".source = "${firefox-gx}/chrome/images";
     ".mozilla/firefox/matt/chrome/userContent.css".source = "${firefox-gx}/chrome/userContent.css";
+    ".mozilla/firefox/matt/chrome/components".source = "${firefox-gx}/chrome/components";
+    ".mozilla/firefox/matt/chrome/images".source = "${firefox-gx}/chrome/images";
+    ".mozilla/firefox/matt/chrome/icons".source = "${firefox-gx}/chrome/icons";
   };
 
   programs.firefox = {
@@ -26,10 +23,9 @@ in {
       id = 0;
 
       userChrome = ''
-        ${readFile "${firefox-gx}/chrome/userChrome.css"}
-        ${readFile ./custom.css}
+        @import url("file://${firefox-gx}/chrome/userChrome.css");
+        @import url("file://${./custom.css}");
       '';
-      extraConfig = readFile "${firefox-gx}/user.js";
 
       settings = {
         # Theme
@@ -39,6 +35,24 @@ in {
         "userChrome.tab.bottom_rounded_corner.wave" = false;
         "userChrome.tab.bottom_rounded_corner.australis" = true;
         "widget.use-xdg-desktop-portal.file-picker" = 1;
+
+        # Firefox-gx user.js
+        /*
+        Default rules
+        */
+        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+        "svg.context-properties.content.enabled" = true;
+        "layout.css.color-mix.enabled" = true;
+        "browser.tabs.delayHidingAudioPlayingIconMS" = 0;
+        "layout.css.backdrop-filter.enabled" = true;
+        "browser.newtabpage.activity-stream.improvesearch.handoffToAwesomebar" = false;
+
+        /*
+        To active container tabs without any extension
+        */
+        "privacy.userContext.enabled" = true;
+        "privacy.userContext.ui.enabled" = true;
+        "privacy.userContext.longPressBehavior" = 2;
 
         # Open previous windows and tabs
         "browser.startup.page" = 3;
@@ -176,30 +190,24 @@ in {
         ];
       };
 
-      extensions =
-        (with config.nur.repos.bandithedoge.firefoxAddons; [
-          sponsorblock
-          stylus
-          #tridactyl
-          ublock-origin
-        ])
-        ++ (with config.nur.repos.rycee.firefox-addons; [
-          bitwarden
-          darkreader
-          istilldontcareaboutcookies
-          image-search-options
-          return-youtube-dislikes
-          undoclosetabbutton
-        ])
-        ++ (with firefox-addons; [
-          floccus
-          google-container
-          checkmarks-web-ext
-          ttv-lol-pro
-          seventv
-          opera-gx-witchcraft-purple
-        ])
-        ++ [sound-volume];
+      extensions = with firefox-addons; [
+        bitwarden
+        checkmarks-web-ext
+        darkreader
+        floccus
+        google-container
+        image-search-options
+        istilldontcareaboutcookies
+        opera-gx-witchcraft-purple
+        return-youtube-dislikes
+        seventv
+        sponsorblock
+        sound-volume
+        stylus
+        ttv-lol-pro
+        ublock-origin
+        undoclosetabbutton
+      ];
     };
   };
 }

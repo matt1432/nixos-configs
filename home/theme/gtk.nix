@@ -34,14 +34,14 @@ in {
       extraConfig = {
         "gtk-application-prefer-dark-theme" = 1;
       };
-      extraCss = builtins.readFile "${gradience.build}/gtk-3.0/gtk.css";
+      extraCss = "@import url(\"file://${gradience.build}/gtk-3.0/gtk.css\");";
     };
 
     gtk4 = {
       extraConfig = {
         "gtk-application-prefer-dark-theme" = 1;
       };
-      extraCss = builtins.readFile "${gradience.build}/gtk-4.0/gtk.css";
+      extraCss = "@import url(\"file://${gradience.build}/gtk-4.0/gtk.css\");";
     };
   };
 

@@ -99,6 +99,12 @@
 
     nixOnDroidConfigurations.default = mkNixOnDroid [./devices/android];
 
+    legacyPackages = perSystem (system: pkgs: {
+      dracula =
+        pkgs.lib.recurseIntoAttrs
+        (pkgs.callPackage ./pkgs/dracula ({} // inputs));
+    });
+
     packages =
       perSystem (system: pkgs:
         import ./pkgs ({inherit self system pkgs;} // inputs));

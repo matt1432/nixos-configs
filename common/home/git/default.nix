@@ -9,7 +9,7 @@
       lfs.enable = true;
 
       includes = [
-        {path = toString self.packages.${pkgs.system}.dracula.git;}
+        {path = toString self.legacyPackages.${pkgs.system}.dracula.git;}
 
         {
           # FIXME: add https config

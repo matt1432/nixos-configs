@@ -333,12 +333,6 @@
       repo = "wpaperd";
       type = "github";
     };
-    xresources-src = {
-      flake = false;
-      owner = "dracula";
-      repo = "xresources";
-      type = "github";
-    };
   };
   outputs = inputs: inputs.flakegen ./flake.in.nix inputs;
 }

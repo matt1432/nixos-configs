@@ -6,7 +6,7 @@
   ...
 }: let
   inherit (config.vars) fontSize;
-  inherit (self.packages.${pkgs.system}) dracula;
+  inherit (self.legacyPackages.${pkgs.system}) dracula;
 in {
   home.packages = with pkgs; [
     libsForQt5.qtstyleplugin-kvantum
