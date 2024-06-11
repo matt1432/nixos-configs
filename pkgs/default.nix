@@ -1,6 +1,7 @@
 {
   pkgs,
   curseforge-server-downloader-src,
+  gpu-screen-recorder-src,
   pam-fprint-grosshack-src,
   pokemon-colorscripts-src,
   ...
@@ -9,6 +10,10 @@
 
   curseforge-server-downloader = pkgs.callPackage ./curseforge-server-downloader {
     inherit curseforge-server-downloader-src;
+  };
+
+  gpu-screen-recorder = pkgs.callPackage ./gpu-screen-recorder {
+    inherit gpu-screen-recorder-src;
   };
 
   pam-fprint-grosshack = pkgs.callPackage ./pam-fprint-grosshack {

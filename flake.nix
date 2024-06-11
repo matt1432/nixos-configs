@@ -147,6 +147,12 @@
       repo = "ModernX";
       type = "github";
     };
+    mozilla-addons-to-nix = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      owner = "~rycee";
+      repo = "mozilla-addons-to-nix";
+      type = "sourcehut";
+    };
     mpv-persist-properties-src = {
       flake = false;
       owner = "d87";
@@ -236,11 +242,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "matt1432";
       repo = "nixos-minecraft-servers";
-      type = "github";
-    };
-    nur = {
-      owner = "nix-community";
-      repo = "NUR";
       type = "github";
     };
     nurl = {

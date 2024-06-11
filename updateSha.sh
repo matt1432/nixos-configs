@@ -23,7 +23,7 @@ parseFetchurl() {
 updateDocker() {
     find "$FLAKE/devices/nos/modules/arion" \
         -name "*compose.nix" \
-        -exec sh -c 'updateImages $(dirname "{}")' \;
+        -exec sh -c 'i="$1"; updateImages $(dirname "$i")' shell {} \;
 }
 
 updateFFZ() {
@@ -45,7 +45,11 @@ updateFirefoxAddons() {
                 awk '{ gsub(/"/, ""); gsub(/;/, ""); print $3 }' |
                 awk 'NR%2{printf $0" version ";next;}1' | paste -sd'\n' -)"
 
-            readarray -t NEW_VERS <<< "$(sed 's/Fetched //' <(mozilla-addons-to-nix addons.json generated-firefox-addons.nix) |
+            readarray -t NEW_VERS <<< "$(sed 's/Fetched //' \
+                <(mozilla-addons-to-nix addons.json generated-firefox-addons.nix) |
+                sed 's/bitwarden-password-manager/bitwarden/' |
+                sed 's/600-sound-volume/sound-volume/' |
+                sed 's/styl-us/stylus/' |
                 sort)"
 
             for (( i=0; i<${#OLD_VERS[@]}; i++ )); do

@@ -28,17 +28,18 @@ let
       owner = "nix-community";
       repo = "nix-melt";
     };
+
+    mozilla-addons-to-nix = mkDep {
+      type = "sourcehut";
+      owner = "~rycee";
+      repo = "mozilla-addons-to-nix";
+    };
   };
 
   overlays = {
     nixpkgs-wayland = mkDep {
       owner = "nix-community";
       repo = "nixpkgs-wayland";
-    };
-
-    nur = mkInput {
-      owner = "nix-community";
-      repo = "NUR";
     };
 
     nix-gaming = mkDep {

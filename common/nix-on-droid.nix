@@ -1,13 +1,11 @@
 {
   config,
   lib,
-  nur,
   ...
 }: {
   imports = [
     ./vars
     ./modules/global.nix
-    nur.nixosModules.nur
   ];
 
   nix = {
@@ -40,8 +38,6 @@
           default = config.vars;
         };
       }
-
-      nur.hmModules.nur
 
       ./home
 

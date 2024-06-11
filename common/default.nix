@@ -2,9 +2,9 @@
   config,
   home-manager,
   lib,
+  mozilla-addons-to-nix,
   nh,
   nix-melt,
-  nur,
   nurl,
   pkgs,
   ...
@@ -14,7 +14,6 @@
 
     ./modules
 
-    nur.nixosModules.nur
     home-manager.nixosModules.home-manager
 
     ../modules/arion
@@ -96,23 +95,18 @@
           };
         }
 
-        nur.hmModules.nur
-
         ./home
         ./home/trash-d
       ];
 
-      home.packages =
-        [
-          nix-melt.packages.${pkgs.system}.default
+      home.packages = [
+        nix-melt.packages.${pkgs.system}.default
 
-          (nurl.packages.${pkgs.system}.default.override {
-            nix = config.nix.package;
-          })
-        ]
-        ++ (with config.nur.repos.rycee; [
-          mozilla-addons-to-nix
-        ]);
+        (nurl.packages.${pkgs.system}.default.override {
+          nix = config.nix.package;
+        })
+        mozilla-addons-to-nix.packages.${pkgs.system}.default
+      ];
     };
   in {
     users = {
