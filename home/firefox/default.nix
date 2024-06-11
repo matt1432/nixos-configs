@@ -1,8 +1,11 @@
 {
+  config,
   pkgs,
   firefox-gx-src,
   ...
 }: let
+  inherit (config.vars) hostName;
+
   firefox-addons = pkgs.recurseIntoAttrs (pkgs.callPackage ./addons {});
 
   firefox-gx = pkgs.callPackage ./firefox-gx {
@@ -24,7 +27,7 @@ in {
 
       userChrome = ''
         @import url("file://${firefox-gx}/chrome/userChrome.css");
-        @import url("file://${./custom.css}");
+        ${import ./custom-css.nix hostName}
       '';
 
       settings = {
@@ -46,6 +49,7 @@ in {
         "browser.tabs.delayHidingAudioPlayingIconMS" = 0;
         "layout.css.backdrop-filter.enabled" = true;
         "browser.newtabpage.activity-stream.improvesearch.handoffToAwesomebar" = false;
+        "browser.newtabpage.activity-stream.newtabWallpapers.enabled" = true;
 
         /*
         To active container tabs without any extension

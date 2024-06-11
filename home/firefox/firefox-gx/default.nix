@@ -12,10 +12,8 @@ stdenvNoCC.mkDerivation {
   installPhase = ''
     # Personal changes
     sed -i 's/var(--fuchsia))/var(--purple))/' ./chrome/components/ogx_root-personal.css
-
-    # Fix new tab background for nix
-    substituteInPlace ./chrome/components/ogx_root-personal.css \
-      --replace-fail '../newtab/wallpaper-dark.png' "$out/chrome/newtab/private-dark.png"
+    sed -i 's#../newtab/wallpaper-dark1.png#../newtab/wallpaper-dark2.png#' ./chrome/components/ogx_root-personal.css
+    #
 
     mkdir -p $out
     cp -r ./* $out
