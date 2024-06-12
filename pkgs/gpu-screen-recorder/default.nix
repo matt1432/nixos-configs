@@ -47,12 +47,7 @@ in
       xorg.libXrandr
     ];
 
-    postPatch = ''
-      # don't try to setcap/suid in a nix builder
-      substituteInPlace ./meson.build --replace \
-        "meson.add_install_script('extra/meson_post_install.sh')" \
-        "# meson.add_install_script('extra/meson_post_install.sh')"
-    '';
+    mesonFlags = ["-Dcapabilities=false"];
 
     fixupPhase = ''
       wrapProgram $out/bin/gpu-screen-recorder \
@@ -63,4 +58,11 @@ in
         ]
       }"
     '';
+
+    meta = {
+      description = "Screen recorder that has minimal impact on system performance by recording a window using the GPU only";
+      homepage = "https://git.dec05eba.com/gpu-screen-recorder/about/";
+      license = lib.licenses.gpl3Only;
+      platforms = ["x86_64-linux"];
+    };
   }
