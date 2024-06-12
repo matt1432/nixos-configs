@@ -20,12 +20,23 @@
       agsPkg
       hyprPkg
     ];
-    text = ''
-      user="$(id -u ${mainUser})"
-      sig="$(ls "/run/user/$user/hypr/")"
-      export HYPRLAND_INSTANCE_SIGNATURE="$sig"
 
-      sudo -Eu ${mainUser} hyprctl dispatch exec "$@"
+    text = ''
+      params=( "$@" )
+      user="$(id -u ${mainUser})"
+      readarray -t SIGS <<< "$(ls "/run/user/$user/hypr/")"
+
+      run() {
+          export HYPRLAND_INSTANCE_SIGNATURE="$1"
+          sudo -Eu ${mainUser} hyprctl dispatch exec "''${params[@]}"
+      }
+
+      i=0
+
+      # FIXME: not sure if sudo passes the exit status to this
+      while ! run "''${SIGS[$i]}"; do
+          ((i+=1))
+      done
     '';
   };
 
@@ -34,6 +45,7 @@
     runtimeInputs = [
       agsPkg
     ];
+
     text = ''
       ags -r 'Tablet.setLaptopMode()'
       ags -b lockscreen -c /home/${mainUser}/.config/ags/lockscreen.js
@@ -49,24 +61,26 @@ in {
   services.acpid = mkIf isLaptop {
     enable = true;
 
-    lidEventCommands = ''
-      LID="/proc/acpi/button/lid/LID/state"
-      state=$(cat "$LID" | ${pkgs.gawk}/bin/awk '{print $2}')
+    lidEventCommands =
+      # bash
+      ''
+        LID="/proc/acpi/button/lid/LID/state"
+        state=$(${pkgs.gawk}/bin/awk '{print $2}' "$LID")
 
-      case "$state" in
-          *open*)
-              ${runInDesktop}/bin/runInDesktop "ags -b lockscreen -r 'authFinger()'"
-              ;;
+        case "$state" in
+            *open*)
+                ${runInDesktop}/bin/runInDesktop "ags -b lockscreen -r 'authFinger()'"
+                ;;
 
-          *close*)
-              ${runInDesktop}/bin/runInDesktop ${lockPkg}/bin/lock
-              ;;
+            *close*)
+                ${runInDesktop}/bin/runInDesktop ${lockPkg}/bin/lock
+                ;;
 
-          *)
-              logger -t lid-handler "Failed to detect lid state ($state)"
-              ;;
-      esac
-    '';
+            *)
+                logger -t lid-handler "Failed to detect lid state ($state)"
+                ;;
+        esac
+      '';
   };
 
   home-manager.users.${mainUser} = {
