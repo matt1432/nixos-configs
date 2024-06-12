@@ -53,6 +53,7 @@ in {
         env = WLR_NO_HARDWARE_CURSORS,1
       '')
     + (concatStringsSep "\n" (map (x: "monitor=${x}") monitors))
+    + "\n"
     +
     # hyprlang
     ''
