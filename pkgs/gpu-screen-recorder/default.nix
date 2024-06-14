@@ -25,7 +25,7 @@
     .version;
 in
   stdenv.mkDerivation {
-    name = "gpu-screen-recorder";
+    pname = "gpu-screen-recorder";
     version = "${tag}+${gpu-screen-recorder-src.shortRev}";
 
     src = gpu-screen-recorder-src;

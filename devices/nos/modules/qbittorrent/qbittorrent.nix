@@ -11,7 +11,7 @@
     gen = import ./vuetorrent.nix;
   in
     pkgs.stdenv.mkDerivation {
-      name = "vuetorrent";
+      pname = "vuetorrent";
       inherit (gen) version;
 
       nativeBuildInputs = [pkgs.unzip];

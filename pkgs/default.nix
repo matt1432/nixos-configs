@@ -1,28 +1,31 @@
 {
   pkgs,
-  curseforge-server-downloader-src,
-  gpu-screen-recorder-src,
-  pam-fprint-grosshack-src,
-  pokemon-colorscripts-src,
+  mkVersion,
   ...
 } @ inputs: {
   coloryou = pkgs.callPackage ./coloryou {};
 
   curseforge-server-downloader = pkgs.callPackage ./curseforge-server-downloader {
-    inherit curseforge-server-downloader-src;
+    inherit (inputs) curseforge-server-downloader-src;
+    inherit mkVersion;
   };
 
   gpu-screen-recorder = pkgs.callPackage ./gpu-screen-recorder {
-    inherit gpu-screen-recorder-src;
+    inherit (inputs) gpu-screen-recorder-src;
   };
 
   pam-fprint-grosshack = pkgs.callPackage ./pam-fprint-grosshack {
-    inherit pam-fprint-grosshack-src;
+    inherit (inputs) pam-fprint-grosshack-src;
   };
 
   pokemon-colorscripts = pkgs.callPackage ./pokemon-colorscripts {
-    inherit pokemon-colorscripts-src;
+    inherit (inputs) pokemon-colorscripts-src;
+    inherit mkVersion;
   };
 
   repl = pkgs.callPackage ./repl {};
+
+  trash-d = pkgs.callPackage ./trash-d {
+    inherit (inputs) trash-d-src;
+  };
 }

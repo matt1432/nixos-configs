@@ -42,7 +42,7 @@
     secrets,
     ...
   }: let
-    inherit (import ./lib.nix inputs) mkNixOS mkNixOnDroid mkPkgs;
+    inherit (import ./lib.nix inputs) mkVersion mkNixOS mkNixOnDroid mkPkgs;
 
     supportedSystems = ["x86_64-linux" "aarch64-linux"];
 
@@ -98,12 +98,12 @@
     legacyPackages = perSystem (system: pkgs: {
       dracula =
         pkgs.lib.recurseIntoAttrs
-        (pkgs.callPackage ./pkgs/dracula ({} // inputs));
+        (pkgs.callPackage ./pkgs/dracula ({inherit mkVersion;} // inputs));
     });
 
     packages =
       perSystem (system: pkgs:
-        import ./pkgs ({inherit self system pkgs;} // inputs));
+        import ./pkgs ({inherit self system pkgs mkVersion;} // inputs));
 
     devShells = perSystem (_: pkgs: {
       default = pkgs.mkShell {

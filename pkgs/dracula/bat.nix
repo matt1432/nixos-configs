@@ -1,11 +1,12 @@
 {
   bat-theme-src,
+  mkVersion,
   stdenv,
   ...
 }:
 stdenv.mkDerivation {
   pname = "dracula-bat";
-  version = bat-theme-src.shortRev;
+  version = mkVersion bat-theme-src;
 
   src = bat-theme-src;
 

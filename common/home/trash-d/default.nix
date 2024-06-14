@@ -1,7 +1,9 @@
-{pkgs, ...} @ inputs: let
-  trash = pkgs.callPackage ./trash-d.nix inputs;
-in {
-  home.packages = [trash];
+{
+  pkgs,
+  self,
+  ...
+}: {
+  home.packages = [self.packages.${pkgs.system}.trash-d];
 
   programs.bash.shellAliases.rm = "trash";
 }

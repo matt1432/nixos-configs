@@ -1,12 +1,13 @@
 {
+  mkVersion,
   stdenv,
   python3Packages,
   pokemon-colorscripts-src,
   ...
 }:
 stdenv.mkDerivation {
-  name = "pokemon-colorscripts";
-  version = pokemon-colorscripts-src.shortRev;
+  pname = "pokemon-colorscripts";
+  version = mkVersion pokemon-colorscripts-src;
 
   src = pokemon-colorscripts-src;
 

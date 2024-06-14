@@ -1,11 +1,12 @@
 {
+  mkVersion,
   sioyek-theme-src,
   stdenv,
   ...
 }:
 stdenv.mkDerivation {
   pname = "dracula-sioyek";
-  version = sioyek-theme-src.shortRev;
+  version = mkVersion sioyek-theme-src;
 
   src = sioyek-theme-src;
 

@@ -3,19 +3,23 @@
   pkgs,
   piper-src,
   ...
-}: {
+} @ inputs: let
+  inherit (import ../lib.nix inputs) mkVersion;
+in {
   services.ratbagd = {
     enable = true;
 
     package = pkgs.libratbag.overrideAttrs {
-      version = libratbag-src.shortRev;
+      pname = "libratbag";
+      version = mkVersion libratbag-src;
       src = libratbag-src;
     };
   };
 
   environment.systemPackages = [
     (pkgs.piper.overrideAttrs {
-      name = "piper-${piper-src.shortRev}";
+      pname = "piper";
+      version = mkVersion piper-src;
       src = piper-src;
 
       mesonFlags = [

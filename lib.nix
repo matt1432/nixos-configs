@@ -6,6 +6,8 @@
   nixpkgs-wayland,
   ...
 } @ inputs: rec {
+  mkVersion = src: "0pre+" + src.shortRev;
+
   # Import pkgs from a nixpkgs
   mkPkgs = system: input:
     import input {
