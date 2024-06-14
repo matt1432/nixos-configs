@@ -4,8 +4,7 @@
   ...
 }:
 stdenv.mkDerivation {
-  pname = "dracula-wallpaper";
-  version = "";
+  name = "dracula-wallpaper.png";
 
   src = fetchurl {
     url = "https://raw.githubusercontent.com/aynp/dracula-wallpapers/main/Art/4k/Waves%201.png";
