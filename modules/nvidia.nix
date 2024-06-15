@@ -60,7 +60,7 @@ in {
         finegrained = false;
       };
 
-      open = cfg.enableWayland;
+      open = false;
 
       package =
         if !cfg.enableWayland
@@ -87,6 +87,8 @@ in {
         vdpauinfo
       ]);
 
-    boot.kernelModules = optionals cfg.enableCUDA ["nvidia-uvm"];
+    boot.kernelModules =
+      optionals cfg.enableCUDA ["nvidia-uvm"]
+      ++ ["nvidia" "nvidia-drm"];
   };
 }

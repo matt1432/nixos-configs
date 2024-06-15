@@ -8,8 +8,15 @@
   inherit (lib) concatStringsSep optionals;
   inherit (config.vars) mainUser;
 
-  cfg = config.home-manager.users.${mainUser}.wayland.windowManager.hyprland;
   isTouchscreen = config.hardware.sensor.iio.enable;
+  cfg =
+    config
+    .home-manager
+    .users
+    .${mainUser}
+    .wayland
+    .windowManager
+    .hyprland;
 in {
   # SYSTEM CONFIG
   imports = [
@@ -19,11 +26,6 @@ in {
     ./security.nix
   ];
 
-  environment.sessionVariables = {
-    GTK_USE_PORTAL = "1";
-    NIXOS_OZONE_WL = "1";
-  };
-
   services = {
     dbus.enable = true;
     gvfs.enable = true;
@@ -31,12 +33,14 @@ in {
     xserver.wacom.enable = isTouchscreen;
   };
 
-  programs.hyprland = let
-    inherit (hyprland.packages.${pkgs.system}) xdg-desktop-portal-hyprland;
-  in {
+  programs.hyprland = {
     enable = true;
     package = cfg.finalPackage;
-    portalPackage = xdg-desktop-portal-hyprland;
+    portalPackage =
+      hyprland
+      .packages
+      .${pkgs.system}
+      .xdg-desktop-portal-hyprland;
   };
 
   xdg.portal = {
@@ -51,7 +55,10 @@ in {
         "hyprland"
         "gtk"
       ];
-      "org.freedesktop.impl.portal.FileChooser" = ["kde"];
+
+      "org.freedesktop.impl.portal.FileChooser" = [
+        "kde"
+      ];
     };
   };
 
@@ -66,27 +73,35 @@ in {
 
     wayland.windowManager.hyprland = {
       enable = true;
-      package = hyprland.packages.${pkgs.system}.default;
+      package =
+        hyprland
+        .packages
+        .${pkgs.system}
+        .default;
 
       systemd.variables = ["-all"];
 
       settings = {
-        env = let
-          gset = pkgs.gsettings-desktop-schemas;
+        envd = let
+          mkGSchemas = pkg: "${pkg}/share/gsettings-schemas/${pkg.name}";
         in
           [
+            "GTK_USE_PORTAL, 1"
+            "NIXOS_OZONE_WL, 1"
+            "ELECTRON_OZONE_PLATFORM_HINT, auto"
+
             "XDG_DATA_DIRS, ${concatStringsSep ":" [
-              "${gset}/share/gsettings-schemas/${gset.name}"
-              "${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}"
+              (mkGSchemas pkgs.gsettings-desktop-schemas)
+              (mkGSchemas pkgs.gtk3)
               "$XDG_DATA_DIRS"
             ]}"
           ]
           ++ (optionals config.nvidia.enable [
             "LIBVA_DRIVER_NAME, nvidia"
+            "NVD_BACKEND, direct"
             "XDG_SESSION_TYPE, wayland"
             "GBM_BACKEND, nvidia-drm"
             "__GLX_VENDOR_LIBRARY_NAME, nvidia"
-            "WLR_NO_HARDWARE_CURSORS, 1"
           ]);
 
         xwayland.force_zero_scaling = true;
@@ -113,26 +128,20 @@ in {
           ])
         ];
 
-        gestures = {
-          workspace_swipe = true;
-          workspace_swipe_fingers = 3;
-          workspace_swipe_cancel_ratio = 0.15;
-        };
-
         "$mainMod" = "SUPER";
 
         bind = [
           # Defaults
-          "$mainMod, F, fullscreen"
-          "$mainMod, C, killactive, "
-          "$mainMod SHIFT, SPACE, togglefloating, "
-          "$mainMod, J, layoutmsg, togglesplit"
+          "$mainMod, F,    fullscreen"
+          "$mainMod, C,    killactive"
+          "$mainMod SHIFT, SPACE,     togglefloating"
+          "$mainMod, J,    layoutmsg, togglesplit"
 
           ## Move focus with arrow keys
-          "$mainMod, left, movefocus, l"
+          "$mainMod, left,  movefocus, l"
           "$mainMod, right, movefocus, r"
-          "$mainMod, up, movefocus, u"
-          "$mainMod, down, movefocus, d"
+          "$mainMod, up,    movefocus, u"
+          "$mainMod, down,  movefocus, d"
 
           ## Move to specific workspaces
           "$mainMod, 1, workspace, 1"
@@ -158,7 +167,7 @@ in {
           "$mainMod SHIFT, 9, movetoworkspace, 9"
           "$mainMod SHIFT, 0, movetoworkspace, 10"
 
-          ",XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle"
+          ",XF86AudioMute,    exec, pactl set-sink-mute @DEFAULT_SINK@ toggle"
           ",XF86AudioMicMute, exec, pactl set-source-mute @DEFAULT_SOURCE@ toggle"
         ];
 
@@ -176,6 +185,7 @@ in {
         misc = {
           disable_hyprland_logo = true;
           disable_splash_rendering = true;
+          initial_workspace_tracking = 2; # persistent (all children too)
           vfr = true;
         };
 

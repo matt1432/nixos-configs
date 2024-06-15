@@ -8,7 +8,7 @@ in {
 
   wayland.windowManager.hyprland = {
     settings = {
-      env = ["XCURSOR_SIZE, 24"];
+      envd = ["XCURSOR_SIZE, 24"];
 
       exec-once = [
         "hyprctl setcursor Dracula-cursors 24"
