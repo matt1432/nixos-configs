@@ -30,7 +30,7 @@ in {
         kb_layout = xkb.layout;
         kb_variant = xkb.variant;
         numlock_by_default = true;
-        repeat_rate = 50;
+        repeat_rate = 25;
 
         # Mouse
         follow_mouse = true;

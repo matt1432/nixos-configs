@@ -7,6 +7,7 @@
   nix-melt,
   nurl,
   pkgs,
+  self,
   ...
 } @ inputs: {
   imports = [
@@ -75,6 +76,8 @@
   };
 
   home-manager = let
+    inherit (lib) mapAttrs' nameValuePair;
+
     inherit (config.vars) mainUser;
     mainUserConf = config.home-manager.users.${mainUser};
 
@@ -98,6 +101,11 @@
         ./home
         ./home/trash-d
       ];
+
+      # Cache devShells
+      home.file = mapAttrs' (n: v: nameValuePair ".cache/devShells/${n}" {
+        source = v;
+      }) self.devShells.${pkgs.system};
 
       home.packages = [
         nix-melt.packages.${pkgs.system}.default
