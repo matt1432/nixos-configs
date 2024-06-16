@@ -33,13 +33,19 @@ in {
                   tbl[v] = k;
               end
           end;
-          vim.diagnostic.is_disabled = function()
-              return not vim.diagnostic.is_enabled();
-          end;
           vim.tbl_islist = function(tbl)
               return vim.islist(tbl);
           end;
+          vim.tbl_flatten = function(tbl)
+              return vim.iter(tbl):flatten():totable();
+          end;
+          vim.diagnostic.is_disabled = function()
+              return not vim.diagnostic.is_enabled();
+          end;
           vim.lsp.buf_get_clients = function()
+              return vim.lsp.get_clients();
+          end;
+          vim.lsp.get_active_clients = function()
               return vim.lsp.get_clients();
           end;
 
