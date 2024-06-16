@@ -185,7 +185,6 @@
     nix-eval-jobs = {
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "nix-community";
-      ref = "release-2.21";
       repo = "nix-eval-jobs";
       type = "github";
     };

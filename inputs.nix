@@ -92,7 +92,6 @@ let
     nix-eval-jobs = mkDep {
       owner = "nix-community";
       repo = "nix-eval-jobs";
-      ref = "release-2.21";
     };
 
     nix-fast-build = mkDep {

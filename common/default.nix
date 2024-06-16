@@ -25,16 +25,7 @@
   boot.tmp.useTmpfs = true;
 
   nix = {
-    package = pkgs.nixVersions.git.overrideAttrs (oldAttrs: {
-      pname = "nix";
-      version = "2.21.3";
-      src = pkgs.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nix";
-        rev = "60824fa97c588a0faf68ea61260a47e388b0a4e5";
-        sha256 = "10z/SoidVl9/lh56cMLj7ntJZHtVrumFvmn1YEqXmaM=";
-      };
-    });
+    package = pkgs.nixVersions.latest;
 
     # Edit nix.conf
     settings = {
@@ -103,9 +94,11 @@
       ];
 
       # Cache devShells
-      home.file = mapAttrs' (n: v: nameValuePair ".cache/devShells/${n}" {
-        source = v;
-      }) self.devShells.${pkgs.system};
+      home.file = mapAttrs' (n: v:
+        nameValuePair ".cache/devShells/${n}" {
+          source = v;
+        })
+      self.devShells.${pkgs.system};
 
       home.packages = [
         nix-melt.packages.${pkgs.system}.default
