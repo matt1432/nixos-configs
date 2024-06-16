@@ -143,6 +143,11 @@ let
         repo = "Hyprspace";
       };
 
+      hyprgrass = mkHyprDep {
+        owner = "horriblename";
+        repo = "hyprgrass";
+      };
+
       grim-hyprland = mkDep {
         owner = "eriedaberrie";
         repo = "grim-hyprland";

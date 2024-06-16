@@ -44,13 +44,6 @@ in {
         };
       };
 
-      gestures = {
-        workspace_swipe = true;
-        workspace_swipe_fingers = 3;
-        workspace_swipe_touch = true;
-        workspace_swipe_cancel_ratio = 0.15;
-      };
-
       bind = [
         ",XF86AudioPlay, exec, playerctl play-pause"
         ",XF86AudioStop, exec, playerctl stop"

@@ -116,6 +116,12 @@
       repo = "hyprland-plugins";
       type = "github";
     };
+    hyprgrass = {
+      inputs.hyprland.follows = "hyprland";
+      owner = "horriblename";
+      repo = "hyprgrass";
+      type = "github";
+    };
     hyprland = {
       inputs.nixpkgs.follows = "nixpkgs";
       submodules = true;
