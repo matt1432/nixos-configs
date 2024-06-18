@@ -1,6 +1,8 @@
 const Bluetooth = await Service.import('bluetooth');
 const Network = await Service.import('network');
 
+import Tablet from '../../services/tablet.ts';
+
 const { Box, Icon, Label, Revealer } = Widget;
 const { execAsync } = Utils;
 
@@ -11,25 +13,29 @@ import Separator from '../misc/separator.ts';
 import { NetworkMenu } from './network.ts';
 import { BluetoothMenu } from './bluetooth.ts';
 
-// Types
+/* Types */
 import GObject from 'types/@girs/gobject-2.0/gobject-2.0';
 import { Variable as Var } from 'types/variable.ts';
+
 import {
     BoxGeneric,
     IconGeneric,
     LabelGeneric,
     RevealerGeneric,
 } from 'global-types';
+
 type IconTuple = [
     GObject.Object,
-    (self: IconGeneric) => void,
+    (self: IconGeneric, state?: boolean) => void,
     signal?: string,
 ];
+
 type IndicatorTuple = [
     GObject.Object,
     (self: LabelGeneric) => void,
     signal?: string,
 ];
+
 type GridButtonType = {
     command?(): void
     secondary_command?(): void
@@ -40,9 +46,10 @@ type GridButtonType = {
     menu?: Widget
 };
 
+
+// TODO: do vpn button
 const SPACING = 28;
 const ButtonStates = [] as Array<Var<boolean>>;
-
 
 const GridButton = ({
     command = () => {/**/},
@@ -240,19 +247,6 @@ const FirstRow = () => Row({
             on_open: () => Network.wifi.scan(),
         }),
 
-        // TODO: do vpn
-        GridButton({
-            command: () => {
-                //
-            },
-
-            secondary_command: () => {
-                //
-            },
-
-            icon: 'airplane-mode-disabled-symbolic',
-        }),
-
         GridButton({
             command: () => Bluetooth.toggle(),
 
@@ -285,6 +279,13 @@ const FirstRow = () => Row({
             },
         }),
 
+        GridButton({
+            command: () => {
+                execAsync(['lock']).catch(print);
+            },
+            secondary_command: () => App.openWindow('win-powermenu'),
+            icon: 'system-lock-screen-symbolic',
+        }),
     ],
 });
 
@@ -322,13 +323,21 @@ const SecondRow = () => Row({
             }],
         }),
 
-        // TODO: replace this with Rotation Toggle and move lock to a separate section
         GridButton({
             command: () => {
-                execAsync(['lock']).catch(print);
+                if (Tablet.autorotateState) {
+                    Tablet.killAutorotate();
+                }
+                else {
+                    Tablet.startAutorotate();
+                }
             },
-            secondary_command: () => App.openWindow('win-powermenu'),
-            icon: 'system-lock-screen-symbolic',
+
+            icon: [Tablet, (self, state) => {
+                self.icon = state ?
+                    'screen-rotate-auto-on-symbolic' :
+                    'screen-rotate-auto-off-symbolic';
+            }, 'autorotate-toggled'],
         }),
     ],
 });

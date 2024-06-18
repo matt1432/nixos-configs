@@ -17,7 +17,6 @@
   margin-left: 15px;
   margin-right: 10px;
   min-width: 50px;
-  transition: color 0.3s ease-in-out;
 }
 
 .scrolled-indicator {
@@ -147,6 +146,7 @@
 
   .slider {
     min-height: 55px;
+    margin-right: -15px;
 
     scale {
       min-width: 400px;

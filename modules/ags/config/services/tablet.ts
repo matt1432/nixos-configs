@@ -25,6 +25,7 @@ class Tablet extends Service {
             'device-fetched': ['boolean'],
             'autorotate-started': ['boolean'],
             'autorotate-destroyed': ['boolean'],
+            'autorotate-toggled': ['boolean'],
             'inputs-blocked': ['boolean'],
             'inputs-unblocked': ['boolean'],
             'laptop-mode': ['boolean'],
@@ -41,6 +42,10 @@ class Tablet extends Service {
 
     get tabletMode() {
         return this.#tabletMode;
+    }
+
+    get autorotateState() {
+        return this.#autorotate !== null;
     }
 
     get oskState() {
@@ -144,6 +149,7 @@ class Tablet extends Service {
             },
         );
         this.emit('autorotate-started', true);
+        this.emit('autorotate-toggled', true);
     }
 
     killAutorotate() {
@@ -151,6 +157,7 @@ class Tablet extends Service {
             this.#autorotate.force_exit();
             this.#autorotate = null;
             this.emit('autorotate-destroyed', true);
+            this.emit('autorotate-toggled', false);
         }
     }
 

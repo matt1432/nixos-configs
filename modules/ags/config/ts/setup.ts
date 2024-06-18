@@ -49,7 +49,7 @@ export default () => {
 
     TouchGestures.addGesture({
         name: 'openOverview',
-        nFingers: '4',
+        nFingers: '3',
         gesture: 'UD',
         command: 'hyprctl dispatch hyprexpo:expo on',
     });
