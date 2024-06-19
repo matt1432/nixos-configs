@@ -25,7 +25,7 @@
   boot.tmp.useTmpfs = true;
 
   nix = {
-    package = pkgs.nixVersions.latest;
+    package = pkgs.nixVersions.nix_2_22;
 
     # Edit nix.conf
     settings = {
