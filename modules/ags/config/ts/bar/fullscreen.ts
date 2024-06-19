@@ -53,7 +53,7 @@ Hyprland.connect('event', (hyprObj) => {
 export default ({
     anchor,
     bar,
-    gdkmonitor = Gdk.Display.get_default()?.get_primary_monitor() as Gdk.Monitor,
+    gdkmonitor = Gdk.Display.get_default()?.get_monitor(0) as Gdk.Monitor,
     ...rest
 }) => {
     const monitor = get_hyprland_monitor_desc(gdkmonitor);
