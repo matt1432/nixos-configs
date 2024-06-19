@@ -99,6 +99,16 @@ in {
             (pkgs.discord.override {
               withOpenASAR = true;
               withVencord = true;
+
+              # FIXME: remove this when vencord is up to date
+              vencord = pkgs.vencord.overrideAttrs {
+                src = pkgs.fetchFromGitHub {
+                  owner = "Vendicated";
+                  repo = "Vencord";
+                  rev = "e9e789be7093e8b025f606cde69b3d89760c9380";
+                  hash = "sha256-kBMyxV9XlrKEZ5whV81vA4EAZiYRpgIgal7fY5KGoVs=";
+                };
+              };
             })
           ];
           buildInputs = [pkgs.makeWrapper];
