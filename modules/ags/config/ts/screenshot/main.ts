@@ -88,6 +88,7 @@ export default () => {
         },
     });
 
+    // TODO: highlight monitor when hovered
     const monitorsButton = CursorBox({
         class_name: 'header-btn',
 

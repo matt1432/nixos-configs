@@ -1,6 +1,7 @@
 const { Box, CenterBox } = Widget;
 
 import Separator from '../misc/separator.ts';
+import { get_gdkmonitor_from_desc } from '../lib.ts';
 
 import BarRevealer from './fullscreen.ts';
 
@@ -12,7 +13,7 @@ import SysTray from './items/systray.ts';
 const PADDING = 20;
 
 export default () => BarRevealer({
-    monitor: 1,
+    gdkmonitor: get_gdkmonitor_from_desc('desc:Samsung Electric Company C27JG5x HTOM100586'),
     exclusivity: 'exclusive',
     anchor: ['bottom', 'left', 'right'],
     bar: Box({

@@ -1,17 +1,24 @@
 const Hyprland = await Service.import('hyprland');
 const { Box, EventBox, Revealer, Window } = Widget;
 
+import Gdk from 'gi://Gdk?version=3.0';
+
+import {
+    get_hyprland_monitor_desc,
+    get_monitor_desc_from_id,
+} from '../lib.ts';
+
 
 const FullscreenState = Variable({
-    monitors: [] as number[],
-    clientAddrs: new Map() as Map<number, string>,
+    monitors: [] as string[],
+    clientAddrs: new Map() as Map<string, string>,
 });
 
 Hyprland.connect('event', (hyprObj) => {
     const arrayEquals = (a1: unknown[], a2: unknown[]) =>
         a1.sort().toString() === a2.sort().toString();
 
-    const mapEquals = (m1: Map<number, string>, m2: Map<number, string>) =>
+    const mapEquals = (m1: Map<string, string>, m2: Map<string, string>) =>
         m1.size === m2.size &&
         Array.from(m1.keys()).every((key) => m1.get(key) === m2.get(key));
 
@@ -23,8 +30,13 @@ Hyprland.connect('event', (hyprObj) => {
             c.workspace.id === mon?.activeWorkspace.id;
     });
 
-    const monitors = fsClients.map((c) => c.monitor);
-    const clientAddrs = new Map(fsClients.map((c) => [c.monitor, c.address]));
+    const monitors = fsClients.map((c) =>
+        get_monitor_desc_from_id(c.monitor));
+
+    const clientAddrs = new Map(fsClients.map((c) => [
+        get_monitor_desc_from_id(c.monitor),
+        c.address,
+    ]));
 
     const hasChanged =
         !arrayEquals(monitors, fs.monitors) ||
@@ -38,7 +50,13 @@ Hyprland.connect('event', (hyprObj) => {
     }
 });
 
-export default ({ anchor, bar, monitor = 0, ...rest }) => {
+export default ({
+    anchor,
+    bar,
+    gdkmonitor = Gdk.Display.get_default()?.get_primary_monitor() as Gdk.Monitor,
+    ...rest
+}) => {
+    const monitor = get_hyprland_monitor_desc(gdkmonitor);
     const BarVisible = Variable(true);
 
     FullscreenState.connect('changed', (v) => {
@@ -48,7 +66,7 @@ export default ({ anchor, bar, monitor = 0, ...rest }) => {
     const barCloser = Window({
         name: `bar-${monitor}-closer`,
         visible: false,
-        monitor,
+        gdkmonitor,
         anchor: ['top', 'bottom', 'left', 'right'],
         layer: 'overlay',
 
@@ -108,7 +126,7 @@ export default ({ anchor, bar, monitor = 0, ...rest }) => {
     return Window({
         name: `bar-${monitor}`,
         layer: 'overlay',
-        monitor,
+        gdkmonitor,
         margins: [-1, -1, -1, -1],
         anchor,
         ...rest,

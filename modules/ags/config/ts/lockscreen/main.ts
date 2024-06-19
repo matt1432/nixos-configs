@@ -8,6 +8,7 @@ import Lock from 'gi://GtkSessionLock?version=0.1';
 import Vars from './vars.ts';
 
 import Separator from '../misc/separator.ts';
+import { get_hyprland_monitor_desc } from '../lib.ts';
 
 /* Types */
 import { Box as AgsBox } from 'types/widgets/box';
@@ -163,16 +164,9 @@ const PasswordPrompt = (monitor: Gdk.Monitor, visible: boolean) => {
     });
 };
 
-const getHyprlandMonitorDesc = (monitor: Gdk.Monitor) => {
-    const manufacturer = monitor.manufacturer?.replace(',', '');
-    const model = monitor.model?.replace(',', '');
-
-    return `desc:${manufacturer} ${model}`;
-};
-
 const createWindow = (monitor: Gdk.Monitor) => {
-    const hyprDesc = getHyprlandMonitorDesc(monitor);
-    const entryVisible = Vars.mainMonitor.startsWith(hyprDesc) || Vars.dupeLockscreen;
+    const hyprDesc = get_hyprland_monitor_desc(monitor);
+    const entryVisible = Vars.mainMonitor === hyprDesc || Vars.dupeLockscreen;
     const win = PasswordPrompt(monitor, entryVisible);
 
     windows.set(monitor, win);
