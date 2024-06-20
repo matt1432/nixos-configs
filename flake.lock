@@ -909,16 +909,17 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1718835324,
-        "narHash": "sha256-U5eKTPAXppfSIqKqMIgbyuTBy1gr2seSOUl8sUSR8FE=",
+        "lastModified": 1718740381,
+        "narHash": "sha256-nRKxZfzSiG8EUmUmgsvPbEDR1GAPpVHZFbF7RJMzJTM=",
         "ref": "refs/heads/main",
-        "rev": "fabc30df52ab5d2c369fc8acd4ff909a6ba3b8ac",
-        "revCount": 4870,
+        "rev": "e0e3c4c6ae15af88ac5fd5ab959adfe45a2e1dca",
+        "revCount": 4861,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/hyprwm/Hyprland"
       },
       "original": {
+        "rev": "e0e3c4c6ae15af88ac5fd5ab959adfe45a2e1dca",
         "submodules": true,
         "type": "git",
         "url": "https://github.com/hyprwm/Hyprland"
@@ -1651,11 +1652,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1718824488,
-        "narHash": "sha256-38B8aLuI2qiPMZj+NmHPVmbkWTYEj1B3B/RUd+kFM9c=",
+        "lastModified": 1718839068,
+        "narHash": "sha256-yX2Lwjfr28Wpv0DjuenKjWCCx7gZcWQAVtbMUu8E678=",
         "owner": "nix-community",
         "repo": "nixpkgs-wayland",
-        "rev": "43d24cef11b3cee62b6bdb88ab2b8fd9612142e9",
+        "rev": "21752ae510eaeb2a221151dd9edff89185da4913",
         "type": "github"
       },
       "original": {
