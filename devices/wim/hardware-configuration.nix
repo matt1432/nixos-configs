@@ -63,9 +63,8 @@
     uinput.enable = true;
     sensor.iio.enable = true;
 
-    opengl = {
+    graphics = {
       enable = true;
-      driSupport32Bit = true;
       extraPackages =
         if pkgs ? rocmPackages.clr
         then with pkgs.rocmPackages; [clr clr.icd]

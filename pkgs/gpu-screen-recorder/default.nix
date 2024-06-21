@@ -44,6 +44,8 @@ in
       libdrm
       libva
       xorg.libXcomposite
+      xorg.libXdamage
+      xorg.libXi
       xorg.libXrandr
     ];
 

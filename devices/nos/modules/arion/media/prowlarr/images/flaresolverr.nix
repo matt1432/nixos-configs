@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage {
   imageName = "ghcr.io/flaresolverr/flaresolverr";
-  imageDigest = "sha256:0bdf9ed48f3c54c998bc160be46244ce3a88a7783b6cfd31eec9c1667786152f";
-  sha256 = "12a82g88kzsr9xdvvk9vwqpxl5xif063s8lwlas7h9iix0i5fqmb";
+  imageDigest = "sha256:f44f6955dc7a4e3b4dd4b07e56217b445d19287095744d06d63f84988fe76b6b";
+  sha256 = "1303vgjlczc45ix7cnb1smghkxbnhkr7j6mnvpz84hm388rlalna";
   finalImageName = "ghcr.io/flaresolverr/flaresolverr";
   finalImageTag = "latest";
 }
