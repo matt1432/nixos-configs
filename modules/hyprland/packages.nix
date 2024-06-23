@@ -70,8 +70,7 @@ in {
         hunspellDicts.en_CA
 
         # Apps
-        thunderbird # TODO: use programs.thunderbird
-        protonmail-bridge
+        protonmail-desktop
         spotifywm
         photoqt
         nextcloud-client
@@ -132,9 +131,8 @@ in {
           "wl-paste --watch cliphist store"
 
           "sleep 3; nextcloud --background"
-          "sleep 3; protonmail-bridge --noninteractive --log-level info"
 
-          "[workspace special:thunder silent] thunderbird"
+          "[workspace special:protonmail silent] proton-mail"
           "[workspace special:spot silent] spotify"
         ];
 
@@ -148,7 +146,7 @@ in {
           "move cursor -15 -10,^(com.nextcloud.desktopclient.nextcloud)$"
           "size 400 581,^(com.nextcloud.desktopclient.nextcloud)$"
 
-          "workspace special:thunder silent,^(thunderbird)$"
+          "workspace special:protonmail silent,^(Proton Mail)$"
           "workspace special:spot silent,^(Spotify)$"
         ];
 
@@ -157,7 +155,7 @@ in {
 
           "$mainMod SHIFT, C, exec, wl-color-picker"
 
-          "$mainMod, T, togglespecialworkspace, thunder"
+          "$mainMod, P, togglespecialworkspace, protonmail"
           "$mainMod, S, togglespecialworkspace, spot"
         ];
       };

@@ -64,7 +64,7 @@ const NotificationIcon = (notif: NotifObj) => {
         if (wmClass != null) {
             iconCmd = (box) => {
                 if (!getDragState(box)) {
-                    if (wmClass === 'thunderbird') {
+                    if (wmClass === 'Proton Mail') {
                         Hyprland.messageAsync('dispatch ' +
                             'togglespecialworkspace thunder');
                     }
