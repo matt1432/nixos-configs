@@ -2,7 +2,13 @@
   pkgs,
   self,
   ...
-}: {
+}: let
+  mkRemoteConf = remote: email: name: {
+    condition = "hasconfig:remote.*.url:${remote}:*/**";
+    contents.user = {inherit email name;};
+  };
+  mkDefaultRemote = remote: mkRemoteConf remote "matt@nelim.org" "matt1432";
+in {
   programs = {
     git = {
       enable = true;
@@ -11,36 +17,11 @@
       includes = [
         {path = toString self.legacyPackages.${pkgs.system}.dracula.git;}
 
-        {
-          # FIXME: add https config
-          condition = "hasconfig:remote.*.url:git@github.com:*/**";
-          contents = {
-            user = {
-              email = "matt@nelim.org";
-              name = "matt1432";
-            };
-          };
-        }
+        (mkDefaultRemote "https://github.com")
+        (mkDefaultRemote "git@github.com")
+        (mkDefaultRemote "git@git.nelim.org")
 
-        {
-          condition = "hasconfig:remote.*.url:git@git.nelim.org:*/**";
-          contents = {
-            user = {
-              email = "matt@nelim.org";
-              name = "matt1432";
-            };
-          };
-        }
-
-        {
-          condition = "hasconfig:remote.*.url:git@gitlab.info.uqam.ca:*/**";
-          contents = {
-            user = {
-              email = "gj591944@ens.uqam.ca";
-              name = "Mathis Hurtubise";
-            };
-          };
-        }
+        (mkRemoteConf "git@gitlab.info.uqam.ca" "gj591944@ens.uqam.ca" "Mathis Hurtubise")
       ];
 
       delta = {
