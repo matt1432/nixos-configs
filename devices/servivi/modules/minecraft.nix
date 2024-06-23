@@ -28,6 +28,7 @@ in {
       instances = let
         jre17 = pkgs.temurin-bin-17;
         jre18 = pkgs.temurin-bin-18;
+        jre21 = pkgs.temurin-bin-21;
 
         defaults = {
           spawn-protection = 0;
@@ -41,13 +42,13 @@ in {
 
           jvmMaxAllocation = "10G";
           jvmInitialAllocation = "2G";
-          jvmPackage = jre18;
+          jvmPackage = jre21;
           jvmOpts = "";
 
           serverConfig =
             {
               server-port = 25569;
-              motd = "1.20.4 gaming";
+              motd = "1.21 gaming";
 
               extra-options = {
                 difficulty = "hard";
