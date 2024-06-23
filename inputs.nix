@@ -159,6 +159,9 @@ let
       wpaperd = mkDep {
         owner = "danyspin97";
         repo = "wpaperd";
+
+        # FIXME: latest breaks
+        rev = "d4a9cd8b751bed47bf57a93a7ee63054ba43e63b";
       };
     };
 

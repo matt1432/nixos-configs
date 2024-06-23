@@ -337,6 +337,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "danyspin97";
       repo = "wpaperd";
+      rev = "d4a9cd8b751bed47bf57a93a7ee63054ba43e63b";
       type = "github";
     };
   };

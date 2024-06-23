@@ -14,6 +14,6 @@ stdenv.mkDerivation {
   phases = ["installPhase"];
 
   installPhase = ''
-    cp $src $out
+    cp -a $src $out
   '';
 }

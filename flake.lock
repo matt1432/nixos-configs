@@ -2346,16 +2346,17 @@
         "systems": "systems_7"
       },
       "locked": {
-        "lastModified": 1718958017,
-        "narHash": "sha256-xHtyed/HtCvljjvmydUtl2Nx4uRXwRF5LDcq1IYQYNo=",
+        "lastModified": 1718794850,
+        "narHash": "sha256-HJX49FVqbRWa3HwN5fVbPVLZ7lvrtni0nuiY2SRwhP4=",
         "owner": "danyspin97",
         "repo": "wpaperd",
-        "rev": "5e6bec44b0b9acbde8579ad838d87666cd891f86",
+        "rev": "d4a9cd8b751bed47bf57a93a7ee63054ba43e63b",
         "type": "github"
       },
       "original": {
         "owner": "danyspin97",
         "repo": "wpaperd",
+        "rev": "d4a9cd8b751bed47bf57a93a7ee63054ba43e63b",
         "type": "github"
       }
     },
