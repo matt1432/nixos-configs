@@ -67,7 +67,7 @@ in {
 
           jvmMaxAllocation = "8G";
           jvmInitialAllocation = "2G";
-          jvmPackage = jre18;
+          jvmPackage = jre21;
           jvmOpts = "";
 
           serverConfig =
