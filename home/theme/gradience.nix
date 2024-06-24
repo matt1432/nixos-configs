@@ -1,8 +1,4 @@
-{
-  pkgs,
-  lib,
-  ...
-}: {
+{pkgs, ...}: {
   gradience = rec {
     # https://github.com/V-Mann-Nick/nix-home-manager/blob/main/gnome/theme.nix
     package = pkgs.gradience.overrideAttrs (old: {

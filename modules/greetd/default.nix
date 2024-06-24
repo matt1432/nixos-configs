@@ -8,7 +8,15 @@
   inherit (import ./hyprland.nix {inherit config lib pkgs;}) hyprConf;
 
   # Nix stuff
-  hyprland = config.home-manager.users.${mainUser}.wayland.windowManager.hyprland.finalPackage;
+  hyprland =
+    config
+    .home-manager
+    .users
+    .${mainUser}
+    .wayland
+    .windowManager
+    .hyprland
+    .finalPackage;
 in {
   imports = [./astal.nix];
 

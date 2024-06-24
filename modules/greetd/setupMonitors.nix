@@ -4,7 +4,16 @@
   ...
 }: let
   inherit (config.vars) mainUser greetdDupe mainMonitor;
-  hyprland = config.home-manager.users.${mainUser}.wayland.windowManager.hyprland.finalPackage;
+
+  hyprland =
+    config
+    .home-manager
+    .users
+    .${mainUser}
+    .wayland
+    .windowManager
+    .hyprland
+    .finalPackage;
 
   # Show Regreet on all monitors
   dupeMonitors = pkgs.writeShellApplication {

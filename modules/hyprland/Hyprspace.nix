@@ -4,11 +4,7 @@
   ...
 }: {
   wayland.windowManager.hyprland = {
-    plugins = [
-      (Hyprspace.packages.${pkgs.system}.Hyprspace.overrideAttrs {
-        dontUseCmakeConfigure = true;
-      })
-    ];
+    plugins = [Hyprspace.packages.${pkgs.system}.Hyprspace];
 
     settings = {
       bind = [

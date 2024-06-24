@@ -31,7 +31,7 @@ in {
       ...
     }: let
       symlink = config.lib.file.mkOutOfStoreSymlink;
-      inherit (lib) hasPrefix mdDoc optionals removePrefix;
+      inherit (lib) hasPrefix optionals removePrefix;
 
       configJs =
         # javascript
@@ -46,7 +46,7 @@ in {
       assertions = [
         {
           assertion = hasPrefix "/home/${mainUser}/" flakeDir;
-          message = mdDoc ''
+          message = ''
             Your $FLAKE environment variable needs to point to a directory in
             the main users' home to use the AGS module.
           '';

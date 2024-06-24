@@ -6,6 +6,7 @@
     "logitech-g502-x"
     "logitech-g502-hero-gaming-mouse"
   ];
+
   mkConf = name: {
     inherit name;
     sensitivity = 0;

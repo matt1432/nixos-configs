@@ -25,19 +25,19 @@ in {
   imports = [arion.nixosModules.arion];
 
   options.arion = {
-    enable = mkEnableOption (lib.mdDoc "My custom arion config layer module");
+    enable = mkEnableOption "My custom arion config layer module";
 
     rwDataDir = mkOption {
       default = "/var/lib/arion";
       type = types.str;
-      description = lib.mdDoc ''
+      description = ''
         Directory to place persistent data in
       '';
     };
 
     projects = mkOption {
       default = {};
-      description = lib.mdDoc ''
+      description = ''
         Declarative specification of docker-compose in nix.
       '';
       type = types.attrs;

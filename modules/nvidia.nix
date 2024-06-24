@@ -4,12 +4,12 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mdDoc mkIf mkEnableOption mkOption optionals types;
+  inherit (lib) mkIf mkEnableOption mkOption optionals types;
 
   cfg = config.nvidia;
 in {
   options.nvidia = {
-    enable = mkEnableOption (mdDoc "nvidia");
+    enable = mkEnableOption "nvidia";
 
     enableNvidiaSettings = mkOption {
       type = types.bool;

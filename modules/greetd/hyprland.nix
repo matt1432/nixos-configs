@@ -20,7 +20,14 @@
   inherit (import ./setupMonitors.nix {inherit config pkgs;}) setupMonitors;
 
   # Nix stuff
-  cfgHypr = config.home-manager.users.${mainUser}.wayland.windowManager.hyprland;
+  cfgHypr =
+    config
+    .home-manager
+    .users
+    .${mainUser}
+    .wayland
+    .windowManager
+    .hyprland;
 
   devices = filterAttrs (n: v: hasPrefix "device:" n) cfgHypr.settings;
   monitors = cfgHypr.settings.monitor;

@@ -9,6 +9,7 @@
   inherit (config.vars) mainUser;
 
   isTouchscreen = config.hardware.sensor.iio.enable;
+
   cfg =
     config
     .home-manager
