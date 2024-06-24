@@ -3,8 +3,8 @@
   pkgs,
   piper-src,
   ...
-} @ inputs: let
-  inherit (import ../lib.nix inputs) mkVersion;
+}: let
+  inherit (import ../lib.nix {}) mkVersion;
 in {
   services.ratbagd = {
     enable = true;

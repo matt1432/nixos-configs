@@ -1,11 +1,12 @@
 {
   lib,
-  stdenvNoCC,
   firefox-gx-src,
+  mkVersion,
+  stdenvNoCC,
 }:
 stdenvNoCC.mkDerivation {
   pname = "firefox-gx";
-  version = firefox-gx-src.shortRev;
+  version = mkVersion firefox-gx-src;
 
   src = firefox-gx-src;
 
@@ -13,15 +14,14 @@ stdenvNoCC.mkDerivation {
     # Personal changes
     sed -i 's/var(--fuchsia))/var(--purple))/' ./chrome/components/ogx_root-personal.css
     sed -i 's#../newtab/wallpaper-dark1.png#../newtab/wallpaper-dark2.png#' ./chrome/components/ogx_root-personal.css
-    #
 
     mkdir -p $out
     cp -r ./* $out
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Firefox Theme CSS to Opera GX Lovers";
     homepage = "https://github.com/Godiesc/firefox-gx";
-    license = licenses.mspl;
+    license = lib.licenses.mspl;
   };
 }

@@ -1,12 +1,11 @@
-{
-  grim-hyprland,
-  home-manager,
-  nix-on-droid,
-  nixpkgs,
-  nixpkgs-wayland,
-  ...
-} @ inputs: rec {
+{...} @ inputs: rec {
   mkVersion = src: "0pre+" + src.shortRev;
+
+  buildPlugin = pname: src:
+    inputs.pkgs.vimUtils.buildVimPlugin {
+      inherit pname src;
+      version = mkVersion src;
+    };
 
   # Import pkgs from a nixpkgs
   mkPkgs = system: input:
@@ -14,8 +13,8 @@
       inherit system;
       config.allowUnfree = true;
       overlays = [
-        grim-hyprland.overlays.default
-        nixpkgs-wayland.overlays.default
+        inputs.grim-hyprland.overlays.default
+        inputs.nixpkgs-wayland.overlays.default
       ];
     };
 
@@ -23,12 +22,12 @@
   mkArgs = system:
     inputs
     // {
-      pkgs = mkPkgs system nixpkgs;
+      pkgs = mkPkgs system inputs.nixpkgs;
     };
 
   # Default system
   mkNixOS = mods:
-    nixpkgs.lib.nixosSystem rec {
+    inputs.nixpkgs.lib.nixosSystem rec {
       system = "x86_64-linux";
       specialArgs = mkArgs system;
       modules =
@@ -40,9 +39,9 @@
     };
 
   mkNixOnDroid = mods:
-    nix-on-droid.lib.nixOnDroidConfiguration rec {
+    inputs.nix-on-droid.lib.nixOnDroidConfiguration rec {
       extraSpecialArgs = mkArgs "aarch64-linux";
-      home-manager-path = home-manager.outPath;
+      home-manager-path = inputs.home-manager.outPath;
       pkgs = extraSpecialArgs.pkgs;
 
       modules =

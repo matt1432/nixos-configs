@@ -5,11 +5,12 @@
   ...
 }: let
   inherit (config.vars) hostName;
+  inherit (import ../../lib.nix {}) mkVersion;
 
   firefox-addons = pkgs.recurseIntoAttrs (pkgs.callPackage ./addons {});
 
   firefox-gx = pkgs.callPackage ./firefox-gx {
-    inherit firefox-gx-src;
+    inherit firefox-gx-src mkVersion;
   };
 in {
   home.file = {

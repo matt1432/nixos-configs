@@ -1,4 +1,7 @@
-{pkgs, ...} @ inputs: {
+{pkgs, ...} @ inputs: let
+  inherit (import ../../lib.nix {}) mkVersion;
+  mpvScripts = import ./scripts (inputs // {inherit mkVersion;});
+in {
   # For kdialog-open-files
   home.packages = with pkgs; [
     kdialog
@@ -8,7 +11,7 @@
     enable = true;
 
     # https://github.com/mpv-player/mpv/wiki/User-Scripts
-    scripts = with (import ./scripts inputs); [
+    scripts = with mpvScripts; [
       modernx
       # Dep of touch-gestures
       pointer-event

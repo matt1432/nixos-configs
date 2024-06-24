@@ -5,7 +5,7 @@
 }:
 buildLua rec {
   pname = "zenity-open-files";
-  version = "unstable";
+  version = "0.0.0";
 
   unpackPhase = ":";
   src = fetchurl {

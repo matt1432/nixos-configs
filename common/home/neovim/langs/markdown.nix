@@ -8,11 +8,7 @@
   inherit (config.vars) neovimIde;
   inherit (pkgs) vimPlugins;
 
-  buildPlugin = pname: src:
-    pkgs.vimUtils.buildVimPlugin {
-      inherit pname src;
-      version = src.shortRev;
-    };
+  inherit (import ../../../../lib.nix {inherit pkgs;}) buildPlugin;
 in
   lib.mkIf neovimIde {
     programs = {

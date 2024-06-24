@@ -1,11 +1,12 @@
 {
-  mpv-pointer-event-src,
   buildLua,
+  mkVersion,
+  mpv-pointer-event-src,
   ...
 }:
 buildLua {
   pname = "pointer-event";
-  version = mpv-pointer-event-src.shortRev;
+  version = mkVersion mpv-pointer-event-src;
 
   src = mpv-pointer-event-src;
 }

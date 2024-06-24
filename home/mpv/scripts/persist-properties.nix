@@ -1,11 +1,12 @@
 {
-  mpv-persist-properties-src,
   buildLua,
+  mkVersion,
+  mpv-persist-properties-src,
   ...
 }:
 buildLua {
   pname = "persist-properties";
-  version = mpv-persist-properties-src.shortRev;
+  version = mkVersion mpv-persist-properties-src;
 
   src = mpv-persist-properties-src;
 }

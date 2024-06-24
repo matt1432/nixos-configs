@@ -1,12 +1,13 @@
 {
-  modernx-src,
-  makeFontsConf,
   buildLua,
+  makeFontsConf,
+  mkVersion,
+  modernx-src,
   ...
 }:
 buildLua (finalAttrs: {
   pname = "modernx";
-  version = modernx-src.shortRev;
+  version = mkVersion modernx-src;
 
   src = modernx-src;
 
@@ -15,6 +16,7 @@ buildLua (finalAttrs: {
     mkdir -p $out/share/fonts
     cp -r ./Material-Design-Iconic-Font.ttf $out/share/fonts
   '';
+
   passthru.extraWrapperArgs = [
     "--set"
     "FONTCONFIG_FILE"
