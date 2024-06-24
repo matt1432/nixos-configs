@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage {
   imageName = "ghcr.io/fallenbagel/jellyseerr";
-  imageDigest = "sha256:e14379fc17d16e902c3d9234425e0da5e4926d3fe1eeb0f1cb4538f4b0618490";
-  sha256 = "1apma6asq7pbka2n7jfxry6qy1bf43lnkwly5s3d93zvq7y1r4wm";
+  imageDigest = "sha256:12ab533334ccc5b4c1f8d59067d70fdb816bdb17747d10737ea379dea952602f";
+  sha256 = "1z2xawbv5ac752mk784zsvnjjfjlkhml001py28inwww6rklj151";
   finalImageName = "ghcr.io/fallenbagel/jellyseerr";
   finalImageTag = "develop";
 }

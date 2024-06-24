@@ -131,9 +131,6 @@ let
         type = "git";
         url = "https://github.com/hyprwm/Hyprland";
         submodules = true;
-
-        # FIXME: Latest breaks hyprexpo
-        rev = "e0e3c4c6ae15af88ac5fd5ab959adfe45a2e1dca";
       };
 
       hypr-official-plugins = mkHyprDep {
