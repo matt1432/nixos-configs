@@ -156,10 +156,7 @@ class Pointers extends Service {
 
                     if (overlayLayer) {
                         const noCloseWidgetsNames = [
-                            'bar-0',
-                            'bar-1',
-                            'bar-2',
-                            'bar-3',
+                            'bar-',
                             'osk',
                         ];
 
@@ -169,7 +166,7 @@ class Pointers extends Service {
                             names.forEach((name) => {
                                 arr.push(
                                     overlayLayer.find(
-                                        (n) => n.namespace === name,
+                                        (n) => n.namespace.startsWith(name),
                                     ) ||
                                     // Return an empty Layer if widget doesn't exist
                                     {
