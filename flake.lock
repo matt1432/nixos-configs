@@ -190,17 +190,17 @@
     "firefox-gx-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1717510595,
-        "narHash": "sha256-QWae4pNWUsoNUvz6MntUtBG242aer3n+JrSk2cw/NOA=",
+        "lastModified": 1718121058,
+        "narHash": "sha256-opmS7Qa4IUXs9hXVK9/xo1ZlHOwj+5gGxAc81l3ttWM=",
         "owner": "Godiesc",
         "repo": "firefox-gx",
-        "rev": "dde9941d4bf78b94d76bf06cccb2d1dce5372c56",
+        "rev": "c300409a4e45b53c5dc3203847476f60e7b906e1",
         "type": "github"
       },
       "original": {
         "owner": "Godiesc",
+        "ref": "v.9.2",
         "repo": "firefox-gx",
-        "rev": "dde9941d4bf78b94d76bf06cccb2d1dce5372c56",
         "type": "github"
       }
     },
@@ -817,36 +817,6 @@
         "type": "github"
       }
     },
-    "hypr-official-plugins": {
-      "inputs": {
-        "hyprland": [
-          "hyprland"
-        ],
-        "nixpkgs": [
-          "hypr-official-plugins",
-          "hyprland",
-          "nixpkgs"
-        ],
-        "systems": [
-          "hypr-official-plugins",
-          "hyprland",
-          "systems"
-        ]
-      },
-      "locked": {
-        "lastModified": 1719173945,
-        "narHash": "sha256-VPXoV9osFbbjCmOnwN+8/7P1508SCp7CO7Y06AayQqs=",
-        "owner": "hyprwm",
-        "repo": "hyprland-plugins",
-        "rev": "135de7b88649dbe5fea8c997447bdc9d6f15ad86",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hyprwm",
-        "repo": "hyprland-plugins",
-        "type": "github"
-      }
-    },
     "hyprcursor": {
       "inputs": {
         "hyprlang": [
@@ -922,6 +892,36 @@
         "submodules": true,
         "type": "git",
         "url": "https://github.com/hyprwm/Hyprland"
+      }
+    },
+    "hyprland-plugins": {
+      "inputs": {
+        "hyprland": [
+          "hyprland"
+        ],
+        "nixpkgs": [
+          "hyprland-plugins",
+          "hyprland",
+          "nixpkgs"
+        ],
+        "systems": [
+          "hyprland-plugins",
+          "hyprland",
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1719173945,
+        "narHash": "sha256-VPXoV9osFbbjCmOnwN+8/7P1508SCp7CO7Y06AayQqs=",
+        "owner": "hyprwm",
+        "repo": "hyprland-plugins",
+        "rev": "135de7b88649dbe5fea8c997447bdc9d6f15ad86",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hyprwm",
+        "repo": "hyprland-plugins",
+        "type": "github"
       }
     },
     "hyprland-protocols": {
@@ -1924,9 +1924,9 @@
         "gtk-theme-src": "gtk-theme-src",
         "headscale": "headscale",
         "home-manager": "home-manager",
-        "hypr-official-plugins": "hypr-official-plugins",
         "hyprgrass": "hyprgrass",
         "hyprland": "hyprland",
+        "hyprland-plugins": "hyprland-plugins",
         "jellyfin-flake": "jellyfin-flake",
         "jellyfin-ultrachromic-src": "jellyfin-ultrachromic-src",
         "libratbag-src": "libratbag-src",

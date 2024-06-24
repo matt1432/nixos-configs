@@ -133,9 +133,12 @@ let
         submodules = true;
       };
 
-      hypr-official-plugins = mkHyprDep {
+      hyprland-plugins = mkHyprDep {
         owner = "hyprwm";
         repo = "hyprland-plugins";
+
+        # type = "path";
+        # path = "/home/matt/git/hyprland-plugins";
       };
 
       Hyprspace = mkHyprDep {
@@ -264,7 +267,7 @@ let
     {
       owner = "Godiesc";
       repo = "firefox-gx";
-      rev = "dde9941d4bf78b94d76bf06cccb2d1dce5372c56";
+      ref = "v.9.2";
     }
     {
       name = "git-theme-src";

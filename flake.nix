@@ -64,8 +64,8 @@
     firefox-gx-src = {
       flake = false;
       owner = "Godiesc";
+      ref = "v.9.2";
       repo = "firefox-gx";
-      rev = "dde9941d4bf78b94d76bf06cccb2d1dce5372c56";
       type = "github";
     };
     flakegen.url = "github:jorsn/flakegen";
@@ -110,12 +110,6 @@
       repo = "home-manager";
       type = "github";
     };
-    hypr-official-plugins = {
-      inputs.hyprland.follows = "hyprland";
-      owner = "hyprwm";
-      repo = "hyprland-plugins";
-      type = "github";
-    };
     hyprgrass = {
       inputs.hyprland.follows = "hyprland";
       owner = "horriblename";
@@ -127,6 +121,12 @@
       submodules = true;
       type = "git";
       url = "https://github.com/hyprwm/Hyprland";
+    };
+    hyprland-plugins = {
+      inputs.hyprland.follows = "hyprland";
+      owner = "hyprwm";
+      repo = "hyprland-plugins";
+      type = "github";
     };
     jellyfin-flake = {
       inputs.nixpkgs.follows = "nixpkgs";

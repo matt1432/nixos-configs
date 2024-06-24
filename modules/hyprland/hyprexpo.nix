@@ -1,10 +1,10 @@
 {
-  hypr-official-plugins,
+  hyprland-plugins,
   pkgs,
   ...
 }: {
   wayland.windowManager.hyprland = {
-    plugins = [hypr-official-plugins.packages.${pkgs.system}.hyprexpo];
+    plugins = [hyprland-plugins.packages.${pkgs.system}.hyprexpo];
 
     settings = {
       plugin = {
