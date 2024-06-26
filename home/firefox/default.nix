@@ -1,16 +1,16 @@
 {
   config,
-  pkgs,
   firefox-gx-src,
+  pkgs,
+  self,
   ...
 }: let
   inherit (config.vars) hostName;
-  inherit (import ../../lib.nix {}) mkVersion;
 
-  firefox-addons = pkgs.recurseIntoAttrs (pkgs.callPackage ./addons {});
+  inherit (self.legacyPackages.${pkgs.system}) firefoxAddons;
 
-  firefox-gx = pkgs.callPackage ./firefox-gx {
-    inherit firefox-gx-src mkVersion;
+  firefox-gx = pkgs.callPackage ./gx-theme.nix {
+    inherit firefox-gx-src;
   };
 in {
   home.file = {
@@ -195,7 +195,7 @@ in {
         ];
       };
 
-      extensions = with firefox-addons; [
+      extensions = with firefoxAddons; [
         bitwarden
         checkmarks-web-ext
         darkreader

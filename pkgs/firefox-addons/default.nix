@@ -1,7 +1,9 @@
 {
   fetchurl,
   lib,
+  pkgs,
   stdenv,
+  ...
 } @ args: let
   buildFirefoxXpiAddon = lib.makeOverridable ({
     stdenv ? args.stdenv,
@@ -37,21 +39,23 @@
     inherit buildFirefoxXpiAddon fetchurl lib stdenv;
   };
 in
-  packages
-  // {
-    inherit buildFirefoxXpiAddon;
+  lib.makeScope pkgs.newScope (_:
+    packages
+    // {
+      inherit buildFirefoxXpiAddon;
 
-    seventv = buildFirefoxXpiAddon {
-      pname = "frankerfacez";
-      version = "4.0";
-      addonId = "frankerfacez@frankerfacez.com";
-      url = "https://cdn.frankerfacez.com/script/frankerfacez-4.0-an+fx.xpi";
-      sha256 = "sha256-U/yAra2c+RlGSaQtHfBz9XYsoDaJ67gmPJBsFrpqoE8=";
-      meta = with lib; {
-        homepage = "https://www.frankerfacez.com/";
-        description = "The Twitch Enhancement Suite. Get custom emotes and tons of new features you'll never want to go without.";
-        license = licenses.asl20;
-        platforms = platforms.all;
+      seventv = buildFirefoxXpiAddon {
+        pname = "frankerfacez";
+        version = "4.0";
+        addonId = "frankerfacez@frankerfacez.com";
+        url = "https://cdn.frankerfacez.com/script/frankerfacez-4.0-an+fx.xpi";
+        sha256 = "sha256-U/yAra2c+RlGSaQtHfBz9XYsoDaJ67gmPJBsFrpqoE8=";
+        meta = with lib; {
+          homepage = "https://www.frankerfacez.com/";
+          description = "The Twitch Enhancement Suite. Get custom emotes and tons of new features you'll never want to go without.";
+          license = licenses.asl20;
+          platforms = platforms.all;
+        };
       };
-    };
-  }
+    }
+  )

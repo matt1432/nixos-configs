@@ -1,6 +1,9 @@
-{pkgs, ...} @ inputs: let
-  inherit (import ../../lib.nix {}) mkVersion;
-  mpvScripts = import ./scripts (inputs // {inherit mkVersion;});
+{
+  pkgs,
+  self,
+  ...
+}: let
+  inherit (self.legacyPackages.${pkgs.system}) mpvScripts;
 in {
   # For kdialog-open-files
   home.packages = with pkgs; [

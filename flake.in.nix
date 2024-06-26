@@ -95,10 +95,14 @@
 
     nixOnDroidConfigurations.default = mkNixOnDroid [./devices/android];
 
-    legacyPackages = perSystem (system: pkgs: {
-      dracula =
+    legacyPackages = perSystem (system: pkgs: let
+      mkScope = file:
         pkgs.lib.recurseIntoAttrs
-        (pkgs.callPackage ./pkgs/dracula ({inherit mkVersion;} // inputs));
+        (pkgs.callPackage file ({inherit mkVersion;} // inputs));
+    in {
+      dracula = mkScope ./pkgs/dracula;
+      firefoxAddons = mkScope ./pkgs/firefox-addons;
+      mpvScripts = mkScope ./pkgs/mpv-scripts;
     });
 
     packages =

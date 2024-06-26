@@ -44,12 +44,15 @@ sudo ln -sf /home/matt/.nix /etc/nixos
 | ---------------------------------- | ----------- |
 | `nixosConfigurations`              | [devices](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/devices)' + ISO's configurations |
 | `nixOnDroidConfigurations.default` | [Nix-On-Droid](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/devices/android)'s configuration |
-| `formatter`                        | I have yet to know if this has any uses but I format with [alejandra](https://github.com/kamadorueda/alejandra) |
+| `packages`                         | Some custom [packages](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/pkgs) not available in nixpkgs or modified from it |
+| `legacyPackages`                   | Some custom [package scopes](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/pkgs) not available in nixpkgs or modified from it |
+| `formatter`                        | I format nix code with [alejandra](https://github.com/kamadorueda/alejandra) |
 | `devShells.default`                | A dev shell to build an ISO from the live-image nixosConfiguration |
+| `devShells.ags`                    | A dev shell to have a NodeJS env when I enter my AGS's config directory |
 
 ### Flake Inputs
 
-To allow use of the nix language for my inputs, I use [genflake](https://github.com/jorsn/flakegen).
+To allow use of the full nix language for my inputs, I use [genflake](https://github.com/jorsn/flakegen).
 Therefore, the flake I edit is located at `./flake.in.nix`.
 
 I also prefer using a more descriptive format for my inputs like so:

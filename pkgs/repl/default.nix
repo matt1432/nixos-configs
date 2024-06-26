@@ -1,4 +1,4 @@
-# modified from https://github.com/gytis-ivaskevicius/flake-utils/plus
+# modified from https://github.com/fufexan/dotfiles/blob/main/pkgs/repl/default.nix
 {
   coreutils,
   gnused,

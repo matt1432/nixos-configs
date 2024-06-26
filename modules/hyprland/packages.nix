@@ -19,7 +19,7 @@ in {
   home-manager.users.${mainUser} = {
     imports = [
       ../../home/foot.nix
-      ../../home/mpv
+      ../../home/mpv.nix
       ../../home/obs.nix
 
       ({config, ...}: let
