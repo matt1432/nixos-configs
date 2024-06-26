@@ -11,7 +11,7 @@ This directory encompasses every derivations for packages exposed by my flake.
 | `gpu-screen-recorder`          | [Git](https://git.dec05eba.com/gpu-screen-recorder/about) |
 | `pam-fprint-grosshack`         | [GitLab](https://gitlab.com/mishakmak/pam-fprint-grosshack) |
 | `pokemon-colorscripts`         | [GitLab](https://gitlab.com/phoneybadger/pokemon-colorscripts) |
-| `repl`                         | nix repl forked from [here](https://github.com/fufexan/dotfiles/blob/main/pkgs/repl/default.nix)noint are  |
+| `repl`                         | nix repl forked from [here](https://github.com/fufexan/dotfiles/blob/main/pkgs/repl/default.nix) |
 | `trash-d`                      | [Github](https://github.com/rushsteve1/trash-d) |
 
 
