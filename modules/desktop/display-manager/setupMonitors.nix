@@ -3,13 +3,13 @@
   pkgs,
   ...
 }: let
-  inherit (config.vars) mainUser greetdDupe mainMonitor;
+  cfg = config.roles.desktop;
 
   hyprland =
     config
     .home-manager
     .users
-    .${mainUser}
+    .${cfg.user}
     .wayland
     .windowManager
     .hyprland
@@ -20,7 +20,7 @@
     name = "dupeMonitors";
     runtimeInputs = [hyprland pkgs.jq];
     text = ''
-      main="${mainMonitor}"
+      main="${cfg.mainMonitor}"
       names="($(hyprctl -j monitors | jq -r '.[] .description'))"
 
       if [[ "$main" == "null" ]]; then
@@ -43,7 +43,7 @@
   # Check if user wants the greeter only on main monitor
 in {
   setupMonitors =
-    if (mainMonitor != "null" && !greetdDupe)
-    then "hyprctl dispatch focusmonitor ${mainMonitor}"
+    if (cfg.mainMonitor != "null" && !cfg.displayManager.duplicateScreen)
+    then "hyprctl dispatch focusmonitor ${cfg.mainMonitor}"
     else "${dupeMonitors}/bin/dupeMonitors";
 }

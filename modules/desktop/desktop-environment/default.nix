@@ -1,27 +1,26 @@
 {
   config,
   hyprland,
-  pkgs,
   lib,
+  pkgs,
   ...
 }: let
   inherit (lib) concatStringsSep optionals;
-  inherit (config.vars) mainUser;
 
-  isTouchscreen = config.hardware.sensor.iio.enable;
+  cfg = config.roles.desktop;
 
-  cfg =
+  hyprCfg =
     config
     .home-manager
     .users
-    .${mainUser}
+    .${cfg.user}
     .wayland
     .windowManager
     .hyprland;
 in {
   # SYSTEM CONFIG
   imports = [
-    ../dconf.nix
+    ./dconf.nix
 
     ./packages.nix
     ./security.nix
@@ -31,12 +30,12 @@ in {
     dbus.enable = true;
     gvfs.enable = true;
     libinput.enable = true;
-    xserver.wacom.enable = isTouchscreen;
+    xserver.wacom.enable = cfg.isTouchscreen;
   };
 
   programs.hyprland = {
     enable = true;
-    package = cfg.finalPackage;
+    package = hyprCfg.finalPackage;
     portalPackage =
       hyprland
       .packages
@@ -64,17 +63,17 @@ in {
   };
 
   # HOME-MANAGER CONFIG
-  home-manager.users.${mainUser} = {
+  home-manager.users.${cfg.user} = {
     imports = [
-      ./dev.nix
+      ./home/dev.nix
 
       # Plugins
-      ./hyprgrass.nix
-      ./hyprexpo.nix
-      # ./Hyprspace.nix
+      ./home/hyprgrass.nix
+      ./home/hyprexpo.nix
+      # ./home/Hyprspace.nix
 
-      ./inputs.nix
-      ./style.nix
+      ./home/inputs.nix
+      ./home/style.nix
     ];
 
     wayland.windowManager.hyprland = {

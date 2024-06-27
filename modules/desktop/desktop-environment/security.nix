@@ -4,12 +4,11 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf;
-  inherit (config.vars) mainUser;
+  inherit (lib) getExe mkIf;
 
-  isLaptop = config.services.logind.lidSwitch == "lock";
+  cfg = config.roles.desktop;
 
-  hmCfg = config.home-manager.users.${mainUser};
+  hmCfg = config.home-manager.users.${cfg.user};
   agsPkg = hmCfg.programs.ags.finalPackage;
   hyprPkg = hmCfg.wayland.windowManager.hyprland.finalPackage;
 
@@ -23,12 +22,12 @@
 
     text = ''
       params=( "$@" )
-      user="$(id -u ${mainUser})"
+      user="$(id -u ${cfg.user})"
       readarray -t SIGS <<< "$(ls "/run/user/$user/hypr/")"
 
       run() {
           export HYPRLAND_INSTANCE_SIGNATURE="$1"
-          sudo -Eu ${mainUser} hyprctl dispatch exec "''${params[@]}"
+          sudo -Eu ${cfg.user} hyprctl dispatch exec "''${params[@]}"
       }
 
       i=0
@@ -48,17 +47,11 @@
 
     text = ''
       ags -r 'Tablet.setLaptopMode()'
-      ags -b lockscreen -c /home/${mainUser}/.config/ags/lockscreen.js
+      ags -b lockscreen -c /home/${cfg.user}/.config/ags/lockscreen.js
     '';
   };
 in {
-  imports = [
-    ../greetd
-  ];
-
-  services.gnome.gnome-keyring.enable = true;
-
-  services.acpid = mkIf isLaptop {
+  services.acpid = mkIf cfg.isLaptop {
     enable = true;
 
     lidEventCommands =
@@ -69,11 +62,11 @@ in {
 
         case "$state" in
             *open*)
-                ${runInDesktop}/bin/runInDesktop "ags -b lockscreen -r 'authFinger()'"
+                ${getExe runInDesktop} "ags -b lockscreen -r 'authFinger()'"
                 ;;
 
             *close*)
-                ${runInDesktop}/bin/runInDesktop ${lockPkg}/bin/lock
+                ${getExe runInDesktop} ${getExe lockPkg}
                 ;;
 
             *)
@@ -83,7 +76,7 @@ in {
       '';
   };
 
-  home-manager.users.${mainUser} = {
+  home-manager.users.${cfg.user} = {
     home.packages = [
       pkgs.gnome.seahorse
       lockPkg
@@ -107,7 +100,7 @@ in {
         ];
 
         bind = [
-          "$mainMod, L, exec, ${lockPkg}/bin/lock"
+          "$mainMod, L, exec, ${getExe lockPkg}"
         ];
       };
     };

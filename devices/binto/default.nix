@@ -1,4 +1,8 @@
-{config, ...}: let
+{
+  config,
+  self,
+  ...
+}: let
   inherit (config.vars) mainUser hostName;
 in {
   imports = [
@@ -7,7 +11,6 @@ in {
     ../../modules/android.nix
     ../../modules/ags
     ../../modules/audio.nix
-    ../../modules/hyprland
     ../../modules/kmscon.nix
     ../../modules/printer.nix
     ../../modules/ratbag-mice.nix
@@ -16,14 +19,22 @@ in {
 
     ./modules/gpu-replay.nix
     ./modules/nix-gaming.nix
+
+    self.nixosModules.desktop
   ];
 
   vars = {
     mainUser = "matt";
     hostName = "binto";
     promptMainColor = "purple";
+  };
+
+  roles.desktop = {
+    user = config.vars.mainUser;
+
     mainMonitor = "desc:GIGA-BYTE TECHNOLOGY CO. LTD. G27QC 0x00000B1D";
-    greetdDupe = false;
+    displayManager.duplicateScreen = false;
+
     fontSize = 12.5;
   };
 

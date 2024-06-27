@@ -4,13 +4,13 @@
   pkgs,
   ...
 }: let
-  inherit (config.vars) mainUser;
+  cfg = config.roles.desktop;
 
   hyprland =
     config
     .home-manager
     .users
-    .${mainUser}
+    .${cfg.user}
     .wayland
     .windowManager
     .hyprland
@@ -25,8 +25,8 @@ in {
   home-manager.users.greeter = {
     imports = [
       astal.homeManagerModules.default
-      ../../home/theme
-      ../../home/wpaperd.nix
+      ../home/theme
+      ../home/wpaperd.nix
     ];
 
     programs.astal.enable = true;
@@ -41,7 +41,7 @@ in {
 
     xdg.configFile = {
       "astal" = {
-        source = ../ags/astal;
+        source = ./astal;
         recursive = true;
       };
 

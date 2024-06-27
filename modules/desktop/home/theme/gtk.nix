@@ -1,11 +1,12 @@
 {
   pkgs,
   lib,
-  config,
+  osConfig,
   ...
 }: let
-  inherit (config.vars) fontSize;
   inherit (import ./gradience.nix {inherit pkgs lib;}) gradience;
+
+  cfg = osConfig.roles.desktop;
 in {
   home.packages = with pkgs; [
     gnomeExtensions.user-themes
@@ -27,7 +28,7 @@ in {
 
     font = {
       name = "Sans Serif";
-      size = fontSize;
+      size = cfg.fontSize;
     };
 
     gtk3 = {

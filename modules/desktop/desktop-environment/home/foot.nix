@@ -1,9 +1,9 @@
 {
-  config,
   lib,
+  osConfig,
   ...
 }: let
-  inherit (config.vars) fontSize;
+  cfg = osConfig.roles.desktop;
 in {
   programs = {
     # https://codeberg.org/dnkl/foot/wiki#spawning-new-terminal-instances-in-the-current-working-directory
@@ -35,7 +35,7 @@ in {
           term = "xterm-256color";
 
           font = "JetBrainsMono Nerd Font:size=${
-            lib.strings.floatToString fontSize
+            lib.strings.floatToString cfg.fontSize
           }";
           pad = "0x10";
         };

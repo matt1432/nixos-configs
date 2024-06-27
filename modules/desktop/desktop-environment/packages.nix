@@ -4,27 +4,28 @@
   lib,
   pkgs,
   self,
+  Vencord-src,
   ...
 }: let
   inherit (lib) makeLibraryPath optionalString;
   inherit (pkgs.writers) writeTOML;
 
-  inherit (config.vars) mainUser;
   flakeDir = config.environment.variables.FLAKE;
+  cfg = config.roles.desktop;
 in {
-  imports = [../dolphin.nix];
+  imports = [./dolphin.nix];
 
   programs.kdeconnect.enable = true;
 
-  home-manager.users.${mainUser} = {
+  home-manager.users.${cfg.user} = {
     imports = [
-      ../../home/foot.nix
-      ../../home/mpv.nix
-      ../../home/obs.nix
+      ./home/foot.nix
+      ./home/mpv.nix
+      ./home/obs.nix
 
       ({config, ...}: let
         symlink = config.lib.file.mkOutOfStoreSymlink;
-        configDir = "${flakeDir}/modules/hyprland/config";
+        configDir = "${flakeDir}/modules/desktop/desktop-environment/config";
       in {
         xdg.configFile = {
           "dolphinrc".source = symlink "${configDir}/dolphinrc";
@@ -98,16 +99,6 @@ in {
             (pkgs.discord.override {
               withOpenASAR = true;
               withVencord = true;
-
-              # FIXME: remove this when vencord is up to date
-              vencord = pkgs.vencord.overrideAttrs {
-                src = pkgs.fetchFromGitHub {
-                  owner = "Vendicated";
-                  repo = "Vencord";
-                  rev = "e9e789be7093e8b025f606cde69b3d89760c9380";
-                  hash = "sha256-kBMyxV9XlrKEZ5whV81vA4EAZiYRpgIgal7fY5KGoVs=";
-                };
-              };
             })
           ];
           buildInputs = [pkgs.makeWrapper];

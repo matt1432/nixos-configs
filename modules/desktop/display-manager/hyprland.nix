@@ -15,16 +15,17 @@
     mapAttrsToList
     optionalString
     ;
-  inherit (config.vars) mainUser;
 
   inherit (import ./setupMonitors.nix {inherit config pkgs;}) setupMonitors;
+
+  cfg = config.roles.desktop;
 
   # Nix stuff
   cfgHypr =
     config
     .home-manager
     .users
-    .${mainUser}
+    .${cfg.user}
     .wayland
     .windowManager
     .hyprland;

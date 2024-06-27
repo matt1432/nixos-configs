@@ -1,6 +1,6 @@
 {osConfig, ...}: let
   inherit (osConfig.services.xserver) xkb;
-  inherit (osConfig.vars) mainMonitor;
+  inherit (osConfig.roles.desktop) mainMonitor;
 
   miceNames = [
     "logitech-g502-x"

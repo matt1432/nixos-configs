@@ -1,4 +1,5 @@
 # Do not modify! This file is generated.
+
 {
   inputs = {
     Hyprspace = {

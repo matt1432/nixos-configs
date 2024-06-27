@@ -9,7 +9,8 @@
   ...
 }: let
   inherit (lib) boolToString;
-  inherit (config.vars) mainUser hostName mainMonitor greetdDupe;
+  inherit (config.vars) mainUser hostName;
+  cfgDesktop = config.roles.desktop;
 
   flakeDir = config.environment.variables.FLAKE;
   isTouchscreen = config.hardware.sensor.iio.enable;
@@ -90,8 +91,8 @@ in {
               ''
                 //
                 export default {
-                    mainMonitor: '${mainMonitor}',
-                    dupeLockscreen: ${boolToString greetdDupe},
+                    mainMonitor: '${cfgDesktop.mainMonitor}',
+                    dupeLockscreen: ${boolToString cfgDesktop.displayManager.duplicateScreen},
                     hasFprintd: ${boolToString (hostName == "wim")},
                 };
               '';

@@ -1,15 +1,15 @@
 {
-  osConfig,
   hyprgrass,
   lib,
+  osConfig,
   pkgs,
   ...
 }: let
-  inherit (lib) optionalAttrs;
+  inherit (lib) mkIf;
 
-  isTouchscreen = osConfig.hardware.sensor.iio.enable;
+  cfg = osConfig.roles.desktop;
 in
-  optionalAttrs isTouchscreen {
+  mkIf cfg.isTouchscreen {
     wayland.windowManager.hyprland = {
       plugins = [hyprgrass.packages.${pkgs.system}.default];
 

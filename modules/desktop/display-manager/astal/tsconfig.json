@@ -19,5 +19,5 @@
       "./node_modules"
     ],
     "skipLibCheck": true
-  },
+  }
 }

@@ -4,21 +4,23 @@
   pkgs,
   ...
 }: let
-  inherit (config.vars) mainUser;
   inherit (import ./hyprland.nix {inherit config lib pkgs;}) hyprConf;
 
-  # Nix stuff
+  cfg = config.roles.desktop;
+
   hyprland =
     config
     .home-manager
     .users
-    .${mainUser}
+    .${cfg.user}
     .wayland
     .windowManager
     .hyprland
     .finalPackage;
 in {
-  imports = [./astal.nix];
+  imports = [
+    ./astal.nix
+  ];
 
   services = {
     displayManager.sessionPackages = [hyprland];
@@ -33,7 +35,7 @@ in {
 
         initial_session = {
           command = "Hyprland";
-          user = mainUser;
+          user = cfg.user;
         };
       };
     };

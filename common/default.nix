@@ -19,7 +19,6 @@
 
     ../modules/arion
     ../modules/borgbackup
-    ../modules/nvidia.nix
   ];
 
   boot.tmp.useTmpfs = true;

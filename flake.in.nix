@@ -50,6 +50,11 @@
       nixpkgs.lib.genAttrs supportedSystems (system:
         attrs system (mkPkgs system nixpkgs));
   in {
+    nixosModules = {
+      desktop = import ./modules/desktop;
+      nvidia = import ./modules/nvidia.nix;
+    };
+
     nixosConfigurations = {
       # Desktops
       wim = mkNixOS [

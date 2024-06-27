@@ -1,4 +1,8 @@
-{config, ...}: let
+{
+  config,
+  self,
+  ...
+}: let
   inherit (config.vars) mainUser hostName;
 in {
   imports = [
@@ -7,21 +11,30 @@ in {
     ../../modules/android.nix
     ../../modules/ags
     ../../modules/audio.nix
-    ../../modules/hyprland
     ../../modules/kmscon.nix
     ../../modules/plymouth.nix
     ../../modules/printer.nix
     ../../modules/tailscale.nix
 
     ./modules/security.nix
+
+    self.nixosModules.desktop
   ];
 
   vars = {
     mainUser = "matt";
     hostName = "wim";
     promptMainColor = "purple";
-    fontSize = 12.5;
+  };
+
+  roles.desktop = {
+    user = config.vars.mainUser;
+
     mainMonitor = "eDP-1";
+    isLaptop = true;
+    isTouchscreen = true;
+
+    fontSize = 12.5;
   };
 
   users.users.${mainUser} = {

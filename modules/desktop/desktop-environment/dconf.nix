@@ -1,11 +1,9 @@
 {config, ...}: let
-  inherit (config.vars) mainUser;
+  cfg = config.roles.desktop;
 in {
-  programs = {
-    dconf.enable = true;
-  };
+  programs.dconf.enable = true;
 
-  home-manager.users.${mainUser} = {
+  home-manager.users.${cfg.user} = {
     dconf.settings = {
       "org/virt-manager/virt-manager/connections" = {
         autoconnect = ["qemu:///system"];

@@ -56,28 +56,6 @@ in {
       '';
     };
 
-    mainMonitor = mkOption {
-      type = types.str;
-      description = ''
-        The name of the main monitor used for Hyprland
-        and Regreet which also uses Hyprland
-      '';
-      # This is to allow a bash script to know whether this value exists
-      default = "null";
-    };
-
-    greetdDupe = mkOption {
-      type = types.bool;
-      description = ''
-        If we should duplicate regreet on all monitors
-      '';
-      default = true;
-    };
-
-    fontSize = mkOption {
-      type = types.nullOr types.float;
-    };
-
     neovimIde = mkOption {
       type = types.bool;
       default = true;

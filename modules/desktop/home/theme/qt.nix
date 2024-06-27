@@ -1,12 +1,13 @@
 {
-  config,
   lib,
+  osConfig,
   pkgs,
   self,
   ...
 }: let
-  inherit (config.vars) fontSize;
   inherit (self.legacyPackages.${pkgs.system}) dracula;
+
+  cfg = osConfig.roles.desktop;
 in {
   home.packages = with pkgs; [
     libsForQt5.qtstyleplugin-kvantum
@@ -19,7 +20,7 @@ in {
   };
 
   xdg.configFile = let
-    floatFont = lib.strings.floatToString fontSize;
+    floatFont = lib.strings.floatToString cfg.fontSize;
     qtconf =
       # ini
       ''

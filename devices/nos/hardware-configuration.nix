@@ -1,10 +1,19 @@
 {
   config,
   modulesPath,
+  self,
   ...
 }: {
   nixpkgs.hostPlatform = "x86_64-linux";
-  imports = [(modulesPath + "/installer/scan/not-detected.nix")];
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+    self.nixosModules.nvidia
+  ];
+
+  nvidia = {
+    enable = true;
+    enableCUDA = true;
+  };
 
   boot = {
     kernelModules = ["kvm-intel"];
@@ -45,9 +54,4 @@
   zramSwap.enable = true;
 
   hardware.cpu.intel.updateMicrocode = config.hardware.enableRedistributableFirmware;
-
-  nvidia = {
-    enable = true;
-    enableCUDA = true;
-  };
 }
