@@ -7,7 +7,9 @@
 }: let
   inherit (lib) concatStringsSep removePrefix;
 
-  inherit (config.vars) mainUser mainMonitor;
+  inherit (config.vars) mainUser;
+
+  cfgDesktop = config.roles.desktop;
 
   gsr = self.packages.${pkgs.system}.gpu-screen-recorder;
   hyprPkgs = config.home-manager.users.${mainUser}.wayland.windowManager.hyprland.finalPackage;
@@ -44,7 +46,7 @@ in {
         name = "gsr-start";
         runtimeInputs = [pkgs.pulseaudio hyprPkgs pkgs.xorg.xrandr];
         text = ''
-          main="${removePrefix "desc:" mainMonitor}"
+          main="${removePrefix "desc:" cfgDesktop.mainMonitor}"
           WINDOW=$(hyprctl -j monitors | jq '.[] |= (.description |= gsub(","; ""))' | jq -r ".[] | select(.description | test(\"$main\")) | .name")
 
           # Fix fullscreen game resolution
