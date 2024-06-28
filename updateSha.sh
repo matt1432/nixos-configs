@@ -27,7 +27,7 @@ updateDocker() {
 }
 
 updateFFZ() {
-    FILE="$FLAKE/home/firefox/addons/default.nix"
+    FILE="$FLAKE/pkgs/firefox-addons/default.nix"
     URL="https://cdn.frankerfacez.com/script/frankerfacez-4.0-an+fx.xpi"
 
     parseFetchurl "$URL" "$FILE"
@@ -37,7 +37,7 @@ updateFirefoxAddons() {
     echo "Updating firefox addons using mozilla-addons-to-nix"
 
     (
-        cd "$FLAKE/home/firefox/addons" || return;
+        cd "$FLAKE/pkgs/firefox-addons" || return;
 
         file=generated-firefox-addons.nix
         if [[ -f $file ]]; then
