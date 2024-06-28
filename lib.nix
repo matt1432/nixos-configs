@@ -14,6 +14,7 @@
       config.allowUnfree = true;
       overlays = [
         inputs.grim-hyprland.overlays.default
+        inputs.jovian.overlays.default
         inputs.nixpkgs-wayland.overlays.default
       ];
     };

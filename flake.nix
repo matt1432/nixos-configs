@@ -140,6 +140,12 @@
       repo = "Ultrachromic";
       type = "github";
     };
+    jovian = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      owner = "Jovian-Experiments";
+      repo = "Jovian-NixOS";
+      type = "github";
+    };
     libratbag-src = {
       flake = false;
       owner = "libratbag";

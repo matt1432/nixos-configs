@@ -32,6 +32,11 @@
 
         inputs.sops-nix.follows = "sops-nix";
       };
+
+      jovian = mkDep {
+        owner = "Jovian-Experiments";
+        repo = "Jovian-NixOS";
+      };
     };
   in
     mainInputs // otherInputs;
