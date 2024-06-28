@@ -1,0 +1,119 @@
+{
+  "appId": 294420,
+  "depotId": 294422,
+  "name": "7-days-to-die-server",
+  "branches": {
+    "public": "12696583",
+    "alpha10.4": "480993",
+    "alpha11.6": "658147",
+    "alpha12.5": "745252",
+    "alpha13.8": "963565",
+    "alpha14.7": "1189196",
+    "alpha15.2": "1642899",
+    "alpha16.4": "2222523",
+    "alpha17.4": "3848769",
+    "alpha18.4": "4714812",
+    "alpha19.6": "7108526",
+    "alpha20.4": "8604296",
+    "alpha20.5": "8673178",
+    "alpha20.6": "9269710",
+    "alpha20.7": "10740013",
+    "alpha21.0": "11589588",
+    "alpha21.1": "11888696",
+    "alpha21.2": "12696583",
+    "alpha9.3": "385244",
+    "latest_experimental": "12696583"
+  },
+  "builds": {
+    "385244": {
+      "hash": "sha256-Y3H/mcUGgiuctfp27l4qJM+RtzFqB/nRcQ2v58Y/lQs=\n",
+      "manifestId": "771574079178892216",
+      "version": "A9.3"
+    },
+    "480993": {
+      "hash": "sha256-rHIq7ZdAyIlK/99vPpipHn8rk2dWoxOPySDwgPtqOFc=\n",
+      "manifestId": "869964754451803329",
+      "version": "A10.4"
+    },
+    "658147": {
+      "hash": "sha256-FtGdi7IfCcORe5bgpNk1ldxPoskrLTuVtp/hPpiam54=\n",
+      "manifestId": "6322866582767616058",
+      "version": "A11.6"
+    },
+    "745252": {
+      "hash": "sha256-hDeHIoqd9vSHOtMLdZMEFXsa1m08MDKtj/IOTgY4nLw=\n",
+      "manifestId": "4986361730962654647",
+      "version": "A12.5"
+    },
+    "963565": {
+      "hash": "sha256-i+lqXyHj1Rh7g1jvQwHjACLdmvwHbqsDRAViCeGxwPw=\n",
+      "manifestId": "7779347169826947318",
+      "version": "A13.8"
+    },
+    "1189196": {
+      "hash": "sha256-eb5jGQ3ZXISaR1XLjRfWU0WnPsCAlICpLswYARKGPUg=\n",
+      "manifestId": "6623540452959702677",
+      "version": "A14.7"
+    },
+    "1642899": {
+      "hash": "sha256-PUp6CAIb5ifckoQATk0HiSI+38tG7s4++ZdGP9pGTYw=\n",
+      "manifestId": "2556346443150106043",
+      "version": "A15.2"
+    },
+    "2222523": {
+      "hash": "sha256-wfEN9h30pOZ4I40Mknhj4DYLCobxClfAAVwcQAh/xHA=\n",
+      "manifestId": "2507660789418272148",
+      "version": "A16.4"
+    },
+    "3848769": {
+      "hash": "sha256-5+vPyQa83lQipXAiVjUax5ZjRgZ2bV8+4JPeYAptURo=\n",
+      "manifestId": "779748564640465657",
+      "version": "A17.4"
+    },
+    "4714812": {
+      "hash": "sha256-/NSpYdo6Jbg8sAa0Tm2CjjtI29mw+UpPHJ6UHlvrnuk=\n",
+      "manifestId": "712346436815285918",
+      "version": "A18.4"
+    },
+    "7108526": {
+      "hash": "sha256-GaDPdMfRPm/b/w+TCCliJLKh8qXV1oOsF8nn/vdjkCE=\n",
+      "manifestId": "8368733426395777657",
+      "version": "A19.6"
+    },
+    "8604296": {
+      "hash": "sha256-CdCqILAUF7Pm4fsqh7GGgnUyLF313EpbqY876cr0XJY=\n",
+      "manifestId": "7450223064053935691",
+      "version": "A20.4"
+    },
+    "8673178": {
+      "hash": "sha256-+NFOV+j2rEAROjuRmg4EBqpYmCk+k69lL4uRxuSYH8g=\n",
+      "manifestId": "8340716617723021748",
+      "version": "A20.5"
+    },
+    "9269710": {
+      "hash": "sha256-DGFUY9yPuJw7B8MULLVqnHOUWCfn49rXkkONzEg44zQ=\n",
+      "manifestId": "5719205947052582383",
+      "version": "A20.6"
+    },
+    "10740013": {
+      "hash": "sha256-zcORacHWkT8GvOn6XSEYbPMEiHaBFi7x7e6jwWxmWjg=\n",
+      "manifestId": "4716968955855516282",
+      "version": "A20.7"
+    },
+    "11589588": {
+      "hash": "sha256-V23otEJmR73X2OtX78WOfArk4T2Qt/aUhFGCTBjXYII=\n",
+      "manifestId": "377642321521054757",
+      "version": "A21.0"
+    },
+    "11888696": {
+      "hash": "sha256-gl9t5wKzqcEHwxmP1EJEJ7JVod7nCq0CKxK0fzQBApI=\n",
+      "manifestId": "4485042179748822610",
+      "version": "A21.1"
+    },
+    "12696583": {
+      "hash": "sha256-bxV/B8vEiuEpn1po2De3H6iVSLbhqe5dCAIBhnQSNsQ=\n",
+      "manifestId": "1977371197884973023",
+      "version": "A21.2"
+    }
+  }
+}

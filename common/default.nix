@@ -24,7 +24,7 @@
   boot.tmp.useTmpfs = true;
 
   systemd.services.nix-daemon = {
-    environment.TMPDIR = "/run/nix-cache";
+    environment.TMPDIR = "/home/nix-cache";
     preStart = ''
       mkdir -p ${config.systemd.services.nix-daemon.environment.TMPDIR}
     '';
