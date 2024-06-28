@@ -52,8 +52,6 @@ in {
   home-manager.users.${mainUser} = {
     imports = [
       ../../home/firefox
-
-      ./home/packages.nix
     ];
 
     # No touchy

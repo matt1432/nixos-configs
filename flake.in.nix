@@ -119,9 +119,10 @@
         packages = with pkgs; [
           alejandra
           git
+          nix-output-monitor
 
           (writeShellScriptBin "mkIso" (lib.concatStrings [
-            "nix build $(realpath /etc/nixos)#nixosConfigurations."
+            "nom build $(realpath /etc/nixos)#nixosConfigurations."
             "live-image.config.system.build.isoImage"
           ]))
         ];
