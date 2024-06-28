@@ -23,6 +23,13 @@
 
   boot.tmp.useTmpfs = true;
 
+  systemd.services.nix-daemon = {
+    environment.TMPDIR = "/run/nix-cache";
+    preStart = ''
+      mkdir -p ${config.systemd.services.nix-daemon.environment.TMPDIR}
+    '';
+  };
+
   nix = {
     package = pkgs.nixVersions.nix_2_22;
 
