@@ -12,20 +12,19 @@
       undollar
     ])
     ++ (with pkgs; [
+      # Networking
       dig.dnsutils
-      imagemagick
-      killall
       mosh
+      openssh
+      rsync
+      wget
+
+      # Misc CLI stuff
+      killall
       neofetch
       nix-output-monitor
-      openssh
       progress
-      rsync
       tree
-      unzip
-      usbutils
-      wget
-      zip
     ])
     ++ [
       # This could help as well: nix derivation show -r /run/current-system

@@ -72,6 +72,36 @@
     };
   };
 
+  boot.supportedFilesystems = ["ext4" "xfs" "btrfs" "vfat" "ntfs"];
+  system.fsPackages = with pkgs; [
+    btrfs-progs
+    nfs-utils
+    ntfs3g
+    xfsprogs
+  ];
+
+  environment.systemPackages =
+    (with pkgs; [
+      # File management
+      imagemagick
+      unzip
+      zip
+
+      # Peripherals
+      hdparm
+      pciutils
+      usbutils
+    ])
+    ++ [
+      nix-melt.packages.${pkgs.system}.default
+
+      (nurl.packages.${pkgs.system}.default.override {
+        nix = config.nix.package;
+      })
+
+      mozilla-addons-to-nix.packages.${pkgs.system}.default
+    ];
+
   home-manager = let
     inherit (lib) mapAttrs' nameValuePair;
 
@@ -105,15 +135,6 @@
           source = v;
         })
       self.devShells.${pkgs.system};
-
-      home.packages = [
-        nix-melt.packages.${pkgs.system}.default
-
-        (nurl.packages.${pkgs.system}.default.override {
-          nix = config.nix.package;
-        })
-        mozilla-addons-to-nix.packages.${pkgs.system}.default
-      ];
     };
   in {
     users = {
