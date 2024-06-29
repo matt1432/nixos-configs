@@ -196,6 +196,7 @@ in {
       };
 
       extensions = with firefoxAddons; [
+        auto-refresh-page
         bitwarden
         checkmarks-web-ext
         darkreader
