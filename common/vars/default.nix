@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (lib) mkOption types;
+  inherit (lib) mkDefault mkOption types;
   flakeDir = config.environment.variables.FLAKE;
   cfg = config.vars;
 in {
@@ -23,7 +23,7 @@ in {
     };
 
     promptMainColor = mkOption {
-      type = types.enum ["red" "green" "blue" "purple" "orange" "yellow" "cyan" "pink"];
+      type = types.enum (import ./prompt-schemes.nix {});
       default = "purple";
     };
 
@@ -32,7 +32,7 @@ in {
         Colors used in starship prompt
       '';
 
-      default = import ./prompt-schemes.nix cfg.promptMainColor;
+      default = import ./prompt-schemes.nix {color = cfg.promptMainColor;};
 
       readOnly = true;
       type = types.submodule {
@@ -63,6 +63,6 @@ in {
   };
 
   config = {
-    environment.variables.FLAKE = lib.mkDefault "/home/${cfg.mainUser}/.nix";
+    environment.variables.FLAKE = mkDefault "/home/${cfg.mainUser}/.nix";
   };
 }

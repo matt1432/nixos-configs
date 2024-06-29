@@ -1,4 +1,6 @@
-color: let
+{color ? null}: let
+  inherit (builtins) attrNames removeAttrs;
+
   schemes = {
     "purple" = {
       textColor = "#090c0c";
@@ -74,4 +76,6 @@ color: let
     };
   };
 in
-  schemes.${color}
+  if ! isNull color
+  then schemes.${color}
+  else attrNames (removeAttrs schemes ["color"])
