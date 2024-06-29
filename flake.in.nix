@@ -68,6 +68,8 @@
       ];
       binto = mkNixOS [./devices/binto];
 
+      bbsteamie = mkNixOS [./devices/bbsteamie];
+
       # NAS
       nos = mkNixOS [
         ./devices/nos
