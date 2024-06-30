@@ -4,9 +4,11 @@
   pkgs,
   ...
 }: let
+  inherit (lib) getExe mkForce;
   inherit (config.vars) mainUser;
 
-  inherit (lib) getExe;
+  # FIXME: switch to wayland once plasma 6.1.1 releases
+  defaultSession = "plasmax11";
 
   switch-session = pkgs.writeShellApplication {
     name = "switch-session";
@@ -27,19 +29,14 @@
     sudo ${pkgs.systemd}/bin/systemctl start to-gaming-mode.service
   '';
 in {
-  # Auto-login to plasma
   services = {
-    xserver.desktopManager.plasma5.enable = true;
+    xserver.enable = true;
+    desktopManager.plasma6.enable = true;
 
     displayManager = {
       sddm = {
         enable = true;
         autoLogin.relogin = true;
-
-        wayland = {
-          enable = true;
-          compositor = "kwin";
-        };
       };
     };
   };
@@ -51,12 +48,12 @@ in {
     path = [switch-session];
 
     script = ''
-      switch-session "plasma"
+      switch-session "${defaultSession}"
     '';
   };
 
   systemd.services."to-gaming-mode" = {
-    wantedBy = lib.mkForce [];
+    wantedBy = mkForce [];
 
     path = [switch-session];
 
@@ -64,7 +61,7 @@ in {
       switch-session "gamescope-wayland"
       systemctl restart display-manager
       sleep 10
-      switch-session "plasma"
+      switch-session "${defaultSession}"
     '';
   };
 
