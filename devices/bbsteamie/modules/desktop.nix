@@ -41,4 +41,7 @@ in {
     enable = true;
     user = mainUser;
   };
+
+  # Takes way too long to shutdown
+  systemd.services."decky-loader".serviceConfig.TimeoutStopSec = "5";
 }
