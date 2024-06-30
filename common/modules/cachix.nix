@@ -33,10 +33,14 @@ in {
           # Caddy
           "https://caddycf.cachix.org"
         ]
-        ++ optionals (!config.services.nix-serve.enable) [
+        ++ optionals (!config.services.nix-serve.enable && config.services.tailscale.enable) [
           # Personal config cache
           "https://cache.nelim.org"
+        ]
+        ++ optionals (!config.services.nix-serve.enable && !config.services.tailscale.enable) [
+          "http://10.0.0.249:5000"
         ];
+
       trusted-public-keys = [
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
         "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
