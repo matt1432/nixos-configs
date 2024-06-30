@@ -16,7 +16,7 @@ in {
         };
       };
 
-      defaultSession = "plasmawayland";
+      defaultSession = "plasma";
     };
   };
 
