@@ -8,12 +8,13 @@ in {
     displayManager = {
       sddm = {
         enable = true;
+        wayland.enable = true;
+        autoLogin.relogin = true;
+      };
 
-        autoLogin = {
-          enable = true;
-          relogin = true;
-          user = mainUser;
-        };
+      autoLogin = {
+        enable = true;
+        user = mainUser;
       };
 
       defaultSession = "plasma";
