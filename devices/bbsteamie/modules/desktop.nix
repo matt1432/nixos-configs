@@ -6,9 +6,14 @@ in {
     desktopManager.plasma6.enable = true;
 
     displayManager = {
-      autoLogin = {
+      sddm = {
         enable = true;
-        user = mainUser;
+
+        autoLogin = {
+          enable = true;
+          relogin = true;
+          user = mainUser;
+        };
       };
 
       defaultSession = "plasmawayland";
