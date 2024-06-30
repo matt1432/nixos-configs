@@ -1,4 +1,9 @@
-{modulesPath, ...}: {
+{
+  config,
+  lib,
+  modulesPath,
+  ...
+}: {
   nixpkgs.hostPlatform = "x86_64-linux";
   imports = [(modulesPath + "/installer/scan/not-detected.nix")];
 
@@ -12,29 +17,41 @@
     hardware.has.amd.gpu = true;
   };
 
-  boot.loader = {
-    efi.canTouchEfiVariables = true;
+  boot = {
+    kernelModules = ["kvm-amd"];
+    initrd.availableKernelModules = ["nvme" "xhci_pci" "usbhid" "sdhci_pci"];
 
-    systemd-boot = {
-      enable = true;
-      configurationLimit = 30;
+    loader = {
+      efi.canTouchEfiVariables = true;
+
+      systemd-boot = {
+        enable = true;
+        configurationLimit = 30;
+      };
     };
   };
 
   virtualisation.waydroid.enable = true;
 
-  # TODO: add auto-generated stuff
-
-  # Placeholder
   fileSystems = {
     "/" = {
-      device = "/dev/disk/by-uuid/6ae4d722-dacf-485a-8d29-b276f540dc91";
-      fsType = "btrfs";
+      device = "/dev/disk/by-label/NIXROOT";
+      fsType = "ext4";
     };
 
     "/boot" = {
       device = "/dev/disk/by-label/NIXBOOT";
       fsType = "vfat";
+      options = ["fmask=0022" "dmask=0022"];
     };
   };
+
+  swapDevices = [
+    {
+      device = "/mnt/.swapfile";
+      size = 17179869184; # 16G
+    }
+  ];
+
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
