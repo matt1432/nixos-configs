@@ -7,6 +7,7 @@
 in {
   imports = [
     jovian.nixosModules.default
+    ../../modules/kmscon.nix
 
     ./hardware-configuration.nix
 
