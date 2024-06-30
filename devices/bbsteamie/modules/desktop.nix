@@ -89,9 +89,10 @@ in {
     type = "Application";
   };
 
-  environment.systemPackages = [
-    pkgs.firefox
-    pkgs.wl-clipboard
+  environment.systemPackages = with pkgs; [
+    firefox
+    ryujinx
+    wl-clipboard
   ];
 
   programs = {
