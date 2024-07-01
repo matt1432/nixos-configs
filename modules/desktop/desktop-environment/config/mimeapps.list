@@ -1,8 +1,12 @@
 [Added Associations]
 application/pdf=firefox.desktop;
+image/jpeg=org.photoqt.PhotoQt.desktop;wine-extension-jpe.desktop;satty.desktop;okularApplication_kimgio.desktop;wine-extension-jfif.desktop;
+image/png=org.photoqt.PhotoQt.desktop;satty.desktop;okularApplication_kimgio.desktop;wine-extension-png.desktop;
 text/x-java=nvim.desktop;
 
 [Default Applications]
 application/pdf=firefox.desktop;
+image/jpeg=org.photoqt.PhotoQt.desktop;
+image/png=org.photoqt.PhotoQt.desktop;
 text/x-java=nvim.desktop;
 x-scheme-handler/ror2mm=r2modman.desktop

@@ -27,6 +27,9 @@ in {
 
   home-manager.users.${mainUser}.home.packages = with pkgs;
     []
+    ++ (with kdePackages; [
+      kde-cli-tools
+    ])
     ++ (with plasma5Packages; [
       ark
       kcharselect
