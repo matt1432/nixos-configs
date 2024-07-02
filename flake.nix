@@ -307,15 +307,9 @@
       repo = "sops-nix";
       type = "github";
     };
-    steam-fetcher = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      owner = "nix-community";
-      repo = "steam-fetcher";
-      type = "github";
-    };
     steam-servers = {
       inputs.nixpkgs.follows = "nixpkgs";
-      owner = "scottbot95";
+      owner = "matt1432";
       repo = "nix-steam-servers";
       type = "github";
     };

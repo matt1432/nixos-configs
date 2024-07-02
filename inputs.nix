@@ -90,13 +90,8 @@ let
     };
 
     steam-servers = mkDep {
-      owner = "scottbot95";
+      owner = "matt1432";
       repo = "nix-steam-servers";
-    };
-
-    steam-fetcher = mkDep {
-      owner = "nix-community";
-      repo = "steam-fetcher";
     };
 
     nix-eval-jobs = mkDep {
