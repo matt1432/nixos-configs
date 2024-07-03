@@ -86,15 +86,23 @@ in {
     type = "Application";
   };
 
-  environment.systemPackages = with pkgs; [
-    firefox
-    ryujinx
-    wl-clipboard
+  environment.systemPackages = [
+    pkgs.firefox
+    pkgs.wl-clipboard
+    pkgs.ryujinx
   ];
 
   programs = {
     xwayland.enable = true;
     kdeconnect.enable = true;
+
+    steam = {
+      enable = true;
+      remotePlay.openFirewall = true;
+      extraCompatPackages = [
+        pkgs.proton-ge-bin
+      ];
+    };
   };
 
   # Enable flatpak support
