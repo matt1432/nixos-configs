@@ -81,10 +81,10 @@
   };
   "darkreader" = buildFirefoxXpiAddon {
     pname = "darkreader";
-    version = "4.9.86";
+    version = "4.9.87";
     addonId = "addon@darkreader.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4295557/darkreader-4.9.86.xpi";
-    sha256 = "dde9896751858d0179f3d724a59f2bd4a0d61e599cb8822dc8ed2de320510714";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4310627/darkreader-4.9.87.xpi";
+    sha256 = "0327d42e507979b0a0443b6aad24d011fea50dd020bcfd07b326bd3df285c79b";
     meta = with lib; {
       homepage = "https://darkreader.org/";
       description = "Dark mode for every website. Take care of your eyes, use dark theme for night and daily browsing.";
@@ -102,10 +102,10 @@
   };
   "floccus" = buildFirefoxXpiAddon {
     pname = "floccus";
-    version = "5.2.3";
+    version = "5.2.4";
     addonId = "floccus@handmadeideas.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4307321/floccus-5.2.3.xpi";
-    sha256 = "87fddf96f0aa0b77f0e00630e661ff40cfd487414a1f7bd8b0b864e67388d700";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4313094/floccus-5.2.4.xpi";
+    sha256 = "bb0c57a8b2d866a5996d9f8abd41829e54cc1b01f867a8c2196cbb3f1e231398";
     meta = with lib; {
       homepage = "https://floccus.org";
       description = "Sync your bookmarks and tabs across browsers via Nextcloud, any WebDAV service, any Git service, via a local file, via Google Drive.";

@@ -13,6 +13,7 @@
       inherit system;
       config.allowUnfree = true;
       overlays = [
+        inputs.discord-overlay.overlays.default
         inputs.grim-hyprland.overlays.default
         inputs.jovian.overlays.default
         inputs.nixpkgs-wayland.overlays.default

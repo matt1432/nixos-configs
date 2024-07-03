@@ -49,6 +49,12 @@
       repo = "curseforge-server-downloader";
       type = "github";
     };
+    discord-overlay = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      owner = "matt1432";
+      repo = "discord-nightly-overlay";
+      type = "github";
+    };
     dracula-plymouth-src = {
       flake = false;
       owner = "matt1432";
