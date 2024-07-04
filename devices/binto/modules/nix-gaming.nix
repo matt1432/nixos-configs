@@ -1,13 +1,8 @@
 {
-  config,
   nix-gaming,
   pkgs,
   ...
-}: let
-  inherit (config.vars) mainUser;
-
-  wine = nix-gaming.packages.${pkgs.system}.wine-ge;
-in {
+}: {
   imports = [
     nix-gaming.nixosModules.platformOptimizations
   ];
@@ -31,16 +26,11 @@ in {
         # List library dependencies here
       ];
       extraPkgs = pkgs: [
-        wine
+        # List extra packages available to lutris here
       ];
     })
 
     pkgs.r2modman
     pkgs.ryujinx
   ];
-
-  # Give wine a constant path for lutris
-  home-manager.users.${mainUser}.home.file = {
-    ".bin/wine".source = "${wine}/bin/wine";
-  };
 }

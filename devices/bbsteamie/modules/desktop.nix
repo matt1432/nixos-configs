@@ -144,9 +144,10 @@ in {
       libpulseaudio
     ];
 
-    extraPythonPackages = pythonPackages: with pythonPackages; [
-      python
-    ];
+    extraPythonPackages = pythonPackages:
+      with pythonPackages; [
+        python
+      ];
   };
 
   # Takes way too long to shutdown
