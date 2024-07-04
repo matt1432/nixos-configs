@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  self,
   ...
 }: let
   inherit (lib) getExe mkForce;
@@ -89,7 +90,7 @@ in {
   environment.systemPackages = [
     pkgs.firefox
     pkgs.wl-clipboard
-    pkgs.ryujinx
+    self.packages.${pkgs.system}.ryujinx
   ];
 
   programs = {
