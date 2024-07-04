@@ -8,7 +8,7 @@
   inherit (lib) getExe mkForce;
   inherit (config.vars) mainUser;
 
-  # FIXME: switch to wayland once plasma 6.1.1 releases
+  # FIXME: switch to wayland when possible
   defaultSession = "plasmax11";
 
   switch-session = pkgs.writeShellApplication {
@@ -91,8 +91,8 @@ in {
     type = "Application";
   };
 
-  # Misc apps for DE
   environment.systemPackages = [
+    # Misc apps for DE
     pkgs.firefox
     pkgs.wl-clipboard
     self.packages.${pkgs.system}.ryujinx
@@ -117,6 +117,8 @@ in {
 
   # Jovian NixOS settings
   jovian.steam = {
+    # Steam > Settings > System > Enable Developer Mode
+    # Steam > Developer > CEF Remote Debugging
     enable = true;
     user = mainUser;
 
