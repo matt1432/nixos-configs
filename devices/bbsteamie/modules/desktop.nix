@@ -42,6 +42,7 @@ in {
     };
   };
 
+  # Sets the default session at launch
   systemd.services."set-session" = {
     wantedBy = ["multi-user.target"];
     before = ["display-manager.service"];
@@ -53,6 +54,7 @@ in {
     '';
   };
 
+  # Allows switching to gaming mode
   systemd.services."to-gaming-mode" = {
     wantedBy = mkForce [];
 
@@ -66,6 +68,7 @@ in {
     '';
   };
 
+  # Make it so we don't need root to switch to gaming mode
   security.sudo.extraRules = [
     {
       users = [mainUser];
@@ -79,6 +82,7 @@ in {
     }
   ];
 
+  # Add desktop entry to make it GUI friendly
   home-manager.users.${mainUser}.xdg.desktopEntries."Gaming Mode" = {
     name = "Gaming Mode";
     exec = getExe gaming-mode;
@@ -87,6 +91,7 @@ in {
     type = "Application";
   };
 
+  # Misc apps for DE
   environment.systemPackages = [
     pkgs.firefox
     pkgs.wl-clipboard
@@ -109,6 +114,8 @@ in {
   # Enable flatpak support
   services.flatpak.enable = true;
   services.packagekit.enable = true;
+
+  # Jovian NixOS settings
   jovian.steam = {
     enable = true;
     user = mainUser;
@@ -119,6 +126,8 @@ in {
   jovian.decky-loader = {
     enable = true;
     user = mainUser;
+    stateDir = "/home/${mainUser}/.local/share/decky"; # Keep scoped to user
+    # https://github.com/Jovian-Experiments/Jovian-NixOS/blob/1171169117f63f1de9ef2ea36efd8dcf377c6d5a/modules/decky-loader.nix#L80-L84
   };
 
   # Takes way too long to shutdown
