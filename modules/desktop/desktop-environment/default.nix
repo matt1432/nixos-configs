@@ -207,7 +207,6 @@ in {
       brightnessctl
       pulseaudio
       alsa-utils
-      p7zip # for reshade
 
       qt5.qtwayland
       qt6.qtwayland

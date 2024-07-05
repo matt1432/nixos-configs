@@ -86,6 +86,10 @@
       imagemagick
       unzip
       zip
+      unzip
+      p7zip
+      rar
+      unrar
 
       # Peripherals
       hdparm
