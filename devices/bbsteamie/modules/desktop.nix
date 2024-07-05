@@ -94,6 +94,7 @@ in {
   environment.systemPackages = [
     # Misc apps for DE
     pkgs.firefox
+    pkgs.kdePackages.discover
     pkgs.wl-clipboard
     self.packages.${pkgs.system}.ryujinx
   ];
