@@ -26,7 +26,7 @@ in {
     imports = [
       astal.homeManagerModules.default
       ../home/theme
-      ../home/wpaperd.nix
+      ../home/hyprpaper.nix
     ];
 
     programs.astal.enable = true;
@@ -50,7 +50,7 @@ in {
         ''
           import { transpileTypeScript } from './js/utils.js';
 
-          Utils.execAsync('wpaperd -d');
+          Utils.execAsync('hyprpaper');
 
           export default (await transpileTypeScript('greeter')).default;
         '';

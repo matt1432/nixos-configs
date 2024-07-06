@@ -3,7 +3,7 @@
 in {
   imports = [
     ../../home/theme
-    ../../home/wpaperd.nix
+    ../../home/hyprpaper.nix
   ];
 
   wayland.windowManager.hyprland = {
@@ -12,7 +12,7 @@ in {
 
       exec-once = [
         "hyprctl setcursor Dracula-cursors 24"
-        "wpaperd -d"
+        "hyprpaper"
       ];
 
       windowrule = [
