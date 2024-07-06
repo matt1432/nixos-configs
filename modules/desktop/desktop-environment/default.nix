@@ -123,12 +123,12 @@ in {
           ])
           (concatStringsSep "," [
             "desc:Samsung Electric Company C27JG5x HTOM100586"
-            "2560x1440@60"
+            "2560x1440@120"
             "1920x120, 1"
           ])
           (concatStringsSep "," [
             "desc:GIGA-BYTE TECHNOLOGY CO. LTD. G27QC 0x00000B1D"
-            "2560x1440@165"
+            "2560x1440@120"
             "1920x1560, 1"
           ])
         ];
