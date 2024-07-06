@@ -20,11 +20,12 @@ in {
       cursor = {
         no_hardware_cursors = osConfig.nvidia.enable;
         hide_on_touch = true;
-        default_monitor =
-          if mainMonitor != null
-          then mainMonitor
-          else "";
       };
+
+      exec-once =
+        if mainMonitor != null
+        then ["hyprctl dispatch focusmonitor ${mainMonitor}"]
+        else [];
 
       input = {
         # Keyboard
