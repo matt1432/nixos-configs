@@ -21,7 +21,6 @@ in {
   systemd = {
     services.manage-subs = {
       serviceConfig = {
-        Type = "oneshot";
         User = mainUser;
         Group = config.users.users.${mainUser}.group;
       };

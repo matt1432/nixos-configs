@@ -9,10 +9,10 @@ in {
     ../../modules/sshd.nix
     ../../modules/tailscale.nix
 
+    ./modules/7-days-to-die.nix
     ./modules/binary-cache.nix
     ./modules/minecraft.nix
     ./modules/nfs.nix
-    ./modules/steam-servers
   ];
 
   vars = {
