@@ -10,3 +10,4 @@ image/jpeg=org.photoqt.PhotoQt.desktop;
 image/png=org.photoqt.PhotoQt.desktop;
 text/x-java=nvim.desktop;
 x-scheme-handler/ror2mm=r2modman.desktop
+x-scheme-handler/discord-712465656758665259=discord-712465656758665259.desktop
