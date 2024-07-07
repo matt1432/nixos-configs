@@ -26,7 +26,9 @@ in {
   };
 
   home-manager.users.${mainUser}.home.packages = with pkgs;
-    []
+    [
+      gnome-calculator
+    ]
     ++ (with kdePackages; [
       kde-cli-tools
     ])
@@ -45,8 +47,5 @@ in {
       kio-admin # needs to be both here and in system pkgs
       kio-extras
       kmime
-    ])
-    ++ (with gnome; [
-      gnome-calculator
     ]);
 }

@@ -78,7 +78,7 @@ in {
 
   home-manager.users.${cfg.user} = {
     home.packages = [
-      pkgs.gnome.seahorse
+      pkgs.seahorse
       lockPkg
     ];
 
