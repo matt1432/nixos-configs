@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage {
   imageName = "ghcr.io/linuxserver/calibre-web";
-  imageDigest = "sha256:6416eb62ba1ca7504055436eb688962dc1cab6d8a81615a88c2ee55edb8834e9";
-  sha256 = "1a7j98bn4bzgkphlq93vrmnpfzsc1fbb0pnkr5km2jhdgkx41b17";
+  imageDigest = "sha256:2de4ab91f2768c6db32d083a5935663fcc0eded1a67a4fdc2c1f705f7bb24d2d";
+  sha256 = "02z2dscq6fdyra3y92zbswaqy8qdlzw62bb67x75ypn3a5s5rydj";
   finalImageName = "ghcr.io/linuxserver/calibre-web";
   finalImageTag = "latest";
 }
