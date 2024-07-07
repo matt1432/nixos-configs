@@ -17,7 +17,6 @@
         inputs.grim-hyprland.overlays.default
         inputs.jovian.overlays.default
         inputs.nixpkgs-wayland.overlays.default
-        inputs.steam-servers.inputs.steam-fetcher.overlays.default
       ];
     };
 

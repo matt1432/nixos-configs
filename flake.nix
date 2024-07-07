@@ -314,12 +314,6 @@
       repo = "sops-nix";
       type = "github";
     };
-    steam-servers = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      owner = "matt1432";
-      repo = "nix-steam-servers";
-      type = "github";
-    };
     stylelint-lsp = {
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "matt1432";

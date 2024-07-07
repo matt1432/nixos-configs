@@ -1,37 +1,20 @@
-{
-  pkgs,
-  steam-servers,
-  ...
-}: {
-  imports = [steam-servers.nixosModules.default];
+{pkgs, ...}: let
+  gamePath = "/var/lib/steam-servers/7-days-to-die";
+in {
+  systemd.extraConfig = "DefaultLimitNOFILE=10240";
 
-  services.steam-servers."7-days-to-die" = {
-    mainServ = {
-      enable = true;
-      package =
-        steam-servers
-        .packages
-        .${pkgs.system}
-        ."7-days-to-die"
-        .branches
-        .latest_experimental;
+  # https://github.com/Krutonium/NewNix/blob/455aafc4caf553248ca228f844f021cecf494dc2/services/sevendaystodie.nix#L6
+  systemd.services."7daystodie" = {
+    wantedBy = ["multi-user.target"];
+    serviceConfig.Type = "oneshot";
+    serviceConfig.User = "matt";
 
-      config = {
-        ServerName = "bruh moment";
-        ServerPort = 26900;
-
-        # removed in v1.0
-        SaveGameFolder = null;
-
-        BlockDamagePlayer = 200;
-        BloodMoonEnemyCount = 10;
-        DropOnDeath = 3;
-        PartySharedKillRange = 10000;
-        PlayerKillingMode = 2;
-        XPMultiplier = 200;
-        ZombieBMMove = 1;
-        ZombieMoveNight = 0;
-      };
-    };
+    path = with pkgs; [steam-run steamcmd];
+    script = ''
+      mkdir -p ${gamePath}
+      cd ${gamePath}
+      steamcmd +force_install_dir ${gamePath} +login anonymous +app_update 294420 -beta latest_experimental +quit
+      steam-run ./startserver.sh -configfile=serverconfig-7days.xml
+    '';
   };
 }

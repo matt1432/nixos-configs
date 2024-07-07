@@ -89,11 +89,6 @@ let
       repo = "nixos-minecraft-servers";
     };
 
-    steam-servers = mkDep {
-      owner = "matt1432";
-      repo = "nix-steam-servers";
-    };
-
     nix-eval-jobs = mkDep {
       owner = "nix-community";
       repo = "nix-eval-jobs";
