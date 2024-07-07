@@ -96,7 +96,11 @@ in {
     pkgs.firefox
     pkgs.kdePackages.discover
     pkgs.wl-clipboard
-    self.packages.${pkgs.system}.ryujinx
+
+    # FIXME:Ryujinx ACNH crashes on OpenGL AND Vulkan
+    # https://github.com/Ryujinx/Ryujinx/issues/6993
+    # https://github.com/Ryujinx/Ryujinx/issues/6708
+    self.packages.${pkgs.system}.yuzu
   ];
 
   programs = {

@@ -25,8 +25,6 @@
 
   repl = pkgs.callPackage ./repl {};
 
-  ryujinx = pkgs.callPackage ./ryujinx {};
-
   trash-d = pkgs.callPackage ./trash-d {
     inherit (inputs) trash-d-src;
   };
