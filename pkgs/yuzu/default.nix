@@ -14,4 +14,5 @@
 
       mainline = self.callPackage ./mainline.nix {};
     };
-}).mainline
+})
+.mainline
