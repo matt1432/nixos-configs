@@ -11,9 +11,9 @@
 }:
 buildNpmPackage {
   pname = "gtk-session-lock-types";
-  version = "0.0";
+  inherit (gtkSessionLock) version;
 
-  npmDepsHash = "sha256-HtQUmDnq0344Ef8W8jW8idSYGj02q/DB4p/gpmWL3iA=";
+  npmDepsHash = import ./npmDepsHash.nix;
 
   src = ./.;
   dontNpmBuild = true;

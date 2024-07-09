@@ -1,4 +1,6 @@
-const SystemTray = await Service.import('systemtray');
+import Tray from 'gi://AstalTray?version=0.1';
+const SystemTray = Tray.Tray.get_default();
+
 
 const { timeout } = Utils;
 const { Box, Icon, MenuItem, MenuBar, Revealer } = Widget;
@@ -8,26 +10,32 @@ import Separator from '../../misc/separator.ts';
 const REVEAL_DURATION = 500;
 const SPACING = 12;
 
-// Types
-import { TrayItem } from 'types/service/systemtray.ts';
+/* Types */
+// FIXME: get types from 'gi://AstalTray'
+import type AstalTray from 'types/astal-tray/astaltray-0.1.d.ts';
 
 
-const SysTrayItem = (item: TrayItem) => {
+const SysTrayItem = (item: AstalTray.TrayItem) => {
     if (item.id === 'spotify-client') {
         return;
     }
 
     return MenuItem({
-        submenu: item.menu,
-        tooltip_markup: item.bind('tooltip_markup'),
-
+        submenu: item.create_menu(),
         child: Revealer({
             transition: 'slide_right',
             transition_duration: REVEAL_DURATION,
 
-            child: Icon({ size: 24 }).bind('icon', item, 'icon'),
+            child: Icon({
+                size: 24,
+                icon: Utils.watch(
+                    item.iconPixbuf || item.iconName || 'image-missing',
+                    item,
+                    () => item.iconPixbuf || item.iconName || 'image-missing',
+                ),
+            }),
         }),
-    });
+    }).bind('tooltip_markup', item, 'tooltipMarkup');
 };
 
 const SysTray = () => MenuBar({
@@ -36,7 +44,11 @@ const SysTray = () => MenuBar({
     setup: (self) => {
         self
             .hook(SystemTray, (_, id) => {
-                const item = SystemTray.getItem(id);
+                if (!id) {
+                    return;
+                }
+
+                const item = SystemTray.get_item(id);
 
                 if (self.attribute.items.has(id) || !item) {
                     return;
@@ -54,10 +66,10 @@ const SysTray = () => MenuBar({
                 self.show_all();
 
                 w.child.reveal_child = true;
-            }, 'added')
+            }, 'item_added')
 
             .hook(SystemTray, (_, id) => {
-                if (!self.attribute.items.has(id)) {
+                if (!id || !self.attribute.items.has(id)) {
                     return;
                 }
 
@@ -66,7 +78,7 @@ const SysTray = () => MenuBar({
                     self.attribute.items.get(id).destroy();
                     self.attribute.items.delete(id);
                 });
-            }, 'removed');
+            }, 'item_removed');
     },
 });
 
@@ -88,5 +100,5 @@ export default () => {
         }),
     }).hook(SystemTray, (self) => {
         self.reveal_child = systray.get_children().length > 0;
-    });
+    }, 'item_added');
 };

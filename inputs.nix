@@ -168,14 +168,19 @@ let
         repo = "ags";
       };
 
-      astal = mkDep {
-        owner = "Aylur";
-        repo = "Astal";
+      astal-tray = mkDep {
+        owner = "astal-sh";
+        repo = "tray";
       };
 
       gtk-session-lock = mkDep {
         owner = "Cu3PO42";
         repo = "gtk-session-lock";
+      };
+
+      astal = mkDep {
+        owner = "Aylur";
+        repo = "Astal";
       };
     };
   };

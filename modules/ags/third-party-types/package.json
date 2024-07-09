@@ -1,0 +1,5 @@
+{
+    "dependencies": {
+        "@ts-for-gir/cli": "^3.3.0"
+    }
+}

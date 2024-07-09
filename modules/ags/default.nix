@@ -1,6 +1,6 @@
 {
   ags,
-  astal,
+  astal-tray,
   config,
   gtk-session-lock,
   lib,
@@ -9,29 +9,31 @@
   ...
 }: let
   inherit (lib) boolToString;
+
+  # Configs
   inherit (config.vars) mainUser hostName;
   cfgDesktop = config.roles.desktop;
-
   flakeDir = config.environment.variables.FLAKE;
   isTouchscreen = config.hardware.sensor.iio.enable;
+
+  # Packages
+  astalTray = astal-tray.packages.${pkgs.system}.tray;
   gtkSessionLock = gtk-session-lock.packages.${pkgs.system}.default;
 in {
   # Enable pam for ags and astal
   security.pam.services.ags = {};
-  security.pam.services.astal = {};
 
   services.upower.enable = true;
 
   home-manager.users.${mainUser}.imports = [
     ags.homeManagerModules.default
-    astal.homeManagerModules.default
 
     ({
       config,
       lib,
       ...
     }: let
-      symlink = config.lib.file.mkOutOfStoreSymlink;
+      inherit (config.lib.file) mkOutOfStoreSymlink;
       inherit (lib) hasPrefix optionals removePrefix;
 
       configJs =
@@ -54,17 +56,10 @@ in {
         }
       ];
 
-      # Experimental Gtk4 ags
-      programs.astal = {
-        enable = true;
-        extraPackages = with pkgs; [
-          libadwaita
-        ];
-      };
-
       programs.ags = {
         enable = true;
         extraPackages = [
+          astalTray
           gtkSessionLock
         ];
       };
@@ -72,24 +67,24 @@ in {
       home = {
         file =
           {
-            # Astal symlinks. ${./astal}, types and config.js
-            ".config/astal".source = symlink "${flakeDir}/modules/ags/astal";
-            "${agsConfigDir}/astal/types".source = "${config.programs.astal.finalPackage}/share/io.Aylur.Astal/types";
-            "${agsConfigDir}/astal/config.js".text = configJs;
+            # Out of store symlinks
+            ".config/ags".source = mkOutOfStoreSymlink "${flakeDir}/modules/ags/config";
 
-            # AGS symlinks. ${./config}, types and config.js
-            ".config/ags".source = symlink "${flakeDir}/modules/ags/config";
+            # Generated types
             "${agsConfigDir}/config/types" = {
               source = "${config.programs.ags.finalPackage}/share/com.github.Aylur.ags/types";
-              recursive = true;
+              recursive = true; # To add other types inside the folder
             };
-            "${agsConfigDir}/config/types/gtk-session-lock".source = pkgs.callPackage ./gtk-session-lock-types {inherit gtkSessionLock;};
-            "${agsConfigDir}/config/config.js".text = configJs;
+            "${agsConfigDir}/config/types/gtk-session-lock".source =
+              pkgs.callPackage ./third-party-types/lock.nix {inherit gtkSessionLock;};
+            "${agsConfigDir}/config/types/astal-tray".source =
+              pkgs.callPackage ./third-party-types/tray.nix {inherit astalTray;};
 
+            # Generated JavaScript files
+            "${agsConfigDir}/config/config.js".text = configJs;
             "${agsConfigDir}/config/ts/lockscreen/vars.ts".text =
               # javascript
               ''
-                //
                 export default {
                     mainMonitor: '${cfgDesktop.mainMonitor}',
                     dupeLockscreen: ${boolToString cfgDesktop.displayManager.duplicateScreen},

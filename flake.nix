@@ -25,6 +25,12 @@
       repo = "Astal";
       type = "github";
     };
+    astal-tray = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      owner = "astal-sh";
+      repo = "tray";
+      type = "github";
+    };
     bat-theme-src = {
       flake = false;
       owner = "matt1432";

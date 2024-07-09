@@ -99,6 +99,26 @@
         "type": "github"
       }
     },
+    "astal-tray": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1719587238,
+        "narHash": "sha256-6DfK50lMbMLVgqL3IyCe6zMAGnB5V5cTTPsMIf80GVE=",
+        "owner": "astal-sh",
+        "repo": "tray",
+        "rev": "9a484bdee02904034449961612fd5b2cdbe6a337",
+        "type": "github"
+      },
+      "original": {
+        "owner": "astal-sh",
+        "repo": "tray",
+        "type": "github"
+      }
+    },
     "bat-theme-src": {
       "flake": false,
       "locked": {
@@ -1989,6 +2009,7 @@
         "ags": "ags",
         "arion": "arion",
         "astal": "astal",
+        "astal-tray": "astal-tray",
         "bat-theme-src": "bat-theme-src",
         "bazarr-bulk": "bazarr-bulk",
         "caddy-plugins": "caddy-plugins",
