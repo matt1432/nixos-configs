@@ -2059,7 +2059,6 @@
         "secrets": "secrets",
         "sioyek-theme-src": "sioyek-theme-src",
         "sops-nix": "sops-nix_2",
-        "stylelint-lsp": "stylelint-lsp",
         "subsync": "subsync",
         "trash-d-src": "trash-d-src",
         "vimplugin-easytables-src": "vimplugin-easytables-src",
@@ -2176,26 +2175,6 @@
         "owner": "cmusphinx",
         "repo": "sphinxbase",
         "rev": "617e53691889336a482631380f75b453445d0dae",
-        "type": "github"
-      }
-    },
-    "stylelint-lsp": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1715266912,
-        "narHash": "sha256-O/YuL2nkQmp8LIAWaKCHQ63FM9d5rHfD2xDHIvPIlUM=",
-        "owner": "matt1432",
-        "repo": "stylelint-lsp",
-        "rev": "679c87ee3ac0256c1cf215cb746085159a6f3b92",
-        "type": "github"
-      },
-      "original": {
-        "owner": "matt1432",
-        "repo": "stylelint-lsp",
         "type": "github"
       }
     },

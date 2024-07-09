@@ -319,12 +319,6 @@
       repo = "sops-nix";
       type = "github";
     };
-    stylelint-lsp = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      owner = "matt1432";
-      repo = "stylelint-lsp";
-      type = "github";
-    };
     subsync = {
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "matt1432";

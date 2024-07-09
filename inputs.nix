@@ -54,11 +54,6 @@ let
       repo = "neovim-nightly-overlay";
     };
 
-    stylelint-lsp = mkDep {
-      owner = "matt1432";
-      repo = "stylelint-lsp";
-    };
-
     # uses nixVersions.nix_2_19
     nixd = mkDep {
       owner = "nix-community";

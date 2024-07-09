@@ -21,7 +21,6 @@
 
       # Misc CLI stuff
       killall
-      neofetch
       nix-output-monitor
       progress
       tree

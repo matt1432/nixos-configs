@@ -33,7 +33,6 @@ in {
             "kdeglobals".source = symlink "${configDir}/kdeglobals";
             "kiorc".source = symlink "${configDir}/kiorc";
             "mimeapps.list".source = symlink "${configDir}/mimeapps.list";
-            "neofetch".source = symlink "${configDir}/neofetch";
 
             "satty/config.toml".source = writeTOML "satty.toml" {
               general = {

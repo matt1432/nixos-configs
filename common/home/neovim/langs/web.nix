@@ -2,7 +2,6 @@
   config,
   pkgs,
   lib,
-  stylelint-lsp,
   vimplugin-ts-error-translator-src,
   ...
 }: let
@@ -21,7 +20,6 @@ in
           pkgs.nodePackages.npm
           pkgs.nodePackages.neovim
 
-          stylelint-lsp.packages.${pkgs.system}.default
           pkgs.vscode-langservers-extracted
         ];
 
@@ -78,12 +76,6 @@ in
                     scss = {
                         validate = false,
                     },
-                },
-            }));
-
-            lsp.stylelint_lsp.setup(coq.lsp_ensure_capabilities({
-                settings = {
-                    stylelintplus = {},
                 },
             }));
           '';
