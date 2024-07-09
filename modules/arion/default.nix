@@ -112,12 +112,11 @@ in {
               CURRENT_DIGEST=$(sed -n 's/.*imageDigest = "\([^"]*\).*/\1/p' "$FILE")
               NEW_DIGEST=$(skopeo inspect "docker://$IMAGE:$TAG" | jq '.Digest' -r)
 
-              echo "$IMAGE $TAG"
+              output="$IMAGE $TAG"
 
               if ! grep "Locked" "$FILE"; then
-                  if [[ "$CURRENT_DIGEST" == "$NEW_DIGEST" ]]; then
-                      echo "Already up-to-date"
-                  else
+                  if [[ "$CURRENT_DIGEST" != "$NEW_DIGEST" ]]; then
+                      echo -e "• $output:\n   $CURRENT_DIGEST\n → $NEW_DIGEST\n"
                       PREFETCH=$(nix-prefetch-docker "$IMAGE" "$TAG")
                       echo -e "pkgs:\npkgs.dockerTools.pullImage $PREFETCH" > "$FILE"
                   fi

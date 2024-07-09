@@ -63,12 +63,11 @@
     uinput.enable = true;
     sensor.iio.enable = true;
 
+    amdgpu.initrd.enable = true;
+
     graphics = {
       enable = true;
-      extraPackages =
-        if pkgs ? rocmPackages.clr
-        then with pkgs.rocmPackages; [clr clr.icd]
-        else with pkgs; [rocm-opencl-icd rocm-opencl-runtime];
+      enable32Bit = true;
     };
 
     bluetooth = {

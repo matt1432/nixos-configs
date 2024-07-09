@@ -84,12 +84,26 @@ updateVuetorrent() {
 
 
 doAll() {
-    nix flake update
-    updateDocker
+    flakeUpdates="$(nix flake update |& grep -v "warning: updating lock file")"
+    dockerUpdates="$(updateDocker)"
     updateFFZ
     updateFirefoxAddons
     updateVuetorrent
     nix-fast-build
+
+    echo 'Commit messages:
+    '
+msg=$(cat <<EOF
+chore: update flake.lock
+
+Flake inputs:
+$flakeUpdates
+
+Docker Images:
+$dockerUpdates
+EOF
+    )
+    echo "$msg"
 }
 
 doAllWithoutDocker() {
