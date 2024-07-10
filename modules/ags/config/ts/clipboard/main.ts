@@ -51,9 +51,6 @@ export default () => {
 
         list.add(widget);
         widget.show_all();
-        (list.get_children() as Gtk.ListBoxRow[]).forEach((r) => {
-            r.changed();
-        });
     };
 
     // Decode old item:

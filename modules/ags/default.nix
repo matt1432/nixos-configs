@@ -95,7 +95,10 @@ in {
           // (import ./icons.nix {inherit pkgs agsConfigDir;});
 
         packages =
-          [self.packages.${pkgs.system}.coloryou]
+          [
+            # TODO: replace with matugen
+            self.packages.${pkgs.system}.coloryou
+          ]
           ++ (with pkgs; [
             # ags
             dart-sass

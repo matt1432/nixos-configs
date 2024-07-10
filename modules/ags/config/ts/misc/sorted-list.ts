@@ -181,9 +181,6 @@ export class SortedList<
         this._entry.on_change = ({ text }) => {
             if (text !== null || typeof text === 'string') {
                 this._set_sort(text, this._list, this._placeholder);
-                (this._list.get_children() as ListBoxRow[]).forEach((r) => {
-                    r.changed();
-                });
             }
         };
         // TODO: add on_accept where it just selects the first visible one
