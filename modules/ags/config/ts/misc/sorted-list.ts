@@ -14,12 +14,13 @@ type MakeChild = ReturnType<typeof makeChild>;
 type SortedListProps<Attr = unknown, Self = SortedList<Attr>> =
     PopupWindowProps<MakeChild['child'], Attr, Self> & {
         on_select: (row: ListBoxRow) => void;
-        init_rows: (list: MakeChild['list']) => void;
+        init_rows?: (list: MakeChild['list']) => void;
         set_sort: (
             text: string,
             list: MakeChild['list'],
             placeholder: MakeChild['placeholder'],
         ) => void;
+        setup_list?: (list: MakeChild['list']) => void;
     };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -145,8 +146,9 @@ export class SortedList<
 
     constructor({
         on_select,
-        init_rows,
+        init_rows = () => { /**/ },
         set_sort,
+        setup_list = () => { /**/ },
         on_open = () => { /**/ },
         class_name = '',
         keymode = 'on-demand',
@@ -185,6 +187,7 @@ export class SortedList<
         };
         // TODO: add on_accept where it just selects the first visible one
 
+        setup_list(this._list);
         this._init_rows(this._list);
         this._set_sort('', this._list, this._placeholder);
     }
