@@ -6,16 +6,33 @@
   self,
   ...
 }: let
-  inherit (lib) makeLibraryPath mkIf optionalString;
+  inherit (lib) getExe makeLibraryPath mkIf optionals optionalString;
   inherit (pkgs.writers) writeTOML;
 
   flakeDir = config.environment.variables.FLAKE;
   cfg = config.roles.desktop;
   nvidiaEnable = config.nvidia.enable;
+
+  restartTailscale = pkgs.writeShellScriptBin "restartTailscale" ''
+    sudo ${pkgs.systemd}/bin/systemctl restart tailscaled.service
+  '';
 in {
   imports = [./dolphin.nix];
 
   programs.kdeconnect.enable = true;
+
+  security.sudo.extraRules = [
+    {
+      users = [cfg.user];
+      groups = [100];
+      commands = [
+        {
+          command = "${pkgs.systemd}/bin/systemctl restart tailscaled.service";
+          options = ["SETENV" "NOPASSWD"];
+        }
+      ];
+    }
+  ];
 
   home-manager.users.${cfg.user} = {
     imports = [
@@ -182,17 +199,21 @@ in {
 
     wayland.windowManager.hyprland = {
       settings = {
-        exec-once = [
-          "${config.programs.kdeconnect.package}/libexec/kdeconnectd"
-          "kdeconnect-indicator"
+        exec-once =
+          [
+            "${config.programs.kdeconnect.package}/libexec/kdeconnectd"
+            "kdeconnect-indicator"
 
-          "wl-paste --watch cliphist store"
+            "wl-paste --watch cliphist store"
 
-          "sleep 3; nextcloud --background"
+            "sleep 3; nextcloud --background"
 
-          "[workspace special:protonmail silent] proton-mail"
-          "[workspace special:spot silent] spotify"
-        ];
+            "[workspace special:protonmail silent] proton-mail"
+            "[workspace special:spot silent] spotify"
+          ]
+          ++ optionals config.services.tailscale.enable [
+            "sleep 3; ${getExe restartTailscale}"
+          ];
 
         windowrule = [
           "tile,^(libreoffice)$"
