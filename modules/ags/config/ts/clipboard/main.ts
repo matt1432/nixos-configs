@@ -1,40 +1,33 @@
 const { Box, Icon, Label } = Widget;
-const { execAsync } = Utils;
 
 import { Fzf, FzfResultItem } from 'fzf';
 import Gtk from 'gi://Gtk?version=3.0';
+import Clipboard from '../../services/clipboard.ts';
 
 import CursorBox from '../misc/cursorbox.ts';
 import SortedList from '../misc/sorted-list.ts';
 
 
-const N_ITEMS = 30;
-
-const copyOldItem = (key: string | number): void => {
-    execAsync([
-        'bash', '-c', `cliphist list | grep ${key} | cliphist decode | wl-copy`,
-    ]);
-    App.closeWindow('win-clipboard');
-};
-
 export default () => {
-    let CopiedItems = [] as [string, number][];
-    let fzfResults: FzfResultItem<[string, number]>[];
+    let fzfResults: FzfResultItem<[number, { clip: string, isImage: boolean }]>[];
 
-    const getKey = (r: Gtk.ListBoxRow) => parseInt(r.get_child()?.name ?? '');
+    const getKey = (r: Gtk.ListBoxRow): number => parseInt(r.get_child()?.name ?? '0');
 
-    const makeItem = (list: Gtk.ListBox, key: string, val: string) => {
-        CopiedItems.push([val, parseInt(key)]);
-
+    const makeItem = (
+        list: Gtk.ListBox,
+        key: number,
+        val: string,
+        isImage: boolean,
+    ): void => {
         const widget = CursorBox({
             class_name: 'item',
-            name: key,
+            name: key.toString(),
 
-            on_primary_click_release: () => copyOldItem(key),
+            on_primary_click_release: () => Clipboard.copyOldItem(key),
 
             child: Box({
                 children: [
-                    val.startsWith('img:') ?
+                    isImage ?
                         Icon({
                             icon: val.replace('img:', ''),
                             size: 100 * 2,
@@ -53,41 +46,26 @@ export default () => {
         widget.show_all();
     };
 
-    // Decode old item:
-    const decodeItem = (list: Gtk.ListBox, index: string) => {
-        execAsync([
-            'bash', '-c', `cliphist list | grep ${index} | cliphist decode`,
-        ]).then((out) => {
-            makeItem(list, index, out);
-        });
-    };
 
     return SortedList({
         name: 'clipboard',
         class_name: 'clipboard',
         transition: 'slide top',
 
-        on_select: (r) => copyOldItem(getKey(r)),
+        on_select: (r) => Clipboard.copyOldItem(getKey(r)),
 
         init_rows: (list) => {
-            CopiedItems = [];
+            Clipboard.getHistory();
 
-            execAsync('clipboard-manager').then((out) => {
-                list.get_children()?.forEach((ch) => {
-                    ch.destroy();
+            const connectId = Clipboard.connect('history-searched', () => {
+                list.get_children().forEach((row) => {
+                    row.destroy();
                 });
-
-                const items = out.split('\n');
-
-                for (let i = 0; i < N_ITEMS; ++i) {
-                    if (items[i].includes('img')) {
-                        makeItem(list, (items[i].match('[0-9]+') ?? [''])[0], items[i]);
-                    }
-                    else {
-                        decodeItem(list, items[i]);
-                    }
-                }
-            }).catch(console.error);
+                Clipboard.clips.forEach((clip, key) => {
+                    makeItem(list, key, clip.clip, clip.isImage);
+                });
+                Clipboard.disconnect(connectId);
+            });
         },
 
         set_sort: (text, list) => {
@@ -95,16 +73,16 @@ export default () => {
                 list.set_sort_func((row1, row2) => getKey(row2) - getKey(row1));
             }
             else {
-                const fzf = new Fzf(CopiedItems, {
-                    selector: (item) => item[0],
+                const fzf = new Fzf([...Clipboard.clips.entries()], {
+                    selector: ([_key, { clip }]) => clip,
 
-                    tiebreakers: [(a, b) => b[1] - a[1]],
+                    tiebreakers: [(a, b) => b[0] - a[0]],
                 });
 
                 fzfResults = fzf.find(text);
                 list.set_sort_func((a, b) => {
-                    const row1 = fzfResults.find((f) => f.item[1] === getKey(a))?.score ?? 0;
-                    const row2 = fzfResults.find((f) => f.item[1] === getKey(b))?.score ?? 0;
+                    const row1 = fzfResults.find((f) => f.item[0] === getKey(a))?.score ?? 0;
+                    const row2 = fzfResults.find((f) => f.item[0] === getKey(b))?.score ?? 0;
 
                     return row2 - row1;
                 });
