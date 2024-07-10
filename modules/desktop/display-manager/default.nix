@@ -1,11 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
-  inherit (import ./hyprland.nix {inherit config lib pkgs;}) hyprConf;
-
+{config, ...}: let
   cfg = config.roles.desktop;
 
   hyprland =
@@ -20,6 +13,7 @@
 in {
   imports = [
     ./astal.nix
+    ./hyprland.nix
   ];
 
   services = {
@@ -29,7 +23,7 @@ in {
       enable = true;
       settings = {
         default_session = {
-          command = "Hyprland --config ${hyprConf}";
+          command = "Hyprland";
           user = "greeter";
         };
 

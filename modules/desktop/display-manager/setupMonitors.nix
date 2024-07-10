@@ -3,6 +3,8 @@
   pkgs,
   ...
 }: let
+  inherit (pkgs.lib) getExe;
+
   cfg = config.roles.desktop;
 
   hyprland =
@@ -38,6 +40,8 @@
               hyprctl keyword monitor "$name",preferred,auto,1,mirror,"$main"
           fi
       done
+
+      hyprctl dispatch focusmonitor "$main"
     '';
   };
   # Check if user wants the greeter only on main monitor
@@ -45,5 +49,5 @@ in {
   setupMonitors =
     if (cfg.mainMonitor != "null" && !cfg.displayManager.duplicateScreen)
     then "hyprctl dispatch focusmonitor ${cfg.mainMonitor}"
-    else "${dupeMonitors}/bin/dupeMonitors";
+    else getExe dupeMonitors;
 }

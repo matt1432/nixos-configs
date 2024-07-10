@@ -4,17 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit
-    (lib)
-    boolToString
-    concatStringsSep
-    filterAttrs
-    hasPrefix
-    isAttrs
-    isBool
-    mapAttrsToList
-    optionalString
-    ;
+  inherit (lib) filterAttrs hasPrefix optionals;
 
   inherit (import ./setupMonitors.nix {inherit config pkgs;}) setupMonitors;
 
@@ -31,72 +21,44 @@
     .hyprland;
 
   devices = filterAttrs (n: v: hasPrefix "device:" n) cfgHypr.settings;
-  monitors = cfgHypr.settings.monitor;
-  inputs = cfgHypr.settings.input;
-  misc = cfgHypr.settings.misc;
-
-  mkHyprBlock = attrs:
-    concatStringsSep "\n" (mapAttrsToList (
-        n: v:
-          if (isAttrs v)
-          then ''
-            ${n} {
-            ${mkHyprBlock v}
-            }
-          ''
-          else if (isBool v)
-          then "    ${n}=${boolToString v}"
-          else "    ${n}=${toString v}"
-      )
-      attrs);
 in {
-  hyprConf = pkgs.writeText "greetd-hypr-config" (
-    (optionalString config.nvidia.enable
-      # hyprlang
-      ''
-        env = LIBVA_DRIVER_NAME,nvidia
-        env = XDG_SESSION_TYPE,wayland
-        env = GBM_BACKEND,nvidia-drm
-        env = __GLX_VENDOR_LIBRARY_NAME,nvidia
-        env = WLR_NO_HARDWARE_CURSORS,1
-      '')
-    + (concatStringsSep "\n" (map (x: "monitor=${x}") monitors))
-    + "\n"
-    +
-    # hyprlang
-    ''
-      misc {
-      ${mkHyprBlock misc}
-      }
+  home-manager.users.greeter = {
+    wayland.windowManager.hyprland = {
+      enable = true;
+      package = cfgHypr.finalPackage;
+      systemd.enable = false;
 
-      # Devices
-      ${mkHyprBlock devices}
+      settings =
+        {
+          inherit (cfgHypr.settings) cursor input misc monitor;
 
-      input {
-      ${mkHyprBlock inputs}
-      }
+          envd =
+            (optionals (config.nvidia.enable) [
+              "LIBVA_DRIVER_NAME, nvidia"
+              "NVD_BACKEND, direct"
+              "XDG_SESSION_TYPE, wayland"
+              "GBM_BACKEND, nvidia-drm"
+              "__GLX_VENDOR_LIBRARY_NAME, nvidia"
+            ])
+            ++ [
+              "XCURSOR_SIZE,24"
+            ];
 
-    ''
-    +
-    # hyprlang
-    ''
-      #
-      env = XCURSOR_SIZE,24
-      exec-once = hyprctl setcursor Dracula-cursors 24
+          general.border_size = 0;
 
-      general {
-          border_size = 0
-      }
+          decoration = {
+            blur.enabled = false;
+            drop_shadow = false;
+          };
 
-      decoration {
-          blur {
-              enabled = false
-          }
-          drop_shadow = false
-      }
+          exec-once = [
+            "hyprctl setcursor Dracula-cursors 24"
 
-      exec-once = ${setupMonitors}
-      exec-once = astal -b greeter &> /tmp/astal.log; hyprctl dispatch exit
-    ''
-  );
+            setupMonitors
+            "astal -b greeter &> /tmp/astal.log; hyprctl dispatch exit"
+          ];
+        }
+        // devices;
+    };
+  };
 }
