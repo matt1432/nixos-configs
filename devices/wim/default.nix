@@ -12,13 +12,13 @@ in {
     ../../modules/ags
     ../../modules/audio.nix
     ../../modules/kmscon.nix
-    ../../modules/plymouth.nix
     ../../modules/printer.nix
     ../../modules/tailscale.nix
 
     ./modules/security.nix
 
     self.nixosModules.desktop
+    self.nixosModules.plymouth
   ];
 
   vars = {
@@ -35,6 +35,11 @@ in {
     isTouchscreen = true;
 
     fontSize = 12.5;
+  };
+
+  boot.plymouth = {
+    enable = true;
+    theme = "dracula";
   };
 
   users.users.${mainUser} = {

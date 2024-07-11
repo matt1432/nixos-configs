@@ -1,6 +1,7 @@
 {
   config,
   jovian,
+  self,
   ...
 }: let
   inherit (config.vars) mainUser hostName;
@@ -13,12 +14,19 @@ in {
     ./hardware-configuration.nix
 
     ./modules/desktop.nix
+
+    self.nixosModules.plymouth
   ];
 
   vars = {
     mainUser = "mariah";
     hostName = "bbsteamie";
     promptMainColor = "pink";
+  };
+
+  boot.plymouth = {
+    enable = true;
+    theme = "steamos";
   };
 
   users.users.${mainUser} = {

@@ -58,6 +58,7 @@
     nixosModules = {
       desktop = import ./modules/desktop;
       nvidia = import ./modules/nvidia.nix;
+      plymouth = import ./modules/plymouth.nix;
     };
 
     nixosConfigurations = {

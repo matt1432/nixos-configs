@@ -1,9 +1,15 @@
 {
+  config,
+  lib,
   pkgs,
   self,
   ...
-}: {
-  boot = {
+}: let
+  inherit (lib) hasAttr mkIf optionals;
+
+  cfg = config.boot.plymouth;
+in {
+  boot = mkIf cfg.enable {
     initrd = {
       verbose = false;
       systemd.enable = true;
@@ -22,10 +28,12 @@
       "udev.log_priority=3"
     ];
 
-    plymouth = {
-      enable = true;
-      themePackages = [self.legacyPackages.${pkgs.system}.dracula.plymouth];
-      theme = "dracula";
-    };
+    plymouth.themePackages =
+      [
+        self.legacyPackages.${pkgs.system}.dracula.plymouth
+      ]
+      ++ optionals (hasAttr "steamdeck-hw-theme" pkgs) [
+        pkgs.steamdeck-hw-theme
+      ];
   };
 }
