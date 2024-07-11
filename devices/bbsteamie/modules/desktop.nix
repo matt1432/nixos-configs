@@ -101,6 +101,7 @@ in {
     # https://github.com/Ryujinx/Ryujinx/issues/6993
     # https://github.com/Ryujinx/Ryujinx/issues/6708
     self.packages.${pkgs.system}.yuzu
+    pkgs.steam-rom-manager
   ];
 
   programs = {
