@@ -136,7 +136,6 @@ stdenv.mkDerivation (finalAttrs: {
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isx86_64 "-msse4.1";
 
   # Fixes vulkan detection.
-  # FIXME: patchelf --add-rpath corrupts the binary for some reason, investigate
   qtWrapperArgs = [
     "--prefix LD_LIBRARY_PATH : ${vulkan-loader}/lib"
   ];

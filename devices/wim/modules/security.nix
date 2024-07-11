@@ -16,28 +16,7 @@
     auth  sufficient  pam_unix.so try_first_pass nullok
   '';
 in {
-  services.fprintd = {
-    enable = true;
-
-    # FIXME: https://github.com/NixOS/nixpkgs/issues/325836
-    package = pkgs.fprintd.overrideAttrs (o: rec {
-      version = "1.94.3";
-      src = pkgs.fetchFromGitLab {
-        domain = "gitlab.freedesktop.org";
-        owner = "libfprint";
-        repo = "fprintd";
-        rev = "v${version}";
-        sha256 = "sha256-shH+ctQAx4fpTMWTmo3wB45ZS38Jf8RknryPabfZ6QE=";
-      };
-      patches = [];
-      mesonCheckFlags = [
-        "--no-suite"
-        "fprintd:PAM"
-        "--no-suite"
-        "fprintd:TestPamFprintd"
-      ];
-    });
-  };
+  services.fprintd.enable = true;
 
   # https://www.reddit.com/r/NixOS/comments/z7i83r/fingertip_tip_start_fprintd_at_boot_for_a_quick/
   systemd.services.fprintd = {
