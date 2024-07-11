@@ -1,4 +1,8 @@
-{config, ...}: let
+{
+  config,
+  pkgs,
+  ...
+}: let
   cfg = config.roles.desktop;
 
   hyprland =
@@ -10,6 +14,11 @@
     .windowManager
     .hyprland
     .finalPackage;
+
+  cmd = toString (pkgs.writeShellScript "hyprland-wrapper" ''
+    trap 'systemctl --user stop hyprland-session.target; sleep 1' EXIT
+    exec Hyprland >/dev/null
+  '');
 in {
   imports = [
     ./astal.nix
@@ -23,12 +32,12 @@ in {
       enable = true;
       settings = {
         default_session = {
-          command = "Hyprland";
+          command = cmd;
           user = "greeter";
         };
 
         initial_session = {
-          command = "Hyprland";
+          command = cmd;
           user = cfg.user;
         };
       };

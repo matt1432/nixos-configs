@@ -215,11 +215,11 @@
     "dracula-plymouth-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1704576657,
-        "narHash": "sha256-nHirp6UMvBd4rMpXu5xWtBf9GN/jasHhZrUol6HGXpA=",
+        "lastModified": 1720656461,
+        "narHash": "sha256-pomh/1TJINqt59rle0vnuUKy7KJ3byloM+eQcW00jXo=",
         "owner": "matt1432",
         "repo": "dracula-plymouth",
-        "rev": "54c523dbae26bf68683f27cda79c92da87229ab0",
+        "rev": "6f7af346854ea967c3c45316cf5d3aac8491e6ad",
         "type": "github"
       },
       "original": {
