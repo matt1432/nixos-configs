@@ -28,6 +28,8 @@ in {
       "udev.log_priority=3"
     ];
 
+    loader.timeout = 0;
+
     plymouth.themePackages =
       [
         self.legacyPackages.${pkgs.system}.dracula.plymouth
