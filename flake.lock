@@ -247,17 +247,17 @@
     "firefox-gx-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1718121058,
-        "narHash": "sha256-opmS7Qa4IUXs9hXVK9/xo1ZlHOwj+5gGxAc81l3ttWM=",
+        "lastModified": 1720539643,
+        "narHash": "sha256-S7Hc+BXP2L/Fj2u6SzrQXc4e9gVIe2lU/idjGLK9Cvc=",
         "owner": "Godiesc",
         "repo": "firefox-gx",
-        "rev": "c300409a4e45b53c5dc3203847476f60e7b906e1",
+        "rev": "9afe9948758871f3944e8a83046c8a51039e883a",
         "type": "github"
       },
       "original": {
         "owner": "Godiesc",
-        "ref": "v.9.2",
         "repo": "firefox-gx",
+        "rev": "9afe9948758871f3944e8a83046c8a51039e883a",
         "type": "github"
       }
     },
