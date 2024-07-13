@@ -79,9 +79,9 @@ let
   };
 
   serviviInputs = {
-    nms = mkDep {
+    minix = mkDep {
       owner = "matt1432";
-      repo = "nixos-minecraft-servers";
+      repo = "Minix";
     };
 
     nix-eval-jobs = mkDep {
@@ -207,10 +207,6 @@ let
       type = "gitlab";
       owner = "phoneybadger";
       repo = "pokemon-colorscripts";
-    }
-    {
-      owner = "Malpiszonekx4";
-      repo = "curseforge-server-downloader";
     }
     {
       name = "gpu-screen-recorder-src";

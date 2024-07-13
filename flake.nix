@@ -164,6 +164,12 @@
       repo = "libratbag";
       type = "github";
     };
+    minix = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      owner = "matt1432";
+      repo = "Minix";
+      type = "github";
+    };
     modernx-src = {
       flake = false;
       owner = "cyl0";
@@ -258,12 +264,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "nix-community";
       repo = "nixpkgs-wayland";
-      type = "github";
-    };
-    nms = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      owner = "matt1432";
-      repo = "nixos-minecraft-servers";
       type = "github";
     };
     nurl = {

@@ -4,6 +4,8 @@
 in {
   systemd.extraConfig = "DefaultLimitNOFILE=10240";
 
+  # TODO: make backups
+
   # https://github.com/Krutonium/NewNix/blob/455aafc4caf553248ca228f844f021cecf494dc2/services/sevendaystodie.nix#L6
   systemd.services."7-days-to-die" = {
     wantedBy = ["multi-user.target"];

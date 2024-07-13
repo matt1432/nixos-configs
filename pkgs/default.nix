@@ -5,11 +5,6 @@
 } @ inputs: {
   coloryou = pkgs.callPackage ./coloryou {};
 
-  curseforge-server-downloader = pkgs.callPackage ./curseforge-server-downloader {
-    inherit (inputs) curseforge-server-downloader-src;
-    inherit mkVersion;
-  };
-
   gpu-screen-recorder = pkgs.callPackage ./gpu-screen-recorder {
     inherit (inputs) gpu-screen-recorder-src;
   };
