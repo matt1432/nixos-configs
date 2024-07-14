@@ -56,6 +56,7 @@
         attrs system (mkPkgs system nixpkgs));
   in {
     nixosModules = {
+      adb = import ./modules/adb.nix;
       desktop = import ./modules/desktop;
       nvidia = import ./modules/nvidia.nix;
       plymouth = import ./modules/plymouth.nix;

@@ -8,7 +8,6 @@ in {
   imports = [
     ./hardware-configuration.nix
 
-    ../../modules/android.nix
     ../../modules/ags
     ../../modules/audio.nix
     ../../modules/kmscon.nix
@@ -17,6 +16,7 @@ in {
 
     ./modules/security.nix
 
+    self.nixosModules.adb
     self.nixosModules.desktop
     self.nixosModules.plymouth
   ];
@@ -35,6 +35,11 @@ in {
     isTouchscreen = true;
 
     fontSize = 12.5;
+  };
+
+  programs.adb = {
+    enable = true;
+    user = mainUser;
   };
 
   boot.plymouth = {

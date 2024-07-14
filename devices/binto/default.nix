@@ -8,7 +8,6 @@ in {
   imports = [
     ./hardware-configuration.nix
 
-    ../../modules/android.nix
     ../../modules/ags
     ../../modules/audio.nix
     ../../modules/kmscon.nix
@@ -20,6 +19,7 @@ in {
     ./modules/gpu-replay.nix
     ./modules/nix-gaming.nix
 
+    self.nixosModules.adb
     self.nixosModules.desktop
   ];
 
@@ -36,6 +36,11 @@ in {
     displayManager.duplicateScreen = false;
 
     fontSize = 12.5;
+  };
+
+  programs.adb = {
+    enable = true;
+    user = mainUser;
   };
 
   users.users.${mainUser} = {
