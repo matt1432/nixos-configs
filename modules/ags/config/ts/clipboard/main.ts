@@ -23,7 +23,10 @@ export default () => {
             class_name: 'item',
             name: key.toString(),
 
-            on_primary_click_release: () => Clipboard.copyOldItem(key),
+            on_primary_click_release: () => {
+                Clipboard.copyOldItem(key);
+                App.closeWindow('win-clipboard');
+            },
 
             child: Box({
                 children: [
@@ -52,19 +55,22 @@ export default () => {
         class_name: 'clipboard',
         transition: 'slide top',
 
-        on_select: (r) => Clipboard.copyOldItem(getKey(r)),
+        on_select: (r) => {
+            Clipboard.copyOldItem(getKey(r));
+            App.closeWindow('win-clipboard');
+        },
 
         init_rows: (list) => {
             Clipboard.getHistory();
 
-            const connectId = Clipboard.connect('history-searched', () => {
+            const CONNECT_ID = Clipboard.connect('history-searched', () => {
                 list.get_children().forEach((row) => {
                     row.destroy();
                 });
                 Clipboard.clips.forEach((clip, key) => {
                     makeItem(list, key, clip.clip, clip.isImage);
                 });
-                Clipboard.disconnect(connectId);
+                Clipboard.disconnect(CONNECT_ID);
             });
         },
 
@@ -81,10 +87,10 @@ export default () => {
 
                 fzfResults = fzf.find(text);
                 list.set_sort_func((a, b) => {
-                    const row1 = fzfResults.find((f) => f.item[0] === getKey(a))?.score ?? 0;
-                    const row2 = fzfResults.find((f) => f.item[0] === getKey(b))?.score ?? 0;
+                    const ROW_1 = fzfResults.find((f) => f.item[0] === getKey(a))?.score ?? 0;
+                    const ROW_2 = fzfResults.find((f) => f.item[0] === getKey(b))?.score ?? 0;
 
-                    return row2 - row1;
+                    return ROW_2 - ROW_1;
                 });
             }
         },

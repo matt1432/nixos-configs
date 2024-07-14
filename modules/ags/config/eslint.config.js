@@ -105,6 +105,7 @@ export default tseslint.config(
                     selector: [
                         'import',
                         'objectLiteralProperty',
+                        'objectLiteralMethod',
                         'typeProperty',
                     ],
                     format: null,
@@ -124,7 +125,6 @@ export default tseslint.config(
                         'classProperty',
                         'typeProperty',
                         'classMethod',
-                        'objectLiteralMethod',
                         'typeMethod',
                         'accessor',
                         'enumMember',
