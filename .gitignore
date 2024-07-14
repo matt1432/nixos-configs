@@ -14,7 +14,7 @@ result*
 
 ## AGS
 modules/ags/config/ts/lockscreen/vars.ts
-*config.js
+**/config.js
 *icons
 **/types
 

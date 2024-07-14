@@ -5,6 +5,7 @@
     "lib": ["ES2022"],
     "noEmit": true,
     "allowImportingTsExtensions": true,
+    "allowSyntheticDefaultImports": true,
     "allowJs": true,
     "checkJs": true,
     "strict": true,
