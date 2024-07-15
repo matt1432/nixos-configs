@@ -3,6 +3,9 @@ deviceName: {config, ...}: let
 
   clusterIP = config.services.pcsd.virtualIps.caddy-vip.ip;
 in {
+  # ------------------------------------------------
+  # Imports
+  # ------------------------------------------------
   imports = [
     ./hardware-configuration.nix
 
@@ -13,6 +16,13 @@ in {
     ./modules/pcsd.nix
   ];
 
+  # State Version: DO NOT CHANGE
+  system.stateVersion = "24.05";
+  home-manager.users.${mainUser}.home.stateVersion = "24.05";
+
+  # ------------------------------------------------
+  # User Settings
+  # ------------------------------------------------
   vars = {
     mainUser = "matt";
     hostName = deviceName;
@@ -32,13 +42,6 @@ in {
     ];
   };
 
-  home-manager.users.${mainUser} = {
-    imports = [];
-
-    # No touchy
-    home.stateVersion = "24.05";
-  };
-
   networking = {
     inherit hostName;
     resolvconf.enable = true;
@@ -53,9 +56,5 @@ in {
     firewall.enable = false;
   };
 
-  # Set your time zone.
   time.timeZone = "America/Montreal";
-
-  # No touchy
-  system.stateVersion = "24.05";
 }

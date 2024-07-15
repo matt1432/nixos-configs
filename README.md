@@ -82,14 +82,14 @@ I generate `.sops.yaml` from `.sops.nix`:
 ```nix
 let
   wim = "somekey";
-  oksys = "somekey2";
+  binto = "somekey2";
 in {
   creation_rules = [
     {
       path_regex = "secrets/[^/]+\\.(yaml|json|env|ini)$";
       key_groups = [
         {
-          age = [wim oksys];
+          age = [wim binto];
         }
       ];
     }

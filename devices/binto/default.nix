@@ -5,6 +5,9 @@
 }: let
   inherit (config.vars) mainUser hostName;
 in {
+  # ------------------------------------------------
+  # Imports
+  # ------------------------------------------------
   imports = [
     ./hardware-configuration.nix
 
@@ -23,24 +26,24 @@ in {
     self.nixosModules.desktop
   ];
 
+  home-manager.users.${mainUser} = {
+    imports = [
+      ../../home/firefox
+    ];
+
+    # State Version: DO NOT CHANGE
+    home.stateVersion = "23.11";
+  };
+  # State Version: DO NOT CHANGE
+  system.stateVersion = "23.11";
+
+  # ------------------------------------------------
+  # User Settings
+  # ------------------------------------------------
   vars = {
     mainUser = "matt";
     hostName = "binto";
     promptMainColor = "purple";
-  };
-
-  roles.desktop = {
-    user = config.vars.mainUser;
-
-    mainMonitor = "desc:GIGA-BYTE TECHNOLOGY CO. LTD. G27QC 0x00000B1D";
-    displayManager.duplicateScreen = false;
-
-    fontSize = 12.5;
-  };
-
-  programs.adb = {
-    enable = true;
-    user = mainUser;
   };
 
   users.users.${mainUser} = {
@@ -54,14 +57,6 @@ in {
       "libvirtd"
     ];
   };
-  home-manager.users.${mainUser} = {
-    imports = [
-      ../../home/firefox
-    ];
-
-    # No touchy
-    home.stateVersion = "23.11";
-  };
 
   networking = {
     inherit hostName;
@@ -69,9 +64,22 @@ in {
     firewall.enable = false;
   };
 
-  # Set your time zone.
   time.timeZone = "America/Montreal";
 
-  # No touchy
-  system.stateVersion = "23.11";
+  # ------------------------------------------------
+  # `Self` Modules configuration
+  # ------------------------------------------------
+  roles.desktop = {
+    user = mainUser;
+
+    mainMonitor = "desc:GIGA-BYTE TECHNOLOGY CO. LTD. G27QC 0x00000B1D";
+    displayManager.duplicateScreen = false;
+
+    fontSize = 12.5;
+  };
+
+  programs.adb = {
+    enable = true;
+    user = mainUser;
+  };
 }

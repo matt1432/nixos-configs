@@ -42,9 +42,9 @@
     mainInputs // otherInputs;
 
   outputs = inputs @ {
-    self,
     nixpkgs,
     secrets,
+    self,
     ...
   }: let
     inherit (import ./lib.nix inputs) mkVersion mkNixOS mkNixOnDroid mkPkgs;

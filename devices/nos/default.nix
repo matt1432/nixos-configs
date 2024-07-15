@@ -1,6 +1,9 @@
 {config, ...}: let
   inherit (config.vars) mainUser hostName;
 in {
+  # ------------------------------------------------
+  # Imports
+  # ------------------------------------------------
   imports = [
     ./hardware-configuration.nix
 
@@ -16,6 +19,13 @@ in {
     ./modules/subtitles
   ];
 
+  # State Version: DO NOT CHANGE
+  system.stateVersion = "24.05";
+  home-manager.users.${mainUser}.home.stateVersion = "24.05";
+
+  # ------------------------------------------------
+  # User Settings
+  # ------------------------------------------------
   vars = {
     mainUser = "matt";
     hostName = "nos";
@@ -31,22 +41,11 @@ in {
     ];
   };
 
-  home-manager.users.${mainUser} = {
-    imports = [];
-
-    # No touchy
-    home.stateVersion = "24.05";
-  };
-
   networking = {
     inherit hostName;
     resolvconf.enable = true;
     firewall.enable = false;
   };
 
-  # Set your time zone.
   time.timeZone = "America/Montreal";
-
-  # No touchy
-  system.stateVersion = "24.05";
 }

@@ -1,10 +1,12 @@
 {config, ...}: let
   inherit (config.vars) mainUser hostName;
 in {
+  # ------------------------------------------------
+  # Imports
+  # ------------------------------------------------
   imports = [
     ./hardware-configuration.nix
 
-    ../../modules/arion
     ../../modules/kmscon.nix
     ../../modules/sshd.nix
     ../../modules/tailscale.nix
@@ -15,6 +17,13 @@ in {
     ./modules/nfs.nix
   ];
 
+  # State Version: DO NOT CHANGE
+  system.stateVersion = "24.05";
+  home-manager.users.${mainUser}.home.stateVersion = "24.05";
+
+  # ------------------------------------------------
+  # User Settings
+  # ------------------------------------------------
   vars = {
     mainUser = "matt";
     hostName = "servivi";
@@ -43,24 +52,16 @@ in {
     };
   };
 
-  home-manager.users.${mainUser} = {
-    imports = [];
-
-    # No touchy
-    home.stateVersion = "24.05";
-  };
-
-  arion.enable = true;
-
   networking = {
     inherit hostName;
     resolvconf.enable = true;
     firewall.enable = false;
   };
 
-  # Set your time zone.
   time.timeZone = "America/Montreal";
 
-  # No touchy
-  system.stateVersion = "24.05";
+  # ------------------------------------------------
+  # `Self` Modules configuration
+  # ------------------------------------------------
+  arion.enable = true;
 }

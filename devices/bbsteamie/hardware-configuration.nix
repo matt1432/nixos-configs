@@ -1,11 +1,15 @@
 {
   config,
+  jovian,
   lib,
   modulesPath,
   ...
 }: {
   nixpkgs.hostPlatform = "x86_64-linux";
-  imports = [(modulesPath + "/installer/scan/not-detected.nix")];
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+    jovian.nixosModules.default
+  ];
 
   jovian = {
     steamos.useSteamOSConfig = true;

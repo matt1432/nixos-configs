@@ -5,6 +5,9 @@
 }: let
   inherit (config.vars) mainUser hostName;
 in {
+  # ------------------------------------------------
+  # Imports
+  # ------------------------------------------------
   imports = [
     ./hardware-configuration.nix
 
@@ -21,14 +24,54 @@ in {
     self.nixosModules.plymouth
   ];
 
+  home-manager.users.${mainUser} = {
+    imports = [
+      ../../home/firefox
+    ];
+
+    # State Version: DO NOT CHANGE
+    home.stateVersion = "23.05";
+  };
+  # State Version: DO NOT CHANGE
+  system.stateVersion = "23.05";
+
+  # ------------------------------------------------
+  # User Settings
+  # ------------------------------------------------
   vars = {
     mainUser = "matt";
     hostName = "wim";
     promptMainColor = "purple";
   };
 
+  users.users.${mainUser} = {
+    isNormalUser = true;
+    extraGroups = [
+      "wheel"
+      "input"
+      "uinput"
+      "adm"
+      "video"
+      "libvirtd"
+    ];
+  };
+
+  networking = {
+    inherit hostName;
+    networkmanager = {
+      enable = true;
+      wifi.backend = "wpa_supplicant";
+    };
+    firewall.enable = false;
+  };
+
+  time.timeZone = "America/Montreal";
+
+  # ------------------------------------------------
+  # `Self` Modules configuration
+  # ------------------------------------------------
   roles.desktop = {
-    user = config.vars.mainUser;
+    user = mainUser;
 
     mainMonitor = "eDP-1";
     isLaptop = true;
@@ -46,39 +89,4 @@ in {
     enable = true;
     theme = "dracula";
   };
-
-  users.users.${mainUser} = {
-    isNormalUser = true;
-    extraGroups = [
-      "wheel"
-      "input"
-      "uinput"
-      "adm"
-      "video"
-      "libvirtd"
-    ];
-  };
-  home-manager.users.${mainUser} = {
-    imports = [
-      ../../home/firefox
-    ];
-
-    # No touchy
-    home.stateVersion = "23.05";
-  };
-
-  networking = {
-    inherit hostName;
-    networkmanager = {
-      enable = true;
-      wifi.backend = "wpa_supplicant";
-    };
-    firewall.enable = false;
-  };
-
-  # Set your time zone.
-  time.timeZone = "America/Montreal";
-
-  # No touchy
-  system.stateVersion = "23.05";
 }

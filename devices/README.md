@@ -11,7 +11,6 @@ This directory encompasses every device's main configuration file.
 | `binto`     | My desktop PC with a multi-monitor setup and an NVIDIA (cringe) 3070 |
 | `cluster`   | Two Lenovo mini PCs that make use of [NixOS-pcsd](https://github.com/matt1432/nixos-pcsd) to form a cluster |
 | `nos`       | My custom built NAS |
-| `oksys`     | A very old Acer laptop that went from sailing the seas for years to becoming my web server and VPN host. It is now retired indefinitely. |
 | `servivi`   | A gaming PC in a previous life, it is now used as a build farm and hosts game servers |
 | `wim`       | My 2-1 Lenovo Laptop that I use for uni |
 

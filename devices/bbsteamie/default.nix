@@ -1,32 +1,35 @@
 {
   config,
-  jovian,
   self,
   ...
 }: let
   inherit (config.vars) mainUser hostName;
 in {
+  # ------------------------------------------------
+  # Imports
+  # ------------------------------------------------
   imports = [
-    jovian.nixosModules.default
+    ./hardware-configuration.nix
+
     ../../modules/kmscon.nix
     ../../modules/sshd.nix
-
-    ./hardware-configuration.nix
 
     ./modules/desktop.nix
 
     self.nixosModules.plymouth
   ];
 
+  # State Version: DO NOT CHANGE
+  system.stateVersion = "24.11";
+  home-manager.users.${mainUser}.home.stateVersion = "24.11";
+
+  # ------------------------------------------------
+  # User Settings
+  # ------------------------------------------------
   vars = {
     mainUser = "mariah";
     hostName = "bbsteamie";
     promptMainColor = "pink";
-  };
-
-  boot.plymouth = {
-    enable = true;
-    theme = "steamos";
   };
 
   users.users.${mainUser} = {
@@ -42,16 +45,13 @@ in {
     networkmanager.enable = true;
   };
 
-  home-manager.users.${mainUser} = {
-    imports = [];
-
-    # No touchy
-    home.stateVersion = "24.11";
-  };
-
-  # Set your time zone.
   time.timeZone = "America/Montreal";
 
-  # No touchy
-  system.stateVersion = "24.11";
+  # ------------------------------------------------
+  # `Self` Modules configuration
+  # ------------------------------------------------
+  boot.plymouth = {
+    enable = true;
+    theme = "steamos";
+  };
 }
