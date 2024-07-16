@@ -1,6 +1,6 @@
 {
   addOpenGLRunpath,
-  stdenv,
+  dbus,
   ffmpeg,
   gpu-screen-recorder-src,
   lib,
@@ -11,7 +11,9 @@
   makeWrapper,
   meson,
   ninja,
+  pipewire,
   pkg-config,
+  stdenv,
   wayland,
   xorg,
   ...
@@ -38,7 +40,9 @@ in
     ];
 
     buildInputs = [
+      dbus
       libpulseaudio
+      pipewire
       ffmpeg
       wayland
       libdrm
