@@ -6,9 +6,10 @@
   lib,
   pkgs,
   self,
+  ts-for-gir-src,
   ...
 }: let
-  inherit (lib) boolToString;
+  inherit (lib) boolToString toLower;
 
   # Configs
   inherit (config.vars) mainUser hostName;
@@ -44,6 +45,7 @@ in {
           export default (await transpileTypeScript('${hostName}')).default;
         '';
 
+      agsPkg = config.programs.ags.finalPackage;
       agsConfigDir = "${removePrefix "/home/${mainUser}/" flakeDir}/modules/ags";
     in {
       assertions = [
@@ -65,20 +67,27 @@ in {
       };
 
       home = {
-        file =
+        file = let
+          mkType = package: girName: {
+            "${agsConfigDir}/config/types/@girs/${toLower girName}".source =
+              pkgs.callPackage
+              ./mk-types {
+                inherit ts-for-gir-src package girName;
+              };
+          };
+        in (
           {
-            # Out of store symlinks
-            ".config/ags".source = mkOutOfStoreSymlink "${flakeDir}/modules/ags/config";
-
             # Generated types
             "${agsConfigDir}/config/types" = {
-              source = "${config.programs.ags.finalPackage}/share/com.github.Aylur.ags/types";
+              source = "${agsPkg}/share/com.github.Aylur.ags/types";
               recursive = true; # To add other types inside the folder
             };
-            "${agsConfigDir}/config/types/gtk-session-lock".source =
-              pkgs.callPackage ./third-party-types/lock.nix {inherit gtkSessionLock;};
-            "${agsConfigDir}/config/types/astal-tray".source =
-              pkgs.callPackage ./third-party-types/tray.nix {inherit astalTray;};
+          }
+          // (mkType gtkSessionLock "GtkSessionLock-0.1")
+          // (mkType astalTray "AstalTray-0.1")
+          // {
+            # Out of store symlinks
+            ".config/ags".source = mkOutOfStoreSymlink "${flakeDir}/modules/ags/config";
 
             # Generated JavaScript files
             "${agsConfigDir}/config/config.js".text = configJs;
@@ -92,7 +101,8 @@ in {
                 };
               '';
           }
-          // (import ./icons.nix {inherit pkgs agsConfigDir;});
+          // (import ./icons.nix {inherit pkgs agsConfigDir;})
+        );
 
         packages =
           [

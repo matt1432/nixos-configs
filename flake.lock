@@ -191,22 +191,6 @@
         "type": "github"
       }
     },
-    "curseforge-server-downloader-src_2": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1691252534,
-        "narHash": "sha256-GqFj2Rms6BxzWdQTQ9imXKSlov3sDk8Cwwl9lwjIGzM=",
-        "owner": "Malpiszonekx4",
-        "repo": "curseforge-server-downloader",
-        "rev": "91901b2efc64ac54c9135d537e4118e2ac0bd286",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Malpiszonekx4",
-        "repo": "curseforge-server-downloader",
-        "type": "github"
-      }
-    },
     "discord-overlay": {
       "inputs": {
         "Vencord-src": "Vencord-src",
@@ -1197,7 +1181,7 @@
     },
     "minix": {
       "inputs": {
-        "curseforge-server-downloader-src": "curseforge-server-downloader-src_2",
+        "curseforge-server-downloader-src": "curseforge-server-downloader-src",
         "nixpkgs": [
           "nixpkgs"
         ]
@@ -2017,7 +2001,6 @@
         "bat-theme-src": "bat-theme-src",
         "bazarr-bulk": "bazarr-bulk",
         "caddy-plugins": "caddy-plugins",
-        "curseforge-server-downloader-src": "curseforge-server-downloader-src",
         "discord-overlay": "discord-overlay",
         "dracula-plymouth-src": "dracula-plymouth-src",
         "eisa-scripts-src": "eisa-scripts-src",
@@ -2065,6 +2048,7 @@
         "sops-nix": "sops-nix_2",
         "subsync": "subsync",
         "trash-d-src": "trash-d-src",
+        "ts-for-gir-src": "ts-for-gir-src",
         "vimplugin-easytables-src": "vimplugin-easytables-src",
         "vimplugin-ts-error-translator-src": "vimplugin-ts-error-translator-src"
       }
@@ -2372,6 +2356,22 @@
       "original": {
         "owner": "numtide",
         "repo": "treefmt-nix",
+        "type": "github"
+      }
+    },
+    "ts-for-gir-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1721021811,
+        "narHash": "sha256-QU6sEa3HR40DrAYvciYYbWgCneVdZvLpphcqeegOotM=",
+        "owner": "gjsify",
+        "repo": "ts-for-gir",
+        "rev": "80cacc3050f93baf6b49ce3f14336151c252567e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "gjsify",
+        "repo": "ts-for-gir",
         "type": "github"
       }
     },

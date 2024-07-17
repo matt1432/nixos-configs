@@ -221,6 +221,10 @@ let
       owner = "libratbag";
       repo = "piper";
     }
+    {
+      owner = "gjsify";
+      repo = "ts-for-gir";
+    }
 
     # MPV scripts
     {

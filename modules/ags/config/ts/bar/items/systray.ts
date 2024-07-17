@@ -1,5 +1,5 @@
-import Tray from 'gi://AstalTray?version=0.1';
-const SystemTray = Tray.Tray.get_default();
+import AstalTray from 'gi://AstalTray?version=0.1';
+const SystemTray = AstalTray.Tray.get_default();
 
 
 const { timeout } = Utils;
@@ -9,10 +9,6 @@ import Separator from '../../misc/separator.ts';
 
 const REVEAL_DURATION = 500;
 const SPACING = 12;
-
-/* Types */
-// FIXME: get types from 'gi://AstalTray'
-import type AstalTray from 'types/astal-tray/astaltray-0.1.d.ts';
 
 
 const SysTrayItem = (item: AstalTray.TrayItem) => {

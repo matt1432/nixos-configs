@@ -49,12 +49,6 @@
       repo = "nixos-caddy-cloudflare";
       type = "github";
     };
-    curseforge-server-downloader-src = {
-      flake = false;
-      owner = "Malpiszonekx4";
-      repo = "curseforge-server-downloader";
-      type = "github";
-    };
     discord-overlay = {
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "matt1432";
@@ -330,6 +324,12 @@
       flake = false;
       owner = "rushsteve1";
       repo = "trash-d";
+      type = "github";
+    };
+    ts-for-gir-src = {
+      flake = false;
+      owner = "gjsify";
+      repo = "ts-for-gir";
       type = "github";
     };
     vimplugin-easytables-src = {
