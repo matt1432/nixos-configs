@@ -3,6 +3,7 @@
 import eslint from '@eslint/js';
 
 import tseslint from 'typescript-eslint';
+import tsPlugin from '@typescript-eslint/eslint-plugin';
 
 import stylistic from '@stylistic/eslint-plugin';
 // import stylisticRules from '@stylistic/eslint-plugin/rule-options';
@@ -23,13 +24,12 @@ export default tseslint.config(
         extends: [
             eslint.configs.recommended,
             jsdoc.configs['flat/recommended-typescript'],
-            ...tseslint.configs.strictTypeChecked, // eslint-disable-line
-            ...tseslint.configs.stylisticTypeChecked, // eslint-disable-line
         ],
 
         plugins: {
             jsdoc,
             '@stylistic': stylistic, // as typeof stylisticRules,
+            '@typescript-eslint': tsPlugin,
         },
 
         rules: {
