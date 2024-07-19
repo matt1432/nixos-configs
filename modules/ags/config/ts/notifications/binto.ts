@@ -11,7 +11,7 @@ export const NotifPopups = () => Window({
     name: 'notifications',
     anchor: ['bottom', 'left'],
     layer: 'overlay',
-    gdkmonitor: get_gdkmonitor_from_desc('desc:Samsung Electric Company C27JG5x HTOM100586'),
+    gdkmonitor: get_gdkmonitor_from_desc('desc:Acer Technologies Acer K212HQL T3EAA0014201'),
 
     child: PopUpsWidget(),
 });
@@ -21,7 +21,7 @@ export const NotifCenter = () => PopupWindow({
     name: 'notification-center',
     anchor: ['bottom', 'right'],
     transition: 'slide bottom',
-    gdkmonitor: get_gdkmonitor_from_desc('desc:Samsung Electric Company C27JG5x HTOM100586'),
+    gdkmonitor: get_gdkmonitor_from_desc('desc:Acer Technologies Acer K212HQL T3EAA0014201'),
 
     child: NotifCenterWidget(),
 });

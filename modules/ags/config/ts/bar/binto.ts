@@ -13,7 +13,7 @@ import SysTray from './items/systray.ts';
 const PADDING = 20;
 
 export default () => BarRevealer({
-    gdkmonitor: get_gdkmonitor_from_desc('desc:Samsung Electric Company C27JG5x HTOM100586'),
+    gdkmonitor: get_gdkmonitor_from_desc('desc:Acer Technologies Acer K212HQL T3EAA0014201'),
     exclusivity: 'exclusive',
     anchor: ['bottom', 'left', 'right'],
     bar: Box({

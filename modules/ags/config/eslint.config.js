@@ -12,20 +12,11 @@ import jsdoc from 'eslint-plugin-jsdoc';
 
 
 export default tseslint.config(
+    // @ts-expect-error this works
+    eslint.configs.recommended,
+    jsdoc.configs['flat/recommended-typescript'],
+
     {
-        // @ts-expect-error this works
-        languageOptions: {
-            parserOptions: {
-                project: true,
-                tsconfigRootDir: import.meta.dirname,
-            },
-        },
-
-        extends: [
-            eslint.configs.recommended,
-            jsdoc.configs['flat/recommended-typescript'],
-        ],
-
         plugins: {
             jsdoc,
             '@stylistic': stylistic, // as typeof stylisticRules,
@@ -38,101 +29,6 @@ export default tseslint.config(
             'jsdoc/check-line-alignment': ['warn', 'always', {
                 tags: ['param', 'arg', 'argument', 'property', 'prop'],
             }],
-
-            // Naming Conventions
-            'camelcase': 'off',
-            '@typescript-eslint/naming-convention': [
-                'error',
-                {
-                    selector: 'default',
-                    format: ['camelCase'],
-                },
-
-                // Variable names
-                {
-                    selector: 'variable',
-                    format: ['camelCase', 'UPPER_CASE', 'PascalCase'],
-                },
-                {
-                    selector: 'variable',
-                    types: ['function'],
-                    format: ['camelCase', 'PascalCase'],
-                },
-                {
-                    selector: 'variable',
-                    modifiers: ['const'],
-                    types: ['number', 'string'],
-                    format: ['UPPER_CASE'],
-                },
-                {
-                    selector: 'variable',
-                    types: ['boolean'],
-                    format: ['PascalCase'],
-                    prefix: ['is', 'should', 'has', 'can', 'did', 'will'],
-                },
-
-                // Readonly in UPPER_CASE
-                {
-                    selector: [
-                        'classProperty',
-                        'parameterProperty',
-                        'typeProperty',
-                    ],
-                    modifiers: ['readonly'],
-                    format: ['UPPER_CASE'],
-                    leadingUnderscore: 'allow',
-                },
-
-                // Force an underscore before a private prop
-                {
-                    selector: 'memberLike',
-                    modifiers: ['private'],
-                    format: ['camelCase'],
-                    leadingUnderscore: 'require',
-                },
-
-                // Force PascalCase
-                {
-                    selector: [
-                        'typeLike',
-                        'class',
-                    ],
-                    format: ['PascalCase'],
-                },
-
-                // Don't format:
-                {
-                    selector: [
-                        'import',
-                        'objectLiteralProperty',
-                        'objectLiteralMethod',
-                        'typeProperty',
-                    ],
-                    format: null,
-                },
-                {
-                    selector: [
-                        'variable',
-                        'parameter',
-                    ],
-                    modifiers: ['unused'],
-                    format: null,
-                },
-
-                // Don't format when inside quotes
-                {
-                    selector: [
-                        'classProperty',
-                        'typeProperty',
-                        'classMethod',
-                        'typeMethod',
-                        'accessor',
-                        'enumMember',
-                    ],
-                    format: null,
-                    modifiers: ['requiresQuotes'],
-                },
-            ],
 
             // Newer settings
             '@typescript-eslint/no-extraneous-class': ['off'],

@@ -2,6 +2,17 @@ const Hyprland = await Service.import('hyprland');
 
 import Gdk from 'gi://Gdk?version=3.0';
 
+/* Types */
+import { Monitor } from 'types/service/hyprland';
+
+
+export const get_hyprland_monitor = (monitor: Gdk.Monitor): Monitor | undefined => {
+    const manufacturer = monitor.manufacturer?.replace(',', '');
+    const model = monitor.model?.replace(',', '');
+    const start = `${manufacturer} ${model}`;
+
+    return Hyprland.monitors.find((m) => m.description.startsWith(start));
+};
 
 export const get_hyprland_monitor_desc = (monitor: Gdk.Monitor): string => {
     const manufacturer = monitor.manufacturer?.replace(',', '');

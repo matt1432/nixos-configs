@@ -1,6 +1,8 @@
 import Gtk from 'gi://Gtk?version=3.0';
 const Hyprland = await Service.import('hyprland');
 
+import { get_hyprland_monitor } from '../lib.ts';
+
 /* Types */
 import { Window } from 'resource:///com/github/Aylur/ags/widgets/window.js';
 import type { WindowProps } from 'types/widgets/window';
@@ -90,8 +92,8 @@ export class PopupWindow<
 
     constructor({
         transition = 'slide top',
-        on_open = () => {/**/},
-        on_close = () => {/**/},
+        on_open = () => {/**/ },
+        on_close = () => {/**/ },
 
         // Window props
         name,
@@ -143,9 +145,22 @@ export class PopupWindow<
         alloc: Gtk.Allocation,
         side = 'right' as 'left' | 'right',
     ) {
-        const width = this.get_display()
-            .get_monitor_at_point(alloc.x, alloc.y)
-            .get_geometry().width;
+        const transform = get_hyprland_monitor(
+            this.get_display().get_monitor_at_point(alloc.x, alloc.y),
+        )?.transform;
+
+        let width: number;
+
+        if (transform && (transform === 1 || transform === 3)) {
+            width = this.get_display()
+                .get_monitor_at_point(alloc.x, alloc.y)
+                .get_geometry().height;
+        }
+        else {
+            width = this.get_display()
+                .get_monitor_at_point(alloc.x, alloc.y)
+                .get_geometry().width;
+        }
 
         this.margins = [
             this.margins[0],
@@ -163,6 +178,6 @@ export class PopupWindow<
     }
 }
 
-export default <Child extends Gtk.Widget, Attr> (
+export default <Child extends Gtk.Widget, Attr>(
     props: PopupWindowProps<Child, Attr>,
 ) => new PopupWindow(props);
