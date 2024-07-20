@@ -137,10 +137,15 @@
         ];
       };
 
-      ags = pkgs.mkShell {
-        packages = with pkgs; [
-          nodejs_latest
-        ];
+      node = pkgs.mkShell {
+        packages = with pkgs;
+          [
+            nodejs_latest
+            typescript
+          ]
+          ++ (with nodePackages; [
+            ts-node
+          ]);
       };
 
       subtitles-dev = pkgs.mkShell {
