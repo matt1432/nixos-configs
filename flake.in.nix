@@ -163,6 +163,16 @@
 
     formatter = perSystem (_: pkgs: pkgs.alejandra);
 
+    # Scripts
+    apps = perSystem (system: pkgs: let
+      inherit (pkgs) lib callPackage;
+    in {
+      updateFlake = {
+        program = lib.getExe (callPackage ./apps/update ({} // inputs));
+        type = "app";
+      };
+    });
+
     # For nix-fast-build
     checks =
       perSystem (system: pkgs:
