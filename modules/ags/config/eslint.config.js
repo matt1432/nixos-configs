@@ -16,6 +16,8 @@ export default tseslint.config(
     eslint.configs.recommended,
     jsdoc.configs['flat/recommended-typescript'],
 
+    { ignores: ['js'] },
+
     {
         plugins: {
             jsdoc,

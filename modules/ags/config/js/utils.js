@@ -32,7 +32,7 @@ export const transpileTypeScript = async(host) => {
         // Let bun see tsconfig.json
         `cd ${App.configDir};` +
 
-        `bun build ${App.configDir}/${host}.ts ` +
+        `bun build ${App.configDir}/${host === 'lockscreen' ? 'ts/lockscreen/main' : host}.ts ` +
         '--external resource:///* ' +
         '--external gi://* ' +
         '--external cairo ' +
