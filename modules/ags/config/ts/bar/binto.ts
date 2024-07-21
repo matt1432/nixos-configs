@@ -35,6 +35,8 @@ export default () => BarRevealer({
                 center_widget: Box({
                     children: [
                         CurrentWindow(),
+
+                        Separator(PADDING / 2),
                     ],
                 }),
 
