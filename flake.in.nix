@@ -53,7 +53,7 @@
 
     perSystem = attrs:
       nixpkgs.lib.genAttrs supportedSystems (system:
-        attrs system (mkPkgs system nixpkgs));
+        attrs (mkPkgs system nixpkgs));
   in {
     nixosModules = {
       adb = import ./modules/adb.nix;
@@ -95,8 +95,7 @@
       ];
 
       live-image = mkNixOS [
-        ("${nixpkgs}/nixos/modules/installer/"
-          + "cd-dvd/installation-cd-minimal.nix")
+        "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
         {home-manager.users.nixos.home.stateVersion = "24.05";}
         {
           vars = {
@@ -107,33 +106,28 @@
       ];
     };
 
-    nixOnDroidConfigurations.default = mkNixOnDroid [./devices/android];
+    nixOnDroidConfigurations.default =
+      mkNixOnDroid [./devices/android];
 
-    legacyPackages = perSystem (system: pkgs: let
-      mkScope = file:
-        pkgs.lib.recurseIntoAttrs
-        (pkgs.callPackage file ({inherit mkVersion;} // inputs));
-    in {
-      dracula = mkScope ./pkgs/dracula;
-      firefoxAddons = mkScope ./pkgs/firefox-addons;
-      mpvScripts = mkScope ./pkgs/mpv-scripts;
-    });
+    legacyPackages =
+      perSystem (pkgs:
+        import ./legacyPackages {inherit mkVersion pkgs inputs;});
 
     packages =
-      perSystem (system: pkgs:
-        import ./pkgs ({inherit self system pkgs mkVersion;} // inputs));
+      perSystem (pkgs:
+        import ./packages {inherit self pkgs mkVersion inputs;});
 
-    devShells = perSystem (_: pkgs: {
+    apps =
+      perSystem (pkgs:
+        import ./apps {inherit inputs pkgs;});
+
+    devShells = perSystem (pkgs: {
       default = pkgs.mkShell {
         packages = with pkgs; [
-          alejandra
-          git
-          nix-output-monitor
-
-          (writeShellScriptBin "mkIso" (lib.concatStrings [
-            "nom build $(realpath /etc/nixos)#nixosConfigurations."
-            "live-image.config.system.build.isoImage"
-          ]))
+          (writeShellScriptBin "mkIso" ''
+            isoConfig="nixosConfigurations.live-image.config.system.build.isoImage"
+            nom build $(realpath /etc/nixos)#$isoConfig
+          '')
         ];
       };
 
@@ -161,21 +155,11 @@
       };
     });
 
-    formatter = perSystem (_: pkgs: pkgs.alejandra);
-
-    # Scripts
-    apps = perSystem (system: pkgs: let
-      inherit (pkgs) lib callPackage;
-    in {
-      updateFlake = {
-        program = lib.getExe (callPackage ./apps/update ({} // inputs));
-        type = "app";
-      };
-    });
-
     # For nix-fast-build
     checks =
-      perSystem (system: pkgs:
-        import ./flake/ci.nix {inherit system pkgs self;});
+      perSystem (pkgs:
+        import ./flake/ci.nix {inherit pkgs self;});
+
+    formatter = perSystem (pkgs: pkgs.alejandra);
   };
 }

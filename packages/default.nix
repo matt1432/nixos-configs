@@ -1,8 +1,9 @@
 {
-  pkgs,
+  inputs,
   mkVersion,
+  pkgs,
   ...
-} @ inputs: {
+}: {
   coloryou = pkgs.callPackage ./coloryou {};
 
   gpu-screen-recorder = pkgs.callPackage ./gpu-screen-recorder {
