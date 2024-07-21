@@ -44,8 +44,8 @@ sudo ln -sf /home/matt/.nix /etc/nixos
 | ---------------------------------- | ----------- |
 | `nixosConfigurations`              | [devices](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/devices)' + ISO's configurations |
 | `nixOnDroidConfigurations.default` | [Nix-On-Droid](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/devices/android)'s configuration |
-| `packages`                         | Some custom [packages](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/pkgs) not available in nixpkgs or modified from it |
-| `legacyPackages`                   | Some custom [package scopes](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/pkgs) not available in nixpkgs or modified from it |
+| `packages`                         | Some custom [packages](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/packages) not available in nixpkgs or modified from it |
+| `legacyPackages`                   | Some custom [package scopes](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/legacyPackages) not available in nixpkgs or modified from it |
 | `formatter`                        | I format nix code with [alejandra](https://github.com/kamadorueda/alejandra) |
 | `devShells.default`                | A dev shell to build an ISO from the live-image nixosConfiguration |
 | `devShells.ags`                    | A dev shell to have a NodeJS env when I enter my AGS's config directory |
