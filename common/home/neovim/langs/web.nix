@@ -8,7 +8,7 @@
   inherit (config.vars) neovimIde;
   inherit (pkgs) vimPlugins;
 
-  inherit (import ../../../../lib.nix {inherit pkgs;}) buildPlugin;
+  inherit (import ../../../../flake/lib.nix {inherit pkgs;}) buildPlugin;
 in
   lib.mkIf neovimIde {
     programs = {

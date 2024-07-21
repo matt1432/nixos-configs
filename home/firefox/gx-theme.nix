@@ -3,7 +3,7 @@
   firefox-gx-src,
   stdenvNoCC,
 }: let
-  inherit (import ../../lib.nix {}) mkVersion;
+  inherit (import ../../flake/lib.nix {}) mkVersion;
 in
   stdenvNoCC.mkDerivation {
     pname = "firefox-gx";

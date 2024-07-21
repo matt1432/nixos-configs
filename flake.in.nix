@@ -1,6 +1,6 @@
 {
   inputs = let
-    inherit (import ./inputs.nix) mkDep mkInput otherInputs;
+    inherit (import ./flake/inputs.nix) mkDep mkInput otherInputs;
 
     mainInputs = {
       nixpkgs = mkInput {
@@ -47,7 +47,7 @@
     self,
     ...
   }: let
-    inherit (import ./lib.nix inputs) mkVersion mkNixOS mkNixOnDroid mkPkgs;
+    inherit (import ./flake/lib.nix inputs) mkVersion mkNixOS mkNixOnDroid mkPkgs;
 
     supportedSystems = ["x86_64-linux" "aarch64-linux"];
 
@@ -176,6 +176,6 @@
     # For nix-fast-build
     checks =
       perSystem (system: pkgs:
-        import ./ci.nix {inherit system pkgs self;});
+        import ./flake/ci.nix {inherit system pkgs self;});
   };
 }

@@ -4,7 +4,7 @@
   piper-src,
   ...
 }: let
-  inherit (import ../lib.nix {}) mkVersion;
+  inherit (import ../flake/lib.nix {}) mkVersion;
 in {
   services.ratbagd = {
     enable = true;

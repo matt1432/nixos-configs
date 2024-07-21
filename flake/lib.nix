@@ -35,7 +35,7 @@
       modules =
         [
           {home-manager.extraSpecialArgs = specialArgs;}
-          ./common
+          ../common
         ]
         ++ mods;
     };
@@ -56,7 +56,7 @@
             };
           }
           {home-manager = {inherit extraSpecialArgs;};}
-          ./common/nix-on-droid.nix
+          ../common/nix-on-droid.nix
         ]
         ++ mods;
     };
