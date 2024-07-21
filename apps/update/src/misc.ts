@@ -7,6 +7,24 @@ import { parseFetchurl } from './lib.ts';
 /* Constants */
 const FLAKE = process.env.FLAKE;
 
+export const updateFlakeInputs = () => {
+    const output = spawnSync(
+        `nix flake update --flake ${FLAKE} |& grep -v "warning: updating lock file"`,
+        [],
+        { shell: true },
+    ).stdout
+        .toString()
+        .split('\n•')
+        .join('\n\n•')
+        .split('\n')
+        .map((l) => l
+            .replace(/.{33}\?narHash=sha256[^']*/, '')
+            .replace(/&rev=(.{7})[^'&]*/, (_, backref) => `&rev=${backref}`))
+        .join('\n');
+
+    return output;
+};
+
 export const updateDocker = () => {
     let updates = '';
 

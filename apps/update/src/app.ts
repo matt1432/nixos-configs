@@ -1,12 +1,16 @@
 import { parseArgs } from './lib.ts';
 import { updateFirefoxAddons } from '././firefox.ts';
-import { updateDocker, updateVuetorrent } from './misc.ts';
+import { updateDocker, updateFlakeInputs, updateVuetorrent } from './misc.ts';
 
 
 const args = parseArgs();
 
 if (args['d'] || args['docker']) {
     console.log(updateDocker());
+}
+
+if (args['i'] || args['inputs']) {
+    console.log(updateFlakeInputs());
 }
 
 if (args['f'] || args['firefox']) {
@@ -18,7 +22,8 @@ if (args['v'] || args['vuetorrent']) {
 }
 
 if (args['a'] || args['all']) {
-    console.log(updateVuetorrent());
-    console.log(updateFirefoxAddons());
     console.log(updateDocker());
+    console.log(updateFlakeInputs());
+    console.log(updateFirefoxAddons());
+    console.log(updateVuetorrent());
 }
