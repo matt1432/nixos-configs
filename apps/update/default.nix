@@ -2,6 +2,7 @@
   lib,
   system,
   buildNpmPackage,
+  callPackage,
   makeWrapper,
   mozilla-addons-to-nix,
   nodejs_latest,
@@ -21,6 +22,7 @@ in
     npmDepsHash = "sha256-qpnQSJNl68LrsU8foJYxdBXpoFj7VKQahC9DFmleWTs=";
 
     runtimeInputs = [
+      (callPackage ../../modules/arion/updateImage.nix {})
       mozilla-addons-to-nix.packages.${system}.default
     ];
     nativeBuildInputs = [makeWrapper];
