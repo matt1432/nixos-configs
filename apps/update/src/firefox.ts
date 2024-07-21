@@ -1,11 +1,26 @@
 import { spawnSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 
+import { parseFetchurl } from './lib.ts';
+
 /* Constants */
 const FLAKE = process.env.FLAKE;
 
 
+const updateFFZ = () => {
+    const FILE = `${FLAKE}/pkgs/firefox-addons/default.nix`;
+    const URL = 'https://cdn.frankerfacez.com/script/frankerfacez-4.0-an+fx.xpi';
+
+    const HASH = parseFetchurl(URL);
+
+    spawnSync('sed', ['-i', `'s,url = .*,url = \"${URL}\";,'`, FILE], { shell: true });
+    spawnSync('sed', ['-i', `'s,sha256 = .*,sha256 = \"${HASH}\";,'`, FILE], { shell: true });
+};
+
 export const updateFirefoxAddons = () => {
+    console.log('Updating FFZ addon');
+    updateFFZ();
+
     console.log('Updating firefox addons using mozilla-addons-to-nix');
 
     const DIR = `${FLAKE}/pkgs/firefox-addons`;
