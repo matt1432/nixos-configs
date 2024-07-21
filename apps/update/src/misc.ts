@@ -14,8 +14,10 @@ export const updateFlakeInputs = () => {
         { shell: true },
     ).stdout
         .toString()
+        // Add an extra blank line between inputs
         .split('\n•')
         .join('\n\n•')
+        // Shorten git revs to help readability
         .split('\n')
         .map((l) => l
             .replace(/.{33}\?narHash=sha256[^']*/, '')
