@@ -4,7 +4,7 @@
     "bin": "out/bin/app.cjs",
     "type": "module",
     "scripts": {
-        "build": "node_ver=$(node -v); esbuild app.ts --bundle --platform=node --target=\"node${node_ver:1:2}\" --outfile=out/bin/app.cjs"
+        "build": "node_ver=$(node -v); esbuild src/app.ts --bundle --platform=node --target=\"node${node_ver:1:2}\" --outfile=out/bin/app.cjs"
     },
     "devDependencies": {
         "@eslint/js": "9.7.0",
