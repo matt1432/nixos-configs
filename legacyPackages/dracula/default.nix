@@ -10,6 +10,11 @@ pkgs.lib.makeScope pkgs.newScope (drac: {
 
   gtk = import ./gtk.nix {inherit (inputs) gtk-theme-src pkgs;};
 
+  hyprcursor = drac.callPackage ./hyprcursor.nix {
+    inherit (inputs) gtk-theme-src mkVersion;
+    inherit pkgs;
+  };
+
   plymouth = drac.callPackage ./plymouth.nix {
     inherit (inputs) dracula-plymouth-src mkVersion;
   };

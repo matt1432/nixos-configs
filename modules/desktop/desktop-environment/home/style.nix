@@ -1,17 +1,32 @@
-{config, ...}: let
+{
+  config,
+  pkgs,
+  self,
+  ...
+}: let
   inherit (config.vars) configDir;
+
+  cursorTheme = self.legacyPackages.${pkgs.system}.dracula.hyprcursor;
+  cursorThemeName = "Dracula-cursors";
+  hyprcursorThemeName = "Dracula-hyprcursor";
+  cursorSize = "24";
 in {
   imports = [
     ../../home/theme
     ../../home/hyprpaper.nix
   ];
 
+  home.file.".local/share/icons/${hyprcursorThemeName}".source = cursorTheme;
+
   wayland.windowManager.hyprland = {
     settings = {
-      envd = ["XCURSOR_SIZE, 24"];
+      envd = [
+        "XCURSOR_THEME, ${cursorThemeName}"
+        "XCURSOR_SIZE, ${cursorSize}"
+      ];
 
       exec-once = [
-        "hyprctl setcursor Dracula-cursors 24"
+        "hyprctl setcursor ${hyprcursorThemeName} ${cursorSize}"
         "hyprpaper"
       ];
 
