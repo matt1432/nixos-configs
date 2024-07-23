@@ -126,15 +126,11 @@ let
         type = "git";
         url = "https://github.com/hyprwm/Hyprland";
         submodules = true;
-
-        # FIXME: cursor doesn't work right after aquamarine merge
-        rev = "f642fb97df5c69267a03452533de383ff8023570";
       };
 
       hyprland-plugins = mkHyprDep {
         owner = "hyprwm";
         repo = "hyprland-plugins";
-        rev = "f23d3ebd92fdbaac107b71893fab94701c39eeb8";
 
         # type = "path";
         # path = "/home/matt/git/hyprland-plugins";

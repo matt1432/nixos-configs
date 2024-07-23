@@ -11,7 +11,11 @@
 in
   mkIf cfg.isTouchscreen {
     wayland.windowManager.hyprland = {
-      plugins = [hyprgrass.packages.${pkgs.system}.default];
+      plugins = [
+        (hyprgrass.packages.${pkgs.system}.default.overrideAttrs (o:{
+          nativeBuildInputs = o.nativeBuildInputs ++ [pkgs.meson];
+        }))
+      ];
 
       settings = {
         plugin = {
