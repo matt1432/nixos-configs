@@ -124,6 +124,7 @@
     };
     hyprland = {
       inputs.nixpkgs.follows = "nixpkgs";
+      rev = "f642fb97df5c69267a03452533de383ff8023570";
       submodules = true;
       type = "git";
       url = "https://github.com/hyprwm/Hyprland";
@@ -132,6 +133,7 @@
       inputs.hyprland.follows = "hyprland";
       owner = "hyprwm";
       repo = "hyprland-plugins";
+      rev = "f23d3ebd92fdbaac107b71893fab94701c39eeb8";
       type = "github";
     };
     jellyfin-flake = {
