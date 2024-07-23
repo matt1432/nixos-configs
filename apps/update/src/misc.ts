@@ -69,5 +69,5 @@ export const updateVuetorrent = () => {
 
     writeFileSync(FILE, fileText);
 
-    return OLD_VERSION !== VERSION ? `Vuetorrent: ${OLD_VERSION} -> ${VERSION}}` : '';
+    return OLD_VERSION !== VERSION ? `Vuetorrent: ${OLD_VERSION} -> ${VERSION}` : '';
 };

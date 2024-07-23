@@ -3,8 +3,10 @@
   pkgs,
   ...
 }: let
+  inherit (pkgs.lib) getExe;
+
   mkApp = file: {
-    program = pkgs.callPackage file ({} // inputs);
+    program = getExe (pkgs.callPackage file ({} // inputs));
     type = "app";
   };
 in {

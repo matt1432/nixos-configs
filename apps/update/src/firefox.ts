@@ -8,7 +8,7 @@ const FLAKE = process.env.FLAKE;
 
 
 const updateFFZ = () => {
-    const FILE = `${FLAKE}/pkgs/firefox-addons/default.nix`;
+    const FILE = `${FLAKE}/legacyPackages/firefox-addons/default.nix`;
     const URL = 'https://cdn.frankerfacez.com/script/frankerfacez-4.0-an+fx.xpi';
 
     const HASH = parseFetchurl(URL);
@@ -23,7 +23,7 @@ export const updateFirefoxAddons = () => {
 
     console.log('Updating firefox addons using mozilla-addons-to-nix');
 
-    const DIR = `${FLAKE}/pkgs/firefox-addons`;
+    const DIR = `${FLAKE}/legacyPackages/firefox-addons`;
     const GENERATED_FILE = `${DIR}/generated-firefox-addons.nix`;
     const SLUGS = `${DIR}/addons.json`;
 
