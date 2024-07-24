@@ -24,7 +24,6 @@ export default () => Box({
         Separator(SPACING),
 
         Label({
-            css: 'color: #CBA6F7; font-size: 18px',
             truncate: 'end',
             label: Hyprland.active.client.bind('title'),
         }),

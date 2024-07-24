@@ -34,30 +34,32 @@ $javacafe-blue: #86aaec;
 
 
 scrolledwindow {
-  scrollbar, scrollbar * {
-    all: unset;
-  }
 
-  scrollbar.vertical {
-    transition: 200ms;
-    background-color: rgba(23, 23, 23, 0.3);
-    margin: 20px 0;
-
-    &:hover {
-      background-color: rgba(23, 23, 23, 0.7);
-
-      slider {
-        background-color: rgba(238, 238, 238, 0.7);
-        min-width: .6em;
-      }
+    scrollbar,
+    scrollbar * {
+        all: unset;
     }
 
-    slider {
-      background-color: rgba(238, 238, 238, 0.5);
-      border-radius: 9px;
-      min-width: .4em;
-      min-height: 2em;
-      transition: 200ms;
+    scrollbar.vertical {
+        transition: 200ms;
+        background-color: rgba(23, 23, 23, 0.3);
+        margin: 20px 0;
+
+        &:hover {
+            background-color: rgba(23, 23, 23, 0.7);
+
+            slider {
+                background-color: rgba(238, 238, 238, 0.7);
+                min-width: .6em;
+            }
+        }
+
+        slider {
+            background-color: rgba(238, 238, 238, 0.5);
+            border-radius: 9px;
+            min-width: .4em;
+            min-height: 2em;
+            transition: 200ms;
+        }
     }
-  }
 }

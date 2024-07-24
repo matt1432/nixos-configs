@@ -5,7 +5,7 @@ import { get_gdkmonitor_from_desc } from '../lib.ts';
 
 import BarRevealer from './fullscreen.ts';
 
-import Clock from './items/clock.ts';
+import Clock from './items/cal-opener.ts';
 import CurrentWindow from './items/current-window';
 import NotifButton from './items/notif-button.ts';
 import SysTray from './items/systray.ts';

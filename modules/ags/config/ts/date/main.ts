@@ -2,8 +2,6 @@ const { Box, Calendar, Label } = Widget;
 
 const { new_now_local } = imports.gi.GLib.DateTime;
 
-import PopupWindow from './misc/popup.ts';
-
 
 const Divider = () => Box({
     class_name: 'divider',
@@ -83,20 +81,12 @@ const CalendarWidget = () => Box({
     }),
 });
 
-const TOP_MARGIN = 6;
+export default () => Box({
+    class_name: 'date',
+    vertical: true,
 
-export default () => PopupWindow({
-    name: 'calendar',
-    anchor: ['top'],
-    margins: [TOP_MARGIN, 0, 0, 0],
-
-    child: Box({
-        class_name: 'date',
-        vertical: true,
-
-        children: [
-            Time(),
-            CalendarWidget(),
-        ],
-    }),
+    children: [
+        Time(),
+        CalendarWidget(),
+    ],
 });

@@ -1,95 +1,99 @@
 .thingy {
-  border-radius: 2rem 2rem 0 0;
-  min-height: 2.7rem;
-  min-width: 20rem;
+    border-radius: 2rem 2rem 0 0;
+    min-height: 2.7rem;
+    min-width: 20rem;
 
-  .settings {
-    padding: 0.5rem;
+    .settings {
+        padding: 0.5rem;
 
-    .button {
-      background-color: $bgfull;
-      border: 0.1rem solid $darkbg;
-      border-radius: 0.7rem;
-      padding: 0.3rem;
+        .button {
+            background-color: $bgfull;
+            border: 0.1rem solid $darkbg;
+            border-radius: 0.7rem;
+            padding: 0.3rem;
 
-      &.toggled {
-        background-color: $contrast-bg;
-      }
+            &.toggled {
+                background-color: $contrast-bg;
+            }
+        }
     }
-  }
 }
 
 .osk {
-  padding-top: 4px;
-  border-radius: 10px 10px 0;
+    padding-top: 4px;
+    border-radius: 10px 10px 0;
 
-  .side {
-    .key {
-      &:active label {
-        background-color: $contrast-bg;
-      }
+    .side {
+        .key {
+            &:active label {
+                background-color: $contrast-bg;
+            }
 
-      label {
-        background-color: $bg;
-        border: 0.08rem solid $darkbg;
-        border-radius: 0.7rem;
-        min-height: 3rem;
+            label {
+                background-color: $bg;
+                border: 0.08rem solid $darkbg;
+                border-radius: 0.7rem;
+                min-height: 3rem;
 
-        transition: background-color 0.2s ease-in-out,
+                transition: background-color 0.2s ease-in-out,
                     border-color 0.2s ease-in-out;
 
-        &.normal, &.Super {
-          min-width: 3rem;
+                &.normal,
+                &.Super {
+                    min-width: 3rem;
+                }
+
+                &.Tab,
+                &.Backspace {
+                    min-width: 7rem;
+                }
+
+                &.Enter,
+                &.Caps {
+                    min-width: 8rem;
+                }
+
+                &.Shift {
+                    min-width: 9rem;
+                }
+
+                &.Space {
+                    min-width: 20rem;
+                }
+
+                &.PrtSc,
+                &.AltGr {
+                    min-width: 3.2rem;
+                }
+
+                &.active {
+                    background-color: $darkbg;
+                }
+
+                &.altgr {
+                    border: 0.08rem solid blue;
+                }
+            }
         }
 
-        &.Tab, &.Backspace {
-          min-width: 7rem;
+        &.right-side {
+            .key .mod {
+                &.Ctrl {
+                    min-width: 2.4rem;
+                }
+            }
         }
 
-        &.Enter, &.Caps {
-          min-width: 8rem;
-        }
+        &.left-side {
+            .key .mod {
+                &.Alt {
+                    min-width: 3rem;
+                }
 
-        &.Shift {
-          min-width: 9rem;
+                &.Ctrl {
+                    min-width: 4rem;
+                }
+            }
         }
-
-        &.Space {
-          min-width: 20rem;
-        }
-
-        &.PrtSc, &.AltGr {
-          min-width: 3.2rem;
-        }
-
-        &.active {
-          background-color: $darkbg;
-        }
-
-        &.altgr {
-          border: 0.08rem solid blue;
-        }
-      }
     }
-
-    &.right-side {
-      .key .mod {
-        &.Ctrl {
-          min-width: 2.4rem;
-        }
-      }
-    }
-
-    &.left-side {
-      .key .mod {
-        &.Alt {
-          min-width: 3rem;
-        }
-
-        &.Ctrl {
-          min-width: 4rem;
-        }
-      }
-    }
-  }
 }

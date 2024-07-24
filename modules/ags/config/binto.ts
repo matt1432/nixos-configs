@@ -5,6 +5,7 @@ import Pointers from './services/pointers.ts';
 import AppLauncher from './ts/applauncher/main.ts';
 import Bar from './ts/bar/binto.ts';
 import Clipboard from './ts/clipboard/main.ts';
+import Calendar from './ts/date/binto.ts';
 import { NotifPopups, NotifCenter } from './ts/notifications/binto.ts';
 import OSD from './ts/osd/main.ts';
 import Powermenu from './ts/powermenu.ts';
@@ -26,6 +27,7 @@ App.config({
 
     windows: () => [
         AppLauncher(),
+        Calendar(),
         Clipboard(),
         NotifCenter(),
         Powermenu(),
