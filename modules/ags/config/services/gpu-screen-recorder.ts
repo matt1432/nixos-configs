@@ -28,7 +28,7 @@ class GSR extends Service {
                     ICON_NAME,
                     'Replay Saved',
                     `Saved to ${path}`,
-                    ['folder', 'Open Folder', 'video', 'Open Video'],
+                    ['folder', 'Open Folder', 'video', 'Open Video', 'kdenlive', 'Edit in kdenlive'],
                     {},
                     Notifications.popupTimeout,
                 );
@@ -45,6 +45,14 @@ class GSR extends Service {
 
                         else if (actionId === 'video') {
                             execAsync(['xdg-open', path]).catch(print);
+                        }
+
+                        else if (actionId === 'kdenlive') {
+                            execAsync([
+                                'bash',
+                                '-c',
+                                `kdenlive -i ${path}`,
+                            ]).catch(print);
                         }
                     },
                 );
