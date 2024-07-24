@@ -59,11 +59,6 @@ let
   };
 
   nvimInputs = {
-    neovim-nightly = mkDep {
-      owner = "nix-community";
-      repo = "neovim-nightly-overlay";
-    };
-
     # uses nixVersions.nix_2_19
     nixd = mkDep {
       owner = "nix-community";
@@ -251,11 +246,6 @@ let
     }
 
     ## Theme sources
-    {
-      name = "jellyfin-ultrachromic-src";
-      owner = "CTalvio";
-      repo = "Ultrachromic";
-    }
     {
       name = "bat-theme-src";
       owner = "matt1432";

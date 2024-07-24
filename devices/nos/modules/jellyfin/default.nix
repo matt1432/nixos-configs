@@ -1,12 +1,10 @@
 {
   config,
   jellyfin-flake,
-  jellyfin-ultrachromic-src,
   lib,
-  pkgs,
   ...
 }: let
-  inherit (lib) hasAttr fileContents optionals;
+  inherit (lib) hasAttr optionals;
   inherit (config.vars) mainUser;
 
   optionalGroup = name:
@@ -58,29 +56,23 @@ in {
       };
 
       branding = let
-        jellyTheme = pkgs.stdenv.mkDerivation {
-          name = "Ultrachromic";
-          src = jellyfin-ultrachromic-src;
-          postInstall = "cp -ar $src $out";
-        };
-
-        importFile = file: fileContents "${jellyTheme}/${file}";
+        importFile = file: "@import url('https://cdn.jsdelivr.net/gh/CTalvio/Ultrachromic/${file}.css');";
       in {
         customCss = ''
           /* Base theme */
-          ${importFile "base.css"}
-          ${importFile "accentlist.css"}
-          ${importFile "fixes.css"}
+          ${importFile "base"}
+          ${importFile "accentlist"}
+          ${importFile "fixes"}
 
-          ${importFile "type/dark_withaccent.css"}
+          ${importFile "type/dark_withaccent"}
 
-          ${importFile "rounding.css"}
-          ${importFile "progress/floating.css"}
-          ${importFile "titlepage/title_banner-logo.css"}
-          ${importFile "header/header_transparent.css"}
-          ${importFile "login/login_frame.css"}
-          ${importFile "fields/fields_border.css"}
-          ${importFile "cornerindicator/indicator_floating.css"}
+          ${importFile "rounding"}
+          ${importFile "progress/floating"}
+          ${importFile "titlepage/title_banner-logo"}
+          ${importFile "header/header_transparent"}
+          ${importFile "login/login_frame"}
+          ${importFile "fields/fields_border"}
+          ${importFile "cornerindicator/indicator_floating"}
 
           /* Style backdrop */
           .backdropImage {filter: blur(18px) saturate(120%) contrast(120%) brightness(40%);}
@@ -91,13 +83,13 @@ in {
 
           /* https://github.com/CTalvio/Ultrachromic/issues/79 */
           .skinHeader {
-            color: rgba(var(--accent), 0.8);;
+              color: rgba(var(--accent), 0.8);;
           }
           .countIndicator,
           .fullSyncIndicator,
           .mediaSourceIndicator,
           .playedIndicator {
-            background-color: rgba(var(--accent), 0.8);
+              background-color: rgba(var(--accent), 0.8);
           }
         '';
       };

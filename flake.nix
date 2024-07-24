@@ -140,12 +140,6 @@
       repo = "nixos-jellyfin";
       type = "github";
     };
-    jellyfin-ultrachromic-src = {
-      flake = false;
-      owner = "CTalvio";
-      repo = "Ultrachromic";
-      type = "github";
-    };
     jovian = {
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "Jovian-Experiments";
@@ -197,12 +191,6 @@
       flake = false;
       owner = "christoph-heinrich";
       repo = "mpv-touch-gestures";
-      type = "github";
-    };
-    neovim-nightly = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      owner = "nix-community";
-      repo = "neovim-nightly-overlay";
       type = "github";
     };
     nh = {

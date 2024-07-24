@@ -12,12 +12,12 @@
     import input {
       inherit system;
       config.allowUnfree = true;
-      overlays = [
-        inputs.discord-overlay.overlays.default
-        inputs.grim-hyprland.overlays.default
-        inputs.jovian.overlays.default
-        inputs.nixpkgs-wayland.overlays.default
-        inputs.lix-module.overlays.default
+      overlays = map (i: inputs.${i}.overlays.default) [
+        "discord-overlay"
+        "grim-hyprland"
+        "jovian"
+        "lix-module"
+        "nixpkgs-wayland"
       ];
     };
 

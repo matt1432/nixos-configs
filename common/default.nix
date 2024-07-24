@@ -2,7 +2,6 @@
   config,
   home-manager,
   lib,
-  mozilla-addons-to-nix,
   nh,
   nix-melt,
   nurl,
@@ -100,8 +99,6 @@
       (nurl.packages.${pkgs.system}.default.override {
         nix = config.nix.package;
       })
-
-      mozilla-addons-to-nix.packages.${pkgs.system}.default
     ];
 
   home-manager = let

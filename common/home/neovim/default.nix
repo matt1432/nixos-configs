@@ -1,6 +1,5 @@
 {
   config,
-  neovim-nightly,
   pkgs,
   ...
 }: let
@@ -16,7 +15,6 @@ in {
   programs = {
     neovim = {
       enable = true;
-      package = neovim-nightly.packages.${pkgs.system}.neovim;
 
       extraLuaConfig =
         # lua
@@ -43,6 +41,25 @@ in {
             noremap = true,
             silent = true,
           });
+
+          -- Get rid of deprecated messages
+          vim.tbl_add_reverse_lookup = function(tbl)
+              for k, v in pairs(tbl) do
+                  tbl[v] = k;
+              end
+          end;
+          vim.tbl_islist = function(tbl)
+              return vim.islist(tbl);
+          end;
+          vim.diagnostic.is_disabled = function()
+              return not vim.diagnostic.is_enabled();
+          end;
+          vim.lsp.buf_get_clients = function()
+              return vim.lsp.get_clients();
+          end;
+          vim.lsp.get_active_clients = function()
+              return vim.lsp.get_clients();
+          end;
         '';
 
       plugins = [
