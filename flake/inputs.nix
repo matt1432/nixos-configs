@@ -9,6 +9,16 @@ let
 
   # Inputs
   nixTools = {
+    lix-module = mkDep {
+      type = "git";
+      url = "https://git.lix.systems/lix-project/nixos-module";
+    };
+
+    nix-fast-build = mkDep {
+      owner = "Mic92";
+      repo = "nix-fast-build";
+    };
+
     nurl = mkDep {
       owner = "matt1432";
       repo = "nurl";
@@ -82,16 +92,6 @@ let
     minix = mkDep {
       owner = "matt1432";
       repo = "Minix";
-    };
-
-    nix-eval-jobs = mkDep {
-      owner = "nix-community";
-      repo = "nix-eval-jobs";
-    };
-
-    nix-fast-build = mkDep {
-      owner = "Mic92";
-      repo = "nix-fast-build";
     };
   };
 

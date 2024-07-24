@@ -17,6 +17,7 @@
         inputs.grim-hyprland.overlays.default
         inputs.jovian.overlays.default
         inputs.nixpkgs-wayland.overlays.default
+        inputs.lix-module.overlays.default
       ];
     };
 

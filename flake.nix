@@ -158,6 +158,11 @@
       repo = "libratbag";
       type = "github";
     };
+    lix-module = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      type = "git";
+      url = "https://git.lix.systems/lix-project/nixos-module";
+    };
     minix = {
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "matt1432";
@@ -204,12 +209,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "viperML";
       repo = "nh";
-      type = "github";
-    };
-    nix-eval-jobs = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      owner = "nix-community";
-      repo = "nix-eval-jobs";
       type = "github";
     };
     nix-fast-build = {
