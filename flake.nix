@@ -13,12 +13,6 @@
       repo = "ags";
       type = "github";
     };
-    arion = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      owner = "hercules-ci";
-      repo = "arion";
-      type = "github";
-    };
     astal = {
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "Aylur";
@@ -144,6 +138,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "Jovian-Experiments";
       repo = "Jovian-NixOS";
+      type = "github";
+    };
+    khepri = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      owner = "matt1432";
+      repo = "khepri";
       type = "github";
     };
     libratbag-src = {

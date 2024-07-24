@@ -1,13 +1,17 @@
-{config, ...}: let
+{
+  config,
+  pkgs,
+  ...
+}: let
   jellyService = config.systemd.services.jellyfin.serviceConfig;
 in {
-  systemd.services."arion-jfa-go" = {
+  systemd.services."docker-jfa-go_jfa-go" = {
     after = ["jellyfin.service"];
     partOf = ["jellyfin.service"];
   };
 
-  arion.projects."jfa-go"."jfa-go" = {
-    image = ./images/jfa-go.nix;
+  khepri.compositions."jfa-go".services."jfa-go" = {
+    image = import ./images/jfa-go.nix pkgs;
     restart = "always";
 
     ports = ["8056:8056"];

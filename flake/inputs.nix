@@ -91,9 +91,9 @@ let
   };
 
   nosInputs = {
-    arion = mkDep {
-      owner = "hercules-ci";
-      repo = "arion";
+    khepri = mkDep {
+      owner = "matt1432";
+      repo = "khepri";
     };
 
     jellyfin-flake = mkDep {

@@ -22,7 +22,7 @@ in
     npmDepsHash = "sha256-qpnQSJNl68LrsU8foJYxdBXpoFj7VKQahC9DFmleWTs=";
 
     runtimeInputs = [
-      (callPackage ../../modules/arion/updateImage.nix {})
+      (callPackage ../../modules/docker/updateImage.nix {})
       mozilla-addons-to-nix.packages.${system}.default
     ];
     nativeBuildInputs = [makeWrapper];

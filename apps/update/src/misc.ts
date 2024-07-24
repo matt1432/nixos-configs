@@ -30,7 +30,7 @@ export const updateFlakeInputs = () => {
 export const updateDocker = () => {
     let updates = '';
 
-    const FILE = `${FLAKE}/devices/nos/modules/arion`;
+    const FILE = `${FLAKE}/devices/nos/modules/docker`;
 
     readdirSync(FILE, { withFileTypes: true, recursive: true }).forEach((path) => {
         if (path.name === 'compose.nix') {

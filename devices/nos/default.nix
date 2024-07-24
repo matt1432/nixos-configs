@@ -1,4 +1,8 @@
-{config, ...}: let
+{
+  config,
+  self,
+  ...
+}: let
   inherit (config.vars) mainUser hostName;
 in {
   # ------------------------------------------------
@@ -11,12 +15,14 @@ in {
     ../../modules/sshd.nix
     ../../modules/tailscale.nix
 
-    ./modules/arion
+    ./modules/docker
     ./modules/jellyfin
     ./modules/mergerfs.nix
     ./modules/qbittorrent
     ./modules/snapraid.nix
     ./modules/subtitles
+
+    self.nixosModules.docker
   ];
 
   # State Version: DO NOT CHANGE

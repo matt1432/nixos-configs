@@ -58,6 +58,7 @@
     nixosModules = {
       adb = import ./modules/adb.nix;
       desktop = import ./modules/desktop;
+      docker = import ./modules/docker;
       nvidia = import ./modules/nvidia.nix;
       plymouth = import ./modules/plymouth.nix;
     };

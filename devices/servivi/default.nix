@@ -1,4 +1,8 @@
-{config, ...}: let
+{
+  config,
+  self,
+  ...
+}: let
   inherit (config.vars) mainUser hostName;
 in {
   # ------------------------------------------------
@@ -15,6 +19,8 @@ in {
     ./modules/binary-cache.nix
     ./modules/minecraft.nix
     ./modules/nfs.nix
+
+    self.nixosModules.docker
   ];
 
   # State Version: DO NOT CHANGE
@@ -63,5 +69,5 @@ in {
   # ------------------------------------------------
   # `Self` Modules configuration
   # ------------------------------------------------
-  arion.enable = true;
+  # ...
 }
