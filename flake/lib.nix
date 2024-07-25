@@ -16,7 +16,6 @@
         "discord-overlay"
         "grim-hyprland"
         "jovian"
-        "lix-module"
         "nixpkgs-wayland"
       ];
     };

@@ -29,6 +29,8 @@
   };
 
   nix = {
+    package = pkgs.nixVersions.nix_2_23;
+
     # Edit nix.conf
     settings = {
       # Store

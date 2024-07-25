@@ -152,11 +152,6 @@
       repo = "libratbag";
       type = "github";
     };
-    lix-module = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      type = "git";
-      url = "https://git.lix.systems/lix-project/nixos-module";
-    };
     minix = {
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "matt1432";

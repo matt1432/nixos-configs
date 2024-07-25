@@ -9,11 +9,6 @@ let
 
   # Inputs
   nixTools = {
-    lix-module = mkDep {
-      type = "git";
-      url = "https://git.lix.systems/lix-project/nixos-module";
-    };
-
     nix-fast-build = mkDep {
       owner = "Mic92";
       repo = "nix-fast-build";

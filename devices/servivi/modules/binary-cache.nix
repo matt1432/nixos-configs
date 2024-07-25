@@ -9,7 +9,9 @@
 
   nix-fast-buildPkg = nix-fast-build.packages.${pkgs.system}.nix-fast-build.override {
     nix-eval-jobs =
-      pkgs.nix-eval-jobs
+      pkgs.nix-eval-jobs.override {
+        nix = config.nix.package;
+      }
       // {
         nix = config.nix.package;
       };
