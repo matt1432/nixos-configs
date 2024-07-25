@@ -27,7 +27,6 @@ in {
         # Install / Update server
         steamcmd +force_install_dir ${gamePath} \
             +login anonymous +app_update 294420 \
-            -beta latest_experimental \
             +quit
 
         # Launch server
