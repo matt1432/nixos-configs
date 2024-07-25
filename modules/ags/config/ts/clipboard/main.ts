@@ -60,16 +60,21 @@ export default () => {
             App.closeWindow('win-clipboard');
         },
 
-        init_rows: (list) => {
-            Clipboard.getHistory();
-
+        setup_list: (list) => {
             const CONNECT_ID = Clipboard.connect('history-searched', () => {
+                // Do every clip that existed before this widget
                 list.get_children().forEach((row) => {
                     row.destroy();
                 });
                 Clipboard.clips.forEach((clip, key) => {
                     makeItem(list, key, clip.clip, clip.isImage);
                 });
+
+                // Setup connection for new clips
+                Clipboard.connect('clip-added', (_, [key, clip]) => {
+                    makeItem(list, key, clip.clip, clip.isImage);
+                });
+
                 Clipboard.disconnect(CONNECT_ID);
             });
         },
