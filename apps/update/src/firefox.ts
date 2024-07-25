@@ -55,8 +55,9 @@ export const updateFirefoxAddons = () => {
         .filter((pinfo) => pinfo[0] !== 'frankerfacez'));
 
     const NEW_VERS = Object.fromEntries(spawnSync(
-        'mozilla-addons-to-nix',
-        [SLUGS, GENERATED_FILE],
+        'nix',
+        ['run', 'sourcehut:~rycee/mozilla-addons-to-nix',
+            SLUGS, GENERATED_FILE],
         { shell: true },
     ).stdout
         .toString()
