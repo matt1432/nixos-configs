@@ -77,11 +77,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1721571743,
-        "narHash": "sha256-hat7wggtDISBJD8kTo5MTrT+IsY/Ha2MwgjmqqijoCA=",
+        "lastModified": 1721853718,
+        "narHash": "sha256-QEkCryhEMBW8maWEbwN0LoJIjdt640FviwMeJpghJXM=",
         "owner": "hyprwm",
         "repo": "aquamarine",
-        "rev": "601f6cf95cbe4fef02dc7faf34bba58566c914e9",
+        "rev": "353dc1b7299d43f08de44276b93ae32726ff9d70",
         "type": "github"
       },
       "original": {
@@ -210,11 +210,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1721718405,
-        "narHash": "sha256-aKOSEIXF16nOjiCNNXV448SBdybAcXs5NtxfZxFCOHY=",
+        "lastModified": 1721804810,
+        "narHash": "sha256-DF+bqbH8JITFfEoFO01/B2xhbBKeKC5GGFMuk+9INok=",
         "owner": "matt1432",
         "repo": "discord-nightly-overlay",
-        "rev": "02c87d457a5cd7c6bf4d906654210ebd6cd79e63",
+        "rev": "843a8bdad509eefe2a02d5fcd044002da715afba",
         "type": "github"
       },
       "original": {
@@ -507,11 +507,11 @@
     "gpu-screen-recorder-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1721751098,
-        "narHash": "sha256-8VZz7lekJDlFSpMJjxqOcgkExTo0cqNQdUtd3x4hK+k=",
+        "lastModified": 1721777370,
+        "narHash": "sha256-aeohX6umTW3TNsQFQqSJjGsDG92rrGWPrODIWiJgqLc=",
         "ref": "refs/heads/master",
-        "rev": "7d719a44c6ce76ecfc05287d0cbb2b36e84b4ca6",
-        "revCount": 694,
+        "rev": "e107adbc32ebae14e6f0ae49338a95e8d31d9d84",
+        "revCount": 695,
         "type": "git",
         "url": "https://repo.dec05eba.com/gpu-screen-recorder"
       },
@@ -605,11 +605,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1721714663,
-        "narHash": "sha256-ZDW5+rlROxaOuoEfIQM7Gqhoa+WALEYdYIiZhyJjAu0=",
+        "lastModified": 1721852138,
+        "narHash": "sha256-JH8N5uoqoVA6erV4O40VtKKHsnfmhvMGbxMNDLtim5o=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "7560dc942a6fbd37ebd1310b3dbda513de2d4b82",
+        "rev": "304a011325b7ac7b8c9950333cd215a7aa146b0e",
         "type": "github"
       },
       "original": {
@@ -702,11 +702,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1721770738,
-        "narHash": "sha256-8w1p5dJsz9ybK1xgfBoWBC1fS5jWcuLHwYClFgP700Y=",
+        "lastModified": 1721859555,
+        "narHash": "sha256-bugSUsaP1ov+1+yq8jJpLryFiqXFShrBbQJ7CLAEt6M=",
         "ref": "refs/heads/main",
-        "rev": "8a4548e4302b1cc00fca368a7cc2e3171516420c",
-        "revCount": 4967,
+        "rev": "4beac91cbd791657cc53d6e483eb41bf4df1ec0c",
+        "revCount": 4980,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/hyprwm/Hyprland"
@@ -1154,11 +1154,11 @@
         "umu": "umu"
       },
       "locked": {
-        "lastModified": 1721525243,
-        "narHash": "sha256-dZstEOV8W/Iya1RkWTJJC4X3Q8+Ros6qm5KumG65KuI=",
+        "lastModified": 1721870519,
+        "narHash": "sha256-ykhbWNZlEFg2rmnIMR0YL6IUcJ0M/M8GkfjYuOft1hY=",
         "owner": "fufexan",
         "repo": "nix-gaming",
-        "rev": "62dbe58039e6950529a30de943ed463a8e192a7e",
+        "rev": "6796ca907f4e0cd8427eca33c25c599f20a2a674",
         "type": "github"
       },
       "original": {
@@ -1603,11 +1603,11 @@
     "piper-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1717515503,
-        "narHash": "sha256-uC7BEKVPQz42rdutX4ft3W1MoUVlkFHq2RgQGKVhV2o=",
+        "lastModified": 1721859429,
+        "narHash": "sha256-PvEQ4M+lrAdGWWMg4X0XxC+0jdV6MAPcLPPKAb1HI/s=",
         "owner": "libratbag",
         "repo": "piper",
-        "rev": "efa2712fcbc4ac1e9e9d1a7a85334c2a5dc9bab4",
+        "rev": "71431bd5dea8564d5b18dd556541110f9601bc71",
         "type": "github"
       },
       "original": {
@@ -2039,11 +2039,11 @@
     "ts-for-gir-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1721647288,
-        "narHash": "sha256-GRzIT03aRVW78ZlYQ9yy64zJQ0K50/P7eEKLI/FGndI=",
+        "lastModified": 1721848858,
+        "narHash": "sha256-i6ZfTQ579sAm/7QM0iWZV8Dlx6mwoQJPYX6HEVNn7YA=",
         "owner": "gjsify",
         "repo": "ts-for-gir",
-        "rev": "8b3ec80bfea10a8e7e831e6013c431aa5b0a1a1d",
+        "rev": "b4768a5a9a12812345cee83eb56486e0ccca292a",
         "type": "github"
       },
       "original": {
