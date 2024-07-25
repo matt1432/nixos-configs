@@ -1,5 +1,5 @@
 {...}: let
-  configPath = "/var/lib/docker";
+  configPath = "/var/lib/docker-data";
 in {
   imports = [
     ./forgejo/compose.nix

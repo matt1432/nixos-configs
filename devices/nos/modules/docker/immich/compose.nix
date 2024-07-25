@@ -10,66 +10,74 @@
 
   UPLOAD_LOCATION = "${rwPath}/data";
 in {
-  khepri.compositions."immich".services = {
-    "immich_server" = {
-      image = import ./images/server.nix pkgs;
-      environmentFiles = [
-        "${./env}"
-        secrets.immich.path
-      ];
+  khepri.compositions."immich" = {
+    networks.proxy_net = {external = true;};
 
-      volumes = [
-        "${UPLOAD_LOCATION}:/usr/src/app/upload:rw"
-      ];
-      ports = [
-        "2283:3001"
-      ];
+    services = {
+      "immich_server" = {
+        image = import ./images/server.nix pkgs;
+        environmentFiles = [
+          "${./env}"
+          secrets.immich.path
+        ];
 
-      dependsOn = ["immich_redis" "immich_postgres"];
-      restart = "always";
+        volumes = [
+          "${UPLOAD_LOCATION}:/usr/src/app/upload:rw"
+        ];
+        ports = [
+          "2283:3001"
+        ];
+        networks = ["proxy_net"];
 
-      environment.NODE_ENV = "production";
-    };
+        dependsOn = ["immich_redis" "immich_postgres"];
+        restart = "always";
 
-    "immich_machine_learning" = {
-      image = import ./images/machine-learning.nix pkgs;
-      restart = "always";
-      environmentFiles = [
-        "${./env}"
-        secrets.immich.path
-      ];
+        environment.NODE_ENV = "production";
+      };
 
-      volumes = [
-        "${rwPath}/cache:/cache"
-      ];
-    };
+      "immich_machine_learning" = {
+        image = import ./images/machine-learning.nix pkgs;
+        restart = "always";
+        environmentFiles = [
+          "${./env}"
+          secrets.immich.path
+        ];
+        networks = ["proxy_net"];
 
-    "immich_redis" = {
-      image = import ./images/redis.nix pkgs;
-      restart = "always";
-      tmpfs = ["/data"];
-      environmentFiles = [
-        "${./env}"
-        secrets.immich.path
-      ];
-    };
+        volumes = [
+          "${rwPath}/cache:/cache"
+        ];
+      };
 
-    "immich_postgres" = {
-      image = import ./images/postgres.nix pkgs;
-      restart = "always";
-      environmentFiles = [
-        "${./env}"
-        secrets.immich.path
-      ];
+      "immich_redis" = {
+        image = import ./images/redis.nix pkgs;
+        restart = "always";
+        tmpfs = ["/data"];
+        environmentFiles = [
+          "${./env}"
+          secrets.immich.path
+        ];
+        networks = ["proxy_net"];
+      };
 
-      volumes = [
-        "${rwPath}/db:/var/lib/postgresql/data"
-      ];
+      "immich_postgres" = {
+        image = import ./images/postgres.nix pkgs;
+        restart = "always";
+        environmentFiles = [
+          "${./env}"
+          secrets.immich.path
+        ];
+        networks = ["proxy_net"];
 
-      environment = {
-        POSTGRES_PASSWORD = "\${DB_PASSWORD}";
-        POSTGRES_USER = "\${DB_USERNAME}";
-        POSTGRES_DB = "\${DB_DATABASE_NAME}";
+        volumes = [
+          "${rwPath}/db:/var/lib/postgresql/data"
+        ];
+
+        environment = {
+          POSTGRES_PASSWORD = "\${DB_PASSWORD}";
+          POSTGRES_USER = "\${DB_USERNAME}";
+          POSTGRES_DB = "\${DB_DATABASE_NAME}";
+        };
       };
     };
   };

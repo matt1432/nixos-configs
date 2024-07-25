@@ -8,47 +8,54 @@
 
   rwPath = rwDataDir + "/resume";
 in {
-  khepri.compositions."resume".services = {
-    "postgres" = {
-      image = import ./images/postgres.nix pkgs;
-      restart = "always";
+  khepri.compositions."resume" = {
+    networks.proxy_net = {external = true;};
 
-      ports = ["5432:5432"];
+    services = {
+      "postgres" = {
+        image = import ./images/postgres.nix pkgs;
+        restart = "always";
 
-      volumes = [
-        "${rwPath}/db:/var/lib/postgresql/data"
-      ];
+        ports = ["5432:5432"];
 
-      environmentFiles = [secrets.resume.path];
-    };
+        volumes = [
+          "${rwPath}/db:/var/lib/postgresql/data"
+        ];
 
-    "server" = {
-      image = import ./images/resume-server.nix pkgs;
-      restart = "always";
-
-      ports = ["3100:3100"];
-
-      dependsOn = ["postgres"];
-
-      environmentFiles = [secrets.resume.path];
-
-      environment = {
-        PUBLIC_URL = "https://resume.nelim.org";
-        PUBLIC_SERVER_URL = "https://resauth.nelim.org";
+        environmentFiles = [secrets.resume.path];
+        networks = ["proxy_net"];
       };
-    };
 
-    "client" = {
-      image = import ./images/resume-client.nix pkgs;
-      restart = "always";
+      "server" = {
+        image = import ./images/resume-server.nix pkgs;
+        restart = "always";
 
-      ports = ["3060:3000"];
+        ports = ["3100:3100"];
 
-      dependsOn = ["server"];
+        dependsOn = ["postgres"];
 
-      environment = {
-        PUBLIC_URL = "https://resume.nelim.org";
-        PUBLIC_SERVER_URL = "https://resauth.nelim.org";
+        environmentFiles = [secrets.resume.path];
+
+        environment = {
+          PUBLIC_URL = "https://resume.nelim.org";
+          PUBLIC_SERVER_URL = "https://resauth.nelim.org";
+        };
+        networks = ["proxy_net"];
+      };
+
+      "client" = {
+        image = import ./images/resume-client.nix pkgs;
+        restart = "always";
+
+        ports = ["3060:3000"];
+
+        dependsOn = ["server"];
+
+        environment = {
+          PUBLIC_URL = "https://resume.nelim.org";
+          PUBLIC_SERVER_URL = "https://resauth.nelim.org";
+        };
+        networks = ["proxy_net"];
       };
     };
   };

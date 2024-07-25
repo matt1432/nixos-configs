@@ -7,50 +7,56 @@
 
   rwPath = rwDataDir + "/media/calibre";
 in {
-  khepri.compositions."calibre".services = {
-    "calibre" = {
-      image = import ./images/calibre.nix pkgs;
-      restart = "always";
+  khepri.compositions."calibre" = {
+    networks.proxy_net = {external = true;};
 
-      environment = {
-        PUID = "1000";
-        PGID = "1000";
-        TZ = "America/New_York";
+    services = {
+      "calibre" = {
+        image = import ./images/calibre.nix pkgs;
+        restart = "always";
 
-        # WebUI vars
-        SUBFOLDER = "/calibre/";
-        TITLE = "CalibreDB";
-        NO_DECOR = "true";
+        environment = {
+          PUID = "1000";
+          PGID = "1000";
+          TZ = "America/New_York";
+
+          # WebUI vars
+          SUBFOLDER = "/calibre/";
+          TITLE = "CalibreDB";
+          NO_DECOR = "true";
+        };
+
+        volumes = ["${rwPath}/data-db:/config"];
+
+        extraHosts = ["lan.nelim.org:10.0.0.130"];
+        ports = [
+          "8580:8080"
+          #"8081:8081"
+        ];
+        networks = ["proxy_net"];
+        #network_mode = "host";
       };
 
-      volumes = ["${rwPath}/data-db:/config"];
+      "calibre-web" = {
+        image = import ./images/calibre-web.nix pkgs;
+        restart = "always";
 
-      extraHosts = ["lan.nelim.org=10.0.0.130"];
-      ports = [
-        "8580:8080"
-        #"8081:8081"
-      ];
-      #network_mode = "host";
-    };
+        environment = {
+          PUID = "1000";
+          PGID = "1000";
+          TZ = "America/New_York";
+          DOCKER_MODS = "linuxserver/mods:universal-calibre";
+        };
 
-    "calibre-web" = {
-      image = import ./images/calibre-web.nix pkgs;
-      restart = "always";
+        volumes = [
+          "${rwPath}/data-web:/config"
+          "${rwPath}/data-db/Calibre Library:/books"
+        ];
 
-      environment = {
-        PUID = "1000";
-        PGID = "1000";
-        TZ = "America/New_York";
-        DOCKER_MODS = "linuxserver/mods:universal-calibre";
+        extraHosts = ["lan.nelim.org:10.0.0.130"];
+        ports = ["8083:8083"];
+        networks = ["proxy_net"];
       };
-
-      volumes = [
-        "${rwPath}/data-web:/config"
-        "${rwPath}/data-db/Calibre Library:/books"
-      ];
-
-      extraHosts = ["lan.nelim.org=10.0.0.130"];
-      ports = ["8083:8083"];
     };
   };
 }

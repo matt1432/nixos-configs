@@ -7,20 +7,25 @@
 
   rwPath = rwDataDir + "/media/seerr";
 in {
-  khepri.compositions."seerr".services."seerr" = {
-    image = import ./images/jellyseerr.nix pkgs;
-    restart = "always";
+  khepri.compositions."seerr" = {
+    networks.proxy_net = {external = true;};
 
-    environment = {
-      LOG_LEVEL = "debug";
-      TZ = "America/New_York";
+    services."seerr" = {
+      image = import ./images/jellyseerr.nix pkgs;
+      restart = "always";
+
+      environment = {
+        LOG_LEVEL = "debug";
+        TZ = "America/New_York";
+      };
+
+      volumes = [
+        "${rwPath}/data:/app/config"
+      ];
+
+      extraHosts = ["lan.nelim.org:10.0.0.130"];
+      networks = ["proxy_net"];
+      ports = ["5055:5055"];
     };
-
-    volumes = [
-      "${rwPath}/data:/app/config"
-    ];
-
-    extraHosts = ["lan.nelim.org=10.0.0.130"];
-    ports = ["5055:5055"];
   };
 }

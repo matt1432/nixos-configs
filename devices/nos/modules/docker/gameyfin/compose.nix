@@ -5,19 +5,24 @@
 }: let
   inherit (config.sops) secrets;
 in {
-  khepri.compositions."gameyfin".services."gameyfin" = {
-    image = import ./images/gameyfin.nix pkgs;
-    restart = "always";
-    user = "1000:1000";
+  khepri.compositions."gameyfin" = {
+    networks.proxy_net = {external = true;};
 
-    environmentFiles = [secrets.gameyfin.path];
-    environment.GAMEYFIN_USER = "mathis";
+    services."gameyfin" = {
+      image = import ./images/gameyfin.nix pkgs;
+      restart = "always";
+      user = "1000:1000";
 
-    volumes = [
-      "/data/games:/opt/gameyfin-library"
-    ];
+      environmentFiles = [secrets.gameyfin.path];
+      environment.GAMEYFIN_USER = "mathis";
 
-    expose = ["8080"];
-    ports = ["8074:8080"];
+      volumes = [
+        "/data/games:/opt/gameyfin-library"
+      ];
+
+      expose = ["8080"];
+      ports = ["8074:8080"];
+      networks = ["proxy_net"];
+    };
   };
 }
