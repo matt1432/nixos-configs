@@ -21,7 +21,7 @@
   '');
 in {
   imports = [
-    ./astal.nix
+    ./ags
     ./hyprland.nix
   ];
 

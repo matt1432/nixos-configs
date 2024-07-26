@@ -7,9 +7,6 @@ const { Gtk } = imports.gi;
 
 const DEFAULT_NAME = 'matt';
 
-// Types
-import { StringObject } from 'types/@girs/gtk-4.0/gtk-4.0.cjs';
-
 
 const parsePasswd = (fileContent: string) => {
     const splitUsers = fileContent.split('\n');
@@ -35,7 +32,11 @@ const parsePasswd = (fileContent: string) => {
 };
 const users = parsePasswd(await readFileAsync('/etc/passwd'));
 
-const dropdown = Gtk.DropDown.new_from_strings(users.map((u) => u.name));
+const dropdown = new Gtk.ComboBoxText();
+
+users.forEach((u) => {
+    dropdown.append(null, u.name);
+});
 
 const password = Entry({
     placeholderText: 'Password',
@@ -47,7 +48,7 @@ const password = Entry({
 
     on_accept: () => {
         greetd.login(
-            (dropdown.selectedItem as StringObject)['string'] || '',
+            dropdown.get_active_text() ?? '',
             password.text || '',
             'Hyprland',
 
@@ -70,7 +71,7 @@ export default () => Window({
         vpack: 'center',
         hexpand: true,
         vexpand: true,
-        cssClasses: ['base'],
+        class_names: ['base'],
 
         children: [
             Box({
@@ -79,23 +80,14 @@ export default () => Window({
                 vpack: 'center',
                 hexpand: true,
                 vexpand: true,
+                class_names: ['linked'],
 
-                setup: (self) => {
-                    self.add_css_class('linked');
-
+                setup: () => {
                     idle(() => {
-                        const usernames = [] as string[];
-
-                        for (let i = 0; i < dropdown.model.get_n_items(); ++i) {
-                            const name = (dropdown.model.get_item(i) as StringObject)['string'];
-
-                            if (name) {
-                                usernames.push(name);
-                            }
-                        }
+                        const usernames = users.map((u) => u.name);
 
                         if (usernames.includes(DEFAULT_NAME)) {
-                            dropdown.set_selected(usernames.indexOf(DEFAULT_NAME));
+                            dropdown.set_active(usernames.indexOf(DEFAULT_NAME));
                         }
                     });
                 },

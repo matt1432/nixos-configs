@@ -90,26 +90,6 @@
         "type": "github"
       }
     },
-    "astal": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1721074515,
-        "narHash": "sha256-jTwdQeGHEUMKNI4iIqUpgKbx9kNsY1y7/Vcxi3b2pzQ=",
-        "owner": "Aylur",
-        "repo": "Astal",
-        "rev": "0e2a33b78ebaed008a5d496ab42cd9207cf48db4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Aylur",
-        "repo": "Astal",
-        "type": "github"
-      }
-    },
     "astal-tray": {
       "inputs": {
         "nixpkgs": [
@@ -1681,7 +1661,6 @@
       "inputs": {
         "Hyprspace": "Hyprspace",
         "ags": "ags",
-        "astal": "astal",
         "astal-tray": "astal-tray",
         "bat-theme-src": "bat-theme-src",
         "bazarr-bulk": "bazarr-bulk",

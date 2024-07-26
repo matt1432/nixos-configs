@@ -21,7 +21,7 @@
   astalTray = astal-tray.packages.${pkgs.system}.tray;
   gtkSessionLock = gtk-session-lock.packages.${pkgs.system}.default;
 in {
-  # Enable pam for ags and astal
+  # Enable pam for ags
   security.pam.services.ags = {};
 
   services.upower.enable = true;
@@ -40,6 +40,8 @@ in {
       configJs =
         # javascript
         ''
+          Utils.execAsync('hyprpaper');
+
           import { transpileTypeScript } from './js/utils.js';
 
           export default (await transpileTypeScript('${hostName}')).default;

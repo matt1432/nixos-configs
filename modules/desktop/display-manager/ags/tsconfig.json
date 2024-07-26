@@ -2,22 +2,24 @@
   "compilerOptions": {
     "target": "ES2022",
     "module": "ES2022",
-    "lib": [
-      "ES2022"
-    ],
+    "lib": ["ES2022"],
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "allowSyntheticDefaultImports": true,
     "allowJs": true,
     "checkJs": true,
     "strict": true,
     "noImplicitAny": false,
     "baseUrl": ".",
     "paths": {
-      "gi://Adw": ["./node_modules/@girs/adw-1/adw-1.d.ts"],
-      "gi://Adw?version=1": ["./node_modules/@girs/adw-1/adw-1.d.ts"]
+      "fzf": ["./node_modules/fzf/dist/types"]
     },
     "typeRoots": [
       "./types",
+      "./global-types.d.ts",
       "./node_modules"
     ],
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
   }
 }

@@ -1,4 +1,5 @@
 # Do not modify! This file is generated.
+
 {
   inputs = {
     Hyprspace = {
@@ -11,12 +12,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "Aylur";
       repo = "ags";
-      type = "github";
-    };
-    astal = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      owner = "Aylur";
-      repo = "Astal";
       type = "github";
     };
     astal-tray = {

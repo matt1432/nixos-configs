@@ -162,11 +162,6 @@ let
         owner = "Cu3PO42";
         repo = "gtk-session-lock";
       };
-
-      astal = mkDep {
-        owner = "Aylur";
-        repo = "Astal";
-      };
     };
   };
 
