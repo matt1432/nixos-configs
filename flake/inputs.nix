@@ -119,6 +119,9 @@ let
         type = "git";
         url = "https://github.com/hyprwm/Hyprland";
         submodules = true;
+
+        # FIXME: wait for fix https://github.com/hyprwm/Hyprland/issues/7043
+        rev = "cd942ad12d9d2030963e3dd5fbfe2d181013c750";
       };
 
       hyprland-plugins = mkHyprDep {
