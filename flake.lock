@@ -1659,6 +1659,22 @@
         "type": "github"
       }
     },
+    "protonhax-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1713046416,
+        "narHash": "sha256-+saVvriwU6gu9pRaV3mVud8i2FXZ/o28K3iBmaUGDig=",
+        "owner": "jcnils",
+        "repo": "protonhax",
+        "rev": "449ce8cd2a86034499fcea1cba249ad79c93fdeb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jcnils",
+        "repo": "protonhax",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "Hyprspace": "Hyprspace",
@@ -1707,6 +1723,7 @@
         "pcsd": "pcsd",
         "piper-src": "piper-src",
         "pokemon-colorscripts-src": "pokemon-colorscripts-src",
+        "protonhax-src": "protonhax-src",
         "secrets": "secrets",
         "sioyek-theme-src": "sioyek-theme-src",
         "sops-nix": "sops-nix_2",

@@ -14,7 +14,7 @@ in {
     ../../modules/kmscon.nix
     ../../modules/sshd.nix
 
-    ./modules/desktop.nix
+    ./modules/desktop
 
     self.nixosModules.plymouth
   ];

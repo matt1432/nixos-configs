@@ -19,6 +19,11 @@
     inherit mkVersion;
   };
 
+  protonhax = pkgs.callPackage ./protonhax {
+    inherit (inputs) protonhax-src;
+    inherit mkVersion;
+  };
+
   repl = pkgs.callPackage ./repl {};
 
   trash-d = pkgs.callPackage ./trash-d {

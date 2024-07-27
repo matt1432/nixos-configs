@@ -275,6 +275,12 @@
       repo = "pokemon-colorscripts";
       type = "gitlab";
     };
+    protonhax-src = {
+      flake = false;
+      owner = "jcnils";
+      repo = "protonhax";
+      type = "github";
+    };
     secrets = {
       inputs.nixpkgs.follows = "nixpkgs";
       type = "git";
