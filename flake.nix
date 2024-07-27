@@ -1,5 +1,4 @@
 # Do not modify! This file is generated.
-
 {
   inputs = {
     Hyprspace = {
@@ -113,7 +112,6 @@
     };
     hyprland = {
       inputs.nixpkgs.follows = "nixpkgs";
-      rev = "cd942ad12d9d2030963e3dd5fbfe2d181013c750";
       submodules = true;
       type = "git";
       url = "https://github.com/hyprwm/Hyprland";
@@ -260,7 +258,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "matt1432";
       repo = "nixos-pcsd";
-      rev = "40731eca8587eea66174089559dc09f9ad2467b4";
       type = "github";
     };
     piper-src = {
