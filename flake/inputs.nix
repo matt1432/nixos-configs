@@ -65,6 +65,9 @@ let
     pcsd = mkDep {
       owner = "matt1432";
       repo = "nixos-pcsd";
+
+      # FIXME: fix resource-agents update
+      rev = "40731eca8587eea66174089559dc09f9ad2467b4";
     };
 
     headscale = mkDep {

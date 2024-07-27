@@ -1,4 +1,5 @@
 # Do not modify! This file is generated.
+
 {
   inputs = {
     Hyprspace = {
@@ -258,6 +259,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "matt1432";
       repo = "nixos-pcsd";
+      rev = "40731eca8587eea66174089559dc09f9ad2467b4";
       type = "github";
     };
     piper-src = {

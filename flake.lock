@@ -1567,16 +1567,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1721891104,
-        "narHash": "sha256-Kxdo0fWj1gwfM0UXXHVusW+n+IaXF5O9x6++u6WTw8I=",
+        "lastModified": 1721480497,
+        "narHash": "sha256-jBSxLdls1WdkOjBT9Jy/Lqiool9tkMnFDjCe7BEi63o=",
         "owner": "matt1432",
         "repo": "nixos-pcsd",
-        "rev": "155642bd943b37c643b26d2f238c2a9ae1efc4e2",
+        "rev": "40731eca8587eea66174089559dc09f9ad2467b4",
         "type": "github"
       },
       "original": {
         "owner": "matt1432",
         "repo": "nixos-pcsd",
+        "rev": "40731eca8587eea66174089559dc09f9ad2467b4",
         "type": "github"
       }
     },
