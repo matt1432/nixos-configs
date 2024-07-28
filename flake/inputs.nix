@@ -117,8 +117,8 @@ let
         url = "https://github.com/hyprwm/Hyprland";
         submodules = true;
 
-        # FIXME: layers don't fade out on latest
-        rev = "cd942ad12d9d2030963e3dd5fbfe2d181013c750";
+        # FIXME: layers don't fade out as of 024327154425c76a2932d644d76990a00b5fcdac
+        rev = "729b47d46d0c749efbffe01ea863a124fad562b4";
       };
 
       hyprland-plugins = mkHyprDep {
