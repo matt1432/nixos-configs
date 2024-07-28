@@ -10,15 +10,20 @@ in {
     partOf = ["jellyfin.service"];
   };
 
-  khepri.compositions."jfa-go".services."jfa-go" = {
-    image = import ./images/jfa-go.nix pkgs;
-    restart = "always";
+  khepri.compositions."jfa-go" = {
+    networks.proxy_net = {external = true;};
 
-    ports = ["8056:8056"];
+    services."jfa-go" = {
+      image = import ./images/jfa-go.nix pkgs;
+      restart = "always";
 
-    volumes = [
-      "${jellyService.WorkingDirectory}/jfa-go:/data"
-      "/etc/localtime:/etc/localtime:ro"
-    ];
+      ports = ["8056:8056"];
+      networks = ["proxy_net"];
+
+      volumes = [
+        "${jellyService.WorkingDirectory}/jfa-go:/data"
+        "/etc/localtime:/etc/localtime:ro"
+      ];
+    };
   };
 }

@@ -25,8 +25,6 @@ in {
         "net.ipv4.conf.all.src_valid_mark=1"
       ];
 
-      dns = ["1.0.0.1"];
-
       environment = {
         WG_HOST = "166.62.179.208";
         WG_PORT = "51820";

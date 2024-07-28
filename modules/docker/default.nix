@@ -28,7 +28,12 @@ in {
       docker = {
         enable = true;
         storageDriver = "btrfs";
+
+        package = pkgs.docker_27;
+
+        daemon.settings.dns = ["8.8.8.8" "1.1.1.1"];
       };
+
       # khepri uses oci-containers under the hood and it must be set to docker to work
       oci-containers.backend = "docker";
     };
