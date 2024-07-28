@@ -32,13 +32,15 @@ in {
               command = 'setlocal ts=4 sw=4 sts=0 expandtab',
           });
 
-          require('lspconfig').bashls.setup(require('coq').lsp_ensure_capabilities({
+          require('lspconfig').bashls.setup({
+              capabilities = require('cmp_nvim_lsp').default_capabilities(),
+
               settings = {
                   bashIde = {
                       shellcheckPath = '${lib.getExe pkgs.shellcheck}',
                   },
               },
-          }));
+          });
         '';
     };
   };

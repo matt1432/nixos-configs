@@ -24,10 +24,9 @@ in
                command = 'setlocal ts=4 sw=4 sts=0 expandtab',
             });
 
-            local lsp = require('lspconfig');
-            local coq = require('coq');
-
-            lsp.rust_analyzer.setup(coq.lsp_ensure_capabilities({}));
+            require('lspconfig').rust_analyzer.setup({
+                capabilities = require('cmp_nvim_lsp').default_capabilities(),
+            });
           '';
       };
     };

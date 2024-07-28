@@ -27,11 +27,14 @@ in
             });
 
             local lsp = require('lspconfig');
-            local coq = require('coq');
 
-            lsp.jsonls.setup(coq.lsp_ensure_capabilities({}));
+            lsp.jsonls.setup({
+                capabilities = require('cmp_nvim_lsp').default_capabilities(),
+            });
 
-            lsp.yamlls.setup(coq.lsp_ensure_capabilities({
+            lsp.yamlls.setup({
+                capabilities = require('cmp_nvim_lsp').default_capabilities(),
+
                 settings = {
                     yaml = {
                         schemas = {
@@ -41,7 +44,7 @@ in
                         },
                     },
                 },
-            }));
+            });
           '';
       };
     };

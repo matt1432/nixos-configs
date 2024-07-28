@@ -42,10 +42,11 @@ in
             });
 
             local lsp = require('lspconfig');
-            local coq = require('coq');
             local tsserver = require('typescript-tools');
 
-            tsserver.setup(coq.lsp_ensure_capabilities({
+            tsserver.setup({
+                capabilities = require('cmp_nvim_lsp').default_capabilities(),
+
                 handlers = {
                     -- format error code with better error message
                     ['textDocument/publishDiagnostics'] = function(err, result, ctx, config)
@@ -53,9 +54,11 @@ in
                         vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
                     end,
                 },
-            }));
+            });
 
-            lsp.eslint.setup(coq.lsp_ensure_capabilities({
+            lsp.eslint.setup({
+                capabilities = require('cmp_nvim_lsp').default_capabilities(),
+
                 -- auto-save
                 on_attach = function(client, bufnr)
                     vim.api.nvim_create_autocmd('BufWritePre', {
@@ -63,9 +66,11 @@ in
                         command = 'EslintFixAll',
                     });
                 end,
-            }));
+            });
 
-            lsp.cssls.setup(coq.lsp_ensure_capabilities({
+            lsp.cssls.setup({
+                capabilities = require('cmp_nvim_lsp').default_capabilities(),
+
                 settings = {
                     css = {
                         validate = false,
@@ -77,12 +82,33 @@ in
                         validate = false,
                     },
                 },
-            }));
+            });
           '';
 
         plugins = [
           vimPlugins.typescript-tools-nvim
           (buildPlugin "ts-error-translator" vimplugin-ts-error-translator-src)
+
+          {
+            plugin = vimPlugins.package-info-nvim;
+            type = "lua";
+            config =
+              # lua
+              ''
+                local packageInfo = require('package-info');
+                packageInfo.setup({
+                    hide_up_to_date = true,
+                    package_manager = 'npm',
+                });
+
+                vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+                    pattern = { 'package.json' },
+                    callback = function()
+                        packageInfo.show({ force = true });
+                    end,
+                });
+              '';
+          }
         ];
       };
     };

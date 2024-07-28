@@ -38,8 +38,9 @@ in
                     end,
                 });
 
-                require('lspconfig').lua_ls.setup(
-                    require('coq').lsp_ensure_capabilities({}));
+                require('lspconfig').lua_ls.setup({
+                    capabilities = require('cmp_nvim_lsp').default_capabilities(),
+                });
               '';
           }
         ];

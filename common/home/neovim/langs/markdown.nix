@@ -26,9 +26,10 @@ in
           # lua
           ''
             local lsp = require('lspconfig');
-            local coq = require('coq');
 
-            lsp.texlab.setup(coq.lsp_ensure_capabilities({
+            lsp.texlab.setup({
+                capabilities = require('cmp_nvim_lsp').default_capabilities(),
+
                 settings = {
                     texlab = {
                         formatterLineLength = 100,
@@ -39,7 +40,7 @@ in
                         },
                     },
                 },
-            }));
+            });
           '';
 
         plugins = [

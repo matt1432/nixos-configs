@@ -6,6 +6,7 @@
 }: let
   inherit (config.vars) neovimIde;
   inherit (pkgs) vimPlugins;
+  inherit (lib) fileContents;
 in {
   imports = [
     ./bash.nix
@@ -51,7 +52,7 @@ in {
           lsp_status.register_progress();
 
           -- Remove LSP highlighting to use Treesitter
-          vim.api.nvim_create_autocmd("LspAttach", {
+          vim.api.nvim_create_autocmd('LspAttach', {
               callback = function(args)
                   local client = vim.lsp.get_client_by_id(args.data.client_id);
                   client.server_capabilities.semanticTokensProvider = nil;
@@ -65,50 +66,38 @@ in {
           });
 
           require('lsp_lines').setup();
-
-          -- Autopairs with coq
-          local remap = vim.api.nvim_set_keymap
-          local npairs = require('nvim-autopairs')
-
-          npairs.setup({ map_bs = false, map_cr = false })
-
-          _G.MUtils= {}
-
-          MUtils.CR = function()
-              if vim.fn.pumvisible() ~= 0 then
-                  if vim.fn.complete_info({ 'selected' }).selected ~= -1 then
-                      return npairs.esc('<c-y>');
-                  else
-                      return npairs.esc('<c-e>') .. npairs.autopairs_cr();
-                  end
-              else
-                  return npairs.autopairs_cr();
-              end
-          end
-          remap('i', '<cr>', 'v:lua.MUtils.CR()', { expr = true, noremap = true });
-
-          MUtils.BS = function()
-              if vim.fn.pumvisible() ~= 0 and vim.fn.complete_info({ 'mode' }).mode == 'eval' then
-                  return npairs.esc('<c-e>') .. npairs.autopairs_bs();
-              else
-                  return npairs.autopairs_bs();
-              end
-          end
-          remap('i', '<bs>', 'v:lua.MUtils.BS()', { expr = true, noremap = true });
         '';
 
-      plugins = [
-        vimPlugins.nvim-lspconfig
+      plugins =
+        (with vimPlugins; [
+          nvim-lspconfig
+          lsp-status-nvim
+          lsp_lines-nvim
 
-        vimPlugins.coq_nvim
-        vimPlugins.coq-artifacts
-        vimPlugins.coq-thirdparty
+          cmp-buffer
+          cmp-nvim-lsp
+          cmp-path
+          cmp-spell
+          cmp-treesitter
+          cmp-vsnip
+          vim-vsnip
+          friendly-snippets
+        ])
+        ++ [
+          {
+            plugin = vimPlugins.nvim-cmp;
+            type = "lua";
+            config = fileContents ../plugins/cmp.lua;
+          }
 
-        vimPlugins.nvim-autopairs
-
-        vimPlugins.lsp-status-nvim
-        vimPlugins.lsp_lines-nvim
-      ];
+          {
+            plugin = vimPlugins.nvim-autopairs;
+            type = "lua";
+            config =
+              # lua
+              "require('nvim-autopairs').setup({})";
+          }
+        ];
     };
   };
 }

@@ -18,8 +18,9 @@ in
         extraLuaConfig =
           # lua
           ''
-            require('lspconfig').basedpyright.setup(
-                require('coq').lsp_ensure_capabilities({}));
+            require('lspconfig').basedpyright.setup({
+                capabilities = require('cmp_nvim_lsp').default_capabilities(),
+            });
           '';
       };
     };
