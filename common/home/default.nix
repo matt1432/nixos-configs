@@ -6,6 +6,5 @@
     ./neovim
     ./nix-index
     ./tmux
-    ./packages.nix
   ];
 }

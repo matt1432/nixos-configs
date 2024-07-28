@@ -6,6 +6,7 @@
   imports = [
     ./vars
     ./modules/global.nix
+    ./packages.nix
   ];
 
   nix = {

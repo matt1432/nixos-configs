@@ -13,6 +13,7 @@
     ./vars
 
     ./modules
+    ./packages.nix
 
     home-manager.nixosModules.home-manager
 
@@ -80,15 +81,6 @@
 
   environment.systemPackages =
     (with pkgs; [
-      # File management
-      imagemagick
-      unzip
-      zip
-      unzip
-      p7zip
-      rar
-      unrar
-
       # Peripherals
       hdparm
       pciutils
