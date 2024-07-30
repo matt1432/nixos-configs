@@ -34,6 +34,7 @@ export const updateDocker = () => {
 
     readdirSync(FILE, { withFileTypes: true, recursive: true }).forEach((path) => {
         if (path.name === 'compose.nix') {
+            console.log(`Updating ${path.parentPath.split('/').at(-1)} images`);
             updates += spawnSync('updateImages', [path.parentPath], { shell: true })
                 .stdout.toString();
         }

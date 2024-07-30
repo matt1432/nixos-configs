@@ -32,6 +32,12 @@ if (args['v'] || args['vuetorrent']) {
 }
 
 if (args['a'] || args['all']) {
+    // Update this first because of nix run cmd
+    const firefoxOutput = updateFirefoxAddons();
+
+    console.log(firefoxOutput);
+
+
     const flakeOutput = updateFlakeInputs();
 
     console.log(flakeOutput);
@@ -40,11 +46,6 @@ if (args['a'] || args['all']) {
     const dockerOutput = updateDocker();
 
     console.log(dockerOutput);
-
-
-    const firefoxOutput = updateFirefoxAddons();
-
-    console.log(firefoxOutput);
 
 
     const vuetorrentOutput = updateVuetorrent();

@@ -53,7 +53,11 @@ in
       xorg.libXrandr
     ];
 
-    mesonFlags = ["-Dcapabilities=false"];
+    mesonFlags = [
+      "-Dcapabilities=false"
+      "-Dnvidia_suspend_fix=false"
+      "-Dsystemd=false"
+    ];
 
     fixupPhase = ''
       wrapProgram $out/bin/gpu-screen-recorder \
