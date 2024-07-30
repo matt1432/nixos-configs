@@ -274,6 +274,12 @@
       repo = "pokemon-colorscripts";
       type = "gitlab";
     };
+    pr-tracker = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      owner = "matt1432";
+      repo = "pr-tracker";
+      type = "github";
+    };
     protonhax-src = {
       flake = false;
       owner = "jcnils";

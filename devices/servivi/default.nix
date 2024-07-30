@@ -19,6 +19,7 @@ in {
     ./modules/binary-cache.nix
     ./modules/minecraft.nix
     ./modules/nfs.nix
+    ./modules/pr-tracker.nix
 
     self.nixosModules.docker
   ];

@@ -83,6 +83,11 @@ let
       owner = "matt1432";
       repo = "Minix";
     };
+
+    pr-tracker = mkDep {
+      owner = "matt1432";
+      repo = "pr-tracker";
+    };
   };
 
   nosInputs = {

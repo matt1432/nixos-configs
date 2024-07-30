@@ -48,6 +48,7 @@ in {
           vault.reverseProxy = "${nosIP}:8781";
           hauk.reverseProxy = "${nosIP}:3003";
           headscale.reverseProxy = "${clusterIP}:8085";
+          pr-tracker.reverseProxy = "${serviviIP}:3000";
 
           jellyfin = {
             subDomainName = "jelly";
