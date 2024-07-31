@@ -79,6 +79,12 @@
     xfsprogs
   ];
 
+  environment.variables.NPM_CONFIG_GLOBALCONFIG = "/etc/npmrc";
+  environment.etc.npmrc.text = ''
+    fund = false
+    update-notifier = false
+  '';
+
   environment.systemPackages =
     (with pkgs; [
       # Peripherals
