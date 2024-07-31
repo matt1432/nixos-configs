@@ -27,7 +27,7 @@ in {
           "nelim.org redirect"
         ];
         local-data = let
-          wanIP = "166.62.179.208";
+          wanIP = "166.62.180.199";
           caddyIp =
             if hostName == "thingone"
             then "100.64.0.8"
