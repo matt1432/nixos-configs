@@ -1,5 +1,5 @@
 {...} @ inputs: rec {
-  mkVersion = src: "0pre+" + src.shortRev;
+  mkVersion = src: "0.0.0+" + src.shortRev;
 
   buildPlugin = pname: src:
     inputs.pkgs.vimUtils.buildVimPlugin {
