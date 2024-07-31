@@ -9,7 +9,8 @@ const FLAKE = process.env.FLAKE;
 
 export const updateFlakeInputs = () => {
     const output = spawnSync(
-        `nix flake update --flake ${FLAKE} |& grep -v "warning: updating lock file"`,
+        `git restore flake.lock &> /dev/null; nix flake update --flake ${FLAKE}` +
+            ' |& grep -v "warning: updating lock file"',
         [],
         { shell: true },
     ).stdout
