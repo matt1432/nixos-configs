@@ -19,6 +19,8 @@
     inherit mkVersion;
   };
 
+  proton-ge-latest = pkgs.callPackage ./proton-ge-latest {};
+
   protonhax = pkgs.callPackage ./protonhax {
     inherit (inputs) protonhax-src;
     inherit mkVersion;

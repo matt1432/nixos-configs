@@ -1,6 +1,7 @@
 {
   nix-gaming,
   pkgs,
+  self,
   ...
 }: {
   imports = [
@@ -12,8 +13,8 @@
       enable = true;
       remotePlay.openFirewall = true;
 
-      extraCompatPackages = with pkgs; [
-        proton-ge-bin
+      extraCompatPackages = [
+        self.packages.${pkgs.system}.proton-ge-latest
       ];
 
       platformOptimizations.enable = true;

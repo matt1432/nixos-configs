@@ -16,7 +16,7 @@ in {
 
     remotePlay.openFirewall = true;
     extraCompatPackages = [
-      pkgs.proton-ge-bin
+      self.packages.${pkgs.system}.proton-ge-latest
     ];
   };
 
