@@ -8,9 +8,16 @@ export default () => Label({ class_name: 'clock' })
 
         const dayName = time.format('%a. ');
         const dayNum = time.get_day_of_month();
-        const date = time.format(' %b. %H:%M');
+        const date = time.format(' %b. ');
+        const hour = (new Date().toLocaleString([], {
+            hour: 'numeric',
+            minute: 'numeric',
+            hour12: true,
+        }) ?? '')
+            .replace('a.m.', 'AM')
+            .replace('p.m.', 'PM');
 
         if (dayNum && dayName && date) {
-            self.label = dayName + dayNum + date;
+            self.label = dayName + dayNum + date + hour;
         }
     });

@@ -195,6 +195,20 @@ in {
             --add-flags "--enable-features=UseOzonePlatform,WebRTCPipeWireCapturer --ozone-platform=wayland"
           '';
         })
+
+        (pkgs.symlinkJoin {
+          name = "rstudio";
+          paths = [
+            (pkgs.rstudioWrapper.override {packages = with pkgs.rPackages; [ggplot2 dplyr xts];})
+          ];
+          buildInputs = [pkgs.makeWrapper];
+          postBuild = ''
+            wrapProgram $out/bin/rstudio --prefix LD_LIBRARY_PATH : "${makeLibraryPath [
+              pkgs.addOpenGLRunpath.driverLink
+              pkgs.libglvnd
+            ]}"
+          '';
+        })
       ];
 
     wayland.windowManager.hyprland = {
