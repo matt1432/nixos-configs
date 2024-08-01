@@ -48,7 +48,7 @@ class Clipboard extends Service {
     private async _decodeItem(index: string): Promise<string | null> {
         try {
             const decodedItem = await execAsync([
-                'bash', '-c', `cliphist list | grep ${index} | cliphist decode`,
+                'bash', '-c', `cliphist list | grep -a ${index} | cliphist decode`,
             ]);
 
             this._decrementClipsLeft();
