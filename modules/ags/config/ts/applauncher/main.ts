@@ -8,13 +8,12 @@ import AppItem from './app-item.ts';
 import { launchApp } from './launch.ts';
 
 /* Types */
-import { ListBoxRow } from 'types/@girs/gtk-3.0/gtk-3.0.cjs';
 import { Application } from 'types/service/applications.ts';
 import { AgsAppItem } from 'global-types';
 
 
 export default () => {
-    let fzfResults: FzfResultItem<Application>[];
+    let fzfResults = [] as FzfResultItem<Application>[];
 
     return SortedList({
         name: 'applauncher',
@@ -26,23 +25,38 @@ export default () => {
             launchApp((r.get_child() as AgsAppItem).attribute.app);
         },
 
-        init_rows: (list) => {
-            const rows = list.get_children() as ListBoxRow[];
+        setup_list: (list, entry) => {
+            Applications.query('')
+                .flatMap((app) => AppItem(app))
+                .forEach((ch) => {
+                    list.add(ch);
+                });
 
-            rows.forEach((ch) => {
-                ch.destroy();
-            });
-
-            const children = Applications.query('')
-                .flatMap((app) => AppItem(app));
-
-            children.forEach((ch) => {
-                list.add(ch);
-            });
             list.show_all();
+
+            list.set_sort_func((a, b) => {
+                const row1 = (a.get_children()[0] as AgsAppItem).attribute.app;
+                const row2 = (b.get_children()[0] as AgsAppItem).attribute.app;
+
+                if (entry.text === '' || entry.text === '-') {
+                    a.set_visible(true);
+                    b.set_visible(true);
+
+                    return row2.frequency - row1.frequency;
+                }
+                else {
+                    const s1 = fzfResults.find((r) => r.item.name === row1.name)?.score ?? 0;
+                    const s2 = fzfResults.find((r) => r.item.name === row2.name)?.score ?? 0;
+
+                    a.set_visible(s1 !== 0);
+                    b.set_visible(s2 !== 0);
+
+                    return s2 - s1;
+                }
+            });
         },
 
-        set_sort: (text, list, placeholder) => {
+        on_text_change: (text, list, placeholder) => {
             const fzf = new Fzf(Applications.list, {
                 selector: (app) => app.name + app.executable,
 
@@ -52,37 +66,10 @@ export default () => {
             });
 
             fzfResults = fzf.find(text);
-            list.set_sort_func((a, b) => {
-                const row1 = (a.get_children()[0] as AgsAppItem).attribute.app.name;
-                const row2 = (b.get_children()[0] as AgsAppItem).attribute.app.name;
+            list.invalidate_sort();
 
-                const s1 = fzfResults.find((r) => r.item.name === row1)?.score ?? 0;
-                const s2 = fzfResults.find((r) => r.item.name === row2)?.score ?? 0;
+            const visibleApps = list.get_children().filter((row) => row.visible).length;
 
-                return s2 - s1;
-            });
-
-            let visibleApps = 0;
-
-            const rows = list.get_children() as ListBoxRow[];
-
-            rows.forEach((row) => {
-                row.changed();
-
-                const item = row.get_children()[0] as AgsAppItem;
-
-                if (item.attribute.app) {
-                    const isMatching = fzfResults.some((r) => {
-                        return r.item.name === item.attribute.app.name;
-                    });
-
-                    row.visible = isMatching;
-
-                    if (isMatching) {
-                        ++visibleApps;
-                    }
-                }
-            });
             placeholder.reveal_child = visibleApps <= 0;
         },
     });

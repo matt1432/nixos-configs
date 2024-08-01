@@ -17,14 +17,14 @@ type MakeChild = ReturnType<typeof makeChild>;
 
 type SortedListProps<Attr = unknown, Self = SortedList<Attr>> =
   PopupWindowProps<MakeChild['child'], Attr, Self> & {
-      on_select: (row: ListBoxRow) => void
+      on_select?: (row: ListBoxRow) => void
       init_rows?: (list: MakeChild['list']) => void
-      set_sort: (
+      on_text_change?: (
           text: string,
           list: MakeChild['list'],
           placeholder: MakeChild['placeholder'],
       ) => void
-      setup_list?: (list: MakeChild['list']) => void
+      setup_list?: (list: MakeChild['list'], entry: MakeChild['entry']) => void
   };
 
 
@@ -127,7 +127,7 @@ export class SortedList<
     private _scrollable: MakeChild['scrollable'];
     private _on_select: (row: ListBoxRow) => void;
     private _init_rows: (list: MakeChild['list']) => void;
-    private _set_sort: (
+    private _on_text_change: (
         text: string,
         list: MakeChild['list'],
         placeholder: MakeChild['placeholder'],
@@ -148,9 +148,9 @@ export class SortedList<
     }
 
     constructor({
-        on_select,
+        on_select = () => { /**/ },
         init_rows = () => { /**/ },
-        set_sort,
+        on_text_change = () => { /**/ },
         setup_list = () => { /**/ },
         on_open = () => { /**/ },
         class_name = '',
@@ -171,7 +171,7 @@ export class SortedList<
         // SortedList
         this._on_select = on_select;
         this._init_rows = init_rows;
-        this._set_sort = set_sort;
+        this._on_text_change = on_text_change;
 
         this._placeholder = makeChildResult.placeholder;
         this._scrollable = makeChildResult.scrollable;
@@ -185,14 +185,14 @@ export class SortedList<
 
         this._entry.on_change = ({ text }) => {
             if (text !== null || typeof text === 'string') {
-                this._set_sort(text, this._list, this._placeholder);
+                this._on_text_change(text, this._list, this._placeholder);
             }
         };
         // TODO: add on_accept where it just selects the first visible one
 
-        setup_list(this._list);
+        setup_list(this._list, this._entry);
         this._init_rows(this._list);
-        this._set_sort('', this._list, this._placeholder);
+        this._on_text_change('', this._list, this._placeholder);
     }
 }
 

@@ -9,10 +9,6 @@ import SortedList from '../misc/sorted-list.ts';
 
 
 export default () => {
-    let fzfResults: FzfResultItem<[number, { clip: string, isImage: boolean }]>[];
-
-    const getKey = (r: Gtk.ListBoxRow): number => parseInt(r.get_child()?.name ?? '0');
-
     const makeItem = (
         list: Gtk.ListBox,
         key: number,
@@ -49,6 +45,10 @@ export default () => {
         widget.show_all();
     };
 
+    let fzfResults = [] as FzfResultItem<[number, { clip: string, isImage: boolean }]>[];
+
+    const getKey = (r: Gtk.ListBoxRow): number => parseInt(r.get_child()?.name ?? '0');
+
 
     return SortedList({
         name: 'clipboard',
@@ -60,7 +60,7 @@ export default () => {
             App.closeWindow('win-clipboard');
         },
 
-        setup_list: (list) => {
+        setup_list: (list, entry) => {
             const CONNECT_ID = Clipboard.connect('history-searched', () => {
                 // Do every clip that existed before this widget
                 list.get_children().forEach((row) => {
@@ -75,29 +75,41 @@ export default () => {
                     makeItem(list, key, clip.clip, clip.isImage);
                 });
 
+                list.set_sort_func((a, b) => {
+                    if (entry.text === '' || entry.text === '-') {
+                        a.set_visible(true);
+                        b.set_visible(true);
+
+                        return getKey(b) - getKey(a);
+                    }
+                    else {
+                        const ROW_1 = fzfResults.find((f) => f.item[0] === getKey(a))?.score ?? 0;
+                        const ROW_2 = fzfResults.find((f) => f.item[0] === getKey(b))?.score ?? 0;
+
+                        a.set_visible(ROW_1 !== 0);
+                        b.set_visible(ROW_2 !== 0);
+
+                        return ROW_2 - ROW_1;
+                    }
+                });
+
                 Clipboard.disconnect(CONNECT_ID);
             });
         },
 
-        set_sort: (text, list) => {
-            if (text === '' || text === '-') {
-                list.set_sort_func((row1, row2) => getKey(row2) - getKey(row1));
-            }
-            else {
-                const fzf = new Fzf([...Clipboard.clips.entries()], {
-                    selector: ([_key, { clip }]) => clip,
+        on_text_change: (text, list, placeholder) => {
+            const fzf = new Fzf([...Clipboard.clips.entries()], {
+                selector: ([_key, { clip }]) => clip,
 
-                    tiebreakers: [(a, b) => b[0] - a[0]],
-                });
+                tiebreakers: [(a, b) => b[0] - a[0]],
+            });
 
-                fzfResults = fzf.find(text);
-                list.set_sort_func((a, b) => {
-                    const ROW_1 = fzfResults.find((f) => f.item[0] === getKey(a))?.score ?? 0;
-                    const ROW_2 = fzfResults.find((f) => f.item[0] === getKey(b))?.score ?? 0;
+            fzfResults = fzf.find(text);
+            list.invalidate_sort();
 
-                    return ROW_2 - ROW_1;
-                });
-            }
+            const visibleApps = list.get_children().filter((row) => row.visible).length;
+
+            placeholder.reveal_child = visibleApps <= 0;
         },
     });
 };
