@@ -4,7 +4,7 @@ defaultSession: {
   pkgs,
   ...
 }: let
-  inherit (lib) getExe mkForce;
+  inherit (lib) findFirst getExe mkForce;
 
   inherit (config.vars) mainUser;
 
@@ -83,12 +83,22 @@ in {
     }
   ];
 
-  # Add desktop entry to make it GUI friendly
-  home-manager.users.${mainUser}.xdg.desktopEntries."Gaming Mode" = {
-    name = "Gaming Mode";
-    exec = getExe gaming-mode;
-    icon = "steam";
-    terminal = false;
-    type = "Application";
+  home-manager.users.${mainUser} = {
+    # Add desktop entry to make it GUI friendly
+    xdg.desktopEntries."Gaming Mode" = {
+      name = "Gaming Mode";
+      exec = getExe gaming-mode;
+      icon = "steam";
+      terminal = false;
+      type = "Application";
+    };
+
+    home.file."Desktop/Gaming Mode.desktop".source =
+      (
+        findFirst
+        (x: x.meta.name == "Gaming Mode.desktop") {}
+        config.home-manager.users.mariah.home.packages
+      )
+      + "/share/applications/Gaming Mode.desktop";
   };
 }
