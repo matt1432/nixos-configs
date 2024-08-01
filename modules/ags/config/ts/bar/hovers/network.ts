@@ -9,11 +9,11 @@ export default () => HoverRevealer({
 
     icon: Icon().hook(Network, (self) => {
         if (Network.wifi.internet === 'connected' ||
-            Network.wifi.internet === 'connecting') {
+          Network.wifi.internet === 'connecting') {
             self.icon = Network.wifi.icon_name;
         }
         else if (Network.wired.internet === 'connected' ||
-                 Network.wired.internet === 'connecting') {
+          Network.wired.internet === 'connecting') {
             self.icon = Network.wired.icon_name;
         }
         else {
@@ -23,11 +23,11 @@ export default () => HoverRevealer({
 
     label: Label().hook(Network, (self) => {
         if (Network.wifi.internet === 'connected' ||
-            Network.wifi.internet === 'connecting') {
+          Network.wifi.internet === 'connecting') {
             self.label = Network.wifi.ssid || 'Unknown';
         }
         else if (Network.wired.internet === 'connected' ||
-                 Network.wired.internet === 'connecting') {
+          Network.wired.internet === 'connecting') {
             self.label = 'Connected';
         }
         else {

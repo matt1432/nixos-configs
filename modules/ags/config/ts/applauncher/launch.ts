@@ -5,7 +5,7 @@ import { Application } from 'types/service/applications.ts';
 const bash = async(strings: TemplateStringsArray | string, ...values: unknown[]) => {
     const cmd = typeof strings === 'string' ?
         strings :
-        strings.flatMap((str, i) => `${str }${values[i] ?? ''}`)
+        strings.flatMap((str, i) => `${str}${values[i] ?? ''}`)
             .join('');
 
     return Utils.execAsync(['bash', '-c', cmd]).catch((err) => {

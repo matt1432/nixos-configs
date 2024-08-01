@@ -8,6 +8,9 @@ import { Window } from 'resource:///com/github/Aylur/ags/widgets/window.js';
 import type { WindowProps } from 'types/widgets/window';
 import type { Widget as AgsWidget } from 'types/widgets/widget';
 
+// eslint-disable-next-line
+export interface PopupWindow<Child, Attr> extends AgsWidget<Attr> { }
+
 import {
     CloseType,
     HyprTransition,
@@ -18,17 +21,15 @@ export type PopupWindowProps<
     Attr = unknown,
     Self = PopupWindow<Child, Attr>,
 > = WindowProps<Child, Attr, Self> & {
-    transition?: HyprTransition;
-    on_open?(self: PopupWindow<Child, Attr>): void;
-    on_close?(self: PopupWindow<Child, Attr>): void;
-    close_on_unfocus?: CloseType;
-    anchor?: Array<'top' | 'bottom' | 'right' | 'left'>;
+    transition?: HyprTransition
+    on_open?(self: PopupWindow<Child, Attr>): void
+    on_close?(self: PopupWindow<Child, Attr>): void
+    close_on_unfocus?: CloseType
+    anchor?: ('top' | 'bottom' | 'right' | 'left')[]
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export interface PopupWindow<Child, Attr> extends AgsWidget<Attr> { }
 
-
+// eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export class PopupWindow<
     Child extends Gtk.Widget,
     Attr,
@@ -68,6 +69,7 @@ export class PopupWindow<
     }
 
 
+    // eslint-disable-next-line no-use-before-define
     protected _on_open: (self: PopupWindow<Child, Attr>) => void;
 
     get on_open() {
@@ -79,6 +81,7 @@ export class PopupWindow<
     }
 
 
+    // eslint-disable-next-line no-use-before-define
     private _on_close: (self: PopupWindow<Child, Attr>) => void;
 
     get on_close() {
@@ -92,8 +95,8 @@ export class PopupWindow<
 
     constructor({
         transition = 'slide top',
-        on_open = () => {/**/ },
-        on_close = () => {/**/ },
+        on_open = () => { /**/ },
+        on_close = () => { /**/ },
 
         // Window props
         name,

@@ -3,7 +3,7 @@ const { get_home_dir } = imports.gi.GLib;
 
 import GObject from 'types/@girs/gobject-2.0/gobject-2.0';
 
-type Persist = {
+interface Persist {
     name: string
     gobject: GObject.Object
     prop: string
@@ -11,7 +11,7 @@ type Persist = {
     whenTrue?: boolean | string
     whenFalse?: boolean | string
     signal?: string
-};
+}
 
 
 export default ({

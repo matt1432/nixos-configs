@@ -44,7 +44,7 @@ const defaultStyle = `${TRANSITION} margin: unset; opacity: 1;`;
 export default ({
     id,
     slideIn = 'Left',
-    command = () => {/**/},
+    command = () => { /**/ },
     ...props
 }) => {
     const widget = EventBox({

@@ -69,7 +69,7 @@ export default () => {
             rows.forEach((row) => {
                 row.changed();
 
-                const item = (row.get_children()[0] as AgsAppItem);
+                const item = row.get_children()[0] as AgsAppItem;
 
                 if (item.attribute.app) {
                     const isMatching = fzfResults.some((r) => {

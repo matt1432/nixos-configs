@@ -7,7 +7,7 @@ import PopupWindow from '../misc/popup.ts';
 import { BoxGeneric } from 'global-types';
 
 // Import all the OSDs as an array
-const OSDList = [] as Array<() => BoxGeneric>;
+const OSDList = [] as (() => BoxGeneric)[];
 
 import * as Modules from './osds.ts';
 for (const osd in Modules) {

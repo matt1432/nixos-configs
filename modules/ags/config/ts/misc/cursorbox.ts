@@ -5,6 +5,9 @@ import Gdk from 'gi://Gdk?version=3.0';
 import { BaseProps, Widget as AgsWidget } from 'types/widgets/widget';
 type EventHandler<Self> = (self: Self, event: Gdk.Event) => boolean | unknown;
 
+// eslint-disable-next-line
+export interface CursorBox<Child, Attr> extends AgsWidget<Attr> { }
+
 export type CursorBoxProps<
     Child extends Gtk.Widget,
     Attr = unknown,
@@ -26,10 +29,8 @@ export type CursorBoxProps<
     on_secondary_click_release?: EventHandler<Self>
 }, Attr>;
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export interface CursorBox<Child, Attr> extends AgsWidget<Attr> { }
 
-
+// eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export class CursorBox<Child extends Gtk.Widget, Attr> extends Gtk.EventBox {
     static {
         Widget.register(this, {

@@ -27,18 +27,18 @@ in
           # lua
           ''
             vim.api.nvim_create_autocmd('FileType', {
-               pattern = { 'javascript', 'typescript', 'css', 'scss' },
-               command = 'setlocal ts=4 sw=4 sts=0 expandtab',
+                pattern = { 'javascript', 'typescript', 'css', 'scss' },
+                command = 'setlocal ts=4 sw=4 sts=0 expandtab',
             });
 
             vim.api.nvim_create_autocmd('FileType', {
-               pattern = 'html',
-               command = 'setlocal ts=2 sw=2 expandtab',
+                pattern = 'html',
+                command = 'setlocal ts=2 sw=2 expandtab',
             });
 
             vim.api.nvim_create_autocmd('FileType', {
-               pattern = 'scss',
-               command = 'setlocal iskeyword+=@-@',
+                pattern = 'scss',
+                command = 'setlocal iskeyword+=@-@',
             });
 
             local lsp = require('lspconfig');
@@ -66,6 +66,41 @@ in
                         command = 'EslintFixAll',
                     });
                 end,
+
+                settings = {
+                    validate = 'on',
+                    packageManager = 'npm',
+                    useESLintClass = true,
+                    useFlatConfig = true,
+                    experimental = {
+                        useFlatConfig = true,
+                    },
+                    codeAction = {
+                        disableRuleComment = {
+                            enable = true,
+                            location = 'separateLine'
+                        },
+                        showDocumentation = {
+                            enable = true,
+                        },
+                    },
+                    codeActionOnSave = {
+                        mode = 'all',
+                        rules = {},
+                    },
+                    format = true,
+                    quiet = false,
+                    onIgnoredFiles = 'off',
+                    rulesCustomizations = {},
+                    run = 'onType',
+                    problems = {
+                        shortenToSingleLine = false,
+                    },
+                    nodePath = "",
+                    workingDirectory = {
+                        mode = 'location',
+                    },
+                },
             });
 
             lsp.cssls.setup({

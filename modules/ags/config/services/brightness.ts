@@ -41,22 +41,6 @@ class Brightness extends Service {
         return this.#kbd;
     }
 
-    get screen() {
-        return this.#screen;
-    }
-
-    get screenIcon() {
-        return this.#screenIcon;
-    }
-
-    get caps() {
-        return this.#caps;
-    }
-
-    get capsIcon() {
-        return this.#capsIcon;
-    }
-
     set kbd(value) {
         if (value < 0 || value > this.#kbdMax) {
             return;
@@ -68,6 +52,10 @@ class Brightness extends Service {
                 this.emit('kbd', this.#kbd);
             })
             .catch(console.error);
+    }
+
+    get screen() {
+        return this.#screen;
     }
 
     set screen(percent) {
@@ -88,16 +76,27 @@ class Brightness extends Service {
             .catch(console.error);
     }
 
+    get screenIcon() {
+        return this.#screenIcon;
+    }
+
+    get caps() {
+        return this.#caps;
+    }
+
+    get capsIcon() {
+        return this.#capsIcon;
+    }
+
     constructor() {
         super();
         try {
             this.#monitorKbdState();
             this.#kbdMax = Number(exec(`brightnessctl -d ${KBD} m`));
             this.#caps = Number(exec(`bash -c brightnessctl -d ${this.#capsName} g`));
-            this.#screen = Number(exec('brightnessctl g')) /
-                Number(exec('brightnessctl m'));
+            this.#screen = Number(exec('brightnessctl g')) / Number(exec('brightnessctl m'));
         }
-        catch (error) {
+        catch (_e) {
             console.error('missing dependancy: brightnessctl');
         }
     }
@@ -140,6 +139,7 @@ class Brightness extends Service {
                     }
                 },
             ).catch(() => {
+                // @ts-expect-error this works in ags
                 interval.destroy();
             });
         }, INTERVAL);

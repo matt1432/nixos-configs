@@ -36,7 +36,7 @@ type IndicatorTuple = [
     signal?: string,
 ];
 
-type GridButtonType = {
+interface GridButtonType {
     command?(): void
     secondary_command?(): void
     on_open?(menu: RevealerGeneric): void
@@ -44,17 +44,17 @@ type GridButtonType = {
     indicator?: IndicatorTuple
     // @ts-expect-error me is lazy
     menu?: Widget
-};
+}
 
 
 // TODO: do vpn button
 const SPACING = 28;
-const ButtonStates = [] as Array<Var<boolean>>;
+const ButtonStates = [] as Var<boolean>[];
 
 const GridButton = ({
-    command = () => {/**/},
-    secondary_command = () => {/**/},
-    on_open = () => {/**/},
+    command = () => { /**/ },
+    secondary_command = () => { /**/ },
+    on_open = () => { /**/ },
     icon,
     indicator,
     menu,
@@ -158,7 +158,7 @@ const GridButton = ({
                                         ?.children[1] as BoxGeneric;
 
                                 const isSetup = (rowMenu
-                                    .get_children() as Array<BoxGeneric>)
+                                    .get_children() as BoxGeneric[])
                                     .find((ch) => ch === menu);
 
                                 if (!isSetup) {

@@ -14,27 +14,27 @@ const ON_CLICK_TRIGGERS = [
 // Types
 import { PopupWindow } from 'global-types';
 import { Subprocess } from 'types/@girs/gio-2.0/gio-2.0.cjs';
-type Layer = {
-    address: string;
-    x: number;
-    y: number;
-    w: number;
-    h: number;
-    namespace: string;
-};
-type Levels = {
-    0?: Array<Layer> | null;
-    1?: Array<Layer> | null;
-    2?: Array<Layer> | null;
-    3?: Array<Layer> | null;
-};
-type Layers = {
-    levels: Levels;
-};
-type CursorPos = {
-    x: number;
-    y: number;
-};
+interface Layer {
+    address: string
+    x: number
+    y: number
+    w: number
+    h: number
+    namespace: string
+}
+interface Levels {
+    0?: Layer[] | null
+    1?: Layer[] | null
+    2?: Layer[] | null
+    3?: Layer[] | null
+}
+interface Layers {
+    levels: Levels
+}
+interface CursorPos {
+    x: number
+    y: number
+}
 
 
 class Pointers extends Service {
@@ -51,7 +51,7 @@ class Pointers extends Service {
 
     #process = null as Subprocess | null;
     #lastLine = '';
-    #pointers = [] as Array<string>;
+    #pointers = [] as string[];
 
     get process() {
         return this.#process;
@@ -111,12 +111,12 @@ class Pointers extends Service {
     #initAppConnection() {
         App.connect('window-toggled', () => {
             const anyVisibleAndClosable =
-                (App.windows as Array<PopupWindow>).some((w) => {
+                (App.windows as PopupWindow[]).some((w) => {
                     const closable = w.close_on_unfocus &&
-                        !(
-                            w.close_on_unfocus === 'none' ||
-                            w.close_on_unfocus === 'stay'
-                        );
+                      !(
+                          w.close_on_unfocus === 'none' ||
+                          w.close_on_unfocus === 'stay'
+                      );
 
                     return w.visible && closable;
                 });
@@ -132,7 +132,7 @@ class Pointers extends Service {
     }
 
     static detectClickedOutside(clickStage: string) {
-        const toClose = ((App.windows as Array<PopupWindow>)).some((w) => {
+        const toClose = ((App.windows as PopupWindow[])).some((w) => {
             const closable = (
                 w.close_on_unfocus &&
                 w.close_on_unfocus === clickStage
@@ -160,8 +160,8 @@ class Pointers extends Service {
                             'osk',
                         ];
 
-                        const getNoCloseWidgets = (names: Array<string>) => {
-                            const arr = [] as Array<Layer>;
+                        const getNoCloseWidgets = (names: string[]) => {
+                            const arr = [] as Layer[];
 
                             names.forEach((name) => {
                                 arr.push(
@@ -184,7 +184,7 @@ class Pointers extends Service {
                         };
                         const clickIsOnWidget = (w: Layer) => {
                             return pos.x > w.x && pos.x < w.x + w.w &&
-                                   pos.y > w.y && pos.y < w.y + w.h;
+                              pos.y > w.y && pos.y < w.y + w.h;
                         };
 
                         const noCloseWidgets =
@@ -200,9 +200,9 @@ class Pointers extends Service {
                             }
 
                             return window &&
-                                window.close_on_unfocus &&
-                                window.close_on_unfocus ===
-                                    clickStage;
+                              window.close_on_unfocus &&
+                              window.close_on_unfocus ===
+                              clickStage;
                         });
 
                         if (noCloseWidgets.some(clickIsOnWidget)) {
@@ -212,7 +212,7 @@ class Pointers extends Service {
                             widgets.forEach(
                                 (w) => {
                                     if (!(pos.x > w.x && pos.x < w.x + w.w &&
-                                          pos.y > w.y && pos.y < w.y + w.h)) {
+                                      pos.y > w.y && pos.y < w.y + w.h)) {
                                         App.closeWindow(w.namespace);
                                     }
                                 },

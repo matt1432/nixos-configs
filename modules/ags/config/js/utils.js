@@ -1,7 +1,9 @@
 const { execAsync, monitorFile } = Utils;
 
 
-/** @param {string} host */
+/**
+ * @param {string} host the name of the machine/user who's running ags
+ */
 const watchAndCompileSass = (host) => {
     const reloadCss = () => {
         const scss = `${App.configDir}/scss/${host}.scss`;
@@ -20,7 +22,10 @@ const watchAndCompileSass = (host) => {
     reloadCss();
 };
 
-/** @param {string} host */
+/**
+ * @param {string} host the name of the machine/user who's running ags
+ * @returns the config
+ */
 export const transpileTypeScript = async(host) => {
     const outPath = `/tmp/ags-${host}/index.js`;
 

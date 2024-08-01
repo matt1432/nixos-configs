@@ -15,8 +15,8 @@ import { Box as AgsBox } from 'types/widgets/box';
 
 
 const lock = Lock.prepare_lock();
-const windows: Map<Gdk.Monitor, Gtk.Window> = new Map();
-const blurBGs: AgsBox<Gtk.Widget, { geometry: { w: number, h: number }; }>[] = [];
+const windows = new Map<Gdk.Monitor, Gtk.Window>();
+const blurBGs: AgsBox<Gtk.Widget, { geometry: { w: number, h: number } }>[] = [];
 
 const transition_duration = 1000;
 const WINDOW_MARGINS = -2;

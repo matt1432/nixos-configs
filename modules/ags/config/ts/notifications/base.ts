@@ -14,11 +14,11 @@ import { launchApp } from '../applauncher/launch.ts';
 // Types
 import { Notification as NotifObj } from 'types/service/notifications.ts';
 import { Client } from 'types/service/hyprland.ts';
-type NotificationWidget = {
+interface NotificationWidget {
     notif: NotifObj
     slideIn?: 'Left' | 'Right'
     command?(): void
-};
+}
 import {
     CursorBox as CBox,
     EventBoxGeneric,
@@ -46,7 +46,7 @@ const getDragState = (box: EventBoxGeneric) => (box
 
 
 const NotificationIcon = (notif: NotifObj) => {
-    let iconCmd = (box: CBox):void => {
+    let iconCmd = (box: CBox): void => {
         if (!box) {
             console.log();
         }
@@ -66,16 +66,16 @@ const NotificationIcon = (notif: NotifObj) => {
                 if (!getDragState(box)) {
                     if (wmClass === 'Proton Mail') {
                         Hyprland.messageAsync('dispatch ' +
-                            'togglespecialworkspace thunder');
+                        'togglespecialworkspace thunder');
                     }
                     else if (wmClass === 'Spotify') {
                         Hyprland.messageAsync('dispatch ' +
-                            'togglespecialworkspace spot');
+                        'togglespecialworkspace spot');
                     }
                     else {
                         Hyprland.messageAsync('j/clients').then((msg) => {
-                            const clients = JSON.parse(msg) as Array<Client>;
-                            const classes = [] as Array<string>;
+                            const clients = JSON.parse(msg) as Client[];
+                            const classes = [] as string[];
 
                             for (const key of clients) {
                                 if (key.class) {
@@ -85,7 +85,7 @@ const NotificationIcon = (notif: NotifObj) => {
 
                             if (wmClass && classes.includes(wmClass)) {
                                 Hyprland.messageAsync('dispatch ' +
-                                    `focuswindow ^(${wmClass})`);
+                                `focuswindow ^(${wmClass})`);
                             }
                             else {
                                 Hyprland.messageAsync('dispatch workspace empty')
@@ -168,7 +168,7 @@ export const HasNotifs = Variable(false);
 export const Notification = ({
     notif,
     slideIn = 'Left',
-    command = () => {/**/},
+    command = () => { /**/ },
 }: NotificationWidget) => {
     if (!notif) {
         return;
@@ -248,7 +248,7 @@ export const Notification = ({
                                                     notif.close(),
 
                                                 child: Icon('window-close' +
-                                                    '-symbolic'),
+                                                '-symbolic'),
                                             }),
                                         }),
                                     ],

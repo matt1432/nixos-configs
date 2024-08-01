@@ -16,7 +16,7 @@ class Clipboard extends Service {
     // Class Attributes
     private _clips_left = 0;
 
-    private _clips: Map<number, { clip: string; isImage: boolean }> = new Map();
+    private _clips = new Map<number, { clip: string, isImage: boolean }>();
 
     get clips() {
         return this._clips;
@@ -75,7 +75,7 @@ class Clipboard extends Service {
 
             this._clips_left = Math.min(rawClips.length - 1, n);
 
-            rawClips.forEach(async (clip, i) => {
+            rawClips.forEach(async(clip, i) => {
                 if (i > n) {
                     return;
                 }
@@ -83,7 +83,7 @@ class Clipboard extends Service {
                 if (clip.includes('img')) {
                     this._decrementClipsLeft();
 
-                    const newClip: [number, {clip: string; isImage: boolean;}] = [
+                    const newClip: [number, { clip: string, isImage: boolean }] = [
                         parseInt((clip.match('[0-9]+') ?? [''])[0]),
                         {
                             clip,
@@ -98,7 +98,7 @@ class Clipboard extends Service {
                     const decodedClip = await this._decodeItem(clip);
 
                     if (decodedClip) {
-                        const newClip: [number, {clip: string; isImage: boolean;}] = [
+                        const newClip: [number, { clip: string, isImage: boolean }] = [
                             parseInt(clip),
                             {
                                 clip: decodedClip,
@@ -120,7 +120,7 @@ class Clipboard extends Service {
             () => {
                 this._getHistory(1);
             },
-            () => {/**/},
+            () => { /**/ },
         );
     }
 }

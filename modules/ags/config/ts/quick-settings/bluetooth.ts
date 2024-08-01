@@ -187,7 +187,7 @@ export const BluetoothMenu = () => {
                                     // Make bottom scroll indicator appear only
                                     // when first getting overflowing children
                                     if (!(bottomArrow.reveal_child === true ||
-                                        topArrow.reveal_child === true)) {
+                                      topArrow.reveal_child === true)) {
                                         bottomArrow.reveal_child = true;
                                     }
                                 }
@@ -200,7 +200,7 @@ export const BluetoothMenu = () => {
                             }
 
                             // Trigger sort_func
-                            (self.get_children() as Array<ListBoxRow>)
+                            (self.get_children() as ListBoxRow[])
                                 .forEach((ch) => {
                                     ch.changed();
                                 });

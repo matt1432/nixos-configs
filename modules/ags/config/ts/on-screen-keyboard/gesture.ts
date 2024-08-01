@@ -28,7 +28,7 @@ export default (window: OskWindow) => {
 
     window.child.setCss(`margin-bottom: -${HIDDEN_MARGIN}px;`);
 
-    let signals = [] as Array<number>;
+    let signals = [] as number[];
 
     window.attribute = {
         startY: null,

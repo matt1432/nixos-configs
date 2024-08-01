@@ -50,7 +50,7 @@ const Workspace = ({ id }: { id: number }) => {
                         // Deal with urgent windows
                         const client = Hyprland.getClient(addr);
                         const isThisUrgent = client &&
-                            client.workspace.id === id;
+                          client.workspace.id === id;
 
                         if (isThisUrgent) {
                             self.toggleClassName('urgent', true);

@@ -9,22 +9,24 @@ import { ListBoxRow } from 'types/@girs/gtk-3.0/gtk-3.0.cjs';
 import { Monitor } from 'types/service/hyprland';
 import { Binding } from 'types/service';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export interface SortedList<Attr> extends AgsWidget<Attr> { }
+
+// eslint-disable-next-line no-use-before-define
 type MakeChild = ReturnType<typeof makeChild>;
 
 type SortedListProps<Attr = unknown, Self = SortedList<Attr>> =
-    PopupWindowProps<MakeChild['child'], Attr, Self> & {
-        on_select: (row: ListBoxRow) => void;
-        init_rows?: (list: MakeChild['list']) => void;
-        set_sort: (
-            text: string,
-            list: MakeChild['list'],
-            placeholder: MakeChild['placeholder'],
-        ) => void;
-        setup_list?: (list: MakeChild['list']) => void;
-    };
+  PopupWindowProps<MakeChild['child'], Attr, Self> & {
+      on_select: (row: ListBoxRow) => void
+      init_rows?: (list: MakeChild['list']) => void
+      set_sort: (
+          text: string,
+          list: MakeChild['list'],
+          placeholder: MakeChild['placeholder'],
+      ) => void
+      setup_list?: (list: MakeChild['list']) => void
+  };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export interface SortedList<Attr> extends AgsWidget<Attr> { }
 
 
 const centerCursor = async(): Promise<void> => {
@@ -108,6 +110,7 @@ const makeChild = (class_name: string | Binding<any, any, string>) => {
     };
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export class SortedList<
     Attr,
 > extends PopupWindow<MakeChild['child'], Attr> {

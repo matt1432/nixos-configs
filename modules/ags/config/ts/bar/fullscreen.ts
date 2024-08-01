@@ -27,7 +27,7 @@ Hyprland.connect('event', (hyprObj) => {
         const mon = Hyprland.getMonitor(c.monitor);
 
         return c.fullscreen &&
-            c.workspace.id === mon?.activeWorkspace.id;
+          c.workspace.id === mon?.activeWorkspace.id;
     });
 
     const monitors = fsClients.map((c) =>

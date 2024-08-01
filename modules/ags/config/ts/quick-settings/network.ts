@@ -43,7 +43,7 @@ const AccessPoint = (ap: APType) => {
                         self.setCss(
                             `opacity: ${
                                 widget.attribute.ap.value.ssid ===
-                                    Network.wifi.ssid ?
+                                Network.wifi.ssid ?
                                     '1' :
                                     '0'
                             };
@@ -150,7 +150,7 @@ export const NetworkMenu = () => {
                         self.hook(Network, () => {
                             // Add missing APs
                             const currentAPs = Network.wifi
-                                ?.access_points as Array<APType>;
+                                ?.access_points as APType[];
 
                             currentAPs.forEach((ap) => {
                                 if (ap.ssid !== 'Unknown') {
@@ -214,7 +214,7 @@ export const NetworkMenu = () => {
                                     // Make bottom scroll indicator appear only
                                     // when first getting overflowing children
                                     if (!(bottomArrow.reveal_child === true ||
-                                        topArrow.reveal_child === true)) {
+                                      topArrow.reveal_child === true)) {
                                         bottomArrow.reveal_child = true;
                                     }
                                 }
@@ -227,7 +227,7 @@ export const NetworkMenu = () => {
                             }
 
                             // Trigger sort_func
-                            (self.get_children() as Array<ListBoxRow>)
+                            (self.get_children() as ListBoxRow[])
                                 .forEach((ch) => {
                                     ch.changed();
                                 });

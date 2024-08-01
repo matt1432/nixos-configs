@@ -57,7 +57,7 @@ class GSR extends Service {
                     },
                 );
             },
-            () => {/**/},
+            () => { /**/ },
         );
     }
 

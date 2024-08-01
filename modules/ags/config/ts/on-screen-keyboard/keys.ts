@@ -45,14 +45,14 @@ const LCTRL_CODE = 29;
 
 // Types
 import { Variable as Var } from 'types/variable.ts';
-type Key = {
-    keytype: string,
-    label: string,
-    labelShift?: string,
-    labelAltGr?: string,
-    shape: string,
+interface Key {
+    keytype: string
+    label: string
+    labelShift?: string
+    labelAltGr?: string
+    shape: string
     keycode: number
-};
+}
 
 
 const ModKey = (key: Key) => {

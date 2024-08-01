@@ -19,7 +19,7 @@ import {
 
 
 export default ({
-    setup = () => {/**/},
+    setup = () => { /**/ },
     ...props
 }: Gesture) => {
     const widget = EventBox();
