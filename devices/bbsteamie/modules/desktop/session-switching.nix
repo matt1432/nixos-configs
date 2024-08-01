@@ -32,10 +32,14 @@ in {
       sddm = {
         enable = true;
         autoLogin.relogin = true;
+
+        wayland = {
+          enable = true;
+          compositorCommand = "kwin";
+        };
       };
     };
 
-    # Needed for sddm TODO: look into wayland SDDM?
     xserver.enable = true;
   };
 
