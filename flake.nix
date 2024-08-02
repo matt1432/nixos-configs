@@ -226,7 +226,7 @@
     };
     nixpkgs = {
       owner = "NixOS";
-      ref = "nixos-unstable-small";
+      ref = "nixos-unstable";
       repo = "nixpkgs";
       type = "github";
     };
