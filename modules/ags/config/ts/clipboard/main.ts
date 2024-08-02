@@ -1,54 +1,16 @@
-const { Box, Icon, Label } = Widget;
-
 import { Fzf, FzfResultItem } from 'fzf';
 import Gtk from 'gi://Gtk?version=3.0';
 import Clipboard from '../../services/clipboard.ts';
 
-import CursorBox from '../misc/cursorbox.ts';
 import SortedList from '../misc/sorted-list.ts';
 
+import ClipWidget from './clip.ts';
+
+
+const getKey = (r: Gtk.ListBoxRow): number => parseInt(r.get_child()?.name ?? '0');
 
 export default () => {
-    const makeItem = (
-        list: Gtk.ListBox,
-        key: number,
-        val: string,
-        isImage: boolean,
-    ): void => {
-        const widget = CursorBox({
-            class_name: 'item',
-            name: key.toString(),
-
-            on_primary_click_release: () => {
-                Clipboard.copyOldItem(key);
-                App.closeWindow('win-clipboard');
-            },
-
-            child: Box({
-                children: [
-                    isImage ?
-                        Icon({
-                            icon: val.replace('img:', ''),
-                            size: 100 * 2,
-                        }) :
-
-                        Label({
-                            label: val,
-                            truncate: 'end',
-                            max_width_chars: 100,
-                        }),
-                ],
-            }),
-        });
-
-        list.add(widget);
-        widget.show_all();
-    };
-
     let fzfResults = [] as FzfResultItem<[number, { clip: string, isImage: boolean }]>[];
-
-    const getKey = (r: Gtk.ListBoxRow): number => parseInt(r.get_child()?.name ?? '0');
-
 
     return SortedList({
         name: 'clipboard',
@@ -61,18 +23,23 @@ export default () => {
         },
 
         setup_list: (list, entry) => {
+            list.cursor = 'pointer';
+
             const CONNECT_ID = Clipboard.connect('history-searched', () => {
                 // Do every clip that existed before this widget
-                list.get_children().forEach((row) => {
-                    row.destroy();
-                });
                 Clipboard.clips.forEach((clip, key) => {
-                    makeItem(list, key, clip.clip, clip.isImage);
+                    const widget = ClipWidget({ key, isImage: clip.isImage, val: clip.clip });
+
+                    list.add(widget);
+                    widget.show_all();
                 });
 
                 // Setup connection for new clips
                 Clipboard.connect('clip-added', (_, [key, clip]) => {
-                    makeItem(list, key, clip.clip, clip.isImage);
+                    const widget = ClipWidget({ key, isImage: clip.isImage, val: clip.clip });
+
+                    list.add(widget);
+                    widget.show_all();
                 });
 
                 list.set_sort_func((a, b) => {
@@ -92,6 +59,9 @@ export default () => {
                         return ROW_2 - ROW_1;
                     }
                 });
+
+                // Trigger on_text_change after init
+                entry.text = '-';
 
                 Clipboard.disconnect(CONNECT_ID);
             });

@@ -32,7 +32,7 @@ class Clipboard extends Service {
     // Public Class Methods
     public copyOldItem(key: string | number): void {
         execAsync([
-            'bash', '-c', `cliphist list | grep ${key} | cliphist decode | wl-copy`,
+            'bash', '-c', `cliphist list | grep '^${key}' | cliphist decode | wl-copy`,
         ]);
     }
 
@@ -63,9 +63,28 @@ class Clipboard extends Service {
         }
     }
 
-    private _getHistory(n = Clipboard._MAX_CLIPS) {
-        this._clips = new Map();
+    private _addClip(newClip: [number, { clip: string, isImage: boolean }]) {
+        if (
+            ![...this.clips.values()]
+                .map((c) => c.clip)
+                .includes(newClip[1].clip)
+        ) {
+            this._clips.set(...newClip);
+            this.emit('clip-added', newClip);
+        }
+        else {
+            const oldClip = [...this.clips.entries()]
+                .find(([_, { clip }]) => clip === newClip[1].clip);
 
+            if (oldClip && oldClip[0] < newClip[0]) {
+                this.clips.delete(oldClip[0]);
+                this._clips.set(...newClip);
+                this.emit('clip-added', newClip);
+            }
+        }
+    }
+
+    private _getHistory(n = Clipboard._MAX_CLIPS) {
         // FIXME: this is necessary when not putting a cap on clip amount
         // exec(`prlimit --pid ${exec('pgrep ags')} --nofile=10024:`);
 
@@ -91,8 +110,7 @@ class Clipboard extends Service {
                         },
                     ];
 
-                    this._clips.set(...newClip);
-                    this.emit('clip-added', newClip);
+                    this._addClip(newClip);
                 }
                 else {
                     const decodedClip = await this._decodeItem(clip);
@@ -106,8 +124,7 @@ class Clipboard extends Service {
                             },
                         ];
 
-                        this._clips.set(...newClip);
-                        this.emit('clip-added', newClip);
+                        this._addClip(newClip);
                     }
                 }
             });

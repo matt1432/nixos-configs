@@ -46,15 +46,17 @@
         all: unset;
         transition: 200ms;
         border-radius: 9px;
-
-        box {
-            padding: 10px;
-        }
+        padding: 10px;
     }
 
     *:selected .item,
-    .item:hover,
-    .item:focus {
+    *:hover .item,
+    *:focus .item {
         background-color: #363449;
+    }
+
+    .down-arrow {
+        transition: all 500ms;
+        opacity: 0.5;
     }
 }
