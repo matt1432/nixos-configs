@@ -9,7 +9,7 @@
   inherit (config.vars) hostName mainUser neovimIde;
   inherit (lib) getExe hasPrefix removePrefix;
 
-  defaultFormat = self.formatter.${pkgs.system};
+  defaultFormatter = self.formatter.${pkgs.system};
 
   nixdPkg = nixd.packages.${pkgs.system}.default;
 
@@ -31,8 +31,12 @@ in
     ];
 
     home.packages = [
-      defaultFormat
+      defaultFormatter
+      nixdPkg
     ];
+
+    # nixd by default kinda spams LspLog
+    home.sessionVariables.NIXD_FLAGS = "-log=error";
 
     xdg.dataFile."${flakeDir}/.nixd.json".text = builtins.toJSON {
       nixpkgs = {
@@ -60,7 +64,7 @@ in
                     nixd = {
                         formatting = {
                             -- TODO: Try to find <flake>.formatter
-                            command = { '${getExe defaultFormat}' },
+                            command = { '${getExe defaultFormatter}' },
                         },
                     },
                 },
