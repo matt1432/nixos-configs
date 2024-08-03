@@ -213,7 +213,10 @@
       type = "github";
     };
     nix-on-droid = {
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        home-manager.follows = "home-manager";
+        nixpkgs.follows = "nixpkgs";
+      };
       owner = "nix-community";
       repo = "nix-on-droid";
       type = "github";
@@ -285,7 +288,10 @@
       type = "github";
     };
     secrets = {
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        sops-nix.follows = "sops-nix";
+      };
       type = "git";
       url = "ssh://git@git.nelim.org/matt1432/nixos-secrets";
     };

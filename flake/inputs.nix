@@ -3,9 +3,29 @@ let
 
   # Misc functions
   mkInput = {type ? "github", ...} @ info: info // {inherit type;};
-  mkDep = info: (mkInput info) // {inputs.nixpkgs.follows = "nixpkgs";};
-  mkHyprDep = info: (mkInput info) // {inputs.hyprland.follows = "hyprland";};
-  mkSrc = info: (mkInput info) // {flake = false;};
+  mkDep = info:
+    mkInput (info
+      // {
+        inputs =
+          {nixpkgs.follows = "nixpkgs";}
+          // (
+            if builtins.hasAttr "inputs" info
+            then info.inputs
+            else {}
+          );
+      });
+  mkHyprDep = info:
+    mkInput (info
+      // {
+        inputs =
+          {hyprland.follows = "hyprland";}
+          // (
+            if builtins.hasAttr "inputs" info
+            then info.inputs
+            else {}
+          );
+      });
+  mkSrc = info: mkInput (info // {flake = false;});
 
   # Inputs
   nixTools = {

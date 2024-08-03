@@ -1,4 +1,8 @@
-deviceName: {config, self, ...}: let
+deviceName: {
+  config,
+  self,
+  ...
+}: let
   inherit (config.vars) mainUser hostName;
 
   clusterIP = config.services.pcsd.virtualIps.caddy-vip.ip;
