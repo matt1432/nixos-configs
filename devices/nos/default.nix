@@ -11,10 +11,6 @@ in {
   imports = [
     ./hardware-configuration.nix
 
-    ../../modules/kmscon.nix
-    ../../modules/sshd.nix
-    ../../modules/tailscale.nix
-
     ./modules/docker
     ./modules/jellyfin
     ./modules/mergerfs.nix
@@ -23,6 +19,8 @@ in {
     ./modules/subtitles
 
     self.nixosModules.docker
+    self.nixosModules.kmscon
+    self.nixosModules.server
   ];
 
   # State Version: DO NOT CHANGE
@@ -54,4 +52,15 @@ in {
   };
 
   time.timeZone = "America/Montreal";
+
+  # ------------------------------------------------
+  # `Self` Modules configuration
+  # ------------------------------------------------
+  roles.server = {
+    user = mainUser;
+    tailscale.enable = true;
+    sshd.enable = true;
+  };
+
+  services.kmscon.enable = true;
 }

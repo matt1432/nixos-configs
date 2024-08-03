@@ -1,5 +1,6 @@
 {
   config,
+  pkgs,
   self,
   ...
 }: let
@@ -11,12 +12,11 @@ in {
   imports = [
     ./hardware-configuration.nix
 
-    ../../modules/kmscon.nix
-    ../../modules/sshd.nix
-
     ./modules/desktop
 
+    self.nixosModules.kmscon
     self.nixosModules.plymouth
+    self.nixosModules.server
   ];
 
   # State Version: DO NOT CHANGE
@@ -50,8 +50,16 @@ in {
   # ------------------------------------------------
   # `Self` Modules configuration
   # ------------------------------------------------
+  roles.server = {
+    user = mainUser;
+    sshd.enable = true;
+  };
+
   boot.plymouth = {
     enable = true;
     theme = "steamos";
+    themePackages = [pkgs.steamdeck-hw-theme];
   };
+
+  services.kmscon.enable = true;
 }

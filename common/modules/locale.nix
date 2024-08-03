@@ -4,7 +4,7 @@
       enable = true;
       defaultFonts = {
         emoji = ["Noto Color Emoji"];
-        monospace = ["Noto Nerd Font"];
+        monospace = ["JetBrainsMono Nerd Font"];
         sansSerif = ["Noto Nerd Font"];
         serif = ["Noto Nerd Font"];
       };

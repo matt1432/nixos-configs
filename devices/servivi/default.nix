@@ -11,10 +11,6 @@ in {
   imports = [
     ./hardware-configuration.nix
 
-    ../../modules/kmscon.nix
-    ../../modules/sshd.nix
-    ../../modules/tailscale.nix
-
     ./modules/7-days-to-die.nix
     ./modules/binary-cache.nix
     ./modules/minecraft.nix
@@ -22,6 +18,8 @@ in {
     ./modules/pr-tracker.nix
 
     self.nixosModules.docker
+    self.nixosModules.kmscon
+    self.nixosModules.server
   ];
 
   # State Version: DO NOT CHANGE
@@ -70,5 +68,11 @@ in {
   # ------------------------------------------------
   # `Self` Modules configuration
   # ------------------------------------------------
-  # ...
+  roles.server = {
+    user = mainUser;
+    tailscale.enable = true;
+    sshd.enable = true;
+  };
+
+  services.kmscon.enable = true;
 }

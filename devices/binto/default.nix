@@ -11,24 +11,18 @@ in {
   imports = [
     ./hardware-configuration.nix
 
-    ../../modules/ags
-    ../../modules/audio.nix
-    ../../modules/kmscon.nix
-    ../../modules/printer.nix
-    ../../modules/ratbag-mice.nix
-    ../../modules/sshd.nix
-    ../../modules/tailscale.nix
-
     ./modules/gpu-replay.nix
     ./modules/nix-gaming.nix
 
     self.nixosModules.adb
     self.nixosModules.desktop
+    self.nixosModules.kmscon
+    self.nixosModules.server
   ];
 
   home-manager.users.${mainUser} = {
     imports = [
-      ../../home/firefox
+      self.homeManagerModules.firefox
     ];
 
     # State Version: DO NOT CHANGE
@@ -72,14 +66,23 @@ in {
   roles.desktop = {
     user = mainUser;
 
+    ags.enable = true;
     mainMonitor = "desc:GIGA-BYTE TECHNOLOGY CO. LTD. G27QC 0x00000B1D";
     displayManager.duplicateScreen = false;
 
     fontSize = 12.5;
   };
 
+  roles.server = {
+    user = mainUser;
+    tailscale.enable = true;
+    sshd.enable = true;
+  };
+
   programs.adb = {
     enable = true;
     user = mainUser;
   };
+
+  services.kmscon.enable = true;
 }

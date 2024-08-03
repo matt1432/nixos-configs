@@ -55,13 +55,9 @@
       nixpkgs.lib.genAttrs supportedSystems (system:
         attrs (mkPkgs system nixpkgs));
   in {
-    nixosModules = {
-      adb = import ./modules/adb.nix;
-      desktop = import ./modules/desktop;
-      docker = import ./modules/docker;
-      nvidia = import ./modules/nvidia.nix;
-      plymouth = import ./modules/plymouth.nix;
-    };
+    nixosModules = import ./nixosModules self;
+
+    homeManagerModules = import ./homeManagerModules self;
 
     nixosConfigurations = {
       # Desktops

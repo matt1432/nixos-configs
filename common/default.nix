@@ -8,16 +8,15 @@
   pkgs,
   self,
   ...
-} @ inputs: {
+}: {
   imports = [
     ./vars
 
     ./modules
     ./packages.nix
+    self.nixosModules.borgbackup
 
     home-manager.nixosModules.home-manager
-
-    ../modules/borgbackup
   ];
 
   boot.tmp.useTmpfs = true;

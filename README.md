@@ -6,7 +6,7 @@ You might find it weird that most of my config is written in TypeScript.
 That's because all my desktops run
 [AGS](https://github.com/Aylur/ags)
 for UI. Click on
-[this](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/modules/ags)
+[this](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/nixosModules/ags)
 to see my configuration.
 
 I'm also a victim of Stockholm syndrome at this point and make my scripts
@@ -17,10 +17,8 @@ in TypeScript because it's the scripting language I am most comfortable with.
 ### General
 
 This repo is the complete configuration of machines I own,
-running NixOS or Nix. I tend to mix Home-Manager and NixOS
-a lot to make my custom modules by using my global vars system
-explained
-[here](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/devices)
+running NixOS or Nix. Its structure is based on a flake's
+[outputs](https://wiki.nixos.org/wiki/Flakes#Output_schema).
 
 ### Flake Location
 
@@ -46,6 +44,9 @@ sudo ln -sf /home/matt/.nix /etc/nixos
 | `nixOnDroidConfigurations.default` | [Nix-On-Droid](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/devices/android)'s configuration |
 | `packages`                         | Some custom [packages](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/packages) not available in nixpkgs or modified from it |
 | `legacyPackages`                   | Some custom [package scopes](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/legacyPackages) not available in nixpkgs or modified from it |
+| `apps`                             | Scripts ran from the flake defined [here](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/apps) |
+| `homeManagerModules`               | [Modules](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/homeManagerModules) made for home-manager |
+| `homeManagerModules`               | [Modules](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/nixosModules) made for NixOS systems |
 | `formatter`                        | I format nix code with [alejandra](https://github.com/kamadorueda/alejandra) |
 | `devShells.default`                | A dev shell to build an ISO from the live-image nixosConfiguration |
 | `devShells.ags`                    | A dev shell to have a NodeJS env when I enter my AGS's config directory |

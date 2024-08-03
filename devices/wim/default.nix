@@ -1,6 +1,7 @@
 {
   config,
   self,
+  pkgs,
   ...
 }: let
   inherit (config.vars) mainUser hostName;
@@ -11,22 +12,18 @@ in {
   imports = [
     ./hardware-configuration.nix
 
-    ../../modules/ags
-    ../../modules/audio.nix
-    ../../modules/kmscon.nix
-    ../../modules/printer.nix
-    ../../modules/tailscale.nix
-
     ./modules/security.nix
 
     self.nixosModules.adb
     self.nixosModules.desktop
+    self.nixosModules.kmscon
     self.nixosModules.plymouth
+    self.nixosModules.server
   ];
 
   home-manager.users.${mainUser} = {
     imports = [
-      ../../home/firefox
+      self.homeManagerModules.firefox
     ];
 
     # State Version: DO NOT CHANGE
@@ -73,11 +70,17 @@ in {
   roles.desktop = {
     user = mainUser;
 
+    ags.enable = true;
     mainMonitor = "eDP-1";
     isLaptop = true;
     isTouchscreen = true;
 
     fontSize = 12.5;
+  };
+
+  roles.server = {
+    user = mainUser;
+    tailscale.enable = true;
   };
 
   programs.adb = {
@@ -88,5 +91,10 @@ in {
   boot.plymouth = {
     enable = true;
     theme = "dracula";
+    themePackages = [
+      self.legacyPackages.${pkgs.system}.dracula.plymouth
+    ];
   };
+
+  services.kmscon.enable = true;
 }

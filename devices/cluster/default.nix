@@ -1,4 +1,4 @@
-deviceName: {config, ...}: let
+deviceName: {config, self, ...}: let
   inherit (config.vars) mainUser hostName;
 
   clusterIP = config.services.pcsd.virtualIps.caddy-vip.ip;
@@ -9,11 +9,10 @@ in {
   imports = [
     ./hardware-configuration.nix
 
-    ../../modules/kmscon.nix
-    ../../modules/sshd.nix
-    ../../modules/tailscale.nix
-
     ./modules/pcsd.nix
+
+    self.nixosModules.kmscon
+    self.nixosModules.server
   ];
 
   # State Version: DO NOT CHANGE
@@ -57,4 +56,15 @@ in {
   };
 
   time.timeZone = "America/Montreal";
+
+  # ------------------------------------------------
+  # `Self` Modules configuration
+  # ------------------------------------------------
+  roles.server = {
+    user = mainUser;
+    tailscale.enable = true;
+    sshd.enable = true;
+  };
+
+  services.kmscon.enable = true;
 }
