@@ -1,9 +1,9 @@
 {
+  lib,
+  gpu-screen-recorder-src,
   addOpenGLRunpath,
   dbus,
   ffmpeg,
-  gpu-screen-recorder-src,
-  lib,
   libdrm,
   libglvnd,
   libpulseaudio,

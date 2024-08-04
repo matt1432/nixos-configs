@@ -1,25 +1,30 @@
 {
+  lib,
   proton-ge-bin,
   rsync,
   ...
-}:
-proton-ge-bin.overrideAttrs {
-  buildInputs = [rsync];
+}: let
+  inherit (lib) elemAt match replaceStrings;
+in
+  proton-ge-bin.overrideAttrs (o: {
+    version = replaceStrings ["-"] ["."] (elemAt (match "^[^0-9]*(.*)" o.version) 0);
 
-  buildCommand =
-    # bash
-    ''
-      runHook preBuild
+    buildInputs = [rsync];
 
-      echo "Proton should not be installed into environments. Please use programs.steam.extraCompatPackages instead." > $out
+    buildCommand =
+      # bash
+      ''
+        runHook preBuild
 
-      cat $src/compatibilitytool.vdf > ./compatibilitytool.vdf
-      sed -i 's/"GE-Proton[^"]*"/"GE-Proton-Latest"/g' ./compatibilitytool.vdf
+        echo "Proton should not be installed into environments. Please use programs.steam.extraCompatPackages instead." > $out
 
-      mkdir $steamcompattool
-      cp -a ./compatibilitytool.vdf $steamcompattool/
-      rsync -ar --exclude='compatibilitytool.vdf' $src/* $steamcompattool/
+        cat $src/compatibilitytool.vdf > ./compatibilitytool.vdf
+        sed -i 's/"GE-Proton[^"]*"/"GE-Proton-Latest"/g' ./compatibilitytool.vdf
 
-      runHook postBuild
-    '';
-}
+        mkdir $steamcompattool
+        cp -a ./compatibilitytool.vdf $steamcompattool/
+        rsync -ar --exclude='compatibilitytool.vdf' $src/* $steamcompattool/
+
+        runHook postBuild
+      '';
+  })

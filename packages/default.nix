@@ -12,7 +12,6 @@
 
   libratbag = pkgs.callPackage ./libratbag {
     inherit (inputs) libratbag-src;
-    inherit mkVersion;
   };
 
   pam-fprint-grosshack = pkgs.callPackage ./pam-fprint-grosshack {
@@ -21,7 +20,6 @@
 
   piper = pkgs.callPackage ./piper {
     inherit (inputs) piper-src;
-    inherit mkVersion;
   };
 
   pokemon-colorscripts = pkgs.callPackage ./pokemon-colorscripts {

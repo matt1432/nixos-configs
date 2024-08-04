@@ -1,16 +1,16 @@
 {
-  stdenv,
-  meson,
-  ninja,
-  pkg-config,
+  pam-fprint-grosshack-src,
+  dbus,
   glib,
   libfprint,
-  polkit,
-  dbus,
-  systemd,
-  pam,
   libpam-wrapper,
-  pam-fprint-grosshack-src,
+  meson,
+  ninja,
+  pam,
+  pkg-config,
+  polkit,
+  stdenv,
+  systemd,
   ...
 }: let
   inherit (builtins) elemAt head readFile split;
