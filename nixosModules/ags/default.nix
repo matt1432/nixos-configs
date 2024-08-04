@@ -46,7 +46,7 @@ in {
             '';
 
           agsPkg = config.programs.ags.finalPackage;
-          agsConfigDir = "${removePrefix "/home/${mainUser}/" flakeDir}/modules/ags";
+          agsConfigDir = "${removePrefix "/home/${mainUser}/" flakeDir}/nixosModules/ags";
         in {
           assertions = [
             {
@@ -87,7 +87,7 @@ in {
               // (mkType astalTray "AstalTray-0.1")
               // {
                 # Out of store symlinks
-                ".config/ags".source = mkOutOfStoreSymlink "${flakeDir}/modules/ags/config";
+                ".config/ags".source = mkOutOfStoreSymlink "${flakeDir}/nixosModules/ags/config";
 
                 # Generated JavaScript files
                 "${agsConfigDir}/config/config.js".text = configJs;

@@ -43,7 +43,7 @@ in {
 
         ({config, ...}: let
           symlink = config.lib.file.mkOutOfStoreSymlink;
-          configDir = "${flakeDir}/modules/desktop/desktop-environment/config";
+          configDir = "${flakeDir}/nixosModules/desktop/desktop-environment/config";
         in {
           xdg = {
             configFile = {
