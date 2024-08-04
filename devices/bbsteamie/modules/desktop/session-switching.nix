@@ -27,20 +27,14 @@ defaultSession: {
     sudo ${pkgs.systemd}/bin/systemctl start to-gaming-mode.service
   '';
 in {
-  services = {
-    displayManager = {
-      sddm = {
-        enable = true;
-        autoLogin.relogin = true;
+  services.displayManager.sddm = {
+    enable = true;
+    autoLogin.relogin = true;
 
-        wayland = {
-          enable = true;
-          compositorCommand = "kwin";
-        };
-      };
+    wayland = {
+      enable = true;
+      compositorCommand = "kwin";
     };
-
-    xserver.enable = true;
   };
 
   # Sets the default session at launch
@@ -100,5 +94,17 @@ in {
         config.home-manager.users.mariah.home.packages
       )
       + "/share/applications/Gaming Mode.desktop";
+
+    # Fix remote control prompt showing up everytime
+    xdg.configFile = let
+      mkAutostart = name: flags: {
+        "autostart/${name}.desktop".text = "[Desktop Entry]\nType=Application\nExec=${name} ${flags}";
+      };
+    in (
+      # Needs xdg-desktop-portal-kde patch provided by `self.overlays.xdg-desktop-portal-kde`
+      {"plasmaremotedesktoprc".text = "[Sharing]\nUnattended=true";}
+      // (mkAutostart "krfb" "--nodialog %c")
+      // (mkAutostart "steam" "-silent %U")
+    );
   };
 }

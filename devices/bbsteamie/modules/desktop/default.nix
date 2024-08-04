@@ -1,6 +1,6 @@
 {pkgs, ...}: let
   # switch to wayland when possible
-  defaultSession = "plasmax11";
+  defaultSession = "plasma";
 in {
   imports = [
     (import ./session-switching.nix defaultSession)
@@ -22,6 +22,7 @@ in {
     # Misc Apps
     firefox
     kdePackages.discover
+    kdePackages.krfb
 
     # Libs
     wl-clipboard

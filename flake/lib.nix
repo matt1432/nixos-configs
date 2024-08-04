@@ -12,12 +12,16 @@
     import input {
       inherit system;
       config.allowUnfree = true;
-      overlays = map (i: inputs.${i}.overlays.default) [
-        "discord-overlay"
-        "grim-hyprland"
-        "jovian"
-        "nixpkgs-wayland"
-      ];
+      overlays =
+        (map (i: inputs.${i}.overlays.default) [
+          "discord-overlay"
+          "grim-hyprland"
+          "jovian"
+          "nixpkgs-wayland"
+        ])
+        ++ [
+          inputs.self.overlays.xdg-desktop-portal-kde
+        ];
     };
 
   # Function that makes the attrs that make up the specialArgs
