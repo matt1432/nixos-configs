@@ -209,7 +209,7 @@ in {
 
               "sleep 3; nextcloud --background"
 
-              "[workspace special:protonmail silent] proton-mail"
+              "[workspace special:protonmail silent] sleep 10; proton-mail"
               "[workspace special:spot silent] spotify"
             ]
             ++ optionals config.services.tailscale.enable [
