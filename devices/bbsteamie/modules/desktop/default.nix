@@ -1,5 +1,4 @@
 {pkgs, ...}: let
-  # switch to wayland when possible
   defaultSession = "plasma";
 in {
   imports = [

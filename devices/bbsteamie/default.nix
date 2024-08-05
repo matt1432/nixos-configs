@@ -1,6 +1,5 @@
 {
   config,
-  pkgs,
   self,
   ...
 }: let
@@ -57,8 +56,7 @@ in {
 
   boot.plymouth = {
     enable = true;
-    theme = "steamos";
-    themePackages = [pkgs.steamdeck-hw-theme];
+    theme = "bgrt";
   };
 
   services.kmscon.enable = true;
