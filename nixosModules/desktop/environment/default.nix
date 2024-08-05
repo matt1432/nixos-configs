@@ -76,7 +76,7 @@ in {
         (import ./home/hyprgrass.nix hyprgrass)
 
         ./home/inputs.nix
-        (import ./home/style.nix self)
+        (import ../theme self)
       ];
 
       wayland.windowManager.hyprland = {

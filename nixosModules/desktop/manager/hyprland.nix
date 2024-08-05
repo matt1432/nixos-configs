@@ -25,7 +25,7 @@ self: {
   in {
     home-manager.users.greeter = {
       imports = [
-        (import ../environment/home/style.nix self)
+        (import ../theme self)
       ];
 
       wayland.windowManager.hyprland = {

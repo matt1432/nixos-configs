@@ -65,5 +65,5 @@
   };
 
   # For accurate stack trace
-  _file = ./gtk.nix;
+  _file = ./default.nix;
 }

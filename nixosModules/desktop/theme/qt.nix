@@ -11,11 +11,12 @@ self: {
   in {
     home.packages = with pkgs; [
       libsForQt5.qtstyleplugin-kvantum
-      qt6Packages.qtstyleplugin-kvantum
+      kdePackages.qtstyleplugin-kvantum
     ];
 
     qt = {
       enable = true;
+      style.name = "kvantum";
       platformTheme.name = "qtct";
     };
 
