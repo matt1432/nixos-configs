@@ -1,6 +1,6 @@
 {
   inputs = let
-    inherit (import ./flake/inputs.nix) mkDep mkInput otherInputs;
+    inherit (import ./inputs.nix) mkDep mkInput otherInputs;
 
     mainInputs = {
       nixpkgs = mkInput {
@@ -47,7 +47,7 @@
     self,
     ...
   }: let
-    inherit (import ./flake/lib.nix inputs) mkVersion mkNixOS mkNixOnDroid mkPkgs;
+    inherit (import "${self}/lib.nix" inputs) mkVersion mkNixOS mkNixOnDroid mkPkgs;
 
     supportedSystems = ["x86_64-linux" "aarch64-linux"];
 
@@ -154,10 +154,10 @@
       };
     });
 
-    # For nix-fast-build
-    checks =
+    # For nix-fast-build. I use a custom output to alleviate eval time of this flake. ie. when doing nix flake show
+    nixFastChecks =
       perSystem (pkgs:
-        import ./flake/ci.nix {inherit pkgs self;});
+        import ./checks {inherit pkgs self;});
 
     formatter = perSystem (pkgs: pkgs.alejandra);
   };

@@ -1,14 +1,15 @@
 {
   config,
-  pkgs,
   lib,
+  pkgs,
+  self,
   vimplugin-easytables-src,
   ...
 }: let
   inherit (config.vars) neovimIde;
   inherit (pkgs) vimPlugins;
 
-  inherit (import ../../../../flake/lib.nix {inherit pkgs;}) buildPlugin;
+  inherit (import "${self}/lib.nix" {inherit pkgs;}) buildPlugin;
 in
   lib.mkIf neovimIde {
     programs = {

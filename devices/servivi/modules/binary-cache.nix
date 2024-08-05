@@ -26,6 +26,10 @@ in {
     nix-fast-buildPkg
   ];
 
+  home-manager.users.${mainUser}.programs.bash.shellAliases = {
+    nix-fast-build = "nix-fast-build -f $FLAKE/.#nixFastChecks";
+  };
+
   # Populate cache
   systemd = {
     services.buildAll = {
@@ -51,7 +55,7 @@ in {
         fi
         git clone https://git.nelim.org/matt1432/nixos-configs.git nix-clone
         cd nix-clone
-        nix-fast-build
+        nix-fast-build -f .#nixFastChecks
         cd ..
         rm -r nix-clone
       '';

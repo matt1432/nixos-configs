@@ -9,6 +9,7 @@ self: {
 
   firefox-gx = pkgs.callPackage ./gx-theme.nix {
     inherit (self.inputs) firefox-gx-src;
+    inherit (import "${self}/lib.nix" {}) mkVersion;
   };
 in {
   config = {
