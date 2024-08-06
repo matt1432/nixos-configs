@@ -1,30 +1,36 @@
 let
-  inherit (builtins) listToAttrs map removeAttrs;
+  lock = builtins.fromJSON (builtins.readFile ./flake.lock);
+  lib = import "${builtins.fetchTarball {
+    url = "https://github.com/NixOS/nixpkgs/archive/${lock.nodes.nixpkgs.locked.rev}.tar.gz";
+    sha256 = lock.nodes.nixpkgs.locked.narHash;
+  }}/lib";
+
+  inherit (lib) attrValues findFirst foldl' hasAttr listToAttrs matchAttrs map optionalAttrs recursiveUpdate removeAttrs;
+
+  recursiveUpdateList = list: foldl' recursiveUpdate {} list;
 
   # Misc functions
-  mkInput = {type ? "github", ...} @ info: info // {inherit type;};
-  mkDep = info:
-    mkInput (info
-      // {
-        inputs =
-          {nixpkgs.follows = "nixpkgs";}
-          // (
-            if builtins.hasAttr "inputs" info
-            then info.inputs
-            else {}
-          );
-      });
-  mkHyprDep = info:
-    mkInput (info
-      // {
-        inputs =
-          {hyprland.follows = "hyprland";}
-          // (
-            if builtins.hasAttr "inputs" info
-            then info.inputs
-            else {}
-          );
-      });
+  mkInput = {type ? "github", ...} @ info: let
+    input =
+      findFirst
+      (x: matchAttrs (removeAttrs info ["inputs"]) (x.original or {})) {}
+      (attrValues lock.nodes);
+
+    mkOverride = i:
+      optionalAttrs
+      (hasAttr i (input.inputs or {}))
+      {inputs.${i}.follows = i;};
+  in
+    recursiveUpdateList [
+      info
+      {inherit type;}
+      (mkOverride "systems")
+      (mkOverride "flake-utils")
+      (mkOverride "lib-aggregate")
+    ];
+
+  mkDep = info: mkInput (recursiveUpdate info {inputs.nixpkgs.follows = "nixpkgs";});
+  mkHyprDep = info: mkInput (recursiveUpdate info {inputs.hyprland.follows = "hyprland";});
   mkSrc = info: mkInput (info // {flake = false;});
 
   # Inputs
@@ -54,10 +60,14 @@ let
       repo = "nix-melt";
     };
 
-    mozilla-addons-to-nix = mkDep {
-      type = "sourcehut";
-      owner = "~rycee";
-      repo = "mozilla-addons-to-nix";
+    # These are here to make sure all 'systems' are the same
+    flake-utils = mkInput {
+      owner = "numtide";
+      repo = "flake-utils";
+    };
+    lib-aggregate = mkInput {
+      owner = "nix-community";
+      repo = "lib-aggregate";
     };
   };
 
@@ -149,11 +159,6 @@ let
 
         # type = "path";
         # path = "/home/matt/git/hyprland-plugins";
-      };
-
-      Hyprspace = mkHyprDep {
-        owner = "KZDKM";
-        repo = "Hyprspace";
       };
 
       hyprgrass = mkHyprDep {
@@ -304,7 +309,13 @@ in {
   inherit mkDep mkInput mkSrc;
 
   otherInputs =
-    nixTools
+    {
+      flakegen = {
+        url = "github:jorsn/flakegen";
+        inputs.systems.follows = "systems";
+      };
+    }
+    // nixTools
     // overlays
     // nvimInputs
     // clusterInputs

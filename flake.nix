@@ -1,14 +1,11 @@
 # Do not modify! This file is generated.
 {
   inputs = {
-    Hyprspace = {
-      inputs.hyprland.follows = "hyprland";
-      owner = "KZDKM";
-      repo = "Hyprspace";
-      type = "github";
-    };
     ags = {
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
       owner = "Aylur";
       repo = "ags";
       type = "github";
@@ -62,7 +59,16 @@
       rev = "9afe9948758871f3944e8a83046c8a51039e883a";
       type = "github";
     };
-    flakegen.url = "github:jorsn/flakegen";
+    flake-utils = {
+      inputs.systems.follows = "systems";
+      owner = "numtide";
+      repo = "flake-utils";
+      type = "github";
+    };
+    flakegen = {
+      inputs.systems.follows = "systems";
+      url = "github:jorsn/flakegen";
+    };
     git-theme-src = {
       flake = false;
       owner = "dracula";
@@ -75,7 +81,10 @@
       url = "https://repo.dec05eba.com/gpu-screen-recorder";
     };
     grim-hyprland = {
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
       owner = "eriedaberrie";
       repo = "grim-hyprland";
       type = "github";
@@ -93,7 +102,10 @@
       type = "github";
     };
     headscale = {
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+      };
       owner = "juanfont";
       repo = "headscale";
       type = "github";
@@ -111,13 +123,19 @@
       type = "github";
     };
     hyprland = {
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
       submodules = true;
       type = "git";
       url = "https://github.com/hyprwm/Hyprland";
     };
     hyprland-plugins = {
-      inputs.hyprland.follows = "hyprland";
+      inputs = {
+        hyprland.follows = "hyprland";
+        systems.follows = "systems";
+      };
       owner = "hyprwm";
       repo = "hyprland-plugins";
       type = "github";
@@ -140,6 +158,12 @@
       repo = "khepri";
       type = "github";
     };
+    lib-aggregate = {
+      inputs.flake-utils.follows = "flake-utils";
+      owner = "nix-community";
+      repo = "lib-aggregate";
+      type = "github";
+    };
     libratbag-src = {
       flake = false;
       owner = "libratbag";
@@ -157,12 +181,6 @@
       owner = "cyl0";
       repo = "ModernX";
       type = "github";
-    };
-    mozilla-addons-to-nix = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      owner = "~rycee";
-      repo = "mozilla-addons-to-nix";
-      type = "sourcehut";
     };
     mpv-persist-properties-src = {
       flake = false;
@@ -234,7 +252,10 @@
       type = "github";
     };
     nixpkgs-wayland = {
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        lib-aggregate.follows = "lib-aggregate";
+        nixpkgs.follows = "nixpkgs";
+      };
       owner = "nix-community";
       repo = "nixpkgs-wayland";
       type = "github";
@@ -312,6 +333,11 @@
       owner = "matt1432";
       repo = "subsync";
       rev = "ee9e1592ae4ec7c694d8857aa72be079d81ea209";
+      type = "github";
+    };
+    systems = {
+      owner = "nix-systems";
+      repo = "default-linux";
       type = "github";
     };
     trash-d-src = {

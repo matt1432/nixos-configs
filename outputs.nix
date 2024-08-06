@@ -3,6 +3,11 @@
     inherit (import ./inputs.nix) mkDep mkInput otherInputs;
 
     mainInputs = {
+      systems = mkInput {
+        owner = "nix-systems";
+        repo = "default-linux";
+      };
+
       nixpkgs = mkInput {
         owner = "NixOS";
         repo = "nixpkgs";
@@ -45,14 +50,13 @@
     nixpkgs,
     secrets,
     self,
+    systems,
     ...
   }: let
     inherit (import "${self}/lib.nix" inputs) mkVersion mkNixOS mkNixOnDroid mkPkgs;
 
-    supportedSystems = ["x86_64-linux" "aarch64-linux"];
-
     perSystem = attrs:
-      nixpkgs.lib.genAttrs supportedSystems (system:
+      nixpkgs.lib.genAttrs (import systems) (system:
         attrs (mkPkgs system nixpkgs));
   in {
     nixosModules = import ./nixosModules self;
