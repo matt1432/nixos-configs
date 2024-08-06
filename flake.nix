@@ -339,5 +339,5 @@
       type = "github";
     };
   };
-  outputs = inputs: inputs.flakegen ./flake.in.nix inputs;
+  outputs = inputs: inputs.flakegen ./outputs.nix inputs;
 }
