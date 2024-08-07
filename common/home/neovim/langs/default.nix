@@ -78,10 +78,7 @@ in {
           cmp-nvim-lsp
           cmp-path
           cmp-spell
-          cmp-treesitter
-          cmp-vsnip
           vim-vsnip
-          friendly-snippets
         ])
         ++ [
           {
