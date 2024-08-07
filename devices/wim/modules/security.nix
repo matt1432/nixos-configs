@@ -16,7 +16,10 @@
     auth  sufficient  pam_unix.so try_first_pass nullok
   '';
 in {
-  services.fprintd.enable = true;
+  services.fprintd = {
+    enable = true;
+    package = pkgs.open-fprintd;
+  };
 
   # https://www.reddit.com/r/NixOS/comments/z7i83r/fingertip_tip_start_fprintd_at_boot_for_a_quick/
   systemd.services.fprintd = {

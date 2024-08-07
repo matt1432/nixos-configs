@@ -53,7 +53,7 @@ if (args['a'] || args['all']) {
     console.log(vuetorrentOutput);
 
 
-    spawnSync('nix-fast-build', ['-f', `${FLAKE}#checks`], {
+    spawnSync('nix-fast-build', ['-f', `${FLAKE}#nixFastChecks`], {
         shell: true,
         stdio: [process.stdin, process.stdout, process.stderr],
     });
