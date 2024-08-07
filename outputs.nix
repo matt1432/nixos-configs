@@ -135,14 +135,20 @@
       };
 
       node = pkgs.mkShell {
-        packages = with pkgs;
-          [
-            nodejs_latest
-            typescript
-          ]
-          ++ (with nodePackages; [
-            ts-node
-          ]);
+        packages = with pkgs; [
+          nodejs_latest
+          typescript
+
+          (writeShellApplication {
+            name = "updateNpmDeps";
+            runtimeInputs = [prefetch-npm-deps nodejs_latest];
+
+            text = ''
+              npm i --package-lock-only || true # this command will fail but still updates the main lockfile
+              prefetch-npm-deps ./package-lock.json
+            '';
+          })
+        ];
       };
 
       subtitles-dev = pkgs.mkShell {

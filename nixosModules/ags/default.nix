@@ -10,7 +10,7 @@ in {
     inherit (lib) boolToString mkIf toLower;
 
     # Configs
-    inherit (config.vars) mainUser hostName;
+    inherit (config.vars) hostName;
     cfgDesktop = config.roles.desktop;
     flakeDir = config.environment.variables.FLAKE;
 
@@ -24,7 +24,7 @@ in {
 
       services.upower.enable = true;
 
-      home-manager.users.${mainUser}.imports = [
+      home-manager.users.${cfgDesktop.user}.imports = [
         ags.homeManagerModules.default
 
         ({
@@ -46,11 +46,11 @@ in {
             '';
 
           agsPkg = config.programs.ags.finalPackage;
-          agsConfigDir = "${removePrefix "/home/${mainUser}/" flakeDir}/nixosModules/ags";
+          agsConfigDir = "${removePrefix "/home/${cfgDesktop.user}/" flakeDir}/nixosModules/ags";
         in {
           assertions = [
             {
-              assertion = hasPrefix "/home/${mainUser}/" flakeDir;
+              assertion = hasPrefix "/home/${cfgDesktop.user}/" flakeDir;
               message = ''
                 Your $FLAKE environment variable needs to point to a directory in
                 the main users' home to use the AGS module.
@@ -68,6 +68,8 @@ in {
 
           home = {
             file = let
+              inherit (import "${self}/lib.nix" {inherit pkgs;}) buildNodeModules;
+
               mkType = package: girName: {
                 "${agsConfigDir}/config/types/@girs/${toLower girName}".source =
                   pkgs.callPackage
@@ -100,6 +102,9 @@ in {
                         hasFprintd: ${boolToString (hostName == "wim")},
                     };
                   '';
+
+                "${agsConfigDir}/config/node_modules".source =
+                  buildNodeModules ./config "sha256-Jt7HRrQ8xrpkku51zFbJ44IgPaKKXerZBJUyjo5VudQ=";
               }
               // (import ./icons.nix {inherit pkgs agsConfigDir;})
             );

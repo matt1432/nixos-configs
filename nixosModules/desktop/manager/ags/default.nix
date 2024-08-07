@@ -25,6 +25,15 @@ in {
       createHome = true;
     };
 
+    # Setup node modules for dev env
+    home-manager.users.${cfg.user}.home.file = let
+      flakeDir = config.environment.variables.FLAKE;
+      modulesDir = "${lib.removePrefix "/home/${cfg.user}/" flakeDir}/nixosModules";
+      nodeModules = config.home-manager.users.${cfg.user}.home.file."${modulesDir}/ags/config/node_modules".source;
+    in {
+      "${modulesDir}/desktop/manager/ags/node_modules".source = nodeModules;
+    };
+
     home-manager.users.greeter = {
       imports = [ags.homeManagerModules.default];
 

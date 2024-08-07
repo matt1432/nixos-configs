@@ -2,7 +2,7 @@
 *.egg-info
 
 # NPM
-*node_modules/
+*node_modules
 *build/
 
 # Direnv

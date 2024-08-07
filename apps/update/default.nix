@@ -1,10 +1,8 @@
 {
   lib,
-  system,
   buildNpmPackage,
   callPackage,
   makeWrapper,
-  mozilla-addons-to-nix,
   nodejs_latest,
   ...
 }: let
@@ -12,10 +10,9 @@
   inherit (builtins) readFile fromJSON;
 
   packageJSON = fromJSON (readFile ./package.json);
-  pname = packageJSON.name;
 in
   buildNpmPackage rec {
-    name = pname;
+    pname = packageJSON.name;
     inherit (packageJSON) version;
 
     src = ./.;
@@ -23,7 +20,6 @@ in
 
     runtimeInputs = [
       (callPackage ../../nixosModules/docker/updateImage.nix {})
-      mozilla-addons-to-nix.packages.${system}.default
     ];
     nativeBuildInputs = [makeWrapper];
 
