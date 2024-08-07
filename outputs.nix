@@ -53,7 +53,7 @@
     systems,
     ...
   }: let
-    inherit (import "${self}/lib.nix" inputs) mkVersion mkNixOS mkNixOnDroid mkPkgs;
+    inherit (import ./lib {inherit inputs;}) mkVersion mkNixOS mkNixOnDroid mkPkgs;
 
     perSystem = attrs:
       nixpkgs.lib.genAttrs (import systems) (system:

@@ -1,37 +1,6 @@
 let
-  lock = builtins.fromJSON (builtins.readFile ./flake.lock);
-  lib = import "${builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/${lock.nodes.nixpkgs.locked.rev}.tar.gz";
-    sha256 = lock.nodes.nixpkgs.locked.narHash;
-  }}/lib";
-
-  inherit (lib) attrValues findFirst foldl' hasAttr listToAttrs matchAttrs map optionalAttrs recursiveUpdate removeAttrs;
-
-  recursiveUpdateList = list: foldl' recursiveUpdate {} list;
-
-  # Misc functions
-  mkInput = {type ? "github", ...} @ info: let
-    input =
-      findFirst
-      (x: matchAttrs (removeAttrs info ["inputs"]) (x.original or {})) {}
-      (attrValues lock.nodes);
-
-    mkOverride = i:
-      optionalAttrs
-      (hasAttr i (input.inputs or {}))
-      {inputs.${i}.follows = i;};
-  in
-    recursiveUpdateList [
-      info
-      {inherit type;}
-      (mkOverride "systems")
-      (mkOverride "flake-utils")
-      (mkOverride "lib-aggregate")
-    ];
-
-  mkDep = info: mkInput (recursiveUpdate info {inputs.nixpkgs.follows = "nixpkgs";});
-  mkHyprDep = info: mkInput (recursiveUpdate info {inputs.hyprland.follows = "hyprland";});
-  mkSrc = info: mkInput (info // {flake = false;});
+  inherit (import ./lib {}) lib mkDep mkInput mkHyprDep mkSrc;
+  inherit (lib) listToAttrs map removeAttrs;
 
   # Inputs
   nixTools = {

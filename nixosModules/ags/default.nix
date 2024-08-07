@@ -68,7 +68,7 @@ in {
 
           home = {
             file = let
-              inherit (import "${self}/lib.nix" {inherit pkgs;}) buildNodeModules;
+              inherit (import "${self}/lib" {inherit pkgs;}) buildNodeModules;
 
               mkType = package: girName: {
                 "${agsConfigDir}/config/types/@girs/${toLower girName}".source =
