@@ -118,7 +118,8 @@ let
     hyprlandInputs = {
       hyprland = mkDep {
         type = "git";
-        url = "https://github.com/hyprwm/Hyprland";
+        # FIXME: switch back to hyprwm when build issue fixed
+        url = "https://github.com/matt1432/Hyprland";
         submodules = true;
       };
 

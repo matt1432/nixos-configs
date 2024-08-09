@@ -15,7 +15,6 @@ in {
     ./wg-easy/compose.nix
 
     ./media/bazarr/compose.nix
-    ./media/calibre/compose.nix
     ./media/joal/compose.nix
     ./media/prowlarr/compose.nix
     ./media/radarr/compose.nix

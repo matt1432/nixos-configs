@@ -193,11 +193,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1722928008,
-        "narHash": "sha256-c0y+5P1Ng8r5qawCsrXjIVwFSGENpu9XESAcLZw1Zuw=",
+        "lastModified": 1723100802,
+        "narHash": "sha256-4aY1xzNW5LXjNEHVoMaRxIAtpVAQybNSkWhYxmCRKlM=",
         "owner": "matt1432",
         "repo": "discord-nightly-overlay",
-        "rev": "b9f8aa6902f87c510261085658a9f927a4ecec36",
+        "rev": "c103496daaf05d8809cf532a6a5db870e3261e31",
         "type": "github"
       },
       "original": {
@@ -420,11 +420,11 @@
     "gpu-screen-recorder-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1722786652,
-        "narHash": "sha256-oXA9xqjwLvhM6e4PikJ3nyt5+VafEIQ4O0bvAYLhyLg=",
+        "lastModified": 1723162587,
+        "narHash": "sha256-K4uM8ETQkk/h5jDOjGf0it+ly/Yovcnwu3qo7swygWU=",
         "ref": "refs/heads/master",
-        "rev": "7bee923938bc1756110461c916a945979a7c197b",
-        "revCount": 710,
+        "rev": "b9b60ab29c133599032e49054f51a2adfd5ea39d",
+        "revCount": 716,
         "type": "git",
         "url": "https://repo.dec05eba.com/gpu-screen-recorder"
       },
@@ -522,11 +522,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1722936497,
-        "narHash": "sha256-UBst8PkhY0kqTgdKiR8MtTBt4c1XmjJoOV11efjsC/o=",
+        "lastModified": 1723015306,
+        "narHash": "sha256-jQnFEtH20/OsDPpx71ntZzGdRlpXhUENSQCGTjn//NA=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "a6c743980e23f4cef6c2a377f9ffab506568413a",
+        "rev": "b3d5ea65d88d67d4ec578ed11d4d2d51e3de525e",
         "type": "github"
       },
       "original": {
@@ -600,19 +600,19 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1722956902,
-        "narHash": "sha256-g3cAlVmRtnyqMZw88MKqVNM8eU88XzgNAlXdTkym5q8=",
+        "lastModified": 1723172503,
+        "narHash": "sha256-HVaAneYjMwsXXpbxDVmk+G2h1uQvAhog3QxZGuVDbX8=",
         "ref": "refs/heads/main",
-        "rev": "b0a70f63e3865eaa77f0b78a04b230aa583bc95c",
-        "revCount": 5055,
+        "rev": "69e257d19428975d822321891e23f6c776f1be5a",
+        "revCount": 5072,
         "submodules": true,
         "type": "git",
-        "url": "https://github.com/hyprwm/Hyprland"
+        "url": "https://github.com/matt1432/Hyprland"
       },
       "original": {
         "submodules": true,
         "type": "git",
-        "url": "https://github.com/hyprwm/Hyprland"
+        "url": "https://github.com/matt1432/Hyprland"
       }
     },
     "hyprland-plugins": {
@@ -630,11 +630,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1722719004,
-        "narHash": "sha256-Qxu2g1Ay15g2EJE184i06tlRdoODEG+YuUvWKRQRKcQ=",
+        "lastModified": 1723143591,
+        "narHash": "sha256-dPcWAeRJoG5CyWC32X3XX+Og0v/k1/S1N0T5dQWT32k=",
         "owner": "hyprwm",
         "repo": "hyprland-plugins",
-        "rev": "4fcb4038f23e5273af9a5684f3ee10b0652b3bab",
+        "rev": "b73d7b901d8cb1172dd25c7b7159f0242c625a77",
         "type": "github"
       },
       "original": {
@@ -777,11 +777,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1722929371,
-        "narHash": "sha256-lsj4+K7F7pjlgBwrfWbBd0QwmZBoolCy1IoD0exzaOY=",
+        "lastModified": 1723016361,
+        "narHash": "sha256-iEVCAOn7WUdJGrK2EW5hkfl4gBmYl5gVck+MSn6ba44=",
         "owner": "Jovian-Experiments",
         "repo": "Jovian-NixOS",
-        "rev": "99099d758c82ba77f682867690a085e055efe906",
+        "rev": "fc3d12deef508a73c7beef4cd9bebe03acde4ed7",
         "type": "github"
       },
       "original": {
@@ -939,11 +939,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1722717695,
-        "narHash": "sha256-fhMLDpHnG/HoivhwPeIDoXZy7wHb+DTQN7jehZmyGkw=",
+        "lastModified": 1723021300,
+        "narHash": "sha256-Ujo6MQvwolE1eWSkPXCC9WFJeLtRfnMpvxoeAGNcbFI=",
         "owner": "viperML",
         "repo": "nh",
-        "rev": "324ed46681718a2d80474a2361b9e4ed6ab22ef5",
+        "rev": "ea9053852f8575f650ca0080b2cac6735c7447f7",
         "type": "github"
       },
       "original": {
@@ -1310,11 +1310,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1722986309,
-        "narHash": "sha256-Veppi3c8c9XJ1CmgkOc5/oipPB/J8JPHbh3SHkMov3A=",
+        "lastModified": 1723151834,
+        "narHash": "sha256-KjUcXpdLx5QzkT0x3qctGm1AM9U8g8pSFy24fE2MFeM=",
         "owner": "nix-community",
         "repo": "nixpkgs-wayland",
-        "rev": "2c512b8dc9adc0ada535d23e6be30efafe09e81b",
+        "rev": "e28b410ad60004cca039fc6de2dd65f485779833",
         "type": "github"
       },
       "original": {

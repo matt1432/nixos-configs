@@ -3,13 +3,14 @@ lib: lock: let
 
   recursiveUpdateList = list: foldl' recursiveUpdate {} list;
 in rec {
-  /**
-    From an attrset, returns a flake input that has its type defaulted
-    to `github` and has some of its inputs following this flake's input
-    of the same name.
+  /*
+  *
+  From an attrset, returns a flake input that has its type defaulted
+  to `github` and has some of its inputs following this flake's input
+  of the same name.
 
-    It gets information from the `flake.lock` file and can be used thanks
-    to flakegen
+  It gets information from the `flake.lock` file and can be used thanks
+  to flakegen
   */
   mkInput = {type ? "github", ...} @ info: let
     input =
