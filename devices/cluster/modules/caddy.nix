@@ -4,7 +4,7 @@
   config,
   ...
 }: let
-  inherit (config.vars) mainUser;
+  inherit (config.vars) hostName mainUser;
   inherit (config.sops) secrets;
 
   caddy = caddy-plugins.packages.${pkgs.system}.default;
@@ -33,34 +33,67 @@ in {
       clusterIP = config.services.pcsd.virtualIps.caddy-vip.ip;
       nosIP = "10.0.0.121";
       serviviIP = "10.0.0.249";
+
+      tlsConf = ''
+        tls {
+          dns cloudflare {$CLOUDFLARE_API_TOKEN}
+          resolvers 1.0.0.1
+        }
+      '';
+
+      mkPublicReverseProxy = subdomain: ip: extraConf:
+        {
+          hostName = "${subdomain}.nelim.org";
+          reverseProxy = ip;
+          listenAddresses = [clusterIP];
+          extraConfig = tlsConf + (extraConf.extraConfig or "");
+        }
+        // (builtins.removeAttrs extraConf ["extraConfig"]);
     in {
+      # Public
+      "Vaultwarden" = mkPublicReverseProxy "vault" "${nosIP}:8781" {};
+      "Hauk" = mkPublicReverseProxy "hauk" "${nosIP}:3003" {};
+      "Headscale" = mkPublicReverseProxy "headscale" "${clusterIP}:8085" {};
+
+      "Jellyfin" = mkPublicReverseProxy "jelly" "${nosIP}:8096" {
+        subDirectories.jfa-go = {
+          subDirName = "accounts";
+          reverseProxy = "${nosIP}:8056";
+        };
+      };
+
+      "Jellyseer" = mkPublicReverseProxy "seerr" "${nosIP}:5055" {};
+
+      "Gameyfin" = mkPublicReverseProxy "games" "${nosIP}:8074" {};
+
+      "Forgejo" = mkPublicReverseProxy "git" "${nosIP}:3000" {};
+
+      "Nextcloud" = mkPublicReverseProxy "cloud" "${nosIP}:8042" {
+        extraConfig = ''
+          redir /.well-known/carddav /remote.php/dav 301
+          redir /.well-known/caldav /remote.php/dav 301
+          redir /.well-known/webfinger /index.php/.well-known/webfinger 301
+          redir /.well-known/nodeinfo /index.php/.well-known/nodeinfo 301
+        '';
+      };
+      "OnlyOffice" = mkPublicReverseProxy "office" "http://${nosIP}:8055" {};
+
+      "Immich" = mkPublicReverseProxy "photos" "${nosIP}:2283" {};
+
+      # Private
       "nelim.org" = {
         serverAliases = ["*.nelim.org"];
-        extraConfig = ''
-          tls {
-            dns cloudflare {$CLOUDFLARE_API_TOKEN}
-            resolvers 1.0.0.1
-          }
-        '';
+        extraConfig = tlsConf;
+        listenAddresses = [
+          (
+            if hostName == "thingone"
+            then "100.64.0.8"
+            else "100.64.0.9"
+          )
+        ];
 
         subDomains = {
-          # Misc one-liners
-          vault.reverseProxy = "${nosIP}:8781";
-          hauk.reverseProxy = "${nosIP}:3003";
-          headscale.reverseProxy = "${clusterIP}:8085";
           pr-tracker.reverseProxy = "${serviviIP}:3000";
-
-          jellyfin = {
-            subDomainName = "jelly";
-            reverseProxy = "${nosIP}:8096";
-
-            subDirectories = {
-              jfa-go = {
-                subDirName = "accounts";
-                reverseProxy = "${nosIP}:8056";
-              };
-            };
-          };
 
           pcsd = {
             extraConfig = ''
@@ -72,42 +105,14 @@ in {
             '';
           };
 
-          # Resume builder
-          resume.reverseProxy = "${nosIP}:3060";
-          resauth.reverseProxy = "${nosIP}:3100";
-
-          # Nextcloud & Co
-          office.reverseProxy = "http://${nosIP}:8055";
-          nextcloud = {
-            subDomainName = "cloud";
-            extraConfig = ''
-              redir /.well-known/carddav /remote.php/dav 301
-              redir /.well-known/caldav /remote.php/dav 301
-              redir /.well-known/webfinger /index.php/.well-known/webfinger 301
-              redir /.well-known/nodeinfo /index.php/.well-known/nodeinfo 301
-            '';
-            reverseProxy = "${nosIP}:8042";
-          };
-
-          forgejo = {
-            subDomainName = "git";
-            reverseProxy = "${nosIP}:3000";
-          };
-
           nix-binary-cache = {
             subDomainName = "cache";
             reverseProxy = "${serviviIP}:5000";
           };
 
-          calibre = {
-            subDomainName = "books";
-            reverseProxy = "${nosIP}:8083";
-          };
-
-          immich = {
-            subDomainName = "photos";
-            reverseProxy = "${nosIP}:2283";
-          };
+          # Resume builder
+          resume.reverseProxy = "${nosIP}:3060";
+          resauth.reverseProxy = "${nosIP}:3100";
 
           # FreshRSS & Co
           bridge.reverseProxy = "${nosIP}:3006";
@@ -115,16 +120,6 @@ in {
           freshrss = {
             subDomainName = "rss";
             reverseProxy = "${nosIP}:2800";
-          };
-
-          jellyseer = {
-            subDomainName = "seerr";
-            reverseProxy = "${nosIP}:5055";
-          };
-
-          gameyfin = {
-            subDomainName = "games";
-            reverseProxy = "${nosIP}:8074";
           };
 
           wgui.reverseProxy = "${nosIP}:51821";
@@ -137,12 +132,10 @@ in {
 
             subDirectories = {
               bazarr.reverseProxy = "${nosIP}:6767";
-
               prowlarr.reverseProxy = "${nosIP}:9696";
               radarr.reverseProxy = "${nosIP}:7878";
               sabnzbd.reverseProxy = "${nosIP}:8382";
               sonarr.reverseProxy = "${nosIP}:8989";
-              calibre.reverseProxy = "${nosIP}:8580";
 
               qbittorent = {
                 subDirName = "qbt";

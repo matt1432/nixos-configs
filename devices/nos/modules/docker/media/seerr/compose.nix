@@ -23,7 +23,6 @@ in {
         "${rwPath}/data:/app/config"
       ];
 
-      extraHosts = ["lan.nelim.org:10.0.0.130"];
       networks = ["proxy_net"];
       ports = ["5055:5055"];
     };

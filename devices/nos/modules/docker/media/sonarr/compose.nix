@@ -14,7 +14,6 @@ in {
       image = import ./images/sonarr.nix pkgs;
       restart = "always";
 
-      extraHosts = ["lan.nelim.org:10.0.0.130"];
       ports = ["8989:8989"];
 
       environment = {

@@ -14,7 +14,6 @@ in {
       image = import ./images/sabnzbd.nix pkgs;
       restart = "always";
 
-      extraHosts = ["lan.nelim.org:10.0.0.130"];
       ports = ["8382:8082"];
 
       environment = {

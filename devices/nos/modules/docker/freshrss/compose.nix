@@ -17,10 +17,6 @@ in {
         restart = "always";
 
         ports = ["2800:80"];
-        extraHosts = [
-          "drss.nelim.org:10.0.0.130"
-          "bridge.nelim.org:10.0.0.130"
-        ];
         networks = ["proxy_net"];
 
         volumes = let
@@ -70,7 +66,7 @@ in {
         };
       };
 
-      "docker-hub-rss" = {
+      "drss.nelim.org" = {
         image = import ./images/docker-hub-rss.nix pkgs;
         restart = "always";
         ports = ["3007:3000"];
@@ -78,7 +74,7 @@ in {
         networks = ["proxy_net"];
       };
 
-      "rss-bridge" = {
+      "bridge.nelim.org" = {
         image = import ./images/rss-bridge.nix pkgs;
         restart = "always";
 

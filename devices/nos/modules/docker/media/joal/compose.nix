@@ -15,7 +15,6 @@ in {
       restart = "always";
 
       volumes = ["${rwPath}/data:/data"];
-      extraHosts = ["lan.nelim.org:10.0.0.130"];
       ports = ["5656:5656"];
 
       cmd = [

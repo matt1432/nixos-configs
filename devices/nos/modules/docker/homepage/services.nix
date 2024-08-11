@@ -95,74 +95,74 @@
   {
     "video automation" = [
       {
-        qbit = rec {
+        qbit = {
           href = "https://lan.nelim.org/qbt";
           icon = "qbittorrent.png";
           description = "torrent client";
           widget = {
             type = "qbittorrent";
-            url = href;
+            url = "http://10.0.0.121:8080";
             username = "admin";
             password = "{{HOMEPAGE_VAR_QBIT_PASS}}";
           };
         };
       }
       {
-        sabnzbd = rec {
+        sabnzbd = {
           href = "https://lan.nelim.org/sabnzbd";
           icon = "sabnzbd.png";
           description = "nzb client";
           widget = {
             type = "sabnzbd";
-            url = href;
+            url = "http://10.0.0.121:8382";
             key = "{{HOMEPAGE_VAR_SAB_API}}";
           };
         };
       }
       {
-        sonarr = rec {
+        sonarr = {
           href = "https://lan.nelim.org/sonarr";
           icon = "sonarr.png";
           description = "fetches tv shows";
           widget = {
             type = "sonarr";
-            url = href;
+            url = "http://sonarr:8989";
             key = "{{HOMEPAGE_VAR_SONARR_API}}";
           };
         };
       }
       {
-        radarr = rec {
+        radarr = {
           href = "https://lan.nelim.org/radarr";
           icon = "radarr.png";
           description = "fetches movies";
           widget = {
             type = "radarr";
-            url = href;
+            url = "http://radarr:7878";
             key = "{{HOMEPAGE_VAR_RADARR_API}}";
           };
         };
       }
       {
-        bazarr = rec {
+        bazarr = {
           href = "https://lan.nelim.org/bazarr";
           icon = "bazarr.png";
           description = "fetches subs";
           widget = {
             type = "bazarr";
-            url = href;
+            url = "http://bazarr:6767/bazarr";
             key = "{{HOMEPAGE_VAR_BAZARR_API}}";
           };
         };
       }
       {
-        prowlarr = rec {
+        prowlarr = {
           href = "https://lan.nelim.org/prowlarr";
           icon = "prowlarr.png";
           description = "fetches tracker queries";
           widget = {
             type = "prowlarr";
-            url = href;
+            url = "http://prowlarr:9696";
             key = "{{HOMEPAGE_VAR_PROWLARR_API}}";
           };
         };

@@ -1,5 +1,24 @@
-{config, ...}: let
+{
+  config,
+  lib,
+  ...
+}: let
+  inherit (lib) foldl isList mapAttrsToList mergeAttrsWithFunc remove unique;
+  mergeAttrsList = list:
+    foldl (mergeAttrsWithFunc (a: b:
+      if isList a && isList b
+      then unique (a ++ b)
+      else b)) {}
+    list;
+
   inherit (config.vars) mainUser hostName;
+
+  wanIP = "166.62.180.199";
+  serviviIP = "100.64.0.7";
+  caddyIp =
+    if hostName == "thingone"
+    then "100.64.0.8"
+    else "100.64.0.9";
 in {
   # https://github.com/MatthewVance/unbound-docker-rpi/issues/4#issuecomment-1001879602
   boot.kernel.sysctl."net.core.rmem_max" = 1048576;
@@ -12,70 +31,62 @@ in {
     resolveLocalQueries = false;
 
     settings = {
-      server = {
-        interface = ["127.0.0.1"];
-        port = 5335;
+      server = let
+        mkLocalEntry = domain: ip: {
+          local-zone = ["${domain} redirect"];
+          local-data = ["\"${domain} IN A ${ip}\""];
+        };
 
-        # Custom DNS
-        local-zone = [
-          "headscale.nelim.org redirect"
-          "git.nelim.org redirect"
-          "mc.nelim.org transparent"
-          "cv.nelim.org transparent"
-          "mc2.nelim.org transparent"
-          "ota.nelim.org redirect"
-          "nelim.org redirect"
-        ];
-        local-data = let
-          wanIP = "166.62.180.199";
-          caddyIp =
-            if hostName == "thingone"
-            then "100.64.0.8"
-            else "100.64.0.9";
-        in [
-          "\"headscale.nelim.org. IN A ${wanIP}\""
+        mkMinecraftEntry = domain: port: {
+          local-zone = ["${domain} transparent"];
+          local-data = [
+            "\"${domain} IN A ${serviviIP}\""
+            "\"_minecraft._tcp.${domain}. 180 IN SRV 0 0 ${toString port} ${domain}.\""
+          ];
+        };
 
-          "\"git.nelim.org. IN A ${wanIP}\""
+        publicApps = remove "nelim.org" (mapAttrsToList (n: v: v.hostName) config.services.caddy.virtualHosts);
+      in
+        mergeAttrsList (
+          (map (x: mkLocalEntry x wanIP) publicApps)
+          ++ [
+            (mkMinecraftEntry "mc.nelim.org" 25569)
+            (mkMinecraftEntry "mc2.nelim.org" 25560)
+            (mkMinecraftEntry "cv.nelim.org" 25566)
 
-          "\"mc.nelim.org IN A 100.64.0.7\""
-          "\"_minecraft._tcp.mc.nelim.org. 180 IN SRV 0 0 25569 mc.nelim.org.\""
+            (mkLocalEntry "nelim.org" caddyIp)
 
-          "\"cv.nelim.org IN A 100.64.0.7\""
-          "\"_minecraft._tcp.cv.nelim.org. 180 IN SRV 0 0 25566 cv.nelim.org.\""
+            {
+              interface = ["127.0.0.1"];
+              port = 5335;
 
-          "\"mc2.nelim.org IN A 100.64.0.7\""
-          "\"_minecraft._tcp.mc2.nelim.org. 180 IN SRV 0 0 25560 mc2.nelim.org.\""
+              do-ip4 = true;
+              do-ip6 = false;
+              prefer-ip6 = false;
+              do-udp = true;
+              do-tcp = true;
 
-          "\"ota.nelim.org. IN A 100.64.0.5\""
+              # Performance
+              prefetch = true;
+              num-threads = 1;
 
-          "\"nelim.org 0 A ${caddyIp}\""
-        ];
+              private-address = [
+                "172.16.0.0/12"
+                "10.0.0.0/8"
+                "100.64.0.0/8"
+                "fd00::/8"
+                "fe80::/10"
+              ];
 
-        do-ip4 = true;
-        do-ip6 = false;
-        prefer-ip6 = false;
-        do-udp = true;
-        do-tcp = true;
-
-        # Performance
-        prefetch = true;
-        num-threads = 1;
-
-        private-address = [
-          "172.16.0.0/12"
-          "10.0.0.0/8"
-          "100.64.0.0/8"
-          "fd00::/8"
-          "fe80::/10"
-        ];
-
-        # Default stuff
-        harden-glue = true;
-        harden-dnssec-stripped = true;
-        use-caps-for-id = false;
-        edns-buffer-size = 1232;
-        so-rcvbuf = "1m";
-      };
+              # Default stuff
+              harden-glue = true;
+              harden-dnssec-stripped = true;
+              use-caps-for-id = false;
+              edns-buffer-size = 1232;
+              so-rcvbuf = "1m";
+            }
+          ]
+        );
     };
   };
 }

@@ -14,7 +14,6 @@ in {
       image = import ./images/radarr.nix pkgs;
       restart = "always";
 
-      extraHosts = ["lan.nelim.org:10.0.0.130"];
       ports = ["7878:7878"];
 
       environment = {

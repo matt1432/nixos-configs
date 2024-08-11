@@ -22,7 +22,7 @@ in {
         };
 
         volumes = ["${rwPath}/data:/config"];
-        extraHosts = ["lan.nelim.org:10.0.0.130"];
+
         ports = ["9696:9696"];
         networks = ["proxy_net"];
       };
@@ -38,7 +38,6 @@ in {
           TZ = "America/New_York";
         };
 
-        extraHosts = ["lan.nelim.org:10.0.0.130"];
         ports = ["8191:8191"];
 
         dependsOn = ["prowlarr"];
