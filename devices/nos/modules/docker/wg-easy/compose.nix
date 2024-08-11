@@ -26,7 +26,7 @@ in {
       ];
 
       environment = {
-        WG_HOST = "166.62.179.208";
+        WG_HOST = "nelim.org";
         WG_PORT = "51820";
         WG_DEFAULT_ADDRESS = "10.6.0.x";
         WG_DEFAULT_DNS = "1.0.0.1";

@@ -13,7 +13,6 @@
 
   inherit (config.vars) mainUser hostName;
 
-  wanIP = "166.62.180.199";
   serviviIP = "100.64.0.7";
   caddyIp =
     if hostName == "thingone"
@@ -45,10 +44,14 @@ in {
           ];
         };
 
+        forceResolveEntry = domain: {
+          local-zone = ["${domain} always_transparent"];
+        };
+
         publicApps = remove "nelim.org" (mapAttrsToList (n: v: v.hostName) config.services.caddy.virtualHosts);
       in
         mergeAttrsList (
-          (map (x: mkLocalEntry x wanIP) publicApps)
+          (map forceResolveEntry publicApps)
           ++ [
             (mkMinecraftEntry "mc.nelim.org" 25569)
             (mkMinecraftEntry "mc2.nelim.org" 25560)
