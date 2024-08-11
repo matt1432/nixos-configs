@@ -58,6 +58,8 @@ in {
         nix-fast-build -f .#nixFastChecks
         cd ..
         rm -r nix-clone
+
+        nix build sourcehut:~rycee/mozilla-addons-to-nix
       '';
     };
     timers.buildAll = {
