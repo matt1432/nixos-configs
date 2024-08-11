@@ -12,6 +12,8 @@ in {
   programs = {
     git = {
       enable = true;
+      package = pkgs.gitFull;
+
       lfs.enable = true;
 
       includes = [
@@ -28,7 +30,7 @@ in {
         enable = true;
         options = {
           side-by-side = true;
-          line-numbers-zero-style = "#E6EDF3"; #BD93F9";
+          line-numbers-zero-style = "#E6EDF3";
         };
       };
 
@@ -44,6 +46,14 @@ in {
           stash = cmd;
           log = cmd;
           reflog = cmd;
+        };
+
+        sendemail = {
+          smtpserver = "127.0.0.1";
+          smtpuser = "matt@nelim.org";
+          smtpencryption = "tls";
+          smtpserverport = 1025;
+          smtpsslcertpath = "";
         };
       };
     };
