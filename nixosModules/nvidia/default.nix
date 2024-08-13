@@ -61,13 +61,13 @@ in {
       open = false;
 
       package = let
-        inherit (config.boot.kernelPackages.nvidiaPackages) stable beta;
+        inherit (config.boot.kernelPackages.nvidiaPackages) stable latest;
       in
         if !cfg.enableWayland
         then stable
         else
-          # Get newest beta driver version for better Wayland support
-          beta;
+          # Stick to 555 driver version for better Wayland support
+          latest;
     };
 
     environment.systemPackages =

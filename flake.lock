@@ -1484,11 +1484,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1723500019,
-        "narHash": "sha256-vyopypK31dSMJMKWFOimMwg1TuiHK6GEQelYyWhzQZw=",
+        "lastModified": 1723518597,
+        "narHash": "sha256-KxXdu9pGcBhUPkzbZ22dIu7XNaf0vRU0opMnN5R8VzQ=",
         "owner": "matt1432",
         "repo": "pr-tracker",
-        "rev": "f52407f41138f845068f51f26872cd5df6a0bcde",
+        "rev": "55d5e7bf4c1a38845334e8f55fdaabe7d335fbdc",
         "type": "github"
       },
       "original": {
