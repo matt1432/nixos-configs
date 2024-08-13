@@ -52,7 +52,7 @@ in {
       enable = true;
 
       extraPortals = with pkgs; [
-        xdg-desktop-portal-kde
+        kdePackages.xdg-desktop-portal-kde
       ];
 
       config.hyprland = {

@@ -164,27 +164,6 @@
         "type": "github"
       }
     },
-    "devshell": {
-      "inputs": {
-        "nixpkgs": [
-          "pr-tracker",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1722113426,
-        "narHash": "sha256-Yo/3loq572A8Su6aY5GP56knpuKYRvM2a1meP9oJZCw=",
-        "owner": "numtide",
-        "repo": "devshell",
-        "rev": "67cce7359e4cd3c45296fb4aaf6a19e2a9c757ae",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "devshell",
-        "type": "github"
-      }
-    },
     "discord-overlay": {
       "inputs": {
         "Vencord-src": "Vencord-src",
@@ -1500,18 +1479,16 @@
     },
     "pr-tracker": {
       "inputs": {
-        "devshell": "devshell",
         "nixpkgs": [
           "nixpkgs"
-        ],
-        "rust-overlay": "rust-overlay"
+        ]
       },
       "locked": {
-        "lastModified": 1723336523,
-        "narHash": "sha256-NJFqtquNqZ5UgdWj3+7X3mkVn/4imUM6QsP5CfCwy0c=",
+        "lastModified": 1723500019,
+        "narHash": "sha256-vyopypK31dSMJMKWFOimMwg1TuiHK6GEQelYyWhzQZw=",
         "owner": "matt1432",
         "repo": "pr-tracker",
-        "rev": "616ee60cc74b1c86f2c576ae654acf61b1fd228f",
+        "rev": "f52407f41138f845068f51f26872cd5df6a0bcde",
         "type": "github"
       },
       "original": {
@@ -1597,27 +1574,6 @@
         "vimplugin-ts-error-translator-src": "vimplugin-ts-error-translator-src"
       }
     },
-    "rust-overlay": {
-      "inputs": {
-        "nixpkgs": [
-          "pr-tracker",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1723256423,
-        "narHash": "sha256-9iDTrfVM+mbcad31a47oqW8t8tfSA4C/si6F8F2DO/w=",
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "rev": "615cfd85b4d9c51811a8d875374268fab5bd4089",
-        "type": "github"
-      },
-      "original": {
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "type": "github"
-      }
-    },
     "scss-reset": {
       "flake": false,
       "locked": {
@@ -1644,11 +1600,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1722222376,
-        "narHash": "sha256-vDZGRaqVl4TrU/g68ZbgnH30cwbsqGcitLizoMe6xv0=",
+        "lastModified": 1723480554,
+        "narHash": "sha256-2giqpDLWpVYy5GV87x20GzRAxORGToeaKsWjEOyFB8o=",
         "ref": "refs/heads/main",
-        "rev": "ed50b268c421eae510e72cd88e2ad838bd263736",
-        "revCount": 72,
+        "rev": "205779bc5f06840e30e0a90d97baa61e42b6a76a",
+        "revCount": 73,
         "type": "git",
         "url": "ssh://git@git.nelim.org/matt1432/nixos-secrets"
       },
