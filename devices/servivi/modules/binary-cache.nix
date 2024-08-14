@@ -40,10 +40,10 @@ in {
       };
 
       path =
-        [
-          nix-fast-buildPkg
-        ]
+        [nix-fast-buildPkg]
         ++ (with pkgs; [
+          bash
+          config.nix.package
           git
           openssh
         ]);
@@ -59,9 +59,11 @@ in {
         cd ..
         rm -r nix-clone
 
-        nix build sourcehut:~rycee/mozilla-addons-to-nix
+        # Just to cache mozilla-addons-to-nix
+        nix run sourcehut:~rycee/mozilla-addons-to-nix -- --help
       '';
     };
+
     timers.buildAll = {
       wantedBy = ["timers.target"];
       partOf = ["buildAll.service"];
