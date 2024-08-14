@@ -123,13 +123,10 @@
       type = "github";
     };
     hyprland = {
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
       submodules = true;
       type = "git";
-      url = "https://github.com/matt1432/Hyprland";
+      url = "https://github.com/hyprwm/Hyprland";
     };
     hyprland-plugins = {
       inputs = {
