@@ -48,6 +48,11 @@
       fsType = "vfat";
       options = ["fmask=0022" "dmask=0022"];
     };
+
+    "/run/media/mariah/SDCARD" = {
+      device = "/dev/disk/by-label/SDCARD";
+      fsType = "ext4";
+    };
   };
 
   swapDevices = [

@@ -66,6 +66,7 @@ defaultSession: {
     # Misc Packages
     environment.systemPackages = [
       pkgs.steam-rom-manager
+      pkgs.r2modman
       self.packages.${pkgs.system}.protonhax
 
       # FIXME:Ryujinx ACNH crashes on OpenGL AND Vulkan
