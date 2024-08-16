@@ -123,7 +123,10 @@
       type = "github";
     };
     hyprland = {
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
       submodules = true;
       type = "git";
       url = "https://github.com/hyprwm/Hyprland";
@@ -223,7 +226,8 @@
     };
     nix-melt = {
       inputs.nixpkgs.follows = "nixpkgs";
-      owner = "nix-community";
+      owner = "bryango";
+      ref = "rust-1.80-fix-build";
       repo = "nix-melt";
       type = "github";
     };

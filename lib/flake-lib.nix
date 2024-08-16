@@ -11,23 +11,10 @@ inputs: rec {
           "jovian"
           "nixpkgs-wayland"
         ])
-        ++ [
-          inputs.self.overlays.xdg-desktop-portal-kde
-
-          # FIXME: https://pr-tracker.nelim.org/?pr=333586
-          (final: prev: {
-            egl-wayland = prev.egl-wayland.overrideAttrs (o: rec {
-              version = "1.1.15";
-
-              src = prev.fetchFromGitHub {
-                owner = "Nvidia";
-                repo = o.pname;
-                rev = version;
-                hash = "sha256-MD+D/dRem3ONWGPoZ77j2UKcOCUuQ0nrahEQkNVEUnI=";
-              };
-            });
-          })
-        ];
+        ++ (with inputs.self.overlays; [
+          broken-packages
+          xdg-desktop-portal-kde
+        ]);
     };
 
   # Function that makes the attrs that make up the specialArgs

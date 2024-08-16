@@ -24,9 +24,12 @@ let
       repo = "nh";
     };
 
+    # FIXME: go back to upstream once fixed
     nix-melt = mkDep {
-      owner = "nix-community";
+      # owner = "nix-community";
+      owner = "bryango";
       repo = "nix-melt";
+      ref = "rust-1.80-fix-build";
     };
 
     # These are here to make sure all 'systems' are the same

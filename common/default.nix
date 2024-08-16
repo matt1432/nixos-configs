@@ -29,7 +29,7 @@
   };
 
   nix = {
-    package = pkgs.nixVersions.nix_2_23;
+    package = pkgs.nixVersions.nix_2_24;
 
     # Edit nix.conf
     settings = {
