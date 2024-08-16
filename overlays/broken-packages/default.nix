@@ -81,4 +81,14 @@ final: prev: {
 
     meta.mainProgram = "delta";
   };
+
+  egl-wayland = prev.egl-wayland.overrideAttrs (o: {
+    version = "1.1.15-f30cb0e";
+    src = prev.fetchFromGitHub {
+      owner = "Nvidia";
+      repo = "egl-wayland";
+      rev = "f30cb0e4c9a215e933dc8250f5dad4e96d4f2136";
+      hash = "sha256-EwMj3PqU4yzSucYhx8Yy/MqOwZbfsGkhSA+yNwOh4U0=";
+    };
+  });
 }
