@@ -15,6 +15,8 @@ in {
   environment.systemPackages = [caddy];
   users.users.${mainUser}.extraGroups = ["caddy"];
 
+  boot.kernel.sysctl."net.ipv4.ip_nonlocal_bind" = 1;
+
   systemd.services.caddy.serviceConfig = {
     EnvironmentFile = secrets.caddy-cloudflare.path;
 
