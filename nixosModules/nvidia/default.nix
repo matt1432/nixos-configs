@@ -4,7 +4,8 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf mkEnableOption mkOption optionals types;
+  inherit (builtins) toJSON;
+  inherit (lib) mkIf mkEnableOption mkOption optionals optionalString types;
 
   cfg = config.nvidia;
 in {
@@ -61,13 +62,11 @@ in {
       open = false;
 
       package = let
-        inherit (config.boot.kernelPackages.nvidiaPackages) stable latest;
+        inherit (config.boot.kernelPackages.nvidiaPackages) beta stable;
       in
         if !cfg.enableWayland
         then stable
-        else
-          # Stick to 555 driver version for better Wayland support
-          latest;
+        else beta;
     };
 
     environment.systemPackages =
@@ -83,6 +82,32 @@ in {
     boot.kernelModules =
       optionals cfg.enableCUDA ["nvidia-uvm"]
       ++ ["nvidia" "nvidia-drm"];
+
+    # Fixes egl-wayland issues with beta drivers
+    environment.etc = let
+      mkEglFile = n: library: let
+        suffix = optionalString (library != "wayland") ".1";
+        pkg =
+          if library != "wayland"
+          then config.hardware.nvidia.package
+          else pkgs.egl-wayland;
+
+        fileName = "${toString n}_nvidia_${library}.json";
+        library_path = "${pkg}/lib/libnvidia-egl-${library}.so${suffix}";
+      in {
+        "egl/egl_external_platform.d/${fileName}".source = pkgs.writeText fileName (toJSON {
+          file_format_version = "1.0.0";
+          ICD = {inherit library_path;};
+        });
+      };
+    in
+      mkIf cfg.enableWayland (
+        {"egl/egl_external_platform.d".enable = false;}
+        // mkEglFile 10 "wayland"
+        // mkEglFile 15 "gbm"
+        // mkEglFile 20 "xcb"
+        // mkEglFile 20 "xlib"
+      );
   };
 
   # For accurate stack trace
