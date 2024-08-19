@@ -37,6 +37,9 @@ in {
         # Experimenting server
         servivi = "ssh -t matt@servivi 'tmux -2u new -At ${hostName}'";
 
+        # Home-assistant
+        homie = "ssh -t matt@homie 'tmux -2u new -At ${hostName}'";
+
         # Cluster nodes
         thingone = "ssh -t matt@thingone 'tmux -2u new -At ${hostName}'";
         thingtwo = "ssh -t matt@thingtwo 'tmux -2u new -At ${hostName}'";
