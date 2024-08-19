@@ -1,6 +1,5 @@
 {
   config,
-  lib,
   modulesPath,
   pkgs,
   ...
@@ -61,9 +60,17 @@
     };
   };
 
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 16 * 1024;
+    }
+  ];
+
   zramSwap.enable = true;
+
   hardware = {
-    cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+    cpu.amd.updateMicrocode = config.hardware.enableRedistributableFirmware;
     uinput.enable = true;
   };
 

@@ -52,6 +52,13 @@
     };
   };
 
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 16 * 1024;
+    }
+  ];
+
   zramSwap.enable = true;
 
   hardware.cpu.amd.updateMicrocode = config.hardware.enableRedistributableFirmware;
