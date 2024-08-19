@@ -85,6 +85,9 @@
         secrets.nixosModules.servivi
       ];
 
+      # Home-assistant
+      homie = mkNixOS [./devices/homie];
+
       # Cluster
       thingone = mkNixOS [
         (import ./devices/cluster "thingone")
