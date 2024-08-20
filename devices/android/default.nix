@@ -22,17 +22,23 @@
     (pkgs.writeShellApplication {
       name = "switch";
       runtimeInputs = with pkgs; [
+        coreutils
         nix-output-monitor
+        nvd
       ];
       text = ''
-        exec nix-on-droid ${lib.concatStringsSep " " [
+        oldProfile=$(realpath /nix/var/nix/profiles/per-user/nix-on-droid/profile)
+
+        nix-on-droid ${lib.concatStringsSep " " [
           "switch"
           "--flake ${config.environment.variables.FLAKE}"
           "--builders ssh-ng://matt@100.64.0.7"
           ''"$@"''
           "|&"
           "nom"
-        ]}
+        ]} &&
+
+        nvd diff "$oldProfile" "$(realpath /nix/var/nix/profiles/per-user/nix-on-droid/profile)"
       '';
     })
   ];
