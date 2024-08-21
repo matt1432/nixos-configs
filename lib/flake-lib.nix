@@ -45,13 +45,18 @@ inputs: rec {
 
       modules =
         [
-          {
+          ({config, ...}: {
             options = with pkgs.lib; {
               environment.variables.FLAKE = mkOption {
                 type = with types; nullOr str;
               };
+              environment.systemPackages = mkOption {
+                type = with types; listOf package;
+                default = [];
+              };
             };
-          }
+            config.environment.packages = config.environment.systemPackages;
+          })
           {home-manager = {inherit extraSpecialArgs;};}
           ../common/nix-on-droid.nix
         ]
