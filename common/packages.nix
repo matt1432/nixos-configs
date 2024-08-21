@@ -18,7 +18,6 @@
       zip
       unzip
       p7zip
-      rar
       bzip2
       gzip
       gnutar

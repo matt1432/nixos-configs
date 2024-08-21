@@ -90,6 +90,7 @@
       hdparm
       pciutils
       usbutils
+      rar
     ])
     ++ [
       nix-melt.packages.${pkgs.system}.default
