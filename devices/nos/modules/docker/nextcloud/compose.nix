@@ -153,7 +153,7 @@ in {
 
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "${pkgs.docker}/bin/docker exec -u www-data ${mainContainerName} php -f /var/www/html/cron.php";
+      ExecStart = "${pkgs.docker}/bin/docker exec -u www-data nextcloud_${mainContainerName} php -f /var/www/html/cron.php";
     };
   };
 }
