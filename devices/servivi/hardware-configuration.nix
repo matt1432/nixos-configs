@@ -46,6 +46,13 @@
       fsType = "btrfs";
     };
 
+    # sudo btrfs subvolume create /@swap
+    "/swap" = {
+      device = "/dev/disk/by-label/NIXROOT";
+      fsType = "btrfs";
+      options = ["subvol=@swap"];
+    };
+
     "/boot" = {
       device = "/dev/disk/by-label/NIXBOOT";
       fsType = "vfat";
@@ -54,7 +61,7 @@
 
   swapDevices = [
     {
-      device = "/var/lib/swapfile";
+      device = "/swap/swapfile";
       size = 16 * 1024;
     }
   ];
