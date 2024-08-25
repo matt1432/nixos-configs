@@ -44,20 +44,20 @@
 
   fileSystems = {
     "/" = {
-      device = "/dev/disk/by-uuid/560976b6-85e0-44ca-bb73-e15a78e9c449";
+      device = "/dev/disk/by-label/NIXROOT";
       fsType = "btrfs";
-      options = ["subvol=@"];
     };
 
     # sudo btrfs subvolume create /@swap
     "/swap" = {
       device = "/dev/disk/by-label/NIXROOT";
       fsType = "btrfs";
-      options = ["subvol=@swap"];
+      # Idk why this is the subvol
+      options = ["subvol=@/@swap"];
     };
 
     "/boot" = {
-      device = "/dev/disk/by-uuid/1407-A10C";
+      device = "/dev/disk/by-label/NIXBOOT";
       fsType = "vfat";
     };
 
