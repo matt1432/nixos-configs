@@ -82,6 +82,8 @@ in {
 
       "Immich" = mkPublicReverseProxy "photos" "${nosIP}:2283" {};
 
+      "Binary Cache" = mkPublicReverseProxy "cache" "${serviviIP}:5000" {};
+
       # Private
       "nelim.org" = {
         serverAliases = ["*.nelim.org"];
@@ -105,11 +107,6 @@ in {
                   }
               }
             '';
-          };
-
-          nix-binary-cache = {
-            subDomainName = "cache";
-            reverseProxy = "${serviviIP}:5000";
           };
 
           # Resume builder
