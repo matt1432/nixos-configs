@@ -9,12 +9,12 @@ in {
   imports = [./dolphin.nix];
 
   config = let
-    inherit (lib) getExe makeLibraryPath mkIf optionals optionalString;
+    inherit (lib) getExe optionals;
     inherit (pkgs.writers) writeTOML;
 
     flakeDir = config.environment.variables.FLAKE;
     cfg = config.roles.desktop;
-    nvidiaEnable = config.nvidia.enable;
+    isNvidia = config.nvidia.enable;
 
     restartTailscale = pkgs.writeShellScriptBin "restartTailscale" ''
       sudo ${pkgs.systemd}/bin/systemctl restart tailscaled.service
@@ -42,81 +42,24 @@ in {
         (import ../home/obs.nix self)
 
         ({config, ...}: let
-          symlink = config.lib.file.mkOutOfStoreSymlink;
+          inherit (config.lib.file) mkOutOfStoreSymlink;
           configDir = "${flakeDir}/nixosModules/desktop/environment/config";
         in {
-          xdg = {
-            configFile = {
-              "dolphinrc".source = symlink "${configDir}/dolphinrc";
-              "kdeglobals".source = symlink "${configDir}/kdeglobals";
-              "kiorc".source = symlink "${configDir}/kiorc";
-              "mimeapps.list".source = symlink "${configDir}/mimeapps.list";
+          xdg.configFile = {
+            "dolphinrc".source = mkOutOfStoreSymlink "${configDir}/dolphinrc";
+            "kdeglobals".source = mkOutOfStoreSymlink "${configDir}/kdeglobals";
+            "kiorc".source = mkOutOfStoreSymlink "${configDir}/kiorc";
+            "mimeapps.list".source = mkOutOfStoreSymlink "${configDir}/mimeapps.list";
 
-              "satty/config.toml".source = writeTOML "satty.toml" {
-                general = {
-                  early-exit = true;
-                  copy-command = "wl-copy";
-                  initial-tool = "crop";
-                  output-filename = "${config.home.homeDirectory}/Pictures/Screenshots/screen-%d-%m-%Y_%H:%M:%S.png";
-                };
-
-                font = {
-                  family = "Ubuntu Mono";
-                };
+            "satty/config.toml".source = writeTOML "satty.toml" {
+              general = {
+                early-exit = true;
+                copy-command = "wl-copy";
+                initial-tool = "crop";
+                output-filename = "${config.home.homeDirectory}/Pictures/Screenshots/screen-%d-%m-%Y_%H:%M:%S.png";
               };
+              font.family = "Ubuntu Mono";
             };
-
-            desktopEntries =
-              (mkIf nvidiaEnable {
-                "com.github.iwalton3.jellyfin-media-player" = {
-                  name = "Jellyfin Media Player";
-                  comment = "Desktop client for Jellyfin";
-                  exec = "jellyfinmediaplayer --platform xcb";
-                  icon = "com.github.iwalton3.jellyfin-media-player";
-                  terminal = false;
-                  type = "Application";
-                  categories = ["AudioVideo" "Video" "Player" "TV"];
-                  settings = {
-                    Version = "1.0";
-                    StartupWMClass = "jellyfin-media-player";
-                  };
-                  actions = {
-                    "DesktopF" = {
-                      name = "Desktop [Fullscreen]";
-                      exec = "jellyfinmediaplayer --fullscreen --desktop --platform xcb";
-                    };
-                    "DesktopW" = {
-                      name = "Desktop [Windowed]";
-                      exec = "jellyfinmediaplayer --windowed --desktop --platform xcb";
-                    };
-                    "TVF" = {
-                      name = "TV [Fullscreen]";
-                      exec = "jellyfinmediaplayer --fullscreen --tv --platform xcb";
-                    };
-                    "TVW" = {
-                      name = "TV [Windowed]";
-                      exec = "jellyfinmediaplayer --windowed --tv --platform xcb";
-                    };
-                  };
-                };
-              })
-              // {
-                gparted = {
-                  name = "GParted";
-                  genericName = "Partition Editor";
-                  comment = "Create, reorganize, and delete partitions";
-                  exec = "Gparted";
-                  icon = "gparted";
-                  terminal = false;
-                  type = "Application";
-                  categories = ["GNOME" "System" "Filesystem"];
-                  startupNotify = true;
-                  settings = {
-                    Keywords = "Partition";
-                    X-GNOME-FullName = "GParted Partition Editor";
-                  };
-                };
-              };
           };
         })
       ];
@@ -149,19 +92,39 @@ in {
           nextcloud-client
           prismlauncher
 
-          (writeShellScriptBin "Gparted" ''
-            (
-              sleep 1.5
-              while killall -r -0 ksshaskpass > /dev/null 2>&1
-              do
-                sleep 0.1
-                if [[ $(hyprctl activewindow | grep Ksshaskpass) == "" ]]; then
-                    killall -r ksshaskpass
-                fi
-              done
-            ) &
-            exec env SUDO_ASKPASS=${plasma5Packages.ksshaskpass}/bin/${plasma5Packages.ksshaskpass.pname} sudo -k -EA "${gparted}/bin/${gparted.pname}" "$@"
-          '')
+          /*
+          Discord themes for Vencord
+          https://markchan0225.github.io/RoundedDiscord/RoundedDiscord.theme.css
+          https://raw.githubusercontent.com/dracula/BetterDiscord/master/Dracula_Official.theme.css
+          */
+          (discord.override {withVencord = true;})
+
+          (symlinkJoin {
+            name = "gparted";
+            paths = [gparted];
+            buildInputs = [makeWrapper];
+            postBuild = let
+              newWrapper = writeShellScriptBin "Gparted" ''
+                (
+                    sleep 1.5
+                    while killall -r -0 ksshaskpass > /dev/null 2>&1
+                    do
+                        sleep 0.1
+                        if [[ $(hyprctl activewindow | grep Ksshaskpass) == "" ]]; then
+                            killall -r ksshaskpass
+                        fi
+                    done
+                ) &
+                exec env SUDO_ASKPASS="${libsForQt5.ksshaskpass}/bin/ksshaskpass" sudo -k -EA "${getExe gparted}" "$@"
+              '';
+            in ''
+              mkdir $out/.wrapped
+              mv $out/bin/gparted $out/.wrapped
+              cp ${getExe newWrapper} $out/bin/gparted
+
+              sed -i "s#Exec.*#Exec=$out/bin/gparted %f#" $out/share/applications/gparted.desktop
+            '';
+          })
 
           # tools
           wl-color-picker
@@ -172,31 +135,11 @@ in {
           satty
         ])
         ++ [
-          jellyfin-flake.packages.${pkgs.system}.jellyfin-media-player
-
-          /*
-          Discord themes for Vencord
-          https://markchan0225.github.io/RoundedDiscord/RoundedDiscord.theme.css
-          https://raw.githubusercontent.com/dracula/BetterDiscord/master/Dracula_Official.theme.css
-          */
-          (pkgs.symlinkJoin {
-            name = "discord";
-            paths = [
-              (pkgs.discord.override {
-                withOpenASAR = true;
-                withVencord = true;
-              })
-            ];
-            buildInputs = [pkgs.makeWrapper];
-            postBuild = ''
-              wrapProgram $out/bin/Discord ${optionalString config.nvidia.enable
-                ''--prefix LD_LIBRARY_PATH : "${makeLibraryPath [
-                    pkgs.addOpenGLRunpath.driverLink
-                    pkgs.libglvnd
-                  ]}"''} \
-              --add-flags "--enable-features=UseOzonePlatform,WebRTCPipeWireCapturer --ozone-platform=wayland"
-            '';
-          })
+          (jellyfin-flake
+            .packages
+            .${pkgs.system}
+            .jellyfin-media-player
+            .override {isNvidiaWayland = isNvidia;})
         ];
 
       wayland.windowManager.hyprland = {
