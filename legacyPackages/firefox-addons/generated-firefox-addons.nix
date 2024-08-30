@@ -29,10 +29,10 @@
   };
   "bitwarden" = buildFirefoxXpiAddon {
     pname = "bitwarden";
-    version = "2024.7.1";
+    version = "2024.8.0";
     addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4326285/bitwarden_password_manager-2024.7.1.xpi";
-    sha256 = "28c505df3b615f6a3c829afdcff74584ddc5eb1d3fb35f9848c18470fad93772";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4340992/bitwarden_password_manager-2024.8.0.xpi";
+    sha256 = "8b7dba43a2820adce4d9ae497be119eac3802c01bd4b5a536941fbeea8adac59";
     meta = with lib; {
       homepage = "https://bitwarden.com";
       description = "At home, at work, or on the go, Bitwarden easily secures all your passwords, passkeys, and sensitive information.";
@@ -82,10 +82,10 @@
   };
   "darkreader" = buildFirefoxXpiAddon {
     pname = "darkreader";
-    version = "4.9.88";
+    version = "4.9.89";
     addonId = "addon@darkreader.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4317971/darkreader-4.9.88.xpi";
-    sha256 = "7a965d5880be9fbf8be81a106acd1968263b1acc2db0add580b30f2dd71954b3";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4341235/darkreader-4.9.89.xpi";
+    sha256 = "f4a5b4d5966d99cc68b31a9d2072cdb6388efefa9d45746f03d76e3c897c49be";
     meta = with lib; {
       homepage = "https://darkreader.org/";
       description = "Dark mode for every website. Take care of your eyes, use dark theme for night and daily browsing.";
@@ -103,10 +103,10 @@
   };
   "floccus" = buildFirefoxXpiAddon {
     pname = "floccus";
-    version = "5.2.5";
+    version = "5.2.6";
     addonId = "floccus@handmadeideas.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4325872/floccus-5.2.5.xpi";
-    sha256 = "420ae1ce34eff46cb50e46758f62ca6ad42a51c259bea9c176f55e7aa4cce797";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4342697/floccus-5.2.6.xpi";
+    sha256 = "9b0eaf1102cf18e20cac467528e155f35897eda6d5612f49e829bd6ac3970e93";
     meta = with lib; {
       homepage = "https://floccus.org";
       description = "Sync your bookmarks and tabs across browsers via Nextcloud, any WebDAV service, any Git service, via a local file, via Google Drive.";
@@ -204,10 +204,10 @@
   };
   "return-youtube-dislikes" = buildFirefoxXpiAddon {
     pname = "return-youtube-dislikes";
-    version = "3.0.0.16";
+    version = "3.0.0.17";
     addonId = "{762f9885-5a13-4abd-9c77-433dcd38b8fd}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4308076/return_youtube_dislikes-3.0.0.16.xpi";
-    sha256 = "46356bf30f6a06fee3497133c0b69a39ab09f393fa7d4c0e4d1c89cee1d020e4";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4342747/return_youtube_dislikes-3.0.0.17.xpi";
+    sha256 = "c9115baa653c22390089fd6f028c88b9ca9c56f25112ff13e497caba984df841";
     meta = with lib; {
       description = "Returns ability to see dislike statistics on youtube";
       license = licenses.gpl3;
@@ -289,10 +289,10 @@
   };
   "ttv-lol-pro" = buildFirefoxXpiAddon {
     pname = "ttv-lol-pro";
-    version = "2.3.7";
+    version = "2.3.8";
     addonId = "{76ef94a4-e3d0-4c6f-961a-d38a429a332b}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4280177/ttv_lol_pro-2.3.7.xpi";
-    sha256 = "2e71c1fa3f5108cf77b1ca8b5a32955584be893ae151a27cd32d10073ae56820";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4341329/ttv_lol_pro-2.3.8.xpi";
+    sha256 = "1c091b622851abf3d98dfe97c827e30f1211d3751d92a581a9fbe77ed8916568";
     meta = with lib; {
       homepage = "https://github.com/younesaassila/ttv-lol-pro";
       description = "TTV LOL PRO removes most livestream ads from Twitch.";
