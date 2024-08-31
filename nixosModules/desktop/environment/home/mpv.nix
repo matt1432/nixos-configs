@@ -3,24 +3,32 @@ self: {pkgs, ...}: {
     inherit (self.legacyPackages.${pkgs.system}) mpvScripts;
   in {
     # For kdialog-open-files
-    home.packages = with pkgs; [
-      kdialog
+    home.packages = [
+      pkgs.kdialog
     ];
 
     programs.mpv = {
       enable = true;
 
       # https://github.com/mpv-player/mpv/wiki/User-Scripts
-      scripts = with mpvScripts; [
-        modernx
-        # Dep of touch-gestures
-        pointer-event
-        touch-gestures
+      scripts = builtins.attrValues {
+        inherit
+          (mpvScripts)
+          modernx
+          persist-properties
+          undo-redo
+          ;
+
+        # touch-gestures & deps
+        inherit
+          (mpvScripts)
+          pointer-event
+          touch-gestures
+          ;
+
         # Ctrl + o
-        kdialog-open-files
-        persist-properties
-        undo-redo
-      ];
+        inherit (mpvScripts) kdialog-open-files;
+      };
 
       scriptOpts = {
         persist_properties = {

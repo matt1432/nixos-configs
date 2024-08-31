@@ -58,10 +58,13 @@ in {
             ];
           };
 
-          buildInputs = with pkgs; [
-            bun
-            dart-sass
-          ];
+          buildInputs = builtins.attrValues {
+            inherit
+              (pkgs)
+              bun
+              dart-sass
+              ;
+          };
 
           buildPhase = ''
             sass ./scss/greeter.scss style.css

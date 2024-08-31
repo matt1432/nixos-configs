@@ -1,5 +1,5 @@
 {pkgs, ...}: let
-  fsPkgs = with pkgs; [mergerfs cifs-utils];
+  fsPkgs = builtins.attrValues {inherit (pkgs) mergerfs cifs-utils;};
 in {
   system.fsPackages = fsPkgs;
   environment.systemPackages = fsPkgs;

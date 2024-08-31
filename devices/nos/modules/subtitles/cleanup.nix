@@ -15,11 +15,14 @@ in
   pkgs.writeShellApplication {
     name = "sub-clean";
 
-    runtimeInputs = with pkgs; [
-      findutils
-      gnugrep
-      gawk
-    ];
+    runtimeInputs = builtins.attrValues {
+      inherit
+        (pkgs)
+        findutils
+        gnugrep
+        gawk
+        ;
+    };
 
     text = ''
       exec ${script} "$@"

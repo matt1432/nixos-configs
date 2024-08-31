@@ -5,20 +5,19 @@
   nvim-theme-src,
   ...
 }: let
-  inherit (config.vars) neovimIde;
   inherit (lib) fileContents optionals;
-  inherit (pkgs) vimPlugins;
+  inherit (config.vars) neovimIde;
 in {
   programs = {
     neovim = {
-      extraPackages = with pkgs; [
-        bat
-      ];
+      extraPackages = builtins.attrValues {
+        inherit (pkgs) bat;
+      };
 
       plugins =
         [
           {
-            plugin = vimPlugins.dracula-nvim.overrideAttrs {
+            plugin = pkgs.vimPlugins.dracula-nvim.overrideAttrs {
               src = nvim-theme-src;
             };
             type = "lua";
@@ -43,7 +42,7 @@ in {
               '';
           }
           {
-            plugin = vimPlugins.indent-blankline-nvim;
+            plugin = pkgs.vimPlugins.indent-blankline-nvim;
             type = "lua";
             config =
               # lua
@@ -80,21 +79,21 @@ in {
           }
 
           # Deps of heirline config
-          vimPlugins.nvim-web-devicons
+          pkgs.vimPlugins.nvim-web-devicons
           {
-            plugin = vimPlugins.heirline-nvim;
+            plugin = pkgs.vimPlugins.heirline-nvim;
             type = "lua";
             config = fileContents ./plugins/heirline.lua;
           }
         ]
         ++ optionals neovimIde [
           {
-            plugin = vimPlugins.neo-tree-nvim;
+            plugin = pkgs.vimPlugins.neo-tree-nvim;
             type = "lua";
             config = fileContents ./plugins/neotree.lua;
           }
           {
-            plugin = vimPlugins.codewindow-nvim;
+            plugin = pkgs.vimPlugins.codewindow-nvim;
             type = "lua";
             config =
               # lua
@@ -123,7 +122,7 @@ in {
               '';
           }
           {
-            plugin = vimPlugins.transparent-nvim;
+            plugin = pkgs.vimPlugins.transparent-nvim;
             type = "lua";
             config =
               # lua

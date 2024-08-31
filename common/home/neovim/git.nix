@@ -1,13 +1,11 @@
-{pkgs, ...}: let
-  inherit (pkgs) vimPlugins;
-in {
+{pkgs, ...}: {
   programs = {
     neovim = {
       plugins = [
-        vimPlugins.fugitive
+        pkgs.vimPlugins.fugitive
 
         {
-          plugin = vimPlugins.gitsigns-nvim;
+          plugin = pkgs.vimPlugins.gitsigns-nvim;
           type = "lua";
           config =
             # lua

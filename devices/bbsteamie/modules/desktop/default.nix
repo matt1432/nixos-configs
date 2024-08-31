@@ -17,14 +17,18 @@ in {
   services.flatpak.enable = true;
   services.packagekit.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    # Misc Apps
-    firefox
-    kdePackages.discover
-    kdePackages.krfb
+  environment.systemPackages = builtins.attrValues {
+    inherit
+      (pkgs)
+      firefox
+      wl-clipboard
+      xclip
+      ;
 
-    # Libs
-    wl-clipboard
-    xclip
-  ];
+    inherit
+      (pkgs.kdePackages)
+      discover
+      krfb
+      ;
+  };
 }

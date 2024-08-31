@@ -15,10 +15,13 @@
     ];
     kernelModules = ["amdgpu" "kvm-amd" "acpi_call"];
 
-    extraModulePackages = with config.boot.kernelPackages; [
-      acpi_call
-      zenpower
-    ];
+    extraModulePackages = builtins.attrValues {
+      inherit
+        (config.boot.kernelPackages)
+        acpi_call
+        zenpower
+        ;
+    };
     blacklistedKernelModules = ["k10temp"];
 
     initrd = {
@@ -94,10 +97,13 @@
     libvirtd.enable = true;
     waydroid.enable = true;
   };
-  environment.systemPackages = with pkgs; [
-    qemu
-    powertop
-  ];
+  environment.systemPackages = builtins.attrValues {
+    inherit
+      (pkgs)
+      qemu
+      powertop
+      ;
+  };
 
   # enable brightness control
   programs.light.enable = true;

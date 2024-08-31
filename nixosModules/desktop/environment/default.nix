@@ -51,8 +51,8 @@ in {
     xdg.portal = {
       enable = true;
 
-      extraPortals = with pkgs; [
-        kdePackages.xdg-desktop-portal-kde
+      extraPortals = [
+        pkgs.kdePackages.xdg-desktop-portal-kde
       ];
 
       config.hyprland = {
@@ -203,24 +203,28 @@ in {
       };
 
       # libs
-      home.packages = with pkgs; [
-        # tools
-        bluez-tools
-        brightnessctl
-        pulseaudio
-        alsa-utils
-
-        qt5.qtwayland
-        qt6.qtwayland
-        libayatana-appindicator
-        xdg-utils
-        evtest
-        glib
-        xorg.xrandr
-        libinput
-        xclip
-        libnotify
-      ];
+      home.packages =
+        (builtins.attrValues {
+          inherit
+            (pkgs)
+            bluez-tools
+            brightnessctl
+            pulseaudio
+            alsa-utils
+            libayatana-appindicator
+            xdg-utils
+            evtest
+            glib
+            libinput
+            xclip
+            libnotify
+            ;
+        })
+        ++ [
+          pkgs.qt5.qtwayland
+          pkgs.qt6.qtwayland
+          pkgs.xorg.xrandr
+        ];
     };
   };
 

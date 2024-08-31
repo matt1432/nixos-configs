@@ -11,7 +11,9 @@
       newSession = true;
       historyLimit = 30000;
 
-      plugins = with pkgs.tmuxPlugins; [dracula];
+      plugins = builtins.attrValues {
+        inherit (pkgs.tmuxPlugins) dracula;
+      };
 
       extraConfig =
         # bash

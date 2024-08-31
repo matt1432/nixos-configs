@@ -14,10 +14,13 @@ in {
       wantedBy = ["multi-user.target"];
       serviceConfig.User = "matt";
 
-      path = with pkgs; [
-        steam-run
-        steamcmd
-      ];
+      path = builtins.attrValues {
+        inherit
+          (pkgs)
+          steam-run
+          steamcmd
+          ;
+      };
 
       script = ''
         # Make sure gamePath exists and cd to it

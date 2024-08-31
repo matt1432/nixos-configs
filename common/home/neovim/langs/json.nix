@@ -4,15 +4,19 @@
   pkgs,
   ...
 }: let
+  inherit (lib) mkIf;
   inherit (config.vars) neovimIde;
 in
-  lib.mkIf neovimIde {
+  mkIf neovimIde {
     programs = {
       neovim = {
-        extraPackages = [
-          pkgs.vscode-langservers-extracted
-          pkgs.yaml-language-server
-        ];
+        extraPackages = builtins.attrValues {
+          inherit
+            (pkgs)
+            vscode-langservers-extracted
+            yaml-language-server
+            ;
+        };
 
         extraLuaConfig =
           # lua

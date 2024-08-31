@@ -19,9 +19,12 @@ in {
     ffmpegPackage = jellyPkgs.jellyfin-ffmpeg;
   };
 
-  environment.systemPackages = with config.services.jellyfin; [
-    finalPackage
-    webPackage
-    ffmpegPackage
-  ];
+  environment.systemPackages = builtins.attrValues {
+    inherit
+      (config.services.jellyfin)
+      finalPackage
+      webPackage
+      ffmpegPackage
+      ;
+  };
 }

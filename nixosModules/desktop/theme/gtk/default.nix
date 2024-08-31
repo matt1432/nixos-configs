@@ -9,8 +9,8 @@
 
     cfg = osConfig.roles.desktop;
   in {
-    home.packages = with pkgs; [
-      gnomeExtensions.user-themes
+    home.packages = [
+      pkgs.gnomeExtensions.user-themes
     ];
 
     # Gtk settings

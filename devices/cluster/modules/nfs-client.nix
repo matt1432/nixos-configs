@@ -2,7 +2,9 @@
   # NFS client setup
   services.rpcbind.enable = true;
   boot.supportedFilesystems = ["nfs"];
-  environment.systemPackages = with pkgs; [nfs-utils];
+  environment.systemPackages = builtins.attrValues {
+    inherit (pkgs) nfs-utils;
+  };
 
   systemd.mounts = let
     host = "10.0.0.249";

@@ -6,7 +6,7 @@ self: {
   config = let
     wallpaper = toString self.legacyPackages.${pkgs.system}.dracula.wallpaper;
   in {
-    home.packages = with pkgs; [hyprpaper];
+    home.packages = [pkgs.hyprpaper];
 
     xdg.configFile."hypr/hyprpaper.conf" = {
       text = lib.hm.generators.toHyprconf {

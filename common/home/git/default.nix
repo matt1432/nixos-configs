@@ -59,10 +59,10 @@ in {
     };
   };
 
-  home.packages = with pkgs; [
-    (writeShellApplication {
+  home.packages = [
+    (pkgs.writeShellApplication {
       name = "chore";
-      runtimeInputs = [git];
+      runtimeInputs = [pkgs.git];
 
       text = ''
         DIR=''${1:-"$FLAKE"}

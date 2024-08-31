@@ -10,27 +10,33 @@
       };
     };
 
-    packages = with pkgs; [
-      (nerdfonts.override {
-        fonts = [
-          "JetBrainsMono"
-          "Go-Mono"
-          "Iosevka"
-          "NerdFontsSymbolsOnly"
-          "SpaceMono"
-          "Ubuntu"
-          "Noto"
-        ];
-      })
-      noto-fonts
-      noto-fonts-cjk
-      noto-fonts-emoji
-      liberation_ttf
-      font-awesome
-      meslo-lgs-nf
-      jetbrains-mono
-      ubuntu_font_family
-    ];
+    packages =
+      [
+        (pkgs.nerdfonts.override {
+          fonts = [
+            "JetBrainsMono"
+            "Go-Mono"
+            "Iosevka"
+            "NerdFontsSymbolsOnly"
+            "SpaceMono"
+            "Ubuntu"
+            "Noto"
+          ];
+        })
+      ]
+      ++ (builtins.attrValues {
+        inherit
+          (pkgs)
+          noto-fonts
+          noto-fonts-cjk
+          noto-fonts-emoji
+          liberation_ttf
+          font-awesome
+          meslo-lgs-nf
+          jetbrains-mono
+          ubuntu_font_family
+          ;
+      });
   };
 
   # Select internationalisation properties.

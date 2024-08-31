@@ -14,10 +14,13 @@
     kernelModules = ["kvm-amd"];
 
     # Zenpower for ryzen cpu monitoring
-    extraModulePackages = with config.boot.kernelPackages; [
-      v4l2loopback
-      zenpower
-    ];
+    extraModulePackages = builtins.attrValues {
+      inherit
+        (config.boot.kernelPackages)
+        v4l2loopback
+        zenpower
+        ;
+    };
     blacklistedKernelModules = ["k10temp"];
 
     supportedFilesystems = ["ntfs"];
@@ -85,10 +88,13 @@
     libvirtd.enable = true;
     spiceUSBRedirection.enable = true;
   };
-  environment.systemPackages = with pkgs; [
-    qemu
-    virtiofsd
-  ];
+  environment.systemPackages = builtins.attrValues {
+    inherit
+      (pkgs)
+      qemu
+      virtiofsd
+      ;
+  };
 
   nvidia = {
     enable = true;

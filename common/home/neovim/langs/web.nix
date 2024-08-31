@@ -6,23 +6,29 @@
   vimplugin-ts-error-translator-src,
   ...
 }: let
+  inherit (lib) mkIf;
   inherit (config.vars) neovimIde;
-  inherit (pkgs) vimPlugins;
 
   inherit (import "${self}/lib" {inherit pkgs;}) buildPlugin;
 in
-  lib.mkIf neovimIde {
+  mkIf neovimIde {
     programs = {
       neovim = {
         withNodeJs = true;
 
-        extraPackages = [
-          pkgs.nodejs_latest
-          pkgs.nodePackages.npm
-          pkgs.nodePackages.neovim
+        extraPackages = builtins.attrValues {
+          inherit
+            (pkgs)
+            nodejs_latest
+            vscode-langservers-extracted
+            ;
 
-          pkgs.vscode-langservers-extracted
-        ];
+          inherit
+            (pkgs.nodePackages)
+            npm
+            neovim
+            ;
+        };
 
         extraLuaConfig =
           # lua
@@ -122,11 +128,11 @@ in
           '';
 
         plugins = [
-          vimPlugins.typescript-tools-nvim
+          pkgs.vimPlugins.typescript-tools-nvim
           (buildPlugin "ts-error-translator" vimplugin-ts-error-translator-src)
 
           {
-            plugin = vimPlugins.package-info-nvim;
+            plugin = pkgs.vimPlugins.package-info-nvim;
             type = "lua";
             config =
               # lua

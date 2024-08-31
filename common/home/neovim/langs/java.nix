@@ -4,13 +4,13 @@
   pkgs,
   ...
 }: let
-  inherit (pkgs) vimPlugins;
+  inherit (lib) getExe mkIf;
   inherit (config.vars) neovimIde;
 
   javaSdk = pkgs.temurin-bin-17;
-  javaPkgs = with pkgs; [gradle maven];
+  javaPkgs = builtins.attrValues {inherit (pkgs) gradle maven;};
 in
-  lib.mkIf neovimIde {
+  mkIf neovimIde {
     home.packages = javaPkgs;
 
     xdg.dataFile.".gradle/gradle.properties".text = ''
@@ -38,7 +38,7 @@ in
         plugins = [
           {
             # TOOD: setup debugger https://github.com/mfussenegger/nvim-jdtls#debugger-via-nvim-dap
-            plugin = vimPlugins.nvim-jdtls;
+            plugin = pkgs.vimPlugins.nvim-jdtls;
             type = "lua";
             config =
               # lua
@@ -48,7 +48,7 @@ in
                     local config = {
                         capabilities = require('cmp_nvim_lsp').default_capabilities(),
 
-                        cmd = { '${lib.getExe pkgs.jdt-language-server}' },
+                        cmd = { '${getExe pkgs.jdt-language-server}' },
                         root_dir = vim.fs.dirname(vim.fs.find(
                             { 'gradlew', '.git', 'mvnw', 'pom.xml' },
                             { upward = true }

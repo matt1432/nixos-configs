@@ -4,21 +4,21 @@
   lib,
   ...
 }: let
+  inherit (lib) mkIf;
   inherit (config.vars) neovimIde;
-  inherit (pkgs) vimPlugins;
 
   flakeEnv = config.programs.bash.sessionVariables.FLAKE;
 in
-  lib.mkIf neovimIde {
+  mkIf neovimIde {
     programs = {
       neovim = {
-        extraPackages = [
-          pkgs.lua-language-server
-        ];
+        extraPackages = builtins.attrValues {
+          inherit (pkgs) lua-language-server;
+        };
 
         plugins = [
           {
-            plugin = vimPlugins.neodev-nvim;
+            plugin = pkgs.vimPlugins.neodev-nvim;
             type = "lua";
             config =
               # lua

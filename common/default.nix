@@ -71,12 +71,15 @@
   };
 
   boot.supportedFilesystems = ["ext4" "xfs" "btrfs" "vfat" "ntfs"];
-  system.fsPackages = with pkgs; [
-    btrfs-progs
-    nfs-utils
-    ntfs3g
-    xfsprogs
-  ];
+  system.fsPackages = builtins.attrValues {
+    inherit
+      (pkgs)
+      btrfs-progs
+      nfs-utils
+      ntfs3g
+      xfsprogs
+      ;
+  };
 
   environment.variables.NPM_CONFIG_GLOBALCONFIG = "/etc/npmrc";
   environment.etc.npmrc.text = ''
@@ -85,13 +88,16 @@
   '';
 
   environment.systemPackages =
-    (with pkgs; [
+    (builtins.attrValues {
       # Peripherals
-      hdparm
-      pciutils
-      usbutils
-      rar
-    ])
+      inherit
+        (pkgs)
+        hdparm
+        pciutils
+        usbutils
+        rar
+        ;
+    })
     ++ [
       nix-melt.packages.${pkgs.system}.default
 

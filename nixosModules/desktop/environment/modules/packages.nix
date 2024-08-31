@@ -76,70 +76,84 @@ in {
       };
 
       home.packages =
-        (with pkgs; [
+        (builtins.attrValues {
           # School
-          xournalpp
-          virt-manager
-          libreoffice-fresh # TODO: declarative conf?
-          hunspell
-          hunspellDicts.en_CA
+          inherit (pkgs.hunspellDicts) en_CA;
+          inherit
+            (pkgs)
+            xournalpp
+            virt-manager
+            libreoffice-fresh # TODO: declarative conf?
+            hunspell
+            ;
 
           # Apps
-          protonmail-desktop
-          protonmail-bridge
-          spotifywm
-          photoqt
-          nextcloud-client
-          prismlauncher
-
-          /*
-          Discord themes for Vencord
-          https://markchan0225.github.io/RoundedDiscord/RoundedDiscord.theme.css
-          https://raw.githubusercontent.com/dracula/BetterDiscord/master/Dracula_Official.theme.css
-          */
-          (discord.override {withVencord = true;})
-
-          (symlinkJoin {
-            name = "gparted";
-            paths = [gparted];
-            buildInputs = [makeWrapper];
-            postBuild = let
-              newWrapper = writeShellScriptBin "Gparted" ''
-                (
-                    sleep 1.5
-                    while killall -r -0 ksshaskpass > /dev/null 2>&1
-                    do
-                        sleep 0.1
-                        if [[ $(hyprctl activewindow | grep Ksshaskpass) == "" ]]; then
-                            killall -r ksshaskpass
-                        fi
-                    done
-                ) &
-                exec env SUDO_ASKPASS="${libsForQt5.ksshaskpass}/bin/ksshaskpass" sudo -k -EA "${getExe gparted}" "$@"
-              '';
-            in ''
-              mkdir $out/.wrapped
-              mv $out/bin/gparted $out/.wrapped
-              cp ${getExe newWrapper} $out/bin/gparted
-
-              sed -i "s#Exec.*#Exec=$out/bin/gparted %f#" $out/share/applications/gparted.desktop
-            '';
-          })
+          inherit
+            (pkgs)
+            protonmail-desktop
+            protonmail-bridge
+            spotifywm
+            photoqt
+            nextcloud-client
+            prismlauncher
+            ;
 
           # tools
-          wl-color-picker
-          wl-clipboard
-          cliphist
-          grim-hyprland
-          slurp
-          satty
-        ])
+          inherit
+            (pkgs)
+            wl-color-picker
+            wl-clipboard
+            cliphist
+            grim-hyprland
+            slurp
+            satty
+            ;
+        })
         ++ [
           (jellyfin-flake
             .packages
             .${pkgs.system}
             .jellyfin-media-player
             .override {isNvidiaWayland = isNvidia;})
+
+          /*
+          Discord themes for Vencord
+          https://markchan0225.github.io/RoundedDiscord/RoundedDiscord.theme.css
+          https://raw.githubusercontent.com/dracula/BetterDiscord/master/Dracula_Official.theme.css
+          */
+          (pkgs.discord.override {withVencord = true;})
+
+          # GParted
+          (let
+            inherit (pkgs) writeShellScriptBin libsForQt5 gparted makeWrapper symlinkJoin;
+
+            newWrapper = writeShellScriptBin "Gparted" ''
+              (
+                  sleep 1.5
+                  while killall -r -0 ksshaskpass > /dev/null 2>&1
+                  do
+                      sleep 0.1
+                      if [[ $(hyprctl activewindow | grep Ksshaskpass) == "" ]]; then
+                          killall -r ksshaskpass
+                      fi
+                  done
+              ) &
+              exec env SUDO_ASKPASS="${libsForQt5.ksshaskpass}/bin/ksshaskpass" sudo -k -EA "${getExe gparted}" "$@"
+            '';
+          in
+            symlinkJoin {
+              name = "gparted";
+              paths = [gparted];
+              buildInputs = [makeWrapper];
+              postBuild = let
+              in ''
+                mkdir $out/.wrapped
+                mv $out/bin/gparted $out/.wrapped
+                cp ${getExe newWrapper} $out/bin/gparted
+
+                sed -i "s#Exec.*#Exec=$out/bin/gparted %f#" $out/share/applications/gparted.desktop
+              '';
+            })
         ];
 
       wayland.windowManager.hyprland = {

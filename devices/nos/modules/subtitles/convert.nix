@@ -2,9 +2,12 @@
 pkgs.writeShellApplication {
   name = "convertMkv";
 
-  runtimeInputs = with pkgs; [
-    ffmpeg-full
-  ];
+  runtimeInputs = builtins.attrValues {
+    inherit
+      (pkgs)
+      ffmpeg-full
+      ;
+  };
 
   text = ''
     extension="$1"

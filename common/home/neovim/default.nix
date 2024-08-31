@@ -2,9 +2,7 @@
   config,
   pkgs,
   ...
-}: let
-  inherit (pkgs) vimPlugins;
-in {
+}: {
   imports = [
     ./git.nix
     ./langs
@@ -63,11 +61,11 @@ in {
         '';
 
       plugins = [
-        vimPlugins.fzfWrapper
-        vimPlugins.fzf-vim
+        pkgs.vimPlugins.fzfWrapper
+        pkgs.vimPlugins.fzf-vim
 
         {
-          plugin = vimPlugins.todo-comments-nvim;
+          plugin = pkgs.vimPlugins.todo-comments-nvim;
           type = "lua";
           config =
             # lua
@@ -76,7 +74,7 @@ in {
             '';
         }
         {
-          plugin = vimPlugins.mini-nvim;
+          plugin = pkgs.vimPlugins.mini-nvim;
           type = "lua";
           config =
             # lua

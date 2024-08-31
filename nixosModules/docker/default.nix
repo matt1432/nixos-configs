@@ -38,8 +38,8 @@ in {
     };
 
     # Script for updating the images of all images of a compose.nix file
-    environment.systemPackages = with pkgs; [
-      (callPackage ./updateImage.nix {})
+    environment.systemPackages = [
+      (pkgs.callPackage ./updateImage.nix {})
     ];
   };
 

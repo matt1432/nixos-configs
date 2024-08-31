@@ -4,17 +4,21 @@
   lib,
   ...
 }: let
+  inherit (lib) mkIf;
   inherit (config.vars) neovimIde;
 in
-  lib.mkIf neovimIde {
+  mkIf neovimIde {
     programs = {
       neovim = {
-        extraPackages = with pkgs; [
-          cargo
-          rustc
-          rust-analyzer
-          rustfmt
-        ];
+        extraPackages = builtins.attrValues {
+          inherit
+            (pkgs)
+            cargo
+            rustc
+            rust-analyzer
+            rustfmt
+            ;
+        };
 
         extraLuaConfig =
           # lua

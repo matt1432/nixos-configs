@@ -21,11 +21,14 @@
   environment.packages = [
     (pkgs.writeShellApplication {
       name = "switch";
-      runtimeInputs = with pkgs; [
-        coreutils
-        nix-output-monitor
-        nvd
-      ];
+      runtimeInputs = builtins.attrValues {
+        inherit
+          (pkgs)
+          coreutils
+          nix-output-monitor
+          nvd
+          ;
+      };
       text = ''
         oldProfile=$(realpath /nix/var/nix/profiles/per-user/nix-on-droid/profile)
 

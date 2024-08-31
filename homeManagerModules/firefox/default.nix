@@ -195,25 +195,28 @@ in {
           ];
         };
 
-        extensions = with firefoxAddons; [
-          auto-refresh-page
-          bitwarden
-          checkmarks-web-ext
-          darkreader
-          floccus
-          google-container
-          image-search-options
-          istilldontcareaboutcookies
-          opera-gx-witchcraft-purple
-          return-youtube-dislikes
-          seventv
-          sponsorblock
-          sound-volume
-          stylus
-          ttv-lol-pro
-          ublock-origin
-          undoclosetabbutton
-        ];
+        extensions = builtins.attrValues {
+          inherit
+            (firefoxAddons)
+            auto-refresh-page
+            bitwarden
+            checkmarks-web-ext
+            darkreader
+            floccus
+            google-container
+            image-search-options
+            istilldontcareaboutcookies
+            opera-gx-witchcraft-purple
+            return-youtube-dislikes
+            seventv
+            sponsorblock
+            sound-volume
+            stylus
+            ttv-lol-pro
+            ublock-origin
+            undoclosetabbutton
+            ;
+        };
       };
     };
   };

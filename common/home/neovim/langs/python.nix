@@ -4,9 +4,10 @@
   pkgs,
   ...
 }: let
+  inherit (lib) mkIf;
   inherit (config.vars) neovimIde;
 in
-  lib.mkIf neovimIde {
+  mkIf neovimIde {
     programs = {
       neovim = {
         withPython3 = true;

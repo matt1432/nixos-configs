@@ -13,7 +13,13 @@
     kernelModules = ["kvm-amd"];
 
     # Zenpower for ryzen cpu monitoring
-    extraModulePackages = with config.boot.kernelPackages; [zenpower];
+    extraModulePackages = builtins.attrValues {
+      inherit
+        (config.boot.kernelPackages)
+        zenpower
+        ;
+    };
+
     blacklistedKernelModules = ["k10temp"];
 
     initrd.availableKernelModules = [

@@ -11,7 +11,13 @@ stdenv.mkDerivation {
 
   src = "${gtk-theme-src}/kde/cursors";
 
-  buildInputs = with pkgs; [hyprcursor xcur2png];
+  buildInputs = builtins.attrValues {
+    inherit
+      (pkgs)
+      hyprcursor
+      xcur2png
+      ;
+  };
 
   installPhase = ''
     hyprcursor-util --extract ./Dracula-cursors

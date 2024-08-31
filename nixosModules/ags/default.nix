@@ -111,23 +111,26 @@ in {
 
             packages =
               [
+                (pkgs.callPackage ./clipboard {})
                 # TODO: replace with matugen
                 self.packages.${pkgs.system}.coloryou
               ]
-              ++ (with pkgs; [
-                # ags
-                dart-sass
-                bun
-                playerctl
-                (callPackage ./clipboard {})
-
-                ## gui
-                pavucontrol # TODO: replace with ags widget
-              ])
-              ++ (optionals cfgDesktop.isTouchscreen (with pkgs; [
-                lisgd
-                ydotool
-              ]));
+              ++ (builtins.attrValues {
+                inherit
+                  (pkgs)
+                  dart-sass
+                  bun
+                  playerctl
+                  pavucontrol # TODO: replace with ags widget
+                  ;
+              })
+              ++ (optionals cfgDesktop.isTouchscreen (builtins.attrValues {
+                inherit
+                  (pkgs)
+                  lisgd
+                  ydotool
+                  ;
+              }));
           };
 
           wayland.windowManager.hyprland = {

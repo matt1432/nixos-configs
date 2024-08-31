@@ -4,17 +4,20 @@
   lib,
   ...
 }: let
+  inherit (lib) mkIf;
   inherit (config.vars) neovimIde;
-  inherit (pkgs) vimPlugins;
 in
-  lib.mkIf neovimIde {
+  mkIf neovimIde {
     programs = {
       neovim = {
-        extraPackages = with pkgs; [
-          gcc
-          clang-tools
-          cmake-language-server
-        ];
+        extraPackages = builtins.attrValues {
+          inherit
+            (pkgs)
+            gcc
+            clang-tools
+            cmake-language-server
+            ;
+        };
 
         extraLuaConfig =
           # lua
@@ -41,9 +44,9 @@ in
             });
           '';
 
-        plugins = [
-          vimPlugins.clangd_extensions-nvim
-        ];
+        plugins = builtins.attrValues {
+          inherit (pkgs.vimPlugins) clangd_extensions-nvim;
+        };
       };
     };
   }

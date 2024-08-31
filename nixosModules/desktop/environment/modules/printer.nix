@@ -4,8 +4,9 @@
       # Enable CUPS to print documents.
       printing = {
         enable = true;
-        drivers = with pkgs; [
-          hplip
+
+        drivers = [
+          pkgs.hplip
         ];
       };
     };

@@ -6,8 +6,8 @@
   self,
   ...
 }: let
+  inherit (lib) getExe hasPrefix mkIf removePrefix;
   inherit (config.vars) hostName mainUser neovimIde;
-  inherit (lib) getExe hasPrefix removePrefix;
 
   defaultFormatter = self.formatter.${pkgs.system};
 
@@ -16,7 +16,7 @@
   flakeEnv = config.programs.bash.sessionVariables.FLAKE;
   flakeDir = "${removePrefix "/home/${mainUser}/" flakeEnv}";
 in
-  lib.mkIf neovimIde {
+  mkIf neovimIde {
     assertions = [
       {
         assertion =

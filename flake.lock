@@ -172,11 +172,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1725001600,
-        "narHash": "sha256-4RNNipvSQLTSQWuYeqyu+rb0dscUZj++m4upR1Y30VQ=",
+        "lastModified": 1725087993,
+        "narHash": "sha256-DZMhzJKruW/CWDW+OZi9DwpISUvYeQcLrv5g3SUOOF4=",
         "owner": "matt1432",
         "repo": "discord-nightly-overlay",
-        "rev": "c61d7927358044647cab2b28bd400f712faef74d",
+        "rev": "6140012164764a1f3c3cf8aafacfc2158e165680",
         "type": "github"
       },
       "original": {
@@ -417,11 +417,11 @@
     "gpu-screen-recorder-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1725058084,
-        "narHash": "sha256-6WSBV9UTFoXmQvy5fJz1VKpuHbHT3sySiH4U+Si7lPI=",
+        "lastModified": 1725068518,
+        "narHash": "sha256-pzFO0ijeYbOFUgywLxCAivR29Zfc8NzbAvXo2yCvHaI=",
         "ref": "refs/heads/master",
-        "rev": "b99539af570cc725ca3881dfbb2ed9e6b202e2f6",
-        "revCount": 753,
+        "rev": "33251a4799ea57c07b66b9cc1676cf9d377571ba",
+        "revCount": 756,
         "type": "git",
         "url": "https://repo.dec05eba.com/gpu-screen-recorder"
       },
@@ -476,11 +476,11 @@
     "gtk-theme-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1725052067,
-        "narHash": "sha256-Y0rMdCKYVwKUC0GKgMZlzyTd0BiGPY97gUrk2xJpe6w=",
+        "lastModified": 1725129614,
+        "narHash": "sha256-dMM07wqESVHXbhw7wjR3QRQcf+PZxU90FcVLhGQOf2k=",
         "owner": "dracula",
         "repo": "gtk",
-        "rev": "d46b54480979288afdc8f102579deda1c24e2a88",
+        "rev": "e59324a4166a18fe35684d4a4cc2f7ee931c9015",
         "type": "github"
       },
       "original": {
@@ -596,11 +596,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1725032272,
-        "narHash": "sha256-A0AiFlPoqDK/IwUiV7SGIi8uW2zOqmmiZY6j8i367LU=",
+        "lastModified": 1725134108,
+        "narHash": "sha256-OIOBT4NKPmTUXTND0IDUfhX+8YBQztSvhJ91LfEK4Sk=",
         "ref": "refs/heads/main",
-        "rev": "c5fd5771814958ad274ea9abb961fff621a35b9c",
-        "revCount": 5165,
+        "rev": "a6315b0af4e417cf396649d9c5792d3c5420b713",
+        "revCount": 5172,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/hyprwm/Hyprland"
@@ -1307,11 +1307,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1725039046,
-        "narHash": "sha256-B5Ypgx4cO0syxPyUsHTIxVFT8xChPj494WJ5uIOefDM=",
+        "lastModified": 1725138342,
+        "narHash": "sha256-mKqQHEFoQs6ovgfSbDdCIRI8PU2EBhO7yfrbzo+yUCI=",
         "owner": "nix-community",
         "repo": "nixpkgs-wayland",
-        "rev": "90cf4eb6d71f1ee8124fd57535a3569048771b33",
+        "rev": "3f77707cda31a148a5c746b4d53a380e1ca9af3c",
         "type": "github"
       },
       "original": {
@@ -1821,11 +1821,11 @@
     "ts-for-gir-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1724145738,
-        "narHash": "sha256-LxSYZK8/dENY8UMcam+hw0CmgHxCvSSTXp1fqyM/nJQ=",
+        "lastModified": 1725114558,
+        "narHash": "sha256-3B/hMCeFfI2pvG92tRsGu13ja82tudVH5Zuq/JgP/P8=",
         "owner": "gjsify",
         "repo": "ts-for-gir",
-        "rev": "dafd5e4794e06201620c90365f9df2d0417d1b32",
+        "rev": "f0f46a3218568ecc961afd7f0aaf8d667e9a513a",
         "type": "github"
       },
       "original": {

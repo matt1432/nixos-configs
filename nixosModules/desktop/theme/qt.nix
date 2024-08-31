@@ -9,9 +9,9 @@ self: {
 
     cfg = osConfig.roles.desktop;
   in {
-    home.packages = with pkgs; [
-      libsForQt5.qtstyleplugin-kvantum
-      kdePackages.qtstyleplugin-kvantum
+    home.packages = [
+      pkgs.libsForQt5.qtstyleplugin-kvantum
+      pkgs.kdePackages.qtstyleplugin-kvantum
     ];
 
     qt = {

@@ -33,12 +33,15 @@ in {
       enable = true;
       enable32Bit = true;
 
-      extraPackages = with pkgs; [
-        vaapiVdpau
-        libvdpau-va-gl
-        nvidia-vaapi-driver
-      ];
-      extraPackages32 = with pkgs; [vaapiVdpau];
+      extraPackages = builtins.attrValues {
+        inherit
+          (pkgs)
+          vaapiVdpau
+          libvdpau-va-gl
+          nvidia-vaapi-driver
+          ;
+      };
+      extraPackages32 = [pkgs.vaapiVdpau];
     };
 
     services.xserver.videoDrivers = ["nvidia"];
@@ -71,13 +74,16 @@ in {
 
     environment.systemPackages =
       optionals cfg.enableCUDA [pkgs.cudaPackages.cudatoolkit]
-      ++ (with pkgs; [
-        libva-utils
-        nvidia-vaapi-driver
-        nvtopPackages.nvidia
-        pciutils
-        vdpauinfo
-      ]);
+      ++ (builtins.attrValues {
+        inherit (pkgs.nvtopPackages) nvidia;
+        inherit
+          (pkgs)
+          libva-utils
+          nvidia-vaapi-driver
+          pciutils
+          vdpauinfo
+          ;
+      });
 
     boot.kernelModules =
       optionals cfg.enableCUDA ["nvidia-uvm"]

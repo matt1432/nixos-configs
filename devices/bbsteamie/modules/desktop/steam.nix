@@ -46,18 +46,19 @@ defaultSession: {
       stateDir = "/home/${mainUser}/.local/share/decky"; # Keep scoped to user
       # https://github.com/Jovian-Experiments/Jovian-NixOS/blob/1171169117f63f1de9ef2ea36efd8dcf377c6d5a/modules/decky-loader.nix#L80-L84
 
-      extraPackages = with pkgs; [
-        # Generic packages
-        curl
-        unzip
-        util-linux
-        gnugrep
-
-        readline.out
-        procps
-        pciutils
-        libpulseaudio
-      ];
+      extraPackages = builtins.attrValues {
+        inherit
+          (pkgs)
+          curl
+          unzip
+          util-linux
+          gnugrep
+          readline
+          procps
+          pciutils
+          libpulseaudio
+          ;
+      };
     };
 
     # Takes way too long to shutdown

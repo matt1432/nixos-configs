@@ -4,53 +4,72 @@
   ...
 }: {
   environment.systemPackages =
-    (with self.packages.${pkgs.system}; [
-      pokemon-colorscripts
-      repl
-    ])
-    ++ (with pkgs.nodePackages; [
-      undollar
-    ])
-    ++ (with pkgs; [
-      alejandra
+    (builtins.attrValues {
+      inherit
+        (self.packages.${pkgs.system})
+        pokemon-colorscripts
+        repl
+        ;
+
+      inherit
+        (pkgs.nodePackages)
+        undollar
+        ;
+
+      inherit (pkgs) alejandra;
 
       # Archiving
-      zip
-      unzip
-      p7zip
-      bzip2
-      gzip
-      gnutar
-      xz
+      inherit
+        (pkgs)
+        zip
+        unzip
+        p7zip
+        bzip2
+        gzip
+        gnutar
+        xz
+        ;
 
       # File management
-      findutils
-      diffutils
-      utillinux
-      which
-      imagemagick
+      inherit
+        (pkgs)
+        findutils
+        diffutils
+        utillinux
+        which
+        imagemagick
+        ;
 
       # Networking
-      dig.dnsutils
-      openssh
-      rsync
-      wget
-      gnupg
+      inherit (pkgs.dig) dnsutils;
+      inherit
+        (pkgs)
+        openssh
+        rsync
+        wget
+        gnupg
+        ;
 
       # Misc CLI stuff
-      killall
-      nix-output-monitor
-      progress
-      tree
-      gnugrep
-      gnused
+      inherit
+        (pkgs)
+        killall
+        nix-output-monitor
+        progress
+        tree
+        gnugrep
+        gnused
+        ;
 
       # Expected Stuff
-      hostname
-      man
-      perl
-      tzdata
-    ])
+      inherit
+        (pkgs)
+        hostname
+        man
+        perl
+        tzdata
+        ;
+    })
     ++ [
       # This could help as well: nix derivation show -r /run/current-system
       (pkgs.writeShellApplication {
@@ -63,10 +82,13 @@
       (pkgs.writeShellApplication {
         name = "from";
 
-        runtimeInputs = with pkgs; [
-          coreutils
-          which
-        ];
+        runtimeInputs = builtins.attrValues {
+          inherit
+            (pkgs)
+            coreutils
+            which
+            ;
+        };
 
         text = ''
           for var do

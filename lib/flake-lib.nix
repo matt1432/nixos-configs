@@ -11,10 +11,13 @@ inputs: rec {
           "jovian"
           "nixpkgs-wayland"
         ])
-        ++ (with inputs.self.overlays; [
-          broken-packages
-          xdg-desktop-portal-kde
-        ]);
+        ++ (builtins.attrValues {
+          inherit
+            (inputs.self.overlays)
+            broken-packages
+            xdg-desktop-portal-kde
+            ;
+        });
     };
 
   # Function that makes the attrs that make up the specialArgs
@@ -43,10 +46,12 @@ inputs: rec {
       home-manager-path = inputs.home-manager.outPath;
       pkgs = extraSpecialArgs.pkgs;
 
-      modules =
+      modules = let
+        inherit (pkgs.lib) mkOption types;
+      in
         [
           ({config, ...}: {
-            options = with pkgs.lib; {
+            options = {
               environment.variables.FLAKE = mkOption {
                 type = with types; nullOr str;
               };

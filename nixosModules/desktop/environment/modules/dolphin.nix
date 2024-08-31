@@ -6,8 +6,8 @@
   config = let
     cfg = config.roles.desktop;
   in {
-    environment.systemPackages = with pkgs; [
-      plasma5Packages.kio-admin
+    environment.systemPackages = [
+      pkgs.plasma5Packages.kio-admin
     ];
 
     # To make it work with firefox
@@ -26,20 +26,22 @@
       };
     };
 
-    home-manager.users.${cfg.user}.home.packages = with pkgs;
-      [
+    home-manager.users.${cfg.user}.home.packages = builtins.attrValues {
+      inherit
+        (pkgs)
         gnome-calculator
-      ]
-      ++ (with kdePackages; [
+        ;
+      inherit
+        (pkgs.kdePackages)
         kde-cli-tools
-      ])
-      ++ (with plasma5Packages; [
+        ;
+
+      inherit
+        (pkgs.plasma5Packages)
         ark
         kcharselect
         kdenlive
         okular
-
-        # Dolphin & co
         dolphin
         dolphin-plugins
         kdegraphics-thumbnailers
@@ -48,7 +50,8 @@
         kio-admin # needs to be both here and in system pkgs
         kio-extras
         kmime
-      ]);
+        ;
+    };
   };
 
   # For accurate stack trace

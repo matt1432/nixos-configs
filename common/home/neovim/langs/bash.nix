@@ -4,6 +4,7 @@
   lib,
   ...
 }: let
+  inherit (lib) getExe mkIf;
   inherit (config.vars) neovimIde;
 in {
   programs = {
@@ -18,13 +19,13 @@ in {
       viAlias = true;
       vimAlias = true;
 
-      extraPackages = lib.mkIf neovimIde [
+      extraPackages = mkIf neovimIde [
         pkgs.nodePackages.bash-language-server
         pkgs.shellcheck
       ];
 
       extraLuaConfig =
-        lib.mkIf neovimIde
+        mkIf neovimIde
         # lua
         ''
           vim.api.nvim_create_autocmd('FileType', {
@@ -37,7 +38,7 @@ in {
 
               settings = {
                   bashIde = {
-                      shellcheckPath = '${lib.getExe pkgs.shellcheck}',
+                      shellcheckPath = '${getExe pkgs.shellcheck}',
                   },
               },
           });

@@ -4,9 +4,8 @@
   pkgs,
   ...
 }: let
+  inherit (lib) fileContents mkBefore mkIf;
   inherit (config.vars) neovimIde;
-  inherit (pkgs) vimPlugins;
-  inherit (lib) fileContents;
 in {
   imports = [
     ./bash.nix
@@ -22,10 +21,10 @@ in {
     ./web.nix
   ];
 
-  programs = lib.mkIf neovimIde {
+  programs = mkIf neovimIde {
     neovim = {
       extraLuaConfig =
-        lib.mkBefore
+        mkBefore
         # lua
         ''
           -- Start completion / snippet stuff
@@ -69,30 +68,34 @@ in {
         '';
 
       plugins =
-        (with vimPlugins; [
-          nvim-lspconfig
-          lsp-status-nvim
-          lsp_lines-nvim
-
-          cmp-buffer
-          cmp-nvim-lsp
-          cmp-path
-          cmp-spell
-          vim-vsnip
-        ])
+        (builtins.attrValues {
+          inherit
+            (pkgs.vimPlugins)
+            nvim-lspconfig
+            lsp-status-nvim
+            lsp_lines-nvim
+            cmp-buffer
+            cmp-nvim-lsp
+            cmp-path
+            cmp-spell
+            vim-vsnip
+            ;
+        })
         ++ [
           {
-            plugin = vimPlugins.nvim-cmp;
+            plugin = pkgs.vimPlugins.nvim-cmp;
             type = "lua";
             config = fileContents ../plugins/cmp.lua;
           }
 
           {
-            plugin = vimPlugins.nvim-autopairs;
+            plugin = pkgs.vimPlugins.nvim-autopairs;
             type = "lua";
             config =
               # lua
-              "require('nvim-autopairs').setup({})";
+              ''
+                require('nvim-autopairs').setup({});
+              '';
           }
         ];
     };

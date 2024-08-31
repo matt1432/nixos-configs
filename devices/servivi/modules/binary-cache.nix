@@ -40,13 +40,18 @@ in {
       };
 
       path =
-        [nix-fast-buildPkg]
-        ++ (with pkgs; [
-          bash
+        [
+          nix-fast-buildPkg
           config.nix.package
-          git
-          openssh
-        ]);
+        ]
+        ++ (builtins.attrValues {
+          inherit
+            (pkgs)
+            bash
+            git
+            openssh
+            ;
+        });
 
       script = ''
         cd /tmp

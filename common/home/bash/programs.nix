@@ -46,9 +46,9 @@
       config.theme = "dracula-bat";
       themes.dracula-bat.src = self.legacyPackages.${pkgs.system}.dracula.bat;
 
-      extraPackages = with pkgs.bat-extras; [
-        batman
-      ];
+      extraPackages = builtins.attrValues {
+        inherit (pkgs.bat-extras) batman;
+      };
     };
   };
 }

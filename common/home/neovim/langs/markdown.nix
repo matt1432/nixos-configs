@@ -6,22 +6,23 @@
   vimplugin-easytables-src,
   ...
 }: let
+  inherit (lib) mkIf;
   inherit (config.vars) neovimIde;
-  inherit (pkgs) vimPlugins;
 
   inherit (import "${self}/lib" {inherit pkgs;}) buildPlugin;
 in
-  lib.mkIf neovimIde {
+  mkIf neovimIde {
     programs = {
       neovim = {
-        extraPackages = [
-          pkgs.pandoc
-
-          # LaTeX packages
-          pkgs.texlab
-          pkgs.texliveFull
-          pkgs.rubber
-        ];
+        extraPackages = builtins.attrValues {
+          inherit
+            (pkgs)
+            pandoc
+            texlab
+            texliveFull
+            rubber
+            ;
+        };
 
         extraLuaConfig =
           # lua
@@ -56,7 +57,7 @@ in
           }
 
           {
-            plugin = vimPlugins.knap;
+            plugin = pkgs.vimPlugins.knap;
             type = "lua";
             config =
               # lua

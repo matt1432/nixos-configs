@@ -129,8 +129,8 @@
 
     devShells = perSystem (pkgs: {
       default = pkgs.mkShell {
-        packages = with pkgs; [
-          (writeShellScriptBin "mkIso" ''
+        packages = [
+          (pkgs.writeShellScriptBin "mkIso" ''
             isoConfig="nixosConfigurations.live-image.config.system.build.isoImage"
             nom build $(realpath /etc/nixos)#$isoConfig
           '')
@@ -138,32 +138,47 @@
       };
 
       node = pkgs.mkShell {
-        packages = with pkgs; [
-          nodejs_latest
-          typescript
-
-          (writeShellApplication {
-            name = "updateNpmDeps";
-            runtimeInputs = [prefetch-npm-deps nodejs_latest];
-
-            text = ''
-              npm i --package-lock-only || true # this command will fail but still updates the main lockfile
-              prefetch-npm-deps ./package-lock.json
-            '';
+        packages =
+          (builtins.attrValues {
+            inherit
+              (pkgs)
+              nodejs_latest
+              typescript
+              ;
           })
-        ];
+          ++ [
+            (pkgs.writeShellApplication {
+              name = "updateNpmDeps";
+              runtimeInputs = builtins.attrValues {
+                inherit
+                  (pkgs)
+                  prefetch-npm-deps
+                  nodejs_latest
+                  ;
+              };
+
+              text = ''
+                npm i --package-lock-only || true # this command will fail but still updates the main lockfile
+                prefetch-npm-deps ./package-lock.json
+              '';
+            })
+          ];
       };
 
       subtitles-dev = pkgs.mkShell {
-        packages = with pkgs;
-          [
+        packages = builtins.attrValues {
+          inherit
+            (pkgs)
             nodejs_latest
             ffmpeg-full
             typescript
-          ]
-          ++ (with nodePackages; [
+            ;
+
+          inherit
+            (pkgs.nodePackages)
             ts-node
-          ]);
+            ;
+        };
       };
     });
 
