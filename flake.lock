@@ -417,11 +417,11 @@
     "gpu-screen-recorder-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1724963442,
-        "narHash": "sha256-potHI2yXSQHytOI8WOMt5gzioJNT1eZFg/gZ5ptynoE=",
+        "lastModified": 1725058084,
+        "narHash": "sha256-6WSBV9UTFoXmQvy5fJz1VKpuHbHT3sySiH4U+Si7lPI=",
         "ref": "refs/heads/master",
-        "rev": "c99b986149ea2cb0d01c7586a976852e8e32677c",
-        "revCount": 751,
+        "rev": "b99539af570cc725ca3881dfbb2ed9e6b202e2f6",
+        "revCount": 753,
         "type": "git",
         "url": "https://repo.dec05eba.com/gpu-screen-recorder"
       },
@@ -476,11 +476,11 @@
     "gtk-theme-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1724366724,
-        "narHash": "sha256-t8BKB/0Owqpnh9NC1OapWswpUmSJXvxemlh200qnvLg=",
+        "lastModified": 1725052067,
+        "narHash": "sha256-Y0rMdCKYVwKUC0GKgMZlzyTd0BiGPY97gUrk2xJpe6w=",
         "owner": "dracula",
         "repo": "gtk",
-        "rev": "32ce47c2e9b2f7504490815654b47d670a3fd9ca",
+        "rev": "d46b54480979288afdc8f102579deda1c24e2a88",
         "type": "github"
       },
       "original": {
@@ -1307,11 +1307,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1725017449,
-        "narHash": "sha256-nKy+0ZHsQ9Fb9XagruQi31zsfi9SRbX9osmC+Ny16PA=",
+        "lastModified": 1725039046,
+        "narHash": "sha256-B5Ypgx4cO0syxPyUsHTIxVFT8xChPj494WJ5uIOefDM=",
         "owner": "nix-community",
         "repo": "nixpkgs-wayland",
-        "rev": "99b0d5958e07f4450bf31211e289d1543dd0bc7e",
+        "rev": "90cf4eb6d71f1ee8124fd57535a3569048771b33",
         "type": "github"
       },
       "original": {
