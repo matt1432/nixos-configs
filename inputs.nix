@@ -170,6 +170,13 @@ let
   };
 
   srcs = [
+    # Home-assistant
+    {
+      name = "wakewords-src";
+      owner = "fwartner";
+      repo = "home-assistant-wakewords-collection";
+    }
+
     # Nvim plugins
     {
       name = "vimplugin-easytables-src";

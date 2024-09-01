@@ -102,7 +102,10 @@
       type = "github";
     };
     headscale = {
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+      };
       owner = "juanfont";
       repo = "headscale";
       rev = "022fb24cd92035470496d50d86bf8c9ee74b1e7e";
@@ -361,6 +364,12 @@
       flake = false;
       owner = "dmmulroy";
       repo = "ts-error-translator.nvim";
+      type = "github";
+    };
+    wakewords-src = {
+      flake = false;
+      owner = "fwartner";
+      repo = "home-assistant-wakewords-collection";
       type = "github";
     };
   };

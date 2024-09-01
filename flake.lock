@@ -360,24 +360,6 @@
         "type": "github"
       }
     },
-    "flake-utils_2": {
-      "inputs": {
-        "systems": "systems"
-      },
-      "locked": {
-        "lastModified": 1710146030,
-        "narHash": "sha256-SZ5L6eA7HJ/nmkzGG7/ISclqe6oZdOZTNoesiInkXPQ=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "b1d9ab70662946ef0850d488da1c9019f3a9752a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
     "flakegen": {
       "inputs": {
         "systems": [
@@ -491,7 +473,9 @@
     },
     "headscale": {
       "inputs": {
-        "flake-utils": "flake-utils_2",
+        "flake-utils": [
+          "flake-utils"
+        ],
         "nixpkgs": [
           "nixpkgs"
         ]
@@ -1585,11 +1569,12 @@
         "sioyek-theme-src": "sioyek-theme-src",
         "sops-nix": "sops-nix",
         "subsync": "subsync",
-        "systems": "systems_2",
+        "systems": "systems",
         "trash-d-src": "trash-d-src",
         "ts-for-gir-src": "ts-for-gir-src",
         "vimplugin-easytables-src": "vimplugin-easytables-src",
-        "vimplugin-ts-error-translator-src": "vimplugin-ts-error-translator-src"
+        "vimplugin-ts-error-translator-src": "vimplugin-ts-error-translator-src",
+        "wakewords-src": "wakewords-src"
       }
     },
     "scss-reset": {
@@ -1709,21 +1694,6 @@
       }
     },
     "systems": {
-      "locked": {
-        "lastModified": 1681028828,
-        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
-        "owner": "nix-systems",
-        "repo": "default",
-        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-systems",
-        "repo": "default",
-        "type": "github"
-      }
-    },
-    "systems_2": {
       "locked": {
         "lastModified": 1689347949,
         "narHash": "sha256-12tWmuL2zgBgZkdoB6qXZsgJEH9LR3oUgpaQq2RbI80=",
@@ -1888,6 +1858,22 @@
       "original": {
         "owner": "dmmulroy",
         "repo": "ts-error-translator.nvim",
+        "type": "github"
+      }
+    },
+    "wakewords-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1721909332,
+        "narHash": "sha256-DdxK5Km4d9hQ2V27FjQNNdORd1HqBEByIwuz5RogDT8=",
+        "owner": "fwartner",
+        "repo": "home-assistant-wakewords-collection",
+        "rev": "18ba1c5d1877cd08622955f59609a53f3a2ff920",
+        "type": "github"
+      },
+      "original": {
+        "owner": "fwartner",
+        "repo": "home-assistant-wakewords-collection",
         "type": "github"
       }
     },

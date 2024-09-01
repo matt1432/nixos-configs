@@ -11,6 +11,8 @@ in {
   imports = [
     ./hardware-configuration.nix
 
+    ./modules/home-assistant.nix
+
     self.nixosModules.kmscon
     self.nixosModules.server
   ];

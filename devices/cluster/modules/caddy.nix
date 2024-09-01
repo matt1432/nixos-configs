@@ -35,6 +35,7 @@ in {
       clusterIP = config.services.pcsd.virtualIps.caddy-vip.ip;
       nosIP = "10.0.0.121";
       serviviIP = "10.0.0.249";
+      homieIP = "100.64.0.10";
 
       tlsConf = ''
         tls {
@@ -53,6 +54,7 @@ in {
         // (builtins.removeAttrs extraConf ["extraConfig"]);
     in {
       # Public
+      "Home-Assistant" = mkPublicReverseProxy "homie" "${homieIP}:8123" {};
       "Vaultwarden" = mkPublicReverseProxy "vault" "${nosIP}:8781" {};
       "Hauk" = mkPublicReverseProxy "hauk" "${nosIP}:3003" {};
       "Headscale" = mkPublicReverseProxy "headscale" "${clusterIP}:8085" {};
