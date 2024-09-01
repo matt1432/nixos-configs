@@ -148,21 +148,18 @@ export class PopupWindow<
         alloc: Gtk.Allocation,
         side = 'right' as 'left' | 'right',
     ) {
-        const transform = get_hyprland_monitor(
-            this.get_display().get_monitor_at_point(alloc.x, alloc.y),
-        )?.transform;
+        const monitor = this.gdkmonitor ??
+          this.get_display().get_monitor_at_point(alloc.x, alloc.y);
+
+        const transform = get_hyprland_monitor(monitor)?.transform;
 
         let width: number;
 
         if (transform && (transform === 1 || transform === 3)) {
-            width = this.get_display()
-                .get_monitor_at_point(alloc.x, alloc.y)
-                .get_geometry().height;
+            width = monitor.get_geometry().height;
         }
         else {
-            width = this.get_display()
-                .get_monitor_at_point(alloc.x, alloc.y)
-                .get_geometry().width;
+            width = monitor.get_geometry().width;
         }
 
         this.margins = [
