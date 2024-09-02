@@ -141,6 +141,12 @@
       repo = "hyprland-plugins";
       type = "github";
     };
+    hyprpaper = {
+      inputs.systems.follows = "systems";
+      owner = "hyprwm";
+      repo = "hyprpaper";
+      type = "github";
+    };
     jellyfin-flake = {
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "matt1432";

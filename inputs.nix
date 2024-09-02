@@ -140,6 +140,12 @@ let
         repo = "hyprgrass";
       };
 
+      # FIXME: use mkDep when it stops breaking
+      hyprpaper = mkInput {
+        owner = "hyprwm";
+        repo = "hyprpaper";
+      };
+
       grim-hyprland = mkDep {
         owner = "eriedaberrie";
         repo = "grim-hyprland";
