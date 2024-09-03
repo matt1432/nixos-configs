@@ -99,6 +99,7 @@ in {
         ];
 
         subDomains = {
+          esphome.reverseProxy = "${homieIP}:6052";
           pr-tracker.reverseProxy = "${serviviIP}:3000";
 
           pcsd = {

@@ -50,7 +50,7 @@
 
     esphome = {
       enable = true;
-      address = "localhost";
+      address = "100.64.0.10";
       port = 6052;
     };
 
