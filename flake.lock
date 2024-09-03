@@ -495,6 +495,22 @@
         "type": "github"
       }
     },
+    "home-llm-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1724280404,
+        "narHash": "sha256-mfMnESuXJH8vCzBcvv3lzhV7k/Hg1GfZn/4055dVuqk=",
+        "owner": "acon96",
+        "repo": "home-llm",
+        "rev": "90c0edc0907e4567eeca89a6f89b43c0b0b807eb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "acon96",
+        "repo": "home-llm",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -1653,6 +1669,7 @@
         "gtk-session-lock": "gtk-session-lock",
         "gtk-theme-src": "gtk-theme-src",
         "headscale": "headscale",
+        "home-llm-src": "home-llm-src",
         "home-manager": "home-manager",
         "hyprgrass": "hyprgrass",
         "hyprland": "hyprland",

@@ -1,4 +1,5 @@
 {
+  pkgs,
   self,
   wakewords-src,
   ...
@@ -13,11 +14,16 @@
         "esphome"
         "holiday"
         "met"
+        "ollama"
         "spotify"
         "upnp"
         "wyoming"
         "yamaha_musiccast"
       ];
+
+      customComponents = builtins.attrValues {
+        inherit (self.legacyPackages.${pkgs.system}.hass-addons) home-llm;
+      };
 
       config = {
         http = {

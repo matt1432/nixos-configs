@@ -178,6 +178,10 @@ let
   srcs = [
     # Home-assistant
     {
+      owner = "acon96";
+      repo = "home-llm";
+    }
+    {
       name = "wakewords-src";
       owner = "fwartner";
       repo = "home-assistant-wakewords-collection";
