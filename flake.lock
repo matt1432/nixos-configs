@@ -185,6 +185,22 @@
         "type": "github"
       }
     },
+    "dracul-ha-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1710105609,
+        "narHash": "sha256-nmGYMwZF8GDWi83BgGG9xEolxnvJK4qS8ya/hFwynSg=",
+        "owner": "berti24",
+        "repo": "dracul-ha",
+        "rev": "ce7a07d8c287762ab2bda6d9132e6ac4aab8e52e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "berti24",
+        "repo": "dracul-ha",
+        "type": "github"
+      }
+    },
     "dracula-plymouth-src": {
       "flake": false,
       "locked": {
@@ -1658,6 +1674,7 @@
         "bazarr-bulk": "bazarr-bulk",
         "caddy-plugins": "caddy-plugins",
         "discord-overlay": "discord-overlay",
+        "dracul-ha-src": "dracul-ha-src",
         "dracula-plymouth-src": "dracula-plymouth-src",
         "eisa-scripts-src": "eisa-scripts-src",
         "firefox-gx-src": "firefox-gx-src",

@@ -4,6 +4,7 @@
   pkgs,
   self,
   wakewords-src,
+  dracul-ha-src,
   ...
 }: {
   imports = [self.nixosModules.wyoming-plus];
@@ -41,6 +42,9 @@
         media_source = {};
 
         # GUI
+        frontend = {
+          themes = "!include ${dracul-ha-src}/themes/dracul-ha.yaml";
+        };
         lovelace = {
           mode = "yaml";
         };

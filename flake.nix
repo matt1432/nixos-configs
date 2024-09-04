@@ -40,6 +40,12 @@
       repo = "discord-nightly-overlay";
       type = "github";
     };
+    dracul-ha-src = {
+      flake = false;
+      owner = "berti24";
+      repo = "dracul-ha";
+      type = "github";
+    };
     dracula-plymouth-src = {
       flake = false;
       owner = "matt1432";

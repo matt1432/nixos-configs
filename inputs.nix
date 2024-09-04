@@ -186,6 +186,10 @@ let
       owner = "fwartner";
       repo = "home-assistant-wakewords-collection";
     }
+    {
+      owner = "berti24";
+      repo = "dracul-ha";
+    }
 
     # Nvim plugins
     {
