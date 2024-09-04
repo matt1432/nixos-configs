@@ -1,4 +1,6 @@
 {
+  config,
+  lib,
   pkgs,
   self,
   wakewords-src,
@@ -43,7 +45,7 @@
           mode = "yaml";
         };
 
-        # Wanted defaults
+        # `default_config` enables too much stuff. this is what I want from it
         assist_pipeline = {};
         config = {};
         conversation = {};
@@ -59,13 +61,6 @@
       };
     };
 
-    esphome = {
-      enable = true;
-      address = "100.64.0.10";
-      port = 6052;
-    };
-
-    # Needs manual setting in GUI
     wyoming = {
       piper.servers."en" = {
         enable = true;
@@ -93,6 +88,31 @@
         customModelsDirectories = ["${wakewords-src}/en/yo_homie"];
         preloadModels = ["yo_homie"];
       };
+    };
+  };
+
+  services.esphome = {
+    enable = true;
+    address = "100.64.0.10";
+    port = 6052;
+  };
+
+  # FIXME: https://github.com/NixOS/nixpkgs/issues/339557
+  systemd.services.esphome = let
+    inherit (lib) mkForce;
+
+    cfg = config.services.esphome;
+    stateDir = "/var/lib/private/esphome";
+    esphomeParams =
+      if cfg.enableUnixSocket
+      then "--socket /run/esphome/esphome.sock"
+      else "--address ${cfg.address} --port ${toString cfg.port}";
+  in {
+    environment.PLATFORMIO_CORE_DIR = mkForce "/var/lib/private/esphome/.platformio";
+
+    serviceConfig = {
+      ExecStart = mkForce "${cfg.package}/bin/esphome dashboard ${esphomeParams} ${stateDir}";
+      WorkingDirectory = mkForce stateDir;
     };
   };
 }
