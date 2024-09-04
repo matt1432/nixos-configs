@@ -15,6 +15,7 @@
       enable = true;
 
       extraComponents = [
+        "caldav"
         "esphome"
         "holiday"
         "isal"
@@ -71,18 +72,8 @@
         uri = "tcp://127.0.0.1:10200";
 
         # see https://github.com/rhasspy/rhasspy3/blob/master/programs/tts/piper/script/download.py
-        voice = "en-us-ryan-low";
+        voice = "en-us-ryan-low"; # using `hfc male (medium)` in GUI
         speaker = 0;
-      };
-
-      faster-whisper.servers."en" = {
-        enable = true;
-        uri = "tcp://127.0.0.1:10300";
-
-        # see https://github.com/rhasspy/rhasspy3/blob/master/programs/asr/faster-whisper/script/download.py
-        model = "small-int8";
-        language = "en";
-        device = "cpu";
       };
 
       openwakeword-docker = {
@@ -112,7 +103,7 @@
       then "--socket /run/esphome/esphome.sock"
       else "--address ${cfg.address} --port ${toString cfg.port}";
   in {
-    environment.PLATFORMIO_CORE_DIR = mkForce "/var/lib/private/esphome/.platformio";
+    environment.PLATFORMIO_CORE_DIR = mkForce "${stateDir}/.platformio";
 
     serviceConfig = {
       ExecStart = mkForce "${cfg.package}/bin/esphome dashboard ${esphomeParams} ${stateDir}";

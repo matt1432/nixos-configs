@@ -13,8 +13,8 @@ in {
 
     ./modules/docker
     ./modules/jellyfin
+    ./modules/llm.nix
     ./modules/mergerfs.nix
-    ./modules/ollama.nix
     ./modules/qbittorrent
     ./modules/snapraid.nix
     ./modules/subtitles
