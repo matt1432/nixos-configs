@@ -6,6 +6,7 @@
 }: {
   imports = [self.nixosModules.wyoming-plus];
 
+  # TODO: some components / integrations / addons require manual interaction in the GUI, find way to make it all declarative
   services = {
     home-assistant = {
       enable = true;
@@ -13,6 +14,7 @@
       extraComponents = [
         "esphome"
         "holiday"
+        "isal"
         "met"
         "ollama"
         "spotify"
@@ -26,10 +28,19 @@
       };
 
       config = {
+        # Proxy settings
         http = {
           server_host = "0.0.0.0";
           trusted_proxies = ["100.64.0.8" "100.64.0.9"];
           use_x_forwarded_for = true;
+        };
+
+        # Extra conf that was needed
+        media_source = {};
+
+        # GUI
+        lovelace = {
+          mode = "yaml";
         };
 
         # Wanted defaults
