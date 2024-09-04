@@ -10,7 +10,8 @@ in {
       uri = "tcp://${tailscaleIP}:10300";
 
       # see https://github.com/rhasspy/wyoming-faster-whisper/releases/tag/v2.0.0
-      model = "medium.en";
+      model = "medium";
+      language = "en";
       device = "cuda";
     };
 

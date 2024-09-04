@@ -19,7 +19,6 @@ in {
     ./modules/snapraid.nix
     ./modules/subtitles
 
-    self.nixosModules.docker
     self.nixosModules.kmscon
     self.nixosModules.server
   ];
