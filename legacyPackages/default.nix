@@ -11,7 +11,7 @@
     (pkgs.callPackage file ({inherit mkVersion;} // inputs));
 in {
   dracula = mkScope ./dracula;
-  hass-addons = mkScope ./hass-addons;
+  hass-components = mkScope ./hass-components;
   firefoxAddons = mkScope ./firefox-addons;
   mpvScripts = mkScope ./mpv-scripts;
 }

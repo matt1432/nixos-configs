@@ -26,7 +26,7 @@
       ];
 
       customComponents = builtins.attrValues {
-        inherit (self.legacyPackages.${pkgs.system}.hass-addons) home-llm;
+        inherit (self.legacyPackages.${pkgs.system}.hass-components) home-llm;
       };
 
       config = {
