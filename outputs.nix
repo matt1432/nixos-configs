@@ -57,7 +57,7 @@
 
     perSystem = attrs:
       nixpkgs.lib.genAttrs (import systems) (system:
-        attrs (mkPkgs system nixpkgs));
+        attrs (mkPkgs {inherit system nixpkgs;}));
   in {
     nixosModules = import ./nixosModules self;
 
@@ -65,49 +65,67 @@
 
     nixosConfigurations = {
       # Desktops
-      wim = mkNixOS [
-        ./devices/wim
-        secrets.nixosModules.default
-      ];
-      binto = mkNixOS [./devices/binto];
+      wim = mkNixOS {
+        extraModules = [
+          ./devices/wim
+          secrets.nixosModules.default
+        ];
+      };
+      binto = mkNixOS {
+        # FIXME: https://github.com/NixOS/nixpkgs/issues/338315
+        # cudaSupport = true;
+        extraModules = [./devices/binto];
+      };
 
-      bbsteamie = mkNixOS [./devices/bbsteamie];
+      bbsteamie = mkNixOS {extraModules = [./devices/bbsteamie];};
 
       # NAS
-      nos = mkNixOS [
-        ./devices/nos
-        secrets.nixosModules.nos
-      ];
+      nos = mkNixOS {
+        # FIXME: https://github.com/NixOS/nixpkgs/issues/338315
+        # cudaSupport = true;
+        extraModules = [
+          ./devices/nos
+          secrets.nixosModules.nos
+        ];
+      };
 
       # Build / test server
-      servivi = mkNixOS [
-        ./devices/servivi
-        secrets.nixosModules.servivi
-      ];
+      servivi = mkNixOS {
+        extraModules = [
+          ./devices/servivi
+          secrets.nixosModules.servivi
+        ];
+      };
 
       # Home-assistant
-      homie = mkNixOS [./devices/homie];
+      homie = mkNixOS {extraModules = [./devices/homie];};
 
       # Cluster
-      thingone = mkNixOS [
-        (import ./devices/cluster "thingone")
-        secrets.nixosModules.thingy
-      ];
-      thingtwo = mkNixOS [
-        (import ./devices/cluster "thingtwo")
-        secrets.nixosModules.thingy
-      ];
+      thingone = mkNixOS {
+        extraModules = [
+          (import ./devices/cluster "thingone")
+          secrets.nixosModules.thingy
+        ];
+      };
+      thingtwo = mkNixOS {
+        extraModules = [
+          (import ./devices/cluster "thingtwo")
+          secrets.nixosModules.thingy
+        ];
+      };
 
-      live-image = mkNixOS [
-        "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-        {home-manager.users.nixos.home.stateVersion = "24.05";}
-        {
-          vars = {
-            mainUser = "nixos";
-            hostName = "nixos";
-          };
-        }
-      ];
+      live-image = mkNixOS {
+        extraModules = [
+          "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+          {home-manager.users.nixos.home.stateVersion = "24.05";}
+          {
+            vars = {
+              mainUser = "nixos";
+              hostName = "nixos";
+            };
+          }
+        ];
+      };
     };
 
     nixOnDroidConfigurations.default =

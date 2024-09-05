@@ -1,9 +1,16 @@
 inputs: rec {
   # Import pkgs from a nixpkgs instance
-  mkPkgs = system: nixpkgs:
+  mkPkgs = {
+    system,
+    nixpkgs,
+    cudaSupport ? false,
+  }:
     import nixpkgs {
       inherit system;
-      config.allowUnfree = true;
+      config = {
+        allowUnfree = true;
+        inherit cudaSupport;
+      };
       overlays =
         (map (i: inputs.${i}.overlays.default) [
           "discord-overlay"
@@ -21,28 +28,37 @@ inputs: rec {
     };
 
   # Function that makes the attrs that make up the specialArgs
-  mkArgs = system:
+  mkArgs = {
+    system,
+    cudaSupport ? false,
+  }:
     inputs
     // {
-      pkgs = mkPkgs system inputs.nixpkgs;
+      pkgs = mkPkgs {
+        inherit system cudaSupport;
+        inherit (inputs) nixpkgs;
+      };
     };
 
   # Default system
-  mkNixOS = mods:
+  mkNixOS = {
+    extraModules ? [],
+    cudaSupport ? false,
+  }:
     inputs.nixpkgs.lib.nixosSystem rec {
       system = "x86_64-linux";
-      specialArgs = mkArgs system;
+      specialArgs = mkArgs {inherit system cudaSupport;};
       modules =
         [
           {home-manager.extraSpecialArgs = specialArgs;}
           ../common
         ]
-        ++ mods;
+        ++ extraModules;
     };
 
   mkNixOnDroid = mods:
     inputs.nix-on-droid.lib.nixOnDroidConfiguration rec {
-      extraSpecialArgs = mkArgs "aarch64-linux";
+      extraSpecialArgs = mkArgs {system = "aarch64-linux";};
       home-manager-path = inputs.home-manager.outPath;
       pkgs = extraSpecialArgs.pkgs;
 
