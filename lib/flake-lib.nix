@@ -21,7 +21,7 @@ inputs: rec {
         ++ (builtins.attrValues {
           inherit
             (inputs.self.overlays)
-            broken-packages
+            misc
             xdg-desktop-portal-kde
             ;
         });
