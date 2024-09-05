@@ -12,6 +12,14 @@ in {
   imports = [khepri.nixosModules.default];
 
   options.khepri = {
+    enable = mkOption {
+      default = cfg.compositions != {};
+      type = types.bool;
+      description = ''
+        Option to enable docker even without compositions.
+      '';
+    };
+
     rwDataDir = mkOption {
       default = "/var/lib/docker";
       type = types.str;
@@ -26,7 +34,7 @@ in {
     };
   };
 
-  config = mkIf (cfg.compositions != {}) {
+  config = mkIf (cfg.enable) {
     users.extraUsers.${mainUser}.extraGroups = ["docker"];
 
     virtualisation = {
