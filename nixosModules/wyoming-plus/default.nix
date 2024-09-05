@@ -1,4 +1,4 @@
-self: {
+{
   config,
   lib,
   pkgs,
@@ -10,6 +10,7 @@ self: {
     escapeShellArgs
     flatten
     filterAttrs
+    hasAttr
     listToAttrs
     map
     mkEnableOption
@@ -26,8 +27,6 @@ self: {
 
   cfg = config.services.wyoming.openwakeword-docker;
 in {
-  imports = [self.nixosModules.docker];
-
   options.services.wyoming.openwakeword-docker = {
     enable = mkEnableOption "Wyoming openWakeWord server";
 
@@ -114,6 +113,19 @@ in {
   };
 
   config = {
+    assertions = [
+      {
+        assertion =
+          (cfg.enable
+          && hasAttr "khepri" config
+          && hasAttr "rwDataDir" config.khepri) || !cfg.enable;
+        message = ''
+          The module `docker` from this same flake is needed to use
+          this openwakeword implementation.
+        '';
+      }
+    ];
+
     systemd.services = let
       unitNames = attrNames (
         filterAttrs (_: v: v.device == "cpu") config.services.wyoming.faster-whisper.servers
@@ -147,7 +159,4 @@ in {
       };
     };
   };
-
-  # For accurate stack trace
-  _file = ./default.nix;
 }

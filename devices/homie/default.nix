@@ -13,6 +13,7 @@ in {
 
     ./modules
 
+    self.nixosModules.docker
     self.nixosModules.kmscon
     self.nixosModules.server
   ];

@@ -7,5 +7,5 @@ self: {
   nvidia = import ./nvidia;
   plymouth = import ./plymouth;
   server = import ./server;
-  wyoming-plus = import ./wyoming-plus self;
+  wyoming-plus = import ./wyoming-plus;
 }

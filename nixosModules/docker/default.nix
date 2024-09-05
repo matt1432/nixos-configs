@@ -4,9 +4,10 @@ khepri: {
   pkgs,
   ...
 }: let
-  inherit (lib) mkOption types;
-
+  inherit (lib) mkIf mkOption types;
   inherit (config.vars) mainUser;
+
+  cfg = config.khepri;
 in {
   imports = [khepri.nixosModules.default];
 
@@ -18,15 +19,20 @@ in {
         Directory to place persistent data in.
       '';
     };
+
+    storageDriver = mkOption {
+      default = "btrfs"; # I use BTRFS on all my servers
+      type = types.str;
+    };
   };
 
-  config = {
+  config = mkIf (cfg.compositions != {}) {
     users.extraUsers.${mainUser}.extraGroups = ["docker"];
 
     virtualisation = {
       docker = {
         enable = true;
-        storageDriver = "btrfs";
+        storageDriver = cfg.storageDriver;
 
         package = pkgs.docker_27;
 
