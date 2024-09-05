@@ -1,4 +1,5 @@
 # Do not modify! This file is generated.
+
 {
   inputs = {
     ags = {
@@ -61,7 +62,7 @@
     firefox-gx-src = {
       flake = false;
       owner = "Godiesc";
-      ref = "v.9.4";
+      ref = "v.9.5";
       repo = "firefox-gx";
       type = "github";
     };
