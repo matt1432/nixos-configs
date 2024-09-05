@@ -11,8 +11,7 @@ in {
   imports = [
     ./hardware-configuration.nix
 
-    ./modules/gpu-replay.nix
-    ./modules/nix-gaming.nix
+    ./modules
 
     self.nixosModules.adb
     self.nixosModules.desktop
@@ -20,14 +19,10 @@ in {
     self.nixosModules.server
   ];
 
-  home-manager.users.${mainUser} = {
-    imports = [
-      self.homeManagerModules.firefox
-    ];
+  home-manager.users.${mainUser}.imports = [
+    self.homeManagerModules.firefox
+  ];
 
-    # State Version: DO NOT CHANGE
-    home.stateVersion = "23.11";
-  };
   # State Version: DO NOT CHANGE
   system.stateVersion = "23.11";
 

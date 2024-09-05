@@ -11,11 +11,7 @@ in {
   imports = [
     ./hardware-configuration.nix
 
-    ./modules/7-days-to-die.nix
-    ./modules/binary-cache.nix
-    ./modules/minecraft.nix
-    ./modules/nfs.nix
-    ./modules/pr-tracker.nix
+    ./modules
 
     self.nixosModules.docker
     self.nixosModules.kmscon
@@ -24,7 +20,6 @@ in {
 
   # State Version: DO NOT CHANGE
   system.stateVersion = "24.05";
-  home-manager.users.${mainUser}.home.stateVersion = "24.05";
 
   # ------------------------------------------------
   # User Settings

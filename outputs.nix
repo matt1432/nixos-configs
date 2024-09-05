@@ -117,7 +117,6 @@
       live-image = mkNixOS {
         extraModules = [
           "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-          {home-manager.users.nixos.home.stateVersion = "24.05";}
           {
             vars = {
               mainUser = "nixos";

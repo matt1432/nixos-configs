@@ -5,15 +5,7 @@
 }: let
   inherit (config.sops) secrets;
 in {
-  imports = [
-    pcsd.nixosModules.default
-
-    ./blocky.nix
-    ./caddy.nix
-    ./headscale
-    ./nfs-client.nix
-    ./unbound.nix
-  ];
+  imports = [pcsd.nixosModules.default];
 
   services.pcsd = {
     enable = true;

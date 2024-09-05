@@ -11,7 +11,7 @@ in {
   imports = [
     ./hardware-configuration.nix
 
-    ./modules/desktop
+    ./modules
 
     self.nixosModules.kmscon
     self.nixosModules.plymouth
@@ -20,7 +20,6 @@ in {
 
   # State Version: DO NOT CHANGE
   system.stateVersion = "24.11";
-  home-manager.users.${mainUser}.home.stateVersion = "24.11";
 
   # ------------------------------------------------
   # User Settings

@@ -107,17 +107,15 @@
     ];
 
   home-manager = let
-    inherit (lib) mapAttrs' nameValuePair;
-
+    inherit (lib) mapAttrs' mkIf mkOption nameValuePair types;
     inherit (config.vars) mainUser;
-    mainUserConf = config.home-manager.users.${mainUser};
 
     default = {
       imports = [
         # Make the vars be the same on Nix and HM
         {
-          options.vars = lib.mkOption {
-            type = lib.types.attrs;
+          options.vars = mkOption {
+            type = types.attrs;
             readOnly = true;
             default = config.vars;
           };
@@ -139,21 +137,13 @@
           source = v;
         })
       self.devShells.${pkgs.system};
+
+      home.stateVersion = config.system.stateVersion;
     };
   in {
     users = {
-      root =
-        default
-        // {
-          home.stateVersion = mainUserConf.home.stateVersion;
-        };
-      greeter =
-        lib.mkIf (config.services.greetd.enable)
-        (default
-          // {
-            home.stateVersion = mainUserConf.home.stateVersion;
-          });
-
+      root = default;
+      greeter = mkIf (config.services.greetd.enable) default;
       ${mainUser} = default;
     };
   };
