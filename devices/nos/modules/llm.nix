@@ -3,6 +3,9 @@
 in {
   imports = [self.nixosModules.wyoming-plus];
 
+  # In case tailscale is down
+  boot.kernel.sysctl."net.ipv4.ip_nonlocal_bind" = 1;
+
   services = {
     # Speech-to-Text
     wyoming.faster-whisper.servers."en" = {
