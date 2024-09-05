@@ -117,8 +117,9 @@ in {
       {
         assertion =
           (cfg.enable
-          && hasAttr "khepri" config
-          && hasAttr "rwDataDir" config.khepri) || !cfg.enable;
+            && hasAttr "khepri" config
+            && hasAttr "rwDataDir" config.khepri)
+          || !cfg.enable;
         message = ''
           The module `docker` from this same flake is needed to use
           this openwakeword implementation.
