@@ -19,6 +19,16 @@
 
       customComponents = builtins.attrValues {
         inherit (self.legacyPackages.${pkgs.system}.hass-components) home-llm;
+        # Home-llm prompt:
+        /*
+        You are 'Homie', a helpful AI Assistant that controls the devices in a house. Complete the following task as instructed.
+
+        The current time and date is {{ (as_timestamp(now()) | timestamp_custom("%I:%M %p on %A %B %d, %Y", "EST")) }}.
+
+        Services: {{ formatted_tools }}
+        Devices:
+        {{ formatted_devices }}
+        */
       };
 
       config = {
