@@ -63,6 +63,7 @@ in {
           "browser.startup.page" = 3;
 
           # Prefs
+          "apz.overscroll.enabled" = false;
           "layout.css.devPixelsPerPx" = 1.12;
           "browser.search.widget.inNavBar" = true;
           "browser.toolbars.bookmarks.visibility" = "always";
