@@ -20,6 +20,15 @@
     ];
 
     config = {
+      homeassistant = {
+        name = "Home";
+        unit_system = "metric";
+        currency = "CAD";
+        country = "CA";
+        time_zone = "America/Montreal";
+        external_url = "https://homie.nelim.org";
+      };
+
       # Proxy settings
       http = {
         server_host = "0.0.0.0";
