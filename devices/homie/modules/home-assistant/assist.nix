@@ -53,4 +53,7 @@
       port = 6052;
     };
   };
+
+  # In case tailscale is down
+  boot.kernel.sysctl."net.ipv4.ip_nonlocal_bind" = 1;
 }

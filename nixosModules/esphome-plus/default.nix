@@ -37,7 +37,7 @@
   in {
     name = "${name}.yaml";
     file = pkgs.runCommandLocal "${name}.yaml" {} ''
-      cp ${format.generate "${name}.yaml" filteredConfig} $out
+      cp ${format.generate name filteredConfig} $out
       sed -i -e "s/'\!\([a-z_]\+\) \(.*\)'/\!\1 \2/;s/^\!\!/\!/;" $out
       sed -i 's/ {}//g' $out
     '';
@@ -47,6 +47,11 @@ in {
     firmwareConfigs = mkOption {
       default = {};
       type = with types; attrsOf anything;
+    };
+
+    secretsFile = mkOption {
+      default = null;
+      type = types.nullOr types.path;
     };
 
     deleteUnmanaged = mkOption {
@@ -73,6 +78,8 @@ in {
               if [[ ! -d ${stateDir} ]]; then
                   mkdir -p ${stateDir}
               fi
+
+              ${optionalString (cfg.secretsFile != null) ''cp -f "$(realpath "${cfg.secretsFile}")" ${stateDir}/secrets.yaml''}
 
               ${optionalString cfg.deleteUnmanaged ''find ${stateDir} -name "*.yaml" ! -name "secrets.yaml" -delete''}
 
