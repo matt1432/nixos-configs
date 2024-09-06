@@ -27,6 +27,7 @@ in {
       port = 11434;
 
       loadModels = ["fixt/home-3b-v3"];
+      environmentVariables.OLLAMA_DEBUG = "1";
     };
   };
 }
