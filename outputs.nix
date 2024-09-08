@@ -99,11 +99,11 @@
 
       # Home-assistant
       homie = mkNixOS {
-          extraModules = [
-            ./devices/homie
-            secrets.nixosModules.homie
-          ];
-        };
+        extraModules = [
+          ./devices/homie
+          secrets.nixosModules.homie
+        ];
+      };
 
       # Cluster
       thingone = mkNixOS {
