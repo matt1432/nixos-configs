@@ -40,6 +40,8 @@
       cp ${format.generate name filteredConfig} $out
       sed -i -e "s/'\!\([a-z_]\+\) \(.*\)'/\!\1 \2/;s/^\!\!/\!/;" $out
       sed -i 's/ {}//g' $out
+      sed -i "s/'\"/\"/g" $out
+      sed -i "s/\"'/\"/g" $out
     '';
   };
 in {

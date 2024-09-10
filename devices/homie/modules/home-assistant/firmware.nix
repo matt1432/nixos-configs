@@ -71,7 +71,7 @@
         speaker = [
           {
             dac_type = "external";
-            i2s_dout_pin = "GPIO22";
+            i2s_dout_pin = "GPIO21"; # "GPIO22"; turn off speaker
             id = "echo_speaker";
             mode = "mono";
             platform = "i2s_audio";
@@ -308,33 +308,67 @@
           vad_threshold = 3;
           volume_multiplier = 2;
 
-          on_client_connected = [
+          on_listening = [
             {
-              "if" = {
-                condition = {"switch.is_on" = "use_wake_word";};
-                "then" = [
-                  {"voice_assistant.start_continuous" = {};}
-                  {"script.execute" = "reset_led";}
-                ];
+              "light.turn_on" = {
+                id = "led";
+                effect = "Slow Pulse";
+
+                green = "0%";
+                red = "0%";
+                blue = "100%";
               };
             }
           ];
-          on_client_disconnected = [
+
+          on_stt_vad_end = [
             {
-              "if" = {
-                condition = {"switch.is_on" = "use_wake_word";};
-                "then" = [
-                  {"voice_assistant.stop" = {};}
-                  {"light.turn_off" = "led";}
-                ];
+              "light.turn_on" = {
+                id = "led";
+                effect = "Fast Pulse";
+
+                red = "0%";
+                green = "0%";
+                blue = "100%";
               };
             }
           ];
+
+          on_tts_start = [
+            {
+              "light.turn_on" = {
+                id = "led";
+                brightness = "100%";
+                effect = "none";
+
+                red = "0%";
+                green = "0%";
+                blue = "100%";
+              };
+            }
+          ];
+
+          # Play audio from bluetooth speaker
+          on_tts_end = [
+            {
+              "homeassistant.service" = {
+                service = "media_player.play_media";
+                data = {
+                  entity_id = "media_player.music_player_daemon";
+                  media_content_id = "!lambda \"return x;\"";
+                  media_content_type = "music";
+                  announce = "\"true\"";
+                };
+              };
+            }
+          ];
+
           on_end = [
             {delay = "100ms";}
             {wait_until.not."speaker.is_playing" = {};}
             {"script.execute" = "reset_led";}
           ];
+
           on_error = [
             {
               "light.turn_on" = {
@@ -350,30 +384,31 @@
             {delay = "1s";}
             {"script.execute" = "reset_led";}
           ];
-          on_listening = [
-            {
-              "light.turn_on" = {
-                id = "led";
-                effect = "Slow Pulse";
 
-                green = "0%";
-                red = "0%";
-                blue = "100%";
+          on_client_connected = [
+            {
+              "if" = {
+                condition = {"switch.is_on" = "use_wake_word";};
+                "then" = [
+                  {"voice_assistant.start_continuous" = {};}
+                  {"script.execute" = "reset_led";}
+                ];
               };
             }
           ];
-          on_stt_vad_end = [
-            {
-              "light.turn_on" = {
-                id = "led";
-                effect = "Fast Pulse";
 
-                red = "0%";
-                green = "0%";
-                blue = "100%";
+          on_client_disconnected = [
+            {
+              "if" = {
+                condition = {"switch.is_on" = "use_wake_word";};
+                "then" = [
+                  {"voice_assistant.stop" = {};}
+                  {"light.turn_off" = "led";}
+                ];
               };
             }
           ];
+
           on_timer_finished = [
             {"voice_assistant.stop" = {};}
             {"switch.turn_on" = "timer_ringing";}
@@ -408,19 +443,6 @@
                   {"voice_assistant.start_continuous" = {};}
                   {"script.execute" = "reset_led";}
                 ];
-              };
-            }
-          ];
-          on_tts_start = [
-            {
-              "light.turn_on" = {
-                id = "led";
-                brightness = "100%";
-                effect = "none";
-
-                red = "0%";
-                green = "0%";
-                blue = "100%";
               };
             }
           ];
