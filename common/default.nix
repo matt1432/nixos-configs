@@ -29,7 +29,17 @@
   };
 
   nix = {
-    package = pkgs.nixVersions.nix_2_24;
+    # FIXME: vulnerability with <= 2.24.5
+    package = pkgs.nixVersions.nix_2_24.overrideAttrs (o: rec {
+      version = "2.24.6";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nix";
+        rev = version;
+        hash = "sha256-kgq3B+olx62bzGD5C6ighdAoDweLq+AebxVHcDnKH4w=";
+      };
+    });
 
     # Edit nix.conf
     settings = {
