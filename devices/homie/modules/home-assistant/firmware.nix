@@ -138,7 +138,6 @@
             platform = "template";
             restore_mode = "RESTORE_DEFAULT_ON";
 
-            on_turn_off = ["voice_assistant.stop" {lambda = "id(va).set_use_wake_word(false);";} {"script.execute" = "reset_led";}];
             on_turn_on = [
               {lambda = "id(va).set_use_wake_word(true);";}
               {
@@ -149,7 +148,14 @@
               }
               {"script.execute" = "reset_led";}
             ];
+
+            on_turn_off = [
+              "voice_assistant.stop"
+              {lambda = "id(va).set_use_wake_word(false);";}
+              {"script.execute" = "reset_led";}
+            ];
           }
+
           {
             id = "use_listen_light";
             name = "Use listen light";
@@ -159,9 +165,10 @@
             platform = "template";
             restore_mode = "RESTORE_DEFAULT_ON";
 
-            on_turn_off = [{"script.execute" = "reset_led";}];
             on_turn_on = [{"script.execute" = "reset_led";}];
+            on_turn_off = [{"script.execute" = "reset_led";}];
           }
+
           {
             id = "timer_ringing";
 
@@ -207,7 +214,10 @@
                               {
                                 "if" = {
                                   condition = "voice_assistant.is_running";
-                                  "then" = [{"voice_assistant.stop" = {};} {"script.execute" = "reset_led";}];
+                                  "then" = [
+                                    {"voice_assistant.stop" = {};}
+                                    {"script.execute" = "reset_led";}
+                                  ];
                                   "else" = [{"voice_assistant.start" = {};}];
                                 };
                               }
@@ -239,14 +249,14 @@
 
         external_components = [
           {
+            source = "github://pr#5230";
             components = ["esp_adf"];
             refresh = "0s";
-            source = "github://pr#5230";
           }
           {
+            source = "github://jesserockz/esphome-components";
             components = ["file"];
             refresh = "0s";
-            source = "github://jesserockz/esphome-components";
           }
         ];
 

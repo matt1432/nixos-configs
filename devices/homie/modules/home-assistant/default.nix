@@ -1,6 +1,7 @@
 {...}: {
   imports = [
     ./assist.nix
+    ./bluetooth.nix
     ./firmware.nix
     ./frontend.nix
   ];
@@ -13,6 +14,7 @@
       "caldav"
       "holiday"
       "isal"
+      "led_ble"
       "met"
       "spotify"
       "upnp"
