@@ -133,6 +133,11 @@ in {
               "2560x1440@120"
               "1920x1560, 1"
             ])
+            (concatStringsSep "," [
+              "desc:Sharp Corporation LC-40LB480U 0x00000001"
+              "1680x1050, auto, 1"
+              "mirror, ${cfg.mainMonitor}"
+            ])
           ];
 
           "$mainMod" = "SUPER";
