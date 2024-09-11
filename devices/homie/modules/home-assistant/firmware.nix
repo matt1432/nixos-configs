@@ -298,7 +298,7 @@
             refresh = "0s";
           }
           {
-            source = "github://jesserockz/esphome-components";
+            source = "github://jesserockz/esphome-components@main";
             components = ["file"];
             refresh = "0s";
           }
@@ -781,7 +781,7 @@
             refresh = "0s";
           }
           {
-            source = "github://jesserockz/esphome-components";
+            source = "github://jesserockz/esphome-components@main";
             components = ["file"];
             refresh = "0s";
           }
