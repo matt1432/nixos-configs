@@ -47,7 +47,6 @@
       mobile_app = {};
       my = {};
       sun = {};
-      automation = {};
       zeroconf = {};
     };
   };
