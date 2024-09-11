@@ -4,4 +4,5 @@ pkgs.lib.makeScope pkgs.newScope (hass: let
     hass.callPackage file (inputs // {});
 in {
   home-llm = buildHassComponent ./home-llm.nix;
+  extended-openai-conversation = buildHassComponent ./extended-openai-conversation.nix;
 })

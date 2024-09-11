@@ -14,7 +14,6 @@
       "caldav"
       "holiday"
       "isal"
-      "led_ble"
       "met"
       "spotify"
       "upnp"

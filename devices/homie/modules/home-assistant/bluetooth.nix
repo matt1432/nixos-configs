@@ -4,7 +4,6 @@
   pkgs,
   ...
 }: {
-
   # Setup Bluetooth
   hardware.bluetooth = {
     enable = true;
@@ -78,6 +77,11 @@
   # Setup MPD
   services.home-assistant.extraComponents = [
     "mpd"
+
+    # BT components
+    "ibeacon"
+    "led_ble"
+    "kegtron"
   ];
   services.mpd = {
     enable = true;

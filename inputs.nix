@@ -182,6 +182,12 @@ let
       repo = "home-llm";
     }
     {
+      name = "extended-openai-conversation-src";
+      owner = "jekalmin";
+      repo = "extended_openai_conversation";
+    }
+
+    {
       name = "wakewords-src";
       owner = "fwartner";
       repo = "home-assistant-wakewords-collection";

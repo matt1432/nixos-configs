@@ -1,5 +1,4 @@
 {
-  pkgs,
   self,
   wakewords-src,
   ...
@@ -18,7 +17,8 @@
       ];
 
       customComponents = builtins.attrValues {
-        inherit (self.legacyPackages.${pkgs.system}.hass-components) home-llm;
+        # Switched to HASS Ollama integration
+        # inherit (self.legacyPackages.${pkgs.system}.hass-components) home-llm;
         # Home-llm prompt:
         /*
         You are 'Homie', a helpful AI Assistant that controls the devices in a house. Complete the following task as instructed.

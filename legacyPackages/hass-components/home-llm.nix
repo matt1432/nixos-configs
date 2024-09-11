@@ -4,7 +4,9 @@
   python3Packages,
   ...
 }: let
-  manifest = builtins.fromJSON (builtins.readFile "${home-llm-src}/custom_components/llama_conversation/manifest.json");
+  inherit (builtins) fromJSON readFile;
+
+  manifest = fromJSON (readFile "${home-llm-src}/custom_components/llama_conversation/manifest.json");
 in
   buildHomeAssistantComponent {
     owner = "acon96";
