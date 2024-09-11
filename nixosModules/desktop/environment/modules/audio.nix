@@ -12,6 +12,15 @@ in {
       jack.enable = true;
       pulse.enable = true;
       lowLatency.enable = true;
+
+      extraConfig.pipewire-pulse.combine-sink = {
+        "pulse.cmd" = [
+          {
+            cmd = "load-module";
+            args = "module-combine-sink";
+          }
+        ];
+      };
     };
   };
 
