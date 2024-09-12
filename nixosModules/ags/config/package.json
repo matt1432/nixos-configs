@@ -4,14 +4,15 @@
     "main": "config.js",
     "type": "module",
     "dependencies": {
-        "fzf": "0.5.2",
-        "@eslint/js": "9.8.0",
-        "@stylistic/eslint-plugin": "2.6.1",
+        "@eslint/js": "9.10.0",
+        "@stylistic/eslint-plugin": "2.8.0",
         "@types/eslint__js": "8.42.3",
-        "@types/node": "22.1.0",
-        "eslint": "9.8.0",
-        "eslint-plugin-jsdoc": "48.11.0",
-        "typescript": "5.5.4",
-        "typescript-eslint": "8.0.1"
+        "@types/node": "22.5.4",
+        "eslint": "9.10.0",
+        "eslint-plugin-jsdoc": "50.2.2",
+        "fzf": "0.5.2",
+        "jiti": "1.21.6",
+        "typescript": "5.6.2",
+        "typescript-eslint": "8.5.0"
     }
 }

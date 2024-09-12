@@ -1,5 +1,3 @@
-// TODO: switch to typescript https://github.com/eslint/eslint/pull/18134
-
 import eslint from '@eslint/js';
 import jsdoc from 'eslint-plugin-jsdoc';
 import stylistic from '@stylistic/eslint-plugin';

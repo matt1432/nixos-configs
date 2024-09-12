@@ -107,6 +107,9 @@ in
                     workingDirectory = {
                         mode = 'location',
                     },
+                    options = {
+                        flags = {'unstable_ts_config'},
+                    },
                 },
             });
 
