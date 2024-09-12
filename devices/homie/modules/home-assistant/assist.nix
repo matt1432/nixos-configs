@@ -16,21 +16,6 @@
         "wyoming"
       ];
 
-      customComponents = builtins.attrValues {
-        # Switched to HASS Ollama integration
-        # inherit (self.legacyPackages.${pkgs.system}.hass-components) home-llm;
-        # Home-llm prompt:
-        /*
-        You are 'Homie', a helpful AI Assistant that controls the devices in a house. Complete the following task as instructed.
-
-        The current time and date is {{ (as_timestamp(now()) | timestamp_custom("%I:%M %p on %A %B %d, %Y", "EST")) }}.
-
-        Services: {{ formatted_tools }}
-        Devices:
-        {{ formatted_devices }}
-        */
-      };
-
       config = {
         assist_pipeline = {};
         conversation = {};
@@ -48,12 +33,13 @@
         speaker = 0;
       };
 
-      openwakeword-docker = {
+      openwakeword = {
         enable = true;
-        uri = "127.0.0.1:10400";
+        uri = "tcp://127.0.0.1:10400";
+
+        threshold = 0.8;
 
         customModelsDirectories = ["${wakewords-src}/en/yo_homie"];
-        preloadModels = ["yo_homie"];
       };
     };
 
