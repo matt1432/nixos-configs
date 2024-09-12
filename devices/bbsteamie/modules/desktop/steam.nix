@@ -70,7 +70,7 @@ defaultSession: {
       pkgs.r2modman
       self.packages.${pkgs.system}.protonhax
 
-      # FIXME:Ryujinx ACNH crashes on OpenGL AND Vulkan
+      # FIXME: Ryujinx ACNH crashes on OpenGL AND Vulkan
       # https://github.com/Ryujinx/Ryujinx/issues/6993
       # https://github.com/Ryujinx/Ryujinx/issues/6708
       self.packages.${pkgs.system}.yuzu

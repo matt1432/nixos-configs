@@ -761,7 +761,9 @@
         "hyprlang": "hyprlang_2",
         "hyprutils": "hyprutils_2",
         "hyprwayland-scanner": "hyprwayland-scanner_2",
-        "nixpkgs": "nixpkgs",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
         "systems": [
           "systems"
         ]
@@ -1087,7 +1089,7 @@
       "inputs": {
         "flake-parts": "flake-parts_4",
         "nix-github-actions": "nix-github-actions_2",
-        "nixpkgs": "nixpkgs_3",
+        "nixpkgs": "nixpkgs_2",
         "treefmt-nix": "treefmt-nix_3"
       },
       "locked": {
@@ -1238,27 +1240,6 @@
         "type": "github"
       }
     },
-    "nix-melt": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1723516630,
-        "narHash": "sha256-M4Vbnjd0WKCGdT4929zDDHtxWwfEIKdRqzWA71IkQMQ=",
-        "owner": "bryango",
-        "repo": "nix-melt",
-        "rev": "5763489f6b163e62a63e3ef37f81b7bb4f2ce0b7",
-        "type": "github"
-      },
-      "original": {
-        "owner": "bryango",
-        "ref": "rust-1.80-fix-build",
-        "repo": "nix-melt",
-        "type": "github"
-      }
-    },
     "nix-on-droid": {
       "inputs": {
         "home-manager": [
@@ -1311,11 +1292,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1725103162,
-        "narHash": "sha256-Ym04C5+qovuQDYL/rKWSR+WESseQBbNAe5DsXNx5trY=",
+        "lastModified": 1725634671,
+        "narHash": "sha256-v3rIhsJBOMLR8e/RNWxr828tB+WywYIoajrZKFM+0Gg=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "12228ff1752d7b7624a54e9c1af4b222b3c1073b",
+        "rev": "574d1eac1c200690e27b8eb4e24887f8df7ac27c",
         "type": "github"
       },
       "original": {
@@ -1457,22 +1438,6 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1725634671,
-        "narHash": "sha256-v3rIhsJBOMLR8e/RNWxr828tB+WywYIoajrZKFM+0Gg=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "574d1eac1c200690e27b8eb4e24887f8df7ac27c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_3": {
-      "locked": {
         "lastModified": 1723221148,
         "narHash": "sha256-7pjpeQlZUNQ4eeVntytU3jkw9dFK3k1Htgk2iuXjaD8=",
         "owner": "NixOS",
@@ -1523,26 +1488,6 @@
         "owner": "rycee",
         "repo": "nmt",
         "type": "gitlab"
-      }
-    },
-    "nurl": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1717601522,
-        "narHash": "sha256-3S6pdNj+ui0fX1tBtWQlEYIuY3Uy3xiSzjfMxAjSlD8=",
-        "owner": "matt1432",
-        "repo": "nurl",
-        "rev": "d6b2a5d3ec5de4469d3fbff55aafd9b0d1e681bc",
-        "type": "github"
-      },
-      "original": {
-        "owner": "matt1432",
-        "repo": "nurl",
-        "type": "github"
       }
     },
     "nvim-theme-src": {
@@ -1723,12 +1668,10 @@
         "nix-fast-build": "nix-fast-build",
         "nix-gaming": "nix-gaming",
         "nix-index-db": "nix-index-db",
-        "nix-melt": "nix-melt",
         "nix-on-droid": "nix-on-droid",
         "nixd": "nixd",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs",
         "nixpkgs-wayland": "nixpkgs-wayland",
-        "nurl": "nurl",
         "nvim-theme-src": "nvim-theme-src",
         "pam-fprint-grosshack-src": "pam-fprint-grosshack-src",
         "pcsd": "pcsd",

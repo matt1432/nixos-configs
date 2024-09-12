@@ -3,8 +3,6 @@
   home-manager,
   lib,
   nh,
-  nix-melt,
-  nurl,
   pkgs,
   self,
   ...
@@ -29,7 +27,7 @@
   };
 
   nix = {
-    # FIXME: vulnerability with <= 2.24.5
+    # FIXME: wait for this to reach nixos-unstable https://pr-tracker.nelim.org/?pr=341007
     package = pkgs.nixVersions.nix_2_24.overrideAttrs (o: rec {
       version = "2.24.6";
 
@@ -97,27 +95,19 @@
     update-notifier = false
   '';
 
-  environment.systemPackages =
-    (builtins.attrValues {
-      # Peripherals
-      inherit
-        (pkgs)
-        hdparm
-        pciutils
-        usbutils
-        rar
-        ;
-    })
-    ++ [
-      nix-melt.packages.${pkgs.system}.default
+  environment.systemPackages = builtins.attrValues {
+    # Peripherals
+    inherit
+      (pkgs)
+      hdparm
+      pciutils
+      usbutils
+      rar
+      ;
+  };
 
-      (nurl.packages.${pkgs.system}.default.override {
-        nix = config.nix.package;
-      })
-    ];
-
-  home-manager = let
-    inherit (lib) mapAttrs' mkIf mkOption nameValuePair types;
+  home-manager.users = let
+    inherit (lib) mkIf mkOption types;
     inherit (config.vars) mainUser;
 
     default = {
@@ -141,20 +131,11 @@
         ./home/trash-d
       ];
 
-      # Cache devShells
-      home.file = mapAttrs' (n: v:
-        nameValuePair ".cache/devShells/${n}" {
-          source = v;
-        })
-      self.devShells.${pkgs.system};
-
       home.stateVersion = config.system.stateVersion;
     };
   in {
-    users = {
-      root = default;
-      greeter = mkIf (config.services.greetd.enable) default;
-      ${mainUser} = default;
-    };
+    root = default;
+    greeter = mkIf (config.services.greetd.enable) default;
+    ${mainUser} = default;
   };
 }

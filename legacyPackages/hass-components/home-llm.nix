@@ -15,7 +15,7 @@ in
 
     src = home-llm-src;
 
-    # FIXME: https://github.com/acon96/home-llm/issues/214
+    # FIXME: remove this on next release https://github.com/acon96/home-llm/issues/214
     postPatch = ''
       substituteInPlace ./custom_components/llama_conversation/manifest.json \
           --replace-warn "huggingface-hub==0.23.0" "huggingface-hub>=0.23.0"

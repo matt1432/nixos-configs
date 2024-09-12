@@ -9,11 +9,6 @@ let
       repo = "nix-fast-build";
     };
 
-    nurl = mkDep {
-      owner = "matt1432";
-      repo = "nurl";
-    };
-
     nix-index-db = mkDep {
       owner = "Mic92";
       repo = "nix-index-database";
@@ -22,14 +17,6 @@ let
     nh = mkDep {
       owner = "viperML";
       repo = "nh";
-    };
-
-    # FIXME: go back to upstream once fixed
-    nix-melt = mkDep {
-      # owner = "nix-community";
-      owner = "bryango";
-      repo = "nix-melt";
-      ref = "rust-1.80-fix-build";
     };
 
     # These are here to make sure all 'systems' are the same
@@ -140,8 +127,7 @@ let
         repo = "hyprgrass";
       };
 
-      # FIXME: use mkDep when it stops breaking
-      hyprpaper = mkInput {
+      hyprpaper = mkDep {
         owner = "hyprwm";
         repo = "hyprpaper";
       };

@@ -160,7 +160,10 @@
       type = "github";
     };
     hyprpaper = {
-      inputs.systems.follows = "systems";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
       owner = "hyprwm";
       repo = "hyprpaper";
       type = "github";
@@ -249,13 +252,6 @@
       repo = "nix-index-database";
       type = "github";
     };
-    nix-melt = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      owner = "bryango";
-      ref = "rust-1.80-fix-build";
-      repo = "nix-melt";
-      type = "github";
-    };
     nix-on-droid = {
       inputs = {
         home-manager.follows = "home-manager";
@@ -284,12 +280,6 @@
       };
       owner = "nix-community";
       repo = "nixpkgs-wayland";
-      type = "github";
-    };
-    nurl = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      owner = "matt1432";
-      repo = "nurl";
       type = "github";
     };
     nvim-theme-src = {
