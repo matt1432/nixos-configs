@@ -13,7 +13,7 @@
 
       {
         name = "mc";
-        host = "nos";
+        host = "servivi";
         authorizedKeys = [
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPijoxuSwH9IrS4poewzHHwe64UoX4QY7Qix5VhEdqKR root@servivi"
         ];
