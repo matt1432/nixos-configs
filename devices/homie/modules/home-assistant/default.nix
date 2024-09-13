@@ -1,9 +1,28 @@
-{...}: {
+{pkgs, ...}: {
   imports = [
     ./assist.nix
     ./bluetooth.nix
     ./firmware.nix
     ./frontend.nix
+  ];
+
+  environment.systemPackages = [
+    (pkgs.writeShellApplication {
+      name = "yaml2nix";
+      runtimeInputs = with pkgs; [yj];
+      text = ''
+        input="$(yj < "$1")"
+        output="''${2:-""}"
+
+        nixCode="$(nix eval --expr "builtins.fromJSON '''$input'''" --impure | alejandra -q | sed 's/ = null;/ = {};/g')"
+
+        if [[ "$output" != "" ]]; then
+            echo "$nixCode" > "$output"
+        else
+            echo "$nixCode"
+        fi
+      '';
+    })
   ];
 
   # TODO: some components / integrations / addons require manual interaction in the GUI, find way to make it all declarative
