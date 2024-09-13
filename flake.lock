@@ -72,23 +72,23 @@
         "type": "github"
       }
     },
-    "astal-tray": {
+    "astal": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1724413714,
-        "narHash": "sha256-P+iSzO/6Iwc13jq+WbtVkbYzi0x1Wm1SW9civBmpwCo=",
-        "owner": "astal-sh",
-        "repo": "tray",
-        "rev": "d26245409c124a769f4c1f4f25399735f8c80758",
+        "lastModified": 1726235189,
+        "narHash": "sha256-hXTLoJGKp7iMxg2B8GaUyO2JnpQ3Nevy0II6vY6kE74=",
+        "owner": "Aylur",
+        "repo": "astal",
+        "rev": "e9f9de6ba557de6a553f03de813af0fdbdbec047",
         "type": "github"
       },
       "original": {
-        "owner": "astal-sh",
-        "repo": "tray",
+        "owner": "Aylur",
+        "repo": "astal",
         "type": "github"
       }
     },
@@ -1630,7 +1630,7 @@
     "root": {
       "inputs": {
         "ags": "ags",
-        "astal-tray": "astal-tray",
+        "astal": "astal",
         "bat-theme-src": "bat-theme-src",
         "bazarr-bulk": "bazarr-bulk",
         "caddy-plugins": "caddy-plugins",

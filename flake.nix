@@ -10,10 +10,10 @@
       repo = "ags";
       type = "github";
     };
-    astal-tray = {
+    astal = {
       inputs.nixpkgs.follows = "nixpkgs";
-      owner = "astal-sh";
-      repo = "tray";
+      owner = "Aylur";
+      repo = "astal";
       type = "github";
     };
     bat-theme-src = {

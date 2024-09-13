@@ -149,9 +149,9 @@ let
         repo = "ags";
       };
 
-      astal-tray = mkDep {
-        owner = "astal-sh";
-        repo = "tray";
+      astal = mkDep {
+        owner = "Aylur";
+        repo = "astal";
       };
 
       gtk-session-lock = mkDep {

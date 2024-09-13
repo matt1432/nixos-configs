@@ -4,7 +4,7 @@ self: {
   pkgs,
   ...
 }: let
-  inherit (self.inputs) ags astal-tray gtk-session-lock ts-for-gir-src;
+  inherit (self.inputs) ags astal gtk-session-lock ts-for-gir-src;
 in {
   config = let
     inherit (lib) boolToString mkIf toLower;
@@ -15,7 +15,7 @@ in {
     flakeDir = config.environment.variables.FLAKE;
 
     # Packages
-    astalTray = astal-tray.packages.${pkgs.system}.tray;
+    astalTray = astal.packages.${pkgs.system}.tray;
     gtkSessionLock = gtk-session-lock.packages.${pkgs.system}.default;
   in
     mkIf cfgDesktop.ags.enable {
