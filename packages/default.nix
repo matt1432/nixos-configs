@@ -39,6 +39,4 @@
   trash-d = pkgs.callPackage ./trash-d {
     inherit (inputs) trash-d-src;
   };
-
-  yuzu = pkgs.callPackage ./yuzu {};
 }

@@ -14,4 +14,3 @@ This directory encompasses every derivations for packages exposed by my flake.
 | `protonhax`                    | [Github](https://github.com/jcnils/protonhax) |
 | `repl`                         | nix repl forked from [here](https://github.com/fufexan/dotfiles/blob/main/pkgs/repl/default.nix) |
 | `trash-d`                      | [Github](https://github.com/rushsteve1/trash-d) |
-| `yuzu`                         | Last working version of yuzu in nixpkgs |
