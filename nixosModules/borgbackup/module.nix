@@ -4,8 +4,8 @@
   pkgs,
   ...
 }: let
-  inherit (lib) all any attrValues length mapAttrs mkIf mkOption types;
-  inherit (builtins) listToAttrs removeAttrs;
+  inherit (lib) all any attrValues findSingle length mapAttrs mkIf mkOption types;
+  inherit (builtins) filter hasAttr listToAttrs removeAttrs;
 
   inherit (config.sops) secrets;
   inherit (config.vars) hostName;
@@ -182,6 +182,9 @@ in {
           name = mkOption {
             type = types.str;
           };
+          host = mkOption {
+            type = types.str;
+          };
           authorizedKeys = mkOption {
             type = types.listOf types.str;
             default = [];
@@ -206,20 +209,24 @@ in {
     ];
 
     services.borgbackup = let
-      backupDir = "/data/borgbackups";
+      backupDir = {
+        nos = "/data/borgbackups";
+        servivi = "/home/backups";
+      };
     in {
       repos =
-        mkIf (hostName == "nos" && length cfg.existingRepos > 0)
+        mkIf (length cfg.existingRepos > 0)
         (listToAttrs (map (r: {
             inherit (r) name;
             value = {
               authorizedKeysAppendOnly = r.authorizedKeys;
-              path = "${backupDir}/${r.name}";
+              path = "${backupDir.${hostName}}/${r.name}";
             };
           })
-          cfg.existingRepos));
+          (filter (x: x.host == hostName) cfg.existingRepos)));
 
       jobs = mapAttrs (n: v: let
+        existingRepo = findSingle (x: x.name == v.repo) null null cfg.existingRepos;
         otherAttrs = removeAttrs v [
           "environment"
           "paths"
@@ -233,7 +240,7 @@ in {
         {
           environment =
             v.environment
-            // (mkIf (hostName != "nos") {
+            // (mkIf (hasAttr "borg-ssh" secrets) {
               BORG_RSH = "ssh -o 'StrictHostKeyChecking=no' -i ${secrets.borg-ssh.path}";
             });
 
@@ -256,9 +263,9 @@ in {
             '';
 
           repo =
-            if (hostName != "nos")
-            then "ssh://borg@nos${backupDir}/${v.repo}"
-            else "${backupDir}/${v.repo}";
+            if (hostName != existingRepo.host)
+            then "ssh://borg@${existingRepo.host}${backupDir.${existingRepo.host}}/${v.repo}"
+            else "${backupDir.${existingRepo.host}}/${v.repo}";
         }
         // otherAttrs)
       cfg.configs;
