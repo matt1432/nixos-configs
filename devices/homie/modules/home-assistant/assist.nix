@@ -37,8 +37,6 @@
         enable = true;
         uri = "tcp://127.0.0.1:10400";
 
-        threshold = 0.8;
-
         customModelsDirectories = ["${wakewords-src}/en/yo_homie"];
       };
     };
