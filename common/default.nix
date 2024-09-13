@@ -37,6 +37,8 @@
         rev = version;
         hash = "sha256-kgq3B+olx62bzGD5C6ighdAoDweLq+AebxVHcDnKH4w=";
       };
+
+      meta = removeAttrs o.meta ["knownVulnerabilities"];
     });
 
     # Edit nix.conf

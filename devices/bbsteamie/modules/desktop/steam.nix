@@ -61,19 +61,16 @@ defaultSession: {
       };
     };
 
-    # Takes way too long to shutdown
-    systemd.services."decky-loader".serviceConfig.TimeoutStopSec = "5";
-
     # Misc Packages
     environment.systemPackages = [
       pkgs.steam-rom-manager
       pkgs.r2modman
+
       self.packages.${pkgs.system}.protonhax
 
-      # FIXME: Ryujinx ACNH crashes on OpenGL AND Vulkan
-      # https://github.com/Ryujinx/Ryujinx/issues/6993
+      # FIXME: Ryujinx ACNH crashes on Vulkan
       # https://github.com/Ryujinx/Ryujinx/issues/6708
-      self.packages.${pkgs.system}.yuzu
+      pkgs.ryujinx
     ];
   };
 
