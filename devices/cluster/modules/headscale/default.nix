@@ -25,6 +25,9 @@ in {
     package = headscale-flake;
   };
 
+  # Takes way too long to shutdown
+  systemd.services."headscale".serviceConfig.TimeoutStopSec = "5";
+
   environment.etc."headscale/config.yaml".source = mkForce (
     writeYAML "headscale.yaml" {
       server_url = "https://headscale.nelim.org";
