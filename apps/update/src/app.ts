@@ -1,4 +1,5 @@
 import { spawnSync } from 'node:child_process';
+import { writeFileSync } from 'node:fs';
 
 import { parseArgs } from './lib.ts';
 import { updateFirefoxAddons } from '././firefox.ts';
@@ -58,13 +59,20 @@ if (args['a'] || args['all']) {
         stdio: [process.stdin, process.stdout, process.stderr],
     });
 
-    console.log([
+    const output = [
         'chore: update flake.lock',
         `Flake Inputs:\n${flakeOutput}`,
         `Docker Images:\n${dockerOutput}`,
         `Firefox Addons:\n${firefoxOutput}`,
         `Misc Sources:\n${vuetorrentOutput}`,
-    ].join('\n\n'));
+    ].join('\n\n');
+
+    if (args['f']) {
+        writeFileSync(args['f'] as string, output);
+    }
+    else {
+        console.log(output);
+    }
 }
 
 spawnSync('alejandra', ['-q', FLAKE], { shell: true });
