@@ -38,16 +38,16 @@ in {
         startAfter = ["unbound"];
       };
 
-      "caddy" = {
+      "headscale" = {
         enable = true;
         group = "caddy-grp";
         startAfter = ["blocky"];
       };
 
-      "headscale" = {
+      "caddy" = {
         enable = true;
         group = "caddy-grp";
-        startAfter = ["caddy"];
+        startAfter = ["headscale"];
       };
     };
 
