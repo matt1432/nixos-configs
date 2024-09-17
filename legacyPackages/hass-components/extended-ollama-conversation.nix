@@ -1,15 +1,15 @@
 {
-  extended-openai-conversation-src,
+  extended-ollama-conversation-src,
   buildHomeAssistantComponent,
   fetchFromGitHub,
-  python312Packages,
+  python3Packages,
   ...
 }: let
   inherit (builtins) fromJSON readFile;
 
-  manifest = fromJSON (readFile "${extended-openai-conversation-src}/custom_components/extended_openai_conversation/manifest.json");
+  manifest = fromJSON (readFile "${extended-ollama-conversation-src}/custom_components/extended_ollama_conversation/manifest.json");
 
-  openai = python312Packages.openai.overrideAttrs (o: rec {
+  openai = python3Packages.openai.overrideAttrs (o: rec {
     version = "1.3.8";
 
     src = fetchFromGitHub {
@@ -23,11 +23,11 @@
   });
 in
   buildHomeAssistantComponent {
-    owner = "jekalmin";
+    owner = "TheNimaj";
 
     inherit (manifest) domain version;
 
-    src = extended-openai-conversation-src;
+    src = extended-ollama-conversation-src;
 
-    propagatedBuildInputs = [openai];
+    propagatedBuildInputs = [python3Packages.ollama openai];
   }

@@ -82,6 +82,7 @@
     "ibeacon"
     "led_ble"
     "kegtron"
+    "xiaomi_ble"
   ];
   services.mpd = {
     enable = true;

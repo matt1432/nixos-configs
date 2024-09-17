@@ -168,9 +168,9 @@ let
       repo = "home-llm";
     }
     {
-      name = "extended-openai-conversation-src";
-      owner = "jekalmin";
-      repo = "extended_openai_conversation";
+      name = "extended-ollama-conversation-src";
+      owner = "TheNimaj";
+      repo = "extended_ollama_conversation";
     }
 
     {

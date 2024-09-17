@@ -4,6 +4,7 @@
     ./bluetooth.nix
     ./firmware.nix
     ./frontend.nix
+    ./timer.nix
   ];
 
   environment.systemPackages = [
@@ -20,6 +21,23 @@
             echo "$nixCode" > "$output"
         else
             echo "$nixCode"
+        fi
+      '';
+    })
+
+    (pkgs.writeShellApplication {
+      name = "nix2yaml";
+      runtimeInputs = with pkgs; [remarshal];
+      text = ''
+        input="$1"
+        output="''${2:-""}"
+
+        yamlCode="$(nix eval --json --file "$input" | remarshal --if json --of yaml)"
+
+        if [[ "$output" != "" ]]; then
+            echo "$yamlCode" > "$output"
+        else
+            echo "$yamlCode"
         fi
       '';
     })

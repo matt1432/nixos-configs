@@ -233,19 +233,19 @@
         "type": "github"
       }
     },
-    "extended-openai-conversation-src": {
+    "extended-ollama-conversation-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1708531177,
-        "narHash": "sha256-BwBroYcPQX3pv4iFR1ynmC5xQRTVAFAsOGfDGyXkES4=",
-        "owner": "jekalmin",
-        "repo": "extended_openai_conversation",
-        "rev": "1b20b56e81e5e5067b72a2ba2c8f51dd0a73eef1",
+        "lastModified": 1722207930,
+        "narHash": "sha256-WF54xX9DF8QJf7kZtsDyCSZRR6ktm6gNpI7WqKSIjZY=",
+        "owner": "TheNimaj",
+        "repo": "extended_ollama_conversation",
+        "rev": "d8ea4190e75b9f8127cd55403e775dd47dd2b79b",
         "type": "github"
       },
       "original": {
-        "owner": "jekalmin",
-        "repo": "extended_openai_conversation",
+        "owner": "TheNimaj",
+        "repo": "extended_ollama_conversation",
         "type": "github"
       }
     },
@@ -1638,7 +1638,7 @@
         "dracul-ha-src": "dracul-ha-src",
         "dracula-plymouth-src": "dracula-plymouth-src",
         "eisa-scripts-src": "eisa-scripts-src",
-        "extended-openai-conversation-src": "extended-openai-conversation-src",
+        "extended-ollama-conversation-src": "extended-ollama-conversation-src",
         "firefox-gx-src": "firefox-gx-src",
         "flake-utils": "flake-utils",
         "flakegen": "flakegen",

@@ -1,4 +1,5 @@
 {
+  pkgs,
   self,
   wakewords-src,
   ...
@@ -10,10 +11,15 @@
 
   services = {
     home-assistant = {
+      customComponents = builtins.attrValues {
+        inherit (self.legacyPackages.${pkgs.system}.hass-components) extended-ollama-conversation;
+      };
+
       extraComponents = [
         "esphome"
         "ollama"
         "wyoming"
+        "scrape"
       ];
 
       config = {

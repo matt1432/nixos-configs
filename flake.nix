@@ -58,10 +58,10 @@
       repo = "mpv-scripts";
       type = "github";
     };
-    extended-openai-conversation-src = {
+    extended-ollama-conversation-src = {
       flake = false;
-      owner = "jekalmin";
-      repo = "extended_openai_conversation";
+      owner = "TheNimaj";
+      repo = "extended_ollama_conversation";
       type = "github";
     };
     firefox-gx-src = {
