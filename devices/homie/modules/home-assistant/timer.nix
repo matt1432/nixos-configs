@@ -320,7 +320,7 @@ in {
                     {
                       alias = "Single Timer";
                       condition = "template";
-                      value_template = ''{{ entity_id[:18] == 'timer.assist_timer' }}'';
+                      value_template = ''{{ entity_id[0][:18] == 'timer.assist_timer' }}'';
                     }
                   ];
 
@@ -394,7 +394,7 @@ in {
                     {
                       alias = "No specific Timer";
                       condition = "template";
-                      value_template = ''{{ entity_id == 'null' }}'';
+                      value_template = ''{{ entity_id == 'null' or entity_id | list | length == 0 }}'';
                     }
 
                     {
@@ -414,7 +414,7 @@ in {
                             {
                               alias = "No specific timer asked";
                               condition = "template";
-                              value_template = ''{{ entity_id == 'null' }}'';
+                              value_template = ''{{ entity_id == 'null' or entity_id | list | length == 0 }}'';
                             }
 
                             {
@@ -480,7 +480,7 @@ in {
                     {
                       alias = "All timers";
                       condition = "template";
-                      value_template = ''{{ entity_id == 'all' }}'';
+                      value_template = ''{{ entity_id[0] == 'all' }}'';
                     }
                   ];
 
@@ -698,7 +698,7 @@ in {
                     {
                       alias = "Single Timer";
                       condition = "template";
-                      value_template = ''{{ entity_id[:18] == 'timer.assist_timer' }}'';
+                      value_template = ''{{ entity_id[0][:18] == 'timer.assist_timer' }}'';
                     }
                   ];
 
@@ -724,13 +724,6 @@ in {
 
                       default = [
                         {
-                          alias = "Cancel single timer";
-                          service = "timer.cancel";
-
-                          target.entity_id = ''{{ entity_id }}'';
-                        }
-
-                        {
                           alias = "Reset timer location value";
                           service = "input_text.set_value";
 
@@ -740,6 +733,14 @@ in {
                             value = "0";
                           };
                         }
+
+                        {
+                          alias = "Cancel single timer";
+                          service = "timer.cancel";
+
+                          target.entity_id = ''{{ entity_id }}'';
+                        }
+
                         {stop = "Timer cancelled";}
                       ];
                     }
@@ -753,7 +754,7 @@ in {
                     {
                       alias = "No specific Timer";
                       condition = "template";
-                      value_template = ''{{ entity_id == 'null' }}'';
+                      value_template = ''{{ entity_id == 'null' or entity_id | list | length == 0 }}'';
                     }
 
                     {
@@ -773,7 +774,7 @@ in {
                             {
                               alias = "No specific timer asked";
                               condition = "template";
-                              value_template = ''{{ entity_id == 'null' }}'';
+                              value_template = ''{{ entity_id == 'null' or entity_id | list | length == 0 }}'';
                             }
 
                             {
@@ -820,7 +821,7 @@ in {
                     {
                       alias = "All timers";
                       condition = "template";
-                      value_template = ''{{ entity_id == 'all' }}'';
+                      value_template = ''{{ entity_id[0] == 'all' }}'';
                     }
                   ];
 

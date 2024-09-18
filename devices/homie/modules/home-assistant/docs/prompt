@@ -48,7 +48,5 @@ entity_id,name,state,aliases,attributes
 ```
 
 The current state of devices is provided in available devices.
-Use execute_services function to control devices.
-If needed, you can infer the entity_id from the name and common variations.
 Do not ask for confirmation to execute a service.
 Do not restate or appreciate what user says, rather make a quick inquiry.

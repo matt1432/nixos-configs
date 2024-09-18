@@ -1,67 +1,11 @@
-# I use nix2yaml from ../default.nix to convert to to YAML and place it in the functions of extended_ollama_conversation
-[
+# I use nix2yaml from ../default.nix to convert this to YAML and place it in the functions of extended_ollama_conversation
+let
+  inherit (builtins) concatStringsSep;
+in [
   {
-    function = {
-      name = "execute_service";
-      type = "native";
-    };
-
-    spec = {
-      name = "execute_services";
-      description = "Use this function to execute service of devices in Home Assistant.";
-
-      parameters = {
-        type = "object";
-
-        properties.list = {
-          type = "array";
-
-          items = {
-            type = "object";
-
-            properties = {
-              entity_id = {
-                description = "The entity_id retrieved from available devices. It must start with domain, followed by dot character.";
-                type = "string";
-              };
-
-              service = {
-                description = "The service to be called";
-                type = "string";
-              };
-            };
-
-            required = ["entity_id" "service"];
-          };
-        };
-      };
-    };
-  }
-
-  {
-    function = {
-      type = "script";
-
-      sequence = [
-        {
-          service = "script.assist_TimerStart";
-
-          data.duration = builtins.concatStringsSep "" [
-            ''{% if not hours %} {% set hours = "0" %} {% endif %}''
-            ''{% if not minutes %} {% set minutes = "0" %} {% endif %}''
-            ''{% if not seconds %} {% set seconds = "0" %} {% endif %}''
-
-            ''{{ hours | int(default=0) }}:{{ minutes | int(default=0) }}:{{ seconds | int(default=0) }}''
-          ];
-
-          target.entity_id = "timer.assist_timer1";
-        }
-      ];
-    };
-
     spec = {
       name = "timer_start";
-      description = "Use this function to start a timer in Home Assistant.";
+      description = "Use this function to start a timer in Home Assistant whose ID defaults to 1.";
 
       parameters = {
         type = "object";
@@ -86,5 +30,74 @@
         required = [];
       };
     };
+
+    function = {
+      type = "script";
+
+      sequence = [
+        {
+          service = "script.assist_timerstart";
+
+          # dummy ID that won't be used by the script
+          target.entity_id = "timer.assist_timer1";
+
+          data = {
+            duration = concatStringsSep "" [
+              ''{% if not hours %} {% set hours = "0" %} {% endif %}''
+              ''{% if not minutes %} {% set minutes = "0" %} {% endif %}''
+              ''{% if not seconds %} {% set seconds = "0" %} {% endif %}''
+
+              ''{{ hours | int(default=0) }}:{{ minutes | int(default=0) }}:{{ seconds | int(default=0) }}''
+            ];
+          };
+        }
+      ];
+    };
   }
+
+  {
+    spec = {
+      name = "timer_stop";
+      description = "Use this function to stop a timer in Home Assistant.";
+
+      parameters = {
+        type = "object";
+
+        properties = {
+          timer_number = {
+            type = "string";
+            description = "The number of the timer";
+            enum = ["1" "2" "3"];
+          };
+        };
+
+        required = ["timer_number"];
+      };
+    };
+
+    function = {
+      type = "script";
+
+      sequence = [
+        {
+          service = "script.assist_timerstop";
+          target.entity_id = ''{{ "timer.assist_timer" ~ timer_number }}'';
+        }
+      ];
+    };
+  }
+
+  /*
+  TimerPause:
+    async_action: true
+    action:
+      - service: script.assist_TimerPause
+        data:
+          entity_id: "{{ entity_id }}"
+          timer_action: "{{ timer_action }}"
+  TimerDuration:
+    async_action: true
+    action:
+      - stop: ""
+  */
 ]
