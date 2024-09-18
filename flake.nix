@@ -123,12 +123,6 @@
       rev = "022fb24cd92035470496d50d86bf8c9ee74b1e7e";
       type = "github";
     };
-    home-llm-src = {
-      flake = false;
-      owner = "acon96";
-      repo = "home-llm";
-      type = "github";
-    };
     home-manager = {
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "nix-community";

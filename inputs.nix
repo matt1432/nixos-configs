@@ -164,10 +164,6 @@ let
   srcs = [
     # Home-assistant
     {
-      owner = "acon96";
-      repo = "home-llm";
-    }
-    {
       name = "extended-ollama-conversation-src";
       owner = "TheNimaj";
       repo = "extended_ollama_conversation";
