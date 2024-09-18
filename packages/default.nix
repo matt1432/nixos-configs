@@ -14,6 +14,8 @@
     inherit (inputs) libratbag-src;
   };
 
+  librespot-auth = pkgs.callPackage ./librespot-auth {};
+
   pam-fprint-grosshack = pkgs.callPackage ./pam-fprint-grosshack {
     inherit (inputs) pam-fprint-grosshack-src;
   };

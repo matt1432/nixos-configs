@@ -61,7 +61,7 @@
         device_name = config.networking.hostName;
         device_type = "speaker";
 
-        zeroconf_port = 33797;
+        zeroconf_port = 33798;
         cache_path = cacheDir;
         username_cmd = "${lib.getExe pkgs.jq} -r .username ${cacheDir}/credentials.json";
 
