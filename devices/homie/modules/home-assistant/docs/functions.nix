@@ -5,6 +5,30 @@ let
 in [
   {
     spec = {
+      name = "get_attributes";
+      description = "Get attributes of any home assistant entity";
+      parameters = {
+        type = "object";
+
+        properties = {
+          entity_id = {
+            type = "string";
+            description = "entity_id";
+          };
+        };
+
+        required = ["entity_id"];
+      };
+    };
+
+    function = {
+      type = "template";
+      value_template = "{{ states[entity_id] }}";
+    };
+  }
+
+  {
+    spec = {
       name = "timer_start";
       description = "Use this function to start a timer in Home Assistant whose ID defaults to 1.";
 
