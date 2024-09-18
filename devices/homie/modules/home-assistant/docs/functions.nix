@@ -87,14 +87,81 @@ in [
     };
   }
 
+  {
+    spec = {
+      name = "timer_pause";
+      description = "Use this function to pause a timer in Home Assistant.";
+
+      parameters = {
+        type = "object";
+
+        properties = {
+          timer_number = {
+            type = "string";
+            description = "The number of the timer";
+            enum = ["1" "2" "3"];
+          };
+        };
+
+        required = ["timer_number"];
+      };
+    };
+
+    function = {
+      type = "script";
+
+      sequence = [
+        {
+          service = "script.assist_timerpause";
+
+          target.entity_id = ''{{ "timer.assist_timer" ~ timer_number }}'';
+
+          data = {
+            timer_action = "pause";
+          };
+        }
+      ];
+    };
+  }
+
+  {
+    spec = {
+      name = "timer_unpause";
+      description = "Use this function to unpause or resume a timer in Home Assistant.";
+
+      parameters = {
+        type = "object";
+
+        properties = {
+          timer_number = {
+            type = "string";
+            description = "The number of the timer";
+            enum = ["1" "2" "3"];
+          };
+        };
+
+        required = ["timer_number"];
+      };
+    };
+
+    function = {
+      type = "script";
+
+      sequence = [
+        {
+          service = "script.assist_timerpause";
+
+          target.entity_id = ''{{ "timer.assist_timer" ~ timer_number }}'';
+
+          data = {
+            timer_action = "resume";
+          };
+        }
+      ];
+    };
+  }
+
   /*
-  TimerPause:
-    async_action: true
-    action:
-      - service: script.assist_TimerPause
-        data:
-          entity_id: "{{ entity_id }}"
-          timer_action: "{{ timer_action }}"
   TimerDuration:
     async_action: true
     action:
