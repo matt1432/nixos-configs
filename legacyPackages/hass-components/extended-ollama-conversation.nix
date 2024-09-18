@@ -10,6 +10,7 @@
   manifest = fromJSON (readFile "${extended-ollama-conversation-src}/custom_components/extended_ollama_conversation/manifest.json");
 
   openai = python3Packages.openai.overrideAttrs (o: rec {
+    name = "${o.pname}-${version}";
     version = "1.3.8";
 
     src = fetchFromGitHub {

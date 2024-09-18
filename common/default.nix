@@ -27,19 +27,7 @@
   };
 
   nix = {
-    # FIXME: wait for this to reach nixos-unstable https://pr-tracker.nelim.org/?pr=341007
-    package = pkgs.nixVersions.nix_2_24.overrideAttrs (o: rec {
-      version = "2.24.6";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nix";
-        rev = version;
-        hash = "sha256-kgq3B+olx62bzGD5C6ighdAoDweLq+AebxVHcDnKH4w=";
-      };
-
-      meta = removeAttrs o.meta ["knownVulnerabilities"];
-    });
+    package = pkgs.nixVersions.nix_2_24;
 
     # Edit nix.conf
     settings = {
