@@ -34,6 +34,8 @@
   };
 
   services = {
+    upower.enable = true;
+
     mpd = {
       enable = true;
 
