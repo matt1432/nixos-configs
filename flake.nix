@@ -140,6 +140,7 @@
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
       };
+      rev = "b248d59713d99a8338d25f4765fd2f564069f98b";
       submodules = true;
       type = "git";
       url = "https://github.com/hyprwm/Hyprland";

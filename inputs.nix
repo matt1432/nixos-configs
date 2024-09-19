@@ -112,6 +112,10 @@ let
         type = "git";
         url = "https://github.com/hyprwm/Hyprland";
         submodules = true;
+        rev = "b248d59713d99a8338d25f4765fd2f564069f98b";
+
+        # FIXME: discord crashes https://github.com/hyprwm/Hyprland/issues/7846
+        # rev = "94140e886ea8c4ac34478d290c212f0f5454ab2e";
       };
 
       hyprland-plugins = mkHyprDep {
