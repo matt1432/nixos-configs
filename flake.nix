@@ -333,10 +333,28 @@
       repo = "sioyek";
       type = "github";
     };
+    smartinspect-src = {
+      flake = false;
+      owner = "thlucas1";
+      repo = "SmartInspectPython";
+      type = "github";
+    };
     sops-nix = {
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "Mic92";
       repo = "sops-nix";
+      type = "github";
+    };
+    spotifyplus-src = {
+      flake = false;
+      owner = "thlucas1";
+      repo = "homeassistantcomponent_spotifyplus";
+      type = "github";
+    };
+    spotifywebapi-src = {
+      flake = false;
+      owner = "thlucas1";
+      repo = "SpotifyWebApiPython";
       type = "github";
     };
     subsync = {

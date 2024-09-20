@@ -1665,7 +1665,10 @@
         "protonhax-src": "protonhax-src",
         "secrets": "secrets",
         "sioyek-theme-src": "sioyek-theme-src",
+        "smartinspect-src": "smartinspect-src",
         "sops-nix": "sops-nix",
+        "spotifyplus-src": "spotifyplus-src",
+        "spotifywebapi-src": "spotifywebapi-src",
         "subsync": "subsync",
         "systems": "systems",
         "trash-d-src": "trash-d-src",
@@ -1730,6 +1733,22 @@
         "type": "github"
       }
     },
+    "smartinspect-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1706895365,
+        "narHash": "sha256-pwqjbfe2J33QeRyrqAjU6SWBkJ9SRhdR7DmljsG7i78=",
+        "owner": "thlucas1",
+        "repo": "SmartInspectPython",
+        "rev": "d1e75880f04fe69b5726e0896f8277f26c98b108",
+        "type": "github"
+      },
+      "original": {
+        "owner": "thlucas1",
+        "repo": "SmartInspectPython",
+        "type": "github"
+      }
+    },
     "sops-nix": {
       "inputs": {
         "nixpkgs": [
@@ -1765,6 +1784,38 @@
         "owner": "cmusphinx",
         "repo": "sphinxbase",
         "rev": "617e53691889336a482631380f75b453445d0dae",
+        "type": "github"
+      }
+    },
+    "spotifyplus-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1726513051,
+        "narHash": "sha256-1Gqp9gtLOinxNcfPBMtbil0eaf60BaWXRuiga/z2eao=",
+        "owner": "thlucas1",
+        "repo": "homeassistantcomponent_spotifyplus",
+        "rev": "a51c5ed7f2a47ff9e54388dae4ccc2fbb4388693",
+        "type": "github"
+      },
+      "original": {
+        "owner": "thlucas1",
+        "repo": "homeassistantcomponent_spotifyplus",
+        "type": "github"
+      }
+    },
+    "spotifywebapi-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1726167421,
+        "narHash": "sha256-CK0ngtazmX0vIMmZtZBbuyIdEHG43OTTf9iDlXLldQ8=",
+        "owner": "thlucas1",
+        "repo": "SpotifyWebApiPython",
+        "rev": "fd231c75a0711ecd00ad33a14f87cfdad9e0b66c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "thlucas1",
+        "repo": "SpotifyWebApiPython",
         "type": "github"
       }
     },

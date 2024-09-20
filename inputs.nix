@@ -172,6 +172,21 @@ let
       owner = "TheNimaj";
       repo = "extended_ollama_conversation";
     }
+    {
+      name = "spotifyplus-src";
+      owner = "thlucas1";
+      repo = "homeassistantcomponent_spotifyplus";
+    }
+    {
+      name = "smartinspect-src";
+      owner = "thlucas1";
+      repo = "SmartInspectPython";
+    }
+    {
+      name = "spotifywebapi-src";
+      owner = "thlucas1";
+      repo = "SpotifyWebApiPython";
+    }
 
     {
       name = "wakewords-src";

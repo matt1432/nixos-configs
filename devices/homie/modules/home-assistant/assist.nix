@@ -12,7 +12,10 @@
   services = {
     home-assistant = {
       customComponents = builtins.attrValues {
-        inherit (self.legacyPackages.${pkgs.system}.hass-components) extended-ollama-conversation;
+        inherit
+          (self.legacyPackages.${pkgs.system}.hass-components)
+          extended-ollama-conversation
+          ;
       };
 
       extraComponents = [

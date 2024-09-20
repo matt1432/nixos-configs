@@ -53,6 +53,7 @@
       "isal"
       "met"
       "spotify"
+      "switchbot"
       "upnp"
       "yamaha_musiccast"
     ];
