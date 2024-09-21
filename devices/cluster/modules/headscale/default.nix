@@ -52,7 +52,7 @@ in {
       private_key_path = "/var/lib/headscale/private.key";
       noise.private_key_path = "/var/lib/headscale/noise_private.key";
 
-      dns_config = let
+      dns = let
         caddyIp =
           if hostName == "thingone"
           then "100.64.0.8"
@@ -60,7 +60,7 @@ in {
       in {
         magic_dns = false;
         override_local_dns = true;
-        nameservers = [caddyIp];
+        nameservers.global = [caddyIp];
       };
 
       log = {

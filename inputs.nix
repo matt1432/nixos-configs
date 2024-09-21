@@ -56,11 +56,12 @@ let
       repo = "nixos-pcsd";
     };
 
+    # FIXME: use nixpkgs once this reaches unstable
+    # https://github.com/NixOS/nixpkgs/pull/340054
     headscale = mkDep {
       owner = "juanfont";
       repo = "headscale";
-      # Keep at working rev while away from servers
-      rev = "022fb24cd92035470496d50d86bf8c9ee74b1e7e";
+      ref = "v0.23.0";
     };
 
     caddy-plugins = mkDep {
