@@ -140,7 +140,6 @@
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
       };
-      rev = "b248d59713d99a8338d25f4765fd2f564069f98b";
       submodules = true;
       type = "git";
       url = "https://github.com/hyprwm/Hyprland";
@@ -264,7 +263,7 @@
     };
     nixpkgs = {
       owner = "NixOS";
-      ref = "nixos-unstable-small";
+      ref = "nixos-unstable";
       repo = "nixpkgs";
       type = "github";
     };
