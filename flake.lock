@@ -3,11 +3,11 @@
     "Vencord-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1726053203,
-        "narHash": "sha256-h4M/g6RovRrlzudH267yIMEE6D3o8e9iiyn+l5o6AOg=",
+        "lastModified": 1726834576,
+        "narHash": "sha256-rLdUEdAvYy8SDgKWUanZgmMnJ6Dg2dO5tTpGTwlQCrU=",
         "owner": "Vendicated",
         "repo": "vencord",
-        "rev": "f27361f017330e8957b12b6eabcf4930ffcf7eb4",
+        "rev": "467157539c65d00b66bbd8d5cdc477d6951d6642",
         "type": "github"
       },
       "original": {
@@ -79,11 +79,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1726684282,
-        "narHash": "sha256-WGlDZRRDFGNLxegOBnsIMIxOuY1wfTCRo1d79pb/Lfo=",
+        "lastModified": 1726955409,
+        "narHash": "sha256-pu2ourufLyqabnf6XaDrb/jDo/6Dm3D2oOQXHMpUtwg=",
         "owner": "Aylur",
         "repo": "astal",
-        "rev": "36adb5a19bf0414c7bd3703f4c6244c44fb8e68e",
+        "rev": "5ae0a9ed1cba13242d12ffe2ad4848eac7dd8915",
         "type": "github"
       },
       "original": {
@@ -172,11 +172,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1726667154,
-        "narHash": "sha256-XrJnRYcyUW2w78typU6MS4+ZUxhnF+0eEJOj/dzn1Uo=",
+        "lastModified": 1726902399,
+        "narHash": "sha256-GsQqntRq3q3wdfJrThxhRB3Qi0uRQNQVmP4QLTUMHLU=",
         "owner": "matt1432",
         "repo": "discord-nightly-overlay",
-        "rev": "64c50d0adcd64c805c0f1adc6d881341007b1387",
+        "rev": "26645e5d3b3d3ffd53174c80ade053f4a46db362",
         "type": "github"
       },
       "original": {
@@ -431,11 +431,11 @@
     "gpu-screen-recorder-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1726671714,
-        "narHash": "sha256-PhlTPZjWtRsBsMxHHtm/Pb/QpJ7hUrJwGomuoGAMvnw=",
+        "lastModified": 1726950764,
+        "narHash": "sha256-DQ23F3+vISV22F+yheljpkZtuu3Cw+K8nv9J+YSSSu4=",
         "ref": "refs/heads/master",
-        "rev": "6e73e40bb16f3b34f39364314b67f4f41e46b9a8",
-        "revCount": 790,
+        "rev": "77364b77342fccbc1b249350338213e9c5cebae7",
+        "revCount": 804,
         "type": "git",
         "url": "https://repo.dec05eba.com/gpu-screen-recorder"
       },
@@ -534,11 +534,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1726611255,
-        "narHash": "sha256-/bxaYvIK6/d3zqpW26QFS0rqfd0cO4qreSNWvYLTl/w=",
+        "lastModified": 1726902823,
+        "narHash": "sha256-Gkc7pwTVLKj4HSvRt8tXNvosl8RS9hrBAEhOjAE0Tt4=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "d2493de5cd1da06b6a4c3e97f4e7d5dd791df457",
+        "rev": "14929f7089268481d86b83ed31ffd88713dcd415",
         "type": "github"
       },
       "original": {
@@ -895,11 +895,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1726630303,
-        "narHash": "sha256-6xF6AqSGl/fNXeliuXAIOnEb4tMTUXOl1Yr1v4hURxg=",
+        "lastModified": 1726902390,
+        "narHash": "sha256-ESAD6AkxsQdV/j5ZBcO4Vg94J7Xd0nfpiEZpJtwSEhg=",
         "owner": "Jovian-Experiments",
         "repo": "Jovian-NixOS",
-        "rev": "f7a1bb0db21db79dfbee6950220e2816330a08b1",
+        "rev": "faf4c746c068dd8e41b1fa5f18beeabd34d4064c",
         "type": "github"
       },
       "original": {
@@ -1078,11 +1078,11 @@
         "treefmt-nix": "treefmt-nix_3"
       },
       "locked": {
-        "lastModified": 1726529941,
-        "narHash": "sha256-jj7gvddyUQ3xnZxApiGv5xQaa75f1hYKFdtOfvtkcZ0=",
+        "lastModified": 1726859423,
+        "narHash": "sha256-7H4u29z/Qwi/KsXS3ucrvXr/gx2fqT48i8EpKMBpMvs=",
         "owner": "nix-community",
         "repo": "nix-eval-jobs",
-        "rev": "a7cdbbbd9a7755489267dfd1297c613c824a5920",
+        "rev": "6684d2074e3cde8a180ef87fac284d6f02ac16d0",
         "type": "github"
       },
       "original": {
@@ -1148,11 +1148,11 @@
         "umu": "umu"
       },
       "locked": {
-        "lastModified": 1726364380,
-        "narHash": "sha256-hICWlRKF1lOzRwTepJORe9hWYGkUVXJxKjTe5P5CSg0=",
+        "lastModified": 1726853411,
+        "narHash": "sha256-+R8HmKGNV2PKUTmCyLKQeDCCpUqur23ucKR63M2SWAQ=",
         "owner": "fufexan",
         "repo": "nix-gaming",
-        "rev": "3e51c9884bca93625ff1deca440e30c8d2f2e522",
+        "rev": "7ea77f2f1cd535c4d952128b349eca0b8a16d196",
         "type": "github"
       },
       "original": {
@@ -1262,11 +1262,11 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1726640797,
-        "narHash": "sha256-tuqkFa7ZxcGwU8gTbKO61oGMdTmG9CiaI+NiaOV7SCI=",
+        "lastModified": 1726707834,
+        "narHash": "sha256-1ZOtza9NBU/2t80IQc3TJFC+cEZhDUnvmg7f4pNeOi4=",
         "owner": "nix-community",
         "repo": "nixd",
-        "rev": "e2f0d908d6f2ee7bf72c620ed3c78817143b50ae",
+        "rev": "a47ac2c1ea2349bdf31a41a9df2522af60a5b6e5",
         "type": "github"
       },
       "original": {
@@ -1277,11 +1277,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1726658796,
-        "narHash": "sha256-SiiWCVg/W8i6jvpgQj3NNd3YtV+jfnn/t3Za7hfn1iE=",
+        "lastModified": 1726929174,
+        "narHash": "sha256-MbKM2df9xF9USr9uuOaB6p1s1ZzFzLZGIIifD3BTTWg=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "75ac2a58e988a346960938ab16cea903a3cb053a",
+        "rev": "eca2693230fe59318102f3726d2da305312c04a4",
         "type": "github"
       },
       "original": {
@@ -1408,11 +1408,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1726690818,
-        "narHash": "sha256-VCeS4+H3/BdIrMMJ7JeSdUw6VlCDM/7loDFS3SuHTuQ=",
+        "lastModified": 1726957911,
+        "narHash": "sha256-5IvPhLClfuWfMkb+xBPbTT1IDlF2XG2P5BgvDnwUkLI=",
         "owner": "nix-community",
         "repo": "nixpkgs-wayland",
-        "rev": "aaedb02a116f7f0456690ee090541b1a26018535",
+        "rev": "ff23ca197583acd3874d3fa3b610614ee4d2ab1f",
         "type": "github"
       },
       "original": {
@@ -1514,11 +1514,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1725433489,
-        "narHash": "sha256-M7PnBV1iJQb+1lmCTzgn2Lk2/FGxyxo8eKlAF3mXm5Q=",
+        "lastModified": 1726729491,
+        "narHash": "sha256-Z1gFmx0wfQIt0zLR3il7L+8uWP334j1G0NIMw4yU+Os=",
         "owner": "matt1432",
         "repo": "nixos-pcsd",
-        "rev": "82a158d116c0a772600fd0b28242ebf060a4bf6b",
+        "rev": "213d6cc9ab69f7f7c807db632b845ccb3db35258",
         "type": "github"
       },
       "original": {
@@ -1790,11 +1790,11 @@
     "spotifyplus-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1726513051,
-        "narHash": "sha256-1Gqp9gtLOinxNcfPBMtbil0eaf60BaWXRuiga/z2eao=",
+        "lastModified": 1726852413,
+        "narHash": "sha256-PaaWTHYd1TLu9m2iowfcRh5lFQPDD/PXVbjNuCQxi+s=",
         "owner": "thlucas1",
         "repo": "homeassistantcomponent_spotifyplus",
-        "rev": "a51c5ed7f2a47ff9e54388dae4ccc2fbb4388693",
+        "rev": "87851921b82eab602c50c041bb903806a531893b",
         "type": "github"
       },
       "original": {
@@ -1806,11 +1806,11 @@
     "spotifywebapi-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1726167421,
-        "narHash": "sha256-CK0ngtazmX0vIMmZtZBbuyIdEHG43OTTf9iDlXLldQ8=",
+        "lastModified": 1726849891,
+        "narHash": "sha256-X9xCkG+eNTEIPamJ42SRZTkj6xLZDyfbI4WKyXtN3ps=",
         "owner": "thlucas1",
         "repo": "SpotifyWebApiPython",
-        "rev": "fd231c75a0711ecd00ad33a14f87cfdad9e0b66c",
+        "rev": "3750e0e237867fe311672b8af23597993ba44fc6",
         "type": "github"
       },
       "original": {
@@ -1940,11 +1940,11 @@
     "ts-for-gir-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1725114558,
-        "narHash": "sha256-3B/hMCeFfI2pvG92tRsGu13ja82tudVH5Zuq/JgP/P8=",
+        "lastModified": 1726849391,
+        "narHash": "sha256-dL6J23pk6rPKhoPK5TjJIkFSizs71LsC03m5V5btpSw=",
         "owner": "gjsify",
         "repo": "ts-for-gir",
-        "rev": "f0f46a3218568ecc961afd7f0aaf8d667e9a513a",
+        "rev": "72ad9631e5fc26360d541712fc71c98560e92ce2",
         "type": "github"
       },
       "original": {
