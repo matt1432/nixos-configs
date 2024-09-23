@@ -26,7 +26,7 @@ in
       requests_oauthlib
       zeroconf
       smartinspect # overridden in this python3Packages
-      urllib3 # overridden in this python3Packages
+      urllib3
     ];
 
     pythonImportsCheck = [

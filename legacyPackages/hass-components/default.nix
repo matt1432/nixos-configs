@@ -9,21 +9,15 @@ pkgs.lib.makeScope pkgs.newScope (hass: let
 
       spotifywebapi = pkgs.callPackage ./spotifyplus/spotifywebapi.nix {
         inherit (inputs) spotifywebapi-src;
-        inherit smartinspect urllib3;
+        inherit smartinspect;
         python3Packages = spotPython3Packages;
       };
-
-      urllib3 = spotPython3Packages.callPackage ./spotifyplus/urllib3.nix {};
     };
   };
 
   buildHassComponent = file: extraArgs:
     hass.callPackage file (inputs // extraArgs // {});
 in {
-  extended-ollama-conversation = buildHassComponent ./extended-ollama-conversation {
-    openai = import ./extended-ollama-conversation/openai.nix pkgs;
-  };
-  spotifyplus = buildHassComponent ./spotifyplus {
-    python3Packages = spotPython3Packages;
-  };
+  extended-ollama-conversation = buildHassComponent ./extended-ollama-conversation {};
+  spotifyplus = buildHassComponent ./spotifyplus {python3Packages = spotPython3Packages;};
 })

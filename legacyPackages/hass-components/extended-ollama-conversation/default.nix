@@ -1,7 +1,6 @@
 {
   extended-ollama-conversation-src,
   buildHomeAssistantComponent,
-  openai,
   python3Packages,
   ...
 }: let
@@ -16,8 +15,13 @@ in
 
     src = extended-ollama-conversation-src;
 
-    propagatedBuildInputs = [
-      python3Packages.ollama
+    prePatch = ''
+      substituteInPlace ./custom_components/extended_ollama_conversation/manifest.json \
+          --replace-warn "openai~=1.3.8" "openai>=1.3.8"
+    '';
+
+    propagatedBuildInputs = with python3Packages; [
+      ollama
       openai
     ];
   }

@@ -15,6 +15,11 @@ in
 
     src = spotifyplus-src;
 
+    prePatch = ''
+      substituteInPlace ./custom_components/spotifyplus/manifest.json \
+          --replace-warn "urllib3>=1.21.1,<1.27" "urllib3>=1.21.1"
+    '';
+
     propagatedBuildInputs = with python3Packages; [
       oauthlib
       platformdirs
@@ -23,6 +28,6 @@ in
       zeroconf
       smartinspect # overridden in this python3Packages
       spotifywebapi # overridden in this python3Packages
-      urllib3 # overridden in this python3Packages
+      urllib3
     ];
   }
