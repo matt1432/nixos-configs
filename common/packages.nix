@@ -7,7 +7,6 @@ inputs @ {
     (map (i: inputs.${i}.overlays.default) [
       "discord-overlay"
       "grim-hyprland"
-      "jovian"
       "nixpkgs-wayland"
     ])
     ++ (builtins.attrValues {

@@ -5,6 +5,7 @@
   ...
 }: {
   nixpkgs.hostPlatform = "x86_64-linux";
+  nixpkgs.overlays = [jovian.overlays.default];
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
     jovian.nixosModules.default
