@@ -14,7 +14,7 @@ inputs: rec {
     };
 
   allowModularOverrides = {
-    cudaSupport,
+    cudaSupport ? false,
     system,
   }: ({config, ...}: let
     pkgs = mkPkgs {
@@ -43,26 +43,31 @@ inputs: rec {
         ++ extraModules;
     };
 
-  mkNixOnDroid = mods:
+  mkNixOnDroid = mods: let
+    system = "aarch64-linux";
+  in
     inputs.nix-on-droid.lib.nixOnDroidConfiguration rec {
       extraSpecialArgs = inputs;
       home-manager-path = inputs.home-manager.outPath;
-      inherit (extraSpecialArgs) pkgs;
+      pkgs = mkPkgs {
+        inherit system;
+        inherit (inputs) nixpkgs;
+      };
 
       modules =
         [
-          (allowModularOverrides {system = "aarch64-linux";})
+          (allowModularOverrides {inherit system;})
 
           ({
             config,
             lib,
             ...
           }: let
-            inherit (lib) mkOption types;
+            inherit (lib) mkForce mkOption types;
           in {
             # Adapt NixOnDroid to NixOS options
-            options.environment.variables = {
-              FLAKE = mkOption {
+            options.environment = {
+              variables.FLAKE = mkOption {
                 type = with types; nullOr str;
               };
               systemPackages = mkOption {
@@ -72,6 +77,8 @@ inputs: rec {
             };
 
             config.environment.packages = config.environment.systemPackages;
+            # This disables the assertion that fails because of nixpkgs.overlays
+            config._module.args.isFlake = mkForce false;
           })
 
           {home-manager = {inherit extraSpecialArgs;};}
