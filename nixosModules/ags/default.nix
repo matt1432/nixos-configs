@@ -104,7 +104,7 @@ in {
                   '';
 
                 "${agsConfigDir}/config/node_modules".source =
-                  buildNodeModules ./config "sha256-77AvDMxAtEJAFh8euStbTKLOQt6WQdgw+gjFeO5/fOA=";
+                  buildNodeModules ./config "sha256-Xv8p7XfUoEJIDf3/78MG6xLoUBSobjmjYwzno+YzP8o=";
               }
               // (import ./icons.nix {inherit pkgs agsConfigDir;})
             );
