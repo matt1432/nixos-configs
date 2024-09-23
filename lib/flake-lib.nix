@@ -11,34 +11,20 @@ inputs: rec {
         allowUnfree = true;
         inherit cudaSupport;
       };
-      overlays =
-        (map (i: inputs.${i}.overlays.default) [
-          "discord-overlay"
-          "grim-hyprland"
-          "jovian"
-          "nixpkgs-wayland"
-        ])
-        ++ (builtins.attrValues {
-          inherit
-            (inputs.self.overlays)
-            misc
-            xdg-desktop-portal-kde
-            ;
-        });
     };
 
-  # Function that makes the attrs that make up the specialArgs
-  mkArgs = {
+  allowModularOverrides = {
+    cudaSupport,
     system,
-    cudaSupport ? false,
-  }:
-    inputs
-    // {
-      pkgs = mkPkgs {
-        inherit system cudaSupport;
-        inherit (inputs) nixpkgs;
-      };
+  }: ({config, ...}: let
+    pkgs = mkPkgs {
+      inherit system cudaSupport;
+      inherit (inputs) nixpkgs;
     };
+    inherit (pkgs.lib) composeManyExtensions mkForce;
+  in {
+    _module.args.pkgs = mkForce (pkgs.extend (composeManyExtensions config.nixpkgs.overlays));
+  });
 
   # Default system
   mkNixOS = {
@@ -47,9 +33,10 @@ inputs: rec {
   }:
     inputs.nixpkgs.lib.nixosSystem rec {
       system = "x86_64-linux";
-      specialArgs = mkArgs {inherit system cudaSupport;};
+      specialArgs = inputs;
       modules =
         [
+          (allowModularOverrides {inherit system cudaSupport;})
           {home-manager.extraSpecialArgs = specialArgs;}
           ../common
         ]
@@ -58,27 +45,37 @@ inputs: rec {
 
   mkNixOnDroid = mods:
     inputs.nix-on-droid.lib.nixOnDroidConfiguration rec {
-      extraSpecialArgs = mkArgs {system = "aarch64-linux";};
+      extraSpecialArgs = inputs;
       home-manager-path = inputs.home-manager.outPath;
-      pkgs = extraSpecialArgs.pkgs;
+      inherit (extraSpecialArgs) pkgs;
 
-      modules = let
-        inherit (pkgs.lib) mkOption types;
-      in
+      modules =
         [
-          ({config, ...}: {
-            options = {
-              environment.variables.FLAKE = mkOption {
+          (allowModularOverrides {system = "aarch64-linux";})
+
+          ({
+            config,
+            lib,
+            ...
+          }: let
+            inherit (lib) mkOption types;
+          in {
+            # Adapt NixOnDroid to NixOS options
+            options.environment.variables = {
+              FLAKE = mkOption {
                 type = with types; nullOr str;
               };
-              environment.systemPackages = mkOption {
+              systemPackages = mkOption {
                 type = with types; listOf package;
                 default = [];
               };
             };
+
             config.environment.packages = config.environment.systemPackages;
           })
+
           {home-manager = {inherit extraSpecialArgs;};}
+
           ../common/nix-on-droid.nix
         ]
         ++ mods;
