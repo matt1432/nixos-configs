@@ -1,6 +1,6 @@
 let
-  inherit (import ./lib {}) lib mkDep mkInput mkHyprDep mkSrc;
-  inherit (lib) listToAttrs map removeAttrs;
+  inherit (import ./lib {}) mkDep mkInput mkHyprDep mkSrc;
+  inherit (builtins) listToAttrs map removeAttrs;
 
   # Inputs
   nixTools = {
@@ -148,6 +148,12 @@ let
       ags = mkDep {
         owner = "Aylur";
         repo = "ags";
+      };
+
+      agsV2 = mkDep {
+        owner = "Aylur";
+        repo = "ags";
+        ref = "v2";
       };
 
       astal = mkDep {

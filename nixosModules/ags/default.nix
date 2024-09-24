@@ -58,6 +58,8 @@ in {
             }
           ];
 
+          imports = [(import ./v2 self)];
+
           programs.ags = {
             enable = true;
             extraPackages = [

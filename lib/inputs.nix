@@ -1,5 +1,6 @@
 lib: lock: let
-  inherit (lib) attrValues findFirst foldl' hasAttr matchAttrs optionalAttrs recursiveUpdate removeAttrs;
+  inherit (lib) attrValues findFirst foldl' hasAttr matchAttrs optionalAttrs recursiveUpdate;
+  inherit (builtins) removeAttrs;
 
   recursiveUpdateList = list: foldl' recursiveUpdate {} list;
 in rec {

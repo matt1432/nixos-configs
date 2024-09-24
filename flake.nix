@@ -10,6 +10,13 @@
       repo = "ags";
       type = "github";
     };
+    agsV2 = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      owner = "Aylur";
+      ref = "v2";
+      repo = "ags";
+      type = "github";
+    };
     astal = {
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "Aylur";

@@ -39,6 +39,28 @@
         "type": "github"
       }
     },
+    "agsV2": {
+      "inputs": {
+        "astal": "astal",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1727026789,
+        "narHash": "sha256-5w8qABRVW88/IeczPdMS5G7amtwqm7p70Ws8qrWvSNE=",
+        "owner": "Aylur",
+        "repo": "ags",
+        "rev": "9c1b7ba011fed34e533820e1e39d3b70547da2a1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Aylur",
+        "ref": "v2",
+        "repo": "ags",
+        "type": "github"
+      }
+    },
     "aquamarine": {
       "inputs": {
         "hyprutils": [
@@ -73,6 +95,24 @@
       }
     },
     "astal": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1726616653,
+        "narHash": "sha256-1rxooSZUo75+1Ps0K4Aut6bx9QuHlfNnG2qUXFOBcqg=",
+        "owner": "aylur",
+        "repo": "astal",
+        "rev": "c37823ae42b38bed8aca06f78f3a4cb44eb41d5c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "aylur",
+        "repo": "astal",
+        "type": "github"
+      }
+    },
+    "astal_2": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
@@ -1073,7 +1113,7 @@
       "inputs": {
         "flake-parts": "flake-parts_4",
         "nix-github-actions": "nix-github-actions_2",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs_3",
         "treefmt-nix": "treefmt-nix_3"
       },
       "locked": {
@@ -1276,15 +1316,15 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1726755586,
-        "narHash": "sha256-PmUr/2GQGvFTIJ6/Tvsins7Q43KTMvMFhvG6oaYK+Wk=",
-        "owner": "NixOS",
+        "lastModified": 1716293225,
+        "narHash": "sha256-pU9ViBVE3XYb70xZx+jK6SEVphvt7xMTbm6yDIF4xPs=",
+        "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "c04d5652cfa9742b1d519688f65d1bbccea9eb7e",
+        "rev": "3eaeaeb6b1e08a016380c279f8846e0bd8808916",
         "type": "github"
       },
       "original": {
-        "owner": "NixOS",
+        "owner": "nixos",
         "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
@@ -1421,6 +1461,22 @@
       }
     },
     "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1726755586,
+        "narHash": "sha256-PmUr/2GQGvFTIJ6/Tvsins7Q43KTMvMFhvG6oaYK+Wk=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "c04d5652cfa9742b1d519688f65d1bbccea9eb7e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
       "locked": {
         "lastModified": 1723221148,
         "narHash": "sha256-7pjpeQlZUNQ4eeVntytU3jkw9dFK3k1Htgk2iuXjaD8=",
@@ -1614,7 +1670,8 @@
     "root": {
       "inputs": {
         "ags": "ags",
-        "astal": "astal",
+        "agsV2": "agsV2",
+        "astal": "astal_2",
         "bat-theme-src": "bat-theme-src",
         "bazarr-bulk": "bazarr-bulk",
         "caddy-plugins": "caddy-plugins",
@@ -1653,7 +1710,7 @@
         "nix-index-db": "nix-index-db",
         "nix-on-droid": "nix-on-droid",
         "nixd": "nixd",
-        "nixpkgs": "nixpkgs",
+        "nixpkgs": "nixpkgs_2",
         "nixpkgs-wayland": "nixpkgs-wayland",
         "nvim-theme-src": "nvim-theme-src",
         "pam-fprint-grosshack-src": "pam-fprint-grosshack-src",
