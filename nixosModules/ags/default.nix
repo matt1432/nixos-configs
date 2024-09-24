@@ -4,10 +4,10 @@ self: {
   pkgs,
   ...
 }: let
-  inherit (self.inputs) ags astal gtk-session-lock ts-for-gir-src;
+  inherit (self.inputs) ags astal gtk-session-lock;
 in {
   config = let
-    inherit (lib) boolToString mkIf toLower;
+    inherit (lib) boolToString mkIf;
 
     # Configs
     inherit (config.vars) hostName;
@@ -70,15 +70,11 @@ in {
 
           home = {
             file = let
-              inherit (import "${self}/lib" {inherit pkgs;}) buildNodeModules;
-
-              mkType = package: girName: {
-                "${agsConfigDir}/config/types/@girs/${toLower girName}".source =
-                  pkgs.callPackage
-                  ./mk-types {
-                    inherit ts-for-gir-src package girName;
-                  };
-              };
+              inherit
+                (import "${self}/lib" {inherit pkgs self;})
+                buildNodeModules
+                buildNodeTypes
+                ;
             in (
               {
                 # Generated types
@@ -87,8 +83,16 @@ in {
                   recursive = true; # To add other types inside the folder
                 };
               }
-              // (mkType gtkSessionLock "GtkSessionLock-0.1")
-              // (mkType astalTray "AstalTray-0.1")
+              // (buildNodeTypes {
+                pname = "gtk-session-lock";
+                configPath = "${agsConfigDir}/config/types/@girs";
+                packages = [gtkSessionLock];
+              })
+              // (buildNodeTypes {
+                pname = "astal-tray";
+                configPath = "${agsConfigDir}/config/types/@girs";
+                packages = [astalTray];
+              })
               // {
                 # Out of store symlinks
                 ".config/ags".source = mkOutOfStoreSymlink "${flakeDir}/nixosModules/ags/config";

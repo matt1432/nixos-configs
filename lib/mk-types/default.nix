@@ -1,13 +1,16 @@
 {
-  package,
-  girName,
+  lib,
+  pname,
+  withGirNames,
   buildNpmPackage,
   ts-for-gir-src,
   ...
-}:
+}: let
+  inherit (lib) concatMapStringsSep;
+in
 buildNpmPackage {
-  pname = "${package.pname}-types";
-  inherit (package) version;
+  pname = "${pname}-types";
+  version = "0.0.0";
 
   npmDepsHash = "sha256-8De8tRUKzRhD1jyx0anYNPMhxZyIr2nI45HdK6nb8jI=";
 
@@ -15,8 +18,8 @@ buildNpmPackage {
   dontNpmBuild = true;
 
   buildPhase = ''
-    npx @ts-for-gir/cli generate ${girName} \
-        -g ${package.dev}/share/gir-1.0 \
+    npx @ts-for-gir/cli generate ${concatMapStringsSep " " (p: p.girName) withGirNames} \
+        ${concatMapStringsSep "\n" (p: "-g ${p.package.dev}/share/gir-1.0 \\") withGirNames}
         -g ${ts-for-gir-src}/girs \
         --ignoreVersionConflicts \
         --package \
