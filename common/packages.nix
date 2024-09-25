@@ -12,7 +12,6 @@ inputs @ {
     ++ (builtins.attrValues {
       inherit
         (self.overlays)
-        misc
         xdg-desktop-portal-kde
         ;
     });

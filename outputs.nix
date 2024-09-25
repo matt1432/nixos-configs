@@ -72,7 +72,7 @@
         ];
       };
       binto = mkNixOS {
-        # FIXME: https://github.com/NixOS/nixpkgs/issues/338315
+        # FIXME: https://pr-tracker.nelim.org/?pr=339619
         # cudaSupport = true;
         extraModules = [./devices/binto];
       };
@@ -81,7 +81,7 @@
 
       # NAS
       nos = mkNixOS {
-        # FIXME: https://github.com/NixOS/nixpkgs/issues/338315
+        # FIXME: https://pr-tracker.nelim.org/?pr=339619
         # cudaSupport = true;
         extraModules = [
           ./devices/nos

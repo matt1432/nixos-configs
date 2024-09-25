@@ -84,4 +84,14 @@
   environment.etc."spotifyd/credentials.json" = {
     source = config.sops.secrets.spotifyd.path;
   };
+
+  nixpkgs.overlays = [
+    (final: prev: {
+      # FIXME: remove this if https://github.com/NixOS/nixpkgs/pull/342913 is merged
+      spotifyd = prev.spotifyd.override {
+        withMpris = false;
+        withKeyring = false;
+      };
+    })
+  ];
 }

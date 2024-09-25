@@ -18,4 +18,4 @@ in
   {inherit lib mkVersion capitalise;}
   // (import ./inputs.nix lib lock)
   // optionalAttrs (inputs != {}) (import ./flake-lib.nix inputs)
-  // optionalAttrs (pkgs != {}) (import ./pkgs.nix pkgs mkVersion capitalise self)
+  // optionalAttrs (pkgs != {}) (import ./pkgs.nix {inherit pkgs mkVersion capitalise self;})

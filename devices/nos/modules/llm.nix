@@ -6,6 +6,16 @@ in {
   # In case tailscale is down
   boot.kernel.sysctl."net.ipv4.ip_nonlocal_bind" = 1;
 
+  nixpkgs.overlays = [
+    # We can get rid of this once full CUDA support works
+    (final: prev: {
+      ctranslate2 = prev.ctranslate2.override {
+        withCUDA = true;
+        withCuDNN = true;
+      };
+    })
+  ];
+
   services = {
     # Speech-to-Text
     wyoming.faster-whisper.servers."en" = {

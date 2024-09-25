@@ -1,4 +1,9 @@
-pkgs: mkVersion: capitalise: self: {
+{
+  capitalise,
+  mkVersion,
+  pkgs,
+  self,
+}: {
   buildPlugin = pname: src:
     pkgs.vimUtils.buildVimPlugin {
       inherit pname src;

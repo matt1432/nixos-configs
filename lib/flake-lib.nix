@@ -13,6 +13,7 @@ inputs: rec {
       };
     };
 
+  # Enable use of `nixpkgs.overlays` on both NixOS and NixOnDroid
   allowModularOverrides = {
     cudaSupport ? false,
     system,
@@ -77,6 +78,7 @@ inputs: rec {
             };
 
             config.environment.packages = config.environment.systemPackages;
+
             # This disables the assertion that fails because of nixpkgs.overlays
             config._module.args.isFlake = mkForce false;
           })

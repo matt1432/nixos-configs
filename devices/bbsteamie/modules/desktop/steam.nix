@@ -68,8 +68,7 @@ defaultSession: {
 
       self.packages.${pkgs.system}.protonhax
 
-      # FIXME: Ryujinx ACNH crashes on Vulkan
-      # https://github.com/Ryujinx/Ryujinx/issues/6708
+      # FIXME: Ryujinx ACNH crashes on Vulkan https://github.com/Ryujinx/Ryujinx/issues/6708
       pkgs.ryujinx
     ];
   };
