@@ -53,7 +53,11 @@ in {
     inherit hostName;
     networkmanager = {
       enable = true;
-      wifi.backend = "wpa_supplicant";
+
+      wifi = {
+        backend = "wpa_supplicant";
+        scanRandMacAddress = false;
+      };
     };
     firewall.enable = false;
   };
