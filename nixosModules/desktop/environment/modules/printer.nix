@@ -5,9 +5,13 @@
       printing = {
         enable = true;
 
-        drivers = [
-          pkgs.hplip
-        ];
+        drivers = builtins.attrValues {
+          inherit
+            (pkgs)
+            hplip
+            samsung-unified-linux-driver
+            ;
+        };
       };
     };
   };
