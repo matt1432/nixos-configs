@@ -33,7 +33,6 @@
 
         i=0
 
-        # FIXME: not sure if sudo passes the exit status to this
         while ! run "''${SIGS[$i]}"; do
             ((i+=1))
         done
