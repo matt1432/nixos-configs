@@ -14,6 +14,7 @@
   pipewire,
   pkg-config,
   stdenv,
+  vulkan-headers,
   wayland,
   xorg,
   ...
@@ -47,6 +48,7 @@ in
       wayland
       libdrm
       libva
+      vulkan-headers
       xorg.libXcomposite
       xorg.libXdamage
       xorg.libXi
