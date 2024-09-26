@@ -9,7 +9,7 @@ export const get_hyprland_monitor = (monitor: Gdk.Monitor): AstalHyprland.Monito
     const model = monitor.model?.replace(',', '');
     const start = `${manufacturer} ${model}`;
 
-    return Hyprland.monitors.find((m) => m.description?.startsWith(start));
+    return Hyprland.get_monitors().find((m) => m.description?.startsWith(start));
 };
 
 export const get_hyprland_monitor_desc = (monitor: Gdk.Monitor): string => {
@@ -17,7 +17,7 @@ export const get_hyprland_monitor_desc = (monitor: Gdk.Monitor): string => {
     const model = monitor.model?.replace(',', '');
     const start = `${manufacturer} ${model}`;
 
-    return `desc:${Hyprland.monitors.find((m) => m.description?.startsWith(start))?.description}`;
+    return `desc:${Hyprland.get_monitors().find((m) => m.description?.startsWith(start))?.description}`;
 };
 
 export const get_gdkmonitor_from_desc = (desc: string): Gdk.Monitor => {
