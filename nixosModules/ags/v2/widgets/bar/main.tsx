@@ -1,4 +1,4 @@
-import { App, Astal, Gtk, idle, Variable } from 'astal';
+import { Astal, bind, Gtk, idle, Variable } from 'astal';
 
 import FullscreenState from './fullscreen';
 
@@ -18,13 +18,12 @@ export default () => {
                 Astal.WindowAnchor.LEFT |
                 Astal.WindowAnchor.RIGHT
             }
-            application={App}
             setup={() => idle(() => {
                 isVisible.set(true);
             })}
         >
             <revealer
-                revealChild={isVisible()}
+                revealChild={bind(isVisible)}
                 transitionType={Gtk.RevealerTransitionType.SLIDE_DOWN}
                 transitionDuration={500}
             >
