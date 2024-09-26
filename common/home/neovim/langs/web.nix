@@ -34,7 +34,7 @@ in
           # lua
           ''
             vim.api.nvim_create_autocmd('FileType', {
-                pattern = { 'javascript', 'typescript', 'css', 'scss' },
+                pattern = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx', 'css', 'scss' },
                 command = 'setlocal ts=4 sw=4 sts=0 expandtab',
             });
 

@@ -1,6 +1,11 @@
 import { App, Astal, Gtk, idle, Variable } from 'astal';
 
+import FullscreenState from './fullscreen';
 
+
+FullscreenState.subscribe((v) => {
+    console.log(v);
+});
 const isVisible = Variable<boolean>(false);
 
 export default () => {
