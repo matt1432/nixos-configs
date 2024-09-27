@@ -112,7 +112,6 @@ export default ({
     const vertical = anchor >= (Astal.WindowAnchor.LEFT | Astal.WindowAnchor.RIGHT);
     const isBottomOrLeft = (
         anchor === (Astal.WindowAnchor.LEFT | Astal.WindowAnchor.RIGHT | Astal.WindowAnchor.BOTTOM)
-
     ) || (
         anchor === (Astal.WindowAnchor.LEFT | Astal.WindowAnchor.TOP | Astal.WindowAnchor.BOTTOM)
     );
@@ -158,8 +157,8 @@ export default ({
             >
                 <box
                     css="min-height: 1px; padding: 1px;"
-                    hexpand={true}
-                    hpack="fill"
+                    hexpand
+                    halign={Gtk.Align.FILL}
                     vertical={vertical}
                 >
                     {isBottomOrLeft ?

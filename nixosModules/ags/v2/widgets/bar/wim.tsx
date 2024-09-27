@@ -1,5 +1,7 @@
 import { Astal } from 'astal';
 
+import Battery from './items/battery';
+
 import BarRevealer from './fullscreen';
 
 
@@ -16,7 +18,7 @@ export default () => {
             <box
                 className="Bar"
             >
-                <label label="hi" />
+                <Battery />
             </box>
         </BarRevealer>
     );
