@@ -1,6 +1,6 @@
 import { App } from 'astal';
 
-import style from 'inline:./style.scss';
+import style from './style.scss';
 
 import Bar from './widgets/bar/wim';
 

@@ -15,9 +15,7 @@ export default () => {
                 Astal.WindowAnchor.RIGHT
             }
         >
-            <box
-                className="Bar"
-            >
+            <box className="bar widget">
                 <Battery />
             </box>
         </BarRevealer>

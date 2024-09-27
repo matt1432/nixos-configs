@@ -10,22 +10,23 @@ const LOW_BATT = 20;
 const SPACING = 5;
 
 export default () => (
-    <box className="toggle-off battery">
+    <box className="bar-item battery">
         <icon
-            class_name="battery-indicator"
             icon={bind(Battery, 'batteryIconName')}
 
             setup={(self: Widget.Icon) => {
                 Battery.connect('notify::percentage', () => {
+                    const percent = Math.round(Battery.get_percentage() * 100);
+
                     self.toggleClassName('charging', Battery.get_charging());
-                    self.toggleClassName('charged', Battery.get_percentage() === 100);
-                    self.toggleClassName('low', Battery.get_percentage() < LOW_BATT);
+                    self.toggleClassName('charged', percent === 100);
+                    self.toggleClassName('low', percent < LOW_BATT);
                 });
             }}
         />
 
         <Separator size={SPACING} />
 
-        <label label={bind(Battery, 'percentage').as((v) => `${v}%`)} />
+        <label label={bind(Battery, 'percentage').as((v) => `${Math.round(v * 100)}%`)} />
     </box>
 );
