@@ -78,6 +78,19 @@ in {
               '';
           }
 
+          {
+            plugin = pkgs.vimPlugins.nvim-highlight-colors;
+            type = "lua";
+            config =
+              # lua
+              ''
+                -- Ensure termguicolors is enabled if not already
+                vim.opt.termguicolors = true;
+
+                require('nvim-highlight-colors').setup({});
+              '';
+          }
+
           # Deps of heirline config
           pkgs.vimPlugins.nvim-web-devicons
           {
