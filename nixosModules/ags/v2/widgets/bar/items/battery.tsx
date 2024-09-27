@@ -12,16 +12,28 @@ const SPACING = 5;
 export default () => (
     <box className="bar-item battery">
         <icon
-            icon={bind(Battery, 'batteryIconName')}
-
             setup={(self: Widget.Icon) => {
-                Battery.connect('notify::percentage', () => {
+                const update = () => {
                     const percent = Math.round(Battery.get_percentage() * 100);
+                    const level = Math.floor(percent / 10) * 10;
+                    const isCharging = Battery.get_charging();
+                    const charged = percent === 100 && isCharging;
+                    const iconName = charged ?
+                        'battery-level-100-charged-symbolic' :
+                        `battery-level-${level}${isCharging ?
+                            '-charging' :
+                            ''}-symbolic`;
 
-                    self.toggleClassName('charging', Battery.get_charging());
-                    self.toggleClassName('charged', percent === 100);
+                    self.set_icon(iconName);
+
+                    self.toggleClassName('charging', isCharging);
+                    self.toggleClassName('charged', charged);
                     self.toggleClassName('low', percent < LOW_BATT);
-                });
+                };
+
+                update();
+
+                Battery.connect('notify::percentage', () => update());
             }}
         />
 

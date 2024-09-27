@@ -1,4 +1,4 @@
-import { Astal } from 'astal';
+import { Astal, Gtk } from 'astal';
 
 import Battery from './items/battery';
 
@@ -15,9 +15,17 @@ export default () => {
                 Astal.WindowAnchor.RIGHT
             }
         >
-            <box className="bar widget">
-                <Battery />
-            </box>
+            <centerbox className="bar widget">
+                <box hexpand halign={Gtk.Align.START}>
+                </box>
+
+                <box>
+                </box>
+
+                <box hexpand halign={Gtk.Align.END}>
+                    <Battery />
+                </box>
+            </centerbox>
         </BarRevealer>
     );
 };
