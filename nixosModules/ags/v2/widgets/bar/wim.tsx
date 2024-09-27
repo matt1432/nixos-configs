@@ -1,8 +1,10 @@
 import { Astal, Gtk } from 'astal';
 
 import Battery from './items/battery';
+import CurrentClient from './items/current-client';
 
 import BarRevealer from './fullscreen';
+import Separator from '../misc/separator';
 
 
 export default () => {
@@ -15,8 +17,10 @@ export default () => {
                 Astal.WindowAnchor.RIGHT
             }
         >
+
             <centerbox className="bar widget">
                 <box hexpand halign={Gtk.Align.START}>
+                    <CurrentClient />
                 </box>
 
                 <box>
@@ -24,8 +28,11 @@ export default () => {
 
                 <box hexpand halign={Gtk.Align.END}>
                     <Battery />
+
+                    <Separator size={2} />
                 </box>
             </centerbox>
+
         </BarRevealer>
     );
 };

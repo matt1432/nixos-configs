@@ -1,6 +1,6 @@
 import { Astal, bind, Gdk, Gtk, Variable, Widget } from 'astal';
-import AstalHyprland from 'gi://AstalHyprland?version=0.1';
 
+import AstalHyprland from 'gi://AstalHyprland?version=0.1';
 const Hyprland = AstalHyprland.get_default();
 
 import { get_hyprland_monitor_desc, get_monitor_desc } from '../../lib';

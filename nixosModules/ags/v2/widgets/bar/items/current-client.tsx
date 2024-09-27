@@ -1,0 +1,48 @@
+import { bind, Widget } from 'astal';
+
+import Pango from 'gi://Pango?version=1.0';
+
+import AstalApps from 'gi://AstalApps?version=0.1';
+const Applications = AstalApps.Apps.new();
+
+import AstalHyprland from 'gi://AstalHyprland?version=0.1';
+const Hyprland = AstalHyprland.get_default();
+
+import Separator from '../../misc/separator';
+
+
+const SPACING = 8;
+
+export default () => {
+    const focused = bind(Hyprland, 'focusedClient');
+
+    return (
+        <box
+            className="bar-item current-window"
+            visible={focused.as(Boolean)}
+        >
+            <icon
+                css="font-size: 32px;"
+                setup={(self: Widget.Icon) => {
+                    self.hook(Hyprland, 'notify::focused-client', () => {
+                        const app = Applications.query(
+                            Hyprland.get_focused_client().get_class(),
+                            false,
+                        )[0];
+
+                        self.set_icon(app.iconName ?? '');
+                    });
+                }}
+            />
+
+            <Separator size={SPACING} />
+
+            {focused.as((client) => (client && (
+                <label
+                    label={bind(client, 'title').as(String)}
+                    truncate={Pango.EllipsizeMode.END}
+                />
+            )))}
+        </box>
+    );
+};

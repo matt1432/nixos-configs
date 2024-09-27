@@ -7,7 +7,7 @@ import Separator from '../../misc/separator';
 
 
 const LOW_BATT = 20;
-const SPACING = 5;
+const SPACING = 8;
 
 export default () => (
     <box className="bar-item battery">
