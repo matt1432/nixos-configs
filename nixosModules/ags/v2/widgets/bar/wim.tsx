@@ -3,6 +3,7 @@ import { Astal, Gtk } from 'astal';
 import Battery from './items/battery';
 import Clock from './items/clock';
 import CurrentClient from './items/current-client';
+import Workspaces from './items/workspaces';
 
 import BarRevealer from './fullscreen';
 import Separator from '../misc/separator';
@@ -20,6 +21,10 @@ export default () => (
 
         <centerbox className="bar widget">
             <box hexpand halign={Gtk.Align.START}>
+                <Workspaces />
+
+                <Separator size={8} />
+
                 <CurrentClient />
             </box>
 

@@ -12,7 +12,7 @@ in
     pname = "${pname}-types";
     version = "0.0.0";
 
-    npmDepsHash = "sha256-8De8tRUKzRhD1jyx0anYNPMhxZyIr2nI45HdK6nb8jI=";
+    npmDepsHash = "sha256-3ll4Xd5F8ZH/7q/gOF0jgerM6QRk71d93XIwtDssfxU=";
 
     src = ./.;
     dontNpmBuild = true;
@@ -22,8 +22,7 @@ in
           ${concatMapStringsSep "\n" (p: "-g ${p.package.dev}/share/gir-1.0 \\") withGirNames}
           -g ${ts-for-gir-src}/girs \
           --ignoreVersionConflicts \
-          --package \
-          -e gjs -o ./types
+          -o ./types
     '';
 
     installPhase = ''

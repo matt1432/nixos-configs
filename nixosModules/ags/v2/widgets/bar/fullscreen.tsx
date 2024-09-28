@@ -51,7 +51,10 @@ export default ({
     gdkmonitor = Gdk.Display.get_default()?.get_monitor(0) as Gdk.Monitor,
     child,
     ...rest
-}: Widget.WindowProps) => {
+}: {
+    anchor: Astal.WindowAnchor
+    gdkmonitor?: Gdk.Monitor
+} & Widget.WindowProps) => {
     const monitor = get_hyprland_monitor_desc(gdkmonitor);
     const BarVisible = Variable(true);
 
@@ -143,7 +146,6 @@ export default ({
             name={`bar-${monitor}`}
             layer={Astal.Layer.OVERLAY}
             gdkmonitor={gdkmonitor}
-            margins={[-1, -1, -1, -1]}
             anchor={anchor}
             {...rest}
         >

@@ -1,4 +1,4 @@
-import { bind, Widget } from 'astal';
+import { bind } from 'astal';
 
 import AstalBattery from 'gi://AstalBattery';
 const Battery = AstalBattery.get_default();
@@ -7,12 +7,11 @@ import Separator from '../../misc/separator';
 
 
 const LOW_BATT = 20;
-const SPACING = 8;
 
 export default () => (
     <box className="bar-item battery">
         <icon
-            setup={(self: Widget.Icon) => {
+            setup={(self) => {
                 const update = () => {
                     const percent = Math.round(Battery.get_percentage() * 100);
                     const level = Math.floor(percent / 10) * 10;
@@ -37,7 +36,7 @@ export default () => (
             }}
         />
 
-        <Separator size={SPACING} />
+        <Separator size={8} />
 
         <label label={bind(Battery, 'percentage').as((v) => `${Math.round(v * 100)}%`)} />
     </box>
