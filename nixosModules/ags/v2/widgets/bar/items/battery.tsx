@@ -33,6 +33,8 @@ export default () => (
                 update();
 
                 Battery.connect('notify::percentage', () => update());
+                Battery.connect('notify::icon-name', () => update());
+                Battery.connect('notify::battery-icon-name', () => update());
             }}
         />
 
