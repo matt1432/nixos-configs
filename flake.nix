@@ -1,5 +1,4 @@
 # Do not modify! This file is generated.
-
 {
   inputs = {
     ags = {
@@ -12,7 +11,10 @@
       type = "github";
     };
     agsV2 = {
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        astal.follows = "astal";
+        nixpkgs.follows = "nixpkgs";
+      };
       owner = "Aylur";
       ref = "v2";
       repo = "ags";
@@ -77,6 +79,12 @@
       owner = "Godiesc";
       ref = "v.9.5";
       repo = "firefox-gx";
+      type = "github";
+    };
+    flake-parts = {
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+      owner = "hercules-ci";
+      repo = "flake-parts";
       type = "github";
     };
     flake-utils = {
@@ -148,9 +156,9 @@
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
       };
-      submodules = true;
-      type = "git";
-      url = "https://github.com/hyprwm/Hyprland";
+      owner = "hyprwm";
+      repo = "Hyprland";
+      type = "github";
     };
     hyprland-plugins = {
       inputs = {
@@ -163,6 +171,9 @@
     };
     hyprpaper = {
       inputs = {
+        hyprlang.follows = "hyprland/hyprlang";
+        hyprutils.follows = "hyprland/hyprutils";
+        hyprwayland-scanner.follows = "hyprland/hyprwayland-scanner";
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
       };
@@ -237,13 +248,20 @@
       type = "github";
     };
     nix-fast-build = {
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
+      };
       owner = "Mic92";
       repo = "nix-fast-build";
       type = "github";
     };
     nix-gaming = {
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+      };
       owner = "fufexan";
       repo = "nix-gaming";
       type = "github";
@@ -264,7 +282,11 @@
       type = "github";
     };
     nixd = {
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
+      };
       owner = "nix-community";
       repo = "nixd";
       type = "github";
@@ -380,6 +402,12 @@
       flake = false;
       owner = "rushsteve1";
       repo = "trash-d";
+      type = "github";
+    };
+    treefmt-nix = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      owner = "numtide";
+      repo = "treefmt-nix";
       type = "github";
     };
     ts-for-gir-src = {

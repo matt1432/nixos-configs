@@ -24,6 +24,15 @@ let
       owner = "numtide";
       repo = "flake-utils";
     };
+    flake-parts = mkInput {
+      owner = "hercules-ci";
+      repo = "flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+    treefmt-nix = mkDep {
+      owner = "numtide";
+      repo = "treefmt-nix";
+    };
     lib-aggregate = mkInput {
       owner = "nix-community";
       repo = "lib-aggregate";
@@ -109,9 +118,8 @@ let
   desktopInputs = {
     hyprlandInputs = {
       hyprland = mkDep {
-        type = "git";
-        url = "https://github.com/hyprwm/Hyprland";
-        submodules = true;
+        owner = "hyprwm";
+        repo = "Hyprland";
       };
 
       hyprland-plugins = mkHyprDep {
@@ -130,6 +138,14 @@ let
       hyprpaper = mkDep {
         owner = "hyprwm";
         repo = "hyprpaper";
+
+        inputs = {
+          hyprlang.follows = "hyprland/hyprlang";
+          hyprutils.follows = "hyprland/hyprutils";
+          hyprwayland-scanner.follows = "hyprland/hyprwayland-scanner";
+          nixpkgs.follows = "hyprland/nixpkgs";
+          systems.follows = "hyprland/systems";
+        };
       };
 
       grim-hyprland = mkDep {
@@ -153,6 +169,8 @@ let
         owner = "Aylur";
         repo = "ags";
         ref = "v2";
+
+        inputs.astal.follows = "astal";
       };
 
       astal = mkDep {

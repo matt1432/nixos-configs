@@ -29,6 +29,8 @@ in rec {
       {inherit type;}
       (mkOverride "systems")
       (mkOverride "flake-utils")
+      (mkOverride "flake-parts")
+      (mkOverride "treefmt-nix")
       (mkOverride "lib-aggregate")
     ];
 

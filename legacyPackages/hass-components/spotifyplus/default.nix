@@ -25,9 +25,10 @@ in
       platformdirs
       requests
       requests_oauthlib
+      soco
+      urllib3
       zeroconf
       smartinspect # overridden in this python3Packages
       spotifywebapi # overridden in this python3Packages
-      urllib3
     ];
   }
