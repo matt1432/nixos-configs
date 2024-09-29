@@ -95,6 +95,21 @@
               });
             '';
         }
+
+        {
+          plugin = pkgs.vimPlugins.nvim-config-local;
+          type = "lua";
+          config =
+          # lua
+          ''
+            require('config-local').setup({
+                config_files = { '.nvim.lua', '.nvimrc', '.exrc' },
+
+                -- Where the plugin keeps files data
+                hashfile = '${config.xdg.cacheHome}/nvim/config-local',
+            });
+          '';
+        }
       ];
     };
   };
