@@ -48,6 +48,19 @@ in {
     # Turn On the speaker automatically when openwakeword is used
     config = {
       shell_command.turn_on_ue = getExe turnOnUE;
+      script.turn_on_ue = {
+        alias = "Music - TurnOnUE";
+        description = "Script for turning on the UE Boom 2 speaker.";
+        icon = "mdi:music";
+        mode = "single";
+
+        sequence = [
+          {
+            alias = "Run shell command";
+            service = "shell_command.turn_on_ue";
+          }
+        ];
+      };
 
       automation = [
         {
