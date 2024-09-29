@@ -1872,11 +1872,11 @@
     "spotifyplus-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1727276581,
-        "narHash": "sha256-6fMuJ5g0SbHqm84fYoOuP2zJ6/c7rLAC6ltpGR2eOHo=",
+        "lastModified": 1727556884,
+        "narHash": "sha256-HBGGB9MtQlOzQxN39bUzWl9+iElAc6HJHeisfGqaLLE=",
         "owner": "thlucas1",
         "repo": "homeassistantcomponent_spotifyplus",
-        "rev": "dbc279fd3466b5aebc82dea3c49f9ad175c83985",
+        "rev": "f017285d88405749a0c21da14dff7dae6e46f39c",
         "type": "github"
       },
       "original": {
@@ -1888,11 +1888,11 @@
     "spotifywebapi-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1727382400,
-        "narHash": "sha256-meoiGg2CbAjvjIM7L0OW19Y2w9q4+or+JjhTXdLLebM=",
+        "lastModified": 1727551631,
+        "narHash": "sha256-Dj9cQ/Zm9Th0QnQV+2Q/+8sc3LwywAAIMPv8ZKOkr7M=",
         "owner": "thlucas1",
         "repo": "SpotifyWebApiPython",
-        "rev": "092a1cf17dae9a9c7f62b5dc3616fe807115636f",
+        "rev": "9f5ea3dcadc531dfdbf6b6f9ecea58e3b3094494",
         "type": "github"
       },
       "original": {

@@ -48,7 +48,9 @@
     enable = true;
 
     extraComponents = [
+      "androidtv_remote"
       "caldav"
+      "cast"
       "holiday"
       "isal"
       "met"

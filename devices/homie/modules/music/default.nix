@@ -3,7 +3,10 @@
   lib,
   pkgs,
   ...
-}: {
+}: let
+  inherit (lib) getExe;
+  inherit (config.vars) mainUser;
+in {
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
@@ -19,10 +22,17 @@
     };
   };
 
-  # Have pulseaudio.service itself start at boot but after bluetooth
+  # Have pulseaudio and spotifyd start at boot but after bluetooth
   # so bluetooth accepts sound connections from the start.
-  systemd.user.services.pulseaudio.after = ["bluetooth.service"];
-  systemd.user.targets.default.wants = ["pulseaudio.service"];
+  users.users.${mainUser}.linger = true;
+  systemd.user.services = {
+    pulseaudio.after = ["bluetooth.service"];
+    spotifyd.after = ["pulseaudio.service"];
+  };
+  systemd.user.targets.default.wants = [
+    "pulseaudio.service"
+    "spotifyd.service"
+  ];
 
   # Allow pulseaudio to be managed by MPD
   hardware.pulseaudio = {
@@ -58,40 +68,38 @@
         }
       '';
     };
+  };
 
-    spotifyd = {
-      enable = true;
+  home-manager.users.${mainUser}.services.spotifyd = {
+    enable = true;
 
-      settings.global = let
-        cacheDir = "/etc/spotifyd";
-      in {
-        device_name = config.networking.hostName + " connect";
-        device_type = "speaker";
+    package = pkgs.spotifyd.override {
+      withMpris = false;
+      withKeyring = false;
+    };
 
-        zeroconf_port = 33798;
-        cache_path = cacheDir;
-        username_cmd = "${lib.getExe pkgs.jq} -r .username ${cacheDir}/credentials.json";
+    settings.global = {
+      device_name = config.networking.hostName + " connect";
+      device_type = "speaker";
 
-        autoplay = false;
-        backend = "pulseaudio";
-        bitrate = 320;
-        no_audio_cache = true;
-        volume_normalisation = false;
-      };
+      zeroconf_port = 33798;
+
+      autoplay = false;
+      backend = "pulseaudio";
+      bitrate = 320;
+      no_audio_cache = true;
+      volume_normalisation = false;
     };
   };
 
-  environment.etc."spotifyd/credentials.json" = {
-    source = config.sops.secrets.spotifyd.path;
-  };
-
-  nixpkgs.overlays = [
-    (final: prev: {
-      # FIXME: remove this if https://github.com/NixOS/nixpkgs/pull/342913 is merged
-      spotifyd = prev.spotifyd.override {
-        withMpris = false;
-        withKeyring = false;
-      };
-    })
-  ];
+  systemd.services.home-assistant.preStart = let
+    WorkingDirectory = "/var/lib/hass";
+    creds = config.sops.secrets.spotifyd.path;
+  in
+    getExe (pkgs.writeShellApplication {
+      name = "spotify-plus-creds";
+      text = ''
+        cp -f ${creds} ${WorkingDirectory}/.storage/SpotifyWebApiPython_librespot_credentials.json
+      '';
+    });
 }
