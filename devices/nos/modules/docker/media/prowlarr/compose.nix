@@ -36,6 +36,9 @@ in {
           LOG_HTML = "false";
           CAPTCHA_SOLVER = "none";
           TZ = "America/New_York";
+
+          # https://github.com/FlareSolverr/FlareSolverr/pull/1300#issuecomment-2379596654
+          DRIVER = "nodriver";
         };
 
         ports = ["8191:8191"];
