@@ -36,7 +36,6 @@ in {
 
     extraComponents = [
       "mpd"
-      "sonos"
 
       # BT components
       "ibeacon"
