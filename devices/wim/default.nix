@@ -16,6 +16,7 @@ in {
 
     self.nixosModules.adb
     self.nixosModules.desktop
+    self.nixosModules.docker
     self.nixosModules.kmscon
     self.nixosModules.plymouth
     self.nixosModules.server
@@ -96,5 +97,6 @@ in {
     ];
   };
 
+  khepri.enable = true;
   services.kmscon.enable = true;
 }
