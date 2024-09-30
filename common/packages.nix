@@ -57,6 +57,7 @@ inputs @ {
       inherit (pkgs.dig) dnsutils;
       inherit
         (pkgs)
+        arp-scan
         openssh
         rsync
         wget

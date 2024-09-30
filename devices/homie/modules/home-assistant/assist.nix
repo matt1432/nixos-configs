@@ -15,6 +15,7 @@
         inherit
           (self.legacyPackages.${pkgs.system}.hass-components)
           extended-ollama-conversation
+          tuya-local
           ;
       };
 

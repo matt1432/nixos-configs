@@ -19,5 +19,6 @@ pkgs.lib.makeScope pkgs.newScope (hass: let
     hass.callPackage file (inputs // extraArgs // {});
 in {
   extended-ollama-conversation = buildHassComponent ./extended-ollama-conversation {};
+  tuya-local = buildHassComponent ./tuya-local {};
   spotifyplus = buildHassComponent ./spotifyplus {python3Packages = spotPython3Packages;};
 })

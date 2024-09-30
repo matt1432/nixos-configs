@@ -1587,6 +1587,7 @@
         "trash-d-src": "trash-d-src",
         "treefmt-nix": "treefmt-nix_2",
         "ts-for-gir-src": "ts-for-gir-src",
+        "tuya-local-src": "tuya-local-src",
         "vimplugin-easytables-src": "vimplugin-easytables-src",
         "vimplugin-ts-error-translator-src": "vimplugin-ts-error-translator-src",
         "wakewords-src": "wakewords-src"
@@ -1842,6 +1843,22 @@
       "original": {
         "owner": "gjsify",
         "repo": "ts-for-gir",
+        "type": "github"
+      }
+    },
+    "tuya-local-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1727703516,
+        "narHash": "sha256-M1dDkY3ev0wVMHT/klHH33SezGuP2wek9pS0YnyRxxw=",
+        "owner": "make-all",
+        "repo": "tuya-local",
+        "rev": "f6245ff4d5a9888c8313c1adef4411057d1754e4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "make-all",
+        "repo": "tuya-local",
         "type": "github"
       }
     },

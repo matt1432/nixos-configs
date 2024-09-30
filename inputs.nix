@@ -193,6 +193,10 @@ let
       repo = "extended_ollama_conversation";
     }
     {
+      owner = "make-all";
+      repo = "tuya-local";
+    }
+    {
       name = "spotifyplus-src";
       owner = "thlucas1";
       repo = "homeassistantcomponent_spotifyplus";

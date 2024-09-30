@@ -416,6 +416,12 @@
       repo = "ts-for-gir";
       type = "github";
     };
+    tuya-local-src = {
+      flake = false;
+      owner = "make-all";
+      repo = "tuya-local";
+      type = "github";
+    };
     vimplugin-easytables-src = {
       flake = false;
       owner = "Myzel394";
