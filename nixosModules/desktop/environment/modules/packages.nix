@@ -104,12 +104,15 @@ in {
             wl-color-picker
             wl-clipboard
             cliphist
-            grim-hyprland
             slurp
             satty
             ;
         })
         ++ [
+          (pkgs.grim-hyprland.overrideAttrs (o: {
+            buildInputs = o.buildInputs ++ [pkgs.wayland-scanner];
+          }))
+
           (jellyfin-flake
             .packages
             .${pkgs.system}
