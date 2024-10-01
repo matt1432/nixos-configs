@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  self,
+  ...
+}: {
   imports = [
     ./assist.nix
     ./bluetooth.nix
@@ -46,6 +50,12 @@
   # TODO: some components / integrations / addons require manual interaction in the GUI, find way to make it all declarative
   services.home-assistant = {
     enable = true;
+
+    package = pkgs.home-assistant.override {
+      packageOverrides = _: super: {
+        inherit (self.packages.${pkgs.system}) urllib3;
+      };
+    };
 
     extraComponents = [
       "androidtv_remote"

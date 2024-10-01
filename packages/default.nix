@@ -41,4 +41,6 @@
   trash-d = pkgs.callPackage ./trash-d {
     inherit (inputs) trash-d-src;
   };
+
+  urllib3 = pkgs.callPackage ./urllib3 {};
 }
