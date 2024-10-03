@@ -142,7 +142,7 @@ export default () => {
                             });
                         };
 
-                        self.hook(Hyprland, 'event', () => {
+                        const updateAll = () => {
                             workspaces = (self.children as Widget.Revealer[])
                                 .filter((ch) => {
                                     return Hyprland.get_workspaces().find((ws) => {
@@ -158,7 +158,10 @@ export default () => {
                             const TEMP_TIMEOUT = 100;
 
                             timeout(TEMP_TIMEOUT, () => updateHighlight(highlight));
-                        });
+                        };
+
+                        updateAll();
+                        self.hook(Hyprland, 'event', updateAll);
                     }}
                 />
             </overlay>
