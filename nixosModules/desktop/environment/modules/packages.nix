@@ -101,6 +101,7 @@ in {
           # tools
           inherit
             (pkgs)
+            grim-hyprland
             wl-color-picker
             wl-clipboard
             cliphist
@@ -109,10 +110,6 @@ in {
             ;
         })
         ++ [
-          (pkgs.grim-hyprland.overrideAttrs (o: {
-            buildInputs = o.buildInputs ++ [pkgs.wayland-scanner];
-          }))
-
           (jellyfin-flake
             .packages
             .${pkgs.system}
