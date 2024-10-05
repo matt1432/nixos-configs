@@ -25,8 +25,8 @@
     ''| map(attribute='entity_id')''
   ];
 
-  settings = {
-    timer_target = "kitchen";
+  settings = rec {
+    timer_target = timer_target_default;
     timer_target_default = "media_player.music_player_daemon";
 
     timer_tts = true;
@@ -138,17 +138,6 @@ in {
 
               variables = {
                 device_volume = ''{{ state_attr(timer_target, 'volume_level') }}'';
-              };
-            }
-
-            {
-              alias = "Set volume for timer";
-              service = "media_player.volume_set";
-
-              target.entity_id = ''{{ timer_target }}'';
-
-              data = {
-                volume_level = ''{{ timer_volume }}'';
               };
             }
 
