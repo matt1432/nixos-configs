@@ -25,7 +25,8 @@ writeShellApplication {
             if [[ "$CURRENT_DIGEST" != "$NEW_DIGEST" ]]; then
                 echo -e "• $output:\n   $CURRENT_DIGEST\n → $NEW_DIGEST\n"
                 PREFETCH=$(nix-prefetch-docker "$IMAGE" "$TAG")
-                echo -e "pkgs:\npkgs.dockerTools.pullImage $PREFETCH" > "$FILE"
+                echo -e "pkgs:\npkgs.dockerTools.pullImage rec $PREFETCH" > "$FILE"
+                sed -i 's/finalImageName.*/finalImageName = imageName;/' "$FILE"
             fi
         fi
       '';

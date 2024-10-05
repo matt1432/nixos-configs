@@ -1,8 +1,8 @@
 pkgs:
-pkgs.dockerTools.pullImage {
+pkgs.dockerTools.pullImage rec {
   imageName = "some/image/name";
   imageDigest = "";
   sha256 = "";
-  finalImageName = "";
+  finalImageName = imageName;
   finalImageTag = "latest";
 }
