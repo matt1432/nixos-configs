@@ -197,11 +197,6 @@
     hash = "sha256-eIOk6/LImCTjTC4cwWBpATqxiQUQxbsRXAcR6Mz7LKs=";
   })
   (fetchNuGet {
-    pname = "NetDaemon.HassModel.CodeGen";
-    version = "24.37.0";
-    hash = "sha256-+YSo9/FkkDLfymWrzf4OjMwE31qjAbbFjmF7L5Aj2Bg=";
-  })
-  (fetchNuGet {
     pname = "NetDaemon.HassModel.Integration";
     version = "24.37.1";
     hash = "sha256-6e7oQFRs15dT0+cQxgyQWwWgmHNdFzlCnyJzmfPe5b8=";

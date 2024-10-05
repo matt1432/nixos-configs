@@ -29,6 +29,7 @@
         <PackageReference Include="NetDaemon.AppModel" Version="24.37.1" />
         <PackageReference Include="NetDaemon.Runtime" Version="24.37.1" />
         <PackageReference Include="NetDaemon.HassModel" Version="24.37.1" />
+        <PackageReference Include="NetDaemon.HassModel.Integration" Version="24.37.1" />
         <PackageReference Include="NetDaemon.Client" Version="24.37.1" />
         <PackageReference Include="NetDaemon.Extensions.Scheduling" Version="24.37.1" />
         <PackageReference Include="NetDaemon.Extensions.Logging" Version="24.37.1" />

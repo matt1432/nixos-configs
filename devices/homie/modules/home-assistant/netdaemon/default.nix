@@ -62,6 +62,7 @@ in {
         done
 
         ${compiled.passthru.fetch-deps} .
+        alejandra .
       '';
     })
   ];
