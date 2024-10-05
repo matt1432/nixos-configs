@@ -42,10 +42,17 @@ in {
   environment.systemPackages = [
     (pkgs.writeShellApplication {
       name = "updateNuDeps";
-      runtimeInputs = [pkgs.dotnet-sdk_8];
+      runtimeInputs = with pkgs; [
+        dos2unix
+        dotnet-sdk_8
+      ];
       text = ''
-        # Update the codegen
-        dotnet tool update -g NetDaemon.HassModel.CodeGen
+        # Install codegen
+        dotnet tool install --create-manifest-if-needed NetDaemon.HassModel.CodeGen
+
+        # Run it
+        dotnet tool run nd-codegen -token "$(sed 's/HomeAssistant__Token=//' ${secrets.netdaemon.path})"
+        dos2unix ./HomeAssistantGenerated.cs
 
         # Update all nugets to latest versions
         regex='PackageReference Include="([^"]*)" Version="([^"]*)"'
@@ -63,6 +70,7 @@ in {
 
         ${compiled.passthru.fetch-deps} .
         alejandra .
+        rm -r "$FLAKE/.config"
       '';
     })
   ];
