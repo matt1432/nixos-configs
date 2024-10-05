@@ -275,4 +275,34 @@ in [
       '');
     };
   }
+
+  {
+    spec = {
+      name = "play_artist";
+      description = "Use this function to play music from an artist";
+
+      parameters = {
+        type = "object";
+
+        properties.query = {
+          type = "string";
+          description = "The query";
+        };
+
+        required = ["query"];
+      };
+    };
+
+    function = {
+      type = "script";
+      sequence = [
+        {
+          service = "script.play_artist";
+          data = {
+            criteria = "{{ query }}";
+          };
+        }
+      ];
+    };
+  }
 ]

@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  self,
   ...
 }: let
   inherit (lib) getExe;
@@ -27,13 +26,6 @@ in {
   environment.systemPackages = [turnOnUE];
 
   services.home-assistant = {
-    customComponents = builtins.attrValues {
-      inherit
-        (self.legacyPackages.${pkgs.system}.hass-components)
-        spotifyplus
-        ;
-    };
-
     extraComponents = [
       "mpd"
 

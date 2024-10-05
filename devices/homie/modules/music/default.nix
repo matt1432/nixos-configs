@@ -1,10 +1,8 @@
 {
   config,
-  lib,
   pkgs,
   ...
 }: let
-  inherit (lib) getExe;
   inherit (config.vars) mainUser;
 in {
   hardware.bluetooth = {
@@ -91,15 +89,4 @@ in {
       volume_normalisation = false;
     };
   };
-
-  systemd.services.home-assistant.preStart = let
-    WorkingDirectory = "/var/lib/hass";
-    creds = config.sops.secrets.spotifyd.path;
-  in
-    getExe (pkgs.writeShellApplication {
-      name = "spotify-plus-creds";
-      text = ''
-        cp -f ${creds} ${WorkingDirectory}/.storage/SpotifyWebApiPython_librespot_credentials.json
-      '';
-    });
 }

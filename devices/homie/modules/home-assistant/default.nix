@@ -1,13 +1,10 @@
-{
-  pkgs,
-  self,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
     ./assist.nix
     ./bluetooth.nix
     ./firmware.nix
     ./frontend.nix
+    ./spotify.nix
     ./timer.nix
   ];
 
@@ -51,12 +48,6 @@
   services.home-assistant = {
     enable = true;
 
-    package = pkgs.home-assistant.override {
-      packageOverrides = _: super: {
-        inherit (self.packages.${pkgs.system}) urllib3;
-      };
-    };
-
     extraComponents = [
       "androidtv_remote"
       "caldav"
@@ -64,7 +55,6 @@
       "holiday"
       "isal"
       "met"
-      "spotify"
       "switchbot"
       "upnp"
       "yamaha_musiccast"
