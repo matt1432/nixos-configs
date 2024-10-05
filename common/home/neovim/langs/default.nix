@@ -10,6 +10,7 @@ in {
   imports = [
     ./bash.nix
     ./clang.nix
+    ./csharp.nix
     ./hyprlang.nix
     ./java.nix
     ./json.nix
