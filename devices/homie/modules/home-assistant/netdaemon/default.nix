@@ -25,7 +25,7 @@ in {
         TZ = "America/New_York";
       };
 
-      volumes = ["${compiled}/lib/netdaemon-config:/data"];
+      volumes = ["${compiled.lib}:/data"];
       networks = ["netdaemon"];
     };
   };
@@ -68,7 +68,7 @@ in {
             done
         done
 
-        ${compiled.passthru.fetch-deps} .
+        ${compiled.fetch-deps} .
         alejandra .
         rm -r "$FLAKE/.config"
       '';

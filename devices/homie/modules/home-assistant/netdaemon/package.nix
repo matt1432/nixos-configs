@@ -1,22 +1,36 @@
 {
   buildDotnetModule,
   dotnetCorePackages,
-}:
-buildDotnetModule {
+}: let
   pname = "netdaemon-config";
-  version = "0.0.0";
+in
+  buildDotnetModule {
+    inherit pname;
+    version = "0.0.0";
 
-  src =
-    builtins.filterSource
-    (file: type:
-      (type != "directory")
-      || (baseNameOf file != "default.nix" && baseNameOf file != "package.nix"))
-    ./.;
+    src =
+      builtins.filterSource
+      (file: type:
+        (type != "directory")
+        || (builtins.all (f: baseNameOf file != f) [
+          ".envrc"
+          "deps.nix"
+          "default.nix"
+          "netdaemon.nix"
+          "package.nix"
+        ]))
+      ./.;
 
-  projectFile = "netdaemon.csproj";
-  nugetDeps = ./deps.nix;
+    projectFile = "netdaemon.csproj";
+    nugetDeps = ./deps.nix;
 
-  dotnet-sdk = dotnetCorePackages.sdk_8_0;
-  dotnet-runtime = dotnetCorePackages.runtime_8_0;
-  executables = [];
-}
+    dotnet-sdk = dotnetCorePackages.sdk_8_0;
+    dotnet-runtime = dotnetCorePackages.runtime_8_0;
+    executables = [];
+
+    postFixup = ''
+      cp -r $out/lib/${pname} $lib
+    '';
+
+    outputs = ["out" "lib"];
+  }
