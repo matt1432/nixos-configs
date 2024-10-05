@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+        <LangVersion>12.0</LangVersion>
+        <Nullable>enable</Nullable>
+        <RootNamespace>netdaemon</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Update="$(MSBuildProjectDir)appsettings.Development.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+        </None>
+        <None Update="$(MSBuildProjectDir)appsettings.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="$(MSBuildProjectDir)**\*.yaml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        </None>
+    </ItemGroup>
+    <Target Name="AfterPublishMessage" AfterTargets="Publish">
+        <Message Text="Publish done! Copy all content in directory: $(PublishDir) to the `/config/netdaemon4' folder for add-on or your custom folder to deploy." Importance="high" />
+    </Target>
+
+    <ItemGroup>
+        <PackageReference Include="NetDaemon.AppModel" Version="24.37.1" />
+        <PackageReference Include="NetDaemon.Runtime" Version="24.37.1" />
+        <PackageReference Include="NetDaemon.HassModel" Version="24.37.1" />
+        <PackageReference Include="NetDaemon.Client" Version="24.37.1" />
+        <PackageReference Include="NetDaemon.Extensions.Scheduling" Version="24.37.1" />
+        <PackageReference Include="NetDaemon.Extensions.Logging" Version="24.37.1" />
+        <PackageReference Include="NetDaemon.Extensions.Tts" Version="24.37.1" />
+    </ItemGroup>
+</Project>

@@ -241,6 +241,12 @@
       repo = "mpv-touch-gestures";
       type = "github";
     };
+    netdaemon-src = {
+      flake = false;
+      owner = "net-daemon";
+      repo = "integration";
+      type = "github";
+    };
     nh = {
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "viperML";

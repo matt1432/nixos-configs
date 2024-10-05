@@ -4,6 +4,7 @@
     ./bluetooth.nix
     ./firmware.nix
     ./frontend.nix
+    ./netdaemon
     ./spotify.nix
     ./timer.nix
   ];

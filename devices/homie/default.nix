@@ -55,5 +55,6 @@ in {
     sshd.enable = true;
   };
 
+  khepri.enable = true;
   services.kmscon.enable = true;
 }

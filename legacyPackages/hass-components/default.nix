@@ -4,6 +4,7 @@ pkgs.lib.makeScope pkgs.newScope (hass: let
     hass.callPackage file (inputs // extraArgs // {});
 in {
   extended-ollama-conversation = buildHassComponent ./extended-ollama-conversation {};
+  netdaemon = buildHassComponent ./netdaemon {};
   spotifyplus = import ./spotifyplus ({inherit buildHassComponent;} // inputs);
   tuya-local = buildHassComponent ./tuya-local {};
 })

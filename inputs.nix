@@ -197,6 +197,11 @@ let
       repo = "tuya-local";
     }
     {
+      name = "netdaemon-src";
+      owner = "net-daemon";
+      repo = "integration";
+    }
+    {
       name = "spotifyplus-src";
       owner = "thlucas1";
       repo = "homeassistantcomponent_spotifyplus";

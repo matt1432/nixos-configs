@@ -993,6 +993,22 @@
         "type": "github"
       }
     },
+    "netdaemon-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1712514313,
+        "narHash": "sha256-wu6tdrk7GvAI3jjA02Ka59qjZm+X7h0xDeqc3qHUe84=",
+        "owner": "net-daemon",
+        "repo": "integration",
+        "rev": "d3b7606530ddcaf189ed6f75569e923b22896679",
+        "type": "github"
+      },
+      "original": {
+        "owner": "net-daemon",
+        "repo": "integration",
+        "type": "github"
+      }
+    },
     "nh": {
       "inputs": {
         "nixpkgs": [
@@ -1561,6 +1577,7 @@
         "mpv-persist-properties-src": "mpv-persist-properties-src",
         "mpv-pointer-event-src": "mpv-pointer-event-src",
         "mpv-touch-gestures-src": "mpv-touch-gestures-src",
+        "netdaemon-src": "netdaemon-src",
         "nh": "nh",
         "nix-fast-build": "nix-fast-build",
         "nix-gaming": "nix-gaming",
@@ -1619,11 +1636,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1726701157,
-        "narHash": "sha256-2b4UqC8zswsskPdOumII0ZyLgy5nKdya2Due82/yXJ8=",
+        "lastModified": 1728144135,
+        "narHash": "sha256-myzkfIOzgBW6LP4XHl5NdOrlVnV+qZ05Kr/+WNlugeM=",
         "ref": "refs/heads/main",
-        "rev": "0751670349b9908d33fa21c3d3f15675f8565e44",
-        "revCount": 78,
+        "rev": "5a156258eb132caaf4325aec6b21504d79d45c12",
+        "revCount": 79,
         "type": "git",
         "url": "ssh://git@git.nelim.org/matt1432/nixos-secrets"
       },

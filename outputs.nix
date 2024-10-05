@@ -157,6 +157,12 @@
         ];
       };
 
+      netdaemon = pkgs.mkShell {
+        packages = [
+          pkgs.dotnet-sdk_8
+        ];
+      };
+
       node = pkgs.mkShell {
         packages =
           (builtins.attrValues {
