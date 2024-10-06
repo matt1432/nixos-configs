@@ -297,7 +297,7 @@ in [
       type = "script";
       sequence = [
         {
-          service = "script.play_artist";
+          service = "netdaemon.spotify_play_artist";
           data = {
             criteria = "{{ query }}";
           };

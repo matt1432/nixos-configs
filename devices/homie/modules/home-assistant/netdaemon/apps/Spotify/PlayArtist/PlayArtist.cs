@@ -1,4 +1,4 @@
-namespace AppModel;
+namespace Spotify;
 
 using HomeAssistantGenerated;
 using NetDaemon.AppModel;
@@ -9,7 +9,7 @@ using System.Text.Json;
 record ServiceData(string? criteria);
 
 [NetDaemonApp]
-public class TestScript
+public class PlayArtist
 {
     // Snake-case json options
     private readonly JsonSerializerOptions _jsonOptions = new JsonSerializerOptions
@@ -17,10 +17,10 @@ public class TestScript
         PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
     };
 
-    public TestScript(IHaContext ha)
+    public PlayArtist(IHaContext ha)
     {
         ha.RegisterServiceCallBack<ServiceData>(
-            "callback_demo",
+            "spotify_play_artist",
             async (e) =>
             {
                 var result = (await ha.CallServiceWithResponseAsync(
@@ -39,12 +39,12 @@ public class TestScript
                 if (uri is not null)
                 {
                     ha.CallService(
-                        "notify",
-                        "persistent_notification",
-                        data: new PersistentNotificationCreateParameters
+                        "spotifyplus",
+                        "player_media_play_context",
+                        data: new SpotifyplusPlayerMediaPlayContextParameters
                         {
-                            Message = $"value: {uri}",
-                            Title = "title"
+                            ContextUri = uri,
+                            EntityId = "media_player.spotifyplus"
                         }
                     );
                 }

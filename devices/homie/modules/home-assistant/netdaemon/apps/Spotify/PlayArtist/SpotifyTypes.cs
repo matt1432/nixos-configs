@@ -1,4 +1,4 @@
-namespace AppModel;
+namespace Spotify;
 
 using System.Collections.Generic;
 

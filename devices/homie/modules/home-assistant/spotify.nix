@@ -36,40 +36,5 @@ in {
     extraComponents = [
       "spotify"
     ];
-
-    config = {
-      script.play_artist = {
-        alias = "Spotify - Play Artist";
-        sequence = [
-          {
-            sequence = [
-              {
-                action = "spotifyplus.search_artists";
-                data = {
-                  entity_id = "media_player.spotifyplus";
-                  criteria = ''{{ criteria }}'';
-                  limit = 1;
-                };
-                response_variable = "sp_results";
-              }
-              {
-                action = "spotifyplus.player_media_play_context";
-                data = {
-                  entity_id = "media_player.spotifyplus";
-                  context_uri = ''
-                    {% for item in sp_results.result | dictsort %}
-                      {% if item[0] == 'items' %}
-                        {{ item[1][0].uri }}
-                        {% break %}
-                      {% endif %}
-                    {%- endfor %}
-                  '';
-                };
-              }
-            ];
-          }
-        ];
-      };
-    };
   };
 }
