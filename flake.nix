@@ -44,6 +44,12 @@
       repo = "nixos-caddy-cloudflare";
       type = "github";
     };
+    caule-themes-src = {
+      flake = false;
+      owner = "ricardoquecria";
+      repo = "caule-themes-pack-1";
+      type = "github";
+    };
     discord-overlay = {
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "matt1432";

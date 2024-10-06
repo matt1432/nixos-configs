@@ -226,6 +226,11 @@ let
       owner = "berti24";
       repo = "dracul-ha";
     }
+    {
+      name = "caule-themes-src";
+      owner = "ricardoquecria";
+      repo = "caule-themes-pack-1";
+    }
 
     # Nvim plugins
     {

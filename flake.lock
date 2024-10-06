@@ -172,6 +172,22 @@
         "type": "github"
       }
     },
+    "caule-themes-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1696467225,
+        "narHash": "sha256-biNz3ZO3nFfEgchoPu9M3lXiTj9BDxkUaZiCNq0Jy8M=",
+        "owner": "ricardoquecria",
+        "repo": "caule-themes-pack-1",
+        "rev": "0ec8a4b7acf63d8618bcf2fdd968d6256e998acb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ricardoquecria",
+        "repo": "caule-themes-pack-1",
+        "type": "github"
+      }
+    },
     "curseforge-server-downloader-src": {
       "flake": false,
       "locked": {
@@ -1547,6 +1563,7 @@
         "bat-theme-src": "bat-theme-src",
         "bazarr-bulk": "bazarr-bulk",
         "caddy-plugins": "caddy-plugins",
+        "caule-themes-src": "caule-themes-src",
         "discord-overlay": "discord-overlay",
         "dracul-ha-src": "dracul-ha-src",
         "dracula-plymouth-src": "dracula-plymouth-src",
