@@ -1,22 +1,54 @@
 namespace AppModel;
 
-record ServiceData(string? action, int value);
+using HomeAssistantGenerated;
+using NetDaemon.AppModel;
+using NetDaemon.HassModel;
+using NetDaemon.HassModel.Integration;
+using System.Text.Json;
 
-/// <summary>
-///     Showcases how to instance apps with yaml and use automatic configuration population
-/// </summary>
+record ServiceData(string? criteria);
+
 [NetDaemonApp]
 public class TestScript
 {
+    // Snake-case json options
+    private readonly JsonSerializerOptions _jsonOptions = new JsonSerializerOptions
+    {
+        PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
+    };
+
     public TestScript(IHaContext ha)
     {
         ha.RegisterServiceCallBack<ServiceData>(
             "callback_demo",
-            e => ha.CallService(
-                "notify",
-                "persistent_notification",
-                data: new {message = $"value: {e?.value}", title = $"{e?.action}"}
-            )
+            async (e) =>
+            {
+                var result = (await ha.CallServiceWithResponseAsync(
+                    "spotifyplus",
+                    "search_artists",
+                    data: new SpotifyplusSearchArtistsParameters
+                    {
+                        Criteria = e?.criteria,
+                        Limit = 1,
+                        EntityId = "media_player.spotifyplus"
+                    }
+                )).Value.Deserialize<SpotifyplusSearchArtistsResponse>(_jsonOptions);
+
+                string? uri = result?.Result?.Items?[0]?.Uri;
+
+                if (uri is not null)
+                {
+                    ha.CallService(
+                        "notify",
+                        "persistent_notification",
+                        data: new PersistentNotificationCreateParameters
+                        {
+                            Message = $"value: {uri}",
+                            Title = "title"
+                        }
+                    );
+                }
+            }
         );
     }
 }
