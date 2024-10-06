@@ -31,6 +31,18 @@ export const updateFlakeInputs = () => {
 export const updateDocker = () => {
     let updates = '';
 
+    console.log('Updating jfa-go image');
+    updates += spawnSync('updateImages',
+        [`${FLAKE}/devices/nos/modules/jellyfin`],
+        { shell: true })
+        .stdout.toString();
+
+    console.log('Updating netdaemon image');
+    updates += spawnSync('updateImages',
+        [`${FLAKE}/devices/homie/modules/home-assistant/netdaemon`],
+        { shell: true })
+        .stdout.toString();
+
     const FILE = `${FLAKE}/devices/nos/modules/docker`;
 
     readdirSync(FILE, { withFileTypes: true, recursive: true }).forEach((path) => {
