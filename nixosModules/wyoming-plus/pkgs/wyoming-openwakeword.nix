@@ -1,12 +1,9 @@
 /*
 This package uses a `wyoming-openwakeword` fork that makes use of
 the upstream `openwakeword` instead of a fork: https://github.com/rhasspy/wyoming-openwakeword/pull/27
-
-It also enforces the python version to 3.11, because tensorflow
-cannot be used with 3.12 yet.
 */
 pkgs: let
-  pyPkgs = pkgs.python311Packages;
+  pyPkgs = pkgs.python312Packages;
 
   speexdsp-ns = pkgs.callPackage ./speexdsp-ns.nix {
     python3Packages = pyPkgs;

@@ -12,13 +12,6 @@ in
 
     src = spotifywebapi-src;
 
-    # FIXME: https://github.com/thlucas1/SpotifyWebApiPython/issues/1
-    patchPhase = ''
-      substituteInPlace ./setup.py --replace-warn \
-          "docspdoc/build/spotifywebapiPython/" \
-          "docspdoc/build/spotifywebapipython/"
-    '';
-
     propagatedBuildInputs = with python3Packages; [
       lxml
       oauthlib
