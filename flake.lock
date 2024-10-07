@@ -509,6 +509,38 @@
         "type": "github"
       }
     },
+    "ha-fallback-conversation-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1727539612,
+        "narHash": "sha256-zXIorC1ixeEZiOqBB1nsg6PfuxnOJwnqgTBu6km+LWQ=",
+        "owner": "m50",
+        "repo": "ha-fallback-conversation",
+        "rev": "523d91ac31bf9a33119985a8f17fda84b78c26e9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "m50",
+        "repo": "ha-fallback-conversation",
+        "type": "github"
+      }
+    },
+    "ha_intents-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1717951958,
+        "narHash": "sha256-fSOPHUj3bQo6t+zHae9y462axH3MfrNFpkdzKynYhVc=",
+        "owner": "don86nl",
+        "repo": "ha_intents",
+        "rev": "edbc596ed8353cbdd73af22ed84ea4c2c3262e53",
+        "type": "github"
+      },
+      "original": {
+        "owner": "don86nl",
+        "repo": "ha_intents",
+        "type": "github"
+      }
+    },
     "headscale": {
       "inputs": {
         "flake-utils": [
@@ -1610,6 +1642,8 @@
         "grim-hyprland": "grim-hyprland",
         "gtk-session-lock": "gtk-session-lock",
         "gtk-theme-src": "gtk-theme-src",
+        "ha-fallback-conversation-src": "ha-fallback-conversation-src",
+        "ha_intents-src": "ha_intents-src",
         "headscale": "headscale",
         "home-manager": "home-manager",
         "hyprgrass": "hyprgrass",

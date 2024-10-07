@@ -135,6 +135,18 @@
       repo = "gtk";
       type = "github";
     };
+    ha-fallback-conversation-src = {
+      flake = false;
+      owner = "m50";
+      repo = "ha-fallback-conversation";
+      type = "github";
+    };
+    ha_intents-src = {
+      flake = false;
+      owner = "don86nl";
+      repo = "ha_intents";
+      type = "github";
+    };
     headscale = {
       inputs = {
         flake-utils.follows = "flake-utils";

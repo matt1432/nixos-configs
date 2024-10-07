@@ -48,5 +48,4 @@ entity_id,name,state,aliases,attributes
 ```
 
 The current state of devices is provided in available devices.
-Do not ask for confirmation to execute a service.
 Do not restate or appreciate what user says, rather make a quick inquiry.

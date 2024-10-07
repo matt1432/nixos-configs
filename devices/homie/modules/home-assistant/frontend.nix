@@ -77,6 +77,14 @@ in {
                 "switch.smartplug3"
               ];
             }
+            {
+              type = "entities";
+              entities = [
+                "timer.assist_timer1"
+                "timer.assist_timer2"
+                "timer.assist_timer3"
+              ];
+            }
           ];
         }
       ];

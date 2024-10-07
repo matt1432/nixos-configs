@@ -192,6 +192,11 @@ let
       owner = "TheNimaj";
       repo = "extended_ollama_conversation";
     }
+
+    {
+      owner = "m50";
+      repo = "ha-fallback-conversation";
+    }
     {
       owner = "make-all";
       repo = "tuya-local";
@@ -221,6 +226,10 @@ let
       name = "wakewords-src";
       owner = "fwartner";
       repo = "home-assistant-wakewords-collection";
+    }
+    {
+      owner = "don86nl";
+      repo = "ha_intents";
     }
     {
       owner = "berti24";

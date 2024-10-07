@@ -1,6 +1,11 @@
 # From https://github.com/don86nl/ha_intents/blob/main/config/packages/assist_timers.yaml
-{lib, ...}: let
-  inherit (lib) concatStrings concatStringsSep;
+{
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit (lib) concatStrings concatStringsSep getExe;
+  inherit (pkgs.writers) writeYAML;
 
   mkTimer = id: {
     "assist_timer${toString id}" = {
@@ -38,6 +43,19 @@
     timer_media_location = "/path/to/file.mp3";
   };
 in {
+  systemd.services.home-assistant.preStart = let
+    WorkingDirectory = "/var/lib/hass";
+
+    timer = writeYAML "assist_timers.yaml" (import ./timer-sentences.nix);
+  in
+    getExe (pkgs.writeShellApplication {
+      name = "timer-files";
+      text = ''
+        mkdir -p ${WorkingDirectory}/custom_sentences/en
+        cp -f ${timer} ${WorkingDirectory}/custom_sentences/en
+      '';
+    });
+
   services.home-assistant = {
     config = {
       homeassistant.customize."script.assist_timerstart" = {inherit settings;};
@@ -47,6 +65,43 @@ in {
 
       # Makes location of a timer customizable from the UI
       input_text = (mkLocation 1) // (mkLocation 2) // (mkLocation 3);
+
+      intent_script = {
+        TimerStart = {
+          async_action = "false";
+          action = [
+            {
+              service = "script.assist_timerstart";
+              data.duration = "{{hours | int(default=0)}}:{{ minutes | int(default=0) }}:{{ seconds | int(default=0) }}";
+            }
+          ];
+        };
+        TimerStop = {
+          async_action = true;
+          action = [
+            {
+              service = "script.assist_timerstop";
+              data.entity_id = "{{ entity_id }}";
+            }
+          ];
+        };
+        TimerPause = {
+          async_action = true;
+          action = [
+            {
+              service = "script.assist_timerpause";
+              data = {
+                entity_id = "{{ entity_id }}";
+                timer_action = "{{ timer_action }}";
+              };
+            }
+          ];
+        };
+        TimerDuration = {
+          async_action = true;
+          action = [{stop = "";}];
+        };
+      };
 
       # Automate some logic
       automation = [
@@ -130,14 +185,6 @@ in {
                 timer_tts_message = ''{{ settings.get('timer_tts_message') }}'';
 
                 timer_media_location = ''{{ settings.get('timer_media_location') }}'';
-              };
-            }
-
-            {
-              alias = "Store current device volume";
-
-              variables = {
-                device_volume = ''{{ state_attr(timer_target, 'volume_level') }}'';
               };
             }
 
@@ -228,17 +275,6 @@ in {
                   ];
                 }
               ];
-            }
-
-            {
-              alias = "Restore device previous volume";
-              service = "media_player.volume_set";
-
-              target.entity_id = ''{{ timer_target }}'';
-
-              data = {
-                volume_level = ''{{ device_volume }}'';
-              };
             }
           ];
         }
