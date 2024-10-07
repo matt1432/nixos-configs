@@ -924,6 +924,38 @@
         "type": "github"
       }
     },
+    "material-rounded-theme-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1726611404,
+        "narHash": "sha256-Me0DyGT6yChIM3KOclTux/eOYo7XKnr6/o78NKBXNLs=",
+        "owner": "Nerwyn",
+        "repo": "material-rounded-theme",
+        "rev": "d78298f87e5a4362985203bb4e45868bf7efca68",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Nerwyn",
+        "repo": "material-rounded-theme",
+        "type": "github"
+      }
+    },
+    "material-symbols-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1715105278,
+        "narHash": "sha256-lH4aMzxbqxpRlIwT1/TCj9sdWOEig9W1U8weMI5tPF4=",
+        "owner": "beecho01",
+        "repo": "material-symbols",
+        "rev": "c5eba1d6bd30d0baa4e77faa84950af16520efbc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "beecho01",
+        "repo": "material-symbols",
+        "type": "github"
+      }
+    },
     "minix": {
       "inputs": {
         "curseforge-server-downloader-src": "curseforge-server-downloader-src",
@@ -1589,6 +1621,8 @@
         "khepri": "khepri",
         "lib-aggregate": "lib-aggregate",
         "libratbag-src": "libratbag-src",
+        "material-rounded-theme-src": "material-rounded-theme-src",
+        "material-symbols-src": "material-symbols-src",
         "minix": "minix",
         "modernx-src": "modernx-src",
         "mpv-persist-properties-src": "mpv-persist-properties-src",

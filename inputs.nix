@@ -231,6 +231,14 @@ let
       owner = "ricardoquecria";
       repo = "caule-themes-pack-1";
     }
+    {
+      owner = "Nerwyn";
+      repo = "material-rounded-theme";
+    }
+    {
+      owner = "beecho01";
+      repo = "material-symbols";
+    }
 
     # Nvim plugins
     {
