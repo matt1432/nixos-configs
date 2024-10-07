@@ -34,7 +34,7 @@
         # Hardware Declaration
         esphome = {
           friendly_name = "M5Stack Atom Echo";
-          min_version = "2024.6.0";
+          min_version = "2024.9.0";
           name = "m5stack-atom-echo";
           name_add_mac_suffix = true;
         };
@@ -74,7 +74,7 @@
             dac_type = "external";
             i2s_dout_pin = "GPIO21"; # "GPIO22"; turn off speaker
             id = "echo_speaker";
-            mode = "mono";
+            channel = "mono";
             platform = "i2s_audio";
           }
         ];

@@ -30,13 +30,9 @@
                 python = "py3";
                 hash = "sha256-GraYVtioKIoKlPRBhhhzlbBfI6heXAaA1MQpUqAgEDQ=";
               };
-              build-system = [
-                final.setuptools
-              ];
+              build-system = [final.setuptools];
               doCheck = false;
-              pytestFlagsArray = [
-                "intents/tests"
-              ];
+              pytestFlagsArray = ["intents/tests"];
             };
           };
         })
@@ -61,6 +57,7 @@
       customComponents = builtins.attrValues {
         inherit
           (self.legacyPackages.${pkgs.system}.hass-components)
+          # url is without subdirectory
           extended-ollama-conversation
           ha-fallback-conversation
           tuya-local
