@@ -36,7 +36,7 @@ in {
 
       material-symbols = pkgs.stdenv.mkDerivation {
         pname = "material-symbols";
-        version = "0.0.0";
+        version = "0.0.0+${material-symbols-src.shortRev}";
         src = material-symbols-src;
         phases = ["installPhase"];
         installPhase = ''
@@ -50,6 +50,18 @@ in {
       themes = "!include_dir_merge_named themes";
       extra_module_url = ["/local/nixos-lovelace-modules/card-mod.js"];
     };
+
+    config.template = [
+      {
+        sensor = [
+          {
+            name = "Material Rounded Base Color Matt";
+            unique_id = "material_rounded_base_color_matt";
+            state = ''{{ states("sensor.pixel_8_accent_color") }}'';
+          }
+        ];
+      }
+    ];
 
     lovelaceConfig = {
       title = "Our House";
