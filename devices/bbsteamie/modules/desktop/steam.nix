@@ -7,8 +7,6 @@ defaultSession: {
 }: {
   config = let
     inherit (config.vars) mainUser;
-
-    cfg = config.programs.steam;
   in {
     # Normal Steam Stuff
     programs.steam = {
@@ -33,7 +31,7 @@ defaultSession: {
           lib.makeSearchPathOutput
           "steamcompattool"
           ""
-          cfg.extraCompatPackages;
+          config.programs.steam.extraCompatPackages;
       };
 
       desktopSession = defaultSession;
