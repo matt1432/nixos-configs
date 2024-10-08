@@ -17,7 +17,7 @@ in {
       name = "spotify-files";
       text = ''
         mkdir -p ${WorkingDirectory}/custom_sentences/en
-        cp -f ${spotify} ${WorkingDirectory}/custom_sentences/en
+        cp -f ${spotify} ${WorkingDirectory}/custom_sentences/en/assist_spotify.yaml
         cp -f ${creds} ${WorkingDirectory}/.storage/SpotifyWebApiPython_librespot_credentials.json
       '';
     });
@@ -40,7 +40,20 @@ in {
         action = [
           {
             service = "netdaemon.spotify_play_artist";
-            data.criteria = "{{ artist }}";
+            data.artist = "{{ artist }}";
+          }
+        ];
+      };
+
+      PlayAlbum = {
+        async_action = "false";
+        action = [
+          {
+            service = "netdaemon.spotify_play_album";
+            data = {
+              artist = "{{ artist }}";
+              album = "{{ album }}";
+            };
           }
         ];
       };

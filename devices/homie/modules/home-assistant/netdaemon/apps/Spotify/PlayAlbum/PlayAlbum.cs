@@ -6,10 +6,10 @@ using NetDaemon.HassModel;
 using NetDaemon.HassModel.Integration;
 using System.Text.Json;
 
-record PlayArtistData(string? artist);
+record PlayAlbumData(string? artist, string? album);
 
 [NetDaemonApp]
-public class PlayArtist
+public class PlayAlbum
 {
     // Snake-case json options
     private readonly JsonSerializerOptions _jsonOptions = new JsonSerializerOptions
@@ -17,22 +17,22 @@ public class PlayArtist
         PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
     };
 
-    public PlayArtist(IHaContext ha)
+    public PlayAlbum(IHaContext ha)
     {
-        ha.RegisterServiceCallBack<PlayArtistData>(
-            "spotify_play_artist",
+        ha.RegisterServiceCallBack<PlayAlbumData>(
+            "spotify_play_album",
             async (e) =>
             {
                 var result = (await ha.CallServiceWithResponseAsync(
                     "spotifyplus",
-                    "search_artists",
-                    data: new SpotifyplusSearchArtistsParameters
+                    "search_albums",
+                    data: new SpotifyplusSearchAlbumsParameters
                     {
-                        Criteria = e?.artist,
+                        Criteria = $"{e?.artist} {e?.album}",
                         Limit = 1,
                         EntityId = "media_player.spotifyplus"
                     }
-                )).Value.Deserialize<SpotifyplusSearchArtistsResponse>(_jsonOptions);
+                )).Value.Deserialize<SpotifyplusSearchAlbumsResponse>(_jsonOptions);
 
                 string? uri = result?.Result?.Items?[0]?.Uri;
 

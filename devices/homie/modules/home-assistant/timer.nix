@@ -52,7 +52,7 @@ in {
       name = "timer-files";
       text = ''
         mkdir -p ${WorkingDirectory}/custom_sentences/en
-        cp -f ${timer} ${WorkingDirectory}/custom_sentences/en
+        cp -f ${timer} ${WorkingDirectory}/custom_sentences/en/assist_timers.yaml
       '';
     });
 

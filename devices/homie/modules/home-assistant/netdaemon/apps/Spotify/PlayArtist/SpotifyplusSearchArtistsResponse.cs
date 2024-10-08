@@ -2,25 +2,7 @@ namespace Spotify;
 
 using System.Collections.Generic;
 
-public record ExternalUrls
-{
-    public string? Spotify { get; init; }
-}
-
-public record Followers
-{
-    public string? Href { get; init; }
-    public int Total { get; init; }
-}
-
-public record Image
-{
-    public string? Url { get; init; }
-    public int Height { get; init; }
-    public int Width { get; init; }
-}
-
-public record Item
+public record ArtistItem
 {
     public ExternalUrls? External_urls { get; init; }
     public Followers? Followers { get; init; }
@@ -35,7 +17,7 @@ public record Item
     public string? Uri { get; init; }
 }
 
-public record Result
+public record ArtistResult
 {
     public string? Href { get; init; }
     public int Limit { get; init; }
@@ -43,22 +25,11 @@ public record Result
     public int Offset { get; set; }
     public object? Previous { get; init; }
     public int Total { get; init; }
-    public List<Item>? Items { get; init; }
+    public List<ArtistItem>? Items { get; init; }
 }
 
 public record SpotifyplusSearchArtistsResponse
 {
     public UserProfile? UserProfile { get; init; }
-    public Result? Result { get; init; }
-}
-
-public record UserProfile
-{
-    public string? Country { get; init; }
-    public string? DisplayName { get; init; }
-    public string? Email { get; init; }
-    public string? Id { get; init; }
-    public string? Product { get; init; }
-    public string? Type { get; init; }
-    public string? Uri { get; init; }
+    public ArtistResult? Result { get; init; }
 }
