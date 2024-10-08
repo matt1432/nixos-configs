@@ -69,6 +69,7 @@ inputs @ {
         (pkgs)
         killall
         nix-output-monitor
+        nix-melt
         progress
         tree
         gnugrep

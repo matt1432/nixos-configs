@@ -57,8 +57,7 @@
       customComponents = builtins.attrValues {
         inherit
           (self.legacyPackages.${pkgs.system}.hass-components)
-          # url is without subdirectory
-          extended-ollama-conversation
+          extended-ollama-conversation # url is without subdirectory
           ha-fallback-conversation
           tuya-local
           ;
