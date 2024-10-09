@@ -563,22 +563,6 @@
         "type": "github"
       }
     },
-    "ha_intents-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1717951958,
-        "narHash": "sha256-fSOPHUj3bQo6t+zHae9y462axH3MfrNFpkdzKynYhVc=",
-        "owner": "don86nl",
-        "repo": "ha_intents",
-        "rev": "edbc596ed8353cbdd73af22ed84ea4c2c3262e53",
-        "type": "github"
-      },
-      "original": {
-        "owner": "don86nl",
-        "repo": "ha_intents",
-        "type": "github"
-      }
-    },
     "headscale": {
       "inputs": {
         "flake-utils": [
@@ -1695,7 +1679,6 @@
         "gtk-session-lock": "gtk-session-lock",
         "gtk-theme-src": "gtk-theme-src",
         "ha-fallback-conversation-src": "ha-fallback-conversation-src",
-        "ha_intents-src": "ha_intents-src",
         "headscale": "headscale",
         "home-manager": "home-manager",
         "hyprgrass": "hyprgrass",

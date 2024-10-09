@@ -34,5 +34,6 @@
         <PackageReference Include="NetDaemon.Extensions.Scheduling" Version="24.37.1" />
         <PackageReference Include="NetDaemon.Extensions.Logging" Version="24.37.1" />
         <PackageReference Include="NetDaemon.Extensions.Tts" Version="24.37.1" />
+        <PackageReference Include="FuzzySharp" Version="2.0.2" />
     </ItemGroup>
 </Project>

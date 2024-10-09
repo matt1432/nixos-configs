@@ -228,10 +228,6 @@ let
       repo = "home-assistant-wakewords-collection";
     }
     {
-      owner = "don86nl";
-      repo = "ha_intents";
-    }
-    {
       owner = "berti24";
       repo = "dracul-ha";
     }

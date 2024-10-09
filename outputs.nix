@@ -182,7 +182,6 @@
                   nodejs_latest
                   ;
               };
-
               text = ''
                 npm i --package-lock-only || true # this command will fail but still updates the main lockfile
                 prefetch-npm-deps ./package-lock.json

@@ -35,8 +35,25 @@ public record Followers
 public record Image
 {
     public string? Url { get; init; }
-    public int Height { get; init; }
-    public int Width { get; init; }
+    public int? Height { get; init; }
+    public int? Width { get; init; }
+}
+
+public class Owner
+{
+    public string? DisplayName { get; set; }
+    public ExternalUrls? ExternalUrls { get; set; }
+    public Followers? Followers { get; set; }
+    public string? Href { get; set; }
+    public string? Id { get; set; }
+    public string? Type { get; set; }
+    public string? Uri { get; set; }
+}
+
+public class Tracks
+{
+    public string? Href { get; set; }
+    public int Total { get; set; }
 }
 
 public record Restrictions { }

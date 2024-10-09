@@ -68,7 +68,7 @@ in {
             done
         done
 
-        ${compiled.fetch-deps} .
+        $(nix build --no-link --print-out-paths --impure --expr "let self = builtins.getFlake (\"$FLAKE\"); inherit (self.nixosConfigurations.homie) pkgs; in (pkgs.callPackage $FLAKE/devices/homie/modules/home-assistant/netdaemon/package.nix {}).fetch-deps") .
         alejandra .
         rm -r "$FLAKE/.config"
       '';

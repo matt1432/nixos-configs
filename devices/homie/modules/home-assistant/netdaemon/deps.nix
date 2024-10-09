@@ -7,6 +7,11 @@
     hash = "sha256-L9rLcqnQybPoJCcg60h49bjXfqEarM9SFHqOJUMvxz8=";
   })
   (fetchNuGet {
+    pname = "FuzzySharp";
+    version = "2.0.2";
+    hash = "sha256-GuWqVOo+AG8MSvIbusLPjKfJFQRJhSSJ9eGWljTBA/c=";
+  })
+  (fetchNuGet {
     pname = "Microsoft.Extensions.Configuration";
     version = "8.0.0";
     hash = "sha256-9BPsASlxrV8ilmMCjdb3TiUcm5vFZxkBnAI/fNBSEyA=";

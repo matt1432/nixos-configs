@@ -2,15 +2,6 @@
   language = "en";
 
   intents = {
-    PlayArtist.data = [
-      {
-        sentences = [
-          "play[ing] [some] music from [the] [artist] {artist}"
-          "play[ing] [the] artist {artist}"
-        ];
-      }
-    ];
-
     PlayAlbum.data = [
       {
         sentences = [
@@ -24,24 +15,46 @@
         slots.artist = "";
       }
     ];
+
+    PlayArtist.data = [
+      {
+        sentences = [
+          "play[ing] [some] music from [the] [artist] {artist}"
+          "play[ing] [the] artist {artist}"
+        ];
+      }
+    ];
+
+    PlayPlaylist.data = [
+      {
+        sentences = [
+          "play[ing] [the] playlist {playlist}"
+        ];
+      }
+    ];
   };
 
   lists = {
-    artist.wildcard = true;
     album.wildcard = true;
+    artist.wildcard = true;
+    playlist.wildcard = true;
   };
 
   responses.intents = {
-    PlayArtist.default = ''
-      Searching for {{ slots.artist }} on Spotify and playing their top songs.
-    '';
-
     PlayAlbum.default = ''
       Searching for the album {{ slots.album }}
       {% if slots.artist != "" %}
         by {{ slots.artist }}
       {% endif %}
       on Spotify and playing it.
+    '';
+
+    PlayArtist.default = ''
+      Searching for the artist {{ slots.artist }} on Spotify and playing their top songs.
+    '';
+
+    PlayPlaylist.default = ''
+      Searching for {{ slots.playlist }} in your favorites, or elsewhere if not found, and playing it.
     '';
   };
 }

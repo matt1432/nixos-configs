@@ -35,6 +35,19 @@ in {
     ];
 
     config.intent_script = {
+      PlayAlbum = {
+        async_action = "false";
+        action = [
+          {
+            service = "netdaemon.spotify_play_album";
+            data = {
+              artist = "{{ artist }}";
+              album = "{{ album }}";
+            };
+          }
+        ];
+      };
+
       PlayArtist = {
         async_action = "false";
         action = [
@@ -45,15 +58,12 @@ in {
         ];
       };
 
-      PlayAlbum = {
+      PlayPlaylist = {
         async_action = "false";
         action = [
           {
-            service = "netdaemon.spotify_play_album";
-            data = {
-              artist = "{{ artist }}";
-              album = "{{ album }}";
-            };
+            service = "netdaemon.spotify_play_playlist";
+            data.playlist = "{{ playlist }}";
           }
         ];
       };
