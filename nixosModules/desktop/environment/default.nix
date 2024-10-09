@@ -182,6 +182,7 @@ in {
 
             ",XF86AudioMute,    exec, pactl set-sink-mute @DEFAULT_SINK@ toggle"
             ",XF86AudioMicMute, exec, pactl set-source-mute @DEFAULT_SOURCE@ toggle"
+            "$mainMod, Print, exec, bash -c \"grim -g \\\"$(slurp)\\\" - | satty -f -\""
           ];
 
           binde = [
