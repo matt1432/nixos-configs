@@ -28,30 +28,32 @@ public class PlayPlaylist
             "spotify_play_playlist",
             async (e) =>
             {
-                string? query = e?.playlist;
-
-                var result = (await ha.CallServiceWithResponseAsync(
-                    "spotifyplus",
-                    "get_playlist_favorites",
-                    data: new SpotifyplusGetPlaylistFavoritesParameters
-                    {
-                        LimitTotal = 200,
-                        SortResult = true,
-                        EntityId = Global.DEFAULT_ENTITY_ID,
-                    }
-                )).Value.Deserialize<SpotifyplusPlaylistResponse>(_jsonOptions);
-
-                List<PlaylistsItem>? myPlaylists = result?.Result?.Items;
-
-                if (query is not null && myPlaylists is not null)
+                try
                 {
+                    string query = e?.playlist ?? throw new NullReferenceException("Query not found.");
+
+                    var result = (await ha.CallServiceWithResponseAsync(
+                        "spotifyplus",
+                        "get_playlist_favorites",
+                        data: new SpotifyplusGetPlaylistFavoritesParameters
+                        {
+                            LimitTotal = 200,
+                            SortResult = true,
+                            EntityId = Global.DEFAULT_ENTITY_ID,
+                        }
+                    )).Value.Deserialize<SpotifyplusPlaylistResponse>(_jsonOptions);
+
+                    List<PlaylistsItem> myPlaylists = result?.Result?.Items ??
+                        throw new NullReferenceException($"No playlists found for query {query}");
+
                     ExtractedResult<PlaylistsItem> match = Process.ExtractOne<PlaylistsItem>(
                         new PlaylistsItem { Name = query.ToLower() },
                         myPlaylists,
                         new Func<PlaylistsItem, string>((item) => (item.Name ?? "").ToLower())
                     );
 
-                    string uri = match.Value!.Uri!;
+                    string uri = match.Value?.Uri ??
+                        throw new NullReferenceException($"No matches found for query {query}");
 
                     // We search outside the user's playlists if the score is too low
                     if (match.Score < 85)
@@ -70,12 +72,10 @@ public class PlayPlaylist
                             }
                         )).Value.Deserialize<SpotifyplusPlaylistResponse>(_jsonOptions);
 
-                        string? potentialUri = otherResult?.Result?.Items?[0]?.Uri;
+                        string potentialUri = otherResult?.Result?.Items?[0]?.Uri ??
+                            throw new NullReferenceException($"No public matches found for query {query}");
 
-                        if (potentialUri is not null)
-                        {
-                            uri = potentialUri;
-                        }
+                        uri = potentialUri;
                     }
 
                     ha.CallService(
@@ -89,6 +89,18 @@ public class PlayPlaylist
                             // My Defaults
                             PositionMs = 0,
                             Delay = 0.50,
+                        }
+                    );
+                }
+                catch (Exception error)
+                {
+                    ha.CallService(
+                        "notify",
+                        "persistent_notification",
+                        data: new PersistentNotificationCreateParameters
+                        {
+                            Message = error.Message,
+                            Title = "Erreur Spotify",
                         }
                     );
                 }

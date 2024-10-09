@@ -9,7 +9,6 @@
     ./timer.nix
   ];
 
-  # TODO: netd: make error handling with HA notifs
   # TODO: nix: add HA options for custom_sentences and stuff
 
   services.home-assistant = {
