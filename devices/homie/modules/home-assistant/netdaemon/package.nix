@@ -1,22 +1,22 @@
 {
-  lib,
   buildDotnetModule,
   dotnetCorePackages,
+  nix-gitignore,
 }: let
-  inherit (lib) any hasSuffix;
   pname = "netdaemon-config";
 in
   buildDotnetModule {
     inherit pname;
     version = "0.0.0";
 
-    src = builtins.path {
-      name = "src";
-      path = ./.;
-      filter = file: type:
-        (type != "directory")
-        || any (s: hasSuffix s file) [".cs" ".csproj"];
-    };
+    src =
+      nix-gitignore.gitignoreSource [
+        "*.nix"
+        ".direnv"
+        ".envrc"
+        "images"
+      ]
+      ./.;
 
     projectFile = "netdaemon.csproj";
     nugetDeps = ./deps.nix;
