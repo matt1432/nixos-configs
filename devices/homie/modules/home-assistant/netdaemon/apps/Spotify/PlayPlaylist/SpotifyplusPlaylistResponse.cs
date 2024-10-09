@@ -2,9 +2,10 @@ namespace Spotify;
 
 using System.Collections.Generic;
 
-public class PlaylistsItem
+
+public record PlaylistsItem
 {
-    public bool Collaborative { get; set; }
+    public bool? Collaborative { get; set; }
     public string? Description { get; set; }
     public ExternalUrls? ExternalUrls { get; set; }
     public string? Href { get; set; }
@@ -23,15 +24,15 @@ public class PlaylistsItem
 public record PlaylistsResult
 {
     public string? Href { get; set; }
-    public int Limit { get; set; }
+    public int? Limit { get; set; }
     public object? Next { get; set; }
-    public int Offset { get; set; }
+    public int? Offset { get; set; }
     public object? Previous { get; set; }
-    public int Total { get; set; }
+    public int? Total { get; set; }
     public List<PlaylistsItem>? Items { get; set; }
 }
 
-public class SpotifyplusPlaylistResponse
+public record SpotifyplusPlaylistResponse
 {
     public UserProfile? UserProfile { get; set; }
     public PlaylistsResult? Result { get; set; }

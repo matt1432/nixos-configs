@@ -6,11 +6,10 @@ using NetDaemon.HassModel;
 using NetDaemon.HassModel.Integration;
 using System.Text.Json;
 
-record PlayArtistData(string? artist);
-
+record PlaySongData(string? artist, string? song);
 
 [NetDaemonApp]
-public class PlayArtist
+public class PlaySong
 {
     // Snake-case json options
     private readonly JsonSerializerOptions _jsonOptions = new JsonSerializerOptions
@@ -18,25 +17,25 @@ public class PlayArtist
         PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
     };
 
-    public PlayArtist(IHaContext ha)
+    public PlaySong(IHaContext ha)
     {
-        ha.RegisterServiceCallBack<PlayArtistData>(
-            "spotify_play_artist",
+        ha.RegisterServiceCallBack<PlaySongData>(
+            "spotify_play_song",
             async (e) =>
             {
                 var result = (await ha.CallServiceWithResponseAsync(
                     "spotifyplus",
-                    "search_artists",
-                    data: new SpotifyplusSearchArtistsParameters
+                    "search_tracks",
+                    data: new SpotifyplusSearchTracksParameters
                     {
-                        Criteria = e?.artist,
+                        Criteria = $"{e?.artist} {e?.song}",
                         LimitTotal = 1,
                         EntityId = Global.DEFAULT_ENTITY_ID,
                         // My Defaults
                         Market = "CA",
                         IncludeExternal = "audio",
                     }
-                )).Value.Deserialize<SpotifyplusSearchArtistsResponse>(_jsonOptions);
+                )).Value.Deserialize<SpotifyplusSearchTracksResponse>(_jsonOptions);
 
                 string? uri = result?.Result?.Items?[0]?.Uri;
 
@@ -44,10 +43,10 @@ public class PlayArtist
                 {
                     ha.CallService(
                         "spotifyplus",
-                        "player_media_play_context",
-                        data: new SpotifyplusPlayerMediaPlayContextParameters
+                        "player_media_play_tracks",
+                        data: new SpotifyplusPlayerMediaPlayTracksParameters
                         {
-                            ContextUri = uri,
+                            Uris = uri,
                             EntityId = Global.DEFAULT_ENTITY_ID,
                             DeviceId = Global.DEFAULT_DEV_ID,
                             // My Defaults

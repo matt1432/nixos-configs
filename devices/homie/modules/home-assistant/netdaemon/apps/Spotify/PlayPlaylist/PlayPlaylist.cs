@@ -12,6 +12,7 @@ using System.Text.Json;
 
 record PlayPlaylistData(string? playlist);
 
+
 [NetDaemonApp]
 public class PlayPlaylist
 {
@@ -34,9 +35,9 @@ public class PlayPlaylist
                     "get_playlist_favorites",
                     data: new SpotifyplusGetPlaylistFavoritesParameters
                     {
-                        Limit = 50,
-                        EntityId = "media_player.spotifyplus",
+                        LimitTotal = 200,
                         SortResult = true,
+                        EntityId = Global.DEFAULT_ENTITY_ID,
                     }
                 )).Value.Deserialize<SpotifyplusPlaylistResponse>(_jsonOptions);
 
@@ -44,17 +45,15 @@ public class PlayPlaylist
 
                 if (query is not null && myPlaylists is not null)
                 {
-                    PlaylistsItem Query = new();
-                    Query.Name = query.ToLower();
-
                     ExtractedResult<PlaylistsItem> match = Process.ExtractOne<PlaylistsItem>(
-                        Query,
+                        new PlaylistsItem { Name = query.ToLower() },
                         myPlaylists,
                         new Func<PlaylistsItem, string>((item) => (item.Name ?? "").ToLower())
                     );
 
                     string uri = match.Value!.Uri!;
 
+                    // We search outside the user's playlists if the score is too low
                     if (match.Score < 85)
                     {
                         var otherResult = (await ha.CallServiceWithResponseAsync(
@@ -63,12 +62,20 @@ public class PlayPlaylist
                             data: new SpotifyplusSearchPlaylistsParameters
                             {
                                 Criteria = query,
-                                Limit = 1,
-                                EntityId = "media_player.spotifyplus",
+                                LimitTotal = 1,
+                                EntityId = Global.DEFAULT_ENTITY_ID,
+                                // My Defaults
+                                Market = "CA",
+                                IncludeExternal = "audio",
                             }
                         )).Value.Deserialize<SpotifyplusPlaylistResponse>(_jsonOptions);
 
-                        uri = otherResult!.Result!.Items![0]!.Uri!;
+                        string? potentialUri = otherResult?.Result?.Items?[0]?.Uri;
+
+                        if (potentialUri is not null)
+                        {
+                            uri = potentialUri;
+                        }
                     }
 
                     ha.CallService(
@@ -77,7 +84,11 @@ public class PlayPlaylist
                         data: new SpotifyplusPlayerMediaPlayContextParameters
                         {
                             ContextUri = uri,
-                            EntityId = "media_player.spotifyplus"
+                            EntityId = Global.DEFAULT_ENTITY_ID,
+                            DeviceId = Global.DEFAULT_DEV_ID,
+                            // My Defaults
+                            PositionMs = 0,
+                            Delay = 0.50,
                         }
                     );
                 }

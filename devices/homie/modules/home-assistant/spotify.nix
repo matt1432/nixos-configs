@@ -67,6 +67,19 @@ in {
           }
         ];
       };
+
+      PlaySong = {
+        async_action = "false";
+        action = [
+          {
+            service = "netdaemon.spotify_play_song";
+            data = {
+              artist = "{{ artist }}";
+              song = "{{ song }}";
+            };
+          }
+        ];
+      };
     };
   };
 }

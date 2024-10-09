@@ -8,6 +8,7 @@ using System.Text.Json;
 
 record PlayAlbumData(string? artist, string? album);
 
+
 [NetDaemonApp]
 public class PlayAlbum
 {
@@ -29,8 +30,11 @@ public class PlayAlbum
                     data: new SpotifyplusSearchAlbumsParameters
                     {
                         Criteria = $"{e?.artist} {e?.album}",
-                        Limit = 1,
-                        EntityId = "media_player.spotifyplus"
+                        LimitTotal = 1,
+                        EntityId = Global.DEFAULT_ENTITY_ID,
+                        // My Defaults
+                        Market = "CA",
+                        IncludeExternal = "audio",
                     }
                 )).Value.Deserialize<SpotifyplusSearchAlbumsResponse>(_jsonOptions);
 
@@ -44,7 +48,11 @@ public class PlayAlbum
                         data: new SpotifyplusPlayerMediaPlayContextParameters
                         {
                             ContextUri = uri,
-                            EntityId = "media_player.spotifyplus"
+                            EntityId = Global.DEFAULT_ENTITY_ID,
+                            DeviceId = Global.DEFAULT_DEV_ID,
+                            // My Defaults
+                            PositionMs = 0,
+                            Delay = 0.50,
                         }
                     );
                 }

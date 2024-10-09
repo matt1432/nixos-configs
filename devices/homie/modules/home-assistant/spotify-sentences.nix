@@ -28,8 +28,22 @@
     PlayPlaylist.data = [
       {
         sentences = [
-          "play[ing] [the] playlist {playlist}"
+          "play[ing] [(the|my)] playlist {playlist}"
         ];
+      }
+    ];
+
+    PlaySong.data = [
+      {
+        sentences = [
+          "play[ing] [the] (song|track) {song} from [the] [artist] {artist}"
+        ];
+      }
+      {
+        sentences = [
+          "play[ing] [the] (song|track) {song}"
+        ];
+        slots.artist = "";
       }
     ];
   };
@@ -38,6 +52,7 @@
     album.wildcard = true;
     artist.wildcard = true;
     playlist.wildcard = true;
+    song.wildcard = true;
   };
 
   responses.intents = {
@@ -55,6 +70,14 @@
 
     PlayPlaylist.default = ''
       Searching for {{ slots.playlist }} in your favorites, or elsewhere if not found, and playing it.
+    '';
+
+    PlaySong.default = ''
+      Searching for the song {{ slots.song }}
+      {% if slots.artist != "" %}
+        by {{ slots.artist }}
+      {% endif %}
+      on Spotify and playing it.
     '';
   };
 }
