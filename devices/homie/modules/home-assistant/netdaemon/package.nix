@@ -1,25 +1,22 @@
 {
+  lib,
   buildDotnetModule,
   dotnetCorePackages,
 }: let
+  inherit (lib) any hasSuffix;
   pname = "netdaemon-config";
 in
   buildDotnetModule {
     inherit pname;
     version = "0.0.0";
 
-    src =
-      builtins.filterSource
-      (file: type:
+    src = builtins.path {
+      name = "src";
+      path = ./.;
+      filter = file: type:
         (type != "directory")
-        || (builtins.all (f: baseNameOf file != f) [
-          ".envrc"
-          "deps.nix"
-          "default.nix"
-          "netdaemon.nix"
-          "package.nix"
-        ]))
-      ./.;
+        || any (s: hasSuffix s file) [".cs" ".csproj"];
+    };
 
     projectFile = "netdaemon.csproj";
     nugetDeps = ./deps.nix;
