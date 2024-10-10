@@ -65,13 +65,6 @@ let
       repo = "nixos-pcsd";
     };
 
-    # FIXME: use nixpkgs once this reaches unstable https://pr-tracker.nelim.org/?pr=340054
-    headscale = mkDep {
-      owner = "juanfont";
-      repo = "headscale";
-      ref = "v0.23.0";
-    };
-
     caddy-plugins = mkDep {
       owner = "matt1432";
       repo = "nixos-caddy-cloudflare";

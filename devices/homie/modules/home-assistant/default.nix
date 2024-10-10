@@ -1,4 +1,8 @@
-{pkgs, self, ...}: {
+{
+  pkgs,
+  self,
+  ...
+}: {
   imports = [
     ./assist.nix
     ./bluetooth.nix

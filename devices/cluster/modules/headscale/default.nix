@@ -1,35 +1,14 @@
-{
-  config,
-  headscale,
-  lib,
-  pkgs,
-  ...
-}: let
-  inherit (builtins) readFile;
-  inherit (lib) mkAfter mkForce;
-  inherit (pkgs.writers) writeYAML;
-
+{config, ...}: let
   inherit (config.vars) mainUser hostName;
-  headscale-flake = headscale.packages.${pkgs.system}.headscale;
 
   clusterIP = config.services.pcsd.virtualIps.caddy-vip.ip;
 in {
-  environment.systemPackages = [headscale-flake];
   users.users.${mainUser}.extraGroups = ["headscale"];
-
-  home-manager.users.${mainUser}
-    .programs.bash.bashrcExtra = mkAfter (readFile ./completion.bash);
 
   services.headscale = {
     enable = true;
-    package = headscale-flake;
-  };
 
-  # Takes way too long to shutdown
-  systemd.services."headscale".serviceConfig.TimeoutStopSec = "5";
-
-  environment.etc."headscale/config.yaml".source = mkForce (
-    writeYAML "headscale.yaml" {
+    settings = {
       server_url = "https://headscale.nelim.org";
       listen_addr = "${clusterIP}:8085";
       prefixes = {
@@ -82,6 +61,6 @@ in {
           region_name = "montreal";
         };
       };
-    }
-  );
+    };
+  };
 }

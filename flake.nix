@@ -141,16 +141,6 @@
       repo = "ha-fallback-conversation";
       type = "github";
     };
-    headscale = {
-      inputs = {
-        flake-utils.follows = "flake-utils";
-        nixpkgs.follows = "nixpkgs";
-      };
-      owner = "juanfont";
-      ref = "v0.23.0";
-      repo = "headscale";
-      type = "github";
-    };
     home-manager = {
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "nix-community";
