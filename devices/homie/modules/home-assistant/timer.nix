@@ -1,11 +1,6 @@
 # From https://github.com/don86nl/ha_intents/blob/main/config/packages/assist_timers.yaml
-{
-  lib,
-  pkgs,
-  ...
-}: let
-  inherit (lib) concatStrings concatStringsSep getExe;
-  inherit (pkgs.writers) writeYAML;
+{lib, ...}: let
+  inherit (lib) concatStrings concatStringsSep;
 
   mkTimer = id: {
     "assist_timer${toString id}" = {
@@ -43,20 +38,9 @@
     timer_media_location = "/path/to/file.mp3";
   };
 in {
-  systemd.services.home-assistant.preStart = let
-    WorkingDirectory = "/var/lib/hass";
-
-    timer = writeYAML "assist_timers.yaml" (import ./timer-sentences.nix);
-  in
-    getExe (pkgs.writeShellApplication {
-      name = "timer-files";
-      text = ''
-        mkdir -p ${WorkingDirectory}/custom_sentences/en
-        cp -f ${timer} ${WorkingDirectory}/custom_sentences/en/assist_timers.yaml
-      '';
-    });
-
   services.home-assistant = {
+    customSentences."assist_timers" = import ./timer-sentences.nix;
+
     config = {
       homeassistant.customize."script.assist_timerstart" = {inherit settings;};
 

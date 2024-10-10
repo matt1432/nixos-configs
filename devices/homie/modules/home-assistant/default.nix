@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs, self, ...}: {
   imports = [
     ./assist.nix
     ./bluetooth.nix
@@ -7,9 +7,9 @@
     ./netdaemon
     ./spotify.nix
     ./timer.nix
-  ];
 
-  # TODO: nix: add HA options for custom_sentences and stuff
+    self.nixosModules.ha-plus
+  ];
 
   services.home-assistant = {
     enable = true;

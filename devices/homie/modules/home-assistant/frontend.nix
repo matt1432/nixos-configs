@@ -3,31 +3,18 @@
   dracul-ha-src,
   material-rounded-theme-src,
   material-symbols-src,
-  lib,
   pkgs,
   ...
 }: let
-  inherit (lib) concatStringsSep getExe;
   inherit (pkgs.writers) writeYAML;
-
-  themes = [
-    "${caule-themes-src}/themes/caule-themes-pack-1.yaml"
-    "${dracul-ha-src}/themes/dracul-ha.yaml"
-    "${material-rounded-theme-src}/themes/material_rounded.yaml"
-  ];
 in {
-  systemd.services.home-assistant.preStart = let
-    WorkingDirectory = "/var/lib/hass";
-  in
-    getExe (pkgs.writeShellApplication {
-      name = "ha-themes";
-      text = ''
-        mkdir -p ${WorkingDirectory}/themes
-        cp -f ${concatStringsSep " " themes} ${WorkingDirectory}/themes
-      '';
-    });
-
   services.home-assistant = {
+    configFiles = {
+      "themes/caule.yaml".source = "${caule-themes-src}/themes/caule-themes-pack-1.yaml";
+      "themes/dracul-ha.yaml".source = "${dracul-ha-src}/themes/dracul-ha.yaml";
+      "themes/material_rounded.yaml".source = "${material-rounded-theme-src}/themes/material_rounded.yaml";
+    };
+
     customLovelaceModules = builtins.attrValues {
       inherit
         (pkgs.home-assistant-custom-lovelace-modules)
