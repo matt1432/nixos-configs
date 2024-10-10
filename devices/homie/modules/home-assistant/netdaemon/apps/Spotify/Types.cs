@@ -10,6 +10,9 @@ public static class Global
 }
 
 
+// https://jsonformatter.org/yaml-to-json
+// https://json2csharp.com
+// https://github.com/thlucas1/homeassistantcomponent_spotifyplus/blob/master/custom_components/spotifyplus/services.yaml
 public record Restrictions { }
 
 public record UserProfile
