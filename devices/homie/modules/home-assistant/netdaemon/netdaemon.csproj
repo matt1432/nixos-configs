@@ -6,6 +6,7 @@
         <LangVersion>12.0</LangVersion>
         <Nullable>enable</Nullable>
         <RootNamespace>netdaemon</RootNamespace>
+        <Version>$([System.IO.File]::ReadAllText(".version"))</Version>
     </PropertyGroup>
 
     <ItemGroup>

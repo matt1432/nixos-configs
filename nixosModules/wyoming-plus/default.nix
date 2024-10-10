@@ -4,20 +4,10 @@
   pkgs,
   ...
 }: let
-  inherit
-    (lib)
-    attrNames
-    concatMapStringsSep
-    concatStringsSep
-    filterAttrs
-    listToAttrs
-    map
-    mkForce
-    mkIf
-    mkOverride
-    nameValuePair
-    optionalString
-    ;
+  inherit (lib.lists) map;
+  inherit (lib.modules) mkForce mkIf mkOverride;
+  inherit (lib.strings) concatMapStringsSep concatStringsSep optionalString;
+  inherit (lib.attrsets) attrNames nameValuePair filterAttrs listToAttrs;
 
   cfg = config.services.wyoming;
 in {

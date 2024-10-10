@@ -4,22 +4,11 @@
   pkgs,
   ...
 }: let
-  inherit
-    (lib)
-    concatMapStringsSep
-    converge
-    elem
-    filterAttrsRecursive
-    getExe
-    mapAttrsToList
-    mkForce
-    mkIf
-    mkOption
-    optionalAttrs
-    optionals
-    optionalString
-    types
-    ;
+  inherit (lib) converge getExe mkOption types;
+  inherit (lib.modules) mkForce mkIf;
+  inherit (lib.lists) elem optionals;
+  inherit (lib.strings) concatMapStringsSep optionalString;
+  inherit (lib.attrsets) mapAttrsToList filterAttrsRecursive optionalAttrs;
 
   cfg = config.services.esphome;
 

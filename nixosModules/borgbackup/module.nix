@@ -4,8 +4,9 @@
   pkgs,
   ...
 }: let
-  inherit (lib) all any attrValues findSingle length mapAttrs mkIf mkOption types;
-  inherit (builtins) filter hasAttr listToAttrs removeAttrs;
+  inherit (lib) mkIf mkOption types;
+  inherit (lib.lists) all any filter findSingle length;
+  inherit (lib.attrsets) attrValues hasAttr listToAttrs mapAttrs removeAttrs;
 
   inherit (config.sops) secrets;
   inherit (config.vars) hostName;

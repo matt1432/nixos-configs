@@ -48,7 +48,7 @@ in {
       ];
       text = ''
         # Install codegen
-        dotnet tool install --create-manifest-if-needed NetDaemon.HassModel.CodeGen
+        dotnet tool install --create-manifest-if-needed NetDaemon.HassModel.CodeGen --version "$(cat ./.version)"
 
         # Run it
         dotnet tool run nd-codegen -token "$(sed 's/HomeAssistant__Token=//' ${secrets.netdaemon.path})"
@@ -71,6 +71,9 @@ in {
         $(nix build --no-link --print-out-paths --impure --expr "let self = builtins.getFlake (\"$FLAKE\"); inherit (self.nixosConfigurations.homie) pkgs; in (pkgs.callPackage $FLAKE/devices/homie/modules/home-assistant/netdaemon/package.nix {}).fetch-deps") .
         alejandra .
         rm -r "$FLAKE/.config"
+
+        sed -i "s/finalImageTag = .*/finalImageTag = \"$(cat ./.version)\";/" ./images/netdaemon.nix
+        updateImages .
       '';
     })
   ];
