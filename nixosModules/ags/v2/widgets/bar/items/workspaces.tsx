@@ -26,21 +26,19 @@ const Workspace = ({ id = 0 }) => (
                 setup={(self) => idle(() => {
                     const update = (
                         _: Widget.Box,
-                        addr?: string,
+                        client?: AstalHyprland.Client,
                     ) => {
                         const workspace = Hyprland.get_workspace(id);
                         const occupied = workspace && workspace.get_clients().length > 0;
 
                         self.toggleClassName('occupied', occupied);
 
-                        if (!addr) {
+                        if (!client) {
                             return;
                         }
 
-                        // Deal with urgent windows
-                        const client = Hyprland.get_client(addr);
                         const isThisUrgent = client &&
-                          client.workspace.id === id;
+                          client.get_workspace().get_id() === id;
 
                         if (isThisUrgent) {
                             self.toggleClassName('urgent', true);
@@ -55,7 +53,7 @@ const Workspace = ({ id = 0 }) => (
                     };
 
                     self
-                        .hook(Hyprland, 'event', update)
+                        .hook(Hyprland, 'event', () => update(self))
 
                         // Deal with urgent windows
                         .hook(Hyprland, 'urgent', update)

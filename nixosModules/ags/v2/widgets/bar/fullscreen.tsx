@@ -19,11 +19,14 @@ Hyprland.connect('event', () => {
         m1.size === m2.size &&
         Array.from(m1.keys()).every((key) => m1.get(key) === m2.get(key));
 
+    const newMonitors = JSON.parse(Hyprland.message('j/monitors')) as AstalHyprland.Monitor[];
+
     const fs = FullscreenState.get();
     const fsClients = Hyprland.get_clients().filter((c) => {
-        const mon = c.get_monitor();
+        const mon = newMonitors.find((monitor) => monitor.id === c.get_monitor().id);
 
-        return c.fullscreen && c.workspace.id === mon?.activeWorkspace.id;
+        return c.fullscreenClient !== 0 &&
+          c.workspace.id === mon?.activeWorkspace.id;
     });
 
     const monitors = fsClients.map((c) =>

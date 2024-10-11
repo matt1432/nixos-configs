@@ -18,7 +18,6 @@ export default () => (
             Astal.WindowAnchor.RIGHT
         }
     >
-
         <centerbox className="bar widget">
             <box hexpand halign={Gtk.Align.START}>
                 <Workspaces />
