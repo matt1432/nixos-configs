@@ -11,7 +11,7 @@
   extract-subs = buildNpmPackage {
     name = "${pname}-npm";
     src = ./.;
-    npmDepsHash = "sha256-O00VQPCUX6T+rtK3VcAibBipXFwNs4AFA3251qycPBQ=";
+    npmDepsHash = "sha256-mIRn7MsQJCwBYNEL3IK4cV8X+kDouEdc9x59XWgUkYw=";
 
     nativeBuildInputs = [
       nodejs_20
@@ -46,6 +46,4 @@ in
     text = ''
       exec ${pname} "$@"
     '';
-
-    meta.mainProgram = pname;
   }

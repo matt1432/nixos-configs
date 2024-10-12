@@ -1,4 +1,4 @@
-import { Gtk, idle, timeout, Widget } from 'astal';
+import { Gtk, timeout, Widget } from 'astal';
 
 import AstalHyprland from 'gi://AstalHyprland?version=0.1';
 const Hyprland = AstalHyprland.get_default();
@@ -23,7 +23,7 @@ const Workspace = ({ id = 0 }) => (
                 valign={Gtk.Align.CENTER}
                 className="button"
 
-                setup={(self) => idle(() => {
+                setup={(self) => {
                     const update = (
                         _: Widget.Box,
                         client?: AstalHyprland.Client,
@@ -37,10 +37,10 @@ const Workspace = ({ id = 0 }) => (
                             return;
                         }
 
-                        const isThisUrgent = client &&
+                        const isUrgent = client &&
                           client.get_workspace().get_id() === id;
 
-                        if (isThisUrgent) {
+                        if (isUrgent) {
                             self.toggleClassName('urgent', true);
 
                             // Only show for a sec when urgent is current workspace
@@ -52,6 +52,7 @@ const Workspace = ({ id = 0 }) => (
                         }
                     };
 
+                    update(self);
                     self
                         .hook(Hyprland, 'event', () => update(self))
 
@@ -63,7 +64,7 @@ const Workspace = ({ id = 0 }) => (
                                 self.toggleClassName('urgent', false);
                             }
                         });
-                })}
+                }}
             />
         </eventbox>
     </revealer>

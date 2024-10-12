@@ -1,14 +1,18 @@
 {
-  "devDependencies": {
-    "@stylistic/eslint-plugin": "^1.4.0",
-    "@types/node": "^20.10.5",
-    "@typescript-eslint/eslint-plugin": "^6.9.1",
-    "@typescript-eslint/parser": "^6.9.1",
-    "eslint": "^8.52.0",
-    "typescript": "^5.3.3"
-  },
-  "dependencies": {
-    "@types/fluent-ffmpeg": "^2.1.24",
-    "fluent-ffmpeg": "^2.1.2"
-  }
+    "devDependencies": {
+        "@eslint/js": "9.12.0",
+        "@stylistic/eslint-plugin": "2.9.0",
+        "@types/eslint__js": "8.42.3",
+        "@types/node": "22.7.5",
+        "eslint": "9.12.0",
+        "eslint-plugin-jsdoc": "50.3.2",
+        "fzf": "0.5.2",
+        "jiti": "2.3.3",
+        "typescript": "5.6.3",
+        "typescript-eslint": "8.8.1"
+    },
+    "dependencies": {
+        "@types/fluent-ffmpeg": "2.1.26",
+        "fluent-ffmpeg": "2.1.3"
+    }
 }

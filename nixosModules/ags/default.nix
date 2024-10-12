@@ -110,7 +110,7 @@ in {
                   '';
 
                 "${agsConfigDir}/config/node_modules".source =
-                  buildNodeModules ./config "sha256-Xv8p7XfUoEJIDf3/78MG6xLoUBSobjmjYwzno+YzP8o=";
+                  buildNodeModules ./config "sha256-4ybtwyZs7AgIYiGm1RuWwEgrnkxAqIEkPZjJJfQV/6I=";
               }
               // (import ./icons.nix {inherit pkgs agsConfigDir;})
             );
@@ -139,7 +139,9 @@ in {
               }));
           };
 
-          wayland.windowManager.hyprland = {
+          wayland.windowManager.hyprland = let
+            runAgs = "pgrep ags -a | grep '/bin/gjs' && ags";
+          in {
             settings = {
               animations = {
                 bezier = [
@@ -167,18 +169,18 @@ in {
               ];
 
               bind = [
-                "$mainMod SHIFT, E    , exec, ags -t win-powermenu"
-                "$mainMod      , D    , exec, ags -t win-applauncher"
-                "$mainMod      , V    , exec, ags -t win-clipboard"
-                "              , Print, exec, ags -t win-screenshot"
+                "$mainMod SHIFT, E    , exec, ${runAgs} -t win-powermenu"
+                "$mainMod      , D    , exec, ${runAgs} -t win-applauncher"
+                "$mainMod      , V    , exec, ${runAgs} -t win-clipboard"
+                "              , Print, exec, ${runAgs} -t win-screenshot"
               ];
               binde = [
                 ## Brightness control
-                ", XF86MonBrightnessUp  , exec, ags -r 'Brightness.screen += 0.05'"
-                ", XF86MonBrightnessDown, exec, ags -r 'Brightness.screen -= 0.05'"
+                ", XF86MonBrightnessUp  , exec, ${runAgs} -r 'Brightness.screen += 0.05'"
+                ", XF86MonBrightnessDown, exec, ${runAgs} -r 'Brightness.screen -= 0.05'"
               ];
-              bindn = ["    , Escape   , exec, ags -r 'closeAll()'"];
-              bindr = ["CAPS, Caps_Lock, exec, ags -r 'Brightness.fetchCapsState()'"];
+              bindn = ["    , Escape   , exec, ${runAgs} -r 'closeAll()'"];
+              bindr = ["CAPS, Caps_Lock, exec, ${runAgs} -r 'Brightness.fetchCapsState()'"];
             };
           };
         })

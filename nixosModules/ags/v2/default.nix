@@ -37,7 +37,7 @@ self: {
         })
         // {
           "${configDir}/node_modules".source =
-            buildNodeModules ./. "sha256-WjCfS8iEw5Mjor/sQ2t+i0Q1pqVpSDEDbbgrKwK+3cg=";
+            buildNodeModules ./. "sha256-u2LDbIKA32urN/NqqJrdAl46pUloPaoa5HoYDRJDh1k=";
 
           "${configDir}/tsconfig.json".source = pkgs.writers.writeJSON "tsconfig.json" {
             "$schema" = "https://json.schemastore.org/tsconfig";

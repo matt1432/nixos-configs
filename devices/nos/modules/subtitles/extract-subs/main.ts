@@ -3,6 +3,7 @@ import { spawnSync as spawn } from 'child_process';
 
 import { ISO6393To1 } from './lang-codes';
 
+
 const SPAWN_OPTS = {
     shell: true,
     stdio: [process.stdin, process.stdout, process.stderr],
@@ -17,19 +18,8 @@ const SPAWN_OPTS = {
 const video = process.argv[2];
 const languages = process.argv[3]?.split(',');
 
-const escapePath = (p: string): string => p.replaceAll("'", "'\\''");
 
-// Check if there are 2 params
-if (video && languages) {
-    main(escapePath(video));
-}
-else {
-    console.error('Error: no argument passed');
-    process.exit(1);
-}
-
-
-function getSubPath(baseName: string, sub: Ffmpeg.FfprobeStream): string {
+const getSubPath = (baseName: string, sub: Ffmpeg.FfprobeStream): string => {
     const language = ISO6393To1.get(sub.tags.language);
 
     const forced = sub.disposition?.forced === 0 ?
@@ -41,9 +31,9 @@ function getSubPath(baseName: string, sub: Ffmpeg.FfprobeStream): string {
         '.sdh';
 
     return `${baseName}${forced}.${language}${hearingImpaired}.srt`;
-}
+};
 
-function main(videoPath: string) {
+const main = (videoPath: string) => {
     const subIndexes: number[] = [];
     const baseName = videoPath.split('/').at(-1)!.replace(/\.[^.]*$/, '');
 
@@ -58,9 +48,9 @@ function main(videoPath: string) {
         languages.forEach((lang) => {
             let subs = data.streams.filter((s) => {
                 return s['tags'] &&
-                    s['tags']['language'] &&
-                    s['tags']['language'] === lang &&
-                    s.codec_type === 'subtitle';
+                  s['tags']['language'] &&
+                  s['tags']['language'] === lang &&
+                  s.codec_type === 'subtitle';
             });
 
             const pgs = subs.filter((s) => s.codec_name === 'hdmv_pgs_subtitle');
@@ -110,4 +100,15 @@ function main(videoPath: string) {
             `'${videoPath}.bak'`,
         ], SPAWN_OPTS);
     });
+};
+
+const escapePath = (p: string): string => p.replaceAll("'", "'\\''");
+
+// Check if there are 2 params
+if (video && languages) {
+    main(escapePath(video));
+}
+else {
+    console.error('Error: no argument passed');
+    process.exit(1);
 }
