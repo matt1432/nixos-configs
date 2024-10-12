@@ -16,7 +16,7 @@ export default () => {
     let lastFocused: string | undefined;
 
     const updateVars = (
-        client: AstalHyprland.Client | null | undefined = Hyprland.get_focused_client(),
+        client: AstalHyprland.Client | null = Hyprland.get_focused_client(),
     ) => {
         lastFocused = client?.get_address();
         const app = Applications.query(

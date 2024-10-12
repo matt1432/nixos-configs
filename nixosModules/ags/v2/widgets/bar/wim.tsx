@@ -3,6 +3,7 @@ import { Astal, Gtk } from 'astal';
 import Battery from './items/battery';
 import Clock from './items/clock';
 import CurrentClient from './items/current-client';
+import SysTray from './items/tray';
 import Workspaces from './items/workspaces';
 
 import BarRevealer from './fullscreen';
@@ -24,7 +25,13 @@ export default () => (
 
                 <Separator size={8} />
 
+                <SysTray />
+
+                <Separator size={8} />
+
                 <CurrentClient />
+
+                <Separator size={8} />
             </box>
 
             <box>
