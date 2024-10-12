@@ -50,6 +50,7 @@ self: {
               "skipLibCheck" = true;
               "checkJs" = true;
               "allowJs" = true;
+              "experimentalDecorators" = true;
               "jsx" = "react-jsx";
               "jsxImportSource" = "${agsV2Packages.astal}/share/astal/gjs/src/jsx";
               "paths" = {
