@@ -52,10 +52,10 @@ self: {
               "allowJs" = true;
               "experimentalDecorators" = true;
               "jsx" = "react-jsx";
-              "jsxImportSource" = "${agsV2Packages.astal}/share/astal/gjs/src/jsx";
+              "jsxImportSource" = "${agsV2Packages.astal3}/share/astal/gjs/src/jsx";
               "paths" = {
-                "astal" = ["${agsV2Packages.astal}/share/astal/gjs"];
-                "astal/*" = ["${agsV2Packages.astal}/share/astal/gjs/src/*"];
+                "astal" = ["${agsV2Packages.astal3}/share/astal/gjs"];
+                "astal/*" = ["${agsV2Packages.astal3}/share/astal/gjs/src/*"];
               };
             };
           };
