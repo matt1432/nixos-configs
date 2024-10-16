@@ -29,4 +29,19 @@
 
         .action-button {}
     }
+
+    .smooth-progress {
+        min-height: 7px;
+        margin: 3px;
+
+        .background {
+            background-color: darken($window_bg_color, 3%);
+            border-radius: 3px;
+        }
+
+        .progress {
+            background-color: $accent-color;
+            border-radius: 3px;
+        }
+    }
 }

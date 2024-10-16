@@ -1,6 +1,8 @@
 import { Gdk, Gtk, Widget } from 'astal/gtk3';
 import { register, property } from 'astal/gobject';
-import { idle } from 'astal';
+import { idle, interval } from 'astal';
+
+import AstalIO from 'gi://AstalIO?version=0.1';
 
 import AstalNotifd from 'gi://AstalNotifd?version=0.1';
 const Notifications = AstalNotifd.get_default();
@@ -61,6 +63,8 @@ const defaultStyle = `${TRANSITION} margin: unset; opacity: 1;`;
 type NotifGestureWrapperProps = Widget.BoxProps & {
     id: number
     slide_in_from?: 'Left' | 'Right'
+    popup_timer?: number
+    setup_notif?: (self: NotifGestureWrapper) => void
 };
 
 @register()
@@ -70,6 +74,11 @@ export class NotifGestureWrapper extends Widget.EventBox {
     readonly id: number;
 
     readonly slide_in_from: 'Left' | 'Right';
+
+    private timer_object: AstalIO.Time | undefined;
+
+    @property(Number)
+    declare popup_timer: number;
 
     @property(Boolean)
     declare dragging: boolean;
@@ -125,11 +134,19 @@ export class NotifGestureWrapper extends Widget.EventBox {
             (this.get_child() as Widget.Revealer).revealChild = false;
 
             setTimeout(() => {
-                // Kill notif and update HasNotifs after anim is done
+                // Kill notif if specified
                 if (force) {
                     Notifications.get_notification(this.id)?.dismiss();
                 }
+
+                // Make sure we cleanup any references to this instance
+                this.timer_object?.cancel();
+                NotifGestureWrapper.popups.delete(this.id);
+
+                // Update HasNotifs
                 HasNotifs.set(Notifications.get_notifications().length > 0);
+
+                // Get rid of disappeared widget
                 this.destroy();
             }, ANIM_DURATION);
         }, ANIM_DURATION - 100);
@@ -138,12 +155,18 @@ export class NotifGestureWrapper extends Widget.EventBox {
     constructor({
         id,
         slide_in_from = 'Left',
+        popup_timer = 0,
+        setup_notif = () => { /**/ },
         ...rest
     }: NotifGestureWrapperProps) {
         super();
+
+        setup_notif(this);
+
         this.id = id;
-        this.dragging = false;
         this.slide_in_from = slide_in_from;
+        this.popup_timer = popup_timer;
+        this.dragging = false;
 
         // OnClick
         this.connect('button-press-event', () => {
@@ -188,6 +211,20 @@ export class NotifGestureWrapper extends Widget.EventBox {
                 'grab',
             ));
         });
+
+        // Handle timeout before sliding away if it is a popup
+        if (this.popup_timer !== 0) {
+            this.timer_object = interval(1000, () => {
+                if (!this.hovered) {
+                    if (this.popup_timer === 0) {
+                        this.slideAway('Left');
+                    }
+                    else {
+                        this.popup_timer--;
+                    }
+                }
+            });
+        }
 
         const gesture = Gtk.GestureDrag.new(this);
 

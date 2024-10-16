@@ -17,7 +17,7 @@ export default () => (
                     return;
                 }
 
-                const NewNotif = Notification({ id });
+                const NewNotif = Notification({ id, popup_timer: 5 });
 
                 if (NewNotif) {
                     // Use this instead of add to put it at the top
