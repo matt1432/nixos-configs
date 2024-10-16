@@ -115,7 +115,7 @@ export const Notification = ({
             id={id}
             popup_timer={popup_timer}
             setup_notif={(self) => {
-                self.connect('notify::popup-timer', () => {
+                self.connect('timer-update', () => {
                     progress.fraction = self.popup_timer / 5;
                 });
             }}

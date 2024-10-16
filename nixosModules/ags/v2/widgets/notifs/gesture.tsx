@@ -1,5 +1,5 @@
 import { Gdk, Gtk, Widget } from 'astal/gtk3';
-import { register, property } from 'astal/gobject';
+import { register, signal } from 'astal/gobject';
 import { idle, interval } from 'astal';
 
 import AstalIO from 'gi://AstalIO?version=0.1';
@@ -76,11 +76,12 @@ export class NotifGestureWrapper extends Widget.EventBox {
 
     private timer_object: AstalIO.Time | undefined;
 
-    @property(Number)
-    declare popup_timer: number;
+    public popup_timer: number;
 
-    @property(Boolean)
-    declare dragging: boolean;
+    @signal(Number)
+    declare timer_update: (popup_timer: number) => void;
+
+    public dragging: boolean;
 
     private async get_hovered(): Promise<boolean> {
         const layers = JSON.parse(await hyprMessage('j/layers')) as LayerResult;
@@ -164,8 +165,10 @@ export class NotifGestureWrapper extends Widget.EventBox {
 
         this.id = id;
         this.slide_in_from = slide_in_from;
-        this.popup_timer = popup_timer;
         this.dragging = false;
+
+        this.popup_timer = popup_timer;
+        this.timer_update(this.popup_timer);
 
         // OnClick
         this.connect('button-press-event', () => {
@@ -219,7 +222,7 @@ export class NotifGestureWrapper extends Widget.EventBox {
                         this.slideAway('Left');
                     }
                     else {
-                        this.popup_timer--;
+                        this.timer_update(--this.popup_timer);
                     }
                 }
             });
