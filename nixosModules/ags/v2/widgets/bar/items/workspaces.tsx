@@ -1,4 +1,5 @@
-import { Gtk, timeout, Widget } from 'astal';
+import { Gtk, Widget } from 'astal/gtk3';
+import { timeout } from 'astal';
 
 import AstalHyprland from 'gi://AstalHyprland?version=0.1';
 const Hyprland = AstalHyprland.get_default();

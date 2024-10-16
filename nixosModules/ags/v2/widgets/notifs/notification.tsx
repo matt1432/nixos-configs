@@ -1,0 +1,160 @@
+import { App, Gtk } from 'astal/gtk3';
+import { Variable } from 'astal';
+
+import GLib from 'gi://GLib?version=2.0';
+
+import AstalApps from 'gi://AstalApps?version=0.1';
+const Applications = AstalApps.Apps.new();
+
+import AstalNotifd from 'gi://AstalNotifd?version=0.1';
+const Notifications = AstalNotifd.get_default();
+
+import NotifGestureWrapper from './gesture';
+
+
+// Make a variable to connect to for Widgets
+// to know when there are notifs or not
+export const HasNotifs = Variable(false);
+
+const setTime = (time: number): string => {
+    return GLib.DateTime
+        .new_from_unix_local(time)
+        .format('%H:%M') ?? '';
+};
+
+const NotifIcon = ({ notifObj }: { notifObj: AstalNotifd.Notification }) => {
+    let icon: string;
+
+    if (notifObj.get_image() !== '') {
+        icon = notifObj.get_image();
+        App.add_icons(icon);
+    }
+    else if (notifObj.get_app_icon() !== '') {
+        icon = notifObj.get_app_icon();
+    }
+    else {
+        icon = Applications.query(
+            notifObj.get_app_name(),
+            false,
+        )[0].get_icon_name();
+    }
+
+    return (
+        <box
+            valign={Gtk.Align.CENTER}
+            className="icon"
+            css={`
+                min-width: 78px;
+                min-height: 78px;
+            `}
+        >
+            <icon
+                icon={icon}
+                css="font-size: 58px;"
+                halign={Gtk.Align.CENTER}
+                hexpand
+                valign={Gtk.Align.CENTER}
+                vexpand
+            />
+        </box>
+    );
+};
+
+const BlockedApps = [
+    'Spotify',
+];
+
+export const Notification = ({
+    id = 0,
+}): ReturnType<typeof NotifGestureWrapper> | undefined => {
+    const notifObj = Notifications.get_notification(id);
+
+    if (!notifObj) {
+        return;
+    }
+
+    if (BlockedApps.find((app) => app === notifObj.app_name)) {
+        notifObj.dismiss();
+
+        return;
+    }
+
+    HasNotifs.set(Notifications.get_notifications().length > 0);
+
+    return (
+        <NotifGestureWrapper id={id}>
+            <box vertical className={`notification ${notifObj.urgency} widget`}>
+                {/* Content */}
+                <box>
+                    <NotifIcon notifObj={notifObj} />
+
+                    {/* Top of Content */}
+                    <box vertical css="min-width: 400px">
+
+                        <box>
+                            {/* Title */}
+                            <label
+                                className="title"
+                                halign={Gtk.Align.START}
+                                valign={Gtk.Align.END}
+                                xalign={0}
+                                hexpand
+                                max_width_chars={24}
+                                truncate
+                                wrap
+                                label={notifObj.summary}
+                                use_markup={notifObj.summary.startsWith('<')}
+                            />
+
+                            {/* Time */}
+                            <label
+                                className="time"
+                                valign={Gtk.Align.CENTER}
+                                halign={Gtk.Align.END}
+                                label={setTime(notifObj.time)}
+                            />
+
+                            {/* Close button */}
+                            <button
+                                className="close-button"
+                                valign={Gtk.Align.START}
+                                halign={Gtk.Align.END}
+
+                                onButtonReleaseEvent={() => {
+                                    notifObj.dismiss();
+                                }}
+                            >
+                                <icon icon="window-close-symbolic" />
+                            </button>
+
+                        </box>
+
+                        {/* Description */}
+                        <label
+                            className="description"
+                            hexpand
+                            use_markup
+                            xalign={0}
+                            label={notifObj.body}
+                            wrap
+                        />
+                    </box>
+                </box>
+
+                {/* Actions */}
+                <box className="actions">
+                    {notifObj.get_actions().map((action) => (
+                        <button
+                            className="action-button"
+                            hexpand
+
+                            onButtonReleaseEvent={() => notifObj.invoke(action.id)}
+                        >
+                            <label label={action.label} />
+                        </button>
+                    ))}
+                </box>
+            </box>
+        </NotifGestureWrapper>
+    ) as ReturnType<typeof NotifGestureWrapper>;
+};

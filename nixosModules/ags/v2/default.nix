@@ -9,7 +9,7 @@ self: {
     inherit (self.inputs) agsV2;
 
     agsV2Packages = agsV2.packages.${pkgs.system};
-    astalLibs = attrValues (removeAttrs agsV2.inputs.astal.packages.${pkgs.system} ["docs"]);
+    astalLibs = attrValues (removeAttrs agsV2.inputs.astal.packages.${pkgs.system} ["docs" "gjs"]);
     configDir = "/home/matt/.nix/nixosModules/ags/v2";
   in {
     home = {
@@ -42,21 +42,19 @@ self: {
           "${configDir}/tsconfig.json".source = pkgs.writers.writeJSON "tsconfig.json" {
             "$schema" = "https://json.schemastore.org/tsconfig";
             "compilerOptions" = {
+              "experimentalDecorators" = true;
+              "strict" = true;
               "target" = "ES2023";
+              "moduleResolution" = "Bundler";
+              "jsx" = "react-jsx";
+              "jsxImportSource" = "${agsV2Packages.gjs}/share/astal/gjs/gtk3";
+              "paths" = {
+                "astal" = ["${agsV2Packages.gjs}/share/astal/gjs"];
+                "astal/*" = ["${agsV2Packages.gjs}/share/astal/gjs/*"];
+              };
+              "skipLibCheck" = true;
               "module" = "ES2022";
               "lib" = ["ES2023"];
-              "strict" = true;
-              "moduleResolution" = "Bundler";
-              "skipLibCheck" = true;
-              "checkJs" = true;
-              "allowJs" = true;
-              "experimentalDecorators" = true;
-              "jsx" = "react-jsx";
-              "jsxImportSource" = "${agsV2Packages.astal3}/share/astal/gjs/src/jsx";
-              "paths" = {
-                "astal" = ["${agsV2Packages.astal3}/share/astal/gjs"];
-                "astal/*" = ["${agsV2Packages.astal3}/share/astal/gjs/src/*"];
-              };
             };
           };
         }

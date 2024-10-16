@@ -1,4 +1,4 @@
-import { Astal, Gtk } from 'astal';
+import { Astal, Gtk } from 'astal/gtk3';
 
 import Battery from './items/battery';
 import Clock from './items/clock';

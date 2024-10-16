@@ -1,4 +1,5 @@
-import { App, bind, Gdk, Gtk, idle, Widget } from 'astal';
+import { App, Gdk, Gtk, Widget } from 'astal/gtk3';
+import { bind, idle } from 'astal';
 
 import AstalTray from 'gi://AstalTray';
 const Tray = AstalTray.get_default();

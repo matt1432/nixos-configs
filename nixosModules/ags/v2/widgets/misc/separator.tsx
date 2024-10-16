@@ -1,4 +1,4 @@
-import { Widget } from 'astal';
+import { Widget } from 'astal/gtk3';
 
 
 export default ({

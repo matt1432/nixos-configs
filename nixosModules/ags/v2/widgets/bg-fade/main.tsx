@@ -1,4 +1,4 @@
-import { Astal } from 'astal';
+import { Astal } from 'astal/gtk3';
 
 
 export default () => {

@@ -1,0 +1,32 @@
+.notification.widget {
+    // urgencies
+    // &.urgency ...
+
+    .icon {
+        margin-right: 10px;
+    }
+
+    .time {
+        margin: 3px;
+    }
+
+    .close-button {
+        margin: 3px;
+    }
+
+    .title {
+        font-weight: 800;
+        font-size: 20px;
+        margin-bottom: 5px;
+    }
+
+    .description {
+        margin-bottom: 5px;
+    }
+
+    .actions {
+        margin: 3px;
+
+        .action-button {}
+    }
+}

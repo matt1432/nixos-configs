@@ -1,4 +1,4 @@
-import { Gtk } from 'astal';
+import { Gtk } from 'astal/gtk3';
 import Cairo from 'cairo';
 
 

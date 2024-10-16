@@ -32,7 +32,7 @@
     packages,
     pname,
   }: let
-    inherit (pkgs.lib) concatMapStrings elemAt filter hasAttr length map optionalString splitString toLower;
+    inherit (pkgs.lib) concatMapStrings elemAt length map optionalString splitString toLower;
 
     withGirNames =
       map (package: {
@@ -40,9 +40,13 @@
         girName =
           if package.pname == "astal-wireplumber"
           then "AstalWp-0.1"
+          else if package.name == "astal-0.1.0"
+          then "AstalIO-0.1"
+          else if package.name == "astal-3.0.0"
+          then "Astal-3.0"
           else (concatMapStrings capitalise (splitString "-" package.pname)) + "-0.1";
       })
-      (filter (hasAttr "pname") packages);
+      packages;
   in {
     "${configPath}${optionalString (length packages == 1) "/${toLower (elemAt withGirNames 0).girName}"}".source =
       pkgs.callPackage
