@@ -1,6 +1,7 @@
 import AstalNotifd from 'gi://AstalNotifd?version=0.1';
 const Notifications = AstalNotifd.get_default();
 
+import { NotifGestureWrapper } from './gesture';
 import { Notification } from './notification';
 
 
@@ -11,8 +12,6 @@ export default () => (
         vertical
 
         setup={(self) => {
-            const NotifsMap = new Map<number, ReturnType<typeof Notification>>();
-
             const addPopup = (id: number) => {
                 if (!id) {
                     return;
@@ -25,19 +24,19 @@ export default () => (
                     self.pack_end(NewNotif, false, false, 0);
                     self.show_all();
 
-                    NotifsMap.set(id, NewNotif);
+                    NotifGestureWrapper.popups.set(id, NewNotif);
                 }
             };
 
             const handleResolved = (id: number) => {
-                const notif = NotifsMap.get(id);
+                const notif = NotifGestureWrapper.popups.get(id);
 
                 if (!notif) {
                     return;
                 }
 
                 notif.slideAway('Left');
-                NotifsMap.delete(id);
+                NotifGestureWrapper.popups.delete(id);
             };
 
             self

@@ -1,4 +1,4 @@
-import { App, Gtk } from 'astal/gtk3';
+import { App, Gtk, Gdk } from 'astal/gtk3';
 import { Variable } from 'astal';
 
 import GLib from 'gi://GLib?version=2.0';
@@ -60,6 +60,29 @@ const NotifIcon = ({ notifObj }: { notifObj: AstalNotifd.Notification }) => {
     );
 };
 
+const setupButton = (self: Gtk.Widget) => {
+    const display = Gdk.Display.get_default();
+
+    // OnHover
+    self.connect('enter-notify-event', () => {
+        if (!display) {
+            return;
+        }
+        self.window.set_cursor(Gdk.Cursor.new_from_name(
+            display,
+            'pointer',
+        ));
+    });
+
+    // OnHoverLost
+    self.connect('leave-notify-event', () => {
+        if (!display) {
+            return;
+        }
+        self.window.set_cursor(null);
+    });
+};
+
 const BlockedApps = [
     'Spotify',
 ];
@@ -119,6 +142,7 @@ export const Notification = ({
                                 className="close-button"
                                 valign={Gtk.Align.START}
                                 halign={Gtk.Align.END}
+                                setup={setupButton}
 
                                 onButtonReleaseEvent={() => {
                                     notifObj.dismiss();
@@ -147,6 +171,7 @@ export const Notification = ({
                         <button
                             className="action-button"
                             hexpand
+                            setup={setupButton}
 
                             onButtonReleaseEvent={() => notifObj.invoke(action.id)}
                         >

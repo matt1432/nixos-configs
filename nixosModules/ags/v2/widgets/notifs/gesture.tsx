@@ -5,7 +5,35 @@ import { idle } from 'astal';
 import AstalNotifd from 'gi://AstalNotifd?version=0.1';
 const Notifications = AstalNotifd.get_default();
 
+import AstalHyprland from 'gi://AstalHyprland?version=0.1';
+const Hyprland = AstalHyprland.get_default();
+
 import { HasNotifs } from './notification';
+import { get_hyprland_monitor } from '../../lib';
+
+/* Types */
+interface Layer {
+    address: string
+    x: number
+    y: number
+    w: number
+    h: number
+    namespace: string
+}
+interface Levels {
+    0?: Layer[] | null
+    1?: Layer[] | null
+    2?: Layer[] | null
+    3?: Layer[] | null
+}
+interface Layers {
+    levels: Levels
+}
+type LayerResult = Record<string, Layers>;
+interface CursorPos {
+    x: number
+    y: number
+}
 
 
 const display = Gdk.Display.get_default();
@@ -36,18 +64,76 @@ type NotifGestureWrapperProps = Widget.BoxProps & {
 };
 
 @register()
-class NotifGestureWrapper extends Widget.EventBox {
+export class NotifGestureWrapper extends Widget.EventBox {
+    static popups = new Map<number, NotifGestureWrapper>();
+
     readonly id: number;
 
     readonly slide_in_from: 'Left' | 'Right';
 
-    readonly slideAway: (side: 'Left' | 'Right') => void;
-
-    @property(Boolean)
-    declare hovered: boolean;
-
     @property(Boolean)
     declare dragging: boolean;
+
+    get hovered(): boolean {
+        const layers = JSON.parse(Hyprland.message('j/layers')) as LayerResult;
+        const cursorPos = JSON.parse(Hyprland.message('j/cursorpos')) as CursorPos;
+
+        const window = this.get_window();
+
+        if (window) {
+            const monitor = display?.get_monitor_at_window(window);
+
+            if (monitor) {
+                const plugName = get_hyprland_monitor(monitor)?.name;
+                const notifLayer = layers[plugName ?? '']?.levels['3']
+                    ?.find((n) => n.namespace === 'notifications');
+
+                if (notifLayer) {
+                    const index = [...NotifGestureWrapper.popups.keys()]
+                        .sort((a, b) => b - a)
+                        .indexOf(this.id);
+
+                    const popups = [...NotifGestureWrapper.popups.entries()]
+                        .sort((a, b) => b[0] - a[0])
+                        .map(([key, val]) => [key, val.get_allocated_height()]);
+
+                    const thisY = notifLayer.y + popups
+                        .map((v) => v[1])
+                        .slice(0, index)
+                        .reduce((prev, curr) => prev + curr, 0);
+
+                    if (cursorPos.y >= thisY && cursorPos.y <= thisY + (popups[index][1] ?? 0)) {
+                        if (cursorPos.x >= notifLayer.x && cursorPos.x <= notifLayer.x + notifLayer.w) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public slideAway(side: 'Left' | 'Right', force = false) {
+        ((this.get_child() as Widget.Revealer).get_child() as Widget.Box)
+            .css = side === 'Left' ? slideLeft : slideRight;
+
+        // Make it uninteractable
+        this.sensitive = false;
+
+        setTimeout(() => {
+            (this.get_child() as Widget.Revealer).revealChild = false;
+
+            setTimeout(() => {
+                // Kill notif and update HasNotifs after anim is done
+                if (force) {
+                    Notifications.get_notification(this.id)?.dismiss();
+                }
+                HasNotifs.set(Notifications.get_notifications().length > 0);
+                this.destroy();
+            }, ANIM_DURATION);
+        }, ANIM_DURATION - 100);
+    }
 
     constructor({
         id,
@@ -57,35 +143,7 @@ class NotifGestureWrapper extends Widget.EventBox {
         super();
         this.id = id;
         this.dragging = false;
-        this.hovered = false;
         this.slide_in_from = slide_in_from;
-
-        this.slideAway = (side: 'Left' | 'Right', force = false) => {
-            ((this.get_child() as Widget.Revealer).get_child() as Widget.Box)
-                .css = side === 'Left' ? slideLeft : slideRight;
-
-            // Make it uninteractable
-            this.sensitive = false;
-
-            setTimeout(() => {
-                (this.get_child() as Widget.Revealer).revealChild = false;
-
-                setTimeout(() => {
-                    // Kill notif and update HasNotifs after anim is done
-                    if (force) {
-                        Notifications.get_notification(this.id)?.dismiss();
-                    }
-                    HasNotifs.set(Notifications.get_notifications().length > 0);
-                    this.destroy();
-                }, ANIM_DURATION);
-            }, ANIM_DURATION - 100);
-        };
-
-        this.connect('notify::dragging', () => {
-            if (!this.hovered && this.dragging) {
-                this.hovered = true;
-            }
-        });
 
         // OnClick
         this.connect('button-press-event', () => {
@@ -96,9 +154,6 @@ class NotifGestureWrapper extends Widget.EventBox {
                 display,
                 'grabbing',
             ));
-            if (!this.hovered) {
-                this.hovered = true;
-            }
         });
 
         // OnRelease
@@ -110,9 +165,6 @@ class NotifGestureWrapper extends Widget.EventBox {
                 display,
                 'grab',
             ));
-            if (!this.hovered) {
-                this.hovered = true;
-            }
         });
 
         // OnHover
@@ -124,9 +176,6 @@ class NotifGestureWrapper extends Widget.EventBox {
                 display,
                 'grab',
             ));
-            if (!this.hovered) {
-                this.hovered = true;
-            }
         });
 
         // OnHoverLost
@@ -138,10 +187,6 @@ class NotifGestureWrapper extends Widget.EventBox {
                 display,
                 'grab',
             ));
-
-            if (this.hovered) {
-                this.hovered = false;
-            }
         });
 
         const gesture = Gtk.GestureDrag.new(this);
