@@ -7,8 +7,7 @@ import AstalIO from 'gi://AstalIO?version=0.1';
 import AstalNotifd from 'gi://AstalNotifd?version=0.1';
 const Notifications = AstalNotifd.get_default();
 
-import AstalHyprland from 'gi://AstalHyprland?version=0.1';
-const Hyprland = AstalHyprland.get_default();
+import { hyprMessage } from '../../lib';
 
 import { HasNotifs } from './notification';
 import { get_hyprland_monitor } from '../../lib';
@@ -83,9 +82,9 @@ export class NotifGestureWrapper extends Widget.EventBox {
     @property(Boolean)
     declare dragging: boolean;
 
-    get hovered(): boolean {
-        const layers = JSON.parse(Hyprland.message('j/layers')) as LayerResult;
-        const cursorPos = JSON.parse(Hyprland.message('j/cursorpos')) as CursorPos;
+    private async get_hovered(): Promise<boolean> {
+        const layers = JSON.parse(await hyprMessage('j/layers')) as LayerResult;
+        const cursorPos = JSON.parse(await hyprMessage('j/cursorpos')) as CursorPos;
 
         const window = this.get_window();
 
@@ -214,8 +213,8 @@ export class NotifGestureWrapper extends Widget.EventBox {
 
         // Handle timeout before sliding away if it is a popup
         if (this.popup_timer !== 0) {
-            this.timer_object = interval(1000, () => {
-                if (!this.hovered) {
+            this.timer_object = interval(1000, async() => {
+                if (!(await this.get_hovered())) {
                     if (this.popup_timer === 0) {
                         this.slideAway('Left');
                     }

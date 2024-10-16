@@ -37,3 +37,11 @@ export const get_gdkmonitor_from_desc = (desc: string): Gdk.Monitor => {
 export const get_monitor_desc = (mon: AstalHyprland.Monitor): string => {
     return `desc:${mon.description}`;
 };
+
+export const hyprMessage = (message: string) => new Promise<string>((resolution = () => { /**/ }) => {
+    Hyprland.message_async(message, (_, asyncResult) => {
+        const result = Hyprland.message_finish(asyncResult);
+
+        resolution(result);
+    });
+});

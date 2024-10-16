@@ -4,6 +4,8 @@ import { timeout } from 'astal';
 import AstalHyprland from 'gi://AstalHyprland?version=0.1';
 const Hyprland = AstalHyprland.get_default();
 
+import { hyprMessage } from '../../../lib';
+
 
 const URGENT_DURATION = 1000;
 
@@ -17,7 +19,7 @@ const Workspace = ({ id = 0 }) => (
             tooltip_text={id.toString()}
 
             onClickRelease={() => {
-                Hyprland.message_async(`dispatch workspace ${id}`, () => { /**/ });
+                hyprMessage(`dispatch workspace ${id}`);
             }}
         >
             <box

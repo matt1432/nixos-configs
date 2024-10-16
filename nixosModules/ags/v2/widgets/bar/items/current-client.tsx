@@ -7,6 +7,7 @@ import AstalHyprland from 'gi://AstalHyprland?version=0.1';
 const Hyprland = AstalHyprland.get_default();
 
 import Separator from '../../misc/separator';
+import { hyprMessage } from '../../../lib';
 
 
 export default () => {
@@ -37,8 +38,8 @@ export default () => {
     updateVars();
     Hyprland.connect('notify::focused-client', () => updateVars());
     Hyprland.connect('client-removed', () => updateVars());
-    Hyprland.connect('client-added', () => {
-        updateVars(Hyprland.get_client(JSON.parse(Hyprland.message('j/activewindow')).address));
+    Hyprland.connect('client-added', async() => {
+        updateVars(Hyprland.get_client(JSON.parse(await hyprMessage('j/activewindow')).address));
     });
 
     return (

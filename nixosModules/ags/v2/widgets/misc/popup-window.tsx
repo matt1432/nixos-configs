@@ -2,8 +2,7 @@ import { Astal, Widget } from 'astal/gtk3';
 import { register, property } from 'astal/gobject';
 import { Binding, idle } from 'astal';
 
-import AstalHyprland from 'gi://AstalHyprland?version=0.1';
-const Hyprland = AstalHyprland.get_default();
+import { hyprMessage } from '../../lib';
 
 /* Types */
 type CloseType = 'none' | 'stay' | 'released' | 'clicked';
@@ -59,10 +58,7 @@ class PopupWindow extends Widget.Window {
         });
 
         const setTransition = (_: PopupWindow, t: HyprTransition | Binding<HyprTransition>) => {
-            Hyprland.message_async(
-                `keyword layerrule animation ${t}, ${this.name}`,
-                () => { /**/ },
-            );
+            hyprMessage(`keyword layerrule animation ${t}, ${this.name}`);
         };
 
         this.connect('notify::transition', setTransition);

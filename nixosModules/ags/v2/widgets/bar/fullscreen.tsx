@@ -4,7 +4,7 @@ import { bind, Variable } from 'astal';
 import AstalHyprland from 'gi://AstalHyprland?version=0.1';
 const Hyprland = AstalHyprland.get_default();
 
-import { get_hyprland_monitor_desc, get_monitor_desc } from '../../lib';
+import { get_hyprland_monitor_desc, get_monitor_desc, hyprMessage } from '../../lib';
 
 
 const FullscreenState = Variable({
@@ -12,7 +12,7 @@ const FullscreenState = Variable({
     clientAddrs: new Map() as Map<string, string>,
 });
 
-Hyprland.connect('event', () => {
+Hyprland.connect('event', async() => {
     const arrayEquals = (a1: unknown[], a2: unknown[]) =>
         a1.sort().toString() === a2.sort().toString();
 
@@ -20,7 +20,7 @@ Hyprland.connect('event', () => {
         m1.size === m2.size &&
         Array.from(m1.keys()).every((key) => m1.get(key) === m2.get(key));
 
-    const newMonitors = JSON.parse(Hyprland.message('j/monitors')) as AstalHyprland.Monitor[];
+    const newMonitors = JSON.parse(await hyprMessage('j/monitors')) as AstalHyprland.Monitor[];
 
     const fs = FullscreenState.get();
     const fsClients = Hyprland.get_clients().filter((c) => {
