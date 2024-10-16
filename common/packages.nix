@@ -67,6 +67,7 @@ inputs @ {
       # Misc CLI stuff
       inherit
         (pkgs)
+        hydra-check
         killall
         nix-output-monitor
         nix-melt
@@ -90,7 +91,7 @@ inputs @ {
       (pkgs.writeShellApplication {
         name = "listDerivs";
         text = ''
-          nix-store --query --requisites /run/current-system | cut -d- -f2- | sort -u
+          exec nix-store --query --requisites /run/current-system | cut -d- -f2- | sort -u
         '';
       })
 
