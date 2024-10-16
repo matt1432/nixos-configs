@@ -25,7 +25,7 @@ in {
           "${UPLOAD_LOCATION}:/usr/src/app/upload:rw"
         ];
         ports = [
-          "2283:3001"
+          "2283:2283"
         ];
         networks = ["proxy_net"];
 
