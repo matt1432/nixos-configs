@@ -8,7 +8,8 @@ import { Notification } from './notification';
 export default () => (
     <box
         // Needed so it occupies space at the start
-        css="padding: 1px;"
+        // It needs to be bigger than the notifs to not jiggle
+        css="min-width: 550px;"
         vertical
 
         setup={(self) => {
