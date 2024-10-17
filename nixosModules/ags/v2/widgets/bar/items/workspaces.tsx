@@ -19,7 +19,7 @@ const Workspace = ({ id = 0 }) => (
             tooltip_text={id.toString()}
 
             onClickRelease={() => {
-                hyprMessage(`dispatch workspace ${id}`);
+                hyprMessage(`dispatch workspace ${id}`).catch(console.log);
             }}
         >
             <box

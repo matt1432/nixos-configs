@@ -113,26 +113,27 @@ export default class MonitorClicks extends GObject.Object {
             return;
         }
 
-        const layers = JSON.parse(await hyprMessage('j/layers')) as LayerResult;
-        const pos = JSON.parse(await hyprMessage('j/cursorpos')) as CursorPos;
+        try {
+            const layers = JSON.parse(await hyprMessage('j/layers')) as LayerResult;
+            const pos = JSON.parse(await hyprMessage('j/cursorpos')) as CursorPos;
 
-        Object.values(layers).forEach((key) => {
-            const overlayLayer = key.levels['3'];
+            Object.values(layers).forEach((key) => {
+                const overlayLayer = key.levels['3'];
 
-            if (overlayLayer) {
-                const noCloseWidgetsNames = [
-                    'bar-',
-                    'osk',
-                ];
+                if (overlayLayer) {
+                    const noCloseWidgetsNames = [
+                        'bar-',
+                        'osk',
+                    ];
 
-                const getNoCloseWidgets = (names: string[]) => {
-                    const arr = [] as Layer[];
+                    const getNoCloseWidgets = (names: string[]) => {
+                        const arr = [] as Layer[];
 
-                    names.forEach((name) => {
-                        arr.push(
-                            overlayLayer.find(
-                                (n) => n.namespace.startsWith(name),
-                            ) ||
+                        names.forEach((name) => {
+                            arr.push(
+                                overlayLayer.find(
+                                    (n) => n.namespace.startsWith(name),
+                                ) ||
                             // Return an empty Layer if widget doesn't exist
                             {
                                 address: '',
@@ -142,44 +143,48 @@ export default class MonitorClicks extends GObject.Object {
                                 h: 0,
                                 namespace: '',
                             },
-                        );
-                    });
+                            );
+                        });
 
-                    return arr;
-                };
-                const clickIsOnWidget = (w: Layer) => {
-                    return pos.x > w.x && pos.x < w.x + w.w &&
+                        return arr;
+                    };
+                    const clickIsOnWidget = (w: Layer) => {
+                        return pos.x > w.x && pos.x < w.x + w.w &&
                         pos.y > w.y && pos.y < w.y + w.h;
-                };
+                    };
 
-                const noCloseWidgets = getNoCloseWidgets(noCloseWidgetsNames);
+                    const noCloseWidgets = getNoCloseWidgets(noCloseWidgetsNames);
 
-                const widgets = overlayLayer.filter((n) => {
-                    let window = null as null | PopupWindow;
+                    const widgets = overlayLayer.filter((n) => {
+                        let window = null as null | PopupWindow;
 
-                    if (App.get_windows().some((win) =>
-                        win.name === n.namespace)) {
-                        window = (App.get_window(n.namespace) as PopupWindow);
-                    }
+                        if (App.get_windows().some((win) =>
+                            win.name === n.namespace)) {
+                            window = (App.get_window(n.namespace) as PopupWindow);
+                        }
 
-                    return window &&
+                        return window &&
                         window.close_on_unfocus &&
                         window.close_on_unfocus ===
                         clickStage;
-                });
-
-                if (noCloseWidgets.some(clickIsOnWidget)) {
-                    // Don't handle clicks when on certain widgets
-                }
-                else {
-                    widgets.forEach((w) => {
-                        if (!(pos.x > w.x && pos.x < w.x + w.w &&
-                            pos.y > w.y && pos.y < w.y + w.h)) {
-                            App.get_window(w.namespace)?.set_visible(false);
-                        }
                     });
+
+                    if (noCloseWidgets.some(clickIsOnWidget)) {
+                    // Don't handle clicks when on certain widgets
+                    }
+                    else {
+                        widgets.forEach((w) => {
+                            if (!(pos.x > w.x && pos.x < w.x + w.w &&
+                            pos.y > w.y && pos.y < w.y + w.h)) {
+                                App.get_window(w.namespace)?.set_visible(false);
+                            }
+                        });
+                    }
                 }
-            }
-        });
+            });
+        }
+        catch (e) {
+            console.log(e);
+        }
     }
 }

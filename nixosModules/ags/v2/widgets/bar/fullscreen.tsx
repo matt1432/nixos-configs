@@ -20,33 +20,38 @@ Hyprland.connect('event', async() => {
         m1.size === m2.size &&
         Array.from(m1.keys()).every((key) => m1.get(key) === m2.get(key));
 
-    const newMonitors = JSON.parse(await hyprMessage('j/monitors')) as AstalHyprland.Monitor[];
+    try {
+        const newMonitors = JSON.parse(await hyprMessage('j/monitors')) as AstalHyprland.Monitor[];
 
-    const fs = FullscreenState.get();
-    const fsClients = Hyprland.get_clients().filter((c) => {
-        const mon = newMonitors.find((monitor) => monitor.id === c.get_monitor().id);
+        const fs = FullscreenState.get();
+        const fsClients = Hyprland.get_clients().filter((c) => {
+            const mon = newMonitors.find((monitor) => monitor.id === c.get_monitor()?.id);
 
-        return c.fullscreenClient !== 0 &&
-          c.workspace.id === mon?.activeWorkspace.id;
-    });
-
-    const monitors = fsClients.map((c) =>
-        get_monitor_desc(c.monitor));
-
-    const clientAddrs = new Map(fsClients.map((c) => [
-        get_monitor_desc(c.monitor),
-        c.address ?? '',
-    ]));
-
-    const hasChanged =
-        !arrayEquals(monitors, fs.monitors) ||
-        !mapEquals(clientAddrs, fs.clientAddrs);
-
-    if (hasChanged) {
-        FullscreenState.set({
-            monitors,
-            clientAddrs,
+            return c.fullscreenClient !== 0 &&
+                c.workspace.id === mon?.activeWorkspace.id;
         });
+
+        const monitors = fsClients.map((c) =>
+            get_monitor_desc(c.monitor));
+
+        const clientAddrs = new Map(fsClients.map((c) => [
+            get_monitor_desc(c.monitor),
+            c.address ?? '',
+        ]));
+
+        const hasChanged =
+            !arrayEquals(monitors, fs.monitors) ||
+            !mapEquals(clientAddrs, fs.clientAddrs);
+
+        if (hasChanged) {
+            FullscreenState.set({
+                monitors,
+                clientAddrs,
+            });
+        }
+    }
+    catch (e) {
+        console.log(e);
     }
 });
 

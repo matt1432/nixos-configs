@@ -8,6 +8,12 @@
         font-size: 20px;
         min-height: 35px;
 
+        transition: background-color 300ms;
+
+        &:hover {
+            background-color: lighten($window_bg_color, 3%);
+        }
+
         &.battery icon {
             &.charging {
                 color: green;

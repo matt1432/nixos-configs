@@ -39,7 +39,12 @@ export default () => {
     Hyprland.connect('notify::focused-client', () => updateVars());
     Hyprland.connect('client-removed', () => updateVars());
     Hyprland.connect('client-added', async() => {
-        updateVars(Hyprland.get_client(JSON.parse(await hyprMessage('j/activewindow')).address));
+        try {
+            updateVars(Hyprland.get_client(JSON.parse(await hyprMessage('j/activewindow')).address));
+        }
+        catch (e) {
+            console.log(e);
+        }
     });
 
     return (

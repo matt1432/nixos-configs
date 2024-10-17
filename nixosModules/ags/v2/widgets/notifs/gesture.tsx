@@ -63,40 +63,46 @@ export class NotifGestureWrapper extends Widget.EventBox {
     public dragging: boolean;
 
     private async get_hovered(): Promise<boolean> {
-        const layers = JSON.parse(await hyprMessage('j/layers')) as LayerResult;
-        const cursorPos = JSON.parse(await hyprMessage('j/cursorpos')) as CursorPos;
+        try {
+            const layers = JSON.parse(await hyprMessage('j/layers')) as LayerResult;
+            const cursorPos = JSON.parse(await hyprMessage('j/cursorpos')) as CursorPos;
 
-        const window = this.get_window();
+            const window = this.get_window();
 
-        if (window) {
-            const monitor = display?.get_monitor_at_window(window);
+            if (window) {
+                const monitor = display?.get_monitor_at_window(window);
 
-            if (monitor) {
-                const plugName = get_hyprland_monitor(monitor)?.name;
-                const notifLayer = layers[plugName ?? '']?.levels['3']
-                    ?.find((n) => n.namespace === 'notifications');
+                if (monitor) {
+                    const plugName = get_hyprland_monitor(monitor)?.name;
+                    const notifLayer = layers[plugName ?? '']?.levels['3']
+                        ?.find((n) => n.namespace === 'notifications');
 
-                if (notifLayer) {
-                    const index = [...NotifGestureWrapper.popups.keys()]
-                        .sort((a, b) => b - a)
-                        .indexOf(this.id);
+                    if (notifLayer) {
+                        const index = [...NotifGestureWrapper.popups.keys()]
+                            .sort((a, b) => b - a)
+                            .indexOf(this.id);
 
-                    const popups = [...NotifGestureWrapper.popups.entries()]
-                        .sort((a, b) => b[0] - a[0])
-                        .map(([key, val]) => [key, val.get_allocated_height()]);
+                        const popups = [...NotifGestureWrapper.popups.entries()]
+                            .sort((a, b) => b[0] - a[0])
+                            .map(([key, val]) => [key, val.get_allocated_height()]);
 
-                    const thisY = notifLayer.y + popups
-                        .map((v) => v[1])
-                        .slice(0, index)
-                        .reduce((prev, curr) => prev + curr, 0);
+                        const thisY = notifLayer.y + popups
+                            .map((v) => v[1])
+                            .slice(0, index)
+                            .reduce((prev, curr) => prev + curr, 0);
 
-                    if (cursorPos.y >= thisY && cursorPos.y <= thisY + (popups[index][1] ?? 0)) {
-                        if (cursorPos.x >= notifLayer.x && cursorPos.x <= notifLayer.x + notifLayer.w) {
-                            return true;
+                        if (cursorPos.y >= thisY && cursorPos.y <= thisY + (popups[index][1] ?? 0)) {
+                            if (cursorPos.x >= notifLayer.x &&
+                                cursorPos.x <= notifLayer.x + notifLayer.w) {
+                                return true;
+                            }
                         }
                     }
                 }
             }
+        }
+        catch (e) {
+            console.log(e);
         }
 
         return false;

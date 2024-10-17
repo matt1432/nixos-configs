@@ -3,6 +3,7 @@ import { Astal, Gtk } from 'astal/gtk3';
 import Battery from './items/battery';
 import Clock from './items/clock';
 import CurrentClient from './items/current-client';
+import NotifButton from './items/notif-button';
 import SysTray from './items/tray';
 import Workspaces from './items/workspaces';
 
@@ -39,6 +40,10 @@ export default () => (
             </box>
 
             <box hexpand halign={Gtk.Align.END}>
+                <NotifButton />
+
+                <Separator size={8} />
+
                 <Battery />
 
                 <Separator size={2} />
