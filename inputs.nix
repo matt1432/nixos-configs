@@ -180,12 +180,12 @@ let
 
   srcs = [
     # Home-assistant
+    ## Components
     {
       name = "extended-ollama-conversation-src";
       owner = "TheNimaj";
       repo = "extended_ollama_conversation";
     }
-
     {
       owner = "m50";
       repo = "ha-fallback-conversation";
@@ -199,6 +199,7 @@ let
       owner = "net-daemon";
       repo = "integration";
     }
+    ### SpotifyPlus
     {
       name = "spotifyplus-src";
       owner = "thlucas1";
@@ -214,12 +215,16 @@ let
       owner = "thlucas1";
       repo = "SpotifyWebApiPython";
     }
+    ###
 
+    ## Voice
     {
       name = "wakewords-src";
       owner = "fwartner";
       repo = "home-assistant-wakewords-collection";
     }
+
+    ## Themes
     {
       owner = "berti24";
       repo = "dracul-ha";
@@ -233,9 +238,15 @@ let
       owner = "Nerwyn";
       repo = "material-rounded-theme";
     }
+
+    ## Lovelace Components
     {
       owner = "beecho01";
       repo = "material-symbols";
+    }
+    {
+      owner = "elchininet";
+      repo = "custom-sidebar";
     }
 
     # Nvim plugins

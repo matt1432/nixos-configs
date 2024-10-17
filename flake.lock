@@ -204,6 +204,22 @@
         "type": "github"
       }
     },
+    "custom-sidebar-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1729030143,
+        "narHash": "sha256-dSNgEMgfXm2z5WFYeoZsak9XCI0YEwUmMPA96hJ8O1k=",
+        "owner": "elchininet",
+        "repo": "custom-sidebar",
+        "rev": "fcada915b5bbece5f9b75924a806ff0e3f3544e8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "elchininet",
+        "repo": "custom-sidebar",
+        "type": "github"
+      }
+    },
     "discord-overlay": {
       "inputs": {
         "Vencord-src": "Vencord-src",
@@ -1640,6 +1656,7 @@
         "bazarr-bulk": "bazarr-bulk",
         "caddy-plugins": "caddy-plugins",
         "caule-themes-src": "caule-themes-src",
+        "custom-sidebar-src": "custom-sidebar-src",
         "discord-overlay": "discord-overlay",
         "dracul-ha-src": "dracul-ha-src",
         "dracula-plymouth-src": "dracula-plymouth-src",

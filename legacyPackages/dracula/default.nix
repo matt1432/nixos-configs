@@ -1,5 +1,9 @@
-{pkgs, ...} @ inputs:
-pkgs.lib.makeScope pkgs.newScope (drac: {
+{
+  lib,
+  pkgs,
+  ...
+} @ inputs:
+lib.makeScope pkgs.newScope (drac: {
   bat = drac.callPackage ./bat.nix {
     inherit (inputs) bat-theme-src mkVersion;
   };

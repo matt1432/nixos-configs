@@ -1,5 +1,9 @@
-{pkgs, ...} @ inputs:
-pkgs.lib.makeScope pkgs.newScope (hass: let
+{
+  lib,
+  pkgs,
+  ...
+} @ inputs:
+lib.makeScope pkgs.newScope (hass: let
   buildHassComponent = file: extraArgs:
     hass.callPackage file (inputs // extraArgs // {});
 in {

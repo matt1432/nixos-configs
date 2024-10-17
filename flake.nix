@@ -50,6 +50,12 @@
       repo = "caule-themes-pack-1";
       type = "github";
     };
+    custom-sidebar-src = {
+      flake = false;
+      owner = "elchininet";
+      repo = "custom-sidebar";
+      type = "github";
+    };
     discord-overlay = {
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "matt1432";

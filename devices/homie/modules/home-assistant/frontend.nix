@@ -2,8 +2,8 @@
   caule-themes-src,
   dracul-ha-src,
   material-rounded-theme-src,
-  material-symbols-src,
   pkgs,
+  self,
   ...
 }: let
   inherit (pkgs.writers) writeYAML;
@@ -13,6 +13,70 @@ in {
       "themes/caule.yaml".source = "${caule-themes-src}/themes/caule-themes-pack-1.yaml";
       "themes/dracul-ha.yaml".source = "${dracul-ha-src}/themes/dracul-ha.yaml";
       "themes/material_rounded.yaml".source = "${material-rounded-theme-src}/themes/material_rounded.yaml";
+
+      "www/sidebar-config.yaml".source = writeYAML "sidebar" {
+        id = "my-sidebar";
+
+        order = [
+          # Top
+          {
+            item = "overview";
+            order = 1;
+          }
+          {
+            match = "href";
+            item = "calendar";
+            order = 2;
+          }
+          {
+            match = "href";
+            item = "todo";
+            order = 3;
+          }
+
+          # Bottom
+          {
+            bottom = true;
+            item = "esphome";
+            order = 5;
+          }
+          {
+            bottom = true;
+            item = "logbook";
+            order = 7;
+          }
+          {
+            bottom = true;
+            icon = "mdi:tools";
+            item = "developer tools";
+            name = "Developer tools";
+            order = 9;
+          }
+          {
+            bottom = true;
+            item = "settings";
+            order = 11;
+          }
+
+          # Hidden
+          {
+            hide = true;
+            item = "map";
+          }
+          {
+            hide = true;
+            item = "energy";
+          }
+          {
+            hide = true;
+            item = "history";
+          }
+          {
+            hide = true;
+            item = "media";
+          }
+        ];
+      };
     };
 
     customLovelaceModules = builtins.attrValues {
@@ -21,21 +85,19 @@ in {
         card-mod
         ;
 
-      material-symbols = pkgs.stdenv.mkDerivation {
-        pname = "material-symbols";
-        version = "0.0.0+${material-symbols-src.shortRev}";
-        src = material-symbols-src;
-        phases = ["installPhase"];
-        installPhase = ''
-          mkdir $out
-          cp $src/dist/material-symbols.js $out
-        '';
-      };
+      inherit
+        (self.legacyPackages.${pkgs.system}.lovelace-components)
+        material-symbols
+        custom-sidebar
+        ;
     };
 
     config.frontend = {
       themes = "!include_dir_merge_named themes";
-      extra_module_url = ["/local/nixos-lovelace-modules/card-mod.js"];
+      extra_module_url = map (p: "/local/nixos-lovelace-modules/${p}.js") [
+        "card-mod"
+        "custom-sidebar-yaml"
+      ];
     };
 
     config.template = [
