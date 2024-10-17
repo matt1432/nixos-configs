@@ -7,6 +7,8 @@ import BgFade from './widgets/bg-fade/main';
 import Corners from './widgets/corners/main';
 import { NotifPopups } from './widgets/notifs/main';
 
+import MonitorClicks from './services/monitor-clicks';
+
 
 App.start({
     css: style,
@@ -16,5 +18,7 @@ App.start({
         BgFade();
         Corners();
         NotifPopups();
+
+        new MonitorClicks();
     },
 });

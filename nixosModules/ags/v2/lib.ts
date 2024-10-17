@@ -3,6 +3,30 @@ import AstalHyprland from 'gi://AstalHyprland?version=0.1';
 
 const Hyprland = AstalHyprland.get_default();
 
+/* Types */
+export interface Layer {
+    address: string
+    x: number
+    y: number
+    w: number
+    h: number
+    namespace: string
+}
+export interface Levels {
+    0?: Layer[] | null
+    1?: Layer[] | null
+    2?: Layer[] | null
+    3?: Layer[] | null
+}
+export interface Layers {
+    levels: Levels
+}
+export type LayerResult = Record<string, Layers>;
+export interface CursorPos {
+    x: number
+    y: number
+}
+
 
 export const get_hyprland_monitor = (monitor: Gdk.Monitor): AstalHyprland.Monitor | undefined => {
     const manufacturer = monitor.manufacturer?.replace(',', '');
@@ -38,10 +62,18 @@ export const get_monitor_desc = (mon: AstalHyprland.Monitor): string => {
     return `desc:${mon.description}`;
 };
 
-export const hyprMessage = (message: string) => new Promise<string>((resolution = () => { /**/ }) => {
-    Hyprland.message_async(message, (_, asyncResult) => {
-        const result = Hyprland.message_finish(asyncResult);
+export const hyprMessage = (message: string) => new Promise<string>((
+    resolution = () => { /**/ },
+    rejection = () => { /**/ },
+) => {
+    try {
+        Hyprland.message_async(message, (_, asyncResult) => {
+            const result = Hyprland.message_finish(asyncResult);
 
-        resolution(result);
-    });
+            resolution(result);
+        });
+    }
+    catch (e) {
+        rejection(e);
+    }
 });

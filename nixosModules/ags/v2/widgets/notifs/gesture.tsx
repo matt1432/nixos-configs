@@ -13,28 +13,7 @@ import { HasNotifs } from './notification';
 import { get_hyprland_monitor } from '../../lib';
 
 /* Types */
-interface Layer {
-    address: string
-    x: number
-    y: number
-    w: number
-    h: number
-    namespace: string
-}
-interface Levels {
-    0?: Layer[] | null
-    1?: Layer[] | null
-    2?: Layer[] | null
-    3?: Layer[] | null
-}
-interface Layers {
-    levels: Levels
-}
-type LayerResult = Record<string, Layers>;
-interface CursorPos {
-    x: number
-    y: number
-}
+import { CursorPos, LayerResult } from '../../lib';
 
 
 const display = Gdk.Display.get_default();

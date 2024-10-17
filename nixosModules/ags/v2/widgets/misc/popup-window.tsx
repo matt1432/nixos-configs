@@ -1,4 +1,4 @@
-import { Astal, Widget } from 'astal/gtk3';
+import { App, Astal, Widget } from 'astal/gtk3';
 import { register, property } from 'astal/gobject';
 import { Binding, idle } from 'astal';
 
@@ -19,7 +19,7 @@ type PopupWindowProps = Widget.WindowProps & {
 
 
 @register()
-class PopupWindow extends Widget.Window {
+export class PopupWindow extends Widget.Window {
     @property(String)
     declare transition: HyprTransition | Binding<HyprTransition>;
 
@@ -33,8 +33,8 @@ class PopupWindow extends Widget.Window {
     declare on_close: PopupCallback;
 
     constructor({
-        transition = 'fade',
-        close_on_unfocus = 'none',
+        transition = 'slide top',
+        close_on_unfocus = 'released',
         on_open = () => { /**/ },
         on_close = () => { /**/ },
 
@@ -45,7 +45,7 @@ class PopupWindow extends Widget.Window {
     }: PopupWindowProps) {
         super({
             ...rest,
-            name,
+            name: `win-${name}`,
             namespace: `win-${name}`,
             visible: false,
             layer,
@@ -56,6 +56,8 @@ class PopupWindow extends Widget.Window {
                 }
             }),
         });
+
+        App.add_window(this);
 
         const setTransition = (_: PopupWindow, t: HyprTransition | Binding<HyprTransition>) => {
             hyprMessage(`keyword layerrule animation ${t}, ${this.name}`);
