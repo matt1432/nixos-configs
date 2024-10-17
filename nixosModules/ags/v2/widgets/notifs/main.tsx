@@ -3,6 +3,7 @@ import { Astal } from 'astal/gtk3';
 import PopupWindow from '../misc/popup-window';
 
 import Popups from './popups';
+import Center from './center';
 
 
 export const NotifPopups = () => (
@@ -21,6 +22,6 @@ export const NotifCenter = () => (
         name="notif-center"
         anchor={Astal.WindowAnchor.TOP | Astal.WindowAnchor.RIGHT}
     >
-        <box css="min-height: 100px; min-width: 100px; background: black;" />
+        <Center />
     </PopupWindow>
 );

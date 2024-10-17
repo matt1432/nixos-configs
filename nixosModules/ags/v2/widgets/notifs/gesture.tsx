@@ -53,6 +53,8 @@ export class NotifGestureWrapper extends Widget.EventBox {
 
     readonly slide_in_from: 'Left' | 'Right';
 
+    readonly is_popup: boolean;
+
     private timer_object: AstalIO.Time | undefined;
 
     public popup_timer: number;
@@ -108,7 +110,11 @@ export class NotifGestureWrapper extends Widget.EventBox {
         return false;
     }
 
-    public slideAway(side: 'Left' | 'Right', force = false) {
+    public slideAway(side: 'Left' | 'Right') {
+        if (!this.sensitive) {
+            return;
+        }
+
         ((this.get_child() as Widget.Revealer).get_child() as Widget.Box)
             .css = side === 'Left' ? slideLeft : slideRight;
 
@@ -120,16 +126,17 @@ export class NotifGestureWrapper extends Widget.EventBox {
 
             setTimeout(() => {
                 // Kill notif if specified
-                if (force) {
+                if (!this.is_popup) {
                     Notifications.get_notification(this.id)?.dismiss();
+
+                    // Update HasNotifs
+                    HasNotifs.set(Notifications.get_notifications().length > 0);
                 }
-
-                // Make sure we cleanup any references to this instance
-                this.timer_object?.cancel();
-                NotifGestureWrapper.popups.delete(this.id);
-
-                // Update HasNotifs
-                HasNotifs.set(Notifications.get_notifications().length > 0);
+                else {
+                    // Make sure we cleanup any references to this instance
+                    NotifGestureWrapper.popups.delete(this.id);
+                    this.timer_object?.cancel();
+                }
 
                 // Get rid of disappeared widget
                 this.destroy();
@@ -146,13 +153,12 @@ export class NotifGestureWrapper extends Widget.EventBox {
     }: NotifGestureWrapperProps) {
         super();
 
-        setup_notif(this);
-
         this.id = id;
         this.slide_in_from = slide_in_from;
         this.dragging = false;
 
         this.popup_timer = popup_timer;
+        this.is_popup = this.popup_timer !== 0;
         this.timer_update(this.popup_timer);
 
         // OnClick
@@ -312,6 +318,8 @@ export class NotifGestureWrapper extends Widget.EventBox {
                 />
             </revealer>,
         );
+
+        setup_notif(this);
     }
 }
 

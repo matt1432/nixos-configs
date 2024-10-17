@@ -17,11 +17,9 @@ import SmoothProgress from '../misc/smooth-progress';
 // to know when there are notifs or not
 export const HasNotifs = Variable(false);
 
-const setTime = (time: number): string => {
-    return GLib.DateTime
-        .new_from_unix_local(time)
-        .format('%H:%M') ?? '';
-};
+const setTime = (time: number): string => GLib.DateTime
+    .new_from_unix_local(time)
+    .format('%H:%M') ?? '';
 
 const NotifIcon = ({ notifObj }: {
     notifObj: AstalNotifd.Notification
@@ -93,6 +91,7 @@ const BlockedApps = [
 export const Notification = ({
     id = 0,
     popup_timer = 0,
+    slide_in_from = 'Left' as 'Left' | 'Right',
 }): ReturnType<typeof NotifGestureWrapper> | undefined => {
     const notifObj = Notifications.get_notification(id);
 
@@ -114,10 +113,16 @@ export const Notification = ({
         <NotifGestureWrapper
             id={id}
             popup_timer={popup_timer}
+            slide_in_from={slide_in_from}
             setup_notif={(self) => {
-                self.connect('timer-update', () => {
-                    progress.fraction = self.popup_timer / 5;
-                });
+                if (self.is_popup) {
+                    self.connect('timer-update', () => {
+                        progress.fraction = self.popup_timer / 5;
+                    });
+                }
+                else {
+                    progress.destroy();
+                }
             }}
         >
             <box vertical className={`notification ${notifObj.urgency} widget`}>

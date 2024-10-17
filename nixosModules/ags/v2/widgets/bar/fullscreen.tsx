@@ -1,4 +1,4 @@
-import { Astal, Gdk, Gtk, Widget } from 'astal/gtk3';
+import { App, Astal, Gdk, Gtk, Widget } from 'astal/gtk3';
 import { bind, Variable } from 'astal';
 
 import AstalHyprland from 'gi://AstalHyprland?version=0.1';
@@ -150,9 +150,10 @@ export default ({
         </revealer>
     );
 
-    return (
+    const win = (
         <window
             name={`bar-${monitor}`}
+            namespace={`bar-${monitor}`}
             layer={Astal.Layer.OVERLAY}
             gdkmonitor={gdkmonitor}
             anchor={anchor}
@@ -178,5 +179,9 @@ export default ({
                 </box>
             </eventbox>
         </window>
-    );
+    ) as Widget.Window;
+
+    App.add_window(win);
+
+    return win;
 };
