@@ -13,19 +13,36 @@ export default () => (
         vertical
 
         setup={(self) => {
+            const notifQueue: number[] = [];
+
             const addPopup = (id: number) => {
                 if (!id) {
                     return;
                 }
 
-                const NewNotif = Notification({ id, popup_timer: 5 });
+                if (NotifGestureWrapper.sliding_in === 0) {
+                    const NewNotif = Notification({ id, popup_timer: 5 });
 
-                if (NewNotif) {
-                    // Use this instead of add to put it at the top
-                    self.pack_end(NewNotif, false, false, 0);
-                    self.show_all();
+                    if (NewNotif) {
+                        // Use this instead of add to put it at the top
+                        self.pack_end(NewNotif, false, false, 0);
+                        self.show_all();
 
-                    NotifGestureWrapper.popups.set(id, NewNotif);
+                        NotifGestureWrapper.popups.set(id, NewNotif);
+                    }
+                }
+                else {
+                    notifQueue.push(id);
+                }
+            };
+
+            NotifGestureWrapper.on_sliding_in = (n) => {
+                if (n === 0) {
+                    const id = notifQueue.shift();
+
+                    if (id) {
+                        addPopup(id);
+                    }
                 }
             };
 

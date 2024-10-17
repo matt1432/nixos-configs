@@ -70,6 +70,10 @@
         border-radius: 30px;
         border-top: 2px solid $accent-color;
 
+        .notification {
+            box-shadow: none;
+        }
+
         viewport {
             all: unset;
         }

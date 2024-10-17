@@ -1,4 +1,4 @@
-import { App, Gtk, Gdk } from 'astal/gtk3';
+import { App, Gtk, Gdk, Widget } from 'astal/gtk3';
 import { Variable } from 'astal';
 
 import GLib from 'gi://GLib?version=2.0';
@@ -26,11 +26,11 @@ const NotifIcon = ({ notifObj }: {
 }) => {
     let icon: string;
 
-    if (notifObj.get_image() !== '') {
+    if (notifObj.get_image() && notifObj.get_image() !== '') {
         icon = notifObj.get_image();
         App.add_icons(icon);
     }
-    else if (notifObj.get_app_icon() !== '') {
+    else if (notifObj.get_app_icon() !== '' && Widget.Icon.lookup_icon(notifObj.get_app_icon())) {
         icon = notifObj.get_app_icon();
     }
     else {

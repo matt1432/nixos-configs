@@ -59,29 +59,33 @@ const NotificationList = () => (
 );
 
 const ClearButton = () => (
-    <button
-        className="clear"
-        sensitive={bind(HasNotifs)}
-
-        onButtonReleaseEvent={() => {
-            Notifications.get_notifications().forEach((notif) => {
-                notif.dismiss();
-            });
-            timeout(1000, () => {
-                App.get_window('win-notif-center')?.set_visible(false);
-            });
-        }}
+    <eventbox
+        cursor={bind(HasNotifs).as((hasNotifs) => hasNotifs ? 'pointer' : 'not-allowed')}
     >
-        <box>
-            <label label="Clear " />
+        <button
+            className="clear"
+            sensitive={bind(HasNotifs)}
 
-            <icon icon={bind(Notifications, 'notifications')
-                .as((notifs) => notifs.length > 0 ?
-                    'user-trash-full-symbolic' :
-                    'user-trash-symbolic')}
-            />
-        </box>
-    </button>
+            onButtonReleaseEvent={() => {
+                Notifications.get_notifications().forEach((notif) => {
+                    notif.dismiss();
+                });
+                timeout(1000, () => {
+                    App.get_window('win-notif-center')?.set_visible(false);
+                });
+            }}
+        >
+            <box>
+                <label label="Clear " />
+
+                <icon icon={bind(Notifications, 'notifications')
+                    .as((notifs) => notifs.length > 0 ?
+                        'user-trash-full-symbolic' :
+                        'user-trash-symbolic')}
+                />
+            </box>
+        </button>
+    </eventbox>
 );
 
 const Header = () => (

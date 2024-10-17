@@ -62,6 +62,9 @@ export class NotifGestureWrapper extends Widget.EventBox {
     @signal(Number)
     declare timer_update: (popup_timer: number) => void;
 
+    public static sliding_in = 0;
+    public static on_sliding_in: (amount: number) => void;
+
     public dragging: boolean;
 
     private async get_hovered(): Promise<boolean> {
@@ -69,37 +72,33 @@ export class NotifGestureWrapper extends Widget.EventBox {
             const layers = JSON.parse(await hyprMessage('j/layers')) as LayerResult;
             const cursorPos = JSON.parse(await hyprMessage('j/cursorpos')) as CursorPos;
 
-            const window = this.get_window();
+            const monitor = display?.get_monitor_at_window(this.get_window()!);
+            const plugName = get_hyprland_monitor(monitor!)?.name;
 
-            if (window) {
-                const monitor = display?.get_monitor_at_window(window);
+            const notifLayer = layers[plugName ?? '']?.levels['3']
+                ?.find((n) => n.namespace === 'notifications');
 
-                if (monitor) {
-                    const plugName = get_hyprland_monitor(monitor)?.name;
-                    const notifLayer = layers[plugName ?? '']?.levels['3']
-                        ?.find((n) => n.namespace === 'notifications');
+            if (!notifLayer) {
+                return false;
+            }
 
-                    if (notifLayer) {
-                        const index = [...NotifGestureWrapper.popups.keys()]
-                            .sort((a, b) => b - a)
-                            .indexOf(this.id);
+            const index = [...NotifGestureWrapper.popups.keys()]
+                .sort((a, b) => b - a)
+                .indexOf(this.id);
 
-                        const popups = [...NotifGestureWrapper.popups.entries()]
-                            .sort((a, b) => b[0] - a[0])
-                            .map(([key, val]) => [key, val.get_allocated_height()]);
+            const popups = [...NotifGestureWrapper.popups.entries()]
+                .sort((a, b) => b[0] - a[0])
+                .map(([key, val]) => [key, val.get_allocated_height()]);
 
-                        const thisY = notifLayer.y + popups
-                            .map((v) => v[1])
-                            .slice(0, index)
-                            .reduce((prev, curr) => prev + curr, 0);
+            const thisY = notifLayer.y + popups
+                .map((v) => v[1])
+                .slice(0, index)
+                .reduce((prev, curr) => prev + curr, 0);
 
-                        if (cursorPos.y >= thisY && cursorPos.y <= thisY + (popups[index][1] ?? 0)) {
-                            if (cursorPos.x >= notifLayer.x &&
-                                cursorPos.x <= notifLayer.x + notifLayer.w) {
-                                return true;
-                            }
-                        }
-                    }
+            if (cursorPos.y >= thisY && cursorPos.y <= thisY + (popups[index][1] ?? 0)) {
+                if (cursorPos.x >= notifLayer.x &&
+                    cursorPos.x <= notifLayer.x + notifLayer.w) {
+                    return true;
                 }
             }
         }
@@ -301,6 +300,10 @@ export class NotifGestureWrapper extends Widget.EventBox {
                                 }
                             });
 
+                        if (this.is_popup) {
+                            NotifGestureWrapper.on_sliding_in(++NotifGestureWrapper.sliding_in);
+                        }
+
                         // Reverse of slideAway, so it started at squeeze, then we go to slide
                         self.css = this.slide_in_from === 'Left' ?
                             slideLeft :
@@ -312,6 +315,14 @@ export class NotifGestureWrapper extends Widget.EventBox {
                             setTimeout(() => {
                                 // Then we go to center
                                 self.css = defaultStyle;
+
+                                if (this.is_popup) {
+                                    setTimeout(() => {
+                                        NotifGestureWrapper.on_sliding_in(
+                                            --NotifGestureWrapper.sliding_in,
+                                        );
+                                    }, ANIM_DURATION);
+                                }
                             }, ANIM_DURATION);
                         });
                     }}

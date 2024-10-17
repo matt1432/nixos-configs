@@ -88,7 +88,7 @@ export class PopupWindow extends Widget.Window {
         side = 'right' as 'left' | 'right',
     ) {
         const monitor = this.gdkmonitor ??
-          this.get_display().get_monitor_at_point(alloc.x, alloc.y);
+            this.get_display().get_monitor_at_point(alloc.x, alloc.y);
 
         // @ts-expect-error this should exist
         const transform = get_hyprland_monitor(monitor)?.transform;
@@ -103,12 +103,12 @@ export class PopupWindow extends Widget.Window {
         }
 
         this.margin_right = side === 'right' ?
-                (width - alloc.x - alloc.width) :
-                this.margin_right;
+            (width - alloc.x - alloc.width) :
+            this.margin_right;
 
         this.margin_left = side === 'right' ?
-                this.margin_left :
-                (alloc.x - alloc.width);
+            this.margin_left :
+            (alloc.x - alloc.width);
     }
 }
 
