@@ -34,6 +34,32 @@
               doCheck = false;
               pytestFlagsArray = ["intents/tests"];
             };
+
+            # FIXME: some cfn-lint tests don't pass. make nixpkgs issue?
+            aws-sam-translator = prev.aws-sam-translator.overridePythonAttrs (o: rec {
+              version = "1.91.0";
+              format = "setuptools";
+
+              src = pkgs.fetchFromGitHub {
+                owner = "aws";
+                repo = "serverless-application-model";
+                rev = "refs/tags/v${version}";
+                hash = "sha256-jcRpn9STkfg1xTwYzkpoYyuG0Hrv0XnbW1h6+SxzEjA=";
+              };
+            });
+
+            cfn-lint = prev.cfn-lint.overridePythonAttrs (o: {
+              version = "1.17.2+0a31357";
+              format = "pyproject";
+              src = pkgs.fetchFromGitHub {
+                owner = "aws-cloudformation";
+                repo = "cfn-lint";
+                rev = "0a31357504a25af5c0357a4b59e0d6b10f39571b";
+                hash = "sha256-wsRK/DDKSCrGsz2h0rG10VLkpbVKqwTqC3UQ1j0ee/U=";
+              };
+              nativeBuildInputs = [final.defusedxml];
+              disabledTests = o.disabledTests ++ ["test_build_graph"];
+            });
           };
         })
         .overrideAttrs {

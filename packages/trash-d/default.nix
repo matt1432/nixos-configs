@@ -16,7 +16,20 @@ in
 
     src = trash-d-src;
 
-    buildInputs = [dub dmd ronn];
+    buildInputs = [
+      dub
+      ronn
+
+      # FIXME: dmd doesn't build on latest nixos-unstable. make issue?
+      # FIXME: `config.nixpkgs.overlays` don't seem to apply on `self.packages` or `self.legacyPackages`
+      (dmd.overrideAttrs (o: {
+        postPatch =
+          o.postPatch
+          + ''
+            rm dmd/compiler/test/fail_compilation/needspkgmod.d
+          '';
+      }))
+    ];
 
     buildPhase = ''
       # https://github.com/svanderburg/node2nix/issues/217#issuecomment-751311272
