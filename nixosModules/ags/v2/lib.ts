@@ -77,3 +77,35 @@ export const hyprMessage = (message: string) => new Promise<string>((
         rejection(e);
     }
 });
+
+export const centerCursor = async(): Promise<void> => {
+    let x: number;
+    let y: number;
+    const monitor = (JSON.parse(await hyprMessage('j/monitors')) as AstalHyprland.Monitor[])
+        .find((m) => m.focused) as AstalHyprland.Monitor;
+
+    // @ts-expect-error this should be good
+    switch (monitor.transform) {
+        case 1:
+            x = monitor.x - (monitor.height / 2);
+            y = monitor.y - (monitor.width / 2);
+            break;
+
+        case 2:
+            x = monitor.x - (monitor.width / 2);
+            y = monitor.y - (monitor.height / 2);
+            break;
+
+        case 3:
+            x = monitor.x + (monitor.height / 2);
+            y = monitor.y + (monitor.width / 2);
+            break;
+
+        default:
+            x = monitor.x + (monitor.width / 2);
+            y = monitor.y + (monitor.height / 2);
+            break;
+    }
+
+    await hyprMessage(`dispatch movecursor ${x} ${y}`);
+};

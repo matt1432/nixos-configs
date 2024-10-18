@@ -140,7 +140,7 @@ in {
           };
 
           wayland.windowManager.hyprland = let
-            runAgs = "pgrep ags -a | grep '/bin/gjs' && ags";
+            runAgs = cmd: "pgrep ags -a | grep '/bin/gjs' && ags ${cmd} || agsV2 ${cmd}";
           in {
             settings = {
               animations = {
@@ -169,18 +169,18 @@ in {
               ];
 
               bind = [
-                "$mainMod SHIFT, E    , exec, ${runAgs} -t win-powermenu"
-                "$mainMod      , D    , exec, ${runAgs} -t win-applauncher"
-                "$mainMod      , V    , exec, ${runAgs} -t win-clipboard"
-                "              , Print, exec, ${runAgs} -t win-screenshot"
+                "$mainMod SHIFT, E    , exec, ${runAgs "-t win-powermenu"}"
+                "$mainMod      , D    , exec, ${runAgs "-t win-applauncher"}"
+                "$mainMod      , V    , exec, ${runAgs "-t win-clipboard"}"
+                "              , Print, exec, ${runAgs "-t win-screenshot"}"
               ];
               binde = [
                 ## Brightness control
-                ", XF86MonBrightnessUp  , exec, ${runAgs} -r 'Brightness.screen += 0.05'"
-                ", XF86MonBrightnessDown, exec, ${runAgs} -r 'Brightness.screen -= 0.05'"
+                ", XF86MonBrightnessUp  , exec, ${runAgs "-r 'Brightness.screen += 0.05'"}"
+                ", XF86MonBrightnessDown, exec, ${runAgs "-r 'Brightness.screen -= 0.05'"}"
               ];
-              bindn = ["    , Escape   , exec, ${runAgs} -r 'closeAll()'"];
-              bindr = ["CAPS, Caps_Lock, exec, ${runAgs} -r 'Brightness.fetchCapsState()'"];
+              bindn = ["    , Escape   , exec, ${runAgs "-r 'closeAll()'"}"];
+              bindr = ["CAPS, Caps_Lock, exec, ${runAgs "-r 'Brightness.fetchCapsState()'"}"];
             };
           };
         })

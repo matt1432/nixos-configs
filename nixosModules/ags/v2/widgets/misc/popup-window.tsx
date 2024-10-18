@@ -1,5 +1,5 @@
 import { App, Astal, Gtk, Widget } from 'astal/gtk3';
-import { register, property } from 'astal/gobject';
+import { register } from 'astal/gobject';
 import { Binding, idle } from 'astal';
 
 import { get_hyprland_monitor, hyprMessage } from '../../lib';
@@ -20,17 +20,10 @@ type PopupWindowProps = Widget.WindowProps & {
 
 @register()
 export class PopupWindow extends Widget.Window {
-    @property(String)
-    declare transition: HyprTransition | Binding<HyprTransition>;
-
-    @property(String)
-    declare close_on_unfocus: CloseType | Binding<CloseType>;
-
-    @property(Object)
-    declare on_open: PopupCallback;
-
-    @property(Object)
-    declare on_close: PopupCallback;
+    transition: HyprTransition | Binding<HyprTransition>;
+    close_on_unfocus: CloseType | Binding<CloseType>;
+    on_open: PopupCallback;
+    on_close: PopupCallback;
 
     constructor({
         transition = 'slide top',

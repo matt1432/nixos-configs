@@ -32,7 +32,7 @@ $popover_fg_color: #f8f8f2;
 $shade_color: #383838;
 $scrollbar_outline_color: rgba(0, 0, 0, 0.5);
 
-window {
+window, viewport {
     all: unset;
 }
 
@@ -44,5 +44,6 @@ window {
     box-shadow: 8px 8px rgba($accent_color, 1);
 }
 
+@import 'widgets/applauncher/style.scss';
 @import 'widgets/bar/style.scss';
 @import 'widgets/notifs/style.scss';
