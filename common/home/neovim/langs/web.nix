@@ -40,7 +40,7 @@ in
 
             vim.api.nvim_create_autocmd('FileType', {
                 pattern = 'html',
-                command = 'setlocal ts=2 sw=2 expandtab',
+                command = 'setlocal ts=4 sw=4 expandtab',
             });
 
             vim.api.nvim_create_autocmd('FileType', {
@@ -50,9 +50,10 @@ in
 
             local lsp = require('lspconfig');
             local tsserver = require('typescript-tools');
+            local default_capabilities = require('cmp_nvim_lsp').default_capabilities();
 
             tsserver.setup({
-                capabilities = require('cmp_nvim_lsp').default_capabilities(),
+                capabilities = default_capabilities,
 
                 handlers = {
                     -- format error code with better error message
@@ -64,7 +65,7 @@ in
             });
 
             lsp.eslint.setup({
-                capabilities = require('cmp_nvim_lsp').default_capabilities(),
+                capabilities = default_capabilities,
 
                 -- auto-save
                 on_attach = function(client, bufnr)
@@ -114,7 +115,7 @@ in
             });
 
             lsp.cssls.setup({
-                capabilities = require('cmp_nvim_lsp').default_capabilities(),
+                capabilities = default_capabilities,
 
                 settings = {
                     css = {
@@ -126,6 +127,27 @@ in
                     scss = {
                         validate = false,
                     },
+                },
+            });
+
+            local html_caps = default_capabilities;
+            html_caps.textDocument.completion.completionItem.snippetSupport = true;
+
+            lsp.html.setup({
+                capabilities = html_caps,
+                settings = {
+                    configurationSection = { "html", "css", "javascript" },
+                    embeddedLanguages = {
+                        css = true,
+                        javascript = true,
+                    },
+                    provideFormatter = true,
+                    tabSize = 4,
+                    insertSpaces = true,
+                    indentEmptyLines = false,
+                    wrapAttributes = 'auto',
+                    wrapAttributesIndentSize = 4,
+                    endWithNewline = true,
                 },
             });
           '';
