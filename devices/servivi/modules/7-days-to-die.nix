@@ -7,12 +7,29 @@ in {
     startAt = "02/3:00";
   };
 
+  nixpkgs.overlays = [
+    (final: prev: {
+      steam = prev.steam.override {
+        extraPreBwrapCmds = ''
+          mkdir -p "$HOME/.local/share/sevendays/"
+        '';
+        extraBwrapArgs = [
+          ''--bind "${gamePath}/" "$HOME/.local/share/sevendays/"''
+        ];
+      };
+    })
+  ];
+
   systemd = {
     extraConfig = "DefaultLimitNOFILE=10240";
 
     services."7-days-to-die" = {
       wantedBy = ["multi-user.target"];
-      serviceConfig.User = "matt";
+
+      serviceConfig = {
+        User = "matt";
+        Group = "users";
+      };
 
       path = builtins.attrValues {
         inherit
@@ -23,17 +40,14 @@ in {
       };
 
       script = ''
-        # Make sure gamePath exists and cd to it
-        mkdir -p ${gamePath}
-        cd ${gamePath}
-
         # Install / Update server
-        steamcmd +force_install_dir ${gamePath} \
+        steamcmd +force_install_dir "$HOME/.local/share/sevendays" \
             +login anonymous +app_update 294420 \
             +quit
 
         # Launch server
-        steam-run ./startserver.sh -configfile=${relativeConfig}
+        exec steam-run sh -c 'cd "$HOME/.local/share/sevendays"; \
+            exec ./startserver.sh -configfile=${relativeConfig}'
       '';
     };
   };
