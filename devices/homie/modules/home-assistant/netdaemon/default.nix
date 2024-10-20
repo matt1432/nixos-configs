@@ -4,6 +4,7 @@
   pkgs,
   ...
 }: let
+  inherit (builtins) attrValues replaceStrings;
   inherit (config.sops) secrets;
 
   compiled = pkgs.callPackage ./package.nix {};
@@ -31,7 +32,7 @@ in {
   };
 
   services.home-assistant = {
-    customComponents = builtins.attrValues {
+    customComponents = attrValues {
       inherit
         (self.legacyPackages.${pkgs.system}.hass-components)
         netdaemon
@@ -39,13 +40,28 @@ in {
     };
   };
 
-  environment.systemPackages = [
+  environment.systemPackages = let
+    nixFetchDeps =
+      replaceStrings [(toString self)] ["$FLAKE"]
+      #nix
+      ''
+        let
+          config = (builtins.getFlake ("$FLAKE")).nixosConfigurations.homie;
+          inherit (config) pkgs;
+
+          netdaemonConfig = pkgs.callPackage ${toString ./package.nix} {};
+        in
+          netdaemonConfig.fetch-deps
+      '';
+  in [
     (pkgs.writeShellApplication {
-      name = "updateNuDeps";
+      name = "bumpNetdaemonDeps";
+
       runtimeInputs = with pkgs; [
         dos2unix
         dotnet-sdk_8
       ];
+
       text = ''
         # Install codegen
         dotnet tool install --create-manifest-if-needed NetDaemon.HassModel.CodeGen --version "$(cat ./.version)"
@@ -68,7 +84,11 @@ in {
             done
         done
 
-        $(nix build --no-link --print-out-paths --impure --expr "let self = builtins.getFlake (\"$FLAKE\"); inherit (self.nixosConfigurations.homie) pkgs; in (pkgs.callPackage $FLAKE/devices/homie/modules/home-assistant/netdaemon/package.nix {}).fetch-deps") .
+        $(nix build --no-link --print-out-paths --impure --expr "$(cat <<EOF
+        ${nixFetchDeps}
+        EOF
+        )") .
+
         alejandra .
         rm -r "$FLAKE/.config"
 
