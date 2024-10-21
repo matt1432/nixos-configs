@@ -66,14 +66,6 @@ in {
         };
       };
 
-      "drss.nelim.org" = {
-        image = import ./images/docker-hub-rss.nix pkgs;
-        restart = "always";
-        ports = ["3007:3000"];
-
-        networks = ["proxy_net"];
-      };
-
       "bridge.nelim.org" = {
         image = import ./images/rss-bridge.nix pkgs;
         restart = "always";
