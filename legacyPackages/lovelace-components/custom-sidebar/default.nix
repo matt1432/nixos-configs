@@ -1,4 +1,5 @@
 {
+  concatTextFile,
   custom-sidebar-src,
   nodejs,
   pnpm,
@@ -29,6 +30,13 @@ in
 
     pnpmDeps = pnpm.fetchDeps {
       inherit (finalAttrs) pname version src;
-      hash = "sha256-oERAaN/0uyImDRlxJIdKutFh3jYFJQh2KAeM1LXBpjU=";
+      hash = "sha256-Lk2zRcF4ysAeo0fYKDfCoORyOrViKaK1TLUo0atZdr4=";
+    };
+
+    passthru.update = concatTextFile {
+      name = "update";
+      files = [./update.sh];
+      executable = true;
+      destination = "/bin/update";
     };
   })

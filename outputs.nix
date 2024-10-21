@@ -174,7 +174,7 @@
           })
           ++ [
             (pkgs.writeShellApplication {
-              name = "updateNpmDeps";
+              name = "bumpNpmDeps";
               runtimeInputs = builtins.attrValues {
                 inherit
                   (pkgs)

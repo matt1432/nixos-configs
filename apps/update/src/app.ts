@@ -3,7 +3,13 @@ import { writeFileSync } from 'node:fs';
 
 import { parseArgs } from './lib.ts';
 import { updateFirefoxAddons } from '././firefox.ts';
-import { updateDocker, updateFlakeInputs, updateVuetorrent } from './misc.ts';
+
+import {
+    updateCustomSidebarDeps,
+    updateDocker,
+    updateFlakeInputs,
+    updateVuetorrent,
+} from './misc.ts';
 
 
 /* Constants */
@@ -32,6 +38,10 @@ if (args['v'] || args['vuetorrent']) {
     console.log(updateVuetorrent());
 }
 
+if (args['c'] || args['custom-sidebar']) {
+    console.log(updateCustomSidebarDeps());
+}
+
 if (args['a'] || args['all']) {
     // Update this first because of nix run cmd
     const firefoxOutput = updateFirefoxAddons();
@@ -52,6 +62,9 @@ if (args['a'] || args['all']) {
     const vuetorrentOutput = updateVuetorrent();
 
     console.log(vuetorrentOutput);
+
+    // This doesn't need to be added to commit msgs
+    console.log(updateCustomSidebarDeps());
 
 
     spawnSync('nix-fast-build', ['-f', `${FLAKE}#nixFastChecks`], {
