@@ -20,12 +20,11 @@ export default () => {
         client: AstalHyprland.Client | null = Hyprland.get_focused_client(),
     ) => {
         lastFocused = client?.get_address();
-        const app = Applications.query(
+        const app = Applications.fuzzy_query(
             client?.get_class() ?? '',
-            false,
         )[0];
 
-        focusedIcon.set(app.iconName ?? '');
+        focusedIcon.set(app?.iconName ?? '');
         focusedTitle.set(client?.get_title() ?? '');
         const id = client?.connect('notify::title', (c) => {
             if (c.get_address() !== lastFocused) {

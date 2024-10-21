@@ -1,4 +1,5 @@
 import { App, Astal, Gtk, Widget } from 'astal/gtk3';
+import { idle } from 'astal';
 
 import AstalApps from 'gi://AstalApps?version=0.1';
 
@@ -80,7 +81,7 @@ export default () => {
         }
     });
 
-    const refreshApplications = () => {
+    const refreshApplications = () => idle(() => {
         (list.get_children() as Gtk.ListBoxRow[])
             .forEach((child) => {
                 child.destroy();
@@ -96,7 +97,7 @@ export default () => {
 
         list.show_all();
         on_text_change('');
-    };
+    });
 
     refreshApplications();
 

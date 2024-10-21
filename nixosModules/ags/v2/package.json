@@ -3,15 +3,15 @@
     "version": "0.0.0",
     "main": "app.ts",
     "dependencies": {
-        "@eslint/js": "9.12.0",
+        "@eslint/js": "9.13.0",
         "@stylistic/eslint-plugin": "2.9.0",
         "@types/eslint__js": "8.42.3",
-        "@types/node": "22.7.5",
-        "eslint": "9.12.0",
-        "eslint-plugin-jsdoc": "50.3.2",
+        "@types/node": "22.7.7",
+        "eslint": "9.13.0",
+        "eslint-plugin-jsdoc": "50.4.3",
         "fzf": "0.5.2",
         "jiti": "2.3.3",
         "typescript": "5.6.3",
-        "typescript-eslint": "8.8.1"
+        "typescript-eslint": "8.10.0"
     }
 }

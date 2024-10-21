@@ -16,7 +16,6 @@ self: {
       packages = [
         (pkgs.writeShellApplication {
           name = "agsV2";
-          runtimeInputs = [];
           text = ''
             exec ${agsV2Packages.agsFull}/bin/ags --config ${configDir} "$@"
           '';
@@ -37,7 +36,7 @@ self: {
         })
         // {
           "${configDir}/node_modules".source =
-            buildNodeModules ./. "sha256-aWVnn4G5ypOacju+0wwPeie7JEZoXYDY2qPOTmCdXsg=";
+            buildNodeModules ./. "sha256-f0hbPvHTqeFM7mfmV+sN4EEuE0F91f5kjJ/EHy0oU+Y=";
 
           "${configDir}/tsconfig.json".source = pkgs.writers.writeJSON "tsconfig.json" {
             "$schema" = "https://json.schemastore.org/tsconfig";

@@ -110,7 +110,7 @@ in {
                   '';
 
                 "${agsConfigDir}/config/node_modules".source =
-                  buildNodeModules ./config "sha256-4ybtwyZs7AgIYiGm1RuWwEgrnkxAqIEkPZjJJfQV/6I=";
+                  buildNodeModules ./config "sha256-PDfS8hDxE+DMACXexSYng0COOCM5q6y250VSis/IAO8=";
               }
               // (import ./icons.nix {inherit pkgs agsConfigDir;})
             );

@@ -34,9 +34,8 @@ const NotifIcon = ({ notifObj }: {
         icon = notifObj.get_app_icon();
     }
     else {
-        icon = Applications.query(
+        icon = Applications.fuzzy_query(
             notifObj.get_app_name(),
-            false,
         )[0].get_icon_name();
     }
 
