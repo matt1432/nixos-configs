@@ -1,36 +1,4 @@
-$accent_color: #bd93f9;
-$accent_bg_color: #bd93f9;
-$accent_fg_color: #f8f8f2;
-$destructive_color: #ff5555;
-$destructive_bg_color: #ff5555;
-$destructive_fg_color: #f8f8f2;
-$success_color: #50fa7b;
-$success_bg_color: #50fa7b;
-$success_fg_color: #f8f8f2;
-$warning_color: #f1fa8c;
-$warning_bg_color: #f1fa8c;
-$warning_fg_color: rgba(0, 0, 0, 0.8);
-$error_color: #ff5555;
-$error_bg_color: #ff5555;
-$error_fg_color: #f8f8f2;
-$window_bg_color: #282a36;
-$window_fg_color: #f8f8f2;
-$view_bg_color: #282a36;
-$view_fg_color: #f8f8f2;
-$headerbar_bg_color: #282a36;
-$headerbar_fg_color: #f8f8f2;
-$headerbar_border_color: #ffffff;
-$headerbar_backdrop_color: $window_bg_color;
-$headerbar_shade_color: rgba(0, 0, 0, 0.36);
-$card_bg_color: rgba(255, 255, 255, 0.08);
-$card_fg_color: #f8f8f2;
-$card_shade_color: rgba(0, 0, 0, 0.36);
-$dialog_bg_color: #282a36;
-$dialog_fg_color: #f8f8f2;
-$popover_bg_color: #282a36;
-$popover_fg_color: #f8f8f2;
-$shade_color: #383838;
-$scrollbar_outline_color: rgba(0, 0, 0, 0.5);
+@import 'colors.scss';
 
 window, viewport {
     all: unset;
@@ -46,4 +14,6 @@ window, viewport {
 
 @import 'widgets/applauncher/style.scss';
 @import 'widgets/bar/style.scss';
+@import 'widgets/icon-browser/style.scss';
 @import 'widgets/notifs/style.scss';
+@import 'widgets/powermenu/style.scss';

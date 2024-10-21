@@ -1,0 +1,29 @@
+.powermenu {
+    font-size: 70px;
+    padding: 10px;
+
+    icon {
+        min-width: 130px;
+        min-height: 130px;
+    }
+
+    button {
+        margin: 5px 10px;
+        transition: all ease .2s;
+
+        &:hover,
+        &:active {
+            background-color: lighten($window_bg_color, 3%);
+        }
+    }
+
+    .shutdown {
+        color: $red_1;
+    }
+    .reboot {
+        color: $purple_1;
+    }
+    .logout {
+        color: $yellow_1;
+    }
+}
