@@ -145,13 +145,14 @@ in {
             settings = {
               animations = {
                 bezier = [
-                  "easeInOutBack,   0.68, -0.6, 0.32, 1.6"
+                  "easeInOutQuart, 0.77, 0   , 0.175, 1"
+                  "easeInExpo    , 0.95, 0.05, 0.795, 0.035"
                 ];
 
                 animation = [
-                  "fadeLayersIn, 0"
-                  "fadeLayersOut, 1, 3000, default"
-                  "layers, 1, 8, easeInOutBack, slide left"
+                  "fadeLayersIn , 0"
+                  "fadeLayersOut, 1, 3000, easeInExpo"
+                  "layers       , 1, 4   , easeInOutQuart, slide left"
                 ];
               };
 
