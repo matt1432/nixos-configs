@@ -7,7 +7,7 @@
   inherit (builtins) attrValues replaceStrings;
   inherit (config.sops) secrets;
 
-  compiled = pkgs.callPackage ./package.nix {};
+  inherit (pkgs.callPackage ./package.nix {}) netdaemonConfig;
 in {
   khepri.compositions."netdaemon" = {
     networks.netdaemon = {external = true;};
@@ -26,7 +26,7 @@ in {
         TZ = "America/New_York";
       };
 
-      volumes = ["${compiled.lib}:/data"];
+      volumes = ["${netdaemonConfig}:/data"];
       networks = ["netdaemon"];
     };
   };
@@ -69,6 +69,9 @@ in {
         # Run it
         dotnet tool run nd-codegen -token "$(sed 's/HomeAssistant__Token=//' ${secrets.netdaemon.path})"
         dos2unix ./HomeAssistantGenerated.cs
+
+        # This is to not have it count towards CSharp in the repo
+        mv ./HomeAssistantGenerated.cs ./HomeAssistantGenerated
 
         # Update all nugets to latest versions
         regex='PackageReference Include="([^"]*)" Version="([^"]*)"'

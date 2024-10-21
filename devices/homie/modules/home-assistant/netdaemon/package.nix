@@ -6,7 +6,7 @@
   inherit (lib) any hasInfix hasSuffix removeSuffix;
 
   srcDirs = ["apps"];
-  srcPatterns = [".cs" ".csproj" ".json" ".version"];
+  srcPatterns = [".cs" ".csproj" ".json" ".version" "HomeAssistantGenerated"];
 
   pname = "netdaemon-config";
 in
@@ -22,6 +22,10 @@ in
         || any (s: hasSuffix s file) srcPatterns;
     };
 
+    preBuild = ''
+      mv HomeAssistantGenerated HomeAssistantGenerated.cs
+    '';
+
     projectFile = "netdaemon.csproj";
     nugetDeps = ./deps.nix;
 
@@ -30,8 +34,8 @@ in
     executables = [];
 
     postFixup = ''
-      cp -r $out/lib/${pname} $lib
+      cp -r $out/lib/${pname} $netdaemonConfig
     '';
 
-    outputs = ["out" "lib"];
+    outputs = ["out" "netdaemonConfig"];
   }
