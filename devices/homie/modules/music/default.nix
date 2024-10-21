@@ -11,12 +11,14 @@ in {
 
     settings = {
       General = {
+        AlwaysPairable = true;
+        PairableTimeout = 0;
         DiscoverableTimeout = 0;
         Experimental = true;
         KernelExperimental = true;
       };
 
-      Policy.AutoEnable = "true";
+      Policy.AutoEnable = true;
     };
   };
 
