@@ -47,6 +47,7 @@ in {
     configDir = mkOption {
       type = types.path;
       default = "${cfg.dataDir}/.config";
+      defaultText = "/var/lib/qbittorrent/.config";
       description = ''
         The directory where qBittorrent will store its configuration.
       '';

@@ -4,6 +4,10 @@
   ...
 }: let
   inherit (config.sops) secrets;
+
+  wgPort = 51820;
+  clientIP = "10.2.0.2";
+  serverIP = "146.70.198.2";
 in {
   networking.wireguard = {
     enable = true;
@@ -11,9 +15,9 @@ in {
     interfaces = {
       wg0 = {
         interfaceNamespace = "wg";
-        ips = ["10.2.0.2/32"];
+        ips = ["${clientIP}/32"];
 
-        listenPort = 51820;
+        listenPort = wgPort;
 
         generatePrivateKeyFile = false;
         privateKeyFile = secrets.vpn.path;
@@ -22,7 +26,7 @@ in {
           {
             publicKey = "aQ2NoOYEObG9tDMwdc4VxK6hjW+eA0PLfgbH7ffmagU=";
             allowedIPs = ["0.0.0.0/0"];
-            endpoint = "146.70.198.2:51820";
+            endpoint = "${serverIP}:${toString wgPort}";
           }
         ];
       };
@@ -50,7 +54,7 @@ in {
       wantedBy = ["multi-user.target"];
       script = ''
         ${pkgs.iproute2}/bin/ip netns exec wg ${pkgs.iproute2}/bin/ip link set dev lo up
-        ${pkgs.socat}/bin/socat tcp-listen:${port},fork,reuseaddr exec:'${pkgs.iproute2}/bin/ip netns exec wg ${pkgs.socat}/bin/socat STDIO "tcp-connect:10.2.0.2:${port}"',nofork
+        ${pkgs.socat}/bin/socat tcp-listen:${port},fork,reuseaddr exec:'${pkgs.iproute2}/bin/ip netns exec wg ${pkgs.socat}/bin/socat STDIO "tcp-connect:${clientIP}:${port}"',nofork
       '';
     };
   in {
