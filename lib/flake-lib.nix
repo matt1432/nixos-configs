@@ -7,9 +7,10 @@ inputs: rec {
   }:
     import nixpkgs {
       inherit system;
+      overlays = [inputs.self.overlays.build-failures];
       config = {
-        allowUnfree = true;
         inherit cudaSupport;
+        allowUnfree = true;
       };
     };
 

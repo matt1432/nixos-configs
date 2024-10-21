@@ -135,11 +135,11 @@
 
     legacyPackages =
       perSystem (pkgs:
-        import ./legacyPackages {inherit mkVersion pkgs inputs;});
+        import ./legacyPackages {inherit inputs mkVersion pkgs;});
 
     packages =
       perSystem (pkgs:
-        import ./packages {inherit self pkgs mkVersion inputs;});
+        import ./packages {inherit inputs mkVersion pkgs;});
 
     overlays = import ./overlays {};
 
