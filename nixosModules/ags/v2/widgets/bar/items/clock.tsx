@@ -1,6 +1,8 @@
 import { bind, Variable } from 'astal';
+import { App } from 'astal/gtk3';
 
 import GLib from 'gi://GLib?version=2.0';
+import { PopupWindow } from '../../misc/popup-window';
 
 
 export default () => {
@@ -24,8 +26,30 @@ export default () => {
     });
 
     return (
-        <box className="bar-item">
+        <button
+            className="bar-item"
+            cursor="pointer"
+
+            onButtonReleaseEvent={(self) => {
+                const win = App.get_window('win-calendar') as PopupWindow;
+
+                win.set_x_pos(
+                    self.get_allocation(),
+                    'right',
+                );
+
+                win.visible = !win.visible;
+            }}
+
+            setup={(self) => {
+                App.connect('window-toggled', (_, win) => {
+                    if (win.name === 'win-notif-center') {
+                        self.toggleClassName('toggle-on', win.visible);
+                    }
+                });
+            }}
+        >
             <label label={bind(timeVar)} />
-        </box>
+        </button>
     );
 };

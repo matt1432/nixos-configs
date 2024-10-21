@@ -5,6 +5,7 @@ import style from './style.scss';
 import AppLauncher from './widgets/applauncher/main';
 import Bar from './widgets/bar/wim';
 import BgFade from './widgets/bg-fade/main';
+import Calendar from './widgets/date/main';
 import Corners from './widgets/corners/main';
 import IconBrowser from './widgets/icon-browser/main';
 import { NotifPopups, NotifCenter } from './widgets/notifs/main';
@@ -20,6 +21,7 @@ App.start({
         AppLauncher();
         Bar();
         BgFade();
+        Calendar();
         Corners();
         IconBrowser();
         NotifPopups();
