@@ -11,6 +11,7 @@ import { hyprMessage } from '../../../lib';
 
 
 export default () => {
+    const visibleIcon = Variable<boolean>(false);
     const focusedIcon = Variable<string>('');
     const focusedTitle = Variable<string>('');
 
@@ -24,7 +25,16 @@ export default () => {
             client?.get_class() ?? '',
         )[0];
 
-        focusedIcon.set(app?.iconName ?? '');
+        const icon = app?.iconName;
+
+        if (icon) {
+            visibleIcon.set(true);
+            focusedIcon.set(icon);
+        }
+        else {
+            visibleIcon.set(false);
+        }
+
         focusedTitle.set(client?.get_title() ?? '');
         const id = client?.connect('notify::title', (c) => {
             if (c.get_address() !== lastFocused) {
@@ -54,6 +64,7 @@ export default () => {
             <icon
                 css="font-size: 32px;"
                 icon={bind(focusedIcon)}
+                visible={bind(visibleIcon)}
             />
 
             <Separator size={8} />
