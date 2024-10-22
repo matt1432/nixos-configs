@@ -1,7 +1,7 @@
 import { bind, timeout } from 'astal';
 import { App, Gtk, Widget } from 'astal/gtk3';
 
-import AstalNotifd from 'gi://AstalNotifd?version=0.1';
+import AstalNotifd from 'gi://AstalNotifd';
 const Notifications = AstalNotifd.get_default();
 
 import { Notification, HasNotifs } from './notification';

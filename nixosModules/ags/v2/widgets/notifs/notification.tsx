@@ -1,12 +1,12 @@
 import { App, Gtk, Gdk, Widget } from 'astal/gtk3';
 import { Variable } from 'astal';
 
-import GLib from 'gi://GLib?version=2.0';
+import GLib from 'gi://GLib';
 
-import AstalApps from 'gi://AstalApps?version=0.1';
+import AstalApps from 'gi://AstalApps';
 const Applications = AstalApps.Apps.new();
 
-import AstalNotifd from 'gi://AstalNotifd?version=0.1';
+import AstalNotifd from 'gi://AstalNotifd';
 const Notifications = AstalNotifd.get_default();
 
 import NotifGestureWrapper from './gesture';
@@ -115,7 +115,7 @@ export const Notification = ({
             slide_in_from={slide_in_from}
             setup_notif={(self) => {
                 if (self.is_popup) {
-                    self.connect('timer-update', () => {
+                    self.connect('notify::popup-timer', () => {
                         progress.fraction = self.popup_timer / 5;
                     });
                 }

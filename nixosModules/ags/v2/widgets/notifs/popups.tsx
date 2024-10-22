@@ -1,4 +1,4 @@
-import AstalNotifd from 'gi://AstalNotifd?version=0.1';
+import AstalNotifd from 'gi://AstalNotifd';
 const Notifications = AstalNotifd.get_default();
 
 import { NotifGestureWrapper } from './gesture';

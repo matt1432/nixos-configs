@@ -1,6 +1,6 @@
 import { execAsync } from 'astal';
 
-import AstalApps from 'gi://AstalApps?version=0.1';
+import AstalApps from 'gi://AstalApps';
 
 
 const bash = async(strings: TemplateStringsArray | string, ...values: unknown[]) => {

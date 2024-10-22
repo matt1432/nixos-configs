@@ -1,7 +1,7 @@
 import { bind, Variable } from 'astal';
 import { App } from 'astal/gtk3';
 
-import GLib from 'gi://GLib?version=2.0';
+import GLib from 'gi://GLib';
 import { PopupWindow } from '../../misc/popup-window';
 
 

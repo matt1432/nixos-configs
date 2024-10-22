@@ -2,7 +2,7 @@ import { subprocess } from 'astal';
 import { App } from 'astal/gtk3';
 import GObject, { register, signal } from 'astal/gobject';
 
-import AstalIO from 'gi://AstalIO?version=0.1';
+import AstalIO from 'gi://AstalIO';
 
 import { hyprMessage } from '../lib';
 

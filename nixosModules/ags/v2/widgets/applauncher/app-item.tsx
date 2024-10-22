@@ -2,7 +2,7 @@ import { App, Gtk, Widget } from 'astal/gtk3';
 import { register } from 'astal/gobject';
 
 /* Types */
-import AstalApps from 'gi://AstalApps?version=0.1';
+import AstalApps from 'gi://AstalApps';
 type AppItemProps = Widget.BoxProps & {
     app: AstalApps.Application
 };

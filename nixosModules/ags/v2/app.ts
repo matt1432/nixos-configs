@@ -1,6 +1,6 @@
 import { App } from 'astal/gtk3';
 
-import GLib from 'gi://GLib?version=2.0';
+import GLib from 'gi://GLib';
 
 import style from './style.scss';
 

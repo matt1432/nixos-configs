@@ -3,7 +3,7 @@ import { App, Astal, Gdk, Gtk, Widget } from 'astal/gtk3';
 import { register } from 'astal/gobject';
 
 import AstalAuth from 'gi://AstalAuth';
-import Lock from 'gi://GtkSessionLock?version=0.1';
+import Lock from 'gi://GtkSessionLock';
 
 import Separator from '../misc/separator';
 import { get_hyprland_monitor_desc } from '../../lib';

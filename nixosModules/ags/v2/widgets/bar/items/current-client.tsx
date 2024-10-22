@@ -1,9 +1,9 @@
 import { bind, Variable } from 'astal';
 
-import AstalApps from 'gi://AstalApps?version=0.1';
+import AstalApps from 'gi://AstalApps';
 const Applications = AstalApps.Apps.new();
 
-import AstalHyprland from 'gi://AstalHyprland?version=0.1';
+import AstalHyprland from 'gi://AstalHyprland';
 const Hyprland = AstalHyprland.get_default();
 
 import Separator from '../../misc/separator';

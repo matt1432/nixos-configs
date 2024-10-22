@@ -1,10 +1,10 @@
 import { Gdk, Gtk, Widget } from 'astal/gtk3';
-import { register, signal } from 'astal/gobject';
+import { property, register } from 'astal/gobject';
 import { idle, interval } from 'astal';
 
-import AstalIO from 'gi://AstalIO?version=0.1';
+import AstalIO from 'gi://AstalIO';
 
-import AstalNotifd from 'gi://AstalNotifd?version=0.1';
+import AstalNotifd from 'gi://AstalNotifd';
 const Notifications = AstalNotifd.get_default();
 
 import { hyprMessage } from '../../lib';
@@ -47,66 +47,78 @@ type NotifGestureWrapperProps = Widget.BoxProps & {
 
 @register()
 export class NotifGestureWrapper extends Widget.EventBox {
-    static popups = new Map<number, NotifGestureWrapper>();
+    public static popups = new Map<number, NotifGestureWrapper>();
+    public static sliding_in = 0;
+    public static on_sliding_in: (amount: number) => void;
 
     readonly id: number;
-
     readonly slide_in_from: 'Left' | 'Right';
-
     readonly is_popup: boolean;
 
     private timer_object: AstalIO.Time | undefined;
 
-    public popup_timer: number;
+    @property(Number)
+    declare popup_timer: number;
 
-    @signal(Number)
-    declare timer_update: (popup_timer: number) => void;
-
-    public static sliding_in = 0;
-    public static on_sliding_in: (amount: number) => void;
-
-    public dragging: boolean;
+    @property(Boolean)
+    declare dragging: boolean;
 
     private async get_hovered(): Promise<boolean> {
-        try {
-            const layers = JSON.parse(await hyprMessage('j/layers')) as LayerResult;
-            const cursorPos = JSON.parse(await hyprMessage('j/cursorpos')) as CursorPos;
+        const layers = JSON.parse(await hyprMessage('j/layers')) as LayerResult;
+        const cursorPos = JSON.parse(await hyprMessage('j/cursorpos')) as CursorPos;
 
-            const monitor = display?.get_monitor_at_window(this.get_window()!);
-            const plugName = get_hyprland_monitor(monitor!)?.name;
+        const win = this.get_window();
 
-            const notifLayer = layers[plugName ?? '']?.levels['3']
-                ?.find((n) => n.namespace === 'notifications');
-
-            if (!notifLayer) {
-                return false;
-            }
-
-            const index = [...NotifGestureWrapper.popups.keys()]
-                .sort((a, b) => b - a)
-                .indexOf(this.id);
-
-            const popups = [...NotifGestureWrapper.popups.entries()]
-                .sort((a, b) => b[0] - a[0])
-                .map(([key, val]) => [key, val.get_allocated_height()]);
-
-            const thisY = notifLayer.y + popups
-                .map((v) => v[1])
-                .slice(0, index)
-                .reduce((prev, curr) => prev + curr, 0);
-
-            if (cursorPos.y >= thisY && cursorPos.y <= thisY + (popups[index][1] ?? 0)) {
-                if (cursorPos.x >= notifLayer.x &&
-                    cursorPos.x <= notifLayer.x + notifLayer.w) {
-                    return true;
-                }
-            }
+        if (!win) {
+            return false;
         }
-        catch (e) {
-            console.log(e);
+
+        const monitor = display?.get_monitor_at_window(win);
+
+        if (!monitor) {
+            return false;
+        }
+
+        const plugName = get_hyprland_monitor(monitor)?.name;
+
+        const notifLayer = layers[plugName ?? '']?.levels['3']
+            ?.find((n) => n.namespace === 'notifications');
+
+        if (!notifLayer) {
+            return false;
+        }
+
+        const index = [...NotifGestureWrapper.popups.keys()]
+            .sort((a, b) => b - a)
+            .indexOf(this.id);
+
+        const popups = [...NotifGestureWrapper.popups.entries()]
+            .sort((a, b) => b[0] - a[0])
+            .map(([key, val]) => [key, val.get_allocated_height()]);
+
+        const thisY = notifLayer.y + popups
+            .map((v) => v[1])
+            .slice(0, index)
+            .reduce((prev, curr) => prev + curr, 0);
+
+        if (cursorPos.y >= thisY && cursorPos.y <= thisY + (popups[index][1] ?? 0)) {
+            if (cursorPos.x >= notifLayer.x &&
+                cursorPos.x <= notifLayer.x + notifLayer.w) {
+                return true;
+            }
         }
 
         return false;
+    }
+
+    private setCursor(cursor: string) {
+        if (!display) {
+            return;
+        }
+        this.window.set_cursor(Gdk.Cursor.new_from_name(
+            display,
+            cursor,
+        ));
     }
 
     public slideAway(side: 'Left' | 'Right') {
@@ -158,50 +170,25 @@ export class NotifGestureWrapper extends Widget.EventBox {
 
         this.popup_timer = popup_timer;
         this.is_popup = this.popup_timer !== 0;
-        this.timer_update(this.popup_timer);
 
         // OnClick
         this.connect('button-press-event', () => {
-            if (!display) {
-                return;
-            }
-            this.window.set_cursor(Gdk.Cursor.new_from_name(
-                display,
-                'grabbing',
-            ));
+            this.setCursor('grabbing');
         });
 
         // OnRelease
         this.connect('button-release-event', () => {
-            if (!display) {
-                return;
-            }
-            this.window.set_cursor(Gdk.Cursor.new_from_name(
-                display,
-                'grab',
-            ));
+            this.setCursor('grab');
         });
 
         // OnHover
         this.connect('enter-notify-event', () => {
-            if (!display) {
-                return;
-            }
-            this.window.set_cursor(Gdk.Cursor.new_from_name(
-                display,
-                'grab',
-            ));
+            this.setCursor('grab');
         });
 
         // OnHoverLost
         this.connect('leave-notify-event', () => {
-            if (!display) {
-                return;
-            }
-            this.window.set_cursor(Gdk.Cursor.new_from_name(
-                display,
-                'grab',
-            ));
+            this.setCursor('grab');
         });
 
         // Handle timeout before sliding away if it is a popup
@@ -212,7 +199,7 @@ export class NotifGestureWrapper extends Widget.EventBox {
                         this.slideAway('Left');
                     }
                     else {
-                        this.timer_update(--this.popup_timer);
+                        --this.popup_timer;
                     }
                 }
             });
@@ -260,13 +247,7 @@ export class NotifGestureWrapper extends Widget.EventBox {
                                 // Put a threshold on if a click is actually dragging
                                 this.dragging = Math.abs(offset) > SLIDE_MIN_THRESHOLD;
 
-                                if (!display) {
-                                    return;
-                                }
-                                this.window.set_cursor(Gdk.Cursor.new_from_name(
-                                    display,
-                                    'grabbing',
-                                ));
+                                this.setCursor('grabbing');
                             })
 
                             // On drag end
@@ -279,24 +260,13 @@ export class NotifGestureWrapper extends Widget.EventBox {
 
                                 // If crosses threshold after letting go, slide away
                                 if (Math.abs(offset) > MAX_OFFSET) {
-                                    if (offset > 0) {
-                                        this.slideAway('Right');
-                                    }
-                                    else {
-                                        this.slideAway('Left');
-                                    }
+                                    this.slideAway(offset > 0 ? 'Right' : 'Left');
                                 }
                                 else {
                                     self.css = defaultStyle;
                                     this.dragging = false;
 
-                                    if (!display) {
-                                        return;
-                                    }
-                                    this.window.set_cursor(Gdk.Cursor.new_from_name(
-                                        display,
-                                        'grab',
-                                    ));
+                                    this.setCursor('grab');
                                 }
                             });
 

@@ -1,7 +1,7 @@
 import { App, Astal, Gtk, Widget } from 'astal/gtk3';
 import { idle } from 'astal';
 
-import AstalApps from 'gi://AstalApps?version=0.1';
+import AstalApps from 'gi://AstalApps';
 
 import { Fzf, FzfResultItem } from 'fzf';
 

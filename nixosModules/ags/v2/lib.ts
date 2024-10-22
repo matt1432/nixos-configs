@@ -1,6 +1,6 @@
 import { Gdk } from 'astal/gtk3';
 
-import AstalHyprland from 'gi://AstalHyprland?version=0.1';
+import AstalHyprland from 'gi://AstalHyprland';
 const Hyprland = AstalHyprland.get_default();
 
 /* Types */
