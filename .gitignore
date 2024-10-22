@@ -13,7 +13,7 @@ result*
 .nixd.json
 
 ## AGS
-nixosModules/ags/config/ts/lockscreen/vars.ts
+**/vars.ts
 **/config.js
 *icons
 **/types

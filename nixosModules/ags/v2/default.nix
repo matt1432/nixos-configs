@@ -1,15 +1,22 @@
 self: {
   lib,
+  osConfig,
   pkgs,
   ...
 }: {
   config = let
-    inherit (lib) attrValues removeAttrs;
+    inherit (lib) attrValues boolToString removeAttrs;
 
-    inherit (self.inputs) agsV2;
+    inherit (osConfig.vars) hostName;
+    cfgDesktop = osConfig.roles.desktop;
+
+    inherit (self.inputs) agsV2 gtk-session-lock;
+
+    gtkSessionLock = gtk-session-lock.packages.${pkgs.system}.default;
 
     agsV2Packages = agsV2.packages.${pkgs.system};
-    astalLibs = attrValues (removeAttrs agsV2.inputs.astal.packages.${pkgs.system} ["docs" "gjs"]);
+    astalLibs = attrValues (removeAttrs agsV2.inputs.astal.packages.${pkgs.system} ["docs" "gjs"]) ++ [gtkSessionLock];
+    agsFull = agsV2Packages.ags.override {extraPackages = astalLibs;};
     configDir = "/home/matt/.nix/nixosModules/ags/v2";
   in {
     home = {
@@ -17,7 +24,15 @@ self: {
         (pkgs.writeShellApplication {
           name = "agsV2";
           text = ''
-            exec ${agsV2Packages.agsFull}/bin/ags --config ${configDir} "$@"
+            export CONF="wim"
+            exec ${agsFull}/bin/ags --config ${configDir} "$@"
+          '';
+        })
+        (pkgs.writeShellApplication {
+          name = "agsConf";
+          text = ''
+            export CONF="$1"
+            exec ${agsFull}/bin/ags --config ${configDir}
           '';
         })
       ];
@@ -56,6 +71,16 @@ self: {
               "lib" = ["ES2023"];
             };
           };
+
+          "${configDir}/widgets/lockscreen/vars.ts".text =
+            # javascript
+            ''
+              export default {
+                  mainMonitor: '${cfgDesktop.mainMonitor}',
+                  dupeLockscreen: ${boolToString cfgDesktop.displayManager.duplicateScreen},
+                  hasFprintd: ${boolToString (hostName == "wim")},
+              };
+            '';
         }
       );
     };

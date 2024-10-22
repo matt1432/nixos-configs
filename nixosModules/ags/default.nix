@@ -21,6 +21,7 @@ in {
     mkIf cfgDesktop.ags.enable {
       # Enable pam for ags
       security.pam.services.ags = {};
+      security.pam.services.astal-auth = {};
 
       services.upower.enable = true;
 
