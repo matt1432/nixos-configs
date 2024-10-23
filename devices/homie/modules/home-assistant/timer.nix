@@ -4,7 +4,7 @@
 
   mkTimer = id: {
     "assist_timer${toString id}" = {
-      icon = "mdi:assistant";
+      icon = "mdi:timer-outline";
       name = "Assist - Timer ${toString id}";
       restore = true;
     };
@@ -12,7 +12,7 @@
 
   mkLocation = id: {
     "assist_timer${toString id}_location" = {
-      icon = "mdi:assistant";
+      icon = "mdi:map-marker";
       name = "Assist - Timer ${toString id} Location";
       max = 255;
     };
