@@ -19,6 +19,7 @@
     enable = true;
 
     extraComponents = [
+      "androidtv"
       "androidtv_remote"
       "caldav"
       "cast"
@@ -30,6 +31,13 @@
       "yamaha_musiccast"
     ];
 
+    customComponents = builtins.attrValues {
+      inherit
+        (self.legacyPackages.${pkgs.system}.hass-components)
+        yamaha-soundbar
+        ;
+    };
+
     config = {
       homeassistant = {
         name = "Home";
@@ -39,6 +47,17 @@
         time_zone = "America/Montreal";
         external_url = "https://homie.nelim.org";
       };
+
+      media_player = [
+        {
+          platform = "yamaha_soundbar";
+          host = "192.168.0.96";
+          name = "Living Room Speaker";
+          sources = {
+            HDMI = "TV";
+          };
+        }
+      ];
 
       # Proxy settings
       http = {

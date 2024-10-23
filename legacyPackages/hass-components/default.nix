@@ -13,4 +13,5 @@ in {
   netdaemon = buildHassComponent ./netdaemon {};
   spotifyplus = import ./spotifyplus ({inherit buildHassComponent;} // inputs);
   tuya-local = buildHassComponent ./tuya-local {};
+  yamaha-soundbar = buildHassComponent ./yamaha-soundbar {};
 })

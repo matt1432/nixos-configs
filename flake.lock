@@ -1719,7 +1719,8 @@
         "tuya-local-src": "tuya-local-src",
         "vimplugin-easytables-src": "vimplugin-easytables-src",
         "vimplugin-ts-error-translator-src": "vimplugin-ts-error-translator-src",
-        "wakewords-src": "wakewords-src"
+        "wakewords-src": "wakewords-src",
+        "yamaha-soundbar-src": "yamaha-soundbar-src"
       }
     },
     "scss-reset": {
@@ -2102,6 +2103,22 @@
       "original": {
         "owner": "hyprwm",
         "repo": "xdg-desktop-portal-hyprland",
+        "type": "github"
+      }
+    },
+    "yamaha-soundbar-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1720618370,
+        "narHash": "sha256-nVbWmzZZ7akqJGg/J5xBNgO2ky7iQgI0vDYRXCo6zR4=",
+        "owner": "osk2",
+        "repo": "yamaha-soundbar",
+        "rev": "ebb3949a31a9d8460aed38924ae3a311204a06a2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "osk2",
+        "repo": "yamaha-soundbar",
         "type": "github"
       }
     }

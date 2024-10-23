@@ -1,5 +1,4 @@
 # Do not modify! This file is generated.
-
 {
   inputs = {
     ags = {
@@ -465,6 +464,12 @@
       flake = false;
       owner = "fwartner";
       repo = "home-assistant-wakewords-collection";
+      type = "github";
+    };
+    yamaha-soundbar-src = {
+      flake = false;
+      owner = "osk2";
+      repo = "yamaha-soundbar";
       type = "github";
     };
   };

@@ -90,6 +90,7 @@ in {
       inherit
         (pkgs.home-assistant-custom-lovelace-modules)
         card-mod
+        universal-remote-card
         ;
 
       inherit
@@ -139,6 +140,166 @@ in {
                 "timer.assist_timer2"
                 "timer.assist_timer3"
               ];
+            }
+
+            {
+              type = "custom:android-tv-card";
+
+              media_player_id = "media_player.living_room_speaker";
+              keyboard_id = "remote.android_tv_192_168_0_106";
+              remote_id = "remote.onn_4k_streaming_box";
+
+              rows = [
+                "navigation_buttons"
+                [null "slider" null]
+                [null]
+                ["jellyfin" "home" "back" "keyboard"]
+                [null]
+              ];
+
+              custom_actions = [
+                {
+                  name = "center";
+                  type = "button";
+                  icon = "mdi:checkbox-blank-circle";
+
+                  styles = ''
+                    :host {
+                        --icon-color: rgb(94, 94, 94);
+                        --size: 200px;
+                        background: rgb(31, 31, 31);
+                        border-radius: 200px;
+                        margin: -70px;
+                        padding: 70px;
+                    }
+                  '';
+
+                  tap_action = {
+                    action = "key";
+                    key = "DPAD_CENTER";
+                  };
+                }
+
+                {
+                  name = "up";
+                  type = "button";
+                  icon = "mdi:chevron-up";
+
+                  styles = ''
+                    :host {
+                        --icon-color: rgb(197, 199, 197);
+                        z-index: 2;
+                        top: 25px;
+                        height: 90px;
+                        width: 300px;
+                    }
+                  '';
+
+                  hold_action = {action = "repeat";};
+                  tap_action = {
+                    action = "key";
+                    key = "DPAD_UP";
+                  };
+                }
+
+                {
+                  name = "down";
+                  type = "button";
+                  icon = "mdi:chevron-down";
+
+                  styles = ''
+                    :host {
+                        --icon-color: rgb(197, 199, 197);
+                        z-index: 2;
+                        bottom: 25px;
+                        height: 90px;
+                        width: 300px;
+                    }
+                  '';
+
+                  hold_action = {action = "repeat";};
+                  tap_action = {
+                    action = "key";
+                    key = "DPAD_DOWN";
+                  };
+                }
+
+                {
+                  name = "left";
+                  type = "button";
+                  icon = "mdi:chevron-left";
+
+                  styles = ''
+                    :host {
+                        --icon-color: rgb(197, 199, 197);
+                        z-index: 2;
+                        left: 30px;
+                        height: 170px;
+                        width: 90px;
+                    }
+                  '';
+
+                  hold_action = {action = "repeat";};
+                  tap_action = {
+                    action = "key";
+                    key = "DPAD_LEFT";
+                  };
+                }
+
+                {
+                  name = "right";
+                  type = "button";
+                  icon = "mdi:chevron-right";
+
+                  styles = ''
+                    :host {
+                        --icon-color: rgb(197, 199, 197);
+                        z-index: 2;
+                        right: 30px;
+                        height: 170px;
+                        width: 90px;
+                    }
+                  '';
+
+                  hold_action = {action = "repeat";};
+                  tap_action = {
+                    action = "key";
+                    key = "DPAD_RIGHT";
+                  };
+                }
+
+                {
+                  name = "slider";
+                  type = "slider";
+                  icon = "mdi:volume-high";
+
+                  range = [0 1];
+                  step = 0.01;
+
+                  tap_action = {
+                    action = "perform-action";
+                    perform_action = "media_player.volume_set";
+                    data = {
+                      volume_level = "{{ value | float }}";
+                    };
+                  };
+                  value_attribute = "volume_level";
+                }
+              ];
+
+              styles = ''
+                #row-1 {
+                    justify-content: center;
+                }
+
+                #row-2 {
+                    justify-content: center;
+                }
+
+                #row-3 {
+                    justify-content: center;
+                }
+              '';
             }
           ];
         }

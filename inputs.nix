@@ -202,6 +202,11 @@ let
       owner = "net-daemon";
       repo = "integration";
     }
+    {
+      owner = "osk2";
+      repo = "yamaha-soundbar";
+    }
+
     ### SpotifyPlus
     {
       name = "spotifyplus-src";
