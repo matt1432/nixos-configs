@@ -79,6 +79,13 @@ in {
       };
     };
 
+    customComponents = builtins.attrValues {
+      inherit
+        (self.legacyPackages.${pkgs.system}.hass-components)
+        material-symbols
+        ;
+    };
+
     customLovelaceModules = builtins.attrValues {
       inherit
         (pkgs.home-assistant-custom-lovelace-modules)
@@ -87,7 +94,6 @@ in {
 
       inherit
         (self.legacyPackages.${pkgs.system}.lovelace-components)
-        material-symbols
         custom-sidebar
         ;
     };

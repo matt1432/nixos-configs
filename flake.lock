@@ -963,11 +963,11 @@
     "material-symbols-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1715105278,
-        "narHash": "sha256-lH4aMzxbqxpRlIwT1/TCj9sdWOEig9W1U8weMI5tPF4=",
+        "lastModified": 1729634751,
+        "narHash": "sha256-tgBah1hOIeYhz9oi/fkGkjGnQW1yEApcVWBoFLDsGxQ=",
         "owner": "beecho01",
         "repo": "material-symbols",
-        "rev": "c5eba1d6bd30d0baa4e77faa84950af16520efbc",
+        "rev": "12c2a76b77756f3a33ac763b74c009dbbf810e16",
         "type": "github"
       },
       "original": {
