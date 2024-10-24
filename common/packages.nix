@@ -14,21 +14,7 @@ inputs @ {
         (self.overlays)
         xdg-desktop-portal-kde
         ;
-    })
-    ++ [
-      # FIXME: https://pr-tracker.nelim.org/?pr=349200
-      (final: prev: {
-        tailscale = prev.tailscale.overrideAttrs rec {
-          version = "1.76.1";
-          src = final.fetchFromGitHub {
-            owner = "tailscale";
-            repo = "tailscale";
-            rev = "v${version}";
-            hash = "sha256-tuD7GlBZdXPORZkBISp9QDj592a1OX3T+EVysuG+xWw=";
-          };
-        };
-      })
-    ];
+    });
 
   environment.systemPackages =
     (builtins.attrValues {
