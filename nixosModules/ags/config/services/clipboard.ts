@@ -40,7 +40,7 @@ class Clipboard extends Service {
     private _decrementClipsLeft() {
         if (--this._clips_left === 0) {
             this.emit('history-searched');
-            // FIXME: this is necessary when not putting a cap on clip amount
+            // this is necessary when not putting a cap on clip amount
             // exec(`prlimit --pid ${exec('pgrep ags')} --nofile=1024:`);
         }
     }
@@ -85,7 +85,7 @@ class Clipboard extends Service {
     }
 
     private _getHistory(n = Clipboard._MAX_CLIPS) {
-        // FIXME: this is necessary when not putting a cap on clip amount
+        // this is necessary when not putting a cap on clip amount
         // exec(`prlimit --pid ${exec('pgrep ags')} --nofile=10024:`);
 
         // This command comes from '../../clipboard/script.sh'

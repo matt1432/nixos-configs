@@ -13,28 +13,38 @@ in {
   services = {
     # Speech-to-Text
     wyoming.faster-whisper = {
-      # FIXME: wyoming-faster-whisper requires av < 13.0.0. make issue in nixpkgs?
-      package = pkgs.wyoming-faster-whisper.override {
-        python3Packages =
-          (pkgs.python3.override {
-            packageOverrides = pyfinal: pyprev: {
-              av =
-                (pyprev.av.override {
-                  ffmpeg-headless = pkgs.ffmpeg_6-headless;
-                })
-                .overridePythonAttrs (o: rec {
-                  version = "12.3.0";
+      # FIXME: https://pr-tracker.nelim.org/?pr=350083
+      package =
+        (pkgs.wyoming-faster-whisper.override {
+          python3Packages =
+            (pkgs.python3.override {
+              packageOverrides = pyfinal: pyprev: {
+                faster-whisper = pyprev.faster-whisper.overridePythonAttrs {
+                  version = "unstable-2024-07-26";
                   src = pkgs.fetchFromGitHub {
-                    owner = "PyAV-Org";
-                    repo = "PyAV";
-                    rev = "refs/tags/v${version}";
-                    hash = "sha256-ezeYv55UzNnnYDjrMz5YS5g2pV6U/Fxx3e2bCoPP3eI=";
+                    owner = "SYSTRAN";
+                    repo = "faster-whisper";
+                    rev = "d57c5b40b06e59ec44240d93485a95799548af50";
+                    hash = "sha256-C/O+wt3dykQJmH+VsVkpQwEAdyW8goMUMKR0Z3Y7jdo=";
                   };
-                });
-            };
-          })
-          .pkgs;
-      };
+                  pythonRelaxDeps = [
+                    "tokenizers"
+                    "av"
+                  ];
+                };
+              };
+            })
+            .pkgs;
+        })
+        .overridePythonAttrs rec {
+          version = "2.2.0";
+          src = pkgs.fetchFromGitHub {
+            owner = "rhasspy";
+            repo = "wyoming-faster-whisper";
+            rev = "refs/tags/v${version}";
+            hash = "sha256-G46ycjpRu4MD00FiBM1H0DrPpXaaPlZ8yeoyZ7WYD48=";
+          };
+        };
 
       servers."en" = {
         enable = true;

@@ -7,4 +7,8 @@ final: prev: {
         rm dmd/compiler/test/fail_compilation/needspkgmod.d
       '';
   });
+
+  # FIXME: get rid of these once inputs don't need them
+  utillinux = prev.util-linux;
+  noto-fonts-cjk = prev.noto-fonts-cjk-sans;
 }

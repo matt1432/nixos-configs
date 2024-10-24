@@ -90,7 +90,7 @@ export const updateVuetorrent = () => {
 };
 
 export const updateCustomSidebarDeps = () => spawnSync(
-    `nix run ${FLAKE}#legacyPackages.x86_64-linux.lovelace-components.custom-sidebar.update`,
+    `nix run ${FLAKE}#lovelace-components.custom-sidebar.update`,
     [],
     { shell: true },
 ).stderr.toString();
