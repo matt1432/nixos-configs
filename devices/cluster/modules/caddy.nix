@@ -17,16 +17,13 @@ in {
 
   boot.kernel.sysctl."net.ipv4.ip_nonlocal_bind" = 1;
 
-  systemd.services.caddy = {
-    preStart = "sleep 30";
-    serviceConfig = {
-      EnvironmentFile = secrets.caddy-cloudflare.path;
+  systemd.services.caddy.serviceConfig = {
+    EnvironmentFile = secrets.caddy-cloudflare.path;
 
-      # For some reason the service
-      # doesn't shutdown normally
-      KillSignal = "SIGKILL";
-      RestartKillSignal = "SIGKILL";
-    };
+    # For some reason the service
+    # doesn't shutdown normally
+    KillSignal = "SIGKILL";
+    RestartKillSignal = "SIGKILL";
   };
 
   services.caddy = {
