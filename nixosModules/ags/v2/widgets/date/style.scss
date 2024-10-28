@@ -24,11 +24,7 @@
 }
 
 .cal-box {
-    border-radius: 30px;
     padding: 0 1rem .2rem;
-    background-color: $window_bg_color;
-    border-bottom: 2px solid $accent_color;
-    border-top: 2px solid $accent_color;
     margin: 0 12px 18px;
 
     calendar {
@@ -36,7 +32,6 @@
         background-color: inherit;
         padding: .5rem .10rem 0;
         margin-left: 10px;
-        border-radius: 30px;
 
         &>* {
             border: solid 0 transparent;

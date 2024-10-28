@@ -12,6 +12,7 @@ import Corners from './widgets/corners/main';
 import IconBrowser from './widgets/icon-browser/main';
 import { NotifPopups, NotifCenter } from './widgets/notifs/main';
 import PowerMenu from './widgets/powermenu/main';
+import Screenshot from './widgets/screenshot/main';
 
 import MonitorClicks from './services/monitor-clicks';
 
@@ -48,6 +49,7 @@ switch (CONF) {
                 NotifPopups();
                 NotifCenter();
                 PowerMenu();
+                Screenshot();
 
                 new MonitorClicks();
             },

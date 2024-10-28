@@ -1,0 +1,25 @@
+.screenshot {
+    font-size: 30px;
+
+    .header {
+        .header-btn {
+            margin: 5px;
+            transition: background 400ms;
+
+            &.active {
+                background: $window_bg_color;
+            }
+        }
+    }
+
+    scrollable {
+        margin: 5px;
+        min-height: 400px;
+
+        box {
+            .item-btn {
+                margin: 3px;
+            }
+        }
+    }
+}

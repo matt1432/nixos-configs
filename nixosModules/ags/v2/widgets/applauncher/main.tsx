@@ -122,6 +122,7 @@ export default () => {
 
                     <button
                         css="margin-left: 5px;"
+                        cursor="pointer"
                         onButtonReleaseEvent={refreshApplications}
                     >
                         <icon icon="view-refresh-symbolic" css="font-size: 26px;" />
@@ -129,18 +130,20 @@ export default () => {
 
                 </box>
 
-                <scrollable
-                    className="widget app-list"
+                <eventbox cursor="pointer">
+                    <scrollable
+                        className="widget app-list"
 
-                    css="min-height: 600px; min-width: 600px;"
-                    hscroll={Gtk.PolicyType.NEVER}
-                    vscroll={Gtk.PolicyType.AUTOMATIC}
-                >
-                    <box vertical>
-                        {list}
-                        {placeholder}
-                    </box>
-                </scrollable>
+                        css="min-height: 600px; min-width: 600px;"
+                        hscroll={Gtk.PolicyType.NEVER}
+                        vscroll={Gtk.PolicyType.AUTOMATIC}
+                    >
+                        <box vertical>
+                            {list}
+                            {placeholder}
+                        </box>
+                    </scrollable>
+                </eventbox>
             </box>
         </PopupWindow>
     );

@@ -10,6 +10,7 @@ const PowermenuWidget = () => (
     <centerbox className="powermenu widget">
         <button
             className="shutdown button"
+            cursor="pointer"
             onButtonReleaseEvent={() => execAsync(['systemctl', 'poweroff']).catch(print)}
         >
             <icon icon="system-shutdown-symbolic" />
@@ -17,6 +18,7 @@ const PowermenuWidget = () => (
 
         <button
             className="reboot button"
+            cursor="pointer"
             onButtonReleaseEvent={() => execAsync(['systemctl', 'reboot']).catch(print)}
         >
             <icon icon="system-restart-symbolic" />
@@ -24,6 +26,7 @@ const PowermenuWidget = () => (
 
         <button
             className="logout button"
+            cursor="pointer"
             onButtonReleaseEvent={() => hyprMessage('dispatch exit').catch(print)}
         >
             <icon icon="system-log-out-symbolic" />

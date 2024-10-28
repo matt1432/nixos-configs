@@ -1,4 +1,6 @@
-import { Gdk } from 'astal/gtk3';
+import { App, Gdk, Widget } from 'astal/gtk3';
+
+import AstalApps from 'gi://AstalApps';
 
 import AstalHyprland from 'gi://AstalHyprland';
 const Hyprland = AstalHyprland.get_default();
@@ -108,4 +110,17 @@ export const centerCursor = async(): Promise<void> => {
     }
 
     await hyprMessage(`dispatch movecursor ${x} ${y}`);
+};
+
+export const get_app_icon = (app: AstalApps.Application): string => {
+    if (app.get_icon_name() && Widget.Icon.lookup_icon(app.get_icon_name())) {
+        return app.get_icon_name();
+    }
+    else {
+        const iconString = app.get_key('Icon');
+
+        App.add_icons(iconString);
+
+        return iconString;
+    }
 };

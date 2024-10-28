@@ -134,23 +134,25 @@ export default class MonitorClicks extends GObject.Object {
                                 overlayLayer.find(
                                     (n) => n.namespace.startsWith(name),
                                 ) ||
-                            // Return an empty Layer if widget doesn't exist
-                            {
-                                address: '',
-                                x: 0,
-                                y: 0,
-                                w: 0,
-                                h: 0,
-                                namespace: '',
-                            },
+                                // Return an empty Layer if widget doesn't exist
+                                {
+                                    address: '',
+                                    x: 0,
+                                    y: 0,
+                                    w: 0,
+                                    h: 0,
+                                    namespace: '',
+                                },
                             );
                         });
 
                         return arr;
                     };
                     const clickIsOnWidget = (w: Layer) => {
-                        return pos.x > w.x && pos.x < w.x + w.w &&
-                        pos.y > w.y && pos.y < w.y + w.h;
+                        return (
+                            pos.x > w.x && pos.x < w.x + w.w &&
+                            pos.y > w.y && pos.y < w.y + w.h
+                        );
                     };
 
                     const noCloseWidgets = getNoCloseWidgets(noCloseWidgetsNames);
@@ -158,24 +160,25 @@ export default class MonitorClicks extends GObject.Object {
                     const widgets = overlayLayer.filter((n) => {
                         let window = null as null | PopupWindow;
 
-                        if (App.get_windows().some((win) =>
-                            win.name === n.namespace)) {
+                        if (App.get_windows().some((win) => win.name === n.namespace)) {
                             window = (App.get_window(n.namespace) as PopupWindow);
                         }
 
                         return window &&
-                        window.close_on_unfocus &&
-                        window.close_on_unfocus ===
-                        clickStage;
+                            window.close_on_unfocus &&
+                            window.close_on_unfocus ===
+                            clickStage;
                     });
 
                     if (noCloseWidgets.some(clickIsOnWidget)) {
-                    // Don't handle clicks when on certain widgets
+                        // Don't handle clicks when on certain widgets
                     }
                     else {
                         widgets.forEach((w) => {
-                            if (!(pos.x > w.x && pos.x < w.x + w.w &&
-                            pos.y > w.y && pos.y < w.y + w.h)) {
+                            if (!(
+                                pos.x > w.x && pos.x < w.x + w.w &&
+                                pos.y > w.y && pos.y < w.y + w.h
+                            )) {
                                 App.get_window(w.namespace)?.set_visible(false);
                             }
                         });

@@ -1,5 +1,7 @@
-import { App, Gtk, Widget } from 'astal/gtk3';
+import { Gtk, Widget } from 'astal/gtk3';
 import { register } from 'astal/gobject';
+
+import { get_app_icon } from '../../lib';
 
 /* Types */
 import AstalApps from 'gi://AstalApps';
@@ -26,18 +28,11 @@ export class AppItem extends Widget.Box {
         this.app = app;
 
         const icon = (
-            <icon css="font-size: 42px; margin-right: 25px;" />
-        ) as Widget.Icon;
-
-        if (app.get_icon_name() && Widget.Icon.lookup_icon(app.get_icon_name())) {
-            icon.icon = this.app.get_icon_name();
-        }
-        else {
-            const iconString = this.app.get_key('Icon');
-
-            App.add_icons(iconString);
-            icon.icon = iconString;
-        }
+            <icon
+                icon={get_app_icon(this.app)}
+                css="font-size: 42px; margin-right: 25px;"
+            />
+        );
 
         const textBox = (
             <box
