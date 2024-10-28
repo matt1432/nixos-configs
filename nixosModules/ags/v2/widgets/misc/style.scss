@@ -1,0 +1,27 @@
+.sorted-list {
+    .search {
+        icon {
+            font-size: 20px;
+            min-width: 40px;
+            min-height: 40px
+        }
+
+        entry {}
+    }
+
+    .list {
+        row {
+            border-radius: 10px;
+
+            &:hover, &:selected {
+                icon {
+                    -gtk-icon-shadow: 2px 2px $accent_color;
+                }
+            }
+        }
+
+        .placeholder {
+            font-size: 20px;
+        }
+    }
+}

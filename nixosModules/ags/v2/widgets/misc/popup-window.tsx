@@ -8,9 +8,9 @@ import { get_hyprland_monitor, hyprMessage } from '../../lib';
 type CloseType = 'none' | 'stay' | 'released' | 'clicked';
 type HyprTransition = 'slide' | 'slide top' | 'slide bottom' | 'slide left' |
     'slide right' | 'popin' | 'fade';
-type PopupCallback = (self: PopupWindow) => void;
+type PopupCallback = (self?: Widget.Window) => void;
 
-type PopupWindowProps = Widget.WindowProps & {
+export type PopupWindowProps = Widget.WindowProps & {
     transition?: HyprTransition | Binding<HyprTransition>
     close_on_unfocus?: CloseType | Binding<CloseType>
     on_open?: PopupCallback
