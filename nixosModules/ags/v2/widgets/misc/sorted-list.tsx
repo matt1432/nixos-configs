@@ -4,7 +4,7 @@
 import { Astal, Gtk, Widget } from 'astal/gtk3';
 import { idle } from 'astal';
 
-import { Fzf, FzfOptions, FzfResultItem } from 'fzf';
+import { AsyncFzf, FzfOptions, FzfResultItem } from 'fzf';
 
 import PopupWindow, { PopupWindow as PopupWindowClass } from '../misc/popup-window';
 import { centerCursor } from '../../lib';
@@ -71,12 +71,16 @@ export class SortedList<T> {
 
         const on_text_change = (text: string) => {
             // @ts-expect-error this should be okay
-            this.fzf_results = (new Fzf(this.item_list, this.fzf_options)).find(text);
-            list.invalidate_sort();
+            (new AsyncFzf(this.item_list, this.fzf_options)).find(text)
+                .then((out) => {
+                    this.fzf_results = out;
+                    list.invalidate_sort();
 
-            const visibleApplications = list.get_children().filter((row) => row.visible).length;
+                    const visibleApplications = list.get_children().filter((row) => row.visible).length;
 
-            placeholder.reveal_child = visibleApplications <= 0;
+                    placeholder.reveal_child = visibleApplications <= 0;
+                })
+                .catch(() => { /**/ });
         };
 
         const entry = (
