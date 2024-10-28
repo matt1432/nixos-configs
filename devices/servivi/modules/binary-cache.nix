@@ -23,7 +23,7 @@
     text = ''
       cd "$FLAKE" || return
 
-      nix-fast-build -f .#nixFastChecks
+      nix-fast-build -f .#nixFastChecks | grep -v 'error (ignored): error: SQLite database'
     '';
   };
 in {

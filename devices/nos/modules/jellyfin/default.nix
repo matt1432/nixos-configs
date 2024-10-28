@@ -44,7 +44,7 @@ in {
           }
           {
             name = "Intro Skipper";
-            url = "https://raw.githubusercontent.com/jumoog/intro-skipper/master/manifest.json";
+            url = "https://manifest.intro-skipper.org/manifest.json";
           }
           {
             name = "Merge Versions Plugin";

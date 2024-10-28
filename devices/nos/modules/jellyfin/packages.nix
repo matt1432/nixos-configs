@@ -13,7 +13,8 @@ in {
     package = jellyPkgs.jellyfin;
     webPackage = jellyPkgs.jellyfin-web.overrideAttrs {
       postInstall = ''
-        sed -E -i 's/enableBackdrops\:function\(\)\{return \_\}/enableBackdrops\:function\(\)\{return P\}/' $out/share/jellyfin-web/main.jellyfin.bundle.js
+        substituteInPlace $out/share/jellyfin-web/main.jellyfin.bundle.js --replace-fail \
+            'enableBackdrops:function(){return L}' 'enableBackdrops:function(){return _}'
       '';
     };
     ffmpegPackage = jellyPkgs.jellyfin-ffmpeg;
