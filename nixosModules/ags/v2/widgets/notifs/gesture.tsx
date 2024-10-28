@@ -162,7 +162,26 @@ export class NotifGestureWrapper extends Widget.EventBox {
         setup_notif = () => { /**/ },
         ...rest
     }: NotifGestureWrapperProps) {
-        super();
+        super({
+            on_button_press_event: () => {
+                this.setCursor('grabbing');
+            },
+
+            // OnRelease
+            on_button_release_event: () => {
+                this.setCursor('grab');
+            },
+
+            // OnHover
+            on_enter_notify_event: () => {
+                this.setCursor('grab');
+            },
+
+            // OnHoverLost
+            on_leave_notify_event: () => {
+                this.setCursor('grab');
+            },
+        });
 
         this.id = id;
         this.slide_in_from = slide_in_from;
@@ -171,36 +190,21 @@ export class NotifGestureWrapper extends Widget.EventBox {
         this.popup_timer = popup_timer;
         this.is_popup = this.popup_timer !== 0;
 
-        // OnClick
-        this.connect('button-press-event', () => {
-            this.setCursor('grabbing');
-        });
-
-        // OnRelease
-        this.connect('button-release-event', () => {
-            this.setCursor('grab');
-        });
-
-        // OnHover
-        this.connect('enter-notify-event', () => {
-            this.setCursor('grab');
-        });
-
-        // OnHoverLost
-        this.connect('leave-notify-event', () => {
-            this.setCursor('grab');
-        });
-
         // Handle timeout before sliding away if it is a popup
         if (this.popup_timer !== 0) {
             this.timer_object = interval(1000, async() => {
-                if (!(await this.get_hovered())) {
-                    if (this.popup_timer === 0) {
-                        this.slideAway('Left');
+                try {
+                    if (!(await this.get_hovered())) {
+                        if (this.popup_timer === 0) {
+                            this.slideAway('Left');
+                        }
+                        else {
+                            --this.popup_timer;
+                        }
                     }
-                    else {
-                        --this.popup_timer;
-                    }
+                }
+                catch (_) {
+                    this.timer_object?.cancel();
                 }
             });
         }

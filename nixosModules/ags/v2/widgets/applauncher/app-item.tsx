@@ -1,8 +1,6 @@
 import { Gtk, Widget } from 'astal/gtk3';
 import { register } from 'astal/gobject';
 
-import { get_app_icon } from '../../lib';
-
 /* Types */
 import AstalApps from 'gi://AstalApps';
 type AppItemProps = Widget.BoxProps & {
@@ -29,7 +27,7 @@ export class AppItem extends Widget.Box {
 
         const icon = (
             <icon
-                icon={get_app_icon(this.app)}
+                icon={this.app.iconName}
                 css="font-size: 42px; margin-right: 25px;"
             />
         );

@@ -10,7 +10,7 @@ const Hyprland = AstalHyprland.get_default();
 import PopupWindow from '../misc/popup-window';
 import Separator from '../misc/separator';
 
-import { get_app_icon, hyprMessage } from '../../lib';
+import { hyprMessage } from '../../lib';
 
 
 const ICON_SEP = 6;
@@ -46,7 +46,7 @@ export default () => {
                     }}
                 >
                     <box halign={Gtk.Align.CENTER}>
-                        <icon icon={get_app_icon(Applications.fuzzy_query(client.class)[0])} />
+                        <icon icon={Applications.fuzzy_query(client.class)[0].iconName} />
 
                         <Separator size={ICON_SEP} />
 
