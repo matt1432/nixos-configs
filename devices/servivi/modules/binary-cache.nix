@@ -7,7 +7,7 @@
   inherit (config.vars) mainUser;
   inherit (config.sops) secrets;
 
-  nix-fast-buildPkg = nix-fast-build.packages.${pkgs.system}.nix-fast-build.override {
+  nix-fast-build-pkg = nix-fast-build.packages.${pkgs.system}.nix-fast-build.override {
     nix-eval-jobs =
       pkgs.nix-eval-jobs.override {
         nix = config.nix.package;
@@ -16,19 +16,23 @@
         nix = config.nix.package;
       };
   };
+
+  nixFastBuild = pkgs.writeShellApplication {
+    name = "nixFastBuild";
+    runtimeInputs = with pkgs; [gnugrep nix-fast-build-pkg];
+    text = ''
+      cd "$FLAKE" || return
+
+      nix-fast-build -f .#nixFastChecks
+    '';
+  };
 in {
   services.nix-serve = {
     enable = true;
     secretKeyFile = secrets.binary-cache-key.path;
   };
 
-  environment.systemPackages = [
-    nix-fast-buildPkg
-  ];
-
-  home-manager.users.${mainUser}.programs.bash.shellAliases = {
-    nix-fast-build = "nix-fast-build -f $FLAKE/.#nixFastChecks";
-  };
+  environment.systemPackages = [nix-fast-build-pkg nixFastBuild];
 
   # Populate cache
   systemd = {
@@ -41,7 +45,7 @@ in {
 
       path =
         [
-          nix-fast-buildPkg
+          nix-fast-build-pkg
           config.nix.package
         ]
         ++ (builtins.attrValues {
@@ -55,12 +59,16 @@ in {
 
       script = ''
         cd /tmp
+
         if [[ -d ./nix-clone ]]; then
             rm -r ./nix-clone
         fi
+
         git clone https://git.nelim.org/matt1432/nixos-configs.git nix-clone
         cd nix-clone
+
         nix-fast-build -f .#nixFastChecks
+
         cd ..
         rm -r nix-clone
 

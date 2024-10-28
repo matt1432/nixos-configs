@@ -963,11 +963,11 @@
     "material-symbols-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1730046006,
-        "narHash": "sha256-Ro0UTfaOVYgF7vz+ngxt0u1f4je1oJaog9yB3kDwqDs=",
+        "lastModified": 1730096827,
+        "narHash": "sha256-uQ/i7eQSgElewiUF8Yus0QrcMI73DiusEw0w1E2X0Iw=",
         "owner": "beecho01",
         "repo": "material-symbols",
-        "rev": "f1de6edf84c6f6094a3830a67ff979ec98ed326b",
+        "rev": "95a0f1b40c6bba4e02e25c8d91ec97a241b49466",
         "type": "github"
       },
       "original": {
@@ -1419,11 +1419,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1730068416,
-        "narHash": "sha256-ZblJXYHsAwAHPUnER5toHpOMtIrDAVytzzgI4B2rXJ8=",
+        "lastModified": 1730110926,
+        "narHash": "sha256-sZlIVytrqqXN6runKjsmgCr8IlazVDS+1RCHkd48jcI=",
         "owner": "nix-community",
         "repo": "nixpkgs-wayland",
-        "rev": "8d5faa9440349976c84b7b55d05e3e5dcfabdcc1",
+        "rev": "92f52b6fcb181e9604f09180fd9dd1292c5a80a3",
         "type": "github"
       },
       "original": {
@@ -1979,11 +1979,11 @@
     "tuya-local-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1730032580,
-        "narHash": "sha256-2xmcIZJyJMFVad8fYgNdzIq5nFWDtgX3iRVJRdyTlMM=",
+        "lastModified": 1730114795,
+        "narHash": "sha256-yfxd+iaPp5r/P4r9ZBBdqWg/m8VaFrMlc4aAX7NdnoQ=",
         "owner": "make-all",
         "repo": "tuya-local",
-        "rev": "b7a596f44753d5f0bacd6c27680c2f7f0bb4032a",
+        "rev": "2e52bf8b78c0bc0fe3338495720fa3c78e748357",
         "type": "github"
       },
       "original": {
