@@ -1,10 +1,11 @@
 final: prev: {
-  # FIXME: dmd doesn't build on latest nixos-unstable. make issue?
+  # FIXME: https://pr-tracker.nelim.org/?pr=351090
   dmd = prev.dmd.overrideAttrs (o: {
-    postPatch =
-      o.postPatch
-      + ''
-        rm dmd/compiler/test/fail_compilation/needspkgmod.d
-      '';
+    postPatch = ''
+      ${o.postPatch}
+
+      substituteInPlace dmd/compiler/test/fail_compilation/needspkgmod.d \
+          --replace-fail 'REQUIRED_ARGS: -Icompilable' 'REQUIRED_ARGS: -Icompilable -L--no-demangle'
+    '';
   });
 }

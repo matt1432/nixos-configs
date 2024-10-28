@@ -113,6 +113,9 @@ let
       hyprland = mkDep {
         owner = "hyprwm";
         repo = "Hyprland";
+
+        # FIXME: remove this once plugins chase latest hyprland
+        rev = "b6e226c3200276978e487a68a16fd696fcb7e7c8";
       };
 
       hyprland-plugins = mkHyprDep {
