@@ -1,9 +1,10 @@
-import { Gdk } from 'astal/gtk3';
+import { App, Gdk } from 'astal/gtk3';
 
 import AstalHyprland from 'gi://AstalHyprland';
 const Hyprland = AstalHyprland.get_default();
 
 /* Types */
+import type { PopupWindow } from './widgets/misc/popup-window';
 export interface Layer {
     address: string
     x: number
@@ -108,4 +109,14 @@ export const centerCursor = async(): Promise<void> => {
     }
 
     await hyprMessage(`dispatch movecursor ${x} ${y}`);
+};
+
+export const closeAll = () => {
+    (App.get_windows() as PopupWindow[])
+        .filter((w) => w &&
+          w.close_on_unfocus &&
+          w.close_on_unfocus !== 'stay')
+        .forEach((w) => {
+            App.get_window(w.name)?.set_visible(false);
+        });
 };

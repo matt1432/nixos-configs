@@ -14,9 +14,19 @@ import { NotifPopups, NotifCenter } from './widgets/notifs/main';
 import PowerMenu from './widgets/powermenu/main';
 import Screenshot from './widgets/screenshot/main';
 
+import { closeAll as closeAllFunc } from './lib';
+import BrightnessService from './services/brightness';
 import MonitorClicks from './services/monitor-clicks';
 
 import Lockscreen from './widgets/lockscreen/main';
+
+declare global {
+    function closeAll(): void;
+    // eslint-disable-next-line
+    var Brightness: typeof BrightnessService;
+}
+globalThis.closeAll = closeAllFunc;
+globalThis.Brightness = BrightnessService;
 
 
 const CONF = GLib.getenv('CONF');
@@ -39,6 +49,10 @@ switch (CONF) {
         App.start({
             css: style,
 
+            requestHandler(js, res) {
+                App.eval(js).then(res).catch(res);
+            },
+
             main: () => {
                 AppLauncher();
                 Bar();
@@ -51,6 +65,10 @@ switch (CONF) {
                 PowerMenu();
                 Screenshot();
 
+                Brightness.initService({
+                    kbd: 'tpacpi::kbd_backlight',
+                    caps: 'input1::capslock',
+                });
                 new MonitorClicks();
             },
         });

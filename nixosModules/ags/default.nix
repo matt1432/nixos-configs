@@ -142,6 +142,7 @@ in {
 
           wayland.windowManager.hyprland = let
             runAgs = cmd: "pgrep ags -a | grep '/bin/gjs' && ags ${cmd} || agsV2 ${cmd}";
+            runAgsJs = cmd: "pgrep ags -a | grep '/bin/gjs' && ags -r ${cmd} || agsV2 -m ${cmd}";
           in {
             settings = {
               animations = {
@@ -178,11 +179,11 @@ in {
               ];
               binde = [
                 ## Brightness control
-                ", XF86MonBrightnessUp  , exec, ${runAgs "-r 'Brightness.screen += 0.05'"}"
-                ", XF86MonBrightnessDown, exec, ${runAgs "-r 'Brightness.screen -= 0.05'"}"
+                ", XF86MonBrightnessUp  , exec, ${runAgsJs "'Brightness.screen += 0.05'"}"
+                ", XF86MonBrightnessDown, exec, ${runAgsJs "'Brightness.screen -= 0.05'"}"
               ];
-              bindn = ["    , Escape   , exec, ${runAgs "-r 'closeAll()'"}"];
-              bindr = ["CAPS, Caps_Lock, exec, ${runAgs "-r 'Brightness.fetchCapsState()'"}"];
+              bindn = ["    , Escape   , exec, ${runAgsJs "'closeAll()'"}"];
+              bindr = ["CAPS, Caps_Lock, exec, ${runAgsJs "'Brightness.fetchCapsState()'"}"];
             };
           };
         })
