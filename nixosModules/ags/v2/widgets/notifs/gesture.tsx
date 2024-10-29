@@ -1,6 +1,6 @@
 import { Gdk, Gtk, Widget } from 'astal/gtk3';
 import { property, register } from 'astal/gobject';
-import { idle, interval } from 'astal';
+import { idle, interval, timeout } from 'astal';
 
 import AstalIO from 'gi://AstalIO';
 
@@ -63,6 +63,8 @@ export class NotifGestureWrapper extends Widget.EventBox {
     @property(Boolean)
     declare dragging: boolean;
 
+    private _sliding_away = false;
+
     private async get_hovered(): Promise<boolean> {
         const layers = JSON.parse(await hyprMessage('j/layers')) as LayerResult;
         const cursorPos = JSON.parse(await hyprMessage('j/cursorpos')) as CursorPos;
@@ -101,7 +103,7 @@ export class NotifGestureWrapper extends Widget.EventBox {
             .slice(0, index)
             .reduce((prev, curr) => prev + curr, 0);
 
-        if (cursorPos.y >= thisY && cursorPos.y <= thisY + (popups[index][1] ?? 0)) {
+        if (cursorPos.y >= thisY && cursorPos.y <= thisY + (popups[index]?.at(1) ?? 0)) {
             if (cursorPos.x >= notifLayer.x &&
                 cursorPos.x <= notifLayer.x + notifLayer.w) {
                 return true;
@@ -121,21 +123,39 @@ export class NotifGestureWrapper extends Widget.EventBox {
         ));
     }
 
-    public slideAway(side: 'Left' | 'Right') {
-        if (!this.sensitive) {
+    public slideAway(side: 'Left' | 'Right'): void {
+        if (!this.sensitive || this._sliding_away) {
             return;
         }
 
-        ((this.get_child() as Widget.Revealer).get_child() as Widget.Box)
-            .css = side === 'Left' ? slideLeft : slideRight;
-
         // Make it uninteractable
         this.sensitive = false;
+        this._sliding_away = true;
 
-        setTimeout(() => {
-            (this.get_child() as Widget.Revealer).revealChild = false;
+        let rev = this.get_child() as Widget.Revealer | null;
 
-            setTimeout(() => {
+        if (!rev) {
+            return;
+        }
+
+        const revChild = rev.get_child() as Widget.Box | null;
+
+        if (!revChild) {
+            return;
+        }
+
+        revChild.css = side === 'Left' ? slideLeft : slideRight;
+
+        timeout(ANIM_DURATION - 100, () => {
+            rev = this.get_child() as Widget.Revealer | null;
+
+            if (!rev) {
+                return;
+            }
+
+            rev.revealChild = false;
+
+            timeout(ANIM_DURATION, () => {
                 // Kill notif if specified
                 if (!this.is_popup) {
                     Notifications.get_notification(this.id)?.dismiss();
@@ -146,13 +166,12 @@ export class NotifGestureWrapper extends Widget.EventBox {
                 else {
                     // Make sure we cleanup any references to this instance
                     NotifGestureWrapper.popups.delete(this.id);
-                    this.timer_object?.cancel();
                 }
 
                 // Get rid of disappeared widget
                 this.destroy();
-            }, ANIM_DURATION);
-        }, ANIM_DURATION - 100);
+            });
+        });
     }
 
     constructor({
@@ -181,6 +200,10 @@ export class NotifGestureWrapper extends Widget.EventBox {
             on_leave_notify_event: () => {
                 this.setCursor('grab');
             },
+
+            onDestroy: () => {
+                this.timer_object?.cancel();
+            },
         });
 
         this.id = id;
@@ -203,7 +226,7 @@ export class NotifGestureWrapper extends Widget.EventBox {
                         }
                     }
                 }
-                catch (_) {
+                catch (_e) {
                     this.timer_object?.cancel();
                 }
             });
@@ -284,20 +307,34 @@ export class NotifGestureWrapper extends Widget.EventBox {
                             slideRight;
 
                         idle(() => {
-                            (self.get_parent() as Widget.Revealer).revealChild = true;
+                            if (!Notifications.get_notification(id)) {
+                                return;
+                            }
 
-                            setTimeout(() => {
+                            const rev = self?.get_parent() as Widget.Revealer | null;
+
+                            if (!rev) {
+                                return;
+                            }
+
+                            rev.revealChild = true;
+
+                            timeout(ANIM_DURATION, () => {
+                                if (!Notifications.get_notification(id)) {
+                                    return;
+                                }
+
                                 // Then we go to center
                                 self.css = defaultStyle;
 
                                 if (this.is_popup) {
-                                    setTimeout(() => {
+                                    timeout(ANIM_DURATION, () => {
                                         NotifGestureWrapper.on_sliding_in(
                                             --NotifGestureWrapper.sliding_in,
                                         );
-                                    }, ANIM_DURATION);
+                                    });
                                 }
-                            }, ANIM_DURATION);
+                            });
                         });
                     }}
                 />

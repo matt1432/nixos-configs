@@ -16,7 +16,7 @@ export default () => (
             const notifQueue: number[] = [];
 
             const addPopup = (id: number) => {
-                if (!id) {
+                if (!id || !Notifications.get_notification(id)) {
                     return;
                 }
 

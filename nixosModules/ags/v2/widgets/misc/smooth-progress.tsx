@@ -7,6 +7,7 @@ type SmoothProgressProps = Widget.BoxProps & {
 };
 
 
+// PERF: this is kinda laggy
 @register()
 class SmoothProgress extends Widget.Box {
     @property(Number)

@@ -10,7 +10,7 @@ import AstalNotifd from 'gi://AstalNotifd';
 const Notifications = AstalNotifd.get_default();
 
 import NotifGestureWrapper from './gesture';
-import SmoothProgress from '../misc/smooth-progress';
+// import SmoothProgress from '../misc/smooth-progress';
 
 
 // Make a variable to connect to for Widgets
@@ -106,14 +106,14 @@ export const Notification = ({
 
     HasNotifs.set(Notifications.get_notifications().length > 0);
 
-    const progress = SmoothProgress({ className: 'smooth-progress' });
+    // const progress = SmoothProgress({ className: 'smooth-progress' });
 
     return (
         <NotifGestureWrapper
             id={id}
             popup_timer={popup_timer}
             slide_in_from={slide_in_from}
-            setup_notif={(self) => {
+            /* setup_notif={(self) => {
                 if (self.is_popup) {
                     self.connect('notify::popup-timer', () => {
                         progress.fraction = self.popup_timer / 5;
@@ -122,7 +122,7 @@ export const Notification = ({
                 else {
                     progress.destroy();
                 }
-            }}
+            }}*/
         >
             <box vertical className={`notification ${notifObj.urgency} widget`}>
                 {/* Content */}
@@ -183,7 +183,7 @@ export const Notification = ({
                     </box>
                 </box>
 
-                {progress}
+                {/* progress */}
 
                 {/* Actions */}
                 <box className="actions">

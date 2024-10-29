@@ -119,6 +119,7 @@ export class SortedList<T> {
                 on_open={() => {
                     entry.text = '';
                     centerCursor();
+                    entry.grab_focus();
                 }}
             >
                 <box
@@ -145,7 +146,7 @@ export class SortedList<T> {
                         <scrollable
                             className="widget list"
 
-                            css="min-height: 600px; min-width: 600px;"
+                            css="min-height: 600px; min-width: 700px;"
                             hscroll={Gtk.PolicyType.NEVER}
                             vscroll={Gtk.PolicyType.AUTOMATIC}
                         >
