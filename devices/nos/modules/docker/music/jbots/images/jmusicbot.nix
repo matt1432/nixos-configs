@@ -22,10 +22,10 @@ pkgs: let
 
   jmusicbot =
     (pkgs.jmusicbot.overrideAttrs rec {
-      version = "0.4.3.1";
+      version = "0.4.3.2";
       src = pkgs.fetchurl {
         url = "https://github.com/xPrinny/MusicBot/releases/download/${version}/JMusicBot-${version}.jar";
-        sha256 = "sha256-35JdmLArl9ssYDpdKDsBx3lu6TCN1JiCBI34W+uyVJ0=";
+        sha256 = "sha256-MEOWppkw74s81D1EJEqZMjOzDlLdH6uyanDZD5d+Xa4=";
       };
       meta.platforms = ["x86_64-linux"];
     })

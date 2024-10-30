@@ -17,8 +17,7 @@ in {
         restart = "always";
 
         volumes = [
-          "${rwPath}/be/config.txt:/jmb/config/config.txt:ro"
-          "${rwPath}/be/playlists:/jmb/config/playlists:rw"
+          "${rwPath}/be:/jmb/config:rw"
         ];
         networks = ["proxy_net"];
       };
@@ -29,8 +28,7 @@ in {
         restart = "always";
 
         volumes = [
-          "${rwPath}/br/config.txt:/jmb/config/config.txt:ro"
-          "${rwPath}/br/playlists:/jmb/config/playlists:rw"
+          "${rwPath}/br:/jmb/config:rw"
         ];
         networks = ["proxy_net"];
       };
