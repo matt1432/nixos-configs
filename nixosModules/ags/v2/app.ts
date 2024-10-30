@@ -11,6 +11,7 @@ import Calendar from './widgets/date/main';
 import Corners from './widgets/corners/main';
 import IconBrowser from './widgets/icon-browser/main';
 import { NotifPopups, NotifCenter } from './widgets/notifs/main';
+import OSD from './widgets/osd/main';
 import PowerMenu from './widgets/powermenu/main';
 import Screenshot from './widgets/screenshot/main';
 
@@ -62,6 +63,7 @@ switch (CONF) {
                 IconBrowser();
                 NotifPopups();
                 NotifCenter();
+                OSD();
                 PowerMenu();
                 Screenshot();
 

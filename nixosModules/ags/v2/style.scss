@@ -1,7 +1,33 @@
 @import 'colors.scss';
 
-window, viewport {
+window,
+viewport,
+stack {
     all: unset;
+}
+
+progressbar {
+    border-radius: 999px;
+    background: transparent;
+    border: none;
+
+    trough {
+        background: #363847;
+        min-height: inherit;
+        border-radius: inherit;
+        border: none;
+    }
+
+    progress {
+        background: #79659f;
+        min-height: inherit;
+        border-radius: inherit;
+        border: none;
+    }
+
+    &:disabled {
+        opacity: 0.5;
+    }
 }
 
 .widget {
@@ -19,5 +45,6 @@ window, viewport {
 @import 'widgets/lockscreen/style.scss';
 @import 'widgets/misc/style.scss';
 @import 'widgets/notifs/style.scss';
+@import 'widgets/osd/style.scss';
 @import 'widgets/powermenu/style.scss';
 @import 'widgets/screenshot/style.scss';

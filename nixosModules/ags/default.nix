@@ -181,6 +181,10 @@ in {
                 ## Brightness control
                 ", XF86MonBrightnessUp  , exec, ${runAgsJs "'Brightness.screen += 0.05'"}"
                 ", XF86MonBrightnessDown, exec, ${runAgsJs "'Brightness.screen -= 0.05'"}"
+
+                ## Volume control
+                ", XF86AudioRaiseVolume , exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+ & ${runAgsJs "'popup_osd(\"speaker\")'"} &"
+                ", XF86AudioLowerVolume , exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- & ${runAgsJs "'popup_osd(\"speaker\")'"} &"
               ];
               bindn = ["    , Escape   , exec, ${runAgsJs "'closeAll()'"}"];
               bindr = ["CAPS, Caps_Lock, exec, ${runAgsJs "'Brightness.fetchCapsState()'"}"];

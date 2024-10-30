@@ -185,11 +185,6 @@ in {
             "$mainMod, Print, exec, bash -c \"grim -g \\\"$(slurp)\\\" - | satty -f -\""
           ];
 
-          binde = [
-            ",XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+ & ags -r 'popup_osd(\"speaker\")' &"
-            ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- & ags -r 'popup_osd(\"speaker\")' &"
-          ];
-
           # Mouse Binds
           bindm = [
             "$mainMod, mouse:272, movewindow"

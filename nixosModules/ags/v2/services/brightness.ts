@@ -44,7 +44,7 @@ class Brightness extends GObject.Object {
             .catch(console.error);
     }
 
-    declare private _screenIcon: string;
+    private _screenIcon = 'display-brightness-high-symbolic';
 
     @property(String)
     get screenIcon() {
@@ -79,7 +79,7 @@ class Brightness extends GObject.Object {
         return this._capsLevel;
     }
 
-    declare private _capsIcon: string;
+    private _capsIcon = 'caps-lock-symbolic';
 
     @property(String)
     get capsIcon() {

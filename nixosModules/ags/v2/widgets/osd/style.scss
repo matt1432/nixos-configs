@@ -1,0 +1,21 @@
+.osd {
+    .osd-item {
+        padding: 12px 20px;
+
+        label {
+            min-width: 170px;
+        }
+
+        progressbar {
+            min-height: 6px;
+            min-width: 170px;
+        }
+
+        icon {
+            font-size: 2rem;
+            color: white;
+            margin-left: -0.4rem;
+            margin-right: 0.8rem;
+        }
+    }
+}
