@@ -109,4 +109,4 @@ export class PopupWindow extends Widget.Window {
     }
 }
 
-export default (props: PopupWindowProps) => new PopupWindow(props);
+export default PopupWindow;

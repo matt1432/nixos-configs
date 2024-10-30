@@ -5,7 +5,7 @@ import AstalNotifd from 'gi://AstalNotifd';
 const Notifications = AstalNotifd.get_default();
 
 import { Notification, HasNotifs } from './notification';
-import { NotifGestureWrapper } from './gesture';
+import NotifGestureWrapper from './gesture';
 
 
 const addNotif = (box: Widget.Box, notifObj: AstalNotifd.Notification) => {

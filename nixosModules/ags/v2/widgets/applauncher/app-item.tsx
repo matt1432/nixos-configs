@@ -62,4 +62,4 @@ export class AppItem extends Widget.Box {
     }
 }
 
-export default (props: AppItemProps) => new AppItem(props);
+export default AppItem;

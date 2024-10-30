@@ -17,7 +17,7 @@ const ON_CLICK_TRIGGERS = [
 ];
 
 /* Types */
-import { PopupWindow } from '../widgets/misc/popup-window';
+import PopupWindow from '../widgets/misc/popup-window';
 import { CursorPos, Layer, LayerResult } from '../lib';
 
 

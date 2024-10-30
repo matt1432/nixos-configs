@@ -2,7 +2,7 @@ import { bind, timeout } from 'astal';
 import { register } from 'astal/gobject';
 import { App, Astal, astalify, Gtk, Widget, type ConstructProps } from 'astal/gtk3';
 
-import AstalWp from "gi://AstalWp"
+import AstalWp from 'gi://AstalWp';
 
 import PopupWindow from '../misc/popup-window';
 import Brightness from '../../services/brightness';
@@ -17,7 +17,8 @@ class ProgressBar extends astalify(Gtk.ProgressBar) {
         ProgressBar,
         Gtk.ProgressBar.ConstructorProps
     >) {
-        super(props as any)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        super(props as any);
     }
 }
 
@@ -46,12 +47,16 @@ export default () => {
                 App.get_window('win-osd')?.set_visible(false);
             }
         });
-    }
+    };
 
     globalThis.popup_osd = popup;
 
-    const speaker = AstalWp.get_default()?.audio.default_speaker!;
-    const microphone = AstalWp.get_default()?.audio.default_microphone!;
+    const speaker = AstalWp.get_default()?.audio.default_speaker;
+    const microphone = AstalWp.get_default()?.audio.default_microphone;
+
+    if (!speaker || !microphone) {
+        throw new Error('Could not find default audio devices.');
+    }
 
     return (
         <PopupWindow

@@ -4,7 +4,8 @@ import AstalHyprland from 'gi://AstalHyprland';
 const Hyprland = AstalHyprland.get_default();
 
 /* Types */
-import type { PopupWindow } from './widgets/misc/popup-window';
+import PopupWindow from './widgets/misc/popup-window';
+
 export interface Layer {
     address: string
     x: number

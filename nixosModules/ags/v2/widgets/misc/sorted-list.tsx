@@ -6,7 +6,7 @@ import { idle } from 'astal';
 
 import { AsyncFzf, FzfOptions, FzfResultItem } from 'fzf';
 
-import PopupWindow, { PopupWindow as PopupWindowClass } from '../misc/popup-window';
+import PopupWindow from '../misc/popup-window';
 import { centerCursor } from '../../lib';
 
 export interface SortedListProps<T> {
@@ -29,7 +29,7 @@ export class SortedList<T> {
     private item_list: T[] = [];
     private fzf_results: FzfResultItem<T>[] = [];
 
-    readonly window: PopupWindowClass;
+    readonly window: PopupWindow;
     private _item_map = new Map<T, Gtk.Widget>();
 
     readonly create_list: () => T[] | Promise<T[]>;
@@ -171,7 +171,7 @@ export class SortedList<T> {
                     </eventbox>
                 </box>
             </PopupWindow>
-        ) as PopupWindowClass;
+        ) as PopupWindow;
 
         this.create_list = create_list;
         this.create_row = create_row;

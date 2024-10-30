@@ -345,4 +345,4 @@ export class NotifGestureWrapper extends Widget.EventBox {
     }
 }
 
-export default (props: NotifGestureWrapperProps) => new NotifGestureWrapper(props);
+export default NotifGestureWrapper;

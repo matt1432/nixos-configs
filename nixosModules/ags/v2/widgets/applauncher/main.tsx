@@ -5,7 +5,7 @@ import AstalApps from 'gi://AstalApps';
 import SortedList from '../misc/sorted-list';
 
 import { launchApp } from './launch';
-import AppItemWidget, { AppItem } from './app-item';
+import AppItem from './app-item';
 
 
 export default () => SortedList({
@@ -13,7 +13,7 @@ export default () => SortedList({
 
     create_list: () => AstalApps.Apps.new().get_list(),
 
-    create_row: (app) => AppItemWidget({ app }),
+    create_row: (app) => <AppItem app={app} />,
 
     fzf_options: {
         selector: (app) => app.name + app.executable,

@@ -58,4 +58,4 @@ class SmoothProgress extends Widget.Box {
     }
 }
 
-export default (props?: SmoothProgressProps) => new SmoothProgress(props);
+export default SmoothProgress;

@@ -28,7 +28,7 @@ export default () => SortedList<EntryObject>({
             });
     },
 
-    create_row: (item) => new ClipItem({ item }),
+    create_row: (item) => <ClipItem item={item} />,
 
     fzf_options: {
         selector: (item) => item.content,

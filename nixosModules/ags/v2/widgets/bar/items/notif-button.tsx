@@ -9,7 +9,7 @@ import Separator from '../../misc/separator';
 const SPACING = 4;
 
 // Types
-import { PopupWindow } from '../../misc/popup-window';
+import PopupWindow from '../../misc/popup-window';
 
 
 export default () => (

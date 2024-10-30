@@ -91,7 +91,7 @@ export const Notification = ({
     id = 0,
     popup_timer = 0,
     slide_in_from = 'Left' as 'Left' | 'Right',
-}): ReturnType<typeof NotifGestureWrapper> | undefined => {
+}): NotifGestureWrapper | undefined => {
     const notifObj = Notifications.get_notification(id);
 
     if (!notifObj) {
@@ -201,5 +201,5 @@ export const Notification = ({
                 </box>
             </box>
         </NotifGestureWrapper>
-    ) as ReturnType<typeof NotifGestureWrapper>;
+    ) as NotifGestureWrapper;
 };

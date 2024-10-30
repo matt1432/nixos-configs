@@ -94,3 +94,5 @@ export class ClipItem extends Widget.Box {
         }
     }
 }
+
+export default ClipItem;
