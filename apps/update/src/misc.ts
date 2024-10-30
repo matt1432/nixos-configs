@@ -23,6 +23,13 @@ export const updateFlakeInputs = () => {
         .map((l) => l
             .replace(/.{33}\?narHash=sha256[^']*/, '')
             .replace(/&rev=(.{7})[^'&]*/, (_, backref) => `&rev=${backref}`))
+        .filter((input) => ![
+            'systems',
+            'flake-utils',
+            'flake-parts',
+            'treefmt-nix',
+            'lib-aggregate',
+        ].some((inputName) => input.startsWith(`• Updated input '${inputName}'`)))
         .join('\n');
 
     return output;

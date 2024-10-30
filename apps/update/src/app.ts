@@ -73,12 +73,12 @@ if (args['a'] || args['all']) {
     });
 
     const output = [
-        'chore: update flake.lock',
-        `Flake Inputs:\n${flakeOutput}`,
+        'chore: update flake.lock\n',
+        `Flake Inputs:\n${flakeOutput}\n`,
         `Docker Images:\n${dockerOutput}`,
-        `Firefox Addons:\n${firefoxOutput}`,
-        `Misc Sources:\n${vuetorrentOutput}`,
-    ].join('\n\n');
+        `Firefox Addons:\n${firefoxOutput}\n`,
+        `Misc Sources:\n${vuetorrentOutput}\n`,
+    ].join('\n');
 
     if (args['f']) {
         writeFileSync(args['f'] as string, output);
