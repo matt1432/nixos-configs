@@ -10,9 +10,10 @@ import PopupWindow, { PopupWindow as PopupWindowClass } from '../misc/popup-wind
 import { centerCursor } from '../../lib';
 
 export interface SortedListProps<T> {
-    create_list: () => T[]
+    create_list: () => T[] | Promise<T[]>
     create_row: (item: T) => Gtk.Widget
     fzf_options?: FzfOptions<T>
+    compare_props?: (keyof T)[]
     on_row_activated: (row: Gtk.ListBoxRow) => void
     sort_func: (
         a: Gtk.ListBoxRow,
@@ -29,10 +30,12 @@ export class SortedList<T> {
     private fzf_results: FzfResultItem<T>[] = [];
 
     readonly window: PopupWindowClass;
+    private _item_map = new Map<T, Gtk.Widget>();
 
-    readonly create_list: () => T[];
+    readonly create_list: () => T[] | Promise<T[]>;
     readonly create_row: (item: T) => Gtk.Widget;
     readonly fzf_options: FzfOptions<T> | undefined;
+    readonly compare_props: (keyof T)[] | undefined;
 
     readonly on_row_activated: (row: Gtk.ListBoxRow) => void;
 
@@ -48,6 +51,7 @@ export class SortedList<T> {
         create_list,
         create_row,
         fzf_options,
+        compare_props,
         on_row_activated,
         sort_func,
         name,
@@ -94,19 +98,28 @@ export class SortedList<T> {
             return this.sort_func(a, b, entry, this.fzf_results);
         });
 
-        const refreshItems = () => idle(() => {
-            (list.get_children() as Gtk.ListBoxRow[])
-                .forEach((child) => {
-                    child.destroy();
-                });
+        const refreshItems = () => idle(async() => {
+            // Delete items that don't exist anymore
+            const new_list = await this.create_list();
 
-            this.item_list = this.create_list();
+            for (const [item, widget] of this._item_map) {
+                if (!new_list.some((child) =>
+                    this.compare_props?.every((prop) => child[prop] === item[prop]) ?? child === item)) {
+                    widget.destroy();
+                }
+            }
 
-            this.item_list
-                .flatMap((prop) => this.create_row(prop))
-                .forEach((child) => {
-                    list.add(child);
-                });
+            // Add missing items
+            for (const item of new_list) {
+                if (!this.item_list.some((child) =>
+                    this.compare_props?.every((prop) => child[prop] === item[prop]) ?? child === item)) {
+                    const _item = this.create_row(item);
+
+                    list.add(_item);
+                }
+            }
+
+            this.item_list = new_list;
 
             list.show_all();
             on_text_change('');
@@ -163,6 +176,7 @@ export class SortedList<T> {
         this.create_list = create_list;
         this.create_row = create_row;
         this.fzf_options = fzf_options;
+        this.compare_props = compare_props;
         this.on_row_activated = on_row_activated;
         this.sort_func = sort_func;
 

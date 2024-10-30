@@ -23,6 +23,8 @@ export default () => SortedList({
         ],
     },
 
+    compare_props: ['name', 'frequency'],
+
     on_row_activated: (row) => {
         const app = (row.get_children()[0] as AppItem).app;
 
