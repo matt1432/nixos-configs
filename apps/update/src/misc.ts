@@ -17,19 +17,19 @@ export const updateFlakeInputs = () => {
         .toString()
         // Add an extra blank line between inputs
         .split('\n•')
-        .join('\n\n•')
-        // Shorten git revs to help readability
-        .split('\n')
-        .map((l) => l
-            .replace(/.{33}\?narHash=sha256[^']*/, '')
-            .replace(/&rev=(.{7})[^'&]*/, (_, backref) => `&rev=${backref}`))
         .filter((input) => ![
             'systems',
             'flake-utils',
             'flake-parts',
             'treefmt-nix',
             'lib-aggregate',
-        ].some((inputName) => input.startsWith(`• Updated input '${inputName}'`)))
+        ].some((inputName) => input.startsWith(` Updated input '${inputName}'`)))
+        .join('\n\n•')
+        // Shorten git revs to help readability
+        .split('\n')
+        .map((l) => l
+            .replace(/.{33}\?narHash=sha256[^']*/, '')
+            .replace(/&rev=(.{7})[^'&]*/, (_, backref) => `&rev=${backref}`))
         .join('\n');
 
     return output;
