@@ -22,6 +22,25 @@ in {
             # must be >= 3
             workspace_swipe_fingers = 3;
 
+            # switching workspaces by swiping from an edge, this is separate from workspace_swipe_fingers
+            # and can be used at the same time
+            # possible values: l, r, u, or d
+            # to disable it set it to anything else
+            # workspace_swipe_edge = "d";
+
+            # in milliseconds
+            long_press_delay = 400;
+
+            # resize windows by long-pressing on window borders and gaps.
+            # If general:resize_on_border is enabled, general:extend_border_grab_area is used for floating
+            # windows
+            resize_on_border_long_press = true;
+
+            hyprgrass-bindm = [", longpress:2, movewindow"];
+
+            # in pixels, the distance from the edge that is considered an edge
+            edge_margin = 10;
+
             experimental = {
               # send proper cancel events to windows instead of hacky touch_up events,
               # NOT recommended as it crashed a few times, once it's stabilized I'll make it the default
