@@ -5,7 +5,7 @@ import { parseArgs } from './lib.ts';
 import { updateFirefoxAddons } from '././firefox.ts';
 
 import {
-    updateCustomSidebarDeps,
+    updateCustomPackage,
     updateDocker,
     updateFlakeInputs,
     updateVuetorrent,
@@ -39,7 +39,11 @@ if (args['v'] || args['vuetorrent']) {
 }
 
 if (args['c'] || args['custom-sidebar']) {
-    console.log(updateCustomSidebarDeps());
+    console.log(updateCustomPackage('lovelace-components.custom-sidebar'));
+}
+
+if (args['s'] || args['some-sass-language-server']) {
+    console.log(updateCustomPackage('some-sass-language-server'));
 }
 
 if (args['a'] || args['all']) {
@@ -64,7 +68,8 @@ if (args['a'] || args['all']) {
     console.log(vuetorrentOutput);
 
     // This doesn't need to be added to commit msgs
-    console.log(updateCustomSidebarDeps());
+    console.log(updateCustomPackage('lovelace-components.custom-sidebar'));
+    console.log(updateCustomPackage('some-sass-language-server'));
 
 
     spawnSync('nix-fast-build', ['-f', `${FLAKE}#nixFastChecks`], {

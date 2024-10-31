@@ -1,3 +1,5 @@
+@use '../../style/colors' as colors;
+
 .date {
     margin-top: 0;
 }
@@ -14,7 +16,7 @@
         .divider {
             margin: 8px 15px;
             padding: 0 1px;
-            background: linear-gradient($red, $magenta, $blue, $cyan);
+            background: linear-gradient(colors.$red, colors.$magenta, colors.$blue, colors.$cyan);
         }
     }
 
@@ -44,23 +46,23 @@
 }
 
 calendar:selected {
-    color: $cyan;
+    color: colors.$cyan;
 }
 
 calendar.header {
-    color: $cyan;
+    color: colors.$cyan;
     font-weight: bold;
 }
 
 calendar.button {
-    color: $cyan;
+    color: colors.$cyan;
 }
 
 calendar.highlight {
-    color: $green;
+    color: colors.$green;
     font-weight: bold;
 }
 
 calendar:indeterminate {
-    color: $lightblack;
+    color: colors.$lightblack;
 }

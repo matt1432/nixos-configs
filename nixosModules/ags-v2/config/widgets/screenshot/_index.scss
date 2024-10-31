@@ -1,3 +1,5 @@
+@use '../../style/colors' as colors;
+
 .screenshot {
     font-size: 30px;
 
@@ -7,7 +9,7 @@
             transition: background 400ms;
 
             &.active {
-                background: $window_bg_color;
+                background: colors.$window_bg_color;
             }
         }
     }

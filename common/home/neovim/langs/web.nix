@@ -28,6 +28,11 @@ in
             npm
             neovim
             ;
+
+          inherit
+            (self.packages.${pkgs.system})
+            some-sass-language-server
+            ;
         };
 
         extraLuaConfig =
@@ -129,6 +134,19 @@ in
                     },
                 },
             });
+
+            lsp.somesass_ls.setup({
+                capabilities = default_capabilities,
+            });
+            lsp.somesass_ls.manager.config.settings = {
+                somesass = {
+                    scss = {
+                        completion = {
+                            suggestFromUseOnly = true,
+                        },
+                    },
+                },
+            };
 
             local html_caps = default_capabilities;
             html_caps.textDocument.completion.completionItem.snippetSupport = true;

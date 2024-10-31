@@ -3,7 +3,7 @@ import { App } from 'astal/gtk3';
 
 import GLib from 'gi://GLib';
 
-import style from './style.scss';
+import style from './style/main.scss';
 
 import AppLauncher from './widgets/applauncher/main';
 import Bar from './widgets/bar/wim';

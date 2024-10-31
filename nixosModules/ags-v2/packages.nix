@@ -22,6 +22,7 @@
     # Cfg info
     inherit (osConfig.networking) hostName;
     cfgDesktop = osConfig.roles.desktop;
+    fullConfPath = "/home/${cfgDesktop.user}/${agsConfigDir}";
 
     # Astal libraries
     gtkSessionLock = gtk-session-lock.packages.${pkgs.system}.default;
@@ -35,7 +36,7 @@
       name = "lock";
       text = ''
         export CONF="lock"
-        exec ${agsFull}/bin/ags --config ${agsConfigDir} "$@"
+        exec ${agsFull}/bin/ags --config ${fullConfPath} "$@"
       '';
     };
 
@@ -46,14 +47,14 @@
             name = "ags";
             text = ''
               export CONF="${hostName}"
-              exec ${agsFull}/bin/ags --config ${agsConfigDir} "$@"
+              exec ${agsFull}/bin/ags --config ${fullConfPath} "$@"
             '';
           })
           (pkgs.writeShellApplication {
             name = "agsConf";
             text = ''
               export CONF="$1"
-              exec ${agsFull}/bin/ags --config ${agsConfigDir}
+              exec ${agsFull}/bin/ags --config ${fullConfPath}
             '';
           })
         ]

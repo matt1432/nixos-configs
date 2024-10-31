@@ -96,8 +96,8 @@ export const updateVuetorrent = () => {
     return OLD_VERSION !== VERSION ? `Vuetorrent: ${OLD_VERSION} -> ${VERSION}` : '';
 };
 
-export const updateCustomSidebarDeps = () => spawnSync(
-    `nix run ${FLAKE}#lovelace-components.custom-sidebar.update`,
+export const updateCustomPackage = (pkg: string) => spawnSync(
+    `nix run ${FLAKE}#${pkg}.update`,
     [],
     { shell: true },
 ).stderr.toString();

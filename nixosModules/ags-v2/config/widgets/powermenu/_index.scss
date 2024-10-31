@@ -1,3 +1,5 @@
+@use '../../style/colors' as colors;
+
 .powermenu {
     font-size: 70px;
     padding: 10px;
@@ -13,17 +15,17 @@
 
         &:hover,
         &:active {
-            background-color: lighten($window_bg_color, 3%);
+            background-color: lighten(colors.$window_bg_color, 3%);
         }
     }
 
     .shutdown {
-        color: $red_1;
+        color: colors.$red_1;
     }
     .reboot {
-        color: $purple_1;
+        color: colors.$purple_1;
     }
     .logout {
-        color: $yellow_1;
+        color: colors.$yellow_1;
     }
 }

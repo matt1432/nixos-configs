@@ -1,3 +1,5 @@
+@use '../../style/colors' as colors;
+
 .notification.widget {
     // urgencies
     // &.urgency ...
@@ -27,7 +29,7 @@
     .actions {
         margin: 3px;
 
-        .action-button {}
+        // .action-button {}
     }
 
     .smooth-progress {
@@ -35,12 +37,12 @@
         margin: 3px;
 
         .background {
-            background-color: darken($window_bg_color, 3%);
+            background-color: darken(colors.$window_bg_color, 3%);
             border-radius: 3px;
         }
 
         .progress {
-            background-color: $accent-color;
+            background-color: colors.$accent-color;
             border-radius: 3px;
         }
     }

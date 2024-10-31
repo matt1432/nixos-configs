@@ -1,7 +1,6 @@
 self: {
   config,
   lib,
-  pkgs,
   ...
 }: {
   config = let
