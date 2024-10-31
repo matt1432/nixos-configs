@@ -1,3 +1,4 @@
+import { execAsync } from 'astal';
 import { App } from 'astal/gtk3';
 
 import GLib from 'gi://GLib';
@@ -56,6 +57,8 @@ switch (CONF) {
             },
 
             main: () => {
+                execAsync('hyprpaper').catch(print);
+
                 AppLauncher();
                 Bar();
                 BgFade();
@@ -74,6 +77,10 @@ switch (CONF) {
                     caps: 'input1::capslock',
                 });
                 new MonitorClicks();
+
+                setTimeout(() => {
+                    App.get_window('win-applauncher')?.set_visible(true);
+                }, 3 * 1000);
             },
         });
 

@@ -44,6 +44,14 @@ in {
       '';
     };
 
+    ags-v2.enable = mkOption {
+      type = types.bool;
+      default = false;
+      description = ''
+        Whether we want to enable AGSv2 for the DE shell.
+      '';
+    };
+
     mainMonitor = mkOption {
       type = types.str;
       description = ''

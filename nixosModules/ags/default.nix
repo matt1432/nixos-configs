@@ -19,10 +19,7 @@ in {
     gtkSessionLock = gtk-session-lock.packages.${pkgs.system}.default;
   in
     mkIf cfgDesktop.ags.enable {
-      # Enable pam for ags
       security.pam.services.ags = {};
-      security.pam.services.astal-auth = {};
-
       services.upower.enable = true;
 
       home-manager.users.${cfgDesktop.user}.imports = [
@@ -58,8 +55,6 @@ in {
               '';
             }
           ];
-
-          imports = [(import ./v2 self)];
 
           programs.ags = {
             enable = true;

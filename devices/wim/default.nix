@@ -71,7 +71,7 @@ in {
   roles.desktop = {
     user = mainUser;
 
-    ags.enable = true;
+    ags-v2.enable = true;
     mainMonitor = "eDP-1";
     isLaptop = true;
     isTouchscreen = true;

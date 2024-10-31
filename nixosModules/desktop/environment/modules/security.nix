@@ -10,14 +10,26 @@
     cfg = config.roles.desktop;
 
     hmCfg = config.home-manager.users.${cfg.user};
-    agsPkg = hmCfg.programs.ags.finalPackage;
     hyprPkg = hmCfg.wayland.windowManager.hyprland.finalPackage;
+
+    lockPkg =
+      if cfg.ags.enable
+      then
+        pkgs.writeShellApplication {
+          name = "lock";
+          runtimeInputs = [hmCfg.programs.ags.finalPackage];
+
+          text = ''
+            ags -r 'Tablet.setLaptopMode()'
+            ags -b lockscreen -c /home/${cfg.user}/.config/ags/lockscreen.js
+          '';
+        }
+      else hmCfg.programs.ags-v2.lockPkg;
 
     runInDesktop = pkgs.writeShellApplication {
       name = "runInDesktop";
       runtimeInputs = [
         pkgs.sudo
-        agsPkg
         hyprPkg
       ];
 
@@ -38,18 +50,6 @@
         done
       '';
     };
-
-    lockPkg = pkgs.writeShellApplication {
-      name = "lock";
-      runtimeInputs = [
-        agsPkg
-      ];
-
-      text = ''
-        ags -r 'Tablet.setLaptopMode()'
-        ags -b lockscreen -c /home/${cfg.user}/.config/ags/lockscreen.js
-      '';
-    };
   in {
     services.acpid = mkIf cfg.isLaptop {
       enable = true;
@@ -62,7 +62,7 @@
 
           case "$state" in
               *open*)
-                  ${getExe runInDesktop} "ags -b lockscreen -r 'authFinger()'"
+                  ${getExe runInDesktop} "${getExe lockPkg} -m 'authFinger()'"
                   ;;
 
               *close*)
