@@ -17,24 +17,20 @@
         <None Update="$(MSBuildProjectDir)appsettings.json">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
-        <None Update="$(MSBuildProjectDir)**\*.yaml">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-        </None>
     </ItemGroup>
     <Target Name="AfterPublishMessage" AfterTargets="Publish">
         <Message Text="Publish done! Copy all content in directory: $(PublishDir) to the `/config/netdaemon4' folder for add-on or your custom folder to deploy." Importance="high" />
     </Target>
 
     <ItemGroup>
-        <PackageReference Include="NetDaemon.AppModel" Version="24.42.0" />
-        <PackageReference Include="NetDaemon.Runtime" Version="24.42.0" />
-        <PackageReference Include="NetDaemon.HassModel" Version="24.42.0" />
-        <PackageReference Include="NetDaemon.HassModel.Integration" Version="24.42.0" />
-        <PackageReference Include="NetDaemon.Client" Version="24.42.0" />
-        <PackageReference Include="NetDaemon.Extensions.Scheduling" Version="24.42.0" />
-        <PackageReference Include="NetDaemon.Extensions.Logging" Version="24.42.0" />
-        <PackageReference Include="NetDaemon.Extensions.Tts" Version="24.42.0" />
+        <PackageReference Include="NetDaemon.AppModel" Version="24.43.0" />
+        <PackageReference Include="NetDaemon.Runtime" Version="24.43.0" />
+        <PackageReference Include="NetDaemon.HassModel" Version="24.43.0" />
+        <PackageReference Include="NetDaemon.HassModel.Integration" Version="24.43.0" />
+        <PackageReference Include="NetDaemon.Client" Version="24.43.0" />
+        <PackageReference Include="NetDaemon.Extensions.Scheduling" Version="24.43.0" />
+        <PackageReference Include="NetDaemon.Extensions.Logging" Version="24.43.0" />
+        <PackageReference Include="NetDaemon.Extensions.Tts" Version="24.43.0" />
         <PackageReference Include="FuzzySharp" Version="2.0.2" />
     </ItemGroup>
 </Project>

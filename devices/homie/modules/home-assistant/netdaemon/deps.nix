@@ -193,43 +193,43 @@
   })
   (fetchNuGet {
     pname = "NetDaemon.AppModel";
-    version = "24.42.0";
-    hash = "sha256-a0iOb8Vqd3a18EgSxXzXYJ1dHiYWeeDuxqfXKjQ36uc=";
+    version = "24.43.0";
+    hash = "sha256-fQonfpx2ysOfKlYSjBP1F+e63uvXVgblqmO/XEhnzBw=";
   })
   (fetchNuGet {
     pname = "NetDaemon.Client";
-    version = "24.42.0";
-    hash = "sha256-6TVzZPjLy6z56gLONGOPOd+MJ8ScKeNaQ1POyDJVUOQ=";
+    version = "24.43.0";
+    hash = "sha256-AKuXnWyXQs4lAduT0Ude5VmzzTu90WYssyaeZ1Z2Th4=";
   })
   (fetchNuGet {
     pname = "NetDaemon.Extensions.Logging";
-    version = "24.42.0";
-    hash = "sha256-MMLl9h7jx8nGxKPUhwmrUltL+QthUBpkowzoTSEkjwk=";
+    version = "24.43.0";
+    hash = "sha256-PqhF57PfOUk2FjVnljz1cy9VmduGs9SptpOw5JYTbEc=";
   })
   (fetchNuGet {
     pname = "NetDaemon.Extensions.Scheduling";
-    version = "24.42.0";
-    hash = "sha256-Iav/7z6kJaF+/32FxeynwB29DuxShpXIM6W1vmIQIik=";
+    version = "24.43.0";
+    hash = "sha256-ZojpFFQLEm358bZDJ9kvhARacPLDvQgkhiUvNNaoWf8=";
   })
   (fetchNuGet {
     pname = "NetDaemon.Extensions.Tts";
-    version = "24.42.0";
-    hash = "sha256-W02yRpXMgJeMjudvZgE1A4tXfEWr6LZ/uIuBInDhJlc=";
+    version = "24.43.0";
+    hash = "sha256-/evpnN27t1syZJZAYbk4RDY6RdP64AvAlNUl8lSRqNc=";
   })
   (fetchNuGet {
     pname = "NetDaemon.HassModel";
-    version = "24.42.0";
-    hash = "sha256-CL+NvA6Ai1bDwqN1j+dBo1QL6YS6gunZxqZaTE9EgY8=";
+    version = "24.43.0";
+    hash = "sha256-nncGAhYOFVtbaoZj2b5fd6Fm4VMtS1QAYjvPBUiGZ4A=";
   })
   (fetchNuGet {
     pname = "NetDaemon.HassModel.Integration";
-    version = "24.42.0";
-    hash = "sha256-pzCqGyuZOwbHArfDVbVRtk4daKPTRKjAs5WCwWl4MrQ=";
+    version = "24.43.0";
+    hash = "sha256-wzMu4YvMYQJVraARkEiY/phhcXQz4JhgLAaBjTkfXzE=";
   })
   (fetchNuGet {
     pname = "NetDaemon.Runtime";
-    version = "24.42.0";
-    hash = "sha256-v3Dl8BfEAIk6GvJeKZv1NA/4E5t8etSK0hpN7Ckmjsw=";
+    version = "24.43.0";
+    hash = "sha256-2oXSJCSQMaINyNo3DMrxXHPYgFbyAZoM7sn0HuldNrQ=";
   })
   (fetchNuGet {
     pname = "Serilog";
