@@ -4,13 +4,13 @@
 
   latest=$(npm outdated --json | jq -r '.["some-sass-language-server"]["latest"]' || true)
 
-  echo "$latest"
+  if [[ "$latest" != "null" ]]; then
+      sed -i "s#\"some-sass-language-server\": \"[^\"]*\"#\"some-sass-language-server\": \"$latest\"#" ./package.json
 
-  sed -i "s#\"some-sass-language-server\": \"[^\"]*\"#\"some-sass-language-server\": \"$latest\"#" ./package.json
+      npm update
 
-  npm update
+      npm_hash="$(prefetch-npm-deps ./package-lock.json)"
 
-  npm_hash="$(prefetch-npm-deps ./package-lock.json)"
-
-  sed -i "s#npmDepsHash = .*#npmDepsHash = \"$npm_hash\";#" ./default.nix
+      sed -i "s#npmDepsHash = .*#npmDepsHash = \"$npm_hash\";#" ./default.nix
+  fi
 ''
