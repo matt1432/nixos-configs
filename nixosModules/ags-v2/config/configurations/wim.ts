@@ -32,7 +32,7 @@ export default async() => {
         },
 
         main: () => {
-            execAsync('hyprpaper').catch(print);
+            execAsync('hyprpaper').catch(() => { /**/ });
 
             AppLauncher();
             Bar();
