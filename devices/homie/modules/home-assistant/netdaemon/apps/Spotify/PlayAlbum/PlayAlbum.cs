@@ -11,7 +11,7 @@ using NetDaemon.HassModel.Integration;
 
 namespace NetDaemonConfig.Apps.Spotify.PlayAlbum
 {
-    public record PlayAlbumData(string? Artist, string? Album);
+    public record PlayAlbumData(string? artist, string? album);
 
     [NetDaemonApp]
     public class PlayAlbum
@@ -32,7 +32,7 @@ namespace NetDaemonConfig.Apps.Spotify.PlayAlbum
                     {
                         SpotifyplusSearchAlbumsResponse? result = (
                             await services.Spotifyplus.SearchAlbumsAsync(
-                                criteria: $"{e?.Artist} {e?.Album}",
+                                criteria: $"{e?.artist} {e?.album}",
                                 limitTotal: 1,
                                 entityId: SpotifyTypes.DefaultEntityId,
                                 // My Defaults
@@ -43,7 +43,7 @@ namespace NetDaemonConfig.Apps.Spotify.PlayAlbum
 
                         string uri = result?.Result?.Items?[0]?.Uri ??
                             throw new TargetException(
-                                $"The album {e?.Album}{(e?.Artist is null ? "" : $" by {e?.Artist}")} could not be found."
+                                $"The album {e?.album}{(e?.artist is null ? "" : $" by {e?.artist}")} could not be found."
                             );
 
                         services.Spotifyplus.PlayerMediaPlayContext(

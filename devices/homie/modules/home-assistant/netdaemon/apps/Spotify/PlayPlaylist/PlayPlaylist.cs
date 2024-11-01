@@ -16,7 +16,7 @@ using NetDaemon.HassModel.Integration;
 
 namespace NetDaemonConfig.Apps.Spotify.PlayPlaylist
 {
-    public record PlayPlaylistData(string? Playlist);
+    public record PlayPlaylistData(string? playlist);
 
     [NetDaemonApp]
     public class PlayPlaylist
@@ -37,7 +37,7 @@ namespace NetDaemonConfig.Apps.Spotify.PlayPlaylist
                 {
                     try
                     {
-                        string query = e?.Playlist ?? throw new TargetException("Query not found.");
+                        string query = e?.playlist ?? throw new TargetException("Query not found.");
 
                         SpotifyplusPlaylistResponse? result = (
                             await services.Spotifyplus.GetPlaylistFavoritesAsync(

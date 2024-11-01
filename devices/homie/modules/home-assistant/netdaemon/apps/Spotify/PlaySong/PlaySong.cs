@@ -11,7 +11,7 @@ using NetDaemon.HassModel.Integration;
 
 namespace NetDaemonConfig.Apps.Spotify.PlaySong
 {
-    public record PlaySongData(string? Artist, string? Song);
+    public record PlaySongData(string? artist, string? song);
 
     [NetDaemonApp]
     public class PlaySong
@@ -32,7 +32,7 @@ namespace NetDaemonConfig.Apps.Spotify.PlaySong
                     {
                         SpotifyplusSearchTracksResponse? result = (
                             await services.Spotifyplus.SearchTracksAsync(
-                                criteria: $"{e?.Artist} {e?.Song}",
+                                criteria: $"{e?.artist} {e?.song}",
                                 limitTotal: 1,
                                 entityId: SpotifyTypes.DefaultEntityId,
                                 // My Defaults
@@ -42,7 +42,7 @@ namespace NetDaemonConfig.Apps.Spotify.PlaySong
                         ).Value.Deserialize<SpotifyplusSearchTracksResponse>(_jsonOptions);
 
                         string uri = result?.Result?.Items?[0]?.Uri ?? throw new TargetException(
-                            $"The song {e?.Song}{(e?.Artist is null ? "" : $" by {e?.Artist}")} could not be found."
+                            $"The song {e?.song}{(e?.artist is null ? "" : $" by {e?.artist}")} could not be found."
                         );
 
                         services.Spotifyplus.PlayerMediaPlayTracks(
