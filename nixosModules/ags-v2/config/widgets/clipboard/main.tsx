@@ -34,7 +34,7 @@ export default () => SortedList<EntryObject>({
         selector: (item) => item.content,
     },
 
-    compare_props: ['id'],
+    unique_props: ['id'],
 
     on_row_activated: (row) => {
         const clip = row.get_children()[0] as ClipItem;
