@@ -1,5 +1,10 @@
-/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars, no-var */
+
 const SRC: string;
+
+var Brightness: import('./services/brightness').default;
+
+function closeAll(): void;
 
 declare module 'inline:*' {
     const content: string;
