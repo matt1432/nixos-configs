@@ -19,7 +19,7 @@ public class PlayAlbum
         PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
     };
 
-    public PlayAlbum(IHaContext ha)
+    public PlayAlbum(IHaContext ha, Services services, Entities entities)
     {
         ha.RegisterServiceCallBack<PlayAlbumData>(
             "spotify_play_album",
@@ -27,18 +27,13 @@ public class PlayAlbum
             {
                 try
                 {
-                    var result = (await ha.CallServiceWithResponseAsync(
-                        "spotifyplus",
-                        "search_albums",
-                        data: new SpotifyplusSearchAlbumsParameters
-                        {
-                            Criteria = $"{e?.artist} {e?.album}",
-                            LimitTotal = 1,
-                            EntityId = Global.DEFAULT_ENTITY_ID,
-                            // My Defaults
-                            Market = "CA",
-                            IncludeExternal = "audio",
-                        }
+                    var result = (await services.Spotifyplus.SearchAlbumsAsync(
+                        criteria: $"{e?.artist} {e?.album}",
+                        limitTotal: 1,
+                        entityId: Global.DEFAULT_ENTITY_ID,
+                        // My Defaults
+                        market: "CA",
+                        includeExternal: "audio"
                     )).Value.Deserialize<SpotifyplusSearchAlbumsResponse>(_jsonOptions);
 
                     string uri = result?.Result?.Items?[0]?.Uri ??
@@ -46,31 +41,20 @@ public class PlayAlbum
                             $"The album {e?.album}{(e?.artist is null ? "" : $" by {e?.artist}")} could not be found."
                         );
 
-                    ha.CallService(
-                        "spotifyplus",
-                        "player_media_play_context",
-                        data: new SpotifyplusPlayerMediaPlayContextParameters
-                        {
-                            ContextUri = uri,
-                            EntityId = Global.DEFAULT_ENTITY_ID,
-                            DeviceId = Global.DEFAULT_DEV_ID,
-                            // My Defaults
-                            PositionMs = 0,
-                            Delay = 0.50,
-                        }
+                    services.Spotifyplus.PlayerMediaPlayContext(
+                        contextUri: uri,
+                        entityId: Global.DEFAULT_ENTITY_ID,
+                        deviceId: Global.DEFAULT_DEV_ID,
+                        // My Defaults
+                        positionMs: 0,
+                        delay: 0.50
                     );
                 }
                 catch (Exception error)
                 {
-                    ha.CallService(
-                        "notify",
-                        "persistent_notification",
-                        data: new PersistentNotificationCreateParameters
-                        {
-                            Message = error.Message,
-                            Title = "Erreur Spotify",
-                        }
-                    );
+                    services.PersistentNotification.Create(
+                        message: error.Message,
+                        title: "Erreur Spotify");
                 }
             }
         );

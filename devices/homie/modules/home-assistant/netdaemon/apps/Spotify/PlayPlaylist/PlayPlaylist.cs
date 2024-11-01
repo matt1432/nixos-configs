@@ -22,7 +22,7 @@ public class PlayPlaylist
         PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
     };
 
-    public PlayPlaylist(IHaContext ha)
+    public PlayPlaylist(IHaContext ha, Services services, Entities entities)
     {
         ha.RegisterServiceCallBack<PlayPlaylistData>(
             "spotify_play_playlist",
@@ -32,15 +32,10 @@ public class PlayPlaylist
                 {
                     string query = e?.playlist ?? throw new NullReferenceException("Query not found.");
 
-                    var result = (await ha.CallServiceWithResponseAsync(
-                        "spotifyplus",
-                        "get_playlist_favorites",
-                        data: new SpotifyplusGetPlaylistFavoritesParameters
-                        {
-                            LimitTotal = 200,
-                            SortResult = true,
-                            EntityId = Global.DEFAULT_ENTITY_ID,
-                        }
+                    var result = (await services.Spotifyplus.GetPlaylistFavoritesAsync(
+                        limitTotal: 200,
+                        sortResult: true,
+                        entityId: Global.DEFAULT_ENTITY_ID
                     )).Value.Deserialize<SpotifyplusPlaylistResponse>(_jsonOptions);
 
                     List<PlaylistsItem> myPlaylists = result?.Result?.Items ??
@@ -58,18 +53,13 @@ public class PlayPlaylist
                     // We search outside the user's playlists if the score is too low
                     if (match.Score < 85)
                     {
-                        var otherResult = (await ha.CallServiceWithResponseAsync(
-                            "spotifyplus",
-                            "search_playlists",
-                            data: new SpotifyplusSearchPlaylistsParameters
-                            {
-                                Criteria = query,
-                                LimitTotal = 1,
-                                EntityId = Global.DEFAULT_ENTITY_ID,
-                                // My Defaults
-                                Market = "CA",
-                                IncludeExternal = "audio",
-                            }
+                        var otherResult = (await services.Spotifyplus.SearchPlaylistsAsync(
+                            criteria: query,
+                            limitTotal: 1,
+                            entityId: Global.DEFAULT_ENTITY_ID,
+                            // My Defaults
+                            market: "CA",
+                            includeExternal: "audio"
                         )).Value.Deserialize<SpotifyplusPlaylistResponse>(_jsonOptions);
 
                         string potentialUri = otherResult?.Result?.Items?[0]?.Uri ??
@@ -78,31 +68,20 @@ public class PlayPlaylist
                         uri = potentialUri;
                     }
 
-                    ha.CallService(
-                        "spotifyplus",
-                        "player_media_play_context",
-                        data: new SpotifyplusPlayerMediaPlayContextParameters
-                        {
-                            ContextUri = uri,
-                            EntityId = Global.DEFAULT_ENTITY_ID,
-                            DeviceId = Global.DEFAULT_DEV_ID,
-                            // My Defaults
-                            PositionMs = 0,
-                            Delay = 0.50,
-                        }
+                    services.Spotifyplus.PlayerMediaPlayContext(
+                        contextUri: uri,
+                        entityId: Global.DEFAULT_ENTITY_ID,
+                        deviceId: Global.DEFAULT_DEV_ID,
+                        // My Defaults
+                        positionMs: 0,
+                        delay: 0.50
                     );
                 }
                 catch (Exception error)
                 {
-                    ha.CallService(
-                        "notify",
-                        "persistent_notification",
-                        data: new PersistentNotificationCreateParameters
-                        {
-                            Message = error.Message,
-                            Title = "Erreur Spotify",
-                        }
-                    );
+                    services.PersistentNotification.Create(
+                        message: error.Message,
+                        title: "Erreur Spotify");
                 }
             }
         );
