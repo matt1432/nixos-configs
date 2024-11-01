@@ -1,15 +1,16 @@
+using System;
+using System.Reactive.Linq;
+using System.Reflection;
+
 using HomeAssistantGenerated;
+
 using Microsoft.Extensions.Hosting;
+
 using NetDaemon.AppModel;
 using NetDaemon.Extensions.Logging;
 using NetDaemon.Extensions.Scheduler;
 using NetDaemon.Extensions.Tts;
 using NetDaemon.Runtime;
-using System;
-using System.Reactive.Linq;
-using System.Reflection;
-
-#pragma warning disable CA1812
 
 try
 {
@@ -17,7 +18,7 @@ try
         .UseNetDaemonDefaultLogging()
         .UseNetDaemonRuntime()
         .UseNetDaemonTextToSpeech()
-        .ConfigureServices((_, services) =>
+        .ConfigureServices(static (_, services) =>
             services
                 .AddAppsFromAssembly(Assembly.GetExecutingAssembly())
                 .AddNetDaemonStateManager()

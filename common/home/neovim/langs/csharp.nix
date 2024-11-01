@@ -13,7 +13,7 @@ in
         extraPackages = builtins.attrValues {
           inherit
             (pkgs)
-            csharp-ls
+            omnisharp-roslyn
             ;
         };
 
@@ -21,23 +21,45 @@ in
           # lua
           ''
             vim.api.nvim_create_autocmd('FileType', {
-                pattern = {'cs'},
+                pattern = { 'cs' },
                 command = 'setlocal ts=4 sw=4 sts=0 expandtab',
             });
 
-            local csharpls_extended = require('csharpls_extended');
+            local omnisharp_extended = require('omnisharp_extended');
 
-            require('lspconfig').csharp_ls.setup({
-                capabilities = require('cmp_nvim_lsp').default_capabilities(),
+            require('lspconfig').omnisharp.setup({
+                cmd = { "dotnet", "${pkgs.omnisharp-roslyn}/lib/omnisharp-roslyn/OmniSharp.dll" },
+
                 handlers = {
-                    ["textDocument/definition"] = csharpls_extended.handler,
-                    ["textDocument/typeDefinition"] = csharpls_extended.handler,
+                    ["textDocument/definition"] = omnisharp_extended.definition_handler,
+                    ["textDocument/typeDefinition"] = omnisharp_extended.type_definition_handler,
+                    ["textDocument/references"] = omnisharp_extended.references_handler,
+                    ["textDocument/implementation"] = omnisharp_extended.implementation_handler,
+                },
+
+                settings = {
+                    FormattingOptions = {
+                        EnableEditorConfigSupport = true,
+                        OrganizeImports = true,
+                    },
+                    MsBuild = {
+                        LoadProjectsOnDemand = false,
+                    },
+                    RoslynExtensionsOptions = {
+                        EnableAnalyzersSupport = true,
+                        EnableDecompilationSupport = true,
+                        EnableImportCompletion = true,
+                        AnalyzeOpenDocumentsOnly = false,
+                    },
+                    Sdk = {
+                        IncludePrereleases = true,
+                    },
                 },
             });
           '';
 
         plugins = builtins.attrValues {
-          inherit (pkgs.vimPlugins) csharpls-extended-lsp-nvim;
+          inherit (pkgs.vimPlugins) omnisharp-extended-lsp-nvim;
         };
       };
     };

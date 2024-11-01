@@ -5,8 +5,9 @@
         <TargetFramework>net8.0</TargetFramework>
         <LangVersion>12.0</LangVersion>
         <Nullable>enable</Nullable>
-        <RootNamespace>netdaemon</RootNamespace>
+        <RootNamespace>NetDaemonConfig</RootNamespace>
         <Version>$([System.IO.File]::ReadAllText(".version"))</Version>
+        <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     </PropertyGroup>
 
     <ItemGroup>
