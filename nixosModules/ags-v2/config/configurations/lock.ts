@@ -10,6 +10,10 @@ export default async() => {
         css: style,
         instanceName: 'lock',
 
+        requestHandler(js, res) {
+            App.eval(js).then(res).catch(res);
+        },
+
         main: () => {
             Lockscreen();
         },

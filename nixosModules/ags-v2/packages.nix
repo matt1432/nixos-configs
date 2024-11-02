@@ -36,7 +36,7 @@
       name = "lock";
       text = ''
         export CONF="lock"
-        exec ${agsFull}/bin/ags --config ${fullConfPath} "$@"
+        exec ${agsFull}/bin/ags --config ${fullConfPath} -i lock "$@"
       '';
     };
 
