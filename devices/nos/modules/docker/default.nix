@@ -6,7 +6,6 @@ in {
     ./freshrss/compose.nix
     ./gameyfin/compose.nix
     ./hauk/compose.nix
-    ./homepage/compose.nix
     ./immich/compose.nix
     ./music/jbots/compose.nix
     ./nextcloud/compose.nix

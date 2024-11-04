@@ -1,6 +1,7 @@
 {...}: {
   imports = [
     ./docker
+    ./homepage.nix
     ./jellyfin
     ./qbittorrent
     ./subtitles
