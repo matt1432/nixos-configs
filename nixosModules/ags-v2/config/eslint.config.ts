@@ -33,6 +33,10 @@ export default tseslint.config({
         'no-use-before-define': 'off',
         '@typescript-eslint/no-use-before-define': 'error',
         '@stylistic/indent-binary-ops': 'off',
+        '@stylistic/max-statements-per-line': [
+            'error',
+            { max: 2 },
+        ],
 
         // Pre-flat config
         '@typescript-eslint/no-unused-vars': [
@@ -252,6 +256,7 @@ export default tseslint.config({
         '@stylistic/brace-style': [
             'warn',
             'stroustrup',
+            { allowSingleLine: true },
         ],
         '@stylistic/comma-dangle': [
             'warn',

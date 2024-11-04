@@ -70,7 +70,7 @@ export default () => {
                 className="osd"
                 transitionDuration={transition_duration}
                 setup={(self) => {
-                    timeout(1000, () => {
+                    timeout(3 * 1000, () => {
                         stack = self;
                     });
                 }}

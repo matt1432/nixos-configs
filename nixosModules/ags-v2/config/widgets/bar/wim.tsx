@@ -1,8 +1,11 @@
 import { Astal, Gtk } from 'astal/gtk3';
 
+import Audio from './items/audio';
 import Battery from './items/battery';
+import Brightness from './items/brightness';
 import Clock from './items/clock';
 import CurrentClient from './items/current-client';
+import Network from './items/network';
 import NotifButton from './items/notif-button';
 import SysTray from './items/tray';
 import Workspaces from './items/workspaces';
@@ -11,6 +14,7 @@ import BarRevealer from './fullscreen';
 import Separator from '../misc/separator';
 
 
+// TODO: add Bluetooth, Kbd Layout
 export default () => (
     <BarRevealer
         exclusivity={Astal.Exclusivity.EXCLUSIVE}
@@ -40,7 +44,19 @@ export default () => (
             </box>
 
             <box hexpand halign={Gtk.Align.END}>
+                <Network />
+
+                <Separator size={8} />
+
                 <NotifButton />
+
+                <Separator size={8} />
+
+                <Audio />
+
+                <Separator size={8} />
+
+                <Brightness />
 
                 <Separator size={8} />
 

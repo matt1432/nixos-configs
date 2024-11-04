@@ -18,6 +18,10 @@
             background-color: lighten(colors.$window_bg_color, 3%);
         }
 
+        &.network icon {
+            min-width: 30px;
+        }
+
         &.battery icon {
             &.charging {
                 color: green;

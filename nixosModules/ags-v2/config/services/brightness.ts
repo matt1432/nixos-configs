@@ -103,6 +103,7 @@ class Brightness extends GObject.Object {
 
             this._screen = Number(await execAsync('brightnessctl g')) /
                 Number(await execAsync('brightnessctl m'));
+            this.notify('screen');
         }
         catch (_e) {
             console.error('missing dependancy: brightnessctl');

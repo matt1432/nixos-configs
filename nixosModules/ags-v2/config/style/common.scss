@@ -30,6 +30,18 @@ progressbar {
     }
 }
 
+circular-progress {
+    background: #363847;
+    min-height: 35px;
+    min-width: 35px;
+    font-size: 4px;
+    color: #79659f;
+
+    &.disabled {
+        opacity: 0.5;
+    }
+}
+
 .widget {
     margin: 10px;
     padding: 5px;
