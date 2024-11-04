@@ -23,6 +23,8 @@ export const updateFlakeInputs = () => {
             'flake-parts',
             'treefmt-nix',
             'lib-aggregate',
+            'lib-aggregate/nixpkgs-lib',
+            'sops-nix/nixpkgs-stable',
         ].some((inputName) => input.startsWith(` Updated input '${inputName}'`)))
         .join('\n\n•')
         // Shorten git revs to help readability
@@ -36,27 +38,26 @@ export const updateFlakeInputs = () => {
 };
 
 export const updateDocker = () => {
+    const updateImages = (imagePath: string): string | undefined => {
+        console.log(`Updating ${imagePath.split('/').at(-1)} images`);
+
+        const out = spawnSync('updateImages', [imagePath], { shell: true }).stdout.toString();
+
+        if (out !== '# Locked') {
+            return out;
+        }
+    };
+
     let updates = '';
 
-    console.log('Updating jfa-go image');
-    updates += spawnSync('updateImages',
-        [`${FLAKE}/devices/nos/modules/jellyfin`],
-        { shell: true })
-        .stdout.toString();
+    updates += updateImages(`${FLAKE}/devices/nos/modules/jellyfin`) ?? '';
+    updates += updateImages(`${FLAKE}/devices/homie/modules/home-assistant/netdaemon`) ?? '';
 
-    console.log('Updating netdaemon image');
-    updates += spawnSync('updateImages',
-        [`${FLAKE}/devices/homie/modules/home-assistant/netdaemon`],
-        { shell: true })
-        .stdout.toString();
+    const DIR = `${FLAKE}/devices/nos/modules/docker`;
 
-    const FILE = `${FLAKE}/devices/nos/modules/docker`;
-
-    readdirSync(FILE, { withFileTypes: true, recursive: true }).forEach((path) => {
+    readdirSync(DIR, { withFileTypes: true, recursive: true }).forEach((path) => {
         if (path.name === 'compose.nix') {
-            console.log(`Updating ${path.parentPath.split('/').at(-1)} images`);
-            updates += spawnSync('updateImages', [path.parentPath], { shell: true })
-                .stdout.toString();
+            updates += updateImages(path.parentPath) ?? '';
         }
     });
 
