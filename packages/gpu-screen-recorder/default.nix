@@ -69,7 +69,16 @@ in
           libglvnd
         ]
       }"
+
+      # This is needed to force gsr to lookup kms in PATH
+      # to get the security wrapper
+      mkdir -p $gsr $kms/bin
+      cp -r $out/bin $gsr
+      mv $gsr/bin/gsr-kms-server $kms/bin
+      rm $out/bin/gsr-kms-server
     '';
+
+    outputs = ["out" "gsr" "kms"];
 
     meta = {
       description = "Screen recorder that has minimal impact on system performance by recording a window using the GPU only";

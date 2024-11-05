@@ -11,7 +11,7 @@
 
   cfgDesktop = config.roles.desktop;
 
-  gsr = self.packages.${pkgs.system}.gpu-screen-recorder;
+  pkg = self.packages.${pkgs.system}.gpu-screen-recorder;
   hyprPkgs = config.home-manager.users.${mainUser}.wayland.windowManager.hyprland.finalPackage;
 in {
   security.wrappers = {
@@ -19,21 +19,19 @@ in {
       owner = "root";
       group = "video";
       capabilities = "cap_sys_nice+ep";
-      source = "${gsr}/bin/gpu-screen-recorder";
+      source = "${pkg.gsr}/bin/gpu-screen-recorder";
     };
 
     gsr-kms-server = {
       owner = "root";
       group = "video";
       capabilities = "cap_sys_admin+ep";
-      source = "${gsr}/bin/gsr-kms-server";
+      source = "${pkg.kms}/bin/gsr-kms-server";
     };
   };
 
   home-manager.users.${mainUser} = {
     home.packages = [
-      gsr
-
       (pkgs.writeShellApplication {
         name = "gpu-save-replay";
         runtimeInputs = [pkgs.procps];
@@ -55,7 +53,7 @@ in {
           gpu-screen-recorder ${concatStringsSep " " [
             ''-v no''
             ''-r 1200''
-            ''-mf yes''
+            ''-df yes''
             ''-o /home/matt/Videos/Replay''
             # Audio settings
             ''-ac aac''
