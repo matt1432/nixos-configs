@@ -14,7 +14,7 @@ import BarRevealer from './fullscreen';
 import Separator from '../misc/separator';
 
 
-// TODO: add Bluetooth, Kbd Layout
+// TODO: add Bluetooth
 export default () => (
     <BarRevealer
         exclusivity={Astal.Exclusivity.EXCLUSIVE}

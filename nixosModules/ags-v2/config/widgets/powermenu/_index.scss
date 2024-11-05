@@ -1,4 +1,5 @@
-@use '../../style/colors' as colors;
+@use 'sass:color';
+@use '../../style/colors';
 
 .powermenu {
     font-size: 70px;
@@ -15,7 +16,7 @@
 
         &:hover,
         &:active {
-            background-color: lighten(colors.$window_bg_color, 3%);
+            background-color: color.adjust(colors.$window_bg_color, $lightness: 3%);
         }
     }
 

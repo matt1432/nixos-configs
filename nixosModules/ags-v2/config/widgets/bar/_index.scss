@@ -1,4 +1,5 @@
-@use '../../style/colors' as colors;
+@use 'sass:color';
+@use '../../style/colors';
 
 .bar {
     margin-left: 5px;
@@ -8,14 +9,14 @@
     .bar-item {
         padding: 5px 10px 5px 10px;
         border-radius: 7px;
-        background-color: darken(colors.$window_bg_color, 3%);
+        background-color: color.adjust(colors.$window_bg_color, $lightness: -3%);
         font-size: 20px;
         min-height: 35px;
 
         transition: background-color 300ms;
 
         &:hover {
-            background-color: lighten(colors.$window_bg_color, 3%);
+            background-color: color.adjust(colors.$window_bg_color, $lightness: 3%);
         }
 
         &.network icon {

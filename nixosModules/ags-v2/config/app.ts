@@ -1,3 +1,11 @@
+// TODO: touch gestures
+// TODO: persisting data like bluetooth
+// TODO: quick-settings
+// TODO: music player stuff
+// TODO: on-screen-keyboard
+// TODO: Greetd
+// TODO: GSR
+
 import GLib from 'gi://GLib';
 
 
