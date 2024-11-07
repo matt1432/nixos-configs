@@ -43,7 +43,7 @@ export const updateDocker = () => {
 
         const out = spawnSync('updateImages', [imagePath], { shell: true }).stdout.toString();
 
-        if (out !== '# Locked') {
+        if (!out.startsWith('# Locked')) {
             return out;
         }
     };
