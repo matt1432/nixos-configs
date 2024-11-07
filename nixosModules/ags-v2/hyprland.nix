@@ -22,7 +22,10 @@
         "ignorealpha 0.19, ^(blur-bg.*)"
       ];
 
-      exec-once = ["ags"];
+      exec-once = [
+        "ags"
+        "sleep 3; ags request 'open win-applauncher'"
+      ];
 
       bind = [
         "$mainMod SHIFT, E    , exec, ags toggle win-powermenu"
@@ -32,15 +35,15 @@
       ];
       binde = [
         ## Brightness control
-        ", XF86MonBrightnessUp  , exec, ags request 'Brightness.screen += 0.05'"
-        ", XF86MonBrightnessDown, exec, ags request 'Brightness.screen -= 0.05'"
+        ", XF86MonBrightnessUp  , exec, ags request 'Brightness.screen +0.05'"
+        ", XF86MonBrightnessDown, exec, ags request 'Brightness.screen -0.05'"
 
         ## Volume control
-        ", XF86AudioRaiseVolume , exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+ & ags request 'popup_osd(\"speaker\")' &"
-        ", XF86AudioLowerVolume , exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- & ags request 'popup_osd(\"speaker\")' &"
+        ", XF86AudioRaiseVolume , exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+ & ags request 'popup speaker' &"
+        ", XF86AudioLowerVolume , exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- & ags request 'popup speaker' &"
       ];
-      bindn = ["    , Escape   , exec, ags request 'closeAll()'"];
-      bindr = ["CAPS, Caps_Lock, exec, ags request 'Brightness.fetchCapsState()'"];
+      bindn = ["    , Escape   , exec, ags request closeAll"];
+      bindr = ["CAPS, Caps_Lock, exec, ags request fetchCapsState"];
     };
   };
 }

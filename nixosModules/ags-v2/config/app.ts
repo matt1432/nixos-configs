@@ -1,4 +1,3 @@
-// TODO: touch gestures
 // TODO: persisting data like bluetooth
 // TODO: quick-settings
 // TODO: music player stuff

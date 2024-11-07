@@ -1,10 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars, no-var */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 const SRC: string;
-
-var Brightness: import('./services/brightness').default;
-
-function closeAll(): void;
 
 declare module 'inline:*' {
     const content: string;

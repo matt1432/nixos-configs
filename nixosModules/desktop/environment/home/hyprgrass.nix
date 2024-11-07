@@ -36,16 +36,19 @@ in {
             # windows
             resize_on_border_long_press = true;
 
-            hyprgrass-bindm = [", longpress:2, movewindow"];
-
             # in pixels, the distance from the edge that is considered an edge
             edge_margin = 10;
 
-            experimental = {
-              # send proper cancel events to windows instead of hacky touch_up events,
-              # NOT recommended as it crashed a few times, once it's stabilized I'll make it the default
-              send_cancel = 0;
-            };
+            # send proper cancel events to windows instead of hacky touch_up events,
+            # NOT recommended as it crashed a few times, once it's stabilized I'll make it the default
+            experimental.send_cancel = 0;
+
+            hyprgrass-bind = [
+              ", edge:u:d, exec, ags request 'open win-applauncher'"
+              ", edge:d:u, exec, ags request 'osk open'"
+              ", swipe:3:d, exec, hyprctl dispatch hyprexpo:expo on"
+            ];
+            hyprgrass-bindm = [", longpress:2, movewindow"];
           };
         };
 

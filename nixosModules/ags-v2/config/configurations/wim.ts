@@ -20,15 +20,35 @@ export default async() => {
     const Brightness = (await import('../services/brightness')).default;
     const MonitorClicks = (await import('../services/monitor-clicks')).default;
 
-    globalThis.closeAll = closeAll;
-    globalThis.Brightness = Brightness;
-
 
     App.start({
         css: style,
 
-        requestHandler(js, res) {
-            App.eval(js).then(res).catch(res);
+        requestHandler(request, respond) {
+            if (request.startsWith('open')) {
+                App.get_window(request.replace('open ', ''))?.set_visible(true);
+                respond('window opened');
+            }
+            else if (request.startsWith('closeAll')) {
+                closeAll();
+                respond('closed all windows');
+            }
+            else if (request.startsWith('fetchCapsState')) {
+                Brightness.fetchCapsState();
+                respond('fetched caps_lock state');
+            }
+            else if (request.startsWith('Brightness.screen')) {
+                Brightness.screen += parseFloat(request.replace('Brightness.screen ', ''));
+                respond('screen brightness changed');
+            }
+            else if (request.startsWith('popup')) {
+                popup_osd(request.replace('popup ', ''));
+                respond('osd popped up');
+            }
+            else if (request.startsWith('osk')) {
+                console.log(`TODO: ${request.replace('osk ', '')}`);
+                respond('implement this');
+            }
         },
 
         main: () => {
@@ -52,10 +72,6 @@ export default async() => {
                 caps: 'input1::capslock',
             });
             new MonitorClicks();
-
-            setTimeout(() => {
-                App.get_window('win-applauncher')?.set_visible(true);
-            }, 3 * 1000);
         },
     });
 };
