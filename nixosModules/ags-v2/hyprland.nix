@@ -25,22 +25,22 @@
       exec-once = ["ags"];
 
       bind = [
-        "$mainMod SHIFT, E    , exec, ags -t win-powermenu"
-        "$mainMod      , D    , exec, ags -t win-applauncher"
-        "$mainMod      , V    , exec, ags -t win-clipboard"
-        "              , Print, exec, ags -t win-screenshot"
+        "$mainMod SHIFT, E    , exec, ags toggle win-powermenu"
+        "$mainMod      , D    , exec, ags toggle win-applauncher"
+        "$mainMod      , V    , exec, ags toggle win-clipboard"
+        "              , Print, exec, ags toggle win-screenshot"
       ];
       binde = [
         ## Brightness control
-        ", XF86MonBrightnessUp  , exec, ags -m 'Brightness.screen += 0.05'"
-        ", XF86MonBrightnessDown, exec, ags -m 'Brightness.screen -= 0.05'"
+        ", XF86MonBrightnessUp  , exec, ags request 'Brightness.screen += 0.05'"
+        ", XF86MonBrightnessDown, exec, ags request 'Brightness.screen -= 0.05'"
 
         ## Volume control
-        ", XF86AudioRaiseVolume , exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+ & ags -m 'popup_osd(\"speaker\")' &"
-        ", XF86AudioLowerVolume , exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- & ags -m 'popup_osd(\"speaker\")' &"
+        ", XF86AudioRaiseVolume , exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+ & ags request 'popup_osd(\"speaker\")' &"
+        ", XF86AudioLowerVolume , exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- & ags request 'popup_osd(\"speaker\")' &"
       ];
-      bindn = ["    , Escape   , exec, ags -m 'closeAll()'"];
-      bindr = ["CAPS, Caps_Lock, exec, ags -m 'Brightness.fetchCapsState()'"];
+      bindn = ["    , Escape   , exec, ags request 'closeAll()'"];
+      bindr = ["CAPS, Caps_Lock, exec, ags request 'Brightness.fetchCapsState()'"];
     };
   };
 }

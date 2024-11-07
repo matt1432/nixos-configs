@@ -34,9 +34,15 @@
   in {
     programs.ags-v2.lockPkg = pkgs.writeShellApplication {
       name = "lock";
+      runtimeInputs = [agsFull];
       text = ''
         export CONF="lock"
-        exec ${agsFull}/bin/ags --config ${fullConfPath} -i lock "$@"
+
+        if [ "$#" == 0 ]; then
+          exec ags run ${fullConfPath}
+        else
+          exec ags "$@" -i lock
+        fi
       '';
     };
 
@@ -45,16 +51,23 @@
         [
           (pkgs.writeShellApplication {
             name = "ags";
+            runtimeInputs = [agsFull];
             text = ''
               export CONF="${hostName}"
-              exec ${agsFull}/bin/ags --config ${fullConfPath} "$@"
+
+              if [ "$#" == 0 ]; then
+                exec ags run ${fullConfPath}
+              else
+                exec ags "$@"
+              fi
             '';
           })
           (pkgs.writeShellApplication {
             name = "agsConf";
+            runtimeInputs = [agsFull];
             text = ''
               export CONF="$1"
-              exec ${agsFull}/bin/ags --config ${fullConfPath}
+              exec ${agsFull}/bin/ags run ${fullConfPath}
             '';
           })
         ]

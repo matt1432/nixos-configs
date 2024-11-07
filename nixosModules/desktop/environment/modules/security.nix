@@ -62,11 +62,11 @@
 
           case "$state" in
               *open*)
-                  ${getExe runInDesktop} "${getExe lockPkg} -m 'authFinger()'"
+                  ${getExe runInDesktop} "${getExe lockPkg} request 'authFinger()'"
                   ;;
 
               *close*)
-                  ${getExe runInDesktop} ${getExe lockPkg}
+                  ${getExe runInDesktop} "${getExe lockPkg}"
                   ;;
 
               *)
