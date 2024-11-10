@@ -49,7 +49,7 @@ self: {
 
             decoration = {
               blur.enabled = false;
-              drop_shadow = false;
+              shadow.enabled = false;
             };
 
             exec-once = [
