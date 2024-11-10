@@ -7,6 +7,7 @@
 
     home.packages = [
       (pkgs.writeShellScriptBin "testChanges" ''
+        chmod +w -fR /home/matt/git/$1/$2/{.cache,build}
         rm -r /home/matt/git/$1/$2/{.cache,build}
         cd /home/matt/.nix || return
         nix flake update "$1"
