@@ -8,12 +8,11 @@
     home.packages = [
       (pkgs.writeShellScriptBin "testChanges" ''
         rm -r /home/matt/git/$1/$2/{.cache,build}
+        cd /home/matt/.nix || return
         nix flake update "$1"
         nh os switch
-        (
-            cd "/home/matt/git/$1/$2"
-            nix develop /home/matt/git/$1 -c cmake -S . -B build/ -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
-        )
+        cd "/home/matt/git/$1/$2" || return
+        nix develop /home/matt/git/$1 -c cmake -S . -B build/ -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
       '')
     ];
   };
