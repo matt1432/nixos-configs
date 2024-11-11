@@ -77,6 +77,13 @@ in {
           /* Style backdrop */
           .backdropImage {filter: blur(18px) saturate(120%) contrast(120%) brightness(40%);}
 
+          /* Fix Jellyfin's st**pid skip-intro placement */
+          .skip-button {
+              position: fixed;
+              bottom: 18%;
+              right: 16%;
+          }
+
           /* Custom Settings */
           :root {--accent: 145,75,245;}
           :root {--rounding: 12px;}
