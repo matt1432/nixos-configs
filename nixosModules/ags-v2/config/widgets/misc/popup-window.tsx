@@ -2,9 +2,10 @@ import { App, Astal, Gtk, Widget } from 'astal/gtk3';
 import { property, register } from 'astal/gobject';
 import { Binding, idle } from 'astal';
 
-import { get_hyprland_monitor, hyprMessage } from '../../lib';
+import { hyprMessage } from '../../lib';
 
 /* Types */
+import AstalHyprland from 'gi://AstalHyprland';
 type CloseType = 'none' | 'stay' | 'released' | 'clicked';
 type HyprTransition = 'slide' | 'slide top' | 'slide bottom' | 'slide left' |
     'slide right' | 'popin' | 'fade';
@@ -80,15 +81,22 @@ export class PopupWindow extends Widget.Window {
         });
     };
 
-    set_x_pos(
+    async set_x_pos(
         alloc: Gtk.Allocation,
         side = 'right' as 'left' | 'right',
     ) {
         const monitor = this.gdkmonitor ??
             this.get_display().get_monitor_at_point(alloc.x, alloc.y);
 
-        // @ts-expect-error this should exist
-        const transform = get_hyprland_monitor(monitor)?.transform;
+        // FIXME: switch back to this when it's fixed upstream
+        // const transform = get_hyprland_monitor(monitor)?.transform;
+        const manufacturer = monitor.manufacturer?.replace(',', '');
+        const model = monitor.model?.replace(',', '');
+        const start = `${manufacturer} ${model}`;
+
+        const transform = (JSON.parse(await hyprMessage('j/monitors')) as AstalHyprland.Monitor[])
+            // @ts-expect-error this will be fixed soon
+            .find((m) => m.description?.startsWith(start))?.transform;
 
         let width: number;
 
