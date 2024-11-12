@@ -156,11 +156,6 @@ let
     };
 
     agsInputs = {
-      ags = mkDep {
-        owner = "Aylur";
-        repo = "ags";
-      };
-
       agsV2 = mkDep {
         owner = "Aylur";
         repo = "ags";

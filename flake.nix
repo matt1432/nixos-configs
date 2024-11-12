@@ -1,15 +1,6 @@
 # Do not modify! This file is generated.
 {
   inputs = {
-    ags = {
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
-      owner = "Aylur";
-      repo = "ags";
-      type = "github";
-    };
     agsV2 = {
       inputs = {
         astal.follows = "astal";

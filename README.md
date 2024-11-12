@@ -1,12 +1,12 @@
 # My NixOS configs
 
-## Ags
+## AGS
 
 You might find it weird that most of my config is written in TypeScript.
 That's because all my desktops run
-[AGS](https://github.com/Aylur/ags)
+[AGSv2](https://github.com/Aylur/ags/tree/v2)
 for UI. Click on
-[this](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/nixosModules/ags)
+[this](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/nixosModules/ags-v2)
 to see my configuration.
 
 I'm also a victim of Stockholm syndrome at this point and make my scripts

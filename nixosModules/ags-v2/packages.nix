@@ -6,44 +6,55 @@
   osConfig,
   pkgs,
   ...
-}: {
-  options.programs.ags-v2.lockPkg = lib.mkOption {
-    type = with lib.types; nullOr package;
-    default = null;
+}: let
+  # Inputs
+  inherit (self.inputs) agsV2 gtk-session-lock;
+
+  # Libs
+  inherit (lib) attrValues boolToString optionals removeAttrs;
+
+  # Cfg info
+  inherit (osConfig.networking) hostName;
+  cfgDesktop = osConfig.roles.desktop;
+  fullConfPath = "/home/${cfgDesktop.user}/${agsConfigDir}";
+
+  # Astal libraries
+  gtkSessionLock = gtk-session-lock.packages.${pkgs.system}.default;
+  agsV2Packages = agsV2.packages.${pkgs.system};
+  astalLibs = attrValues (removeAttrs agsV2.inputs.astal.packages.${pkgs.system} ["docs" "gjs"]) ++ [gtkSessionLock];
+
+  # Final ags package
+  agsFull = agsV2Packages.ags.override {extraPackages = astalLibs;};
+in {
+  options.programs.ags-v2 = {
+    package = lib.mkOption {
+      type = with lib.types; nullOr package;
+      default = null;
+    };
+    lockPkg = lib.mkOption {
+      type = with lib.types; nullOr package;
+      default = null;
+    };
   };
 
-  config = let
-    # Inputs
-    inherit (self.inputs) agsV2 gtk-session-lock;
+  config = {
+    # Make these accessible outside these files
+    programs.ags-v2 = {
+      package = agsFull;
 
-    # Libs
-    inherit (lib) attrValues boolToString optionals removeAttrs;
+      lockPkg = pkgs.writeShellApplication {
+        name = "lock";
+        runtimeInputs = [agsFull];
+        text = ''
+          export CONF="lock"
 
-    # Cfg info
-    inherit (osConfig.networking) hostName;
-    cfgDesktop = osConfig.roles.desktop;
-    fullConfPath = "/home/${cfgDesktop.user}/${agsConfigDir}";
-
-    # Astal libraries
-    gtkSessionLock = gtk-session-lock.packages.${pkgs.system}.default;
-    agsV2Packages = agsV2.packages.${pkgs.system};
-    astalLibs = attrValues (removeAttrs agsV2.inputs.astal.packages.${pkgs.system} ["docs" "gjs"]) ++ [gtkSessionLock];
-
-    # Final ags package
-    agsFull = agsV2Packages.ags.override {extraPackages = astalLibs;};
-  in {
-    programs.ags-v2.lockPkg = pkgs.writeShellApplication {
-      name = "lock";
-      runtimeInputs = [agsFull];
-      text = ''
-        export CONF="lock"
-
-        if [ "$#" == 0 ]; then
-          exec ags run ${fullConfPath}
-        else
-          exec ags "$@" -i lock
-        fi
-      '';
+          if [ "$#" == 0 ]; then
+            exec ags run ${fullConfPath}
+          else
+            exec ags "$@" -i lock
+          fi
+        '';
+      };
     };
 
     home = {
@@ -89,10 +100,10 @@
         inherit
           (import "${self}/lib" {inherit pkgs self;})
           buildNodeModules
-          buildNodeTypes
+          buildGirTypes
           ;
       in (
-        (buildNodeTypes {
+        (buildGirTypes {
           pname = "agsV2";
           configPath = "${agsConfigDir}/@girs";
           packages = astalLibs;

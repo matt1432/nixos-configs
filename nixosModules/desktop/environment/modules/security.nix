@@ -12,19 +12,8 @@
     hmCfg = config.home-manager.users.${cfg.user};
     hyprPkg = hmCfg.wayland.windowManager.hyprland.finalPackage;
 
-    lockPkg =
-      if cfg.ags.enable
-      then
-        pkgs.writeShellApplication {
-          name = "lock";
-          runtimeInputs = [hmCfg.programs.ags.finalPackage];
-
-          text = ''
-            ags -r 'Tablet.setLaptopMode()'
-            ags -b lockscreen -c /home/${cfg.user}/.config/ags/lockscreen.js
-          '';
-        }
-      else hmCfg.programs.ags-v2.lockPkg;
+    # See nixosModules/ags-v2/packages.nix
+    lockPkg = hmCfg.programs.ags-v2.lockPkg;
 
     runInDesktop = pkgs.writeShellApplication {
       name = "runInDesktop";

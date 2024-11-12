@@ -1,5 +1,6 @@
 self: {
   config,
+  lib,
   pkgs,
   ...
 }: {
@@ -9,6 +10,8 @@ self: {
   ];
 
   config = let
+    inherit (lib) mkIf;
+
     cfg = config.roles.desktop;
 
     hyprland =
@@ -26,30 +29,31 @@ self: {
       trap 'systemctl --user stop hyprland-session.target; sleep 1' EXIT
       exec Hyprland >/dev/null
     '');
-  in {
-    services = {
-      displayManager.sessionPackages = [hyprland];
+  in
+    mkIf cfg.displayManager.enable {
+      services = {
+        displayManager.sessionPackages = [hyprland];
 
-      greetd = {
-        enable = true;
-        settings = {
-          default_session = {
-            command = cmd;
-            user = "greeter";
-          };
+        greetd = {
+          enable = true;
+          settings = {
+            default_session = {
+              command = cmd;
+              user = "greeter";
+            };
 
-          initial_session = {
-            command = cmd;
-            user = cfg.user;
+            initial_session = {
+              command = cmd;
+              user = cfg.user;
+            };
           };
         };
       };
-    };
 
-    # unlock GPG keyring on login
-    services.gnome.gnome-keyring.enable = true;
-    security.pam.services.greetd.enableGnomeKeyring = true;
-  };
+      # unlock GPG keyring on login
+      services.gnome.gnome-keyring.enable = true;
+      security.pam.services.greetd.enableGnomeKeyring = true;
+    };
 
   # For accurate stack trace
   _file = ./default.nix;

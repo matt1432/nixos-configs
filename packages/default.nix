@@ -4,8 +4,6 @@
   pkgs,
   ...
 }: {
-  coloryou = pkgs.callPackage ./coloryou {};
-
   gpu-screen-recorder = pkgs.callPackage ./gpu-screen-recorder {
     inherit (inputs) gpu-screen-recorder-src;
   };

@@ -7,7 +7,6 @@ self: {
   inherit (self.inputs) hyprgrass hyprland hyprland-plugins;
 in {
   imports = [
-    (import ../../ags self)
     (import ../../ags-v2 self)
 
     ./modules/dconf.nix

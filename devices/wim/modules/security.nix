@@ -35,6 +35,5 @@ in {
     sudo.text = mkDefault (mkBefore grosshackConf);
     login.text = mkDefault (mkBefore grosshackConf);
     polkit-1.text = mkDefault (mkBefore grosshackConf);
-    ags.text = mkDefault (mkBefore grosshackConf);
   };
 }

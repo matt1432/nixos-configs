@@ -46,7 +46,6 @@ in {
             hyprgrass-bind = [
               ", edge:u:d, exec, ags request 'open win-applauncher'"
               ", edge:d:u, exec, ags request 'osk open'"
-              ", swipe:3:d, exec, hyprctl dispatch hyprexpo:expo on"
             ];
             hyprgrass-bindm = [", longpress:2, movewindow"];
           };

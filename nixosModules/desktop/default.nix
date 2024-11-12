@@ -36,14 +36,6 @@ in {
       '';
     };
 
-    ags.enable = mkOption {
-      type = types.bool;
-      default = false;
-      description = ''
-        Whether we want to enable AGS for the DE shell.
-      '';
-    };
-
     ags-v2.enable = mkOption {
       type = types.bool;
       default = false;
@@ -92,6 +84,14 @@ in {
     };
 
     displayManager = {
+      enable = mkOption {
+        type = types.bool;
+        default = true;
+        description = ''
+          Whether we want to enable the Display Manager.
+        '';
+      };
+
       duplicateScreen = mkOption {
         type = types.bool;
         description = ''

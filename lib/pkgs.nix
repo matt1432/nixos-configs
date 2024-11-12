@@ -27,7 +27,7 @@
       }) {};
   in "${pkg}/lib/node_modules/${pkg.pname}/node_modules";
 
-  buildNodeTypes = {
+  buildGirTypes = {
     configPath,
     packages,
     pname,

@@ -3,62 +3,24 @@ self: {
   lib,
   pkgs,
   ...
-}: let
-  # TODO: clean this up
-  inherit (self.inputs) agsV2 gtk-session-lock;
-in {
+}: {
   config = let
     # Libs
-    inherit (lib) attrValues boolToString removeAttrs;
+    inherit (lib) removePrefix;
 
-    # Cfg info
-    inherit (config.networking) hostName;
-    cfgDesktop = config.roles.desktop;
+    cfg = config.roles.desktop;
+    hmCfg = config.home-manager.users.${cfg.user};
 
-    # Astal libraries
-    gtkSessionLock = gtk-session-lock.packages.${pkgs.system}.default;
-    agsV2Packages = agsV2.packages.${pkgs.system};
-    astalLibs = attrValues (removeAttrs agsV2.inputs.astal.packages.${pkgs.system} ["docs" "gjs"]) ++ [gtkSessionLock];
-
-    # Final ags package
-    agsFull = agsV2Packages.ags.override {extraPackages = astalLibs;};
+    ags = hmCfg.programs.ags-v2.package;
+    hyprland = hmCfg.wayland.windowManager.hyprland.finalPackage;
 
     agsConfig = let
-      tsconfig = pkgs.writers.writeJSON "tsconfig.json" {
-        "$schema" = "https://json.schemastore.org/tsconfig";
-        "compilerOptions" = {
-          "experimentalDecorators" = true;
-          "strict" = true;
-          "target" = "ES2023";
-          "moduleResolution" = "Bundler";
-          "jsx" = "react-jsx";
-          "jsxImportSource" = "${agsV2Packages.gjs}/share/astal/gjs/gtk3";
-          "paths" = {
-            "astal" = ["${agsV2Packages.gjs}/share/astal/gjs"];
-            "astal/*" = ["${agsV2Packages.gjs}/share/astal/gjs/*"];
-          };
-          "skipLibCheck" = true;
-          "module" = "ES2022";
-          "lib" = ["ES2023"];
-        };
-      };
+      homeFiles = config.home-manager.users.${cfg.user}.home.file;
+      agsDir = "${removePrefix "/home/${cfg.user}/" config.environment.variables.FLAKE}/nixosModules/ags-v2/config";
 
-      varsTs =
-        pkgs.writeText "vars.ts"
-        # javascript
-        ''
-          export default {
-              mainMonitor: '${cfgDesktop.mainMonitor}',
-              dupeLockscreen: ${boolToString cfgDesktop.displayManager.duplicateScreen},
-              hasFprintd: ${boolToString (hostName == "wim")},
-          };
-        '';
-
-      flakeDir = config.environment.variables.FLAKE;
-      modulesDir = "${lib.removePrefix "/home/${cfg.user}/" flakeDir}/nixosModules";
-      nodeModules =
-        config.home-manager.users.${cfg.user}.home.file."${modulesDir}/ags/config/node_modules".source
-        or config.home-manager.users.${cfg.user}.home.file."${modulesDir}/ags-v2/config/node_modules".source;
+      nodeModules = homeFiles."${agsDir}/node_modules".source;
+      tsconfig = homeFiles."${agsDir}/tsconfig.json".source;
+      varsTs = homeFiles."${agsDir}/widgets/lockscreen/vars.ts".source;
     in
       pkgs.runCommandLocal "agsConfig" {} ''
         cp -ar ${tsconfig} ./tsconfig.json
@@ -66,21 +28,18 @@ in {
         chmod +w -R ./.
         cp -ar ${varsTs} ./widgets/lockscreen/vars.ts
         cp -ar ${nodeModules} ./node_modules
-        ${agsFull}/bin/ags bundle ./app.ts $out
+        ${ags}/bin/ags bundle ./app.ts $out
       '';
-
-    cfg = config.roles.desktop;
-
-    hyprland =
-      config
-      .home-manager
-      .users
-      .${cfg.user}
-      .wayland
-      .windowManager
-      .hyprland
-      .finalPackage;
   in {
+    assertions = [
+      {
+        assertion = cfg.ags-v2.enable;
+        message = ''
+          The Display Manager requires AGSv2 to be enabled.
+        '';
+      }
+    ];
+
     # Add home folder for home-manager to work
     users.users.greeter = {
       home = "/var/lib/greeter";
@@ -95,7 +54,7 @@ in {
           name = "agsGreeter";
 
           runtimeInputs = [
-            agsFull
+            ags
             hyprland
           ];
 
