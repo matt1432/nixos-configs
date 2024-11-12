@@ -4,7 +4,7 @@ self: {
   ...
 }: {
   imports = [
-    (import ./ags self)
+    (import ./ags.nix self)
     (import ./hyprland.nix self)
   ];
 

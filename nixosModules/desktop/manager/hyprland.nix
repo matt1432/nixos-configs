@@ -54,7 +54,7 @@ self: {
 
             exec-once = [
               setupMonitors
-              "ags -b greeter &> /tmp/ags-greetd.log; hyprctl dispatch exit"
+              "agsGreeter &> /tmp/ags-greetd.log; hyprctl dispatch exit"
             ];
           }
           // devices;

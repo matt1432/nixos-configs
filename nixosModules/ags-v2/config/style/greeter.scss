@@ -1,0 +1,18 @@
+@use 'colors';
+
+window {
+    all: unset;
+    background-color: transparent;
+}
+
+
+.base {
+    background-color: colors.$window_bg_color;
+    border: 1.3px solid colors.$accent_bg_color;
+    border-radius: 12px;
+    padding: 5px;
+}
+
+dropdown popover.menu {
+    padding-top: 0;
+}
