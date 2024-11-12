@@ -71,7 +71,7 @@ in {
     ];
 
     wayland.windowManager.hyprland.settings = {
-      bind = [",F8, exec, ags -r 'GSR.saveReplay()'"];
+      bind = [",F8, exec, ags request 'save-replay'"];
     };
   };
 }
