@@ -12,7 +12,7 @@
         "typescript-eslint": "8.8.1"
     },
     "dependencies": {
-        "@types/fluent-ffmpeg": "2.1.26",
+        "@types/fluent-ffmpeg": "2.1.27",
         "fluent-ffmpeg": "2.1.3"
     }
 }

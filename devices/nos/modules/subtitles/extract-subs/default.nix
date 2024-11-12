@@ -11,7 +11,7 @@
   extract-subs = buildNpmPackage {
     name = "${pname}-npm";
     src = ./.;
-    npmDepsHash = "sha256-mIRn7MsQJCwBYNEL3IK4cV8X+kDouEdc9x59XWgUkYw=";
+    npmDepsHash = "sha256-WXkg4e5Nh3+haCbm+XJ1CB7rsA2uV/7eZUaOUl/NVk0=";
 
     nativeBuildInputs = [
       nodejs_20

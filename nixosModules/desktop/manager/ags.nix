@@ -56,7 +56,8 @@ in {
 
       flakeDir = config.environment.variables.FLAKE;
       modulesDir = "${lib.removePrefix "/home/${cfg.user}/" flakeDir}/nixosModules";
-      nodeModules = config.home-manager.users.${cfg.user}.home.file."${modulesDir}/ags/config/node_modules".source
+      nodeModules =
+        config.home-manager.users.${cfg.user}.home.file."${modulesDir}/ags/config/node_modules".source
         or config.home-manager.users.${cfg.user}.home.file."${modulesDir}/ags-v2/config/node_modules".source;
     in
       pkgs.runCommandLocal "agsConfig" {} ''

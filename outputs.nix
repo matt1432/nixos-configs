@@ -147,7 +147,22 @@
       perSystem (pkgs:
         import ./apps {inherit inputs pkgs;});
 
-    devShells = perSystem (pkgs: {
+    devShells = perSystem (pkgs: let
+      bumpNpmDeps = pkgs.writeShellApplication {
+        name = "bumpNpmDeps";
+        runtimeInputs = builtins.attrValues {
+          inherit
+            (pkgs)
+            prefetch-npm-deps
+            nodejs_latest
+            ;
+        };
+        text = ''
+          npm i --package-lock-only || true # this command will fail but still updates the main lockfile
+          prefetch-npm-deps ./package-lock.json
+        '';
+      };
+    in {
       default = pkgs.mkShell {
         packages = [
           (pkgs.writeShellScriptBin "mkIso" ''
@@ -172,38 +187,25 @@
               typescript
               ;
           })
-          ++ [
-            (pkgs.writeShellApplication {
-              name = "bumpNpmDeps";
-              runtimeInputs = builtins.attrValues {
-                inherit
-                  (pkgs)
-                  prefetch-npm-deps
-                  nodejs_latest
-                  ;
-              };
-              text = ''
-                npm i --package-lock-only || true # this command will fail but still updates the main lockfile
-                prefetch-npm-deps ./package-lock.json
-              '';
-            })
-          ];
+          ++ [bumpNpmDeps];
       };
 
       subtitles-dev = pkgs.mkShell {
-        packages = builtins.attrValues {
-          inherit
-            (pkgs)
-            nodejs_latest
-            ffmpeg-full
-            typescript
-            ;
+        packages =
+          (builtins.attrValues {
+            inherit
+              (pkgs)
+              nodejs_latest
+              ffmpeg-full
+              typescript
+              ;
 
-          inherit
-            (pkgs.nodePackages)
-            ts-node
-            ;
-        };
+            inherit
+              (pkgs.nodePackages)
+              ts-node
+              ;
+          })
+          ++ [bumpNpmDeps];
       };
     });
 
