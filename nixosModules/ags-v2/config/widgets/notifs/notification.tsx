@@ -24,7 +24,7 @@ const setTime = (time: number): string => GLib.DateTime
 const NotifIcon = ({ notifObj }: {
     notifObj: AstalNotifd.Notification
 }) => {
-    let icon: string;
+    let icon: string | undefined;
 
     if (notifObj.get_image() && notifObj.get_image() !== '') {
         icon = notifObj.get_image();
@@ -36,7 +36,7 @@ const NotifIcon = ({ notifObj }: {
     else {
         icon = Applications.fuzzy_query(
             notifObj.get_app_name(),
-        )[0].get_icon_name();
+        )[0]?.get_icon_name();
     }
 
     return (
@@ -48,14 +48,16 @@ const NotifIcon = ({ notifObj }: {
                 min-height: 78px;
             `}
         >
-            <icon
-                icon={icon}
-                css="font-size: 58px;"
-                halign={Gtk.Align.CENTER}
-                hexpand
-                valign={Gtk.Align.CENTER}
-                vexpand
-            />
+            {icon && (
+                <icon
+                    icon={icon}
+                    css="font-size: 58px;"
+                    halign={Gtk.Align.CENTER}
+                    hexpand
+                    valign={Gtk.Align.CENTER}
+                    vexpand
+                />
+            )}
         </box>
     );
 };
