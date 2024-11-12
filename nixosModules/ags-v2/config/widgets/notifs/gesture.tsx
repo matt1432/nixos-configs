@@ -123,7 +123,7 @@ export class NotifGestureWrapper extends Widget.EventBox {
         ));
     }
 
-    public slideAway(side: 'Left' | 'Right'): void {
+    public slideAway(side: 'Left' | 'Right', duplicate = false): void {
         if (!this.sensitive || this._sliding_away) {
             return;
         }
@@ -156,16 +156,18 @@ export class NotifGestureWrapper extends Widget.EventBox {
             rev.revealChild = false;
 
             timeout(ANIM_DURATION, () => {
-                // Kill notif if specified
-                if (!this.is_popup) {
-                    Notifications.get_notification(this.id)?.dismiss();
+                if (!duplicate) {
+                    // Kill notif if specified
+                    if (!this.is_popup) {
+                        Notifications.get_notification(this.id)?.dismiss();
 
-                    // Update HasNotifs
-                    HasNotifs.set(Notifications.get_notifications().length > 0);
-                }
-                else {
-                    // Make sure we cleanup any references to this instance
-                    NotifGestureWrapper.popups.delete(this.id);
+                        // Update HasNotifs
+                        HasNotifs.set(Notifications.get_notifications().length > 0);
+                    }
+                    else {
+                        // Make sure we cleanup any references to this instance
+                        NotifGestureWrapper.popups.delete(this.id);
+                    }
                 }
 
                 // Get rid of disappeared widget
@@ -231,6 +233,12 @@ export class NotifGestureWrapper extends Widget.EventBox {
                 }
             });
         }
+
+        this.hook(Notifications, 'notified', (_, notifId) => {
+            if (notifId === this.id) {
+                this.slideAway(this.is_popup ? 'Left' : 'Right', true);
+            }
+        });
 
         const gesture = Gtk.GestureDrag.new(this);
 
