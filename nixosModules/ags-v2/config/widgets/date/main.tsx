@@ -1,9 +1,7 @@
 import { bind, Variable } from 'astal';
-import { Astal, Gtk } from 'astal/gtk3';
+import { Gtk } from 'astal/gtk3';
 
 import GLib from 'gi://GLib';
-
-import PopupWindow from '../misc/popup-window';
 
 
 const Divider = () => (
@@ -65,7 +63,7 @@ const Time = () => {
     );
 };
 
-const DateWidget = () => {
+export default () => {
     const cal = new Gtk.Calendar({
         show_day_names: true,
         show_heading: true,
@@ -86,12 +84,3 @@ const DateWidget = () => {
         </box>
     );
 };
-
-export default () => (
-    <PopupWindow
-        name="calendar"
-        anchor={Astal.WindowAnchor.TOP}
-    >
-        <DateWidget />
-    </PopupWindow>
-);
