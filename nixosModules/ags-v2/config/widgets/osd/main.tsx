@@ -138,26 +138,30 @@ export default () => {
                     </box>
                 </box>
 
-                <box
-                    name="keyboard"
-                    css="margin-bottom: 80px;"
+                {
+                    Brightness.hasKbd && (
+                        <box
+                            name="keyboard"
+                            css="margin-bottom: 80px;"
 
-                    setup={(self) => {
-                        self.hook(Brightness, 'notify::kbd-level', () => {
-                            popup('keyboard');
-                        });
-                    }}
-                >
-                    <box className="osd-item widget">
-                        <icon icon="keyboard-brightness-symbolic" />
+                            setup={(self) => {
+                                self.hook(Brightness, 'notify::kbd-level', () => {
+                                    popup('keyboard');
+                                });
+                            }}
+                        >
+                            <box className="osd-item widget">
+                                <icon icon="keyboard-brightness-symbolic" />
 
-                        <ProgressBar
-                            fraction={bind(Brightness, 'kbdLevel').as((v) => v / 2)}
-                            sensitive={bind(Brightness, 'kbdLevel').as((v) => v !== 0)}
-                            valign={Gtk.Align.CENTER}
-                        />
-                    </box>
-                </box>
+                                <ProgressBar
+                                    fraction={bind(Brightness, 'kbdLevel').as((v) => (v ?? 0) / 2)}
+                                    sensitive={bind(Brightness, 'kbdLevel').as((v) => v !== 0)}
+                                    valign={Gtk.Align.CENTER}
+                                />
+                            </box>
+                        </box>
+                    )
+                }
 
                 <box
                     name="caps"
