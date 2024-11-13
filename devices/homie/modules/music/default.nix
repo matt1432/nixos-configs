@@ -28,10 +28,19 @@ in {
   systemd.user.services = {
     pulseaudio.after = ["bluetooth.service"];
     spotifyd.after = ["pulseaudio.service"];
+    ueboom = {
+      after = ["spotifyd.service"];
+      path = with pkgs; [bluez];
+      script = ''
+        sleep 60
+        exec bluetoothctl connect 88:C6:26:93:4B:77
+      '';
+    };
   };
   systemd.user.targets.default.wants = [
     "pulseaudio.service"
     "spotifyd.service"
+    "ueboom.service"
   ];
 
   # Allow pulseaudio to be managed by MPD
