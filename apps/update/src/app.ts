@@ -75,18 +75,27 @@ if (args['a'] || args['all']) {
     });
 
     const output = [
-        'chore: update flake.lock\n',
-        `Flake Inputs:\n${flakeOutput}\n`,
-        `Docker Images:\n${dockerOutput}`,
-        `Firefox Addons:\n${firefoxOutput}\n`,
-        `Misc Sources:\n${vuetorrentOutput}\n`,
-    ].join('\n');
+        'chore: update sources\n\n',
+    ];
+
+    if (flakeOutput.length > 5) {
+        output.push(`Flake Inputs:\n${flakeOutput}\n\n`);
+    }
+    if (dockerOutput.length > 5) {
+        output.push(`Docker Images:\n${dockerOutput}\n`);
+    }
+    if (firefoxOutput.length > 5) {
+        output.push(`Firefox Addons:\n${firefoxOutput}\n\n`);
+    }
+    if (vuetorrentOutput.length > 5) {
+        output.push(`Misc Sources:\n${vuetorrentOutput}\n`);
+    }
 
     if (args['f']) {
-        writeFileSync(args['f'] as string, output);
+        writeFileSync(args['f'] as string, output.join(''));
     }
     else {
-        console.log(output);
+        console.log(output.join(''));
     }
 }
 
