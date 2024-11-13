@@ -15,7 +15,7 @@ in
     inherit (packageJSON) version;
 
     src = ./.;
-    npmDepsHash = "sha256-Vl27uo1cwRNjZCcSZTMqZBEwZNwwiqik0sJo4PVxg3c=";
+    npmDepsHash = "sha256-5miQfnSy559jVsqyZM5LqegMuIVsd+LOdsZ8FaHy24A=";
 
     runtimeInputs = [
       (callPackage ../../nixosModules/docker/updateImage.nix {})

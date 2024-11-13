@@ -8,4 +8,7 @@ final: prev: {
           --replace-fail 'REQUIRED_ARGS: -Icompilable' 'REQUIRED_ARGS: -Icompilable -L--no-demangle'
     '';
   });
+
+  # FIXME: https://github.com/debug-js/debug/issues/975
+  nodejs_latest = prev.nodejs_22;
 }
