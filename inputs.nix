@@ -110,12 +110,16 @@ let
 
   desktopInputs = {
     hyprlandInputs = {
+      hyprutils = mkDep {
+        owner = "hyprwm";
+        repo = "hyprutils";
+      };
+
       hyprland = mkDep {
         owner = "hyprwm";
         repo = "Hyprland";
 
-        # FIXME: b88e4a1a9a8a240d54a5006b35964c9e02f86f6b ?
-        rev = "dca75db127fedc58fc85ae0e6e47162e3d5d16f9";
+        inputs.hyprutils.follows = "hyprutils";
       };
 
       hyprland-plugins = mkHyprDep {
