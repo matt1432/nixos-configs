@@ -1,5 +1,5 @@
 import { idle, readFile } from 'astal';
-import { Astal, Gtk, Widget } from 'astal/gtk3';
+import { App, Astal, Gtk, Widget } from 'astal/gtk3';
 
 import AstalGreet from 'gi://AstalGreet';
 
@@ -66,6 +66,7 @@ const password = (
                 (_, res) => {
                     try {
                         AstalGreet.login_finish(res);
+                        App.quit();
                     }
                     catch (error) {
                         response.label = JSON.stringify(error);
