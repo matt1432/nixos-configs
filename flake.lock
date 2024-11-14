@@ -16,7 +16,7 @@
         "type": "github"
       }
     },
-    "agsV2": {
+    "ags": {
       "inputs": {
         "astal": [
           "astal"
@@ -26,16 +26,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1731518120,
-        "narHash": "sha256-zN6emWJrjQIMb8QKWw6ptDgzY7I8SbUhn8gYYPI6Um0=",
+        "lastModified": 1731536641,
+        "narHash": "sha256-nDsLLIcxB7MNFashHBdauKz4T9E1C2CxGEm73ng4rTY=",
         "owner": "Aylur",
         "repo": "ags",
-        "rev": "c93a9064fb17d6af83d176b8337311488294482e",
+        "rev": "7c04d1a3a7e8b640da03e51469d6369872f4a14e",
         "type": "github"
       },
       "original": {
         "owner": "Aylur",
-        "ref": "v2",
         "repo": "ags",
         "type": "github"
       }
@@ -1625,7 +1624,7 @@
     },
     "root": {
       "inputs": {
-        "agsV2": "agsV2",
+        "ags": "ags",
         "astal": "astal",
         "bat-theme-src": "bat-theme-src",
         "bazarr-bulk": "bazarr-bulk",

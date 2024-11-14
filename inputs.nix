@@ -160,17 +160,16 @@ let
     };
 
     agsInputs = {
-      agsV2 = mkDep {
-        owner = "Aylur";
-        repo = "ags";
-        ref = "v2";
-
-        inputs.astal.follows = "astal";
-      };
-
       astal = mkDep {
         owner = "Aylur";
         repo = "astal";
+      };
+
+      ags = mkDep {
+        owner = "Aylur";
+        repo = "ags";
+
+        inputs.astal.follows = "astal";
       };
 
       gtk-session-lock = mkDep {

@@ -1,13 +1,12 @@
 # Do not modify! This file is generated.
 {
   inputs = {
-    agsV2 = {
+    ags = {
       inputs = {
         astal.follows = "astal";
         nixpkgs.follows = "nixpkgs";
       };
       owner = "Aylur";
-      ref = "v2";
       repo = "ags";
       type = "github";
     };

@@ -12,8 +12,8 @@
     hmCfg = config.home-manager.users.${cfg.user};
     hyprPkg = hmCfg.wayland.windowManager.hyprland.finalPackage;
 
-    # See nixosModules/ags-v2/packages.nix
-    lockPkg = hmCfg.programs.ags-v2.lockPkg;
+    # See nixosModules/ags/packages.nix
+    lockPkg = hmCfg.programs.ags.lockPkg;
 
     runInDesktop = pkgs.writeShellApplication {
       name = "runInDesktop";

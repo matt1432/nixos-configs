@@ -36,11 +36,11 @@ in {
       '';
     };
 
-    ags-v2.enable = mkOption {
+    ags.enable = mkOption {
       type = types.bool;
       default = false;
       description = ''
-        Whether we want to enable AGSv2 for the DE shell.
+        Whether we want to enable AGS for the DE shell.
       '';
     };
 

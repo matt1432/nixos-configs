@@ -17,7 +17,7 @@ This directory encompasses every device's main configuration file.
 
 ## Global Vars
 
-In every device's `default.nix`, you'll find these [settings](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/common/vars.nix)
+In every device's `default.nix`, you'll find these [settings](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/common/vars/default.nix)
 
 ```nix
 # $FLAKE/devices/<name>/default.nix

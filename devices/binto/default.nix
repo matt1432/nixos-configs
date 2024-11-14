@@ -61,7 +61,7 @@ in {
   roles.desktop = {
     user = mainUser;
 
-    ags-v2.enable = true;
+    ags.enable = true;
     mainMonitor = "desc:GIGA-BYTE TECHNOLOGY CO. LTD. G27QC 0x00000B1D";
     displayManager.duplicateScreen = false;
 
