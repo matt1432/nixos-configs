@@ -1531,23 +1531,6 @@
         "type": "github"
       }
     },
-    "pocketsphinx-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1645539790,
-        "narHash": "sha256-YZwuVYg8Uqt1gOYXeYC8laRj+IObbuO9f/BjcQKRwkY=",
-        "owner": "cmusphinx",
-        "repo": "pocketsphinx",
-        "rev": "5da71f0a05350c923676b02a69423d1291825d5b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "cmusphinx",
-        "ref": "last-pre-1.0",
-        "repo": "pocketsphinx",
-        "type": "github"
-      }
-    },
     "pokemon-colorscripts-src": {
       "flake": false,
       "locked": {
@@ -1688,7 +1671,6 @@
         "sops-nix": "sops-nix",
         "spotifyplus-src": "spotifyplus-src",
         "spotifywebapi-src": "spotifywebapi-src",
-        "subsync": "subsync",
         "systems": "systems",
         "trash-d-src": "trash-d-src",
         "treefmt-nix": "treefmt-nix_2",
@@ -1792,23 +1774,6 @@
         "type": "github"
       }
     },
-    "sphinxbase-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1654774494,
-        "narHash": "sha256-w/Huz4+crTzdiSyQVAx0h3lhtTTrtPyKp3xpQD5EG9g=",
-        "owner": "cmusphinx",
-        "repo": "sphinxbase",
-        "rev": "617e53691889336a482631380f75b453445d0dae",
-        "type": "github"
-      },
-      "original": {
-        "owner": "cmusphinx",
-        "repo": "sphinxbase",
-        "rev": "617e53691889336a482631380f75b453445d0dae",
-        "type": "github"
-      }
-    },
     "spotifyplus-src": {
       "flake": false,
       "locked": {
@@ -1838,29 +1803,6 @@
       "original": {
         "owner": "thlucas1",
         "repo": "SpotifyWebApiPython",
-        "type": "github"
-      }
-    },
-    "subsync": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "pocketsphinx-src": "pocketsphinx-src",
-        "sphinxbase-src": "sphinxbase-src"
-      },
-      "locked": {
-        "lastModified": 1712018289,
-        "narHash": "sha256-JYG+GQuyvDoZ6TWD0lDjaWDNTq5FxNh3AymTHxWyggI=",
-        "owner": "matt1432",
-        "repo": "subsync",
-        "rev": "ee9e1592ae4ec7c694d8857aa72be079d81ea209",
-        "type": "github"
-      },
-      "original": {
-        "owner": "matt1432",
-        "repo": "subsync",
-        "rev": "ee9e1592ae4ec7c694d8857aa72be079d81ea209",
         "type": "github"
       }
     },

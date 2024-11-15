@@ -98,14 +98,6 @@ let
       owner = "mateoradman";
       repo = "bazarr-bulk";
     };
-
-    subsync = mkDep {
-      owner = "matt1432";
-      repo = "subsync";
-
-      # Keep version that uses Sphinxbase
-      rev = "ee9e1592ae4ec7c694d8857aa72be079d81ea209";
-    };
   };
 
   desktopInputs = {

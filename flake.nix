@@ -413,13 +413,6 @@
       repo = "SpotifyWebApiPython";
       type = "github";
     };
-    subsync = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      owner = "matt1432";
-      repo = "subsync";
-      rev = "ee9e1592ae4ec7c694d8857aa72be079d81ea209";
-      type = "github";
-    };
     systems = {
       owner = "nix-systems";
       repo = "default-linux";

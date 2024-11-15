@@ -12,7 +12,7 @@
 in {
   # TODO:
   # - Improve cleanup
-  # - figure out bazarr postprocessing with subsync
+  # - figure out bazarr postprocessing with syncing subs
 
   environment.systemPackages = [
     bazarr-bulk
