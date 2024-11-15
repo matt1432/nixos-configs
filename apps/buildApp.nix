@@ -1,25 +1,31 @@
 {
+  runtimeInputs,
+  npmDepsHash,
+  src,
   lib,
   buildNpmPackage,
-  callPackage,
   makeWrapper,
   nodejs_latest,
+  jq,
   ...
 }: let
   inherit (lib) concatMapStringsSep getBin;
 
-  packageJSON = builtins.fromJSON (builtins.readFile ./package.json);
+  packageJSON = builtins.fromJSON (builtins.readFile "${src}/package.json");
 in
   buildNpmPackage rec {
     pname = packageJSON.name;
     inherit (packageJSON) version;
 
-    src = ./.;
-    npmDepsHash = "sha256-5miQfnSy559jVsqyZM5LqegMuIVsd+LOdsZ8FaHy24A=";
+    inherit src runtimeInputs npmDepsHash;
 
-    runtimeInputs = [
-      (callPackage ../../nixosModules/docker/updateImage.nix {})
-    ];
+    prePatch = ''
+      mv ./tsconfig.json ./project.json
+      sed 's/^ *\/\/.*//' ${./tsconfig.json} > ./base.json
+      ${jq}/bin/jq -sr '.[0] * .[1] | del(.extends)' ./project.json ./base.json > ./tsconfig.json
+      rm base.json project.json
+    '';
+
     nativeBuildInputs = [makeWrapper];
 
     postInstall = ''

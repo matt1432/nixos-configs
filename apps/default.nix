@@ -3,13 +3,18 @@
   pkgs,
   ...
 }: let
-  inherit (pkgs.lib) getExe;
+  inherit (pkgs.lib) getExe listToAttrs nameValuePair;
+
+  buildApp = attrs: (pkgs.callPackage ./buildApp.nix ({} // inputs // attrs));
 
   mkApp = file: {
-    program = getExe (pkgs.callPackage file ({} // inputs));
+    program = getExe (pkgs.callPackage file ({inherit buildApp;} // inputs));
     type = "app";
   };
-in {
-  extract-subs = mkApp ./extract-subs;
-  updateFlake = mkApp ./update;
-}
+
+  mkApps = apps: listToAttrs (map (x: nameValuePair x (mkApp ./${x})) apps);
+in
+  mkApps [
+    "extract-subs"
+    "update-sources"
+  ]
