@@ -126,6 +126,9 @@ let
         owner = "hyprwm";
         repo = "hyprland-plugins";
 
+        # FIXME: wait for hyprgrass PR to make this one
+        rev = "810c1377e0b987bb9521dc33163633aa0642c1d3";
+
         # type = "path";
         # path = "/home/matt/git/hyprland-plugins";
       };
@@ -133,6 +136,12 @@ let
       hyprgrass = mkHyprDep {
         owner = "horriblename";
         repo = "hyprgrass";
+
+        # FIXME: hopefully this gets merged soon
+        rev = "df4f1e9f3c7b17b8c3dbbc9207fef75bdda6a5c5";
+
+        # type = "path";
+        # path = "/home/matt/git/hyprgrass";
       };
 
       hyprpaper = mkDep {
