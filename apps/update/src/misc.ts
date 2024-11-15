@@ -1,7 +1,7 @@
 import { writeFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 
-import { parseFetchurl } from './lib.ts';
+import { parseFetchurl } from './lib';
 
 
 /* Constants */

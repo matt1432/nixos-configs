@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    // Env
+    "target": "ESNext",
+    "lib": [
+      "ESNext"
+    ],
+    // Module
+    "module": "nodenext",
+    "moduleResolution": "bundler",
+    "baseUrl": ".",
+    // Emit
+    "noEmit": true,
+    "newLine": "LF",
+    // Interop
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    // Type Checking
+    "strict": true,
+    "noImplicitAny": false
+  }
+}

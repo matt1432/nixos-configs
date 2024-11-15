@@ -10,5 +10,6 @@
     type = "app";
   };
 in {
+  extract-subs = mkApp ./extract-subs;
   updateFlake = mkApp ./update;
 }

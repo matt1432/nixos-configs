@@ -1,12 +1,12 @@
 import { spawnSync } from 'node:child_process';
 import { writeFileSync } from 'node:fs';
 
-import { parseArgs } from './lib.ts';
+import { parseArgs } from './lib';
 
-import { updateDocker } from './docker.ts';
-import { updateFirefoxAddons } from '././firefox.ts';
-import { updateFlakeInputs } from './flake.ts';
-import { updateCustomPackage, updateVuetorrent } from './misc.ts';
+import { updateDocker } from './docker';
+import { updateFirefoxAddons } from '././firefox';
+import { updateFlakeInputs } from './flake';
+import { updateCustomPackage, updateVuetorrent } from './misc';
 
 
 /* Constants */

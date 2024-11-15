@@ -30,6 +30,13 @@ export default tseslint.config({
         'class-methods-use-this': 'off',
         '@stylistic/no-multiple-empty-lines': 'off',
         '@stylistic/jsx-indent-props': 'off',
+        'no-use-before-define': 'off',
+        '@typescript-eslint/no-use-before-define': 'error',
+        '@stylistic/indent-binary-ops': 'off',
+        '@stylistic/max-statements-per-line': [
+            'error',
+            { max: 2 },
+        ],
 
         // Pre-flat config
         '@typescript-eslint/no-unused-vars': [
@@ -62,12 +69,6 @@ export default tseslint.config({
                     'ForInStatement',
                     'ForOfStatement',
                 ],
-            },
-        ],
-        'no-use-before-define': [
-            'error',
-            {
-                functions: false,
             },
         ],
         'block-scoped-var': [
@@ -255,6 +256,7 @@ export default tseslint.config({
         '@stylistic/brace-style': [
             'warn',
             'stroustrup',
+            { allowSingleLine: true },
         ],
         '@stylistic/comma-dangle': [
             'warn',
