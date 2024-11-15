@@ -1,0 +1,5 @@
+flake.lock -diff
+flake.nix -diff
+**/non-declarative-conf -diff
+**/package-lock.json -diff
+**/HomeAssistantGenerated -diff
