@@ -2,11 +2,10 @@ import { Astal, Gtk } from 'astal/gtk3';
 
 import Audio from './items/audio';
 import Clock from './items/clock';
-import CurrentClient from './items/current-client';
+import CurrentIcon from './items/current-icon';
 import Network from './items/network';
 import NotifButton from './items/notif-button';
 import SysTray from './items/tray';
-import Workspaces from './items/workspaces';
 
 import BarRevealer from './fullscreen';
 import Separator from '../misc/separator';
@@ -25,11 +24,11 @@ export default () => (
     >
         <centerbox className="bar widget">
             <box hexpand halign={Gtk.Align.START}>
-                <Workspaces />
+                <CurrentIcon />
 
                 <Separator size={8} />
 
-                <CurrentClient />
+                <SysTray />
 
                 <Separator size={8} />
             </box>
@@ -39,10 +38,6 @@ export default () => (
             </box>
 
             <box hexpand halign={Gtk.Align.END}>
-                <SysTray />
-
-                <Separator size={8} />
-
                 <Network />
 
                 <Separator size={8} />
