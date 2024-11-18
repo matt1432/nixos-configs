@@ -103,10 +103,10 @@
   };
   "floccus" = buildFirefoxXpiAddon {
     pname = "floccus";
-    version = "5.3.3";
+    version = "5.3.4";
     addonId = "floccus@handmadeideas.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4385486/floccus-5.3.3.xpi";
-    sha256 = "bdeff4ba21d0b92cde9b4f39dc686d3897fa53376db1e08e3d9dbb5b2fd55a2d";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4389599/floccus-5.3.4.xpi";
+    sha256 = "8a7c9e3626e0ab0a017a887b379d0af20e0653ecc05a5fbada17d0244629ba47";
     meta = with lib; {
       homepage = "https://floccus.org";
       description = "Sync your bookmarks and tabs across browsers via Nextcloud, any WebDAV service, any Git service, via a local file, via Google Drive.";
@@ -125,10 +125,10 @@
   };
   "frankerfacez" = buildFirefoxXpiAddon {
     pname = "frankerfacez";
-    version = "4.75.5.7";
+    version = "4.75.7.0";
     addonId = "frankerfacez@frankerfacez.com";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4377242/frankerfacez-4.75.5.7.xpi";
-    sha256 = "e2edce704c662a7437edf5707777b72848fb857961587d4594d3d390a4bae9c1";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4383952/frankerfacez-4.75.7.0.xpi";
+    sha256 = "ea4e0bf5a69a58eb54b8b06ef4509ca05df2ebafc149419d21501357575266b2";
     meta = with lib; {
       homepage = "https://www.frankerfacez.com";
       description = "The Twitch Enhancement Suite - Get custom emotes and tons of new features you'll never want to go without.";

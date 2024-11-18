@@ -22,7 +22,7 @@ in {
       };
       astalLibs =
         attrValues (
-          removeAttrs ags.inputs.astal.packages.${pkgs.system} ["docs" "gjs"]
+          removeAttrs ags.inputs.astal.packages.${pkgs.system} ["docs" "gjs" "cava"]
         )
         ++ [gtk-session-lock.packages.${pkgs.system}.default];
 
