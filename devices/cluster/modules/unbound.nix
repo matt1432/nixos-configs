@@ -11,7 +11,8 @@
       else b)) {}
     list;
 
-  inherit (config.vars) mainUser hostName;
+  inherit (config.vars) mainUser;
+  inherit (config.networking) hostName;
 
   serviviIP = "100.64.0.7";
   caddyIp =

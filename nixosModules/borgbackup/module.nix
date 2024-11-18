@@ -9,7 +9,7 @@
   inherit (lib.attrsets) attrValues hasAttr listToAttrs mapAttrs removeAttrs;
 
   inherit (config.sops) secrets;
-  inherit (config.vars) hostName;
+  inherit (config.networking) hostName;
 
   cfg = config.services.borgbackup;
 in {

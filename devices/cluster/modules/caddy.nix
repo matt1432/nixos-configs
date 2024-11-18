@@ -4,8 +4,9 @@
   config,
   ...
 }: let
-  inherit (config.vars) hostName mainUser;
   inherit (config.sops) secrets;
+  inherit (config.vars) mainUser;
+  inherit (config.networking) hostName;
 
   caddy = caddy-plugins.packages.${pkgs.system}.default;
 in {

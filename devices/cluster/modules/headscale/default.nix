@@ -1,5 +1,6 @@
 {config, ...}: let
-  inherit (config.vars) mainUser hostName;
+  inherit (config.vars) mainUser;
+  inherit (config.networking) hostName;
 
   clusterIP = config.services.pcsd.virtualIps.caddy-vip.ip;
 in {

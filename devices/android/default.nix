@@ -6,7 +6,6 @@
 }: {
   vars = {
     mainUser = "nix-on-droid";
-    hostName = "localhost";
     neovimIde = false;
   };
 

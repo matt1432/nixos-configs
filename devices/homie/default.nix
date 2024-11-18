@@ -3,7 +3,7 @@
   self,
   ...
 }: let
-  inherit (config.vars) mainUser hostName;
+  inherit (config.vars) mainUser;
 in {
   # ------------------------------------------------
   # Imports
@@ -26,7 +26,6 @@ in {
   # ------------------------------------------------
   vars = {
     mainUser = "matt";
-    hostName = "homie";
     promptMainColor = "yellow";
   };
 
@@ -39,7 +38,7 @@ in {
   };
 
   networking = {
-    inherit hostName;
+    hostName = "homie";
     resolvconf.enable = true;
     firewall.enable = false;
   };

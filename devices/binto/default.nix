@@ -3,7 +3,7 @@
   self,
   ...
 }: let
-  inherit (config.vars) mainUser hostName;
+  inherit (config.vars) mainUser;
 in {
   # ------------------------------------------------
   # Imports
@@ -31,7 +31,6 @@ in {
   # ------------------------------------------------
   vars = {
     mainUser = "matt";
-    hostName = "binto";
     promptMainColor = "purple";
   };
 
@@ -48,7 +47,7 @@ in {
   };
 
   networking = {
-    inherit hostName;
+    hostName = "binto";
     networkmanager.enable = true;
     firewall.enable = false;
   };

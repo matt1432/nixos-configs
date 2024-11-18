@@ -24,7 +24,6 @@ In every device's `default.nix`, you'll find these [settings](https://git.nelim.
 
 vars = {
   mainUser = "matt";
-  hostName = "wim";
   ...
 };
 ```

@@ -1,5 +1,6 @@
 {
   config,
+  osConfig,
   pkgs,
   lib,
   nixd,
@@ -7,7 +8,8 @@
   ...
 }: let
   inherit (lib) getExe hasPrefix mkIf removePrefix;
-  inherit (config.vars) hostName mainUser neovimIde;
+  inherit (config.vars) mainUser neovimIde;
+  inherit (osConfig.networking) hostName;
 
   defaultFormatter = self.formatter.${pkgs.system};
 

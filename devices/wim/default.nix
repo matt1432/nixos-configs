@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (config.vars) mainUser hostName;
+  inherit (config.vars) mainUser;
 in {
   # ------------------------------------------------
   # Imports
@@ -34,7 +34,6 @@ in {
   # ------------------------------------------------
   vars = {
     mainUser = "matt";
-    hostName = "wim";
     promptMainColor = "purple";
   };
 
@@ -51,7 +50,7 @@ in {
   };
 
   networking = {
-    inherit hostName;
+    hostName = "wim";
     networkmanager = {
       enable = true;
 

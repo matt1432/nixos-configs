@@ -120,12 +120,7 @@
       live-image = mkNixOS {
         extraModules = [
           "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-          {
-            vars = {
-              mainUser = "nixos";
-              hostName = "nixos";
-            };
-          }
+          {vars.mainUser = "nixos";}
         ];
       };
     };

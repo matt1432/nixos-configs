@@ -4,7 +4,6 @@
   ...
 }: let
   inherit (lib) mkDefault mkOption types;
-  flakeDir = config.environment.variables.FLAKE;
   cfg = config.vars;
 in {
   options.vars = {
@@ -12,13 +11,6 @@ in {
       type = types.str;
       description = ''
         Username that was defined at the initial setup process
-      '';
-    };
-
-    hostName = mkOption {
-      type = types.str;
-      description = ''
-        Hostname that was defined at the initial setup process
       '';
     };
 
@@ -46,14 +38,6 @@ in {
           fourthColor = mkOption {type = str;};
         };
       };
-    };
-
-    configDir = mkOption {
-      type = types.str;
-      default = "${flakeDir}/devices/${cfg.hostName}/config";
-      description = ''
-        The path to where most of the devices' configs are in the .nix folder
-      '';
     };
 
     neovimIde = mkOption {

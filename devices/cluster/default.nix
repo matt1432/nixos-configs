@@ -3,7 +3,7 @@ deviceName: {
   self,
   ...
 }: let
-  inherit (config.vars) mainUser hostName;
+  inherit (config.vars) mainUser;
 
   clusterIP = config.services.pcsd.virtualIps.caddy-vip.ip;
 in {
@@ -27,7 +27,6 @@ in {
   # ------------------------------------------------
   vars = {
     mainUser = "matt";
-    hostName = deviceName;
     promptMainColor =
       if deviceName == "thingone"
       then "green"
@@ -45,7 +44,7 @@ in {
   };
 
   networking = {
-    inherit hostName;
+    hostName = deviceName;
     resolvconf.enable = true;
     nameservers = [
       clusterIP
