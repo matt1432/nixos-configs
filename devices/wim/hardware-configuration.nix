@@ -102,6 +102,7 @@
       (pkgs)
       qemu
       powertop
+      virt-v2v
       ;
   };
 

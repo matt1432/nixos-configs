@@ -93,6 +93,7 @@
       (pkgs)
       qemu
       virtiofsd
+      virt-v2v
       ;
   };
 
