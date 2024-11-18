@@ -6,6 +6,7 @@ export default async() => {
 
     const AppLauncher = (await import('../widgets/applauncher/main')).default;
     const Bar = (await import('../widgets/bar/binto')).default;
+    const BgLayer = (await import('../widgets/bg-layer/main')).default;
     const Calendar = (await import('../widgets/date/binto')).default;
     const Clipboard = (await import('../widgets/clipboard/main')).default;
     const { NotifPopups, NotifCenter } = await import('../widgets/notifs/binto');
@@ -13,7 +14,7 @@ export default async() => {
     const PowerMenu = (await import('../widgets/powermenu/main')).default;
     const Screenshot = (await import('../widgets/screenshot/main')).default;
 
-    const { closeAll } = await import('../lib');
+    const { closeAll, perMonitor } = await import('../lib');
     const Brightness = (await import('../services/brightness')).default;
     const GSR = (await import('../services/gpu-screen-recorder')).default;
     const MonitorClicks = (await import('../services/monitor-clicks')).default;
@@ -47,6 +48,8 @@ export default async() => {
 
         main: () => {
             execAsync('hyprpaper').catch(() => { /**/ });
+
+            perMonitor((monitor) => BgLayer(monitor, false));
 
             AppLauncher();
             Bar();

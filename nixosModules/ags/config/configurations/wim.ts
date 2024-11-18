@@ -6,7 +6,7 @@ export default async() => {
 
     const AppLauncher = (await import('../widgets/applauncher/main')).default;
     const Bar = (await import('../widgets/bar/wim')).default;
-    const BgFade = (await import('../widgets/bg-fade/main')).default;
+    const BgLayer = (await import('../widgets/bg-layer/main')).default;
     const Calendar = (await import('../widgets/date/wim')).default;
     const Clipboard = (await import('../widgets/clipboard/main')).default;
     const Corners = (await import('../widgets/corners/main')).default;
@@ -16,7 +16,7 @@ export default async() => {
     const PowerMenu = (await import('../widgets/powermenu/main')).default;
     const Screenshot = (await import('../widgets/screenshot/main')).default;
 
-    const { closeAll } = await import('../lib');
+    const { closeAll, perMonitor } = await import('../lib');
     const Brightness = (await import('../services/brightness')).default;
     const MonitorClicks = (await import('../services/monitor-clicks')).default;
 
@@ -54,9 +54,10 @@ export default async() => {
         main: () => {
             execAsync('hyprpaper').catch(() => { /**/ });
 
+            perMonitor((monitor) => BgLayer(monitor, true));
+
             AppLauncher();
             Bar();
-            BgFade();
             Calendar();
             Clipboard();
             Corners();

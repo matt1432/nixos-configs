@@ -2,7 +2,6 @@
 // TODO: quick-settings
 // TODO: music player stuff
 // TODO: on-screen-keyboard
-// TODO: GSR
 
 import GLib from 'gi://GLib';
 

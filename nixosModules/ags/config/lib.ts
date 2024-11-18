@@ -1,4 +1,4 @@
-import { App, Gdk } from 'astal/gtk3';
+import { App, Gdk, Gtk } from 'astal/gtk3';
 
 import AstalHyprland from 'gi://AstalHyprland';
 const Hyprland = AstalHyprland.get_default();
@@ -83,7 +83,7 @@ export const hyprMessage = (message: string) => new Promise<string>((
 export const centerCursor = (): void => {
     let x: number;
     let y: number;
-    const monitor = Hyprland.get_monitors().find((m) => m.focused) as AstalHyprland.Monitor;
+    const monitor = Hyprland.get_focused_monitor();
 
     switch (monitor.transform) {
         case 1:
@@ -118,4 +118,30 @@ export const closeAll = () => {
         .forEach((w) => {
             App.get_window(w.name)?.set_visible(false);
         });
+};
+
+export const perMonitor = (window: (monitor: Gdk.Monitor) => Gtk.Widget) => {
+    const display = Gdk.Display.get_default();
+    const windows = new Map<Gdk.Monitor, Gtk.Widget>();
+
+    const createWindow = (monitor: Gdk.Monitor) => {
+        windows.set(monitor, window(monitor));
+    };
+
+    for (let m = 0; m < (display?.get_n_monitors() ?? 0); m++) {
+        const monitor = display?.get_monitor(m);
+
+        if (monitor) {
+            createWindow(monitor);
+        }
+    }
+
+    display?.connect('monitor-added', (_, monitor) => {
+        createWindow(monitor);
+    });
+
+    display?.connect('monitor-removed', (_, monitor) => {
+        windows.get(monitor)?.destroy();
+        windows.delete(monitor);
+    });
 };
