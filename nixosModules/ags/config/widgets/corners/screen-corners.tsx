@@ -20,7 +20,7 @@ export default (
     >
         <drawingarea
             css={`
-                border-radius: 18px;
+                border-radius: 8px;
                 border-width: 0.068rem;
                 ${css}
             `}

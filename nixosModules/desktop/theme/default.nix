@@ -1,10 +1,4 @@
-self: {
-  config,
-  lib,
-  ...
-}: let
-  inherit (lib) mkIf;
-in {
+self: {...}: {
   imports = [
     ./gtk
     ./xresources.nix
@@ -15,26 +9,19 @@ in {
   ];
 
   config.wayland.windowManager.hyprland = {
-    settings =
-      {
-        windowrule = [
-          "size 1231 950,title:^(Open Folder)$"
-          "float,title:^(Open Folder)$"
+    settings = {
+      windowrule = [
+        "size 1231 950,title:^(Open Folder)$"
+        "float,title:^(Open Folder)$"
 
-          "size 1231 950,title:^(Open File)$"
-          "float,title:^(Open File)$"
-        ];
+        "size 1231 950,title:^(Open File)$"
+        "float,title:^(Open File)$"
+      ];
 
-        layerrule = [
-          "noanim, selection"
-        ];
-      }
-      // (
-        mkIf (config.home.username != "greeter") {
-          # This file should only be used for theming
-          source = ["${config.vars.configDir}/hypr/main.conf"];
-        }
-      );
+      layerrule = [
+        "noanim, selection"
+      ];
+    };
   };
 
   # For accurate stack trace
