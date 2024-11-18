@@ -112,8 +112,12 @@
         }
 
         {
-          programs.bash.sessionVariables = {
-            FLAKE = config.environment.variables.FLAKE;
+          programs.bash = {
+            sessionVariables = rec {
+              FLAKE = config.environment.variables.FLAKE;
+              NH_FLAKE = FLAKE;
+            };
+            shellAliases.nh = "env -u FLAKE nh";
           };
         }
 
