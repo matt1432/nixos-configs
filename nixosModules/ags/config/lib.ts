@@ -1,3 +1,4 @@
+import { idle } from 'astal';
 import { App, Gdk, Gtk } from 'astal/gtk3';
 
 import AstalHyprland from 'gi://AstalHyprland';
@@ -113,14 +114,14 @@ export const centerCursor = (): void => {
 export const closeAll = () => {
     (App.get_windows() as PopupWindow[])
         .filter((w) => w &&
-          w.close_on_unfocus &&
-          w.close_on_unfocus !== 'stay')
+            w.close_on_unfocus &&
+            w.close_on_unfocus !== 'stay')
         .forEach((w) => {
             App.get_window(w.name)?.set_visible(false);
         });
 };
 
-export const perMonitor = (window: (monitor: Gdk.Monitor) => Gtk.Widget) => {
+export const perMonitor = (window: (monitor: Gdk.Monitor) => Gtk.Widget) => idle(() => {
     const display = Gdk.Display.get_default();
     const windows = new Map<Gdk.Monitor, Gtk.Widget>();
 
@@ -144,4 +145,4 @@ export const perMonitor = (window: (monitor: Gdk.Monitor) => Gtk.Widget) => {
         windows.get(monitor)?.destroy();
         windows.delete(monitor);
     });
-};
+});
