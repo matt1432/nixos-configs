@@ -91,7 +91,6 @@ in {
           inherit
             (pkgs)
             protonmail-desktop
-            protonmail-bridge
             spotifywm
             photoqt
             nextcloud-client
@@ -166,7 +165,6 @@ in {
               "wl-paste --watch cliphist store"
 
               "sleep 3; nextcloud --background"
-              "sleep 10; tmux new-session -s protonmail-bridge -d 'bash -c protonmail-bridge -c'"
 
               "[workspace special:protonmail silent] sleep 10; proton-mail"
               "[workspace special:spot silent] spotify"
