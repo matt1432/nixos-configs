@@ -9,7 +9,7 @@
   inherit (lib) mkIf;
   inherit (config.vars) neovimIde;
 
-  inherit (import "${self}/lib" {inherit pkgs;}) buildPlugin;
+  inherit (self.lib.${pkgs.system}) buildPlugin;
 in
   mkIf neovimIde {
     programs = {

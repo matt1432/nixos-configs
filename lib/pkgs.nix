@@ -2,7 +2,7 @@
   capitalise,
   mkVersion,
   pkgs,
-  self,
+  inputs,
 }: {
   buildPlugin = pname: src:
     pkgs.vimUtils.buildVimPlugin {
@@ -51,7 +51,7 @@
     "${configPath}${optionalString (length packages == 1) "/${toLower (elemAt withGirNames 0).girName}"}".source =
       pkgs.callPackage
       ./mk-types {
-        inherit (self.inputs) ts-for-gir-src;
+        inherit (inputs) ts-for-gir-src;
         inherit pname withGirNames;
       };
   };

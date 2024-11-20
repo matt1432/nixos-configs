@@ -86,7 +86,7 @@ in {
 
       file = let
         inherit
-          (import "${self}/lib" {inherit pkgs self;})
+          (self.lib.${pkgs.system})
           buildNodeModules
           buildGirTypes
           ;

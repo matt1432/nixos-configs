@@ -45,7 +45,7 @@ inputs: rec {
         ++ extraModules;
     };
 
-  mkNixOnDroid = mods: let
+  mkNixOnDroid = extraModules: let
     system = "aarch64-linux";
   in
     inputs.nix-on-droid.lib.nixOnDroidConfiguration rec {
@@ -88,6 +88,6 @@ inputs: rec {
 
           ../common/nix-on-droid.nix
         ]
-        ++ mods;
+        ++ extraModules;
     };
 }

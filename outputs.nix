@@ -48,12 +48,14 @@
     systems,
     ...
   }: let
-    inherit (import ./lib {inherit inputs;}) mkVersion mkNixOS mkNixOnDroid mkPkgs;
+    inherit (self.lib) mkVersion mkNixOS mkNixOnDroid mkPkgs;
 
     perSystem = attrs:
       nixpkgs.lib.genAttrs (import systems) (system:
         attrs (mkPkgs {inherit system nixpkgs;}));
   in {
+    lib = import ./lib {inherit inputs perSystem;};
+
     nixosModules = import ./nixosModules self;
 
     homeManagerModules = import ./homeManagerModules self;
