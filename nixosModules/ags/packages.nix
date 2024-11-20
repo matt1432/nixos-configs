@@ -77,6 +77,7 @@ in {
             (pkgs)
             playerctl
             pavucontrol # TODO: replace with ags widget
+            wayfreeze
             ;
         })
         ++ (optionals cfgDesktop.isTouchscreen (builtins.attrValues {

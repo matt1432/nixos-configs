@@ -14,15 +14,13 @@ import { hyprMessage } from '../../lib';
 
 
 const ICON_SEP = 6;
-const takeScreenshot = (selector: string, delay = 1000): void => {
+const takeScreenshot = (selector: string[], delay = 1000): void => {
     App.get_window('win-screenshot')?.set_visible(false);
 
     setTimeout(() => {
         execAsync([
-            'bash',
-            '-c',
-            `grim ${selector} - | satty -f - || true`,
-        ]).catch(console.error);
+            `${SRC}/widgets/screenshot/capture.sh`,
+        ].concat(selector)).catch(console.error);
     }, delay);
 };
 
@@ -42,7 +40,7 @@ export default () => {
                     cursor="pointer"
 
                     onButtonReleaseEvent={() => {
-                        takeScreenshot(`-w ${client.address}`);
+                        takeScreenshot(['-w', client.address]);
                     }}
                 >
                     <box halign={Gtk.Align.CENTER}>
@@ -78,7 +76,7 @@ export default () => {
                             cursor="pointer"
 
                             onButtonReleaseEvent={() => {
-                                takeScreenshot(`-o ${monitor.name}`);
+                                takeScreenshot(['-o', monitor.name]);
                             }}
                         >
                             <label
@@ -117,21 +115,41 @@ export default () => {
         </button>
     ) as Widget.Button;
 
+    let frozen = false;
+    const freezeIcon = <icon icon="checkbox-symbolic" /> as Widget.Icon;
+    const freezeButton = (
+        <button
+            cursor="pointer"
+            className="header-btn"
+
+            onButtonReleaseEvent={() => {
+                frozen = !frozen;
+                freezeIcon.icon = frozen ?
+                    'checkbox-checked-symbolic' :
+                    'checkbox-symbolic';
+            }}
+        >
+            <box halign={Gtk.Align.CENTER}>
+                {freezeIcon}
+
+                <Separator size={ICON_SEP} />
+
+                freeze
+            </box>
+        </button>
+    ) as Widget.Button;
+
     const regionButton = (
         <button
             cursor="pointer"
             className="header-btn"
 
             onButtonReleaseEvent={() => {
-                takeScreenshot('-g "$(slurp)"', 0);
+                takeScreenshot(['region', frozen ? 'true' : 'false'], 0);
             }}
         >
             <box halign={Gtk.Align.CENTER}>
-                <icon icon="tool-pencil-symbolic" />
-
-                <Separator size={ICON_SEP} />
-
-                region
+                <icon icon="tool-crop-symbolic" />
             </box>
         </button>
     ) as Widget.Button;
@@ -153,7 +171,10 @@ export default () => {
                 >
                     <StackButton label="monitors" iconName="display-symbolic" />
                     <StackButton label="windows" iconName="window-symbolic" />
-                    {regionButton}
+                    <box>
+                        {regionButton}
+                        {freezeButton}
+                    </box>
                 </box>
 
                 {stack}
