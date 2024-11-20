@@ -40,7 +40,7 @@ inputs: rec {
         [
           (allowModularOverrides {inherit system cudaSupport;})
           {home-manager.extraSpecialArgs = specialArgs;}
-          ../common
+          ../../common
         ]
         ++ extraModules;
     };
@@ -86,7 +86,7 @@ inputs: rec {
 
           {home-manager = {inherit extraSpecialArgs;};}
 
-          ../common/nix-on-droid.nix
+          ../../common/nix-on-droid.nix
         ]
         ++ extraModules;
     };

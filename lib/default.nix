@@ -2,12 +2,22 @@
   perSystem,
   inputs,
 }: let
-  inherit (inputs.nixpkgs.lib) concatStringsSep stringToCharacters substring tail toUpper;
+  flake = import ./flake inputs;
+  strings = import ./strings inputs.nixpkgs.lib;
 
-  mkVersion = src: "0.0.0+" + src.shortRev;
-  capitalise = str: (toUpper (substring 0 1 str) + (concatStringsSep "" (tail (stringToCharacters str))));
+  lib = flake // strings;
 in
-  {inherit mkVersion capitalise;}
-  // (import ./flake-lib.nix inputs)
-  // perSystem (pkgs:
-    import ./pkgs.nix {inherit pkgs mkVersion capitalise inputs;})
+  # Expose main attrs
+  lib
+  # Expose all funcs
+  // strings
+  // flake
+  # Expose funcs that require pkgs
+  // perSystem (
+    pkgs:
+      (import ./pkgs {
+        inherit pkgs;
+        inherit (inputs) self;
+      })
+      // lib
+  )

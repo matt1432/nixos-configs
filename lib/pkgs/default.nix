@@ -1,9 +1,11 @@
 {
-  capitalise,
-  mkVersion,
   pkgs,
-  inputs,
-}: {
+  self,
+}: let
+  inherit (builtins) readFile fromJSON;
+  inherit (self.lib) capitalise mkVersion;
+  inherit (pkgs.lib) concatMapStrings elemAt length map optionalString splitString toLower;
+in {
   buildPlugin = pname: src:
     pkgs.vimUtils.buildVimPlugin {
       inherit pname src;
@@ -11,11 +13,9 @@
     };
 
   buildNodeModules = dir: npmDepsHash: let
-    pkg = pkgs.callPackage ({buildNpmPackage, ...}: let
-      inherit (builtins) readFile fromJSON;
+    packageJSON = fromJSON (readFile (dir + /package.json));
 
-      packageJSON = fromJSON (readFile (dir + /package.json));
-    in
+    pkg = pkgs.callPackage ({buildNpmPackage, ...}:
       buildNpmPackage {
         pname = packageJSON.name;
         inherit (packageJSON) version;
@@ -32,8 +32,6 @@
     packages,
     pname,
   }: let
-    inherit (pkgs.lib) concatMapStrings elemAt length map optionalString splitString toLower;
-
     withGirNames =
       map (package: {
         inherit package;
@@ -51,7 +49,7 @@
     "${configPath}${optionalString (length packages == 1) "/${toLower (elemAt withGirNames 0).girName}"}".source =
       pkgs.callPackage
       ./mk-types {
-        inherit (inputs) ts-for-gir-src;
+        inherit (self.inputs) ts-for-gir-src;
         inherit pname withGirNames;
       };
   };
