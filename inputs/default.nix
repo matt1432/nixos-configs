@@ -1,5 +1,5 @@
 let
-  inherit (import ./lib {}) mkDep mkInput mkHyprDep mkSrc;
+  inherit (import ./lib.nix) mkDep mkInput mkHyprDep mkSrc;
   inherit (builtins) listToAttrs map removeAttrs;
 
   # Inputs
@@ -177,6 +177,13 @@ let
         owner = "Cu3PO42";
         repo = "gtk-session-lock";
       };
+    };
+  };
+
+  bbsteamieInputs = {
+    jovian = mkDep {
+      owner = "Jovian-Experiments";
+      repo = "Jovian-NixOS";
     };
   };
 
@@ -368,7 +375,7 @@ let
 in {
   inherit mkDep mkInput mkSrc;
 
-  otherInputs =
+  extraInputs =
     {
       flakegen = {
         url = "github:jorsn/flakegen";
@@ -381,6 +388,7 @@ in {
     // clusterInputs
     // serviviInputs
     // nosInputs
+    // bbsteamieInputs
     // desktopInputs.hyprlandInputs
     // desktopInputs.agsInputs
     // (listToAttrs (map (x: {

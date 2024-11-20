@@ -1,17 +1,23 @@
-lib: lock: let
+let
+  inherit (builtins) fetchTarball fromJSON readFile removeAttrs;
+
+  lock = fromJSON (readFile ../flake.lock);
+  lib = import "${fetchTarball {
+    url = "https://github.com/NixOS/nixpkgs/archive/${lock.nodes.nixpkgs.locked.rev}.tar.gz";
+    sha256 = lock.nodes.nixpkgs.locked.narHash;
+  }}/lib";
+
   inherit (lib) attrValues findFirst foldl' hasAttr matchAttrs optionalAttrs recursiveUpdate;
-  inherit (builtins) removeAttrs;
 
   recursiveUpdateList = list: foldl' recursiveUpdate {} list;
 in rec {
   /*
+  * From an attrset, returns a flake input that has its type defaulted
+  * to `github` and has some of its inputs following this flake's input
+  * of the same name.
   *
-  From an attrset, returns a flake input that has its type defaulted
-  to `github` and has some of its inputs following this flake's input
-  of the same name.
-
-  It gets information from the `flake.lock` file and can be used thanks
-  to flakegen
+  * It gets information from the `flake.lock` file and can be used thanks
+  * to flakegen
   */
   mkInput = {type ? "github", ...} @ info: let
     input =

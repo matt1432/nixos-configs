@@ -1,6 +1,6 @@
 {
   inputs = let
-    inherit (import ./inputs.nix) mkDep mkInput otherInputs;
+    inherit (import ./inputs) mkDep mkInput extraInputs;
 
     mainInputs = {
       systems = mkInput {
@@ -37,14 +37,9 @@
 
         inputs.sops-nix.follows = "sops-nix";
       };
-
-      jovian = mkDep {
-        owner = "Jovian-Experiments";
-        repo = "Jovian-NixOS";
-      };
     };
   in
-    mainInputs // otherInputs;
+    mainInputs // extraInputs;
 
   outputs = inputs @ {
     nixpkgs,
