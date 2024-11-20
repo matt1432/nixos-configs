@@ -146,7 +146,7 @@
       inputs.hyprland.follows = "hyprland";
       owner = "horriblename";
       repo = "hyprgrass";
-      rev = "df4f1e9f3c7b17b8c3dbbc9207fef75bdda6a5c5";
+      rev = "9ba4f8a1a299dce4e80119f984c3fc36c9a9a7ff";
       type = "github";
     };
     hyprland = {
@@ -166,7 +166,7 @@
       };
       owner = "hyprwm";
       repo = "hyprland-plugins";
-      rev = "810c1377e0b987bb9521dc33163633aa0642c1d3";
+      rev = "340f761eb2722d54e3489d271f1f8d30fc64ffaf";
       type = "github";
     };
     hyprpaper = {

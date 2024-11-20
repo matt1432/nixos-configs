@@ -119,7 +119,7 @@ let
         repo = "hyprland-plugins";
 
         # FIXME: wait for hyprgrass PR to make this one
-        rev = "810c1377e0b987bb9521dc33163633aa0642c1d3";
+        rev = "340f761eb2722d54e3489d271f1f8d30fc64ffaf";
 
         # type = "path";
         # path = "/home/matt/git/hyprland-plugins";
@@ -130,7 +130,7 @@ let
         repo = "hyprgrass";
 
         # FIXME: hopefully this gets merged soon
-        rev = "df4f1e9f3c7b17b8c3dbbc9207fef75bdda6a5c5";
+        rev = "9ba4f8a1a299dce4e80119f984c3fc36c9a9a7ff";
 
         # type = "path";
         # path = "/home/matt/git/hyprgrass";
