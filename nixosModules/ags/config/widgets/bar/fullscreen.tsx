@@ -1,5 +1,5 @@
 import { App, Astal, Gdk, Gtk, Widget } from 'astal/gtk3';
-import { bind, Variable } from 'astal';
+import { bind, idle, Variable } from 'astal';
 
 import AstalHyprland from 'gi://AstalHyprland';
 const Hyprland = AstalHyprland.get_default();
@@ -65,7 +65,7 @@ export default ({
     gdkmonitor?: Gdk.Monitor
 } & Widget.WindowProps) => {
     const monitor = get_hyprland_monitor_desc(gdkmonitor);
-    const BarVisible = Variable(true);
+    const BarVisible = Variable(false);
 
     FullscreenState.subscribe((v) => {
         BarVisible.set(!v.monitors.includes(monitor));
@@ -182,6 +182,10 @@ export default ({
     ) as Widget.Window;
 
     App.add_window(win);
+
+    idle(() => {
+        BarVisible.set(true);
+    });
 
     return win;
 };

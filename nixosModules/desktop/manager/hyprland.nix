@@ -52,6 +52,11 @@ self: {
               shadow.enabled = false;
             };
 
+            animation = [
+              "fadeLayersIn, 0"
+              "layers, 1, 4, default, popin 0%"
+            ];
+
             exec-once = [
               setupMonitors
               "agsGreeter &> /tmp/ags-greetd.log; hyprctl dispatch exit"

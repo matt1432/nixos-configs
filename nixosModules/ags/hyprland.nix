@@ -45,7 +45,8 @@
       };
 
       layerrule = [
-        "noanim, ^(?!win-).*"
+        "animation popin, ^(hyprpaper.*)"
+        "animation fade, ^(bg-layer.*)"
 
         # Lockscreen blur
         "blur, ^(blur-bg.*)"

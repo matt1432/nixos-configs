@@ -1,10 +1,12 @@
-import { idle, readFile } from 'astal';
+import { idle, readFile, Process } from 'astal';
 import { App, Astal, Gtk, Widget } from 'astal/gtk3';
 
 import AstalGreet from 'gi://AstalGreet';
 
+import { centerCursor } from '../../lib';
 
-export default () => {
+
+export default (hyprpaper: InstanceType<typeof Process>) => {
     const DEFAULT_NAME = 'matt';
     const PARSED_INDEX = {
         name: 0,
@@ -67,7 +69,12 @@ export default () => {
                     (_, res) => {
                         try {
                             AstalGreet.login_finish(res);
-                            App.quit();
+                            App.get_window('greeter')?.set_visible(false);
+                            hyprpaper.kill();
+
+                            setTimeout(() => {
+                                App.quit();
+                            }, 500);
                         }
                         catch (error) {
                             response.label = JSON.stringify(error);
@@ -81,7 +88,16 @@ export default () => {
     return (
         <window
             name="greeter"
+            application={App}
             keymode={Astal.Keymode.ON_DEMAND}
+            visible={false}
+            setup={(self) => {
+                centerCursor();
+                setTimeout(() => {
+                    self.visible = true;
+                    password.grab_focus();
+                }, 1000);
+            }}
         >
             <box
                 vertical

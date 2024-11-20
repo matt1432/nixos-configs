@@ -1,4 +1,4 @@
-import { execAsync } from 'astal';
+import { subprocess } from 'astal';
 import { App } from 'astal/gtk3';
 
 import Greeter from '../widgets/greeter/main';
@@ -12,9 +12,7 @@ export default () => {
         instanceName: 'greeter',
 
         main: () => {
-            execAsync('hyprpaper').catch(() => { /**/ });
-
-            Greeter();
+            Greeter(subprocess('hyprpaper'));
         },
     });
 };
