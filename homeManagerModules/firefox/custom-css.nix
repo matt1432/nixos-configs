@@ -1,4 +1,4 @@
-hostName:
+rounding:
 # css
 ''
   /* Hide unused menu rows */
@@ -101,11 +101,7 @@ hostName:
 
   :root:not([chromehidden~="toolbar"]) #PanelUI-menu-button[open]>.toolbarbutton-badge-stack {
       width: unset !important;
-      border-top-left-radius: ${
-    if hostName == "wim"
-    then "18"
-    else "0"
-  }px !important;
+      border-top-left-radius: ${toString rounding}px !important;
   }
 
   :root:not([chromehidden~="toolbar"]) #PanelUI-menu-button>stack {

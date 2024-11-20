@@ -1,11 +1,11 @@
 self: {
-  osConfig,
+  config,
   pkgs,
   ...
 }: let
-  inherit (osConfig.networking) hostName;
-
   inherit (self.legacyPackages.${pkgs.system}) firefoxAddons;
+
+  rounding = (config.wayland.windowManager.hyprland.settings.decoration.rounding or 2) - 2;
 
   firefox-gx = pkgs.callPackage ./gx-theme.nix {
     inherit (self.inputs) firefox-gx-src;
@@ -28,7 +28,7 @@ in {
 
         userChrome = ''
           @import url("file://${firefox-gx}/chrome/userChrome.css");
-          ${import ./custom-css.nix hostName}
+          ${import ./custom-css.nix rounding}
         '';
 
         settings = {
