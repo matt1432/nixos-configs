@@ -1,25 +1,25 @@
-export default async() => {
-    const { execAsync } = await import('astal');
-    const { App } = await import('astal/gtk3');
+import { execAsync } from 'astal';
+import { App } from 'astal/gtk3';
 
-    const style = (await import('../style/main.scss')).default;
+import style from '../style/main.scss';
 
-    const AppLauncher = (await import('../widgets/applauncher/main')).default;
-    const Bar = (await import('../widgets/bar/binto')).default;
-    const BgLayer = (await import('../widgets/bg-layer/main')).default;
-    const Calendar = (await import('../widgets/date/binto')).default;
-    const Clipboard = (await import('../widgets/clipboard/main')).default;
-    const { NotifPopups, NotifCenter } = await import('../widgets/notifs/binto');
-    const OSD = (await import('../widgets/osd/main')).default;
-    const PowerMenu = (await import('../widgets/powermenu/main')).default;
-    const Screenshot = (await import('../widgets/screenshot/main')).default;
+import AppLauncher from '../widgets/applauncher/main';
+import Bar from '../widgets/bar/binto';
+import BgLayer from '../widgets/bg-layer/main';
+import Calendar from '../widgets/date/binto';
+import Clipboard from '../widgets/clipboard/main';
+import { NotifPopups, NotifCenter } from '../widgets/notifs/binto';
+import OSD from '../widgets/osd/main';
+import PowerMenu from '../widgets/powermenu/main';
+import Screenshot from '../widgets/screenshot/main';
 
-    const { closeAll, perMonitor } = await import('../lib');
-    const Brightness = (await import('../services/brightness')).default;
-    const GSR = (await import('../services/gpu-screen-recorder')).default;
-    const MonitorClicks = (await import('../services/monitor-clicks')).default;
+import { closeAll, perMonitor } from '../lib';
+import Brightness from '../services/brightness';
+import GSR from '../services/gpu-screen-recorder';
+import MonitorClicks from '../services/monitor-clicks';
 
 
+export default () => {
     App.start({
         css: style,
 
@@ -61,9 +61,8 @@ export default async() => {
             PowerMenu();
             Screenshot();
 
-            Brightness.initService({
-                caps: 'input2::capslock',
-            });
+            Brightness.initService({ caps: 'input2::capslock' });
+            GSR.initService();
             new MonitorClicks();
         },
     });

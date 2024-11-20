@@ -75,25 +75,28 @@ const notifySend = ({
 class GSR extends GObject.Object {
     private _lastNotifID: number | undefined;
 
-    constructor() {
-        super();
+    public initService() {
+        try {
+            subprocess(
+                ['gsr-start'],
+                (path) => {
+                    if (!this._lastNotifID) {
+                        console.error('[GSR] ID of warning notif not found');
 
-        subprocess(
-            ['gsr-start'],
-            (path) => {
-                if (!this._lastNotifID) {
-                    console.error('[GSR] ID of warning notif not found');
-
-                    setTimeout(() => {
+                        setTimeout(() => {
+                            this._onSaved(path);
+                        }, 1000);
+                    }
+                    else {
                         this._onSaved(path);
-                    }, 1000);
-                }
-                else {
-                    this._onSaved(path);
-                }
-            },
-            () => { /**/ },
-        );
+                    }
+                },
+                () => { /**/ },
+            );
+        }
+        catch (_e) {
+            console.error('Missing dependency for gpu-screen-recorder');
+        }
     }
 
     public saveReplay() {

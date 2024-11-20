@@ -1,11 +1,11 @@
-export default async() => {
-    const { App } = await import('astal/gtk3');
+import { App } from 'astal/gtk3';
 
-    const Lockscreen = (await import('../widgets/lockscreen/main')).default;
+import Lockscreen from '../widgets/lockscreen/main';
 
-    const style = (await import('../style/lock.scss')).default;
+import style from '../style/lock.scss';
 
 
+export default () => {
     App.start({
         css: style,
         instanceName: 'lock',

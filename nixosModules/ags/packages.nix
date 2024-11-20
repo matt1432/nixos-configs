@@ -26,8 +26,10 @@ in {
             "cava"
             "powerprofiles"
             "river"
-            "docs" # not a lib
-            "gjs" # not a lib
+
+            # Not libraries
+            "docs"
+            "gjs"
           ]
         )
         ++ [gtk-session-lock.packages.${pkgs.system}.default];
@@ -36,10 +38,8 @@ in {
         name = "lock";
         runtimeInputs = [cfg.package];
         text = ''
-          export CONF="lock"
-
           if [ "$#" == 0 ]; then
-            exec ags run ~/${cfg.configDir}
+            exec ags run ~/${cfg.configDir} -a lock
           else
             exec ags "$@" -i lock
           fi
@@ -54,10 +54,8 @@ in {
             name = "ags";
             runtimeInputs = [cfg.package];
             text = ''
-              export CONF="${hostName}"
-
               if [ "$#" == 0 ]; then
-                exec ags run ~/${cfg.configDir}
+                exec ags run ~/${cfg.configDir} -a ${hostName}
               else
                 exec ags "$@"
               fi
@@ -67,8 +65,7 @@ in {
             name = "agsConf";
             runtimeInputs = [cfg.package];
             text = ''
-              export CONF="$1"
-              exec ${cfg.package}/bin/ags run ~/${cfg.configDir}
+              exec ags run ~/${cfg.configDir} -a "$1"
             '';
           })
         ]

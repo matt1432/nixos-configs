@@ -1,12 +1,12 @@
-export default async() => {
-    const { execAsync } = await import('astal');
-    const { App } = await import('astal/gtk3');
+import { execAsync } from 'astal';
+import { App } from 'astal/gtk3';
 
-    const Greeter = (await import('../widgets/greeter/main')).default;
+import Greeter from '../widgets/greeter/main';
 
-    const style = (await import('../style/greeter.scss')).default;
+import style from '../style/greeter.scss';
 
 
+export default () => {
     App.start({
         css: style,
         instanceName: 'greeter',

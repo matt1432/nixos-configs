@@ -54,8 +54,7 @@ self: {
           ];
 
           text = ''
-            export CONF="greeter"
-            exec ags run ${agsConfig}
+            exec ags run ${agsConfig} -a greeter
           '';
         })
       ];

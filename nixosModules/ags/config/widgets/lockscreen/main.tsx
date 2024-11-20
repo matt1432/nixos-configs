@@ -21,222 +21,221 @@ class BlurredBox extends Widget.Box {
 }
 
 
-const windows = new Map<Gdk.Monitor, Gtk.Window>();
-const blurBGs: BlurredBox[] = [];
+export default () => {
+    const windows = new Map<Gdk.Monitor, Gtk.Window>();
+    const blurBGs: BlurredBox[] = [];
 
-const transition_duration = 1000;
-const WINDOW_MARGINS = -2;
-const ENTRY_SPACING = 20;
-const CLOCK_SPACING = 60;
+    const transition_duration = 1000;
+    const WINDOW_MARGINS = -2;
+    const ENTRY_SPACING = 20;
+    const CLOCK_SPACING = 60;
 
-const bgCSS = ({ w = 1, h = 1 } = {}) => `
-    border: 2px solid rgba(189, 147, 249, 0.8);
-    background: rgba(0, 0, 0, 0.2);
-    min-height: ${h}px;
-    min-width: ${w}px;
-    transition: min-height ${transition_duration / 2}ms,
-                min-width ${transition_duration / 2}ms;
+    const bgCSS = ({ w = 1, h = 1 } = {}) => `
+        border: 2px solid rgba(189, 147, 249, 0.8);
+        background: rgba(0, 0, 0, 0.2);
+        min-height: ${h}px;
+        min-width: ${w}px;
+        transition: min-height ${transition_duration / 2}ms,
+                    min-width ${transition_duration / 2}ms;
 `;
 
-const lock = Lock.prepare_lock();
+    const lock = Lock.prepare_lock();
 
-const unlock = () => {
-    blurBGs.forEach((b) => {
-        b.css = bgCSS({
-            w: b.geometry.w,
-            h: 1,
-        });
-
-        timeout(transition_duration / 2, () => {
+    const unlock = () => {
+        blurBGs.forEach((b) => {
             b.css = bgCSS({
-                w: 1,
+                w: b.geometry.w,
                 h: 1,
             });
-        });
-    });
-    timeout(transition_duration, () => {
-        lock.unlock_and_destroy();
-        Gdk.Display.get_default()?.sync();
-        App.quit();
-    });
-};
 
-const Clock = () => {
-    const time = Variable<string>('').poll(1000, () => {
-        return (new Date().toLocaleString([], {
-            hour: 'numeric',
-            minute: 'numeric',
-            hour12: true,
-        }) ?? '')
-            .replace('a.m.', 'AM')
-            .replace('p.m.', 'PM');
-    });
-
-    return (
-        <label
-            className="lock-clock"
-            label={bind(time)}
-        />
-    );
-};
-
-const PasswordPrompt = (monitor: Gdk.Monitor, visible: boolean) => {
-    const rev = new BlurredBox({ css: bgCSS() });
-
-    idle(() => {
-        rev.geometry = {
-            w: monitor.geometry.width,
-            h: monitor.geometry.height,
-        };
-
-        rev.css = bgCSS({
-            w: rev.geometry.w,
-            h: 1,
-        });
-
-        timeout(transition_duration / 2, () => {
-            rev.css = bgCSS({
-                w: rev.geometry.w,
-                h: rev.geometry.h,
+            timeout(transition_duration / 2, () => {
+                b.css = bgCSS({
+                    w: 1,
+                    h: 1,
+                });
             });
         });
-    });
+        timeout(transition_duration, () => {
+            lock.unlock_and_destroy();
+            Gdk.Display.get_default()?.sync();
+            App.quit();
+        });
+    };
 
-    blurBGs.push(rev);
+    const Clock = () => {
+        const time = Variable<string>('').poll(1000, () => {
+            return (new Date().toLocaleString([], {
+                hour: 'numeric',
+                minute: 'numeric',
+                hour12: true,
+            }) ?? '')
+                .replace('a.m.', 'AM')
+                .replace('p.m.', 'PM');
+        });
 
-    <window
-        name={`blur-bg-${monitor.get_model()}`}
-        namespace={`blur-bg-${monitor.get_model()}`}
-        gdkmonitor={monitor}
-        layer={Astal.Layer.OVERLAY}
-        anchor={
-            Astal.WindowAnchor.TOP |
-            Astal.WindowAnchor.LEFT |
-            Astal.WindowAnchor.RIGHT |
-            Astal.WindowAnchor.BOTTOM
-        }
-        margin={WINDOW_MARGINS}
-        exclusivity={Astal.Exclusivity.IGNORE}
-    >
-        <box
-            halign={Gtk.Align.CENTER}
-            valign={Gtk.Align.CENTER}
+        return (
+            <label
+                className="lock-clock"
+                label={bind(time)}
+            />
+        );
+    };
+
+    const PasswordPrompt = (monitor: Gdk.Monitor, visible: boolean) => {
+        const rev = new BlurredBox({ css: bgCSS() });
+
+        idle(() => {
+            rev.geometry = {
+                w: monitor.geometry.width,
+                h: monitor.geometry.height,
+            };
+
+            rev.css = bgCSS({
+                w: rev.geometry.w,
+                h: 1,
+            });
+
+            timeout(transition_duration / 2, () => {
+                rev.css = bgCSS({
+                    w: rev.geometry.w,
+                    h: rev.geometry.h,
+                });
+            });
+        });
+
+        blurBGs.push(rev);
+
+        <window
+            name={`blur-bg-${monitor.get_model()}`}
+            namespace={`blur-bg-${monitor.get_model()}`}
+            gdkmonitor={monitor}
+            layer={Astal.Layer.OVERLAY}
+            anchor={
+                Astal.WindowAnchor.TOP |
+                Astal.WindowAnchor.LEFT |
+                Astal.WindowAnchor.RIGHT |
+                Astal.WindowAnchor.BOTTOM
+            }
+            margin={WINDOW_MARGINS}
+            exclusivity={Astal.Exclusivity.IGNORE}
         >
-            {rev}
-        </box>
-    </window>;
+            <box
+                halign={Gtk.Align.CENTER}
+                valign={Gtk.Align.CENTER}
+            >
+                {rev}
+            </box>
+        </window>;
 
-    const label = <label label="Enter password:" /> as Widget.Label;
+        const label = <label label="Enter password:" /> as Widget.Label;
 
-    return new Gtk.Window({
-        child: visible ?
-            (
-                <box
-                    vertical
-                    halign={Gtk.Align.CENTER}
-                    valign={Gtk.Align.CENTER}
-                    spacing={16}
-                >
-                    <Clock />
-
-                    <Separator size={CLOCK_SPACING} vertical />
-
+        return new Gtk.Window({
+            child: visible ?
+                (
                     <box
-                        halign={Gtk.Align.CENTER}
-                        className="avatar"
-                    />
-
-                    <box
-                        className="entry-box"
                         vertical
+                        halign={Gtk.Align.CENTER}
+                        valign={Gtk.Align.CENTER}
+                        spacing={16}
                     >
-                        {label}
+                        <Clock />
 
-                        <Separator size={ENTRY_SPACING} vertical />
+                        <Separator size={CLOCK_SPACING} vertical />
 
-                        <entry
+                        <box
                             halign={Gtk.Align.CENTER}
-                            xalign={0.5}
-                            visibility={false}
-                            placeholder_text="password"
-
-                            onRealize={(self) => self.grab_focus()}
-
-                            onActivate={(self) => {
-                                self.sensitive = false;
-
-                                AstalAuth.Pam.authenticate(self.text ?? '', (_, task) => {
-                                    try {
-                                        AstalAuth.Pam.authenticate_finish(task);
-                                        unlock();
-                                    }
-                                    catch (e) {
-                                        self.text = '';
-                                        label.label = (e as Error).message;
-                                        self.sensitive = true;
-                                    }
-                                });
-                            }}
+                            className="avatar"
                         />
+
+                        <box
+                            className="entry-box"
+                            vertical
+                        >
+                            {label}
+
+                            <Separator size={ENTRY_SPACING} vertical />
+
+                            <entry
+                                halign={Gtk.Align.CENTER}
+                                xalign={0.5}
+                                visibility={false}
+                                placeholder_text="password"
+
+                                onRealize={(self) => self.grab_focus()}
+
+                                onActivate={(self) => {
+                                    self.sensitive = false;
+
+                                    AstalAuth.Pam.authenticate(self.text ?? '', (_, task) => {
+                                        try {
+                                            AstalAuth.Pam.authenticate_finish(task);
+                                            unlock();
+                                        }
+                                        catch (e) {
+                                            self.text = '';
+                                            label.label = (e as Error).message;
+                                            self.sensitive = true;
+                                        }
+                                    });
+                                }}
+                            />
+                        </box>
                     </box>
-                </box>
-            ) :
-            <box />,
-    });
-};
+                ) :
+                <box />,
+        });
+    };
 
-const createWindow = (monitor: Gdk.Monitor) => {
-    const hyprDesc = get_hyprland_monitor_desc(monitor);
-    const entryVisible = Vars.mainMonitor === hyprDesc || Vars.dupeLockscreen;
-    const win = PasswordPrompt(monitor, entryVisible);
+    const createWindow = (monitor: Gdk.Monitor) => {
+        const hyprDesc = get_hyprland_monitor_desc(monitor);
+        const entryVisible = Vars.mainMonitor === hyprDesc || Vars.dupeLockscreen;
+        const win = PasswordPrompt(monitor, entryVisible);
 
-    windows.set(monitor, win);
-};
+        windows.set(monitor, win);
+    };
 
-const lock_screen = () => {
-    const display = Gdk.Display.get_default();
+    const lock_screen = () => {
+        const display = Gdk.Display.get_default();
 
-    for (let m = 0; m < (display?.get_n_monitors() ?? 0); m++) {
-        const monitor = display?.get_monitor(m);
+        for (let m = 0; m < (display?.get_n_monitors() ?? 0); m++) {
+            const monitor = display?.get_monitor(m);
 
-        if (monitor) {
+            if (monitor) {
+                createWindow(monitor);
+            }
+        }
+
+        display?.connect('monitor-added', (_, monitor) => {
             createWindow(monitor);
-        }
+        });
+
+        lock.lock_lock();
+
+        windows.forEach((win, monitor) => {
+            lock.new_surface(win, monitor);
+            win.show();
+        });
+    };
+
+    const on_finished = () => {
+        lock.destroy();
+        Gdk.Display.get_default()?.sync();
+        App.quit();
+    };
+
+    lock.connect('finished', on_finished);
+
+    if (Vars.hasFprintd) {
+        globalThis.authFinger = () => AstalAuth.Pam.authenticate('', (_, task) => {
+            try {
+                AstalAuth.Pam.authenticate_finish(task);
+                unlock();
+            }
+            catch (e) {
+                console.error((e as Error).message);
+            }
+        });
+        globalThis.authFinger();
     }
-
-    display?.connect('monitor-added', (_, monitor) => {
-        createWindow(monitor);
-    });
-
-    lock.lock_lock();
-
-    windows.forEach((win, monitor) => {
-        lock.new_surface(win, monitor);
-        win.show();
-    });
-};
-
-const on_finished = () => {
-    lock.destroy();
-    Gdk.Display.get_default()?.sync();
-    App.quit();
-};
-
-lock.connect('finished', on_finished);
-
-if (Vars.hasFprintd) {
-    globalThis.authFinger = () => AstalAuth.Pam.authenticate('', (_, task) => {
-        try {
-            AstalAuth.Pam.authenticate_finish(task);
-            unlock();
-        }
-        catch (e) {
-            console.error((e as Error).message);
-        }
-    });
-    globalThis.authFinger();
-}
-
-export default () => {
     lock_screen();
 };

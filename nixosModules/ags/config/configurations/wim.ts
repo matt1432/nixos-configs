@@ -1,26 +1,26 @@
-export default async() => {
-    const { execAsync } = await import('astal');
-    const { App } = await import('astal/gtk3');
+import { execAsync } from 'astal';
+import { App } from 'astal/gtk3';
 
-    const style = (await import('../style/main.scss')).default;
+import style from '../style/main.scss';
 
-    const AppLauncher = (await import('../widgets/applauncher/main')).default;
-    const Bar = (await import('../widgets/bar/wim')).default;
-    const BgLayer = (await import('../widgets/bg-layer/main')).default;
-    const Calendar = (await import('../widgets/date/wim')).default;
-    const Clipboard = (await import('../widgets/clipboard/main')).default;
-    const Corners = (await import('../widgets/corners/main')).default;
-    const IconBrowser = (await import('../widgets/icon-browser/main')).default;
-    const { NotifPopups, NotifCenter } = await import('../widgets/notifs/wim');
-    const OSD = (await import('../widgets/osd/main')).default;
-    const PowerMenu = (await import('../widgets/powermenu/main')).default;
-    const Screenshot = (await import('../widgets/screenshot/main')).default;
+import AppLauncher from '../widgets/applauncher/main';
+import Bar from '../widgets/bar/wim';
+import BgLayer from '../widgets/bg-layer/main';
+import Calendar from '../widgets/date/wim';
+import Clipboard from '../widgets/clipboard/main';
+import Corners from '../widgets/corners/main';
+import IconBrowser from '../widgets/icon-browser/main';
+import { NotifPopups, NotifCenter } from '../widgets/notifs/wim';
+import OSD from '../widgets/osd/main';
+import PowerMenu from '../widgets/powermenu/main';
+import Screenshot from '../widgets/screenshot/main';
 
-    const { closeAll, perMonitor } = await import('../lib');
-    const Brightness = (await import('../services/brightness')).default;
-    const MonitorClicks = (await import('../services/monitor-clicks')).default;
+import { closeAll, perMonitor } from '../lib';
+import Brightness from '../services/brightness';
+import MonitorClicks from '../services/monitor-clicks';
 
 
+export default () => {
     App.start({
         css: style,
 
