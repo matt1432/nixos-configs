@@ -3,7 +3,7 @@ self: {
   pkgs,
   ...
 }: let
-  inherit (self.legacyPackages.${pkgs.system}) firefoxAddons;
+  inherit (self.scopedPackages.${pkgs.system}) firefoxAddons;
 
   rounding = (config.wayland.windowManager.hyprland.settings.decoration.rounding or 2) - 2;
 
@@ -22,6 +22,7 @@ in {
 
     programs.firefox = {
       enable = true;
+
       profiles.matt = {
         isDefault = true;
         id = 0;

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-file="$FLAKE/legacyPackages/lovelace-components/custom-sidebar/default.nix"
+file="$FLAKE/scopedPackages/lovelace-components/custom-sidebar/default.nix"
 old_hash="$(sed -n 's/.*hash = "\(.*\)";/\1/p' "$file")"
 
 sed -i "s/hash = .*/hash = \"\";/" "$file"

@@ -92,7 +92,7 @@ in {
     enable = true;
     theme = "dracula";
     themePackages = [
-      self.legacyPackages.${pkgs.system}.dracula.plymouth
+      self.scopedPackages.${pkgs.system}.dracula.plymouth
     ];
   };
 

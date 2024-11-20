@@ -123,9 +123,9 @@
     nixOnDroidConfigurations.default =
       mkNixOnDroid [./devices/android];
 
-    legacyPackages =
+    scopedPackages =
       perSystem (pkgs:
-        import ./legacyPackages {inherit inputs mkVersion pkgs;});
+        import ./scopedPackages {inherit inputs mkVersion pkgs;});
 
     packages =
       perSystem (pkgs:

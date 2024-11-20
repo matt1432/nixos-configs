@@ -43,7 +43,7 @@ sudo ln -sf /home/matt/.nix /etc/nixos
 | `nixosConfigurations`              | [devices](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/devices)' + ISO's configurations |
 | `nixOnDroidConfigurations.default` | [Nix-On-Droid](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/devices/android)'s configuration |
 | `packages`                         | Some custom [packages](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/packages) not available in nixpkgs or modified from it |
-| `legacyPackages`                   | Some custom [package scopes](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/legacyPackages) not available in nixpkgs or modified from it |
+| `scopedPackages`                   | Some custom [package scopes](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/scopedPackages) not available in nixpkgs or modified from it |
 | `apps`                             | Scripts ran from the flake defined [here](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/apps) |
 | `homeManagerModules`               | [Modules](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/homeManagerModules) made for home-manager |
 | `homeManagerModules`               | [Modules](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/nixosModules) made for NixOS systems |

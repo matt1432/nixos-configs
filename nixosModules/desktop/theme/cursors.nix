@@ -1,6 +1,6 @@
 self: {pkgs, ...}: {
   config = let
-    inherit (self.legacyPackages.${pkgs.system}) dracula;
+    inherit (self.scopedPackages.${pkgs.system}) dracula;
 
     cursorTheme = dracula.hyprcursor;
     cursorThemeName = "Dracula-cursors";

@@ -5,7 +5,7 @@ self: {
 }: {
   config = let
     hyprpaper = self.inputs.hyprpaper.packages.${pkgs.system}.default;
-    wallpaper = toString self.legacyPackages.${pkgs.system}.dracula.wallpaper;
+    wallpaper = toString self.scopedPackages.${pkgs.system}.dracula.wallpaper;
   in {
     home.packages = [hyprpaper];
 

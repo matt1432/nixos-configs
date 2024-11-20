@@ -1,8 +1,8 @@
-# LegacyPackages
+# ScopedPackages
 
 This directory encompasses every derivation scopes for packages exposed by my flake.
 
-## List of package scopes found in `self.legacyPackages`
+## List of package scopes found in `self.scopedPackages`
 
 | Name            | Description |
 | --------------- | ----------- |

@@ -8,7 +8,7 @@ const FLAKE = process.env.FLAKE;
 export const updateFirefoxAddons = () => {
     console.log('Updating firefox addons using mozilla-addons-to-nix');
 
-    const DIR = `${FLAKE}/legacyPackages/firefox-addons`;
+    const DIR = `${FLAKE}/scopedPackages/firefox-addons`;
     const GENERATED_FILE = `${DIR}/generated-firefox-addons.nix`;
     const SLUGS = `${DIR}/addons.json`;
 
@@ -27,7 +27,7 @@ export const updateFirefoxAddons = () => {
 
     const OLD_VERS = Object.fromEntries([...JSON.parse(spawnSync('nix', [
         'eval',
-        '.#legacyPackages.x86_64-linux.firefoxAddons',
+        '.#scopedPackages.x86_64-linux.firefoxAddons',
         '--apply',
         nixExpr,
         '--json',

@@ -34,7 +34,7 @@ in {
   services.home-assistant = {
     customComponents = attrValues {
       inherit
-        (self.legacyPackages.${pkgs.system}.hass-components)
+        (self.scopedPackages.${pkgs.system}.hass-components)
         netdaemon
         ;
     };

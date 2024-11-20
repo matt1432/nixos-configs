@@ -17,7 +17,7 @@ in {
       lfs.enable = true;
 
       includes = [
-        {path = toString self.legacyPackages.${pkgs.system}.dracula.git;}
+        {path = toString self.scopedPackages.${pkgs.system}.dracula.git;}
 
         (mkDefaultRemote "https://github.com")
         (mkDefaultRemote "git@github.com")

@@ -83,7 +83,7 @@ in {
 
     customComponents = builtins.attrValues {
       inherit
-        (self.legacyPackages.${pkgs.system}.hass-components)
+        (self.scopedPackages.${pkgs.system}.hass-components)
         material-symbols
         ;
     };
@@ -96,7 +96,7 @@ in {
         ;
 
       inherit
-        (self.legacyPackages.${pkgs.system}.lovelace-components)
+        (self.scopedPackages.${pkgs.system}.lovelace-components)
         custom-sidebar
         ;
     };

@@ -71,7 +71,7 @@ in {
           startup_commands = "toggle_custom_color";
           ui_font = "JetBrainsMono Nerd Font Mono Regular";
           font_size = "24";
-          source = toString self.legacyPackages.${pkgs.system}.dracula.sioyek;
+          source = toString self.scopedPackages.${pkgs.system}.dracula.sioyek;
         };
       };
 

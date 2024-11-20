@@ -5,7 +5,7 @@ self: {
   ...
 }: {
   config = let
-    inherit (self.legacyPackages.${pkgs.system}) dracula;
+    inherit (self.scopedPackages.${pkgs.system}) dracula;
 
     cfg = osConfig.roles.desktop;
   in {

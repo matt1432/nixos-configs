@@ -1,6 +1,6 @@
 self: {pkgs, ...}: {
   config = let
-    inherit (self.legacyPackages.${pkgs.system}) mpvScripts;
+    inherit (self.scopedPackages.${pkgs.system}) mpvScripts;
   in {
     # For kdialog-open-files
     home.packages = [

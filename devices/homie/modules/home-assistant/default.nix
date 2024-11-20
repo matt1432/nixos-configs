@@ -33,7 +33,7 @@
 
     customComponents = builtins.attrValues {
       inherit
-        (self.legacyPackages.${pkgs.system}.hass-components)
+        (self.scopedPackages.${pkgs.system}.hass-components)
         yamaha-soundbar
         ;
     };
