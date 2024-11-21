@@ -26,7 +26,7 @@ export default () => (
             <box hexpand halign={Gtk.Align.START}>
                 <CurrentIcon />
 
-                <Separator size={8} />
+                {/* <Separator size={8} />*/}
 
                 <SysTray />
 

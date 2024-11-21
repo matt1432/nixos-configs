@@ -1,8 +1,10 @@
 import { bind, Variable } from 'astal';
+import { Gtk } from 'astal/gtk3';
 
 import AstalApps from 'gi://AstalApps';
 import AstalHyprland from 'gi://AstalHyprland';
 
+import Separator from '../../misc/separator';
 import { hyprMessage } from '../../../lib';
 
 
@@ -13,15 +15,16 @@ export default () => {
     const visibleIcon = Variable<boolean>(false);
     const focusedIcon = Variable<string>('');
 
-    let lastFocused: string | undefined;
+    let lastFocusedAddress: string | null;
 
     const updateVars = (
         client: AstalHyprland.Client | null = hyprland.get_focused_client(),
     ) => {
-        lastFocused = client?.get_address();
-        const app = applications.fuzzy_query(
-            client?.get_class() ?? '',
-        )[0];
+        lastFocusedAddress = client ? client.get_address() : null;
+
+        const app = client ?
+            applications.fuzzy_query(client.get_class())[0] :
+            null;
 
         const icon = app?.iconName;
 
@@ -34,7 +37,7 @@ export default () => {
         }
 
         const id = client?.connect('notify::title', (c) => {
-            if (c.get_address() !== lastFocused) {
+            if (c.get_address() !== lastFocusedAddress) {
                 c.disconnect(id);
             }
         });
@@ -53,14 +56,20 @@ export default () => {
     });
 
     return (
-        <box
-            className="bar-item current-window"
-            visible={bind(visibleIcon)}
+        <revealer
+            transitionType={Gtk.RevealerTransitionType.SLIDE_RIGHT}
+            revealChild={bind(visibleIcon)}
         >
-            <icon
-                css="font-size: 32px;"
-                icon={bind(focusedIcon)}
-            />
-        </box>
+            <box>
+                <box className="bar-item current-window">
+                    <icon
+                        css="font-size: 32px;"
+                        icon={bind(focusedIcon)}
+                    />
+                </box>
+
+                <Separator size={8} />
+            </box>
+        </revealer>
     );
 };

@@ -1,4 +1,5 @@
 import { bind, Variable } from 'astal';
+import { Gtk } from 'astal/gtk3';
 
 import AstalApps from 'gi://AstalApps';
 import AstalHyprland from 'gi://AstalHyprland';
@@ -15,12 +16,14 @@ export default () => {
     const focusedIcon = Variable<string>('');
     const focusedTitle = Variable<string>('');
 
-    let lastFocused: string | undefined;
+    let lastFocusedAddress: string | null;
+
 
     const updateVars = (
         client: AstalHyprland.Client | null = hyprland.get_focused_client(),
     ) => {
-        lastFocused = client?.get_address();
+        lastFocusedAddress = client ? client.get_address() : null;
+
         const app = applications.fuzzy_query(
             client?.get_class() ?? '',
         )[0];
@@ -37,7 +40,7 @@ export default () => {
 
         focusedTitle.set(client?.get_title() ?? '');
         const id = client?.connect('notify::title', (c) => {
-            if (c.get_address() !== lastFocused) {
+            if (c.get_address() !== lastFocusedAddress) {
                 c.disconnect(id);
             }
             focusedTitle.set(c.get_title());
@@ -57,22 +60,30 @@ export default () => {
     });
 
     return (
-        <box
-            className="bar-item current-window"
-            visible={bind(focusedTitle).as((title) => title !== '')}
+        <revealer
+            transitionType={Gtk.RevealerTransitionType.SLIDE_RIGHT}
+            revealChild={bind(focusedTitle).as((title) => title !== '')}
         >
-            <icon
-                css="font-size: 32px;"
-                icon={bind(focusedIcon)}
-                visible={bind(visibleIcon)}
-            />
+            <box className="bar-item current-window">
+                <revealer
+                    transitionType={Gtk.RevealerTransitionType.SLIDE_RIGHT}
+                    revealChild={bind(visibleIcon)}
+                >
+                    <box>
+                        <icon
+                            css="font-size: 32px;"
+                            icon={bind(focusedIcon)}
+                        />
 
-            <Separator size={8} />
+                        <Separator size={8} />
+                    </box>
+                </revealer>
 
-            <label
-                label={bind(focusedTitle)}
-                truncate
-            />
-        </box>
+                <label
+                    label={bind(focusedTitle)}
+                    truncate
+                />
+            </box>
+        </revealer>
     );
 };
