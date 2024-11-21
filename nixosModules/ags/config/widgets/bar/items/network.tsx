@@ -14,8 +14,8 @@ export default () => {
             className="bar-item network"
             cursor="pointer"
 
-            onHover={() => Hovered.set(true)}
-            onHoverLost={() => Hovered.set(false)}
+            onEnterNotifyEvent={() => Hovered.set(true)}
+            onLeaveNotifyEvent={() => Hovered.set(false)}
         >
             {bind(network, 'primary').as((primary) => {
                 if (primary === AstalNetwork.Primary.UNKNOWN) {
