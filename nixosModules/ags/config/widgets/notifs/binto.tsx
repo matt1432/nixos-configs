@@ -10,8 +10,8 @@ import Center from './center';
 export const NotifPopups = () => (
     <window
         name="notifications"
+        namespace="noanim-notifications"
         gdkmonitor={get_gdkmonitor_from_desc('desc:Acer Technologies Acer K212HQL T3EAA0014201')}
-        namespace="notifications"
         layer={Astal.Layer.OVERLAY}
         anchor={Astal.WindowAnchor.BOTTOM | Astal.WindowAnchor.LEFT}
     >

@@ -33,7 +33,7 @@ export default () => {
                 respond('closed all windows');
             }
             else if (request.startsWith('fetchCapsState')) {
-                Brightness.fetchCapsState();
+                Brightness.get_default().fetchCapsState();
                 respond('fetched caps_lock state');
             }
             else if (request.startsWith('popup')) {
@@ -41,7 +41,7 @@ export default () => {
                 respond('osd popped up');
             }
             else if (request.startsWith('save-replay')) {
-                GSR.saveReplay();
+                GSR.get_default().saveReplay();
                 respond('saving replay');
             }
         },
@@ -61,9 +61,9 @@ export default () => {
             PowerMenu();
             Screenshot();
 
-            Brightness.initService({ caps: 'input2::capslock' });
-            GSR.initService();
-            new MonitorClicks();
+            Brightness.get_default({ caps: 'input2::capslock' });
+            GSR.get_default();
+            MonitorClicks.get_default();
         },
     });
 };

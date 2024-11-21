@@ -72,10 +72,12 @@ const notifySend = ({
 });
 
 @register()
-class GSR extends GObject.Object {
+export default class GSR extends GObject.Object {
     private _lastNotifID: number | undefined;
 
-    public initService() {
+    public constructor() {
+        super();
+
         try {
             subprocess(
                 ['gsr-start'],
@@ -97,6 +99,16 @@ class GSR extends GObject.Object {
         catch (_e) {
             console.error('Missing dependency for gpu-screen-recorder');
         }
+    }
+
+    private static _default: InstanceType<typeof GSR> | undefined;
+
+    public static get_default() {
+        if (!GSR._default) {
+            GSR._default = new GSR();
+        }
+
+        return GSR._default;
     }
 
     public saveReplay() {
@@ -155,7 +167,3 @@ class GSR extends GObject.Object {
         });
     }
 }
-
-const gsrService = new GSR();
-
-export default gsrService;

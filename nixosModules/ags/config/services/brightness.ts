@@ -12,7 +12,7 @@ const SCREEN_ICONS: Record<number, string> = {
 const INTERVAL = 500;
 
 @register()
-class Brightness extends GObject.Object {
+export default class Brightness extends GObject.Object {
     declare private _kbd: string | undefined;
     declare private _caps: string | undefined;
 
@@ -98,31 +98,37 @@ class Brightness extends GObject.Object {
         return this._capsIcon;
     }
 
-    /**
-     * This is to basically have the constructor run when I want and
-     * still export this to wherever I need to.
-     *
-     * @param o      params
-     * @param o.kbd  name of kbd in brightnessctl
-     * @param o.caps name of caps_lock in brightnessctl
-     */
-    public async initService({ kbd, caps }: { kbd?: string, caps?: string }) {
-        try {
-            if (kbd) {
-                this.hasKbd = true;
-                this._kbd = kbd;
-                this._monitorKbdState();
-                this._kbdMax = Number(await execAsync(`brightnessctl -d ${this._kbd} m`));
-            }
+    public constructor({ kbd, caps }: { kbd?: string, caps?: string } = {}) {
+        super();
 
-            this._caps = caps;
-            this._screen = Number(await execAsync('brightnessctl g')) /
-                Number(await execAsync('brightnessctl m'));
-            this.notify('screen');
+        try {
+            (async() => {
+                if (kbd) {
+                    this.hasKbd = true;
+                    this._kbd = kbd;
+                    this._monitorKbdState();
+                    this._kbdMax = Number(await execAsync(`brightnessctl -d ${this._kbd} m`));
+                }
+
+                this._caps = caps;
+                this._screen = Number(await execAsync('brightnessctl g')) /
+                    Number(await execAsync('brightnessctl m'));
+                this.notify('screen');
+            })();
         }
         catch (_e) {
             console.error('missing dependency: brightnessctl');
         }
+    }
+
+    private static _default: InstanceType<typeof Brightness> | undefined;
+
+    public static get_default({ kbd, caps }: { kbd?: string, caps?: string } = {}) {
+        if (!Brightness._default) {
+            Brightness._default = new Brightness({ kbd, caps });
+        }
+
+        return Brightness._default;
     }
 
     private _getScreenIcon() {
@@ -168,7 +174,3 @@ class Brightness extends GObject.Object {
             .catch(logError);
     }
 }
-
-const brightnessService = new Brightness();
-
-export default brightnessService;

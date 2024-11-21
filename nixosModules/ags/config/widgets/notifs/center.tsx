@@ -2,7 +2,6 @@ import { bind, timeout } from 'astal';
 import { App, Gtk, Widget } from 'astal/gtk3';
 
 import AstalNotifd from 'gi://AstalNotifd';
-const Notifications = AstalNotifd.get_default();
 
 import { Notification, HasNotifs } from './notification';
 import NotifGestureWrapper from './gesture';
@@ -22,71 +21,79 @@ const addNotif = (box: Widget.Box, notifObj: AstalNotifd.Notification) => {
     }
 };
 
-const NotificationList = () => (
-    <box
-        vertical
-        vexpand
-        valign={Gtk.Align.START}
-        visible={bind(HasNotifs)}
-        // It needs to be bigger than the notifs to not jiggle
-        css="min-width: 550px;"
+const NotificationList = () => {
+    const notifications = AstalNotifd.get_default();
 
-        setup={(self) => {
-            Notifications.get_notifications().forEach((n) => {
-                addNotif(self, n);
-            });
+    return (
+        <box
+            vertical
+            vexpand
+            valign={Gtk.Align.START}
+            visible={bind(HasNotifs)}
+            // It needs to be bigger than the notifs to not jiggle
+            css="min-width: 550px;"
 
-            self
-                .hook(Notifications, 'notified', (_, id) => {
-                    if (id) {
-                        const notifObj = Notifications.get_notification(id);
+            setup={(self) => {
+                notifications.get_notifications().forEach((n) => {
+                    addNotif(self, n);
+                });
 
-                        if (notifObj) {
-                            addNotif(self, notifObj);
+                self
+                    .hook(notifications, 'notified', (_, id) => {
+                        if (id) {
+                            const notifObj = notifications.get_notification(id);
+
+                            if (notifObj) {
+                                addNotif(self, notifObj);
+                            }
                         }
-                    }
-                })
-                .hook(Notifications, 'resolved', (_, id) => {
-                    const notif = (self.get_children() as NotifGestureWrapper[])
-                        .find((ch) => ch.id === id);
+                    })
+                    .hook(notifications, 'resolved', (_, id) => {
+                        const notif = (self.get_children() as NotifGestureWrapper[])
+                            .find((ch) => ch.id === id);
 
-                    if (notif?.sensitive) {
-                        notif.slideAway('Right');
-                    }
-                });
-        }}
-    />
-);
-
-const ClearButton = () => (
-    <eventbox
-        cursor={bind(HasNotifs).as((hasNotifs) => hasNotifs ? 'pointer' : 'not-allowed')}
-    >
-        <button
-            className="clear"
-            sensitive={bind(HasNotifs)}
-
-            onButtonReleaseEvent={() => {
-                Notifications.get_notifications().forEach((notif) => {
-                    notif.dismiss();
-                });
-                timeout(1000, () => {
-                    App.get_window('win-notif-center')?.set_visible(false);
-                });
+                        if (notif?.sensitive) {
+                            notif.slideAway('Right');
+                        }
+                    });
             }}
-        >
-            <box>
-                <label label="Clear " />
+        />
+    );
+};
 
-                <icon icon={bind(Notifications, 'notifications')
-                    .as((notifs) => notifs.length > 0 ?
-                        'user-trash-full-symbolic' :
-                        'user-trash-symbolic')}
-                />
-            </box>
-        </button>
-    </eventbox>
-);
+const ClearButton = () => {
+    const notifications = AstalNotifd.get_default();
+
+    return (
+        <eventbox
+            cursor={bind(HasNotifs).as((hasNotifs) => hasNotifs ? 'pointer' : 'not-allowed')}
+        >
+            <button
+                className="clear"
+                sensitive={bind(HasNotifs)}
+
+                onButtonReleaseEvent={() => {
+                    notifications.get_notifications().forEach((notif) => {
+                        notif.dismiss();
+                    });
+                    timeout(1000, () => {
+                        App.get_window('win-notif-center')?.set_visible(false);
+                    });
+                }}
+            >
+                <box>
+                    <label label="Clear " />
+
+                    <icon icon={bind(notifications, 'notifications')
+                        .as((notifs) => notifs.length > 0 ?
+                            'user-trash-full-symbolic' :
+                            'user-trash-symbolic')}
+                    />
+                </box>
+            </button>
+        </eventbox>
+    );
+};
 
 const Header = () => (
     <box className="header">

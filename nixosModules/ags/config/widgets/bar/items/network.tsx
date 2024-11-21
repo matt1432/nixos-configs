@@ -5,9 +5,9 @@ import AstalNetwork from 'gi://AstalNetwork';
 
 
 export default () => {
-    const Hovered = Variable(false);
-    // TODO: do this everywhere else
     const network = AstalNetwork.get_default();
+
+    const Hovered = Variable(false);
 
     return (
         <button

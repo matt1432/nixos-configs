@@ -2,7 +2,6 @@ import { App, Gdk, Gtk, Widget } from 'astal/gtk3';
 import { bind, idle } from 'astal';
 
 import AstalTray from 'gi://AstalTray';
-const Tray = AstalTray.get_default();
 
 
 const SKIP_ITEMS = ['.spotify-wrapped'];
@@ -35,20 +34,22 @@ const TrayItem = (item: AstalTray.TrayItem) => {
 };
 
 export default () => {
+    const tray = AstalTray.get_default();
+
     const itemMap = new Map<string, Widget.Revealer>();
 
     return (
         <box
             className="bar-item system-tray"
-            visible={bind(Tray, 'items').as((items) => items.length !== 0)}
+            visible={bind(tray, 'items').as((items) => items.length !== 0)}
             setup={(self) => {
                 self
-                    .hook(Tray, 'item-added', (_, item: string) => {
-                        if (itemMap.has(item) || SKIP_ITEMS.includes(Tray.get_item(item).title)) {
+                    .hook(tray, 'item-added', (_, item: string) => {
+                        if (itemMap.has(item) || SKIP_ITEMS.includes(tray.get_item(item).title)) {
                             return;
                         }
 
-                        const widget = TrayItem(Tray.get_item(item)) as Widget.Revealer;
+                        const widget = TrayItem(tray.get_item(item)) as Widget.Revealer;
 
                         itemMap.set(item, widget);
 
@@ -59,7 +60,7 @@ export default () => {
                         });
                     })
 
-                    .hook(Tray, 'item-removed', (_, item: string) => {
+                    .hook(tray, 'item-removed', (_, item: string) => {
                         if (!itemMap.has(item)) {
                             return;
                         }

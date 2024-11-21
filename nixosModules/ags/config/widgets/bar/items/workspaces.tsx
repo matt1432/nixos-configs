@@ -2,78 +2,83 @@ import { Gtk, Widget } from 'astal/gtk3';
 import { timeout } from 'astal';
 
 import AstalHyprland from 'gi://AstalHyprland';
-const Hyprland = AstalHyprland.get_default();
 
 import { hyprMessage } from '../../../lib';
 
 
 const URGENT_DURATION = 1000;
 
-const Workspace = ({ id = 0 }) => (
-    <revealer
-        name={id.toString()}
-        transitionType={Gtk.RevealerTransitionType.SLIDE_RIGHT}
-    >
-        <eventbox
-            cursor="pointer"
-            tooltip_text={id.toString()}
+const Workspace = ({ id = 0 }) => {
+    const hyprland = AstalHyprland.get_default();
 
-            onClickRelease={() => {
-                hyprMessage(`dispatch workspace ${id}`).catch(console.log);
-            }}
+    return (
+        <revealer
+            name={id.toString()}
+            transitionType={Gtk.RevealerTransitionType.SLIDE_RIGHT}
         >
-            <box
-                valign={Gtk.Align.CENTER}
-                className="button"
+            <eventbox
+                cursor="pointer"
+                tooltip_text={id.toString()}
 
-                setup={(self) => {
-                    const update = (
-                        _: Widget.Box,
-                        client?: AstalHyprland.Client,
-                    ) => {
-                        const workspace = Hyprland.get_workspace(id);
-                        const occupied = workspace && workspace.get_clients().length > 0;
+                onClickRelease={() => {
+                    hyprMessage(`dispatch workspace ${id}`).catch(console.log);
+                }}
+            >
+                <box
+                    valign={Gtk.Align.CENTER}
+                    className="button"
 
-                        self.toggleClassName('occupied', occupied);
+                    setup={(self) => {
+                        const update = (
+                            _: Widget.Box,
+                            client?: AstalHyprland.Client,
+                        ) => {
+                            const workspace = hyprland.get_workspace(id);
+                            const occupied = workspace && workspace.get_clients().length > 0;
 
-                        if (!client) {
-                            return;
-                        }
+                            self.toggleClassName('occupied', occupied);
 
-                        const isUrgent = client &&
+                            if (!client) {
+                                return;
+                            }
+
+                            const isUrgent = client &&
                           client.get_workspace().get_id() === id;
 
-                        if (isUrgent) {
-                            self.toggleClassName('urgent', true);
+                            if (isUrgent) {
+                                self.toggleClassName('urgent', true);
 
                             // Only show for a sec when urgent is current workspace
-                            if (Hyprland.get_focused_workspace().get_id() === id) {
-                                timeout(URGENT_DURATION, () => {
-                                    self.toggleClassName('urgent', false);
-                                });
+                                if (hyprland.get_focused_workspace().get_id() === id) {
+                                    timeout(URGENT_DURATION, () => {
+                                        self.toggleClassName('urgent', false);
+                                    });
+                                }
                             }
-                        }
-                    };
+                        };
 
-                    update(self);
-                    self
-                        .hook(Hyprland, 'event', () => update(self))
+                        update(self);
+                        self
+                            .hook(hyprland, 'event', () => update(self))
 
                         // Deal with urgent windows
-                        .hook(Hyprland, 'urgent', update)
+                            .hook(hyprland, 'urgent', update)
 
-                        .hook(Hyprland, 'notify::focused-workspace', () => {
-                            if (Hyprland.get_focused_workspace().get_id() === id) {
-                                self.toggleClassName('urgent', false);
-                            }
-                        });
-                }}
-            />
-        </eventbox>
-    </revealer>
-);
+                            .hook(hyprland, 'notify::focused-workspace', () => {
+                                if (hyprland.get_focused_workspace().get_id() === id) {
+                                    self.toggleClassName('urgent', false);
+                                }
+                            });
+                    }}
+                />
+            </eventbox>
+        </revealer>
+    );
+};
 
 export default () => {
+    const Hyprland = AstalHyprland.get_default();
+
     const L_PADDING = 2;
     const WS_WIDTH = 30;
 

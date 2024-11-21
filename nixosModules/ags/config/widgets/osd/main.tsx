@@ -51,6 +51,7 @@ export default () => {
 
     globalThis.popup_osd = popup;
 
+    const brightness = Brightness.get_default();
     const speaker = AstalWp.get_default()?.audio.default_speaker;
     const microphone = AstalWp.get_default()?.audio.default_microphone;
 
@@ -123,29 +124,29 @@ export default () => {
                     css="margin-bottom: 80px;"
 
                     setup={(self) => {
-                        self.hook(Brightness, 'notify::screen-icon', () => {
+                        self.hook(brightness, 'notify::screen-icon', () => {
                             popup('brightness');
                         });
                     }}
                 >
                     <box className="osd-item widget">
-                        <icon icon={bind(Brightness, 'screenIcon')} />
+                        <icon icon={bind(brightness, 'screenIcon')} />
 
                         <ProgressBar
-                            fraction={bind(Brightness, 'screen')}
+                            fraction={bind(brightness, 'screen')}
                             valign={Gtk.Align.CENTER}
                         />
                     </box>
                 </box>
 
                 {
-                    Brightness.hasKbd && (
+                    brightness.hasKbd && (
                         <box
                             name="keyboard"
                             css="margin-bottom: 80px;"
 
                             setup={(self) => {
-                                self.hook(Brightness, 'notify::kbd-level', () => {
+                                self.hook(brightness, 'notify::kbd-level', () => {
                                     popup('keyboard');
                                 });
                             }}
@@ -154,8 +155,8 @@ export default () => {
                                 <icon icon="keyboard-brightness-symbolic" />
 
                                 <ProgressBar
-                                    fraction={bind(Brightness, 'kbdLevel').as((v) => (v ?? 0) / 2)}
-                                    sensitive={bind(Brightness, 'kbdLevel').as((v) => v !== 0)}
+                                    fraction={bind(brightness, 'kbdLevel').as((v) => (v ?? 0) / 2)}
+                                    sensitive={bind(brightness, 'kbdLevel').as((v) => v !== 0)}
                                     valign={Gtk.Align.CENTER}
                                 />
                             </box>
@@ -168,13 +169,13 @@ export default () => {
                     css="margin-bottom: 80px;"
 
                     setup={(self) => {
-                        self.hook(Brightness, 'notify::caps-icon', () => {
+                        self.hook(brightness, 'notify::caps-icon', () => {
                             popup('caps');
                         });
                     }}
                 >
                     <box className="osd-item widget">
-                        <icon icon={bind(Brightness, 'capsIcon')} />
+                        <icon icon={bind(brightness, 'capsIcon')} />
 
                         <label label="Caps Lock" />
                     </box>

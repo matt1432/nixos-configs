@@ -34,11 +34,11 @@ export default () => {
                 respond('closed all windows');
             }
             else if (request.startsWith('fetchCapsState')) {
-                Brightness.fetchCapsState();
+                Brightness.get_default().fetchCapsState();
                 respond('fetched caps_lock state');
             }
             else if (request.startsWith('Brightness.screen')) {
-                Brightness.screen += parseFloat(request.replace('Brightness.screen ', ''));
+                Brightness.get_default().screen += parseFloat(request.replace('Brightness.screen ', ''));
                 respond('screen brightness changed');
             }
             else if (request.startsWith('popup')) {
@@ -68,11 +68,11 @@ export default () => {
             PowerMenu();
             Screenshot();
 
-            Brightness.initService({
+            Brightness.get_default({
                 kbd: 'tpacpi::kbd_backlight',
                 caps: 'input1::capslock',
             });
-            new MonitorClicks();
+            MonitorClicks.get_default();
         },
     });
 };

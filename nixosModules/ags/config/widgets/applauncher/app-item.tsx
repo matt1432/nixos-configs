@@ -33,9 +33,7 @@ export class AppItem extends Widget.Box {
         );
 
         const textBox = (
-            <box
-                vertical
-            >
+            <box vertical>
                 <label
                     className="title"
                     label={app.name}

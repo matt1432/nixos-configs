@@ -1,16 +1,16 @@
 import { bind, Variable } from 'astal';
 
 import AstalApps from 'gi://AstalApps';
-const Applications = AstalApps.Apps.new();
-
 import AstalHyprland from 'gi://AstalHyprland';
-const Hyprland = AstalHyprland.get_default();
 
 import Separator from '../../misc/separator';
 import { hyprMessage } from '../../../lib';
 
 
 export default () => {
+    const applications = AstalApps.Apps.new();
+    const hyprland = AstalHyprland.get_default();
+
     const visibleIcon = Variable<boolean>(false);
     const focusedIcon = Variable<string>('');
     const focusedTitle = Variable<string>('');
@@ -18,10 +18,10 @@ export default () => {
     let lastFocused: string | undefined;
 
     const updateVars = (
-        client: AstalHyprland.Client | null = Hyprland.get_focused_client(),
+        client: AstalHyprland.Client | null = hyprland.get_focused_client(),
     ) => {
         lastFocused = client?.get_address();
-        const app = Applications.fuzzy_query(
+        const app = applications.fuzzy_query(
             client?.get_class() ?? '',
         )[0];
 
@@ -45,11 +45,11 @@ export default () => {
     };
 
     updateVars();
-    Hyprland.connect('notify::focused-client', () => updateVars());
-    Hyprland.connect('client-removed', () => updateVars());
-    Hyprland.connect('client-added', async() => {
+    hyprland.connect('notify::focused-client', () => updateVars());
+    hyprland.connect('client-removed', () => updateVars());
+    hyprland.connect('client-added', async() => {
         try {
-            updateVars(Hyprland.get_client(JSON.parse(await hyprMessage('j/activewindow')).address));
+            updateVars(hyprland.get_client(JSON.parse(await hyprMessage('j/activewindow')).address));
         }
         catch (e) {
             console.log(e);

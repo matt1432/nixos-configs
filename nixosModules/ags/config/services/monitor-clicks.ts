@@ -39,10 +39,10 @@ export default class MonitorClicks extends GObject.Object {
 
     constructor() {
         super();
-        this.#initAppConnection();
+        this._initAppConnection();
     }
 
-    startProc() {
+    private _startProc() {
         if (this.process) {
             return;
         }
@@ -68,7 +68,7 @@ export default class MonitorClicks extends GObject.Object {
         this.emit('proc-started', true);
     }
 
-    killProc() {
+    private _killProc() {
         if (this.process) {
             this.process.kill();
             this.process = null;
@@ -76,7 +76,7 @@ export default class MonitorClicks extends GObject.Object {
         }
     }
 
-    #initAppConnection() {
+    private _initAppConnection() {
         App.connect('window-toggled', () => {
             const anyVisibleAndClosable =
                 (App.get_windows() as PopupWindow[]).some((w) => {
@@ -90,16 +90,26 @@ export default class MonitorClicks extends GObject.Object {
                 });
 
             if (anyVisibleAndClosable) {
-                this.startProc();
+                this._startProc();
             }
 
             else {
-                this.killProc();
+                this._killProc();
             }
         });
     }
 
-    static async detectClickedOutside(clickStage: string) {
+    private static _default: InstanceType<typeof MonitorClicks> | undefined;
+
+    public static get_default() {
+        if (!MonitorClicks._default) {
+            MonitorClicks._default = new MonitorClicks();
+        }
+
+        return MonitorClicks._default;
+    }
+
+    public static async detectClickedOutside(clickStage: string) {
         const toClose = ((App.get_windows() as PopupWindow[])).some((w) => {
             const closable = (
                 w.close_on_unfocus &&
@@ -124,6 +134,7 @@ export default class MonitorClicks extends GObject.Object {
                     const noCloseWidgetsNames = [
                         'bar-',
                         'osk',
+                        'noanim-',
                     ];
 
                     const getNoCloseWidgets = (names: string[]) => {

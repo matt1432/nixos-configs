@@ -5,7 +5,6 @@ import { idle, interval, timeout } from 'astal';
 import AstalIO from 'gi://AstalIO';
 
 import AstalNotifd from 'gi://AstalNotifd';
-const Notifications = AstalNotifd.get_default();
 
 import { hyprMessage } from '../../lib';
 
@@ -159,10 +158,12 @@ export class NotifGestureWrapper extends Widget.EventBox {
                 if (!duplicate) {
                     // Kill notif if specified
                     if (!this.is_popup) {
-                        Notifications.get_notification(this.id)?.dismiss();
+                        const notifications = AstalNotifd.get_default();
+
+                        notifications.get_notification(this.id)?.dismiss();
 
                         // Update HasNotifs
-                        HasNotifs.set(Notifications.get_notifications().length > 0);
+                        HasNotifs.set(notifications.get_notifications().length > 0);
                     }
                     else {
                         // Make sure we cleanup any references to this instance
@@ -183,6 +184,8 @@ export class NotifGestureWrapper extends Widget.EventBox {
         setup_notif = () => { /**/ },
         ...rest
     }: NotifGestureWrapperProps) {
+        const notifications = AstalNotifd.get_default();
+
         super({
             on_button_press_event: () => {
                 this.setCursor('grabbing');
@@ -234,7 +237,7 @@ export class NotifGestureWrapper extends Widget.EventBox {
             });
         }
 
-        this.hook(Notifications, 'notified', (_, notifId) => {
+        this.hook(notifications, 'notified', (_, notifId) => {
             if (notifId === this.id) {
                 this.slideAway(this.is_popup ? 'Left' : 'Right', true);
             }
@@ -315,7 +318,7 @@ export class NotifGestureWrapper extends Widget.EventBox {
                             slideRight;
 
                         idle(() => {
-                            if (!Notifications.get_notification(id)) {
+                            if (!notifications.get_notification(id)) {
                                 return;
                             }
 
@@ -328,7 +331,7 @@ export class NotifGestureWrapper extends Widget.EventBox {
                             rev.revealChild = true;
 
                             timeout(ANIM_DURATION, () => {
-                                if (!Notifications.get_notification(id)) {
+                                if (!notifications.get_notification(id)) {
                                     return;
                                 }
 

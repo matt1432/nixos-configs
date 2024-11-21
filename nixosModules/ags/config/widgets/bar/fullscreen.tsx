@@ -2,7 +2,6 @@ import { App, Astal, Gdk, Gtk, Widget } from 'astal/gtk3';
 import { bind, idle, Variable } from 'astal';
 
 import AstalHyprland from 'gi://AstalHyprland';
-const Hyprland = AstalHyprland.get_default();
 
 import { get_hyprland_monitor_desc, get_monitor_desc, hyprMessage } from '../../lib';
 
@@ -10,49 +9,6 @@ import { get_hyprland_monitor_desc, get_monitor_desc, hyprMessage } from '../../
 const FullscreenState = Variable({
     monitors: [] as string[],
     clientAddrs: new Map() as Map<string, string>,
-});
-
-Hyprland.connect('event', async() => {
-    const arrayEquals = (a1: unknown[], a2: unknown[]) =>
-        a1.sort().toString() === a2.sort().toString();
-
-    const mapEquals = (m1: Map<string, string>, m2: Map<string, string>) =>
-        m1.size === m2.size &&
-        Array.from(m1.keys()).every((key) => m1.get(key) === m2.get(key));
-
-    try {
-        const newMonitors = JSON.parse(await hyprMessage('j/monitors')) as AstalHyprland.Monitor[];
-
-        const fs = FullscreenState.get();
-        const fsClients = Hyprland.get_clients().filter((c) => {
-            const mon = newMonitors.find((monitor) => monitor.id === c.get_monitor()?.id);
-
-            return c.fullscreenClient !== 0 &&
-                c.workspace.id === mon?.activeWorkspace.id;
-        });
-
-        const monitors = fsClients.map((c) =>
-            get_monitor_desc(c.monitor));
-
-        const clientAddrs = new Map(fsClients.map((c) => [
-            get_monitor_desc(c.monitor),
-            c.address ?? '',
-        ]));
-
-        const hasChanged =
-            !arrayEquals(monitors, fs.monitors) ||
-            !mapEquals(clientAddrs, fs.clientAddrs);
-
-        if (hasChanged) {
-            FullscreenState.set({
-                monitors,
-                clientAddrs,
-            });
-        }
-    }
-    catch (e) {
-        console.log(e);
-    }
 });
 
 export default ({
@@ -64,8 +20,53 @@ export default ({
     anchor: Astal.WindowAnchor
     gdkmonitor?: Gdk.Monitor
 } & Widget.WindowProps) => {
+    const hyprland = AstalHyprland.get_default();
+
     const monitor = get_hyprland_monitor_desc(gdkmonitor);
     const BarVisible = Variable(false);
+
+    hyprland.connect('event', async() => {
+        const arrayEquals = (a1: unknown[], a2: unknown[]) =>
+            a1.sort().toString() === a2.sort().toString();
+
+        const mapEquals = (m1: Map<string, string>, m2: Map<string, string>) =>
+            m1.size === m2.size &&
+        Array.from(m1.keys()).every((key) => m1.get(key) === m2.get(key));
+
+        try {
+            const newMonitors = JSON.parse(await hyprMessage('j/monitors')) as AstalHyprland.Monitor[];
+
+            const fs = FullscreenState.get();
+            const fsClients = hyprland.get_clients().filter((c) => {
+                const mon = newMonitors.find((m) => m.id === c.get_monitor()?.id);
+
+                return c.fullscreenClient !== 0 &&
+                c.workspace.id === mon?.activeWorkspace.id;
+            });
+
+            const monitors = fsClients.map((c) =>
+                get_monitor_desc(c.monitor));
+
+            const clientAddrs = new Map(fsClients.map((c) => [
+                get_monitor_desc(c.monitor),
+                c.address ?? '',
+            ]));
+
+            const hasChanged =
+            !arrayEquals(monitors, fs.monitors) ||
+            !mapEquals(clientAddrs, fs.clientAddrs);
+
+            if (hasChanged) {
+                FullscreenState.set({
+                    monitors,
+                    clientAddrs,
+                });
+            }
+        }
+        catch (e) {
+            console.log(e);
+        }
+    });
 
     FullscreenState.subscribe((v) => {
         BarVisible.set(!v.monitors.includes(monitor));
@@ -73,7 +74,8 @@ export default ({
 
     const barCloser = (
         <window
-            name={`bar-${monitor}-closer`}
+            name={`noanim-bar-${monitor}-closer`}
+            namespace={`noanim-bar-${monitor}-closer`}
             css="all: unset;"
             visible={false}
             gdkmonitor={gdkmonitor}
@@ -97,13 +99,13 @@ export default ({
     );
 
     // Hide bar instantly when out of focus
-    Hyprland.connect('notify::focused-workspace', () => {
+    hyprland.connect('notify::focused-workspace', () => {
         const addr = FullscreenState.get().clientAddrs.get(monitor);
 
         if (addr) {
-            const client = Hyprland.get_client(addr);
+            const client = hyprland.get_client(addr);
 
-            if (client?.workspace.id !== Hyprland.get_focused_workspace().get_id()) {
+            if (client?.workspace.id !== hyprland.get_focused_workspace().get_id()) {
                 BarVisible.set(true);
                 barCloser.visible = false;
             }
@@ -152,8 +154,8 @@ export default ({
 
     const win = (
         <window
-            name={`bar-${monitor}`}
-            namespace={`bar-${monitor}`}
+            name={`noanim-bar-${monitor}`}
+            namespace={`noanim-bar-${monitor}`}
             layer={Astal.Layer.OVERLAY}
             gdkmonitor={gdkmonitor}
             anchor={anchor}

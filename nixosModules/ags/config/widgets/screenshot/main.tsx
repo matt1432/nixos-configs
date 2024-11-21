@@ -2,10 +2,7 @@ import { bind, execAsync, Variable } from 'astal';
 import { App, Gtk, Widget } from 'astal/gtk3';
 
 import AstalApps from 'gi://AstalApps';
-const Applications = AstalApps.Apps.new();
-
 import AstalHyprland from 'gi://AstalHyprland';
-const Hyprland = AstalHyprland.get_default();
 
 import PopupWindow from '../misc/popup-window';
 import Separator from '../misc/separator';
@@ -25,6 +22,8 @@ const takeScreenshot = (selector: string[], delay = 1000): void => {
 };
 
 export default () => {
+    const hyprland = AstalHyprland.get_default();
+
     const windowList = <box vertical /> as Widget.Box;
 
     const updateWindows = async() => {
@@ -32,8 +31,10 @@ export default () => {
             return;
         }
 
+        const applications = AstalApps.Apps.new();
+
         windowList.children = (JSON.parse(await hyprMessage('j/clients')) as AstalHyprland.Client[])
-            .filter((client) => client.workspace.id === Hyprland.get_focused_workspace().get_id())
+            .filter((client) => client.workspace.id === hyprland.get_focused_workspace().get_id())
             .map((client) => (
                 <button
                     className="item-btn"
@@ -44,7 +45,7 @@ export default () => {
                     }}
                 >
                     <box halign={Gtk.Align.CENTER}>
-                        <icon icon={Applications.fuzzy_query(client.class)[0].iconName} />
+                        <icon icon={applications.fuzzy_query(client.class)[0].iconName} />
 
                         <Separator size={ICON_SEP} />
 
@@ -58,8 +59,8 @@ export default () => {
             ));
     };
 
-    Hyprland.connect('notify::clients', updateWindows);
-    Hyprland.connect('notify::focused-workspace', updateWindows);
+    hyprland.connect('notify::clients', updateWindows);
+    hyprland.connect('notify::focused-workspace', updateWindows);
 
     const Shown = Variable<string>('monitors');
 
@@ -70,7 +71,7 @@ export default () => {
         >
             <scrollable name="monitors">
                 <box vertical>
-                    {bind(Hyprland, 'monitors').as((monitors) => monitors.map((monitor) => (
+                    {bind(hyprland, 'monitors').as((monitors) => monitors.map((monitor) => (
                         <button
                             className="item-btn"
                             cursor="pointer"

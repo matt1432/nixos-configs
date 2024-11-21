@@ -7,7 +7,6 @@ import AstalApps from 'gi://AstalApps';
 const Applications = AstalApps.Apps.new();
 
 import AstalNotifd from 'gi://AstalNotifd';
-const Notifications = AstalNotifd.get_default();
 
 import NotifGestureWrapper from './gesture';
 // import SmoothProgress from '../misc/smooth-progress';
@@ -94,7 +93,9 @@ export const Notification = ({
     popup_timer = 0,
     slide_in_from = 'Left' as 'Left' | 'Right',
 }): NotifGestureWrapper | undefined => {
-    const notifObj = Notifications.get_notification(id);
+    const notifications = AstalNotifd.get_default();
+
+    const notifObj = notifications.get_notification(id);
 
     if (!notifObj) {
         return;
@@ -106,7 +107,7 @@ export const Notification = ({
         return;
     }
 
-    HasNotifs.set(Notifications.get_notifications().length > 0);
+    HasNotifs.set(notifications.get_notifications().length > 0);
 
     // const progress = SmoothProgress({ className: 'smooth-progress' });
 

@@ -2,7 +2,6 @@ import { idle } from 'astal';
 import { App, Gdk, Gtk } from 'astal/gtk3';
 
 import AstalHyprland from 'gi://AstalHyprland';
-const Hyprland = AstalHyprland.get_default();
 
 /* Types */
 import PopupWindow from './widgets/misc/popup-window';
@@ -32,19 +31,23 @@ export interface CursorPos {
 
 
 export const get_hyprland_monitor = (monitor: Gdk.Monitor): AstalHyprland.Monitor | undefined => {
+    const hyprland = AstalHyprland.get_default();
+
     const manufacturer = monitor.manufacturer?.replace(',', '');
     const model = monitor.model?.replace(',', '');
     const start = `${manufacturer} ${model}`;
 
-    return Hyprland.get_monitors().find((m) => m.description?.startsWith(start));
+    return hyprland.get_monitors().find((m) => m.description?.startsWith(start));
 };
 
 export const get_hyprland_monitor_desc = (monitor: Gdk.Monitor): string => {
+    const hyprland = AstalHyprland.get_default();
+
     const manufacturer = monitor.manufacturer?.replace(',', '');
     const model = monitor.model?.replace(',', '');
     const start = `${manufacturer} ${model}`;
 
-    return `desc:${Hyprland.get_monitors().find((m) => m.description?.startsWith(start))?.description}`;
+    return `desc:${hyprland.get_monitors().find((m) => m.description?.startsWith(start))?.description}`;
 };
 
 export const get_gdkmonitor_from_desc = (desc: string): Gdk.Monitor => {
@@ -69,9 +72,11 @@ export const hyprMessage = (message: string) => new Promise<string>((
     resolution = () => { /**/ },
     rejection = () => { /**/ },
 ) => {
+    const hyprland = AstalHyprland.get_default();
+
     try {
-        Hyprland.message_async(message, (_, asyncResult) => {
-            const result = Hyprland.message_finish(asyncResult);
+        hyprland.message_async(message, (_, asyncResult) => {
+            const result = hyprland.message_finish(asyncResult);
 
             resolution(result);
         });
@@ -82,9 +87,11 @@ export const hyprMessage = (message: string) => new Promise<string>((
 });
 
 export const centerCursor = (): void => {
+    const hyprland = AstalHyprland.get_default();
+
     let x: number;
     let y: number;
-    const monitor = Hyprland.get_focused_monitor();
+    const monitor = hyprland.get_focused_monitor();
 
     switch (monitor.transform) {
         case 1:
