@@ -8,11 +8,9 @@
 
   releaseVer = elemAt (match "^([^']*).*" (elemAt (splitString "version: '" (readFile "${piper-src}/meson.build")) 1)) 0;
 in
-  piper.overrideAttrs rec {
+  piper.overridePythonAttrs {
     pname = "piper";
     version = "${releaseVer}+${piper-src.shortRev}";
-
-    name = "${pname}-${version}";
 
     src = piper-src;
 
