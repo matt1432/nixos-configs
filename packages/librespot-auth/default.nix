@@ -1,3 +1,4 @@
+# FIXME: the source appears to be deprecated https://github.com/dspearson/librespot-auth
 {
   lib,
   fetchFromGitHub,
@@ -19,7 +20,7 @@ rustPlatform.buildRustPackage rec {
   };
 
   cargoLock = {
-    lockFile = ./Cargo.lock;
+    lockFile = "${src}/Cargo.lock";
     outputHashes = {
       "librespot-core-0.5.0-dev" = "sha256-7HrA1hWEy5lliwgJ9amJy+Kd8lB50b3q2niaFWWwcYE=";
     };

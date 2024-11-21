@@ -1,5 +1,13 @@
 # My NixOS configs
 
+TODO: add directory structure info and enforce it
+    - every root folder in the repo represents a flake output except inputs
+    - every root folder only has a `default.nix` and subfolders for each
+      of its attrs
+    - in a subfolder, there should always be a `default.nix`. if the
+      `config` folders? only nix code folder structure?
+    - redo docs
+
 ## AGS
 
 You might find it weird that most of my config is written in TypeScript.
