@@ -1,49 +1,31 @@
 {
-  flakePath ? null,
+  flakePath,
   hostnamePath ? "/etc/hostname",
-  registryPath ? /etc/nix/registry.json,
 }: let
-  inherit (builtins) getFlake head match currentSystem readFile pathExists filter fromJSON;
+  inherit (builtins) currentSystem getFlake head match pathExists readFile removeAttrs;
 
-  selfFlake =
-    if pathExists registryPath
-    then filter (it: it.from.id == "self") (fromJSON (readFile registryPath)).flakes
-    else [];
-
-  flakePath' =
-    toString
-    (
-      if flakePath != null
-      then flakePath
-      else if selfFlake != []
-      then (head selfFlake).to.path
-      else "/etc/nixos"
-    );
-
-  flake =
-    if pathExists flakePath'
-    then getFlake flakePath'
-    else {};
   hostname =
     if pathExists hostnamePath
     then head (match "([a-zA-Z0-9\\-]+)\n" (readFile hostnamePath))
     else "";
 
-  nixpkgsFromInputsPath = flake.inputs.nixpkgs.outPath or "";
-  nixpkgs =
-    flake.pkgs.${currentSystem}.nixpkgs
-    or (
-      if nixpkgsFromInputsPath != ""
-      then import nixpkgsFromInputsPath {}
-      else {}
-    );
+  self =
+    if pathExists flakePath
+    then
+      removeAttrs (getFlake (toString flakePath)) [
+        # If you use flakegen, these take a lot of space
+        "nextFlake"
+        "nextFlakeSource"
+      ]
+    else {};
 
-  nixpkgsOutput = removeAttrs (nixpkgs // nixpkgs.lib or {}) ["options" "config"];
+  pkgs = self.inputs.nixpkgs.legacyPackages.${currentSystem} or {};
+  lib =
+    if pkgs != {}
+    then {inherit (pkgs) lib;}
+    else {};
 in
-  {inherit flake;}
-  // flake
-  // builtins
-  // (flake.nixosConfigurations or {})
-  // flake.nixosConfigurations.${hostname} or {}
-  // nixpkgsOutput
-  // {getFlake = path: getFlake (toString path);}
+  {inherit lib pkgs self;}
+  // self.nixosConfigurations.${hostname}
+  or self.nixOnDroidConfigurations.default
+  or {}

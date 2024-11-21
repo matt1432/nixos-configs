@@ -2,25 +2,40 @@
 {
   coreutils,
   gnused,
-  writeShellScriptBin,
+  ncurses,
+  writeShellApplication,
   ...
 }: let
   repl = ./repl.nix;
-  example = command: desc: ''\n\u001b[33m ${command}\u001b[0m - ${desc}'';
+  example = command: desc: ''\n$(tput setaf 3) ${command}$(tput sgr0) - ${desc}'';
 in
-  writeShellScriptBin "repl" ''
-    case "$1" in
-      "-h"|"--help"|"help")
-        printf "%b\n\e[4mUsage\e[0m: \
-          ${example "repl" "Loads system flake if available."} \
-          ${example "repl /path/to/flake.nix" "Loads specified flake."}\n"
-      ;;
-      *)
-        if [ -z "$1" ]; then
-          nix repl --arg flakePath $(${coreutils}/bin/readlink -f "$FLAKE") --file ${repl}
-        else
-          nix repl --arg flakePath $(${coreutils}/bin/readlink -f $1 | ${gnused}/bin/sed 's|/flake.nix||') --file ${repl}
-        fi
-      ;;
-    esac
-  ''
+  writeShellApplication {
+    name = "repl";
+
+    runtimeInputs = [coreutils gnused ncurses];
+
+    text = ''
+      arg=''${1:-"."}
+
+      case "$arg" in
+          "-h"|"--help"|"help")
+              # shellcheck disable=SC2059
+              printf "\n\e[4mUsage\e[0m: \
+                  ${example "repl             " "Loads system flake present at $(tput setaf 4)\\$FLAKE$(tput sgr0)."} \
+                  ${example "repl <flake path>" "Loads specified flake."}\n"
+          ;;
+
+          *)
+              if [ -z "$arg" ]; then
+                  nix repl \
+                      --arg flakePath "$(realpath "$FLAKE")" \
+                      --file ${repl}
+              else
+                  nix repl \
+                      --arg flakePath "$(realpath "$arg" | sed 's|/flake.nix||')" \
+                      --file ${repl}
+              fi
+          ;;
+      esac
+    '';
+  }
