@@ -29,20 +29,24 @@ export default () => {
                     return (
                         <box>
                             {/* Make sure the AP is there before binding to it */}
-                            {bind(Wifi, 'accessPoints').as((aps) => aps.length !== 0 && (
-                                <>
-                                    <icon icon={bind(Wifi, 'iconName')} />
+                            {bind(Wifi, 'accessPoints').as((aps) => {
+                                if (aps.length === 0) { return; }
 
-                                    <revealer
-                                        revealChild={bind(Hovered)}
-                                        transitionType={Gtk.RevealerTransitionType.SLIDE_LEFT}
-                                    >
-                                        {bind(Wifi, 'activeAccessPoint').as((ap) => ap && (
-                                            <label label={bind(ap, 'ssid')} />
-                                        ))}
-                                    </revealer>
-                                </>
-                            ))}
+                                return (
+                                    <>
+                                        <icon icon={bind(Wifi, 'iconName')} />
+
+                                        <revealer
+                                            revealChild={bind(Hovered)}
+                                            transitionType={Gtk.RevealerTransitionType.SLIDE_LEFT}
+                                        >
+                                            {bind(Wifi, 'activeAccessPoint').as((ap) => ap && (
+                                                <label label={bind(ap, 'ssid')} />
+                                            ))}
+                                        </revealer>
+                                    </>
+                                );
+                            })}
                         </box>
                     );
                 }
