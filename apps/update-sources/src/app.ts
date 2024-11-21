@@ -36,7 +36,7 @@ if (args['v'] || args['vuetorrent']) {
 }
 
 if (args['c'] || args['custom-sidebar']) {
-    console.log(updateCustomPackage('lovelace-components.custom-sidebar'));
+    console.log(updateCustomPackage('scopedPackages.x86_64-linux.lovelace-components.custom-sidebar'));
 }
 
 if (args['s'] || args['some-sass-language-server']) {
@@ -65,7 +65,7 @@ if (args['a'] || args['all']) {
     console.log(vuetorrentOutput);
 
     // This doesn't need to be added to commit msgs
-    console.log(updateCustomPackage('lovelace-components.custom-sidebar'));
+    console.log(updateCustomPackage('scopedPackages.x86_64-linux.lovelace-components.custom-sidebar'));
     console.log(updateCustomPackage('some-sass-language-server'));
 
 
