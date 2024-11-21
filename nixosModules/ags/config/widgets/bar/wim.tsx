@@ -32,7 +32,7 @@ export default () => (
 
                 <SysTray />
 
-                <Separator size={8} />
+                {/* <Separator size={8} /> */}
 
                 <CurrentClient />
 

@@ -64,25 +64,29 @@ export default () => {
             transitionType={Gtk.RevealerTransitionType.SLIDE_RIGHT}
             revealChild={bind(focusedTitle).as((title) => title !== '')}
         >
-            <box className="bar-item current-window">
-                <revealer
-                    transitionType={Gtk.RevealerTransitionType.SLIDE_RIGHT}
-                    revealChild={bind(visibleIcon)}
-                >
-                    <box>
-                        <icon
-                            css="font-size: 32px;"
-                            icon={bind(focusedIcon)}
-                        />
+            <box>
+                <Separator size={8} />
 
-                        <Separator size={8} />
-                    </box>
-                </revealer>
+                <box className="bar-item current-window">
+                    <revealer
+                        transitionType={Gtk.RevealerTransitionType.SLIDE_RIGHT}
+                        revealChild={bind(visibleIcon)}
+                    >
+                        <box>
+                            <icon
+                                css="font-size: 32px;"
+                                icon={bind(focusedIcon)}
+                            />
 
-                <label
-                    label={bind(focusedTitle)}
-                    truncate
-                />
+                            <Separator size={8} />
+                        </box>
+                    </revealer>
+
+                    <label
+                        label={bind(focusedTitle)}
+                        truncate
+                    />
+                </box>
             </box>
         </revealer>
     );
