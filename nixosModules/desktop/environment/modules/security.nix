@@ -1,11 +1,12 @@
-{
+self: {
   config,
   lib,
   pkgs,
   ...
 }: {
   config = let
-    inherit (lib) getExe mkIf;
+    inherit (self.lib.hypr) mkBind;
+    inherit (lib) getExe map mkIf;
 
     cfg = config.roles.desktop;
 
@@ -71,27 +72,29 @@
         lockPkg
       ];
 
-      wayland.windowManager.hyprland = {
-        settings = {
-          exec-once = [
-            "gnome-keyring-daemon --start --components=secrets"
-            "${pkgs.plasma5Packages.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1"
-          ];
+      wayland.windowManager.hyprland.settings = {
+        exec-once = [
+          "gnome-keyring-daemon --start --components=secrets"
+          "${pkgs.plasma5Packages.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1"
+        ];
 
-          windowrule = [
-            "float,^(org.kde.polkit-kde-authentication-agent-1)$"
-            "size 741 288,^(org.kde.polkit-kde-authentication-agent-1)$"
-            "center,^(org.kde.polkit-kde-authentication-agent-1)$"
+        windowrule = [
+          "float,^(org.kde.polkit-kde-authentication-agent-1)$"
+          "size 741 288,^(org.kde.polkit-kde-authentication-agent-1)$"
+          "center,^(org.kde.polkit-kde-authentication-agent-1)$"
 
-            # For GParted auth
-            "size 741 288,^(org.kde.ksshaskpass)$"
-            "move cursor -370 -144,^(org.kde.ksshaskpass)$"
-          ];
+          # For GParted auth
+          "size 741 288,^(org.kde.ksshaskpass)$"
+          "move cursor -370 -144,^(org.kde.ksshaskpass)$"
+        ];
 
-          bind = [
-            "$mainMod, L, exec, ${getExe lockPkg}"
-          ];
-        };
+        bind = map mkBind [
+          {
+            modifier = "$mainMod";
+            key = "L";
+            command = getExe lockPkg;
+          }
+        ];
       };
     };
   };

@@ -4,17 +4,18 @@ self: {
   pkgs,
   ...
 }: let
-  inherit (self.inputs) hyprgrass hyprland hyprland-plugins;
+  inherit (self.inputs) hyprland;
+  inherit (self.lib.hypr) mkBind;
 in {
   imports = [
     (import ../../ags self)
 
     ./modules/dconf.nix
     ./modules/printer.nix
-    ./modules/security.nix
     (import ./modules/audio.nix self)
     (import ./modules/packages.nix self)
     (import ./modules/ratbag-mice.nix self)
+    (import ./modules/security.nix self)
   ];
 
   config = let
@@ -73,10 +74,10 @@ in {
         ./home/dev.nix
 
         # Plugins
-        (import ./home/hyprexpo.nix hyprland-plugins)
-        (import ./home/hyprgrass.nix hyprgrass)
+        (import ./home/hyprexpo.nix self)
+        (import ./home/hyprgrass.nix self)
 
-        ./home/inputs.nix
+        (import ./home/inputs.nix self)
         (import ../theme self)
       ];
 
@@ -179,16 +180,20 @@ in {
             "$mainMod SHIFT, 8, movetoworkspace, 8"
             "$mainMod SHIFT, 9, movetoworkspace, 9"
             "$mainMod SHIFT, 0, movetoworkspace, 10"
-
-            ",XF86AudioMute,    exec, pactl set-sink-mute @DEFAULT_SINK@ toggle"
-            ",XF86AudioMicMute, exec, pactl set-source-mute @DEFAULT_SOURCE@ toggle"
-            "$mainMod, Print, exec, bash -c \"grim -g \\\"$(slurp)\\\" - | satty -f -\""
           ];
 
           # Mouse Binds
-          bindm = [
-            "$mainMod, mouse:272, movewindow"
-            "$mainMod, mouse:273, resizewindow"
+          bindm = map mkBind [
+            {
+              modifier = "$mainMod";
+              key = "mouse:272";
+              dispatcher = "movewindow";
+            }
+            {
+              modifier = "$mainMod";
+              key = "mouse:273";
+              dispatcher = "resizewindow";
+            }
           ];
 
           misc = {

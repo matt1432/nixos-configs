@@ -5,7 +5,8 @@ self: {
   ...
 }: {
   config = let
-    inherit (lib) filterAttrs hasPrefix optionals;
+    inherit (lib) optionals;
+    inherit (self.lib.hypr) mkAnimation;
 
     inherit (import ./setupMonitors.nix {inherit config pkgs;}) setupMonitors;
 
@@ -20,8 +21,6 @@ self: {
       .wayland
       .windowManager
       .hyprland;
-
-    devices = filterAttrs (n: v: hasPrefix "device:" n) cfgHypr.settings;
   in {
     home-manager.users.greeter = {
       imports = [
@@ -30,39 +29,45 @@ self: {
 
       wayland.windowManager.hyprland = {
         enable = true;
-        package = cfgHypr.finalPackage;
         systemd.enable = false;
 
-        settings =
-          {
-            inherit (cfgHypr.settings) cursor input misc monitor;
+        package = cfgHypr.finalPackage;
 
-            envd = optionals (config.nvidia.enable) [
-              "LIBVA_DRIVER_NAME, nvidia"
-              "NVD_BACKEND, direct"
-              "XDG_SESSION_TYPE, wayland"
-              "GBM_BACKEND, nvidia-drm"
-              "__GLX_VENDOR_LIBRARY_NAME, nvidia"
-            ];
+        settings = {
+          inherit (cfgHypr.settings) cursor device input misc monitor;
 
-            general.border_size = 0;
+          envd = optionals (config.nvidia.enable) [
+            "LIBVA_DRIVER_NAME, nvidia"
+            "NVD_BACKEND, direct"
+            "XDG_SESSION_TYPE, wayland"
+            "GBM_BACKEND, nvidia-drm"
+            "__GLX_VENDOR_LIBRARY_NAME, nvidia"
+          ];
 
-            decoration = {
-              blur.enabled = false;
-              shadow.enabled = false;
-            };
+          general.border_size = 0;
 
-            animation = [
-              "fadeLayersIn, 0"
-              "layers, 1, 4, default, popin 0%"
-            ];
+          decoration = {
+            blur.enabled = false;
+            shadow.enabled = false;
+          };
 
-            exec-once = [
-              setupMonitors
-              "agsGreeter &> /tmp/ags-greetd.log; hyprctl dispatch exit"
-            ];
-          }
-          // devices;
+          animation = map mkAnimation [
+            {
+              name = "fadeLayersIn";
+              enable = false;
+            }
+            {
+              name = "layers";
+              duration = 4;
+              style = "popin";
+            }
+          ];
+
+          exec-once = [
+            setupMonitors
+            "agsGreeter &> /tmp/ags-greetd.log; hyprctl dispatch exit"
+          ];
+        };
       };
     };
   };

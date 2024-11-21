@@ -3,15 +3,15 @@
   inputs,
 }: let
   flake = import ./flake inputs;
+  hypr = import ./hypr inputs.nixpkgs.lib;
   strings = import ./strings inputs.nixpkgs.lib;
 
-  lib = flake // strings;
+  lib = flake // hypr // strings;
 in
   # Expose main attrs
   lib
   # Expose all funcs
-  // strings
-  // flake
+  // {inherit flake hypr strings;}
   # Expose funcs that require pkgs
   // perSystem (
     pkgs:

@@ -53,7 +53,7 @@ in {
     home-manager.users.${cfgDesktop.user}.imports = [
       hmOpts
       (import ./packages.nix self)
-      ./hyprland.nix
+      (import ./hyprland.nix self)
     ];
   };
 

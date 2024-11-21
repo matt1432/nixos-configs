@@ -1,5 +1,8 @@
-{...}: {
-  wayland.windowManager.hyprland = {
+self: {lib, ...}: let
+  inherit (lib) map;
+  inherit (self.lib.hypr) mkAnimation mkBezier mkBind mkLayerRule;
+in {
+  config.wayland.windowManager.hyprland = {
     settings = {
       general = {
         gaps_in = 5;
@@ -22,35 +25,95 @@
       animations = {
         enabled = true;
 
-        bezier = [
-          "easeInQuart   , 0.895, 0.03, 0.685, 0.22"
-          "easeOutQuart  , 0.165, 0.84, 0.44 , 1"
-          "easeInOutQuart, 0.77, 0   , 0.175, 1"
+        bezier = map mkBezier [
+          {
+            name = "easeInQuart";
+            p0 = [0.895 0.030];
+            p1 = [0.685 0.220];
+          }
+          {
+            name = "easeOutQuart";
+            p0 = [0.165 0.840];
+            p1 = [0.440 1.000];
+          }
+          {
+            name = "easeInOutQuart";
+            p0 = [0.770 0.000];
+            p1 = [0.175 1.000];
+          }
 
-          # Fade out
-          "easeInExpo    , 0.95, 0.05, 0.795, 0.035"
+          # fade out
+          {
+            name = "easeInExpo";
+            p0 = [0.950 0.050];
+            p1 = [0.795 0.035];
+          }
         ];
 
-        animation = [
-          "workspaces, 1, 6, easeOutQuart, slide"
+        animation = map mkAnimation [
+          {
+            name = "workspaces";
+            duration = 6;
+            bezier = "easeOutQuart";
+            style = "slide";
+          }
 
-          "windows, 1, 4, easeOutQuart, slide"
-          "fadeIn , 0"
-          "fadeOut, 1, 3000, easeInExpo"
+          {
+            name = "windows";
+            duration = 4;
+            bezier = "easeOutQuart";
+            style = "slide";
+          }
+          {
+            name = "fadeIn";
+            enable = false;
+          }
+          {
+            name = "fadeOut";
+            duration = 4;
+            bezier = "easeInExpo";
+          }
 
-          "fadeLayersIn , 0"
-          "fadeLayersOut, 1, 3000, easeInExpo"
-          "layers       , 1, 4   , easeInOutQuart, slide left"
+          {
+            name = "fadeLayersIn";
+            enable = false;
+          }
+          {
+            name = "fadeLayersOut";
+            duration = 4;
+            bezier = "easeInExpo";
+          }
+          {
+            name = "layers";
+            duration = 4;
+            bezier = "easeInOutQuart";
+            style = "fade";
+          }
         ];
       };
 
-      layerrule = [
-        "animation popin, ^(hyprpaper.*)"
-        "animation fade, ^(bg-layer.*)"
+      layerrule = map mkLayerRule [
+        {
+          rule = "animation popin";
+          namespace = "^(hyprpaper.*)";
+        }
+        {
+          rule = "animation fade";
+          namespace = "^(bg-layer.*)";
+        }
+        {
+          rule = "noanim";
+          namespace = "^(noanim-.*)";
+        }
 
-        # Lockscreen blur
-        "blur, ^(blur-bg.*)"
-        "ignorealpha 0.19, ^(blur-bg.*)"
+        {
+          rule = "blur";
+          namespace = "^(blur-bg.*)";
+        }
+        {
+          rule = "ignorealpha 0.19";
+          namespace = "^(blur-bg.*)";
+        }
       ];
 
       exec-once = [
@@ -58,23 +121,79 @@
         "sleep 3; ags request 'open win-applauncher'"
       ];
 
-      bind = [
-        "$mainMod SHIFT, E    , exec, ags toggle win-powermenu"
-        "$mainMod      , D    , exec, ags toggle win-applauncher"
-        "$mainMod      , V    , exec, ags toggle win-clipboard"
-        "              , Print, exec, ags toggle win-screenshot"
-      ];
-      binde = [
-        ## Brightness control
-        ", XF86MonBrightnessUp  , exec, ags request 'Brightness.screen +0.05'"
-        ", XF86MonBrightnessDown, exec, ags request 'Brightness.screen -0.05'"
+      bind = map mkBind [
+        {
+          modifier = "$mainMod SHIFT";
+          key = "E";
+          command = "ags toggle win-powermenu";
+        }
+        {
+          modifier = "$mainMod";
+          key = "D";
+          command = "ags toggle win-applauncher";
+        }
+        {
+          modifier = "$mainMod";
+          key = "V";
+          command = "ags toggle win-clipboard";
+        }
+        {
+          key = "Print";
+          command = "ags toggle win-screenshot";
+        }
 
-        ## Volume control
-        ", XF86AudioRaiseVolume , exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+ & ags request 'popup speaker' &"
-        ", XF86AudioLowerVolume , exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- & ags request 'popup speaker' &"
+        {
+          key = "XF86AudioMute";
+          command = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
+        }
+        {
+          key = "XF86AudioMicMute";
+          command = "pactl set-source-mute @DEFAULT_SOURCE@ toggle";
+        }
+        {
+          modifier = "$mainMod";
+          key = "Print";
+          command = "bash -c \"grim -g \\\"$(slurp)\\\" - | satty -f -\"";
+        }
       ];
-      bindn = ["    , Escape   , exec, ags request closeAll"];
-      bindr = ["CAPS, Caps_Lock, exec, ags request fetchCapsState"];
+
+      binde = map mkBind [
+        {
+          key = "XF86MonBrightnessUp";
+          command = "ags request 'Brightness.screen +0.05'";
+        }
+        {
+          key = "XF86MonBrightnessDown";
+          command = "ags request 'Brightness.screen -0.05'";
+        }
+
+        {
+          key = "XF86AudioRaiseVolume";
+          command = "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+ & ags request 'popup speaker' &";
+        }
+        {
+          key = "XF86AudioLowerVolume";
+          command = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- & ags request 'popup speaker' &";
+        }
+      ];
+
+      bindn = map mkBind [
+        {
+          key = "Escape";
+          command = "ags request closeAll";
+        }
+      ];
+
+      bindr = map mkBind [
+        {
+          modifier = "CAPS";
+          key = "Caps_Lock";
+          command = "ags request fetchCapsState";
+        }
+      ];
     };
   };
+
+  # For accurate stack trace
+  _file = ./default.nix;
 }

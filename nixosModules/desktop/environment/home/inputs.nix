@@ -1,5 +1,12 @@
-{osConfig, ...}: {
+self: {
+  osConfig,
+  lib,
+  ...
+}: {
   config = let
+    inherit (lib) map;
+    inherit (self.lib.hypr) mkBind;
+
     inherit (osConfig.services.xserver) xkb;
     inherit (osConfig.roles.desktop) mainMonitor;
 
@@ -16,7 +23,7 @@
   in {
     wayland.windowManager.hyprland = {
       settings = {
-        device = map (d: (mkConf d)) miceNames;
+        device = map mkConf miceNames;
 
         cursor = {
           no_hardware_cursors = osConfig.nvidia.enable;
@@ -47,11 +54,23 @@
           };
         };
 
-        bind = [
-          ",XF86AudioPlay, exec, playerctl play-pause"
-          ",XF86AudioStop, exec, playerctl stop"
-          ",XF86AudioNext, exec, playerctl next"
-          ",XF86AudioPrev, exec, playerctl previous"
+        bind = map mkBind [
+          {
+            key = "XF86AudioPlay";
+            command = "playerctl play-pause";
+          }
+          {
+            key = "XF86AudioStop";
+            command = "playerctl stop";
+          }
+          {
+            key = "XF86AudioNext";
+            command = "playerctl next";
+          }
+          {
+            key = "XF86AudioPrev";
+            command = "playerctl previous";
+          }
         ];
       };
     };

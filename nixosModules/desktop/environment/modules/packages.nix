@@ -4,12 +4,13 @@ self: {
   pkgs,
   ...
 }: let
+  inherit (self.lib.hypr) mkBind;
   inherit (self.inputs) jellyfin-flake;
 in {
   imports = [./dolphin.nix];
 
   config = let
-    inherit (lib) getExe optionals;
+    inherit (lib) getExe map optionals;
     inherit (pkgs.writers) writeTOML;
 
     flakeDir = config.environment.variables.FLAKE;
@@ -187,13 +188,31 @@ in {
             "workspace special:spot silent,^(Spotify)$"
           ];
 
-          bind = [
-            "$mainMod, Q, exec, foot"
+          bind = map mkBind [
+            {
+              modifier = "$mainMod";
+              key = "Q";
+              command = "foot";
+            }
 
-            "$mainMod SHIFT, C, exec, wl-color-picker"
+            {
+              modifier = "$mainMod SHIFT";
+              key = "C";
+              command = "wl-color-picker";
+            }
 
-            "$mainMod, P, togglespecialworkspace, protonmail"
-            "$mainMod, S, togglespecialworkspace, spot"
+            {
+              modifier = "$mainMod";
+              key = "P";
+              dispatcher = "togglespecialworkspace";
+              command = "protonmail";
+            }
+            {
+              modifier = "$mainMod";
+              key = "S";
+              dispatcher = "togglespecialworkspace";
+              command = "spot";
+            }
           ];
         };
       };

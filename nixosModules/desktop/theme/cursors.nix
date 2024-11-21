@@ -22,17 +22,15 @@ self: {pkgs, ...}: {
 
     home.file.".local/share/icons/${hyprcursorThemeName}".source = cursorTheme;
 
-    wayland.windowManager.hyprland = {
-      settings = {
-        envd = [
-          "XCURSOR_THEME, ${cursorThemeName}"
-          "XCURSOR_SIZE, ${toString cursorSize}"
-        ];
+    wayland.windowManager.hyprland.settings = {
+      envd = [
+        "XCURSOR_THEME, ${cursorThemeName}"
+        "XCURSOR_SIZE, ${toString cursorSize}"
+      ];
 
-        exec-once = [
-          "hyprctl setcursor ${hyprcursorThemeName} ${toString cursorSize}"
-        ];
-      };
+      exec-once = [
+        "hyprctl setcursor ${hyprcursorThemeName} ${toString cursorSize}"
+      ];
     };
   };
 
