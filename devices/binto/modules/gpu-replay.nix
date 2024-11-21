@@ -5,28 +5,27 @@
   self,
   ...
 }: let
-  inherit (lib) concatStringsSep removePrefix;
-
+  inherit (lib) concatStringsSep getExe removePrefix;
   inherit (config.vars) mainUser;
+  inherit (self.packages.${pkgs.system}) gpu-screen-recorder gsr-kms-server;
+
+  hyprPkgs = config.home-manager.users.${mainUser}.wayland.windowManager.hyprland.finalPackage;
 
   cfgDesktop = config.roles.desktop;
-
-  pkg = self.packages.${pkgs.system}.gpu-screen-recorder;
-  hyprPkgs = config.home-manager.users.${mainUser}.wayland.windowManager.hyprland.finalPackage;
 in {
   security.wrappers = {
     gpu-screen-recorder = {
       owner = "root";
       group = "video";
       capabilities = "cap_sys_nice+ep";
-      source = "${pkg.gsr}/bin/gpu-screen-recorder";
+      source = getExe gpu-screen-recorder;
     };
 
     gsr-kms-server = {
       owner = "root";
       group = "video";
       capabilities = "cap_sys_admin+ep";
-      source = "${pkg.kms}/bin/gsr-kms-server";
+      source = getExe gsr-kms-server;
     };
   };
 
@@ -34,7 +33,9 @@ in {
     home.packages = [
       (pkgs.writeShellApplication {
         name = "gpu-save-replay";
-        runtimeInputs = [pkgs.procps];
+
+        runtimeInputs = with pkgs; [procps];
+
         text = ''
           pkill --signal SIGUSR1 -f gpu-screen-recorder
         '';
@@ -42,7 +43,16 @@ in {
 
       (pkgs.writeShellApplication {
         name = "gsr-start";
-        runtimeInputs = [pkgs.pulseaudio hyprPkgs pkgs.xorg.xrandr];
+
+        runtimeInputs = [
+          pkgs.pulseaudio
+          pkgs.xorg.xrandr
+
+          gpu-screen-recorder
+          gsr-kms-server
+          hyprPkgs
+        ];
+
         text = ''
           main="${removePrefix "desc:" cfgDesktop.mainMonitor}"
           WINDOW=$(hyprctl -j monitors | jq '.[] |= (.description |= gsub(","; ""))' | jq -r ".[] | select(.description | test(\"$main\")) | .name")

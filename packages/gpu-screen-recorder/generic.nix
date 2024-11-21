@@ -62,6 +62,8 @@ in
     ];
 
     fixupPhase = ''
+      runHook preFixup
+
       wrapProgram $out/bin/gpu-screen-recorder \
         --prefix LD_LIBRARY_PATH : "${
         makeLibraryPath [
@@ -70,15 +72,8 @@ in
         ]
       }"
 
-      # This is needed to force gsr to lookup kms in PATH
-      # to get the security wrapper
-      mkdir -p $gsr $kms/bin
-      cp -r $out/bin $gsr
-      mv $gsr/bin/gsr-kms-server $kms/bin
-      rm $out/bin/gsr-kms-server
+      runHook postFixup
     '';
-
-    outputs = ["out" "gsr" "kms"];
 
     meta = {
       description = "Screen recorder that has minimal impact on system performance by recording a window using the GPU only";

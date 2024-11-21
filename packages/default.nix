@@ -4,7 +4,10 @@
   pkgs,
   ...
 }: {
-  gpu-screen-recorder = pkgs.callPackage ./gpu-screen-recorder {
+  gpu-screen-recorder = pkgs.callPackage ./gpu-screen-recorder/gpu-screen-recorder.nix {
+    inherit (inputs) gpu-screen-recorder-src;
+  };
+  gsr-kms-server = pkgs.callPackage ./gpu-screen-recorder/gsr-kms-server.nix {
     inherit (inputs) gpu-screen-recorder-src;
   };
 
