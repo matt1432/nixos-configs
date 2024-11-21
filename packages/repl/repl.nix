@@ -22,7 +22,7 @@
   pkgs = self.inputs.nixpkgs.legacyPackages.${currentSystem} or {};
   lib =
     if pkgs != {}
-    then {inherit (pkgs) lib;}
+    then pkgs.lib
     else {};
 in
   {inherit lib pkgs self;}
