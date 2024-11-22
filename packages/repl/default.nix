@@ -15,7 +15,7 @@ in
     runtimeInputs = [coreutils gnused ncurses];
 
     text = ''
-      arg=''${1:-"."}
+      arg=''${1:-""}
 
       case "$arg" in
           "-h"|"--help"|"help")
