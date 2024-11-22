@@ -1,15 +1,20 @@
-{
+self: {
+  config,
+  lib,
   pkgs,
-  self,
   ...
 }: let
+  inherit (lib) mkIf;
+
+  cfg = config.programs.bash;
+
   mkRemoteConf = remote: email: name: {
     condition = "hasconfig:remote.*.url:${remote}:*/**";
     contents.user = {inherit email name;};
   };
   mkDefaultRemote = remote: mkRemoteConf remote "matt@nelim.org" "matt1432";
 in {
-  programs = {
+  config.programs = mkIf cfg.enable {
     git = {
       enable = true;
       package = pkgs.gitFull;
@@ -59,20 +64,6 @@ in {
     };
   };
 
-  home.packages = [
-    (pkgs.writeShellApplication {
-      name = "chore";
-      runtimeInputs = [pkgs.git];
-
-      text = ''
-        DIR=''${1:-"$FLAKE"}
-
-        cd "$DIR" || exit 1
-
-        git add flake.lock
-        git commit -m 'chore: update flake.lock'
-        git push
-      '';
-    })
-  ];
+  # For accurate stack trace
+  _file = ./default.nix;
 }

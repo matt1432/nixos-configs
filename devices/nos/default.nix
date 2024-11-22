@@ -24,10 +24,7 @@ in {
   # ------------------------------------------------
   # User Settings
   # ------------------------------------------------
-  vars = {
-    mainUser = "matt";
-    promptMainColor = "orange";
-  };
+  vars.mainUser = "matt";
 
   users.users.${mainUser} = {
     isNormalUser = true;
@@ -58,12 +55,22 @@ in {
   services.kmscon.enable = true;
 
   home-manager.users.${mainUser} = {
-    imports = [];
+    imports = [
+      self.homeManagerModules.neovim
+      self.homeManagerModules.shell
+    ];
 
-    programs.neovim = {
-      enable = true;
-      enableIde = true;
-      user = mainUser;
+    programs = {
+      bash = {
+        enable = true;
+        promptMainColor = "orange";
+      };
+
+      neovim = {
+        enable = true;
+        enableIde = true;
+        user = mainUser;
+      };
     };
   };
 }

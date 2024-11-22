@@ -24,10 +24,7 @@ in {
   # ------------------------------------------------
   # User Settings
   # ------------------------------------------------
-  vars = {
-    mainUser = "mariah";
-    promptMainColor = "pink";
-  };
+  vars.mainUser = "mariah";
 
   users.users.${mainUser} = {
     isNormalUser = true;
@@ -58,4 +55,17 @@ in {
   };
 
   services.kmscon.enable = true;
+
+  home-manager.users.${mainUser} = {
+    imports = [
+      self.homeManagerModules.shell
+    ];
+
+    programs = {
+      bash = {
+        enable = true;
+        promptMainColor = "pink";
+      };
+    };
+  };
 }

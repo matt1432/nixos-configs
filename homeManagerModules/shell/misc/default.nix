@@ -1,10 +1,14 @@
-{
-  pkgs,
+self: {
   config,
-  self,
+  lib,
+  pkgs,
   ...
-}: {
-  programs = {
+}: let
+  inherit (lib) mkIf;
+
+  cfg = config.programs.bash;
+in {
+  config.programs = mkIf cfg.enable {
     fzf = {
       enable = true;
       enableBashIntegration = true;
@@ -51,4 +55,7 @@
       };
     };
   };
+
+  # For accurate stack trace
+  _file = ./default.nix;
 }

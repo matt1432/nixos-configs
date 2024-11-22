@@ -4,8 +4,8 @@ TODO: add directory structure info and enforce it
     - every root folder in the repo represents a flake output except inputs
     - every root folder only has a `default.nix` and subfolders for each
       of its attrs
-    - in a subfolder, there should always be a `default.nix`. if the
-      `config` folders? only nix code folder structure?
+    - in a subfolder, there should always be a `default.nix`
+    - if there is non nix code, it will be in a `config` folder
     - redo docs
 
 ## AGS

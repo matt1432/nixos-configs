@@ -4,6 +4,8 @@
   pkgs,
   ...
 }: {
+  imports = [./nix-on-droid.nix];
+
   vars.mainUser = "nix-on-droid";
 
   environment.variables.FLAKE = "/data/data/com.termux.nix/files/home/.nix";

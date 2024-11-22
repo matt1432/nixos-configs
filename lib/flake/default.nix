@@ -85,8 +85,6 @@ inputs: rec {
           })
 
           {home-manager = {inherit extraSpecialArgs;};}
-
-          ../../common/nix-on-droid.nix
         ]
         ++ extraModules;
     };

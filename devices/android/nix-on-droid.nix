@@ -5,9 +5,12 @@
   ...
 }: {
   imports = [
-    ./vars
-    ./modules/global.nix
-    ./packages.nix
+    ../../common/vars
+    ../../common/modules/global.nix
+    ../../common/packages.nix
+
+    self.nixosModules.tmux
+    {programs.tmux.enableCustomConf = true;}
   ];
 
   nix = {
@@ -41,8 +44,11 @@
         };
       }
 
-      ./home
       self.homeManagerModules.neovim
+      {programs.neovim.enable = true;}
+
+      self.homeManagerModules.shell
+      {programs.bash.enable = true;}
 
       {
         programs.bash.sessionVariables = {

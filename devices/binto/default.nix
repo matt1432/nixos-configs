@@ -25,10 +25,7 @@ in {
   # ------------------------------------------------
   # User Settings
   # ------------------------------------------------
-  vars = {
-    mainUser = "matt";
-    promptMainColor = "purple";
-  };
+  vars.mainUser = "matt";
 
   users.users.${mainUser} = {
     isNormalUser = true;
@@ -79,12 +76,21 @@ in {
   home-manager.users.${mainUser} = {
     imports = [
       self.homeManagerModules.firefox
+      self.homeManagerModules.neovim
+      self.homeManagerModules.shell
     ];
 
-    programs.neovim = {
-      enable = true;
-      enableIde = true;
-      user = mainUser;
+    programs = {
+      bash = {
+        enable = true;
+        promptMainColor = "purple";
+      };
+
+      neovim = {
+        enable = true;
+        enableIde = true;
+        user = mainUser;
+      };
     };
   };
 }
