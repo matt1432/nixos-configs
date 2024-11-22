@@ -17,6 +17,9 @@ in {
     ./packages.nix
     self.nixosModules.borgbackup
 
+    self.nixosModules.tmux
+    {programs.tmux.enableCustomConf = true;}
+
     home-manager.nixosModules.home-manager
   ];
 

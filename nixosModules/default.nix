@@ -9,5 +9,6 @@ self: {
   nvidia = import ./nvidia;
   plymouth = import ./plymouth;
   server = import ./server;
+  tmux = import ./tmux;
   wyoming-plus = import ./wyoming-plus;
 }

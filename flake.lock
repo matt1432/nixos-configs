@@ -961,11 +961,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1722367901,
-        "narHash": "sha256-f4zoGQFYe5ErhuOV5AA5vxscAU7s727m6fz0psqvayQ=",
+        "lastModified": 1732308766,
+        "narHash": "sha256-JRUEXBZ6UJ0QTuw1qtzSf9O5rkx4S226NSoSlwRjiQc=",
         "owner": "matt1432",
         "repo": "Minix",
-        "rev": "d3f8c44374897f69293cc8b9e50c421b1225dea4",
+        "rev": "05d893eb53c5c6bcdb38b4a2a64bba65895d8817",
         "type": "github"
       },
       "original": {

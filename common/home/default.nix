@@ -4,6 +4,5 @@
     ./direnv
     ./git
     ./nix-index
-    ./tmux
   ];
 }
