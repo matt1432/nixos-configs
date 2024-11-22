@@ -5,7 +5,6 @@ khepri: {
   ...
 }: let
   inherit (lib) mkIf mkOption types;
-  inherit (config.vars) mainUser;
 
   cfg = config.khepri;
 in {
@@ -35,8 +34,6 @@ in {
   };
 
   config = mkIf (cfg.enable) {
-    users.extraUsers.${mainUser}.extraGroups = ["docker"];
-
     virtualisation = {
       docker = {
         enable = true;
