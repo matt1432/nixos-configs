@@ -14,7 +14,6 @@ in {
 
     ./modules
 
-    self.nixosModules.adb
     self.nixosModules.desktop
     self.nixosModules.docker
     self.nixosModules.kmscon
@@ -39,8 +38,11 @@ in {
       "adm"
       "video"
       "libvirtd"
+      "adbusers"
     ];
   };
+
+  programs.adb.enable = true;
 
   networking = {
     hostName = "wim";
@@ -74,11 +76,6 @@ in {
   roles.server = {
     user = mainUser;
     tailscale.enable = true;
-  };
-
-  programs.adb = {
-    enable = true;
-    user = mainUser;
   };
 
   boot.plymouth = {

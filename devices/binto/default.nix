@@ -13,7 +13,6 @@ in {
 
     ./modules
 
-    self.nixosModules.adb
     self.nixosModules.desktop
     self.nixosModules.kmscon
     self.nixosModules.server
@@ -36,8 +35,11 @@ in {
       "adm"
       "video"
       "libvirtd"
+      "adbusers"
     ];
   };
+
+  programs.adb.enable = true;
 
   networking = {
     hostName = "binto";
@@ -64,11 +66,6 @@ in {
     user = mainUser;
     tailscale.enable = true;
     sshd.enable = true;
-  };
-
-  programs.adb = {
-    enable = true;
-    user = mainUser;
   };
 
   services.kmscon.enable = true;

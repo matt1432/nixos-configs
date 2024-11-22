@@ -1,5 +1,4 @@
 self: {
-  adb = import ./adb;
   borgbackup = import ./borgbackup;
   desktop = import ./desktop self;
   docker = import ./docker self.inputs.khepri;

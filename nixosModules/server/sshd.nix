@@ -18,6 +18,7 @@ in {
       };
     };
 
+    # FIXME: Move to mkNixOS
     users.users.${cfg.user} = {
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPE39uk52+NIDLdHeoSHIEsOUUFRzj06AGn09z4TUOYm matt@OP9"
