@@ -2,7 +2,8 @@
   pkgs,
   self,
 }: let
-  apps = import ./apps.nix {inherit pkgs self;};
-  nixosMachines = import ./machines.nix {inherit pkgs self;};
+  apps = import ./apps {inherit pkgs self;};
+  devices = import ./devices {inherit pkgs self;};
+  packages = import ./packages {inherit pkgs self;};
 in
-  apps // nixosMachines
+  apps // devices // packages
