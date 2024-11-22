@@ -69,7 +69,7 @@ if (args['a'] || args['all']) {
     console.log(updateCustomPackage('some-sass-language-server'));
 
 
-    spawnSync('nix-fast-build', ['-f', `${FLAKE}#nixFastChecks`], {
+    spawnSync('nixFastBuild', [], {
         shell: true,
         stdio: [process.stdin, process.stdout, process.stderr],
     });

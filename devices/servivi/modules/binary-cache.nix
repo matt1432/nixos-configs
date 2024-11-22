@@ -24,6 +24,9 @@
       cd "$FLAKE" || return
 
       nix-fast-build -f .#nixFastChecks "$@"
+
+      mkdir -p results
+      mv -f result-* results
     '';
   };
 in {
