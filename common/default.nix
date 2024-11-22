@@ -3,10 +3,13 @@
   home-manager,
   lib,
   nh,
+  nixd,
   pkgs,
   self,
   ...
-}: {
+}: let
+  inherit (lib) attrValues filter findFirst isAttrs hasAttr mkIf mkOption types;
+in {
   imports = [
     ./vars
 
@@ -27,7 +30,18 @@
   };
 
   nix = {
-    package = pkgs.nixVersions.nix_2_24;
+    package = let
+      nixdInput =
+        findFirst
+        (x: x.pname == "nix") {}
+        nixd.packages.${pkgs.system}.nixd.buildInputs;
+
+      throws = x: !(builtins.tryEval x).success;
+      hasVersion = x: isAttrs x && hasAttr "version" x;
+
+      nixVersions = filter (x: ! throws x && hasVersion x) (attrValues pkgs.nixVersions);
+    in
+      findFirst (x: x.version == nixdInput.version) {} nixVersions;
 
     # Edit nix.conf
     settings = {
@@ -97,7 +111,6 @@
   };
 
   home-manager.users = let
-    inherit (lib) mkIf mkOption types;
     inherit (config.vars) mainUser;
 
     default = {

@@ -52,7 +52,6 @@ let
   };
 
   nvimInputs = {
-    # uses nixVersions.nix_2_24
     nixd = mkDep {
       owner = "nix-community";
       repo = "nixd";
