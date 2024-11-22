@@ -18,6 +18,22 @@ in {
     self.nixosModules.server
   ];
 
+  home-manager.users = rec {
+    root = {
+      imports = [
+        self.homeManagerModules.neovim
+      ];
+
+      programs.neovim = {
+        enable = true;
+        enableIde = true;
+        user = mainUser;
+      };
+    };
+
+    ${mainUser} = root;
+  };
+
   # State Version: DO NOT CHANGE
   system.stateVersion = "24.05";
 

@@ -1,15 +1,16 @@
 {
   config,
-  pkgs,
   lib,
+  pkgs,
   ...
 }: let
   inherit (lib) mkIf;
-  inherit (config.vars) neovimIde;
+
+  cfg = config.programs.neovim;
 
   flakeEnv = config.programs.bash.sessionVariables.FLAKE;
 in
-  mkIf neovimIde {
+  mkIf cfg.enableIde {
     programs = {
       neovim = {
         extraPackages = builtins.attrValues {

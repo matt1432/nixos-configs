@@ -39,11 +39,6 @@ in {
         };
       };
     };
-
-    neovimIde = mkOption {
-      type = types.bool;
-      default = true;
-    };
   };
 
   config = {

@@ -1,13 +1,14 @@
 {
   config,
-  pkgs,
   lib,
+  pkgs,
   ...
 }: let
   inherit (lib) getExe mkIf;
-  inherit (config.vars) neovimIde;
+
+  cfg = config.programs.neovim;
 in {
-  programs = {
+  programs = mkIf cfg.enable {
     # I love doing typos
     bash.shellAliases = {
       nivm = "nvim";
@@ -19,13 +20,13 @@ in {
       viAlias = true;
       vimAlias = true;
 
-      extraPackages = mkIf neovimIde [
+      extraPackages = mkIf cfg.enableIde [
         pkgs.nodePackages.bash-language-server
         pkgs.shellcheck
       ];
 
       extraLuaConfig =
-        mkIf neovimIde
+        mkIf cfg.enableIde
         # lua
         ''
           vim.api.nvim_create_autocmd('FileType', {

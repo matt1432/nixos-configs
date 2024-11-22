@@ -1,30 +1,29 @@
-{
+self: {
   config,
+  lib,
   osConfig,
   pkgs,
-  lib,
-  nixd,
-  self,
   ...
 }: let
   inherit (lib) getExe hasPrefix mkIf removePrefix;
-  inherit (config.vars) mainUser neovimIde;
   inherit (osConfig.networking) hostName;
+
+  cfg = config.programs.neovim;
 
   defaultFormatter = self.formatter.${pkgs.system};
 
-  nixdPkg = nixd.packages.${pkgs.system}.default;
+  nixdPkg = self.inputs.nixd.packages.${pkgs.system}.default;
 
   flakeEnv = config.programs.bash.sessionVariables.FLAKE;
-  flakeDir = "${removePrefix "/home/${mainUser}/" flakeEnv}";
-in
-  mkIf neovimIde {
+  flakeDir = "${removePrefix "/home/${cfg.user}/" flakeEnv}";
+in {
+  config = mkIf cfg.enableIde {
     assertions = [
       {
         assertion =
-          neovimIde
-          && hasPrefix "/home/${mainUser}/" flakeEnv
-          || !neovimIde;
+          cfg.enableIde
+          && hasPrefix "/home/${cfg.user}/" flakeEnv
+          || !cfg.enableIde;
         message = ''
           Your $FLAKE environment variable needs to point to a directory in
           the main users' home to use the neovim module.
@@ -74,4 +73,8 @@ in
           '';
       };
     };
-  }
+  };
+
+  # For accurate stack trace
+  _file = ./nix.nix;
+}

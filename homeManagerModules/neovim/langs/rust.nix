@@ -1,16 +1,17 @@
 {
   config,
-  pkgs,
   lib,
+  pkgs,
   ...
 }: let
-  inherit (lib) mkIf;
-  inherit (config.vars) neovimIde;
+  inherit (lib) attrValues mkIf;
+
+  cfg = config.programs.neovim;
 in
-  mkIf neovimIde {
+  mkIf cfg.enableIde {
     programs = {
       neovim = {
-        extraPackages = builtins.attrValues {
+        extraPackages = attrValues {
           inherit
             (pkgs)
             cargo

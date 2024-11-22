@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  self,
   ...
 }: {
   imports = [
@@ -41,6 +42,7 @@
       }
 
       ./home
+      self.homeManagerModules.neovim
 
       {
         programs.bash.sessionVariables = {

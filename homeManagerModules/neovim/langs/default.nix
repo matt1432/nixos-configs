@@ -1,11 +1,12 @@
-{
+self: {
   config,
   lib,
   pkgs,
   ...
 }: let
   inherit (lib) fileContents mkBefore mkIf;
-  inherit (config.vars) neovimIde;
+
+  cfg = config.programs.neovim;
 in {
   imports = [
     ./bash.nix
@@ -15,29 +16,19 @@ in {
     ./java.nix
     ./json.nix
     ./lua.nix
-    ./markdown.nix
-    ./nix.nix
     ./python.nix
     ./rust.nix
-    ./web.nix
+    (import ./markdown.nix self)
+    (import ./nix.nix self)
+    (import ./web.nix self)
   ];
 
-  programs = mkIf neovimIde {
+  config.programs = mkIf cfg.enableIde {
     neovim = {
       extraLuaConfig =
         mkBefore
         # lua
         ''
-          -- Start completion / snippet stuff
-          vim.g.coq_settings = {
-              auto_start = 'shut-up',
-              keymap = {
-                  recommended = false,
-              },
-              -- https://github.com/NixOS/nixpkgs/issues/168928#issuecomment-1109581739
-              xdg = true,
-          };
-
           -- Add formatting cmd
           vim.api.nvim_create_user_command(
               'Format',
@@ -101,4 +92,7 @@ in {
         ];
     };
   };
+
+  # For accurate stack trace
+  _file = ./default.nix;
 }

@@ -5,9 +5,10 @@
   ...
 }: let
   inherit (lib) mkIf;
-  inherit (config.vars) neovimIde;
+
+  cfg = config.programs.neovim;
 in
-  mkIf neovimIde {
+  mkIf cfg.enableIde {
     programs = {
       neovim = {
         extraPackages = builtins.attrValues {

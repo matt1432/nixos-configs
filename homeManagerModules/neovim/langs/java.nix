@@ -5,12 +5,13 @@
   ...
 }: let
   inherit (lib) getExe mkIf;
-  inherit (config.vars) neovimIde;
+
+  cfg = config.programs.neovim;
 
   javaSdk = pkgs.temurin-bin-17;
   javaPkgs = builtins.attrValues {inherit (pkgs) gradle maven;};
 in
-  mkIf neovimIde {
+  mkIf cfg.enableIde {
     home.packages = javaPkgs;
 
     xdg.dataFile.".gradle/gradle.properties".text = ''

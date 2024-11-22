@@ -4,10 +4,7 @@
   pkgs,
   ...
 }: {
-  vars = {
-    mainUser = "nix-on-droid";
-    neovimIde = false;
-  };
+  vars.mainUser = "nix-on-droid";
 
   environment.variables.FLAKE = "/data/data/com.termux.nix/files/home/.nix";
 

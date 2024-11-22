@@ -1,17 +1,18 @@
-{
+self: {
   config,
   lib,
   pkgs,
   self,
-  vimplugin-easytables-src,
   ...
 }: let
-  inherit (lib) mkIf;
-  inherit (config.vars) neovimIde;
-
+  inherit (self.inputs) vimplugin-easytables-src;
   inherit (self.lib.${pkgs.system}) buildPlugin;
-in
-  mkIf neovimIde {
+
+  inherit (lib) mkIf;
+
+  cfg = config.programs.neovim;
+in {
+  config = mkIf cfg.enableIde {
     programs = {
       neovim = {
         extraPackages = builtins.attrValues {
@@ -125,4 +126,8 @@ in
         ];
       };
     };
-  }
+  };
+
+  # For accurate stack trace
+  _file = ./markdown.nix;
+}
