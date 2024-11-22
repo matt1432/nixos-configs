@@ -18,22 +18,6 @@ in {
     self.nixosModules.server
   ];
 
-  home-manager.users = rec {
-    root = {
-      imports = [
-        self.homeManagerModules.neovim
-      ];
-
-      programs.neovim = {
-        enable = true;
-        enableIde = true;
-        user = mainUser;
-      };
-    };
-
-    ${mainUser} = root;
-  };
-
   # State Version: DO NOT CHANGE
   system.stateVersion = "24.05";
 
@@ -86,4 +70,14 @@ in {
 
   khepri.enable = true;
   services.kmscon.enable = true;
+
+  home-manager.users.${mainUser} = {
+    imports = [];
+
+    programs.neovim = {
+      enable = true;
+      enableIde = true;
+      user = mainUser;
+    };
+  };
 }

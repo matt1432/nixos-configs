@@ -112,6 +112,7 @@ in {
 
   home-manager.users = let
     inherit (config.vars) mainUser;
+    mainHmCfg = config.home-manager.users.${mainUser};
 
     default = {
       imports = [
@@ -136,12 +137,20 @@ in {
 
         ./home
         ./home/trash-d
+
+        self.homeManagerModules.neovim
       ];
 
       home.stateVersion = config.system.stateVersion;
     };
   in {
-    root = default;
+    root =
+      default
+      // {
+        programs.neovim = {
+          inherit (mainHmCfg.programs.neovim) enable enableIde user;
+        };
+      };
     greeter = mkIf (config.services.greetd.enable) default;
     ${mainUser} = default;
   };
