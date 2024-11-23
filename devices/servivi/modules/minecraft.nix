@@ -1,11 +1,9 @@
 {
-  config,
+  mainUser,
   minix,
   pkgs,
   ...
-}: let
-  inherit (config.vars) mainUser;
-in {
+}: {
   imports = [minix.nixosModules.default];
 
   environment.systemPackages = [

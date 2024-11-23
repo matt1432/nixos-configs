@@ -1,11 +1,11 @@
 {
   config,
   jellyfin-flake,
+  mainUser,
   lib,
   ...
 }: let
   inherit (lib) hasAttr optionals;
-  inherit (config.vars) mainUser;
 
   optionalGroup = name:
     optionals

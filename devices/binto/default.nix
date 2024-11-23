@@ -1,10 +1,8 @@
 {
-  config,
+  mainUser,
   self,
   ...
-}: let
-  inherit (config.vars) mainUser;
-in {
+}: {
   # ------------------------------------------------
   # Imports
   # ------------------------------------------------
@@ -13,6 +11,7 @@ in {
 
     ./modules
 
+    self.nixosModules.base
     self.nixosModules.desktop
     self.nixosModules.kmscon
     self.nixosModules.server
@@ -24,8 +23,6 @@ in {
   # ------------------------------------------------
   # User Settings
   # ------------------------------------------------
-  vars.mainUser = "matt";
-
   users.users.${mainUser} = {
     isNormalUser = true;
     extraGroups = [
@@ -52,6 +49,11 @@ in {
   # ------------------------------------------------
   # `Self` Modules configuration
   # ------------------------------------------------
+  roles.base = {
+    enable = true;
+    user = mainUser;
+  };
+
   roles.desktop = {
     user = mainUser;
 

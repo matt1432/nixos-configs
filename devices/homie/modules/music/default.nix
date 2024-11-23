@@ -1,10 +1,9 @@
 {
   config,
+  mainUser,
   pkgs,
   ...
-}: let
-  inherit (config.vars) mainUser;
-in {
+}: {
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;

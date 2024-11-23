@@ -1,4 +1,5 @@
 self: {
+  base = import ./base self;
   borgbackup = import ./borgbackup;
   desktop = import ./desktop self;
   docker = import ./docker self.inputs.khepri;

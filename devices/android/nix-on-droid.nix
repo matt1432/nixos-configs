@@ -1,6 +1,6 @@
+# FIXME: eval is broken
 {
   config,
-  lib,
   self,
   ...
 }: {
@@ -35,15 +35,6 @@
   # Global hm settings
   home-manager.config = {
     imports = [
-      # Make the vars be the same on Nix and HM
-      {
-        options.vars = lib.mkOption {
-          type = lib.types.attrs;
-          readOnly = true;
-          default = config.vars;
-        };
-      }
-
       self.homeManagerModules.neovim
       {programs.neovim.enable = true;}
 

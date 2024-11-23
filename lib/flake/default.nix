@@ -32,15 +32,16 @@ inputs: rec {
   mkNixOS = {
     extraModules ? [],
     cudaSupport ? false,
+    mainUser ? "matt",
   }:
     inputs.nixpkgs.lib.nixosSystem rec {
       system = "x86_64-linux";
-      specialArgs = inputs;
+      specialArgs = inputs // {inherit mainUser;};
       modules =
         [
           (allowModularOverrides {inherit system cudaSupport;})
+          inputs.home-manager.nixosModules.home-manager
           {home-manager.extraSpecialArgs = specialArgs;}
-          ../../common
         ]
         ++ extraModules;
     };

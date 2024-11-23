@@ -1,13 +1,12 @@
 defaultSession: {
   config,
   lib,
+  mainUser,
   pkgs,
   ...
 }: {
   config = let
     inherit (lib) findFirst getExe mkForce;
-
-    inherit (config.vars) mainUser;
 
     switch-session = pkgs.writeShellApplication {
       name = "switch-session";

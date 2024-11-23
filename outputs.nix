@@ -73,7 +73,10 @@
         extraModules = [./devices/binto];
       };
 
-      bbsteamie = mkNixOS {extraModules = [./devices/bbsteamie];};
+      bbsteamie = mkNixOS {
+        mainUser = "mariah";
+        extraModules = [./devices/bbsteamie];
+      };
 
       # NAS
       nos = mkNixOS {
@@ -117,7 +120,7 @@
       live-image = mkNixOS {
         extraModules = [
           "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-          {vars.mainUser = "nixos";}
+          # {vars.mainUser = "nixos";} FIXME: add default modules and stuff
         ];
       };
     };

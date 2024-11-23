@@ -14,26 +14,3 @@ This directory encompasses every device's main configuration file.
 | `nos`       | My custom built NAS |
 | `servivi`   | A gaming PC in a previous life, it is now used as a build farm and hosts game servers |
 | `wim`       | My 2-1 Lenovo Laptop that I use for uni |
-
-## Global Vars
-
-In every device's `default.nix`, you'll find these [settings](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/common/vars/default.nix)
-
-```nix
-# $FLAKE/devices/<name>/default.nix
-
-vars = {
-  mainUser = "matt";
-  ...
-};
-```
-
-from these declared settings, I get access to global variables
-that are different on each host using a 'let in' block:
-
-```nix
-let
-  inherit (config.vars) mainUser ...;
-in {
-  ...
-```

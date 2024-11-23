@@ -4,25 +4,27 @@
   lib,
   ...
 }: let
-  inherit (config.vars) mainUser;
+  inherit (lib) concatStringsSep getName;
+
+  baseCfg = config.roles.base;
   cfg = config.services.locate;
 
-  locateGroup = lib.getName cfg.package.name;
+  locateGroup = getName cfg.package.name;
 
   locate = "${cfg.package}/bin/locate";
   updatedb = "${cfg.package}/bin/updatedb";
 
   database = "/var/lib/locate/locatedb";
-  pruneFS = builtins.concatStringsSep " " cfg.pruneFS;
-  pruneNames = builtins.concatStringsSep " " cfg.pruneNames;
-  prunePaths = builtins.concatStringsSep " " cfg.prunePaths;
+  pruneFS = concatStringsSep " " cfg.pruneFS;
+  pruneNames = concatStringsSep " " cfg.pruneNames;
+  prunePaths = concatStringsSep " " cfg.prunePaths;
 
   updatedbBin = ''
     ${updatedb} -o ${database} --prunefs "${pruneFS}" \
       --prunepaths "${prunePaths}" --prunenames "${pruneNames}"
   '';
 in {
-  users.users.${mainUser}.extraGroups = [
+  users.users.${baseCfg.user}.extraGroups = [
     locateGroup
   ];
 
@@ -30,7 +32,7 @@ in {
   systemd.services.locate = {
     wantedBy = ["default.target"];
     serviceConfig = {
-      User = mainUser;
+      User = baseCfg.user;
       Group = locateGroup;
       StateDirectory = "locate";
       StateDirectoryMode = "0770";
@@ -38,7 +40,7 @@ in {
     };
   };
 
-  home-manager.users.${mainUser}.programs.bash.shellAliases = {
+  home-manager.users.${baseCfg.user}.programs.bash.shellAliases = {
     locate = "${pkgs.writeShellScriptBin "lct" ''
       exec ${locate} -d ${database} "$@" 2> >(grep -v "/var/cache/locatedb")
     ''}/bin/lct";

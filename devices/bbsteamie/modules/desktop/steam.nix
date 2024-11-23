@@ -1,13 +1,12 @@
 defaultSession: {
   config,
   lib,
+  mainUser,
   pkgs,
   self,
   ...
 }: {
-  config = let
-    inherit (config.vars) mainUser;
-  in {
+  config = {
     # Normal Steam Stuff
     programs.steam = {
       enable = true;

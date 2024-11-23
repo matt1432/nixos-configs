@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  mainUser,
   ...
 }: let
   inherit (lib) foldl isList mapAttrsToList mergeAttrsWithFunc remove unique;
@@ -11,7 +12,6 @@
       else b)) {}
     list;
 
-  inherit (config.vars) mainUser;
   inherit (config.networking) hostName;
 
   serviviIP = "100.64.0.7";

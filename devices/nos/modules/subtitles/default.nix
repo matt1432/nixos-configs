@@ -1,10 +1,9 @@
 {
   config,
+  mainUser,
   pkgs,
   ...
 } @ inputs: let
-  inherit (config.vars) mainUser;
-
   convertMkv = pkgs.callPackage ./convert.nix {inherit pkgs;};
   extractSubs = pkgs.callPackage ./extract-subs {inherit pkgs;};
   sub-clean = pkgs.callPackage ./cleanup.nix {inherit pkgs;};

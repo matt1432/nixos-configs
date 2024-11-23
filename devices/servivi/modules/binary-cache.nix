@@ -1,10 +1,10 @@
 {
   config,
+  mainUser,
   nix-fast-build,
   pkgs,
   ...
 }: let
-  inherit (config.vars) mainUser;
   inherit (config.sops) secrets;
 
   nix-fast-build-pkg = nix-fast-build.packages.${pkgs.system}.nix-fast-build.override {

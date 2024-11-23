@@ -1,10 +1,8 @@
 {
-  config,
+  mainUser,
   self,
   ...
-}: let
-  inherit (config.vars) mainUser;
-in {
+}: {
   # ------------------------------------------------
   # Imports
   # ------------------------------------------------
@@ -13,6 +11,7 @@ in {
 
     ./modules
 
+    self.nixosModules.base
     self.nixosModules.docker
     self.nixosModules.kmscon
     self.nixosModules.server
@@ -24,8 +23,6 @@ in {
   # ------------------------------------------------
   # User Settings
   # ------------------------------------------------
-  vars.mainUser = "matt";
-
   users.users = {
     ${mainUser} = {
       isNormalUser = true;
@@ -59,6 +56,11 @@ in {
   # ------------------------------------------------
   # `Self` Modules configuration
   # ------------------------------------------------
+  roles.base = {
+    enable = true;
+    user = mainUser;
+  };
+
   roles.server = {
     user = mainUser;
     tailscale.enable = true;

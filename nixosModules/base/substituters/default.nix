@@ -18,7 +18,7 @@ in {
       name = "rebuild-no-cache";
       runtimeInputs = [config.programs.nh.package];
       text = ''
-        nh os switch -- --option binary-caches "https://cache.nixos.org" "$@"
+        exec nh os switch -- --option binary-caches "https://cache.nixos.org" "$@"
       '';
     })
   ];
