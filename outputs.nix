@@ -161,6 +161,18 @@
             isoConfig="nixosConfigurations.live-image.config.system.build.isoImage"
             nom build $(realpath /etc/nixos)#$isoConfig
           '')
+          (pkgs.writeShellApplication {
+            name = "fixUidChange";
+            text = ''
+              GROUP="$1"
+              OLD_GID="$2"
+              NEW_GID="$3"
+
+              sudo sed -i -e "/^$GROUP:/d" /etc/group                 # Remove generated group entry
+              sudo find / -gid "$OLD_GID" -exec chgrp "$NEW_GID" {} + # Change GID on existing files
+              sudo nixos-rebuild --switch                             # Regenerate /etc/group with new GID
+            '';
+          })
         ];
       };
 
