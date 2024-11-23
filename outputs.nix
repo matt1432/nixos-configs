@@ -118,10 +118,8 @@
       };
 
       live-image = mkNixOS {
-        extraModules = [
-          "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-          # {vars.mainUser = "nixos";} FIXME: add default modules and stuff
-        ];
+        mainUser = "nixos";
+        extraModules = [./devices/live-image];
       };
     };
 

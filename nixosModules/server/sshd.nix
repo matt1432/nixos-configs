@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib) mkForce mkIf;
 
   cfg = config.roles.server;
 in {
@@ -13,7 +13,7 @@ in {
         enable = true;
         settings = {
           PasswordAuthentication = false;
-          PermitRootLogin = "no";
+          PermitRootLogin = mkForce "no";
         };
       };
     };
