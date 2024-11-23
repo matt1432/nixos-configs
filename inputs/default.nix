@@ -163,6 +163,9 @@ let
       astal = mkDep {
         owner = "Aylur";
         repo = "astal";
+
+        # FIXME: https://github.com/Aylur/astal/issues/124
+        rev = "4fcf3c9e49dfd9cc54f2669297ea6dd9c5771476";
       };
 
       ags = mkDep {
