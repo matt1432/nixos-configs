@@ -4,11 +4,15 @@
   pkgs,
   ...
 }: let
-  inherit (lib) attrValues elemAt mkIf mkOption types;
+  inherit (lib) attrValues elemAt hasAttr mkIf mkOption types;
 
   cfg = config.programs.tmux;
 
-  firstUser = elemAt (attrValues config.home-manager.users) 0;
+  # Support NixOnDroid
+  firstUser =
+    if hasAttr "users" config.home-manager
+    then elemAt (attrValues config.home-manager.users) 0
+    else config.home-manager.config;
 in {
   options.programs.tmux = {
     enableCustomConf = mkOption {
