@@ -1,13 +1,16 @@
-# FIXME: eval is broken
 {
   config,
   self,
   ...
 }: {
   imports = [
-    ../../common/vars
-    ../../common/modules/global.nix
-    ../../common/packages.nix
+    self.nixosModules.base-droid
+    {
+      roles.base = {
+        enable = true;
+        user = "nix-on-droid";
+      };
+    }
 
     self.nixosModules.tmux
     {programs.tmux.enableCustomConf = true;}

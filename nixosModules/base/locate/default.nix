@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  inherit (lib) concatStringsSep getName;
+  inherit (lib) concatStringsSep getName mkIf;
 
   baseCfg = config.roles.base;
   cfg = config.services.locate;
@@ -23,59 +23,60 @@
     ${updatedb} -o ${database} --prunefs "${pruneFS}" \
       --prunepaths "${prunePaths}" --prunenames "${pruneNames}"
   '';
-in {
-  users.users.${baseCfg.user}.extraGroups = [
-    locateGroup
-  ];
+in
+  mkIf (baseCfg.enable) {
+    users.users.${baseCfg.user}.extraGroups = [
+      locateGroup
+    ];
 
-  # TODO: add timer
-  systemd.services.locate = {
-    wantedBy = ["default.target"];
-    serviceConfig = {
-      User = baseCfg.user;
-      Group = locateGroup;
-      StateDirectory = "locate";
-      StateDirectoryMode = "0770";
-      ExecStart = updatedbBin;
+    # TODO: add timer
+    systemd.services.locate = {
+      wantedBy = ["default.target"];
+      serviceConfig = {
+        User = baseCfg.user;
+        Group = locateGroup;
+        StateDirectory = "locate";
+        StateDirectoryMode = "0770";
+        ExecStart = updatedbBin;
+      };
     };
-  };
 
-  home-manager.users.${baseCfg.user}.programs.bash.shellAliases = {
-    locate = "${pkgs.writeShellScriptBin "lct" ''
-      exec ${locate} -d ${database} "$@" 2> >(grep -v "/var/cache/locatedb")
-    ''}/bin/lct";
+    home-manager.users.${baseCfg.user}.programs.bash.shellAliases = {
+      locate = "${pkgs.writeShellScriptBin "lct" ''
+        exec ${locate} -d ${database} "$@" 2> >(grep -v "/var/cache/locatedb")
+      ''}/bin/lct";
 
-    updatedb = updatedbBin;
-  };
+      updatedb = updatedbBin;
+    };
 
-  services.locate = {
-    enable = true;
-    package = pkgs.mlocate;
-    localuser = null;
-    interval = "never";
+    services.locate = {
+      enable = true;
+      package = pkgs.mlocate;
+      localuser = null;
+      interval = "never";
 
-    prunePaths = [
-      "/var/lib/flatpak"
+      prunePaths = [
+        "/var/lib/flatpak"
 
-      # Defaults
-      "/tmp"
-      "/var/tmp"
-      "/var/cache"
-      "/var/lock"
-      "/var/run"
-      "/var/spool"
-      "/nix/var/log/nix"
-    ];
+        # Defaults
+        "/tmp"
+        "/var/tmp"
+        "/var/cache"
+        "/var/lock"
+        "/var/run"
+        "/var/spool"
+        "/nix/var/log/nix"
+      ];
 
-    pruneNames = [
-      "node_modules"
+      pruneNames = [
+        "node_modules"
 
-      # Defaults
-      ".bzr"
-      ".cache"
-      ".git"
-      ".hg"
-      ".svn"
-    ];
-  };
-}
+        # Defaults
+        ".bzr"
+        ".cache"
+        ".git"
+        ".hg"
+        ".svn"
+      ];
+    };
+  }

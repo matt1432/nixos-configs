@@ -1,5 +1,6 @@
 self: {
   base = import ./base self;
+  base-droid = import ./base/default-droid.nix self;
   borgbackup = import ./borgbackup;
   desktop = import ./desktop self;
   docker = import ./docker self.inputs.khepri;

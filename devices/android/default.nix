@@ -3,10 +3,10 @@
   lib,
   pkgs,
   ...
-}: {
+}: let
+  inherit (lib) attrValues concatStringsSep;
+in {
   imports = [./nix-on-droid.nix];
-
-  vars.mainUser = "nix-on-droid";
 
   environment.variables.FLAKE = "/data/data/com.termux.nix/files/home/.nix";
 
@@ -19,7 +19,8 @@
   environment.packages = [
     (pkgs.writeShellApplication {
       name = "switch";
-      runtimeInputs = builtins.attrValues {
+
+      runtimeInputs = attrValues {
         inherit
           (pkgs)
           coreutils
@@ -27,10 +28,11 @@
           nvd
           ;
       };
+
       text = ''
         oldProfile=$(realpath /nix/var/nix/profiles/per-user/nix-on-droid/profile)
 
-        nix-on-droid ${lib.concatStringsSep " " [
+        nix-on-droid ${concatStringsSep " " [
           "switch"
           "--flake ${config.environment.variables.FLAKE}"
           "--builders ssh-ng://matt@100.64.0.7"

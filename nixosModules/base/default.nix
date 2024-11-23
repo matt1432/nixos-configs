@@ -33,7 +33,7 @@ in {
     };
   };
 
-  config = mkIf (cfg.enable) {
+  config = mkIf cfg.enable {
     environment.variables.FLAKE = mkDefault "/home/${cfg.user}/.nix";
 
     programs.tmux.enableCustomConf = true;
