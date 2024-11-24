@@ -16,16 +16,17 @@ export default () => {
     const focusedIcon = Variable<string>('');
     const focusedTitle = Variable<string>('');
 
-    let lastFocusedAddress: string | null;
+    // FIXME: readd this once client titles are fixed
+    // let lastFocusedAddress: string | null;
 
 
     const updateVars = (
         client: AstalHyprland.Client | null = hyprland.get_focused_client(),
     ) => {
-        lastFocusedAddress = client ? client.get_address() : null;
+        // lastFocusedAddress = client ? client.address : null;
 
         const app = applications.fuzzy_query(
-            client?.get_class() ?? '',
+            client?.class ?? '',
         )[0];
 
         const icon = app?.iconName;
@@ -38,21 +39,21 @@ export default () => {
             visibleIcon.set(false);
         }
 
-        focusedTitle.set(client?.get_title() ?? '');
-        const id = client?.connect('notify::title', (c) => {
+        focusedTitle.set(client?.title ?? '');
+        /* const id = client?.connect('notify::title', (c) => {
             if (c.get_address() !== lastFocusedAddress) {
                 c.disconnect(id);
             }
+            console.log(c.get_title());
             focusedTitle.set(c.get_title());
-        });
+        });*/
     };
 
     updateVars();
-    hyprland.connect('notify::focused-client', () => updateVars());
-    hyprland.connect('client-removed', () => updateVars());
-    hyprland.connect('client-added', async() => {
+    // hyprland.connect('notify::focused-client', () => updateVars());
+    hyprland.connect('event', async() => {
         try {
-            updateVars(hyprland.get_client(JSON.parse(await hyprMessage('j/activewindow')).address));
+            updateVars(JSON.parse(await hyprMessage('j/activewindow')));
         }
         catch (e) {
             console.log(e);
@@ -85,6 +86,7 @@ export default () => {
                     <label
                         label={bind(focusedTitle)}
                         truncate
+                        maxWidthChars={45}
                     />
                 </box>
             </box>

@@ -14,8 +14,8 @@ export default () => {
             className="bar-item network"
             cursor="pointer"
 
-            onEnterNotifyEvent={() => Hovered.set(true)}
-            onLeaveNotifyEvent={() => Hovered.set(false)}
+            onHover={() => Hovered.set(true)}
+            onHoverLost={() => Hovered.set(false)}
         >
             {bind(network, 'primary').as((primary) => {
                 if (primary === AstalNetwork.Primary.UNKNOWN) {
@@ -24,29 +24,20 @@ export default () => {
                 else if (primary === AstalNetwork.Primary.WIFI) {
                     const Wifi = network.get_wifi();
 
-                    if (!Wifi) { return; }
+                    if (!Wifi || Wifi.accessPoints.length === 0) { return; }
 
                     return (
                         <box>
-                            {/* Make sure the AP is there before binding to it */}
-                            {bind(Wifi, 'accessPoints').as((aps) => {
-                                if (aps.length === 0) { return; }
+                            <icon icon={bind(Wifi, 'iconName')} />
 
-                                return (
-                                    <>
-                                        <icon icon={bind(Wifi, 'iconName')} />
-
-                                        <revealer
-                                            revealChild={bind(Hovered)}
-                                            transitionType={Gtk.RevealerTransitionType.SLIDE_LEFT}
-                                        >
-                                            {bind(Wifi, 'activeAccessPoint').as((ap) => ap && (
-                                                <label label={bind(ap, 'ssid')} />
-                                            ))}
-                                        </revealer>
-                                    </>
-                                );
-                            })}
+                            <revealer
+                                revealChild={bind(Hovered)}
+                                transitionType={Gtk.RevealerTransitionType.SLIDE_LEFT}
+                            >
+                                {bind(Wifi, 'activeAccessPoint').as((ap) => ap && (
+                                    <label label={bind(ap, 'ssid')} />
+                                ))}
+                            </revealer>
                         </box>
                     );
                 }
