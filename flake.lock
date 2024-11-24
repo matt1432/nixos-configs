@@ -79,17 +79,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1732108588,
-        "narHash": "sha256-14WgIZbSquzyAXWtBwYPl9SFHcaBYZCPstI0Qv1N8cE=",
+        "lastModified": 1732479839,
+        "narHash": "sha256-J1+8eh4ycGY9Es1Vk9LuW7UAjpw2N0nLalMWwlImKJs=",
         "owner": "Aylur",
         "repo": "astal",
-        "rev": "4fcf3c9e49dfd9cc54f2669297ea6dd9c5771476",
+        "rev": "ac304ef346be220dd5c5d3c818c8151bdb78d730",
         "type": "github"
       },
       "original": {
         "owner": "Aylur",
         "repo": "astal",
-        "rev": "4fcf3c9e49dfd9cc54f2669297ea6dd9c5771476",
         "type": "github"
       }
     },
@@ -831,11 +830,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1731998738,
-        "narHash": "sha256-p5wIftLuwT0ykc2IFmiKnU/UyyHqlYLO9ct0Wac4YgY=",
+        "lastModified": 1732483620,
+        "narHash": "sha256-nAp0EGh1swnCnDtdVlNINvD7otIxb4xSZtdCrpCLX/0=",
         "owner": "matt1432",
         "repo": "nixos-jellyfin",
-        "rev": "486317a1a2f3c799566d4f6b1b4141c9b3d99dab",
+        "rev": "74f284f2bfc327d801fffeb8d7bbafddc301d05c",
         "type": "github"
       },
       "original": {

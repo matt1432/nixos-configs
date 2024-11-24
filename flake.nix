@@ -14,7 +14,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "Aylur";
       repo = "astal";
-      rev = "4fcf3c9e49dfd9cc54f2669297ea6dd9c5771476";
       type = "github";
     };
     bat-theme-src = {

@@ -7,6 +7,7 @@ TODO: add directory structure info and enforce it
     - in a subfolder, there should always be a `default.nix`
     - if there is non nix code, it will be in a `config` folder
     - redo docs
+    - every module should not do anything if imported
 
 ## AGS
 
