@@ -2,12 +2,9 @@
   pkgs,
   self,
 }: let
-  inherit (pkgs.lib) mapAttrs' nameValuePair removeAttrs removeSuffix;
+  inherit (pkgs.lib) mapAttrs' nameValuePair;
 in
   mapAttrs'
   (name: app:
-    nameValuePair "app-${name}" (pkgs.symlinkJoin {
-      name = "app-${name}";
-      paths = [(removeSuffix "/bin/${name}" (toString app.program))];
-    }))
-  (removeAttrs self.apps.${pkgs.system} ["genflake"])
+    nameValuePair "app-${name}" app)
+  self.appsPackages.${pkgs.system}

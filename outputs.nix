@@ -143,6 +143,10 @@
       perSystem (pkgs:
         import ./apps {inherit inputs pkgs;});
 
+    appsPackages =
+      perSystem (pkgs:
+        import ./apps/nix/packages.nix {inherit pkgs self;});
+
     devShells = perSystem (pkgs: let
       bumpNpmDeps = pkgs.writeShellApplication {
         name = "bumpNpmDeps";
@@ -174,7 +178,7 @@
 
               sudo sed -i -e "/^$GROUP:/d" /etc/group                 # Remove generated group entry
               sudo find / -gid "$OLD_GID" -exec chgrp "$NEW_GID" {} + # Change GID on existing files
-              sudo nixos-rebuild --switch                             # Regenerate /etc/group with new GID
+              exec nh os switch                                       # Regenerate /etc/group with new GID
             '';
           })
         ];

@@ -10,8 +10,9 @@
   ...
 }: let
   inherit (lib) concatMapStringsSep getBin;
+  inherit (builtins) fromJSON readFile;
 
-  packageJSON = builtins.fromJSON (builtins.readFile "${src}/package.json");
+  packageJSON = fromJSON (readFile "${src}/package.json");
 in
   buildNpmPackage rec {
     pname = packageJSON.name;
@@ -21,7 +22,7 @@ in
 
     prePatch = ''
       mv ./tsconfig.json ./project.json
-      sed 's/^ *\/\/.*//' ${./tsconfig.json} > ./base.json
+      sed 's/^ *\/\/.*//' ${../tsconfig.json} > ./base.json
       ${jq}/bin/jq -sr '.[0] * .[1] | del(.extends)' ./project.json ./base.json > ./tsconfig.json
       rm base.json project.json
     '';
