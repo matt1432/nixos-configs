@@ -1,6 +1,7 @@
-import { execAsync } from 'astal';
+import { execAsync, idle } from 'astal';
 import { Gtk } from 'astal/gtk3';
 
+import Tablet from '../../services/tablet';
 import { hyprMessage } from '../../lib';
 
 import OskWindow from './osk-window';
@@ -19,14 +20,18 @@ const releaseAllKeys = () => {
 };
 
 export default (window: OskWindow) => {
-    const gesture = Gtk.GestureDrag.new(window);
-
-    window.get_child().css = `margin-bottom: -${HIDDEN_MARGIN}px;`;
+    const tablet = Tablet.get_default();
 
     let signals = [] as number[];
 
-    window.setVisible = (state: boolean) => {
-        if (state) {
+    const gesture = Gtk.GestureDrag.new(window);
+
+    window.get_child().css = `
+        margin-bottom: -${HIDDEN_MARGIN}px;
+    `;
+
+    window.hook(tablet, 'notify::osk-state', () => {
+        if (tablet.oskState) {
             window.setSlideDown();
 
             window.get_child().css = `
@@ -36,6 +41,7 @@ export default (window: OskWindow) => {
         }
         else {
             releaseAllKeys();
+
             window.setSlideUp();
 
             window.get_child().css = `
@@ -43,7 +49,11 @@ export default (window: OskWindow) => {
                 margin-bottom: -${HIDDEN_MARGIN}px;
             `;
         }
-    };
+    });
+
+    idle(() => {
+        tablet.oskState = false;
+    });
 
     window.killGestureSigs = () => {
         signals.forEach((id) => {
@@ -115,7 +125,7 @@ export default (window: OskWindow) => {
                             transition: margin-bottom 0.5s ease-in-out;
                             margin-bottom: 0px;
                         `;
-                        window.setVisible(true);
+                        tablet.oskState = true;
                     }
                     else {
                         window.get_child().css = `
@@ -184,7 +194,7 @@ export default (window: OskWindow) => {
                             margin-bottom: -${HIDDEN_MARGIN}px;
                         `;
 
-                        window.setVisible(false);
+                        tablet.oskState = false;
                     }
                     else {
                         window.get_child().css = `

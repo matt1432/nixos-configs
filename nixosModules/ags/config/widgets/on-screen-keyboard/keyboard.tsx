@@ -115,8 +115,8 @@ export default () => (
                     return (
                         <box vertical>
                             <box
-                                halign={Gtk.Align.END}
                                 className="row"
+                                halign={Gtk.Align.END}
                             >
                                 {...keys}
                             </box>

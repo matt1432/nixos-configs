@@ -1,7 +1,5 @@
-import { execAsync, idle } from 'astal';
+import { execAsync } from 'astal';
 import { Astal } from 'astal/gtk3';
-
-import Tablet from '../../services/tablet';
 
 import OskWindow from './osk-window';
 import Gesture from './gesture';
@@ -9,12 +7,9 @@ import Keyboard from './keyboard';
 
 
 export default () => {
-    // Start ydotool daemon
     execAsync('ydotoold').catch(print);
 
-    const tablet = Tablet.get_default();
-
-    const window = (
+    return Gesture((
         <OskWindow
             name="osk"
             namespace="noanim-osk"
@@ -29,15 +24,5 @@ export default () => {
         >
             <Keyboard />
         </OskWindow>
-    ) as OskWindow;
-
-    window.hook(tablet, 'notify::osk-state', (self, state) => {
-        self.setVisible(state);
-    });
-
-    idle(() => {
-        window.setVisible(false);
-    });
-
-    return Gesture(window);
+    ) as OskWindow);
 };

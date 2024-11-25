@@ -1,11 +1,13 @@
-import { execAsync, Variable } from 'astal';
-import { Gdk, Gtk, Widget } from 'astal/gtk3';
+import { bind, execAsync, interval, Variable } from 'astal';
+import { Gtk, Widget } from 'astal/gtk3';
 
 import Brightness from '../../services/brightness';
 
 import Separator from '../misc/separator';
 
 /* Types */
+import AstalIO from 'gi://AstalIO';
+
 interface Key {
     keytype: string
     label: string
@@ -16,17 +18,12 @@ interface Key {
 }
 
 
-const display = Gdk.Display.get_default();
 const brightness = Brightness.get_default();
 
 const SPACING = 4;
 const LSHIFT_CODE = 42;
 const LALT_CODE = 56;
 const LCTRL_CODE = 29;
-
-// Keep track of when a non modifier key
-// is clicked to release all modifiers
-const NormalClick = Variable(false);
 
 // Keep track of modifier statuses
 const Super = Variable(false);
@@ -97,41 +94,13 @@ const ModKey = (key: Key) => {
     const button = (
         <eventbox
             className="key"
+            cursor="pointer"
 
-            onButtonReleaseEvent={() => {
-                console.log('mod toggled');
-
+            onButtonPressEvent={() => {
                 execAsync(`ydotool key ${key.keycode}:${Mod.get() ? 0 : 1}`);
 
                 label.toggleClassName('active', !Mod.get());
                 Mod.set(!Mod.get());
-            }}
-
-            setup={(self) => {
-                self.hook(NormalClick, () => {
-                    Mod.set(false);
-
-                    label.toggleClassName('active', false);
-                    execAsync(`ydotool key ${key.keycode}:0`);
-                });
-
-                // OnHover
-                self.connect('enter-notify-event', () => {
-                    if (!display) {
-                        return;
-                    }
-                    self.window.set_cursor(Gdk.Cursor.new_from_name(
-                        display,
-                        'pointer',
-                    ));
-                    self.toggleClassName('hover', true);
-                });
-
-                // OnHoverLost
-                self.connect('leave-notify-event', () => {
-                    self.window.set_cursor(null);
-                    self.toggleClassName('hover', false);
-                });
             }}
         >
             {label}
@@ -147,66 +116,59 @@ const ModKey = (key: Key) => {
 };
 
 const RegularKey = (key: Key) => {
+    const IsActive = Variable(false);
+    const IsLongPressing = Variable(false);
+
     const widget = (
         <eventbox
             className="key"
+            cursor="pointer"
+
+            onButtonReleaseEvent={() => {
+                IsLongPressing.set(false);
+                IsActive.set(false);
+            }}
         >
             <label
-                className={`normal ${key.label}`}
+                className={bind(IsActive).as((v) => [
+                    'normal',
+                    key.label,
+                    (v ? 'active' : ''),
+                ].join(' '))}
+
                 label={key.label}
 
                 setup={(self) => {
                     self
                         .hook(Shift, () => {
-                            if (!key.labelShift) {
-                                return;
+                            if (key.labelShift) {
+                                self.label = Shift.get() ?
+                                    key.labelShift :
+                                    key.label;
                             }
-
-                            self.label = Shift.get() ? key.labelShift : key.label;
                         })
                         .hook(Caps, () => {
                             if (key.label === 'Caps') {
-                                self.toggleClassName('active', Caps.get());
+                                IsActive.set(Caps.get());
 
                                 return;
                             }
 
-                            if (!key.labelShift) {
-                                return;
-                            }
-
-                            if (key.label.match(/[A-Za-z]/)) {
+                            if (key.labelShift && key.label.match(/[A-Za-z]/)) {
                                 self.label = Caps.get() ?
                                     key.labelShift :
                                     key.label;
                             }
                         })
                         .hook(AltGr, () => {
-                            if (!key.labelAltGr) {
-                                return;
+                            if (key.labelAltGr) {
+                                self.toggleClassName('altgr', AltGr.get());
+
+                                self.label = AltGr.get() ?
+                                    key.labelAltGr :
+                                    key.label;
                             }
-
-                            self.toggleClassName('altgr', AltGr.get());
-                            self.label = AltGr.get() ? key.labelAltGr : key.label;
                         });
-
-                    // OnHover
-                    self.connect('enter-notify-event', () => {
-                        if (!display) {
-                            return;
-                        }
-                        self.window.set_cursor(Gdk.Cursor.new_from_name(
-                            display,
-                            'pointer',
-                        ));
-                        self.toggleClassName('hover', true);
-                    });
-
-                    // OnHoverLost
-                    self.connect('leave-notify-event', () => {
-                        self.window.set_cursor(null);
-                        self.toggleClassName('hover', false);
-                    });
                 }}
             />
         </eventbox>
@@ -216,8 +178,7 @@ const RegularKey = (key: Key) => {
 
     gesture.delay_factor = 1.0;
 
-    // OnPrimaryClickRelease
-    widget.hook(gesture, 'cancelled', () => {
+    const onClick = (callback: () => void) => {
         const pointer = gesture.get_point(null);
         const x = pointer[1];
         const y = pointer[2];
@@ -226,11 +187,41 @@ const RegularKey = (key: Key) => {
             return;
         }
 
-        console.log('key clicked');
+        callback();
+    };
 
-        execAsync(`ydotool key ${key.keycode}:1`);
-        execAsync(`ydotool key ${key.keycode}:0`);
-        NormalClick.set(true);
+    widget.hook(gesture, 'begin', () => {
+        IsActive.set(true);
+    });
+
+    widget.hook(gesture, 'cancelled', () => {
+        onClick(() => {
+            execAsync(`ydotool key ${key.keycode}:1`);
+            execAsync(`ydotool key ${key.keycode}:0`);
+
+            IsActive.set(false);
+        });
+    });
+
+    // Long Press
+    widget.hook(gesture, 'pressed', () => {
+        onClick(() => {
+            IsLongPressing.set(true);
+        });
+    });
+
+    let spamClick: AstalIO.Time | undefined;
+
+    IsLongPressing.subscribe((v) => {
+        if (v) {
+            spamClick = interval(100, () => {
+                execAsync(`ydotool key ${key.keycode}:1`);
+                execAsync(`ydotool key ${key.keycode}:0`);
+            });
+        }
+        else {
+            spamClick?.cancel();
+        }
     });
 
     return (

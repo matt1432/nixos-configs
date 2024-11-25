@@ -6,7 +6,6 @@ import { register } from 'astal/gobject';
 export default class OskWindow extends Widget.Window {
     public startY: number | null = null;
 
-    declare public setVisible: (state: boolean) => void;
     declare public killGestureSigs: () => void;
     declare public setSlideUp: () => void;
     declare public setSlideDown: () => void;
