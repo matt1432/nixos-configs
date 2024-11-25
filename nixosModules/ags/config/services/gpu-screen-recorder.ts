@@ -72,7 +72,7 @@ const notifySend = ({
 });
 
 @register()
-export default class GSR extends GObject.Object {
+export default class GpuScreenRecorder extends GObject.Object {
     private _lastNotifID: number | undefined;
 
     public constructor() {
@@ -83,7 +83,7 @@ export default class GSR extends GObject.Object {
                 ['gsr-start'],
                 (path) => {
                     if (!this._lastNotifID) {
-                        console.error('[GSR] ID of warning notif not found');
+                        console.error('[GpuScreenRecorder] ID of warning notif not found');
 
                         setTimeout(() => {
                             this._onSaved(path);
@@ -101,14 +101,14 @@ export default class GSR extends GObject.Object {
         }
     }
 
-    private static _default: InstanceType<typeof GSR> | undefined;
+    private static _default: InstanceType<typeof GpuScreenRecorder> | undefined;
 
     public static get_default() {
-        if (!GSR._default) {
-            GSR._default = new GSR();
+        if (!GpuScreenRecorder._default) {
+            GpuScreenRecorder._default = new GpuScreenRecorder();
         }
 
-        return GSR._default;
+        return GpuScreenRecorder._default;
     }
 
     public saveReplay() {
@@ -122,7 +122,7 @@ export default class GSR extends GObject.Object {
                 });
             })
             .catch((err) => {
-                console.error(`[GSR save-replay] ${err}`);
+                console.error(`[GpuScreenRecorder save-replay] ${err}`);
             });
     }
 

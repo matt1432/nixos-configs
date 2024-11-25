@@ -9,13 +9,13 @@ import BgLayer from '../widgets/bg-layer/main';
 import Calendar from '../widgets/date/binto';
 import Clipboard from '../widgets/clipboard/main';
 import { NotifPopups, NotifCenter } from '../widgets/notifs/binto';
-import OSD from '../widgets/osd/main';
+import OnScreenDisplay from '../widgets/on-screen-display/main';
 import PowerMenu from '../widgets/powermenu/main';
 import Screenshot from '../widgets/screenshot/main';
 
 import { closeAll, perMonitor } from '../lib';
 import Brightness from '../services/brightness';
-import GSR from '../services/gpu-screen-recorder';
+import GpuScreenRecorder from '../services/gpu-screen-recorder';
 import MonitorClicks from '../services/monitor-clicks';
 
 
@@ -41,7 +41,7 @@ export default () => {
                 respond('osd popped up');
             }
             else if (request.startsWith('save-replay')) {
-                GSR.get_default().saveReplay();
+                GpuScreenRecorder.get_default().saveReplay();
                 respond('saving replay');
             }
         },
@@ -57,12 +57,12 @@ export default () => {
             Clipboard();
             NotifPopups();
             NotifCenter();
-            OSD();
+            OnScreenDisplay();
             PowerMenu();
             Screenshot();
 
             Brightness.get_default({ caps: 'input2::capslock' });
-            GSR.get_default();
+            GpuScreenRecorder.get_default();
             MonitorClicks.get_default();
         },
     });

@@ -11,8 +11,8 @@ import Clipboard from '../widgets/clipboard/main';
 import Corners from '../widgets/corners/main';
 import IconBrowser from '../widgets/icon-browser/main';
 import { NotifPopups, NotifCenter } from '../widgets/notifs/wim';
-import OSD from '../widgets/osd/main';
-import OSK from '../widgets/on-screen-keyboard/main';
+import OnScreenDisplay from '../widgets/on-screen-display/main';
+import OnScreenKeyboard from '../widgets/on-screen-keyboard/main';
 import PowerMenu from '../widgets/powermenu/main';
 import Screenshot from '../widgets/screenshot/main';
 
@@ -65,8 +65,8 @@ export default () => {
             IconBrowser();
             NotifPopups();
             NotifCenter();
-            OSD();
-            OSK();
+            OnScreenDisplay();
+            OnScreenKeyboard();
             PowerMenu();
             Screenshot();
 

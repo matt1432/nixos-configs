@@ -11,6 +11,7 @@ import Brightness from '../../services/brightness';
 declare global {
     function popup_osd(osd: string): void;
 }
+
 @register()
 class ProgressBar extends astalify(Gtk.ProgressBar) {
     constructor(props: ConstructProps<
