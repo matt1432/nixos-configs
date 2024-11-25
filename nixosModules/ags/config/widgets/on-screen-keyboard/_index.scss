@@ -1,6 +1,21 @@
 @use 'sass:color';
 @use '../../style/colors';
 
+.settings {
+    padding: 0.5rem;
+
+    .button {
+        background-color: colors.$window_bg_color;
+        border: 0.1rem solid color.adjust(colors.$window_bg_color, $lightness: -3%);
+        border-radius: 0.7rem;
+        padding: 0.3rem;
+
+        &.toggled {
+            background-color: colors.$accent-color;
+        }
+    }
+}
+
 .osk {
     padding-top: 4px;
     border-radius: 10px 10px 0;

@@ -85,9 +85,16 @@ export default (window: OskWindow) => {
                         return;
                     }
 
-                    window.get_child().css = `
-                        margin-bottom: ${offset - HIDDEN_MARGIN}px;
-                    `;
+                    if (offset > HIDDEN_MARGIN) {
+                        window.get_child().css = `
+                            margin-bottom: 0px;
+                        `;
+                    }
+                    else {
+                        window.get_child().css = `
+                            margin-bottom: ${offset - HIDDEN_MARGIN}px;
+                        `;
+                    }
                 });
             }),
         );

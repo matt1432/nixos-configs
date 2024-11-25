@@ -46,10 +46,6 @@ export default () => {
                 popup_osd(request.replace('popup ', ''));
                 respond('osd popped up');
             }
-            else if (request.startsWith('osk')) {
-                console.log(`TODO: ${request.replace('osk ', '')}`);
-                respond('implement this');
-            }
         },
 
         main: () => {
