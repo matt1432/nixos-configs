@@ -344,7 +344,7 @@ let
     {
       owner = "Godiesc";
       repo = "firefox-gx";
-      # ref = "v.9.6";
+      ref = "v.9.7";
     }
     {
       name = "git-theme-src";

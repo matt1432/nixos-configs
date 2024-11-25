@@ -293,6 +293,7 @@
       },
       "original": {
         "owner": "Godiesc",
+        "ref": "v.9.7",
         "repo": "firefox-gx",
         "type": "github"
       }

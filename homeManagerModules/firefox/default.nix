@@ -8,8 +8,7 @@ self: {
   rounding = (config.wayland.windowManager.hyprland.settings.decoration.rounding or 2) - 2;
 
   firefox-gx = pkgs.callPackage ./gx-theme.nix {
-    inherit (self.inputs) firefox-gx-src;
-    inherit (self.lib) mkVersion;
+    inherit self;
   };
 in {
   config = {

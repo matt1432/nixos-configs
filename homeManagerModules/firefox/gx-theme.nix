@@ -1,27 +1,38 @@
 {
   lib,
-  mkVersion,
-  firefox-gx-src,
+  self,
   stdenvNoCC,
-}:
-stdenvNoCC.mkDerivation {
-  pname = "firefox-gx";
-  version = mkVersion firefox-gx-src;
+}: let
+  inherit (builtins) fromJSON readFile;
+  inherit (lib) hasPrefix replaceStrings;
 
-  src = firefox-gx-src;
+  inherit (self.inputs) firefox-gx-src;
+  inherit (self.lib) mkVersion;
 
-  installPhase = ''
-    # Personal changes
-    sed -i 's/var(--fuchsia))/var(--purple))/' ./chrome/components/ogx_root-personal.css
-    sed -i 's#../newtab/wallpaper-dark1.png#../newtab/wallpaper-dark2.png#' ./chrome/components/ogx_root-personal.css
+  lock = fromJSON (readFile "${self}/flake.lock");
+  rev = lock.nodes.firefox-gx-src.original.ref;
+in
+  stdenvNoCC.mkDerivation {
+    pname = "firefox-gx";
+    version =
+      if hasPrefix "v." rev
+      then replaceStrings ["v"] ["0"] rev
+      else mkVersion firefox-gx-src;
 
-    mkdir -p $out
-    cp -r ./* $out
-  '';
+    src = firefox-gx-src;
 
-  meta = {
-    description = "Firefox Theme CSS to Opera GX Lovers";
-    homepage = "https://github.com/Godiesc/firefox-gx";
-    license = lib.licenses.mspl;
-  };
-}
+    installPhase = ''
+      # Personal changes
+      sed -i 's/var(--fuchsia))/var(--purple))/' ./chrome/components/ogx_root-personal.css
+      sed -i 's#../newtab/wallpaper-dark1.png#../newtab/wallpaper-dark2.png#' ./chrome/components/ogx_root-personal.css
+
+      mkdir -p $out
+      cp -r ./* $out
+    '';
+
+    meta = {
+      description = "Firefox Theme CSS to Opera GX Lovers";
+      homepage = "https://github.com/Godiesc/firefox-gx";
+      license = lib.licenses.mspl;
+    };
+  }
