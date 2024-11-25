@@ -6,8 +6,6 @@ import AstalHyprland from 'gi://AstalHyprland';
 
 import Separator from '../../misc/separator';
 
-import { hyprMessage } from '../../../lib';
-
 
 export default () => {
     const applications = AstalApps.Apps.new();
@@ -16,15 +14,9 @@ export default () => {
     const visibleIcon = Variable<boolean>(false);
     const focusedIcon = Variable<string>('');
 
-    // FIXME: readd this once client titles are fixed
-    // let lastFocusedAddress: string | null;
-
-
     const updateVars = (
         client: AstalHyprland.Client | null = hyprland.get_focused_client(),
     ) => {
-        // lastFocusedAddress = client ? client.address : null;
-
         const app = applications.fuzzy_query(
             client?.class ?? '',
         )[0];
@@ -41,15 +33,7 @@ export default () => {
     };
 
     updateVars();
-    // hyprland.connect('notify::focused-client', () => updateVars());
-    hyprland.connect('event', async() => {
-        try {
-            updateVars(JSON.parse(await hyprMessage('j/activewindow')));
-        }
-        catch (e) {
-            console.log(e);
-        }
-    });
+    hyprland.connect('notify::focused-client', () => updateVars());
 
     return (
         <revealer

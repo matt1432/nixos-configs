@@ -216,21 +216,6 @@ const RegularKey = (key: Key) => {
 
     gesture.delay_factor = 1.0;
 
-    // Long press
-    widget.hook(gesture, 'pressed', () => {
-        const pointer = gesture.get_point(null);
-        const x = pointer[1];
-        const y = pointer[2];
-
-        if ((!x || !y) || (x === 0 && y === 0)) {
-            return;
-        }
-
-        console.log('Not implemented yet');
-
-        // TODO: popup menu for accents
-    });
-
     // OnPrimaryClickRelease
     widget.hook(gesture, 'cancelled', () => {
         const pointer = gesture.get_point(null);
