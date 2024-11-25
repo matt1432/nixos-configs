@@ -54,15 +54,6 @@ export interface PlayerButtonType {
     prop: string
 }
 
-// For ./ts/on-screen-keyboard
-export type OskWindow = Window<BoxGeneric, {
-    startY: null | number
-    setVisible: (state: boolean) => void
-    killGestureSigs: () => void
-    setSlideUp: () => void
-    setSlideDown: () => void
-}>;
-
 // For ./ts/quick-settings
 import { BluetoothDevice as BTDev } from 'types/service/bluetooth.ts';
 export interface APType {

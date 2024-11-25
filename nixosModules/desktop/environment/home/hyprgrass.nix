@@ -48,10 +48,6 @@ in {
               key = "edge:u:d";
               command = "ags request 'open win-applauncher'";
             }
-            {
-              key = "edge:d:u";
-              command = "ags request 'osk open'";
-            }
           ];
 
           hyprgrass-bindm = map mkBind [

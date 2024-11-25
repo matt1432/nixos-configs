@@ -12,6 +12,7 @@ import Corners from '../widgets/corners/main';
 import IconBrowser from '../widgets/icon-browser/main';
 import { NotifPopups, NotifCenter } from '../widgets/notifs/wim';
 import OSD from '../widgets/osd/main';
+import OSK from '../widgets/on-screen-keyboard/main';
 import PowerMenu from '../widgets/powermenu/main';
 import Screenshot from '../widgets/screenshot/main';
 
@@ -65,6 +66,7 @@ export default () => {
             NotifPopups();
             NotifCenter();
             OSD();
+            OSK();
             PowerMenu();
             Screenshot();
 
