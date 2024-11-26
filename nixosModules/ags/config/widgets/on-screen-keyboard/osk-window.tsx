@@ -14,6 +14,10 @@ export default class OskWindow extends Widget.Window {
         return super.get_child() as Widget.Box;
     }
 
+    get_grandchildren(): (Widget.Box | Widget.CenterBox)[] {
+        return this.get_child().get_children() as (Widget.Box | Widget.CenterBox)[];
+    }
+
     constructor({ ...rest }: Widget.WindowProps) {
         super({ application: App, ...rest });
     }

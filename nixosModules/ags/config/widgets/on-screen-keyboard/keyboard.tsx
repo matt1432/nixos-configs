@@ -30,7 +30,7 @@ export default () => (
     <box vertical>
         <centerbox
             css={`background: ${COLOR};`}
-            className="osk"
+            className="osk hidden"
             hexpand
         >
             <box

@@ -20,6 +20,10 @@
     padding-top: 4px;
     border-radius: 10px 10px 0;
 
+    &.hidden {
+        opacity: 0;
+    }
+
     .side {
         .key {
             &:active label {

@@ -1,5 +1,5 @@
 import { execAsync, idle } from 'astal';
-import { Gtk } from 'astal/gtk3';
+import { Astal, Gtk } from 'astal/gtk3';
 
 import Tablet from '../../services/tablet';
 import { hyprMessage } from '../../lib';
@@ -8,14 +8,14 @@ import OskWindow from './osk-window';
 
 
 const KEY_N = 249;
-const HIDDEN_MARGIN = 340;
+const KEYCODES = Array.from(Array(KEY_N).keys());
+
+const ANIM_DURATION = 700;
 
 const releaseAllKeys = () => {
-    const keycodes = Array.from(Array(KEY_N).keys());
-
     execAsync([
         'ydotool', 'key',
-        ...keycodes.map((keycode) => `${keycode}:0`),
+        ...KEYCODES.map((keycode) => `${keycode}:0`),
     ]).catch(print);
 };
 
@@ -23,19 +23,26 @@ export default (window: OskWindow) => {
     const tablet = Tablet.get_default();
 
     let signals = [] as number[];
+    let calculatedHeight = 0;
+
+    idle(() => {
+        calculatedHeight = window.get_allocated_height();
+        tablet.oskState = false;
+
+        setTimeout(() => {
+            window.get_grandchildren()[0].toggleClassName('hidden', false);
+            window.set_exclusivity(Astal.Exclusivity.EXCLUSIVE);
+        }, ANIM_DURATION * 3);
+    });
 
     const gesture = Gtk.GestureDrag.new(window);
-
-    window.get_child().css = `
-        margin-bottom: -${HIDDEN_MARGIN}px;
-    `;
 
     window.hook(tablet, 'notify::osk-state', () => {
         if (tablet.oskState) {
             window.setSlideDown();
 
             window.get_child().css = `
-                transition: margin-bottom 0.7s cubic-bezier(0.36, 0, 0.66, -0.56);
+                transition: margin-bottom ${ANIM_DURATION}ms cubic-bezier(0.36, 0, 0.66, -0.56);
                 margin-bottom: 0px;
             `;
         }
@@ -45,14 +52,10 @@ export default (window: OskWindow) => {
             window.setSlideUp();
 
             window.get_child().css = `
-                transition: margin-bottom 0.7s cubic-bezier(0.36, 0, 0.66, -0.56);
-                margin-bottom: -${HIDDEN_MARGIN}px;
+                transition: margin-bottom ${ANIM_DURATION}ms cubic-bezier(0.36, 0, 0.66, -0.56);
+                margin-bottom: -${calculatedHeight}px;
             `;
         }
-    });
-
-    idle(() => {
-        tablet.oskState = false;
     });
 
     window.killGestureSigs = () => {
@@ -89,20 +92,20 @@ export default (window: OskWindow) => {
                     if (offset < 0) {
                         window.get_child().css = `
                             transition: margin-bottom 0.5s ease-in-out;
-                            margin-bottom: -${HIDDEN_MARGIN}px;
+                            margin-bottom: -${calculatedHeight}px;
                         `;
 
                         return;
                     }
 
-                    if (offset > HIDDEN_MARGIN) {
+                    if (offset > calculatedHeight) {
                         window.get_child().css = `
                             margin-bottom: 0px;
                         `;
                     }
                     else {
                         window.get_child().css = `
-                            margin-bottom: ${offset - HIDDEN_MARGIN}px;
+                            margin-bottom: ${offset - calculatedHeight}px;
                         `;
                     }
                 });
@@ -120,7 +123,7 @@ export default (window: OskWindow) => {
                     const currentY = JSON.parse(out).y;
                     const offset = window.startY - currentY;
 
-                    if (offset > HIDDEN_MARGIN) {
+                    if (offset > calculatedHeight) {
                         window.get_child().css = `
                             transition: margin-bottom 0.5s ease-in-out;
                             margin-bottom: 0px;
@@ -130,7 +133,7 @@ export default (window: OskWindow) => {
                     else {
                         window.get_child().css = `
                             transition: margin-bottom 0.5s ease-in-out;
-                            margin-bottom: -${HIDDEN_MARGIN}px;
+                            margin-bottom: -${calculatedHeight}px;
                         `;
                     }
                 });
@@ -188,10 +191,10 @@ export default (window: OskWindow) => {
                     const currentY = JSON.parse(out).y;
                     const offset = window.startY - currentY;
 
-                    if (offset < -(HIDDEN_MARGIN * 2 / 3)) {
+                    if (offset < -(calculatedHeight * 2 / 3)) {
                         window.get_child().css = `
                             transition: margin-bottom 0.5s ease-in-out;
-                            margin-bottom: -${HIDDEN_MARGIN}px;
+                            margin-bottom: -${calculatedHeight}px;
                         `;
 
                         tablet.oskState = false;

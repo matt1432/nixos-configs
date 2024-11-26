@@ -14,13 +14,12 @@ export default () => {
             name="osk"
             namespace="noanim-osk"
 
-            exclusivity={Astal.Exclusivity.EXCLUSIVE}
+            layer={Astal.Layer.OVERLAY}
             anchor={
                 Astal.WindowAnchor.BOTTOM |
                 Astal.WindowAnchor.LEFT |
                 Astal.WindowAnchor.RIGHT
             }
-            layer={Astal.Layer.OVERLAY}
         >
             <Keyboard />
         </OskWindow>
