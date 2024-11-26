@@ -5,17 +5,18 @@ import Tablet from '../../services/tablet';
 import { hyprMessage } from '../../lib';
 
 import OskWindow from './osk-window';
+import { Keys } from './keys';
 
 
 const KEY_N = 249;
-const KEYCODES = Array.from(Array(KEY_N).keys());
+const KEYCODES = Array.from(Array(KEY_N).keys()).map((keycode) => `${keycode}:0`);
 
 const ANIM_DURATION = 700;
 
 const releaseAllKeys = () => {
     execAsync([
         'ydotool', 'key',
-        ...KEYCODES.map((keycode) => `${keycode}:0`),
+        ...KEYCODES,
     ]).catch(print);
 };
 
@@ -136,6 +137,8 @@ export default (window: OskWindow) => {
                             margin-bottom: -${calculatedHeight}px;
                         `;
                     }
+
+                    window.startY = null;
                 });
             }),
         );
@@ -148,7 +151,11 @@ export default (window: OskWindow) => {
         signals.push(
             gesture.connect('drag-begin', () => {
                 hyprMessage('j/cursorpos').then((out) => {
-                    window.startY = JSON.parse(out).y;
+                    const hasActiveKey = Keys.get().map((v) => v.get()).includes(true);
+
+                    if (!hasActiveKey) {
+                        window.startY = JSON.parse(out).y;
+                    }
                 });
             }),
         );
@@ -205,6 +212,8 @@ export default (window: OskWindow) => {
                             margin-bottom: 0px;
                         `;
                     }
+
+                    window.startY = null;
                 });
             }),
         );

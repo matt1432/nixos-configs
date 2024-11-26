@@ -25,6 +25,8 @@ const LSHIFT_CODE = 42;
 const LALT_CODE = 56;
 const LCTRL_CODE = 29;
 
+export const Keys = Variable<Variable<boolean>[]>([]);
+
 // Keep track of modifier statuses
 const Super = Variable(false);
 const LAlt = Variable(false);
@@ -84,6 +86,8 @@ const ModKey = (key: Key) => {
         Mod = RCtrl;
     }
 
+    Keys.set([...Keys.get(), Mod!]);
+
     const label = (
         <label
             className={`mod ${key.label}`}
@@ -118,6 +122,8 @@ const ModKey = (key: Key) => {
 const RegularKey = (key: Key) => {
     const IsActive = Variable(false);
     const IsLongPressing = Variable(false);
+
+    Keys.set([...Keys.get(), IsActive]);
 
     const widget = (
         <eventbox
