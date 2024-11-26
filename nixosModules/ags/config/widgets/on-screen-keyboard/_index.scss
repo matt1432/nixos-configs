@@ -38,6 +38,15 @@
 
                 transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
 
+                box-shadow: 2px 1px 2px gray;
+                margin: 4px 10px 4px 10px;
+
+                &.active {
+                    box-shadow: 0 0 0 white;
+                    margin: 6px 10px 2px 10px;
+                    background-color: color.adjust(colors.$window_bg_color, $lightness: -3%);
+                }
+
                 &.normal,
                 &.Super {
                     min-width: 3rem;
@@ -64,10 +73,6 @@
                 &.PrtSc,
                 &.AltGr {
                     min-width: 3.2rem;
-                }
-
-                &.active {
-                    background-color: color.adjust(colors.$window_bg_color, $lightness: -3%);
                 }
 
                 &.altgr {
