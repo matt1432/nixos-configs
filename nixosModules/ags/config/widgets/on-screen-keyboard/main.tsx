@@ -7,7 +7,7 @@ import Keyboard from './keyboard';
 
 
 export default () => {
-    execAsync('ydotoold').catch(print);
+    execAsync('ydotoold').catch(() => { /**/ });
 
     return Gesture((
         <OskWindow
