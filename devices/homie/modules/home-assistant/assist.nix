@@ -11,45 +11,17 @@
 
   services = {
     home-assistant = {
-      package =
-        (pkgs.home-assistant.override {
-          packageOverrides = final: prev: {
-            # Version before HassStartTimer
-            home-assistant-intents = final.buildPythonPackage rec {
-              pname = "home-assistant-intents";
-              version = "2024.4.3";
-              format = "wheel";
-              disabled = final.pythonOlder "3.9";
-              src = final.fetchPypi {
-                inherit version format;
-                pname = "home_assistant_intents";
-                dist = "py3";
-                python = "py3";
-                hash = "sha256-GraYVtioKIoKlPRBhhhzlbBfI6heXAaA1MQpUqAgEDQ=";
-              };
-              build-system = [final.setuptools];
-              doCheck = false;
-              pytestFlagsArray = ["intents/tests"];
-            };
-          };
-        })
-        .overrideAttrs {
-          disabledTestPaths = [
-            # we neither run nor distribute hassfest
-            "tests/hassfest"
-            # we don't care about code quality
-            "tests/pylint"
-            # redundant component import test, which would make debugpy & sentry expensive to review
-            "tests/test_circular_imports.py"
-            # don't bulk test all components
-            "tests/components"
-
-            # Make old intent version build
-            "tests/scripts/test_check_config.py"
-            "tests/test_bootstrap.py"
-            "tests/helpers"
-          ];
+      package = pkgs.home-assistant.override {
+        packageOverrides = final: prev: {
+          # HassTimer has way too many collisions with my custom timer sentences
+          home-assistant-intents = prev.home-assistant-intents.overrideAttrs (o: {
+            nativeBuildInputs = o.nativeBuildInputs ++ [pkgs.findutils];
+            postPatch = ''
+              find ./. -name "*Timer*" -delete
+            '';
+          });
         };
+      };
 
       customComponents = builtins.attrValues {
         inherit
@@ -88,6 +60,7 @@
         enable = true;
         uri = "tcp://127.0.0.1:10400";
 
+        threshold = 0.55;
         customModelsDirectories = ["${wakewords-src}/en/yo_homie"];
       };
     };
