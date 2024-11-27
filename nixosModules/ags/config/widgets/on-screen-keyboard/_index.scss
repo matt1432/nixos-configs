@@ -18,7 +18,6 @@
 
 .osk {
     padding-top: 4px;
-    border-radius: 10px 10px 0;
 
     &.hidden {
         opacity: 0;
@@ -83,6 +82,8 @@
         }
 
         &.right-side {
+            border-radius: 0 10px 0 0;
+
             .key .mod {
                 &.Ctrl {
                     min-width: 2.4rem;
@@ -91,6 +92,8 @@
         }
 
         &.left-side {
+            border-radius: 10px 0 0 0;
+
             .key .mod {
                 &.Alt {
                     min-width: 3rem;

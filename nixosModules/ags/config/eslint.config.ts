@@ -132,6 +132,7 @@ export default tseslint.config({
         'no-loop-func': [
             'error',
         ],
+        /*
         'no-magic-numbers': [
             'error',
             {
@@ -159,6 +160,7 @@ export default tseslint.config({
                 ignoreClassFieldInitialValues: true,
             },
         ],
+        */
         'no-multi-assign': [
             'error',
         ],
