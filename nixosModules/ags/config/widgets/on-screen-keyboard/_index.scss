@@ -31,13 +31,14 @@
 
             label {
                 background-color: colors.$window_bg_color;
-                border: 0.08rem solid color.adjust(colors.$window_bg_color, $lightness: -3%);
-                border-radius: 0.7rem;
+                border-radius: 6px;
                 min-height: 3rem;
 
                 transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
 
-                box-shadow: 2px 1px 2px gray;
+                box-shadow: 2px 1px 2px colors.$accent-color;
+
+                padding: 4px;
 
                 margin: 4px 4px 4px 4px;
 

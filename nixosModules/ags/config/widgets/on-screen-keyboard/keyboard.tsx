@@ -26,7 +26,7 @@ class ToggleButton extends astalify(Gtk.ToggleButton) {
 
 const L_KEY_PER_ROW = [8, 7, 6, 6, 6, 4];
 const SPACING = 4;
-const COLOR = 'rgba(0, 0, 0, 0.3)';
+const COLOR = 'rgba(0, 0, 0, 0.5)';
 
 export default () => {
     const ThirdWidth = Variable(0);
