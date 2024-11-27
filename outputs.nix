@@ -11,10 +11,7 @@
       nixpkgs = mkInput {
         owner = "NixOS";
         repo = "nixpkgs";
-        # ref = "nixos-unstable";
-
-        # FIXME: https://pr-tracker.nelim.org/?pr=357555
-        rev = "5e4fbfb6b3de1aa2872b76d49fafc942626e2add";
+        ref = "nixos-unstable";
       };
 
       home-manager = mkDep {

@@ -19,6 +19,7 @@ in {
         extraPackages = builtins.attrValues {
           inherit
             (pkgs)
+            neovim-node-client
             nodejs_latest
             vscode-langservers-extracted
             ;
@@ -26,7 +27,6 @@ in {
           inherit
             (pkgs.nodePackages)
             npm
-            neovim
             ;
 
           inherit

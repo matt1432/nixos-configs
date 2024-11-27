@@ -30,7 +30,7 @@ in
 
     pnpmDeps = pnpm.fetchDeps {
       inherit (finalAttrs) pname version src;
-      hash = "sha256-C8kVVlsqirt8U7FPFbu0CW4RkJ/Gm9aTLm6Fd1MXeYk=";
+      hash = "sha256-vFo3E3kKXb7m2WBz/mcpQkQCiXgFZYv7zKYSyScE438=";
     };
 
     passthru.update = concatTextFile {

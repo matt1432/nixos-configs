@@ -321,8 +321,8 @@
     };
     nixpkgs = {
       owner = "NixOS";
+      ref = "nixos-unstable";
       repo = "nixpkgs";
-      rev = "5e4fbfb6b3de1aa2872b76d49fafc942626e2add";
       type = "github";
     };
     nixpkgs-wayland = {
