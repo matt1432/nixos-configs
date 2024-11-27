@@ -17,6 +17,7 @@
   vulkan-headers,
   wayland,
   xorg,
+  pname,
   ...
 }: let
   inherit (lib) makeLibraryPath;
@@ -28,7 +29,7 @@
     .version;
 in
   stdenv.mkDerivation {
-    pname = "gpu-screen-recorder";
+    inherit pname;
     version = "${tag}+${gpu-screen-recorder-src.shortRev}";
 
     src = gpu-screen-recorder-src;
@@ -75,10 +76,27 @@ in
       runHook postFixup
     '';
 
+    # This is needed to force gsr to lookup kms in PATH
+    # to get the security wrapper
+    postFixup =
+      if pname == "gpu-screen-recorder"
+      then
+        # bash
+        ''
+          rm $out/bin/gsr-kms-server
+        ''
+      else
+        # bash
+        ''
+          rm $out/bin/gpu-screen-recorder
+          rm $out/bin/.gpu-screen-recorder-wrapped
+        '';
+
     meta = {
       description = "Screen recorder that has minimal impact on system performance by recording a window using the GPU only";
       homepage = "https://git.dec05eba.com/gpu-screen-recorder/about/";
       license = lib.licenses.gpl3Only;
       platforms = ["x86_64-linux"];
+      mainProgram = pname;
     };
   }

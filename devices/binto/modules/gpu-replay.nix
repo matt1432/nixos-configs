@@ -48,8 +48,6 @@ in {
           pkgs.pulseaudio
           pkgs.xorg.xrandr
 
-          gpu-screen-recorder
-          gsr-kms-server
           hyprPkgs
         ];
 
