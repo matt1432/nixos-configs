@@ -74,6 +74,7 @@ in {
         warn-dirty = false;
         show-trace = true;
         allow-import-from-derivation = true;
+        fallback = true;
 
         # remote building
         trusted-users = ["matt" "nixremote"];
