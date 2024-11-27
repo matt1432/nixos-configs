@@ -13,15 +13,31 @@ in
       neovim = {
         withPython3 = true;
 
-        extraPackages = [
-          pkgs.basedpyright
-        ];
+        extraPython3Packages = py:
+          with py; ([
+              python-lsp-server
+            ]
+            ++ python-lsp-server.optional-dependencies.all);
+
+        extraPackages = with pkgs.python3Packages; ([
+            python-lsp-server
+          ]
+          ++ python-lsp-server.optional-dependencies.all);
 
         extraLuaConfig =
           # lua
           ''
-            require('lspconfig').basedpyright.setup({
+            require('lspconfig').pylsp.setup({
                 capabilities = require('cmp_nvim_lsp').default_capabilities(),
+                settings = {
+                    pylsp = {
+                        plugins = {
+                            pycodestyle = {
+                                maxLineLength = 100,
+                            },
+                        },
+                    },
+                },
             });
           '';
       };
