@@ -98,7 +98,7 @@ in {
         })
         // {
           "${cfg.configDir}/node_modules".source =
-            buildNodeModules ./config "sha256-XNvj59XfO6f+04PatCOZ93tkkZ1K7jReZPqLGJL2Ojo=";
+            buildNodeModules ./config (import ./config).npmDepsHash;
 
           "${cfg.configDir}/tsconfig.json".source = let
             inherit (ags.packages.${pkgs.system}) gjs;

@@ -2,6 +2,7 @@
   buildApp,
   callPackage,
   nodejs_latest,
+  prefetch-npm-deps,
   ...
 }:
 buildApp {
@@ -10,6 +11,7 @@ buildApp {
 
   runtimeInputs = [
     nodejs_latest
+    prefetch-npm-deps
     (callPackage ../../nixosModules/docker/updateImage.nix {})
   ];
 }

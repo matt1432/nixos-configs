@@ -1,42 +1,77 @@
-import { readPackageJSON } from 'pkg-types';
+import { readPackageJSON, writePackageJSON } from 'pkg-types';
 import { readdirSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
+
+import { replaceInFile, npmRun } from './lib';
 
 
 /* Constants */
 const FLAKE = process.env.FLAKE as string;
 
-export default () => {
-    readdirSync(FLAKE, { withFileTypes: true, recursive: true }).forEach(async(path) => {
+
+const updatePackageJson = async(workspaceDir: string, updates: object) => {
+    const currentPackageJson = await readPackageJSON(`${workspaceDir}/package.json`);
+
+    const outdated = JSON.parse(npmRun(['outdated', '--json'], workspaceDir));
+
+    const updateDeps = (deps: string) => {
+        Object.keys(currentPackageJson[deps]).forEach((dep) => {
+            const versions = outdated[dep];
+
+            if (!versions?.current) {
+                return;
+            }
+
+            if (!updates[dep]) {
+                updates[dep] = `${versions.current} -> ${versions.latest}`;
+            }
+
+            currentPackageJson[deps][dep] = versions.latest;
+        });
+    };
+
+    if (currentPackageJson.dependencies) {
+        updateDeps('dependencies');
+    }
+
+    if (currentPackageJson.devDependencies) {
+        updateDeps('devDependencies');
+    }
+
+    await writePackageJSON(`${workspaceDir}/package.json`, currentPackageJson);
+};
+
+
+const prefetchNpmDeps = (workspaceDir: string): string => {
+    npmRun(['install', '--package-lock-only'], workspaceDir);
+
+    return spawnSync(
+        'prefetch-npm-deps',
+        [`${workspaceDir}/package-lock.json`],
+    ).stdout.toString().replace('\n', '');
+};
+
+
+export default async() => {
+    const updates = {};
+
+    const packages = readdirSync(FLAKE, { withFileTypes: true, recursive: true });
+
+    for (const path of packages) {
         if (path.name === 'package.json' && !path.parentPath.includes('node_modules')) {
-            const currentWorkspace = path.parentPath;
+            await updatePackageJson(path.parentPath, updates);
 
-            const currentPackageJson = await readPackageJSON(`${currentWorkspace}/package.json`);
-            const outdated = JSON.parse(spawnSync(
-                'npm',
-                ['outdated', '--json'],
-                { cwd: currentWorkspace },
-            ).stdout.toString());
+            const hash = prefetchNpmDeps(path.parentPath);
 
-            Object.keys(currentPackageJson.dependencies ?? {}).forEach((dep) => {
-                const versions = outdated[dep];
-
-                if (!versions?.current) {
-                    return;
-                }
-
-                console.log(`${dep}: ${versions.current} -> ${versions.latest}`);
-            });
-
-            Object.keys(currentPackageJson.devDependencies ?? {}).forEach((dep) => {
-                const versions = outdated[dep];
-
-                if (!versions?.current) {
-                    return;
-                }
-
-                console.log(`${dep}: ${versions.current} -> ${versions.latest}`);
-            });
+            replaceInFile(
+                /npmDepsHash = ".*";/,
+                `npmDepsHash = "${hash}";`,
+                `${path.parentPath}/default.nix`,
+            );
         }
-    });
+    }
+
+    return Object.entries(updates)
+        .map(([key, dep]) => `${key}: ${dep}`)
+        .join('\n');
 };

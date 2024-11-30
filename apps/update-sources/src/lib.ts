@@ -1,4 +1,5 @@
 import { spawnSync } from 'node:child_process';
+import { readFileSync, writeFileSync } from 'node:fs';
 
 
 export const parseArgs = () => {
@@ -28,3 +29,15 @@ export const parseFetchurl = (url: string) => JSON.parse(spawnSync(
     'nix', ['store', 'prefetch-file', '--refresh', '--json',
         '--hash-type', 'sha256', url, '--name', '"escaped"'], { shell: true },
 ).stdout.toString()).hash;
+
+export const replaceInFile = (replace: RegExp, replacement: string, file: string) => {
+    const fileContents = readFileSync(file);
+
+    const replaced = fileContents.toString().replace(replace, replacement);
+
+    writeFileSync(file, replaced);
+};
+
+export const npmRun = (args: string[], workspaceDir: string) => spawnSync(
+    'npm', args, { cwd: workspaceDir },
+).stdout.toString();
