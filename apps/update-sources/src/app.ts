@@ -7,6 +7,7 @@ import { updateDocker } from './docker';
 import { updateFirefoxAddons } from '././firefox';
 import { updateFlakeInputs } from './flake';
 import { updateCustomPackage, updateVuetorrent } from './misc';
+import updateNodeModules from './node-modules';
 
 
 /* Constants */
@@ -41,6 +42,10 @@ if (args['c'] || args['custom-sidebar']) {
 
 if (args['s'] || args['some-sass-language-server']) {
     console.log(updateCustomPackage('some-sass-language-server'));
+}
+
+if (args['n'] || args['node_modules']) {
+    updateNodeModules();
 }
 
 if (args['a'] || args['all']) {

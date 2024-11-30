@@ -9,7 +9,7 @@
   jq,
   ...
 }: let
-  inherit (lib) concatMapStringsSep getBin;
+  inherit (lib) concatMapStringsSep;
   inherit (builtins) fromJSON readFile;
 
   packageJSON = fromJSON (readFile "${src}/package.json");
@@ -31,7 +31,7 @@ in
 
     postInstall = ''
       wrapProgram $out/bin/${pname} \
-          --prefix PATH : ${concatMapStringsSep ":" (p: getBin p) runtimeInputs}
+          --prefix PATH : ${concatMapStringsSep ":" (p: p + "/bin") runtimeInputs}
     '';
 
     nodejs = nodejs_latest;
