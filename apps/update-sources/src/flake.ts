@@ -27,8 +27,14 @@ export const updateFlakeInputs = () => {
         // Shorten git revs to help readability
         .split('\n')
         .map((l) => l
-            .replace(/.{33}\?narHash=sha256[^']*/, '')
-            .replace(/&rev=(.{7})[^'&]*/, (_, backref) => `&rev=${backref}`))
+            .replace(
+                /\/(.{40})\?narHash=sha256[^']*(.*)/,
+                (_, backref1, backref2) => `${backref2} rev: ${backref1}`,
+            )
+            .replace(
+                /\?ref.*&rev=(.{40})[^'&]*(.*)/,
+                (_, backref1, backref2) => `${backref2} rev: ${backref1}`,
+            ))
         .join('\n');
 
     return output;
