@@ -1,7 +1,7 @@
 {
   lib,
   gpu-screen-recorder-src,
-  addOpenGLRunpath,
+  addDriverRunpath,
   dbus,
   ffmpeg,
   libdrm,
@@ -68,7 +68,7 @@ in
       wrapProgram $out/bin/gpu-screen-recorder \
         --prefix LD_LIBRARY_PATH : "${
         makeLibraryPath [
-          addOpenGLRunpath.driverLink
+          addDriverRunpath.driverLink
           libglvnd
         ]
       }"

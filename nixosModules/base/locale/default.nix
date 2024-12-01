@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) attrValues mkIf;
+  inherit (lib) mkIf;
 
   cfg = config.roles.base;
 in
@@ -20,33 +20,26 @@ in
         };
       };
 
-      packages =
+      packages = with pkgs;
         [
-          (pkgs.nerdfonts.override {
-            fonts = [
-              "JetBrainsMono"
-              "Go-Mono"
-              "Iosevka"
-              "NerdFontsSymbolsOnly"
-              "SpaceMono"
-              "Ubuntu"
-              "Noto"
-            ];
-          })
+          noto-fonts
+          noto-fonts-cjk-sans
+          noto-fonts-emoji
+          liberation_ttf
+          font-awesome
+          meslo-lgs-nf
+          jetbrains-mono
+          ubuntu_font_family
         ]
-        ++ (attrValues {
-          inherit
-            (pkgs)
-            noto-fonts
-            noto-fonts-cjk-sans
-            noto-fonts-emoji
-            liberation_ttf
-            font-awesome
-            meslo-lgs-nf
-            jetbrains-mono
-            ubuntu_font_family
-            ;
-        });
+        ++ (with pkgs.nerd-fonts; [
+          jetbrains-mono
+          go-mono
+          iosevka
+          symbols-only
+          space-mono
+          ubuntu
+          noto
+        ]);
     };
 
     # Select internationalisation properties.
