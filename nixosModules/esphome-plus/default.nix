@@ -70,13 +70,27 @@ in {
                   mkdir -p ${stateDir}
               fi
 
-              ${optionalString (cfg.secretsFile != null) ''cp -f "$(realpath "${cfg.secretsFile}")" ${stateDir}/secrets.yaml''}
+              ${optionalString
+                (cfg.secretsFile != null)
+                # bash
+                ''
+                  cp -f "$(realpath "${cfg.secretsFile}")" ${stateDir}/secrets.yaml
+                ''}
 
-              ${optionalString cfg.deleteUnmanaged ''find ${stateDir} -name "*.yaml" ! -name "secrets.yaml" -delete''}
+              ${optionalString
+                cfg.deleteUnmanaged
+                # bash
+                ''
+                  find ${stateDir} -name "*.yaml" ! -name "secrets.yaml" -delete
+                ''}
 
               ${concatMapStringsSep
                 "\n"
-                (dev: ''cp -f "$(realpath "${dev.file}")" ${stateDir}/"${dev.name}"'')
+                (dev:
+                  # bash
+                  ''
+                    cp -f "$(realpath "${dev.file}")" ${stateDir}/"${dev.name}"
+                  '')
                 (mapAttrsToList mkESPConf cfg.firmwareConfigs)}
             '';
           });
