@@ -3,15 +3,18 @@ inputs: rec {
   mkPkgs = {
     system,
     nixpkgs,
+    cfg ? {},
     cudaSupport ? false,
   }:
     import nixpkgs {
       inherit system;
-      overlays = [inputs.self.overlays.build-failures];
-      config = {
-        inherit cudaSupport;
-        allowUnfree = true;
-      };
+      overlays = [inputs.self.overlays.build-failures] ++ (cfg.overlays or []);
+      config =
+        {
+          inherit cudaSupport;
+          allowUnfree = true;
+        }
+        // (cfg.config or {});
     };
 
   # Enable use of `nixpkgs.overlays` on both NixOS and NixOnDroid
@@ -20,12 +23,13 @@ inputs: rec {
     system,
   }: ({config, ...}: let
     pkgs = mkPkgs {
+      cfg = config.nixpkgs;
       inherit system cudaSupport;
       inherit (inputs) nixpkgs;
     };
-    inherit (pkgs.lib) composeManyExtensions mkForce;
+    inherit (pkgs.lib) mkForce;
   in {
-    _module.args.pkgs = mkForce (pkgs.extend (composeManyExtensions config.nixpkgs.overlays));
+    _module.args.pkgs = mkForce pkgs;
   });
 
   # Default system
