@@ -16,7 +16,7 @@
       "spotify"
     ];
 
-    customSentences."assist_spotify" = import ./spotify-sentences.nix;
+    customSentences."assist_spotify" = import ./sentences.nix;
 
     configFiles.
       ".storage/SpotifyWebApiPython_librespot_credentials.json"

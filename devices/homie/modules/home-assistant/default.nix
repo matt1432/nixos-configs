@@ -8,9 +8,10 @@
     ./bluetooth.nix
     ./firmware.nix
     ./frontend.nix
+
     ./netdaemon
-    ./spotify.nix
-    ./timer.nix
+    ./spotify
+    ./timer
 
     self.nixosModules.ha-plus
   ];
