@@ -24,7 +24,7 @@
 
     config.intent_script = {
       PlayAlbum = {
-        async_action = "false";
+        async_action = false;
         action = [
           {
             service = "netdaemon.spotify_play_album";
@@ -37,7 +37,7 @@
       };
 
       PlayArtist = {
-        async_action = "false";
+        async_action = false;
         action = [
           {
             service = "netdaemon.spotify_play_artist";
@@ -47,7 +47,7 @@
       };
 
       PlayPlaylist = {
-        async_action = "false";
+        async_action = false;
         action = [
           {
             service = "netdaemon.spotify_play_playlist";
@@ -57,7 +57,7 @@
       };
 
       PlaySong = {
-        async_action = "false";
+        async_action = false;
         action = [
           {
             service = "netdaemon.spotify_play_song";
@@ -65,6 +65,26 @@
               artist = "{{ artist }}";
               song = "{{ song }}";
             };
+          }
+        ];
+      };
+
+      Pause = {
+        async_action = false;
+        action = [
+          {
+            service = "netdaemon.spotify_pause_unpause";
+            data.pause = true;
+          }
+        ];
+      };
+
+      Unpause = {
+        async_action = false;
+        action = [
+          {
+            service = "netdaemon.spotify_pause_unpause";
+            data.pause = false;
           }
         ];
       };

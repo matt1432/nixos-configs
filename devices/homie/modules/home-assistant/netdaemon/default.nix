@@ -92,7 +92,7 @@ in {
         EOF
         )") .
 
-        alejandra .
+        alejandra -q .
         rm -r "$FLAKE/.config"
 
         sed -i "s/finalImageTag = .*/finalImageTag = \"$(cat ./.version)\";/" ./images/netdaemon.nix

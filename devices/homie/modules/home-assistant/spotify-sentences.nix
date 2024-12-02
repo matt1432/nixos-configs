@@ -46,6 +46,23 @@
         slots.artist = "";
       }
     ];
+
+    Pause.data = [
+      {
+        sentences = [
+          "(pause|stop) [the] [(song|track|music)]"
+          "(pause|stop) spotify"
+        ];
+      }
+    ];
+    Unpause.data = [
+      {
+        sentences = [
+          "(unpause|resume) [the] [(song|track|music)]"
+          "(unpause|resume) spotify"
+        ];
+      }
+    ];
   };
 
   lists = {
@@ -78,6 +95,14 @@
         by {{ slots.artist }}
       {% endif %}
       on Spotify and playing it.
+    '';
+
+    Pause.default = ''
+      Pausing the music.
+    '';
+
+    Unpause.default = ''
+      Resuming the music.
     '';
   };
 }
