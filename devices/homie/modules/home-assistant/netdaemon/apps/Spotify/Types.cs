@@ -4,7 +4,7 @@ namespace NetDaemonConfig.Apps.Spotify
 {
     public static class SpotifyTypes
     {
-        public const string DefaultDevId = "homie connect";
+        public const string DefaultDevId = "homie";
         public const string DefaultEntityId = "media_player.spotifyplus";
     }
 

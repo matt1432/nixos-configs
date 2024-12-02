@@ -87,7 +87,7 @@
     };
 
     settings.global = {
-      device_name = config.networking.hostName + " connect";
+      device_name = config.networking.hostName;
       device_type = "speaker";
 
       zeroconf_port = 33798;
