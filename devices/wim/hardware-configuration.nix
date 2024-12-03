@@ -89,7 +89,7 @@
 
     bluetooth = {
       enable = true;
-      powerOnBoot = true;
+      powerOnBoot = false;
     };
   };
 
