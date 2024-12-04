@@ -1,7 +1,7 @@
 import { bind, idle, Variable } from 'astal';
-import { Astal, astalify, Gtk, type ConstructProps, Widget } from 'astal/gtk3';
-import { register } from 'astal/gobject';
+import { Astal, Gtk, Widget } from 'astal/gtk3';
 
+import { ToggleButton } from '../misc/subclasses';
 import Separator from '../misc/separator';
 
 import Arc from './arcs';
@@ -12,17 +12,6 @@ import { defaultOskLayout, oskLayouts } from './keyboard-layouts';
 
 const keyboardLayout = defaultOskLayout;
 const keyboardJson = oskLayouts[keyboardLayout];
-
-@register()
-class ToggleButton extends astalify(Gtk.ToggleButton) {
-    constructor(props: ConstructProps<
-        ToggleButton,
-        Gtk.ToggleButton.ConstructorProps
-    >) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        super(props as any);
-    }
-}
 
 const L_KEY_PER_ROW = [8, 7, 6, 6, 6, 4];
 const SPACING = 4;

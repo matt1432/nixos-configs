@@ -19,7 +19,8 @@
             background-color: color.adjust(colors.$window_bg_color, $lightness: 3%);
         }
 
-        &.network icon {
+        &.network icon,
+        &.bluetooth icon {
             min-width: 30px;
         }
 

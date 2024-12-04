@@ -2,6 +2,7 @@ import { Astal, Gtk } from 'astal/gtk3';
 
 import Audio from './items/audio';
 import Battery from './items/battery';
+import Bluetooth from './items/bluetooth';
 import Brightness from './items/brightness';
 import Clock from './items/clock';
 import CurrentClient from './items/current-client';
@@ -45,6 +46,10 @@ export default () => (
 
             <box hexpand halign={Gtk.Align.END}>
                 <Network />
+
+                <Separator size={8} />
+
+                <Bluetooth />
 
                 <Separator size={8} />
 

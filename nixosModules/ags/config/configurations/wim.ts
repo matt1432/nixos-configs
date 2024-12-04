@@ -6,6 +6,7 @@ import style from '../style/main.scss';
 import AppLauncher from '../widgets/applauncher/main';
 import Bar from '../widgets/bar/wim';
 import BgLayer from '../widgets/bg-layer/main';
+import BluetoothWindow from '../widgets/bluetooth/wim';
 import Calendar from '../widgets/date/wim';
 import Clipboard from '../widgets/clipboard/main';
 import Corners from '../widgets/corners/main';
@@ -55,6 +56,7 @@ export default () => {
 
             AppLauncher();
             Bar();
+            BluetoothWindow();
             Calendar();
             Clipboard();
             Corners();

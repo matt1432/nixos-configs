@@ -1,0 +1,67 @@
+import { bind, Variable } from 'astal';
+import { App, Gtk } from 'astal/gtk3';
+
+import AstalBluetooth from 'gi://AstalBluetooth';
+
+import PopupWindow from '../../misc/popup-window';
+
+
+export default () => {
+    const bluetooth = AstalBluetooth.get_default();
+
+    const Hovered = Variable(false);
+
+    return (
+        <button
+            className="bar-item bluetooth"
+            cursor="pointer"
+
+            onHover={() => Hovered.set(true)}
+            onHoverLost={() => Hovered.set(false)}
+
+            onButtonReleaseEvent={(self) => {
+                const win = App.get_window('win-bluetooth') as PopupWindow;
+
+                win.set_x_pos(
+                    self.get_allocation(),
+                    'right',
+                );
+
+                win.visible = !win.visible;
+            }}
+        >
+            {bind(bluetooth, 'isPowered').as((isPowered) => {
+                if (!isPowered) {
+                    return (<icon icon="bluetooth-disabled-symbolic" />);
+                }
+                else {
+                    return (
+                        <box>
+                            {bind(bluetooth, 'isConnected').as((isConnected) => {
+                                const device = bluetooth.get_devices().find((dev) => dev.connected);
+
+                                if (!isConnected || !device) {
+                                    return (<icon icon="bluetooth-active-symbolic" />);
+                                }
+                                else {
+                                    return (
+                                        <>
+                                            <icon icon={bind(device, 'icon')} />
+
+                                            <revealer
+                                                revealChild={bind(Hovered)}
+                                                transitionType={Gtk.RevealerTransitionType.SLIDE_LEFT}
+                                            >
+                                                <label label={bind(device, 'name')} />
+                                            </revealer>
+                                        </>
+                                    );
+                                }
+                            })}
+                        </box>
+                    );
+                }
+            })}
+        </button>
+    );
+};
