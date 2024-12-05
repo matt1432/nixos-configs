@@ -19,9 +19,23 @@
 
   nixFastBuild = pkgs.writeShellApplication {
     name = "nixFastBuild";
-    runtimeInputs = with pkgs; [gnugrep nix-fast-build-pkg];
+
+    runtimeInputs = builtins.attrValues {
+      inherit
+        (pkgs)
+        gnugrep
+        nix-output-monitor
+        ;
+
+      inherit nix-fast-build-pkg;
+    };
+
     text = ''
       cd "$FLAKE" || return
+
+      # Home-assistant sometimes fails some tests when built with everything else
+      nom build --no-link \
+        .#nixosConfigurations.homie.config.services.home-assistant.package
 
       nix-fast-build -f .#nixFastChecks "$@"
 
@@ -46,19 +60,18 @@ in {
         Group = config.users.users.${mainUser}.group;
       };
 
-      path =
-        [
-          nix-fast-build-pkg
-          config.nix.package
-        ]
-        ++ (builtins.attrValues {
-          inherit
-            (pkgs)
-            bash
-            git
-            openssh
-            ;
-        });
+      path = builtins.attrValues {
+        inherit
+          (pkgs)
+          bash
+          git
+          openssh
+          ;
+
+        inherit (config.nix) package;
+
+        inherit nix-fast-build-pkg;
+      };
 
       script = ''
         cd /tmp
