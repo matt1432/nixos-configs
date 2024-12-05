@@ -6,18 +6,103 @@ import AstalBluetooth from 'gi://AstalBluetooth';
 
 import Separator from '../misc/separator';
 
+/* Types */
+interface DevToggleProps {
+    label: string
+    prop: keyof AstalBluetooth.Device
+    onToggle: (active: boolean) => void
+}
+
 
 @register()
 export default class DeviceWidget extends Widget.Revealer {
     readonly dev: AstalBluetooth.Device;
 
     constructor({ dev }: { dev: AstalBluetooth.Device }) {
+        const bluetooth = AstalBluetooth.get_default();
+
+        const DevToggle = ({ label, prop, onToggle }: DevToggleProps) => (
+            <centerbox>
+                <label
+                    label={label}
+                    valign={Gtk.Align.CENTER}
+                    halign={Gtk.Align.START}
+                />
+
+                <box />
+
+                <switch
+                    cursor="pointer"
+                    valign={Gtk.Align.CENTER}
+                    halign={Gtk.Align.END}
+
+                    active={bind(dev, prop).as(Boolean)}
+
+                    setup={(self) => {
+                        self.connect('notify::active', () => {
+                            onToggle(self.active);
+                        });
+                    }}
+                />
+            </centerbox>
+        );
+
         const rev = (
             <revealer
                 transitionType={Gtk.RevealerTransitionType.SLIDE_DOWN}
             >
-                <box>
-                    TODO: add buttons here
+                <box vertical halign={Gtk.Align.FILL} hexpand>
+                    <Separator size={8} vertical />
+
+                    <DevToggle
+                        label="Connected"
+                        prop="connected"
+                        onToggle={(active) => {
+                            if (active) {
+                                dev.connect_device();
+                            }
+                            else {
+                                dev.disconnect_device();
+                            }
+                        }}
+                    />
+
+                    <Separator size={8} vertical />
+
+                    <DevToggle
+                        label="Trusted"
+                        prop="trusted"
+                        onToggle={(active) => {
+                            dev.set_trusted(active);
+                        }}
+                    />
+
+                    <Separator size={8} vertical />
+
+                    <DevToggle
+                        label="Paired"
+                        prop="paired"
+                        onToggle={(active) => {
+                            if (active) {
+                                dev.pair();
+                            }
+                            else {
+                                bluetooth.adapter.remove_device(dev);
+                            }
+                        }}
+                    />
+
+                    <Separator size={8} vertical />
+
+                    <DevToggle
+                        label="Blocked"
+                        prop="blocked"
+                        onToggle={(active) => {
+                            dev.set_blocked(active);
+                        }}
+                    />
+
+                    <Separator size={8} vertical />
                 </box>
             </revealer>
         ) as Widget.Revealer;
@@ -61,6 +146,7 @@ export default class DeviceWidget extends Widget.Revealer {
                 <box vertical>
                     {button}
                     {rev}
+                    <Separator size={8} vertical />
                 </box>
             ),
         });
