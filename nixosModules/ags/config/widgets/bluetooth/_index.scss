@@ -4,6 +4,14 @@
 .bluetooth {
     margin-top: 0;
 
+    * {
+        font-size: 20px;
+    }
+
+    row {
+        all: unset;
+    }
+
     .toggle-button {
         padding: 4px;
         min-width: 30px;

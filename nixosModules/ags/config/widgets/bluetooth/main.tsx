@@ -3,11 +3,44 @@ import { Gtk } from 'astal/gtk3';
 
 import AstalBluetooth from 'gi://AstalBluetooth';
 
-import { ToggleButton } from '../misc/subclasses';
+import { ListBox, ToggleButton } from '../misc/subclasses';
 import Separator from '../misc/separator';
 
 import DeviceWidget from './device';
 
+
+const calculateDevSort = (dev: AstalBluetooth.Device) => {
+    let value = 0;
+
+    if (dev.connected) {
+        value += 1000;
+    }
+    if (dev.paired) {
+        value += 100;
+    }
+    if (dev.blocked) {
+        value += 10;
+    }
+    if (dev.icon) {
+        if (dev.icon === 'audio-headset') {
+            value += 9;
+        }
+        if (dev.icon === 'audio-headphones') {
+            value += 8;
+        }
+        if (dev.icon === 'audio-card') {
+            value += 7;
+        }
+        if (dev.icon === 'computer') {
+            value += 6;
+        }
+        if (dev.icon === 'phone') {
+            value += 5;
+        }
+    }
+
+    return value;
+};
 
 export default () => {
     const bluetooth = AstalBluetooth.get_default();
@@ -16,38 +49,53 @@ export default () => {
         <scrollable
             className="list"
 
-            css="min-height: 200px;"
+            css="min-height: 300px;"
             hscroll={Gtk.PolicyType.NEVER}
             vscroll={Gtk.PolicyType.AUTOMATIC}
         >
-            <box
-                vertical
+            <ListBox
+                selectionMode={Gtk.SelectionMode.SINGLE}
+
                 setup={(self) => {
-                    self.children = bluetooth.devices
+                    bluetooth.devices
                         .filter((dev) => dev.name)
-                        .map((dev) => <DeviceWidget dev={dev} />);
+                        .forEach((dev) => {
+                            self.add(<DeviceWidget dev={dev} />);
+                        });
 
                     self.hook(bluetooth, 'device-added', (_, dev) => {
                         if (dev.name) {
                             self.add(<DeviceWidget dev={dev} />);
+                            self.invalidate_sort();
                         }
                     });
 
                     self.hook(bluetooth, 'device-removed', (_, dev) => {
-                        const children = self.children as DeviceWidget[];
+                        const children = self
+                            .get_children()
+                            .map((ch) => ch.get_child()) as DeviceWidget[];
+
                         const devWidget = children.find((ch) => ch.dev === dev);
 
                         if (devWidget) {
                             devWidget.revealChild = false;
 
                             setTimeout(() => {
-                                devWidget.destroy();
+                                devWidget.get_parent()?.destroy();
                             }, devWidget.transitionDuration + 100);
                         }
                     });
+
+                    self.set_sort_func((a, b) => {
+                        const devA = (a.get_child() as DeviceWidget).dev;
+                        const devB = (b.get_child() as DeviceWidget).dev;
+
+                        const sort = calculateDevSort(devB) - calculateDevSort(devA);
+
+                        return sort !== 0 ? sort : devA.name.localeCompare(devB.name);
+                    });
                 }}
-            >
-            </box>
+            />
         </scrollable>
     );
 
