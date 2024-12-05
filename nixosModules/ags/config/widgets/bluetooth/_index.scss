@@ -5,15 +5,15 @@
     margin-top: 0;
 
     .toggle-button {
-        background-color: colors.$window_bg_color;
+        padding: 4px;
+        min-width: 30px;
+        min-height: 30px;
 
         transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
 
         box-shadow: 2px 1px 2px colors.$accent-color;
-
-        padding: 4px;
-
         margin: 4px 4px 4px 4px;
+        background-color: colors.$window_bg_color;
 
         &.active {
             box-shadow: 0 0 0 white;

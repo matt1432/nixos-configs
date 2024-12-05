@@ -12,6 +12,45 @@ import DeviceWidget from './device';
 export default () => {
     const bluetooth = AstalBluetooth.get_default();
 
+    const deviceList = (
+        <scrollable
+            className="list"
+
+            css="min-height: 200px;"
+            hscroll={Gtk.PolicyType.NEVER}
+            vscroll={Gtk.PolicyType.AUTOMATIC}
+        >
+            <box
+                vertical
+                setup={(self) => {
+                    self.children = bluetooth.devices
+                        .filter((dev) => dev.name)
+                        .map((dev) => <DeviceWidget dev={dev} />);
+
+                    self.hook(bluetooth, 'device-added', (_, dev) => {
+                        if (dev.name) {
+                            self.add(<DeviceWidget dev={dev} />);
+                        }
+                    });
+
+                    self.hook(bluetooth, 'device-removed', (_, dev) => {
+                        const children = self.children as DeviceWidget[];
+                        const devWidget = children.find((ch) => ch.dev === dev);
+
+                        if (devWidget) {
+                            devWidget.revealChild = false;
+
+                            setTimeout(() => {
+                                devWidget.destroy();
+                            }, devWidget.transitionDuration + 100);
+                        }
+                    });
+                }}
+            >
+            </box>
+        </scrollable>
+    );
+
     return (
         <box
             className="bluetooth widget"
@@ -53,15 +92,13 @@ export default () => {
                         }
                     }}
                 >
-                    <icon icon="emblem-synchronizing-symbolic" css="font-size: 20px;" />
+                    <icon icon="emblem-synchronizing-symbolic" css="font-size: 30px;" />
                 </ToggleButton>
             </centerbox>
 
             <Separator size={8} vertical />
 
-            {bind(bluetooth, 'devices').as((devices) => devices
-                .filter((dev) => dev.name)
-                .map((dev) => DeviceWidget(dev)))}
+            {deviceList}
         </box>
     );
 };
