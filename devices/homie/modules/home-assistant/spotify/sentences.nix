@@ -8,7 +8,6 @@
     song.wildcard = true;
   };
 
-
   # ---------------------------------------
   # PlayAlbum
   # ---------------------------------------
@@ -34,7 +33,6 @@
     on Spotify and playing it.
   '';
 
-
   # ---------------------------------------
   # PlayArtist
   # ---------------------------------------
@@ -51,7 +49,6 @@
     Searching for the artist {{ slots.artist }} on Spotify and playing their top songs.
   '';
 
-
   # ---------------------------------------
   # PlayPlaylist
   # ---------------------------------------
@@ -66,7 +63,6 @@
   responses.intents.PlayPlaylist.default = ''
     Searching for {{ slots.playlist }} in your favorites, or elsewhere if not found, and playing it.
   '';
-
 
   # ---------------------------------------
   # PlaySong
@@ -93,7 +89,6 @@
     on Spotify and playing it.
   '';
 
-
   # ---------------------------------------
   # Pause
   # ---------------------------------------
@@ -109,7 +104,6 @@
   responses.intents.Pause.default = ''
     Pausing the music.
   '';
-
 
   # ---------------------------------------
   # Unpause

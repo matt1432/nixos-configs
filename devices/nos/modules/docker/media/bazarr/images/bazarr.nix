@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage rec {
   imageName = "ghcr.io/linuxserver/bazarr";
-  imageDigest = "sha256:5805d6a44689a41cf78a8317208276a52f0647fb3cd0b2c4a3c8df6e02f93d3b";
-  sha256 = "14gb5rw8vvrrlyx6v0sl4jciy5560rd89bf973aw5rfw1jn6ks6h";
+  imageDigest = "sha256:be98501c48d98eec67a3269cacf884eb122b884d0775cdb8ee9a03947ef2b493";
+  sha256 = "1k49h4wglg3ikmnqywpjfznvbj0j31h58y88i485wpgrvrqv64mh";
   finalImageName = imageName;
   finalImageTag = "latest";
 }

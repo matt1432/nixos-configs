@@ -10,6 +10,6 @@
         "eslint-plugin-jsdoc": "50.6.0",
         "fzf": "0.5.2",
         "jiti": "2.4.1",
-        "typescript-eslint": "8.16.0"
+        "typescript-eslint": "8.17.0"
     }
 }
