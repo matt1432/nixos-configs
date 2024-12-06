@@ -10,11 +10,9 @@ in {
 
   environment.variables.FLAKE = "/data/data/com.termux.nix/files/home/.nix";
 
-  terminal.font = "${(pkgs.nerdfonts.override {
-    fonts = [
-      "JetBrainsMono"
-    ];
-  })}/share/fonts/truetype/NerdFonts/JetBrainsMonoNerdFontMono-Regular.ttf";
+  terminal.font = "${
+    pkgs.nerd-fonts.jetbrains-mono
+  }/share/fonts/truetype/NerdFonts/JetBrainsMonoNerdFontMono-Regular.ttf";
 
   environment.packages = [
     (pkgs.writeShellApplication {
