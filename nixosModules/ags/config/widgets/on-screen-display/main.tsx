@@ -1,26 +1,15 @@
 import { bind, timeout } from 'astal';
-import { register } from 'astal/gobject';
-import { App, Astal, astalify, Gtk, Widget, type ConstructProps } from 'astal/gtk3';
+import { App, Astal, Gtk, Widget } from 'astal/gtk3';
 
 import AstalWp from 'gi://AstalWp';
 
+import { ProgressBar } from '../misc/subclasses';
 import PopupWindow from '../misc/popup-window';
 import Brightness from '../../services/brightness';
 
 /* Types */
 declare global {
     function popup_osd(osd: string): void;
-}
-
-@register()
-class ProgressBar extends astalify(Gtk.ProgressBar) {
-    constructor(props: ConstructProps<
-        ProgressBar,
-        Gtk.ProgressBar.ConstructorProps
-    >) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        super(props as any);
-    }
 }
 
 

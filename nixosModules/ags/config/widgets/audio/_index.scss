@@ -1,0 +1,11 @@
+@use 'sass:color';
+@use '../../style/colors';
+
+.widget.audio {
+    .stream {
+        margin: 5px;
+        padding: 10px;
+        border-radius: 8px;
+        background-color: color.adjust(colors.$window_bg_color, $lightness: -3%);
+    }
+}

@@ -4,6 +4,7 @@ import { App } from 'astal/gtk3';
 import style from '../style/main.scss';
 
 import AppLauncher from '../widgets/applauncher/main';
+import AudioWindow from '../widgets/audio/wim';
 import Bar from '../widgets/bar/wim';
 import BgLayer from '../widgets/bg-layer/main';
 import BluetoothWindow from '../widgets/bluetooth/wim';
@@ -55,6 +56,7 @@ export default () => {
             perMonitor((monitor) => BgLayer(monitor, true));
 
             AppLauncher();
+            AudioWindow();
             Bar();
             BluetoothWindow();
             Calendar();

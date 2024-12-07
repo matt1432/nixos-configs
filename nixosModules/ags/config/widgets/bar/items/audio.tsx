@@ -1,6 +1,10 @@
 import { bind } from 'astal';
+import { App } from 'astal/gtk3';
 
 import AstalWp from 'gi://AstalWp';
+
+import PopupWindow from '../../misc/popup-window';
+
 
 export default () => {
     const speaker = AstalWp.get_default()?.audio.default_speaker;
@@ -10,8 +14,22 @@ export default () => {
     }
 
     return (
-        <box className="bar-item audio">
-            <overlay>
+        <button
+            cursor="pointer"
+            className="bar-item audio"
+
+            onButtonReleaseEvent={(self) => {
+                const win = App.get_window('win-audio') as PopupWindow;
+
+                win.set_x_pos(
+                    self.get_allocation(),
+                    'right',
+                );
+
+                win.visible = !win.visible;
+            }}
+        >
+            <overlay passThrough>
                 <circularprogress
                     startAt={0.75}
                     endAt={0.75}
@@ -23,6 +41,6 @@ export default () => {
 
                 <icon icon={bind(speaker, 'volumeIcon')} />
             </overlay>
-        </box>
+        </button>
     );
 };

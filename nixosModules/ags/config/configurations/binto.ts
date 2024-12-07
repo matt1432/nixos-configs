@@ -4,6 +4,7 @@ import { App } from 'astal/gtk3';
 import style from '../style/main.scss';
 
 import AppLauncher from '../widgets/applauncher/main';
+import AudioWindow from '../widgets/audio/binto';
 import Bar from '../widgets/bar/binto';
 import BgLayer from '../widgets/bg-layer/main';
 import Calendar from '../widgets/date/binto';
@@ -52,6 +53,7 @@ export default () => {
             perMonitor((monitor) => BgLayer(monitor, false));
 
             AppLauncher();
+            AudioWindow();
             Bar();
             Calendar();
             Clipboard();

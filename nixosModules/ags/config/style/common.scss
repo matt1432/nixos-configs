@@ -30,6 +30,14 @@ progressbar {
     }
 }
 
+scale {
+    contents {
+        trough {
+            min-height: 10px;
+        }
+    }
+}
+
 circular-progress {
     background: #363847;
     min-height: 35px;
