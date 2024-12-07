@@ -7,5 +7,15 @@
         padding: 10px;
         border-radius: 8px;
         background-color: color.adjust(colors.$window_bg_color, $lightness: -3%);
+
+        .body {
+            .toggle {
+                padding: 5px;
+
+                icon {
+                    font-size: 26px;
+                }
+            }
+        }
     }
 }

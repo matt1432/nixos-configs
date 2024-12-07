@@ -3,7 +3,7 @@ import { Gtk, Widget } from 'astal/gtk3';
 
 import AstalWp from 'gi://AstalWp';
 
-import { RadioButton, ToggleButton } from '../misc/subclasses';
+import { RadioButton } from '../misc/subclasses';
 import Separator from '../misc/separator';
 
 
@@ -17,95 +17,100 @@ export default () => {
     // TODO: make a stack to have outputs, inputs and currently playing apps
     // TODO: figure out ports and profiles
 
-    const defaultGroup = new RadioButton();
-
     return (
         <box vertical className="widget audio">
-            {bind(audio, 'speakers').as((speakers) => speakers.map((speaker) => (
-                <box className="stream" vertical>
-                    <box className="title">
-                        <RadioButton
-                            css="margin-top: 1px;"
 
-                            group={defaultGroup}
-                            active={speaker.isDefault}
+            {bind(audio, 'speakers').as((speakers) => {
+                const widgets = speakers.map((speaker, i) => (
+                    <box className="stream" vertical>
 
-                            setup={(self) => {
-                                speaker.connect('notify::isDefault', () => {
-                                    self.active = speaker.isDefault;
-                                });
-                            }}
+                        <box className="title">
 
-                            onToggled={(self) => {
-                                speaker.isDefault = self.active;
-                            }}
-                        />
+                            <RadioButton
+                                css="margin-top: 1px;"
 
-                        <Separator size={8} />
+                                active={bind(speaker, 'isDefault')}
 
-                        <label label={bind(speaker, 'description')} />
-                    </box>
+                                onRealize={(self) => {
+                                    if (i !== 0) {
+                                        self.group = (((widgets[0] as Widget.Box)
+                                            .get_children()[0] as Widget.Box)
+                                            .get_children()[0] as RadioButton);
+                                    }
+                                }}
 
-                    <Separator size={4} vertical />
-
-                    <box className="body">
-                        <ToggleButton
-                            cursor="pointer"
-                            valign={Gtk.Align.END}
-
-                            active={speaker.mute}
-                            onToggled={(self) => {
-                                speaker.set_mute(self.active);
-
-                                (self.get_child() as Widget.Icon).icon = self.active ?
-                                    'audio-volume-muted-symbolic' :
-                                    'audio-speakers-symbolic';
-                            }}
-                        >
-                            <icon icon={speaker.mute ?
-                                'audio-volume-muted-symbolic' :
-                                'audio-speakers-symbolic'}
+                                onButtonReleaseEvent={() => {
+                                    speaker.isDefault = true;
+                                }}
                             />
-                        </ToggleButton>
 
-                        <Separator size={4} />
+                            <Separator size={8} />
 
-                        {/*
-                            FIXME: lockChannels not working
-                            TODO: have two sliders when lockChannels === false
-                        */}
-                        <ToggleButton
-                            cursor="pointer"
-                            valign={Gtk.Align.END}
+                            <label label={bind(speaker, 'description')} />
 
-                            active={speaker.lockChannels}
-                            onToggled={(self) => {
-                                speaker.set_lock_channels(self.active);
+                        </box>
 
-                                (self.get_child() as Widget.Icon).icon = self.active ?
-                                    'channel-secure-symbolic' :
-                                    'channel-insecure-symbolic';
-                            }}
-                        >
-                            <icon icon={speaker.lockChannels ?
-                                'channel-secure-symbolic' :
-                                'channel-insecure-symbolic'}
+                        <Separator size={4} vertical />
+
+                        <box className="body">
+
+                            <button
+                                cursor="pointer"
+                                className="toggle"
+                                valign={Gtk.Align.END}
+
+                                onButtonReleaseEvent={() => {
+                                    speaker.mute = !speaker.mute;
+                                }}
+                            >
+                                <icon
+                                    icon={bind(speaker, 'mute').as((isMuted) => isMuted ?
+                                        'audio-volume-muted-symbolic' :
+                                        'audio-speakers-symbolic')}
+                                />
+                            </button>
+
+                            <Separator size={4} />
+
+                            {/*
+                                FIXME: lockChannels not working
+                                TODO: have two sliders when lockChannels === false
+                            */}
+                            <button
+                                cursor="pointer"
+                                className="toggle"
+                                valign={Gtk.Align.END}
+
+                                onButtonReleaseEvent={() => {
+                                    speaker.lockChannels = !speaker.lockChannels;
+                                }}
+                            >
+                                <icon
+                                    icon={bind(speaker, 'lockChannels').as((locked) => locked ?
+                                        'channel-secure-symbolic' :
+                                        'channel-insecure-symbolic')}
+                                />
+                            </button>
+
+                            <slider
+                                hexpand
+                                halign={Gtk.Align.FILL}
+                                drawValue
+
+                                value={bind(speaker, 'volume')}
+                                onDragged={(self) => {
+                                    speaker.set_volume(self.value);
+                                }}
                             />
-                        </ToggleButton>
 
-                        <slider
-                            hexpand
-                            halign={Gtk.Align.FILL}
-                            drawValue
+                        </box>
 
-                            value={bind(speaker, 'volume')}
-                            onDragged={(self) => {
-                                speaker.set_volume(self.value);
-                            }}
-                        />
                     </box>
-                </box>
-            )))}
+                ));
+
+                return widgets;
+            })}
+
         </box>
     );
 };
