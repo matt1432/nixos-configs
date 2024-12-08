@@ -5,10 +5,15 @@
   ...
 }: let
   inherit (lib) mkIf;
+  inherit (pkgs.writers) writeYAML;
 
   cfg = config.programs.neovim;
 in
   mkIf cfg.enableIde {
+    xdg.configFile."clangd/config.yaml".source = writeYAML "config.yaml" {
+      CompileFlags.Add = ["-D__cpp_concepts=202002L"];
+    };
+
     programs = {
       neovim = {
         extraPackages = builtins.attrValues {
