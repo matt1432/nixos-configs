@@ -14,6 +14,7 @@ export const updateFlakeInputs = () => {
         .toString()
         // Add an extra blank line between inputs
         .split('\n•')
+        // Filter out some inputs
         .filter((input) => ![
             'systems',
             'flake-utils',
@@ -22,9 +23,11 @@ export const updateFlakeInputs = () => {
             'lib-aggregate',
             'lib-aggregate/nixpkgs-lib',
             'sops-nix/nixpkgs-stable',
+            'discord-overlay/Vencord-src',
+            'nix-gaming/umu',
         ].some((inputName) => input.startsWith(` Updated input '${inputName}'`)))
         .join('\n\n•')
-        // Shorten git revs to help readability
+        // help readability of git revs
         .split('\n')
         .map((l) => l
             .replace(
