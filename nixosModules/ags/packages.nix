@@ -69,15 +69,14 @@ in {
             '';
           })
         ]
-        ++ (builtins.attrValues {
+        ++ (attrValues {
           inherit
             (pkgs)
             playerctl
-            pavucontrol # TODO: replace with ags widget
             wayfreeze
             ;
         })
-        ++ (optionals cfgDesktop.isTouchscreen (builtins.attrValues {
+        ++ (optionals cfgDesktop.isTouchscreen (attrValues {
           inherit
             (pkgs)
             ydotool
