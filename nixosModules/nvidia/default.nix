@@ -65,11 +65,11 @@ in {
       open = false;
 
       package = let
-        inherit (config.boot.kernelPackages.nvidiaPackages) latest stable;
+        inherit (config.boot.kernelPackages.nvidiaPackages) beta stable;
       in
         if !cfg.enableWayland
         then stable
-        else latest;
+        else beta;
     };
 
     environment.systemPackages =

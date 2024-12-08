@@ -132,7 +132,7 @@ let
         repo = "hyprgrass";
 
         # FIXME: hopefully this gets merged soon
-        rev = "ecb7e95a739e4e6e7ee4007c3e676f545b687981";
+        rev = "b928abfba914b61d657daf70f3e9901461d27439";
 
         # type = "path";
         # path = "/home/matt/git/hyprgrass";

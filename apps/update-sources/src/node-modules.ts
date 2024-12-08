@@ -9,6 +9,7 @@ import { replaceInFile, npmRun } from './lib';
 const FLAKE = process.env.FLAKE as string;
 
 
+// FIXME: update msg is broken
 const updatePackageJson = async(workspaceDir: string, updates: object) => {
     const currentPackageJson = await readPackageJSON(`${workspaceDir}/package.json`);
 
