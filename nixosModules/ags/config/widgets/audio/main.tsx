@@ -3,11 +3,9 @@ import { Gtk, Widget } from 'astal/gtk3';
 
 import AstalWp from 'gi://AstalWp';
 
-import Separator from '../misc/separator';
 import Streams from './streams';
+import Profiles from './profiles';
 
-
-const ICON_SEP = 6;
 
 export default () => {
     const audio = AstalWp.get_default()?.get_audio();
@@ -16,9 +14,6 @@ export default () => {
         throw new Error('Could not find default audio devices.');
     }
 
-    // TODO: make a stack to have outputs, inputs and currently playing apps
-    // TODO: figure out ports and profiles
-
     const Shown = Variable<string>('outputs');
 
     const stack = (
@@ -26,6 +21,7 @@ export default () => {
             shown={bind(Shown)}
             transitionType={Gtk.StackTransitionType.SLIDE_LEFT_RIGHT}
         >
+
             <scrollable name="outputs" hscroll={Gtk.PolicyType.NEVER}>
                 <box vertical>
                     {bind(audio, 'speakers').as(Streams)}
@@ -37,6 +33,13 @@ export default () => {
                     {bind(audio, 'microphones').as(Streams)}
                 </box>
             </scrollable>
+
+            <scrollable name="profiles" hscroll={Gtk.PolicyType.NEVER}>
+                <box vertical>
+                    {bind(audio, 'devices').as(Profiles)}
+                </box>
+            </scrollable>
+
         </stack>
     ) as Widget.Stack;
 
@@ -52,10 +55,6 @@ export default () => {
         >
             <box halign={Gtk.Align.CENTER}>
                 <icon icon={iconName} />
-
-                <Separator size={ICON_SEP} />
-
-                <label label={label} valign={Gtk.Align.CENTER} />
             </box>
         </button>
     ) as Widget.Button;
@@ -71,11 +70,10 @@ export default () => {
             >
                 <StackButton label="outputs" iconName="audio-speakers-symbolic" />
                 <StackButton label="inputs" iconName="audio-input-microphone-symbolic" />
+                <StackButton label="profiles" iconName="application-default-symbolic" />
             </box>
 
             {stack}
         </box>
-
-
     );
 };

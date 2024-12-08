@@ -49,3 +49,14 @@ export class ProgressBar extends astalify(Gtk.ProgressBar) {
         super(props as any);
     }
 }
+
+@register()
+export class ComboBoxText extends astalify(Gtk.ComboBoxText) {
+    constructor(props: ConstructProps<
+        ComboBoxText,
+        Gtk.ComboBoxText.ConstructorProps
+    > = {}) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        super(props as any);
+    }
+}
