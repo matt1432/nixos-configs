@@ -2,6 +2,29 @@
 @use '../../style/colors';
 
 .widget.audio {
+    .header {
+        .header-btn {
+            font-size: 30px;
+            margin: 5px;
+            transition: background 400ms;
+
+            &.active {
+                background: colors.$window_bg_color;
+            }
+        }
+    }
+
+    scrollable {
+        margin: 5px;
+        min-height: 400px;
+
+        box {
+            .item-btn {
+                margin: 3px;
+            }
+        }
+    }
+
     .stream {
         margin: 5px;
         padding: 10px;
