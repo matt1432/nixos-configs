@@ -3,6 +3,8 @@ import { Gtk, Widget } from 'astal/gtk3';
 
 import AstalWp from 'gi://AstalWp';
 
+import Separator from '../misc/separator';
+
 import Streams from './streams';
 import Profiles from './profiles';
 
@@ -55,6 +57,10 @@ export default () => {
         >
             <box halign={Gtk.Align.CENTER}>
                 <icon icon={iconName} />
+
+                <Separator size={8} />
+
+                {label}
             </box>
         </button>
     ) as Widget.Button;
