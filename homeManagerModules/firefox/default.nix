@@ -7,9 +7,8 @@ self: {
 
   rounding = (config.wayland.windowManager.hyprland.settings.decoration.rounding or 2) - 2;
 
-  firefox-gx = pkgs.callPackage ./gx-theme.nix {
-    inherit self;
-  };
+  firefox-gx = pkgs.callPackage ./firefox-gx {inherit self;};
+  custom-css = pkgs.callPackage ./custom-css {inherit rounding firefox-gx;};
 in {
   config = {
     home.file = {
@@ -28,7 +27,7 @@ in {
 
         userChrome = ''
           @import url("file://${firefox-gx}/chrome/userChrome.css");
-          ${import ./custom-css.nix rounding}
+          @import url("file://${custom-css}");
         '';
 
         settings = {
