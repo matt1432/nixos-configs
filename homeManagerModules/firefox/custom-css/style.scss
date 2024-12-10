@@ -1,48 +1,52 @@
+// Global Vars
 :root * {
     --tab-height-personal: 40px !important;
     --uc-tab-corner-height: 41px !important;
     --uc-vertical-toolbar-width: 46px !important;
 }
 
-/* Main Menu outline */
-#appMenu-mainView .panel-subview-body {
-    outline: 2px solid var(--button-background-color-primary);
+#appMenu-mainView {
+
+    // Main Menu outline
+    .panel-subview-body {
+        outline: 2px solid var(--button-background-color-primary);
+    }
+
+    // Makes main menu rows all the same height
+    .subviewbutton {
+        min-height: 40px !important;
+    }
 }
 
-/* Hide unused menu rows */
+// Hide unused menu rows
 #appMenu-mainView .browser-toolbar>* #alltabs-button,
 #appMenu-fxa-status2,
 #appMenu-fxa-separator {
     display: none !important;
 }
 
-/* Makes main menu rows all the same height */
-#appMenu-mainView .subviewbutton {
-    min-height: 40px !important;
-}
 
-/* Fix url font-size */
+// Fix url font-size
 #urlbar-input {
     font-size: large !important;
 }
 
-/* Extension padding on sidebar */
+// Extension padding on sidebar
 toolbar .toolbarbutton-1>.toolbarbutton-badge-stack {
     padding: 10px !important;
 }
 
-/* Hamnburger button border */
+// Hamnburger button border
 :root:not([chromehidden~="toolbar"]) #PanelUI-menu-button[open] {
     border: 2px solid var(--button-background-color-primary) !important;
-
     border-top-left-radius: $rounding !important;
+
+    &>.toolbarbutton-badge-stack {
+        border-top-left-radius: $rounding !important;
+    }
 }
 
-:root:not([chromehidden~="toolbar"]) #PanelUI-menu-button[open]>.toolbarbutton-badge-stack {
-    border-top-left-radius: $rounding !important;
-}
-
-/* Fix extension dialog going off screen */
+// Fix extension dialog going off screen
 #appMenu-addon-installed-notification,
 #notification-popup {
     margin-top: -1px !important;
@@ -53,15 +57,18 @@ toolbar .toolbarbutton-1>.toolbarbutton-badge-stack {
     margin-top: -1px !important;
 }
 
-#PersonalToolbar .toolbarbutton-1 {
-    margin-block: 0px !important;
+#PersonalToolbar {
+    .toolbarbutton-1 {
+        margin-block: 0px !important;
+    }
+
+    #PlacesToolbarItems>.bookmark-item {
+        margin-block: 6px !important;
+    }
 }
 
-#PersonalToolbar #PlacesToolbarItems>.bookmark-item {
-    margin-block: 6px !important;
-}
+/* ------------------------- Tricks ------------------------------------- */
 
-/* -------------------------------------------------------------- */
 /* https://github.com/Godiesc/firefox-gx/blob/main/Tricks/README.md */
 /* Extensions button into the "left-sidebar" - Immovable */
 :root:not([chromehidden~="toolbar"],
