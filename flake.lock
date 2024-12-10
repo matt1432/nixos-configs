@@ -669,17 +669,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1733634337,
-        "narHash": "sha256-0YrjrDCQ7qmYNlWNZmO878/2cSYRLB90Cc0jtRf99jE=",
-        "owner": "horriblename",
+        "lastModified": 1733856301,
+        "narHash": "sha256-zGeYtRFKnaRqD+HapKe/ro5V4ZFWWZeHLgiIeRcYNtI=",
+        "owner": "matt1432",
         "repo": "hyprgrass",
-        "rev": "b928abfba914b61d657daf70f3e9901461d27439",
+        "rev": "45548890da1d98e3a9c3c7b8b498d3d91c43ad57",
         "type": "github"
       },
       "original": {
-        "owner": "horriblename",
+        "owner": "matt1432",
+        "ref": "personal",
         "repo": "hyprgrass",
-        "rev": "b928abfba914b61d657daf70f3e9901461d27439",
         "type": "github"
       }
     },

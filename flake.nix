@@ -145,9 +145,9 @@
     };
     hyprgrass = {
       inputs.hyprland.follows = "hyprland";
-      owner = "horriblename";
+      owner = "matt1432";
+      ref = "personal";
       repo = "hyprgrass";
-      rev = "b928abfba914b61d657daf70f3e9901461d27439";
       type = "github";
     };
     hyprland = {

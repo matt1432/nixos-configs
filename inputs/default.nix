@@ -128,11 +128,12 @@ let
       };
 
       hyprgrass = mkHyprDep {
-        owner = "horriblename";
+        # owner = "horriblename";
         repo = "hyprgrass";
 
         # FIXME: hopefully this gets merged soon
-        rev = "b928abfba914b61d657daf70f3e9901461d27439";
+        owner = "matt1432";
+        ref = "personal";
 
         # type = "path";
         # path = "/home/matt/git/hyprgrass";
