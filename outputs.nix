@@ -193,7 +193,6 @@
             inherit
               (pkgs)
               nodejs_latest
-              typescript
               ;
           })
           ++ [bumpNpmDeps];
@@ -206,7 +205,6 @@
               (pkgs)
               nodejs_latest
               ffmpeg-full
-              typescript
               ;
 
             inherit
