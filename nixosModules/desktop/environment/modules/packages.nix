@@ -93,7 +93,7 @@ in {
             (pkgs)
             protonmail-desktop
             spotifywm
-            photoqt
+            swayimg
             nextcloud-client
             prismlauncher
             ;
