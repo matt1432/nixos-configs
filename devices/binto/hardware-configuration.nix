@@ -10,7 +10,19 @@
   boot = {
     kernelPackages = pkgs.linuxPackages_zen;
 
-    kernelParams = ["amd_pstate=active"];
+    kernelParams = [
+      "amd_pstate=active"
+
+      # Remove these if I use plymouth module
+      "quiet"
+      "splash"
+      "boot.shell_on_fail"
+      "i915.fastboot=1"
+      "loglevel=3"
+      "rd.systemd.show_status=false"
+      "rd.udev.log_level=3"
+      "udev.log_priority=3"
+    ];
     kernelModules = ["kvm-amd"];
 
     # Zenpower for ryzen cpu monitoring
@@ -35,7 +47,7 @@
 
     loader = {
       efi.canTouchEfiVariables = true;
-      timeout = 2;
+      timeout = 0;
 
       systemd-boot = {
         enable = true;
