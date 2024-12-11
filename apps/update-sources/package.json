@@ -8,14 +8,14 @@
     },
     "devDependencies": {
         "@eslint/js": "9.16.0",
-        "@stylistic/eslint-plugin": "2.11.0",
-        "@types/node": "22.10.1",
+        "@stylistic/eslint-plugin": "2.12.1",
+        "@types/node": "22.10.2",
         "esbuild": "0.24.0",
         "eslint": "9.16.0",
-        "eslint-plugin-jsdoc": "50.6.0",
+        "eslint-plugin-jsdoc": "50.6.1",
         "jiti": "2.4.1",
         "pkg-types": "1.2.1",
         "typescript": "5.7.2",
-        "typescript-eslint": "8.17.0"
+        "typescript-eslint": "8.18.0"
     }
 }

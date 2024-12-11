@@ -18,13 +18,14 @@ const updatePackageJson = async(workspaceDir: string, updates: object) => {
     const updateDeps = (deps: string) => {
         Object.keys(currentPackageJson[deps]).forEach((dep) => {
             const versions = outdated[dep];
+            const current = versions?.wanted || versions?.current;
 
-            if (!versions?.current) {
+            if (!current) {
                 return;
             }
 
-            if (!updates[dep]) {
-                updates[dep] = `${versions.current} -> ${versions.latest}`;
+            if (current !== versions.latest) {
+                updates[dep] = `${current} -> ${versions.latest}`;
             }
 
             currentPackageJson[deps][dep] = versions.latest;
@@ -59,7 +60,11 @@ export default async() => {
     const packages = readdirSync(FLAKE, { withFileTypes: true, recursive: true });
 
     for (const path of packages) {
-        if (path.name === 'package.json' && !path.parentPath.includes('node_modules')) {
+        if (
+            path.name === 'package.json' &&
+            !path.parentPath.includes('node_modules') &&
+            !path.parentPath.includes('mk-types') // FIXME: latest breaks
+        ) {
             await updatePackageJson(path.parentPath, updates);
 
             const hash = prefetchNpmDeps(path.parentPath);
