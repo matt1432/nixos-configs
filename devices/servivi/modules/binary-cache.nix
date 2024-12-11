@@ -1,35 +1,24 @@
 {
   config,
   mainUser,
-  nix-eval-jobs,
-  nix-fast-build,
   pkgs,
   ...
 }: let
-  # FIXME: move nix-fast-build-pkg to overlays, make #nixFastChecks an attrset of all, packages, devices and aptDevices. add binary cache at apartment
+  # FIXME: make #nixFastChecks an attrset of all, packages, devices and aptDevices
+  #        add binary cache at apartment
+  inherit (builtins) attrValues;
   inherit (config.sops) secrets;
-
-  nix-fast-build-pkg = nix-fast-build.packages.${pkgs.system}.nix-fast-build.override {
-    nix-eval-jobs =
-      nix-eval-jobs.packages.${pkgs.system}.default.override {
-        nix = config.nix.package;
-      }
-      // {
-        nix = config.nix.package;
-      };
-  };
 
   nixFastBuild = pkgs.writeShellApplication {
     name = "nixFastBuild";
 
-    runtimeInputs = builtins.attrValues {
+    runtimeInputs = attrValues {
       inherit
         (pkgs)
         gnugrep
+        nix-fast-build
         nix-output-monitor
         ;
-
-      inherit nix-fast-build-pkg;
     };
 
     text = ''
@@ -45,11 +34,10 @@
 in {
   services.nix-serve = {
     enable = true;
-    package = pkgs.nix-serve-ng;
     secretKeyFile = secrets.binary-cache-key.path;
   };
 
-  environment.systemPackages = [nix-fast-build-pkg nixFastBuild];
+  environment.systemPackages = [pkgs.nix-fast-build nixFastBuild];
 
   # Populate cache
   systemd = {
@@ -60,17 +48,16 @@ in {
         Group = config.users.users.${mainUser}.group;
       };
 
-      path = builtins.attrValues {
+      path = attrValues {
         inherit
           (pkgs)
           bash
           git
+          nix-fast-build
           openssh
           ;
 
         inherit (config.nix) package;
-
-        inherit nix-fast-build-pkg;
       };
 
       script = ''

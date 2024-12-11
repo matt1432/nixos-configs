@@ -134,7 +134,7 @@
       perSystem (pkgs:
         import ./packages {inherit inputs mkVersion pkgs;});
 
-    overlays = import ./overlays {};
+    overlays = import ./overlays {inherit self;};
 
     apps =
       perSystem (pkgs:
