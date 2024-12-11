@@ -9,6 +9,11 @@ let
       repo = "nix-fast-build";
     };
 
+    nix-eval-jobs = mkDep {
+      owner = "nix-community";
+      repo = "nix-eval-jobs";
+    };
+
     nix-index-db = mkDep {
       owner = "Mic92";
       repo = "nix-index-database";
@@ -55,9 +60,6 @@ let
     nixd = mkDep {
       owner = "nix-community";
       repo = "nixd";
-
-      # FIXME: stay on nix 2.24 for now
-      rev = "5507bb141efc11cf548e87e39b61da66dfbca9e5";
     };
   };
 

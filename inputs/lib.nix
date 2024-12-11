@@ -38,6 +38,7 @@ in rec {
       (mkOverride "flake-parts")
       (mkOverride "treefmt-nix")
       (mkOverride "lib-aggregate")
+      (mkOverride "nix-eval-jobs")
     ];
 
   mkDep = info: mkInput (recursiveUpdate info {inputs.nixpkgs.follows = "nixpkgs";});

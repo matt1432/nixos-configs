@@ -273,6 +273,16 @@
       repo = "nh";
       type = "github";
     };
+    nix-eval-jobs = {
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+      owner = "nix-community";
+      repo = "nix-eval-jobs";
+      type = "github";
+    };
     nix-fast-build = {
       inputs = {
         flake-parts.follows = "flake-parts";
@@ -315,7 +325,6 @@
       };
       owner = "nix-community";
       repo = "nixd";
-      rev = "5507bb141efc11cf548e87e39b61da66dfbca9e5";
       type = "github";
     };
     nixpkgs = {
@@ -327,6 +336,7 @@
     nixpkgs-wayland = {
       inputs = {
         lib-aggregate.follows = "lib-aggregate";
+        nix-eval-jobs.follows = "nix-eval-jobs";
         nixpkgs.follows = "nixpkgs";
       };
       owner = "nix-community";

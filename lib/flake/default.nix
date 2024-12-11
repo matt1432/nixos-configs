@@ -4,11 +4,17 @@ inputs: rec {
     system,
     nixpkgs,
     cfg ? {},
+    nix ? null,
     cudaSupport ? false,
   }:
     import nixpkgs {
       inherit system;
-      overlays = [inputs.self.overlays.build-failures] ++ (cfg.overlays or []);
+      overlays =
+        [
+          (inputs.self.overlays.nix-version {inherit nix;})
+          inputs.self.overlays.build-failures
+        ]
+        ++ (cfg.overlays or []);
       config =
         {
           inherit cudaSupport;
@@ -24,6 +30,7 @@ inputs: rec {
   }: ({config, ...}: let
     pkgs = mkPkgs {
       cfg = config.nixpkgs;
+      nix = config.nix.package;
       inherit system cudaSupport;
       inherit (inputs) nixpkgs;
     };

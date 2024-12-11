@@ -1,6 +1,7 @@
 {
   config,
   mainUser,
+  nix-eval-jobs,
   nix-fast-build,
   pkgs,
   ...
@@ -9,7 +10,7 @@
 
   nix-fast-build-pkg = nix-fast-build.packages.${pkgs.system}.nix-fast-build.override {
     nix-eval-jobs =
-      pkgs.nix-eval-jobs.override {
+      nix-eval-jobs.packages.${pkgs.system}.default.override {
         nix = config.nix.package;
       }
       // {
@@ -46,6 +47,7 @@
 in {
   services.nix-serve = {
     enable = true;
+    package = pkgs.nix-serve-ng;
     secretKeyFile = secrets.binary-cache-key.path;
   };
 

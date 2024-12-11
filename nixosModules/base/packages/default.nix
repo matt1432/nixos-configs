@@ -100,7 +100,7 @@ in {
           ;
       })
       ++ [
-        # This could help as well: nix derivation show -r /run/current-system
+        # TODO: `depOf` program that looks through `nix derivation show -r /run/current-system`
         (pkgs.writeShellApplication {
           name = "listDerivs";
           text = ''

@@ -1,4 +1,3 @@
-# FIXME: the source appears to be deprecated https://github.com/dspearson/librespot-auth
 {
   lib,
   fetchFromGitHub,
@@ -12,6 +11,7 @@ rustPlatform.buildRustPackage rec {
   pname = "librespot-auth";
   version = "0.1.1";
 
+  # deprecated https://github.com/dspearson/librespot-auth
   src = fetchFromGitHub {
     owner = "dspearson";
     repo = pname;
