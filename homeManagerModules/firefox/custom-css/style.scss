@@ -2,7 +2,7 @@
 :root * {
     --tab-height-personal: 40px !important;
     --uc-tab-corner-height: 41px !important;
-    --uc-vertical-toolbar-width: 46px !important;
+    --my-vertical-toolbar-width: 46px !important;
 }
 
 #appMenu-mainView {
@@ -36,7 +36,7 @@ toolbar .toolbarbutton-1>.toolbarbutton-badge-stack {
     padding: 10px !important;
 }
 
-// Hamnburger button border
+// Hamburger button border
 :root:not([chromehidden~="toolbar"]) #PanelUI-menu-button[open] {
     border: 2px solid var(--button-background-color-primary) !important;
     border-top-left-radius: $rounding !important;
