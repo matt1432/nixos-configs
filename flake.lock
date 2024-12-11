@@ -669,16 +669,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1733856301,
-        "narHash": "sha256-zGeYtRFKnaRqD+HapKe/ro5V4ZFWWZeHLgiIeRcYNtI=",
-        "owner": "matt1432",
+        "lastModified": 1733878295,
+        "narHash": "sha256-0vTAqvSErl0OPImJoEFHftNNstqeG3asMIGrVk/DufI=",
+        "owner": "horriblename",
         "repo": "hyprgrass",
-        "rev": "45548890da1d98e3a9c3c7b8b498d3d91c43ad57",
+        "rev": "300ae7caba4a13f18cb4193044bba2773e2f8fa7",
         "type": "github"
       },
       "original": {
-        "owner": "matt1432",
-        "ref": "personal",
+        "owner": "horriblename",
         "repo": "hyprgrass",
         "type": "github"
       }
@@ -733,17 +732,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1733409465,
-        "narHash": "sha256-5KU6ZLjnOaMe+BevqZx89Q5teFRs2wbKcA6Dc+kJVm0=",
+        "lastModified": 1733324289,
+        "narHash": "sha256-5gCIIiQT9JlBPO1M98j1Aaboa2CTKtwBqiksCLf6qC0=",
         "owner": "hyprwm",
         "repo": "hyprland-plugins",
-        "rev": "3bc37da4b9cf0c96594011cb1e43156fea54d0c0",
+        "rev": "2530394e67b436f4aea8225111cf37c1403ccb78",
         "type": "github"
       },
       "original": {
         "owner": "hyprwm",
         "repo": "hyprland-plugins",
-        "rev": "3bc37da4b9cf0c96594011cb1e43156fea54d0c0",
         "type": "github"
       }
     },
