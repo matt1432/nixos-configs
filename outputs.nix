@@ -183,7 +183,7 @@
 
       netdaemon = pkgs.mkShell {
         packages = [
-          pkgs.dotnet-sdk_8
+          pkgs.dotnet-sdk_9
         ];
       };
 

@@ -29,8 +29,8 @@ in
     projectFile = "netdaemon.csproj";
     nugetDeps = ./deps.nix;
 
-    dotnet-sdk = dotnetCorePackages.sdk_8_0;
-    dotnet-runtime = dotnetCorePackages.runtime_8_0;
+    dotnet-sdk = dotnetCorePackages.sdk_9_0;
+    dotnet-runtime = dotnetCorePackages.runtime_9_0;
     executables = [];
 
     postFixup = ''

@@ -12,7 +12,7 @@ in {
   khepri.compositions."netdaemon" = {
     networks.netdaemon = {external = true;};
 
-    services."netdaemon4" = {
+    services."netdaemon5" = {
       image = import ./images/netdaemon.nix pkgs;
       restart = "always";
 
@@ -59,7 +59,7 @@ in {
 
       runtimeInputs = with pkgs; [
         dos2unix
-        dotnet-sdk_8
+        dotnet-sdk_9
       ];
 
       text = ''
