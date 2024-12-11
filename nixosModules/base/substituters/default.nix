@@ -28,25 +28,25 @@ in
 
     nix = {
       settings = let
-        mkSubstituterConf = url: key: {
-          substituters = [url];
+        mkSubstituterConf = prio: url: key: {
+          substituters = ["${url}?priority=${toString prio}"];
           trusted-public-keys = optionals (key != null) [key];
         };
       in
         mergeAttrsList ([
-            (mkSubstituterConf "https://cache.nixos.org" "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=")
-            (mkSubstituterConf "https://hyprland.cachix.org" "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=")
-            (mkSubstituterConf "https://nix-gaming.cachix.org" "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4=")
-            (mkSubstituterConf "https://nixpkgs-wayland.cachix.org" "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA=")
-            (mkSubstituterConf "https://nix-community.cachix.org" "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=")
-            (mkSubstituterConf "https://viperml.cachix.org" "viperml.cachix.org-1:qZhKBMTfmcLL+OG6fj/hzsMEedgKvZVFRRAhq7j8Vh8=")
-            (mkSubstituterConf "https://cuda-maintainers.cachix.org" "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E=")
+            (mkSubstituterConf 10 "https://cache.nixos.org" "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=")
+            (mkSubstituterConf 10 "https://hyprland.cachix.org" "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=")
+            (mkSubstituterConf 10 "https://nix-gaming.cachix.org" "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4=")
+            (mkSubstituterConf 10 "https://nixpkgs-wayland.cachix.org" "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA=")
+            (mkSubstituterConf 10 "https://nix-community.cachix.org" "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=")
+            (mkSubstituterConf 10 "https://viperml.cachix.org" "viperml.cachix.org-1:qZhKBMTfmcLL+OG6fj/hzsMEedgKvZVFRRAhq7j8Vh8=")
+            (mkSubstituterConf 10 "https://cuda-maintainers.cachix.org" "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E=")
           ]
           ++ optionals (config.networking.hostName != "servivi") [
-            (mkSubstituterConf "https://cache.nelim.org" "cache.nelim.org:JmFqkUdH11EA9EZOFAGVHuRYp7EbsdJDHvTQzG2pPyY=")
+            (mkSubstituterConf 100 "https://cache.nelim.org" "cache.nelim.org:JmFqkUdH11EA9EZOFAGVHuRYp7EbsdJDHvTQzG2pPyY=")
           ]
           ++ optionals (elem config.networking.hostName ["bbsteamie" "binto" "wim"]) [
-            (mkSubstituterConf "https://cache-apt.nelim.org" "cache-apt.nelim.org:NLAsWxa2Qbm4b+hHimjCpZfm48a4oN4O/GPZY9qpjNw=")
+            (mkSubstituterConf 1000 "https://cache-apt.nelim.org" "cache-apt.nelim.org:NLAsWxa2Qbm4b+hHimjCpZfm48a4oN4O/GPZY9qpjNw=")
           ]);
     };
   }
