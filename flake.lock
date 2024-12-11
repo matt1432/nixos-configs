@@ -1751,11 +1751,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1733937508,
-        "narHash": "sha256-ofy6Hm/cBDtUndoGxWaQIkemrV4eRiCzcNDDkTQdcb0=",
+        "lastModified": 1733938992,
+        "narHash": "sha256-KfTFLE6g0C2y9l1SlH2xoKuEB9AkCm2OvZa+oSoNwCw=",
         "ref": "refs/heads/main",
-        "rev": "55f7f1baed171e6f3967c281ac81cf089b02176f",
-        "revCount": 84,
+        "rev": "d335c6e9785c84f3c5110ca1b0ecdc7c7ea7fc9c",
+        "revCount": 85,
         "type": "git",
         "url": "ssh://git@git.nelim.org/matt1432/nixos-secrets"
       },
