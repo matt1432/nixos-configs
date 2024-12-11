@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) foldl isList mergeAttrsWithFunc mkIf optionals unique;
+  inherit (lib) elem foldl isList mergeAttrsWithFunc mkIf optionals unique;
 
   cfg = config.roles.base;
 
@@ -42,8 +42,11 @@ in
             (mkSubstituterConf "https://viperml.cachix.org" "viperml.cachix.org-1:qZhKBMTfmcLL+OG6fj/hzsMEedgKvZVFRRAhq7j8Vh8=")
             (mkSubstituterConf "https://cuda-maintainers.cachix.org" "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E=")
           ]
-          ++ optionals (!config.services.nix-serve.enable) [
+          ++ optionals (config.networking.hostName != "servivi") [
             (mkSubstituterConf "https://cache.nelim.org" "cache.nelim.org:JmFqkUdH11EA9EZOFAGVHuRYp7EbsdJDHvTQzG2pPyY=")
+          ]
+          ++ optionals (elem config.networking.hostName ["bbsteamie" "binto" "wim"]) [
+            (mkSubstituterConf "https://cache-apt.nelim.org" "cache-apt.nelim.org:NLAsWxa2Qbm4b+hHimjCpZfm48a4oN4O/GPZY9qpjNw=")
           ]);
     };
   }

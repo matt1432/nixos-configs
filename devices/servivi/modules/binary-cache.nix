@@ -4,7 +4,6 @@
   pkgs,
   ...
 }: let
-  # FIXME: add binary cache at apartment
   inherit (builtins) attrValues;
   inherit (config.sops) secrets;
 
