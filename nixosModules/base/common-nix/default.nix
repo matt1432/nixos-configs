@@ -1,22 +1,17 @@
-# FIXME: remove unneeded params and reformat
 self: {
   config,
   lib,
   pkgs,
   ...
 }: let
-  inherit (lib) optionalString;
-  inherit (lib) attrValues filter findFirst isAttrs hasAttr mkDefault mkIf mkOption types;
-  inherit (self.inputs) home-manager nh nixd;
+  inherit (lib) attrValues filter findFirst hasAttr isAttrs mkIf optionalString;
 
-
-  inherit (self.inputs) nixpkgs;
+  inherit (self.inputs) nixd nixpkgs;
   inherit (config.sops.secrets) access-token;
 
   cfg = config.roles.base;
 in {
   config = mkIf cfg.enable {
-    # Minimize dowloads of indirect nixpkgs flakes
     nix = {
       package = let
         nixdInput =
@@ -31,6 +26,7 @@ in {
       in
         findFirst (x: x.version == nixdInput.version) {} nixVersions;
 
+      # Minimize dowloads of indirect nixpkgs flakes
       registry.nixpkgs.flake = nixpkgs;
       nixPath = ["nixpkgs=${nixpkgs}"];
 

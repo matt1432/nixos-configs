@@ -1,12 +1,11 @@
-# FIXME: remove unneeded params and format
 self: {
   config,
   lib,
   pkgs,
   ...
 }: let
-  inherit (lib) attrValues filter findFirst isAttrs hasAttr mkDefault mkIf mkOption types;
-  inherit (self.inputs) home-manager nh nixd;
+  inherit (lib) attrValues mkDefault mkIf mkOption types;
+  inherit (self.inputs) home-manager nh;
 
   cfg = config.roles.base;
 in {
