@@ -6,6 +6,7 @@
   pkgs,
   ...
 }: let
+  # FIXME: move nix-fast-build-pkg to overlays, make #nixFastChecks an attrset of all, packages, devices and aptDevices. add binary cache at apartment
   inherit (config.sops) secrets;
 
   nix-fast-build-pkg = nix-fast-build.packages.${pkgs.system}.nix-fast-build.override {
@@ -32,16 +33,13 @@
     };
 
     text = ''
-      cd "$FLAKE" || return
+      cd "$FLAKE/results" || return
 
       # Home-assistant sometimes fails some tests when built with everything else
       nom build --no-link \
-        .#nixosConfigurations.homie.config.services.home-assistant.package
+        ..#nixosConfigurations.homie.config.services.home-assistant.package
 
-      nix-fast-build -f .#nixFastChecks "$@"
-
-      mkdir -p results
-      mv -f result-* results
+      nix-fast-build -f ..#nixFastChecks "$@"
     '';
   };
 in {

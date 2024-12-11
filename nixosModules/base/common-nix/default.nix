@@ -13,6 +13,7 @@ self: {
 in {
   config = mkIf cfg.enable {
     nix = {
+      # FIXME: infinite recursion if not set
       package = let
         nixdInput =
           findFirst
