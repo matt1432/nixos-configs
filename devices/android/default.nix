@@ -12,7 +12,7 @@ in {
 
   terminal.font = "${
     pkgs.nerd-fonts.jetbrains-mono
-  }/share/fonts/truetype/NerdFonts/JetBrainsMonoNerdFontMono-Regular.ttf";
+  }/share/fonts/truetype/NerdFonts/JetBrainsMono/JetBrainsMonoNerdFontMono-Regular.ttf";
 
   environment.packages = [
     (pkgs.writeShellApplication {
