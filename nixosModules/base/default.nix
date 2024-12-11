@@ -1,3 +1,4 @@
+# FIXME: remove unneeded params and format
 self: {
   config,
   lib,
@@ -48,19 +49,6 @@ in {
     };
 
     nix = {
-      package = let
-        nixdInput =
-          findFirst
-          (x: x.pname == "nix") {}
-          nixd.packages.${pkgs.system}.nixd.buildInputs;
-
-        throws = x: !(builtins.tryEval x).success;
-        hasVersion = x: isAttrs x && hasAttr "version" x;
-
-        nixVersions = filter (x: ! throws x && hasVersion x) (attrValues pkgs.nixVersions);
-      in
-        findFirst (x: x.version == nixdInput.version) {} nixVersions;
-
       # Edit nix.conf
       settings = {
         # Store
