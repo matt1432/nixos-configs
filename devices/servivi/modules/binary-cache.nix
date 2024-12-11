@@ -4,8 +4,7 @@
   pkgs,
   ...
 }: let
-  # FIXME: make #nixFastChecks an attrset of all, packages, devices and aptDevices
-  #        add binary cache at apartment
+  # FIXME: add binary cache at apartment
   inherit (builtins) attrValues;
   inherit (config.sops) secrets;
 
@@ -28,7 +27,7 @@
       nom build --no-link \
         ..#nixosConfigurations.homie.config.services.home-assistant.package
 
-      nix-fast-build -f ..#nixFastChecks "$@"
+      nix-fast-build -f ..#nixFastChecks.${pkgs.system}.all "$@"
     '';
   };
 in {
@@ -70,7 +69,7 @@ in {
         git clone https://git.nelim.org/matt1432/nixos-configs.git nix-clone
         cd nix-clone
 
-        nix-fast-build -f .#nixFastChecks
+        nix-fast-build -f .#nixFastChecks.${pkgs.system}.all
 
         cd ..
         rm -r nix-clone

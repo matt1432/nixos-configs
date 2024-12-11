@@ -2,7 +2,7 @@
   pkgs,
   self,
 }: let
-  inherit (pkgs.lib) elem filterAttrs hasAttr;
+  inherit (pkgs.lib) elem filterAttrs hasAttr mapAttrs' nameValuePair;
 
   packages =
     filterAttrs (
@@ -12,4 +12,6 @@
     )
     self.packages.${pkgs.system};
 in
+  mapAttrs'
+  (name: pkg: nameValuePair "pkg_${name}" pkg)
   packages

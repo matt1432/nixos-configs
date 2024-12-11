@@ -2,9 +2,18 @@
 {
   pkgs,
   self,
+  onlyApt ? false,
 }: let
-  inherit (pkgs.lib) filterAttrs mapAttrs' nameValuePair;
+  inherit (pkgs.lib) elem filterAttrs mapAttrs' nameValuePair;
+
+  devices = filterAttrs (n: config: let
+    isSameSystem = config.pkgs.system == pkgs.system;
+  in
+    if onlyApt
+    then isSameSystem && elem n ["bbsteamie" "binto" "homie" "wim"]
+    else isSameSystem)
+  self.nixosConfigurations;
 in
   mapAttrs'
-  (name: config: nameValuePair "nixos-${name}" config.config.system.build.toplevel)
-  ((filterAttrs (_: config: config.pkgs.system == pkgs.system)) self.nixosConfigurations)
+  (name: config: nameValuePair "device_${name}" config.config.system.build.toplevel)
+  devices

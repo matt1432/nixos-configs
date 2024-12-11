@@ -6,5 +6,5 @@
 in
   mapAttrs'
   (name: app:
-    nameValuePair "app-${name}" app)
+    nameValuePair "app_${name}" app)
   self.appsPackages.${pkgs.system}
