@@ -82,10 +82,10 @@
   };
   "darkreader" = buildFirefoxXpiAddon {
     pname = "darkreader";
-    version = "4.9.96";
+    version = "4.9.97";
     addonId = "addon@darkreader.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4378073/darkreader-4.9.96.xpi";
-    sha256 = "6e2f1a36d2398195b0cd7ee0fcb198ea4db6a57a1b3bf7b2cf5f17a8768f477e";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4403051/darkreader-4.9.97.xpi";
+    sha256 = "32ba95331d99f07db48bd2dfd9c715010ec450b84494dec07e2954cdcf7fa447";
     meta = with lib; {
       homepage = "https://darkreader.org/";
       description = "Dark mode for every website. Take care of your eyes, use dark theme for night and daily browsing.";
