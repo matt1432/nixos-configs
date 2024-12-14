@@ -95,11 +95,6 @@
 
   virtualisation = {
     libvirtd.enable = true;
-    virtualbox.host = {
-      enable = true;
-      enableKvm = true;
-      addNetworkInterface = false;
-    };
     waydroid.enable = true;
   };
   environment.systemPackages = builtins.attrValues {
@@ -107,7 +102,6 @@
       (pkgs)
       qemu
       powertop
-      virt-v2v
       ;
   };
 
