@@ -24,23 +24,44 @@ export default () => {
             transitionType={Gtk.StackTransitionType.SLIDE_LEFT_RIGHT}
         >
 
-            <scrollable name="outputs" hscroll={Gtk.PolicyType.NEVER}>
-                <box vertical>
-                    {bind(audio, 'speakers').as(Streams)}
-                </box>
-            </scrollable>
+            <scrollable
+                name="outputs"
+                hscroll={Gtk.PolicyType.NEVER}
 
-            <scrollable name="inputs" hscroll={Gtk.PolicyType.NEVER}>
-                <box vertical>
-                    {bind(audio, 'microphones').as(Streams)}
-                </box>
-            </scrollable>
+                setup={(self) => setTimeout(() => {
+                    self.add((
+                        <box vertical>
+                            {bind(audio, 'speakers').as(Streams)}
+                        </box>
+                    ));
+                }, 1000)}
+            />
 
-            <scrollable name="profiles" hscroll={Gtk.PolicyType.NEVER}>
-                <box vertical>
-                    {bind(audio, 'devices').as(Profiles)}
-                </box>
-            </scrollable>
+            <scrollable
+                name="inputs"
+                hscroll={Gtk.PolicyType.NEVER}
+
+                setup={(self) => setTimeout(() => {
+                    self.add((
+                        <box vertical>
+                            {bind(audio, 'microphones').as(Streams)}
+                        </box>
+                    ));
+                }, 1000)}
+            />
+
+            <scrollable
+                name="profiles"
+                hscroll={Gtk.PolicyType.NEVER}
+
+                setup={(self) => setTimeout(() => {
+                    self.add((
+                        <box vertical>
+                            {bind(audio, 'devices').as(Profiles)}
+                        </box>
+                    ));
+                }, 1000)}
+            />
 
         </stack>
     ) as Widget.Stack;

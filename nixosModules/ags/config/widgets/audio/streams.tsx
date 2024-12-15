@@ -10,82 +10,87 @@ import Separator from '../misc/separator';
 export default (streams: AstalWp.Endpoint[]) => {
     let group: RadioButton | undefined;
 
-    return streams.map((stream) => (
-        <box className="stream" vertical>
+    return streams
+        .sort((a, b) => a.description.localeCompare(b.description))
+        .map((stream) => (
+            <box className="stream" vertical>
 
-            <box className="title">
+                <box className="title">
 
-                <RadioButton
-                    cursor="pointer"
-                    css="margin-top: 1px;"
+                    <RadioButton
+                        cursor="pointer"
+                        css="margin-top: 1px;"
 
-                    active={bind(stream, 'isDefault')}
-
-                    onRealize={(self) => {
-                        if (!group) {
-                            group = self;
-                        }
-                        else {
-                            self.group = group;
-                        }
-                    }}
-
-                    onButtonReleaseEvent={() => {
-                        stream.isDefault = true;
-                    }}
-                />
-
-                <Separator size={8} />
-
-                <label label={bind(stream, 'description')} />
-
-            </box>
-
-            <Separator size={4} vertical />
-
-            <box className="body">
-
-                <button
-                    cursor="pointer"
-                    className="toggle"
-                    valign={Gtk.Align.END}
-
-                    onButtonReleaseEvent={() => {
-                        stream.mute = !stream.mute;
-                    }}
-                >
-                    <icon
-                        icon={bind(stream, 'mute').as((isMuted) => {
-                            if (stream.mediaClass === AstalWp.MediaClass.AUDIO_MICROPHONE) {
-                                return isMuted ?
-                                    'audio-input-microphone-muted-symbolic' :
-                                    'audio-input-microphone-symbolic';
+                        onRealize={(self) => {
+                            if (!group) {
+                                group = self;
                             }
                             else {
-                                return isMuted ?
-                                    'audio-volume-muted-symbolic' :
-                                    'audio-speakers-symbolic';
+                                self.group = group;
                             }
-                        })}
+
+                            self.active = stream.isDefault;
+                            self.hook(stream, 'notify::is-default', () => {
+                                self.active = stream.isDefault;
+                            });
+                        }}
+
+                        onButtonReleaseEvent={() => {
+                            stream.isDefault = true;
+                        }}
                     />
-                </button>
 
-                <Separator size={4} />
+                    <Separator size={8} />
 
-                <slider
-                    hexpand
-                    halign={Gtk.Align.FILL}
-                    drawValue
-                    cursor="pointer"
+                    <label label={bind(stream, 'description')} />
 
-                    value={bind(stream, 'volume')}
-                    onDragged={(self) => {
-                        stream.set_volume(self.value);
-                    }}
-                />
+                </box>
+
+                <Separator size={4} vertical />
+
+                <box className="body">
+
+                    <button
+                        cursor="pointer"
+                        className="toggle"
+                        valign={Gtk.Align.END}
+
+                        onButtonReleaseEvent={() => {
+                            stream.mute = !stream.mute;
+                        }}
+                    >
+                        <icon
+                            icon={bind(stream, 'mute').as((isMuted) => {
+                                if (stream.mediaClass === AstalWp.MediaClass.AUDIO_MICROPHONE) {
+                                    return isMuted ?
+                                        'audio-input-microphone-muted-symbolic' :
+                                        'audio-input-microphone-symbolic';
+                                }
+                                else {
+                                    return isMuted ?
+                                        'audio-volume-muted-symbolic' :
+                                        'audio-speakers-symbolic';
+                                }
+                            })}
+                        />
+                    </button>
+
+                    <Separator size={4} />
+
+                    <slider
+                        hexpand
+                        halign={Gtk.Align.FILL}
+                        drawValue
+                        cursor="pointer"
+
+                        value={bind(stream, 'volume')}
+                        onDragged={(self) => {
+                            stream.set_volume(self.value);
+                        }}
+                    />
+
+                </box>
 
             </box>
-
-        </box>
-    ));
+        ));
 };
