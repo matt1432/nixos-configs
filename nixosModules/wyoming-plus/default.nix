@@ -10,7 +10,7 @@
   cfg = config.services.wyoming;
 in {
   config = let
-    forkedPkg = import ./pkgs/wyoming-openwakeword.nix pkgs;
+    forkedPkg = (import ./pkgs {inherit pkgs;}).wyoming-openwakeword;
   in {
     systemd.services = mkIf (cfg.openwakeword.enable) {
       wyoming-openwakeword.serviceConfig = {
