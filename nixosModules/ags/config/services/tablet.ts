@@ -31,7 +31,7 @@ export default class Tablet extends GObject.Object {
     declare inputsChanged: (blocked: boolean) => void;
 
 
-    private _currentMode = 'laptop';
+    private _currentMode: 'laptop' | 'tablet' = 'laptop';
 
     @property(String)
     get currentMode() {
@@ -42,18 +42,19 @@ export default class Tablet extends GObject.Object {
         this._currentMode = val;
 
         if (this._currentMode === 'tablet') {
-            execAsync(['brightnessctl', '-d', 'tpacpi::kbd_backlight', 's', '0'])
-                .catch(print);
+            execAsync(['brightnessctl', '-d', 'tpacpi::kbd_backlight', 's', '0']).catch(print);
 
             this.startAutorotate();
             this._blockInputs();
+            this._startInputDetection();
         }
         else if (this._currentMode === 'laptop') {
-            execAsync(['brightnessctl', '-d', 'tpacpi::kbd_backlight', 's', '2'])
-                .catch(print);
+            execAsync(['brightnessctl', '-d', 'tpacpi::kbd_backlight', 's', '2']).catch(print);
 
             this.killAutorotate();
             this._unblockInputs();
+            this._stopInputDetection();
+            this.oskState = false;
         }
 
         this.notify('current-mode');
@@ -69,11 +70,47 @@ export default class Tablet extends GObject.Object {
 
     set oskState(val) {
         this._oskState = val;
+        // this is set to true after this setter in the request.
+        this.oskAutoChanged = false;
         this.notify('osk-state');
     }
 
     public toggleOsk() {
         this.oskState = !this.oskState;
+    }
+
+
+    private _oskAutoChanged = false;
+
+    @property(Boolean)
+    get oskAutoChanged() {
+        return this._oskAutoChanged;
+    }
+
+    set oskAutoChanged(val) {
+        this._oskAutoChanged = val;
+    }
+
+
+    private _inputDetection = null as AstalIO.Process | null;
+
+    private _startInputDetection() {
+        if (this._inputDetection) {
+            return;
+        }
+
+        this._inputDetection = subprocess([
+            'fcitx5',
+            '--disable', 'all',
+            '--enable', 'keyboard,virtualkeyboardadapter,wayland,waylandim',
+        ]);
+    }
+
+    private _stopInputDetection() {
+        if (this._inputDetection) {
+            this._inputDetection.kill();
+            this._inputDetection = null;
+        }
     }
 
 

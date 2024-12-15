@@ -169,6 +169,11 @@ let
         owner = "Cu3PO42";
         repo = "gtk-session-lock";
       };
+
+      virtualkeyboard-adapter = mkDep {
+        owner = "horriblename";
+        repo = "fcitx-virtualkeyboard-adapter";
+      };
     };
   };
 

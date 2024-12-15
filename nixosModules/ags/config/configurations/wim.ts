@@ -21,6 +21,7 @@ import Screenshot from '../widgets/screenshot/main';
 import { closeAll, perMonitor } from '../lib';
 import Brightness from '../services/brightness';
 import MonitorClicks from '../services/monitor-clicks';
+import Tablet from '../services/tablet';
 
 
 export default () => {
@@ -47,6 +48,42 @@ export default () => {
             else if (request.startsWith('popup')) {
                 popup_osd(request.replace('popup ', ''));
                 respond('osd popped up');
+            }
+
+            else if (request.startsWith('show-osk')) {
+                const tablet = Tablet.get_default();
+
+                if (tablet.currentMode === 'tablet') {
+                    if (tablet.oskState) {
+                        respond('osk state was unchanged');
+                    }
+                    else {
+                        tablet.oskState = true;
+                        tablet.oskAutoChanged = true;
+                        respond('osk was shown');
+                    }
+                }
+                else {
+                    respond('osk state was unchanged');
+                }
+            }
+
+            else if (request.startsWith('hide-osk')) {
+                const tablet = Tablet.get_default();
+
+                if (tablet.currentMode === 'tablet') {
+                    if (tablet.oskState && tablet.oskAutoChanged) {
+                        tablet.oskState = false;
+                        tablet.oskAutoChanged = true;
+                        respond('osd was hidden');
+                    }
+                    else {
+                        respond('osk state was unchanged');
+                    }
+                }
+                else {
+                    respond('osk state was unchanged');
+                }
             }
         },
 

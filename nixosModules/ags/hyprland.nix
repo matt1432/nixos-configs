@@ -1,5 +1,4 @@
-self: {lib, ...}: let
-  inherit (lib) map;
+self: {...}: let
   inherit (self.lib.hypr) mkAnimation mkBezier mkBind mkLayerRule;
 in {
   config.wayland.windowManager.hyprland = {

@@ -1,8 +1,10 @@
 self: {
   config,
   lib,
+  pkgs,
   ...
 }: let
+  inherit (self.inputs) virtualkeyboard-adapter;
   inherit (lib) hasPrefix mkIf removePrefix;
 
   # Configs
@@ -49,6 +51,19 @@ in {
     # Machine config
     security.pam.services.astal-auth = {};
     services.upower.enable = true;
+
+    i18n.inputMethod = mkIf cfgDesktop.isTouchscreen {
+      enable = true;
+      type = "fcitx5";
+
+      fcitx5 = {
+        waylandFrontend = true;
+        plasma6Support = true;
+        addons = [
+          virtualkeyboard-adapter.packages.${pkgs.system}.default
+        ];
+      };
+    };
 
     home-manager.users.${cfgDesktop.user}.imports = [
       hmOpts

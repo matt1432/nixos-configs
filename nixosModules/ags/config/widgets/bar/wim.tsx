@@ -1,3 +1,4 @@
+import { bind } from 'astal';
 import { Astal, Gtk } from 'astal/gtk3';
 
 import Audio from './items/audio';
@@ -13,9 +14,9 @@ import Workspaces from './items/workspaces';
 
 import BarRevealer from './fullscreen';
 import Separator from '../misc/separator';
+import Tablet from '../../services/tablet';
 
 
-// TODO: add Bluetooth
 export default () => (
     <BarRevealer
         exclusivity={Astal.Exclusivity.EXCLUSIVE}
@@ -33,7 +34,23 @@ export default () => (
 
                 <SysTray />
 
-                {/* <Separator size={8} /> */}
+                <Separator size={8} />
+
+                <button
+                    className="bar-item tablet-mode"
+                    cursor="pointer"
+
+                    onButtonReleaseEvent={() => {
+                        const tablet = Tablet.get_default();
+
+                        tablet.toggleMode();
+                    }}
+                >
+                    <icon
+                        icon={bind(Tablet.get_default(), 'currentMode')
+                            .as((mode) => `${mode}-symbolic`)}
+                    />
+                </button>
 
                 <CurrentClient />
 

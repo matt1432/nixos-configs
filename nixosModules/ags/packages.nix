@@ -7,12 +7,24 @@ self: {
 }: let
   inherit (self.inputs) ags gtk-session-lock;
 
-  inherit (lib) attrValues boolToString optionals removeAttrs;
+  inherit (lib) attrValues boolToString getExe optionalAttrs optionals removeAttrs;
 
   inherit (osConfig.networking) hostName;
 
   cfg = config.programs.ags;
   cfgDesktop = osConfig.roles.desktop;
+
+  mainPkg = pkgs.writeShellApplication {
+    name = "ags";
+    runtimeInputs = [cfg.package];
+    text = ''
+      if [ "$#" == 0 ]; then
+        exec ags run ~/${cfg.configDir} -a ${hostName}
+      else
+        exec ags "$@"
+      fi
+    '';
+  };
 in {
   config = {
     # Make these accessible outside these files
@@ -50,17 +62,7 @@ in {
     home = {
       packages =
         [
-          (pkgs.writeShellApplication {
-            name = "ags";
-            runtimeInputs = [cfg.package];
-            text = ''
-              if [ "$#" == 0 ]; then
-                exec ags run ~/${cfg.configDir} -a ${hostName}
-              else
-                exec ags "$@"
-              fi
-            '';
-          })
+          mainPkg
           (pkgs.writeShellApplication {
             name = "agsConf";
             runtimeInputs = [cfg.package];
@@ -130,6 +132,12 @@ in {
                   hasFprintd: ${boolToString (hostName == "wim")},
               };
             '';
+        }
+        // optionalAttrs cfgDesktop.isTouchscreen {
+          ".config/fcitx5/conf/virtualkeyboardadapter.conf".text = ''
+            ActivateCmd="${getExe mainPkg} request 'show-osk'"
+            DeactivateCmd="${getExe mainPkg} request 'hide-osk'"
+          '';
         }
       );
     };

@@ -464,6 +464,12 @@
       repo = "ts-error-translator.nvim";
       type = "github";
     };
+    virtualkeyboard-adapter = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      owner = "horriblename";
+      repo = "fcitx-virtualkeyboard-adapter";
+      type = "github";
+    };
     wakewords-src = {
       flake = false;
       owner = "fwartner";

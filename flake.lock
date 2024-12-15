@@ -1721,6 +1721,7 @@
         "tuya-local-src": "tuya-local-src",
         "vimplugin-easytables-src": "vimplugin-easytables-src",
         "vimplugin-ts-error-translator-src": "vimplugin-ts-error-translator-src",
+        "virtualkeyboard-adapter": "virtualkeyboard-adapter",
         "wakewords-src": "wakewords-src",
         "yamaha-soundbar-src": "yamaha-soundbar-src"
       }
@@ -1985,6 +1986,26 @@
       "original": {
         "owner": "dmmulroy",
         "repo": "ts-error-translator.nvim",
+        "type": "github"
+      }
+    },
+    "virtualkeyboard-adapter": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1730255698,
+        "narHash": "sha256-B9mOaEzxKZzJJyIpYPxfrgmU+Z/7XB0r0ETWtVppBEA=",
+        "owner": "horriblename",
+        "repo": "fcitx-virtualkeyboard-adapter",
+        "rev": "35d018b830acb1da934835c431273be352f670bc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "horriblename",
+        "repo": "fcitx-virtualkeyboard-adapter",
         "type": "github"
       }
     },

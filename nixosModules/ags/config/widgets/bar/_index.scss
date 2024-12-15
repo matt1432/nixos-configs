@@ -19,8 +19,9 @@
             background-color: color.adjust(colors.$window_bg_color, $lightness: 3%);
         }
 
+        &.bluetooth icon,
         &.network icon,
-        &.bluetooth icon {
+        &.tablet-mode icon {
             min-width: 30px;
         }
 
