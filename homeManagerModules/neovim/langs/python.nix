@@ -4,31 +4,33 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib) attrValues mkIf;
 
   cfg = config.programs.neovim;
-in
-  mkIf cfg.enableIde {
+in {
+  config = mkIf cfg.enableIde {
     programs = {
       neovim = {
         withPython3 = true;
 
         extraPython3Packages = py:
-          with py; ([
-              python-lsp-server
-            ]
-            ++ python-lsp-server.optional-dependencies.all);
+          (attrValues {
+            inherit (py) python-lsp-server;
+          })
+          ++ py.python-lsp-server.optional-dependencies.all;
 
-        extraPackages = with pkgs.python3Packages; ([
-            python-lsp-server
-          ]
-          ++ python-lsp-server.optional-dependencies.all);
+        extraPackages =
+          (attrValues {
+            inherit (pkgs.python3Packages) python-lsp-server;
+          })
+          ++ pkgs.python3Packages.python-lsp-server.optional-dependencies.all;
 
         extraLuaConfig =
           # lua
           ''
             require('lspconfig').pylsp.setup({
                 capabilities = require('cmp_nvim_lsp').default_capabilities(),
+
                 settings = {
                     pylsp = {
                         plugins = {
@@ -42,4 +44,5 @@ in
           '';
       };
     };
-  }
+  };
+}

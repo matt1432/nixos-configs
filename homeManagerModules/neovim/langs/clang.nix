@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib) attrValues mkIf;
   inherit (pkgs.writers) writeYAML;
 
   cfg = config.programs.neovim;
@@ -16,7 +16,7 @@ in
 
     programs = {
       neovim = {
-        extraPackages = builtins.attrValues {
+        extraPackages = attrValues {
           inherit
             (pkgs)
             gcc
@@ -29,29 +29,35 @@ in
           # lua
           ''
             vim.api.nvim_create_autocmd('FileType', {
-                pattern = { 'cpp' , 'c'},
+                pattern = { 'cpp', 'c' },
                 command = 'setlocal ts=4 sw=4 sts=0 expandtab',
             });
 
             local lsp = require('lspconfig');
+            local default_capabilities = require('cmp_nvim_lsp').default_capabilities();
+            local clangd_extensions = require('clangd_extensions.inlay_hints');
 
             lsp.cmake.setup({
-                capabilities = require('cmp_nvim_lsp').default_capabilities(),
+                capabilities = default_capabilities,
             });
 
             lsp.clangd.setup({
-                capabilities = require('cmp_nvim_lsp').default_capabilities(),
+                capabilities = default_capabilities,
 
                 handlers = require('lsp-status').extensions.clangd.setup(),
+
                 on_attach = function(_, bufnr)
-                    require("clangd_extensions.inlay_hints").setup_autocmd()
-                    require("clangd_extensions.inlay_hints").set_inlay_hints()
+                    clangd_extensions.setup_autocmd();
+                    clangd_extensions.set_inlay_hints();
                 end,
             });
           '';
 
-        plugins = builtins.attrValues {
-          inherit (pkgs.vimPlugins) clangd_extensions-nvim;
+        plugins = attrValues {
+          inherit
+            (pkgs.vimPlugins)
+            clangd_extensions-nvim
+            ;
         };
       };
     };

@@ -8,14 +8,14 @@ self: {
   inherit (self.inputs) vimplugin-easytables-src;
   inherit (self.lib.${pkgs.system}) buildPlugin;
 
-  inherit (lib) mkIf;
+  inherit (lib) attrValues mkIf;
 
   cfg = config.programs.neovim;
 in {
   config = mkIf cfg.enableIde {
     programs = {
       neovim = {
-        extraPackages = builtins.attrValues {
+        extraPackages = attrValues {
           inherit
             (pkgs)
             pandoc

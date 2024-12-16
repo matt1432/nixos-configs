@@ -5,7 +5,8 @@ self: {
   pkgs,
   ...
 }: let
-  inherit (lib) getExe hasPrefix mkIf removePrefix;
+  inherit (builtins) toJSON;
+  inherit (lib) attrValues getExe hasPrefix mkIf removePrefix;
   inherit (osConfig.networking) hostName;
 
   cfg = config.programs.neovim;
@@ -31,15 +32,17 @@ in {
       }
     ];
 
-    home.packages = [
-      defaultFormatter
-      nixdPkg
-    ];
+    home.packages = attrValues {
+      inherit
+        defaultFormatter
+        nixdPkg
+        ;
+    };
 
     # nixd by default kinda spams LspLog
     home.sessionVariables.NIXD_FLAGS = "-log=error";
 
-    xdg.dataFile."${flakeDir}/.nixd.json".text = builtins.toJSON {
+    xdg.dataFile."${flakeDir}/.nixd.json".text = toJSON {
       nixpkgs = {
         expr = "import (builtins.getFlake \"${flakeDir}\").inputs.nixpkgs {}";
       };
@@ -50,9 +53,9 @@ in {
 
     programs = {
       neovim = {
-        extraPackages = [
-          nixdPkg
-        ];
+        extraPackages = attrValues {
+          inherit nixdPkg;
+        };
 
         extraLuaConfig =
           # lua

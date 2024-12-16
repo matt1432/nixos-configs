@@ -46,8 +46,8 @@ in {
 
         -- remove highlight on words
         vim.keymap.set('n', '<esc>', ':noh<cr><esc>', {
-          noremap = true,
-          silent = true,
+            noremap = true,
+            silent = true,
         });
 
         -- Get rid of deprecated messages

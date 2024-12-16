@@ -14,7 +14,7 @@ in
           # lua
           ''
             vim.filetype.add({
-                pattern = { ['.*/hypr/.*%.conf'] = 'hyprlang' },
+                pattern = { [ '.*/hypr/.*%.conf' ] = 'hyprlang' },
             });
 
             vim.api.nvim_create_autocmd('FileType', {

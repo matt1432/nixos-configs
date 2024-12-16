@@ -7,7 +7,7 @@ self: {
   inherit (self.inputs) vimplugin-ts-error-translator-src;
   inherit (self.lib.${pkgs.system}) buildPlugin;
 
-  inherit (lib) mkIf;
+  inherit (lib) attrValues mkIf;
 
   cfg = config.programs.neovim;
 in {
@@ -16,7 +16,7 @@ in {
       neovim = {
         withNodeJs = true;
 
-        extraPackages = builtins.attrValues {
+        extraPackages = attrValues {
           inherit
             (pkgs)
             neovim-node-client
@@ -114,7 +114,7 @@ in {
                         mode = 'location',
                     },
                     options = {
-                        flags = {'unstable_ts_config'},
+                        flags = { 'unstable_ts_config' },
                     },
                 },
             });

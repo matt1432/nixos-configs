@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib) attrValues mkIf;
 
   cfg = config.programs.neovim;
 
@@ -13,8 +13,11 @@ in
   mkIf cfg.enableIde {
     programs = {
       neovim = {
-        extraPackages = builtins.attrValues {
-          inherit (pkgs) lua-language-server;
+        extraPackages = attrValues {
+          inherit
+            (pkgs)
+            lua-language-server
+            ;
         };
 
         plugins = [
@@ -24,6 +27,8 @@ in
             config =
               # lua
               ''
+                local default_capabilities = require('cmp_nvim_lsp').default_capabilities();
+
                 vim.api.nvim_create_autocmd('FileType', {
                     pattern = 'lua',
                     command = 'setlocal ts=4 sw=4 sts=0 expandtab',
@@ -40,7 +45,7 @@ in
                 });
 
                 require('lspconfig').lua_ls.setup({
-                    capabilities = require('cmp_nvim_lsp').default_capabilities(),
+                    capabilities = default_capabilities,
                 });
               '';
           }

@@ -4,14 +4,14 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib) attrValues mkIf;
 
   cfg = config.programs.neovim;
 in
   mkIf cfg.enableIde {
     programs = {
       neovim = {
-        extraPackages = builtins.attrValues {
+        extraPackages = attrValues {
           inherit
             (pkgs)
             vscode-langservers-extracted
@@ -32,13 +32,14 @@ in
             });
 
             local lsp = require('lspconfig');
+            local default_capabilities = require('cmp_nvim_lsp').default_capabilities();
 
             lsp.jsonls.setup({
-                capabilities = require('cmp_nvim_lsp').default_capabilities(),
+                capabilities = default_capabilities,
             });
 
             lsp.yamlls.setup({
-                capabilities = require('cmp_nvim_lsp').default_capabilities(),
+                capabilities = default_capabilities,
 
                 settings = {
                     yaml = {

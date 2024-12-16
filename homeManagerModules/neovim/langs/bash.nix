@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) getExe mkIf;
+  inherit (lib) attrValues getExe mkIf;
 
   cfg = config.programs.neovim;
 in {
@@ -20,22 +20,31 @@ in {
       viAlias = true;
       vimAlias = true;
 
-      extraPackages = mkIf cfg.enableIde [
-        pkgs.nodePackages.bash-language-server
-        pkgs.shellcheck
-      ];
+      extraPackages = mkIf cfg.enableIde (attrValues {
+        inherit
+          (pkgs.nodePackages)
+          bash-language-server
+          ;
+
+        inherit
+          (pkgs)
+          shellcheck
+          ;
+      });
 
       extraLuaConfig =
         mkIf cfg.enableIde
         # lua
         ''
+          local default_capabilities = require('cmp_nvim_lsp').default_capabilities();
+
           vim.api.nvim_create_autocmd('FileType', {
               pattern = 'sh',
               command = 'setlocal ts=4 sw=4 sts=0 expandtab',
           });
 
           require('lspconfig').bashls.setup({
-              capabilities = require('cmp_nvim_lsp').default_capabilities(),
+              capabilities = default_capabilities,
 
               settings = {
                   bashIde = {

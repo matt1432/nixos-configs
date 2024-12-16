@@ -4,14 +4,14 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib) attrValues mkIf;
 
   cfg = config.programs.neovim;
 in
   mkIf cfg.enableIde {
     programs = {
       neovim = {
-        extraPackages = builtins.attrValues {
+        extraPackages = attrValues {
           inherit
             (pkgs)
             omnisharp-roslyn
@@ -29,13 +29,13 @@ in
             local omnisharp_extended = require('omnisharp_extended');
 
             require('lspconfig').omnisharp.setup({
-                cmd = { "dotnet", "${pkgs.omnisharp-roslyn}/lib/omnisharp-roslyn/OmniSharp.dll" },
+                cmd = { 'dotnet', '${pkgs.omnisharp-roslyn}/lib/omnisharp-roslyn/OmniSharp.dll' },
 
                 handlers = {
-                    ["textDocument/definition"] = omnisharp_extended.definition_handler,
-                    ["textDocument/typeDefinition"] = omnisharp_extended.type_definition_handler,
-                    ["textDocument/references"] = omnisharp_extended.references_handler,
-                    ["textDocument/implementation"] = omnisharp_extended.implementation_handler,
+                    ['textDocument/definition'] = omnisharp_extended.definition_handler,
+                    ['textDocument/typeDefinition'] = omnisharp_extended.type_definition_handler,
+                    ['textDocument/references'] = omnisharp_extended.references_handler,
+                    ['textDocument/implementation'] = omnisharp_extended.implementation_handler,
                 },
 
                 settings = {
@@ -59,8 +59,11 @@ in
             });
           '';
 
-        plugins = builtins.attrValues {
-          inherit (pkgs.vimPlugins) omnisharp-extended-lsp-nvim;
+        plugins = attrValues {
+          inherit
+            (pkgs.vimPlugins)
+            omnisharp-extended-lsp-nvim
+            ;
         };
       };
     };

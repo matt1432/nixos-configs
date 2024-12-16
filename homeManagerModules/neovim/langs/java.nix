@@ -4,12 +4,12 @@
   pkgs,
   ...
 }: let
-  inherit (lib) getExe mkIf;
+  inherit (lib) attrValues getExe mkIf;
 
   cfg = config.programs.neovim;
 
   javaSdk = pkgs.temurin-bin-17;
-  javaPkgs = builtins.attrValues {inherit (pkgs) gradle maven;};
+  javaPkgs = attrValues {inherit (pkgs) gradle maven;};
 in
   mkIf cfg.enableIde {
     home.packages = javaPkgs;
