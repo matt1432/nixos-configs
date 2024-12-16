@@ -109,6 +109,7 @@ export default class DeviceWidget extends Widget.Revealer {
 
         const button = (
             <button
+                cursor="pointer"
                 onButtonReleaseEvent={() => {
                     rev.revealChild = !rev.revealChild;
                 }}
