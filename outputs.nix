@@ -145,9 +145,11 @@
         import ./apps/nix/packages.nix {inherit pkgs self;});
 
     devShells = perSystem (pkgs: let
+      inherit (builtins) attrValues;
+
       bumpNpmDeps = pkgs.writeShellApplication {
         name = "bumpNpmDeps";
-        runtimeInputs = builtins.attrValues {
+        runtimeInputs = attrValues {
           inherit
             (pkgs)
             prefetch-npm-deps
@@ -188,31 +190,35 @@
       };
 
       node = pkgs.mkShell {
-        packages =
-          (builtins.attrValues {
-            inherit
-              (pkgs)
-              nodejs_latest
-              ;
-          })
-          ++ [bumpNpmDeps];
+        packages = attrValues {
+          inherit
+            (pkgs)
+            nodejs_latest
+            ;
+
+          inherit
+            bumpNpmDeps
+            ;
+        };
       };
 
       subtitles-dev = pkgs.mkShell {
-        packages =
-          (builtins.attrValues {
-            inherit
-              (pkgs)
-              nodejs_latest
-              ffmpeg-full
-              ;
+        packages = attrValues {
+          inherit
+            (pkgs)
+            nodejs_latest
+            ffmpeg-full
+            ;
 
-            inherit
-              (pkgs.nodePackages)
-              ts-node
-              ;
-          })
-          ++ [bumpNpmDeps];
+          inherit
+            (pkgs.nodePackages)
+            ts-node
+            ;
+
+          inherit
+            bumpNpmDeps
+            ;
+        };
       };
     });
 

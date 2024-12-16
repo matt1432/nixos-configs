@@ -15,5 +15,6 @@
   self.nixosConfigurations;
 in
   mapAttrs'
-  (name: config: nameValuePair "device_${name}" config.config.system.build.toplevel)
+  (name: config:
+    nameValuePair "device_${name}" config.config.system.build.toplevel)
   devices
