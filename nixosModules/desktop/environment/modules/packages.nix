@@ -122,6 +122,7 @@ in {
           https://raw.githubusercontent.com/dracula/BetterDiscord/master/Dracula_Official.theme.css
           */
           (pkgs.discord.override {withVencord = true;})
+          pkgs.vesktop
 
           # GParted
           (let
