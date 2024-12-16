@@ -24,6 +24,11 @@ let
       repo = "nh";
     };
 
+    nurl = mkDep {
+      owner = "nix-community";
+      repo = "nurl";
+    };
+
     # These are here to make sure all 'systems' are the same
     flake-utils = mkInput {
       owner = "numtide";

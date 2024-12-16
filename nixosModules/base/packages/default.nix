@@ -4,7 +4,7 @@ self: {
   pkgs,
   ...
 }: let
-  inherit (lib) attrValues mkIf;
+  inherit (lib) attrValues makeBinPath mkIf optional;
 
   cfg = config.roles.base;
 in {
@@ -30,7 +30,19 @@ in {
     ];
 
     environment.systemPackages =
-      (attrValues {
+      (optional (cfg.user != "nixos") (self.inputs.nurl.packages.${pkgs.system}.default.overrideAttrs {
+        postInstall = ''
+          wrapProgram $out/bin/nurl \
+            --prefix PATH : ${makeBinPath [
+            (config.home-manager.users.${cfg.user}.programs.git.package or pkgs.gitMinimal)
+            (config.nix.package or pkgs.nix)
+            pkgs.mercurial
+          ]}
+          installManPage artifacts/nurl.1
+          installShellCompletion artifacts/nurl.{bash,fish} --zsh artifacts/_nurl
+        '';
+      }))
+      ++ (attrValues {
         inherit
           (self.packages.${pkgs.system})
           pokemon-colorscripts
