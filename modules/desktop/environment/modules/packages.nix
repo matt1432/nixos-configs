@@ -44,7 +44,7 @@ in {
 
         ({config, ...}: let
           inherit (config.lib.file) mkOutOfStoreSymlink;
-          configDir = "${flakeDir}/nixosModules/desktop/environment/config";
+          configDir = "${flakeDir}/modules/desktop/environment/config";
         in {
           xdg.configFile = {
             "dolphinrc".source = mkOutOfStoreSymlink "${configDir}/dolphinrc";

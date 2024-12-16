@@ -11,7 +11,7 @@ self: {
   cfgDesktop = config.roles.desktop;
   flakeDir = config.environment.variables.FLAKE;
 
-  agsConfigDir = "${removePrefix "/home/${cfgDesktop.user}/" flakeDir}/nixosModules/ags/config";
+  agsConfigDir = "${removePrefix "/home/${cfgDesktop.user}/" flakeDir}/modules/ags/config";
 
   hmOpts = {lib, ...}: {
     options.programs.ags = {

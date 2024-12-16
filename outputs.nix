@@ -42,10 +42,10 @@
     mainInputs // extraInputs;
 
   outputs = inputs @ {
-    nixpkgs,
-    secrets,
     self,
     systems,
+    nixpkgs,
+    secrets,
     ...
   }: let
     inherit (self.lib) mkVersion mkNixOS mkNixOnDroid mkPkgs;
@@ -56,33 +56,32 @@
   in {
     lib = import ./lib {inherit inputs perSystem;};
 
-    nixosModules = import ./nixosModules self;
-
-    homeManagerModules = import ./homeManagerModules self;
+    nixOnDroidConfigurations.default =
+      mkNixOnDroid [./configurations/android];
 
     nixosConfigurations = {
       # Desktops
       wim = mkNixOS {
         extraModules = [
-          ./devices/wim
+          ./configurations/wim
           secrets.nixosModules.default
         ];
       };
       binto = mkNixOS {
         cudaSupport = true;
-        extraModules = [./devices/binto];
+        extraModules = [./configurations/binto];
       };
 
       bbsteamie = mkNixOS {
         mainUser = "mariah";
-        extraModules = [./devices/bbsteamie];
+        extraModules = [./configurations/bbsteamie];
       };
 
       # NAS
       nos = mkNixOS {
         cudaSupport = true;
         extraModules = [
-          ./devices/nos
+          ./configurations/nos
           secrets.nixosModules.nos
         ];
       };
@@ -90,7 +89,7 @@
       # Build / test server
       servivi = mkNixOS {
         extraModules = [
-          ./devices/servivi
+          ./configurations/servivi
           secrets.nixosModules.servivi
         ];
       };
@@ -98,7 +97,7 @@
       # Home-assistant
       homie = mkNixOS {
         extraModules = [
-          ./devices/homie
+          ./configurations/homie
           secrets.nixosModules.homie
         ];
       };
@@ -106,35 +105,31 @@
       # Cluster
       thingone = mkNixOS {
         extraModules = [
-          (import ./devices/cluster "thingone")
+          (import ./configurations/cluster "thingone")
           secrets.nixosModules.thingy
         ];
       };
       thingtwo = mkNixOS {
         extraModules = [
-          (import ./devices/cluster "thingtwo")
+          (import ./configurations/cluster "thingtwo")
           secrets.nixosModules.thingy
         ];
       };
 
       live-image = mkNixOS {
         mainUser = "nixos";
-        extraModules = [./devices/live-image];
+        extraModules = [./configurations/live-image];
       };
     };
 
-    nixOnDroidConfigurations.default =
-      mkNixOnDroid [./devices/android];
+    # For nix-fast-build. I use a custom output to alleviate eval time of this flake. ie. when doing nix flake show
+    nixFastChecks = import ./nixFastChecks {inherit perSystem self;};
 
-    scopedPackages =
-      perSystem (pkgs:
-        import ./scopedPackages {inherit inputs mkVersion pkgs;});
+    homeManagerModules = import ./homeManagerModules self;
 
-    packages =
-      perSystem (pkgs:
-        import ./packages {inherit inputs mkVersion pkgs;});
+    nixosModules = import ./modules self;
 
-    overlays = import ./overlays {inherit self;};
+    overlays = import ./overlays self;
 
     apps =
       perSystem (pkgs:
@@ -144,88 +139,17 @@
       perSystem (pkgs:
         import ./apps/nix/packages.nix {inherit pkgs self;});
 
-    devShells = perSystem (pkgs: let
-      inherit (builtins) attrValues;
-
-      bumpNpmDeps = pkgs.writeShellApplication {
-        name = "bumpNpmDeps";
-        runtimeInputs = attrValues {
-          inherit
-            (pkgs)
-            prefetch-npm-deps
-            nodejs_latest
-            ;
-        };
-        text = ''
-          npm i --package-lock-only || true # this command will fail but still updates the main lockfile
-          prefetch-npm-deps ./package-lock.json
-        '';
-      };
-    in {
-      default = pkgs.mkShell {
-        packages = [
-          (pkgs.writeShellScriptBin "mkIso" ''
-            isoConfig="nixosConfigurations.live-image.config.system.build.isoImage"
-            nom build $(realpath /etc/nixos)#$isoConfig
-          '')
-          (pkgs.writeShellApplication {
-            name = "fixUidChange";
-            text = ''
-              GROUP="$1"
-              OLD_GID="$2"
-              NEW_GID="$3"
-
-              sudo sed -i -e "/^$GROUP:/d" /etc/group                 # Remove generated group entry
-              sudo find / -gid "$OLD_GID" -exec chgrp "$NEW_GID" {} + # Change GID on existing files
-              exec nh os switch                                       # Regenerate /etc/group with new GID
-            '';
-          })
-        ];
-      };
-
-      netdaemon = pkgs.mkShell {
-        packages = [
-          pkgs.dotnet-sdk_9
-        ];
-      };
-
-      node = pkgs.mkShell {
-        packages = attrValues {
-          inherit
-            (pkgs)
-            nodejs_latest
-            ;
-
-          inherit
-            bumpNpmDeps
-            ;
-        };
-      };
-
-      subtitles-dev = pkgs.mkShell {
-        packages = attrValues {
-          inherit
-            (pkgs)
-            nodejs_latest
-            ffmpeg-full
-            ;
-
-          inherit
-            (pkgs.nodePackages)
-            ts-node
-            ;
-
-          inherit
-            bumpNpmDeps
-            ;
-        };
-      };
-    });
-
-    # For nix-fast-build. I use a custom output to alleviate eval time of this flake. ie. when doing nix flake show
-    nixFastChecks =
+    devShells =
       perSystem (pkgs:
-        import ./checks {inherit pkgs self;});
+        import ./devShells {inherit pkgs;});
+
+    packages =
+      perSystem (pkgs:
+        import ./packages {inherit inputs mkVersion pkgs;});
+
+    scopedPackages =
+      perSystem (pkgs:
+        import ./scopedPackages {inherit inputs mkVersion pkgs;});
 
     formatter = perSystem (pkgs: pkgs.alejandra);
   };

@@ -8,9 +8,9 @@ let
   }}/lib";
 
   inherit (lib) attrValues findFirst foldl' hasAttr matchAttrs optionalAttrs recursiveUpdate;
-
-  recursiveUpdateList = list: foldl' recursiveUpdate {} list;
 in rec {
+  recursiveUpdateList = list: foldl' recursiveUpdate {} list;
+
   /*
   * From an attrset, returns a flake input that has its type defaulted
   * to `github` and has some of its inputs following this flake's input

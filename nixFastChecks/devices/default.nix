@@ -1,4 +1,3 @@
-# CI: https://github.com/Mic92/dotfiles/blob/c2f538934d67417941f83d8bb65b8263c43d32ca/flake.nix#L168
 {
   pkgs,
   self,

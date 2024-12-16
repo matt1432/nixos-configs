@@ -21,7 +21,7 @@
     text = ''
       cd "$FLAKE/results" || return
 
-      nix-fast-build -f ..#nixFastChecks.${pkgs.system}.aptDevices "$@"
+      nix-fast-build -f ..#nixFastChecks.aptDevices "$@"
     '';
   };
 in {

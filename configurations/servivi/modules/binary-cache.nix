@@ -26,7 +26,7 @@
       nom build --no-link \
         ..#nixosConfigurations.homie.config.services.home-assistant.package
 
-      nix-fast-build -f ..#nixFastChecks.${pkgs.system}.all "$@"
+      nix-fast-build -f ..#nixFastChecks.all "$@"
     '';
   };
 in {
@@ -68,7 +68,7 @@ in {
         git clone https://git.nelim.org/matt1432/nixos-configs.git nix-clone
         cd nix-clone
 
-        nix-fast-build -f .#nixFastChecks.${pkgs.system}.all
+        nix-fast-build -f .#nixFastChecks.all
 
         cd ..
         rm -r nix-clone

@@ -13,7 +13,7 @@ self: {
     hmCfg = config.home-manager.users.${cfg.user};
     hyprPkg = hmCfg.wayland.windowManager.hyprland.finalPackage;
 
-    # See nixosModules/ags/packages.nix
+    # See modules/ags/packages.nix
     lockPkg = hmCfg.programs.ags.lockPkg;
 
     runInDesktop = pkgs.writeShellApplication {

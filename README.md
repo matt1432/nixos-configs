@@ -15,7 +15,7 @@ You might find it weird that most of my config is written in TypeScript.
 That's because all my desktops run
 [AGS](https://github.com/Aylur/ags)
 for UI. Click on
-[this](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/nixosModules/ags)
+[this](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/modules/ags)
 to see my configuration.
 
 I'm also a victim of Stockholm syndrome at this point and make my scripts
@@ -55,7 +55,7 @@ sudo ln -sf /home/matt/.nix /etc/nixos
 | `scopedPackages`                   | Some custom [package scopes](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/scopedPackages) not available in nixpkgs or modified from it |
 | `apps`                             | Scripts ran from the flake defined [here](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/apps) |
 | `homeManagerModules`               | [Modules](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/homeManagerModules) made for home-manager |
-| `homeManagerModules`               | [Modules](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/nixosModules) made for NixOS systems |
+| `homeManagerModules`               | [Modules](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/modules) made for NixOS systems |
 | `formatter`                        | I format nix code with [alejandra](https://github.com/kamadorueda/alejandra) |
 | `devShells.default`                | A dev shell to build an ISO from the live-image nixosConfiguration |
 | `devShells.ags`                    | A dev shell to have a NodeJS env when I enter my AGS's config directory |
