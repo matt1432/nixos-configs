@@ -18,10 +18,10 @@ const updateImages = (imagePath: string): string | undefined => {
 export const updateDocker = () => {
     let updates = '';
 
-    updates += updateImages(`${FLAKE}/devices/nos/modules/jellyfin`) ?? '';
-    updates += updateImages(`${FLAKE}/devices/homie/modules/home-assistant/netdaemon`) ?? '';
+    updates += updateImages(`${FLAKE}/configurations/nos/modules/jellyfin`) ?? '';
+    updates += updateImages(`${FLAKE}/configurations/homie/modules/home-assistant/netdaemon`) ?? '';
 
-    const DIR = `${FLAKE}/devices/nos/modules/docker`;
+    const DIR = `${FLAKE}/configurations/nos/modules/docker`;
 
     readdirSync(DIR, { withFileTypes: true, recursive: true }).forEach((path) => {
         if (path.name === 'compose.nix') {
