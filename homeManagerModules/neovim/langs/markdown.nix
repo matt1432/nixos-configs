@@ -1,6 +1,7 @@
 self: {
   config,
   lib,
+  osConfig,
   pkgs,
   self,
   ...
@@ -8,10 +9,18 @@ self: {
   inherit (self.inputs) vimplugin-easytables-src;
   inherit (self.lib.${pkgs.system}) buildPlugin;
 
-  inherit (lib) attrValues mkIf;
+  inherit (lib) attrValues concatStringsSep mkIf;
 
   cfg = config.programs.neovim;
+  isServer = osConfig.roles.server.sshd.enable or false;
+
+  githubCSS = pkgs.fetchurl {
+    url = "https://raw.githubusercontent.com/OzakIOne/markdown-github-dark/5bd0bcf3ad20cf9f58591f97a597fd68fc699f8e/style.css";
+    hash = "sha256-deQvQOOyK6iP7kjVrgEdFTyOP80RWXMrETs6gi7DTmo=";
+  };
 in {
+  # live-server --quiet --browser=firefox --open=%outputfile% --watch=%outputfile% --wait=800
+
   config = mkIf cfg.enableIde {
     programs = {
       neovim = {
@@ -60,7 +69,27 @@ in {
           {
             plugin = pkgs.vimPlugins.knap;
             type = "lua";
-            config =
+            config = let
+              mdToPDF = "pandoc --css ${githubCSS} %docroot% -o /tmp/%outputfile%";
+              mdToPDFViewer = "sioyek /tmp/%outputfile%";
+
+              mdToHTML = "pandoc --standalone --embed-resource --highlight-style=breezedark --css ${githubCSS} %docroot% -o /tmp/%outputfile%";
+              mdToHTMLViewer =
+                if isServer
+                then
+                  concatStringsSep " " [
+                    "${pkgs.nodePackages.live-server}/bin/live-server"
+                    "--host=0.0.0.0"
+                    "--port=6565"
+                    "--quiet"
+                    "--no-browser"
+                    "--watch=%outputfile%"
+                    "--entry-file=%outputfile%"
+                    "--wait=800"
+                    "/tmp"
+                  ]
+                else "firefox -new-window /tmp/%outputfile%";
+            in
               # lua
               ''
                 --
@@ -81,24 +110,31 @@ in {
                     markdownoutputext = 'html',
 
                     -- Markdown to PDF
-                    mdtopdf = 'pandoc %docroot% -o /tmp/%outputfile%',
-                    markdowntopdf = 'pandoc %docroot% -o /tmp/%outputfile%',
-                    mdtopdfviewerlaunch = 'sioyek /tmp/%outputfile%',
-                    markdowntopdfviewerlaunch = 'sioyek /tmp/%outputfile%',
+                    mdtopdf = '${mdToPDF}',
+                    markdowntopdf = '${mdToPDF}',
+                    mdtopdfviewerlaunch = '${mdToPDFViewer}',
+                    markdowntopdfviewerlaunch = '${mdToPDFViewer}',
                     mdtopdfviewerrefresh = 'none',
-                    markdowntopdfviewerrefresh = "none",
+                    markdowntopdfviewerrefresh = 'none',
 
                     -- Markdown to HTML
-                    mdtohtml = 'pandoc --standalone %docroot% -o /tmp/%outputfile%',
-                    markdowntohtml = 'pandoc --standalone %docroot% -o /tmp/%outputfile%',
-                    mdtohtmlviewerlaunch = 'firefox -new-window /tmp/%outputfile%',
-                    markdowntohtmlviewerlaunch = 'firefox -new-window /tmp/%outputfile%',
+                    mdtohtml = '${mdToHTML}',
+                    markdowntohtml = '${mdToHTML}',
+                    mdtohtmlviewerlaunch = '${mdToHTMLViewer}',
+                    markdowntohtmlviewerlaunch = '${mdToHTMLViewer}',
                     mdtohtmlviewerrefresh = 'none',
                     markdowntohtmlviewerrefresh = 'none',
 
                     -- LaTeX
                     -- TODO: stop from polluting workspace
                 };
+
+                vim.api.nvim_create_autocmd('BufUnload', {
+                    pattern = '*',
+                    callback = function()
+                        os.execute("killall -r live-server");
+                    end,
+                });
 
                 -- F4 processes the document once, and refreshes the view
                 vim.keymap.set({ 'n', 'v', 'i' }, '<F4>', function()
