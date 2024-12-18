@@ -82,10 +82,10 @@
   };
   "darkreader" = buildFirefoxXpiAddon {
     pname = "darkreader";
-    version = "4.9.97";
+    version = "4.9.99";
     addonId = "addon@darkreader.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4403051/darkreader-4.9.97.xpi";
-    sha256 = "32ba95331d99f07db48bd2dfd9c715010ec450b84494dec07e2954cdcf7fa447";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4405074/darkreader-4.9.99.xpi";
+    sha256 = "02c67ce2b3cd96719b5e369b9207ef11ed6c3a79eccb454d1e6ec3e005004e72";
     meta = with lib; {
       homepage = "https://darkreader.org/";
       description = "Dark mode for every website. Take care of your eyes, use dark theme for night and daily browsing.";
@@ -255,10 +255,10 @@
   };
   "sponsorblock" = buildFirefoxXpiAddon {
     pname = "sponsorblock";
-    version = "5.10.1";
+    version = "5.10.3";
     addonId = "sponsorBlocker@ajay.app";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4395988/sponsorblock-5.10.1.xpi";
-    sha256 = "68532967a5a510193ddbcf3397e4182388a129cc54a07aade0e9e6762c58f516";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4404647/sponsorblock-5.10.3.xpi";
+    sha256 = "8d670559ae17adc808ed061188822e5112728ba70eda0a3133dcc4abc3857bdc";
     meta = with lib; {
       homepage = "https://sponsor.ajay.app";
       description = "Easily skip YouTube video sponsors. When you visit a YouTube video, the extension will check the database for reported sponsors and automatically skip known sponsors. You can also report sponsors in videos. Other browsers: https://sponsor.ajay.app";
