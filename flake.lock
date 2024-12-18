@@ -1741,6 +1741,7 @@
         "ts-for-gir-src": "ts-for-gir-src",
         "tuya-local-src": "tuya-local-src",
         "vimplugin-easytables-src": "vimplugin-easytables-src",
+        "vimplugin-roslyn-nvim-src": "vimplugin-roslyn-nvim-src",
         "vimplugin-ts-error-translator-src": "vimplugin-ts-error-translator-src",
         "virtualkeyboard-adapter": "virtualkeyboard-adapter",
         "wakewords-src": "wakewords-src",
@@ -1991,6 +1992,22 @@
       "original": {
         "owner": "Myzel394",
         "repo": "easytables.nvim",
+        "type": "github"
+      }
+    },
+    "vimplugin-roslyn-nvim-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1734514131,
+        "narHash": "sha256-BCrDW2sfronzpSoJHO6/8HH0VuGvdF4GO04USu4vuds=",
+        "owner": "seblj",
+        "repo": "roslyn.nvim",
+        "rev": "1bc4553c3484480f08ea2ced3cebb6bd98e169e7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "seblj",
+        "repo": "roslyn.nvim",
         "type": "github"
       }
     },

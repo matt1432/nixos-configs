@@ -50,6 +50,9 @@ in {
             silent = true,
         });
 
+        -- https://github.com/seblj/roslyn.nvim/issues/121#issuecomment-2544076963
+        vim.opt.cmdheight = 2;
+
         -- Get rid of deprecated messages
         vim.tbl_add_reverse_lookup = function(tbl)
             for k, v in pairs(tbl) do

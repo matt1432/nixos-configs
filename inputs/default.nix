@@ -276,6 +276,11 @@ let
       owner = "dmmulroy";
       repo = "ts-error-translator.nvim";
     }
+    {
+      name = "vimplugin-roslyn-nvim-src";
+      owner = "seblj";
+      repo = "roslyn.nvim";
+    }
 
     # Overlays & packages
     {

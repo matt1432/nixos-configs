@@ -11,7 +11,6 @@ in {
   imports = [
     ./bash.nix
     ./clang.nix
-    ./csharp.nix
     ./hyprlang.nix
     ./java.nix
     ./json.nix
@@ -19,6 +18,7 @@ in {
     ./python.nix
     ./rust.nix
 
+    (import ./csharp.nix self)
     (import ./markdown.nix self)
     (import ./nix.nix self)
     (import ./web.nix self)

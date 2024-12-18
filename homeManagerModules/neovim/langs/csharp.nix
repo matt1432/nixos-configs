@@ -1,20 +1,22 @@
-{
+self: {
   config,
   lib,
   pkgs,
   ...
 }: let
   inherit (lib) attrValues mkIf;
+  inherit (self.lib.${pkgs.system}) buildPlugin;
+  inherit (self.inputs) vimplugin-roslyn-nvim-src;
 
   cfg = config.programs.neovim;
-in
-  mkIf cfg.enableIde {
+in {
+  config = mkIf cfg.enableIde {
     programs = {
       neovim = {
         extraPackages = attrValues {
           inherit
             (pkgs)
-            omnisharp-roslyn
+            roslyn-ls
             ;
         };
 
@@ -26,45 +28,51 @@ in
                 command = 'setlocal ts=4 sw=4 sts=0 expandtab',
             });
 
-            local omnisharp_extended = require('omnisharp_extended');
+            vim.api.nvim_create_autocmd('User', {
+                pattern = 'RoslynInitialized',
+                callback = function()
+                    vim.lsp.inlay_hint.enable();
+                end,
+            });
 
-            require('lspconfig').omnisharp.setup({
-                cmd = { 'dotnet', '${pkgs.omnisharp-roslyn}/lib/omnisharp-roslyn/OmniSharp.dll' },
+            -- FIXME: make editorconfig and format work
+            require('roslyn').setup({
+                config = {
+                    capabilities = require('cmp_nvim_lsp').default_capabilities(),
 
-                handlers = {
-                    ['textDocument/definition'] = omnisharp_extended.definition_handler,
-                    ['textDocument/typeDefinition'] = omnisharp_extended.type_definition_handler,
-                    ['textDocument/references'] = omnisharp_extended.references_handler,
-                    ['textDocument/implementation'] = omnisharp_extended.implementation_handler,
+                    on_attach = function()
+                        vim.lsp.inlay_hint.enable();
+                    end,
+
+                    settings = {
+                        ["csharp|inlay_hints"] = {
+                            csharp_enable_inlay_hints_for_implicit_object_creation = true,
+                            csharp_enable_inlay_hints_for_implicit_variable_types = true,
+                            csharp_enable_inlay_hints_for_lambda_parameter_types = true,
+                            csharp_enable_inlay_hints_for_types = true,
+                            dotnet_enable_inlay_hints_for_indexer_parameters = true,
+                            dotnet_enable_inlay_hints_for_literal_parameters = true,
+                            dotnet_enable_inlay_hints_for_object_creation_parameters = true,
+                            dotnet_enable_inlay_hints_for_other_parameters = true,
+                            dotnet_enable_inlay_hints_for_parameters = true,
+                            dotnet_suppress_inlay_hints_for_parameters_that_differ_only_by_suffix = true,
+                            dotnet_suppress_inlay_hints_for_parameters_that_match_argument_name = true,
+                            dotnet_suppress_inlay_hints_for_parameters_that_match_method_intent = true,
+                        },
+                    },
                 },
 
-                settings = {
-                    FormattingOptions = {
-                        EnableEditorConfigSupport = true,
-                        OrganizeImports = true,
-                    },
-                    MsBuild = {
-                        LoadProjectsOnDemand = false,
-                    },
-                    RoslynExtensionsOptions = {
-                        EnableAnalyzersSupport = true,
-                        EnableDecompilationSupport = true,
-                        EnableImportCompletion = true,
-                        AnalyzeOpenDocumentsOnly = false,
-                    },
-                    Sdk = {
-                        IncludePrereleases = true,
-                    },
-                },
+                exe = 'Microsoft.CodeAnalysis.LanguageServer',
             });
           '';
 
-        plugins = attrValues {
-          inherit
-            (pkgs.vimPlugins)
-            omnisharp-extended-lsp-nvim
-            ;
-        };
+        plugins = [
+          (buildPlugin "roslyn-nvim" vimplugin-roslyn-nvim-src)
+        ];
       };
     };
-  }
+  };
+
+  # For accurate stack trace
+  _file = ./csharp.nix;
+}

@@ -1,4 +1,5 @@
 # Do not modify! This file is generated.
+
 {
   inputs = {
     ags = {
@@ -462,6 +463,12 @@
       flake = false;
       owner = "Myzel394";
       repo = "easytables.nvim";
+      type = "github";
+    };
+    vimplugin-roslyn-nvim-src = {
+      flake = false;
+      owner = "seblj";
+      repo = "roslyn.nvim";
       type = "github";
     };
     vimplugin-ts-error-translator-src = {

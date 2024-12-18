@@ -22,7 +22,7 @@ in {
           ;
       });
 
-    # FIXME: Omnisharp uses dotnet6
+    # FIXME: Roslyn-ls uses dotnet6 https://github.com/NixOS/nixpkgs/blob/d3c42f187194c26d9f0309a8ecc469d6c878ce33/pkgs/by-name/ro/roslyn-ls/package.nix#L21
     nixpkgs.config.permittedInsecurePackages = [
       "dotnet-core-combined"
       "dotnet-sdk-6.0.428"
