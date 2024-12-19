@@ -14,7 +14,7 @@
   intents.PlayAlbum.data = [
     {
       sentences = [
-        "play[ing] [the] album {album} from [the] [artist] {artist}"
+        "play[ing] [the] album {album} (from|by) [the] [artist] {artist}"
       ];
     }
     {
@@ -39,7 +39,7 @@
   intents.PlayArtist.data = [
     {
       sentences = [
-        "play[ing] [some] music from [the] [artist] {artist}"
+        "play[ing] [some] music (from|by) [the] [artist] {artist}"
         "play[ing] [the] artist {artist}"
       ];
     }
@@ -70,7 +70,7 @@
   intents.PlaySong.data = [
     {
       sentences = [
-        "play[ing] [the] (song|track) {song} from [the] [artist] {artist}"
+        "play[ing] [the] (song|track) {song} (from|by) [the] [artist] {artist}"
       ];
     }
     {
