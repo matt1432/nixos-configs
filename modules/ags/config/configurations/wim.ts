@@ -3,21 +3,21 @@ import { App } from 'astal/gtk3';
 
 import style from '../style/main.scss';
 
-import AppLauncher from '../widgets/applauncher/main';
+import AppLauncher from '../widgets/applauncher';
 import AudioWindow from '../widgets/audio/wim';
 import Bar from '../widgets/bar/wim';
-import BgLayer from '../widgets/bg-layer/main';
+import BgLayer from '../widgets/bg-layer';
 import BluetoothWindow from '../widgets/bluetooth/wim';
 import Calendar from '../widgets/date/wim';
-import Clipboard from '../widgets/clipboard/main';
-import Corners from '../widgets/corners/main';
-import IconBrowser from '../widgets/icon-browser/main';
+import Clipboard from '../widgets/clipboard';
+import Corners from '../widgets/corners';
+import IconBrowser from '../widgets/icon-browser';
 import NetworkWindow from '../widgets/network/wim';
 import { NotifPopups, NotifCenter } from '../widgets/notifs/wim';
-import OnScreenDisplay from '../widgets/on-screen-display/main';
-import OnScreenKeyboard from '../widgets/on-screen-keyboard/main';
-import PowerMenu from '../widgets/powermenu/main';
-import Screenshot from '../widgets/screenshot/main';
+import OnScreenDisplay from '../widgets/on-screen-display';
+import OnScreenKeyboard from '../widgets/on-screen-keyboard';
+import PowerMenu from '../widgets/powermenu';
+import Screenshot from '../widgets/screenshot';
 
 import { closeAll, perMonitor } from '../lib';
 import Brightness from '../services/brightness';

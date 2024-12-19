@@ -3,16 +3,16 @@ import { App } from 'astal/gtk3';
 
 import style from '../style/main.scss';
 
-import AppLauncher from '../widgets/applauncher/main';
+import AppLauncher from '../widgets/applauncher';
 import AudioWindow from '../widgets/audio/binto';
 import Bar from '../widgets/bar/binto';
-import BgLayer from '../widgets/bg-layer/main';
+import BgLayer from '../widgets/bg-layer';
 import Calendar from '../widgets/date/binto';
-import Clipboard from '../widgets/clipboard/main';
+import Clipboard from '../widgets/clipboard';
 import { NotifPopups, NotifCenter } from '../widgets/notifs/binto';
-import OnScreenDisplay from '../widgets/on-screen-display/main';
-import PowerMenu from '../widgets/powermenu/main';
-import Screenshot from '../widgets/screenshot/main';
+import OnScreenDisplay from '../widgets/on-screen-display';
+import PowerMenu from '../widgets/powermenu';
+import Screenshot from '../widgets/screenshot';
 
 import { closeAll, perMonitor } from '../lib';
 import Brightness from '../services/brightness';

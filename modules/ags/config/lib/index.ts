@@ -4,7 +4,7 @@ import { App, Gdk, Gtk } from 'astal/gtk3';
 import AstalHyprland from 'gi://AstalHyprland';
 
 /* Types */
-import PopupWindow from './widgets/misc/popup-window';
+import PopupWindow from '../widgets/misc/popup-window';
 
 export interface Layer {
     address: string

@@ -1,6 +1,6 @@
 import { App } from 'astal/gtk3';
 
-import Lockscreen from '../widgets/lockscreen/main';
+import Lockscreen from '../widgets/lockscreen';
 
 import style from '../style/lock.scss';
 
