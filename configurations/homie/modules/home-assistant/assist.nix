@@ -18,6 +18,7 @@
             nativeBuildInputs = o.nativeBuildInputs ++ [pkgs.findutils];
             postPatch = ''
               find ./. -name "*Timer*" -delete
+              find ./. -name "*Start*" -delete
             '';
           });
         };

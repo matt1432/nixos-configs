@@ -62,7 +62,7 @@
     TimerStart.data = [
       {
         sentences = [
-          "(start|set) [a] timer (for|with) {hours} hour[s] [and] {minutes} minute[s] [and] {seconds} seconde[s]"
+          "(start|set) [a] timer (for|with) {hours} hour[s] [and] {minutes} minute[s] [and] {seconds} second[s]"
         ];
       }
 
@@ -90,7 +90,7 @@
 
       {
         sentences = [
-          "(start|set) [a] timer (for|with) {seconds} seconde[s]"
+          "(start|set) [a] timer (for|with) {seconds} second[s]"
           "(start|set) [(a|an)] {seconds} second[s] timer"
         ];
         slots = {
@@ -101,7 +101,7 @@
 
       {
         sentences = [
-          "(start|set) [a] timer (for|with) {minutes} minute[s] [and] {seconds} seconde[s]"
+          "(start|set) [a] timer (for|with) {minutes} minute[s] [and] {seconds} second[s]"
         ];
         slots.hours = 0;
       }
@@ -191,7 +191,7 @@
             {% endif %}
 
             {% if seconds_remaining == 1 and hours_remaining == 0%}
-              1 seconde
+              1 second
             {% endif %}
 
             {% if seconds_remaining > 1 and hours_remaining == 0 %}
@@ -289,7 +289,7 @@
       {% if (slots.seconds | int(default=0)) == 1 %}
         1 second
       {% elif (slots.seconds | int(default=0)) > 1 %}
-        {{ (slots.seconds | int)}} secondes
+        {{ (slots.seconds | int)}} seconds
       {% endif %}.
     '';
 
