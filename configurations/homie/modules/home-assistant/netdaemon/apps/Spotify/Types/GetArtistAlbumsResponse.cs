@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 
 
-namespace NetDaemonConfig.Apps.Spotify.PlayAlbum
+namespace NetDaemonConfig.Apps.Spotify.Types
 {
-    public record AlbumItem
+    public record ArtistAlbumItem
     {
         public string? AlbumType { get; set; }
         public List<Artist>? Artists { get; set; }
-        public List<string>? AvailableMarkets { get; set; }
+        public List<object>? AvailableMarkets { get; set; }
         public ExternalUrls? ExternalUrls { get; set; }
         public string? Href { get; set; }
         public string? Id { get; set; }
@@ -22,20 +22,21 @@ namespace NetDaemonConfig.Apps.Spotify.PlayAlbum
         public string? Uri { get; set; }
     }
 
-    public record AlbumResult
+    public record ArtistAlbumResult
     {
+        public double? DateLastRefreshed { get; set; }
         public string? Href { get; set; }
         public int? Limit { get; set; }
-        public string? Next { get; set; }
+        public object? Next { get; set; }
         public int? Offset { get; set; }
         public object? Previous { get; set; }
         public int? Total { get; set; }
-        public List<AlbumItem>? Items { get; set; }
+        public List<ArtistAlbumItem>? Items { get; set; }
     }
 
-    public record SpotifyplusSearchAlbumsResponse
+    public record SpotifyPlusGetArtistAlbumsResponse
     {
         public UserProfile? UserProfile { get; set; }
-        public AlbumResult? Result { get; set; }
+        public ArtistAlbumResult? Result { get; set; }
     }
 }

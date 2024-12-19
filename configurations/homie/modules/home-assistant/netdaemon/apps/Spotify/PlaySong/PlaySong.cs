@@ -8,6 +8,8 @@ using NetDaemon.AppModel;
 using NetDaemon.HassModel;
 using NetDaemon.HassModel.Integration;
 
+using NetDaemonConfig.Apps.Spotify.Types;
+
 
 namespace NetDaemonConfig.Apps.Spotify.PlaySong
 {
@@ -34,7 +36,7 @@ namespace NetDaemonConfig.Apps.Spotify.PlaySong
                             await services.Spotifyplus.SearchTracksAsync(
                                 criteria: $"{e?.artist} {e?.song}",
                                 limitTotal: 1,
-                                entityId: SpotifyTypes.DefaultEntityId,
+                                entityId: Globals.DefaultEntityId,
                                 // My Defaults
                                 market: "CA",
                                 includeExternal: "audio"
@@ -47,8 +49,8 @@ namespace NetDaemonConfig.Apps.Spotify.PlaySong
 
                         services.Spotifyplus.PlayerMediaPlayTracks(
                             uris: uri,
-                            entityId: SpotifyTypes.DefaultEntityId,
-                            deviceId: SpotifyTypes.DefaultDevId,
+                            entityId: Globals.DefaultEntityId,
+                            deviceId: Globals.DefaultDevId,
                             // My Defaults
                             positionMs: 0,
                             delay: 0.50

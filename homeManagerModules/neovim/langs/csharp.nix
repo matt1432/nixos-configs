@@ -35,7 +35,6 @@ in {
                 end,
             });
 
-            -- FIXME: make editorconfig and format work
             require('roslyn').setup({
                 config = {
                     capabilities = require('cmp_nvim_lsp').default_capabilities(),

@@ -13,6 +13,8 @@ using NetDaemon.AppModel;
 using NetDaemon.HassModel;
 using NetDaemon.HassModel.Integration;
 
+using NetDaemonConfig.Apps.Spotify.Types;
+
 
 namespace NetDaemonConfig.Apps.Spotify.PlayPlaylist
 {
@@ -43,7 +45,7 @@ namespace NetDaemonConfig.Apps.Spotify.PlayPlaylist
                             await services.Spotifyplus.GetPlaylistFavoritesAsync(
                                 limitTotal: 200,
                                 sortResult: true,
-                                entityId: SpotifyTypes.DefaultEntityId
+                                entityId: Globals.DefaultEntityId
                             )
                         ).Value.Deserialize<SpotifyplusPlaylistResponse>(_jsonOptions);
 
@@ -65,7 +67,7 @@ namespace NetDaemonConfig.Apps.Spotify.PlayPlaylist
                                 await services.Spotifyplus.SearchPlaylistsAsync(
                                     criteria: query,
                                     limitTotal: 1,
-                                    entityId: SpotifyTypes.DefaultEntityId,
+                                    entityId: Globals.DefaultEntityId,
                                     // My Defaults
                                     market: "CA",
                                     includeExternal: "audio"
@@ -80,8 +82,8 @@ namespace NetDaemonConfig.Apps.Spotify.PlayPlaylist
 
                         services.Spotifyplus.PlayerMediaPlayContext(
                             contextUri: uri,
-                            entityId: SpotifyTypes.DefaultEntityId,
-                            deviceId: SpotifyTypes.DefaultDevId,
+                            entityId: Globals.DefaultEntityId,
+                            deviceId: Globals.DefaultDevId,
                             // My Defaults
                             positionMs: 0,
                             delay: 0.50

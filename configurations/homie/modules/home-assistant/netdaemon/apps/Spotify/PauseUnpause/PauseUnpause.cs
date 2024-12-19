@@ -6,6 +6,8 @@ using NetDaemon.AppModel;
 using NetDaemon.HassModel;
 using NetDaemon.HassModel.Integration;
 
+using NetDaemonConfig.Apps.Spotify.Types;
+
 
 namespace NetDaemonConfig.Apps.Spotify.PauseUnpause
 {
@@ -25,14 +27,14 @@ namespace NetDaemonConfig.Apps.Spotify.PauseUnpause
                         if (e.pause)
                         {
                             services.Spotifyplus.PlayerMediaPause(
-                                entityId: SpotifyTypes.DefaultEntityId,
-                                deviceId: SpotifyTypes.DefaultDevId);
+                                entityId: Globals.DefaultEntityId,
+                                deviceId: Globals.DefaultDevId);
                         }
                         else
                         {
                             services.Spotifyplus.PlayerMediaResume(
-                                entityId: SpotifyTypes.DefaultEntityId,
-                                deviceId: SpotifyTypes.DefaultDevId);
+                                entityId: Globals.DefaultEntityId,
+                                deviceId: Globals.DefaultDevId);
                         }
                     }
                     catch (Exception error)

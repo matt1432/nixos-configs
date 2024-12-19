@@ -1,33 +1,28 @@
 using System.Collections.Generic;
 
 
-namespace NetDaemonConfig.Apps.Spotify.PlaySong
+namespace NetDaemonConfig.Apps.Spotify.Types
 {
-    public record SongItem
+    public record AlbumItem
     {
-        public Album? Album { get; set; }
+        public string? AlbumType { get; set; }
         public List<Artist>? Artists { get; set; }
         public List<string>? AvailableMarkets { get; set; }
-        public int? DiscNumber { get; set; }
-        public int? DurationMs { get; set; }
-        public bool? Explicit { get; set; }
-        public ExternalIds? ExternalIds { get; set; }
         public ExternalUrls? ExternalUrls { get; set; }
         public string? Href { get; set; }
         public string? Id { get; set; }
         public string? ImageUrl { get; set; }
-        public bool? IsLocal { get; set; }
-        public object? IsPlayable { get; set; }
+        public List<Image>? Images { get; set; }
         public string? Name { get; set; }
-        public int? Popularity { get; set; }
-        public object? PreviewUrl { get; set; }
+        public string? ReleaseDate { get; set; }
+        public string? ReleaseDatePrecision { get; set; }
         public Restrictions? Restrictions { get; set; }
-        public int? TrackNumber { get; set; }
+        public int? TotalTracks { get; set; }
         public string? Type { get; set; }
         public string? Uri { get; set; }
     }
 
-    public record SongResult
+    public record AlbumResult
     {
         public string? Href { get; set; }
         public int? Limit { get; set; }
@@ -35,12 +30,12 @@ namespace NetDaemonConfig.Apps.Spotify.PlaySong
         public int? Offset { get; set; }
         public object? Previous { get; set; }
         public int? Total { get; set; }
-        public List<SongItem>? Items { get; set; }
+        public List<AlbumItem>? Items { get; set; }
     }
 
-    public record SpotifyplusSearchTracksResponse
+    public record SpotifyplusSearchAlbumsResponse
     {
         public UserProfile? UserProfile { get; set; }
-        public SongResult? Result { get; set; }
+        public AlbumResult? Result { get; set; }
     }
 }

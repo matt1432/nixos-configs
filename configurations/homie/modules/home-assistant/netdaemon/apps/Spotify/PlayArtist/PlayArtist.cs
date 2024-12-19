@@ -8,6 +8,8 @@ using NetDaemon.AppModel;
 using NetDaemon.HassModel;
 using NetDaemon.HassModel.Integration;
 
+using NetDaemonConfig.Apps.Spotify.Types;
+
 
 namespace NetDaemonConfig.Apps.Spotify.PlayArtist
 {
@@ -34,7 +36,7 @@ namespace NetDaemonConfig.Apps.Spotify.PlayArtist
                             await services.Spotifyplus.SearchArtistsAsync(
                                 criteria: e?.artist ?? throw new TargetException($"The artist {e?.artist} could not be found."),
                                 limitTotal: 1,
-                                entityId: SpotifyTypes.DefaultEntityId,
+                                entityId: Globals.DefaultEntityId,
                                 // My Defaults
                                 market: "CA",
                                 includeExternal: "audio"
@@ -46,8 +48,8 @@ namespace NetDaemonConfig.Apps.Spotify.PlayArtist
 
                         services.Spotifyplus.PlayerMediaPlayContext(
                             contextUri: uri,
-                            entityId: SpotifyTypes.DefaultEntityId,
-                            deviceId: SpotifyTypes.DefaultDevId,
+                            entityId: Globals.DefaultEntityId,
+                            deviceId: Globals.DefaultDevId,
                             // My Defaults
                             positionMs: 0,
                             delay: 0.50

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 
 
-namespace NetDaemonConfig.Apps.Spotify.PlayArtist
+namespace NetDaemonConfig.Apps.Spotify.Types
 {
     public record ArtistItem
     {

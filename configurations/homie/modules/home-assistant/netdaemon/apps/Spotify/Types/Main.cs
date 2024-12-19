@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 
-namespace NetDaemonConfig.Apps.Spotify
+namespace NetDaemonConfig.Apps.Spotify.Types
 {
-    public static class SpotifyTypes
+    public static class Globals
     {
         public const string DefaultDevId = "homie";
         public const string DefaultEntityId = "media_player.spotifyplus";
