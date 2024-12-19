@@ -12,6 +12,7 @@ import Calendar from '../widgets/date/wim';
 import Clipboard from '../widgets/clipboard/main';
 import Corners from '../widgets/corners/main';
 import IconBrowser from '../widgets/icon-browser/main';
+import NetworkWindow from '../widgets/network/wim';
 import { NotifPopups, NotifCenter } from '../widgets/notifs/wim';
 import OnScreenDisplay from '../widgets/on-screen-display/main';
 import OnScreenKeyboard from '../widgets/on-screen-keyboard/main';
@@ -100,6 +101,7 @@ export default () => {
             Clipboard();
             Corners();
             IconBrowser();
+            NetworkWindow();
             NotifPopups();
             NotifCenter();
             OnScreenDisplay();

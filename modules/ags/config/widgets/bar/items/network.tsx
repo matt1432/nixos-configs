@@ -1,7 +1,10 @@
 import { bind, Variable } from 'astal';
-import { Gtk } from 'astal/gtk3';
+import { App, Gtk } from 'astal/gtk3';
 
 import AstalNetwork from 'gi://AstalNetwork';
+
+/* Types */
+import PopupWindow from '../../misc/popup-window';
 
 
 export default () => {
@@ -16,6 +19,17 @@ export default () => {
 
             onHover={() => Hovered.set(true)}
             onHoverLost={() => Hovered.set(false)}
+
+            onButtonReleaseEvent={(self) => {
+                const win = App.get_window('win-network') as PopupWindow;
+
+                win.set_x_pos(
+                    self.get_allocation(),
+                    'right',
+                );
+
+                win.visible = !win.visible;
+            }}
         >
             {bind(network, 'primary').as((primary) => {
                 if (primary === AstalNetwork.Primary.UNKNOWN) {

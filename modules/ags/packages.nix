@@ -74,6 +74,7 @@ in {
         ++ (attrValues {
           inherit
             (pkgs)
+            networkmanagerapplet
             playerctl
             wayfreeze
             ;

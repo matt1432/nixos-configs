@@ -1,75 +1,11 @@
 import { execAsync, subprocess } from 'astal';
 import GObject, { register } from 'astal/gobject';
 
-/* Types */
-interface NotifyAction {
-    id: string
-    label: string
-    callback: () => void
-}
-interface NotifySendProps {
-    actions?: NotifyAction[]
-    appName?: string
-    body?: string
-    category?: string
-    hint?: string
-    iconName: string
-    replaceId?: number
-    title: string
-    urgency?: 'low' | 'normal' | 'critical'
-}
+import { notifySend } from '../lib';
 
 
 const APP_NAME = 'gpu-screen-recorder';
 const ICON_NAME = 'nvidia';
-
-const escapeShellArg = (arg: string): string => `'${arg.replace(/'/g, '\'\\\'\'')}'`;
-
-const notifySend = ({
-    actions = [],
-    appName,
-    body,
-    category,
-    hint,
-    iconName,
-    replaceId,
-    title,
-    urgency = 'normal',
-}: NotifySendProps) => new Promise<number>((resolve) => {
-    let printedId = false;
-
-    const cmd = [
-        'notify-send',
-        '--print-id',
-        `--icon=${escapeShellArg(iconName)}`,
-        escapeShellArg(title),
-        escapeShellArg(body ?? ''),
-        // Optional params
-        appName ? `--app-name=${escapeShellArg(appName)}` : '',
-        category ? `--category=${escapeShellArg(category)}` : '',
-        hint ? `--hint=${escapeShellArg(hint)}` : '',
-        replaceId ? `--replace-id=${replaceId.toString()}` : '',
-        `--urgency=${urgency}`,
-    ].concat(
-        actions.map(({ id, label }) => `--action=${escapeShellArg(id)}=${escapeShellArg(label)}`),
-    ).join(' ');
-
-    subprocess(
-        cmd,
-        (out) => {
-            if (!printedId) {
-                resolve(parseInt(out));
-                printedId = true;
-            }
-            else {
-                actions.find((action) => action.id === out)?.callback();
-            }
-        },
-        (err) => {
-            console.error(`[Notify] ${err}`);
-        },
-    );
-});
 
 @register()
 export default class GpuScreenRecorder extends GObject.Object {
