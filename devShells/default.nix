@@ -75,6 +75,7 @@ in {
       inherit
         (pkgs)
         nodejs_latest
+        typescript
         ;
 
       inherit
@@ -88,6 +89,7 @@ in {
       inherit
         (pkgs)
         nodejs_latest
+        typescript
         ffmpeg-full
         ;
 
