@@ -4,13 +4,20 @@
   pkgs,
   ...
 }: let
+  inherit (lib) getExe mkOption types;
   inherit (lib.modules) mkForce mkIf mkOverride;
-  inherit (lib.strings) concatMapStringsSep concatStringsSep optionalString;
+  inherit (lib.strings) concatMapStringsSep concatStringsSep;
 
   cfg = config.services.wyoming;
 in {
+  options.services.wyoming.openwakeword.vadThreshold = mkOption {
+    type = types.float;
+    default = 0.0;
+    apply = toString;
+  };
+
   config = let
-    forkedPkg = (import ./pkgs {inherit pkgs;}).wyoming-openwakeword;
+    forkedPkg = pkgs.callPackage ./pkgs {};
   in {
     systemd.services = mkIf (cfg.openwakeword.enable) {
       wyoming-openwakeword.serviceConfig = {
@@ -18,26 +25,22 @@ in {
 
         # changes according to https://github.com/rhasspy/wyoming-openwakeword/pull/27
         ExecStart = mkForce (concatStringsSep " " [
-          "${cfg.openwakeword.package}/bin/wyoming-openwakeword"
+          (getExe cfg.openwakeword.package)
 
           "--uri ${cfg.openwakeword.uri}"
           "--threshold ${cfg.openwakeword.threshold}"
+          "--vad-threshold ${cfg.openwakeword.vadThreshold}"
+          "--trigger-level ${cfg.openwakeword.triggerLevel}"
 
           (concatMapStringsSep " "
             (dir: "--custom-model-dir ${toString dir}")
             cfg.openwakeword.customModelsDirectories)
 
-          # removed option https://github.com/rhasspy/wyoming-openwakeword/pull/27#issuecomment-2211822998
-          (optionalString
-            (cfg.openwakeword.package != forkedPkg)
-            (concatMapStringsSep " " (model: "--preload-model ${model}") cfg.openwakeword.preloadModels))
+          (concatMapStringsSep " "
+            (model: "--preload-model ${model}")
+            cfg.openwakeword.preloadModels)
 
-          # removed option since preloading was removed
-          (optionalString
-            (cfg.openwakeword.package != forkedPkg)
-            "--trigger-level ${cfg.openwakeword.triggerLevel}")
-
-          "${cfg.openwakeword.extraArgs}"
+          cfg.openwakeword.extraArgs
         ]);
       };
     };

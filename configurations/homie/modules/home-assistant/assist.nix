@@ -62,7 +62,12 @@
         uri = "tcp://127.0.0.1:10400";
 
         threshold = 0.55;
+        vadThreshold = 0.50;
+
         customModelsDirectories = ["${wakewords-src}/en/yo_homie"];
+        preloadModels = ["yo_homie"];
+
+        extraArgs = ["--debug"];
       };
     };
 
