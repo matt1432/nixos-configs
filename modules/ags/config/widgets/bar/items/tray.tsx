@@ -1,4 +1,4 @@
-import { App, Gdk, Gtk, Widget } from 'astal/gtk3';
+import { App, Gtk, Widget } from 'astal/gtk3';
 import { bind, idle } from 'astal';
 
 import AstalTray from 'gi://AstalTray';
@@ -11,24 +11,25 @@ const TrayItem = (item: AstalTray.TrayItem) => {
         App.add_icons(item.iconThemePath);
     }
 
-    const menu = item.create_menu();
-
     return (
         <revealer
             transitionType={Gtk.RevealerTransitionType.SLIDE_RIGHT}
             revealChild={false}
         >
-            <button
+            <menubutton
                 className="tray-item"
                 cursor="pointer"
+
+                usePopover={false}
+                // @ts-expect-error types are wrong
                 tooltipMarkup={bind(item, 'tooltipMarkup')}
-                onDestroy={() => menu?.destroy()}
-                onClickRelease={(self) => {
-                    menu?.popup_at_widget(self, Gdk.Gravity.SOUTH, Gdk.Gravity.NORTH, null);
-                }}
+                // @ts-expect-error types are wrong
+                actionGroup={bind(item, 'actionGroup').as((ag) => ['dbusmenu', ag])}
+                // @ts-expect-error types are wrong
+                menuModel={bind(item, 'menuModel')}
             >
                 <icon gIcon={bind(item, 'gicon')} />
-            </button>
+            </menubutton>
         </revealer>
     );
 };
