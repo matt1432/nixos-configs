@@ -42,6 +42,8 @@ in {
           then "AstalIO-0.1"
           else if package.name == "astal-3.0.0"
           then "Astal-3.0"
+          else if package.name == "astal-4.0.0"
+          then "Astal-4.0"
           else (concatMapStrings capitalise (splitString "-" package.pname)) + "-0.1";
       })
       packages;

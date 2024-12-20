@@ -61,8 +61,7 @@ export default async() => {
     for (const path of packages) {
         if (
             path.name === 'package.json' &&
-            !path.parentPath.includes('node_modules') &&
-            !path.parentPath.includes('mk-types') // FIXME: latest breaks
+            !path.parentPath.includes('node_modules')
         ) {
             await updatePackageJson(path.parentPath, updates);
 
