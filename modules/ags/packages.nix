@@ -44,7 +44,7 @@ in {
             "gjs"
           ]
         )
-        ++ [gtk-session-lock.packages.${pkgs.system}.default];
+        ++ [gtk-session-lock.packages.${pkgs.system}.default pkgs.gtk4];
 
       lockPkg = pkgs.writeShellApplication {
         name = "lock";
