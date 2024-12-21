@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage rec {
   imageName = "ghcr.io/linuxserver/sabnzbd";
-  imageDigest = "sha256:3a4135cc058422f80ae503468e4af4cdc5df41331ab01988f9372a6861d916ca";
-  hash = "sha256-M/X/Y7oj8c/3BtbJwymIrpuc4aXTX2cC3Jo7ILM40Dw=";
+  imageDigest = "sha256:37cfb25fdeaca82e1ad89a1bf664efe41ad481ed56aa069f710ac975cc5c6ecf";
+  hash = "sha256-xBoV5ITgLvZd1Y2CDKBYm+LanglKsk9riKRvHUDjtGU=";
   finalImageName = imageName;
   finalImageTag = "latest";
 }
