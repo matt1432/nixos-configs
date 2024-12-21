@@ -11,6 +11,8 @@
     inherit (inputs) gpu-screen-recorder-src;
   };
 
+  homepage = pkgs.callPackage ./homepage {};
+
   libratbag = pkgs.callPackage ./libratbag {
     inherit (inputs) libratbag-src;
   };

@@ -1,6 +1,14 @@
-{config, ...}: {
+{
+  config,
+  pkgs,
+  self,
+  ...
+}: {
   services.homepage-dashboard = {
     enable = true;
+
+    package = self.packages.${pkgs.system}.homepage;
+
     listenPort = 3020;
 
     environmentFile = config.sops.secrets.homepage.path;
