@@ -9,6 +9,7 @@ in
   python3Packages.buildPythonPackage {
     pname = "spotifywebapiPython";
     version = "${tag}+${spotifywebapi-src.shortRev}";
+    pyproject = true;
 
     src = spotifywebapi-src;
 
@@ -18,6 +19,7 @@ in
       platformdirs
       requests
       requests_oauthlib
+      setuptools
       urllib3
       zeroconf
       smartinspect # overridden in this python3Packages
