@@ -61,7 +61,8 @@ export default async() => {
     for (const path of packages) {
         if (
             path.name === 'package.json' &&
-            !path.parentPath.includes('node_modules')
+            !path.parentPath.includes('node_modules') &&
+            !path.parentPath.includes('apps/config')
         ) {
             await updatePackageJson(path.parentPath, updates);
 
