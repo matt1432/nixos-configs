@@ -6,8 +6,13 @@ import { parseArgs } from './lib';
 import { updateDocker } from './docker';
 import { updateFirefoxAddons } from '././firefox';
 import { updateFlakeInputs } from './flake';
-import { updateCustomPackage, updateVuetorrent } from './misc';
 import updateNodeModules from './node-modules';
+
+import {
+    runNixUpdate,
+    updateCustomPackage,
+    updateVuetorrent,
+} from './misc';
 
 
 /* Constants */
@@ -51,6 +56,10 @@ const main = async() => {
         console.log(await updateNodeModules());
     }
 
+    if (args['h'] || args['homepage']) {
+        console.log(runNixUpdate('homepage'));
+    }
+
     if (args['a'] || args['all']) {
         // Update this first because of nix run cmd
         const firefoxOutput = updateFirefoxAddons();
@@ -83,6 +92,7 @@ const main = async() => {
             'scopedPackages.x86_64-linux.lovelace-components.custom-sidebar',
         ));
         console.log(updateCustomPackage('some-sass-language-server'));
+        console.log(runNixUpdate('homepage'));
 
 
         spawnSync('nixFastBuild', [], {

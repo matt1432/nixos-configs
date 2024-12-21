@@ -45,3 +45,9 @@ export const updateCustomPackage = (pkg: string) => spawnSync(
     [],
     { shell: true },
 ).stderr.toString();
+
+export const runNixUpdate = (attr: string, options: string[] = []) => spawnSync(
+    'nix-update',
+    ['--flake', attr, ...options],
+    { shell: true, cwd: FLAKE },
+).stderr.toString();
