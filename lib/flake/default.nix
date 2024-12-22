@@ -29,7 +29,11 @@ inputs: rec {
             ]
             ++ (cfg.config.permittedInsecurePackages or []);
         }
-        // (cfg.config or {});
+        // (builtins.removeAttrs (
+          if cfg.config or null == null
+          then {}
+          else cfg.config
+        ) ["permittedInsecurePackages"]);
     };
 
   # Enable use of `nixpkgs.overlays` on both NixOS and NixOnDroid

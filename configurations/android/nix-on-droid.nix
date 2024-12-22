@@ -39,7 +39,12 @@
   home-manager.config = {
     imports = [
       self.homeManagerModules.neovim
-      {programs.neovim.enable = true;}
+      {
+        programs.neovim = {
+          enable = true;
+          user = "nix-on-droid";
+        };
+      }
 
       self.homeManagerModules.shell
       {programs.bash.enable = true;}
