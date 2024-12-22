@@ -1,27 +1,41 @@
-{pkgs, ...}: {
-  programs.neovim.plugins = [
-    pkgs.vimPlugins.fugitive
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit (lib) mkIf;
 
-    {
-      plugin = pkgs.vimPlugins.gitsigns-nvim;
-      type = "lua";
-      config =
-        # lua
-        ''
-          local gitsigns = require("gitsigns");
+  cfg = config.programs.neovim;
+in {
+  config = mkIf cfg.enable {
+    programs.neovim.plugins = [
+      pkgs.vimPlugins.fugitive
 
-          local function visual_stage()
-              local first_line = vim.fn.line('v');
-              local last_line = vim.fn.getpos('.')[2];
-              gitsigns.stage_hunk({ first_line, last_line });
-          end
+      {
+        plugin = pkgs.vimPlugins.gitsigns-nvim;
+        type = "lua";
+        config =
+          # lua
+          ''
+            local gitsigns = require("gitsigns");
 
-          vim.keymap.set("v", "gs", function()
-              visual_stage()
-          end);
+            local function visual_stage()
+                local first_line = vim.fn.line('v');
+                local last_line = vim.fn.getpos('.')[2];
+                gitsigns.stage_hunk({ first_line, last_line });
+            end
 
-          gitsigns.setup();
-        '';
-    }
-  ];
+            vim.keymap.set("v", "gs", function()
+                visual_stage()
+            end);
+
+            gitsigns.setup();
+          '';
+      }
+    ];
+  };
+
+  # For accurate stack trace
+  _file = ./default.nix;
 }
