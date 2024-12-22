@@ -4,6 +4,9 @@ self: {
   pkgs,
   ...
 }: let
+  inherit (self.inputs) nix-develop-nvim-src;
+  inherit (self.lib.${pkgs.system}) mkVersion;
+
   inherit (lib) fileContents mkBefore mkIf;
 
   cfg = config.programs.neovim;
@@ -63,7 +66,6 @@ in {
             # lsp plugins
             nvim-lspconfig
             lsp-status-nvim
-            nix-develop-nvim
             # completion plugins
             cmp-buffer
             cmp-nvim-lsp
@@ -73,6 +75,12 @@ in {
             ;
         })
         ++ [
+          # FIXME: defer inside plugin instead
+          (pkgs.vimPlugins.nix-develop-nvim.overrideAttrs (o: {
+            name = "vimplugin-${o.pname}-${mkVersion nix-develop-nvim-src}";
+            src = nix-develop-nvim-src;
+          }))
+
           {
             plugin = pkgs.vimPlugins.nvim-cmp;
             type = "lua";

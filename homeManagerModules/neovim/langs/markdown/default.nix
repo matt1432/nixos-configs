@@ -35,8 +35,9 @@ in {
                     if (devShells['markdown'] == nil) then
                         devShells['markdown'] = 1;
 
-                        require('nix-develop').nix_develop({'${flakeEnv}#markdown'});
-                        vim.cmd[[LspStart]];
+                        require('nix-develop').nix_develop({'${flakeEnv}#markdown'}, vim.schedule_wrap(function()
+                            vim.cmd[[LspStart]];
+                        end));
                     end
                 end,
             });

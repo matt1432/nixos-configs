@@ -23,8 +23,9 @@ in {
                     if (devShells['json'] == nil) then
                         devShells['json'] = 1;
 
-                        require('nix-develop').nix_develop({'${flakeEnv}#json'});
-                        vim.cmd[[LspStart]];
+                        require('nix-develop').nix_develop({'${flakeEnv}#json'}, vim.schedule_wrap(function()
+                            vim.cmd[[LspStart]];
+                        end));
                     end
                 end,
             });

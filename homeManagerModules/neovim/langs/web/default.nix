@@ -29,8 +29,9 @@ in {
                     if (devShells['web'] == nil) then
                         devShells['web'] = 1;
 
-                        require('nix-develop').nix_develop({'${flakeEnv}#web'});
-                        vim.cmd[[LspStart]];
+                        require('nix-develop').nix_develop({'${flakeEnv}#web'}, vim.schedule_wrap(function()
+                            vim.cmd[[LspStart]];
+                        end));
                     end
                 end,
             });
@@ -44,8 +45,9 @@ in {
                     if (devShells['web'] == nil) then
                         devShells['web'] = 1;
 
-                        require('nix-develop').nix_develop({'${flakeEnv}#web'});
-                        vim.cmd[[LspStart]];
+                        require('nix-develop').nix_develop({'${flakeEnv}#web'}, vim.schedule_wrap(function()
+                            vim.cmd[[LspStart]];
+                        end));
                     end
                 end,
             });

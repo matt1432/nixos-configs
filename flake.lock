@@ -1141,6 +1141,22 @@
         "type": "github"
       }
     },
+    "nix-develop-nvim-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1734885934,
+        "narHash": "sha256-qaopTh0a0JkM8GnVbOOx6vwRBEfxLiazrpa01N70ptI=",
+        "owner": "matt1432",
+        "repo": "nix-develop.nvim",
+        "rev": "66e82ed6d377fc94dd57bcbd1942b7ca7d3502f6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "matt1432",
+        "repo": "nix-develop.nvim",
+        "type": "github"
+      }
+    },
     "nix-eval-jobs": {
       "inputs": {
         "flake-parts": [
@@ -1713,6 +1729,7 @@
         "mpv-touch-gestures-src": "mpv-touch-gestures-src",
         "netdaemon-src": "netdaemon-src",
         "nh": "nh",
+        "nix-develop-nvim-src": "nix-develop-nvim-src",
         "nix-eval-jobs": "nix-eval-jobs",
         "nix-fast-build": "nix-fast-build",
         "nix-gaming": "nix-gaming",

@@ -273,6 +273,12 @@
       repo = "nh";
       type = "github";
     };
+    nix-develop-nvim-src = {
+      flake = false;
+      owner = "matt1432";
+      repo = "nix-develop.nvim";
+      type = "github";
+    };
     nix-eval-jobs = {
       inputs = {
         flake-parts.follows = "flake-parts";

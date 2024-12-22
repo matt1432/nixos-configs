@@ -70,11 +70,10 @@ in {
                         if (devShells['csharp'] == nil) then
                             devShells['csharp'] = 1;
 
-                            require('nix-develop').nix_develop({'${flakeEnv}#csharp'});
-                            startRoslyn();
-
-                            os.execute('sleep 1')
-                            vim.cmd[[e]]; -- reload to attach on current file
+                            require('nix-develop').nix_develop({'${flakeEnv}#csharp'}, vim.schedule_wrap(function()
+                                startRoslyn();
+                                vim.cmd[[e]]; -- reload to attach on current file
+                            end));
                         end
                     end,
                 });

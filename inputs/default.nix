@@ -281,6 +281,11 @@ let
       owner = "seblj";
       repo = "roslyn.nvim";
     }
+    {
+      name = "nix-develop-nvim-src";
+      owner = "matt1432";
+      repo = "nix-develop.nvim";
+    }
 
     # Overlays & packages
     {
