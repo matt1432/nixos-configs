@@ -24,7 +24,17 @@ in {
 
                 vim.api.nvim_create_autocmd('FileType', {
                     pattern = 'lua',
-                    command = 'setlocal ts=4 sw=4 sts=0 expandtab',
+
+                    callback = function()
+                        vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
+
+                        if (devShells['lua'] == nil) then
+                            devShells['lua'] = 1;
+
+                            require('nix-develop').nix_develop({'${flakeEnv}#lua'});
+                            vim.cmd[[LspStart]];
+                        end
+                    end,
                 });
 
                 -- IMPORTANT: make sure to setup neodev BEFORE lspconfig
@@ -39,6 +49,7 @@ in {
 
                 require('lspconfig').lua_ls.setup({
                     capabilities = default_capabilities,
+                    autostart = false,
                 });
               '';
           }

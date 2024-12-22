@@ -6,6 +6,7 @@
   inherit (lib) mkIf;
 
   cfg = config.programs.neovim;
+  flakeEnv = config.programs.bash.sessionVariables.FLAKE;
 in {
   config = mkIf cfg.enable {
     programs = {
@@ -14,13 +15,18 @@ in {
           # lua
           ''
             vim.api.nvim_create_autocmd('FileType', {
-                pattern = 'yaml',
-                command = 'setlocal ts=4 sw=4 sts=0 expandtab',
-            });
+                pattern = { 'json', 'yaml' },
 
-            vim.api.nvim_create_autocmd('FileType', {
-                pattern = 'json',
-                command = 'setlocal ts=4 sw=4 sts=0 expandtab',
+                callback = function()
+                    vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
+
+                    if (devShells['json'] == nil) then
+                        devShells['json'] = 1;
+
+                        require('nix-develop').nix_develop({'${flakeEnv}#json'});
+                        vim.cmd[[LspStart]];
+                    end
+                end,
             });
 
             local lsp = require('lspconfig');
@@ -28,10 +34,12 @@ in {
 
             lsp.jsonls.setup({
                 capabilities = default_capabilities,
+                autostart = false,
             });
 
             lsp.yamlls.setup({
                 capabilities = default_capabilities,
+                autostart = false,
 
                 settings = {
                     yaml = {

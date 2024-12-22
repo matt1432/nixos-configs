@@ -1,36 +1,37 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }: let
-  inherit (lib) attrValues mkIf;
+  inherit (lib) mkIf;
 
   cfg = config.programs.neovim;
+  flakeEnv = config.programs.bash.sessionVariables.FLAKE;
 in {
   config = mkIf cfg.enable {
     programs = {
       neovim = {
-        extraPackages = attrValues {
-          inherit
-            (pkgs)
-            cargo
-            rustc
-            rust-analyzer
-            rustfmt
-            ;
-        };
-
         extraLuaConfig =
           # lua
           ''
             vim.api.nvim_create_autocmd('FileType', {
-               pattern = { 'rust' },
-               command = 'setlocal ts=4 sw=4 sts=0 expandtab',
+                pattern = { 'rust' },
+
+                callback = function()
+                    vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
+
+                    if (devShells['rust'] == nil) then
+                        devShells['rust'] = 1;
+
+                        require('nix-develop').nix_develop({'${flakeEnv}#rust'});
+                        vim.cmd[[LspStart]];
+                    end
+                end,
             });
 
             require('lspconfig').rust_analyzer.setup({
                 capabilities = require('cmp_nvim_lsp').default_capabilities(),
+                autostart = false,
             });
           '';
       };

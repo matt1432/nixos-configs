@@ -10,6 +10,7 @@ self: {
   inherit (lib) mkIf;
 
   cfg = config.programs.neovim;
+  flakeEnv = config.programs.bash.sessionVariables.FLAKE;
 in {
   config = mkIf cfg.enable {
     programs = {
@@ -21,12 +22,32 @@ in {
           ''
             vim.api.nvim_create_autocmd('FileType', {
                 pattern = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx', 'css', 'scss' },
-                command = 'setlocal ts=4 sw=4 sts=0 expandtab',
+
+                callback = function()
+                    vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
+
+                    if (devShells['web'] == nil) then
+                        devShells['web'] = 1;
+
+                        require('nix-develop').nix_develop({'${flakeEnv}#web'});
+                        vim.cmd[[LspStart]];
+                    end
+                end,
             });
 
             vim.api.nvim_create_autocmd('FileType', {
                 pattern = 'html',
-                command = 'setlocal ts=4 sw=4 expandtab',
+
+                callback = function()
+                    vim.cmd[[setlocal ts=4 sw=4 expandtab]];
+
+                    if (devShells['web'] == nil) then
+                        devShells['web'] = 1;
+
+                        require('nix-develop').nix_develop({'${flakeEnv}#web'});
+                        vim.cmd[[LspStart]];
+                    end
+                end,
             });
 
             vim.api.nvim_create_autocmd('FileType', {
@@ -40,6 +61,7 @@ in {
 
             tsserver.setup({
                 capabilities = default_capabilities,
+                autostart = false,
 
                 handlers = {
                     -- format error code with better error message
@@ -52,6 +74,7 @@ in {
 
             lsp.eslint.setup({
                 capabilities = default_capabilities,
+                autostart = false,
 
                 -- auto-save
                 on_attach = function(client, bufnr)
@@ -102,6 +125,7 @@ in {
 
             lsp.cssls.setup({
                 capabilities = default_capabilities,
+                autostart = false,
 
                 settings = {
                     css = {
@@ -118,6 +142,7 @@ in {
 
             lsp.somesass_ls.setup({
                 capabilities = default_capabilities,
+                autostart = false,
             });
             lsp.somesass_ls.manager.config.settings = {
                 somesass = {
@@ -134,6 +159,8 @@ in {
 
             lsp.html.setup({
                 capabilities = html_caps,
+                autostart = false,
+
                 settings = {
                     configurationSection = { "html", "css", "javascript" },
                     embeddedLanguages = {
@@ -162,6 +189,7 @@ in {
               # lua
               ''
                 local packageInfo = require('package-info');
+
                 packageInfo.setup({
                     hide_up_to_date = true,
                     package_manager = 'npm',
@@ -169,6 +197,7 @@ in {
 
                 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
                     pattern = { 'package.json' },
+
                     callback = function()
                         packageInfo.show({ force = true });
                     end,

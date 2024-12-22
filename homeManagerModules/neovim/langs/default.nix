@@ -30,6 +30,9 @@ in {
         mkBefore
         # lua
         ''
+          -- Init object to keep track of loaded devShells
+          local devShells = {};
+
           -- Add formatting cmd
           vim.api.nvim_create_user_command(
               'Format',
@@ -60,6 +63,7 @@ in {
             # lsp plugins
             nvim-lspconfig
             lsp-status-nvim
+            nix-develop-nvim
             # completion plugins
             cmp-buffer
             cmp-nvim-lsp

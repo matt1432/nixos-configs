@@ -12,6 +12,7 @@ self: {
   inherit (lib) concatStringsSep mkIf;
 
   cfg = config.programs.neovim;
+  flakeEnv = config.programs.bash.sessionVariables.FLAKE;
   isServer = osConfig.roles.server.sshd.enable or false;
 
   githubCSS = pkgs.fetchurl {
@@ -25,10 +26,26 @@ in {
         extraLuaConfig =
           # lua
           ''
+            vim.api.nvim_create_autocmd('FileType', {
+                pattern = { 'markdown', 'tex' },
+
+                callback = function()
+                    vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
+
+                    if (devShells['markdown'] == nil) then
+                        devShells['markdown'] = 1;
+
+                        require('nix-develop').nix_develop({'${flakeEnv}#markdown'});
+                        vim.cmd[[LspStart]];
+                    end
+                end,
+            });
+
             local lsp = require('lspconfig');
 
             lsp.texlab.setup({
                 capabilities = require('cmp_nvim_lsp').default_capabilities(),
+                autostart = false,
 
                 settings = {
                     texlab = {
@@ -80,12 +97,6 @@ in {
             in
               # lua
               ''
-                --
-                vim.api.nvim_create_autocmd('FileType', {
-                    pattern = 'tex',
-                    command = 'setlocal ts=4 sw=4 sts=0 expandtab',
-                });
-
                 vim.g.knap_settings = {
                     -- HTML
                     htmloutputext = 'html',

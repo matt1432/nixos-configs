@@ -8,6 +8,7 @@
   inherit (pkgs.writers) writeYAML;
 
   cfg = config.programs.neovim;
+  flakeEnv = config.programs.bash.sessionVariables.FLAKE;
 in {
   config = mkIf cfg.enable {
     xdg.configFile."clangd/config.yaml".source = writeYAML "config.yaml" {
@@ -21,8 +22,17 @@ in {
           ''
             vim.api.nvim_create_autocmd('FileType', {
                 pattern = { 'cpp', 'c' },
-                -- FIXME: load direnv here https://github.com/actionshrimp/direnv.nvim?tab=readme-ov-file#using-nvim-lspconfig
-                command = 'setlocal ts=4 sw=4 sts=0 expandtab',
+
+                callback = function()
+                    vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
+
+                    if (devShells['c-lang'] == nil) then
+                        devShells['c-lang'] = 1;
+
+                        require('nix-develop').nix_develop({'${flakeEnv}#c-lang'});
+                        vim.cmd[[LspStart]];
+                    end
+                end,
             });
           '';
 
@@ -40,10 +50,12 @@ in {
 
                 lsp.cmake.setup({
                     capabilities = default_capabilities,
+                    autostart = false,
                 });
 
                 lsp.clangd.setup({
                     capabilities = default_capabilities,
+                    autostart = false,
 
                     handlers = require('lsp-status').extensions.clangd.setup(),
 
