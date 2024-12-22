@@ -19,9 +19,7 @@ self: {
     hash = "sha256-deQvQOOyK6iP7kjVrgEdFTyOP80RWXMrETs6gi7DTmo=";
   };
 in {
-  # live-server --quiet --browser=firefox --open=%outputfile% --watch=%outputfile% --wait=800
-
-  config = mkIf cfg.enableIde {
+  config = mkIf cfg.enable {
     programs = {
       neovim = {
         extraPackages = attrValues {
@@ -165,5 +163,5 @@ in {
   };
 
   # For accurate stack trace
-  _file = ./markdown.nix;
+  _file = ./default.nix;
 }

@@ -9,8 +9,8 @@
   cfg = config.programs.neovim;
 
   flakeEnv = config.programs.bash.sessionVariables.FLAKE;
-in
-  mkIf cfg.enableIde {
+in {
+  config = mkIf cfg.enable {
     programs = {
       neovim = {
         extraPackages = attrValues {
@@ -38,8 +38,8 @@ in
                 require("neodev").setup({
                     override = function(root_dir, library)
                         if root_dir:find('${flakeEnv}', 1, true) == 1 then
-                            library.enabled = true
-                            library.plugins = true
+                            library.enabled = true;
+                            library.plugins = true;
                         end
                     end,
                 });
@@ -52,4 +52,8 @@ in
         ];
       };
     };
-  }
+  };
+
+  # For accurate stack trace
+  _file = ./default.nix;
+}

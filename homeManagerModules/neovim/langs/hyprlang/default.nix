@@ -6,8 +6,8 @@
   inherit (lib) mkIf;
 
   cfg = config.programs.neovim;
-in
-  mkIf cfg.enableIde {
+in {
+  config = mkIf cfg.enable {
     programs = {
       neovim = {
         extraLuaConfig =
@@ -24,4 +24,8 @@ in
           '';
       };
     };
-  }
+  };
+
+  # For accurate stack trace
+  _file = ./default.nix;
+}

@@ -5,19 +5,19 @@ self: {
   ...
 }: let
   inherit (self.inputs) nvim-theme-src;
-  inherit (lib) attrValues fileContents optionals;
+  inherit (lib) attrValues fileContents mkIf;
 
   cfg = config.programs.neovim;
 in {
   imports = [./treesitter.nix];
 
-  config.programs.neovim = {
-    extraPackages = attrValues {
-      inherit (pkgs) bat;
-    };
+  config = mkIf cfg.enable {
+    programs.neovim = {
+      extraPackages = attrValues {
+        inherit (pkgs) bat;
+      };
 
-    plugins =
-      [
+      plugins = [
         {
           plugin = pkgs.vimPlugins.dracula-nvim.overrideAttrs {
             src = nvim-theme-src;
@@ -100,8 +100,7 @@ in {
           type = "lua";
           config = fileContents ./config/heirline.lua;
         }
-      ]
-      ++ optionals cfg.enableIde [
+
         {
           plugin = pkgs.vimPlugins.neo-tree-nvim;
           type = "lua";
@@ -176,8 +175,9 @@ in {
             '';
         }
       ];
+    };
   };
 
   # For accurate stack trace
-  _file = ./theme.nix;
+  _file = ./default.nix;
 }

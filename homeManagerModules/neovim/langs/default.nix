@@ -1,9 +1,12 @@
 self: {
+  config,
   lib,
   pkgs,
   ...
 }: let
-  inherit (lib) fileContents mkBefore;
+  inherit (lib) fileContents mkBefore mkIf;
+
+  cfg = config.programs.neovim;
 in {
   imports = [
     ./bash
@@ -21,8 +24,8 @@ in {
     (import ./web self)
   ];
 
-  config.programs = {
-    neovim = {
+  config = mkIf cfg.enable {
+    programs.neovim = {
       extraLuaConfig =
         mkBefore
         # lua

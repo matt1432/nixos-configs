@@ -70,7 +70,6 @@
 
       neovim = {
         enable = true;
-        enableIde = true;
         user = mainUser;
       };
     };

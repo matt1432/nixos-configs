@@ -7,23 +7,20 @@
   inherit (lib) attrValues mkIf;
 
   cfg = config.programs.neovim;
+
+  pythonPkgs = py:
+    (attrValues {
+      inherit (py) python-lsp-server;
+    })
+    ++ py.python-lsp-server.optional-dependencies.all;
 in {
-  config = mkIf cfg.enableIde {
+  config = mkIf cfg.enable {
     programs = {
       neovim = {
         withPython3 = true;
 
-        extraPython3Packages = py:
-          (attrValues {
-            inherit (py) python-lsp-server;
-          })
-          ++ py.python-lsp-server.optional-dependencies.all;
-
-        extraPackages =
-          (attrValues {
-            inherit (pkgs.python3Packages) python-lsp-server;
-          })
-          ++ pkgs.python3Packages.python-lsp-server.optional-dependencies.all;
+        extraPython3Packages = pythonPkgs;
+        extraPackages = pythonPkgs pkgs.python3Packages;
 
         extraLuaConfig =
           # lua
@@ -45,4 +42,7 @@ in {
       };
     };
   };
+
+  # For accurate stack trace
+  _file = ./default.nix;
 }

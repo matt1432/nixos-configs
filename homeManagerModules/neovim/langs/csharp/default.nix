@@ -10,7 +10,7 @@ self: {
 
   cfg = config.programs.neovim;
 in {
-  config = mkIf cfg.enableIde {
+  config = mkIf cfg.enable {
     programs = {
       neovim = {
         extraPackages = attrValues {
@@ -73,5 +73,5 @@ in {
   };
 
   # For accurate stack trace
-  _file = ./csharp.nix;
+  _file = ./default.nix;
 }

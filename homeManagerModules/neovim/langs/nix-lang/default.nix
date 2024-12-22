@@ -18,13 +18,10 @@ self: {
   flakeEnv = config.programs.bash.sessionVariables.FLAKE;
   flakeDir = "${removePrefix "/home/${cfg.user}/" flakeEnv}";
 in {
-  config = mkIf cfg.enableIde {
+  config = mkIf cfg.enable {
     assertions = [
       {
-        assertion =
-          cfg.enableIde
-          && hasPrefix "/home/${cfg.user}/" flakeEnv
-          || !cfg.enableIde;
+        assertion = hasPrefix "/home/${cfg.user}/" flakeEnv;
         message = ''
           Your $FLAKE environment variable needs to point to a directory in
           the main users' home to use the neovim module.
@@ -79,5 +76,5 @@ in {
   };
 
   # For accurate stack trace
-  _file = ./nix.nix;
+  _file = ./default.nix;
 }

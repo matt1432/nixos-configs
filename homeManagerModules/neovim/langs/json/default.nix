@@ -7,8 +7,8 @@
   inherit (lib) attrValues mkIf;
 
   cfg = config.programs.neovim;
-in
-  mkIf cfg.enableIde {
+in {
+  config = mkIf cfg.enable {
     programs = {
       neovim = {
         extraPackages = attrValues {
@@ -26,6 +26,7 @@ in
                 pattern = 'yaml',
                 command = 'setlocal ts=4 sw=4 sts=0 expandtab',
             });
+
             vim.api.nvim_create_autocmd('FileType', {
                 pattern = 'json',
                 command = 'setlocal ts=4 sw=4 sts=0 expandtab',
@@ -54,4 +55,8 @@ in
           '';
       };
     };
-  }
+  };
+
+  # For accurate stack trace
+  _file = ./default.nix;
+}

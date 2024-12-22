@@ -9,7 +9,7 @@
 
   cfg = config.programs.neovim;
 in {
-  config = mkIf cfg.enableIde {
+  config = mkIf cfg.enable {
     xdg.configFile."clangd/config.yaml".source = writeYAML "config.yaml" {
       CompileFlags.Add = ["-D__cpp_concepts=202002L"];
     };
@@ -21,6 +21,7 @@ in {
           ''
             vim.api.nvim_create_autocmd('FileType', {
                 pattern = { 'cpp', 'c' },
+                -- FIXME: load direnv here https://github.com/actionshrimp/direnv.nvim?tab=readme-ov-file#using-nvim-lspconfig
                 command = 'setlocal ts=4 sw=4 sts=0 expandtab',
             });
           '';
@@ -57,4 +58,7 @@ in {
       };
     };
   };
+
+  # For accurate stack trace
+  _file = ./default.nix;
 }

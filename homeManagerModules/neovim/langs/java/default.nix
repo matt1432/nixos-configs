@@ -10,8 +10,8 @@
 
   javaSdk = pkgs.temurin-bin-17;
   javaPkgs = attrValues {inherit (pkgs) gradle maven;};
-in
-  mkIf cfg.enableIde {
+in {
+  config = mkIf cfg.enable {
     home.packages = javaPkgs;
 
     xdg.dataFile.".gradle/gradle.properties".text = ''
@@ -81,4 +81,8 @@ in
         ];
       };
     };
-  }
+  };
+
+  # For accurate stack trace
+  _file = ./default.nix;
+}
