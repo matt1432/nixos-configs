@@ -18,6 +18,10 @@ self: {
 
   flakeEnv = config.programs.bash.sessionVariables.FLAKE;
   flakeDir = "${removePrefix "${mainHmCfg.home.homeDirectory}/" flakeEnv}";
+  optionsAttr =
+    if osConfig != null
+    then "nixosConfigurations.${hostName}.options"
+    else "nixOnDroidConfigurations.default";
 in {
   config = mkIf cfg.enable {
     assertions = [
@@ -46,7 +50,7 @@ in {
         expr = "import (builtins.getFlake \"${flakeDir}\").inputs.nixpkgs {}";
       };
       options.nixos = {
-        expr = "(builtins.getFlake \"${flakeDir}\").nixosConfigurations.${hostName}.options";
+        expr = "(builtins.getFlake \"${flakeDir}\").${optionsAttr}";
       };
     };
 
