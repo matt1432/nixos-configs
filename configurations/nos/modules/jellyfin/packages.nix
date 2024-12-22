@@ -11,7 +11,10 @@
 in {
   services.jellyfin = {
     package = jellyPkgs.jellyfin;
-    webPackage = jellyPkgs.jellyfin-web.override {forceEnableBackdrops = true;};
+    webPackage = jellyPkgs.jellyfin-web.override {
+      forceEnableBackdrops = true;
+      forceDisablePreferFmp4 = true;
+    };
     ffmpegPackage = jellyPkgs.jellyfin-ffmpeg;
   };
 }
