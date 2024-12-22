@@ -39,8 +39,6 @@ in {
         enable = true;
         storageDriver = cfg.storageDriver;
 
-        package = pkgs.docker_27;
-
         daemon.settings.dns = ["8.8.8.8" "1.1.1.1"];
       };
 
