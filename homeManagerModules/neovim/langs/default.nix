@@ -9,19 +9,19 @@ self: {
   cfg = config.programs.neovim;
 in {
   imports = [
-    ./bash.nix
-    ./clang.nix
-    ./hyprlang.nix
-    ./java.nix
-    ./json.nix
-    ./lua.nix
-    ./python.nix
-    ./rust.nix
+    ./bash
+    ./c-lang
+    ./hyprlang
+    ./java
+    ./json
+    ./lua
+    ./python
+    ./rust
 
-    (import ./csharp.nix self)
-    (import ./markdown.nix self)
-    (import ./nix.nix self)
-    (import ./web.nix self)
+    (import ./csharp self)
+    (import ./markdown self)
+    (import ./nix-lang self)
+    (import ./web self)
   ];
 
   # FIXME: try making LSPs and stuff only available through devShells
@@ -79,7 +79,7 @@ in {
           {
             plugin = pkgs.vimPlugins.nvim-cmp;
             type = "lua";
-            config = fileContents ../plugins/cmp.lua;
+            config = fileContents ./config/cmp.lua;
           }
 
           {

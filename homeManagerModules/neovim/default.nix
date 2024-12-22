@@ -7,10 +7,10 @@ self: {
   inherit (lib) mkOption types;
 in {
   imports = [
-    ./git.nix
-    ./treesitter.nix
+    ./git
+
     (import ./langs self)
-    (import ./theme.nix self)
+    (import ./theme self)
   ];
 
   options.programs.neovim = {

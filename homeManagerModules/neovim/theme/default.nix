@@ -9,6 +9,8 @@ self: {
 
   cfg = config.programs.neovim;
 in {
+  imports = [./treesitter.nix];
+
   config.programs.neovim = {
     extraPackages = attrValues {
       inherit (pkgs) bat;
@@ -96,14 +98,14 @@ in {
         {
           plugin = pkgs.vimPlugins.heirline-nvim;
           type = "lua";
-          config = fileContents ./plugins/heirline.lua;
+          config = fileContents ./config/heirline.lua;
         }
       ]
       ++ optionals cfg.enableIde [
         {
           plugin = pkgs.vimPlugins.neo-tree-nvim;
           type = "lua";
-          config = fileContents ./plugins/neotree.lua;
+          config = fileContents ./config/neotree.lua;
         }
         {
           plugin = pkgs.vimPlugins.codewindow-nvim;
