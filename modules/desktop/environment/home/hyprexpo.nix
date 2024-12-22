@@ -3,12 +3,7 @@ self: {pkgs, ...}: let
 in {
   config = {
     wayland.windowManager.hyprland = {
-      # FIXME: https://pr-tracker.nelim.org/?pr=365776
-      plugins = [
-        (self.inputs.hyprland-plugins.packages.${pkgs.system}.hyprexpo.override {
-          hyprlandPlugins = pkgs.hyprlandPlugins;
-        })
-      ];
+      plugins = [self.inputs.hyprland-plugins.packages.${pkgs.system}.hyprexpo];
 
       settings = {
         plugin.hyprexpo = {
