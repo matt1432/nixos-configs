@@ -92,7 +92,19 @@ const main = async() => {
             'scopedPackages.x86_64-linux.lovelace-components.custom-sidebar',
         ));
         console.log(updateCustomPackage('some-sass-language-server'));
-        console.log(runNixUpdate('homepage'));
+
+        // nix-update executions
+        let nixUpdateOutputs = '';
+
+        const updatePackage = (pkg: string): void => {
+            const execution = runNixUpdate(pkg);
+
+            nixUpdateOutputs += execution.stdout;
+            console.log(execution.stderr);
+            console.log(execution.stdout);
+        };
+
+        updatePackage('homepage');
 
 
         spawnSync('nixFastBuild', [], {
@@ -121,7 +133,10 @@ const main = async() => {
             output.push(`Node modules:\n${indentOutput(nodeModulesOutput)}\n`);
         }
         if (vuetorrentOutput.length > 5) {
-            output.push(`Misc Sources:\n${indentOutput(vuetorrentOutput)}\n`);
+            output.push(`Misc Sources:\n${indentOutput(vuetorrentOutput)}\n\n`);
+        }
+        if (nixUpdateOutputs.length > 5) {
+            output.push(`nix-update executions:\n${indentOutput(nixUpdateOutputs)}\n`);
         }
 
         if (args['f']) {

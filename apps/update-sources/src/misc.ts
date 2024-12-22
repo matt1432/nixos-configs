@@ -40,14 +40,34 @@ export const updateVuetorrent = () => {
     return OLD_VERSION !== VERSION ? `Vuetorrent: ${OLD_VERSION} -> ${VERSION}` : '';
 };
 
+
 export const updateCustomPackage = (pkg: string) => spawnSync(
     `nix run ${FLAKE}#${pkg}.update`,
     [],
     { shell: true },
 ).stderr.toString();
 
-export const runNixUpdate = (attr: string, options: string[] = []) => spawnSync(
-    'nix-update',
-    ['--flake', attr, ...options],
-    { shell: true, cwd: FLAKE },
-).stderr.toString();
+
+const getAttrVersion = (attr: string): string => spawnSync('nix',
+    ['eval', '--raw', `${FLAKE}#${attr}.version`],
+    { shell: true }).stdout.toString();
+
+export const runNixUpdate = (
+    attr: string,
+    options: string[] = [],
+): { stdout: string, stderr: string } => {
+    const OLD_VERSION = getAttrVersion(attr);
+
+    const execution = spawnSync(
+        `nix-update --flake ${attr} --write-commit-message >(head -n 1 -) > /dev/null`,
+        options,
+        { shell: true, cwd: FLAKE },
+    );
+
+    const NEW_VERSION = getAttrVersion(attr);
+
+    return {
+        stdout: OLD_VERSION !== NEW_VERSION ? execution.stdout.toString() : '',
+        stderr: execution.stderr.toString(),
+    };
+};
