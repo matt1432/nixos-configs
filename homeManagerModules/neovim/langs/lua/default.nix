@@ -31,9 +31,9 @@ in {
                         if (devShells['lua'] == nil) then
                             devShells['lua'] = 1;
 
-                            require('nix-develop').nix_develop({'${flakeEnv}#lua'}, vim.schedule_wrap(function()
+                            require('nix-develop').nix_develop({'${flakeEnv}#lua'}, function()
                                 vim.cmd[[LspStart]];
-                            end));
+                            end);
                         end
                     end,
                 });

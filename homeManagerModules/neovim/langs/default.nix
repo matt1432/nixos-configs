@@ -75,7 +75,6 @@ in {
             ;
         })
         ++ [
-          # FIXME: defer inside plugin instead
           (pkgs.vimPlugins.nix-develop-nvim.overrideAttrs (o: {
             name = "vimplugin-${o.pname}-${mkVersion nix-develop-nvim-src}";
             src = nix-develop-nvim-src;

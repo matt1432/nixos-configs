@@ -1144,11 +1144,11 @@
     "nix-develop-nvim-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1734885934,
-        "narHash": "sha256-qaopTh0a0JkM8GnVbOOx6vwRBEfxLiazrpa01N70ptI=",
+        "lastModified": 1734889859,
+        "narHash": "sha256-Zue4Y/qECuhXfmP7WccQMHzFMrI090jWpzMZn+tRVnI=",
         "owner": "matt1432",
         "repo": "nix-develop.nvim",
-        "rev": "66e82ed6d377fc94dd57bcbd1942b7ca7d3502f6",
+        "rev": "678f2609674082595961924cd1486717c49a01b3",
         "type": "github"
       },
       "original": {
