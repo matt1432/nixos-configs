@@ -8,6 +8,7 @@
 
   cfg = config.programs.neovim;
 
+  # We keep the packages here because python is a bit complicated and common
   pythonPkgs = py:
     (attrValues {
       inherit (py) python-lsp-server;

@@ -21,6 +21,7 @@ in {
         viAlias = true;
         vimAlias = true;
 
+        # We keep the packages here because shell scripts are too common
         extraPackages = attrValues {
           inherit
             (pkgs.nodePackages)

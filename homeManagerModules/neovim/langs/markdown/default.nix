@@ -9,7 +9,7 @@ self: {
   inherit (self.inputs) vimplugin-easytables-src;
   inherit (self.lib.${pkgs.system}) buildPlugin;
 
-  inherit (lib) attrValues concatStringsSep mkIf;
+  inherit (lib) concatStringsSep mkIf;
 
   cfg = config.programs.neovim;
   isServer = osConfig.roles.server.sshd.enable or false;
@@ -22,16 +22,6 @@ in {
   config = mkIf cfg.enable {
     programs = {
       neovim = {
-        extraPackages = attrValues {
-          inherit
-            (pkgs)
-            pandoc
-            texlab
-            texliveFull
-            rubber
-            ;
-        };
-
         extraLuaConfig =
           # lua
           ''

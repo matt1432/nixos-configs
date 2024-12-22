@@ -4,29 +4,21 @@
   pkgs,
   ...
 }: let
-  inherit (lib) attrValues getExe mkIf;
+  inherit (lib) getExe mkIf;
 
   cfg = config.programs.neovim;
 
-  javaSdk = pkgs.temurin-bin-17;
-  javaPkgs = attrValues {inherit (pkgs) gradle maven;};
+  javaSdk = pkgs.temurin-bin-21;
 in {
   config = mkIf cfg.enable {
-    home.packages = javaPkgs;
-
-    xdg.dataFile.".gradle/gradle.properties".text = ''
-      org.gradle.java.home = ${javaSdk}
-    '';
-
     programs = {
+      # We keep the packages here because java is a bit complicated
       java = {
         enable = true;
         package = javaSdk;
       };
 
       neovim = {
-        extraPackages = javaPkgs;
-
         extraLuaConfig =
           # lua
           ''
@@ -44,7 +36,6 @@ in {
             config =
               # lua
               ''
-                --
                 local startJdtls = function()
                     local config = {
                         capabilities = require('cmp_nvim_lsp').default_capabilities(),
@@ -60,7 +51,7 @@ in {
                                 configuration = {
                                     runtimes = {
                                         {
-                                            name = 'JavaSE-17',
+                                            name = 'JavaSE-21',
                                             path = '${javaSdk}',
                                         },
                                     },

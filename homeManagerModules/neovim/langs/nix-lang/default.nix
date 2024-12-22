@@ -29,6 +29,7 @@ in {
       }
     ];
 
+    # We keep the packages here
     home.packages = attrValues {
       inherit
         defaultFormatter

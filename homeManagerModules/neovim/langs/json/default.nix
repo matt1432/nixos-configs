@@ -1,24 +1,15 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }: let
-  inherit (lib) attrValues mkIf;
+  inherit (lib) mkIf;
 
   cfg = config.programs.neovim;
 in {
   config = mkIf cfg.enable {
     programs = {
       neovim = {
-        extraPackages = attrValues {
-          inherit
-            (pkgs)
-            vscode-langservers-extracted
-            yaml-language-server
-            ;
-        };
-
         extraLuaConfig =
           # lua
           ''

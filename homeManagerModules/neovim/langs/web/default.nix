@@ -7,7 +7,7 @@ self: {
   inherit (self.inputs) vimplugin-ts-error-translator-src;
   inherit (self.lib.${pkgs.system}) buildPlugin;
 
-  inherit (lib) attrValues mkIf;
+  inherit (lib) mkIf;
 
   cfg = config.programs.neovim;
 in {
@@ -15,25 +15,6 @@ in {
     programs = {
       neovim = {
         withNodeJs = true;
-
-        extraPackages = attrValues {
-          inherit
-            (pkgs)
-            neovim-node-client
-            nodejs_latest
-            vscode-langservers-extracted
-            ;
-
-          inherit
-            (pkgs.nodePackages)
-            npm
-            ;
-
-          inherit
-            (self.packages.${pkgs.system})
-            some-sass-language-server
-            ;
-        };
 
         extraLuaConfig =
           # lua

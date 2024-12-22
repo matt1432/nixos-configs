@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) attrValues mkIf;
+  inherit (lib) mkIf;
 
   cfg = config.programs.neovim;
 
@@ -13,13 +13,6 @@ in {
   config = mkIf cfg.enable {
     programs = {
       neovim = {
-        extraPackages = attrValues {
-          inherit
-            (pkgs)
-            lua-language-server
-            ;
-        };
-
         plugins = [
           {
             plugin = pkgs.vimPlugins.neodev-nvim;
