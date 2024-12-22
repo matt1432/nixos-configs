@@ -52,7 +52,8 @@ in {
         publicApps = remove "nelim.org" (mapAttrsToList (n: v: v.hostName) config.services.caddy.virtualHosts);
       in
         mergeAttrsList (
-          (map forceResolveEntry publicApps)
+          [(mkLocalEntry "cache-apt.nelim.org" "100.64.0.10")]
+          ++ (map forceResolveEntry publicApps)
           ++ [
             (mkMinecraftEntry "mc.nelim.org" 25569)
             (mkMinecraftEntry "mc2.nelim.org" 25560)

@@ -24,6 +24,7 @@ in {
     (import ./web.nix self)
   ];
 
+  # FIXME: try making LSPs and stuff only available through devShells
   config.programs = mkIf cfg.enableIde {
     neovim = {
       extraLuaConfig =
