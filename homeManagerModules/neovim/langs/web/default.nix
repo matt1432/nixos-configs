@@ -20,11 +20,11 @@ in {
         extraLuaConfig =
           # lua
           ''
-            vim.api.nvim_create_autocmd('FileType', {
-                pattern = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx', 'css', 'scss' },
+            local lsp = require('lspconfig');
+            local tsserver = require('typescript-tools');
+            local default_capabilities = require('cmp_nvim_lsp').default_capabilities();
 
-                callback = function()
-                    vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
+            local loadDevShell = function()
 
                     if (devShells['web'] == nil) then
                         devShells['web'] = 1;
@@ -33,6 +33,15 @@ in {
                             vim.cmd[[LspStart]];
                         end);
                     end
+            end;
+
+            vim.api.nvim_create_autocmd('FileType', {
+                pattern = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx', 'css', 'scss' },
+
+                callback = function()
+                    vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
+
+                    loadDevShell();
                 end,
             });
 
@@ -42,13 +51,7 @@ in {
                 callback = function()
                     vim.cmd[[setlocal ts=4 sw=4 expandtab]];
 
-                    if (devShells['web'] == nil) then
-                        devShells['web'] = 1;
-
-                        require('nix-develop').nix_develop({'${flakeEnv}#web'}, function()
-                            vim.cmd[[LspStart]];
-                        end);
-                    end
+                    loadDevShell();
                 end,
             });
 
@@ -56,10 +59,6 @@ in {
                 pattern = 'scss',
                 command = 'setlocal iskeyword+=@-@',
             });
-
-            local lsp = require('lspconfig');
-            local tsserver = require('typescript-tools');
-            local default_capabilities = require('cmp_nvim_lsp').default_capabilities();
 
             tsserver.setup({
                 capabilities = default_capabilities,
