@@ -10,18 +10,19 @@ self: {
   inherit (osConfig.networking) hostName;
 
   cfg = config.programs.neovim;
+  mainHmCfg = osConfig.home-manager.users.${cfg.user} or config;
 
   defaultFormatter = self.formatter.${pkgs.system};
 
   nixdPkg = self.inputs.nixd.packages.${pkgs.system}.default;
 
   flakeEnv = config.programs.bash.sessionVariables.FLAKE;
-  flakeDir = "${removePrefix "/home/${cfg.user}/" flakeEnv}";
+  flakeDir = "${removePrefix "${mainHmCfg.home.homeDirectory}/" flakeEnv}";
 in {
   config = mkIf cfg.enable {
     assertions = [
       {
-        assertion = hasPrefix "/home/${cfg.user}/" flakeEnv;
+        assertion = hasPrefix "${mainHmCfg.home.homeDirectory}/" flakeEnv;
         message = ''
           Your $FLAKE environment variable needs to point to a directory in
           the main users' home to use the neovim module.
