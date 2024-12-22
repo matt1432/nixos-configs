@@ -141,7 +141,7 @@
 
     devShells =
       perSystem (pkgs:
-        import ./devShells {inherit pkgs;});
+        import ./devShells {inherit pkgs self;});
 
     packages =
       perSystem (pkgs:

@@ -1,5 +1,11 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  self,
+  ...
+}: let
   inherit (builtins) attrValues;
+
+  langsShells = import ./langs.nix {inherit pkgs self;};
 
   bumpNpmDeps = pkgs.writeShellApplication {
     name = "bumpNpmDeps";
@@ -16,91 +22,93 @@
       prefetch-npm-deps ./package-lock.json
     '';
   };
-in {
-  default = pkgs.mkShell {
-    packages = [
-      (pkgs.writeShellApplication {
-        name = "mkIso";
+in
+  {
+    default = pkgs.mkShell {
+      packages = [
+        (pkgs.writeShellApplication {
+          name = "mkIso";
 
-        runtimeInputs = attrValues {
-          inherit
-            (pkgs)
-            nix-output-monitor
-            ;
-        };
+          runtimeInputs = attrValues {
+            inherit
+              (pkgs)
+              nix-output-monitor
+              ;
+          };
 
-        text = ''
-          isoConfig="nixosConfigurations.live-image.config.system.build.isoImage"
-          nom build "$FLAKE#$isoConfig"
-        '';
-      })
+          text = ''
+            isoConfig="nixosConfigurations.live-image.config.system.build.isoImage"
+            nom build "$FLAKE#$isoConfig"
+          '';
+        })
 
-      (pkgs.writeShellApplication {
-        name = "fixUidChange";
+        (pkgs.writeShellApplication {
+          name = "fixUidChange";
 
-        runtimeInputs = attrValues {
-          inherit
-            (pkgs)
-            findutils
-            gnused
-            ;
-        };
+          runtimeInputs = attrValues {
+            inherit
+              (pkgs)
+              findutils
+              gnused
+              ;
+          };
 
-        text = ''
-          GROUP="$1"
-          OLD_GID="$2"
-          NEW_GID="$3"
+          text = ''
+            GROUP="$1"
+            OLD_GID="$2"
+            NEW_GID="$3"
 
-          # Remove generated group entry
-          sudo sed -i -e "/^$GROUP:/d" /etc/group
+            # Remove generated group entry
+            sudo sed -i -e "/^$GROUP:/d" /etc/group
 
-          # Change GID on existing files
-          sudo find / -gid "$OLD_GID" -exec chgrp "$NEW_GID" {} +
-        '';
-      })
-    ];
-  };
-
-  netdaemon = pkgs.mkShell {
-    packages = attrValues {
-      inherit
-        (pkgs.dotnetCorePackages)
-        sdk_9_0
-        ;
+            # Change GID on existing files
+            sudo find / -gid "$OLD_GID" -exec chgrp "$NEW_GID" {} +
+          '';
+        })
+      ];
     };
-  };
 
-  node = pkgs.mkShell {
-    packages = attrValues {
-      inherit
-        (pkgs)
-        nodejs_latest
-        typescript
-        ;
-
-      inherit
-        bumpNpmDeps
-        ;
+    netdaemon = pkgs.mkShell {
+      packages = attrValues {
+        inherit
+          (pkgs.dotnetCorePackages)
+          sdk_9_0
+          ;
+      };
     };
-  };
 
-  subtitles-dev = pkgs.mkShell {
-    packages = attrValues {
-      inherit
-        (pkgs)
-        nodejs_latest
-        typescript
-        ffmpeg-full
-        ;
+    node = pkgs.mkShell {
+      packages = attrValues {
+        inherit
+          (pkgs)
+          nodejs_latest
+          typescript
+          ;
 
-      inherit
-        (pkgs.nodePackages)
-        ts-node
-        ;
-
-      inherit
-        bumpNpmDeps
-        ;
+        inherit
+          bumpNpmDeps
+          ;
+      };
     };
-  };
-}
+
+    subtitles-dev = pkgs.mkShell {
+      packages = attrValues {
+        inherit
+          (pkgs)
+          nodejs_latest
+          typescript
+          ffmpeg-full
+          ;
+
+        inherit
+          (pkgs.nodePackages)
+          ts-node
+          ;
+
+        inherit
+          bumpNpmDeps
+          ;
+      };
+    };
+  }
+  // langsShells
