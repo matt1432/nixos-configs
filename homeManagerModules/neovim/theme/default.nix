@@ -5,6 +5,8 @@ self: {
   ...
 }: let
   inherit (self.inputs) nvim-theme-src;
+  inherit (self.lib.${pkgs.system}) mkVersion;
+
   inherit (lib) attrValues fileContents mkIf;
 
   cfg = config.programs.neovim;
@@ -19,9 +21,10 @@ in {
 
       plugins = [
         {
-          plugin = pkgs.vimPlugins.dracula-nvim.overrideAttrs {
+          plugin = pkgs.vimPlugins.dracula-nvim.overrideAttrs (o: {
+            name = "vimplugin-${o.pname}-${mkVersion nvim-theme-src}";
             src = nvim-theme-src;
-          };
+          });
           type = "lua";
           config =
             # lua
