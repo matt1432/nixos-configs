@@ -1,12 +1,9 @@
 self: {
-  config,
   lib,
   pkgs,
   ...
 }: let
-  inherit (lib) fileContents mkBefore mkIf;
-
-  cfg = config.programs.neovim;
+  inherit (lib) fileContents mkBefore;
 in {
   imports = [
     ./bash
@@ -24,8 +21,7 @@ in {
     (import ./web self)
   ];
 
-  # FIXME: try making LSPs and stuff only available through devShells
-  config.programs = mkIf cfg.enableIde {
+  config.programs = {
     neovim = {
       extraLuaConfig =
         mkBefore
@@ -52,22 +48,16 @@ in {
                   lsp_status.on_attach(client);
               end,
           });
-
-          -- Disable virtual_text since it's redundant due to lsp_lines.
-          vim.diagnostic.config({
-              virtual_text = false,
-          });
-
-          require('lsp_lines').setup();
         '';
 
       plugins =
         (builtins.attrValues {
           inherit
             (pkgs.vimPlugins)
+            # lsp plugins
             nvim-lspconfig
             lsp-status-nvim
-            lsp_lines-nvim
+            # completion plugins
             cmp-buffer
             cmp-nvim-lsp
             cmp-path
@@ -89,6 +79,21 @@ in {
               # lua
               ''
                 require('nvim-autopairs').setup({});
+              '';
+          }
+
+          {
+            plugin = pkgs.vimPlugins.lsp_lines-nvim;
+            type = "lua";
+            config =
+              # lua
+              ''
+                -- Disable virtual_text since it's redundant due to lsp_lines.
+                vim.diagnostic.config({
+                    virtual_text = false,
+                });
+
+                require('lsp_lines').setup();
               '';
           }
         ];

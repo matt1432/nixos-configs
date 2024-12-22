@@ -52,25 +52,6 @@ in {
 
         -- https://github.com/seblj/roslyn.nvim/issues/121#issuecomment-2544076963
         vim.opt.cmdheight = 2;
-
-        -- Get rid of deprecated messages
-        vim.tbl_add_reverse_lookup = function(tbl)
-            for k, v in pairs(tbl) do
-                tbl[v] = k;
-            end
-        end;
-        vim.tbl_islist = function(tbl)
-            return vim.islist(tbl);
-        end;
-        vim.diagnostic.is_disabled = function()
-            return not vim.diagnostic.is_enabled();
-        end;
-        vim.lsp.buf_get_clients = function()
-            return vim.lsp.get_clients();
-        end;
-        vim.lsp.get_active_clients = function()
-            return vim.lsp.get_clients();
-        end;
       '';
 
     plugins = [
