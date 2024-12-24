@@ -29,10 +29,10 @@
   };
   "bitwarden" = buildFirefoxXpiAddon {
     pname = "bitwarden";
-    version = "2024.11.2";
+    version = "2024.12.3";
     addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4392295/bitwarden_password_manager-2024.11.2.xpi";
-    sha256 = "38faecbfca76086a54e62b6e2036eae45e9d9f9f3aee4c7a72b652593f51b8e7";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4407804/bitwarden_password_manager-2024.12.3.xpi";
+    sha256 = "a48af549da66e2987a135b0cb918b1c90f8e80b868760cbaa07c8f6df4da9b07";
     meta = with lib; {
       homepage = "https://bitwarden.com";
       description = "At home, at work, or on the go, Bitwarden easily secures all your passwords, passkeys, and sensitive information.";
@@ -40,17 +40,17 @@
       mozPermissions = [
         "<all_urls>"
         "*://*/*"
-        "tabs"
-        "contextMenus"
-        "storage"
-        "unlimitedStorage"
+        "alarms"
         "clipboardRead"
         "clipboardWrite"
+        "contextMenus"
         "idle"
-        "alarms"
+        "storage"
+        "tabs"
+        "unlimitedStorage"
+        "webNavigation"
         "webRequest"
         "webRequestBlocking"
-        "webNavigation"
         "file:///*"
         "https://lastpass.com/export.php"
       ];
