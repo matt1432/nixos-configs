@@ -21,14 +21,14 @@ const TrayItem = (item: AstalTray.TrayItem) => {
                 cursor="pointer"
 
                 usePopover={false}
-                // @ts-expect-error types are wrong
                 tooltipMarkup={bind(item, 'tooltipMarkup')}
-                // @ts-expect-error types are wrong
-                actionGroup={bind(item, 'actionGroup').as((ag) => ['dbusmenu', ag])}
-                // @ts-expect-error types are wrong
                 menuModel={bind(item, 'menuModel')}
+
+                setup={(self) => self.hook(item, 'notify::action-group', () => {
+                    self.insert_action_group('dbusmenu', item.actionGroup);
+                })}
             >
-                <icon gIcon={bind(item, 'gicon')} />
+                <icon gicon={bind(item, 'gicon')} />
             </menubutton>
         </revealer>
     );

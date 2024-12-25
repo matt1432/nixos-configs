@@ -99,11 +99,11 @@ export default class Tablet extends GObject.Object {
             return;
         }
 
-        this._inputDetection = subprocess([
-            'fcitx5',
+        this._inputDetection = subprocess(['fcitx5',
             '--disable', 'all',
-            '--enable', 'keyboard,virtualkeyboardadapter,wayland,waylandim',
-        ]);
+            '--enable', 'keyboard,virtualkeyboardadapter,wayland,waylandim'],
+        () => { /**/ },
+        () => { /**/ });
     }
 
     private _stopInputDetection() {

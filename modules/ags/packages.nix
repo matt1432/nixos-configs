@@ -7,7 +7,9 @@ self: {
 }: let
   inherit (self.inputs) ags gtk-session-lock;
 
-  inherit (lib) attrValues boolToString getExe optionalAttrs optionals removeAttrs;
+  gtkSessionLock = gtk-session-lock.packages.${pkgs.system}.default;
+
+  inherit (lib) attrValues boolToString getExe optionalAttrs optionals;
 
   inherit (osConfig.networking) hostName;
 
@@ -32,19 +34,31 @@ in {
       package = ags.packages.${pkgs.system}.ags.override {
         extraPackages = cfg.astalLibs;
       };
-      astalLibs =
-        attrValues (
-          removeAttrs ags.inputs.astal.packages.${pkgs.system} [
-            "cava"
-            "powerprofiles"
-            "river"
+      astalLibs = attrValues {
+        inherit
+          (ags.inputs.astal.packages.${pkgs.system})
+          io
+          astal3
+          apps
+          auth
+          battery
+          bluetooth
+          greet
+          hyprland
+          mpris
+          network
+          notifd
+          tray
+          wireplumber
+          ;
 
-            # Not libraries
-            "docs"
-            "gjs"
-          ]
-        )
-        ++ [gtk-session-lock.packages.${pkgs.system}.default pkgs.gtk4];
+        inherit gtkSessionLock;
+
+        inherit
+          (pkgs)
+          gtk4 # Needed to build types
+          ;
+      };
 
       lockPkg = pkgs.writeShellApplication {
         name = "lock";

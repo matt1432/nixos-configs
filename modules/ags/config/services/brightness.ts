@@ -134,7 +134,6 @@ export default class Brightness extends GObject.Object {
     private _getScreenIcon() {
         const brightness = this._screen * 100;
 
-        // eslint-disable-next-line
         for (const threshold of [4, 19, 69, 89]) {
             if (brightness > threshold + 1) {
                 this._screenIcon = SCREEN_ICONS[threshold + 1];
