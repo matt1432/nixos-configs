@@ -48,6 +48,12 @@ const main = async() => {
         ));
     }
 
+    if (args['m'] || args['material-rounded-theme']) {
+        console.log(updateCustomPackage(
+            'scopedPackages.x86_64-linux.lovelace-components.material-rounded-theme',
+        ));
+    }
+
     if (args['s'] || args['some-sass-language-server']) {
         console.log(updateCustomPackage('some-sass-language-server'));
     }
@@ -90,6 +96,9 @@ const main = async() => {
         // This doesn't need to be added to commit msgs
         console.log(updateCustomPackage(
             'scopedPackages.x86_64-linux.lovelace-components.custom-sidebar',
+        ));
+        console.log(updateCustomPackage(
+            'scopedPackages.x86_64-linux.lovelace-components.material-rounded-theme',
         ));
         console.log(updateCustomPackage('some-sass-language-server'));
 

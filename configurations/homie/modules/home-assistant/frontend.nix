@@ -99,6 +99,7 @@ in {
       inherit
         (self.scopedPackages.${pkgs.system}.lovelace-components)
         custom-sidebar
+        material-rounded-theme
         ;
     };
 
@@ -108,6 +109,7 @@ in {
         "card-mod"
         "light-entity-card"
         "custom-sidebar-yaml"
+        "material-rounded-theme"
       ];
     };
 
