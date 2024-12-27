@@ -22,11 +22,8 @@ const TrayItem = (item: AstalTray.TrayItem) => {
 
                 usePopover={false}
                 tooltipMarkup={bind(item, 'tooltipMarkup')}
+                actionGroup={bind(item, 'actionGroup').as((ag) => ['dbusmenu', ag])}
                 menuModel={bind(item, 'menuModel')}
-
-                setup={(self) => self.hook(item, 'notify::action-group', () => {
-                    self.insert_action_group('dbusmenu', item.actionGroup);
-                })}
             >
                 <icon gicon={bind(item, 'gicon')} />
             </menubutton>

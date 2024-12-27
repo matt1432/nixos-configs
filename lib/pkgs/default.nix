@@ -44,6 +44,8 @@ in {
           then "Astal-3.0"
           else if package.pname == "astal4"
           then "Astal-4.0"
+          else if package.pname == "astal-powerprofiles"
+          then "AstalPowerProfiles-0.1"
           else if package.pname == "gtk4"
           then "Gtk-4.0"
           else (concatMapStrings capitalise (splitString "-" package.pname)) + "-0.1";

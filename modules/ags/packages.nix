@@ -39,6 +39,7 @@ in {
           (ags.inputs.astal.packages.${pkgs.system})
           io
           astal3
+          astal4
           apps
           auth
           battery
@@ -48,6 +49,7 @@ in {
           mpris
           network
           notifd
+          powerprofiles
           tray
           wireplumber
           ;
@@ -135,6 +137,7 @@ in {
                 "skipLibCheck" = true;
                 "module" = "ES2022";
                 "lib" = ["ES2023"];
+                "noEmit" = true;
               };
             };
 
