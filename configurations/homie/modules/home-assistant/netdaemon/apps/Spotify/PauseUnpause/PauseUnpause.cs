@@ -14,9 +14,9 @@ namespace NetDaemonConfig.Apps.Spotify.PauseUnpause
     public record PauseUnpauseData(bool pause);
 
     [NetDaemonApp]
-    public class PlaySong
+    public class PauseUnpause
     {
-        public PlaySong(IHaContext ha, Services services)
+        public PauseUnpause(IHaContext ha, Services services)
         {
             ha.RegisterServiceCallBack<PauseUnpauseData>(
                 "spotify_pause_unpause",
