@@ -8,6 +8,7 @@
     ./bluetooth.nix
     ./firmware.nix
     ./frontend.nix
+    ./zigbee.nix
 
     ./netdaemon
     ./spotify

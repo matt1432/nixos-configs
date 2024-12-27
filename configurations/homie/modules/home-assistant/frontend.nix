@@ -92,6 +92,7 @@ in {
       inherit
         (pkgs.home-assistant-custom-lovelace-modules)
         card-mod
+        light-entity-card
         universal-remote-card
         ;
 
@@ -105,6 +106,7 @@ in {
       themes = "!include_dir_merge_named themes";
       extra_module_url = map (p: "/local/nixos-lovelace-modules/${p}.js") [
         "card-mod"
+        "light-entity-card"
         "custom-sidebar-yaml"
       ];
     };
@@ -140,6 +142,34 @@ in {
               "timer.assist_timer2"
               "timer.assist_timer3"
             ];
+          }
+
+          {
+            type = "custom:light-entity-card";
+            entity = "light.tz3210_katchgxy_ts0505b_light";
+
+            shorten_cards = false;
+            consolidate_entities = false;
+            child_card = false;
+            hide_header = false;
+            show_header_icon = false;
+            header = "";
+            color_wheel = true;
+            persist_features = true;
+            brightness = true;
+            color_temp = true;
+            white_value = true;
+            color_picker = true;
+            speed = true;
+            intensity = false;
+            force_features = false;
+            show_slider_percent = true;
+            full_width_sliders = true;
+            brightness_icon = "weather-sunny";
+            white_icon = "file-word-box";
+            temperature_icon = "thermometer";
+            speed_icon = "speedometer";
+            intensity_icon = "transit-connection-horizontal";
           }
 
           {
