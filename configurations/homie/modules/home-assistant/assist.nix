@@ -53,7 +53,7 @@
         uri = "tcp://127.0.0.1:10200";
 
         # see https://github.com/rhasspy/rhasspy3/blob/master/programs/tts/piper/script/download.py
-        voice = "en-us-ryan-low"; # using `hfc male (medium)` in GUI
+        voice = "en_US-hfc_male-medium";
         speaker = 0;
       };
 
