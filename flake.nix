@@ -12,7 +12,7 @@
     };
     astal = {
       inputs.nixpkgs.follows = "nixpkgs";
-      owner = "matt1432";
+      owner = "Aylur";
       repo = "astal";
       type = "github";
     };

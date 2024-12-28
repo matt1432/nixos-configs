@@ -159,8 +159,7 @@ let
 
     agsInputs = {
       astal = mkDep {
-        # FIXME: https://github.com/Aylur/astal/pull/208
-        owner = "matt1432";
+        owner = "Aylur";
         repo = "astal";
       };
 
