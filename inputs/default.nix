@@ -73,11 +73,6 @@ let
       owner = "matt1432";
       repo = "nixos-pcsd";
     };
-
-    caddy-plugins = mkDep {
-      owner = "matt1432";
-      repo = "nixos-caddy-cloudflare";
-    };
   };
 
   serviviInputs = {

@@ -10,6 +10,7 @@ import updateNodeModules from './node-modules';
 
 import {
     runNixUpdate,
+    updateCaddyPlugins,
     updateCustomPackage,
     updateVuetorrent,
 } from './misc';
@@ -66,6 +67,10 @@ const main = async() => {
         console.log(runNixUpdate('homepage'));
     }
 
+    if (args['cp'] || args['caddy-plugins']) {
+        console.log(updateCaddyPlugins());
+    }
+
     if (args['a'] || args['all']) {
         // Update this first because of nix run cmd
         const firefoxOutput = updateFirefoxAddons();
@@ -91,6 +96,11 @@ const main = async() => {
         const vuetorrentOutput = updateVuetorrent();
 
         console.log(vuetorrentOutput);
+
+
+        const caddyPluginsOutput = updateCaddyPlugins();
+
+        console.log(caddyPluginsOutput);
 
 
         // This doesn't need to be added to commit msgs
@@ -143,6 +153,9 @@ const main = async() => {
         }
         if (vuetorrentOutput.length > 5) {
             output.push(`Misc Sources:\n${indentOutput(vuetorrentOutput)}\n\n`);
+        }
+        if (caddyPluginsOutput.length > 5) {
+            output.push(`Caddy Plugins:\n${indentOutput(caddyPluginsOutput)}\n\n`);
         }
         if (nixUpdateOutputs.length > 5) {
             output.push(`nix-update executions:\n${indentOutput(nixUpdateOutputs)}\n`);

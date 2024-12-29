@@ -128,26 +128,6 @@
         "type": "github"
       }
     },
-    "caddy-plugins": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1734463590,
-        "narHash": "sha256-SoS0sM/UMf3uGRPor7xuYlJdt49nLDqxVNEAfWk2G/I=",
-        "owner": "matt1432",
-        "repo": "nixos-caddy-cloudflare",
-        "rev": "b6cecba0d5b3c6eded63751f202fb4877db3f776",
-        "type": "github"
-      },
-      "original": {
-        "owner": "matt1432",
-        "repo": "nixos-caddy-cloudflare",
-        "type": "github"
-      }
-    },
     "caule-themes-src": {
       "flake": false,
       "locked": {
@@ -1691,7 +1671,6 @@
         "astal": "astal",
         "bat-theme-src": "bat-theme-src",
         "bazarr-bulk": "bazarr-bulk",
-        "caddy-plugins": "caddy-plugins",
         "caule-themes-src": "caule-themes-src",
         "custom-sidebar-src": "custom-sidebar-src",
         "discord-overlay": "discord-overlay",

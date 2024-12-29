@@ -28,12 +28,6 @@
       repo = "bazarr-bulk";
       type = "github";
     };
-    caddy-plugins = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      owner = "matt1432";
-      repo = "nixos-caddy-cloudflare";
-      type = "github";
-    };
     caule-themes-src = {
       flake = false;
       owner = "ricardoquecria";

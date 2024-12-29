@@ -1,36 +1,37 @@
 {
-  caddy-plugins,
   config,
+  lib,
   mainUser,
   pkgs,
+  self,
   ...
 }: let
+  inherit (lib) attrValues;
+
   inherit (config.sops) secrets;
   inherit (config.networking) hostName;
-
-  caddy = caddy-plugins.packages.${pkgs.system}.default;
 in {
-  imports = [caddy-plugins.nixosModules.default];
+  imports = [self.nixosModules.caddy-plus];
 
-  # User stuff
-  environment.systemPackages = [caddy];
   users.users.${mainUser}.extraGroups = ["caddy"];
 
   boot.kernel.sysctl."net.ipv4.ip_nonlocal_bind" = 1;
 
   systemd.services.caddy.serviceConfig = {
     EnvironmentFile = secrets.caddy-cloudflare.path;
-
-    # For some reason the service
-    # doesn't shutdown normally
-    KillSignal = "SIGKILL";
-    RestartKillSignal = "SIGKILL";
   };
 
   services.caddy = {
     enable = true;
     enableReload = false;
-    package = caddy;
+
+    package = let
+      pluginsInfo = import ./plugins.nix;
+    in
+      pkgs.caddy.withPlugins {
+        plugins = map (x: "${x.url}@${x.version}") (attrValues pluginsInfo.plugins);
+        inherit (pluginsInfo) hash;
+      };
 
     virtualHosts = let
       clusterIP = config.services.pcsd.virtualIps.caddy-vip.ip;

@@ -1,7 +1,7 @@
 {...}: {
   imports = [
     ./blocky.nix
-    ./caddy.nix
+    ./caddy
     ./headscale
     ./nfs-client.nix
     ./pcsd.nix
