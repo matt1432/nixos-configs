@@ -4,17 +4,15 @@ self: {
   pkgs,
   ...
 }: let
+  inherit (self.lib) capitalise;
+
   inherit (lib) types;
   inherit (lib.attrsets) attrValues;
   inherit (lib.modules) mkIf mkOverride;
   inherit (lib.options) mkOption;
-  inherit (lib.strings) concatMapStringsSep concatStringsSep optionalString stringLength substring toUpper;
+  inherit (lib.strings) concatMapStringsSep concatStringsSep optionalString;
 
   cfg = config.services.caddy;
-
-  capitalize = str:
-    toUpper (substring 0 1 str)
-    + substring 1 (stringLength str) str;
 
   mkSubDirConf = subOpts:
     optionalString (subOpts.reverseProxy != null) (
@@ -27,7 +25,7 @@ self: {
           uri strip_prefix ${subOpts.subDirName}
           reverse_proxy ${subOpts.reverseProxy} {
             header_up X-Real-IP {remote}
-            header_up X-${capitalize (subOpts.subDirName)}-Base "/${subOpts.subDirName}"
+            header_up X-${capitalise subOpts.subDirName}-Base "/${subOpts.subDirName}"
           }
         }
       ''
@@ -97,8 +95,10 @@ in {
     type = types.attrsOf (types.submodule (import ./vhost-options.nix {inherit cfg;}));
   };
 
-  # implementation
   config = mkIf cfg.enable {
     services.caddy.configFile = mkOverride 80 configFile;
   };
+
+  # For accurate stack trace
+  _file = ./default.nix;
 }
