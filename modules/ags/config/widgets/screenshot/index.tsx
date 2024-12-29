@@ -27,7 +27,7 @@ export default () => {
     const windowList = <box vertical /> as Widget.Box;
 
     const updateWindows = async() => {
-        if (!App.get_window('win-screenshot')?.visible) {
+        if (!App.get_window('win-screenshot')?.get_visible()) {
             return;
         }
 
@@ -77,11 +77,11 @@ export default () => {
                             cursor="pointer"
 
                             onButtonReleaseEvent={() => {
-                                takeScreenshot(['-o', monitor.name]);
+                                takeScreenshot(['-o', monitor.get_name()]);
                             }}
                         >
                             <label
-                                label={`${monitor.name}: ${monitor.description}`}
+                                label={`${monitor.get_name()}: ${monitor.get_description()}`}
                                 truncate
                                 maxWidthChars={50}
                             />
@@ -125,9 +125,9 @@ export default () => {
 
             onButtonReleaseEvent={() => {
                 frozen = !frozen;
-                freezeIcon.icon = frozen ?
+                freezeIcon.set_icon(frozen ?
                     'checkbox-checked-symbolic' :
-                    'checkbox-symbolic';
+                    'checkbox-symbolic');
             }}
         >
             <box halign={Gtk.Align.CENTER}>

@@ -52,7 +52,7 @@ const NotificationList = () => {
                         const notif = (self.get_children() as NotifGestureWrapper[])
                             .find((ch) => ch.id === id);
 
-                        if (notif?.sensitive) {
+                        if (notif?.get_sensitive()) {
                             notif.slideAway('Right');
                         }
                     });

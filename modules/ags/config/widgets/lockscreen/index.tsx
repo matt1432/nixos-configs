@@ -43,16 +43,16 @@ export default () => {
 
     const unlock = () => {
         blurBGs.forEach((b) => {
-            b.css = bgCSS({
+            b.set_css(bgCSS({
                 w: b.geometry.w,
                 h: 1,
-            });
+            }));
 
             timeout(transition_duration / 2, () => {
-                b.css = bgCSS({
+                b.set_css(bgCSS({
                     w: 1,
                     h: 1,
-                });
+                }));
             });
         });
         timeout(transition_duration, () => {
@@ -86,8 +86,8 @@ export default () => {
 
         idle(() => {
             rev.geometry = {
-                w: monitor.geometry.width,
-                h: monitor.geometry.height,
+                w: monitor.get_geometry().width,
+                h: monitor.get_geometry().height,
             };
 
             rev.css = bgCSS({
@@ -164,17 +164,17 @@ export default () => {
                                 onRealize={(self) => self.grab_focus()}
 
                                 onActivate={(self) => {
-                                    self.sensitive = false;
+                                    self.set_sensitive(false);
 
-                                    AstalAuth.Pam.authenticate(self.text ?? '', (_, task) => {
+                                    AstalAuth.Pam.authenticate(self.get_text() ?? '', (_, task) => {
                                         try {
                                             AstalAuth.Pam.authenticate_finish(task);
                                             unlock();
                                         }
                                         catch (e) {
-                                            self.text = '';
-                                            label.label = (e as Error).message;
-                                            self.sensitive = true;
+                                            self.set_text('');
+                                            label.set_label((e as Error).message);
+                                            self.set_sensitive(true);
                                         }
                                     });
                                 }}

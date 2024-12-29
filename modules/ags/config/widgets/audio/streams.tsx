@@ -11,7 +11,7 @@ export default (streams: AstalWp.Endpoint[]) => {
     let group: RadioButton | undefined;
 
     return streams
-        .sort((a, b) => a.description.localeCompare(b.description))
+        .sort((a, b) => a.get_description().localeCompare(b.get_description()))
         .map((stream) => (
             <box className="stream" vertical>
 
@@ -29,14 +29,14 @@ export default (streams: AstalWp.Endpoint[]) => {
                                 self.group = group;
                             }
 
-                            self.active = stream.isDefault;
+                            self.active = stream.get_is_default();
                             self.hook(stream, 'notify::is-default', () => {
-                                self.active = stream.isDefault;
+                                self.active = stream.get_is_default();
                             });
                         }}
 
                         onButtonReleaseEvent={() => {
-                            stream.isDefault = true;
+                            stream.set_is_default(true);
                         }}
                     />
 
@@ -56,12 +56,12 @@ export default (streams: AstalWp.Endpoint[]) => {
                         valign={Gtk.Align.END}
 
                         onButtonReleaseEvent={() => {
-                            stream.mute = !stream.mute;
+                            stream.set_mute(!stream.get_mute());
                         }}
                     >
                         <icon
                             icon={bind(stream, 'mute').as((isMuted) => {
-                                if (stream.mediaClass === AstalWp.MediaClass.AUDIO_MICROPHONE) {
+                                if (stream.get_media_class() === AstalWp.MediaClass.AUDIO_MICROPHONE) {
                                     return isMuted ?
                                         'audio-input-microphone-muted-symbolic' :
                                         'audio-input-microphone-symbolic';

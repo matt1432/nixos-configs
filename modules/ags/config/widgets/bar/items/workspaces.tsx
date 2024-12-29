@@ -89,10 +89,10 @@ export default () => {
             .child as Widget.Box)
             .children as Widget.Revealer[];
 
-        const currentIndex = indicators.findIndex((w) => w.name === currentId);
+        const currentIndex = indicators.findIndex((w) => w.get_name() === currentId);
 
         if (currentIndex >= 0) {
-            self.css = `margin-left: ${L_PADDING + (currentIndex * WS_WIDTH)}px`;
+            self.set_css(`margin-left: ${L_PADDING + (currentIndex * WS_WIDTH)}px`);
         }
     };
 
@@ -123,40 +123,40 @@ export default () => {
                 <box
                     setup={(self) => {
                         const refresh = () => {
-                            (self.children as Widget.Revealer[]).forEach((rev) => {
-                                rev.reveal_child = false;
+                            (self.get_children() as Widget.Revealer[]).forEach((rev) => {
+                                rev.set_reveal_child(false);
                             });
 
                             workspaces.forEach((ws) => {
-                                ws.reveal_child = true;
+                                ws.set_reveal_child(true);
                             });
                         };
 
                         const updateWorkspaces = () => {
                             Hyprland.get_workspaces().forEach((ws) => {
-                                const currentWs = (self.children as Widget.Revealer[])
-                                    .find((ch) => ch.name === ws.id.toString());
+                                const currentWs = (self.get_children() as Widget.Revealer[])
+                                    .find((ch) => ch.get_name() === ws.get_id().toString());
 
-                                if (!currentWs && ws.id > 0) {
-                                    self.add(Workspace({ id: ws.id }));
+                                if (!currentWs && ws.get_id() > 0) {
+                                    self.add(Workspace({ id: ws.get_id() }));
                                 }
                             });
 
                             // Make sure the order is correct
                             workspaces.forEach((workspace, i) => {
-                                (workspace.get_parent() as Widget.Box)
-                                    .reorder_child(workspace, i);
+                                (workspace.get_parent() as Widget.Box).reorder_child(workspace, i);
                             });
                         };
 
                         const updateAll = () => {
-                            workspaces = (self.children as Widget.Revealer[])
+                            workspaces = (self.get_children() as Widget.Revealer[])
                                 .filter((ch) => {
                                     return Hyprland.get_workspaces().find((ws) => {
-                                        return ws.id.toString() === ch.name;
+                                        return ws.get_id().toString() === ch.get_name();
                                     });
                                 })
-                                .sort((a, b) => parseInt(a.name ?? '0') - parseInt(b.name ?? '0'));
+                                .sort((a, b) =>
+                                    parseInt(a.get_name() ?? '0') - parseInt(b.get_name() ?? '0'));
 
                             updateWorkspaces();
                             refresh();

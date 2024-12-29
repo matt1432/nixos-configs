@@ -6,21 +6,23 @@ import AstalHyprland from 'gi://AstalHyprland';
 export const get_hyprland_monitor = (monitor: Gdk.Monitor): AstalHyprland.Monitor | undefined => {
     const hyprland = AstalHyprland.get_default();
 
-    const manufacturer = monitor.manufacturer?.replace(',', '');
-    const model = monitor.model?.replace(',', '');
+    const manufacturer = monitor.get_manufacturer()?.replace(',', '');
+    const model = monitor.get_model()?.replace(',', '');
     const start = `${manufacturer} ${model}`;
 
-    return hyprland.get_monitors().find((m) => m.description?.startsWith(start));
+    return hyprland.get_monitors().find((m) => m.get_description()?.startsWith(start));
 };
 
 export const get_hyprland_monitor_desc = (monitor: Gdk.Monitor): string => {
     const hyprland = AstalHyprland.get_default();
 
-    const manufacturer = monitor.manufacturer?.replace(',', '');
-    const model = monitor.model?.replace(',', '');
+    const manufacturer = monitor.get_manufacturer()?.replace(',', '');
+    const model = monitor.get_model()?.replace(',', '');
     const start = `${manufacturer} ${model}`;
 
-    return `desc:${hyprland.get_monitors().find((m) => m.description?.startsWith(start))?.description}`;
+    return `desc:${hyprland
+        .get_monitors()
+        .find((m) => m.get_description()?.startsWith(start))?.get_description()}`;
 };
 
 export const get_gdkmonitor_from_desc = (desc: string): Gdk.Monitor => {
@@ -38,7 +40,7 @@ export const get_gdkmonitor_from_desc = (desc: string): Gdk.Monitor => {
 };
 
 export const get_monitor_desc = (mon: AstalHyprland.Monitor): string => {
-    return `desc:${mon.description}`;
+    return `desc:${mon.get_description()}`;
 };
 
 export const hyprMessage = (message: string) => new Promise<string>((
@@ -66,25 +68,25 @@ export const centerCursor = (): void => {
     let y: number;
     const monitor = hyprland.get_focused_monitor();
 
-    switch (monitor.transform) {
+    switch (monitor.get_transform()) {
         case 1:
-            x = monitor.x - (monitor.height / 2);
-            y = monitor.y - (monitor.width / 2);
+            x = monitor.get_x() - (monitor.get_height() / 2);
+            y = monitor.get_y() - (monitor.get_width() / 2);
             break;
 
         case 2:
-            x = monitor.x - (monitor.width / 2);
-            y = monitor.y - (monitor.height / 2);
+            x = monitor.get_x() - (monitor.get_width() / 2);
+            y = monitor.get_y() - (monitor.get_height() / 2);
             break;
 
         case 3:
-            x = monitor.x + (monitor.height / 2);
-            y = monitor.y + (monitor.width / 2);
+            x = monitor.get_x() + (monitor.get_height() / 2);
+            y = monitor.get_y() + (monitor.get_width() / 2);
             break;
 
         default:
-            x = monitor.x + (monitor.width / 2);
-            y = monitor.y + (monitor.height / 2);
+            x = monitor.get_x() + (monitor.get_width() / 2);
+            y = monitor.get_y() + (monitor.get_height() / 2);
             break;
     }
 

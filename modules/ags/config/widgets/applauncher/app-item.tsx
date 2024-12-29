@@ -27,7 +27,7 @@ export class AppItem extends Widget.Box {
 
         const icon = (
             <icon
-                icon={this.app.iconName}
+                icon={this.app.get_icon_name()}
                 css="font-size: 42px; margin-right: 25px;"
             />
         );
@@ -36,7 +36,7 @@ export class AppItem extends Widget.Box {
             <box vertical>
                 <label
                     className="title"
-                    label={app.name}
+                    label={app.get_name()}
                     xalign={0}
                     truncate
                     valign={Gtk.Align.CENTER}
@@ -45,7 +45,7 @@ export class AppItem extends Widget.Box {
                 {app.description !== '' && (
                     <label
                         className="description"
-                        label={app.description}
+                        label={app.get_description()}
                         wrap
                         xalign={0}
                         justify={Gtk.Justification.LEFT}

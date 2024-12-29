@@ -28,7 +28,7 @@ export default () => {
                     'right',
                 );
 
-                win.visible = !win.visible;
+                win.set_visible(!win.get_visible());
             }}
         >
             {bind(network, 'primary').as((primary) => {
@@ -38,7 +38,7 @@ export default () => {
                 else if (primary === AstalNetwork.Primary.WIFI) {
                     const Wifi = network.get_wifi();
 
-                    if (!Wifi || Wifi.accessPoints.length === 0) { return; }
+                    if (!Wifi || Wifi.get_access_points().length === 0) { return; }
 
                     return (
                         <box>

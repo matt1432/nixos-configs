@@ -15,7 +15,7 @@ const apCommand = (ap: AstalNetwork.AccessPoint, cmd: string[]): void => {
         ap.get_ssid()!,
     ]).catch((e) => notifySend({
         title: 'Network',
-        iconName: ap.iconName,
+        iconName: ap.get_icon_name(),
         body: (e as Error).message,
         actions: [
             {

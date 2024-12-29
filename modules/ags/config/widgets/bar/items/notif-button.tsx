@@ -27,13 +27,13 @@ export default () => {
                     'right',
                 );
 
-                win.visible = !win.visible;
+                win.set_visible(!win.get_visible());
             }}
 
             setup={(self) => {
                 App.connect('window-toggled', (_, win) => {
-                    if (win.name === 'win-notif-center') {
-                        self.toggleClassName('toggle-on', win.visible);
+                    if (win.get_name() === 'win-notif-center') {
+                        self.toggleClassName('toggle-on', win.get_visible());
                     }
                 });
             }}
@@ -41,7 +41,7 @@ export default () => {
             <box>
                 <icon
                     icon={bind(notifications, 'notifications').as((notifs) => {
-                        if (notifications.dontDisturb) {
+                        if (notifications.get_dont_disturb()) {
                             return 'notification-disabled-symbolic';
                         }
                         else if (notifs.length > 0) {

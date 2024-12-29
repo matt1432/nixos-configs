@@ -27,7 +27,7 @@ export default () => {
                     'right',
                 );
 
-                win.visible = !win.visible;
+                win.set_visible(!win.get_visible());
             }}
         >
             {bind(bluetooth, 'isPowered').as((isPowered) => {
@@ -38,7 +38,9 @@ export default () => {
                     return (
                         <box>
                             {bind(bluetooth, 'isConnected').as((isConnected) => {
-                                const device = bluetooth.get_devices().find((dev) => dev.connected);
+                                const device = bluetooth
+                                    .get_devices()
+                                    .find((dev) => dev.get_connected());
 
                                 if (!isConnected || !device) {
                                     return (<icon icon="bluetooth-active-symbolic" />);

@@ -69,7 +69,7 @@ const setupButton = (self: Gtk.Widget) => {
         if (!display) {
             return;
         }
-        self.window.set_cursor(Gdk.Cursor.new_from_name(
+        self.get_window()?.set_cursor(Gdk.Cursor.new_from_name(
             display,
             'pointer',
         ));
@@ -80,7 +80,7 @@ const setupButton = (self: Gtk.Widget) => {
         if (!display) {
             return;
         }
-        self.window.set_cursor(null);
+        self.get_window()?.set_cursor(null);
     });
 };
 
@@ -127,7 +127,7 @@ export const Notification = ({
                 }
             }}*/
         >
-            <box vertical className={`notification ${notifObj.urgency} widget`}>
+            <box vertical className={`notification ${notifObj.get_urgency()} widget`}>
                 {/* Content */}
                 <box>
                     <NotifIcon notifObj={notifObj} />
@@ -146,8 +146,8 @@ export const Notification = ({
                                 max_width_chars={24}
                                 truncate
                                 wrap
-                                label={notifObj.summary}
-                                use_markup={notifObj.summary.startsWith('<')}
+                                label={notifObj.get_summary()}
+                                use_markup={notifObj.get_summary().startsWith('<')}
                             />
 
                             {/* Time */}
@@ -155,7 +155,7 @@ export const Notification = ({
                                 className="time"
                                 valign={Gtk.Align.CENTER}
                                 halign={Gtk.Align.END}
-                                label={setTime(notifObj.time)}
+                                label={setTime(notifObj.get_time())}
                             />
 
                             {/* Close button */}
@@ -180,7 +180,7 @@ export const Notification = ({
                             hexpand
                             use_markup
                             xalign={0}
-                            label={notifObj.body}
+                            label={notifObj.get_body()}
                             wrap
                         />
                     </box>

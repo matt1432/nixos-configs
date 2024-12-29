@@ -143,7 +143,7 @@ export class NotifGestureWrapper extends Widget.EventBox {
             return;
         }
 
-        revChild.css = side === 'Left' ? slideLeft : slideRight;
+        revChild.set_css(side === 'Left' ? slideLeft : slideRight);
 
         timeout(ANIM_DURATION - 100, () => {
             rev = this.get_child() as Widget.Revealer | null;
@@ -265,21 +265,21 @@ export class NotifGestureWrapper extends Widget.EventBox {
 
                                 // Slide right
                                 if (offset > 0) {
-                                    self.css = `
+                                    self.set_css(`
                                         opacity: 1; transition: none;
                                         margin-left:   ${offset}px;
                                         margin-right: -${offset}px;
-                                    `;
+                                    `);
                                 }
 
                                 // Slide left
                                 else {
                                     offset = Math.abs(offset);
-                                    self.css = `
+                                    self.set_css(`
                                         opacity: 1; transition: none;
                                         margin-right: ${offset}px;
                                         margin-left: -${offset}px;
-                                    `;
+                                    `);
                                 }
 
                                 // Put a threshold on if a click is actually dragging
@@ -301,7 +301,7 @@ export class NotifGestureWrapper extends Widget.EventBox {
                                     this.slideAway(offset > 0 ? 'Right' : 'Left');
                                 }
                                 else {
-                                    self.css = defaultStyle;
+                                    self.set_css(defaultStyle);
                                     this.dragging = false;
 
                                     this.setCursor('grab');
@@ -313,9 +313,9 @@ export class NotifGestureWrapper extends Widget.EventBox {
                         }
 
                         // Reverse of slideAway, so it started at squeeze, then we go to slide
-                        self.css = this.slide_in_from === 'Left' ?
+                        self.set_css(this.slide_in_from === 'Left' ?
                             slideLeft :
-                            slideRight;
+                            slideRight);
 
                         idle(() => {
                             if (!notifications.get_notification(id)) {
@@ -336,7 +336,7 @@ export class NotifGestureWrapper extends Widget.EventBox {
                                 }
 
                                 // Then we go to center
-                                self.css = defaultStyle;
+                                self.set_css(defaultStyle);
 
                                 if (this.is_popup) {
                                     timeout(ANIM_DURATION, () => {

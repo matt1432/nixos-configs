@@ -38,13 +38,13 @@ export default () => {
                     'right',
                 );
 
-                win.visible = !win.visible;
+                win.set_visible(!win.get_visible());
             }}
 
             setup={(self) => {
                 App.connect('window-toggled', (_, win) => {
-                    if (win.name === 'win-notif-center') {
-                        self.toggleClassName('toggle-on', win.visible);
+                    if (win.get_name() === 'win-notif-center') {
+                        self.toggleClassName('toggle-on', win.get_visible());
                     }
                 });
             }}

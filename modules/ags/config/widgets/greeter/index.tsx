@@ -64,7 +64,7 @@ export default (hyprpaper: InstanceType<typeof Process>) => {
             onActivate={(self) => {
                 AstalGreet.login(
                     dropdown.get_active_text() ?? '',
-                    self.text || '',
+                    self.get_text() || '',
                     'Hyprland',
                     (_, res) => {
                         try {
@@ -77,7 +77,7 @@ export default (hyprpaper: InstanceType<typeof Process>) => {
                             }, 500);
                         }
                         catch (error) {
-                            response.label = JSON.stringify(error);
+                            response.set_label(JSON.stringify(error));
                         }
                     },
                 );
@@ -94,7 +94,7 @@ export default (hyprpaper: InstanceType<typeof Process>) => {
             setup={(self) => {
                 centerCursor();
                 setTimeout(() => {
-                    self.visible = true;
+                    self.set_visible(true);
                     password.grab_focus();
                 }, 1000);
             }}

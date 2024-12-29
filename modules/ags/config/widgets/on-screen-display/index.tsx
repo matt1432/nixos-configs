@@ -42,8 +42,8 @@ export default () => {
     globalThis.popup_osd = popup;
 
     const brightness = Brightness.get_default();
-    const speaker = AstalWp.get_default()?.audio.default_speaker;
-    const microphone = AstalWp.get_default()?.audio.default_microphone;
+    const speaker = AstalWp.get_default()?.get_audio()?.get_default_speaker();
+    const microphone = AstalWp.get_default()?.get_audio()?.get_default_microphone();
 
     if (!speaker || !microphone) {
         throw new Error('Could not find default audio devices.');

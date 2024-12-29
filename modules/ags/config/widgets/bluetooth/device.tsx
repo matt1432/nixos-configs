@@ -87,7 +87,7 @@ export default class DeviceWidget extends Widget.Revealer {
                                 dev.pair();
                             }
                             else {
-                                bluetooth.adapter.remove_device(dev);
+                                bluetooth.get_adapter()?.remove_device(dev);
                             }
                         }}
                     />
@@ -111,7 +111,7 @@ export default class DeviceWidget extends Widget.Revealer {
             <button
                 cursor="pointer"
                 onButtonReleaseEvent={() => {
-                    rev.revealChild = !rev.revealChild;
+                    rev.set_reveal_child(!rev.get_reveal_child());
                 }}
             >
                 <box>
@@ -155,7 +155,7 @@ export default class DeviceWidget extends Widget.Revealer {
         this.dev = dev;
 
         this.connect('realize', () => idle(() => {
-            this.revealChild = true;
+            this.set_reveal_child(true);
         }));
     };
 };

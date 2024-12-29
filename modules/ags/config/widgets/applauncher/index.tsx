@@ -16,10 +16,10 @@ export default () => SortedList({
     create_row: (app) => <AppItem app={app} />,
 
     fzf_options: {
-        selector: (app) => app.name + app.executable,
+        selector: (app) => app.get_name() + app.get_executable(),
 
         tiebreakers: [
-            (a, b) => b.item.frequency - a.item.frequency,
+            (a, b) => b.item.get_frequency() - a.item.get_frequency(),
         ],
     },
 
@@ -40,11 +40,11 @@ export default () => SortedList({
             a.set_visible(true);
             b.set_visible(true);
 
-            return row2.frequency - row1.frequency;
+            return row2.get_frequency() - row1.get_frequency();
         }
         else {
-            const s1 = fzfResults.find((r) => r.item.name === row1.name)?.score ?? 0;
-            const s2 = fzfResults.find((r) => r.item.name === row2.name)?.score ?? 0;
+            const s1 = fzfResults.find((r) => r.item.get_name() === row1.get_name())?.score ?? 0;
+            const s2 = fzfResults.find((r) => r.item.get_name() === row2.get_name())?.score ?? 0;
 
             a.set_visible(s1 !== 0);
             b.set_visible(s2 !== 0);

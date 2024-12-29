@@ -148,9 +148,9 @@ const RegularKey = (key: Key) => {
                     self
                         .hook(Shift, () => {
                             if (key.labelShift) {
-                                self.label = Shift.get() ?
+                                self.set_label(Shift.get() ?
                                     key.labelShift :
-                                    key.label;
+                                    key.label);
                             }
                         })
                         .hook(Caps, () => {
@@ -161,18 +161,18 @@ const RegularKey = (key: Key) => {
                             }
 
                             if (key.labelShift && key.label.match(/[A-Za-z]/)) {
-                                self.label = Caps.get() ?
+                                self.set_label(Caps.get() ?
                                     key.labelShift :
-                                    key.label;
+                                    key.label);
                             }
                         })
                         .hook(AltGr, () => {
                             if (key.labelAltGr) {
                                 self.toggleClassName('altgr', AltGr.get());
 
-                                self.label = AltGr.get() ?
+                                self.set_label(AltGr.get() ?
                                     key.labelAltGr :
-                                    key.label;
+                                    key.label);
                             }
                         });
                 }}

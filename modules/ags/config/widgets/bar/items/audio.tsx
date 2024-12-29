@@ -7,7 +7,7 @@ import PopupWindow from '../../misc/popup-window';
 
 
 export default () => {
-    const speaker = AstalWp.get_default()?.audio.default_speaker;
+    const speaker = AstalWp.get_default()?.get_audio()?.get_default_speaker();
 
     if (!speaker) {
         throw new Error('Could not find default audio devices.');
@@ -26,7 +26,7 @@ export default () => {
                     'right',
                 );
 
-                win.visible = !win.visible;
+                win.set_visible(!win.get_visible());
             }}
         >
             <overlay passThrough>

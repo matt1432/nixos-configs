@@ -42,20 +42,20 @@ export default (window: OskWindow) => {
         if (tablet.oskState) {
             window.setSlideDown();
 
-            window.get_child().css = `
+            window.get_child().set_css(`
                 transition: margin-bottom ${ANIM_DURATION}ms cubic-bezier(0.36, 0, 0.66, -0.56);
                 margin-bottom: 0px;
-            `;
+            `);
         }
         else {
             releaseAllKeys();
 
             window.setSlideUp();
 
-            window.get_child().css = `
+            window.get_child().set_css(`
                 transition: margin-bottom ${ANIM_DURATION}ms cubic-bezier(0.36, 0, 0.66, -0.56);
                 margin-bottom: -${calculatedHeight}px;
-            `;
+            `);
         }
     });
 
@@ -91,23 +91,23 @@ export default (window: OskWindow) => {
                     const offset = window.startY - currentY;
 
                     if (offset < 0) {
-                        window.get_child().css = `
+                        window.get_child().set_css(`
                             transition: margin-bottom 0.5s ease-in-out;
                             margin-bottom: -${calculatedHeight}px;
-                        `;
+                        `);
 
                         return;
                     }
 
                     if (offset > calculatedHeight) {
-                        window.get_child().css = `
+                        window.get_child().set_css(`
                             margin-bottom: 0px;
-                        `;
+                        `);
                     }
                     else {
-                        window.get_child().css = `
+                        window.get_child().set_css(`
                             margin-bottom: ${offset - calculatedHeight}px;
-                        `;
+                        `);
                     }
                 });
             }),
@@ -125,17 +125,17 @@ export default (window: OskWindow) => {
                     const offset = window.startY - currentY;
 
                     if (offset > calculatedHeight) {
-                        window.get_child().css = `
+                        window.get_child().set_css(`
                             transition: margin-bottom 0.5s ease-in-out;
                             margin-bottom: 0px;
-                        `;
+                        `);
                         tablet.oskState = true;
                     }
                     else {
-                        window.get_child().css = `
+                        window.get_child().set_css(`
                             transition: margin-bottom 0.5s ease-in-out;
                             margin-bottom: -${calculatedHeight}px;
-                        `;
+                        `);
                     }
 
                     window.startY = null;
@@ -172,17 +172,17 @@ export default (window: OskWindow) => {
                     const offset = window.startY - currentY;
 
                     if (offset > 0) {
-                        window.get_child().css = `
+                        window.get_child().set_css(`
                             transition: margin-bottom 0.5s ease-in-out;
                             margin-bottom: 0px;
-                        `;
+                        `);
 
                         return;
                     }
 
-                    window.get_child().css = `
+                    window.get_child().set_css(`
                         margin-bottom: ${offset}px;
-                    `;
+                    `);
                 });
             }),
         );
@@ -199,18 +199,18 @@ export default (window: OskWindow) => {
                     const offset = window.startY - currentY;
 
                     if (offset < -(calculatedHeight * 2 / 3)) {
-                        window.get_child().css = `
+                        window.get_child().set_css(`
                             transition: margin-bottom 0.5s ease-in-out;
                             margin-bottom: -${calculatedHeight}px;
-                        `;
+                        `);
 
                         tablet.oskState = false;
                     }
                     else {
-                        window.get_child().css = `
+                        window.get_child().set_css(`
                             transition: margin-bottom 0.5s ease-in-out;
                             margin-bottom: 0px;
-                        `;
+                        `);
                     }
 
                     window.startY = null;

@@ -87,7 +87,7 @@ export class PopupWindow extends Widget.Window {
         const monitor = this.gdkmonitor ??
             this.get_display().get_monitor_at_point(alloc.x, alloc.y);
 
-        const transform = get_hyprland_monitor(monitor)?.transform;
+        const transform = get_hyprland_monitor(monitor)?.get_transform();
 
         let width: number;
 

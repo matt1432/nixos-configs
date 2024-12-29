@@ -18,10 +18,10 @@ export default () => {
         client: AstalHyprland.Client | null = hyprland.get_focused_client(),
     ) => {
         const app = applications.fuzzy_query(
-            client?.class ?? '',
+            client?.get_class() ?? '',
         )[0];
 
-        const icon = app?.iconName;
+        const icon = app?.get_icon_name();
 
         if (icon) {
             visibleIcon.set(true);

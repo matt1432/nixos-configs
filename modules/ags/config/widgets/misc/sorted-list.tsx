@@ -80,9 +80,12 @@ export class SortedList<T> {
                     this.fzf_results = out;
                     list.invalidate_sort();
 
-                    const visibleApplications = list.get_children().filter((row) => row.visible).length;
+                    const visibleApplications = list
+                        .get_children()
+                        .filter((row) => row.get_visible())
+                        .length;
 
-                    placeholder.reveal_child = visibleApplications <= 0;
+                    placeholder.set_reveal_child(visibleApplications <= 0);
                 })
                 .catch(() => { /**/ });
         };
@@ -134,7 +137,7 @@ export class SortedList<T> {
                 name={name}
                 keymode={Astal.Keymode.ON_DEMAND}
                 on_open={() => {
-                    entry.text = '';
+                    entry.set_text('');
                     refreshItems();
                     centerCursor();
                     entry.grab_focus();

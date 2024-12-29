@@ -12,29 +12,29 @@ import DeviceWidget from './device';
 const calculateDevSort = (dev: AstalBluetooth.Device) => {
     let value = 0;
 
-    if (dev.connected) {
+    if (dev.get_connected()) {
         value += 1000;
     }
-    if (dev.paired) {
+    if (dev.get_paired()) {
         value += 100;
     }
-    if (dev.blocked) {
+    if (dev.get_blocked()) {
         value += 10;
     }
-    if (dev.icon) {
-        if (dev.icon === 'audio-headset') {
+    if (dev.get_icon()) {
+        if (dev.get_icon() === 'audio-headset') {
             value += 9;
         }
-        if (dev.icon === 'audio-headphones') {
+        if (dev.get_icon() === 'audio-headphones') {
             value += 8;
         }
-        if (dev.icon === 'audio-card') {
+        if (dev.get_icon() === 'audio-card') {
             value += 7;
         }
-        if (dev.icon === 'computer') {
+        if (dev.get_icon() === 'computer') {
             value += 6;
         }
-        if (dev.icon === 'phone') {
+        if (dev.get_icon() === 'phone') {
             value += 5;
         }
     }
@@ -58,13 +58,13 @@ export default () => {
 
                 setup={(self) => {
                     bluetooth.devices
-                        .filter((dev) => dev.name)
+                        .filter((dev) => dev.get_name())
                         .forEach((dev) => {
                             self.add(<DeviceWidget dev={dev} />);
                         });
 
                     self.hook(bluetooth, 'device-added', (_, dev) => {
-                        if (dev.name) {
+                        if (dev.get_name()) {
                             self.add(<DeviceWidget dev={dev} />);
                             self.invalidate_sort();
                         }
@@ -78,11 +78,11 @@ export default () => {
                         const devWidget = children.find((ch) => ch.dev === dev);
 
                         if (devWidget) {
-                            devWidget.revealChild = false;
+                            devWidget.set_reveal_child(false);
 
                             setTimeout(() => {
                                 devWidget.get_parent()?.destroy();
-                            }, devWidget.transitionDuration + 100);
+                            }, devWidget.get_transition_duration() + 100);
                         }
                     });
 
@@ -92,7 +92,7 @@ export default () => {
 
                         const sort = calculateDevSort(devB) - calculateDevSort(devA);
 
-                        return sort !== 0 ? sort : devA.name.localeCompare(devB.name);
+                        return sort !== 0 ? sort : devA.get_name().localeCompare(devB.get_name());
                     });
                 }}
             />
@@ -114,7 +114,7 @@ export default () => {
 
                     setup={(self) => {
                         self.connect('notify::active', () => {
-                            bluetooth.adapter?.set_powered(self.active);
+                            bluetooth.get_adapter()?.set_powered(self.active);
                         });
                     }}
                 />
@@ -133,10 +133,10 @@ export default () => {
                         self.toggleClassName('active', self.active);
 
                         if (self.active) {
-                            bluetooth.adapter?.start_discovery();
+                            bluetooth.get_adapter()?.start_discovery();
                         }
                         else {
-                            bluetooth.adapter?.stop_discovery();
+                            bluetooth.get_adapter()?.stop_discovery();
                         }
                     }}
                 >

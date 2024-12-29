@@ -8,7 +8,7 @@ const SKIP_ITEMS = ['.spotify-wrapped'];
 
 const TrayItem = (item: AstalTray.TrayItem) => {
     if (item.iconThemePath) {
-        App.add_icons(item.iconThemePath);
+        App.add_icons(item.get_icon_theme_path());
     }
 
     return (
@@ -43,7 +43,7 @@ export default () => {
             setup={(self) => {
                 self
                     .hook(tray, 'item-added', (_, item: string) => {
-                        if (itemMap.has(item) || SKIP_ITEMS.includes(tray.get_item(item).title)) {
+                        if (itemMap.has(item) || SKIP_ITEMS.includes(tray.get_item(item).get_title())) {
                             return;
                         }
 

@@ -18,7 +18,7 @@ interface NotifySendProps {
     urgency?: 'low' | 'normal' | 'critical'
 }
 
-const escapeShellArg = (arg: string): string => `'${arg?.replace(/'/g, '\'\\\'\'')}'`;
+const escapeShellArg = (arg: string | undefined): string => `'${arg?.replace(/'/g, '\'\\\'\'') ?? ''}'`;
 
 export const notifySend = ({
     actions = [],

@@ -21,13 +21,13 @@ export default () => {
     const updateVars = (
         client: AstalHyprland.Client | null = hyprland.get_focused_client(),
     ) => {
-        lastFocusedAddress = client ? client.address : null;
+        lastFocusedAddress = client ? client.get_address() : null;
 
         const app = applications.fuzzy_query(
-            client?.class ?? '',
+            client?.get_class() ?? '',
         )[0];
 
-        const icon = app?.iconName;
+        const icon = app?.get_icon_name();
 
         if (icon) {
             visibleIcon.set(true);
@@ -37,7 +37,7 @@ export default () => {
             visibleIcon.set(false);
         }
 
-        focusedTitle.set(client?.title ?? '');
+        focusedTitle.set(client?.get_title() ?? '');
         const id = client?.connect('notify::title', (c) => {
             if (c.get_address() !== lastFocusedAddress) {
                 c.disconnect(id);

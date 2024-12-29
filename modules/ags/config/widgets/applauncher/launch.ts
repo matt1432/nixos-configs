@@ -23,5 +23,6 @@ export const launchApp = (app: AstalApps.Application) => {
         .join(' ');
 
     bash(`${exe} &`);
-    app.frequency += 1;
+
+    app.set_frequency(app.get_frequency() + 1);
 };
