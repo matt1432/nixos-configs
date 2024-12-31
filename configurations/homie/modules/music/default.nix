@@ -27,13 +27,23 @@
   systemd.user.services = {
     pulseaudio.after = ["bluetooth.service"];
     spotifyd.after = ["pulseaudio.service"];
+
     ueboom = {
       after = ["spotifyd.service"];
-      path = with pkgs; [bluez];
+      path = builtins.attrValues {
+        inherit (pkgs) bluez;
+        inherit (config.hardware.pulseaudio) package;
+      };
       script = ''
-        sleep 60
-        exec bluetoothctl connect 88:C6:26:93:4B:77
+        if [[ "$(pactl get-default-sink)" == "auto_null" ]]; then
+            exec bluetoothctl connect 88:C6:26:93:4B:77
+        fi
       '';
+      serviceConfig = {
+        Restart = "on-failure";
+        RestartSec = 3;
+        RestartPreventExitStatus = 3;
+      };
     };
   };
   systemd.user.targets.default.wants = [
