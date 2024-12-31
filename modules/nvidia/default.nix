@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (builtins) toJSON;
+  inherit (builtins) attrValues toJSON;
   inherit (lib) mkIf mkEnableOption mkOption optionals optionalString types;
 
   cfg = config.nvidia;
@@ -33,7 +33,7 @@ in {
       enable = true;
       enable32Bit = true;
 
-      extraPackages = builtins.attrValues {
+      extraPackages = attrValues {
         inherit
           (pkgs)
           vaapiVdpau
@@ -41,40 +41,28 @@ in {
           nvidia-vaapi-driver
           ;
       };
-      extraPackages32 = [pkgs.vaapiVdpau];
+      extraPackages32 = attrValues {
+        inherit
+          (pkgs)
+          vaapiVdpau
+          ;
+      };
     };
 
     services.xserver.videoDrivers = ["nvidia"];
 
     hardware.nvidia = {
-      modesetting.enable = true;
+      open = true;
 
-      # Enable the Nvidia settings menu,
-      # accessible via `nvidia-settings`.
+      package = config.boot.kernelPackages.nvidiaPackages.latest;
+
+      # Whether to enable nvidia-settings, NVIDIA's GUI configuration tool
       nvidiaSettings = cfg.enableNvidiaSettings;
-
-      # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
-      powerManagement = {
-        enable = false;
-
-        # Fine-grained power management. Turns off GPU when not in use.
-        # Experimental and only works on modern Nvidia GPUs (Turing or newer).
-        finegrained = false;
-      };
-
-      open = false;
-
-      package = let
-        inherit (config.boot.kernelPackages.nvidiaPackages) beta stable;
-      in
-        if !cfg.enableWayland
-        then stable
-        else beta;
     };
 
     environment.systemPackages =
       optionals cfg.enableCUDA [pkgs.cudaPackages.cudatoolkit]
-      ++ (builtins.attrValues {
+      ++ (attrValues {
         inherit (pkgs.nvtopPackages) nvidia;
         inherit
           (pkgs)
@@ -90,6 +78,7 @@ in {
       ++ ["nvidia" "nvidia-drm"];
 
     # Fixes egl-wayland issues with beta drivers
+    # https://github.com/hyprwm/Hyprland/issues/7202
     environment.etc = let
       mkEglFile = n: library: let
         suffix = optionalString (library != "wayland") ".1";
