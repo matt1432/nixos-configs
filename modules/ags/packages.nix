@@ -15,6 +15,7 @@ self: {
 
   cfg = config.programs.ags;
   cfgDesktop = osConfig.roles.desktop;
+  gtk4ConfigDir = "${cfg.configDir}/../gtk4";
 
   mainPkg = pkgs.writeShellApplication {
     name = "ags";
@@ -80,6 +81,13 @@ in {
         [
           mainPkg
           (pkgs.writeShellApplication {
+            name = "ags4";
+            runtimeInputs = [cfg.package];
+            text = ''
+              exec ags run ~/${gtk4ConfigDir}/app.ts --gtk4
+            '';
+          })
+          (pkgs.writeShellApplication {
             name = "agsConf";
             runtimeInputs = [cfg.package];
             text = ''
@@ -108,38 +116,48 @@ in {
           buildNodeModules
           buildGirTypes
           ;
+
+        mkTsConf = gtkVer: let
+          inherit (ags.packages.${pkgs.system}) gjs;
+        in
+          pkgs.writers.writeJSON "tsconfig.json" {
+            "$schema" = "https://json.schemastore.org/tsconfig";
+            "compilerOptions" = {
+              "experimentalDecorators" = true;
+              "strict" = true;
+              "target" = "ES2022";
+              "module" = "ES2022";
+              "moduleResolution" = "Bundler";
+              "noEmit" = true;
+              "jsx" = "react-jsx";
+              "jsxImportSource" = "${gjs}/share/astal/gjs/gtk${toString gtkVer}";
+              "paths" = {
+                "astal" = ["${gjs}/share/astal/gjs"];
+                "astal/*" = ["${gjs}/share/astal/gjs/*"];
+              };
+            };
+          };
       in (
         (buildGirTypes {
           pname = "ags";
           configPath = "${cfg.configDir}/@girs";
           packages = cfg.astalLibs;
         })
+        // (buildGirTypes {
+          pname = "ags";
+          configPath = "${gtk4ConfigDir}/@girs";
+          packages = cfg.astalLibs;
+        })
         // {
           "${cfg.configDir}/node_modules".source =
             buildNodeModules ./config (import ./config).npmDepsHash;
 
-          "${cfg.configDir}/tsconfig.json".source = let
-            inherit (ags.packages.${pkgs.system}) gjs;
-          in
-            pkgs.writers.writeJSON "tsconfig.json" {
-              "$schema" = "https://json.schemastore.org/tsconfig";
-              "compilerOptions" = {
-                "experimentalDecorators" = true;
-                "strict" = true;
-                "target" = "ES2023";
-                "moduleResolution" = "Bundler";
-                "jsx" = "react-jsx";
-                "jsxImportSource" = "${gjs}/share/astal/gjs/gtk3";
-                "paths" = {
-                  "astal" = ["${gjs}/share/astal/gjs"];
-                  "astal/*" = ["${gjs}/share/astal/gjs/*"];
-                };
-                "skipLibCheck" = true;
-                "module" = "ES2022";
-                "lib" = ["ES2023"];
-                "noEmit" = true;
-              };
-            };
+          "${gtk4ConfigDir}/node_modules".source =
+            buildNodeModules ./config (import ./config).npmDepsHash;
+
+          "${cfg.configDir}/tsconfig.json".source = mkTsConf 3;
+
+          "${gtk4ConfigDir}/tsconfig.json".source = mkTsConf 4;
 
           "${cfg.configDir}/widgets/lockscreen/vars.ts".text =
             # javascript
