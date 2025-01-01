@@ -20,8 +20,8 @@ export const filter = (children: any[]) => {
         new Gtk.Label({ visible: true, label: String(ch) }));
 };
 
+export const type = Symbol('child type');
 const dummyBuilder = new Gtk.Builder();
-const type = Symbol('child type');
 
 interface EventController<Self extends Gtk.Widget> {
     onFocusEnter?: (self: Self) => void

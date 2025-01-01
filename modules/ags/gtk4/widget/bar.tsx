@@ -1,7 +1,7 @@
 import { App, Astal, Gtk } from 'astal/gtk4';
 import { Variable } from 'astal';
 
-import { Box, Button, CenterBox } from './subclasses';
+import { Box, Button, Calendar, CenterBox, Label, MenuButton, Popover, Window } from './subclasses';
 
 const { EXCLUSIVE } = Astal.Exclusivity;
 const { TOP, LEFT, RIGHT } = Astal.WindowAnchor;
@@ -21,7 +21,7 @@ export default () => {
     ) as Box;
 
     return (
-        <window
+        <Window
             visible
             cssClasses={['Bar']}
             exclusivity={EXCLUSIVE}
@@ -33,16 +33,16 @@ export default () => {
 
                 {styledBox}
 
-                <menubutton
+                <MenuButton
                     hexpand
                     halign={CENTER}
                 >
-                    <label label={time().as(String)} />
-                    <popover>
-                        <Gtk.Calendar />
-                    </popover>
-                </menubutton>
+                    <Label label={time().as(String)} />
+                    <Popover>
+                        <Calendar />
+                    </Popover>
+                </MenuButton>
             </CenterBox>
-        </window>
+        </Window>
     );
 };
