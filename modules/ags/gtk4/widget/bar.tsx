@@ -1,12 +1,11 @@
 import { App, Astal, Gtk } from 'astal/gtk4';
 import { Variable } from 'astal';
 
-import { StyledBox } from './styled-box';
+import { Box, Button, CenterBox } from './subclasses';
 
 const { EXCLUSIVE } = Astal.Exclusivity;
 const { TOP, LEFT, RIGHT } = Astal.WindowAnchor;
 const { CENTER } = Gtk.Align;
-
 
 const time = Variable(0);
 
@@ -16,10 +15,10 @@ setInterval(() => {
 
 export default () => {
     const styledBox = (
-        <StyledBox
+        <Box
             css={time().as((t) => `* { background: red; min-height: 10px; min-width: ${t}px; }`)}
         />
-    ) as StyledBox;
+    ) as Box;
 
     return (
         <window
@@ -29,8 +28,8 @@ export default () => {
             anchor={TOP | LEFT | RIGHT}
             application={App}
         >
-            <centerbox cssName="centerbox">
-                <box />
+            <CenterBox cssName="centerbox">
+                <Button onClicked="echo hi" />
 
                 {styledBox}
 
@@ -43,7 +42,7 @@ export default () => {
                         <Gtk.Calendar />
                     </popover>
                 </menubutton>
-            </centerbox>
+            </CenterBox>
         </window>
     );
 };
