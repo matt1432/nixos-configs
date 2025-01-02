@@ -117,28 +117,6 @@ in {
           buildNodeModules
           buildGirTypes
           ;
-
-        mkTsConf = gtkVer: let
-          inherit (astal.packages.${pkgs.system}) gjs;
-        in
-          pkgs.writers.writeJSON "tsconfig.json" {
-            "$schema" = "https://json.schemastore.org/tsconfig";
-            "compilerOptions" = {
-              "experimentalDecorators" = true;
-              "strict" = true;
-              "target" = "ES2022";
-              "module" = "ES2022";
-              "lib" = ["ES2022"];
-              "moduleResolution" = "Bundler";
-              "noEmit" = true;
-              "jsx" = "react-jsx";
-              "jsxImportSource" = "${gjs}/share/astal/gjs/gtk${toString gtkVer}";
-              "paths" = {
-                "astal" = ["${gjs}/share/astal/gjs"];
-                "astal/*" = ["${gjs}/share/astal/gjs/*"];
-              };
-            };
-          };
       in (
         (buildGirTypes {
           pname = "ags";
@@ -165,10 +143,6 @@ in {
             force = true;
             source = buildNodeModules ./config (import ./config).npmDepsHash;
           };
-
-          "${cfg.configDir}/tsconfig.json".source = mkTsConf 3;
-
-          "${gtk4ConfigDir}/tsconfig.json".source = mkTsConf 4;
 
           "${cfg.configDir}/widgets/lockscreen/vars.ts".text =
             # javascript

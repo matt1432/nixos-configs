@@ -10,7 +10,7 @@ import {
     noImplicitDestroy,
     setChildren,
     construct,
-} from 'astal/_astal';
+} from '../../node_modules/astal/_astal';
 
 export type BindableChild = Gtk.Widget | Binding<Gtk.Widget>;
 

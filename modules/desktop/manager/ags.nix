@@ -14,11 +14,9 @@ self: {
       homeFiles = config.home-manager.users.${cfg.user}.home.file;
 
       nodeModules = homeFiles."${agsCfg.configDir}/node_modules".source;
-      tsconfig = homeFiles."${agsCfg.configDir}/tsconfig.json".source;
       varsTs = homeFiles."${agsCfg.configDir}/widgets/lockscreen/vars.ts".source;
     in
       pkgs.runCommandLocal "agsConfig" {} ''
-        cp -ar ${tsconfig} ./tsconfig.json
         cp -ar ${../../ags/config}/* ./.
         chmod +w -R ./.
         cp -ar ${varsTs} ./widgets/lockscreen/vars.ts
