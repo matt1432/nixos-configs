@@ -3,8 +3,8 @@
   self,
 }: let
   inherit (builtins) readFile fromJSON;
-  inherit (self.lib) capitalise mkVersion;
-  inherit (pkgs.lib) concatMapStrings elemAt length map optionalString splitString toLower;
+  inherit (self.lib) mkVersion;
+  inherit (pkgs.lib) elemAt hasAttr length map optionalString toLower;
 in {
   buildPlugin = pname: src:
     pkgs.vimUtils.buildVimPlugin {
@@ -33,25 +33,23 @@ in {
     pname,
     delete ? [],
   }: let
+    girNameTable = {
+      gtk4 = "Gtk-4.0";
+      gtk-session-lock = "GtkSessionLock-0.1";
+      libadwaita = "Adw-1";
+    };
+
     withGirNames =
-      map (package: {
+      map (package: let
+      in {
         inherit package;
         girName =
-          if package.pname == "astal-wireplumber"
-          then "AstalWp-0.1"
-          else if package.pname == "astal"
-          then "AstalIO-0.1"
-          else if package.pname == "astal3"
-          then "Astal-3.0"
-          else if package.pname == "astal4"
-          then "Astal-4.0"
-          else if package.pname == "astal-powerprofiles"
-          then "AstalPowerProfiles-0.1"
-          else if package.pname == "gtk4"
-          then "Gtk-4.0"
-          else if package.pname == "libadwaita"
-          then "Adw-1"
-          else (concatMapStrings capitalise (splitString "-" package.pname)) + "-0.1";
+          package.girName
+          or (
+            if hasAttr package.pname girNameTable
+            then girNameTable.${package.pname}
+            else throw "girName of ${package.name} couldn't be found"
+          );
       })
       packages;
   in {
