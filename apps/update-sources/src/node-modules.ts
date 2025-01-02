@@ -1,5 +1,5 @@
 import { readPackageJSON, writePackageJSON } from 'pkg-types';
-import { readdirSync } from 'node:fs';
+import { existsSync, readdirSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 
 import { replaceInFile, npmRun } from './lib';
@@ -61,18 +61,19 @@ export default async() => {
     for (const path of packages) {
         if (
             path.name === 'package.json' &&
-            !path.parentPath.includes('node_modules') &&
-            !path.parentPath.includes('apps/config')
+            !path.parentPath.includes('node_modules')
         ) {
             await updatePackageJson(path.parentPath, updates);
 
-            const hash = prefetchNpmDeps(path.parentPath);
+            if (existsSync(`${path.parentPath}/default.nix`)) {
+                const hash = prefetchNpmDeps(path.parentPath);
 
-            replaceInFile(
-                /npmDepsHash = ".*";/,
-                `npmDepsHash = "${hash}";`,
-                `${path.parentPath}/default.nix`,
-            );
+                replaceInFile(
+                    /npmDepsHash = ".*";/,
+                    `npmDepsHash = "${hash}";`,
+                    `${path.parentPath}/default.nix`,
+                );
+            }
         }
     }
 

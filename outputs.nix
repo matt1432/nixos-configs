@@ -11,7 +11,10 @@
       nixpkgs = mkInput {
         owner = "NixOS";
         repo = "nixpkgs";
-        ref = "nixos-unstable";
+        # ref = "nixos-unstable";
+
+        # FIXME: pinned this because of astal issues and build failures
+        rev = "88195a94f390381c6afcdaa933c2f6ff93959cb4";
       };
 
       home-manager = mkDep {
