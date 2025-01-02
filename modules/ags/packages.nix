@@ -5,11 +5,11 @@ self: {
   pkgs,
   ...
 }: let
-  inherit (self.inputs) ags gtk-session-lock;
+  inherit (self.inputs) ags astal gtk-session-lock;
 
   gtkSessionLock = gtk-session-lock.packages.${pkgs.system}.default;
 
-  inherit (lib) attrValues boolToString getExe optionalAttrs optionals;
+  inherit (lib) attrValues boolToString filter getExe optionalAttrs optionals;
 
   inherit (osConfig.networking) hostName;
 
@@ -37,7 +37,7 @@ in {
       };
       astalLibs = attrValues {
         inherit
-          (ags.inputs.astal.packages.${pkgs.system})
+          (astal.packages.${pkgs.system})
           io
           astal3
           astal4
@@ -59,6 +59,7 @@ in {
 
         inherit
           (pkgs)
+          libadwaita
           gtk4 # Needed to build types
           ;
       };
@@ -118,7 +119,7 @@ in {
           ;
 
         mkTsConf = gtkVer: let
-          inherit (ags.packages.${pkgs.system}) gjs;
+          inherit (astal.packages.${pkgs.system}) gjs;
         in
           pkgs.writers.writeJSON "tsconfig.json" {
             "$schema" = "https://json.schemastore.org/tsconfig";
@@ -127,6 +128,7 @@ in {
               "strict" = true;
               "target" = "ES2022";
               "module" = "ES2022";
+              "lib" = ["ES2022"];
               "moduleResolution" = "Bundler";
               "noEmit" = true;
               "jsx" = "react-jsx";
@@ -141,19 +143,28 @@ in {
         (buildGirTypes {
           pname = "ags";
           configPath = "${cfg.configDir}/@girs";
-          packages = cfg.astalLibs;
+          packages = filter (x:
+            x.pname != "astal4" && x.pname != "libadwaita")
+          cfg.astalLibs;
+          delete = ["gdk-4.0" "gtk-4.0" "gsk-4.0"];
         })
         // (buildGirTypes {
           pname = "ags";
           configPath = "${gtk4ConfigDir}/@girs";
-          packages = cfg.astalLibs;
+          packages = filter (x:
+            x.pname != "astal3" && x.pname != "gtk-session-lock")
+          cfg.astalLibs;
         })
         // {
-          "${cfg.configDir}/node_modules".source =
-            buildNodeModules ./config (import ./config).npmDepsHash;
+          "${cfg.configDir}/node_modules" = {
+            force = true;
+            source = buildNodeModules ./config (import ./config).npmDepsHash;
+          };
 
-          "${gtk4ConfigDir}/node_modules".source =
-            buildNodeModules ./config (import ./config).npmDepsHash;
+          "${gtk4ConfigDir}/node_modules" = {
+            force = true;
+            source = buildNodeModules ./config (import ./config).npmDepsHash;
+          };
 
           "${cfg.configDir}/tsconfig.json".source = mkTsConf 3;
 

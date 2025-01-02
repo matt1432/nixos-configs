@@ -31,6 +31,7 @@ in {
     configPath,
     packages,
     pname,
+    delete ? [],
   }: let
     withGirNames =
       map (package: {
@@ -48,15 +49,18 @@ in {
           then "AstalPowerProfiles-0.1"
           else if package.pname == "gtk4"
           then "Gtk-4.0"
+          else if package.pname == "libadwaita"
+          then "Adw-1"
           else (concatMapStrings capitalise (splitString "-" package.pname)) + "-0.1";
       })
       packages;
   in {
-    "${configPath}${optionalString (length packages == 1) "/${toLower (elemAt withGirNames 0).girName}"}".source =
-      pkgs.callPackage
-      ./mk-types {
+    "${configPath}${optionalString (length packages == 1) "/${toLower (elemAt withGirNames 0).girName}"}" = {
+      force = true;
+      source = pkgs.callPackage ./mk-types {
         inherit (self.inputs) ts-for-gir-src;
-        inherit pname withGirNames;
+        inherit delete pname withGirNames;
       };
+    };
   };
 }

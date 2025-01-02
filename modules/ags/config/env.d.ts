@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
-const SRC: string;
+declare const SRC: string;
 
 declare module 'inline:*' {
     const content: string;
@@ -8,13 +6,13 @@ declare module 'inline:*' {
     export default content;
 }
 
-declare module '*.sass' {
+declare module '*.scss' {
     const content: string;
 
     export default content;
 }
 
-declare module '*.scss' {
+declare module '*.blp' {
     const content: string;
 
     export default content;
