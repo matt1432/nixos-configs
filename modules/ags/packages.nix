@@ -122,15 +122,14 @@ in {
           pname = "ags";
           configPath = "${cfg.configDir}/@girs";
           packages = filter (x:
-            x.pname != "astal4" && x.pname != "libadwaita")
+            x.pname != "libadwaita")
           cfg.astalLibs;
-          delete = ["gdk-4.0" "gtk-4.0" "gsk-4.0"];
         })
         // (buildGirTypes {
           pname = "ags";
           configPath = "${gtk4ConfigDir}/@girs";
           packages = filter (x:
-            x.pname != "astal3" && x.pname != "gtk-session-lock")
+            x.pname != "gtk-session-lock")
           cfg.astalLibs;
         })
         // {

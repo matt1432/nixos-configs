@@ -31,7 +31,6 @@ in {
     configPath,
     packages,
     pname,
-    delete ? [],
   }: let
     girNameTable = {
       gtk4 = "Gtk-4.0";
@@ -57,7 +56,7 @@ in {
       force = true;
       source = pkgs.callPackage ./mk-types {
         inherit (self.inputs) ts-for-gir-src;
-        inherit delete pname withGirNames;
+        inherit pname withGirNames;
       };
     };
   };

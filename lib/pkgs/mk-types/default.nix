@@ -4,14 +4,14 @@
   withGirNames,
   buildNpmPackage,
   ts-for-gir-src,
-  delete ? [],
   ...
 }: let
-  inherit (lib) concatMapStringsSep optionalString;
+  inherit (lib) concatMapStringsSep;
 
   buildPhase = ''
-    npx @ts-for-gir/cli generate ${concatMapStringsSep " " (p: p.girName) withGirNames} \
-        ${concatMapStringsSep "\n" (p: "-g ${p.package.dev}/share/gir-1.0 \\") withGirNames}
+    npx @ts-for-gir/cli generate \
+    ${concatMapStringsSep "\n" (p: "    ${p.girName} \\") withGirNames}
+    ${concatMapStringsSep "\n" (p: "    -g ${p.package.dev}/share/gir-1.0 \\") withGirNames}
         -g ${ts-for-gir-src}/girs \
         --ignoreVersionConflicts \
         -o ./types
@@ -32,9 +32,6 @@ in
     '';
 
     installPhase = ''
-      ${optionalString (delete != []) (
-        "rm -f " + concatMapStringsSep " " (file: "./types/${file}.d.ts") delete
-      )}
       cp -r ./types $out
     '';
   }
