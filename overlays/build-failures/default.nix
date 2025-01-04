@@ -2,11 +2,6 @@ final: prev: {
   # FIXME: https://pr-tracker.nelim.org/?pr=357699
   nodejs_latest = prev.nodejs_22;
 
-  # FIXME: https://pr-tracker.nelim.org/?pr=368790
-  triton-llvm = prev.triton-llvm.override {
-    buildTests = false;
-  };
-
   # FIXME: https://github.com/NixOS/nixpkgs/issues/365156
   protonmail-desktop = final.callPackage ({
     lib,

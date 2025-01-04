@@ -17,7 +17,7 @@ in
 
     prePatch = ''
       substituteInPlace ./custom_components/extended_ollama_conversation/manifest.json \
-          --replace-warn "openai~=1.3.8" "openai>=1.3.8"
+          --replace-warn "ollama~=0.3.0" "ollama>=0.3.0"
     '';
 
     propagatedBuildInputs = with python3Packages; [
