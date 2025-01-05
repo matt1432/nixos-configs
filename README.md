@@ -1,12 +1,13 @@
 # My NixOS configs
 
 TODO: add directory structure info and enforce it
+
     - [x] every root folder in the repo represents a flake output except inputs
     - [x] every root folder only has an optional `default.nix` and subfolders for each
           of its attrs
     - [] if there is non nix code, it will be in a `config` folder
     - [] redo docs
-    - [] every module should not do anything if imported
+    - [x] every module should not do anything if imported
     - [] all nix files that represent a module should be `default.nix` (a nix file
          which is imported directly can be called anything alongside `default.nix`)
 
