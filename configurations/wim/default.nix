@@ -106,6 +106,8 @@
         promptMainColor = "purple";
       };
 
+      firefox.enableCustomConf = true;
+
       neovim = {
         enable = true;
         user = mainUser;

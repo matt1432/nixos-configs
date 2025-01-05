@@ -2,9 +2,8 @@
 
 TODO: add directory structure info and enforce it
     - [x] every root folder in the repo represents a flake output except inputs
-    - [] every root folder only has an optional `default.nix` and subfolders for each
-         of its attrs
-    - [] in a subfolder, there should always be a `default.nix`
+    - [x] every root folder only has an optional `default.nix` and subfolders for each
+          of its attrs
     - [] if there is non nix code, it will be in a `config` folder
     - [] redo docs
     - [] every module should not do anything if imported

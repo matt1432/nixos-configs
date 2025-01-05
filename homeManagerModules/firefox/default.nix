@@ -1,16 +1,26 @@
 self: {
   config,
+  lib,
   pkgs,
   ...
 }: let
   inherit (self.scopedPackages.${pkgs.system}) firefoxAddons;
+
+  inherit (lib) mkIf mkOption types;
+
+  cfg = config.programs.firefox;
 
   rounding = (config.wayland.windowManager.hyprland.settings.decoration.rounding or 2) - 2;
 
   firefox-gx = pkgs.callPackage ./firefox-gx {inherit self;};
   custom-css = pkgs.callPackage ./custom-css {inherit rounding firefox-gx;};
 in {
-  config = {
+  options.programs.firefox.enableCustomConf = mkOption {
+    type = types.bool;
+    default = false;
+  };
+
+  config = mkIf cfg.enableCustomConf {
     home.file = {
       ".mozilla/firefox/matt/chrome/userContent.css".source = "${firefox-gx}/chrome/userContent.css";
       ".mozilla/firefox/matt/chrome/components".source = "${firefox-gx}/chrome/components";
