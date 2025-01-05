@@ -7,7 +7,7 @@
 
   cfg = config.roles.server;
 in {
-  config = mkIf cfg.sshd.enable {
+  config = mkIf (cfg.enable && cfg.sshd.enable) {
     services = {
       openssh = {
         enable = true;
@@ -29,5 +29,5 @@ in {
   };
 
   # For accurate stack trace
-  _file = ./sshd.nix;
+  _file = ./default.nix;
 }

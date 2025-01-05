@@ -8,7 +8,7 @@
 
   cfg = config.roles.server;
 in {
-  config = mkIf cfg.tailscale.enable {
+  config = mkIf (cfg.enable && cfg.tailscale.enable) {
     services = {
       tailscale = {
         enable = true;
@@ -48,5 +48,5 @@ in {
   };
 
   # For accurate stack trace
-  _file = ./tailscale.nix;
+  _file = ./default.nix;
 }

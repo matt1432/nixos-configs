@@ -2,11 +2,16 @@
   inherit (lib) mkOption types;
 in {
   imports = [
-    ./sshd.nix
-    ./tailscale.nix
+    ./sshd
+    ./tailscale
   ];
 
   options.roles.server = {
+    enable = mkOption {
+      type = types.bool;
+      default = false;
+    };
+
     user = mkOption {
       type = types.str;
       description = ''

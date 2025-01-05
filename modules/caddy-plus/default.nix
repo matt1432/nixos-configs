@@ -92,7 +92,7 @@ self: {
     }/Caddyfile";
 in {
   options.services.caddy.virtualHosts = mkOption {
-    type = types.attrsOf (types.submodule (import ./vhost-options.nix {inherit cfg;}));
+    type = types.attrsOf (types.submodule (import ./vhost-options.nix cfg));
   };
 
   config = mkIf cfg.enable {

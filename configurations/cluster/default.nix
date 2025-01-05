@@ -58,6 +58,7 @@ in {
   };
 
   roles.server = {
+    enable = true;
     user = mainUser;
     tailscale.enable = true;
     sshd.enable = true;

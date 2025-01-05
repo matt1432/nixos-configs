@@ -1,9 +1,17 @@
-self: {...}: let
+self: {
+  config,
+  lib,
+  ...
+}: let
   inherit (self.inputs) nix-gaming;
+
+  inherit (lib) mkIf;
+
+  cfg = config.roles.desktop;
 in {
   imports = [nix-gaming.nixosModules.pipewireLowLatency];
 
-  config = {
+  config = mkIf cfg.enable {
     services = {
       pulseaudio.enable = false;
 

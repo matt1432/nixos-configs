@@ -1,5 +1,14 @@
-{pkgs, ...}: {
-  config = {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit (lib) mkIf;
+
+  cfg = config.roles.desktop;
+in {
+  config = mkIf cfg.enable {
     services = {
       # Enable CUPS to print documents.
       printing = {

@@ -23,8 +23,8 @@
     ${updatedb} -o ${database} --prunefs "${pruneFS}" \
       --prunepaths "${prunePaths}" --prunenames "${pruneNames}"
   '';
-in
-  mkIf (baseCfg.enable) {
+in {
+  config = mkIf baseCfg.enable {
     users.users.${baseCfg.user}.extraGroups = [
       locateGroup
     ];
@@ -79,4 +79,8 @@ in
         ".svn"
       ];
     };
-  }
+  };
+
+  # For accurate stack trace
+  _file = ./default.nix;
+}

@@ -1,7 +1,16 @@
-self: {pkgs, ...}: let
+self: {
+  lib,
+  osConfig,
+  pkgs,
+  ...
+}: let
   inherit (self.lib.hypr) mkBind;
+
+  inherit (lib) mkIf;
+
+  cfg = osConfig.roles.desktop;
 in {
-  config = {
+  config = mkIf cfg.enable {
     wayland.windowManager.hyprland = {
       plugins = [self.inputs.hyprland-plugins.packages.${pkgs.system}.hyprexpo];
 

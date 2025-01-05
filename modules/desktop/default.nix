@@ -3,9 +3,9 @@ self: {
   lib,
   ...
 }: let
-  inherit (lib) elemAt mkOption types;
-
   inherit (self.inputs) home-manager;
+
+  inherit (lib) elemAt mkIf mkOption types;
 
   cfg = config.roles.desktop;
   flakeDir = config.environment.variables.FLAKE;
@@ -18,17 +18,24 @@ in {
     home-manager.nixosModules.home-manager
   ];
 
-  config.assertions = [
-    {
-      assertion = lib.hasPrefix "/home/${cfg.user}/" flakeDir;
-      message = ''
-        Your $FLAKE environment variable needs to point to a directory in
-        the main users' home to use the desktop module.
-      '';
-    }
-  ];
+  config = mkIf cfg.enable {
+    assertions = [
+      {
+        assertion = lib.hasPrefix "/home/${cfg.user}/" flakeDir;
+        message = ''
+          Your $FLAKE environment variable needs to point to a directory in
+          the main users' home to use the desktop module.
+        '';
+      }
+    ];
+  };
 
   options.roles.desktop = {
+    enable = mkOption {
+      type = types.bool;
+      default = false;
+    };
+
     user = mkOption {
       type = types.str;
       description = ''

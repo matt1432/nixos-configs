@@ -14,8 +14,8 @@
       then unique (a ++ b)
       else b)) {}
     list;
-in
-  mkIf cfg.enable {
+in {
+  config = mkIf cfg.enable {
     environment.systemPackages = [
       (pkgs.writeShellApplication {
         name = "rebuild-no-cache";
@@ -50,4 +50,8 @@ in
             (mkSubstituterConf 10 "https://cache-apt.nelim.org" "cache-apt.nelim.org:NLAsWxa2Qbm4b+hHimjCpZfm48a4oN4O/GPZY9qpjNw=")
           ]);
     };
-  }
+  };
+
+  # For accurate stack trace
+  _file = ./default.nix;
+}

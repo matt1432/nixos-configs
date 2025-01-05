@@ -2,25 +2,27 @@ self: {
   osConfig,
   lib,
   ...
-}: {
-  config = let
-    inherit (lib) map;
-    inherit (self.lib.hypr) mkBind;
+}: let
+  inherit (self.lib.hypr) mkBind;
 
-    inherit (osConfig.services.xserver) xkb;
-    inherit (osConfig.roles.desktop) mainMonitor;
+  inherit (lib) mkIf;
 
-    miceNames = [
-      "logitech-g502-x"
-      "logitech-g502-hero-gaming-mouse"
-    ];
+  cfg = osConfig.roles.desktop;
 
-    mkConf = name: {
-      inherit name;
-      sensitivity = 0;
-      accel_profile = "flat";
-    };
-  in {
+  inherit (osConfig.services.xserver) xkb;
+
+  miceNames = [
+    "logitech-g502-x"
+    "logitech-g502-hero-gaming-mouse"
+  ];
+
+  mkConf = name: {
+    inherit name;
+    sensitivity = 0;
+    accel_profile = "flat";
+  };
+in {
+  config = mkIf cfg.enable {
     wayland.windowManager.hyprland = {
       settings = {
         device = map mkConf miceNames;
@@ -31,8 +33,8 @@ self: {
         };
 
         exec-once =
-          if mainMonitor != null
-          then ["hyprctl dispatch focusmonitor ${mainMonitor}"]
+          if cfg.mainMonitor != null
+          then ["hyprctl dispatch focusmonitor ${cfg.mainMonitor}"]
           else [];
 
         input = {

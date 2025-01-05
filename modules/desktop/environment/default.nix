@@ -6,6 +6,19 @@ self: {
 }: let
   inherit (self.inputs) hyprland;
   inherit (self.lib.hypr) mkBind;
+
+  inherit (lib) concatStringsSep mkIf optionals;
+
+  cfg = config.roles.desktop;
+
+  hyprCfg =
+    config
+    .home-manager
+    .users
+    .${cfg.user}
+    .wayland
+    .windowManager
+    .hyprland;
 in {
   imports = [
     (import ../../ags self)
@@ -18,20 +31,7 @@ in {
     (import ./modules/security.nix self)
   ];
 
-  config = let
-    inherit (lib) concatStringsSep optionals;
-
-    cfg = config.roles.desktop;
-
-    hyprCfg =
-      config
-      .home-manager
-      .users
-      .${cfg.user}
-      .wayland
-      .windowManager
-      .hyprland;
-  in {
+  config = mkIf cfg.enable {
     services = {
       dbus.enable = true;
       gvfs.enable = true;

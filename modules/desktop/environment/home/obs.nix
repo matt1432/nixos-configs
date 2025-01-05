@@ -1,9 +1,18 @@
-self: {pkgs, ...}: let
+self: {
+  lib,
+  osConfig,
+  pkgs,
+  ...
+}: let
   inherit (self.inputs) nixpkgs-wayland;
+
+  waypkgs = nixpkgs-wayland.packages.${pkgs.system};
+
+  inherit (lib) mkIf;
+
+  cfg = osConfig.roles.desktop;
 in {
-  config = let
-    waypkgs = nixpkgs-wayland.packages.${pkgs.system};
-  in {
+  config = mkIf cfg.enable {
     programs = {
       obs-studio = {
         enable = true;

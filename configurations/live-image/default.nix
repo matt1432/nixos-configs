@@ -23,6 +23,7 @@
   };
 
   roles.server = {
+    enable = true;
     user = mainUser;
     sshd.enable = true;
   };

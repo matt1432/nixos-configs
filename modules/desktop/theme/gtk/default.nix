@@ -3,12 +3,14 @@
   lib,
   osConfig,
   ...
-}: {
-  config = let
-    inherit (import ./gradience.nix {inherit pkgs lib;}) gradience;
+}: let
+  inherit (lib) mkIf;
 
-    cfg = osConfig.roles.desktop;
-  in {
+  inherit (import ./gradience.nix {inherit pkgs lib;}) gradience;
+
+  cfg = osConfig.roles.desktop;
+in {
+  config = mkIf cfg.enable {
     home.packages = [
       pkgs.gnomeExtensions.user-themes
     ];

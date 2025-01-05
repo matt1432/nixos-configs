@@ -1,7 +1,13 @@
-{config, ...}: {
-  config = let
-    cfg = config.roles.desktop;
-  in {
+{
+  config,
+  lib,
+  ...
+}: let
+  inherit (lib) mkIf;
+
+  cfg = config.roles.desktop;
+in {
+  config = mkIf cfg.enable {
     programs.dconf.enable = true;
 
     home-manager.users.${cfg.user} = {

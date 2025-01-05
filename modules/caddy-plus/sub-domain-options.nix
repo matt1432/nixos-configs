@@ -1,4 +1,4 @@
-{cfg}: {
+cfg: {
   lib,
   name,
   ...
@@ -22,7 +22,7 @@ in {
     };
 
     subDirectories = mkOption {
-      type = types.attrsOf (types.submodule (import ./sub-dir-options.nix {inherit cfg;}));
+      type = types.attrsOf (types.submodule (import ./sub-dir-options.nix cfg));
       default = {};
       example = literalExpression ''
         {

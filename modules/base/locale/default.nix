@@ -7,8 +7,8 @@
   inherit (lib) mkIf;
 
   cfg = config.roles.base;
-in
-  mkIf cfg.enable {
+in {
+  config = mkIf cfg.enable {
     fonts = {
       fontconfig = {
         enable = true;
@@ -45,4 +45,8 @@ in
     # Select internationalisation properties.
     i18n.defaultLocale = "en_CA.UTF-8";
     console.useXkbConfig = true;
-  }
+  };
+
+  # For accurate stack trace
+  _file = ./default.nix;
+}

@@ -1,5 +1,14 @@
-{pkgs, ...}: {
-  config = {
+{
+  lib,
+  osConfig,
+  pkgs,
+  ...
+}: let
+  inherit (lib) mkIf;
+
+  cfg = osConfig.roles.desktop;
+in {
+  config = mkIf cfg.enable {
     programs.bash.shellAliases = {
       # https://wiki.hyprland.org/Contributing-and-Debugging/#lsp-and-formatting
       "mkCMakeFiles" = "${pkgs.cmake}/bin/cmake -S . -B build/ -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=ON";

@@ -3,12 +3,14 @@ self: {
   osConfig,
   pkgs,
   ...
-}: {
-  config = let
-    inherit (self.scopedPackages.${pkgs.system}) dracula;
+}: let
+  inherit (self.scopedPackages.${pkgs.system}) dracula;
 
-    cfg = osConfig.roles.desktop;
-  in {
+  inherit (lib) mkIf;
+
+  cfg = osConfig.roles.desktop;
+in {
+  config = mkIf cfg.enable {
     home.packages = [
       pkgs.libsForQt5.qtstyleplugin-kvantum
       pkgs.kdePackages.qtstyleplugin-kvantum
@@ -44,5 +46,5 @@ self: {
   };
 
   # For accurate stack trace
-  _file = ./qt.nix;
+  _file = ./default.nix;
 }

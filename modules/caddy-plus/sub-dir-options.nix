@@ -1,4 +1,4 @@
-{cfg}: {
+cfg: {
   lib,
   name,
   ...

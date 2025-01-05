@@ -4,12 +4,13 @@ self: {
   pkgs,
   ...
 }: let
-  inherit (lib) map mkIf;
   inherit (self.lib.hypr) mkBind;
+
+  inherit (lib) map mkIf;
 
   cfg = osConfig.roles.desktop;
 in {
-  config = mkIf cfg.isTouchscreen {
+  config = mkIf (cfg.enable && cfg.isTouchscreen) {
     wayland.windowManager.hyprland = {
       plugins = [self.inputs.hyprgrass.packages.${pkgs.system}.default];
 

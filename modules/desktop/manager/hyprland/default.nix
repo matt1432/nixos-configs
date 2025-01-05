@@ -3,28 +3,28 @@ self: {
   lib,
   pkgs,
   ...
-}: {
-  config = let
-    inherit (lib) optionals;
-    inherit (self.lib.hypr) mkAnimation;
+}: let
+  inherit (self.lib.hypr) mkAnimation;
 
-    inherit (import ./setupMonitors.nix {inherit config pkgs;}) setupMonitors;
+  inherit (lib) mkIf optionals;
 
-    cfg = config.roles.desktop;
+  inherit (import ./setupMonitors.nix {inherit config pkgs;}) setupMonitors;
 
-    # Nix stuff
-    cfgHypr =
-      config
-      .home-manager
-      .users
-      .${cfg.user}
-      .wayland
-      .windowManager
-      .hyprland;
-  in {
+  cfg = config.roles.desktop;
+
+  cfgHypr =
+    config
+    .home-manager
+    .users
+    .${cfg.user}
+    .wayland
+    .windowManager
+    .hyprland;
+in {
+  config = mkIf cfg.enable {
     home-manager.users.greeter = {
       imports = [
-        (import ../theme self)
+        (import ../../theme self)
       ];
 
       wayland.windowManager.hyprland = {
@@ -73,5 +73,5 @@ self: {
   };
 
   # For accurate stack trace
-  _file = ./hyprland.nix;
+  _file = ./default.nix;
 }

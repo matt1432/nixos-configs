@@ -1,11 +1,14 @@
 {
   config,
+  lib,
   pkgs,
   ...
-}: {
-  config = let
-    cfg = config.roles.desktop;
-  in {
+}: let
+  inherit (lib) mkIf;
+
+  cfg = config.roles.desktop;
+in {
+  config = mkIf cfg.enable {
     environment.systemPackages = [
       pkgs.plasma5Packages.kio-admin
     ];

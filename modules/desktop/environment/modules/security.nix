@@ -3,44 +3,45 @@ self: {
   lib,
   pkgs,
   ...
-}: {
-  config = let
-    inherit (self.lib.hypr) mkBind;
-    inherit (lib) getExe map mkIf;
+}: let
+  inherit (self.lib.hypr) mkBind;
 
-    cfg = config.roles.desktop;
+  inherit (lib) getExe map mkIf;
 
-    hmCfg = config.home-manager.users.${cfg.user};
-    hyprPkg = hmCfg.wayland.windowManager.hyprland.finalPackage;
+  cfg = config.roles.desktop;
 
-    # See modules/ags/packages.nix
-    lockPkg = hmCfg.programs.ags.lockPkg;
+  hmCfg = config.home-manager.users.${cfg.user};
+  hyprPkg = hmCfg.wayland.windowManager.hyprland.finalPackage;
 
-    runInDesktop = pkgs.writeShellApplication {
-      name = "runInDesktop";
-      runtimeInputs = [
-        pkgs.sudo
-        hyprPkg
-      ];
+  # See modules/ags/packages.nix
+  lockPkg = hmCfg.programs.ags.lockPkg;
 
-      text = ''
-        params=( "$@" )
-        user="$(id -u ${cfg.user})"
-        readarray -t SIGS <<< "$(ls "/run/user/$user/hypr/")"
+  runInDesktop = pkgs.writeShellApplication {
+    name = "runInDesktop";
+    runtimeInputs = [
+      pkgs.sudo
+      hyprPkg
+    ];
 
-        run() {
-            export HYPRLAND_INSTANCE_SIGNATURE="$1"
-            sudo -Eu ${cfg.user} hyprctl dispatch exec "''${params[@]}"
-        }
+    text = ''
+      params=( "$@" )
+      user="$(id -u ${cfg.user})"
+      readarray -t SIGS <<< "$(ls "/run/user/$user/hypr/")"
 
-        i=0
+      run() {
+          export HYPRLAND_INSTANCE_SIGNATURE="$1"
+          sudo -Eu ${cfg.user} hyprctl dispatch exec "''${params[@]}"
+      }
 
-        while ! run "''${SIGS[$i]}"; do
-            ((i+=1))
-        done
-      '';
-    };
-  in {
+      i=0
+
+      while ! run "''${SIGS[$i]}"; do
+          ((i+=1))
+      done
+    '';
+  };
+in {
+  config = mkIf cfg.enable {
     services.acpid = mkIf cfg.isLaptop {
       enable = true;
 

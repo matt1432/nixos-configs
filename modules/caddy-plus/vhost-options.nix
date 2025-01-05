@@ -1,4 +1,4 @@
-{cfg}: {lib, ...}: let
+cfg: {lib, ...}: let
   inherit (lib) literalExpression mkOption types;
 in {
   options = {
@@ -12,7 +12,7 @@ in {
     };
 
     subDomains = mkOption {
-      type = types.attrsOf (types.submodule (import ./sub-domain-options.nix {inherit cfg;}));
+      type = types.attrsOf (types.submodule (import ./sub-domain-options.nix cfg));
       default = {};
       example = literalExpression ''
         {
@@ -30,7 +30,7 @@ in {
     };
 
     subDirectories = mkOption {
-      type = types.attrsOf (types.submodule (import ./sub-dir-options.nix {inherit cfg;}));
+      type = types.attrsOf (types.submodule (import ./sub-dir-options.nix cfg));
       default = {};
       example = literalExpression ''
         {

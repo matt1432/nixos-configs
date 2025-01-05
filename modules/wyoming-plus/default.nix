@@ -9,6 +9,8 @@
   inherit (lib.strings) concatMapStringsSep concatStringsSep;
 
   cfg = config.services.wyoming;
+
+  forkedPkg = pkgs.callPackage ./pkgs {};
 in {
   options.services.wyoming.openwakeword.vadThreshold = mkOption {
     type = types.float;
@@ -16,9 +18,7 @@ in {
     apply = toString;
   };
 
-  config = let
-    forkedPkg = pkgs.callPackage ./pkgs {};
-  in {
+  config = {
     systemd.services = mkIf (cfg.openwakeword.enable) {
       wyoming-openwakeword.serviceConfig = {
         MemoryDenyWriteExecute = mkForce (cfg.openwakeword.package != forkedPkg);

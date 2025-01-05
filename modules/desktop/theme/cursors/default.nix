@@ -1,12 +1,21 @@
-self: {pkgs, ...}: {
-  config = let
-    inherit (self.scopedPackages.${pkgs.system}) dracula;
+self: {
+  lib,
+  osConfig,
+  pkgs,
+  ...
+}: let
+  inherit (self.scopedPackages.${pkgs.system}) dracula;
 
-    cursorTheme = dracula.hyprcursor;
-    cursorThemeName = "Dracula-cursors";
-    hyprcursorThemeName = "Dracula-hyprcursor";
-    cursorSize = 24;
-  in {
+  inherit (lib) mkIf;
+
+  cfg = osConfig.roles.desktop;
+
+  cursorTheme = dracula.hyprcursor;
+  cursorThemeName = "Dracula-cursors";
+  hyprcursorThemeName = "Dracula-hyprcursor";
+  cursorSize = 24;
+in {
+  config = mkIf cfg.enable {
     home.pointerCursor = {
       name = cursorThemeName;
       package = dracula.gtk;
@@ -35,5 +44,5 @@ self: {pkgs, ...}: {
   };
 
   # For accurate stack trace
-  _file = ./cursors.nix;
+  _file = ./default.nix;
 }

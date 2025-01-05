@@ -9,7 +9,7 @@ self: {
 
   gtkSessionLock = gtk-session-lock.packages.${pkgs.system}.default;
 
-  inherit (lib) attrValues boolToString filter getExe optionalAttrs optionals;
+  inherit (lib) attrValues boolToString filter getExe mkIf optionalAttrs optionals;
 
   inherit (osConfig.networking) hostName;
 
@@ -29,7 +29,7 @@ self: {
     '';
   };
 in {
-  config = {
+  config = mkIf cfgDesktop.ags.enable {
     # Make these accessible outside these files
     programs.ags = {
       package = ags.packages.${pkgs.system}.ags.override {

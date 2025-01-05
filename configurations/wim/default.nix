@@ -65,6 +65,7 @@
   };
 
   roles.desktop = {
+    enable = true;
     user = mainUser;
 
     ags.enable = true;
@@ -76,6 +77,7 @@
   };
 
   roles.server = {
+    enable = true;
     user = mainUser;
     tailscale.enable = true;
   };

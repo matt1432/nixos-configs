@@ -1,7 +1,16 @@
-self: {pkgs, ...}: {
-  config = let
-    inherit (self.scopedPackages.${pkgs.system}) mpvScripts;
-  in {
+self: {
+  lib,
+  osConfig,
+  pkgs,
+  ...
+}: let
+  inherit (self.scopedPackages.${pkgs.system}) mpvScripts;
+
+  inherit (lib) mkIf;
+
+  cfg = osConfig.roles.desktop;
+in {
+  config = mkIf cfg.enable {
     # For kdialog-open-files
     home.packages = [
       pkgs.kdialog

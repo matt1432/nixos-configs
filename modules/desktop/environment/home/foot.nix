@@ -2,10 +2,12 @@
   lib,
   osConfig,
   ...
-}: {
-  config = let
-    cfg = osConfig.roles.desktop;
-  in {
+}: let
+  inherit (lib) mkIf;
+
+  cfg = osConfig.roles.desktop;
+in {
+  config = mkIf cfg.enable {
     programs = {
       # https://codeberg.org/dnkl/foot/wiki#spawning-new-terminal-instances-in-the-current-working-directory
       bash.bashrcExtra =

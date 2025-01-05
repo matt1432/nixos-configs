@@ -6,21 +6,22 @@ self: {
 }: let
   inherit (self.lib.hypr) mkBind;
   inherit (self.inputs) jellyfin-flake;
+
+  inherit (lib) getExe mkIf optionals;
+  inherit (pkgs.writers) writeTOML;
+
+  cfg = config.roles.desktop;
+
+  flakeDir = config.environment.variables.FLAKE;
+  isNvidia = config.nvidia.enable;
+
+  restartTailscale = pkgs.writeShellScriptBin "restartTailscale" ''
+    sudo ${pkgs.systemd}/bin/systemctl restart tailscaled.service
+  '';
 in {
   imports = [./dolphin.nix];
 
-  config = let
-    inherit (lib) getExe map optionals;
-    inherit (pkgs.writers) writeTOML;
-
-    flakeDir = config.environment.variables.FLAKE;
-    cfg = config.roles.desktop;
-    isNvidia = config.nvidia.enable;
-
-    restartTailscale = pkgs.writeShellScriptBin "restartTailscale" ''
-      sudo ${pkgs.systemd}/bin/systemctl restart tailscaled.service
-    '';
-  in {
+  config = mkIf cfg.enable {
     programs.kdeconnect.enable = true;
 
     security.sudo.extraRules = [

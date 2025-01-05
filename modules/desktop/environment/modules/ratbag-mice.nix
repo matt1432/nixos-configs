@@ -1,7 +1,15 @@
-self: {pkgs, ...}: let
+self: {
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (self.packages.${pkgs.system}) libratbag piper;
+  inherit (lib) mkIf;
+
+  cfg = config.roles.desktop;
 in {
-  config = {
+  config = mkIf cfg.enable {
     services.ratbagd = {
       enable = true;
 

@@ -52,21 +52,21 @@
     "ueboom.service"
   ];
 
-  # Allow pulseaudio to be managed by MPD
-  hardware.pulseaudio = {
-    enable = true;
+  services = {
+    # Allow pulseaudio to be managed by MPD
+    pulseaudio = {
+      enable = true;
 
-    zeroconf = {
-      discovery.enable = true;
-      publish.enable = true;
+      zeroconf = {
+        discovery.enable = true;
+        publish.enable = true;
+      };
+
+      extraConfig = ''
+        load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1
+      '';
     };
 
-    extraConfig = ''
-      load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1
-    '';
-  };
-
-  services = {
     upower.enable = true;
 
     mpd = {
