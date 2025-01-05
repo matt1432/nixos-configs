@@ -6,7 +6,7 @@
   inherit (pkgs.lib) listToAttrs nameValuePair;
   mkLangsShells = langs:
     listToAttrs (map (l:
-      nameValuePair l (pkgs.callPackage ../homeManagerModules/neovim/langs/${l}/shell.nix {inherit self;}))
+      nameValuePair l (pkgs.callPackage "${self}/homeManagerModules/neovim/langs/${l}/shell.nix" {inherit self;}))
     langs);
 in
   mkLangsShells [

@@ -137,7 +137,7 @@
 
     appsPackages =
       perSystem (pkgs:
-        import ./apps/nix/packages.nix {inherit pkgs self;});
+        import ./apps/packages.nix {inherit pkgs self;});
 
     devShells =
       perSystem (pkgs:

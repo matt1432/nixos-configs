@@ -22,7 +22,7 @@ in
 
     prePatch = ''
       mv ./tsconfig.json ./project.json
-      sed 's/^ *\/\/.*//' ${../config/tsconfig.json} > ./base.json
+      sed 's/^ *\/\/.*//' ${./config/tsconfig.json} > ./base.json
       ${jq}/bin/jq -sr '.[0] * .[1] | del(.extends)' ./project.json ./base.json > ./tsconfig.json
       rm base.json project.json
     '';

@@ -5,7 +5,7 @@
 }: let
   inherit (pkgs.lib) getExe listToAttrs nameValuePair;
 
-  buildApp = attrs: (pkgs.callPackage ./nix/buildApp.nix ({} // inputs // attrs));
+  buildApp = attrs: (pkgs.callPackage ./buildApp.nix ({} // inputs // attrs));
 
   mkApp = file: {
     program = getExe (pkgs.callPackage file ({inherit buildApp;} // inputs));

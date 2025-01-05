@@ -32,7 +32,7 @@
       after = ["spotifyd.service"];
       path = builtins.attrValues {
         inherit (pkgs) bluez;
-        inherit (config.hardware.pulseaudio) package;
+        inherit (config.services.pulseaudio) package;
       };
       script = ''
         if [[ "$(pactl get-default-sink)" == "auto_null" ]]; then
