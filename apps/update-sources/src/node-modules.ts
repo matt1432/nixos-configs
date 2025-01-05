@@ -44,7 +44,7 @@ const updatePackageJson = async(workspaceDir: string, updates: object) => {
 
 
 const prefetchNpmDeps = (workspaceDir: string): string => {
-    npmRun(['install', '--package-lock-only'], workspaceDir);
+    npmRun(['update', '--package-lock-only'], workspaceDir);
 
     return spawnSync(
         'prefetch-npm-deps',

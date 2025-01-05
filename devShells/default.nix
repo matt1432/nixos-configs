@@ -18,8 +18,13 @@
     };
     text = ''
       # this command might fail but still updates the main lockfile
-      npm i --package-lock-only || true
-      prefetch-npm-deps ./package-lock.json
+      npm update --package-lock-only || true
+      hash="$(prefetch-npm-deps ./package-lock.json)"
+      echo "$hash"
+
+      if [[ -f ./default.nix ]]; then
+          sed -i "s#npmDepsHash = .*#npmDepsHash = \"$hash\";#" ./default.nix
+      fi
     '';
   };
 in
