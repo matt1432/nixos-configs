@@ -15,7 +15,7 @@
   installLocalIcons = import ./icons.nix {inherit fetchFromGitHub;};
 
   pname = "homepage-dashboard";
-  version = "0.10.7";
+  version = "0.10.8";
 in
   buildNpmPackage {
     inherit pname version;
@@ -24,10 +24,10 @@ in
       owner = "gethomepage";
       repo = "homepage";
       rev = "v${version}";
-      hash = "sha256-JZoAjl7gLp1l8tHDdc37XI4917GnLUISno1KQKAWBv4=";
+      hash = "sha256-eFRWkwPSXQFhyKORpOTe9ifCX25ZeyVG7iezRmMxPvA=";
     };
 
-    npmDepsHash = "sha256-AW7lNkvQeeHkAf6Q23912LiSHJMelR9+4KVSKdlFqd0=";
+    npmDepsHash = "sha256-N39gwct2U4UxlIL5ceDzzU7HpA6xh2WksrZNxGz04PU=";
 
     preBuild = ''
       mkdir -p config
