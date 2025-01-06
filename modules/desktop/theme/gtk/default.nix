@@ -41,12 +41,7 @@ in {
         extraCss = "@import url(\"file://${gradience.build}/gtk-3.0/gtk.css\");";
       };
 
-      gtk4 = {
-        extraConfig = {
-          "gtk-application-prefer-dark-theme" = 1;
-        };
-        extraCss = "@import url(\"file://${gradience.build}/gtk-4.0/gtk.css\");";
-      };
+      gtk4.extraCss = "@import url(\"file://${gradience.build}/gtk-4.0/gtk.css\");";
     };
 
     dconf.settings = {
