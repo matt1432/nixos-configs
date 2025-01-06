@@ -165,6 +165,13 @@ let
         inputs.astal.follows = "astal";
       };
 
+      kompass = mkInput {
+        owner = "kotontrion";
+        repo = "kompass";
+
+        inputs.astal.follows = "astal";
+      };
+
       gtk-session-lock = mkDep {
         owner = "Cu3PO42";
         repo = "gtk-session-lock";

@@ -1,6 +1,8 @@
 import { App, Astal, Gtk } from 'astal/gtk4';
 import { Variable } from 'astal';
 
+import Kompass from 'gi://Kompass';
+
 import { Box, Button, Calendar, CenterBox, Label, MenuButton, Popover, Window } from './subclasses';
 
 const { EXCLUSIVE } = Astal.Exclusivity;
@@ -29,7 +31,7 @@ export default () => {
             application={App}
         >
             <CenterBox cssName="centerbox">
-                <Button onClicked="echo hi" />
+                <Kompass.Tray />
 
                 {styledBox}
 

@@ -931,6 +931,34 @@
         "type": "github"
       }
     },
+    "kompass": {
+      "inputs": {
+        "astal": [
+          "astal"
+        ],
+        "nixpkgs": [
+          "kompass",
+          "astal",
+          "nixpkgs"
+        ],
+        "systems": [
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1735898095,
+        "narHash": "sha256-CVbOLmtou6wjzIXYvTwLNQpqH5ilFzkHYMesqXuvQdU=",
+        "owner": "kotontrion",
+        "repo": "kompass",
+        "rev": "6faee1808b4bc7e0892fff86364151b83f0688a3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kotontrion",
+        "repo": "kompass",
+        "type": "github"
+      }
+    },
     "lib-aggregate": {
       "inputs": {
         "flake-utils": [
@@ -1697,6 +1725,7 @@
         "jellyfin-flake": "jellyfin-flake",
         "jovian": "jovian",
         "khepri": "khepri",
+        "kompass": "kompass",
         "lib-aggregate": "lib-aggregate",
         "libratbag-src": "libratbag-src",
         "material-rounded-theme-src": "material-rounded-theme-src",

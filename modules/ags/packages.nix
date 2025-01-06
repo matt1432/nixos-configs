@@ -5,9 +5,10 @@ self: {
   pkgs,
   ...
 }: let
-  inherit (self.inputs) ags astal gtk-session-lock;
+  inherit (self.inputs) ags astal gtk-session-lock kompass;
 
   gtkSessionLock = gtk-session-lock.packages.${pkgs.system}.default;
+  libKompass = kompass.packages.${pkgs.system}.libkompass;
 
   inherit (lib) attrValues boolToString filter getExe mkIf optionalAttrs optionals;
 
@@ -55,7 +56,17 @@ in {
           wireplumber
           ;
 
-        inherit gtkSessionLock;
+        inherit
+          gtkSessionLock
+          libKompass
+          ;
+
+        # libkompass dependencies
+        inherit
+          (astal.packages.${pkgs.system})
+          cava
+          river
+          ;
 
         inherit
           (pkgs)
@@ -122,7 +133,7 @@ in {
           pname = "ags";
           configPath = "${cfg.configDir}/@girs";
           packages = filter (x:
-            x.pname != "libadwaita")
+            x.pname != "libadwaita" && x.pname != "libkompass")
           cfg.astalLibs;
         })
         // (buildGirTypes {

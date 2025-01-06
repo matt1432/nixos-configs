@@ -201,6 +201,15 @@
       repo = "khepri";
       type = "github";
     };
+    kompass = {
+      inputs = {
+        astal.follows = "astal";
+        systems.follows = "systems";
+      };
+      owner = "kotontrion";
+      repo = "kompass";
+      type = "github";
+    };
     lib-aggregate = {
       inputs.flake-utils.follows = "flake-utils";
       owner = "nix-community";
