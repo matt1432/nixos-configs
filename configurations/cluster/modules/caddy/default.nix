@@ -6,7 +6,7 @@
   self,
   ...
 }: let
-  inherit (lib) attrValues;
+  inherit (lib) attrValues removeAttrs;
 
   inherit (config.sops) secrets;
   inherit (config.networking) hostName;
@@ -53,7 +53,7 @@ in {
           listenAddresses = [clusterIP];
           extraConfig = tlsConf + (extraConf.extraConfig or "");
         }
-        // (builtins.removeAttrs extraConf ["extraConfig"]);
+        // (removeAttrs extraConf ["extraConfig"]);
     in {
       # Public
       "Home-Assistant" = mkPublicReverseProxy "homie" "${homieIP}:8123" {};

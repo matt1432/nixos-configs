@@ -7,7 +7,7 @@ self: {
   inherit (self.inputs) hyprland;
   inherit (self.lib.hypr) mkBind;
 
-  inherit (lib) concatStringsSep mkIf optionals;
+  inherit (lib) attrValues concatStringsSep mkIf optionals;
 
   cfg = config.roles.desktop;
 
@@ -210,28 +210,30 @@ in {
       };
 
       # libs
-      home.packages =
-        (builtins.attrValues {
-          inherit
-            (pkgs)
-            bluez-tools
-            brightnessctl
-            pulseaudio
-            alsa-utils
-            libayatana-appindicator
-            xdg-utils
-            evtest
-            glib
-            libinput
-            xclip
-            libnotify
-            ;
-        })
-        ++ [
-          pkgs.qt5.qtwayland
-          pkgs.qt6.qtwayland
-          pkgs.xorg.xrandr
-        ];
+      home.packages = attrValues {
+        inherit
+          (pkgs)
+          bluez-tools
+          brightnessctl
+          pulseaudio
+          alsa-utils
+          libayatana-appindicator
+          xdg-utils
+          evtest
+          glib
+          libinput
+          xclip
+          libnotify
+          ;
+
+        qt5Wayland = pkgs.qt5.qtwayland;
+        qt6Wayland = pkgs.qt6.qtwayland;
+
+        inherit
+          (pkgs.xorg)
+          xrandr
+          ;
+      };
     };
   };
 

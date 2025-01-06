@@ -2,15 +2,12 @@
   config,
   lib,
   mainUser,
+  self,
   ...
 }: let
-  inherit (lib) foldl isList mapAttrsToList mergeAttrsWithFunc remove unique;
-  mergeAttrsList = list:
-    foldl (mergeAttrsWithFunc (a: b:
-      if isList a && isList b
-      then unique (a ++ b)
-      else b)) {}
-    list;
+  inherit (self.lib) mergeAttrsList;
+
+  inherit (lib) mapAttrsToList remove;
 
   inherit (config.networking) hostName;
 

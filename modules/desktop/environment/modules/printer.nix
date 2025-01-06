@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib) attrValues mkIf;
 
   cfg = config.roles.desktop;
 in {
@@ -14,7 +14,7 @@ in {
       printing = {
         enable = true;
 
-        drivers = builtins.attrValues {
+        drivers = attrValues {
           inherit
             (pkgs)
             hplip

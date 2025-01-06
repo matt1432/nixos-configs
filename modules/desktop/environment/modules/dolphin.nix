@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib) attrValues mkIf;
 
   cfg = config.roles.desktop;
 in {
@@ -29,7 +29,7 @@ in {
       };
     };
 
-    home-manager.users.${cfg.user}.home.packages = builtins.attrValues {
+    home-manager.users.${cfg.user}.home.packages = attrValues {
       inherit
         (pkgs)
         gnome-calculator

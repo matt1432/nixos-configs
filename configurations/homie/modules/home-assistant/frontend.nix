@@ -7,7 +7,7 @@
   self,
   ...
 }: let
-  inherit (lib) singleton;
+  inherit (lib) attrValues singleton;
   inherit (pkgs.writers) writeYAML;
 in {
   services.home-assistant = {
@@ -81,14 +81,14 @@ in {
       };
     };
 
-    customComponents = builtins.attrValues {
+    customComponents = attrValues {
       inherit
         (self.scopedPackages.${pkgs.system}.hass-components)
         material-symbols
         ;
     };
 
-    customLovelaceModules = builtins.attrValues {
+    customLovelaceModules = attrValues {
       inherit
         (pkgs.home-assistant-custom-lovelace-modules)
         card-mod

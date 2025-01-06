@@ -4,8 +4,8 @@
   pkgs,
   ...
 }: let
-  inherit (builtins) attrValues toJSON;
-  inherit (lib) mkIf mkEnableOption mkOption optionals optionalString types;
+  inherit (builtins) toJSON;
+  inherit (lib) attrValues mkIf mkEnableOption mkOption optionals optionalString types;
 
   cfg = config.nvidia;
 in {

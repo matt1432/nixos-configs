@@ -7,7 +7,7 @@ self: {
   inherit (self.inputs) nix-develop-nvim-src;
   inherit (self.lib.${pkgs.system}) mkVersion;
 
-  inherit (lib) fileContents mkBefore mkIf;
+  inherit (lib) attrValues fileContents mkBefore mkIf;
 
   cfg = config.programs.neovim;
 in {
@@ -59,58 +59,56 @@ in {
           });
         '';
 
-      plugins =
-        (builtins.attrValues {
-          inherit
-            (pkgs.vimPlugins)
-            # lsp plugins
-            nvim-lspconfig
-            lsp-status-nvim
-            # completion plugins
-            cmp-buffer
-            cmp-nvim-lsp
-            cmp-path
-            cmp-spell
-            vim-vsnip
-            ;
-        })
-        ++ [
-          (pkgs.vimPlugins.nix-develop-nvim.overrideAttrs (o: {
-            name = "vimplugin-${o.pname}-${mkVersion nix-develop-nvim-src}";
-            src = nix-develop-nvim-src;
-          }))
+      plugins = attrValues {
+        inherit
+          (pkgs.vimPlugins)
+          # lsp plugins
+          nvim-lspconfig
+          lsp-status-nvim
+          # completion plugins
+          cmp-buffer
+          cmp-nvim-lsp
+          cmp-path
+          cmp-spell
+          vim-vsnip
+          ;
 
-          {
-            plugin = pkgs.vimPlugins.nvim-cmp;
-            type = "lua";
-            config = fileContents ./config/cmp.lua;
-          }
+        nix-develop-nvim = pkgs.vimPlugins.nix-develop-nvim.overrideAttrs (o: {
+          name = "vimplugin-${o.pname}-${mkVersion nix-develop-nvim-src}";
+          src = nix-develop-nvim-src;
+        });
 
-          {
-            plugin = pkgs.vimPlugins.nvim-autopairs;
-            type = "lua";
-            config =
-              # lua
-              ''
-                require('nvim-autopairs').setup({});
-              '';
-          }
+        nvim-cmp = {
+          plugin = pkgs.vimPlugins.nvim-cmp;
+          type = "lua";
+          config = fileContents ./config/cmp.lua;
+        };
 
-          {
-            plugin = pkgs.vimPlugins.lsp_lines-nvim;
-            type = "lua";
-            config =
-              # lua
-              ''
-                -- Disable virtual_text since it's redundant due to lsp_lines.
-                vim.diagnostic.config({
-                    virtual_text = false,
-                });
+        nvim-autopairs = {
+          plugin = pkgs.vimPlugins.nvim-autopairs;
+          type = "lua";
+          config =
+            # lua
+            ''
+              require('nvim-autopairs').setup({});
+            '';
+        };
 
-                require('lsp_lines').setup();
-              '';
-          }
-        ];
+        lsp-lines = {
+          plugin = pkgs.vimPlugins.lsp_lines-nvim;
+          type = "lua";
+          config =
+            # lua
+            ''
+              -- Disable virtual_text since it's redundant due to lsp_lines.
+              vim.diagnostic.config({
+                  virtual_text = false,
+              });
+
+              require('lsp_lines').setup();
+            '';
+        };
+      };
     };
   };
 

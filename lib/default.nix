@@ -2,7 +2,7 @@
   perSystem,
   inputs,
 }: let
-  attrs = import ./attrs {};
+  attrs = import ./attrs inputs.nixpkgs.lib;
   flake = import ./flake inputs;
   hypr = import ./hypr inputs.nixpkgs.lib;
   strings = import ./strings inputs.nixpkgs.lib;

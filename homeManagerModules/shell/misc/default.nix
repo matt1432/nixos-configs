@@ -4,7 +4,7 @@ self: {
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib) attrValues mkIf;
 
   cfg = config.programs.bash;
 in {
@@ -50,7 +50,7 @@ in {
       config.theme = "dracula-bat";
       themes.dracula-bat.src = self.scopedPackages.${pkgs.system}.dracula.bat;
 
-      extraPackages = builtins.attrValues {
+      extraPackages = attrValues {
         inherit (pkgs.bat-extras) batman;
       };
     };

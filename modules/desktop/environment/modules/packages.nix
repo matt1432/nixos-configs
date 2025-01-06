@@ -7,7 +7,7 @@ self: {
   inherit (self.lib.hypr) mkBind;
   inherit (self.inputs) jellyfin-flake;
 
-  inherit (lib) getExe mkIf optionals;
+  inherit (lib) attrValues getExe mkIf optionals;
   inherit (pkgs.writers) writeTOML;
 
   cfg = config.roles.desktop;
@@ -77,86 +77,84 @@ in {
         };
       };
 
-      home.packages =
-        (builtins.attrValues {
-          # School
-          inherit (pkgs.hunspellDicts) en_CA;
-          inherit
-            (pkgs)
-            xournalpp
-            virt-manager
-            libreoffice-fresh # TODO: declarative conf?
-            hunspell
-            ;
+      home.packages = attrValues {
+        # School
+        inherit (pkgs.hunspellDicts) en_CA;
+        inherit
+          (pkgs)
+          xournalpp
+          virt-manager
+          libreoffice-fresh # TODO: declarative conf?
+          hunspell
+          ;
 
-          # Apps
-          inherit
-            (pkgs)
-            protonmail-desktop
-            spotifywm
-            swayimg
-            nextcloud-client
-            prismlauncher
-            ;
+        # Apps
+        inherit
+          (pkgs)
+          protonmail-desktop
+          spotifywm
+          swayimg
+          nextcloud-client
+          prismlauncher
+          ;
 
-          # tools
-          inherit
-            (pkgs)
-            grim-hyprland
-            wl-color-picker
-            wl-clipboard
-            cliphist
-            slurp
-            satty
-            ;
-        })
-        ++ [
-          (jellyfin-flake
-            .packages
-            .${pkgs.system}
-            .jellyfin-media-player
-            .override {isNvidiaWayland = isNvidia;})
+        # tools
+        inherit
+          (pkgs)
+          grim-hyprland
+          wl-color-picker
+          wl-clipboard
+          cliphist
+          slurp
+          satty
+          ;
 
-          /*
-          Discord themes for Vencord
-          https://markchan0225.github.io/RoundedDiscord/RoundedDiscord.theme.css
-          https://raw.githubusercontent.com/dracula/BetterDiscord/master/Dracula_Official.theme.css
-          */
-          (pkgs.discord.override {withVencord = true;})
-          pkgs.vesktop
+        jellyfinMediaPlayer =
+          jellyfin-flake
+          .packages
+          .${pkgs.system}
+          .jellyfin-media-player
+          .override {isNvidiaWayland = isNvidia;};
 
-          # GParted
-          (let
-            inherit (pkgs) writeShellScriptBin libsForQt5 gparted makeWrapper symlinkJoin;
+        /*
+        Discord themes for Vencord
+        https://markchan0225.github.io/RoundedDiscord/RoundedDiscord.theme.css
+        https://raw.githubusercontent.com/dracula/BetterDiscord/master/Dracula_Official.theme.css
+        */
+        discord = pkgs.discord.override {withVencord = true;};
+        inherit (pkgs) vesktop;
 
-            newWrapper = writeShellScriptBin "Gparted" ''
-              (
-                  sleep 1.5
-                  while killall -r -0 ksshaskpass > /dev/null 2>&1
-                  do
-                      sleep 0.1
-                      if [[ $(hyprctl activewindow | grep Ksshaskpass) == "" ]]; then
-                          killall -r ksshaskpass
-                      fi
-                  done
-              ) &
-              exec env SUDO_ASKPASS="${libsForQt5.ksshaskpass}/bin/ksshaskpass" sudo -k -EA "${getExe gparted}" "$@"
+        GParted = let
+          inherit (pkgs) writeShellScriptBin libsForQt5 gparted makeWrapper symlinkJoin;
+
+          newWrapper = writeShellScriptBin "Gparted" ''
+            (
+                sleep 1.5
+                while killall -r -0 ksshaskpass > /dev/null 2>&1
+                do
+                    sleep 0.1
+                    if [[ $(hyprctl activewindow | grep Ksshaskpass) == "" ]]; then
+                        killall -r ksshaskpass
+                    fi
+                done
+            ) &
+            exec env SUDO_ASKPASS="${libsForQt5.ksshaskpass}/bin/ksshaskpass" sudo -k -EA "${getExe gparted}" "$@"
+          '';
+        in
+          symlinkJoin {
+            name = "gparted";
+            paths = [gparted];
+            buildInputs = [makeWrapper];
+            postBuild = let
+            in ''
+              mkdir $out/.wrapped
+              mv $out/bin/gparted $out/.wrapped
+              cp ${getExe newWrapper} $out/bin/gparted
+
+              sed -i "s#Exec.*#Exec=$out/bin/gparted %f#" $out/share/applications/gparted.desktop
             '';
-          in
-            symlinkJoin {
-              name = "gparted";
-              paths = [gparted];
-              buildInputs = [makeWrapper];
-              postBuild = let
-              in ''
-                mkdir $out/.wrapped
-                mv $out/bin/gparted $out/.wrapped
-                cp ${getExe newWrapper} $out/bin/gparted
-
-                sed -i "s#Exec.*#Exec=$out/bin/gparted %f#" $out/share/applications/gparted.desktop
-              '';
-            })
-        ];
+          };
+      };
 
       wayland.windowManager.hyprland = {
         settings = {

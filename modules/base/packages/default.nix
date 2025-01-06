@@ -4,7 +4,7 @@ self: {
   pkgs,
   ...
 }: let
-  inherit (lib) attrValues makeBinPath mkIf optional;
+  inherit (lib) attrValues makeBinPath mkIf remove;
 
   cfg = config.roles.base;
 in {
@@ -22,115 +22,117 @@ in {
           ;
       });
 
-    environment.systemPackages =
-      (optional (cfg.user != "nixos") (self.inputs.nurl.packages.${pkgs.system}.default.overrideAttrs {
-        postInstall = ''
-          wrapProgram $out/bin/nurl \
-            --prefix PATH : ${makeBinPath [
-            (config.home-manager.users.${cfg.user}.programs.git.package or pkgs.gitMinimal)
-            (config.nix.package or pkgs.nix)
-            pkgs.mercurial
-          ]}
-          installManPage artifacts/nurl.1
-          installShellCompletion artifacts/nurl.{bash,fish} --zsh artifacts/_nurl
+    environment.systemPackages = remove null (attrValues {
+      inherit
+        (self.packages.${pkgs.system})
+        pokemon-colorscripts
+        repl
+        ;
+
+      nurl =
+        if (cfg.user != "nixos")
+        then
+          self.inputs.nurl.packages.${pkgs.system}.default.overrideAttrs {
+            postInstall = ''
+              wrapProgram $out/bin/nurl --prefix PATH : ${makeBinPath [
+                (config.home-manager.users.${cfg.user}.programs.git.package or pkgs.gitMinimal)
+                (config.nix.package or pkgs.nix)
+                pkgs.mercurial
+              ]}
+              installManPage artifacts/nurl.1
+              installShellCompletion artifacts/nurl.{bash,fish} --zsh artifacts/_nurl
+            '';
+          }
+        else null;
+
+      inherit
+        (pkgs.nodePackages)
+        undollar
+        ;
+
+      inherit (pkgs) alejandra;
+
+      # Archiving
+      inherit
+        (pkgs)
+        zip
+        unzip
+        p7zip
+        bzip2
+        gzip
+        gnutar
+        xz
+        ;
+
+      # File management
+      inherit
+        (pkgs)
+        findutils
+        diffutils
+        util-linux
+        which
+        imagemagick
+        ;
+
+      # Networking
+      inherit (pkgs.dig) dnsutils;
+      inherit
+        (pkgs)
+        arp-scan
+        openssh
+        rsync
+        wget
+        gnupg
+        ;
+
+      # Misc CLI stuff
+      inherit
+        (pkgs)
+        hydra-check
+        killall
+        nix-output-monitor
+        nix-melt
+        progress
+        tree
+        gnugrep
+        gnused
+        ;
+
+      # Expected Stuff
+      inherit
+        (pkgs)
+        hostname
+        man
+        perl
+        tzdata
+        ;
+
+      # TODO: `depOf` program that looks through `nix derivation show -r /run/current-system`
+      listDerivs = pkgs.writeShellApplication {
+        name = "listDerivs";
+        text = ''
+          exec nix-store --query --requisites /run/current-system | cut -d- -f2- | sort -u
         '';
-      }))
-      ++ (attrValues {
-        inherit
-          (self.packages.${pkgs.system})
-          pokemon-colorscripts
-          repl
-          ;
+      };
 
-        inherit
-          (pkgs.nodePackages)
-          undollar
-          ;
+      from = pkgs.writeShellApplication {
+        name = "from";
 
-        inherit (pkgs) alejandra;
+        runtimeInputs = attrValues {
+          inherit
+            (pkgs)
+            coreutils
+            which
+            ;
+        };
 
-        # Archiving
-        inherit
-          (pkgs)
-          zip
-          unzip
-          p7zip
-          bzip2
-          gzip
-          gnutar
-          xz
-          ;
-
-        # File management
-        inherit
-          (pkgs)
-          findutils
-          diffutils
-          util-linux
-          which
-          imagemagick
-          ;
-
-        # Networking
-        inherit (pkgs.dig) dnsutils;
-        inherit
-          (pkgs)
-          arp-scan
-          openssh
-          rsync
-          wget
-          gnupg
-          ;
-
-        # Misc CLI stuff
-        inherit
-          (pkgs)
-          hydra-check
-          killall
-          nix-output-monitor
-          nix-melt
-          progress
-          tree
-          gnugrep
-          gnused
-          ;
-
-        # Expected Stuff
-        inherit
-          (pkgs)
-          hostname
-          man
-          perl
-          tzdata
-          ;
-      })
-      ++ [
-        # TODO: `depOf` program that looks through `nix derivation show -r /run/current-system`
-        (pkgs.writeShellApplication {
-          name = "listDerivs";
-          text = ''
-            exec nix-store --query --requisites /run/current-system | cut -d- -f2- | sort -u
-          '';
-        })
-
-        (pkgs.writeShellApplication {
-          name = "from";
-
-          runtimeInputs = attrValues {
-            inherit
-              (pkgs)
-              coreutils
-              which
-              ;
-          };
-
-          text = ''
-            for var do
-                realpath "$(which "$var")"
-            done
-          '';
-        })
-      ];
+        text = ''
+          for var do
+              realpath "$(which "$var")"
+          done
+        '';
+      };
+    });
   };
 
   # For accurate stack trace

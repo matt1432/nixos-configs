@@ -5,7 +5,9 @@ defaultSession: {
   pkgs,
   self,
   ...
-}: {
+}: let
+  inherit (lib) attrValues makeSearchPathOutput;
+in {
   config = {
     # Normal Steam Stuff
     programs.steam = {
@@ -27,7 +29,7 @@ defaultSession: {
 
       environment = {
         STEAM_EXTRA_COMPAT_TOOLS_PATHS =
-          lib.makeSearchPathOutput
+          makeSearchPathOutput
           "steamcompattool"
           ""
           config.programs.steam.extraCompatPackages;
@@ -43,7 +45,7 @@ defaultSession: {
       stateDir = "/home/${mainUser}/.local/share/decky"; # Keep scoped to user
       # https://github.com/Jovian-Experiments/Jovian-NixOS/blob/1171169117f63f1de9ef2ea36efd8dcf377c6d5a/modules/decky-loader.nix#L80-L84
 
-      extraPackages = builtins.attrValues {
+      extraPackages = attrValues {
         inherit
           (pkgs)
           curl

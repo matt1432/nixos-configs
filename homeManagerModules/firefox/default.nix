@@ -6,7 +6,7 @@ self: {
 }: let
   inherit (self.scopedPackages.${pkgs.system}) firefoxAddons;
 
-  inherit (lib) mkIf mkOption types;
+  inherit (lib) attrValues mkIf mkOption types;
 
   cfg = config.programs.firefox;
 
@@ -205,7 +205,7 @@ in {
           ];
         };
 
-        extensions = builtins.attrValues {
+        extensions = attrValues {
           inherit
             (firefoxAddons)
             auto-refresh-page

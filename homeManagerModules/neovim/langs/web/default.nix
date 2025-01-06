@@ -25,14 +25,13 @@ in {
             local default_capabilities = require('cmp_nvim_lsp').default_capabilities();
 
             local loadDevShell = function()
+                if (devShells['web'] == nil) then
+                    devShells['web'] = 1;
 
-                    if (devShells['web'] == nil) then
-                        devShells['web'] = 1;
-
-                        require('nix-develop').nix_develop({'${flakeEnv}#web'}, function()
-                            vim.cmd[[LspStart]];
-                        end);
-                    end
+                    require('nix-develop').nix_develop({'${flakeEnv}#web'}, function()
+                        vim.cmd[[LspStart]];
+                    end);
+                end
             end;
 
             vim.api.nvim_create_autocmd('FileType', {

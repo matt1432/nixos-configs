@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib) attrValues mkIf;
 
   cfg = config.roles.base;
 in {
@@ -20,26 +20,31 @@ in {
         };
       };
 
-      packages = with pkgs;
-        [
+      packages = attrValues {
+        jetbrainsMono = pkgs.jetbrains-mono;
+        jetbrainsMonoNF = pkgs.nerd-fonts.jetbrains-mono;
+
+        inherit
+          (pkgs)
           noto-fonts
           noto-fonts-cjk-sans
           noto-fonts-emoji
           liberation_ttf
           font-awesome
           meslo-lgs-nf
-          jetbrains-mono
           ubuntu_font_family
-        ]
-        ++ (with pkgs.nerd-fonts; [
-          jetbrains-mono
+          ;
+
+        inherit
+          (pkgs.nerd-fonts)
           go-mono
           iosevka
           symbols-only
           space-mono
           ubuntu
           noto
-        ]);
+          ;
+      };
     };
 
     # Select internationalisation properties.

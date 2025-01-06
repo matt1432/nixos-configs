@@ -6,7 +6,7 @@ self: {
 }: let
   inherit (self.scopedPackages.${pkgs.system}) mpvScripts;
 
-  inherit (lib) mkIf;
+  inherit (lib) attrValues mkIf;
 
   cfg = osConfig.roles.desktop;
 in {
@@ -20,7 +20,7 @@ in {
       enable = true;
 
       # https://github.com/mpv-player/mpv/wiki/User-Scripts
-      scripts = builtins.attrValues {
+      scripts = attrValues {
         inherit
           (mpvScripts)
           modernx

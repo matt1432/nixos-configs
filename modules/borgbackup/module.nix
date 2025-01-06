@@ -31,7 +31,7 @@ in {
                 default = null;
               };
               dumpCommand = mkOption {
-                type = with types; nullOr path;
+                type = types.nullOr types.path;
                 default = null;
               };
               repo = mkOption {
@@ -104,7 +104,7 @@ in {
                 default = [];
               };
               readWritePaths = mkOption {
-                type = with types; listOf path;
+                type = types.listOf types.path;
                 default = [];
               };
               privateTmp = mkOption {

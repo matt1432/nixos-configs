@@ -7,9 +7,6 @@ self: {
 }: let
   inherit (self.inputs) ags astal gtk-session-lock kompass;
 
-  gtkSessionLock = gtk-session-lock.packages.${pkgs.system}.default;
-  libKompass = kompass.packages.${pkgs.system}.libkompass;
-
   inherit (lib) attrValues boolToString filter getExe mkIf optionalAttrs optionals;
 
   inherit (osConfig.networking) hostName;
@@ -23,9 +20,9 @@ self: {
     runtimeInputs = [cfg.package];
     text = ''
       if [ "$#" == 0 ]; then
-        exec ags run ~/${cfg.configDir} -a ${hostName}
+          exec ags run ~/${cfg.configDir} -a ${hostName}
       else
-        exec ags "$@"
+          exec ags "$@"
       fi
     '';
   };
@@ -56,10 +53,8 @@ in {
           wireplumber
           ;
 
-        inherit
-          gtkSessionLock
-          libKompass
-          ;
+        gtkSessionLock = gtk-session-lock.packages.${pkgs.system}.default;
+        libKompass = kompass.packages.${pkgs.system}.libkompass;
 
         # libkompass dependencies
         inherit
@@ -80,9 +75,9 @@ in {
         runtimeInputs = [cfg.package];
         text = ''
           if [ "$#" == 0 ]; then
-            exec ags run ~/${cfg.configDir} -a lock
+              exec ags run ~/${cfg.configDir} -a lock
           else
-            exec ags "$@" -i lock
+              exec ags "$@" -i lock
           fi
         '';
       };

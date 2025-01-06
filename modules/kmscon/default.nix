@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (lib) elemAt mkIf mkOption types;
+  inherit (lib) concatStringsSep elemAt mkIf mkOption types;
 
   cfg = config.services.kmscon;
 in {
@@ -29,8 +29,8 @@ in {
       useXkbConfig = true;
       hwRender = false;
 
-      # FIXME: https://github.com/Aetf/kmscon/issues/18    // Icons not rendering properly
-      extraOptions = builtins.concatStringsSep " " [
+      # FIXME: https://github.com/Aetf/kmscon/issues/18 Icons not rendering properly
+      extraOptions = concatStringsSep " " [
         "--font-size ${toString cfg.fontSize}"
         "--font-dpi ${toString cfg.fontDpi}"
         "--font-name '${cfg.fontName}'"
