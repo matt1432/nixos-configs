@@ -9,7 +9,7 @@ self: {
   cfg = config.programs.bash;
 
   mkRemoteConf = remote: email: name: {
-    condition = "hasconfig:remote.*.url:${remote}:*/**";
+    condition = "hasconfig:remote.*.url:${remote}*/**";
     contents.user = {inherit email name;};
   };
   mkDefaultRemote = remote: mkRemoteConf remote "matt@nelim.org" "matt1432";
