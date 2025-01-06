@@ -1,9 +1,9 @@
-import { App, Astal, Gtk } from 'astal/gtk4';
+import { App, Astal, Gdk, Gtk } from 'astal/gtk4';
 import { Variable } from 'astal';
 
 import Kompass from 'gi://Kompass';
 
-import { Box, Button, Calendar, CenterBox, Label, MenuButton, Popover, Window } from './subclasses';
+import { Box, Calendar, CenterBox, Label, MenuButton, Popover, Window } from './subclasses';
 
 const { EXCLUSIVE } = Astal.Exclusivity;
 const { TOP, LEFT, RIGHT } = Astal.WindowAnchor;
@@ -31,11 +31,12 @@ export default () => {
             application={App}
         >
             <CenterBox cssName="centerbox">
-                <Kompass.Tray />
+                <Kompass.Tray cursor={Gdk.Cursor.new_from_name('pointer', null)} />
 
                 {styledBox}
 
                 <MenuButton
+                    cursor={Gdk.Cursor.new_from_name('pointer', null)}
                     hexpand
                     halign={CENTER}
                 >
