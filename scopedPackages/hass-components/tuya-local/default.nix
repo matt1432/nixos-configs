@@ -5,7 +5,7 @@
 }: let
   python3Packages = pkgs.python3Packages.override {
     overrides = final: prev: {
-      tinytuya = prev.tinytuya.overrideAttrs (o: rec {
+      tinytuya = prev.tinytuya.overridePythonAttrs (o: rec {
         version = "1.16.0";
         src = pkgs.fetchFromGitHub {
           owner = "jasonacox";
