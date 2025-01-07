@@ -12,6 +12,6 @@ in {
   material-symbols = buildHassComponent ./material-symbols {};
   netdaemon = buildHassComponent ./netdaemon {};
   spotifyplus = import ./spotifyplus ({inherit buildHassComponent;} // inputs);
-  tuya-local = buildHassComponent ./tuya-local {};
+  tuya-local = import ./tuya-local ({inherit buildHassComponent;} // inputs);
   yamaha-soundbar = buildHassComponent ./yamaha-soundbar {};
 })

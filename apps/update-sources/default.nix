@@ -9,7 +9,7 @@
 }:
 buildApp {
   src = ./.;
-  npmDepsHash = "sha256-XncG28x8w3Ufi1jZBrYa+CQMeYnqPTP8bSoLuHAHtNM=";
+  npmDepsHash = "sha256-Y4qFOepOdKihQPyEx/E5+ySCbsFeDOLM9h+angwJR4Y=";
 
   runtimeInputs = [
     go

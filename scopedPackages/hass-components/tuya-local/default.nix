@@ -1,22 +1,20 @@
 {
-  tuya-local-src,
-  buildHomeAssistantComponent,
-  python3Packages,
+  buildHassComponent,
+  pkgs,
   ...
 }: let
-  inherit (builtins) fromJSON readFile;
-
-  manifest = fromJSON (readFile "${tuya-local-src}/custom_components/tuya_local/manifest.json");
+  python3Packages = pkgs.python3Packages.override {
+    overrides = final: prev: {
+      tinytuya = prev.tinytuya.overrideAttrs (o: rec {
+        version = "1.16.0";
+        src = pkgs.fetchFromGitHub {
+          owner = "jasonacox";
+          repo = "tinytuya";
+          rev = "v${version}";
+          hash = "sha256-K65kZjLa5AJG9FEYAs/Jf2UC8qiP7BkC8znHMHMYeg4=";
+        };
+      });
+    };
+  };
 in
-  buildHomeAssistantComponent {
-    owner = "make-all";
-
-    inherit (manifest) domain version;
-
-    src = tuya-local-src;
-
-    propagatedBuildInputs = with python3Packages; [
-      tinytuya
-      tuya-device-sharing-sdk
-    ];
-  }
+  buildHassComponent ./tinytuya.nix {inherit python3Packages;}
