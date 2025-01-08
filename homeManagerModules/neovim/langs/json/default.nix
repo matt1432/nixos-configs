@@ -23,7 +23,7 @@ in {
                     if (devShells['json'] == nil) then
                         devShells['json'] = 1;
 
-                        require('nix-develop').nix_develop({'${flakeEnv}#json'}, function()
+                        require('nix-develop').nix_develop_extend({'${flakeEnv}#json'}, function()
                             vim.cmd[[LspStart]];
                         end);
                     end

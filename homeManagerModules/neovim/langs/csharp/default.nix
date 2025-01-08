@@ -70,7 +70,7 @@ in {
                         if (devShells['csharp'] == nil) then
                             devShells['csharp'] = 1;
 
-                            require('nix-develop').nix_develop({'${flakeEnv}#csharp'}, function()
+                            require('nix-develop').nix_develop_extend({'${flakeEnv}#csharp'}, function()
                                 startRoslyn();
                                 vim.cmd[[e]]; -- reload to attach on current file
                             end);

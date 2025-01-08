@@ -23,7 +23,7 @@ in {
                     if (devShells['rust'] == nil) then
                         devShells['rust'] = 1;
 
-                        require('nix-develop').nix_develop({'${flakeEnv}#rust'}, function()
+                        require('nix-develop').nix_develop_extend({'${flakeEnv}#rust'}, function()
                             vim.cmd[[LspStart]];
                         end);
                     end

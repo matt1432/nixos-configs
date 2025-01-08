@@ -29,7 +29,7 @@ in {
                     if (devShells['c-lang'] == nil) then
                         devShells['c-lang'] = 1;
 
-                        require('nix-develop').nix_develop({'${flakeEnv}#c-lang'}, function()
+                        require('nix-develop').nix_develop_extend({'${flakeEnv}#c-lang'}, function()
                             vim.cmd[[LspStart]];
                         end);
                     end
