@@ -124,7 +124,9 @@ let
       };
 
       hyprgrass = mkHyprDep {
-        owner = "horriblename";
+        # FIXME: wait for https://github.com/horriblename/hyprgrass/pull/198
+        # owner = "horriblename";
+        owner = "matt1432";
         repo = "hyprgrass";
       };
 
