@@ -139,7 +139,7 @@
     };
     hyprgrass = {
       inputs.hyprland.follows = "hyprland";
-      owner = "matt1432";
+      owner = "horriblename";
       repo = "hyprgrass";
       type = "github";
     };
@@ -151,6 +151,7 @@
       };
       owner = "hyprwm";
       repo = "Hyprland";
+      rev = "b9f110ef8726fcba2b4ee69856027731e73003a5";
       type = "github";
     };
     hyprland-plugins = {
@@ -160,6 +161,7 @@
       };
       owner = "hyprwm";
       repo = "hyprland-plugins";
+      rev = "b6b31113ce84419c69ed575c22194e4023d2952a";
       type = "github";
     };
     hyprpaper = {

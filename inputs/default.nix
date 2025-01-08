@@ -115,18 +115,22 @@ let
         owner = "hyprwm";
         repo = "Hyprland";
 
+        # FIXME: animation stuff is broken
+        rev = "b9f110ef8726fcba2b4ee69856027731e73003a5";
+
         inputs.hyprutils.follows = "hyprutils";
       };
 
       hyprland-plugins = mkHyprDep {
         owner = "hyprwm";
         repo = "hyprland-plugins";
+
+        # FIXME: animation stuff is broken
+        rev = "b6b31113ce84419c69ed575c22194e4023d2952a";
       };
 
       hyprgrass = mkHyprDep {
-        # FIXME: wait for https://github.com/horriblename/hyprgrass/pull/198
-        # owner = "horriblename";
-        owner = "matt1432";
+        owner = "horriblename";
         repo = "hyprgrass";
       };
 

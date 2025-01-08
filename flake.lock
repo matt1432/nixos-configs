@@ -627,15 +627,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1736350118,
-        "narHash": "sha256-tLn4z//zf+y8qylaaE1fXsP6KQZsrTYaq+hVE/drmVw=",
-        "owner": "matt1432",
+        "lastModified": 1736362064,
+        "narHash": "sha256-fGd5vBvbpfCZJR9E3y3K0nLFwQdDDGTixYbs1IzuBL0=",
+        "owner": "horriblename",
         "repo": "hyprgrass",
-        "rev": "02c4cd6d0183c8611cb03a182d6c4011a78ce322",
+        "rev": "f73785a7fb41d89b4c0ac51315524c97c4b5f803",
         "type": "github"
       },
       "original": {
-        "owner": "matt1432",
+        "owner": "horriblename",
         "repo": "hyprgrass",
         "type": "github"
       }
@@ -662,16 +662,17 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1736336083,
-        "narHash": "sha256-BheKUOkUW1chQkMf1k7Q0p3uIygJzltY7sf7uMTYaUU=",
+        "lastModified": 1736191857,
+        "narHash": "sha256-LTSTvLUacrn5MPfWrAFDlCg+e9UE8O12Isn747YOeug=",
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "983bc067dac2e737bc724721c79d87cd81f27501",
+        "rev": "b9f110ef8726fcba2b4ee69856027731e73003a5",
         "type": "github"
       },
       "original": {
         "owner": "hyprwm",
         "repo": "Hyprland",
+        "rev": "b9f110ef8726fcba2b4ee69856027731e73003a5",
         "type": "github"
       }
     },
@@ -690,16 +691,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1736356422,
-        "narHash": "sha256-XcMbipeiXtk0UXO455CAqXCy2oGEkPX4uPfSxJQ8iAw=",
+        "lastModified": 1736115213,
+        "narHash": "sha256-x15KPKaSDBe07tQqkBnN1CV3kthMe0RTu9QomIr2YHg=",
         "owner": "hyprwm",
         "repo": "hyprland-plugins",
-        "rev": "948d70b26efa93ba7794a9282d7eb83e7fdf74fa",
+        "rev": "b6b31113ce84419c69ed575c22194e4023d2952a",
         "type": "github"
       },
       "original": {
         "owner": "hyprwm",
         "repo": "hyprland-plugins",
+        "rev": "b6b31113ce84419c69ed575c22194e4023d2952a",
         "type": "github"
       }
     },
@@ -1971,11 +1973,11 @@
       },
       "locked": {
         "dir": "packaging/nix",
-        "lastModified": 1736364446,
-        "narHash": "sha256-EnfUkrKOYbZfnnIJBU5Fja24G8OBFIP64DW0meX/FKA=",
+        "lastModified": 1736367905,
+        "narHash": "sha256-0fmp89XanBePv5Ivt/GIoRZlfigimDnOsp2MSvDmVok=",
         "ref": "refs/heads/main",
-        "rev": "8f90bf7d20facd7e3a8f0339a17713921b0a7890",
-        "revCount": 888,
+        "rev": "0e23aaf93722aeefa3fc05ea6ed94734727e3028",
+        "revCount": 889,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/Open-Wine-Components/umu-launcher/?dir=packaging/nix"
