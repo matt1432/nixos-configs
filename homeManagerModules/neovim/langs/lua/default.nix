@@ -15,7 +15,7 @@ in {
       neovim = {
         plugins = [
           {
-            plugin = pkgs.vimPlugins.neodev-nvim;
+            plugin = pkgs.vimPlugins.lazydev-nvim;
             type = "lua";
             config =
               # lua
@@ -38,14 +38,11 @@ in {
                     end,
                 });
 
-                -- IMPORTANT: make sure to setup neodev BEFORE lspconfig
-                require("neodev").setup({
-                    override = function(root_dir, library)
-                        if root_dir:find('${flakeEnv}', 1, true) == 1 then
-                            library.enabled = true;
-                            library.plugins = true;
-                        end
-                    end,
+                require('lazydev').setup({
+                    library = {
+                        -- Load luvit types when the `vim.uv` word is found
+                        { path = '${pkgs.vimPlugins.luvit-meta}/library', words = { 'vim%.uv' } },
+                    },
                 });
 
                 require('lspconfig').lua_ls.setup({
