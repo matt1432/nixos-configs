@@ -41,7 +41,11 @@
 
         esp32 = {
           board = "m5stack-atom";
-          framework.type = "esp-idf";
+          framework = {
+            type = "esp-idf";
+            version = "4.4.8";
+            platform_version = "5.4.0";
+          };
         };
 
         esp_adf = {};
