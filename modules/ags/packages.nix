@@ -91,6 +91,7 @@ in {
             name = "ags4";
             runtimeInputs = [cfg.package];
             text = ''
+              gsettings set org.gnome.desktop.interface cursor-size 30
               exec ags run ~/${gtk4ConfigDir}/app.ts --gtk4
             '';
           })
