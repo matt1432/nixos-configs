@@ -15,7 +15,7 @@
     })
     ++ py.python-lsp-server.optional-dependencies.all;
 in {
-  config = mkIf cfg.enable {
+  config = mkIf (cfg.enable && cfg.ideConfig.enablePython) {
     programs = {
       neovim = {
         withPython3 = true;

@@ -10,7 +10,7 @@
 
   javaSdk = pkgs.temurin-bin-21;
 in {
-  config = mkIf cfg.enable {
+  config = mkIf (cfg.enable && cfg.ideConfig.enableJava) {
     programs = {
       # We keep the packages here because java is a bit complicated
       java = {

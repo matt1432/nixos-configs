@@ -19,6 +19,25 @@ in {
     user = mkOption {
       type = types.str;
     };
+
+    ideConfig = {
+      enableBash = mkOption {
+        type = types.bool;
+        default = true;
+      };
+      enableJava = mkOption {
+        type = types.bool;
+        default = true;
+      };
+      enableNix = mkOption {
+        type = types.bool;
+        default = true;
+      };
+      enablePython = mkOption {
+        type = types.bool;
+        default = true;
+      };
+    };
   };
 
   config = mkIf cfg.enable {

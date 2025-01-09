@@ -43,6 +43,12 @@
         programs.neovim = {
           enable = true;
           user = "nix-on-droid";
+
+          ideConfig = {
+            enableJava = false;
+            enableNix= false;
+            enablePython = false;
+          };
         };
       }
 

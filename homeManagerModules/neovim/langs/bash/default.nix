@@ -8,7 +8,7 @@
 
   cfg = config.programs.neovim;
 in {
-  config = mkIf cfg.enable {
+  config = mkIf (cfg.enable && cfg.ideConfig.enableBash) {
     programs = {
       # I love doing typos
       bash.shellAliases = {

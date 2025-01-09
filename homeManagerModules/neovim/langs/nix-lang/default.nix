@@ -23,7 +23,7 @@ self: {
     then "nixosConfigurations.${hostName}.options"
     else "nixOnDroidConfigurations.default";
 in {
-  config = mkIf cfg.enable {
+  config = mkIf (cfg.enable && cfg.ideConfig.enableNix) {
     assertions = [
       {
         assertion = hasPrefix "${mainHmCfg.home.homeDirectory}/" flakeEnv;
