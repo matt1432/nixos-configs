@@ -24,7 +24,11 @@
 
       # Home-assistant sometimes fails some tests when built with everything else
       nom build --no-link \
-        ..#nixosConfigurations.homie.config.services.home-assistant.package
+          ..#nixosConfigurations.homie.config.services.home-assistant.package
+
+      # Build NixOnDroid activation package
+      nom build --impure -o ./result-aarch64-linux.nixOnDroidConfigurations_default \
+          ..#nixOnDroidConfigurations.default.config.build.activationPackage
 
       nix-fast-build -f ..#nixFastChecks.all "$@"
     '';
