@@ -30,7 +30,7 @@ in {
         ;
 
       nurl =
-        if (cfg.user != "nixos")
+        if (cfg.user != "nixos" && cfg.user != "nix-on-droid")
         then
           self.inputs.nurl.packages.${pkgs.system}.default.overrideAttrs {
             postInstall = ''
