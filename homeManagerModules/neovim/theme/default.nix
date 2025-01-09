@@ -7,7 +7,7 @@ self: {
   inherit (self.inputs) nvim-theme-src;
   inherit (self.lib.${pkgs.system}) mkVersion;
 
-  inherit (lib) attrValues fileContents mkIf;
+  inherit (lib) attrValues fileContents getExe mkIf;
 
   cfg = config.programs.neovim;
 in {
@@ -105,7 +105,14 @@ in {
         }
 
         {
-          plugin = pkgs.vimPlugins.neo-tree-nvim;
+          plugin = pkgs.vimPlugins.neo-tree-nvim.overrideAttrs (o: {
+            postPatch = ''
+              ${o.postPatch or ""}
+              for file in $(${pkgs.findutils}/bin/find ./lua/neo-tree -type f -name "*.lua"); do
+                  substituteInPlace "$file" --replace-warn '"git"' '"${getExe pkgs.gitFull}"'
+              done
+            '';
+          });
           type = "lua";
           config = fileContents ./config/neotree.lua;
         }
