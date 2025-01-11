@@ -235,10 +235,10 @@
   };
   "sound-volume" = buildFirefoxXpiAddon {
     pname = "sound-volume";
-    version = "1.5.6";
+    version = "1.5.8";
     addonId = "{c4b582ec-4343-438c-bda2-2f691c16c262}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4396669/600_sound_volume-1.5.6.xpi";
-    sha256 = "6327d5f27460406f8a91ac7c987247ac89d71c5215483f39b9b9e2345d04ba6a";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4409489/600_sound_volume-1.5.8.xpi";
+    sha256 = "a23950c48ba15cc59906c20298194c7c762951990b545e038af8f6bfd58f8178";
     meta = with lib; {
       description = "Up to 600% volume boost";
       license = licenses.mpl20;
@@ -255,10 +255,10 @@
   };
   "sponsorblock" = buildFirefoxXpiAddon {
     pname = "sponsorblock";
-    version = "5.10.3";
+    version = "5.10.5";
     addonId = "sponsorBlocker@ajay.app";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4404647/sponsorblock-5.10.3.xpi";
-    sha256 = "8d670559ae17adc808ed061188822e5112728ba70eda0a3133dcc4abc3857bdc";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4410322/sponsorblock-5.10.5.xpi";
+    sha256 = "219e58141efd775fe0c549e3a225d7897616de5880cacc1b21e460f81042b1cb";
     meta = with lib; {
       homepage = "https://sponsor.ajay.app";
       description = "Easily skip YouTube video sponsors. When you visit a YouTube video, the extension will check the database for reported sponsors and automatically skip known sponsors. You can also report sponsors in videos. Other browsers: https://sponsor.ajay.app";

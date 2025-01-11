@@ -13,6 +13,17 @@
     home-assistant = {
       package = pkgs.home-assistant.override {
         packageOverrides = final: prev: {
+          # FIXME: https://pr-tracker.nelim.org/?pr=370782
+          gevent = prev.gevent.overridePythonAttrs rec {
+            pname = "gevent";
+            version = "24.11.1";
+
+            src = pkgs.fetchPypi {
+              inherit pname version;
+              hash = "sha256-i9FBkRTp5KPtM6W612av/5o892XLRApYKhs6m8gMGso=";
+            };
+          };
+
           # HassTimer has way too many collisions with my custom timer sentences
           home-assistant-intents = prev.home-assistant-intents.overrideAttrs (o: {
             nativeBuildInputs = o.nativeBuildInputs ++ [pkgs.findutils];
