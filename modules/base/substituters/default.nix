@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) elem foldl isList mergeAttrsWithFunc mkIf optionals unique;
+  inherit (lib) foldl isList mergeAttrsWithFunc mkIf optionals unique;
 
   cfg = config.roles.base;
 
@@ -45,9 +45,6 @@ in {
           ]
           ++ optionals (config.networking.hostName != "servivi") [
             (mkSubstituterConf 100 "https://cache.nelim.org" "cache.nelim.org:JmFqkUdH11EA9EZOFAGVHuRYp7EbsdJDHvTQzG2pPyY=")
-          ]
-          ++ optionals (elem config.networking.hostName ["bbsteamie" "binto" "wim"]) [
-            (mkSubstituterConf 10 "https://cache-apt.nelim.org" "cache-apt.nelim.org:NLAsWxa2Qbm4b+hHimjCpZfm48a4oN4O/GPZY9qpjNw=")
           ]);
     };
   };

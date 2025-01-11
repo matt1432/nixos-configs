@@ -7,20 +7,12 @@
 }: let
   inherit (self.lib.attrs) recursiveUpdateList;
 
-  aptDevices = perSystem (pkgs:
-    import ./devices {
-      onlyApt = true;
-      inherit pkgs self;
-    });
-
   apps = perSystem (pkgs: import ./apps {inherit pkgs self;});
   devices = perSystem (pkgs: import ./devices {inherit pkgs self;});
   devShells = perSystem (pkgs: import ./devShells {inherit pkgs self;});
   packages = perSystem (pkgs: import ./packages {inherit pkgs self;});
 in {
-  # Allow homie to serve a binary cache for the devices away from servivi
-  aptDevices = recursiveUpdateList [aptDevices devShells];
+  inherit apps devices devShells packages;
 
   all = recursiveUpdateList [apps devices devShells packages];
-  inherit apps devices devShells packages;
 }

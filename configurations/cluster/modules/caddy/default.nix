@@ -87,7 +87,6 @@ in {
       "Immich" = mkPublicReverseProxy "photos" "${nosIP}:2283" {};
 
       "Binary Cache" = mkPublicReverseProxy "cache" "${serviviIP}:5000" {};
-      "Apt Binary Cache" = mkPublicReverseProxy "cache-apt" "${homieIP}:5000" {};
 
       # Private
       "nelim.org" = {
