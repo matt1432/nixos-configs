@@ -132,7 +132,7 @@ in {
                 vim.api.nvim_create_autocmd('BufUnload', {
                     pattern = '*',
                     callback = function()
-                        os.execute("killall -qr live-server");
+                        os.execute('${pkgs.psmisc}/bin/killall -qr live-server');
                     end,
                 });
 
