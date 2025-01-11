@@ -1,23 +1,29 @@
 {
-  self,
-  buildHassComponent,
-  smartinspect-src,
-  spotifywebapi-src,
-  pkgs,
+  spotifyplus-src,
+  buildHomeAssistantComponent,
+  python3Packages,
   ...
 }: let
-  python3Packages = pkgs.python3Packages.override {
-    overrides = _: super: rec {
-      smartinspect = pkgs.callPackage ./smartinspect.nix {
-        inherit python3Packages smartinspect-src;
-      };
-      spotifywebapi = pkgs.callPackage ./spotifywebapi.nix {
-        inherit python3Packages smartinspect spotifywebapi-src;
-      };
-      urllib3 = self.packages.${pkgs.system}.urllib3.override {
-        inherit python3Packages;
-      };
-    };
-  };
+  inherit (builtins) fromJSON readFile;
+
+  manifest = fromJSON (readFile "${spotifyplus-src}/custom_components/spotifyplus/manifest.json");
 in
-  buildHassComponent ./spotifyplus.nix {inherit python3Packages;}
+  buildHomeAssistantComponent {
+    owner = "thlucas1";
+
+    inherit (manifest) domain version;
+
+    src = spotifyplus-src;
+
+    propagatedBuildInputs = with python3Packages; [
+      oauthlib
+      platformdirs
+      requests
+      requests_oauthlib
+      soco
+      urllib3
+      zeroconf
+      smartinspect # overridden in python3Packages
+      spotifywebapi # overridden in python3Packages
+    ];
+  }

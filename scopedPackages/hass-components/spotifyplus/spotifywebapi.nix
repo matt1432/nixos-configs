@@ -22,7 +22,7 @@ in
       setuptools
       urllib3
       zeroconf
-      smartinspect # overridden in this python3Packages
+      smartinspect # overridden in python3Packages
     ];
 
     pythonImportsCheck = [

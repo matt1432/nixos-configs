@@ -46,7 +46,7 @@
 
           ideConfig = {
             enableJava = false;
-            enableNix= false;
+            enableNix = false;
             enablePython = false;
           };
         };
