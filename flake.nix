@@ -73,7 +73,7 @@
     firefox-gx-src = {
       flake = false;
       owner = "Godiesc";
-      ref = "v.9.8";
+      ref = "v.9.9";
       repo = "firefox-gx";
       type = "github";
     };

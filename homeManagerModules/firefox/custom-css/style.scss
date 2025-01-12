@@ -5,6 +5,11 @@
     --my-vertical-toolbar-width: 46px !important;
 }
 
+// Put main menu under logo
+#appMenu-popup {
+    --my-menu-button-height: 0 !important;
+}
+
 #appMenu-mainView {
 
     // Main Menu outline
@@ -25,24 +30,25 @@
     display: none !important;
 }
 
-
-// Fix url font-size
-#urlbar-input {
-    font-size: large !important;
-}
-
 // Extension padding on sidebar
 toolbar .toolbarbutton-1>.toolbarbutton-badge-stack {
     padding: 10px !important;
 }
 
-// Hamburger button border
+// Hamburger button style
 :root:not([chromehidden~="toolbar"]) #PanelUI-menu-button[open] {
-    border: 2px solid var(--button-background-color-primary) !important;
-    border-top-left-radius: $rounding !important;
-
     &>.toolbarbutton-badge-stack {
         border-top-left-radius: $rounding !important;
+        --my-menu-button-width: calc(var(--my-menu-button-height) + 4px) !important;
+    }
+}
+
+// Hide "Menu" label
+:root:not([chromehidden~="toolbar"]) #PanelUI-menu-button>.toolbarbutton-badge-stack {
+    .toolbarbutton-icon {
+        margin-right: 4px;
+        margin-left: 2px;
+        margin-top: 4px;
     }
 }
 
@@ -73,7 +79,7 @@ toolbar .toolbarbutton-1>.toolbarbutton-badge-stack {
 /* Extensions button into the "left-sidebar" - Immovable */
 :root:not([chromehidden~="toolbar"],
     [sizemode="fullscreen"]) #PersonalToolbar {
-    --padding-top-left-sidebar: 110px !important;
+    --padding-top-left-sidebar: 75px !important;
     /* 182px to one-line config */
 }
 
