@@ -115,26 +115,17 @@ let
         owner = "hyprwm";
         repo = "Hyprland";
 
-        # FIXME: hypr stuff not really working
-        rev = "b9f110ef8726fcba2b4ee69856027731e73003a5";
-
         inputs.hyprutils.follows = "hyprutils";
       };
 
       hyprland-plugins = mkHyprDep {
         owner = "hyprwm";
         repo = "hyprland-plugins";
-
-        # FIXME: hypr stuff not really working
-        rev = "b6b31113ce84419c69ed575c22194e4023d2952a";
       };
 
       hyprgrass = mkHyprDep {
         owner = "horriblename";
         repo = "hyprgrass";
-
-        # FIXME: hypr stuff not really working
-        rev = "bdfa960b97ac98ad9d05c908ee20e053e2942928";
       };
 
       hyprpaper = mkDep {

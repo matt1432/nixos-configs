@@ -15,7 +15,7 @@ in
       substituteInPlace ./webpack.config.js --replace-fail "git branch --show-current" "echo main"
     '';
 
-    npmDepsHash = "sha256-l/g6gXCOyOe4N2ZawXsep1QpmvI31DTFgTQPp+LCDfk=";
+    npmDepsHash = "sha256-BlG/IuyJpigw6twUoaxJ5a970JfwBb75FuwgtH4xrCw=";
 
     installPhase = ''
       mkdir $out
