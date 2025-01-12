@@ -91,7 +91,7 @@ in {
         # Apps
         inherit
           (pkgs)
-          protonmail-desktop
+          protonmail-desktop # run with `XDG_SESSION_TYPE=x11 proton-mail` if it crashes  https://github.com/NixOS/nixpkgs/issues/365156
           spotifywm
           swayimg
           nextcloud-client
