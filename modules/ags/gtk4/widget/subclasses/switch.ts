@@ -1,18 +1,22 @@
 import { register } from 'astal';
 import { Gtk, type ConstructProps } from 'astal/gtk4';
 
-import astalify from './astalify';
+import astalify, { type AstalifyProps } from './astalify';
 
 
 export type SwitchProps = ConstructProps<
-    Switch,
-    Gtk.Switch.ConstructorProps & { css: string }
+    SwitchClass,
+    Gtk.Switch.ConstructorProps & AstalifyProps
 >;
 
 @register({ GTypeName: 'Switch' })
-export class Switch extends astalify(Gtk.Switch) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    constructor(props?: SwitchProps) { super(props as any); }
+export class SwitchClass extends astalify(Gtk.Switch) {
+    constructor({ cssName = 'switch', ...props }: SwitchProps = {}) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        super({ cssName, ...props as any });
+    }
 
     getChildren() { return []; }
 }
+
+export const Switch = (props?: SwitchProps) => new SwitchClass(props);

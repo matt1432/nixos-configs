@@ -1,18 +1,22 @@
 import { register } from 'astal';
 import { Gtk, type ConstructProps } from 'astal/gtk4';
 
-import astalify from './astalify';
+import astalify, { type AstalifyProps } from './astalify';
 
 
 export type LevelBarProps = ConstructProps<
-    LevelBar,
-    Gtk.LevelBar.ConstructorProps & { css: string }
+    LevelBarClass,
+    Gtk.LevelBar.ConstructorProps & AstalifyProps
 >;
 
 @register({ GTypeName: 'LevelBar' })
-export class LevelBar extends astalify(Gtk.LevelBar) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    constructor(props?: LevelBarProps) { super(props as any); }
+export class LevelBarClass extends astalify(Gtk.LevelBar) {
+    constructor({ cssName = 'levelbar', ...props }: LevelBarProps = {}) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        super({ cssName, ...props as any });
+    }
 
     getChildren() { return []; }
 }
+
+export const LevelBar = (props?: LevelBarProps) => new LevelBarClass(props);

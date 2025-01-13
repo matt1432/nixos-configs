@@ -1,24 +1,28 @@
 import { register } from 'astal';
 import { Astal, type ConstructProps, Gtk } from 'astal/gtk4';
 
-import astalify from './astalify';
+import astalify, { type AstalifyProps } from './astalify';
 
 
 export type BoxProps = ConstructProps<
-    Box,
-    Astal.Box.ConstructorProps & { css: string }
+    BoxClass,
+    Astal.Box.ConstructorProps & AstalifyProps
 >;
 
 @register({ GTypeName: 'Box' })
-export class Box extends astalify(Astal.Box) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    constructor(props?: BoxProps) { super(props as any); }
+export class BoxClass extends astalify(Astal.Box) {
+    constructor({ cssName = 'box', ...props }: BoxProps = {}) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        super({ cssName, ...props as any });
+    }
 
-    getChildren(self: Box) {
+    getChildren(self: BoxClass) {
         return self.get_children();
     }
 
-    setChildren(self: Box, children: Gtk.Widget[]) {
+    setChildren(self: BoxClass, children: Gtk.Widget[]) {
         return self.set_children(children);
     }
 }
+
+export const Box = (props?: BoxProps) => new BoxClass(props);

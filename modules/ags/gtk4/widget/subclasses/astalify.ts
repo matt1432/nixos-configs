@@ -11,6 +11,10 @@ import {
 } from './_astal';
 
 export type BindableChild = Gtk.Widget | Binding<Gtk.Widget>;
+export interface AstalifyProps {
+    css: string
+    children: Gtk.Widget[]
+}
 
 export const type = Symbol('child type');
 const dummyBuilder = new Gtk.Builder();
@@ -161,6 +165,7 @@ export default <C extends new (...args: any[]) => Gtk.Widget>(
         set type(value: string) { this[type] = value; }
 
 
+        @property(Object)
         get children(): Gtk.Widget[] { return this.getChildren(this); }
 
         set children(value: Gtk.Widget[]) { this.setChildren(this, value); }

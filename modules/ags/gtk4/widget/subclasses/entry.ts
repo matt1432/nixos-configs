@@ -1,7 +1,7 @@
 import { register } from 'astal';
 import { Gtk, type ConstructProps } from 'astal/gtk4';
 
-import astalify from './astalify';
+import astalify, { type AstalifyProps } from './astalify';
 
 
 type EntrySignals = Record<`on${string}`, unknown[]> & {
@@ -9,15 +9,19 @@ type EntrySignals = Record<`on${string}`, unknown[]> & {
     onNotifyText: []
 };
 export type EntryProps = ConstructProps<
-    Entry,
-    Gtk.Entry.ConstructorProps & { css: string },
+    EntryClass,
+    Gtk.Entry.ConstructorProps & AstalifyProps,
     EntrySignals
 >;
 
 @register({ GTypeName: 'Entry' })
-export class Entry extends astalify(Gtk.Entry) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    constructor(props?: EntryProps) { super(props as any); }
+export class EntryClass extends astalify(Gtk.Entry) {
+    constructor({ cssName = 'entry', ...props }: EntryProps = {}) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        super({ cssName, ...props as any });
+    }
 
     getChildren() { return []; }
 }
+
+export const Entry = (props?: EntryProps) => new EntryClass(props);

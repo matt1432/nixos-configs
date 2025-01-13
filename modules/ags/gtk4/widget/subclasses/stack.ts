@@ -1,20 +1,22 @@
 import { register } from 'astal';
 import { Gtk, type ConstructProps } from 'astal/gtk4';
 
-import astalify from './astalify';
+import astalify, { type AstalifyProps } from './astalify';
 
 
 export type StackProps = ConstructProps<
-    Stack,
-    Gtk.Stack.ConstructorProps & { css: string }
+    StackClass,
+    Gtk.Stack.ConstructorProps & AstalifyProps
 >;
 
 @register({ GTypeName: 'Stack' })
-export class Stack extends astalify(Gtk.Stack) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    constructor(props?: StackProps) { super(props as any); }
+export class StackClass extends astalify(Gtk.Stack) {
+    constructor({ cssName = 'stack', ...props }: StackProps = {}) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        super({ cssName, ...props as any });
+    }
 
-    setChildren(self: Stack, children: Gtk.Widget[]) {
+    setChildren(self: StackClass, children: Gtk.Widget[]) {
         for (const child of children) {
             if (child.name !== '' && child.name !== null) {
                 self.add_named(child, child.name);
@@ -25,3 +27,5 @@ export class Stack extends astalify(Gtk.Stack) {
         }
     }
 }
+
+export const Stack = (props?: StackProps) => new StackClass(props);

@@ -1,16 +1,20 @@
 import { register } from 'astal';
 import { Gtk, type ConstructProps } from 'astal/gtk4';
 
-import astalify from './astalify';
+import astalify, { type AstalifyProps } from './astalify';
 
 
 export type RevealerProps = ConstructProps<
-    Revealer,
-    Gtk.Revealer.ConstructorProps & { css: string }
+    RevealerClass,
+    Gtk.Revealer.ConstructorProps & AstalifyProps
 >;
 
 @register({ GTypeName: 'Revealer' })
-export class Revealer extends astalify(Gtk.Revealer) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    constructor(props?: RevealerProps) { super(props as any); }
+export class RevealerClass extends astalify(Gtk.Revealer) {
+    constructor({ cssName = 'revealer', ...props }: RevealerProps = {}) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        super({ cssName, ...props as any });
+    }
 }
+
+export const Revealer = (props?: RevealerProps) => new RevealerClass(props);

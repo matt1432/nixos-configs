@@ -1,24 +1,26 @@
 import { register } from 'astal';
 import { Gtk, type ConstructProps } from 'astal/gtk4';
 
-import astalify from './astalify';
+import astalify, { type AstalifyProps } from './astalify';
 
 
 export type MenuButtonProps = ConstructProps<
-    MenuButton,
-    Gtk.MenuButton.ConstructorProps & { css: string }
+    MenuButtonClass,
+    Gtk.MenuButton.ConstructorProps & AstalifyProps
 >;
 
 @register({ GTypeName: 'MenuButton' })
-export class MenuButton extends astalify(Gtk.MenuButton) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    constructor(props?: MenuButtonProps) { super(props as any); }
+export class MenuButtonClass extends astalify(Gtk.MenuButton) {
+    constructor({ cssName = 'menubutton', ...props }: MenuButtonProps = {}) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        super({ cssName, ...props as any });
+    }
 
-    getChildren(self: MenuButton) {
+    getChildren(self: MenuButtonClass) {
         return [self.popover, self.child];
     }
 
-    setChildren(self: MenuButton, children: Gtk.Widget[]) {
+    setChildren(self: MenuButtonClass, children: Gtk.Widget[]) {
         for (const child of children) {
             if (child instanceof Gtk.Popover) {
                 self.set_popover(child);
@@ -29,3 +31,5 @@ export class MenuButton extends astalify(Gtk.MenuButton) {
         }
     }
 }
+
+export const MenuButton = (props?: MenuButtonProps) => new MenuButtonClass(props);

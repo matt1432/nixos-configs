@@ -1,20 +1,22 @@
 import { register } from 'astal';
 import { Gtk, type ConstructProps } from 'astal/gtk4';
 
-import astalify, { type } from './astalify';
+import astalify, { type, type AstalifyProps } from './astalify';
 
 
 export type OverlayProps = ConstructProps<
-    Overlay,
-    Gtk.Overlay.ConstructorProps & { css: string }
+    OverlayClass,
+    Gtk.Overlay.ConstructorProps & AstalifyProps
 >;
 
 @register({ GTypeName: 'Overlay' })
-export class Overlay extends astalify(Gtk.Overlay) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    constructor(props?: OverlayProps) { super(props as any); }
+export class OverlayClass extends astalify(Gtk.Overlay) {
+    constructor({ cssName = 'overlay', ...props }: OverlayProps = {}) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        super({ cssName, ...props as any });
+    }
 
-    getChildren(self: Overlay) {
+    getChildren(self: OverlayClass) {
         const children: Gtk.Widget[] = [];
         let ch = self.get_first_child();
 
@@ -26,7 +28,7 @@ export class Overlay extends astalify(Gtk.Overlay) {
         return children.filter((child) => child !== self.child);
     }
 
-    setChildren(self: Overlay, children: Gtk.Widget[]) {
+    setChildren(self: OverlayClass, children: Gtk.Widget[]) {
         for (const child of children) {
             const types = type in child ?
                 (child[type] as string).split(/\s+/) :
@@ -44,3 +46,5 @@ export class Overlay extends astalify(Gtk.Overlay) {
         }
     }
 }
+
+export const Overlay = (props?: OverlayProps) => new OverlayClass(props);

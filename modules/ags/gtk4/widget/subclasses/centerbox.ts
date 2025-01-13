@@ -1,24 +1,26 @@
 import { register } from 'astal';
 import { Gtk, type ConstructProps } from 'astal/gtk4';
 
-import astalify from './astalify';
+import astalify, { type AstalifyProps } from './astalify';
 
 
 export type CenterBoxProps = ConstructProps<
-    CenterBox,
-    Gtk.CenterBox.ConstructorProps & { css: string }
+    CenterBoxClass,
+    Gtk.CenterBox.ConstructorProps & AstalifyProps
 >;
 
 @register({ GTypeName: 'CenterBox' })
-export class CenterBox extends astalify(Gtk.CenterBox) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    constructor(props?: CenterBoxProps) { super(props as any); }
+export class CenterBoxClass extends astalify(Gtk.CenterBox) {
+    constructor({ cssName = 'centerbox', ...props }: CenterBoxProps = {}) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        super({ cssName, ...props as any });
+    }
 
-    getChildren(box: CenterBox) {
+    getChildren(box: CenterBoxClass) {
         return [box.startWidget, box.centerWidget, box.endWidget];
     }
 
-    setChildren(box: CenterBox, children: (Gtk.Widget | null)[]) {
+    setChildren(box: CenterBoxClass, children: (Gtk.Widget | null)[]) {
         if (children.length > 3) {
             throw new Error('Cannot have more than 3 children in a CenterBox');
         }
@@ -28,3 +30,5 @@ export class CenterBox extends astalify(Gtk.CenterBox) {
         box.endWidget = children[2] || new Gtk.Box();
     }
 }
+
+export const CenterBox = (props?: CenterBoxProps) => new CenterBoxClass(props);
