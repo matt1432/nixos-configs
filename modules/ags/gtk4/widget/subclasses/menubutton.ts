@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { register } from 'astal';
 import { Gtk, type ConstructProps } from 'astal/gtk4';
 
-import astalify, { filter } from './astalify';
+import astalify from './astalify';
 
 
 export type MenuButtonProps = ConstructProps<
@@ -13,14 +11,15 @@ export type MenuButtonProps = ConstructProps<
 
 @register({ GTypeName: 'MenuButton' })
 export class MenuButton extends astalify(Gtk.MenuButton) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     constructor(props?: MenuButtonProps) { super(props as any); }
 
     getChildren(self: MenuButton) {
         return [self.popover, self.child];
     }
 
-    setChildren(self: MenuButton, children: any[]) {
-        for (const child of filter(children)) {
+    setChildren(self: MenuButton, children: Gtk.Widget[]) {
+        for (const child of children) {
             if (child instanceof Gtk.Popover) {
                 self.set_popover(child);
             }

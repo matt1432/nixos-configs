@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { register } from 'astal';
 import { Astal, type ConstructProps } from 'astal/gtk4';
 
@@ -13,5 +11,6 @@ export type WindowProps = ConstructProps<
 
 @register({ GTypeName: 'Window' })
 export class Window extends astalify(Astal.Window) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     constructor(props?: WindowProps) { super(props as any); }
 }

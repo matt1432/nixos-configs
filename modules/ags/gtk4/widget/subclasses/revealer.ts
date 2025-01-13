@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { register } from 'astal';
 import { Gtk, type ConstructProps } from 'astal/gtk4';
 
@@ -13,5 +11,6 @@ export type RevealerProps = ConstructProps<
 
 @register({ GTypeName: 'Revealer' })
 export class Revealer extends astalify(Gtk.Revealer) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     constructor(props?: RevealerProps) { super(props as any); }
 }

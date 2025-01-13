@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { register } from 'astal';
 import { Gtk, type ConstructProps } from 'astal/gtk4';
 
@@ -17,5 +15,6 @@ export type ButtonProps = ConstructProps<
 
 @register({ GTypeName: 'Button' })
 export class Button extends astalify(Gtk.Button) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     constructor(props?: ButtonProps) { super(props as any); }
 }

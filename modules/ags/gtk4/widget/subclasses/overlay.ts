@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { register } from 'astal';
 import { Gtk, type ConstructProps } from 'astal/gtk4';
 
-import astalify, { filter, type } from './astalify';
+import astalify, { type } from './astalify';
 
 
 export type OverlayProps = ConstructProps<
@@ -13,6 +11,7 @@ export type OverlayProps = ConstructProps<
 
 @register({ GTypeName: 'Overlay' })
 export class Overlay extends astalify(Gtk.Overlay) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     constructor(props?: OverlayProps) { super(props as any); }
 
     getChildren(self: Overlay) {
@@ -27,8 +26,8 @@ export class Overlay extends astalify(Gtk.Overlay) {
         return children.filter((child) => child !== self.child);
     }
 
-    setChildren(self: Overlay, children: any[]) {
-        for (const child of filter(children)) {
+    setChildren(self: Overlay, children: Gtk.Widget[]) {
+        for (const child of children) {
             const types = type in child ?
                 (child[type] as string).split(/\s+/) :
                 [];

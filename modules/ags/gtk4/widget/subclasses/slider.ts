@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { register } from 'astal';
 import { Astal, type ConstructProps } from 'astal/gtk4';
 
@@ -17,6 +15,7 @@ export type SliderProps = ConstructProps<
 
 @register({ GTypeName: 'Slider' })
 export class Slider extends astalify(Astal.Slider) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     constructor(props?: SliderProps) { super(props as any); }
 
     getChildren() { return []; }

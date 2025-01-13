@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { register } from 'astal';
 import { Gtk, type ConstructProps } from 'astal/gtk4';
 
@@ -13,6 +11,7 @@ export type LevelBarProps = ConstructProps<
 
 @register({ GTypeName: 'LevelBar' })
 export class LevelBar extends astalify(Gtk.LevelBar) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     constructor(props?: LevelBarProps) { super(props as any); }
 
     getChildren() { return []; }

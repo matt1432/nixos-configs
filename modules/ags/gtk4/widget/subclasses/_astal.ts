@@ -1,12 +1,14 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { execAsync, Variable } from 'astal';
+import { Gtk } from 'astal/gtk4';
 import Binding, { Connectable, kebabify, snakeify, Subscribable } from 'astal/binding';
 
 export const noImplicitDestroy = Symbol('no no implicit destroy');
 export const setChildren = Symbol('children setter method');
 
-const mergeBindings = (array: any[]) => {
-    const getValues = (...args: any[]) => {
+const mergeBindings = <Value = unknown>(
+    array: (Value | Binding<Value>)[],
+): Value[] | Binding<Value[]> => {
+    const getValues = (...args: Value[]) => {
         let i = 0;
 
         return array.map((value) => value instanceof Binding ?
@@ -16,14 +18,19 @@ const mergeBindings = (array: any[]) => {
 
     const bindings = array.filter((i) => i instanceof Binding);
 
-    if (bindings.length === 0) { return array; }
+    if (bindings.length === 0) {
+        return array as Value[];
+    }
 
-    if (bindings.length === 1) { return bindings[0].as(getValues); }
+    if (bindings.length === 1) {
+        return bindings[0].as(getValues);
+    }
 
     return Variable.derive(bindings, getValues)();
 };
 
-const setProp = (obj: any, prop: string, value: any) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const setProp = (obj: any, prop: string, value: unknown) => {
     try {
         const setter = `set_${snakeify(prop)}`;
 
@@ -39,11 +46,11 @@ const setProp = (obj: any, prop: string, value: any) => {
 export const hook = <Widget extends Connectable>(
     widget: Widget,
     object: Connectable | Subscribable,
-    signalOrCallback: string | ((self: Widget, ...args: any[]) => void),
-    callback?: (self: Widget, ...args: any[]) => void,
+    signalOrCallback: string | ((self: Widget, ...args: unknown[]) => void),
+    callback?: (self: Widget, ...args: unknown[]) => void,
 ) => {
     if (typeof object.connect === 'function' && callback) {
-        const id = object.connect(signalOrCallback, (_: any, ...args: unknown[]) => {
+        const id = object.connect(signalOrCallback, (_: unknown, ...args: unknown[]) => {
             callback(widget, ...args);
         });
 
@@ -61,7 +68,8 @@ export const hook = <Widget extends Connectable>(
 };
 
 export const construct = <Widget extends Connectable & {
-    [setChildren]: (children: any[]) => void
+    [setChildren]: (children: Gtk.Widget[]) => void
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
 }>(widget: Widget, config: any) => {
     // eslint-disable-next-line prefer-const
     let { setup, child, children = [], ...props } = config;
@@ -82,9 +90,9 @@ export const construct = <Widget extends Connectable & {
     }
 
     // collect bindings
-    const bindings: [string, Binding<any>][] = Object
+    const bindings: [string, Binding<unknown>][] = Object
         .keys(props)
-        .reduce((acc: any, prop) => {
+        .reduce((acc: [string, Binding<unknown>][], prop) => {
             if (props[prop] instanceof Binding) {
                 const binding = props[prop];
 
@@ -99,7 +107,7 @@ export const construct = <Widget extends Connectable & {
     // collect signal handlers
     const onHandlers: [string, string | (() => unknown)][] = Object
         .keys(props)
-        .reduce((acc: any, key) => {
+        .reduce((acc: [string, Binding<unknown>][], key) => {
             if (key.startsWith('on')) {
                 const sig = kebabify(key).split('-').slice(1).join('-');
                 const handler = props[key];
@@ -113,7 +121,7 @@ export const construct = <Widget extends Connectable & {
         }, []);
 
     // set children
-    const mergedChildren = mergeBindings(children.flat(Infinity));
+    const mergedChildren = mergeBindings<Gtk.Widget>(children.flat(Infinity));
 
     if (mergedChildren instanceof Binding) {
         widget[setChildren](mergedChildren.get());
@@ -143,11 +151,11 @@ export const construct = <Widget extends Connectable & {
     // setup bindings handlers
     for (const [prop, binding] of bindings) {
         if (prop === 'child' || prop === 'children') {
-            widget.connect('destroy', binding.subscribe((v: any) => {
+            widget.connect('destroy', (binding as Binding<Gtk.Widget[]>).subscribe((v: Gtk.Widget[]) => {
                 widget[setChildren](v);
             }));
         }
-        widget.connect('destroy', binding.subscribe((v: any) => {
+        widget.connect('destroy', binding.subscribe((v: unknown) => {
             setProp(widget, prop, v);
         }));
         setProp(widget, prop, binding.get());

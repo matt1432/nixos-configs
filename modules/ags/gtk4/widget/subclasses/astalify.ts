@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import Gdk from 'gi://Gdk?version=4.0';
-import GObject from 'gi://GObject';
 import Gtk from 'gi://Gtk?version=4.0';
 
+import { property, register } from 'astal';
 import Binding, { type Connectable, type Subscribable } from 'astal/binding';
 import {
     hook,
@@ -13,12 +11,6 @@ import {
 } from './_astal';
 
 export type BindableChild = Gtk.Widget | Binding<Gtk.Widget>;
-
-export const filter = (children: any[]) => {
-    return children.flat(Infinity).map((ch) => ch instanceof Gtk.Widget ?
-        ch :
-        new Gtk.Label({ visible: true, label: String(ch) }));
-};
 
 export const type = Symbol('child type');
 const dummyBuilder = new Gtk.Builder();
@@ -131,13 +123,17 @@ const setupControllers = <T>(widget: Gtk.Widget, {
     return props;
 };
 
-export default <
-    C extends new(...args: any[]) => Gtk.Widget,
->(cls: C, clsName = cls.name) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default <C extends new (...args: any[]) => Gtk.Widget>(
+    cls: C,
+    clsName = cls.name,
+) => {
+    @register({ GTypeName: `RealClass_${clsName}` })
     class Widget extends cls {
         declare private _css: string | undefined;
         declare private _provider: Gtk.CssProvider | undefined;
 
+        @property(String)
         get css(): string | undefined {
             return this._css;
         }
@@ -156,17 +152,27 @@ export default <
             this._provider.load_from_string(value);
         }
 
+
         declare private [type]: string;
+
+        @property(String)
         get type(): string { return this[type]; }
+
         set type(value: string) { this[type] = value; }
 
+
         get children(): Gtk.Widget[] { return this.getChildren(this); }
+
         set children(value: Gtk.Widget[]) { this.setChildren(this, value); }
 
 
         declare private [noImplicitDestroy]: boolean;
+
+        @property(String)
         get noImplicitDestroy(): boolean { return this[noImplicitDestroy]; }
+
         set noImplicitDestroy(value: boolean) { this[noImplicitDestroy] = value; }
+
 
         protected getChildren(widget: Gtk.Widget): Gtk.Widget[] {
             if ('get_child' in widget && typeof widget.get_child == 'function') {
@@ -184,11 +190,7 @@ export default <
             return children;
         }
 
-        protected setChildren(widget: Gtk.Widget, children: any[]) {
-            children = children.flat(Infinity).map((ch) => ch instanceof Gtk.Widget ?
-                ch :
-                new Gtk.Label({ visible: true, label: String(ch) }));
-
+        protected setChildren(widget: Gtk.Widget, children: Gtk.Widget[]) {
             for (const child of children) {
                 widget.vfunc_add_child(
                     dummyBuilder,
@@ -198,38 +200,42 @@ export default <
             }
         }
 
-        [setChildren](children: any[]) {
-            const w = this as unknown as Widget;
+        [setChildren](children: Gtk.Widget[]) {
+            for (const child of (this.getChildren(this))) {
+                child?.unparent();
 
-            for (const child of (this.getChildren(w))) {
-                if (child instanceof Gtk.Widget) {
-                    child.unparent();
-                    if (!children.includes(child) && noImplicitDestroy in this) { child.run_dispose(); }
+                if (!children.includes(child) && noImplicitDestroy in this) {
+                    child.run_dispose();
                 }
             }
 
-            this.setChildren(w, children);
+            this.setChildren(this, children);
         }
+
 
         hook(
             object: Connectable,
             signal: string,
-            callback: (self: this, ...args: any[]) => void,
+            callback: (self: this, ...args: unknown[]) => void,
         ): this;
+
         hook(
             object: Subscribable,
-            callback: (self: this, ...args: any[]) => void,
+            callback: (self: this, ...args: unknown[]) => void,
         ): this;
+
         hook(
             object: Connectable | Subscribable,
-            signalOrCallback: string | ((self: this, ...args: any[]) => void),
-            callback?: (self: this, ...args: any[]) => void,
+            signalOrCallback: string | ((self: this, ...args: unknown[]) => void),
+            callback?: (self: this, ...args: unknown[]) => void,
         ) {
             hook(this, object, signalOrCallback, callback);
 
             return this;
         }
 
+
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         constructor(...params: any[]) {
             const props = params[0] || {};
 
@@ -249,24 +255,9 @@ export default <
                 delete props.type;
             }
 
-            construct(this as any, setupControllers(this, props));
+            construct(this, setupControllers(this, props));
         }
     }
-
-    GObject.registerClass({
-        GTypeName: `RealClass_${clsName}`,
-        Properties: {
-            'css': GObject.ParamSpec.string(
-                'css', '', '', GObject.ParamFlags.READWRITE, '',
-            ),
-            'type': GObject.ParamSpec.string(
-                'type', '', '', GObject.ParamFlags.READWRITE, '',
-            ),
-            'no-implicit-destroy': GObject.ParamSpec.boolean(
-                'no-implicit-destroy', '', '', GObject.ParamFlags.READWRITE, false,
-            ),
-        },
-    }, Widget);
 
     return Widget;
 };

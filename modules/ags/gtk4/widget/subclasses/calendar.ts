@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { register } from 'astal';
 import { Gtk, type ConstructProps } from 'astal/gtk4';
 
@@ -22,5 +20,6 @@ export type CalendarProps = ConstructProps<
 
 @register({ GTypeName: 'Calendar' })
 export class Calendar extends astalify(Gtk.Calendar) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     constructor(props?: CalendarProps) { super(props as any); }
 }

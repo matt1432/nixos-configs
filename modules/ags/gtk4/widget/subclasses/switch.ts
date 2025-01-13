@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { register } from 'astal';
 import { Gtk, type ConstructProps } from 'astal/gtk4';
 
@@ -13,6 +11,7 @@ export type SwitchProps = ConstructProps<
 
 @register({ GTypeName: 'Switch' })
 export class Switch extends astalify(Gtk.Switch) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     constructor(props?: SwitchProps) { super(props as any); }
 
     getChildren() { return []; }
