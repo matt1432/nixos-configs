@@ -94,18 +94,43 @@ in {
             '';
         };
 
-        lsp-lines = {
-          plugin = pkgs.vimPlugins.lsp_lines-nvim;
+        tiny-inline-diagnostic = {
+          plugin = pkgs.vimPlugins.tiny-inline-diagnostic-nvim;
           type = "lua";
           config =
             # lua
             ''
-              -- Disable virtual_text since it's redundant due to lsp_lines.
+              -- Disable virtual_text since it's redundant due to tiny-inline-diagnostic.
               vim.diagnostic.config({
                   virtual_text = false,
               });
 
-              require('lsp_lines').setup();
+              require("tiny-inline-diagnostic").setup({
+                  -- Available options:
+                  -- "modern", "classic", "minimal", "powerline",
+                  -- "ghost", "simple", "nonerdfont", "amongus"
+                  preset = 'modern',
+
+                  options = {
+                      show_source = true,
+                      use_icons_from_diagnostic = false,
+
+                      -- Minimum message length before wrapping to a new line
+                      softwrap = 30,
+
+                      -- Show all diagnostics under the cursor if multiple diagnostics exist on the same line
+                      -- If set to false, only the diagnostics under the cursor will be displayed
+                      multiple_diag_under_cursor = true,
+
+                      multilines = {
+                          enabled = true,
+                          always_show = true,
+                      },
+
+                      enable_on_insert = true,
+                      throttle = 0,
+                  },
+              });
             '';
         };
       };
