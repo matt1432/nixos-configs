@@ -1,92 +1,14 @@
-import { execAsync, Variable } from 'astal';
-import { type Gdk, type Gtk, type ConstructProps } from 'astal/gtk4';
-import { Binding, type Connectable, kebabify, snakeify, type Subscribable } from 'astal/binding';
+import { execAsync } from 'astal';
+import { type Gtk, type ConstructProps } from 'astal/gtk4';
+import { Binding, kebabify, snakeify } from 'astal/binding';
 
-export interface EventController<Self extends Gtk.Widget> {
-    onFocusEnter?: (self: Self) => void
-    onFocusLeave?: (self: Self) => void
+import { mergeBindings } from './bindings';
+import { type EventController } from './controller';
+import { type AstalifyProps, type BindableProps, type GenericWidget, setChildren } from './generics';
 
-    onKeyPressed?: (self: Self, keyval: number, keycode: number, state: Gdk.ModifierType) => void
-    onKeyReleased?: (self: Self, keyval: number, keycode: number, state: Gdk.ModifierType) => void
-    onKeyModifier?: (self: Self, state: Gdk.ModifierType) => void
 
-    onLegacy?: (self: Self, event: Gdk.Event) => void
-    onButtonPressed?: (self: Self, state: Gdk.ButtonEvent) => void
-    onButtonReleased?: (self: Self, state: Gdk.ButtonEvent) => void
-
-    onHoverEnter?: (self: Self, x: number, y: number) => void
-    onHoverLeave?: (self: Self) => void
-    onMotion?: (self: Self, x: number, y: number) => void
-
-    onScroll?: (self: Self, dx: number, dy: number) => void
-    onScrollDecelerate?: (self: Self, vel_x: number, vel_y: number) => void
-}
-
-export type BindableProps<T> = {
-    [K in keyof T]: Binding<T[K]> | T[K];
-};
-
-export interface AstalifyProps {
-    css: string
-    child: Gtk.Widget
-    children: Gtk.Widget[]
-}
-
-export const noImplicitDestroy = Symbol('no no implicit destroy');
-export const setChildren = Symbol('children setter method');
-
-const mergeBindings = <Value = unknown>(
-    array: (Value | Binding<Value> | Binding<Value[]>)[],
-): Value[] | Binding<Value[]> => {
-    const getValues = (args: Value[]) => {
-        let i = 0;
-
-        return array.map((value) => value instanceof Binding ?
-            args[i++] :
-            value);
-    };
-
-    const bindings = array.filter((i) => i instanceof Binding);
-
-    if (bindings.length === 0) {
-        return array as Value[];
-    }
-
-    if (bindings.length === 1) {
-        return (bindings[0] as Binding<Value[]>).as(getValues);
-    }
-
-    return Variable.derive(bindings, getValues)();
-};
-
-export const hook = <Widget extends Connectable>(
-    widget: Widget,
-    object: Connectable | Subscribable,
-    signalOrCallback: string | ((self: Widget, ...args: unknown[]) => void),
-    callback?: (self: Widget, ...args: unknown[]) => void,
-) => {
-    if (typeof object.connect === 'function' && callback) {
-        const id = object.connect(signalOrCallback, (_: unknown, ...args: unknown[]) => {
-            callback(widget, ...args);
-        });
-
-        widget.connect('destroy', () => {
-            (object.disconnect as Connectable['disconnect'])(id);
-        });
-    }
-    else if (typeof object.subscribe === 'function' && typeof signalOrCallback === 'function') {
-        const unsub = object.subscribe((...args: unknown[]) => {
-            signalOrCallback(widget, ...args);
-        });
-
-        widget.connect('destroy', unsub);
-    }
-};
-
-export const construct = <
-    Self extends InstanceType<typeof Gtk.Widget> & {
-        [setChildren]: (children: Gtk.Widget[]) => void
-    },
+export default <
+    Self extends GenericWidget,
     Props extends Gtk.Widget.ConstructorProps,
 >(
     widget: Self,

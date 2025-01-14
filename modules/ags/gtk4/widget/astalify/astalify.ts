@@ -1,126 +1,22 @@
-// A mixin class must have a constructor with a single rest parameter of type 'any[]'
-/* eslint "@typescript-eslint/no-explicit-any": ["error", { "ignoreRestArgs": true }] */
-
 import { property, register } from 'astal';
-import { Gdk, Gtk } from 'astal/gtk4';
-import Binding, { type Connectable, type Subscribable } from 'astal/binding';
+import { Gtk, hook } from 'astal/gtk4';
+import { type Connectable, type Subscribable } from 'astal/binding';
+
+import construct from './construct';
+import setupControllers from './controller';
 
 import {
-    type EventController,
-    hook,
+    type BindableProps,
+    dummyBuilder,
+    type MixinParams,
     noImplicitDestroy,
     setChildren,
-    construct,
-} from './_astal';
+    childType,
+} from './generics';
 
-import { type AstalifyProps, type BindableProps } from './_astal';
-export { type AstalifyProps, type BindableProps };
-
-export type BindableChild = Gtk.Widget | Binding<Gtk.Widget>;
-
-export const type = Symbol('child type');
-const dummyBuilder = new Gtk.Builder();
-
-const setupControllers = <T>(widget: Gtk.Widget, {
-    onFocusEnter,
-    onFocusLeave,
-    onKeyPressed,
-    onKeyReleased,
-    onKeyModifier,
-    onLegacy,
-    onButtonPressed,
-    onButtonReleased,
-    onHoverEnter,
-    onHoverLeave,
-    onMotion,
-    onScroll,
-    onScrollDecelerate,
-    ...props
-}: EventController<Gtk.Widget> & T) => {
-    if (onFocusEnter || onFocusLeave) {
-        const focus = new Gtk.EventControllerFocus();
-
-        widget.add_controller(focus);
-
-        if (onFocusEnter) { focus.connect('focus-enter', () => onFocusEnter(widget)); }
-
-        if (onFocusLeave) { focus.connect('focus-leave', () => onFocusLeave(widget)); }
-    }
-
-    if (onKeyPressed || onKeyReleased || onKeyModifier) {
-        const key = new Gtk.EventControllerKey();
-
-        widget.add_controller(key);
-
-        if (onKeyPressed) {
-            key.connect('key-pressed', (_, val, code, state) => onKeyPressed(widget, val, code, state));
-        }
-
-        if (onKeyReleased) {
-            key.connect('key-released', (_, val, code, state) =>
-                onKeyReleased(widget, val, code, state));
-        }
-
-        if (onKeyModifier) {
-            key.connect('modifiers', (_, state) => onKeyModifier(widget, state));
-        }
-    }
-
-    if (onLegacy || onButtonPressed || onButtonReleased) {
-        const legacy = new Gtk.EventControllerLegacy();
-
-        widget.add_controller(legacy);
-
-        legacy.connect('event', (_, event) => {
-            if (event.get_event_type() === Gdk.EventType.BUTTON_PRESS) {
-                onButtonPressed?.(widget, event as Gdk.ButtonEvent);
-            }
-
-            if (event.get_event_type() === Gdk.EventType.BUTTON_RELEASE) {
-                onButtonReleased?.(widget, event as Gdk.ButtonEvent);
-            }
-
-            onLegacy?.(widget, event);
-        });
-    }
-
-    if (onMotion || onHoverEnter || onHoverLeave) {
-        const hover = new Gtk.EventControllerMotion();
-
-        widget.add_controller(hover);
-
-        if (onHoverEnter) {
-            hover.connect('enter', (_, x, y) => onHoverEnter(widget, x, y));
-        }
-
-        if (onHoverLeave) {
-            hover.connect('leave', () => onHoverLeave(widget));
-        }
-
-        if (onMotion) {
-            hover.connect('motion', (_, x, y) => onMotion(widget, x, y));
-        }
-    }
-
-    if (onScroll || onScrollDecelerate) {
-        const scroll = new Gtk.EventControllerScroll();
-
-        widget.add_controller(scroll);
-
-        if (onScroll) {
-            scroll.connect('scroll', (_, x, y) => onScroll(widget, x, y));
-        }
-
-        if (onScrollDecelerate) {
-            scroll.connect('decelerate', (_, x, y) => onScrollDecelerate(widget, x, y));
-        }
-    }
-
-    return props;
-};
 
 export default <
-    C extends new (...props: any[]) => Gtk.Widget,
+    C extends new (...props: MixinParams) => Gtk.Widget,
     ConstructorProps,
 >(
     cls: C,
@@ -151,12 +47,12 @@ export default <
         }
 
 
-        declare private [type]: string;
+        declare private [childType]: string;
 
         @property(String)
-        get type(): string { return this[type]; }
+        get type(): string { return this[childType]; }
 
-        set type(value: string) { this[type] = value; }
+        set type(value: string) { this[childType] = value; }
 
 
         @property(Object)
@@ -194,7 +90,7 @@ export default <
                 widget.vfunc_add_child(
                     dummyBuilder,
                     child,
-                    type in widget ? widget[type] as string : null,
+                    childType in widget ? widget[childType] as string : null,
                 );
             }
         }
@@ -234,7 +130,7 @@ export default <
         }
 
 
-        constructor(...params: any[]) {
+        constructor(...params: MixinParams) {
             const props = params[0] || {};
 
             super('cssName' in props ? { cssName: props.cssName } : {});
@@ -264,5 +160,6 @@ export default <
         Partial<BindableProps<ConstructorProps>>
     >;
 
+    // override the parameters of the `super` constructor
     return Widget as unknown as WidgetClass;
 };

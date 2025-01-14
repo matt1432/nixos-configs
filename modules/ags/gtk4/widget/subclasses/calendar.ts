@@ -1,7 +1,7 @@
 import { register } from 'astal';
 import { Gtk, type ConstructProps } from 'astal/gtk4';
 
-import astalify, { type AstalifyProps } from './astalify';
+import astalify, { type AstalifyProps } from '../astalify';
 
 
 type CalendarSignals = Record<`on${string}`, unknown[]> & {
