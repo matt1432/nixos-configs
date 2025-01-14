@@ -12,8 +12,7 @@ export type CenterBoxProps = ConstructProps<
 @register({ GTypeName: 'CenterBox' })
 export class CenterBoxClass extends astalify(Gtk.CenterBox) {
     constructor({ cssName = 'centerbox', ...props }: CenterBoxProps = {}) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        super({ cssName, ...props as any });
+        super({ cssName, ...props });
     }
 
     getChildren(box: CenterBoxClass) {

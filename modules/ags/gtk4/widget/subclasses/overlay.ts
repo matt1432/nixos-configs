@@ -12,8 +12,7 @@ export type OverlayProps = ConstructProps<
 @register({ GTypeName: 'Overlay' })
 export class OverlayClass extends astalify(Gtk.Overlay) {
     constructor({ cssName = 'overlay', ...props }: OverlayProps = {}) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        super({ cssName, ...props as any });
+        super({ cssName, ...props });
     }
 
     getChildren(self: OverlayClass) {

@@ -12,8 +12,7 @@ export type PopoverProps = ConstructProps<
 @register({ GTypeName: 'Popover' })
 export class PopoverClass extends astalify(Gtk.Popover) {
     constructor({ cssName = 'popover', ...props }: PopoverProps = {}) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        super({ cssName, ...props as any });
+        super({ cssName, ...props });
     }
 }
 

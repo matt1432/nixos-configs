@@ -16,8 +16,7 @@ export type SliderProps = ConstructProps<
 @register({ GTypeName: 'Slider' })
 export class SliderClass extends astalify(Astal.Slider) {
     constructor({ cssName = 'slider', ...props }: SliderProps = {}) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        super({ cssName, ...props as any });
+        super({ cssName, ...props });
     }
 
     getChildren() { return []; }

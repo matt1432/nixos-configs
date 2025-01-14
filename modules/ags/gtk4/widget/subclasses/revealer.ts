@@ -12,8 +12,7 @@ export type RevealerProps = ConstructProps<
 @register({ GTypeName: 'Revealer' })
 export class RevealerClass extends astalify(Gtk.Revealer) {
     constructor({ cssName = 'revealer', ...props }: RevealerProps = {}) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        super({ cssName, ...props as any });
+        super({ cssName, ...props });
     }
 }
 

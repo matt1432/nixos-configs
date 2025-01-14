@@ -16,8 +16,7 @@ export type ButtonProps = ConstructProps<
 @register({ GTypeName: 'Button' })
 export class ButtonClass extends astalify(Gtk.Button) {
     constructor({ cssName = 'button', ...props }: ButtonProps = {}) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        super({ cssName, ...props as any });
+        super({ cssName, ...props });
     }
 }
 

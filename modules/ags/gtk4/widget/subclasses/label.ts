@@ -12,8 +12,7 @@ export type LabelProps = ConstructProps<
 @register({ GTypeName: 'Label' })
 export class LabelClass extends astalify(Gtk.Label) {
     constructor({ cssName = 'label', ...props }: LabelProps = {}) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        super({ cssName, ...props as any });
+        super({ cssName, ...props });
     }
 
     getChildren() { return []; }

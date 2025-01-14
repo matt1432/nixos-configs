@@ -1,14 +1,44 @@
 import { execAsync, Variable } from 'astal';
-import { Gtk } from 'astal/gtk4';
-import Binding, { Connectable, kebabify, snakeify, Subscribable } from 'astal/binding';
+import { type Gdk, type Gtk, type ConstructProps } from 'astal/gtk4';
+import { Binding, type Connectable, kebabify, snakeify, type Subscribable } from 'astal/binding';
+
+export interface EventController<Self extends Gtk.Widget> {
+    onFocusEnter?: (self: Self) => void
+    onFocusLeave?: (self: Self) => void
+
+    onKeyPressed?: (self: Self, keyval: number, keycode: number, state: Gdk.ModifierType) => void
+    onKeyReleased?: (self: Self, keyval: number, keycode: number, state: Gdk.ModifierType) => void
+    onKeyModifier?: (self: Self, state: Gdk.ModifierType) => void
+
+    onLegacy?: (self: Self, event: Gdk.Event) => void
+    onButtonPressed?: (self: Self, state: Gdk.ButtonEvent) => void
+    onButtonReleased?: (self: Self, state: Gdk.ButtonEvent) => void
+
+    onHoverEnter?: (self: Self, x: number, y: number) => void
+    onHoverLeave?: (self: Self) => void
+    onMotion?: (self: Self, x: number, y: number) => void
+
+    onScroll?: (self: Self, dx: number, dy: number) => void
+    onScrollDecelerate?: (self: Self, vel_x: number, vel_y: number) => void
+}
+
+export type BindableProps<T> = {
+    [K in keyof T]: Binding<T[K]> | T[K];
+};
+
+export interface AstalifyProps {
+    css: string
+    child: Gtk.Widget
+    children: Gtk.Widget[]
+}
 
 export const noImplicitDestroy = Symbol('no no implicit destroy');
 export const setChildren = Symbol('children setter method');
 
 const mergeBindings = <Value = unknown>(
-    array: (Value | Binding<Value>)[],
+    array: (Value | Binding<Value> | Binding<Value[]>)[],
 ): Value[] | Binding<Value[]> => {
-    const getValues = (...args: Value[]) => {
+    const getValues = (args: Value[]) => {
         let i = 0;
 
         return array.map((value) => value instanceof Binding ?
@@ -23,24 +53,10 @@ const mergeBindings = <Value = unknown>(
     }
 
     if (bindings.length === 1) {
-        return bindings[0].as(getValues);
+        return (bindings[0] as Binding<Value[]>).as(getValues);
     }
 
     return Variable.derive(bindings, getValues)();
-};
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const setProp = (obj: any, prop: string, value: unknown) => {
-    try {
-        const setter = `set_${snakeify(prop)}`;
-
-        if (typeof obj[setter] === 'function') { return obj[setter](value); }
-
-        return (obj[prop] = value);
-    }
-    catch (error) {
-        console.error(`could not set property "${prop}" on ${obj}:`, error);
-    }
 };
 
 export const hook = <Widget extends Connectable>(
@@ -67,64 +83,82 @@ export const hook = <Widget extends Connectable>(
     }
 };
 
-export const construct = <Widget extends Connectable & {
-    [setChildren]: (children: Gtk.Widget[]) => void
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-}>(widget: Widget, config: any) => {
-    // eslint-disable-next-line prefer-const
-    let { setup, child, children = [], ...props } = config;
+export const construct = <
+    Self extends InstanceType<typeof Gtk.Widget> & {
+        [setChildren]: (children: Gtk.Widget[]) => void
+    },
+    Props extends Gtk.Widget.ConstructorProps,
+>(
+    widget: Self,
+    props: Omit<
+        ConstructProps<Self, Props> & Partial<BindableProps<AstalifyProps>>,
+        keyof EventController<Self>
+    >,
+) => {
+    type Key = keyof typeof props;
+    const keys = Object.keys(props) as Key[];
+    const entries = Object.entries(props) as [Key, unknown][];
 
-    if (children instanceof Binding) {
-        children = [children];
-    }
+    const setProp = (prop: Key, value: Self[keyof Self]) => {
+        try {
+            const setter = `set_${snakeify(prop.toString())}` as keyof Self;
 
-    if (child) {
-        children.unshift(child);
+            if (typeof widget[setter] === 'function') {
+                return widget[setter](value);
+            }
+
+            return (widget[prop as keyof Self] = value);
+        }
+        catch (error) {
+            console.error(`could not set property "${prop.toString()}" on ${widget}:`, error);
+        }
+    };
+
+    const children = props.children ?
+        props.children instanceof Binding ?
+            [props.children] as (Binding<Gtk.Widget[]> | Binding<Gtk.Widget> | Gtk.Widget)[] :
+            props.children as Gtk.Widget[] :
+        [];
+
+    if (props.child) {
+        children.unshift(props.child);
     }
 
     // remove undefined values
-    for (const [key, value] of Object.entries(props)) {
+    for (const [key, value] of entries) {
         if (typeof value === 'undefined') {
             delete props[key];
         }
     }
 
     // collect bindings
-    const bindings: [string, Binding<unknown>][] = Object
-        .keys(props)
-        .reduce((acc: [string, Binding<unknown>][], prop) => {
-            if (props[prop] instanceof Binding) {
-                const binding = props[prop];
+    const bindings: [Key, Binding<unknown>][] = [];
 
-                delete props[prop];
-
-                return [...acc, [prop, binding]];
-            }
-
-            return acc;
-        }, []);
+    for (const key of keys) {
+        if (props[key] instanceof Binding) {
+            bindings.push([key, props[key]]);
+            delete props[key];
+        }
+    }
 
     // collect signal handlers
-    const onHandlers: [string, string | (() => unknown)][] = Object
-        .keys(props)
-        .reduce((acc: [string, Binding<unknown>][], key) => {
-            if (key.startsWith('on')) {
-                const sig = kebabify(key).split('-').slice(1).join('-');
-                const handler = props[key];
+    const onHandlers: [string, string | (() => void)][] = [];
 
-                delete props[key];
+    for (const key of keys) {
+        if (key.toString().startsWith('on')) {
+            const sig = kebabify(key.toString()).split('-').slice(1).join('-');
 
-                return [...acc, [sig, handler]];
-            }
-
-            return acc;
-        }, []);
+            onHandlers.push([sig, props[key] as string | (() => void)]);
+            delete props[key];
+        }
+    }
 
     // set children
     const mergedChildren = mergeBindings<Gtk.Widget>(children.flat(Infinity));
 
     if (mergedChildren instanceof Binding) {
         widget[setChildren](mergedChildren.get());
+
         widget.connect('destroy', mergedChildren.subscribe((v) => {
             widget[setChildren](v);
         }));
@@ -156,20 +190,20 @@ export const construct = <Widget extends Connectable & {
             }));
         }
         widget.connect('destroy', binding.subscribe((v: unknown) => {
-            setProp(widget, prop, v);
+            setProp(prop, v as Self[keyof Self]);
         }));
-        setProp(widget, prop, binding.get());
+        setProp(prop, binding.get() as Self[keyof Self]);
     }
 
     // filter undefined values
-    for (const [key, value] of Object.entries(props)) {
+    for (const [key, value] of entries) {
         if (typeof value === 'undefined') {
             delete props[key];
         }
     }
 
     Object.assign(widget, props);
-    setup?.(widget);
+    props.setup?.(widget);
 
     return widget;
 };

@@ -12,8 +12,7 @@ export type StackProps = ConstructProps<
 @register({ GTypeName: 'Stack' })
 export class StackClass extends astalify(Gtk.Stack) {
     constructor({ cssName = 'stack', ...props }: StackProps = {}) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        super({ cssName, ...props as any });
+        super({ cssName, ...props });
     }
 
     setChildren(self: StackClass, children: Gtk.Widget[]) {

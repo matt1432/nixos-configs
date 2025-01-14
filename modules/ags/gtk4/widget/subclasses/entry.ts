@@ -17,8 +17,7 @@ export type EntryProps = ConstructProps<
 @register({ GTypeName: 'Entry' })
 export class EntryClass extends astalify(Gtk.Entry) {
     constructor({ cssName = 'entry', ...props }: EntryProps = {}) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        super({ cssName, ...props as any });
+        super({ cssName, ...props });
     }
 
     getChildren() { return []; }

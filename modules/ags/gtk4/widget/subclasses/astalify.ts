@@ -1,43 +1,25 @@
-import Gdk from 'gi://Gdk?version=4.0';
-import Gtk from 'gi://Gtk?version=4.0';
+// A mixin class must have a constructor with a single rest parameter of type 'any[]'
+/* eslint "@typescript-eslint/no-explicit-any": ["error", { "ignoreRestArgs": true }] */
 
 import { property, register } from 'astal';
+import { Gdk, Gtk } from 'astal/gtk4';
 import Binding, { type Connectable, type Subscribable } from 'astal/binding';
+
 import {
+    type EventController,
     hook,
     noImplicitDestroy,
     setChildren,
     construct,
 } from './_astal';
 
+import { type AstalifyProps, type BindableProps } from './_astal';
+export { type AstalifyProps, type BindableProps };
+
 export type BindableChild = Gtk.Widget | Binding<Gtk.Widget>;
-export interface AstalifyProps {
-    css: string
-    children: Gtk.Widget[]
-}
 
 export const type = Symbol('child type');
 const dummyBuilder = new Gtk.Builder();
-
-interface EventController<Self extends Gtk.Widget> {
-    onFocusEnter?: (self: Self) => void
-    onFocusLeave?: (self: Self) => void
-
-    onKeyPressed?: (self: Self, keyval: number, keycode: number, state: Gdk.ModifierType) => void
-    onKeyReleased?: (self: Self, keyval: number, keycode: number, state: Gdk.ModifierType) => void
-    onKeyModifier?: (self: Self, state: Gdk.ModifierType) => void
-
-    onLegacy?: (self: Self, event: Gdk.Event) => void
-    onButtonPressed?: (self: Self, state: Gdk.ButtonEvent) => void
-    onButtonReleased?: (self: Self, state: Gdk.ButtonEvent) => void
-
-    onHoverEnter?: (self: Self, x: number, y: number) => void
-    onHoverLeave?: (self: Self) => void
-    onMotion?: (self: Self, x: number, y: number) => void
-
-    onScroll?: (self: Self, dx: number, dy: number) => void
-    onScrollDecelerate?: (self: Self, vel_x: number, vel_y: number) => void
-}
 
 const setupControllers = <T>(widget: Gtk.Widget, {
     onFocusEnter,
@@ -79,7 +61,9 @@ const setupControllers = <T>(widget: Gtk.Widget, {
                 onKeyReleased(widget, val, code, state));
         }
 
-        if (onKeyModifier) { key.connect('modifiers', (_, state) => onKeyModifier(widget, state)); }
+        if (onKeyModifier) {
+            key.connect('modifiers', (_, state) => onKeyModifier(widget, state));
+        }
     }
 
     if (onLegacy || onButtonPressed || onButtonReleased) {
@@ -105,11 +89,17 @@ const setupControllers = <T>(widget: Gtk.Widget, {
 
         widget.add_controller(hover);
 
-        if (onHoverEnter) { hover.connect('enter', (_, x, y) => onHoverEnter(widget, x, y)); }
+        if (onHoverEnter) {
+            hover.connect('enter', (_, x, y) => onHoverEnter(widget, x, y));
+        }
 
-        if (onHoverLeave) { hover.connect('leave', () => onHoverLeave(widget)); }
+        if (onHoverLeave) {
+            hover.connect('leave', () => onHoverLeave(widget));
+        }
 
-        if (onMotion) { hover.connect('motion', (_, x, y) => onMotion(widget, x, y)); }
+        if (onMotion) {
+            hover.connect('motion', (_, x, y) => onMotion(widget, x, y));
+        }
     }
 
     if (onScroll || onScrollDecelerate) {
@@ -117,7 +107,9 @@ const setupControllers = <T>(widget: Gtk.Widget, {
 
         widget.add_controller(scroll);
 
-        if (onScroll) { scroll.connect('scroll', (_, x, y) => onScroll(widget, x, y)); }
+        if (onScroll) {
+            scroll.connect('scroll', (_, x, y) => onScroll(widget, x, y));
+        }
 
         if (onScrollDecelerate) {
             scroll.connect('decelerate', (_, x, y) => onScrollDecelerate(widget, x, y));
@@ -127,8 +119,10 @@ const setupControllers = <T>(widget: Gtk.Widget, {
     return props;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default <C extends new (...args: any[]) => Gtk.Widget>(
+export default <
+    C extends new (...props: any[]) => Gtk.Widget,
+    ConstructorProps,
+>(
     cls: C,
     clsName = cls.name,
 ) => {
@@ -240,7 +234,6 @@ export default <C extends new (...args: any[]) => Gtk.Widget>(
         }
 
 
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         constructor(...params: any[]) {
             const props = params[0] || {};
 
@@ -264,5 +257,12 @@ export default <C extends new (...args: any[]) => Gtk.Widget>(
         }
     }
 
-    return Widget;
+    type Constructor<Instance, Props> = new (...args: Props[]) => Instance;
+
+    type WidgetClass = Constructor<
+        Widget & Gtk.Widget & InstanceType<C>,
+        Partial<BindableProps<ConstructorProps>>
+    >;
+
+    return Widget as unknown as WidgetClass;
 };

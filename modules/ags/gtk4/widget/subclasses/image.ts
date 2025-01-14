@@ -12,8 +12,7 @@ export type ImageProps = ConstructProps<
 @register({ GTypeName: 'Image' })
 export class ImageClass extends astalify(Gtk.Image) {
     constructor({ cssName = 'image', ...props }: ImageProps = {}) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        super({ cssName, ...props as any });
+        super({ cssName, ...props });
     }
 
     getChildren() { return []; }

@@ -12,8 +12,7 @@ export type LevelBarProps = ConstructProps<
 @register({ GTypeName: 'LevelBar' })
 export class LevelBarClass extends astalify(Gtk.LevelBar) {
     constructor({ cssName = 'levelbar', ...props }: LevelBarProps = {}) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        super({ cssName, ...props as any });
+        super({ cssName, ...props });
     }
 
     getChildren() { return []; }

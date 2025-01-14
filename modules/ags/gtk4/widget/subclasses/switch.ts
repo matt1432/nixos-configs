@@ -12,8 +12,7 @@ export type SwitchProps = ConstructProps<
 @register({ GTypeName: 'Switch' })
 export class SwitchClass extends astalify(Gtk.Switch) {
     constructor({ cssName = 'switch', ...props }: SwitchProps = {}) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        super({ cssName, ...props as any });
+        super({ cssName, ...props });
     }
 
     getChildren() { return []; }

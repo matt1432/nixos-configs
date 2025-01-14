@@ -12,8 +12,7 @@ export type MenuButtonProps = ConstructProps<
 @register({ GTypeName: 'MenuButton' })
 export class MenuButtonClass extends astalify(Gtk.MenuButton) {
     constructor({ cssName = 'menubutton', ...props }: MenuButtonProps = {}) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        super({ cssName, ...props as any });
+        super({ cssName, ...props });
     }
 
     getChildren(self: MenuButtonClass) {

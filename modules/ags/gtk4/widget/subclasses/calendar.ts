@@ -21,8 +21,7 @@ export type CalendarProps = ConstructProps<
 @register({ GTypeName: 'Calendar' })
 export class CalendarClass extends astalify(Gtk.Calendar) {
     constructor({ cssName = 'calendar', ...props }: CalendarProps = {}) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        super({ cssName, ...props as any });
+        super({ cssName, ...props });
     }
 }
 

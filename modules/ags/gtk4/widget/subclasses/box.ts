@@ -12,8 +12,7 @@ export type BoxProps = ConstructProps<
 @register({ GTypeName: 'Box' })
 export class BoxClass extends astalify(Astal.Box) {
     constructor({ cssName = 'box', ...props }: BoxProps = {}) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        super({ cssName, ...props as any });
+        super({ cssName, ...props });
     }
 
     getChildren(self: BoxClass) {

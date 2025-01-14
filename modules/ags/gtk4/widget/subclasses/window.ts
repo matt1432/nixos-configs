@@ -12,8 +12,7 @@ export type WindowProps = ConstructProps<
 @register({ GTypeName: 'Window' })
 export class WindowClass extends astalify(Astal.Window) {
     constructor({ cssName = 'window', ...props }: WindowProps = {}) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        super({ cssName, ...props as any });
+        super({ cssName, ...props });
     }
 }
 
