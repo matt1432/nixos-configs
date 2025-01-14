@@ -20,13 +20,9 @@ inputs: rec {
           inherit cudaSupport;
           allowUnfree = true;
 
-          # FIXME: Roslyn-ls uses dotnet6 https://pr-tracker.nelim.org/?pr=373293
+          # In case I need an insecure package in my devShells
           permittedInsecurePackages =
-            [
-              "dotnet-core-combined"
-              "dotnet-sdk-6.0.428"
-              "dotnet-sdk-wrapped-6.0.428"
-            ]
+            []
             ++ (cfg.config.permittedInsecurePackages or []);
         }
         // (builtins.removeAttrs (
