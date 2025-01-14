@@ -117,35 +117,6 @@ in {
           config = fileContents ./config/neotree.lua;
         }
         {
-          plugin = pkgs.vimPlugins.codewindow-nvim;
-          type = "lua";
-          config =
-            # lua
-            ''
-              --
-              local codewindow = require('codewindow');
-
-              codewindow.setup({
-                  auto_enable = false,
-                  minimap_width = 8,
-                  relative = 'editor',
-                  window_border = 'none',
-                  exclude_filetypes = { 'help' },
-              });
-
-              vim.api.nvim_create_autocmd({ 'VimEnter', 'VimResized' }, {
-                  pattern = '*',
-                  callback = function()
-                      if vim.api.nvim_win_get_width(0) < 88 then
-                          codewindow.close_minimap();
-                      else
-                          codewindow.open_minimap();
-                      end
-                  end,
-              });
-            '';
-        }
-        {
           plugin = pkgs.vimPlugins.transparent-nvim;
           type = "lua";
           config =
