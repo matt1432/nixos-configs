@@ -20,8 +20,7 @@ inputs: rec {
           inherit cudaSupport;
           allowUnfree = true;
 
-          # FIXME: Roslyn-ls uses dotnet6
-          # https://github.com/NixOS/nixpkgs/blob/d3c42f187194c26d9f0309a8ecc469d6c878ce33/pkgs/by-name/ro/roslyn-ls/package.nix#L21
+          # FIXME: Roslyn-ls uses dotnet6 https://pr-tracker.nelim.org/?pr=373293
           permittedInsecurePackages =
             [
               "dotnet-core-combined"
