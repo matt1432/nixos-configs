@@ -61,10 +61,13 @@ in {
 
       shlvl = {
         disabled = false;
-        repeat = true;
+        threshold = 2;
+
         symbol = "󰔳 ";
         format = "[ $symbol]($style)";
-        threshold = 1;
+
+        repeat = true;
+        repeat_offset = 1;
       };
 
       nix_shell = {
