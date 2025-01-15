@@ -25,4 +25,41 @@ export interface AstalifyProps {
     css: string
     child: Gtk.Widget
     children: Gtk.Widget[]
+    cursorName: Cursor
 }
+
+export type Cursor =
+    | 'default'
+    | 'help'
+    | 'pointer'
+    | 'context-menu'
+    | 'progress'
+    | 'wait'
+    | 'cell'
+    | 'crosshair'
+    | 'text'
+    | 'vertical-text'
+    | 'alias'
+    | 'copy'
+    | 'no-drop'
+    | 'move'
+    | 'not-allowed'
+    | 'grab'
+    | 'grabbing'
+    | 'all-scroll'
+    | 'col-resize'
+    | 'row-resize'
+    | 'n-resize'
+    | 'e-resize'
+    | 's-resize'
+    | 'w-resize'
+    | 'ne-resize'
+    | 'nw-resize'
+    | 'sw-resize'
+    | 'se-resize'
+    | 'ew-resize'
+    | 'ns-resize'
+    | 'nesw-resize'
+    | 'nwse-resize'
+    | 'zoom-in'
+    | 'zoom-out';

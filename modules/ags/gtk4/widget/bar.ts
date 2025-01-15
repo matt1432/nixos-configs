@@ -35,7 +35,7 @@ export default () => {
             centerWidget: styledBox,
 
             endWidget: MenuButton({
-                cursor: Gdk.Cursor.new_from_name('pointer', null),
+                cursorName: 'pointer',
                 hexpand: true,
                 halign: CENTER,
 

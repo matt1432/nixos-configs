@@ -7,11 +7,12 @@ import setupControllers from './controller';
 
 import {
     type BindableProps,
+    childType,
+    type Cursor,
     dummyBuilder,
     type MixinParams,
     noImplicitDestroy,
     setChildren,
-    childType,
 } from './generics';
 
 
@@ -105,6 +106,18 @@ export default <
             }
 
             this.setChildren(this, children);
+        }
+
+        private _cursorName: Cursor = 'default';
+
+        @property(String)
+        get cursorName(): Cursor {
+            return this._cursorName;
+        }
+
+        set cursorName(val: Cursor) {
+            this._cursorName = val;
+            this.set_cursor_from_name(val);
         }
 
 
