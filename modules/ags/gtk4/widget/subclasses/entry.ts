@@ -1,7 +1,7 @@
 import { register } from 'astal';
-import { Gtk, type ConstructProps } from 'astal/gtk4';
+import { Gtk } from 'astal/gtk4';
 
-import astalify, { type AstalifyProps } from '../astalify';
+import astalify, { type AstalifyProps, type ConstructProps } from '../astalify';
 
 
 type EntrySignals = Record<`on${string}`, unknown[]> & {

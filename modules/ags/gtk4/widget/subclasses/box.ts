@@ -1,7 +1,7 @@
 import { register } from 'astal';
-import { Astal, type ConstructProps, Gtk } from 'astal/gtk4';
+import { Astal, Gtk } from 'astal/gtk4';
 
-import astalify, { type AstalifyProps } from '../astalify';
+import astalify, { type AstalifyProps, type ConstructProps } from '../astalify';
 
 
 export type BoxProps = ConstructProps<

@@ -1,7 +1,7 @@
 import { register } from 'astal';
-import { Astal, type ConstructProps } from 'astal/gtk4';
+import { Astal } from 'astal/gtk4';
 
-import astalify, { type AstalifyProps } from '../astalify';
+import astalify, { type AstalifyProps, type ConstructProps } from '../astalify';
 
 
 type SliderSignals = Record<`on${string}`, unknown[]> & {

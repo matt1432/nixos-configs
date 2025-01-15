@@ -1,6 +1,8 @@
 import { Gtk } from 'astal/gtk4';
 import { Binding } from 'astal/binding';
 
+import { EventController } from './controller';
+
 // A mixin class must have a constructor with a single rest parameter of type 'any[]'
 // eslint-disable-next-line "@typescript-eslint/no-explicit-any"
 export type MixinParams = any[];
@@ -27,6 +29,30 @@ export interface AstalifyProps {
     children: Gtk.Widget[]
     cursorName: Cursor
 }
+
+type SigHandler<
+    W extends InstanceType<typeof Gtk.Widget>,
+    Args extends unknown[],
+> = ((self: W, ...args: Args) => unknown) | string | string[];
+
+export type ConstructProps<
+    Self extends InstanceType<typeof Gtk.Widget>,
+    Props extends Gtk.Widget.ConstructorProps,
+    Signals extends Record<`on${string}`, unknown[]> = Record<`on${string}`, unknown[]>,
+> = Partial<{
+    // @ts-expect-error can't assign to unknown, but it works as expected though
+    [S in keyof Signals]: SigHandler<Self, Signals[S]>
+}> & Partial<Record<`on${string}`, SigHandler<Self, unknown[]>>> & Partial<BindableProps<Omit<
+    Props,
+    'cssName' | 'css_name' | 'cursor'
+>>> & {
+    noImplicitDestroy?: true
+    type?: string
+    cssName?: string
+} & EventController<Self> & {
+    onDestroy?: (self: Self) => unknown
+    setup?: (self: Self) => void
+};
 
 export type Cursor =
     | 'default'

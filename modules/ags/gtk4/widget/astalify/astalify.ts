@@ -108,6 +108,7 @@ export default <
             this.setChildren(this, children);
         }
 
+
         private _cursorName: Cursor = 'default';
 
         @property(String)

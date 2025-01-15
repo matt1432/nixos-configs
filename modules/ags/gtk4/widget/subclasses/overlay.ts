@@ -1,7 +1,7 @@
 import { register } from 'astal';
-import { Gtk, type ConstructProps } from 'astal/gtk4';
+import { Gtk } from 'astal/gtk4';
 
-import astalify, { childType, type AstalifyProps } from '../astalify';
+import astalify, { childType, type AstalifyProps, type ConstructProps } from '../astalify';
 
 
 export type OverlayProps = ConstructProps<
