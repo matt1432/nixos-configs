@@ -48,6 +48,12 @@ in {
         group = "caddy-grp";
         startAfter = ["headscale"];
       };
+
+      "searx" = {
+        enable = true;
+        group = "caddy-grp";
+        startAfter = ["caddy"];
+      };
     };
 
     nodes = [

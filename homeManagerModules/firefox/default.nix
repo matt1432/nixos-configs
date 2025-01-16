@@ -107,9 +107,20 @@ in {
         };
 
         search = {
-          default = "DuckDuckGo";
+          default = "SearXNG";
           force = true;
           engines = {
+            "SearXNG" = {
+              urls = [
+                {
+                  template = "https://search.nelim.org/search?q={searchTerms}";
+                }
+              ];
+              iconUpdateURL = "https://search.nelim.org/favicon.ico";
+              updateInterval = 24 * 60 * 60 * 1000; # every day
+              definedAliases = ["@s"];
+            };
+
             "Nixpkgs" = {
               urls = [
                 {
