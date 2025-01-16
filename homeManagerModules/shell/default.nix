@@ -78,7 +78,7 @@ in {
         sudo = "sudo ";
 
         ls = "ls -lah --color=auto";
-        tree = "tree -a -I node_modules";
+        tree = "tree -a -I node_modules -I .git --gitignore";
         cp = "cp -r";
       };
 
