@@ -1,4 +1,5 @@
 # Do not modify! This file is generated.
+
 {
   inputs = {
     ags = {
@@ -537,5 +538,5 @@
       type = "github";
     };
   };
-  outputs = inputs: inputs.flakegen ./outputs.nix inputs;
+  outputs = inputs: inputs.flakegen ./_outputs.nix inputs;
 }
