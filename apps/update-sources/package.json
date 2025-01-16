@@ -8,7 +8,7 @@
     },
     "devDependencies": {
         "eslint-conf": "file:../config",
-        "@types/node": "22.10.6",
+        "@types/node": "22.10.7",
         "esbuild": "0.24.2",
         "eslint": "9.18.0",
         "jiti": "2.4.2",
