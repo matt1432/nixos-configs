@@ -29,7 +29,11 @@ let
       repo = "nurl";
     };
 
-    # These are here to make sure all 'systems' are the same
+    # These are here to make sure all 'systems' and popular inputs are the same
+    flake-compat = mkInput {
+      owner = "edolstra";
+      repo = "flake-compat";
+    };
     flake-utils = mkInput {
       owner = "numtide";
       repo = "flake-utils";
@@ -46,6 +50,15 @@ let
     lib-aggregate = mkInput {
       owner = "nix-community";
       repo = "lib-aggregate";
+    };
+    nix-github-actions = mkDep {
+      owner = "nix-community";
+      repo = "nix-github-actions";
+    };
+    pre-commit-hooks = mkDep {
+      owner = "cachix";
+      repo = "git-hooks.nix";
+      inputs.flake-compat.follows = "flake-compat";
     };
   };
 
@@ -133,11 +146,10 @@ let
         repo = "hyprpaper";
 
         inputs = {
+          hyprgraphics.follows = "hyprland/hyprgraphics";
           hyprlang.follows = "hyprland/hyprlang";
           hyprutils.follows = "hyprland/hyprutils";
           hyprwayland-scanner.follows = "hyprland/hyprwayland-scanner";
-          nixpkgs.follows = "hyprland/nixpkgs";
-          systems.follows = "hyprland/systems";
         };
       };
 

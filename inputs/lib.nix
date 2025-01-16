@@ -34,11 +34,14 @@ in rec {
       info
       {inherit type;}
       (mkOverride "systems")
+      (mkOverride "flake-compat")
       (mkOverride "flake-utils")
       (mkOverride "flake-parts")
-      (mkOverride "treefmt-nix")
       (mkOverride "lib-aggregate")
       (mkOverride "nix-eval-jobs")
+      (mkOverride "nix-github-actions")
+      (mkOverride "pre-commit-hooks")
+      (mkOverride "treefmt-nix")
     ];
 
   mkDep = info: mkInput (recursiveUpdate info {inputs.nixpkgs.follows = "nixpkgs";});

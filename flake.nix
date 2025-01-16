@@ -71,6 +71,11 @@
       repo = "firefox-gx";
       type = "github";
     };
+    flake-compat = {
+      owner = "edolstra";
+      repo = "flake-compat";
+      type = "github";
+    };
     flake-parts = {
       inputs.nixpkgs-lib.follows = "nixpkgs";
       owner = "hercules-ci";
@@ -141,6 +146,7 @@
       inputs = {
         hyprutils.follows = "hyprutils";
         nixpkgs.follows = "nixpkgs";
+        pre-commit-hooks.follows = "pre-commit-hooks";
         systems.follows = "systems";
       };
       owner = "hyprwm";
@@ -158,6 +164,7 @@
     };
     hyprpaper = {
       inputs = {
+        hyprgraphics.follows = "hyprland/hyprgraphics";
         hyprlang.follows = "hyprland/hyprlang";
         hyprutils.follows = "hyprland/hyprutils";
         hyprwayland-scanner.follows = "hyprland/hyprwayland-scanner";
@@ -184,7 +191,10 @@
       type = "github";
     };
     jovian = {
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nix-github-actions.follows = "nix-github-actions";
+        nixpkgs.follows = "nixpkgs";
+      };
       owner = "Jovian-Experiments";
       repo = "Jovian-NixOS";
       type = "github";
@@ -279,6 +289,7 @@
     nix-eval-jobs = {
       inputs = {
         flake-parts.follows = "flake-parts";
+        nix-github-actions.follows = "nix-github-actions";
         nixpkgs.follows = "nixpkgs";
         treefmt-nix.follows = "treefmt-nix";
       };
@@ -305,6 +316,12 @@
       repo = "nix-gaming";
       type = "github";
     };
+    nix-github-actions = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      owner = "nix-community";
+      repo = "nix-github-actions";
+      type = "github";
+    };
     nix-index-db = {
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "Mic92";
@@ -322,6 +339,7 @@
     };
     nixcord = {
       inputs = {
+        flake-compat.follows = "flake-compat";
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
         treefmt-nix.follows = "treefmt-nix";
@@ -349,6 +367,7 @@
     };
     nixpkgs-wayland = {
       inputs = {
+        flake-compat.follows = "flake-compat";
         lib-aggregate.follows = "lib-aggregate";
         nix-eval-jobs.follows = "nix-eval-jobs";
         nixpkgs.follows = "nixpkgs";
@@ -397,6 +416,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "matt1432";
       repo = "pr-tracker";
+      type = "github";
+    };
+    pre-commit-hooks = {
+      inputs = {
+        flake-compat.follows = "flake-compat";
+        nixpkgs.follows = "nixpkgs";
+      };
+      owner = "cachix";
+      repo = "git-hooks.nix";
       type = "github";
     };
     protonhax-src = {
