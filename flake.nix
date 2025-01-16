@@ -320,6 +320,17 @@
       repo = "nix-on-droid";
       type = "github";
     };
+    nixcord = {
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+      owner = "kaylorben";
+      repo = "nixcord";
+      rev = "02247bedd6988a1169c4499406970b92bfd8aa02";
+      type = "github";
+    };
     nixd = {
       inputs = {
         flake-parts.follows = "flake-parts";

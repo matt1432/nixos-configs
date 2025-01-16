@@ -5,7 +5,7 @@ self: {
   ...
 }: let
   inherit (self.lib.hypr) mkBind;
-  inherit (self.inputs) jellyfin-flake;
+  inherit (self.inputs) jellyfin-flake nixcord;
 
   inherit (lib) attrValues getExe mkIf optionals;
   inherit (pkgs.writers) writeTOML;
@@ -43,6 +43,8 @@ in {
         (import ../home/mpv.nix self)
         (import ../home/obs.nix self)
 
+        nixcord.homeManagerModules.nixcord
+
         ({config, ...}: let
           inherit (config.lib.file) mkOutOfStoreSymlink;
           configDir = "${flakeDir}/modules/desktop/environment/config";
@@ -66,14 +68,80 @@ in {
         })
       ];
 
-      programs.sioyek = {
-        enable = true;
+      programs = {
+        nixcord = {
+          enable = true;
 
-        config = {
-          startup_commands = "toggle_custom_color";
-          ui_font = "JetBrainsMono Nerd Font Mono Regular";
-          font_size = "24";
-          source = toString self.scopedPackages.${pkgs.system}.dracula.sioyek;
+          discord = {
+            vencord.unstable = true;
+
+            settings = {
+              skipHostUpdate = true;
+              dangerousEnableDevtoolsOnlyEnableIfYouKnowWhatYoureDoing = true;
+              minWidth = 940;
+              minHeight = 500;
+              isMaximized = true;
+              isMinimized = false;
+              enableHardwareAcceleration = !isNvidia;
+            };
+          };
+
+          config = {
+            notifyAboutUpdates = false;
+            autoUpdate = false;
+            autoUpdateNotification = false;
+
+            themeLinks = [
+              "https://markchan0225.github.io/RoundedDiscord/RoundedDiscord.theme.css"
+              "https://raw.githubusercontent.com/dracula/BetterDiscord/master/Dracula_Official.theme.css"
+            ];
+
+            plugins = {
+              alwaysTrust.enable = true;
+              biggerStreamPreview.enable = true;
+              clearURLs.enable = true;
+              crashHandler.enable = true;
+              disableCallIdle.enable = true;
+              emoteCloner.enable = true;
+              imageZoom.enable = true;
+              memberCount.enable = true;
+              messageLinkEmbeds.enable = true;
+
+              messageLogger = {
+                enable = true;
+                ignoreBots = true;
+                ignoreSelf = true;
+              };
+
+              mutualGroupDMs.enable = true;
+              onePingPerDM.enable = true;
+              openInApp.enable = true;
+              platformIndicators.enable = true;
+              previewMessage.enable = true;
+              readAllNotificationsButton.enable = true;
+              reverseImageSearch.enable = true;
+              spotifyCrack.enable = true;
+              themeAttributes.enable = true;
+              typingIndicator.enable = true;
+              typingTweaks.enable = true;
+              viewIcons.enable = true;
+              viewRaw.enable = true;
+              voiceChatDoubleClick.enable = true;
+              volumeBooster.enable = true;
+              whoReacted.enable = true;
+            };
+          };
+        };
+
+        sioyek = {
+          enable = true;
+
+          config = {
+            startup_commands = "toggle_custom_color";
+            ui_font = "JetBrainsMono Nerd Font Mono Regular";
+            font_size = "24";
+            source = toString self.scopedPackages.${pkgs.system}.dracula.sioyek;
+          };
         };
       };
 
@@ -96,6 +164,7 @@ in {
           swayimg
           nextcloud-client
           prismlauncher
+          vesktop # screen-sharing on desktop
           ;
 
         # tools
@@ -115,14 +184,6 @@ in {
           .${pkgs.system}
           .jellyfin-media-player
           .override {isNvidiaWayland = isNvidia;};
-
-        /*
-        Discord themes for Vencord
-        https://markchan0225.github.io/RoundedDiscord/RoundedDiscord.theme.css
-        https://raw.githubusercontent.com/dracula/BetterDiscord/master/Dracula_Official.theme.css
-        */
-        discord = pkgs.discord.override {withVencord = true;};
-        inherit (pkgs) vesktop;
 
         GParted = let
           inherit (pkgs) writeShellScriptBin libsForQt5 gparted makeWrapper symlinkJoin;

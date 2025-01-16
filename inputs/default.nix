@@ -145,6 +145,14 @@ let
         owner = "eriedaberrie";
         repo = "grim-hyprland";
       };
+
+      nixcord = mkDep {
+        owner = "kaylorben";
+        repo = "nixcord";
+
+        # FIXME: https://github.com/KaylorBen/nixcord/pull/69
+        rev = "02247bedd6988a1169c4499406970b92bfd8aa02";
+      };
     };
 
     agsInputs = {
