@@ -1,21 +1,5 @@
 {
   "nodes": {
-    "Vencord-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1736482078,
-        "narHash": "sha256-ov1qLtBzLAO8k9pokOstEaeS/me+ElVvGzyFTSfaZM0=",
-        "owner": "Vendicated",
-        "repo": "vencord",
-        "rev": "3243120baaa56f65866b532b731bc3426512c90e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Vendicated",
-        "repo": "vencord",
-        "type": "github"
-      }
-    },
     "ags": {
       "inputs": {
         "astal": [
@@ -173,27 +157,6 @@
       "original": {
         "owner": "elchininet",
         "repo": "custom-sidebar",
-        "type": "github"
-      }
-    },
-    "discord-overlay": {
-      "inputs": {
-        "Vencord-src": "Vencord-src",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1736492844,
-        "narHash": "sha256-pfNcw4tPwGG7FhK4sLRFiMOP8/QjfjWXvwUMkL9ofCs=",
-        "owner": "matt1432",
-        "repo": "discord-nightly-overlay",
-        "rev": "dad509df3ad7ec9f8e7da5cb02e6bc2be761569b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "matt1432",
-        "repo": "discord-nightly-overlay",
         "type": "github"
       }
     },
@@ -1684,7 +1647,6 @@
         "bazarr-bulk": "bazarr-bulk",
         "caule-themes-src": "caule-themes-src",
         "custom-sidebar-src": "custom-sidebar-src",
-        "discord-overlay": "discord-overlay",
         "dracul-ha-src": "dracul-ha-src",
         "dracula-plymouth-src": "dracula-plymouth-src",
         "eisa-scripts-src": "eisa-scripts-src",

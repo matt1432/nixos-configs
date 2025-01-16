@@ -11,7 +11,6 @@ in {
   config = mkIf cfg.enable {
     nixpkgs.overlays =
       (map (i: self.inputs.${i}.overlays.default) [
-        "discord-overlay"
         "grim-hyprland"
         "nixpkgs-wayland"
       ])

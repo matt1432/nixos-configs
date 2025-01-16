@@ -145,11 +145,6 @@ let
         owner = "eriedaberrie";
         repo = "grim-hyprland";
       };
-
-      discord-overlay = mkDep {
-        owner = "matt1432";
-        repo = "discord-nightly-overlay";
-      };
     };
 
     agsInputs = {

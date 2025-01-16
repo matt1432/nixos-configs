@@ -40,12 +40,6 @@
       repo = "custom-sidebar";
       type = "github";
     };
-    discord-overlay = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      owner = "matt1432";
-      repo = "discord-nightly-overlay";
-      type = "github";
-    };
     dracul-ha-src = {
       flake = false;
       owner = "berti24";
