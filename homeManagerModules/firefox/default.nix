@@ -203,6 +203,7 @@ in {
             "eBay".metaData.hidden = true;
           };
           order = [
+            "SearXNG"
             "DuckDuckGo"
             "MyNixos"
             "NixOS Wiki"
