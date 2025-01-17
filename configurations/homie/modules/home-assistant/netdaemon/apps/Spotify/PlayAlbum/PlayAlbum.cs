@@ -41,7 +41,7 @@ namespace NetDaemonConfig.Apps.Spotify.PlayAlbum
                     {
                         string uri;
 
-                        if (e.artist is not null)
+                        if (e.artist is not null && e.artist != "")
                         {
                             SpotifyplusSearchArtistsResponse? artistResult = (
                                 await services.Spotifyplus.SearchArtistsAsync(
