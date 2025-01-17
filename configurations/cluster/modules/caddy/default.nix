@@ -87,6 +87,8 @@ in {
 
       "Immich" = mkPublicReverseProxy "photos" "${nosIP}:2283" {};
 
+      "ObsidianLiveSync" = mkPublicReverseProxy "livesync" "${nosIP}:5984" {};
+
       "Binary Cache" = mkPublicReverseProxy "cache" "${serviviIP}:5000" {};
 
       # Private
