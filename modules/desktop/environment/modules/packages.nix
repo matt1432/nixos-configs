@@ -74,6 +74,7 @@ in {
 
           discord = {
             vencord.unstable = true;
+            openASAR.enable = false;
 
             settings = {
               skipHostUpdate = true;
