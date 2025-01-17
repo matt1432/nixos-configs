@@ -1,9 +1,9 @@
 {...}: {
   imports = [
-    ./7-days-to-die.nix
-    ./binary-cache.nix
-    ./minecraft.nix
-    ./nfs.nix
-    ./pr-tracker.nix
+    ./7-days-to-die
+    ./binary-cache
+    ./minecraft
+    ./nfs
+    ./pr-tracker
   ];
 }

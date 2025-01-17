@@ -1,11 +1,11 @@
 {...}: {
   imports = [
-    ./blocky.nix
+    ./blocky
     ./caddy
     ./headscale
-    ./nfs-client.nix
-    ./pcsd.nix
+    ./nfs-client
+    ./pcsd
     ./searxng
-    ./unbound.nix
+    ./unbound
   ];
 }
