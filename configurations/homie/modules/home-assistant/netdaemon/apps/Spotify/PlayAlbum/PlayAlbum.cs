@@ -110,7 +110,7 @@ namespace NetDaemonConfig.Apps.Spotify.PlayAlbum
                     catch (Exception error)
                     {
                         services.Notify.PersistentNotification(
-                            message: error.Message,
+                            message: error.Message + "\n" + e.ToString(),
                             title: "Erreur Spotify");
                     }
                 }
