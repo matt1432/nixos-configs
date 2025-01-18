@@ -168,6 +168,29 @@ in {
           vesktop # screen-sharing on desktop
           ;
 
+        # force XWayland for stylus input
+        obsidian = pkgs.obsidian.overrideAttrs (o: {
+          installPhase = ''
+            runHook preInstall
+            mkdir -p $out/bin
+
+            makeWrapper ${pkgs.electron}/bin/electron $out/bin/obsidian \
+              --add-flags $out/share/obsidian/app.asar \
+              --set XDG_SESSION_TYPE "x11" \
+              --set NIXOS_OZONE_WL "0"
+
+            install -m 444 -D resources/app.asar $out/share/obsidian/app.asar
+            install -m 444 -D resources/obsidian.asar $out/share/obsidian/obsidian.asar
+            install -m 444 -D "${o.desktopItem}/share/applications/"* \
+              -t $out/share/applications/
+            for size in 16 24 32 48 64 128 256 512; do
+              mkdir -p $out/share/icons/hicolor/"$size"x"$size"/apps
+              magick -background none ${o.icon} -resize "$size"x"$size" $out/share/icons/hicolor/"$size"x"$size"/apps/obsidian.png
+            done
+            runHook postInstall
+          '';
+        });
+
         # tools
         inherit
           (pkgs)
