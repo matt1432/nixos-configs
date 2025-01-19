@@ -395,7 +395,10 @@
       type = "gitlab";
     };
     pcsd = {
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
       owner = "matt1432";
       repo = "nixos-pcsd";
       type = "github";

@@ -16,45 +16,46 @@ in {
     corosyncKeyFile = secrets.corosync.path;
     clusterUserPasswordFile = secrets.pcs-pass.path;
 
-    virtualIps = {
-      "caddy-vip" = {
+    virtualIps = [
+      {
+        id = "caddy-vip";
         ip = "10.0.0.130";
         interface = "eno1";
         group = "caddy-grp";
-      };
-    };
+      }
+    ];
 
-    systemdResources = {
-      "unbound" = {
+    systemdResources = [
+      {
+        systemdName = "unbound";
         enable = true;
         group = "caddy-grp";
-        startAfter = ["caddy-vip"];
-      };
+      }
 
-      "blocky" = {
+      {
+        systemdName = "blocky";
         enable = true;
         group = "caddy-grp";
-        startAfter = ["unbound"];
-      };
+      }
 
-      "headscale" = {
+      {
+        systemdName = "headscale";
         enable = true;
         group = "caddy-grp";
-        startAfter = ["blocky"];
-      };
+      }
 
-      "caddy" = {
+      {
+        systemdName = "caddy";
         enable = true;
         group = "caddy-grp";
-        startAfter = ["headscale"];
-      };
+      }
 
-      "searx" = {
+      {
+        systemdName = "searx";
         enable = true;
         group = "caddy-grp";
-        startAfter = ["caddy"];
-      };
-    };
+      }
+    ];
 
     nodes = [
       {

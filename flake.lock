@@ -1504,14 +1504,17 @@
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
+        ],
+        "systems": [
+          "systems"
         ]
       },
       "locked": {
-        "lastModified": 1734910876,
-        "narHash": "sha256-xe8+8hA1DwbyURleV7kUWR5dnrhcfpFu3eiTWHzeDl4=",
+        "lastModified": 1737314274,
+        "narHash": "sha256-hVcd4dSTmFd2/6Xkcq4kgNsiN/dA42PPTstPeP8t0LM=",
         "owner": "matt1432",
         "repo": "nixos-pcsd",
-        "rev": "43b10193bbea70422578871e1fc88b2792297ad5",
+        "rev": "27f80dbf864f52bc9f801db15ae8e767a315c5fe",
         "type": "github"
       },
       "original": {

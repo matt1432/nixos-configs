@@ -6,7 +6,7 @@
   self,
   ...
 }: let
-  inherit (lib) attrValues removeAttrs;
+  inherit (lib) attrValues head removeAttrs;
 
   inherit (config.sops) secrets;
   inherit (config.networking) hostName;
@@ -34,7 +34,7 @@ in {
       };
 
     virtualHosts = let
-      clusterIP = config.services.pcsd.virtualIps.caddy-vip.ip;
+      clusterIP = (head config.services.pcsd.virtualIps).ip;
       nosIP = "10.0.0.121";
       serviviIP = "10.0.0.249";
       homieIP = "100.64.0.10";

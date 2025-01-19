@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mapAttrsToList;
+  inherit (lib) head mapAttrsToList;
 in {
   services.searx = {
     enable = true;
@@ -43,7 +43,7 @@ in {
 
       server = {
         port = 8080;
-        bind_address = config.services.pcsd.virtualIps.caddy-vip.ip;
+        bind_address = (head config.services.pcsd.virtualIps).ip;
 
         secret_key = "@SEARXNG_SECRET@";
 

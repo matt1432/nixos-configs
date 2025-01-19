@@ -4,7 +4,7 @@ deviceName: {
   self,
   ...
 }: let
-  clusterIP = config.services.pcsd.virtualIps.caddy-vip.ip;
+  clusterIP = (builtins.head config.services.pcsd.virtualIps).ip;
 in {
   # ------------------------------------------------
   # Imports

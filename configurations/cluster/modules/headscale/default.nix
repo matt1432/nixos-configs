@@ -5,7 +5,7 @@
 }: let
   inherit (config.networking) hostName;
 
-  clusterIP = config.services.pcsd.virtualIps.caddy-vip.ip;
+  clusterIP = (builtins.head config.services.pcsd.virtualIps).ip;
 in {
   users.users.${mainUser}.extraGroups = ["headscale"];
 
