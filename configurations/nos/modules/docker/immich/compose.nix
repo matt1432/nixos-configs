@@ -36,7 +36,7 @@ in {
       };
       what = "${host}:/volume1/Photo-Immich";
       where = synologyPath;
-      requiredBy = ["docker-immich_immich_server.service"];
+      wantedBy = ["multi-user.target"];
     }
   ];
 
