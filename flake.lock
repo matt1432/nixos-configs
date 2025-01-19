@@ -1396,11 +1396,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1737311008,
-        "narHash": "sha256-37L+wiCuzoo4WLq7k8XWAqTU0+yiSojwHRiXHZK+ObU=",
+        "lastModified": 1737325094,
+        "narHash": "sha256-cUi6vDI/rveFpKsJJhIe084XiXzbJPYUxBKB1dfepH4=",
         "owner": "nix-community",
         "repo": "nixpkgs-wayland",
-        "rev": "47260b4b1459fee2a27a630adf5be5caf0495ac2",
+        "rev": "4b5cbd9e85bfedab28018e955086b9987bc495df",
         "type": "github"
       },
       "original": {
@@ -1912,20 +1912,20 @@
       },
       "locked": {
         "dir": "packaging/nix",
-        "lastModified": 1737161836,
-        "narHash": "sha256-v20q0DeglyrsIAbqwqOSxdzZ4JhEWtU9muWPlPz3Few=",
+        "lastModified": 1737267680,
+        "narHash": "sha256-QRmJM5KY3gGEOKhfAvZlzxMYer5sVpAyKuMqvwLRgoI=",
         "ref": "refs/heads/main",
-        "rev": "3fd4ef90e8427cfc74d94914654a288912edb2cf",
-        "revCount": 901,
+        "rev": "3480851ea2811e96f92f2a693ca7762b6003ff0e",
+        "revCount": 904,
         "submodules": true,
         "type": "git",
-        "url": "https://github.com/Open-Wine-Components/umu-launcher/?dir=packaging/nix"
+        "url": "https://github.com/Open-Wine-Components/umu-launcher/"
       },
       "original": {
         "dir": "packaging/nix",
         "submodules": true,
         "type": "git",
-        "url": "https://github.com/Open-Wine-Components/umu-launcher/?dir=packaging/nix"
+        "url": "https://github.com/Open-Wine-Components/umu-launcher/"
       }
     },
     "vimplugin-easytables-src": {

@@ -17,14 +17,15 @@ export const updateFlakeInputs = () => {
         // Filter out some inputs
         .filter((input) => ![
             'systems',
+            'flake-compat',
             'flake-utils',
             'flake-parts',
             'treefmt-nix',
             'lib-aggregate',
             'lib-aggregate/nixpkgs-lib',
-            'sops-nix/nixpkgs-stable',
-            'discord-overlay/Vencord-src',
             'nix-gaming/umu',
+            'nix-github-actions',
+            'pre-commit-hooks',
         ].some((inputName) => input.startsWith(` Updated input '${inputName}'`)))
         .join('\n\n•')
         // help readability of git revs
