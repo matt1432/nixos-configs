@@ -140,7 +140,6 @@
       inputs.hyprland.follows = "hyprland";
       owner = "horriblename";
       repo = "hyprgrass";
-      rev = "ea3a6079a7e34235ee3df4b600ee11e48b0e7f4d";
       type = "github";
     };
     hyprland = {

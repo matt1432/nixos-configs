@@ -1,7 +1,5 @@
 final: prev: {
-  # FIXME: https://pr-tracker.nelim.org/?pr=357699
-  nodejs_latest = prev.nodejs_22;
-
+  # https://github.com/NixOS/nixpkgs/blob/master/pkgs/by-name/wy/wyoming-faster-whisper/package.nix
   wyoming-faster-whisper = prev.wyoming-faster-whisper.overridePythonAttrs (o: {
     meta = {mainProgram = o.pname;} // o.meta;
   });
