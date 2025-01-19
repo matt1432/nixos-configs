@@ -6,7 +6,7 @@
 }: let
   inherit (lib) getExe mkOption types;
   inherit (lib.modules) mkForce mkIf mkOverride;
-  inherit (lib.strings) concatMapStringsSep concatStringsSep;
+  inherit (lib.strings) concatMapStringsSep concatStringsSep escapeShellArgs;
 
   cfg = config.services.wyoming;
 
@@ -20,11 +20,15 @@ in {
 
   config = {
     systemd.services = mkIf (cfg.openwakeword.enable) {
-      wyoming-openwakeword.serviceConfig = {
-        MemoryDenyWriteExecute = mkForce (cfg.openwakeword.package != forkedPkg);
+      # For some reason I can't just override `ExecStart` anymore.
+      wyoming-openwakeword.serviceConfig = mkForce {
+        DynamicUser = true;
+        User = "wyoming-openwakeword";
+
+        MemoryDenyWriteExecute = cfg.openwakeword.package != forkedPkg;
 
         # changes according to https://github.com/rhasspy/wyoming-openwakeword/pull/27
-        ExecStart = mkForce (concatStringsSep " " [
+        ExecStart = concatStringsSep " " [
           (getExe cfg.openwakeword.package)
 
           "--uri ${cfg.openwakeword.uri}"
@@ -40,8 +44,37 @@ in {
             (model: "--preload-model ${model}")
             cfg.openwakeword.preloadModels)
 
-          cfg.openwakeword.extraArgs
-        ]);
+          (escapeShellArgs cfg.openwakeword.extraArgs)
+        ];
+
+        CapabilityBoundingSet = "";
+        DeviceAllow = "";
+        DevicePolicy = "closed";
+        LockPersonality = true;
+        PrivateDevices = true;
+        PrivateUsers = true;
+        ProtectHome = true;
+        ProtectHostname = true;
+        ProtectKernelLogs = true;
+        ProtectKernelModules = true;
+        ProtectKernelTunables = true;
+        ProtectControlGroups = true;
+        ProtectProc = "invisible";
+        ProcSubset = "all"; # reads /proc/cpuinfo
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+          "AF_UNIX"
+        ];
+        RestrictNamespaces = true;
+        RestrictRealtime = true;
+        RuntimeDirectory = "wyoming-openwakeword";
+        SystemCallArchitectures = "native";
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged"
+        ];
+        UMask = "0077";
       };
     };
 

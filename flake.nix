@@ -1,5 +1,4 @@
 # Do not modify! This file is generated.
-
 {
   inputs = {
     ags = {
@@ -141,6 +140,7 @@
       inputs.hyprland.follows = "hyprland";
       owner = "horriblename";
       repo = "hyprgrass";
+      rev = "ea3a6079a7e34235ee3df4b600ee11e48b0e7f4d";
       type = "github";
     };
     hyprland = {
@@ -347,7 +347,6 @@
       };
       owner = "kaylorben";
       repo = "nixcord";
-      rev = "02247bedd6988a1169c4499406970b92bfd8aa02";
       type = "github";
     };
     nixd = {
@@ -362,7 +361,7 @@
     };
     nixpkgs = {
       owner = "NixOS";
-      ref = "nixos-unstable";
+      ref = "nixos-unstable-small";
       repo = "nixpkgs";
       type = "github";
     };

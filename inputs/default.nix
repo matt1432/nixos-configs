@@ -139,6 +139,9 @@ let
       hyprgrass = mkHyprDep {
         owner = "horriblename";
         repo = "hyprgrass";
+
+        # FIXME: https://github.com/horriblename/hyprgrass/pull/203
+        rev = "ea3a6079a7e34235ee3df4b600ee11e48b0e7f4d";
       };
 
       hyprpaper = mkDep {
@@ -161,9 +164,6 @@ let
       nixcord = mkDep {
         owner = "kaylorben";
         repo = "nixcord";
-
-        # FIXME: https://github.com/KaylorBen/nixcord/pull/69
-        rev = "02247bedd6988a1169c4499406970b92bfd8aa02";
       };
     };
 
