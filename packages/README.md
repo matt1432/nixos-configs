@@ -1,6 +1,6 @@
 # Packages
 
-This directory encompasses every derivations for packages exposed by my flake.
+This directory contains every derivations for packages exposed by this flake.
 
 ## List of my packages found in `self.packages`
 

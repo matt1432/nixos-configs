@@ -7,14 +7,20 @@
 
   buildApp = attrs: (pkgs.callPackage ./buildApp.nix ({} // inputs // attrs));
 
-  mkApp = file: {
+  mkNodeApp = file: {
     program = getExe (pkgs.callPackage file ({inherit buildApp;} // inputs));
     type = "app";
   };
 
-  mkApps = apps: listToAttrs (map (x: nameValuePair x (mkApp ./${x})) apps);
+  mkNodeApps = apps: listToAttrs (map (x: nameValuePair x (mkNodeApp ./${x})) apps);
 in
-  mkApps [
+  mkNodeApps [
     "extract-subs"
     "update-sources"
   ]
+  // {
+    gen-docs = {
+      program = getExe (pkgs.callPackage ./gen-docs {});
+      type = "app";
+    };
+  }

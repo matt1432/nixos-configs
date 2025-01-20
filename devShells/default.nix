@@ -19,6 +19,7 @@
     text = ''
       # this command might fail but still updates the main lockfile
       npm update --package-lock-only || true
+
       hash="$(prefetch-npm-deps ./package-lock.json)"
       echo "$hash"
 
