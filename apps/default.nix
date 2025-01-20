@@ -1,26 +1,17 @@
 {
-  inputs,
   pkgs,
+  self,
   ...
 }: let
-  inherit (pkgs.lib) getExe listToAttrs nameValuePair;
+  inherit (pkgs.lib) getExe mapAttrs' nameValuePair removePrefix;
 
-  buildApp = attrs: (pkgs.callPackage ./buildApp.nix ({} // inputs // attrs));
-
-  mkNodeApp = file: {
-    program = getExe (pkgs.callPackage file ({inherit buildApp;} // inputs));
+  mkApp = pkg: {
+    program = getExe pkg;
     type = "app";
   };
-
-  mkNodeApps = apps: listToAttrs (map (x: nameValuePair x (mkNodeApp ./${x})) apps);
 in
-  mkNodeApps [
-    "extract-subs"
-    "update-sources"
-  ]
-  // {
-    gen-docs = {
-      program = getExe (pkgs.callPackage ./gen-docs {});
-      type = "app";
-    };
-  }
+  mapAttrs' (
+    n: v:
+      nameValuePair (removePrefix "app-" n) (mkApp v)
+  )
+  self.appsPackages.${pkgs.system}

@@ -1,14 +1,15 @@
 {
+  inputs,
   pkgs,
-  self,
   ...
 }: let
-  inherit (pkgs.lib) mapAttrs removeSuffix;
+  inherit (pkgs.lib) listToAttrs nameValuePair;
+
+  buildApp = attrs: (pkgs.callPackage ./buildApp.nix ({} // inputs // attrs));
+  callPackage = file: pkgs.callPackage file ({inherit buildApp;} // inputs);
 in
-  mapAttrs (
-    name: app: (pkgs.symlinkJoin {
-      name = "app-${name}";
-      paths = [(removeSuffix "/bin/${name}" (toString app.program))];
-    })
-  )
-  (removeAttrs self.apps.${pkgs.system} ["genflake"])
+  listToAttrs (map (x: nameValuePair "app-${x}" (callPackage ./${x})) [
+    "extract-subs"
+    "gen-docs"
+    "update-sources"
+  ])

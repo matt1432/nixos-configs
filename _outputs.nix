@@ -133,11 +133,11 @@
 
     apps =
       perSystem (pkgs:
-        import ./apps {inherit inputs pkgs;});
+        import ./apps {inherit pkgs self;});
 
     appsPackages =
       perSystem (pkgs:
-        import ./apps/packages.nix {inherit pkgs self;});
+        import ./apps/packages.nix {inherit inputs pkgs;});
 
     devShells =
       perSystem (pkgs:

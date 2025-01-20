@@ -18,4 +18,9 @@ buildApp {
     prefetch-npm-deps
     (callPackage ../../modules/docker/updateImage.nix {})
   ];
+
+  meta.description = ''
+    Updates all derivation sources in this repository and
+    generates a commit message for the changes made.
+  '';
 }

@@ -1,7 +1,7 @@
 packageMetaFunc=$(cat << EOF
 (x: {
     attrs = builtins.mapAttrs (_: v: {
-        desc = builtins.replaceStrings ["\n"] [""] (v.meta.description or "");
+        desc = builtins.replaceStrings ["\n"] [" "] (v.meta.description or "");
         homepage = v.meta.homepage or "";
     }) (builtins.removeAttrs x.\${builtins.currentSystem} ["default"]);
 })
@@ -14,10 +14,11 @@ substitute() {
         nix eval \
             --impure \
             --json \
-            .#"$1" \
+            "$FLAKE"#"$1" \
             --apply "$packageMetaFunc" |
             jq -r
     ) -t markdown --template "$2" -o "$3"
 }
 
 substitute "devShells" "$FLAKE/apps/gen-docs/templates/devShells.md" "$FLAKE/devShells/README.md"
+substitute "appsPackages" "$FLAKE/apps/gen-docs/templates/apps.md" "$FLAKE/apps/README.md"

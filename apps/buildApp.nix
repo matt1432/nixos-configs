@@ -1,9 +1,10 @@
 {
-  runtimeInputs,
-  npmDepsHash,
-  src,
   lib,
+  src,
+  npmDepsHash,
+  runtimeInputs,
   buildNpmPackage,
+  meta,
   makeWrapper,
   nodejs_latest,
   jq,
@@ -13,12 +14,11 @@
   inherit (builtins) fromJSON readFile;
 
   packageJSON = fromJSON (readFile "${src}/package.json");
+  pname = packageJSON.name;
+  inherit (packageJSON) version;
 in
-  buildNpmPackage rec {
-    pname = packageJSON.name;
-    inherit (packageJSON) version;
-
-    inherit src runtimeInputs npmDepsHash;
+  buildNpmPackage {
+    inherit pname version src runtimeInputs npmDepsHash;
 
     prePatch = ''
       mv ./tsconfig.json ./project.json
@@ -35,5 +35,6 @@ in
     '';
 
     nodejs = nodejs_latest;
-    meta.mainProgram = pname;
+
+    meta = {mainProgram = pname;} // meta;
   }

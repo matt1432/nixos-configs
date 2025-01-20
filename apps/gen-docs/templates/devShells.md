@@ -7,5 +7,5 @@ This directory contains every derivations for devShells exposed by this flake.
 | Name | Description |
 | ---- | ----------- |
 $for(attrs/pairs)$
-| $it.key$ | $it.value.desc/nowrap$ |
+| `$it.key$` | $it.value.desc/nowrap$ |
 $endfor$
