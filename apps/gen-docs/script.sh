@@ -1,9 +1,9 @@
 packageMetaFunc=$(cat << EOF
 (x: {
     attrs = builtins.mapAttrs (_: v: {
-        desc = v.meta.description or "";
+        desc = builtins.replaceStrings ["\n"] [""] (v.meta.description or "");
         homepage = v.meta.homepage or "";
-    }) x.\${builtins.currentSystem};
+    }) (builtins.removeAttrs x.\${builtins.currentSystem} ["default"]);
 })
 EOF
 )
