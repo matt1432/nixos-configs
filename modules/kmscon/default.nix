@@ -29,7 +29,7 @@ in {
       useXkbConfig = true;
       hwRender = false;
 
-      # FIXME: https://github.com/Aetf/kmscon/issues/18 Icons not rendering properly
+      # TODO: https://github.com/Aetf/kmscon/issues/18 find workaround with more spaces?
       extraOptions = concatStringsSep " " [
         "--font-size ${toString cfg.fontSize}"
         "--font-dpi ${toString cfg.fontDpi}"

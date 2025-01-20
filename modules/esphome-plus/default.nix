@@ -52,7 +52,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # FIXME: https://github.com/NixOS/nixpkgs/issues/339557
+    # https://github.com/NixOS/nixpkgs/issues/339557
     systemd.services.esphome = {
       environment.PLATFORMIO_CORE_DIR = mkForce "${stateDir}/.platformio";
 
