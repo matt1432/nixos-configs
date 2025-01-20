@@ -25,4 +25,9 @@ stdenv.mkDerivation {
 
     ln -s $out/pokemon-colorscripts/pokemon-colorscripts.py $out/bin/pokemon-colorscripts
   '';
+
+  meta = {
+    description = "A script to print out images of pokemon to the terminal.";
+    homepage = "https://gitlab.com/phoneybadger/pokemon-colorscripts";
+  };
 }

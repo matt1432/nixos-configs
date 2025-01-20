@@ -20,5 +20,7 @@ substitute() {
     ) -t markdown --template "$2" -o "$3"
 }
 
-substitute "devShells" "$FLAKE/apps/gen-docs/templates/devShells.md" "$FLAKE/devShells/README.md"
+# TODO: add configurations, homeManagerModules, lib, modules, nixFastChecks, overlays, scopedPackages
 substitute "appsPackages" "$FLAKE/apps/gen-docs/templates/apps.md" "$FLAKE/apps/README.md"
+substitute "devShells" "$FLAKE/apps/gen-docs/templates/devShells.md" "$FLAKE/devShells/README.md"
+substitute "packages" "$FLAKE/apps/gen-docs/templates/packages.md" "$FLAKE/packages/README.md"

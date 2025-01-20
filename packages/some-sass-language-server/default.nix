@@ -1,4 +1,5 @@
 {
+  lib,
   writeShellApplication,
   nodejs_latest,
   prefetch-npm-deps,
@@ -8,9 +9,10 @@
   ...
 }: let
   package = builtins.fromJSON (builtins.readFile ./package.json);
+  pname = "some-sass-language-server";
 in
   buildNpmPackage {
-    pname = "some-sass-language-server";
+    inherit pname;
     version = package.dependencies.some-sass-language-server;
 
     src = ./.;
@@ -34,5 +36,12 @@ in
         jq
       ];
       text = import ./update.nix;
+    };
+
+    meta = {
+      description = "Some Sass is a language server extension for Visual Studio Code and other editors with a language server protocol (LSP) client. It brings improved code suggestions, documentation and code navigation for both SCSS and indented syntaxes.";
+      mainProgram = pname;
+      homepage = "https://github.com/wkillerud/some-sass";
+      license = with lib.licenses; [isc];
     };
   }

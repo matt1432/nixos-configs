@@ -1,4 +1,5 @@
 {
+  lib,
   dmd,
   dub,
   trash-d-src,
@@ -36,7 +37,6 @@ in
 
       ronn --roff --pipe MANUAL.md > $out/man/man1/trash.1
     '';
-
     meta = {
       mainProgram = "trash";
       platforms = [
@@ -44,5 +44,8 @@ in
         "i686-linux"
         "x86_64-darwin"
       ];
+      description = "A near drop-in replacement for `rm` that uses the [FreeDesktop trash bin](https://specifications.freedesktop.org/trash-spec/trashspec-latest.html).";
+      homepage = "https://github.com/rushsteve1/trash-d";
+      license = with lib.licenses; [mit];
     };
   }

@@ -1,4 +1,5 @@
 {
+  lib,
   pam-fprint-grosshack-src,
   dbus,
   glib,
@@ -41,4 +42,11 @@ in
       "-Ddbus_service_dir=${placeholder "out"}/share/dbus-1/system-services"
       "-Dsystemd_system_unit_dir=${placeholder "out"}/lib/systemd/system"
     ];
+
+    meta = {
+      description = "This is a fork of the pam module which implements the simultaneous
+password and fingerprint behaviour present in pam_thinkfinger.";
+      homepage = "https://gitlab.com/mishakmak/pam-fprint-grosshack";
+      license = with lib.licenses; [gpl2Plus];
+    };
   }

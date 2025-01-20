@@ -35,10 +35,10 @@ rustPlatform.buildRustPackage rec {
     openssl
   ];
 
-  meta = with lib; {
+  meta = {
     description = "A simple program for populating a credentials.json via Spotify's zeroconf authentication.";
     mainProgram = pname;
     homepage = "https://github.com/dspearson/librespot-auth";
-    license = with licenses; [isc];
+    license = with lib.licenses; [isc];
   };
 }

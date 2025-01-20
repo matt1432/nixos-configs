@@ -38,4 +38,9 @@ in
           ;;
       esac
     '';
+
+    meta = {
+      description = "A simple program for populating a credentials.json via Spotify's zeroconf authentication.";
+      homepage = "fork of https://github.com/fufexan/dotfiles/blob/main/pkgs/repl/default.nix";
+    };
   }
