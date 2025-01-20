@@ -19,7 +19,7 @@ self: {
     varsTs = homeFiles."${agsCfg.configDir}/widgets/lockscreen/vars.ts".source;
   in
     pkgs.runCommandLocal "agsConfig" {} ''
-      cp -ar ${self}/modules/ags/config/* ./.
+      cp -ar ${../../../ags/config}/* ./.
       chmod +w -R ./.
       cp -ar ${varsTs} ./widgets/lockscreen/vars.ts
       cp -ar ${nodeModules} ./node_modules

@@ -11,6 +11,7 @@
 
   rwPath = rwDataDir + "/immich";
 
+  envFile = "${./env}";
   UPLOAD_LOCATION = "${rwPath}/data";
   synologyPath = "/var/lib/synology-immich";
 in {
@@ -51,7 +52,7 @@ in {
         restart = "always";
 
         environmentFiles = [
-          ./env
+          envFile
           secrets.immich.path
         ];
 
@@ -76,7 +77,7 @@ in {
         restart = "always";
 
         environmentFiles = [
-          ./env
+          envFile
           secrets.immich.path
         ];
         networks = ["proxy_net"];
@@ -92,7 +93,7 @@ in {
         restart = "always";
 
         environmentFiles = [
-          ./env
+          envFile
           secrets.immich.path
         ];
         networks = ["proxy_net"];
@@ -105,7 +106,7 @@ in {
         restart = "always";
 
         environmentFiles = [
-          ./env
+          envFile
           secrets.immich.path
         ];
         networks = ["proxy_net"];
