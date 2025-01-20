@@ -43,4 +43,8 @@ mkShell {
       '';
     })
   ];
+
+  meta.description = ''
+    Shell providing some utility scripts concerning the main flake.
+  '';
 }

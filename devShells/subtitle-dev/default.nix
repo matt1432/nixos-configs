@@ -16,4 +16,8 @@ mkShell {
 
     bumpNpmDeps
   ];
+
+  meta.description = ''
+    Shell that provides the dependencies for my subtitle management scripts.
+  '';
 }
