@@ -1,4 +1,6 @@
-inputs: rec {
+inputs: let
+  inherit (builtins) removeAttrs;
+in rec {
   # Import pkgs from a nixpkgs instance
   mkPkgs = {
     system,
@@ -12,7 +14,7 @@ inputs: rec {
       overlays =
         [
           (inputs.self.overlays.nix-version {inherit nix;})
-          inputs.self.overlays.build-failures
+          inputs.self.overlays.misc-fixes
         ]
         ++ (cfg.overlays or []);
       config =
@@ -25,7 +27,7 @@ inputs: rec {
             []
             ++ (cfg.config.permittedInsecurePackages or []);
         }
-        // (builtins.removeAttrs (
+        // (removeAttrs (
           if cfg.config or null == null
           then {}
           else cfg.config
