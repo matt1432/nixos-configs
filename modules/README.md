@@ -1,4 +1,4 @@
-# nixosModules
+# NixosModules
 
 This directory contains every modules for NixOS exposed by this flake.
 

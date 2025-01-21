@@ -1,4 +1,4 @@
-# homeManagerModules
+# HomeManagerModules
 
 This directory contains every home-manager modules exposed by this flake.
 

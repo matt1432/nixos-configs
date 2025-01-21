@@ -1,4 +1,4 @@
-# TODO: add README and document lib
+# TODO: add README and document functions
 {
   perSystem,
   inputs,

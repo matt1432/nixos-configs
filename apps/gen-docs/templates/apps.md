@@ -1,4 +1,4 @@
-# apps
+# Apps
 
 This directory contains every derivations for apps exposed by this flake.
 

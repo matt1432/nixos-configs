@@ -9,13 +9,13 @@ substitute() {
     ) -t markdown --template "$FLAKE/apps/gen-docs/templates/$2.md" -o "$FLAKE/$2/README.md"
 }
 
-substituteModule() {
+substituteAttrs() {
     echo '' | pandoc --metadata-file <(
         nix eval \
             --impure \
             --json \
             --expr "\"$FLAKE\"" \
-            --apply "(import \"$FLAKE/apps/gen-docs/getModuleMeta.nix\") \"$1\"" |
+            --apply "(import \"$FLAKE/apps/gen-docs/getAttrsMeta.nix\") \"$1\"" |
             jq -r
     ) -t markdown --template "$FLAKE/apps/gen-docs/templates/$1.md" -o "$FLAKE/$1/README.md"
 }
@@ -25,5 +25,6 @@ substitute "appsPackages" "apps" "getPackageMeta"
 substitute "nixosConfigurations" "configurations" "getConfigMeta"
 substitute "devShells" "devShells" "getPackageMeta"
 substitute "packages" "packages" "getPackageMeta"
-substituteModule "modules"
-substituteModule "homeManagerModules"
+substituteAttrs "modules"
+substituteAttrs "homeManagerModules"
+substituteAttrs "overlays"

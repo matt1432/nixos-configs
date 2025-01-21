@@ -1,3 +1,4 @@
+# TODO: add README
 let
   inherit (import ./lib.nix) mkDep mkInput mkHyprDep mkSrc;
   inherit (builtins) listToAttrs map removeAttrs;

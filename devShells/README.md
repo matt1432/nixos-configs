@@ -1,4 +1,4 @@
-# devShells
+# DevShells
 
 This directory contains every derivations for devShells exposed by this flake.
 

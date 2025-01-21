@@ -1,4 +1,4 @@
-# apps
+# Apps
 
 This directory contains every derivations for apps exposed by this flake.
 
@@ -6,6 +6,6 @@ This directory contains every derivations for apps exposed by this flake.
 
 | Name | Description |
 | ---- | ----------- |
-| `app-extract-subs` | Extract all `srt` subtitle files from a `mkv` video with the appropriate name. |
-| `app-gen-docs` | Generates the READMEs in this repository from nix attributes. |
-| `app-update-sources` | Updates all derivation sources in this repository and generates a commit message for the changes made. |
+| `extract-subs` | Extract all `srt` subtitle files from a `mkv` video with the appropriate name. |
+| `gen-docs` | Generates the READMEs in this repository from nix attributes. |
+| `update-sources` | Updates all derivation sources in this repository and generates a commit message for the changes made. |

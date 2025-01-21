@@ -129,7 +129,7 @@
 
     nixosModules = import ./modules {inherit self;};
 
-    overlays = import ./overlays self;
+    overlays = import ./overlays {inherit self;};
 
     apps =
       perSystem (pkgs:
