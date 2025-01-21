@@ -3,7 +3,7 @@
 This directory contains every device's main configuration file, their `hardware-configuration.nix` and some custom modules
 unique to them.
 
-## List of my Devices
+## List of my devices
 
 | Name      | Model / Specs | Description                                                                                      |
 | --------- | ------------- | ------------------------------------------------------------------------------------------------ |
