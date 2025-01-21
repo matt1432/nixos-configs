@@ -8,7 +8,7 @@
   buildApp = attrs: (pkgs.callPackage ./buildApp.nix ({} // inputs // attrs));
   callPackage = file: pkgs.callPackage file ({inherit buildApp;} // inputs);
 in
-  listToAttrs (map (x: nameValuePair "app-${x}" (callPackage ./${x})) [
+  listToAttrs (map (x: nameValuePair x (callPackage ./${x})) [
     "extract-subs"
     "gen-docs"
     "update-sources"

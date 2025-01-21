@@ -125,7 +125,7 @@
     # For nix-fast-build. I use a custom output to alleviate eval time of this flake. ie. when doing nix flake show
     nixFastChecks = import ./nixFastChecks {inherit perSystem self;};
 
-    homeManagerModules = import ./homeManagerModules self;
+    homeManagerModules = import ./homeManagerModules {inherit self;};
 
     nixosModules = import ./modules {inherit self;};
 

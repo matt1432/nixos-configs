@@ -1,3 +1,4 @@
+# TODO: add README and document lib
 {
   perSystem,
   inputs,
