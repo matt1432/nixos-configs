@@ -16,6 +16,7 @@ in {
 
     self.nixosModules.base
     self.nixosModules.kmscon
+    self.nixosModules.meta
     self.nixosModules.server
   ];
 
@@ -53,6 +54,14 @@ in {
     # ------------------------------------------------
     # `Self` Modules configuration
     # ------------------------------------------------
+    meta = {
+      roleDescription = ''
+        Mini PC that makes use of [NixOS-pcsd](https://github.com/matt1432/nixos-pcsd)
+        to form a cluster with its twin. Files located in `cluster`
+      '';
+      hardwareDescription = "Lenovo ThinkCentre M900";
+    };
+
     roles.base = {
       enable = true;
       user = mainUser;

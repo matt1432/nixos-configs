@@ -1,9 +1,11 @@
-packageMetaFunc=$(cat << EOF
+getMetaFunc=$(cat << EOF
 (x: {
     attrs = builtins.mapAttrs (_: v: {
         desc = builtins.replaceStrings ["\n"] [" "] (v.meta.description or "");
         homepage = v.meta.homepage or "";
-    }) (builtins.removeAttrs x.\${builtins.currentSystem} ["default"]);
+        roleDesc = builtins.replaceStrings ["\n"] [" "] (v.config.meta.roleDescription or "");
+        hwDesc = builtins.replaceStrings ["\n"] [" "] (v.config.meta.hardwareDescription or "");
+    }) (builtins.removeAttrs (x.\${builtins.currentSystem} or x) ["default"]);
 })
 EOF
 )
@@ -15,12 +17,13 @@ substitute() {
             --impure \
             --json \
             "$FLAKE"#"$1" \
-            --apply "$packageMetaFunc" |
+            --apply "$getMetaFunc" |
             jq -r
-    ) -t markdown --template "$2" -o "$3"
+    ) -t markdown --template "$FLAKE/apps/gen-docs/templates/$2.md" -o "$FLAKE/$2/README.md"
 }
 
-# TODO: add configurations, homeManagerModules, lib, modules, nixFastChecks, overlays, scopedPackages
-substitute "appsPackages" "$FLAKE/apps/gen-docs/templates/apps.md" "$FLAKE/apps/README.md"
-substitute "devShells" "$FLAKE/apps/gen-docs/templates/devShells.md" "$FLAKE/devShells/README.md"
-substitute "packages" "$FLAKE/apps/gen-docs/templates/packages.md" "$FLAKE/packages/README.md"
+# TODO: add homeManagerModules, lib, modules, nixFastChecks, overlays, scopedPackages
+substitute "appsPackages" "apps"
+substitute "nixosConfigurations" "configurations"
+substitute "devShells" "devShells"
+substitute "packages" "packages"

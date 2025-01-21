@@ -14,6 +14,7 @@
     self.nixosModules.base
     self.nixosModules.docker
     self.nixosModules.kmscon
+    self.nixosModules.meta
     self.nixosModules.server
   ];
 
@@ -42,6 +43,11 @@
   # ------------------------------------------------
   # `Self` Modules configuration
   # ------------------------------------------------
+  meta = {
+    roleDescription = "Mini PC that serves as a Home-assistant server";
+    hardwareDescription = "Lenovo Thinkcentre M910q";
+  };
+
   roles.base = {
     enable = true;
     user = mainUser;

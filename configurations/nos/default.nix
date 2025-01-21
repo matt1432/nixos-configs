@@ -14,6 +14,7 @@
     self.nixosModules.base
     self.nixosModules.docker
     self.nixosModules.kmscon
+    self.nixosModules.meta
     self.nixosModules.server
   ];
 
@@ -43,6 +44,11 @@
   # ------------------------------------------------
   # `Self` Modules configuration
   # ------------------------------------------------
+  meta = {
+    roleDescription = "Custom built NAS and seedbox for Linux ISOs ;)";
+    hardwareDescription = "NVIDIA 3060 with i5-3600";
+  };
+
   roles.base = {
     enable = true;
     user = mainUser;

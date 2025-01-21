@@ -13,6 +13,7 @@
 
     self.nixosModules.base
     self.nixosModules.kmscon
+    self.nixosModules.meta
     self.nixosModules.plymouth
     self.nixosModules.server
   ];
@@ -41,6 +42,11 @@
   # ------------------------------------------------
   # `Self` Modules configuration
   # ------------------------------------------------
+  meta = {
+    roleDescription = "My wife's SteamDeck that has a pink case (it took a lot of convincing for this)";
+    hardwareDescription = "512GB OLED";
+  };
+
   roles.base = {
     enable = true;
     user = mainUser;

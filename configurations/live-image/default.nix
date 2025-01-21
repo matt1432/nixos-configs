@@ -11,12 +11,18 @@
     "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
 
     self.nixosModules.base
+    self.nixosModules.meta
     self.nixosModules.server
   ];
 
   # ------------------------------------------------
   # `Self` Modules configuration
   # ------------------------------------------------
+  meta = {
+    roleDescription = "Basic configuration that serves as my custom ISO target";
+    hardwareDescription = "USB key";
+  };
+
   roles.base = {
     enable = true;
     user = mainUser;

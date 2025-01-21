@@ -14,6 +14,7 @@
     self.nixosModules.base
     self.nixosModules.docker
     self.nixosModules.kmscon
+    self.nixosModules.meta
     self.nixosModules.server
   ];
 
@@ -56,6 +57,11 @@
   # ------------------------------------------------
   # `Self` Modules configuration
   # ------------------------------------------------
+  meta = {
+    roleDescription = "Gaming PC in a previous life, it is now used as a build farm and hosts game servers";
+    hardwareDescription = "Headless Ryzen 5 3600";
+  };
+
   roles.base = {
     enable = true;
     user = mainUser;

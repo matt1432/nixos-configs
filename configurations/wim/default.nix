@@ -16,6 +16,7 @@
     self.nixosModules.desktop
     self.nixosModules.docker
     self.nixosModules.kmscon
+    self.nixosModules.meta
     self.nixosModules.plymouth
     self.nixosModules.server
   ];
@@ -59,6 +60,11 @@
   # ------------------------------------------------
   # `Self` Modules configuration
   # ------------------------------------------------
+  meta = {
+    roleDescription = "2-1 Lenovo Laptop that I use for university";
+    hardwareDescription = "ThinkPad L13 Yoga Gen 3 (Ryzen 7 PRO 5875U)";
+  };
+
   roles.base = {
     enable = true;
     user = mainUser;

@@ -9,6 +9,7 @@ self: {
   ha-plus = import ./ha-plus;
   kmscon = import ./kmscon;
   nvidia = import ./nvidia;
+  meta = import ./meta;
   plymouth = import ./plymouth;
   server = import ./server;
   tmux = import ./tmux;

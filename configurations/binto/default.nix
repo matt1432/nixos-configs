@@ -14,6 +14,7 @@
     self.nixosModules.base
     self.nixosModules.desktop
     self.nixosModules.kmscon
+    self.nixosModules.meta
     self.nixosModules.server
   ];
 
@@ -49,6 +50,11 @@
   # ------------------------------------------------
   # `Self` Modules configuration
   # ------------------------------------------------
+  meta = {
+    roleDescription = "Desktop PC with a multi-monitor setup";
+    hardwareDescription = "NVIDIA 3070 with Ryzen 7 3700X";
+  };
+
   roles.base = {
     enable = true;
     user = mainUser;
