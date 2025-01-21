@@ -20,9 +20,10 @@ substituteModule() {
     ) -t markdown --template "$FLAKE/apps/gen-docs/templates/$1.md" -o "$FLAKE/$1/README.md"
 }
 
-# TODO: add homeManagerModules, lib, modules, nixFastChecks, overlays, scopedPackages
+# TODO: add lib, nixFastChecks, overlays, scopedPackages
 substitute "appsPackages" "apps" "getPackageMeta"
 substitute "nixosConfigurations" "configurations" "getConfigMeta"
 substitute "devShells" "devShells" "getPackageMeta"
 substitute "packages" "packages" "getPackageMeta"
 substituteModule "modules"
+substituteModule "homeManagerModules"
