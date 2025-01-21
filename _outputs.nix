@@ -127,7 +127,7 @@
 
     homeManagerModules = import ./homeManagerModules self;
 
-    nixosModules = import ./modules self;
+    nixosModules = import ./modules {inherit self;};
 
     overlays = import ./overlays self;
 
