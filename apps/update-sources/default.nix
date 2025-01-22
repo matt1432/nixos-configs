@@ -1,6 +1,7 @@
 {
   buildApp,
   callPackage,
+  findutils,
   go,
   nix-update,
   nodejs_latest,
@@ -12,6 +13,7 @@ buildApp {
   npmDepsHash = "sha256-k4m8fSF0zOznebbH87p8IPP2SzRR9siVFYBU5Cfs2T0=";
 
   runtimeInputs = [
+    findutils
     go
     nix-update
     nodejs_latest

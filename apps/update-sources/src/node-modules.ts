@@ -1,5 +1,5 @@
 import { readPackageJSON, writePackageJSON } from 'pkg-types';
-import { existsSync, readdirSync } from 'node:fs';
+import { accessSync, constants, existsSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 
 import { replaceInFile, npmRun } from './lib';
@@ -54,26 +54,41 @@ const prefetchNpmDeps = (workspaceDir: string): string => {
 
 
 export default async() => {
+    console.log('Updating node modules');
+
     const updates = {};
 
-    const packages = readdirSync(FLAKE, { withFileTypes: true, recursive: true });
+    const packages = spawnSync('find', [FLAKE, '-name', 'package.json']).stdout.toString().split('\n')
+        .filter((f) => f !== '')
+        .filter((f) => ![
+            '.direnv',
+            'node_modules',
+            'results',
+        ].some((dirName) => f.includes(dirName)));
 
     for (const path of packages) {
-        if (
-            path.name === 'package.json' &&
-            !path.parentPath.includes('node_modules')
-        ) {
-            await updatePackageJson(path.parentPath, updates);
+        console.log(path);
 
-            if (existsSync(`${path.parentPath}/default.nix`)) {
-                const hash = prefetchNpmDeps(path.parentPath);
+        try {
+            accessSync(path, constants.R_OK | constants.W_OK);
+
+            const parentPath = path.replace('/package.json', '');
+
+            await updatePackageJson(parentPath, updates);
+
+            if (existsSync(`${parentPath}/default.nix`)) {
+                const hash = prefetchNpmDeps(parentPath);
 
                 replaceInFile(
                     /npmDepsHash = ".*";/,
                     `npmDepsHash = "${hash}";`,
-                    `${path.parentPath}/default.nix`,
+                    `${parentPath}/default.nix`,
                 );
             }
+        }
+        catch (e) {
+            console.warn(`Could not write to ${path}`);
+            console.warn(e);
         }
     }
 
