@@ -17,9 +17,11 @@ in
       lxml
       oauthlib
       platformdirs
+      pychromecast
       requests
       requests_oauthlib
       setuptools
+      soco
       urllib3
       zeroconf
       smartinspect # overridden in python3Packages
