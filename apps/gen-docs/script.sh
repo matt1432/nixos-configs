@@ -20,7 +20,6 @@ substituteAttrs() {
     ) -t markdown --template "$FLAKE/apps/gen-docs/templates/$1.md" -o "$FLAKE/$1/README.md"
 }
 
-# TODO: add overlays, scopedPackages
 substitute "appsPackages" "apps" "getPackageMeta"
 substitute "nixosConfigurations" "configurations" "getConfigMeta"
 substitute "devShells" "devShells" "getPackageMeta"
@@ -28,3 +27,6 @@ substitute "packages" "packages" "getPackageMeta"
 substituteAttrs "modules"
 substituteAttrs "homeManagerModules"
 substituteAttrs "overlays"
+
+# TODO: add metadata of all packages
+substituteAttrs "scopedPackages"
