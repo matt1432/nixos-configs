@@ -6,18 +6,15 @@ self: {
 }: let
   inherit (self.lib.hypr) mkBind;
 
-  inherit (lib) mkBefore mkIf;
+  inherit (lib) mkIf;
 
   cfg = osConfig.roles.desktop;
 in {
   config = mkIf cfg.enable {
     wayland.windowManager.hyprland = {
-      # FIXME: https://github.com/hyprwm/Hyprland/issues/9131
-      # plugins = [self.inputs.hyprland-plugins.packages.${pkgs.system}.hyprexpo];
+      plugins = [self.inputs.hyprland-plugins.packages.${pkgs.system}.hyprexpo];
 
       settings = {
-        exec-once = mkBefore ["hyprctl plugins load ${self.inputs.hyprland-plugins.packages.${pkgs.system}.hyprexpo}/lib/libhyprexpo.so"];
-
         plugin.hyprexpo = {
           columns = 3;
           gap_size = 5;

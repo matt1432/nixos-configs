@@ -6,18 +6,15 @@ self: {
 }: let
   inherit (self.lib.hypr) mkBind;
 
-  inherit (lib) map mkBefore mkIf;
+  inherit (lib) mkIf;
 
   cfg = osConfig.roles.desktop;
 in {
   config = mkIf (cfg.enable && cfg.isTouchscreen) {
     wayland.windowManager.hyprland = {
-      # FIXME: https://github.com/hyprwm/Hyprland/issues/9131
-      # plugins = [self.inputs.hyprgrass.packages.${pkgs.system}.default];
+      plugins = [self.inputs.hyprgrass.packages.${pkgs.system}.default];
 
       settings = {
-        exec-once = mkBefore ["hyprctl plugins load ${self.inputs.hyprgrass.packages.${pkgs.system}.default}/lib/libhyprgrass.so"];
-
         plugin.touch_gestures = {
           # The default sensitivity is probably too low on tablet screens,
           # I recommend turning it up to 4.0
