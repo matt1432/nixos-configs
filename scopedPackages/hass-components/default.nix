@@ -10,7 +10,6 @@ lib.makeScope pkgs.newScope (hass: let
   python3Packages = pkgs.python313Packages.override {
     overrides = final: prev: (mergeAttrsList (map (x: x python3Packages final prev) [
       (import ./spotifyplus/overrides.nix ({inherit pkgs;} // inputs))
-      (import ./tuya-local/overrides.nix {inherit pkgs;})
     ]));
   };
 
