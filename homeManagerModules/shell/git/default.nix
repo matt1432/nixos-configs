@@ -4,7 +4,7 @@ self: {
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib) getExe mkIf;
 
   cfg = config.programs.bash;
 
@@ -13,6 +13,8 @@ self: {
     contents.user = {inherit email name;};
   };
   mkDefaultRemote = remote: mkRemoteConf remote "matt@nelim.org" "matt1432";
+
+  mkGitAlias = script: "!${getExe script}";
 in {
   config.programs = mkIf cfg.enable {
     git = {
@@ -40,6 +42,48 @@ in {
       };
 
       extraConfig = {
+        alias = {
+          # https://stackoverflow.com/a/18317425
+          ignore = "update-index --assume-unchanged";
+          unignore = "update-index --no-assume-unchanged";
+          ignored = "!git ls-files -v | ${getExe pkgs.gnugrep} \"^[[:lower:]]\"";
+
+          untracked-ignore = mkGitAlias (pkgs.writeShellApplication {
+            name = "untracked-ignore";
+            text = ''
+              if [ $# -eq 0 ]; then
+                  echo "No file names provided"
+                  exit 1
+              fi
+              for arg in "$@"; do
+                  echo -e "$arg\n" >> .git/info/exclude
+              done
+            '';
+          });
+          untracked-unignore = mkGitAlias (pkgs.writeShellApplication {
+            name = "untracked-unignore";
+            text = ''
+              if [ $# -eq 0 ]; then
+                  echo "No file names provided"
+                  exit 1
+              fi
+              for arg in "$@"; do
+                  sed -i "s/$arg//" .git/info/exclude
+              done
+            '';
+          });
+          untracked-ignored = mkGitAlias (pkgs.writeShellApplication {
+            name = "untracked-ignored";
+            text = ''
+              while IFS= read -r line; do
+                  if [[ "$line" != "" ]] && [[ "$line" != "#"* ]]; then
+                      echo "$line"
+                  fi
+              done < .git/info/exclude
+            '';
+          });
+        };
+
         diff.sopsdiffer.textconv = "sops --config /dev/null -d";
 
         # https://github.com/dandavison/delta/issues/630#issuecomment-860046929
