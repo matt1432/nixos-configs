@@ -5,16 +5,11 @@
   ...
 }: let
   inherit (lib) mkIf;
-  inherit (pkgs.writers) writeYAML;
 
   cfg = config.programs.neovim;
   flakeEnv = config.programs.bash.sessionVariables.FLAKE;
 in {
   config = mkIf cfg.enable {
-    xdg.configFile."clangd/config.yaml".source = writeYAML "config.yaml" {
-      CompileFlags.Add = ["-D__cpp_concepts=202002L"];
-    };
-
     programs = {
       neovim = {
         extraLuaConfig =
