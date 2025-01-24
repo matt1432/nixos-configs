@@ -84,7 +84,7 @@ in {
           });
         };
 
-        diff.sopsdiffer.textconv = "sops --config /dev/null -d";
+        diff.sopsdiffer.textconv = "sops decrypt";
 
         # https://github.com/dandavison/delta/issues/630#issuecomment-860046929
         pager = let
