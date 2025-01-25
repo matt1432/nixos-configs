@@ -2,7 +2,7 @@ import { idle } from 'astal';
 import { App, Gdk, Gtk } from 'astal/gtk4';
 
 /* Types */
-import PopupWindow from '../widget/misc/popup-window';
+import PopupWindow from '../widgets/misc/popup-window';
 
 export interface Layer {
     address: string

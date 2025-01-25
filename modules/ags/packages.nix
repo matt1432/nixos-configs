@@ -129,6 +129,16 @@ in {
           buildNodeModules
           buildGirTypes
           ;
+
+        lockscreenVars =
+          # javascript
+          ''
+            export default {
+                mainMonitor: '${cfgDesktop.mainMonitor}',
+                dupeLockscreen: ${boolToString cfgDesktop.displayManager.duplicateScreen},
+                hasFprintd: ${boolToString (hostName == "wim")},
+            };
+          '';
       in (
         (buildGirTypes {
           pname = "ags";
@@ -159,15 +169,8 @@ in {
             source = buildNodeModules ./config (import ./config).npmDepsHash;
           };
 
-          "${cfg.configDir}/widgets/lockscreen/vars.ts".text =
-            # javascript
-            ''
-              export default {
-                  mainMonitor: '${cfgDesktop.mainMonitor}',
-                  dupeLockscreen: ${boolToString cfgDesktop.displayManager.duplicateScreen},
-                  hasFprintd: ${boolToString (hostName == "wim")},
-              };
-            '';
+          "${cfg.configDir}/widgets/lockscreen/vars.ts".text = lockscreenVars;
+          "${gtk4ConfigDir}/widgets/lockscreen/vars.ts".text = lockscreenVars;
         }
         // optionalAttrs cfgDesktop.isTouchscreen {
           ".config/fcitx5/conf/virtualkeyboardadapter.conf".text = ''

@@ -2,7 +2,8 @@ import { App } from 'astal/gtk4';
 
 import style from './style.scss';
 
-import Bar from './widget/bar';
+// import Bar from './widgets/bar';
+import Lockscreen from './widgets/lockscreen';
 
 
 App.start({
@@ -10,6 +11,7 @@ App.start({
     instanceName: 'gtk4',
 
     main() {
-        Bar();
+        // Bar();
+        Lockscreen();
     },
 });
