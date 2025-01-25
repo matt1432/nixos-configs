@@ -53,6 +53,10 @@ const main = async() => {
         console.log(updateFlakeInputs());
     }
 
+    if (args['j'] || args['jmusicbot']) {
+        console.log(runNixUpdate('jmusicbot'));
+    }
+
     if (args['m'] || args['material-rounded-theme']) {
         console.log(updateCustomPackage(
             'scopedPackages.x86_64-linux.lovelace-components.material-rounded-theme',
@@ -103,7 +107,7 @@ const main = async() => {
         console.log(caddyPluginsOutput);
 
 
-        // This doesn't need to be added to commit msgs
+        // These don't need to be added to commit message
         console.log(updateCustomPackage(
             'scopedPackages.x86_64-linux.lovelace-components.custom-sidebar',
         ));
@@ -124,6 +128,7 @@ const main = async() => {
         };
 
         updatePackage('homepage');
+        updatePackage('jmusicbot');
 
 
         spawnSync('nixFastBuild', [], {

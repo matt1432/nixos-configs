@@ -10,7 +10,7 @@
 }:
 buildApp {
   src = ./.;
-  npmDepsHash = "sha256-0HeZRaFdEEsxWjzTbRCrKEJ61pfTGWtymLQoj31WeEc=";
+  npmDepsHash = "sha256-YYhg8FQF92JNyIJuZmkF9Ehhc0zTrwg9CppddpcLRfA=";
 
   runtimeInputs = [
     findutils

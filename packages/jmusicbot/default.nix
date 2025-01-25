@@ -31,10 +31,10 @@
   });
 in
   (jmusicbot.override {jre_headless = jre;}).overrideAttrs (o: rec {
-    version = "0.4.3.2";
+    version = "0.4.3.3";
     src = fetchurl {
       url = "https://github.com/xPrinny/MusicBot/releases/download/${version}/JMusicBot-${version}.jar";
-      sha256 = "sha256-MEOWppkw74s81D1EJEqZMjOzDlLdH6uyanDZD5d+Xa4=";
+      sha256 = "sha256-NYUT0FhSIqt+SECOKdnqBNQ37qinkwNWIzpXw8+7FXg=";
     };
     meta.platforms = ["x86_64-linux"];
   })
