@@ -1,11 +1,14 @@
 {
   config,
   pkgs,
+  self,
   ...
 }: let
+  inherit (self.packages.${pkgs.system}) jmusicbot;
   inherit (config.khepri) rwDataDir;
 
   rwPath = rwDataDir + "/music/jbots";
+  image = import ./images/jmusicbot.nix {inherit pkgs jmusicbot;};
 in {
   khepri.compositions."jbots" = {
     networks.proxy_net = {external = true;};
@@ -13,8 +16,8 @@ in {
     services = {
       "musicbot_be" = {
         containerName = "be";
-        image = import ./images/jmusicbot.nix pkgs;
         restart = "always";
+        inherit image;
 
         volumes = [
           "${rwPath}/be:/jmb/config:rw"
@@ -24,8 +27,8 @@ in {
 
       "musicbot_br" = {
         containerName = "br";
-        image = import ./images/jmusicbot.nix pkgs;
         restart = "always";
+        inherit image;
 
         volumes = [
           "${rwPath}/br:/jmb/config:rw"

@@ -13,6 +13,8 @@
 
   homepage = pkgs.callPackage ./homepage {};
 
+  jmusicbot = pkgs.callPackage ./jmusicbot {};
+
   libratbag = pkgs.callPackage ./libratbag {
     inherit (inputs) libratbag-src;
   };
