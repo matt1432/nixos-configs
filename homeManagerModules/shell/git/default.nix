@@ -86,17 +86,6 @@ in {
 
         diff.sopsdiffer.textconv = "sops decrypt";
 
-        # https://github.com/dandavison/delta/issues/630#issuecomment-860046929
-        pager = let
-          cmd = "LESS='LRc --mouse' ${pkgs.delta}/bin/delta";
-        in {
-          diff = cmd;
-          show = cmd;
-          stash = cmd;
-          log = cmd;
-          reflog = cmd;
-        };
-
         sendemail = {
           smtpserver = "127.0.0.1";
           smtpuser = "matt@nelim.org";
@@ -106,6 +95,9 @@ in {
         };
       };
     };
+
+    # https://github.com/dandavison/delta/issues/630#issuecomment-2003149860
+    bash.sessionVariables.LESS = "-R --mouse";
   };
 
   # For accurate stack trace
