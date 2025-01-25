@@ -43,6 +43,8 @@ in {
 
       extraConfig = {
         alias = {
+          diff-clean = "-c delta.side-by-side=false diff";
+
           # https://stackoverflow.com/a/18317425
           ignore = "update-index --assume-unchanged";
           unignore = "update-index --no-assume-unchanged";
