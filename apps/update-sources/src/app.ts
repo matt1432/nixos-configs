@@ -27,26 +27,30 @@ if (!FLAKE) {
 const args = parseArgs();
 
 const main = async() => {
-    if (args['d'] || args['docker']) {
-        console.log(updateDocker());
+    if (args['c'] || args['custom-sidebar']) {
+        console.log(updateCustomPackage(
+            'scopedPackages.x86_64-linux.lovelace-components.custom-sidebar',
+        ));
     }
 
-    if (args['i'] || args['inputs']) {
-        console.log(updateFlakeInputs());
+    if (args['cp'] || args['caddy-plugins']) {
+        console.log(updateCaddyPlugins());
+    }
+
+    if (args['d'] || args['docker']) {
+        console.log(updateDocker());
     }
 
     if (args['f'] || args['firefox']) {
         console.log(updateFirefoxAddons());
     }
 
-    if (args['v'] || args['vuetorrent']) {
-        console.log(updateVuetorrent());
+    if (args['h'] || args['homepage']) {
+        console.log(runNixUpdate('homepage'));
     }
 
-    if (args['c'] || args['custom-sidebar']) {
-        console.log(updateCustomPackage(
-            'scopedPackages.x86_64-linux.lovelace-components.custom-sidebar',
-        ));
+    if (args['i'] || args['inputs']) {
+        console.log(updateFlakeInputs());
     }
 
     if (args['m'] || args['material-rounded-theme']) {
@@ -55,20 +59,16 @@ const main = async() => {
         ));
     }
 
-    if (args['s'] || args['some-sass-language-server']) {
-        console.log(updateCustomPackage('some-sass-language-server'));
-    }
-
     if (args['n'] || args['node_modules']) {
         console.log(await updateNodeModules());
     }
 
-    if (args['h'] || args['homepage']) {
-        console.log(runNixUpdate('homepage'));
+    if (args['s'] || args['some-sass-language-server']) {
+        console.log(updateCustomPackage('some-sass-language-server'));
     }
 
-    if (args['cp'] || args['caddy-plugins']) {
-        console.log(updateCaddyPlugins());
+    if (args['v'] || args['vuetorrent']) {
+        console.log(updateVuetorrent());
     }
 
     if (args['a'] || args['all']) {
