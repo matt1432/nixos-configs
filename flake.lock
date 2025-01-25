@@ -565,9 +565,7 @@
         "hyprland-protocols": "hyprland-protocols",
         "hyprland-qtutils": "hyprland-qtutils",
         "hyprlang": "hyprlang_2",
-        "hyprutils": [
-          "hyprutils"
-        ],
+        "hyprutils": "hyprutils_2",
         "hyprwayland-scanner": "hyprwayland-scanner",
         "nixpkgs": [
           "nixpkgs"
@@ -600,8 +598,6 @@
           "hyprland"
         ],
         "nixpkgs": [
-          "hyprland-plugins",
-          "hyprland",
           "nixpkgs"
         ],
         "systems": [
@@ -837,9 +833,11 @@
     "hyprutils_2": {
       "inputs": {
         "nixpkgs": [
+          "hyprland",
           "nixpkgs"
         ],
         "systems": [
+          "hyprland",
           "systems"
         ]
       },
@@ -951,8 +949,6 @@
           "astal"
         ],
         "nixpkgs": [
-          "kompass",
-          "astal",
           "nixpkgs"
         ],
         "systems": [
@@ -1732,7 +1728,6 @@
         "hyprland": "hyprland",
         "hyprland-plugins": "hyprland-plugins",
         "hyprpaper": "hyprpaper",
-        "hyprutils": "hyprutils_2",
         "jellyfin-flake": "jellyfin-flake",
         "jovian": "jovian",
         "khepri": "khepri",

@@ -144,7 +144,6 @@
     };
     hyprland = {
       inputs = {
-        hyprutils.follows = "hyprutils";
         nixpkgs.follows = "nixpkgs";
         pre-commit-hooks.follows = "pre-commit-hooks";
         systems.follows = "systems";
@@ -156,6 +155,7 @@
     hyprland-plugins = {
       inputs = {
         hyprland.follows = "hyprland";
+        nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
       };
       owner = "hyprwm";
@@ -173,15 +173,6 @@
       };
       owner = "hyprwm";
       repo = "hyprpaper";
-      type = "github";
-    };
-    hyprutils = {
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
-      owner = "hyprwm";
-      repo = "hyprutils";
       type = "github";
     };
     jellyfin-flake = {
@@ -208,6 +199,7 @@
     kompass = {
       inputs = {
         astal.follows = "astal";
+        nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
       };
       owner = "kotontrion";

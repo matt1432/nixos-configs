@@ -1,31 +1,31 @@
 # TODO: add README
 let
-  inherit (import ./lib.nix) mkDep mkInput mkHyprDep mkSrc;
+  inherit (import ./lib.nix) mkInput mkHyprDep mkSrc;
   inherit (builtins) listToAttrs map removeAttrs;
 
   # Inputs
   nixTools = {
-    nix-fast-build = mkDep {
+    nix-fast-build = mkInput {
       owner = "Mic92";
       repo = "nix-fast-build";
     };
 
-    nix-eval-jobs = mkDep {
+    nix-eval-jobs = mkInput {
       owner = "nix-community";
       repo = "nix-eval-jobs";
     };
 
-    nix-index-db = mkDep {
+    nix-index-db = mkInput {
       owner = "Mic92";
       repo = "nix-index-database";
     };
 
-    nh = mkDep {
+    nh = mkInput {
       owner = "viperML";
       repo = "nh";
     };
 
-    nurl = mkDep {
+    nurl = mkInput {
       owner = "nix-community";
       repo = "nurl";
     };
@@ -44,7 +44,7 @@ let
       repo = "flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
-    treefmt-nix = mkDep {
+    treefmt-nix = mkInput {
       owner = "numtide";
       repo = "treefmt-nix";
     };
@@ -52,11 +52,11 @@ let
       owner = "nix-community";
       repo = "lib-aggregate";
     };
-    nix-github-actions = mkDep {
+    nix-github-actions = mkInput {
       owner = "nix-community";
       repo = "nix-github-actions";
     };
-    pre-commit-hooks = mkDep {
+    pre-commit-hooks = mkInput {
       owner = "cachix";
       repo = "git-hooks.nix";
       inputs.flake-compat.follows = "flake-compat";
@@ -64,55 +64,55 @@ let
   };
 
   overlays = {
-    nixpkgs-wayland = mkDep {
+    nixpkgs-wayland = mkInput {
       owner = "nix-community";
       repo = "nixpkgs-wayland";
     };
 
-    nix-gaming = mkDep {
+    nix-gaming = mkInput {
       owner = "fufexan";
       repo = "nix-gaming";
     };
   };
 
   nvimInputs = {
-    nixd = mkDep {
+    nixd = mkInput {
       owner = "nix-community";
       repo = "nixd";
     };
   };
 
   clusterInputs = {
-    pcsd = mkDep {
+    pcsd = mkInput {
       owner = "matt1432";
       repo = "nixos-pcsd";
     };
   };
 
   serviviInputs = {
-    minix = mkDep {
+    minix = mkInput {
       owner = "matt1432";
       repo = "Minix";
     };
 
-    pr-tracker = mkDep {
+    pr-tracker = mkInput {
       owner = "matt1432";
       repo = "pr-tracker";
     };
   };
 
   nosInputs = {
-    khepri = mkDep {
+    khepri = mkInput {
       owner = "matt1432";
       repo = "khepri";
     };
 
-    jellyfin-flake = mkDep {
+    jellyfin-flake = mkInput {
       owner = "matt1432";
       repo = "nixos-jellyfin";
     };
 
-    bazarr-bulk = mkDep {
+    bazarr-bulk = mkInput {
       owner = "mateoradman";
       repo = "bazarr-bulk";
     };
@@ -120,16 +120,9 @@ let
 
   desktopInputs = {
     hyprlandInputs = {
-      hyprutils = mkDep {
-        owner = "hyprwm";
-        repo = "hyprutils";
-      };
-
-      hyprland = mkDep {
+      hyprland = mkInput {
         owner = "hyprwm";
         repo = "Hyprland";
-
-        inputs.hyprutils.follows = "hyprutils";
       };
 
       hyprland-plugins = mkHyprDep {
@@ -142,36 +135,29 @@ let
         repo = "hyprgrass";
       };
 
-      hyprpaper = mkDep {
+      hyprpaper = mkHyprDep {
         owner = "hyprwm";
         repo = "hyprpaper";
-
-        inputs = {
-          hyprgraphics.follows = "hyprland/hyprgraphics";
-          hyprlang.follows = "hyprland/hyprlang";
-          hyprutils.follows = "hyprland/hyprutils";
-          hyprwayland-scanner.follows = "hyprland/hyprwayland-scanner";
-        };
       };
 
-      grim-hyprland = mkDep {
+      grim-hyprland = mkInput {
         owner = "eriedaberrie";
         repo = "grim-hyprland";
       };
 
-      nixcord = mkDep {
+      nixcord = mkInput {
         owner = "kaylorben";
         repo = "nixcord";
       };
     };
 
     agsInputs = {
-      astal = mkDep {
+      astal = mkInput {
         owner = "Aylur";
         repo = "astal";
       };
 
-      ags = mkDep {
+      ags = mkInput {
         owner = "Aylur";
         repo = "ags";
 
@@ -185,12 +171,12 @@ let
         inputs.astal.follows = "astal";
       };
 
-      gtk-session-lock = mkDep {
+      gtk-session-lock = mkInput {
         owner = "Cu3PO42";
         repo = "gtk-session-lock";
       };
 
-      virtualkeyboard-adapter = mkDep {
+      virtualkeyboard-adapter = mkInput {
         owner = "horriblename";
         repo = "fcitx-virtualkeyboard-adapter";
       };
@@ -198,7 +184,7 @@ let
   };
 
   bbsteamieInputs = {
-    jovian = mkDep {
+    jovian = mkInput {
       owner = "Jovian-Experiments";
       repo = "Jovian-NixOS";
     };
@@ -400,7 +386,7 @@ let
     }
   ];
 in {
-  inherit mkDep mkInput mkSrc;
+  inherit mkInput mkSrc;
 
   extraInputs =
     {

@@ -1,6 +1,6 @@
 {
   inputs = let
-    inherit (import ./inputs) mkDep mkInput extraInputs;
+    inherit (import ./inputs) mkInput extraInputs;
 
     mainInputs = {
       systems = mkInput {
@@ -14,24 +14,24 @@
         ref = "nixos-unstable-small";
       };
 
-      home-manager = mkDep {
+      home-manager = mkInput {
         owner = "nix-community";
         repo = "home-manager";
       };
 
-      nix-on-droid = mkDep {
+      nix-on-droid = mkInput {
         owner = "nix-community";
         repo = "nix-on-droid";
 
         inputs.home-manager.follows = "home-manager";
       };
 
-      sops-nix = mkDep {
+      sops-nix = mkInput {
         owner = "Mic92";
         repo = "sops-nix";
       };
 
-      secrets = mkDep {
+      secrets = mkInput {
         type = "git";
         url = "ssh://git@git.nelim.org/matt1432/nixos-secrets";
 

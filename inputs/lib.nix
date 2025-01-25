@@ -7,9 +7,19 @@ let
     sha256 = lock.nodes.nixpkgs.locked.narHash;
   }}/lib";
 
-  inherit (lib) attrValues findFirst foldl' hasAttr matchAttrs optionalAttrs recursiveUpdate;
+  inherit (lib) attrNames attrValues findFirst foldl' hasAttr matchAttrs optionalAttrs optionals recursiveUpdate;
 in rec {
   recursiveUpdateList = list: foldl' recursiveUpdate {} list;
+
+  findInput = info:
+    findFirst
+    (x: matchAttrs (removeAttrs info ["inputs"]) (x.original or {})) {}
+    (attrValues lock.nodes);
+
+  mkFollowsFrom = info: target: follows:
+    optionalAttrs
+    (hasAttr target ((findInput info).inputs or {}))
+    {inputs.${target} = {inherit follows;};};
 
   /*
   * From an attrset, returns a flake input that has its type defaulted
@@ -19,34 +29,39 @@ in rec {
   * It gets information from the `flake.lock` file and can be used thanks
   * to flakegen
   */
-  mkInput = {type ? "github", ...} @ info: let
-    input =
-      findFirst
-      (x: matchAttrs (removeAttrs info ["inputs"]) (x.original or {})) {}
-      (attrValues lock.nodes);
-
-    mkOverride = i:
-      optionalAttrs
-      (hasAttr i (input.inputs or {}))
-      {inputs.${i}.follows = i;};
+  mkInput = {
+    type ? "github",
+    overrideNixpkgs ? true,
+    ...
+  } @ info: let
+    mkOverride = i: mkFollowsFrom info i i;
   in
-    recursiveUpdateList [
-      info
-      {inherit type;}
-      (mkOverride "systems")
-      (mkOverride "flake-compat")
-      (mkOverride "flake-utils")
-      (mkOverride "flake-parts")
-      (mkOverride "lib-aggregate")
-      (mkOverride "nix-eval-jobs")
-      (mkOverride "nix-github-actions")
-      (mkOverride "pre-commit-hooks")
-      (mkOverride "treefmt-nix")
-    ];
+    recursiveUpdateList ([
+        (removeAttrs info ["overrideNixpkgs"])
+        {inherit type;}
 
-  mkDep = info: mkInput (recursiveUpdate info {inputs.nixpkgs.follows = "nixpkgs";});
+        # Generic inputs
+        (mkOverride "systems")
+        (mkOverride "flake-compat")
+        (mkOverride "flake-utils")
+        (mkOverride "flake-parts")
+        (mkOverride "lib-aggregate")
+        (mkOverride "nix-eval-jobs")
+        (mkOverride "nix-github-actions")
+        (mkOverride "pre-commit-hooks")
+        (mkOverride "treefmt-nix")
+      ]
+      # Specify if we can't make an input use this flake's nixpkgs
+      ++ optionals overrideNixpkgs [(mkOverride "nixpkgs")]);
 
-  mkHyprDep = info: mkInput (recursiveUpdate info {inputs.hyprland.follows = "hyprland";});
+  mkHyprDep = info: let
+    inherit (lock.nodes) hyprland;
+
+    mkOverride = i: mkFollowsFrom info i i;
+    mkHyprOverride = i: mkFollowsFrom info i "hyprland/${i}";
+  in
+    mkInput (recursiveUpdateList ([info (mkOverride "hyprland")]
+        ++ (map mkHyprOverride (attrNames hyprland.inputs))));
 
   mkSrc = info: mkInput (info // {flake = false;});
 }
