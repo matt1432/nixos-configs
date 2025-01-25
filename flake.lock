@@ -371,11 +371,11 @@
     "gpu-screen-recorder-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1737709612,
-        "narHash": "sha256-PqSV/EbcFNNQlcv6N/oexIQNRu4gKgkOKw2aVcQrYh8=",
+        "lastModified": 1737831403,
+        "narHash": "sha256-EP3Rfa+Gb8ajoKn7zgU5MA14t0YBqVaKekDltSFHD6E=",
         "ref": "refs/heads/master",
-        "rev": "8e267bb3b0ba3b3ffec963416b0e67a210338e6c",
-        "revCount": 952,
+        "rev": "cafcda102287a836dde5342a53ddf755487b1ccb",
+        "revCount": 954,
         "type": "git",
         "url": "https://repo.dec05eba.com/gpu-screen-recorder"
       },
@@ -579,11 +579,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1737812007,
-        "narHash": "sha256-c9FQ/7kPviKamYBURbxkWM5MjvTBs4HknfakE7N7kWc=",
+        "lastModified": 1737837404,
+        "narHash": "sha256-SOL8I2o7VxeVlT4nh7Poy9uC6GlVAXTjZ00gocQqHfw=",
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "065e89648b27017871c38831cf34def94feb72d6",
+        "rev": "445acec2a29adbb30196d8b92f86270a038b7ee5",
         "type": "github"
       },
       "original": {
@@ -887,11 +887,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1737544981,
-        "narHash": "sha256-An87ujR/UnfEynSYxDHdkxsjoIIddBe+cCJ9rz+Acrs=",
+        "lastModified": 1737838264,
+        "narHash": "sha256-RVqdS+sL6PhylRdLRb0g7wukPI76ubqDb+8a5ERIN0U=",
         "owner": "matt1432",
         "repo": "nixos-jellyfin",
-        "rev": "f9889b595214d42ee5b803fcd150813e8929ea03",
+        "rev": "247094619b577231bb2fc5df46b035691dc55490",
         "type": "github"
       },
       "original": {
@@ -1482,11 +1482,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1737481114,
-        "narHash": "sha256-SrpaK5R4nMqq6ZDNm/G2Bj53xHEsouz9w7ZiMDqb0Bc=",
+        "lastModified": 1737833560,
+        "narHash": "sha256-PLlUFuJqPBjj8ErEO4FdPNB9NjECrF/PwfPiwUgodhA=",
         "owner": "nix-community",
         "repo": "nixpkgs-wayland",
-        "rev": "c52a529dd1585cad4ccd5951b10ba27366aa3cee",
+        "rev": "2c421bd3ad1cd2ce4fc00baff4b6036d353b1ca7",
         "type": "github"
       },
       "original": {
@@ -1975,11 +1975,11 @@
     "tuya-local-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1737789364,
-        "narHash": "sha256-gb4vpOgYIRTpj5GsrmLHKRx5m2pN0J5kQ1d9c85vyD4=",
+        "lastModified": 1737818249,
+        "narHash": "sha256-4DOR7Wc85FB29wyZ4yd17lUZ7/ApL1Ri5GD/Hqdot2M=",
         "owner": "make-all",
         "repo": "tuya-local",
-        "rev": "f6d46a108a9919a8ef40ebe084c7939f51febc1a",
+        "rev": "d0f16969601c82da1e8b42487fd2ee52bd60ca26",
         "type": "github"
       },
       "original": {
@@ -1997,11 +1997,11 @@
       },
       "locked": {
         "dir": "packaging/nix",
-        "lastModified": 1737787206,
-        "narHash": "sha256-vVrqM1gqkSXRQGNaZexNk4Iz+wFm8AeWmd2AQ8ITl6Y=",
+        "lastModified": 1737834175,
+        "narHash": "sha256-fhyc89qqYM3ql0k4hJVibAhXvEXOch96hnsEGB7Av3I=",
         "ref": "refs/heads/main",
-        "rev": "d0512c3a6563a3c26a776543c3cfb8c983a151a9",
-        "revCount": 910,
+        "rev": "4d1860eefd79d6c04e964774155dbe13be65121a",
+        "revCount": 911,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/Open-Wine-Components/umu-launcher/"
