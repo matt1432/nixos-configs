@@ -4,7 +4,7 @@
 }: let
   inherit (builtins) readFile fromJSON;
   inherit (self.lib) mkVersion;
-  inherit (pkgs.lib) elemAt hasAttr length map optionalString toLower;
+  inherit (pkgs.lib) concatStringsSep elemAt hasAttr length map optionalString toLower;
 in {
   buildPlugin = pname: src:
     pkgs.vimUtils.buildVimPlugin {
@@ -33,9 +33,10 @@ in {
     pname,
   }: let
     girNameTable = {
-      gtk4 = "Gtk-4.0";
-      gtk-session-lock = "GtkSessionLock-0.1";
-      libadwaita = "Adw-1";
+      gtk4 = ["Gtk-4.0"];
+      gtk4-layer-shell = ["Gtk4LayerShell-1.0" "Gtk4SessionLock-1.0"];
+      gtk-session-lock = ["GtkSessionLock-0.1"];
+      libadwaita = ["Adw-1"];
     };
 
     withGirNames =
@@ -46,7 +47,7 @@ in {
           package.girName
           or (
             if hasAttr package.pname girNameTable
-            then girNameTable.${package.pname}
+            then concatStringsSep " " girNameTable.${package.pname}
             else throw "girName of ${package.name} couldn't be found"
           );
       })

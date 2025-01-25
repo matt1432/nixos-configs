@@ -52,6 +52,19 @@ in {
     security.pam.services.astal-auth = {};
     services.upower.enable = true;
 
+    nixpkgs.overlays = [
+      (final: prev: {
+        gtk4-layer-shell = prev.gtk4-layer-shell.overrideAttrs (o: {
+          src = pkgs.fetchFromGitHub {
+            owner = "wmww";
+            repo = "gtk4-layer-shell";
+            rev = "e6c958189fcb78894d86db5beead1526084f8755";
+            hash = "sha256-QwOzgOJuf8K7v/aTDNw+hYRNa8TIel3Pac/cwCMU8zw=";
+          };
+        });
+      })
+    ];
+
     i18n.inputMethod = mkIf cfgDesktop.isTouchscreen {
       enable = true;
       type = "fcitx5";

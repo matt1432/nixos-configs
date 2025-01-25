@@ -32,7 +32,11 @@ in {
     programs.ags = {
       package = ags.packages.${pkgs.system}.ags.override {
         extraPackages = cfg.astalLibs;
+
+        # Make sure we use my overlayed version for gtk4-session-lock
+        gtk4-layer-shell = pkgs.gtk4-layer-shell;
       };
+
       astalLibs = attrValues {
         inherit
           (astal.packages.${pkgs.system})
@@ -66,6 +70,7 @@ in {
         inherit
           (pkgs)
           libadwaita
+          gtk4-layer-shell
           gtk4 # Needed to build types
           ;
       };
@@ -129,7 +134,11 @@ in {
           pname = "ags";
           configPath = "${cfg.configDir}/@girs";
           packages = filter (x:
-            x.pname != "libadwaita" && x.pname != "libkompass")
+            true
+            && x.pname != "libadwaita"
+            && x.pname != "libkompass"
+            && x.pname != "gtk4-layer-shell"
+            && x.pname != "gtk4-session-lock")
           cfg.astalLibs;
         })
         // (buildGirTypes {
