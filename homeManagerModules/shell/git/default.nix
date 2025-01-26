@@ -44,6 +44,7 @@ in {
       extraConfig = {
         alias = {
           diff-clean = "-c delta.side-by-side=false diff";
+          diff-patch = "-c delta.side-by-side=false -c delta.keep-plus-minus-markers=true diff";
 
           # https://stackoverflow.com/a/18317425
           ignore = "update-index --assume-unchanged";
