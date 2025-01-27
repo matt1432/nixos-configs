@@ -73,6 +73,19 @@ in {
           enable = true;
 
           discord = {
+            package =
+              if isNvidia
+              then
+                pkgs.discord.overrideAttrs {
+                  postFixup = ''
+                    wrapProgramShell $out/bin/Discord \
+                        --set XDG_SESSION_TYPE "x11" \
+                        --unset NIXOS_OZONE_WL \
+                        --unset WAYLAND_DISPLAY
+                  '';
+                }
+              else pkgs.discord;
+
             vencord.unstable = true;
             openASAR.enable = false;
 
@@ -169,27 +182,14 @@ in {
           ;
 
         # force XWayland for stylus input
-        obsidian = pkgs.obsidian.overrideAttrs (o: {
-          installPhase = ''
-            runHook preInstall
-            mkdir -p $out/bin
-
-            makeWrapper ${pkgs.electron}/bin/electron $out/bin/obsidian \
-              --add-flags $out/share/obsidian/app.asar \
-              --set XDG_SESSION_TYPE "x11" \
-              --set NIXOS_OZONE_WL "0"
-
-            install -m 444 -D resources/app.asar $out/share/obsidian/app.asar
-            install -m 444 -D resources/obsidian.asar $out/share/obsidian/obsidian.asar
-            install -m 444 -D "${o.desktopItem}/share/applications/"* \
-              -t $out/share/applications/
-            for size in 16 24 32 48 64 128 256 512; do
-              mkdir -p $out/share/icons/hicolor/"$size"x"$size"/apps
-              magick -background none ${o.icon} -resize "$size"x"$size" $out/share/icons/hicolor/"$size"x"$size"/apps/obsidian.png
-            done
-            runHook postInstall
+        obsidian = pkgs.obsidian.overrideAttrs {
+          postFixup = ''
+            makeWrapper $out/bin/obsidian \
+                --set XDG_SESSION_TYPE "x11" \
+                --unset NIXOS_OZONE_WL \
+                --unset WAYLAND_DISPLAY
           '';
-        });
+        };
 
         # tools
         inherit
@@ -297,6 +297,12 @@ in {
               key = "S";
               dispatcher = "togglespecialworkspace";
               command = "spot";
+            }
+
+            {
+              key = "mouse:277";
+              dispatcher = "pass";
+              command = "class:^(discord)$";
             }
           ];
         };
