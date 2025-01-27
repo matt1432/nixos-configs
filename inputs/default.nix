@@ -4,6 +4,43 @@ let
   inherit (builtins) listToAttrs map removeAttrs;
 
   # Inputs
+  mainInputs = {
+    systems = mkInput {
+      owner = "nix-systems";
+      repo = "default-linux";
+    };
+
+    nixpkgs = mkInput {
+      owner = "NixOS";
+      repo = "nixpkgs";
+      ref = "nixos-unstable-small";
+    };
+
+    home-manager = mkInput {
+      owner = "nix-community";
+      repo = "home-manager";
+    };
+
+    nix-on-droid = mkInput {
+      owner = "nix-community";
+      repo = "nix-on-droid";
+
+      inputs.home-manager.follows = "home-manager";
+    };
+
+    sops-nix = mkInput {
+      owner = "Mic92";
+      repo = "sops-nix";
+    };
+
+    secrets = mkInput {
+      type = "git";
+      url = "ssh://git@git.nelim.org/matt1432/nixos-secrets";
+
+      inputs.sops-nix.follows = "sops-nix";
+    };
+  };
+
   nixTools = {
     nix-fast-build = mkInput {
       owner = "Mic92";
@@ -385,28 +422,25 @@ let
       repo = "sioyek";
     }
   ];
-in {
-  inherit mkInput mkSrc;
-
-  extraInputs =
-    {
-      flakegen = {
-        url = "github:jorsn/flakegen";
-        inputs.systems.follows = "systems";
-      };
-    }
-    // nixTools
-    // overlays
-    // nvimInputs
-    // clusterInputs
-    // serviviInputs
-    // nosInputs
-    // bbsteamieInputs
-    // desktopInputs.hyprlandInputs
-    // desktopInputs.agsInputs
-    // (listToAttrs (map (x: {
-        name = x.name or "${x.repo}-src";
-        value = mkSrc (removeAttrs x ["name"]);
-      })
-      srcs));
-}
+in
+  {
+    flakegen = {
+      url = "github:jorsn/flakegen";
+      inputs.systems.follows = "systems";
+    };
+  }
+  // mainInputs
+  // nixTools
+  // overlays
+  // nvimInputs
+  // clusterInputs
+  // serviviInputs
+  // nosInputs
+  // bbsteamieInputs
+  // desktopInputs.hyprlandInputs
+  // desktopInputs.agsInputs
+  // (listToAttrs (map (x: {
+      name = x.name or "${x.repo}-src";
+      value = mkSrc (removeAttrs x ["name"]);
+    })
+    srcs))

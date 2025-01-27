@@ -1,45 +1,5 @@
 {
-  inputs = let
-    inherit (import ./inputs) mkInput extraInputs;
-
-    mainInputs = {
-      systems = mkInput {
-        owner = "nix-systems";
-        repo = "default-linux";
-      };
-
-      nixpkgs = mkInput {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        ref = "nixos-unstable-small";
-      };
-
-      home-manager = mkInput {
-        owner = "nix-community";
-        repo = "home-manager";
-      };
-
-      nix-on-droid = mkInput {
-        owner = "nix-community";
-        repo = "nix-on-droid";
-
-        inputs.home-manager.follows = "home-manager";
-      };
-
-      sops-nix = mkInput {
-        owner = "Mic92";
-        repo = "sops-nix";
-      };
-
-      secrets = mkInput {
-        type = "git";
-        url = "ssh://git@git.nelim.org/matt1432/nixos-secrets";
-
-        inputs.sops-nix.follows = "sops-nix";
-      };
-    };
-  in
-    mainInputs // extraInputs;
+  inputs = import ./inputs;
 
   outputs = inputs @ {
     self,
