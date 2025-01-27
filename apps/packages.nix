@@ -11,5 +11,6 @@ in
   listToAttrs (map (x: nameValuePair x (callPackage ./${x})) [
     "extract-subs"
     "gen-docs"
+    "pin-inputs"
     "update-sources"
   ])
