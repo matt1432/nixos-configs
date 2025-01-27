@@ -184,7 +184,7 @@ in {
         # force XWayland for stylus input
         obsidian = pkgs.obsidian.overrideAttrs {
           postFixup = ''
-            makeWrapper $out/bin/obsidian \
+            wrapProgram $out/bin/obsidian \
                 --set XDG_SESSION_TYPE "x11" \
                 --unset NIXOS_OZONE_WL \
                 --unset WAYLAND_DISPLAY
