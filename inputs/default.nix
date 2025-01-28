@@ -165,22 +165,19 @@ let
       hyprland = mkInput {
         owner = "hyprwm";
         repo = "Hyprland";
-
-        # FIXME: wait for https://github.com/horriblename/hyprgrass/pull/207
-        rev = "445acec2a29adbb30196d8b92f86270a038b7ee5";
       };
 
       hyprland-plugins = mkHyprDep {
         owner = "hyprwm";
         repo = "hyprland-plugins";
-
-        # FIXME: wait for https://github.com/horriblename/hyprgrass/pull/207
-        rev = "7634792d199d32ed9396d5864e6431cde1cca6bd";
       };
 
       hyprgrass = mkHyprDep {
         owner = "horriblename";
         repo = "hyprgrass";
+
+        # FIXME: https://github.com/horriblename/hyprgrass/pull/207
+        rev = "184467d3b785c67062b240bd0eb5239e7ec5d09e";
       };
 
       hyprpaper = mkHyprDep {
