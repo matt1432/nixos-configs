@@ -36,5 +36,5 @@ in
       url = "https://github.com/xPrinny/MusicBot/releases/download/${version}/JMusicBot-${version}.jar";
       sha256 = "sha256-NYUT0FhSIqt+SECOKdnqBNQ37qinkwNWIzpXw8+7FXg=";
     };
-    meta.platforms = ["x86_64-linux"];
+    meta = o.meta // {platforms = ["x86_64-linux"];};
   })
