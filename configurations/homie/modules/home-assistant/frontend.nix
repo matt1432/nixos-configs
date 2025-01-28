@@ -134,6 +134,7 @@ in {
             type = "entities";
             entities = [
               "switch.smartplug1"
+              "switch.smartplug2"
               "switch.smartplug3"
             ];
           }
