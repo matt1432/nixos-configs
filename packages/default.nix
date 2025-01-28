@@ -45,6 +45,10 @@
 
   some-sass-language-server = pkgs.callPackage ./some-sass-language-server {};
 
+  subscleaner = pkgs.callPackage ./subscleaner {
+    inherit (inputs) poetry2nix subscleaner-src;
+  };
+
   trash-d = pkgs.callPackage ./trash-d {
     inherit (inputs) trash-d-src;
   };

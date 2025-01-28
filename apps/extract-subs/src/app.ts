@@ -98,8 +98,8 @@ const findSubs = (
     streams: FfprobeStream[],
 ): FfprobeStream[] => {
     const subs = streams.filter((s) => s.tags?.language &&
-        s.tags.language === lang &&
-        s.codec_type === 'subtitle');
+      s.tags.language === lang &&
+      s.codec_type === 'subtitle');
 
     const pgs = subs.filter((s) => s.codec_name === 'hdmv_pgs_subtitle');
 
@@ -139,7 +139,9 @@ const main = async(): Promise<void> => {
         }
 
         // Extract all subs
-        subs.forEach((sub) => { extractSub(sub); });
+        subs.forEach((sub) => {
+            extractSub(sub);
+        });
     });
 
     removeContainerSubs();

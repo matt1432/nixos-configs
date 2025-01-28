@@ -402,6 +402,18 @@
       repo = "piper";
       type = "github";
     };
+    poetry2nix = {
+      inputs = {
+        flake-utils.follows = "flake-utils";
+        nix-github-actions.follows = "nix-github-actions";
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+      owner = "nix-community";
+      repo = "poetry2nix";
+      type = "github";
+    };
     pokemon-colorscripts-src = {
       flake = false;
       owner = "phoneybadger";
@@ -466,6 +478,12 @@
       owner = "thlucas1";
       repo = "SpotifyWebApiPython";
       type = "github";
+    };
+    subscleaner-src = {
+      flake = false;
+      owner = "rogs";
+      repo = "subscleaner";
+      type = "gitlab";
     };
     systems = {
       owner = "nix-systems";

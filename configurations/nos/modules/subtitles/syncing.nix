@@ -2,14 +2,17 @@
   bazarr-bulk,
   config,
   lib,
-  pkgs,
+  system,
+  writeShellApplication,
   ...
 }: let
-  bbPkg = bazarr-bulk.packages.${pkgs.system}.default;
+  inherit (lib) getExe;
+
+  bbPkg = bazarr-bulk.packages.${system}.default;
 in
-  pkgs.writeShellApplication {
+  writeShellApplication {
     name = "bb";
     text = ''
-      exec ${lib.getExe bbPkg} --config ${config.sops.secrets.bazarr-bulk.path} "$@"
+      exec ${getExe bbPkg} --config ${config.sops.secrets.bazarr-bulk.path} "$@"
     '';
   }

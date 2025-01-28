@@ -1,13 +1,12 @@
-{pkgs, ...}:
-pkgs.writeShellApplication {
-  name = "convertMkv";
+{
+  writeShellApplication,
+  ffmpeg-full,
+  ...
+}:
+writeShellApplication {
+  name = "convert-mkv";
 
-  runtimeInputs = builtins.attrValues {
-    inherit
-      (pkgs)
-      ffmpeg-full
-      ;
-  };
+  runtimeInputs = [ffmpeg-full];
 
   text = ''
     extension="$1"

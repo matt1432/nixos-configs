@@ -1626,6 +1626,38 @@
         "type": "github"
       }
     },
+    "poetry2nix": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nix-github-actions": [
+          "nix-github-actions"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": [
+          "systems"
+        ],
+        "treefmt-nix": [
+          "treefmt-nix"
+        ]
+      },
+      "locked": {
+        "lastModified": 1736884309,
+        "narHash": "sha256-eiCqmKl0BIRiYk5/ZhZozwn4/7Km9CWTbc15Cv+VX5k=",
+        "owner": "nix-community",
+        "repo": "poetry2nix",
+        "rev": "75d0515332b7ca269f6d7abfd2c44c47a7cbca7b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "poetry2nix",
+        "type": "github"
+      }
+    },
     "pokemon-colorscripts-src": {
       "flake": false,
       "locked": {
@@ -1761,6 +1793,7 @@
         "pam-fprint-grosshack-src": "pam-fprint-grosshack-src",
         "pcsd": "pcsd",
         "piper-src": "piper-src",
+        "poetry2nix": "poetry2nix",
         "pokemon-colorscripts-src": "pokemon-colorscripts-src",
         "pr-tracker": "pr-tracker",
         "pre-commit-hooks": "pre-commit-hooks",
@@ -1771,6 +1804,7 @@
         "sops-nix": "sops-nix",
         "spotifyplus-src": "spotifyplus-src",
         "spotifywebapi-src": "spotifywebapi-src",
+        "subscleaner-src": "subscleaner-src",
         "systems": "systems",
         "trash-d-src": "trash-d-src",
         "treefmt-nix": "treefmt-nix",
@@ -1905,6 +1939,22 @@
         "owner": "thlucas1",
         "repo": "SpotifyWebApiPython",
         "type": "github"
+      }
+    },
+    "subscleaner-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1734281369,
+        "narHash": "sha256-s36pAjfLQtvKEgtYFPH1LwogBHPLi5F8Fz04LIo/+44=",
+        "owner": "rogs",
+        "repo": "subscleaner",
+        "rev": "72e2f5afdfeded7dc05e4d1f098fc391065ec31f",
+        "type": "gitlab"
+      },
+      "original": {
+        "owner": "rogs",
+        "repo": "subscleaner",
+        "type": "gitlab"
       }
     },
     "systems": {
