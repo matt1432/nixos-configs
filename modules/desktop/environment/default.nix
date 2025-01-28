@@ -202,6 +202,11 @@ in {
             vfr = true;
           };
 
+          ecosystem = {
+            no_update_news = true;
+            no_donation_nag = true;
+          };
+
           dwindle = {
             smart_split = true;
             special_scale_factor = 0.8;

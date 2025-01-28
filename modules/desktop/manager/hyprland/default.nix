@@ -34,7 +34,7 @@ in {
         package = cfgHypr.finalPackage;
 
         settings = {
-          inherit (cfgHypr.settings) cursor device input misc monitor;
+          inherit (cfgHypr.settings) cursor device ecosystem input misc monitor;
 
           envd = optionals (config.nvidia.enable) [
             "LIBVA_DRIVER_NAME, nvidia"
