@@ -123,8 +123,6 @@ const main = async(): Promise<void> => {
     const data = await ffprobe(videoPath);
 
     if (!data?.streams) {
-        console.error('Couldn\'t find streams in video file');
-
         return;
     }
 
