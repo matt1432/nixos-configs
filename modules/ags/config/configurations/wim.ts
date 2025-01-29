@@ -8,6 +8,7 @@ import AudioWindow from '../widgets/audio/wim';
 import Bar from '../widgets/bar/wim';
 import BgLayer from '../widgets/bg-layer';
 import BluetoothWindow from '../widgets/bluetooth/wim';
+import BrightnessSlider from '../widgets/brightness-slider/main';
 import Calendar from '../widgets/date/wim';
 import Clipboard from '../widgets/clipboard';
 import Corners from '../widgets/corners';
@@ -97,6 +98,7 @@ export default () => {
             AudioWindow();
             Bar();
             BluetoothWindow();
+            BrightnessSlider();
             Calendar();
             Clipboard();
             Corners();
