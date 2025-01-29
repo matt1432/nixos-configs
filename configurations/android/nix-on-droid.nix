@@ -28,10 +28,17 @@
     substituters = [
       # Nix-community
       "https://nix-community.cachix.org"
+
+      # Personal cache
+      "https://cache.nelim.org"
     ];
+
     trustedPublicKeys = [
       # Nix-community
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+
+      # Personal cache
+      "cache.nelim.org:JmFqkUdH11EA9EZOFAGVHuRYp7EbsdJDHvTQzG2pPyY="
     ];
   };
 
