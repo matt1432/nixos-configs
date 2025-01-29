@@ -9,8 +9,10 @@
   inherit (self.inputs) firefox-gx-src;
   inherit (self.lib) mkVersion;
 
-  lock = fromJSON (readFile "${self}/flake.lock");
-  rev = lock.nodes.firefox-gx-src.original.ref;
+  lock = fromJSON (readFile ../../../flake.lock);
+  rev =
+    lock.nodes.firefox-gx-src.original.ref
+    or lock.nodes.firefox-gx-src.original.rev;
 in
   stdenvNoCC.mkDerivation {
     pname = "firefox-gx";

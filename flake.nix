@@ -67,8 +67,8 @@
     firefox-gx-src = {
       flake = false;
       owner = "Godiesc";
-      ref = "v.9.9";
       repo = "firefox-gx";
+      rev = "6f5d07e11e008d6cbf4461e53daf80820afa8418";
       type = "github";
     };
     flake-compat = {

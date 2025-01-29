@@ -408,7 +408,8 @@ let
     {
       owner = "Godiesc";
       repo = "firefox-gx";
-      ref = "v.9.9";
+      # ref = "v.9.9";
+      rev = "6f5d07e11e008d6cbf4461e53daf80820afa8418";
     }
     {
       name = "git-theme-src";
