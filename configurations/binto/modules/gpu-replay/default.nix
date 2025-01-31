@@ -59,20 +59,34 @@ in {
           xrandr --output "$WINDOW" --primary
 
           gpu-screen-recorder ${concatStringsSep " " [
-            ''-v no''
-            ''-r 1200''
-            ''-df yes''
-            ''-o /home/matt/Videos/Replay''
-            # Audio settings
-            ''-ac aac''
-            ''-a "$(pactl get-default-sink).monitor"''
-            ''-a "$(pactl get-default-source)"''
-            # Video settings
-            ''-w "$WINDOW"''
-            ''-f 60''
-            ''-c mkv''
-            ''-k hevc''
-            ''-q very_high''
+            # Prints fps and damage info once per second.
+            "-v no"
+
+            # Replay buffer time in seconds.
+            "-r 1200"
+
+            # Organise replays in folders based on the current date.
+            "-df yes"
+            "-o /home/matt/Videos/Replay"
+
+            # Audio codec to use.
+            "-ac aac"
+
+            # Audio device or application to record from (pulse audio device).
+            "-a desktop/default_output"
+            "-a microphone/default_input"
+
+            # Window id to record, display (monitor name), "screen", "screen-direct", "focused" or "portal".
+            "-w \"$WINDOW\""
+
+            # Frame rate to record at.
+            "-f 60"
+
+            # Container format for output file.
+            "-c mkv"
+
+            # Video codec to use.
+            "-k hevc"
           ]}
         '';
       })
