@@ -2,19 +2,19 @@
   buildLua,
   makeFontsConf,
   mkVersion,
-  modernx-src,
+  modernz-src,
   ...
 }:
 buildLua (finalAttrs: {
-  pname = "modernx";
-  version = mkVersion modernx-src;
+  pname = "modernz";
+  version = mkVersion modernz-src;
 
-  src = modernx-src;
+  src = modernz-src;
 
   # Make font available to script
   postInstall = ''
     mkdir -p $out/share/fonts
-    cp -r ./Material-Design-Iconic-Font.ttf $out/share/fonts
+    cp -r ./fluent-system-icons.ttf $out/share/fonts
   '';
 
   passthru.extraWrapperArgs = [

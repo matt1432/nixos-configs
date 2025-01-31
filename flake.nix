@@ -240,10 +240,10 @@
       repo = "Minix";
       type = "github";
     };
-    modernx-src = {
+    modernz-src = {
       flake = false;
-      owner = "cyl0";
-      repo = "ModernX";
+      owner = "Samillion";
+      repo = "ModernZ";
       type = "github";
     };
     mpv-persist-properties-src = {

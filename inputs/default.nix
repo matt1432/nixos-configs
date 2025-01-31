@@ -377,9 +377,9 @@ let
 
     # MPV scripts
     {
-      name = "modernx-src";
-      owner = "cyl0";
-      repo = "ModernX";
+      name = "modernz-src";
+      owner = "Samillion";
+      repo = "ModernZ";
     }
     {
       owner = "d87";

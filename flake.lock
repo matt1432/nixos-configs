@@ -1012,19 +1012,19 @@
         "type": "github"
       }
     },
-    "modernx-src": {
+    "modernz-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1712549438,
-        "narHash": "sha256-q7DwyfmOIM7K1L7vvCpq1EM0RVpt9E/drhAa9rLYb1k=",
-        "owner": "cyl0",
-        "repo": "ModernX",
-        "rev": "3f2ed6b993059c6986bf34be3998048c50547187",
+        "lastModified": 1738280123,
+        "narHash": "sha256-OQfcqciYgBVTgPMG78ncgT+PZi3GYrLkB1O38qQLjtk=",
+        "owner": "Samillion",
+        "repo": "ModernZ",
+        "rev": "b38043da940e3809501ea5549638adc91c5b428e",
         "type": "github"
       },
       "original": {
-        "owner": "cyl0",
-        "repo": "ModernX",
+        "owner": "Samillion",
+        "repo": "ModernZ",
         "type": "github"
       }
     },
@@ -1722,7 +1722,7 @@
         "material-rounded-theme-src": "material-rounded-theme-src",
         "material-symbols-src": "material-symbols-src",
         "minix": "minix",
-        "modernx-src": "modernx-src",
+        "modernz-src": "modernz-src",
         "mpv-persist-properties-src": "mpv-persist-properties-src",
         "mpv-pointer-event-src": "mpv-pointer-event-src",
         "mpv-touch-gestures-src": "mpv-touch-gestures-src",

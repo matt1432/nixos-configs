@@ -23,7 +23,7 @@ in {
       scripts = attrValues {
         inherit
           (mpvScripts)
-          modernx
+          modernz
           persist-properties
           undo-redo
           ;
