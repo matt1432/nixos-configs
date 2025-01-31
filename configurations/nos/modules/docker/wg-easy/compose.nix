@@ -1,21 +1,15 @@
-{
-  config,
-  pkgs,
-  ...
-}: let
-  inherit (config.khepri) rwDataDir;
-
+rwDataDir: {pkgs, ...}: let
   rwPath = rwDataDir + "/wg-easy";
 in {
-  khepri.compositions."wg-easy" = {
+  virtualisation.docker.compose."wg-easy" = {
     networks.proxy_net = {external = true;};
 
     services."wg-easy" = {
-      image = import ./images/wg-easy.nix pkgs;
+      image = pkgs.callPackage ./images/wg-easy.nix pkgs;
       restart = "always";
       privileged = true;
 
-      capAdd = [
+      cap_add = [
         "NET_ADMIN"
         "SYS_MODULE"
       ];
@@ -45,4 +39,7 @@ in {
       networks = ["proxy_net"];
     };
   };
+
+  # For accurate stack trace
+  _file = ./compose.nix;
 }

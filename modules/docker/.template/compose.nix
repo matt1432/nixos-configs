@@ -1,10 +1,12 @@
-{config, ...}: let
+rwDataDir: {config, ...}: let
   inherit (config.sops) secrets;
-  inherit (config.khepri) rwDataDir;
 
   rwPath = rwDataDir + "/projectName";
 in {
-  khepri.compositions."projectName" = {
+  virtualisation.docker.compose."projectName" = {
     services = {};
   };
+
+  # For accurate stack trace
+  _file = ./default.nix;
 }

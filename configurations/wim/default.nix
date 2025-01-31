@@ -88,6 +88,8 @@
     tailscale.enable = true;
   };
 
+  roles.docker.enable = true;
+
   boot.plymouth = {
     enable = true;
     theme = "dracula";
@@ -96,7 +98,6 @@
     ];
   };
 
-  khepri.enable = true;
   services.kmscon.enable = true;
 
   home-manager.users.${mainUser} = {

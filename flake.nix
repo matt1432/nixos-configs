@@ -40,6 +40,15 @@
       repo = "custom-sidebar";
       type = "github";
     };
+    docker-compose = {
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
+      owner = "matt1432";
+      repo = "nixos-docker-compose";
+      type = "github";
+    };
     dracul-ha-src = {
       flake = false;
       owner = "berti24";
@@ -189,12 +198,6 @@
       };
       owner = "Jovian-Experiments";
       repo = "Jovian-NixOS";
-      type = "github";
-    };
-    khepri = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      owner = "matt1432";
-      repo = "khepri";
       type = "github";
     };
     kompass = {

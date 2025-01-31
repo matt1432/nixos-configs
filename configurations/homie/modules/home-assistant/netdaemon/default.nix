@@ -9,14 +9,14 @@
 
   inherit (pkgs.callPackage ./package.nix {}) netdaemonConfig;
 in {
-  khepri.compositions."netdaemon" = {
+  virtualisation.docker.compose."netdaemon" = {
     networks.netdaemon = {external = true;};
 
     services."netdaemon5" = {
-      image = import ./images/netdaemon.nix pkgs;
+      image = pkgs.callPackage ./images/netdaemon.nix pkgs;
       restart = "always";
 
-      environmentFiles = [secrets.netdaemon.path];
+      env_file = [secrets.netdaemon.path];
       environment = {
         HomeAssistant__Host = "homie.nelim.org";
         HomeAssistant__Port = "443";

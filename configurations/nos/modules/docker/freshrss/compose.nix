@@ -1,19 +1,18 @@
-{
+rwDataDir: {
   config,
   pkgs,
   ...
 }: let
   inherit (config.sops) secrets;
-  inherit (config.khepri) rwDataDir;
 
   rwPath = rwDataDir + "/freshrss";
 in {
-  khepri.compositions."freshrss" = {
+  virtualisation.docker.compose."freshrss" = {
     networks.proxy_net = {external = true;};
 
     services = {
       "freshrss" = {
-        image = import ./images/freshrss.nix pkgs;
+        image = pkgs.callPackage ./images/freshrss.nix pkgs;
         restart = "always";
 
         ports = ["2800:80"];
@@ -39,7 +38,7 @@ in {
           "${rss-bridge}/xExtension-RssBridge:/var/www/FreshRSS/extensions/xExtension-RssBridge:ro"
         ];
 
-        environmentFiles = [secrets.freshrss.path];
+        env_file = [secrets.freshrss.path];
 
         environment = {
           TZ = "America/New_York";
@@ -48,7 +47,7 @@ in {
       };
 
       "freshrss-db" = {
-        image = import ./images/postgres.nix pkgs;
+        image = pkgs.callPackage ./images/postgres.nix pkgs;
         restart = "always";
 
         volumes = [
@@ -57,7 +56,7 @@ in {
 
         networks = ["proxy_net"];
 
-        environmentFiles = [secrets.freshrss.path];
+        env_file = [secrets.freshrss.path];
 
         environment = {
           POSTGRES_DB = "\${DB_BASE:-freshrss}";
@@ -67,7 +66,7 @@ in {
       };
 
       "bridge.nelim.org" = {
-        image = import ./images/rss-bridge.nix pkgs;
+        image = pkgs.callPackage ./images/rss-bridge.nix pkgs;
         restart = "always";
 
         volumes = [
@@ -79,4 +78,7 @@ in {
       };
     };
   };
+
+  # For accurate stack trace
+  _file = ./compose.nix;
 }

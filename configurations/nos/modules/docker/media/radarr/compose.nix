@@ -1,17 +1,11 @@
-{
-  config,
-  pkgs,
-  ...
-}: let
-  inherit (config.khepri) rwDataDir;
-
+rwDataDir: {pkgs, ...}: let
   rwPath = rwDataDir + "/media/radarr";
 in {
-  khepri.compositions."radarr" = {
+  virtualisation.docker.compose."radarr" = {
     networks.proxy_net = {external = true;};
 
     services."radarr" = {
-      image = import ./images/radarr.nix pkgs;
+      image = pkgs.callPackage ./images/radarr.nix pkgs;
       restart = "always";
 
       ports = ["7878:7878"];
@@ -31,4 +25,7 @@ in {
       networks = ["proxy_net"];
     };
   };
+
+  # For accurate stack trace
+  _file = ./compose.nix;
 }

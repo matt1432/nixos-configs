@@ -1,19 +1,18 @@
-{
+rwDataDir: {
   config,
   pkgs,
   ...
 }: let
   inherit (config.sops) secrets;
-  inherit (config.khepri) rwDataDir;
 
   rwPath = rwDataDir + "/resume";
 in {
-  khepri.compositions."resume" = {
+  virtualisation.docker.compose."resume" = {
     networks.proxy_net = {external = true;};
 
     services = {
       "postgres" = {
-        image = import ./images/postgres.nix pkgs;
+        image = pkgs.callPackage ./images/postgres.nix pkgs;
         restart = "always";
 
         ports = ["5432:5432"];
@@ -22,19 +21,19 @@ in {
           "${rwPath}/db:/var/lib/postgresql/data"
         ];
 
-        environmentFiles = [secrets.resume.path];
+        env_file = [secrets.resume.path];
         networks = ["proxy_net"];
       };
 
       "server" = {
-        image = import ./images/resume-server.nix pkgs;
+        image = pkgs.callPackage ./images/resume-server.nix pkgs;
         restart = "always";
 
         ports = ["3100:3100"];
 
-        dependsOn = ["postgres"];
+        depends_on = ["postgres"];
 
-        environmentFiles = [secrets.resume.path];
+        env_file = [secrets.resume.path];
 
         environment = {
           PUBLIC_URL = "https://resume.nelim.org";
@@ -44,12 +43,12 @@ in {
       };
 
       "client" = {
-        image = import ./images/resume-client.nix pkgs;
+        image = pkgs.callPackage ./images/resume-client.nix pkgs;
         restart = "always";
 
         ports = ["3060:3000"];
 
-        dependsOn = ["server"];
+        depends_on = ["server"];
 
         environment = {
           PUBLIC_URL = "https://resume.nelim.org";
@@ -59,4 +58,7 @@ in {
       };
     };
   };
+
+  # For accurate stack trace
+  _file = ./compose.nix;
 }

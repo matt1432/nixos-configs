@@ -1,17 +1,11 @@
-{
-  config,
-  pkgs,
-  ...
-}: let
-  inherit (config.khepri) rwDataDir;
-
+rwDataDir: {pkgs, ...}: let
   rwPath = rwDataDir + "/media/bazarr";
 in {
-  khepri.compositions."bazarr" = {
+  virtualisation.docker.compose."bazarr" = {
     networks.proxy_net = {external = true;};
 
     services."bazarr" = {
-      image = import ./images/bazarr.nix pkgs;
+      image = pkgs.callPackage ./images/bazarr.nix pkgs;
       restart = "always";
 
       environment = {
@@ -33,4 +27,7 @@ in {
       networks = ["proxy_net"];
     };
   };
+
+  # For accurate stack trace
+  _file = ./compose.nix;
 }

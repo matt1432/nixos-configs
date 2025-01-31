@@ -5,16 +5,13 @@
 }: let
   jellyService = config.systemd.services.jellyfin.serviceConfig;
 in {
-  systemd.services."docker-jfa-go_jfa-go" = {
-    after = ["jellyfin.service"];
-    partOf = ["jellyfin.service"];
-  };
+  virtualisation.docker.compose."jfa-go" = {
+    systemdDependencies = ["jellyfin.service"];
 
-  khepri.compositions."jfa-go" = {
     networks.proxy_net = {external = true;};
 
     services."jfa-go" = {
-      image = import ./images/jfa-go.nix pkgs;
+      image = pkgs.callPackage ./images/jfa-go.nix pkgs;
       restart = "always";
 
       ports = ["8056:8056"];

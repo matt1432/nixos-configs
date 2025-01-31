@@ -1,19 +1,19 @@
-{
+rwDataDir: {
   config,
   pkgs,
   ...
 }: let
   inherit (config.sops) secrets;
 in {
-  khepri.compositions."gameyfin" = {
+  virtualisation.docker.compose."gameyfin" = {
     networks.proxy_net = {external = true;};
 
     services."gameyfin" = {
-      image = import ./images/gameyfin.nix pkgs;
+      image = pkgs.callPackage ./images/gameyfin.nix pkgs;
       restart = "always";
       user = "1000:1000";
 
-      environmentFiles = [secrets.gameyfin.path];
+      env_file = [secrets.gameyfin.path];
       environment.GAMEYFIN_USER = "mathis";
 
       volumes = [
@@ -25,4 +25,7 @@ in {
       networks = ["proxy_net"];
     };
   };
+
+  # For accurate stack trace
+  _file = ./compose.nix;
 }

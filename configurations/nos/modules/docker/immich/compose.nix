@@ -1,4 +1,4 @@
-{
+rwDataDir: {
   config,
   lib,
   pkgs,
@@ -7,7 +7,6 @@
   inherit (lib) attrValues;
 
   inherit (config.sops) secrets;
-  inherit (config.khepri) rwDataDir;
 
   rwPath = rwDataDir + "/immich";
 
@@ -42,16 +41,16 @@ in {
   ];
 
   # Docker compose
-  khepri.compositions."immich" = {
+  virtualisation.docker.compose."immich" = {
     networks.proxy_net = {external = true;};
 
     services = {
       "immich_server" = {
-        image = import ./images/server.nix pkgs;
+        image = pkgs.callPackage ./images/server.nix pkgs;
 
         restart = "always";
 
-        environmentFiles = [
+        env_file = [
           envFile
           secrets.immich.path
         ];
@@ -66,17 +65,17 @@ in {
         ];
         networks = ["proxy_net"];
 
-        dependsOn = ["immich_redis" "immich_postgres"];
+        depends_on = ["immich_redis" "immich_postgres"];
 
         environment.NODE_ENV = "production";
       };
 
       "immich_machine_learning" = {
-        image = import ./images/machine-learning.nix pkgs;
+        image = pkgs.callPackage ./images/machine-learning.nix pkgs;
 
         restart = "always";
 
-        environmentFiles = [
+        env_file = [
           envFile
           secrets.immich.path
         ];
@@ -88,11 +87,11 @@ in {
       };
 
       "immich_redis" = {
-        image = import ./images/redis.nix pkgs;
+        image = pkgs.callPackage ./images/redis.nix pkgs;
 
         restart = "always";
 
-        environmentFiles = [
+        env_file = [
           envFile
           secrets.immich.path
         ];
@@ -101,11 +100,11 @@ in {
       };
 
       "immich_postgres" = {
-        image = import ./images/postgres.nix pkgs;
+        image = pkgs.callPackage ./images/postgres.nix pkgs;
 
         restart = "always";
 
-        environmentFiles = [
+        env_file = [
           envFile
           secrets.immich.path
         ];
@@ -123,4 +122,7 @@ in {
       };
     };
   };
+
+  # For accurate stack trace
+  _file = ./compose.nix;
 }

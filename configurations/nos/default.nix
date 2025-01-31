@@ -61,6 +61,8 @@
     sshd.enable = true;
   };
 
+  roles.docker.enable = true;
+
   services.kmscon.enable = true;
 
   home-manager.users.${mainUser} = {

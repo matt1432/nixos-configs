@@ -1,17 +1,11 @@
-{
-  config,
-  pkgs,
-  ...
-}: let
-  inherit (config.khepri) rwDataDir;
-
+rwDataDir: {pkgs, ...}: let
   rwPath = rwDataDir + "/media/sabnzbd";
 in {
-  khepri.compositions."sabnzbd" = {
+  virtualisation.docker.compose."sabnzbd" = {
     networks.proxy_net = {external = true;};
 
     services."sabnzbd" = {
-      image = import ./images/sabnzbd.nix pkgs;
+      image = pkgs.callPackage ./images/sabnzbd.nix pkgs;
       restart = "always";
 
       ports = ["8382:8082"];
@@ -31,4 +25,7 @@ in {
       networks = ["proxy_net"];
     };
   };
+
+  # For accurate stack trace
+  _file = ./compose.nix;
 }

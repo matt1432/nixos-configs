@@ -160,6 +160,29 @@
         "type": "github"
       }
     },
+    "docker-compose": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": [
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1738288291,
+        "narHash": "sha256-Ad+bXkVcmTYjqNL2OSTqpwTj/Acaef3J2K2Y7vixh34=",
+        "owner": "matt1432",
+        "repo": "nixos-docker-compose",
+        "rev": "5a5be5355b40c03ba9ae7f9ef4e4096a41e48003",
+        "type": "github"
+      },
+      "original": {
+        "owner": "matt1432",
+        "repo": "nixos-docker-compose",
+        "type": "github"
+      }
+    },
     "dracul-ha-src": {
       "flake": false,
       "locked": {
@@ -870,26 +893,6 @@
       "original": {
         "owner": "Jovian-Experiments",
         "repo": "Jovian-NixOS",
-        "type": "github"
-      }
-    },
-    "khepri": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1722369519,
-        "narHash": "sha256-Lw8WlL69Y3h7dL3pgCrQKJIbUvdyXpe6QPQTdwLeNtM=",
-        "owner": "matt1432",
-        "repo": "khepri",
-        "rev": "a7d1a516adefa4cd8c34829ac7c5d8c72cba42c8",
-        "type": "github"
-      },
-      "original": {
-        "owner": "matt1432",
-        "repo": "khepri",
         "type": "github"
       }
     },
@@ -1690,6 +1693,7 @@
         "bazarr-bulk": "bazarr-bulk",
         "caule-themes-src": "caule-themes-src",
         "custom-sidebar-src": "custom-sidebar-src",
+        "docker-compose": "docker-compose",
         "dracul-ha-src": "dracul-ha-src",
         "dracula-plymouth-src": "dracula-plymouth-src",
         "eisa-scripts-src": "eisa-scripts-src",
@@ -1712,7 +1716,6 @@
         "hyprpaper": "hyprpaper",
         "jellyfin-flake": "jellyfin-flake",
         "jovian": "jovian",
-        "khepri": "khepri",
         "kompass": "kompass",
         "lib-aggregate": "lib-aggregate",
         "libratbag-src": "libratbag-src",

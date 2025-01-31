@@ -1,18 +1,12 @@
-{
-  config,
-  pkgs,
-  ...
-}: let
-  inherit (config.khepri) rwDataDir;
-
+rwDataDir: {pkgs, ...}: let
   rwPath = rwDataDir + "/media/prowlarr";
 in {
-  khepri.compositions."prowlarr" = {
+  virtualisation.docker.compose."prowlarr" = {
     networks.proxy_net = {external = true;};
 
     services = {
       "prowlarr" = {
-        image = import ./images/prowlarr.nix pkgs;
+        image = pkgs.callPackage ./images/prowlarr.nix pkgs;
         restart = "always";
 
         environment = {
@@ -28,7 +22,7 @@ in {
       };
 
       "flaresolverr" = {
-        image = import ./images/flaresolverr.nix pkgs;
+        image = pkgs.callPackage ./images/flaresolverr.nix pkgs;
         restart = "always";
 
         environment = {
@@ -43,9 +37,12 @@ in {
 
         ports = ["8191:8191"];
 
-        dependsOn = ["prowlarr"];
+        depends_on = ["prowlarr"];
         networks = ["proxy_net"];
       };
     };
   };
+
+  # For accurate stack trace
+  _file = ./compose.nix;
 }

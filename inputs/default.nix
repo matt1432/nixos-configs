@@ -144,9 +144,9 @@ let
   };
 
   nosInputs = {
-    khepri = mkInput {
+    docker-compose = mkInput {
       owner = "matt1432";
-      repo = "khepri";
+      repo = "nixos-docker-compose";
     };
 
     jellyfin-flake = mkInput {

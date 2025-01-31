@@ -1,17 +1,11 @@
-{
-  config,
-  pkgs,
-  ...
-}: let
-  inherit (config.khepri) rwDataDir;
-
+rwDataDir: {pkgs, ...}: let
   rwPath = rwDataDir + "/media/seerr";
 in {
-  khepri.compositions."seerr" = {
+  virtualisation.docker.compose."seerr" = {
     networks.proxy_net = {external = true;};
 
     services."seerr" = {
-      image = import ./images/jellyseerr.nix pkgs;
+      image = pkgs.callPackage ./images/jellyseerr.nix pkgs;
       restart = "always";
 
       environment = {
@@ -27,4 +21,7 @@ in {
       ports = ["5055:5055"];
     };
   };
+
+  # For accurate stack trace
+  _file = ./compose.nix;
 }

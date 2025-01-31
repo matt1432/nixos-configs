@@ -1,21 +1,19 @@
-{
-  config,
+rwDataDir: {
   pkgs,
   self,
   ...
 }: let
   inherit (self.packages.${pkgs.system}) jmusicbot;
-  inherit (config.khepri) rwDataDir;
 
   rwPath = rwDataDir + "/music/jbots";
-  image = import ./images/jmusicbot.nix {inherit pkgs jmusicbot;};
+  image = pkgs.callPackage ./images/jmusicbot.nix {inherit pkgs jmusicbot;};
 in {
-  khepri.compositions."jbots" = {
+  virtualisation.docker.compose."jbots" = {
     networks.proxy_net = {external = true;};
 
     services = {
       "musicbot_be" = {
-        containerName = "be";
+        container_name = "be";
         restart = "always";
         inherit image;
 
@@ -26,7 +24,7 @@ in {
       };
 
       "musicbot_br" = {
-        containerName = "br";
+        container_name = "br";
         restart = "always";
         inherit image;
 
@@ -37,4 +35,7 @@ in {
       };
     };
   };
+
+  # For accurate stack trace
+  _file = ./compose.nix;
 }

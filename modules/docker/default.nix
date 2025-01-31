@@ -1,4 +1,4 @@
-khepri: {
+self: {
   config,
   lib,
   pkgs,
@@ -6,24 +6,16 @@ khepri: {
 }: let
   inherit (lib) mkIf mkOption types;
 
-  cfg = config.khepri;
+  cfg = config.roles.docker;
 in {
-  imports = [khepri.nixosModules.default];
+  imports = [self.inputs.docker-compose.nixosModules.default];
 
-  options.khepri = {
+  options.roles.docker = {
     enable = mkOption {
       default = cfg.compositions != {};
       type = types.bool;
       description = ''
         Option to enable docker even without compositions.
-      '';
-    };
-
-    rwDataDir = mkOption {
-      default = "/var/lib/docker";
-      type = types.str;
-      description = ''
-        Directory to place persistent data in.
       '';
     };
 
@@ -41,12 +33,9 @@ in {
 
         daemon.settings.dns = ["8.8.8.8" "1.1.1.1"];
       };
-
-      # khepri uses oci-containers under the hood and it must be set to docker to work
-      oci-containers.backend = "docker";
     };
 
-    # Script for updating the images of all images of a compose.nix file
+    # Script for updating the images of a compose.nix file
     environment.systemPackages = [
       (pkgs.callPackage ./updateImage.nix {})
     ];

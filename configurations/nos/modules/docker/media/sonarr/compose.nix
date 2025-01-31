@@ -1,17 +1,11 @@
-{
-  config,
-  pkgs,
-  ...
-}: let
-  inherit (config.khepri) rwDataDir;
-
+rwDataDir: {pkgs, ...}: let
   rwPath = rwDataDir + "/media/sonarr";
 in {
-  khepri.compositions."sonarr" = {
+  virtualisation.docker.compose."sonarr" = {
     networks.proxy_net = {external = true;};
 
     services."sonarr" = {
-      image = import ./images/sonarr.nix pkgs;
+      image = pkgs.callPackage ./images/sonarr.nix pkgs;
       restart = "always";
 
       ports = ["8989:8989"];
@@ -31,4 +25,7 @@ in {
       networks = ["proxy_net"];
     };
   };
+
+  # For accurate stack trace
+  _file = ./compose.nix;
 }

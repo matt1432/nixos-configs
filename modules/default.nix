@@ -50,10 +50,10 @@ in {
 
   docker =
     module
-    (import ./docker self.inputs.khepri)
+    (import ./docker self)
     ''
-      Imports my [Khepri fork](https://github.com/matt1432/khepri), sets default
-      options such as BTRFS filesystem and adds an update script for images.
+      Imports [nixos-docker-compose](https://github.com/matt1432/nixos-docker-compose),
+      sets default options such as BTRFS filesystem and adds an update script for images.
     '';
 
   esphome-plus =

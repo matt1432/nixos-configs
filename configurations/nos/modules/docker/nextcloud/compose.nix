@@ -1,20 +1,19 @@
-{
+rwDataDir: {
   config,
   pkgs,
   ...
 }: let
   inherit (config.sops) secrets;
-  inherit (config.khepri) rwDataDir;
 
   mainContainerName = "app-server";
   rwPath = rwDataDir + "/nextcloud";
 in {
-  khepri.compositions."nextcloud" = {
+  virtualisation.docker.compose."nextcloud" = {
     networks.proxy_net = {external = true;};
 
     services = {
       "${mainContainerName}" = {
-        image = import ./images/nextcloud.nix pkgs;
+        image = pkgs.callPackage ./images/nextcloud.nix pkgs;
         restart = "always";
 
         expose = [
@@ -29,7 +28,7 @@ in {
           "/data/docs:/var/www/drive"
         ];
 
-        environmentFiles = [secrets.nextcloud.path];
+        env_file = [secrets.nextcloud.path];
 
         environment = {
           POSTGRES_DB = "nextcloud";
@@ -60,7 +59,7 @@ in {
             exec /app/ds/run-document-server.sh
           '';
       in {
-        image = import ./images/onlyoffice.nix pkgs;
+        image = pkgs.callPackage ./images/onlyoffice.nix pkgs;
         restart = "always";
 
         environment.JWT_ENABLED = "false";
@@ -90,7 +89,7 @@ in {
       };
 
       "nginx-server" = {
-        image = import ./images/nginx.nix pkgs;
+        image = pkgs.callPackage ./images/nginx.nix pkgs;
         restart = "always";
         ports = ["8042:80"];
 
@@ -102,9 +101,9 @@ in {
       };
 
       "nextcloud-db" = {
-        image = import ./images/postgres.nix pkgs;
+        image = pkgs.callPackage ./images/postgres.nix pkgs;
         restart = "always";
-        environmentFiles = [secrets.nextcloud.path];
+        env_file = [secrets.nextcloud.path];
         volumes = [
           "${rwPath}/database:/var/lib/postgresql/data"
           "/etc/localtime:/etc/localtime:ro"
@@ -122,11 +121,13 @@ in {
             exec redis-server --requirepass "$REDIS_HOST_PASSWORD"
           '';
       in {
-        image = import ./images/redis.nix pkgs;
+        image = pkgs.callPackage ./images/redis.nix pkgs;
         restart = "always";
-        #mem_limit = "2048m";
-        #mem_reservation = "512m";
-        environmentFiles = [secrets.nextcloud.path];
+
+        mem_limit = "2048m";
+        mem_reservation = "512m";
+
+        env_file = [secrets.nextcloud.path];
 
         entrypoint = "/entrypoint.sh";
 
@@ -148,12 +149,15 @@ in {
   };
   systemd.services.nextcloud-cron = {
     description = "Nextcloud Cron";
-    requires = ["docker-nextcloud_app-server.service"];
-    after = ["docker-nextcloud_app-server.service"];
+    requires = ["compose-nextcloud.service"];
+    after = ["compose-nextcloud.service"];
 
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "${pkgs.docker}/bin/docker exec -u www-data nextcloud_${mainContainerName} php -f /var/www/html/cron.php";
+      ExecStart = "${pkgs.docker}/bin/docker exec -u www-data ${mainContainerName} php -f /var/www/html/cron.php";
     };
   };
+
+  # For accurate stack trace
+  _file = ./compose.nix;
 }

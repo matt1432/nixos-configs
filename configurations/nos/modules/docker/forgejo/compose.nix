@@ -1,19 +1,18 @@
-{
+rwDataDir: {
   config,
   pkgs,
   ...
 }: let
   inherit (config.sops) secrets;
-  inherit (config.khepri) rwDataDir;
 
   rwPath = rwDataDir + "/forgejo";
 in {
-  khepri.compositions."forgejo" = {
+  virtualisation.docker.compose."forgejo" = {
     networks.proxy_net = {external = true;};
 
     services = {
       "forgejo" = {
-        image = import ./images/forgejo.nix pkgs;
+        image = pkgs.callPackage ./images/forgejo.nix pkgs;
 
         ports = [
           # Redirect WAN port 22 to this port
@@ -24,9 +23,9 @@ in {
         networks = ["proxy_net"];
 
         restart = "always";
-        dependsOn = ["forgejo-db"];
+        depends_on = ["forgejo-db"];
 
-        environmentFiles = [secrets.forgejo.path];
+        env_file = [secrets.forgejo.path];
         environment = {
           APP_NAME = "Gitea";
 
@@ -48,35 +47,38 @@ in {
       };
 
       "forgejo-db" = {
-        image = import ./images/postgres.nix pkgs;
+        image = pkgs.callPackage ./images/postgres.nix pkgs;
 
         restart = "always";
 
-        environmentFiles = [secrets.forgejo-db.path];
+        env_file = [secrets.forgejo-db.path];
         networks = ["proxy_net"];
 
         volumes = ["${rwPath}/db:/var/lib/postgresql/data"];
       };
 
       "act_runner" = {
-        image = import ./images/act_runner.nix pkgs;
+        image = pkgs.callPackage ./images/act_runner.nix pkgs;
 
         privileged = true;
         user = "root:root";
         networks = ["proxy_net"];
 
         restart = "always";
-        dependsOn = ["forgejo"];
+        depends_on = ["forgejo"];
 
-        environmentFiles = [secrets.forgejo-runner.path];
+        env_file = [secrets.forgejo-runner.path];
         environment = {
           GITEA_INSTANCE_URL = "https://git.nelim.org";
           GITEA_RUNNER_NAME = "DinD";
         };
 
         volumes = ["${rwPath}/act:/data"];
-        extraHosts = ["git.nelim.org:10.0.0.130"];
+        extra_hosts = ["git.nelim.org:10.0.0.130"];
       };
     };
   };
+
+  # For accurate stack trace
+  _file = ./compose.nix;
 }

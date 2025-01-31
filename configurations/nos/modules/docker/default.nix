@@ -2,29 +2,25 @@
   configPath = "/var/lib/docker-data";
 in {
   imports = [
-    ./forgejo/compose.nix
-    ./freshrss/compose.nix
-    ./gameyfin/compose.nix
-    ./hauk/compose.nix
-    ./immich/compose.nix
-    ./music/jbots/compose.nix
-    ./nextcloud/compose.nix
-    ./resume/compose.nix
-    ./vaultwarden/compose.nix
-    ./wg-easy/compose.nix
+    (import ./forgejo/compose.nix configPath)
+    (import ./freshrss/compose.nix configPath)
+    (import ./gameyfin/compose.nix configPath)
+    (import ./hauk/compose.nix configPath)
+    (import ./immich/compose.nix configPath)
+    (import ./music/jbots/compose.nix configPath)
+    (import ./nextcloud/compose.nix configPath)
+    (import ./resume/compose.nix configPath)
+    (import ./vaultwarden/compose.nix configPath)
+    (import ./wg-easy/compose.nix configPath)
 
-    ./media/bazarr/compose.nix
-    ./media/joal/compose.nix
-    ./media/prowlarr/compose.nix
-    ./media/radarr/compose.nix
-    ./media/sabnzbd/compose.nix
-    ./media/seerr/compose.nix
-    ./media/sonarr/compose.nix
+    (import ./media/bazarr/compose.nix configPath)
+    (import ./media/joal/compose.nix configPath)
+    (import ./media/prowlarr/compose.nix configPath)
+    (import ./media/radarr/compose.nix configPath)
+    (import ./media/sabnzbd/compose.nix configPath)
+    (import ./media/seerr/compose.nix configPath)
+    (import ./media/sonarr/compose.nix configPath)
   ];
-
-  khepri = {
-    rwDataDir = configPath;
-  };
 
   services.borgbackup.configs.docker = {
     paths = [configPath];

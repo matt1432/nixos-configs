@@ -1,23 +1,17 @@
-{
-  config,
-  pkgs,
-  ...
-}: let
-  inherit (config.khepri) rwDataDir;
-
+rwDataDir: {pkgs, ...}: let
   rwPath = rwDataDir + "/media/joal";
 in {
-  khepri.compositions."joal" = {
+  virtualisation.docker.compose."joal" = {
     networks.proxy_net = {external = true;};
 
     services."joal" = {
-      image = import ./images/joal.nix pkgs;
+      image = pkgs.callPackage ./images/joal.nix pkgs;
       restart = "always";
 
       volumes = ["${rwPath}/data:/data"];
       ports = ["5656:5656"];
 
-      cmd = [
+      command = [
         "--joal-conf=/data"
         "--spring.main.web-environment=true"
         "--server.port=5656"
@@ -27,4 +21,7 @@ in {
       networks = ["proxy_net"];
     };
   };
+
+  # For accurate stack trace
+  _file = ./compose.nix;
 }

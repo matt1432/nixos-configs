@@ -11,7 +11,7 @@ This directory contains every modules for NixOS exposed by this flake.
 | `borgbackup` | Sets up a wrapper around `services.borgbackup` to setup default behaviour and make configuration of backups easier. |
 | `caddy-plus` | Extends the caddy options to allow declaring subdirectory routes and reverse proxy directives through nix code. |
 | `desktop` | Sets up a Display Manager, a Desktop Environment and themes for any graphical apps to use the Dracula Theme. This module uses Hyprland as window manager and AGS / Astal for the UI. |
-| `docker` | Imports my [Khepri fork](https://github.com/matt1432/khepri), sets default options such as BTRFS filesystem and adds an update script for images. |
+| `docker` | Imports [nixos-docker-compose](https://github.com/matt1432/nixos-docker-compose), sets default options such as BTRFS filesystem and adds an update script for images. |
 | `esphome-plus` | Fixes a bug with compilation of m5-atom-stack firmware and allows declaring firmware configurations in nix code. |
 | `ha-plus` | Extends the home-assistant options to allow declaring the content of specific configuration files in the home-assistant configuration directory such as custom sentences through nix code. |
 | `kmscon` | Extends the kmscon options to add more descriptive ones. |
