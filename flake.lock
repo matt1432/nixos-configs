@@ -170,11 +170,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1738288291,
-        "narHash": "sha256-Ad+bXkVcmTYjqNL2OSTqpwTj/Acaef3J2K2Y7vixh34=",
+        "lastModified": 1738297708,
+        "narHash": "sha256-+ZZU8UaMYABa0KsgETAZNVC6XaGsObyp4O9F/bAN9IM=",
         "owner": "matt1432",
         "repo": "nixos-docker-compose",
-        "rev": "5a5be5355b40c03ba9ae7f9ef4e4096a41e48003",
+        "rev": "161a3ec89b8c1b5195ce035a26847a57ba746df6",
         "type": "github"
       },
       "original": {
