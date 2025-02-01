@@ -602,17 +602,16 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1738339723,
-        "narHash": "sha256-9VrozytYMyHa4g69QC8aexod4rE5TtGuHV4gXuFMnRo=",
+        "lastModified": 1738437019,
+        "narHash": "sha256-XPl2sQ6x5Dtw4XrrLMp1ERQSG1/heV6JJ9Gthm2SCMw=",
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "ddf180fa304e71b1d6eaa9f2b250a907131b05d9",
+        "rev": "64fefa3749868e6170b6275963c6528456a7d9f2",
         "type": "github"
       },
       "original": {
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "ddf180fa304e71b1d6eaa9f2b250a907131b05d9",
         "type": "github"
       }
     },
@@ -860,11 +859,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1737838264,
-        "narHash": "sha256-RVqdS+sL6PhylRdLRb0g7wukPI76ubqDb+8a5ERIN0U=",
+        "lastModified": 1738438906,
+        "narHash": "sha256-9Lb1HqHmI0/xZT9PM0MqZePm4y6vzE0Tw9dRBt4bXSQ=",
         "owner": "matt1432",
         "repo": "nixos-jellyfin",
-        "rev": "247094619b577231bb2fc5df46b035691dc55490",
+        "rev": "dd838e535a264d3f6aa51a234f154224e46f1eed",
         "type": "github"
       },
       "original": {
@@ -1316,11 +1315,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1738261608,
-        "narHash": "sha256-yI22qOsWnISmxUHR1jZ2YDTksNE4vEwM0fG3rWMeiuI=",
+        "lastModified": 1738437186,
+        "narHash": "sha256-8XL8WWtw99NdSJvh62Zhnu+DsB03ivuxLstT7jM98xw=",
         "owner": "kaylorben",
         "repo": "nixcord",
-        "rev": "b800c693b5871773ae9dc1d794b258a000c53acf",
+        "rev": "4127ece8315c718d024b5e090416dd96b1cc1b0f",
         "type": "github"
       },
       "original": {
@@ -1343,11 +1342,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1738409818,
-        "narHash": "sha256-QE9epttDMfZWNTfErq5VBHhd9ointGZutTnWeaczu+8=",
+        "lastModified": 1738432935,
+        "narHash": "sha256-D/r2NaMrO3jeYeTGg6v7fjWyPJ8omLcphCZ5WiM7xPc=",
         "owner": "nix-community",
         "repo": "nixd",
-        "rev": "76c63a26caa1bb5bea70e74b61ae01503d498c08",
+        "rev": "06d1c850614d0ea60b4f7e3fd89cca0628c21feb",
         "type": "github"
       },
       "original": {
