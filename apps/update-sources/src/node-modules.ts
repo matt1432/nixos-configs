@@ -85,6 +85,11 @@ export default async() => {
                     `${parentPath}/default.nix`,
                 );
             }
+
+            // Make sure we update the apps' config package-lock.json
+            if (parentPath.includes('apps/config')) {
+                npmRun(['i'], parentPath);
+            }
         }
         catch (e) {
             console.warn(`Could not write to ${path}`);
