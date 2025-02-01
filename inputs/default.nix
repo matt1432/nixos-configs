@@ -175,9 +175,6 @@ let
       hyprgrass = mkHyprDep {
         owner = "horriblename";
         repo = "hyprgrass";
-
-        # FIXME: https://github.com/horriblename/hyprgrass/pull/207
-        rev = "184467d3b785c67062b240bd0eb5239e7ec5d09e";
       };
 
       hyprpaper = mkHyprDep {
