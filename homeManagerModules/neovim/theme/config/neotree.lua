@@ -38,10 +38,12 @@ require('neo-tree').setup({
 });
 
 local function is_neotree_open()
-    local manager = require('neo-tree.sources.manager');
-    local renderer = require('neo-tree.ui.renderer');
-    local state = manager.get_state('filesystem');
-    return renderer.window_exists(state);
+    for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+        if vim.api.nvim_get_option_value('ft', { buf = vim.api.nvim_win_get_buf(win) }) == 'neo-tree' then
+            return true;
+        end;
+    end;
+    return false;
 end;
 
 -- Auto open Neo-Tree on big enough window
