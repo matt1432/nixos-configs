@@ -48,7 +48,7 @@ INPUTS.forEach((input) => {
         const inputsFile = `${FLAKE}/inputs/default.nix`;
         const rev = getCurrentRev(input);
 
-        const msg = ['FIX', 'ME'].join();
+        const msg = ['FIX', 'ME'].join('');
 
         replaceInFile(
             new RegExp(`(\\n[ ]*)${input} =.*\\n.*\\n.*`),
