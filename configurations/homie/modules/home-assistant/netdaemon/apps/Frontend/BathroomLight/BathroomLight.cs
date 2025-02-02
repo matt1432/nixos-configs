@@ -11,51 +11,50 @@ namespace NetDaemonConfig.Apps.Frontend.BathroomLight
     [NetDaemonApp]
     public class BathroomLight
     {
+        private LightEntity? Entity { get; set; }
+        private InputTextEntity? BrightnessInput { get; set; }
+
+        private void BrightnessCallback(Action<double, double> callback)
+        {
+            double? currentBrightness = this.Entity?.Attributes?.Brightness;
+
+            if (currentBrightness is not null)
+            {
+                double currentBrightnessPercent = Math.Floor((double)currentBrightness / 2.54);
+                double inputBrightnessPercent = double.Parse(this.BrightnessInput?.State ?? "0");
+
+                if (currentBrightnessPercent != inputBrightnessPercent)
+                {
+                    callback(currentBrightnessPercent, inputBrightnessPercent);
+                }
+            }
+        }
+
         public BathroomLight(Services services, Entities entities)
         {
             // ZigBee needs restart to access Light
             entities.Button.Slzb06p7CoreRestart.Press();
 
-            LightEntity? bathroomLight = entities.Light.Tz3210KatchgxyTs0505bLight;
-            InputTextEntity? bathroomLightBrightness = entities.InputText.BathroomLightBrightness;
+            this.Entity = entities.Light.Tz3210KatchgxyTs0505bLight;
+            this.BrightnessInput = entities.InputText.BathroomLightBrightness;
 
-            var brightnessCallback = (Action<double, double> callback) =>
-            {
-                double? currentBrightness = bathroomLight?.Attributes?.Brightness;
-
-                if (currentBrightness is not null)
-                {
-                    double currentBrightnessPercent = Math.Floor((double)currentBrightness / 2.54);
-                    double inputBrightnessPercent = Double.Parse(bathroomLightBrightness.State ?? "0");
-
-                    if (currentBrightnessPercent != inputBrightnessPercent)
-                    {
-                        callback(currentBrightnessPercent, inputBrightnessPercent);
-                    }
-                }
-            };
-
-            bathroomLightBrightness
+            this.BrightnessInput
                 .StateAllChanges()
-                .Subscribe((_) => brightnessCallback((current, input) =>
-                {
-                    services.Light.TurnOn(
-                        target: ServiceTarget.FromEntity("light.tz3210_katchgxy_ts0505b_light"),
-                        brightness: Math.Floor(input * 2.54 + 1));
-                }));
+                .Subscribe((_) =>
+                    this.BrightnessCallback((_, input) =>
+                        services.Light.TurnOn(
+                            target: ServiceTarget.FromEntity("light.tz3210_katchgxy_ts0505b_light"),
+                            brightness: Math.Floor(input * 2.54 + 1))));
 
-            bathroomLight
+            this.Entity
                 .StateAllChanges()
-                .Subscribe((_) => brightnessCallback((current, input) =>
-                {
-                    bathroomLightBrightness.SetValue(current.ToString());
-                }));
+                .Subscribe((_) =>
+                    this.BrightnessCallback((current, _) =>
+                        this.BrightnessInput.SetValue(current.ToString())));
 
             // Init value
-            brightnessCallback((current, input) =>
-                {
-                    bathroomLightBrightness.SetValue(current.ToString());
-                });
+            this.BrightnessCallback((current, _) =>
+                this.BrightnessInput.SetValue(current.ToString()));
         }
     }
 }
