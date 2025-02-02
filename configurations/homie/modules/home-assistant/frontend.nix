@@ -124,12 +124,16 @@ in {
       }
     ];
 
-    # TODO: restrict to 0-100
-    config.input_text = {
-      bathroom_light_brightness = {
-        name = "BathroomLightBrightness";
-        pattern = "[0-9]*";
+    config.input_text = let
+      mkPercentInput = name: {
+        inherit name;
+        # restricts to 0-100
+        pattern = "^(0|[1-9][0-9]?|100)$";
+        initial = "0";
+        max = 3;
       };
+    in {
+      bathroom_light_brightness = mkPercentInput "BathroomLightBrightness";
     };
 
     lovelaceConfig = {
