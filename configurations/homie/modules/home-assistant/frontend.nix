@@ -98,6 +98,7 @@ in {
 
       inherit
         (self.scopedPackages.${pkgs.system}.lovelace-components)
+        big-slider-card
         custom-sidebar
         material-rounded-theme
         ;
@@ -106,6 +107,7 @@ in {
     config.frontend = {
       themes = "!include_dir_merge_named themes";
       extra_module_url = map (p: "/local/nixos-lovelace-modules/${p}.js") [
+        "big-slider-card"
         "card-mod"
         "light-entity-card"
         "custom-sidebar-yaml"
