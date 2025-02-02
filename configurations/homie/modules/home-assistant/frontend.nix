@@ -109,7 +109,6 @@ in {
       extra_module_url = map (p: "/local/nixos-lovelace-modules/${p}.js") [
         "big-slider-card"
         "card-mod"
-        "light-entity-card"
         "custom-sidebar-yaml"
         "material-rounded-theme"
       ];
