@@ -133,6 +133,12 @@ in {
         initial = "0";
         max = 3;
       };
+
+      bathroom_light_temperature = {
+        name = "BathroomLightTemperature";
+        pattern = "[0-9]*";
+        initial = "0";
+      };
     };
 
     lovelaceConfig = {

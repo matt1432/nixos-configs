@@ -16,6 +16,7 @@ namespace NetDaemonConfig.Apps.Frontend.BathroomLight
 
         private LightEntity? Entity { get; set; }
         private InputTextEntity? BrightnessInput { get; set; }
+        private InputTextEntity? TemperatureInput { get; set; }
 
         private void BrightnessCallback(Action<double, double> callback)
         {
@@ -33,11 +34,27 @@ namespace NetDaemonConfig.Apps.Frontend.BathroomLight
             }
         }
 
+        private void TemperatureCallback(Action<double, double> callback)
+        {
+            double? currentTemperature = this.Entity?.Attributes?.ColorTempKelvin;
+
+            if (currentTemperature is not null)
+            {
+                double inputTemperature = double.Parse(this.TemperatureInput?.State ?? "0");
+
+                if (currentTemperature != inputTemperature)
+                {
+                    callback((double)currentTemperature, inputTemperature);
+                }
+            }
+        }
+
         public BathroomLight(Services services, Entities entities)
         {
             this.Entity = entities.Light.Bathroomceiling;
 
             this.BrightnessInput = entities.InputText.BathroomLightBrightness;
+            this.TemperatureInput = entities.InputText.BathroomLightTemperature;
 
 
             // Brightness
@@ -58,6 +75,26 @@ namespace NetDaemonConfig.Apps.Frontend.BathroomLight
             // Init value
             this.BrightnessCallback((current, _) =>
                 this.BrightnessInput.SetValue(current.ToString()));
+
+
+            // Temperature
+            this.TemperatureInput
+                .StateAllChanges()
+                .Subscribe((_) =>
+                    this.TemperatureCallback((_, input) =>
+                        services.Light.TurnOn(
+                            target: ServiceTarget.FromEntity(this.Entity.EntityId),
+                            kelvin: input)));
+
+            this.Entity
+                .StateAllChanges()
+                .Subscribe((_) =>
+                    this.TemperatureCallback((current, _) =>
+                        this.TemperatureInput.SetValue(current.ToString())));
+
+            // Init value
+            this.TemperatureCallback((current, _) =>
+                this.TemperatureInput.SetValue(current.ToString()));
         }
     }
 }
