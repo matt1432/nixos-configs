@@ -13,6 +13,9 @@ namespace NetDaemonConfig.Apps.Frontend.BathroomLight
     {
         public BathroomLight(Services services, Entities entities)
         {
+            // ZigBee needs restart to access Light
+            entities.Button.Slzb06p7CoreRestart.Press();
+
             LightEntity? bathroomLight = entities.Light.Tz3210KatchgxyTs0505bLight;
             InputTextEntity? bathroomLightBrightness = entities.InputText.BathroomLightBrightness;
 
