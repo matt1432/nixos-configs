@@ -1,6 +1,4 @@
-{...}: let
-  zigbeeUser = "moskit";
-in {
+{...}: {
   services = {
     home-assistant = {
       extraComponents = [
@@ -14,12 +12,11 @@ in {
       enable = true;
       listeners = [
         {
-          acl = ["topic readwrite #"];
           port = 1883;
 
+          acl = ["pattern readwrite #"];
+          omitPasswordAuth = true;
           settings.allow_anonymous = true;
-
-          users."${zigbeeUser}".acl = ["readwrite #"];
         }
       ];
     };
@@ -34,10 +31,9 @@ in {
           disable_led = false;
         };
 
-        mqtt = {
-          server = "mqtt://localhost/1883";
-          user = zigbeeUser;
-        };
+        mqtt.server = "mqtt://localhost/1883";
+
+        availability.enabled = true;
 
         frontend = {
           port = 8080;

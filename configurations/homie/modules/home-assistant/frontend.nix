@@ -124,16 +124,15 @@ in {
       }
     ];
 
-    config.input_text = let
-      mkPercentInput = name: {
-        inherit name;
+    config.input_text = {
+      bathroom_light_brightness = {
+        name = "BathroomLightBrightness";
+        icon = "mdi:lightbulb";
         # restricts to 0-100
         pattern = "^(0|[1-9][0-9]?|100)$";
         initial = "0";
         max = 3;
       };
-    in {
-      bathroom_light_brightness = mkPercentInput "BathroomLightBrightness";
     };
 
     lovelaceConfig = {
@@ -162,7 +161,7 @@ in {
 
           {
             type = "custom:light-entity-card";
-            entity = "light.tz3210_katchgxy_ts0505b_light";
+            entity = "light.bathroomceiling";
 
             shorten_cards = false;
             consolidate_entities = false;

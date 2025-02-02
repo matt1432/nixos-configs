@@ -11,6 +11,9 @@ namespace NetDaemonConfig.Apps.Frontend.BathroomLight
     [NetDaemonApp]
     public class BathroomLight
     {
+        // The range of the brightness is 0 to 254
+        private const double CONV_RATE = 2.54;
+
         private LightEntity? Entity { get; set; }
         private InputTextEntity? BrightnessInput { get; set; }
 
@@ -20,7 +23,7 @@ namespace NetDaemonConfig.Apps.Frontend.BathroomLight
 
             if (currentBrightness is not null)
             {
-                double currentBrightnessPercent = Math.Floor((double)currentBrightness / 2.54);
+                double currentBrightnessPercent = Math.Floor((double)currentBrightness / CONV_RATE);
                 double inputBrightnessPercent = double.Parse(this.BrightnessInput?.State ?? "0");
 
                 if (currentBrightnessPercent != inputBrightnessPercent)
@@ -32,19 +35,19 @@ namespace NetDaemonConfig.Apps.Frontend.BathroomLight
 
         public BathroomLight(Services services, Entities entities)
         {
-            // ZigBee needs restart to access Light
-            entities.Button.Slzb06p7CoreRestart.Press();
+            this.Entity = entities.Light.Bathroomceiling;
 
-            this.Entity = entities.Light.Tz3210KatchgxyTs0505bLight;
             this.BrightnessInput = entities.InputText.BathroomLightBrightness;
 
+
+            // Brightness
             this.BrightnessInput
                 .StateAllChanges()
                 .Subscribe((_) =>
                     this.BrightnessCallback((_, input) =>
                         services.Light.TurnOn(
-                            target: ServiceTarget.FromEntity("light.tz3210_katchgxy_ts0505b_light"),
-                            brightness: Math.Floor(input * 2.54 + 1))));
+                            target: ServiceTarget.FromEntity(this.Entity.EntityId),
+                            brightness: Math.Floor(input * CONV_RATE + 1))));
 
             this.Entity
                 .StateAllChanges()
