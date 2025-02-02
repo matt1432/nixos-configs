@@ -124,6 +124,14 @@ in {
       }
     ];
 
+    # TODO: restrict to 0-100
+    config.input_text = {
+      bathroom_light_brightness = {
+        name = "BathroomLightBrightness";
+        pattern = "[0-9]*";
+      };
+    };
+
     lovelaceConfig = {
       title = "Our House";
       # I don't want multiple views
