@@ -1,4 +1,6 @@
-{...}: {
+{lib, ...}: let
+  inherit (lib) mkForce;
+in {
   services = {
     home-assistant = {
       extraComponents = [
@@ -43,5 +45,11 @@
         advanced.transmit_power = 20;
       };
     };
+  };
+
+  # Make sure it stays running through SMLIGHT reboots
+  systemd.services."zigbee2mqtt".serviceConfig = {
+    Restart = mkForce "always";
+    StartLimitIntervalSec = 0;
   };
 }
