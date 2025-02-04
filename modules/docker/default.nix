@@ -39,6 +39,12 @@ in {
     environment.systemPackages = [
       (pkgs.callPackage ./updateImage.nix {})
     ];
+
+    home-manager.users.root.home.file.".docker/config.json".text = ''
+      {
+        "psFormat": "table {{.ID}}\\t{{.Image}}\\t{{.Names}}\\t{{.Status}}"
+      }
+    '';
   };
 
   # For accurate stack trace

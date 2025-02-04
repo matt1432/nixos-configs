@@ -133,6 +133,7 @@ in {
         home.stateVersion = config.system.stateVersion;
       };
     in {
+      root = default;
       greeter = mkIf (config.services.greetd.enable) default;
       ${cfg.user} = default;
     };
