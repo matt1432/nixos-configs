@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage rec {
   imageName = "postgres";
-  imageDigest = "sha256:7fe0928f6de61208d6b39730456085d74578046df4c684fa198f0fb065f4381e";
-  hash = "sha256-tE1HB3dHqRzwOkvKx7ZKfmyAm9UoMrP0x+DQOIwUQBE=";
+  imageDigest = "sha256:84dee213c689b6dfcc0e2692ddd66adcd7314057175ea7aa05500c527e0f807a";
+  hash = "sha256-ZojtW6DMB0rsW1ywVdSg26S727ru2S5o/dsC50RKmOE=";
   finalImageName = imageName;
   finalImageTag = "14";
 }
