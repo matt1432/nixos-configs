@@ -47,7 +47,9 @@ in {
           "userChrome.tab.bottom_rounded_corner" = true;
           "userChrome.tab.bottom_rounded_corner.wave" = false;
           "userChrome.tab.bottom_rounded_corner.australis" = true;
-          "widget.use-xdg-desktop-portal.file-picker" = 1;
+
+          # FIXME: file picker is broken right now
+          "widget.use-xdg-desktop-portal.file-picker" = 0;
 
           # Firefox-gx user.js
           /*
