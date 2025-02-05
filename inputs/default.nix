@@ -229,9 +229,6 @@ let
     jovian = mkInput {
       owner = "Jovian-Experiments";
       repo = "Jovian-NixOS";
-
-      # FIXME: gamescope build failure on latest
-      rev = "77fb0818cb42ca0db98839d47bbc6a317c286282";
     };
   };
 

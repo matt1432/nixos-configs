@@ -197,7 +197,6 @@
       };
       owner = "Jovian-Experiments";
       repo = "Jovian-NixOS";
-      rev = "77fb0818cb42ca0db98839d47bbc6a317c286282";
       type = "github";
     };
     kompass = {
