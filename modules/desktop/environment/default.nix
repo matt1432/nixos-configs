@@ -5,7 +5,7 @@ self: {
   ...
 }: let
   inherit (self.inputs) hyprland;
-  inherit (self.lib.hypr) mkBind;
+  inherit (self.lib.hypr) mkBind mkMonitor;
 
   inherit (lib) attrValues concatStringsSep mkIf optionals;
 
@@ -114,32 +114,37 @@ in {
             ]);
 
           xwayland.force_zero_scaling = true;
-          monitor = [
-            (concatStringsSep "," [
-              "desc:Acer Technologies Acer K212HQL T3EAA0014201"
-              "1920x1080@60"
-              "840x450, 1, transform, 3"
-            ])
-            (concatStringsSep "," [
-              "desc:Lenovo Group Limited 0x41A0"
-              "1920x1200@60"
-              "0x2920, 1"
-            ])
-            (concatStringsSep "," [
-              "desc:Samsung Electric Company C27JG5x HTOM100586"
-              "2560x1440@120"
-              "1920x120, 1"
-            ])
-            (concatStringsSep "," [
-              "desc:GIGA-BYTE TECHNOLOGY CO. LTD. G27QC 0x00000B1D"
-              "2560x1440@120"
-              "1920x1560, 1"
-            ])
-            (concatStringsSep "," [
-              "desc:Sharp Corporation LC-40LB480U 0x00000001"
-              "1680x1050, auto, 1"
-              "mirror, ${cfg.mainMonitor}"
-            ])
+          monitor = map mkMonitor [
+            {
+              description = "Lenovo Group Limited 0x41A0";
+              resolution = "1920x1200";
+              refreshRate = 60;
+              position = "0x2920";
+            }
+            {
+              description = "Samsung Electric Company C27JG5x HTOM100586";
+              resolution = "2560x1440";
+              refreshRate = 120;
+              position = "1920x12";
+            }
+            {
+              description = "GIGA-BYTE TECHNOLOGY CO. LTD. G27QC 0x00000B1D";
+              resolution = "2560x1440";
+              refreshRate = 120;
+              position = "1920x1560";
+            }
+            {
+              description = "Acer Technologies Acer K212HQL T3EAA0014201";
+              resolution = "1920x1080";
+              refreshRate = 60;
+              position = "840x450";
+              transform = "270";
+            }
+            {
+              description = "Sharp Corporation LC-40LB480U 0x00000001";
+              resolution = "1680x1050";
+              mirror = cfg.mainMonitor;
+            }
           ];
 
           "$mainMod" = "SUPER";

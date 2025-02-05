@@ -1,6 +1,7 @@
 {
   concatStringsSep,
   elemAt,
+  optional,
   optionals,
   ...
 }: rec {
@@ -34,7 +35,7 @@
           (toString duration)
           bezier
         ]
-        ++ optionals (style != null) [style]
+        ++ optional (style != null) style
       )
     );
 
@@ -52,6 +53,56 @@
   }:
     concatStringsSep "," (
       [modifier key dispatcher]
-      ++ optionals (command != null) [command]
+      ++ optional (command != null) command
+    );
+
+  mkMonitor = {
+    description ? null,
+    name ? null,
+    resolution ? null,
+    refreshRate ? null,
+    position ? "auto",
+    scale ? "1",
+    transform ? null,
+    mirror ? null,
+    bitdepth ? null,
+    vrr ? null,
+  }: let
+    transformMap = {
+      "normal" = 0;
+      "90" = 1;
+      "180" = 2;
+      "270" = 3;
+      "normalf" = 4;
+      "90f" = 5;
+      "180f" = 6;
+      "270f" = 7;
+    };
+  in
+    concatStringsSep "," (
+      [
+        (
+          if name != null && description != null
+          then throw "description or name required"
+          else if name != null
+          then name
+          else "desc:${description}"
+        )
+        (
+          if resolution == null && refreshRate != null
+          then throw "resolution needed if refreshRate is specified"
+          else if resolution != null && refreshRate != null
+          then "${resolution}@${toString refreshRate}"
+          else if resolution != null && refreshRate == null
+          then resolution
+          else "preferred"
+        )
+        position
+        scale
+      ]
+      ++ optional (transform != null) "transform, ${toString transformMap.${transform}}"
+      ++ optional (mirror != null) "mirror, ${mirror}"
+      ++ optional (bitdepth != null) "bitdepth, ${toString bitdepth}"
+      ++ optional (vrr != null) "vrr, ${toString vrr}"
     );
 }
