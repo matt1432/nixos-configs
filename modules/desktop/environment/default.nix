@@ -125,7 +125,7 @@ in {
               description = "Samsung Electric Company C27JG5x HTOM100586";
               resolution = "2560x1440";
               refreshRate = 120;
-              position = "1920x12";
+              position = "1920x120";
             }
             {
               description = "GIGA-BYTE TECHNOLOGY CO. LTD. G27QC 0x00000B1D";
