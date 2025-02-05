@@ -121,7 +121,7 @@ in {
               "840x450, 1, transform, 3"
             ])
             (concatStringsSep "," [
-              "desc:BOE 0x0964"
+              "desc:Lenovo Group Limited 0x41A0"
               "1920x1200@60"
               "0x2920, 1"
             ])
