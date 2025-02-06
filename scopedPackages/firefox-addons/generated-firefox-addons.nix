@@ -275,25 +275,24 @@
   };
   "stylus" = buildFirefoxXpiAddon {
     pname = "stylus";
-    version = "1.5.51";
+    version = "2.3.10";
     addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4338993/styl_us-1.5.51.xpi";
-    sha256 = "4d7c184af2d81f40c35f33c77c4040dc4205908dbcf65e7c99fafd7d26e4814f";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4427271/styl_us-2.3.10.xpi";
+    sha256 = "62528ccaf2eaf6db09645b255eb484d27947b35f69ab25739000769b34a0b107";
     meta = with lib; {
       homepage = "https://add0n.com/stylus.html";
       description = "Redesign your favorite websites with Stylus, an actively developed and community driven userstyles manager. Easily install custom themes from popular online repositories, or create, edit, and manage your own personalized CSS stylesheets.";
       license = licenses.gpl3;
       mozPermissions = [
+        "alarms"
+        "contextMenus"
+        "storage"
         "tabs"
+        "unlimitedStorage"
         "webNavigation"
         "webRequest"
         "webRequestBlocking"
-        "contextMenus"
-        "storage"
-        "unlimitedStorage"
-        "alarms"
         "<all_urls>"
-        "http://userstyles.org/*"
         "https://userstyles.org/*"
       ];
       platforms = platforms.all;
