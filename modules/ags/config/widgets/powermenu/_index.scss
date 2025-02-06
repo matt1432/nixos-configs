@@ -2,12 +2,16 @@
 @use '../../style/colors';
 
 .powermenu {
-    font-size: 70px;
     padding: 10px;
 
     icon {
+        font-size: 70px;
         min-width: 130px;
         min-height: 130px;
+    }
+
+    label {
+        font-size: 50px;
     }
 
     button {
