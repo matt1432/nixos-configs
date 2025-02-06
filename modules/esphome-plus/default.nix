@@ -12,12 +12,7 @@
 
   cfg = config.services.esphome;
 
-  stateDir = "/var/lib/private/esphome";
-  esphomeParams =
-    if cfg.enableUnixSocket
-    then "--socket /run/esphome/esphome.sock"
-    else "--address ${cfg.address} --port ${toString cfg.port}";
-
+  stateDir = "/var/lib/esphome";
   format = pkgs.formats.yaml {};
 
   # Adapted from https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/home-automation/home-assistant.nix
@@ -52,10 +47,17 @@ in {
   };
 
   config = mkIf cfg.enable {
+    users = {
+      users.esphome = {
+        isNormalUser = true;
+        group = "esphome";
+        home = stateDir;
+      };
+      groups.esphome = {};
+    };
+
     # https://github.com/NixOS/nixpkgs/issues/339557
     systemd.services.esphome = {
-      environment.PLATFORMIO_CORE_DIR = mkForce "${stateDir}/.platformio";
-
       serviceConfig =
         (optionalAttrs (cfg.firmwareConfigs != {}) {
           ExecStartPre = getExe (pkgs.writeShellApplication {
@@ -66,10 +68,6 @@ in {
             ];
 
             text = ''
-              if [[ ! -d ${stateDir} ]]; then
-                  mkdir -p ${stateDir}
-              fi
-
               ${optionalString
                 (cfg.secretsFile != null)
                 # bash
@@ -96,8 +94,7 @@ in {
           });
         })
         // {
-          ExecStart = mkForce "${cfg.package}/bin/esphome dashboard ${esphomeParams} ${stateDir}";
-          WorkingDirectory = mkForce stateDir;
+          DynamicUser = mkForce "off";
         };
     };
   };
