@@ -259,18 +259,29 @@ in {
               "sleep 3; ${getExe restartTailscale}"
             ];
 
-          windowrule = [
-            "tile,^(libreoffice)$"
-            "float,^(org.gnome.Calculator)$"
-            "float,^(com.gabm.satty)$"
-            "size 1000 700,^(com.gabm.satty)$"
+          windowrulev2 =
+            [
+              "tile, class:^(libreoffice)$"
+              "float, class:^(org.gnome.Calculator)$"
+              "float, class:^(com.gabm.satty)$"
+              "size 1000 700, class:^(com.gabm.satty)$"
 
-            "float,^(com.nextcloud.desktopclient.nextcloud)$"
-            "move cursor -15 -10,^(com.nextcloud.desktopclient.nextcloud)$"
-            "size 400 581,^(com.nextcloud.desktopclient.nextcloud)$"
+              "float, class:^(com.nextcloud.desktopclient.nextcloud)$"
+              "move cursor -15 -10, class:^(com.nextcloud.desktopclient.nextcloud)$"
+              "size 400 581, class:^(com.nextcloud.desktopclient.nextcloud)$"
 
-            "workspace special:protonmail silent,^(Proton Mail)$"
-            "workspace special:spot silent,^(Spotify)$"
+              "workspace special:protonmail silent, class:^(Proton Mail)$"
+              "workspace special:spot silent, class:^(Spotify)$"
+            ]
+            ++ optionals isNvidia [
+              "workspace 1 silent, class:^(discord)$"
+              "workspace 2 silent, class:^(steam)$"
+              "workspace 2 silent, initialTitle:^(.*Marvel Rivals.*)$"
+            ];
+
+          workspace = optionals isNvidia [
+            "1, monitor:desc:Acer Technologies Acer K212HQL T3EAA0014201"
+            "2, monitor:${cfg.mainMonitor}"
           ];
 
           bind = map mkBind [
