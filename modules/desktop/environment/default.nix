@@ -7,7 +7,7 @@ self: {
   inherit (self.inputs) hyprland;
   inherit (self.lib.hypr) mkBind mkMonitor;
 
-  inherit (lib) attrValues concatStringsSep mkIf optionals;
+  inherit (lib) attrValues concatStringsSep mkIf optionals removeSuffix;
 
   cfg = config.roles.desktop;
 
@@ -83,11 +83,14 @@ in {
 
       wayland.windowManager.hyprland = {
         enable = true;
-        package =
-          hyprland
-          .packages
-          .${pkgs.system}
-          .default;
+
+        # Get rid of logs shown on the TTY right before Hyprland launches
+        package = hyprland.packages.${pkgs.system}.default.overrideAttrs (o: {
+          postInstall = ''
+            ${removeSuffix "\n\n" o.postInstall} \
+                --append-flags '&>/dev/null'
+          '';
+        });
 
         systemd.variables = ["-all"];
 

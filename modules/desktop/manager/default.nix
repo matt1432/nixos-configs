@@ -1,10 +1,9 @@
 self: {
   config,
   lib,
-  pkgs,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib) getExe mkIf;
 
   cfg = config.roles.desktop;
 
@@ -17,12 +16,6 @@ self: {
     .windowManager
     .hyprland
     .finalPackage;
-
-  # Hide TTY on launch
-  cmd = toString (pkgs.writeShellScript "hyprland-wrapper" ''
-    trap 'systemctl --user stop hyprland-session.target; sleep 1' EXIT
-    exec Hyprland >/dev/null
-  '');
 in {
   imports = [
     (import ./ags self)
@@ -37,12 +30,12 @@ in {
         enable = true;
         settings = {
           default_session = {
-            command = cmd;
+            command = getExe hyprland;
             user = "greeter";
           };
 
           initial_session = {
-            command = cmd;
+            command = getExe hyprland;
             user = cfg.user;
           };
         };
