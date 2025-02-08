@@ -68,6 +68,13 @@
             };
           }
           {
+            jellystat = {
+              href = "https://lan.nelim.org/jellystat";
+              icon = "jellyfin.png";
+              description = "view jellyfin stats";
+            };
+          }
+          {
             jellyseerr = rec {
               href = "https://seerr.nelim.org";
               icon = "jellyseerr.png";

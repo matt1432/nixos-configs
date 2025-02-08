@@ -139,6 +139,7 @@ in {
 
             subDirectories = {
               bazarr.reverseProxy = "${nosIP}:6767";
+              jellystat.reverseProxy = "${nosIP}:3070";
               prowlarr.reverseProxy = "${nosIP}:9696";
               radarr.reverseProxy = "${nosIP}:7878";
               sabnzbd.reverseProxy = "${nosIP}:8382";

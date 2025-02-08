@@ -15,6 +15,7 @@ in {
 
     (import ./media/bazarr/compose.nix configPath)
     (import ./media/joal/compose.nix configPath)
+    (import ./media/jellystat/compose.nix configPath)
     (import ./media/prowlarr/compose.nix configPath)
     (import ./media/radarr/compose.nix configPath)
     (import ./media/sabnzbd/compose.nix configPath)
