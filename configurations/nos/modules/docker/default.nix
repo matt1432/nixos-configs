@@ -18,7 +18,6 @@ in {
     (import ./media/jellystat/compose.nix configPath)
     (import ./media/prowlarr/compose.nix configPath)
     (import ./media/radarr/compose.nix configPath)
-    (import ./media/sabnzbd/compose.nix configPath)
     (import ./media/seerr/compose.nix configPath)
     (import ./media/sonarr/compose.nix configPath)
   ];

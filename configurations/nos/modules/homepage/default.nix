@@ -153,18 +153,6 @@
             };
           }
           {
-            sabnzbd = rec {
-              href = "https://lan.nelim.org/sabnzbd";
-              icon = "sabnzbd.png";
-              description = "nzb client";
-              widget = {
-                type = "sabnzbd";
-                url = href;
-                key = "{{HOMEPAGE_VAR_SAB_API}}";
-              };
-            };
-          }
-          {
             sonarr = rec {
               href = "https://lan.nelim.org/sonarr";
               icon = "sonarr.png";

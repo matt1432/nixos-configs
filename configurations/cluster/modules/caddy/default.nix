@@ -142,7 +142,6 @@ in {
               jellystat.reverseProxy = "${nosIP}:3070";
               prowlarr.reverseProxy = "${nosIP}:9696";
               radarr.reverseProxy = "${nosIP}:7878";
-              sabnzbd.reverseProxy = "${nosIP}:8382";
               sonarr.reverseProxy = "${nosIP}:8989";
 
               qbittorent = {
