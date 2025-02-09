@@ -58,6 +58,11 @@ in {
           libpulseaudio
           ;
       };
+
+      extraPythonPackages = p:
+        with p; [
+          click
+        ];
     };
 
     # Misc Packages
