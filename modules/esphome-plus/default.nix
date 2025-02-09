@@ -6,7 +6,7 @@
 }: let
   inherit (lib) converge getExe mkOption types;
   inherit (lib.modules) mkForce mkIf;
-  inherit (lib.lists) elem optionals;
+  inherit (lib.lists) elem;
   inherit (lib.strings) concatMapStringsSep optionalString;
   inherit (lib.attrsets) mapAttrsToList filterAttrsRecursive optionalAttrs;
 
@@ -16,11 +16,11 @@
   format = pkgs.formats.yaml {};
 
   # Adapted from https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/home-automation/home-assistant.nix
-  mkESPConf = name: cfg: let
+  mkESPConf = n: cfg: let
     filteredConfig = converge (filterAttrsRecursive (_: v: ! elem v [null])) cfg;
-  in {
-    name = "${name}.yaml";
-    file = pkgs.runCommandLocal "${name}.yaml" {} ''
+  in rec {
+    name = "${n}-nix.yaml";
+    file = pkgs.runCommandLocal name {} ''
       cp ${format.generate name filteredConfig} $out
       sed -i -e "s/'\!\([a-z_]\+\) \(.*\)'/\!\1 \2/;s/^\!\!/\!/;" $out
       sed -i 's/ {}//g' $out
@@ -38,11 +38,6 @@ in {
     secretsFile = mkOption {
       default = null;
       type = types.nullOr types.path;
-    };
-
-    deleteUnmanaged = mkOption {
-      default = true;
-      type = types.bool;
     };
   };
 
@@ -99,23 +94,22 @@ in {
           ExecStartPre = getExe (pkgs.writeShellApplication {
             name = "esphome-exec-start-pre";
 
-            runtimeInputs = optionals cfg.deleteUnmanaged [
+            runtimeInputs = [
               pkgs.findutils
             ];
 
             text = ''
+              shopt -s nullglob
+
+              for file in ${stateDir}/*-nix.yaml; do
+                  rm "$file"
+              done
+
               ${optionalString
                 (cfg.secretsFile != null)
                 # bash
                 ''
                   cp -f "$(realpath "${cfg.secretsFile}")" ${stateDir}/secrets.yaml
-                ''}
-
-              ${optionalString
-                cfg.deleteUnmanaged
-                # bash
-                ''
-                  find ${stateDir} -name "*.yaml" ! -name "secrets.yaml" -delete
                 ''}
 
               ${concatMapStringsSep
