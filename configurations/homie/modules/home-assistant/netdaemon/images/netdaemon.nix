@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage rec {
   imageName = "netdaemon/netdaemon5";
-  imageDigest = "sha256:5acac9a6f9dca0d8eab178ee211a73e03b3cf9fa2c8deecf45afce33f57d2011";
-  hash = "sha256-IjRyb/6uAzPKu0pMFDxXBkZt2rTG43rXQx2SnmPXptI=";
+  imageDigest = "sha256:cfc7a39feee300e77bd6ecc798c15f046b8d222ce251a3c57697069db78841f8";
+  hash = "sha256-AzzlLiyM0OOtVSEObAxEn8D8+/RKaND/bwvrfUchiTs=";
   finalImageName = imageName;
-  finalImageTag = "24.52.0";
+  finalImageTag = "25.5.0";
 }
