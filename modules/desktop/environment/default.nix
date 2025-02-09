@@ -42,11 +42,7 @@ in {
     programs.hyprland = {
       enable = true;
       package = hyprCfg.finalPackage;
-      portalPackage =
-        hyprland
-        .packages
-        .${pkgs.system}
-        .xdg-desktop-portal-hyprland;
+      portalPackage = hyprCfg.finalPortalPackage;
     };
 
     xdg.portal = {
@@ -68,6 +64,13 @@ in {
         ];
       };
     };
+
+    # Make sure we only use the package from the hyprland flake
+    nixpkgs.overlays = [
+      (final: prev: {
+        xdg-desktop-portal-hyprland = hyprCfg.finalPortalPackage;
+      })
+    ];
 
     home-manager.users.${cfg.user} = {
       imports = [
@@ -91,6 +94,12 @@ in {
                 --append-flags '&>/dev/null'
           '';
         });
+
+        portalPackage =
+          hyprland
+          .packages
+          .${pkgs.system}
+          .xdg-desktop-portal-hyprland;
 
         systemd.variables = ["-all"];
 
