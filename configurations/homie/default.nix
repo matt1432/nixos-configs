@@ -1,5 +1,6 @@
 {
   mainUser,
+  pkgs,
   self,
   ...
 }: {
@@ -36,6 +37,30 @@
     hostName = "homie";
     resolvconf.enable = true;
     firewall.enable = false;
+  };
+
+  # FIXME: temporary fix while I figure out the issue with the Network Card?
+  systemd.services."temp-fix-nic" = {
+    wantedBy = ["multi-user.target"];
+    after = ["tailscaled.service"];
+    path = [pkgs.ripgrep];
+    script = ''
+      # Wait for boot to finish
+      sleep 60
+
+      echo "start listening to journalctl"
+
+      journalctl -fb | while read -r line; do
+          if echo "$line" | rg 'NIC Link is Up' &> /dev/null; then
+              echo "restarting tailscaled"
+              systemctl restart tailscaled.service
+          fi
+      done
+    '';
+    serviceConfig = {
+      User = "root";
+      AmbientCapabilities = "CAP_SYS_ADMIN CAP_SYSLOG";
+    };
   };
 
   time.timeZone = "America/Montreal";
