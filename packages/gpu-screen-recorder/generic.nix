@@ -1,23 +1,24 @@
 {
-  # Params
+  # params
   pname,
   gpu-screen-recorder-src,
   isKmsServer ? false,
-  # Derivation deps
+  # nix build inputs
   lib,
+  stdenv,
   addDriverRunpath,
+  makeWrapper,
+  # deps
   dbus,
   ffmpeg,
   libdrm,
   libglvnd,
   libpulseaudio,
   libva,
-  makeWrapper,
   meson,
   ninja,
   pipewire,
   pkg-config,
-  stdenv,
   vulkan-headers,
   wayland,
   xorg,
@@ -101,10 +102,13 @@ in
         '';
 
     meta = {
-      description = "Screen recorder that has minimal impact on system performance by recording a window using the GPU only";
-      homepage = "https://git.dec05eba.com/gpu-screen-recorder/about/";
+      mainProgram = pname;
       license = lib.licenses.gpl3Only;
       platforms = ["x86_64-linux"];
-      mainProgram = pname;
+      homepage = "https://git.dec05eba.com/gpu-screen-recorder/about/";
+      description = ''
+        Screen recorder that has minimal impact on system performance by recording
+        a window using the GPU only
+      '';
     };
   }

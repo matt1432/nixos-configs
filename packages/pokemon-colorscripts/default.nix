@@ -1,8 +1,10 @@
 {
+  # nix build inputs
   mkVersion,
   stdenv,
-  python3Packages,
   pokemon-colorscripts-src,
+  # deps
+  python3Packages,
   ...
 }:
 stdenv.mkDerivation {
@@ -27,7 +29,9 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    description = "A script to print out images of pokemon to the terminal.";
     homepage = "https://gitlab.com/phoneybadger/pokemon-colorscripts";
+    description = ''
+      A script to print out images of pokemon to the terminal.
+    '';
   };
 }

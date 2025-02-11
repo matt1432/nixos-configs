@@ -1,8 +1,9 @@
 {
+  # nix build inputs
   lib,
   mkVersion,
-  protonhax-src,
   stdenv,
+  protonhax-src,
   ...
 }:
 stdenv.mkDerivation {
@@ -16,8 +17,10 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    description = "Tool to help running other programs (i.e. Cheat Engine) inside Steam's proton.";
-    homepage = "https://github.com/jcnils/protonhax";
     license = with lib.licenses; [bsd3];
+    homepage = "https://github.com/jcnils/protonhax";
+    description = ''
+      Tool to help running other programs (i.e. Cheat Engine) inside Steam's proton.
+    '';
   };
 }

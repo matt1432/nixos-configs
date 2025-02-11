@@ -1,12 +1,14 @@
-# modified from https://github.com/fufexan/dotfiles/blob/main/pkgs/repl/default.nix
 {
+  # nix build inputs
+  writeShellApplication,
+  # deps
   coreutils,
   gnused,
   ncurses,
-  writeShellApplication,
   ...
 }: let
   repl = ./repl.nix;
+
   example = command: desc: ''\n$(tput setaf 3) ${command}$(tput sgr0) - ${desc}'';
 in
   writeShellApplication {
@@ -40,7 +42,11 @@ in
     '';
 
     meta = {
-      description = "A simple program for populating a credentials.json via Spotify's zeroconf authentication.";
       homepage = "fork of https://github.com/fufexan/dotfiles/blob/main/pkgs/repl/default.nix";
+      description = ''
+        A wrapper of `nix repl` with the flake located at `$FLAKE` loaded in. It also attempts
+        to load the current system's derivation for both `nixosConfigurations` and
+        `nixOnDroidConfigurations`.
+      '';
     };
   }

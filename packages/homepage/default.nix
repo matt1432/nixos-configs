@@ -1,14 +1,17 @@
 {
+  # params
+  enableLocalIcons ? true,
+  # nix build inputs
+  lib,
+  stdenv,
   buildNpmPackage,
   fetchFromGitHub,
+  # deps
+  cctools,
+  git,
   nodePackages,
   python3,
-  stdenv,
-  cctools,
   IOKit ? {},
-  lib,
-  enableLocalIcons ? true,
-  git,
 }: let
   inherit (lib) optionals optionalString;
 
@@ -86,10 +89,12 @@ in
     doDist = false;
 
     meta = {
-      description = "Highly customisable dashboard with Docker and service API integrations";
-      changelog = "https://github.com/gethomepage/homepage/releases/tag/v${version}";
       mainProgram = "homepage";
-      homepage = "https://gethomepage.dev";
       license = lib.licenses.gpl3;
+      homepage = "https://gethomepage.dev";
+      changelog = "https://github.com/gethomepage/homepage/releases/tag/v${version}";
+      description = ''
+        Highly customisable dashboard with Docker and service API integrations.
+      '';
     };
   }

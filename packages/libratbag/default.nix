@@ -1,6 +1,8 @@
 {
+  # nix build inputs
   lib,
   libratbag-src,
+  # deps
   libratbag,
   ...
 }: let

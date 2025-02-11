@@ -1,7 +1,9 @@
 # From nixpkgs 4c0061c983a2bcb888f5c478cfb7631ec1090c22
 {
+  # nix build inputs
   lib,
   fetchPypi,
+  # deps
   python3Packages,
 }:
 python3Packages.buildPythonPackage rec {
@@ -58,10 +60,12 @@ python3Packages.buildPythonPackage rec {
     ];
   };
 
-  meta = with lib; {
-    description = "Powerful, sanity-friendly HTTP client for Python";
+  meta = {
+    license = lib.licenses.mit;
     homepage = "https://github.com/shazow/urllib3";
     changelog = "https://github.com/urllib3/urllib3/blob/${version}/CHANGES.rst";
-    license = licenses.mit;
+    description = ''
+      Powerful, sanity-friendly HTTP client for Python.
+    '';
   };
 }

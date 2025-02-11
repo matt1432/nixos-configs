@@ -1,19 +1,22 @@
 {
+  # nix build inputs
   lib,
+  stdenv,
+  trash-d-src,
+  # deps
   dmd,
   dub,
-  trash-d-src,
   ronn,
-  stdenv,
   ...
 }: let
   inherit (builtins) fromJSON readFile;
-
   tag = (fromJSON (readFile "${trash-d-src}/dub.json")).version;
+
+  pname = "trash";
+  version = "${tag}+${trash-d-src.shortRev}";
 in
   stdenv.mkDerivation {
-    pname = "trash";
-    version = "${tag}+${trash-d-src.shortRev}";
+    inherit pname version;
 
     src = trash-d-src;
 
@@ -37,15 +40,19 @@ in
 
       ronn --roff --pipe MANUAL.md > $out/man/man1/trash.1
     '';
+
     meta = {
       mainProgram = "trash";
+      license = with lib.licenses; [mit];
       platforms = [
         "x86_64-linux"
         "i686-linux"
         "x86_64-darwin"
       ];
-      description = "A near drop-in replacement for `rm` that uses the [FreeDesktop trash bin](https://specifications.freedesktop.org/trash-spec/trashspec-latest.html).";
       homepage = "https://github.com/rushsteve1/trash-d";
-      license = with lib.licenses; [mit];
+      description = ''
+        A near drop-in replacement for `rm` that uses the
+        [FreeDesktop trash bin](https://specifications.freedesktop.org/trash-spec/trashspec-latest.html).
+      '';
     };
   }

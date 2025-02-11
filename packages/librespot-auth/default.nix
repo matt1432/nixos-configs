@@ -1,10 +1,12 @@
 {
+  # nix build inputs
   lib,
   fetchFromGitHub,
   makeWrapper,
+  rustPlatform,
+  # deps
   openssl,
   pkg-config,
-  rustPlatform,
   ...
 }:
 rustPlatform.buildRustPackage rec {
@@ -36,9 +38,12 @@ rustPlatform.buildRustPackage rec {
   ];
 
   meta = {
-    description = "A simple program for populating a credentials.json via Spotify's zeroconf authentication.";
     mainProgram = pname;
-    homepage = "https://github.com/dspearson/librespot-auth";
     license = with lib.licenses; [isc];
+    homepage = "https://github.com/dspearson/librespot-auth";
+    description = ''
+      A simple program for populating a credentials.json via Spotify's
+      zeroconf authentication.
+    '';
   };
 }

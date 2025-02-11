@@ -1,6 +1,8 @@
 {
+  # nix build inputs
   lib,
   fetchurl,
+  # deps
   jmusicbot,
   jdk11_headless,
   jre_minimal,

@@ -1,6 +1,8 @@
 {
+  # nix build inputs
   lib,
   piper-src,
+  # deps
   piper,
   ...
 }: let

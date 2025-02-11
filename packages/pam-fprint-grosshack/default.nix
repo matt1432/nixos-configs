@@ -1,6 +1,9 @@
 {
+  # nix build inputs
   lib,
+  stdenv,
   pam-fprint-grosshack-src,
+  # deps
   dbus,
   glib,
   libfprint,
@@ -10,7 +13,6 @@
   pam,
   pkg-config,
   polkit,
-  stdenv,
   systemd,
   ...
 }: let
@@ -44,9 +46,11 @@ in
     ];
 
     meta = {
-      description = "This is a fork of the pam module which implements the simultaneous
-password and fingerprint behaviour present in pam_thinkfinger.";
-      homepage = "https://gitlab.com/mishakmak/pam-fprint-grosshack";
       license = with lib.licenses; [gpl2Plus];
+      homepage = "https://gitlab.com/mishakmak/pam-fprint-grosshack";
+      description = ''
+        This is a fork of the pam module which implements the simultaneous password and
+        fingerprint behaviour present in pam_thinkfinger.
+      '';
     };
   }
