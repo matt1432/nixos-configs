@@ -362,10 +362,6 @@ let
       owner = "gjsify";
       repo = "ts-for-gir";
     }
-    {
-      owner = "jcnils";
-      repo = "protonhax";
-    }
 
     # MPV scripts
     {

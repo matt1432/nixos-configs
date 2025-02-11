@@ -1648,22 +1648,6 @@
         "type": "github"
       }
     },
-    "protonhax-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1724707175,
-        "narHash": "sha256-P6DVRz8YUF4JY2tiEVZx16FtK4i/rirRdKKZBslbJxU=",
-        "owner": "jcnils",
-        "repo": "protonhax",
-        "rev": "922a7bbade5a93232b3152cc20a7d8422db09c31",
-        "type": "github"
-      },
-      "original": {
-        "owner": "jcnils",
-        "repo": "protonhax",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "ags": "ags",
@@ -1726,7 +1710,6 @@
         "pokemon-colorscripts-src": "pokemon-colorscripts-src",
         "pr-tracker": "pr-tracker",
         "pre-commit-hooks": "pre-commit-hooks",
-        "protonhax-src": "protonhax-src",
         "secrets": "secrets",
         "sioyek-theme-src": "sioyek-theme-src",
         "smartinspect-src": "smartinspect-src",

@@ -429,12 +429,6 @@
       repo = "git-hooks.nix";
       type = "github";
     };
-    protonhax-src = {
-      flake = false;
-      owner = "jcnils";
-      repo = "protonhax";
-      type = "github";
-    };
     secrets = {
       inputs = {
         nixpkgs.follows = "nixpkgs";

@@ -21,9 +21,7 @@
 
   librespot-auth = pkgs.callPackage ./librespot-auth {};
 
-  pam-fprint-grosshack = pkgs.callPackage ./pam-fprint-grosshack {
-    inherit (inputs) pam-fprint-grosshack-src;
-  };
+  pam-fprint-grosshack = pkgs.callPackage ./pam-fprint-grosshack {};
 
   piper = pkgs.callPackage ./piper {
     inherit (inputs) piper-src;
@@ -36,10 +34,7 @@
 
   proton-ge-latest = pkgs.callPackage ./proton-ge-latest {};
 
-  protonhax = pkgs.callPackage ./protonhax {
-    inherit (inputs) protonhax-src;
-    inherit mkVersion;
-  };
+  protonhax = pkgs.callPackage ./protonhax {};
 
   repl = pkgs.callPackage ./repl {};
 

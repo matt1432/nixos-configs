@@ -71,6 +71,10 @@ const main = async() => {
         console.log(runNixUpdate('pam-fprint-grosshack'));
     }
 
+    if (args['ph'] || args['protonhax']) {
+        console.log(runNixUpdate('protonhax'));
+    }
+
     if (args['s'] || args['some-sass-language-server']) {
         console.log(updateCustomPackage('some-sass-language-server'));
     }
@@ -134,6 +138,7 @@ const main = async() => {
         updatePackage('homepage');
         updatePackage('jmusicbot');
         updatePackage('pam-fprint-grosshack');
+        updatePackage('protonhax');
 
 
         spawnSync('nixFastBuild', [], {
