@@ -332,10 +332,6 @@ let
 
     # Overlays & packages
     {
-      owner = "rushsteve1";
-      repo = "trash-d";
-    }
-    {
       type = "gitlab";
       owner = "rogs";
       repo = "subscleaner";

@@ -1718,7 +1718,6 @@
         "spotifywebapi-src": "spotifywebapi-src",
         "subscleaner-src": "subscleaner-src",
         "systems": "systems",
-        "trash-d-src": "trash-d-src",
         "treefmt-nix": "treefmt-nix",
         "ts-for-gir-src": "ts-for-gir-src",
         "tuya-local-src": "tuya-local-src",
@@ -1881,22 +1880,6 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default-linux",
-        "type": "github"
-      }
-    },
-    "trash-d-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1734656654,
-        "narHash": "sha256-zYAEw3sW9jJgw0XFfi7IEdJTKybuRdBXMCqoI+AqJko=",
-        "owner": "rushsteve1",
-        "repo": "trash-d",
-        "rev": "2537f7b94998ed60989df370583d92235cd6d169",
-        "type": "github"
-      },
-      "original": {
-        "owner": "rushsteve1",
-        "repo": "trash-d",
         "type": "github"
       }
     },

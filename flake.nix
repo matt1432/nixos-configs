@@ -478,12 +478,6 @@
       repo = "default-linux";
       type = "github";
     };
-    trash-d-src = {
-      flake = false;
-      owner = "rushsteve1";
-      repo = "trash-d";
-      type = "github";
-    };
     treefmt-nix = {
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "numtide";

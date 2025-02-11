@@ -2,43 +2,49 @@
   # nix build inputs
   lib,
   stdenv,
-  trash-d-src,
+  fetchFromGitHub,
   # deps
   dmd,
   dub,
-  ronn,
+  just,
+  scdoc,
   ...
 }: let
-  inherit (builtins) fromJSON readFile;
-  tag = (fromJSON (readFile "${trash-d-src}/dub.json")).version;
-
   pname = "trash";
-  version = "${tag}+${trash-d-src.shortRev}";
+  version = "20";
 in
   stdenv.mkDerivation {
     inherit pname version;
 
-    src = trash-d-src;
+    src = fetchFromGitHub {
+      owner = "rushsteve1";
+      repo = "trash-d";
+      rev = version;
+      hash = "sha256-x76kEqgwJGW4wmEyr3XzEXZ2AvRsm9ewrfjRjIsOphw=";
+    };
+
+    nativeBuildInputs = [
+      just
+    ];
 
     buildInputs = [
-      dub
-      ronn
       dmd
+      dub
+      scdoc
     ];
 
     buildPhase = ''
       # https://github.com/svanderburg/node2nix/issues/217#issuecomment-751311272
       export HOME=$(mktemp -d)
 
-      dub build
+      just release manpage
     '';
 
     installPhase = ''
-      mkdir -p $out/bin $out/man/man1
+      mkdir -p $out/{bin,man/man1}
 
-      cp -a ./build/trash $out/bin/
-
-      ronn --roff --pipe MANUAL.md > $out/man/man1/trash.1
+      cp -a ./build/trash $out/bin
+      cp -a ./build/trash.1 $out/man/man1
     '';
 
     meta = {

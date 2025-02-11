@@ -79,6 +79,10 @@ const main = async() => {
         console.log(updateCustomPackage('some-sass-language-server'));
     }
 
+    if (args['t'] || args['trash-d']) {
+        console.log(runNixUpdate('trash-d'));
+    }
+
     if (args['v'] || args['vuetorrent']) {
         console.log(updateVuetorrent());
     }
@@ -139,6 +143,7 @@ const main = async() => {
         updatePackage('jmusicbot');
         updatePackage('pam-fprint-grosshack');
         updatePackage('protonhax');
+        updatePackage('trash-d');
 
 
         spawnSync('nixFastBuild', [], {
