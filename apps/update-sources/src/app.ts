@@ -67,6 +67,10 @@ const main = async() => {
         console.log(await updateNodeModules());
     }
 
+    if (args['p'] || args['pam-fprint-grosshack']) {
+        console.log(runNixUpdate('pam-fprint-grosshack'));
+    }
+
     if (args['s'] || args['some-sass-language-server']) {
         console.log(updateCustomPackage('some-sass-language-server'));
     }
@@ -129,6 +133,7 @@ const main = async() => {
 
         updatePackage('homepage');
         updatePackage('jmusicbot');
+        updatePackage('pam-fprint-grosshack');
 
 
         spawnSync('nixFastBuild', [], {

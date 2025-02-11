@@ -381,12 +381,6 @@
       repo = "dracula.nvim";
       type = "github";
     };
-    pam-fprint-grosshack-src = {
-      flake = false;
-      owner = "mishakmak";
-      repo = "pam-fprint-grosshack";
-      type = "gitlab";
-    };
     pcsd = {
       inputs = {
         nixpkgs.follows = "nixpkgs";

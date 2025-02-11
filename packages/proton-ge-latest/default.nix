@@ -30,11 +30,13 @@ in
         runHook postBuild
       '';
 
-    meta = o.meta // {
-      description = ''
-        ${o.meta.description}
-        This derivation overrides the Proton version in Steam so that games using the Proton
-        from nix keep using it after every version change.
-      '';
-    };
+    meta =
+      o.meta
+      // {
+        description = ''
+          ${o.meta.description}
+          This derivation overrides the Proton version in Steam so that games using the Proton
+          from nix keep using it after every version change.
+        '';
+      };
   })

@@ -2,43 +2,68 @@
   # nix build inputs
   lib,
   stdenv,
-  pam-fprint-grosshack-src,
+  fetchFromGitLab,
   # deps
   dbus,
   glib,
   libfprint,
   libpam-wrapper,
+  libxml2,
+  libxslt,
   meson,
   ninja,
   pam,
+  perl,
   pkg-config,
   polkit,
+  python3Packages,
   systemd,
   ...
 }: let
-  inherit (builtins) elemAt head readFile split;
-  tag = head (split "'" (elemAt (split " version: '" (readFile "${pam-fprint-grosshack-src}/meson.build")) 2));
+  pname = "pam-fprint-grosshack";
+  version = "0.3.0";
 in
   stdenv.mkDerivation {
-    pname = "pam-fprint-grosshack";
-    version = "${tag}+${pam-fprint-grosshack-src.shortRev}";
+    inherit pname version;
 
-    src = pam-fprint-grosshack-src;
+    src = fetchFromGitLab {
+      owner = "mishakmak";
+      repo = "pam-fprint-grosshack";
+      rev = "v${version}";
+      hash = "sha256-obczZbf/oH4xGaVvp3y3ZyDdYhZnxlCWvL0irgEYIi0=";
+    };
+
+    # Tests aren't actually ran for some reason so I get rid of the warning
+    postPatch = ''
+      substituteInPlace ./meson.build --replace-fail \
+          "'gi.repository.FPrint': true," "'gi.repository.FPrint': false,"
+    '';
 
     nativeBuildInputs = [
-      meson
-      ninja
-      pkg-config
+      dbus
       glib
       libfprint
-      polkit
-      dbus
-      systemd
-      pam
       libpam-wrapper
+      libxml2
+      libxslt
+      meson
+      ninja
+      pam
+      perl
+      pkg-config
+      polkit
+      systemd
+
+      python3Packages.python
+      python3Packages.dbus-python
+      python3Packages.pydbus
+      python3Packages.pypamtest
+      python3Packages.python-dbusmock
     ];
 
     mesonFlags = [
+      "-Dgtk_doc=true"
+      "-Dman=true"
       "-Dpam_modules_dir=${placeholder "out"}/lib/security"
       "-Dsysconfdir=${placeholder "out"}/etc"
       "-Ddbus_service_dir=${placeholder "out"}/share/dbus-1/system-services"

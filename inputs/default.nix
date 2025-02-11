@@ -342,11 +342,6 @@ let
     }
     {
       type = "gitlab";
-      owner = "mishakmak";
-      repo = "pam-fprint-grosshack";
-    }
-    {
-      type = "gitlab";
       owner = "phoneybadger";
       repo = "pokemon-colorscripts";
     }

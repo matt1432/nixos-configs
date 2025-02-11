@@ -1517,22 +1517,6 @@
         "type": "github"
       }
     },
-    "pam-fprint-grosshack-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1658952526,
-        "narHash": "sha256-obczZbf/oH4xGaVvp3y3ZyDdYhZnxlCWvL0irgEYIi0=",
-        "owner": "mishakmak",
-        "repo": "pam-fprint-grosshack",
-        "rev": "45b42524fb5783e1e555067743d7e0f70d27888a",
-        "type": "gitlab"
-      },
-      "original": {
-        "owner": "mishakmak",
-        "repo": "pam-fprint-grosshack",
-        "type": "gitlab"
-      }
-    },
     "pcsd": {
       "inputs": {
         "nixpkgs": [
@@ -1736,7 +1720,6 @@
         "nixpkgs-wayland": "nixpkgs-wayland",
         "nurl": "nurl",
         "nvim-theme-src": "nvim-theme-src",
-        "pam-fprint-grosshack-src": "pam-fprint-grosshack-src",
         "pcsd": "pcsd",
         "piper-src": "piper-src",
         "poetry2nix": "poetry2nix",
