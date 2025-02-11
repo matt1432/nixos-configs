@@ -1,6 +1,10 @@
 {
-  lib,
+  # Params
+  pname,
   gpu-screen-recorder-src,
+  isKmsServer ? false,
+  # Derivation deps
+  lib,
   addDriverRunpath,
   dbus,
   ffmpeg,
@@ -17,7 +21,6 @@
   vulkan-headers,
   wayland,
   xorg,
-  pname,
   ...
 }: let
   inherit (lib) makeLibraryPath;
@@ -33,6 +36,11 @@ in
     version = "${tag}+${gpu-screen-recorder-src.shortRev}";
 
     src = gpu-screen-recorder-src;
+
+    # Get rid of useless warning
+    postPatch = ''
+      sed -i 's/.*gsr-kms-server is not installed in the same directory.*//' ./kms/client/kms_client.c
+    '';
 
     nativeBuildInputs = [
       pkg-config
@@ -79,17 +87,17 @@ in
     # This is needed to force gsr to lookup kms in PATH
     # to get the security wrapper
     postFixup =
-      if pname == "gpu-screen-recorder"
+      if isKmsServer
       then
-        # bash
-        ''
-          rm $out/bin/gsr-kms-server
-        ''
-      else
         # bash
         ''
           rm $out/bin/gpu-screen-recorder
           rm $out/bin/.gpu-screen-recorder-wrapped
+        ''
+      else
+        # bash
+        ''
+          rm $out/bin/gsr-kms-server
         '';
 
     meta = {

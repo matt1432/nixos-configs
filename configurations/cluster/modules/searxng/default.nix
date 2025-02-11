@@ -11,7 +11,7 @@ in {
 
     package =
       (pkgs.searxng.override {
-        # FIXME: https://github.com/NixOS/nixpkgs/issues/380351
+        # FIXME: https://pr-tracker.nelim.org/?pr=381174
         python3 = pkgs.python3.override {
           packageOverrides = pyFinal: pyPrev: {
             httpx = pyPrev.httpx.overridePythonAttrs (o: rec {
