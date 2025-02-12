@@ -67,9 +67,10 @@ const main = async() => {
         console.log(await updateNodeModules());
     }
 
-    if (args['p'] || args['pam-fprint-grosshack']) {
-        console.log(runNixUpdate('pam-fprint-grosshack'));
-    }
+    // TODO: get latest tag instead of release
+    // if (args['p'] || args['pam-fprint-grosshack']) {
+    //     console.log(runNixUpdate('pam-fprint-grosshack'));
+    // }
 
     if (args['ph'] || args['protonhax']) {
         console.log(runNixUpdate('protonhax'));
@@ -138,7 +139,7 @@ const main = async() => {
 
         updatePackage('homepage');
         updatePackage('jmusicbot');
-        updatePackage('pam-fprint-grosshack');
+        // updatePackage('pam-fprint-grosshack');
         updatePackage('protonhax');
         updatePackage('trash-d');
         updatePackage(

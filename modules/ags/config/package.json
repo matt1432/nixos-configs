@@ -6,10 +6,10 @@
         "astal": "https://gitpkg.vercel.app/Aylur/astal/lang/gjs/src?main",
         "@eslint/js": "9.20.0",
         "@stylistic/eslint-plugin": "3.1.0",
-        "eslint": "9.20.0",
+        "eslint": "9.20.1",
         "eslint-plugin-jsdoc": "50.6.3",
         "fzf": "0.5.2",
         "jiti": "2.4.2",
-        "typescript-eslint": "8.23.0"
+        "typescript-eslint": "8.24.0"
     }
 }

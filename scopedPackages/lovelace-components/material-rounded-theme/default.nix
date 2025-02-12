@@ -4,7 +4,7 @@
   ...
 }: let
   pname = "material-rounded-theme";
-  version = "3.0.6";
+  version = "3.0.7";
 in
   buildNpmPackage {
     inherit pname version;
@@ -13,7 +13,7 @@ in
       owner = "Nerwyn";
       repo = pname;
       rev = version;
-      hash = "sha256-OJllOW8YDcmAckcDO5e/fa0zdz7QRX8PgMC0OU0OKIY=";
+      hash = "sha256-m2sO3FAuB+CSH2q1SWWfva2i4v7Zjh/OKVoUkeAitH0=";
     };
 
     postPatch = ''
