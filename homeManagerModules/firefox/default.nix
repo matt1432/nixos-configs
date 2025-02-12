@@ -6,7 +6,7 @@ self: {
 }: let
   inherit (self.scopedPackages.${pkgs.system}) firefoxAddons;
 
-  inherit (lib) attrValues mkIf mkOption types;
+  inherit (lib) attrsToList attrValues mkIf mkOption types;
 
   cfg = config.programs.firefox;
 
@@ -123,6 +123,20 @@ in {
               definedAliases = ["@s"];
             };
 
+            "Github Nix Code" = {
+              urls = [
+                {
+                  template = "https://github.com/search";
+                  params = attrsToList {
+                    "type" = "code";
+                    "q" = "lang:nix NOT is:fork {searchTerms}";
+                  };
+                }
+              ];
+              iconUpdateURL = "https://github.com/favicon.ico";
+              definedAliases = ["@gn"];
+            };
+
             "Nixpkgs" = {
               urls = [
                 {
@@ -209,6 +223,7 @@ in {
             "DuckDuckGo"
             "MyNixos"
             "NixOS Wiki"
+            "Github Nix Code"
             "Nixpkgs"
             "Noogle"
             "Wikipedia (en)"
