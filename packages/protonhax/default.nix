@@ -13,7 +13,7 @@ in
 
     src = fetchFromGitHub {
       owner = "jcnils";
-      repo = "protonhax";
+      repo = pname;
       rev = version;
       hash = "sha256-5G4MCWuaF/adSc9kpW/4oDWFFRpviTKMXYAuT2sFf9w=";
     };

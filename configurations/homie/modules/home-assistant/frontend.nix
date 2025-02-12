@@ -1,7 +1,6 @@
 {
   caule-themes-src,
   dracul-ha-src,
-  material-rounded-theme-src,
   lib,
   pkgs,
   self,
@@ -9,6 +8,8 @@
 }: let
   inherit (lib) attrValues singleton;
   inherit (pkgs.writers) writeYAML;
+
+  material-rounded-theme-src = self.scopedPackages.${pkgs.system}.lovelace-components.material-rounded-theme.src;
 in {
   services.home-assistant = {
     configFiles = {

@@ -6,11 +6,13 @@
   stdenv,
   ...
 }: let
-  package = builtins.fromJSON (builtins.readFile "${custom-sidebar-src}/package.json");
+  inherit (builtins) fromJSON readFile;
+
+  package = fromJSON (readFile "${custom-sidebar-src}/package.json");
 in
   stdenv.mkDerivation (finalAttrs: {
     pname = "custom-sidebar";
-    inherit (package) version;
+    version = "${package.version}+${custom-sidebar-src.shortRev}";
 
     src = custom-sidebar-src;
 

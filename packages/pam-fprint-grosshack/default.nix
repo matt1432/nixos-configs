@@ -28,7 +28,7 @@ in
 
     src = fetchFromGitLab {
       owner = "mishakmak";
-      repo = "pam-fprint-grosshack";
+      repo = pname;
       rev = "v${version}";
       hash = "sha256-obczZbf/oH4xGaVvp3y3ZyDdYhZnxlCWvL0irgEYIi0=";
     };

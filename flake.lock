@@ -958,22 +958,6 @@
         "type": "github"
       }
     },
-    "material-rounded-theme-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1737141695,
-        "narHash": "sha256-VmO8AKyjl756ojIRyPXNeq6y0mLs9O2jLp82ej5rwY4=",
-        "owner": "Nerwyn",
-        "repo": "material-rounded-theme",
-        "rev": "7c69a1f03e424ab2485345e5f38ffc5264ead375",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Nerwyn",
-        "repo": "material-rounded-theme",
-        "type": "github"
-      }
-    },
     "material-symbols-src": {
       "flake": false,
       "locked": {
@@ -1682,7 +1666,6 @@
         "kompass": "kompass",
         "lib-aggregate": "lib-aggregate",
         "libratbag-src": "libratbag-src",
-        "material-rounded-theme-src": "material-rounded-theme-src",
         "material-symbols-src": "material-symbols-src",
         "minix": "minix",
         "modernz-src": "modernz-src",

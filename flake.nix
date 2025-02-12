@@ -221,12 +221,6 @@
       repo = "libratbag";
       type = "github";
     };
-    material-rounded-theme-src = {
-      flake = false;
-      owner = "Nerwyn";
-      repo = "material-rounded-theme";
-      type = "github";
-    };
     material-symbols-src = {
       flake = false;
       owner = "beecho01";

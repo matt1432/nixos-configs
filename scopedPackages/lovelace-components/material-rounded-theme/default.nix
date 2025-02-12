@@ -1,31 +1,30 @@
 {
   buildNpmPackage,
-  concatTextFile,
-  material-rounded-theme-src,
+  fetchFromGitHub,
   ...
 }: let
-  package = builtins.fromJSON (builtins.readFile "${material-rounded-theme-src}/package.json");
+  pname = "material-rounded-theme";
+  version = "3.0.6";
 in
   buildNpmPackage {
-    pname = package.name;
-    inherit (package) version;
+    inherit pname version;
 
-    src = material-rounded-theme-src;
+    src = fetchFromGitHub {
+      owner = "Nerwyn";
+      repo = pname;
+      rev = version;
+      hash = "sha256-OJllOW8YDcmAckcDO5e/fa0zdz7QRX8PgMC0OU0OKIY=";
+    };
+
     postPatch = ''
-      substituteInPlace ./webpack.config.js --replace-fail "git branch --show-current" "echo main"
+      substituteInPlace ./webpack.config.js --replace-fail \
+          "git branch --show-current" "echo main"
     '';
 
-    npmDepsHash = "sha256-Vn4OBTM9MoS0LuU4nDYebncvD6wKmfcLP3gHh0CyfaM=";
+    npmDepsHash = "sha256-JsDWiRFZkn2Gji07LdsNAQO2W7HdwQRTIs6RPFlzf4A=";
 
     installPhase = ''
       mkdir $out
       cp ./dist/* $out
     '';
-
-    passthru.update = concatTextFile {
-      name = "update";
-      files = [./update.sh];
-      executable = true;
-      destination = "/bin/update";
-    };
   }

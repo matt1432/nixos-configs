@@ -293,10 +293,6 @@ let
       owner = "ricardoquecria";
       repo = "caule-themes-pack-1";
     }
-    {
-      owner = "Nerwyn";
-      repo = "material-rounded-theme";
-    }
 
     ## Lovelace Components
     {

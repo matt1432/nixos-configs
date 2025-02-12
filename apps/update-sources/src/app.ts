@@ -58,7 +58,7 @@ const main = async() => {
     }
 
     if (args['m'] || args['material-rounded-theme']) {
-        console.log(updateCustomPackage(
+        console.log(runNixUpdate(
             'scopedPackages.x86_64-linux.lovelace-components.material-rounded-theme',
         ));
     }
@@ -123,9 +123,6 @@ const main = async() => {
         console.log(updateCustomPackage(
             'scopedPackages.x86_64-linux.lovelace-components.custom-sidebar',
         ));
-        console.log(updateCustomPackage(
-            'scopedPackages.x86_64-linux.lovelace-components.material-rounded-theme',
-        ));
         console.log(updateCustomPackage('some-sass-language-server'));
 
         // nix-update executions
@@ -144,6 +141,9 @@ const main = async() => {
         updatePackage('pam-fprint-grosshack');
         updatePackage('protonhax');
         updatePackage('trash-d');
+        updatePackage(
+            'scopedPackages.x86_64-linux.lovelace-components.material-rounded-theme',
+        );
 
 
         spawnSync('nixFastBuild', [], {
