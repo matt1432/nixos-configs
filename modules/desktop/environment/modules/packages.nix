@@ -280,8 +280,8 @@ in {
             ];
 
           workspace = optionals isNvidia [
-            "1, monitor:desc:Acer Technologies Acer K212HQL T3EAA0014201"
-            "2, monitor:${cfg.mainMonitor}"
+            "1, monitor:desc:Acer Technologies Acer K212HQL T3EAA0014201, default:true"
+            "2, monitor:${cfg.mainMonitor}, default:true"
           ];
 
           bind = map mkBind [
