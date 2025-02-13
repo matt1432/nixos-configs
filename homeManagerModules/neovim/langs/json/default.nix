@@ -15,7 +15,7 @@ in {
           # lua
           ''
             vim.api.nvim_create_autocmd('FileType', {
-                pattern = { 'json', 'yaml' },
+                pattern = { 'json', 'yaml', '.clang-.*' },
 
                 callback = function()
                     vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
@@ -44,6 +44,10 @@ in {
 
                 settings = {
                     yaml = {
+                        format = {
+                            enable = true,
+                            singleQuote = true,
+                        },
                         schemas = {
                             [
                                 "https://json.schemastore.org/github-workflow.json"
