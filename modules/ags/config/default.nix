@@ -1,3 +1,3 @@
 {
-  npmDepsHash = "sha256-gxRhGyPchFdJNCSaF8aczuxH7DsYPu0LoPTQvj02xvg=";
+  npmDepsHash = "sha256-sg+/2e29xZlwlW2SoR/AZset+bdo+NnbI0o7FzRHlBI=";
 }
