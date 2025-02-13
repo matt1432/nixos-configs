@@ -6,7 +6,7 @@ self: {
 }: let
   inherit (self.scopedPackages.${pkgs.system}) firefoxAddons;
 
-  inherit (lib) attrsToList attrValues mkIf mkOption types;
+  inherit (lib) attrsToList attrValues mkIf mkOption singleton types;
 
   cfg = config.programs.firefox;
 
@@ -113,104 +113,115 @@ in {
           force = true;
           engines = {
             "SearXNG" = {
-              urls = [
-                {
-                  template = "https://search.nelim.org/search?q={searchTerms}";
-                }
-              ];
-              iconUpdateURL = "https://search.nelim.org/favicon.ico";
-              updateInterval = 24 * 60 * 60 * 1000; # every day
+              urls = singleton {
+                template = "https://search.nelim.org/search";
+                params = attrsToList {
+                  "q" = "{searchTerms}";
+                };
+              };
+              iconMapObj."16" = "https://search.nelim.org/favicon.ico";
               definedAliases = ["@s"];
             };
 
+            "Github Search Code" = {
+              urls = singleton {
+                template = "https://github.com/search";
+                params = attrsToList {
+                  "type" = "code";
+                  "q" = "NOT is:fork {searchTerms}";
+                };
+              };
+              iconMapObj."16" = "https://icon.horse/icon/github.com";
+              definedAliases = ["@gs"];
+            };
+
             "Github Nix Code" = {
-              urls = [
-                {
-                  template = "https://github.com/search";
-                  params = attrsToList {
-                    "type" = "code";
-                    "q" = "lang:nix NOT is:fork {searchTerms}";
-                  };
-                }
-              ];
-              iconUpdateURL = "https://github.com/favicon.ico";
+              urls = singleton {
+                template = "https://github.com/search";
+                params = attrsToList {
+                  "type" = "code";
+                  "q" = "lang:Nix NOT is:fork {searchTerms}";
+                };
+              };
+              iconMapObj."16" = "https://icon.horse/icon/github.com";
               definedAliases = ["@gn"];
             };
 
             "Nixpkgs" = {
-              urls = [
-                {
-                  template = "https://github.com/search?q=repo%3ANixOS%2Fnixpkgs%20{searchTerms}&type=code";
-                }
-              ];
-              iconUpdateURL = "https://github.githubassets.com/favicons/favicon.png";
-              updateInterval = 24 * 60 * 60 * 1000; # every day
+              urls = singleton {
+                template = "https://github.com/search";
+                params = attrsToList {
+                  "type" = "code";
+                  "q" = "repo:NixOS/nixpkgs {searchTerms}";
+                };
+              };
+              iconMapObj."16" = "https://icon.horse/icon/github.com";
               definedAliases = ["@pkgs"];
             };
 
             "NixOS Wiki" = {
-              urls = [
-                {
-                  template = "https://wiki.nixos.org/w/index.php?search={searchTerms}";
-                }
-              ];
-              iconUpdateURL = "https://wiki.nixos.org/favicon.ico";
-              updateInterval = 24 * 60 * 60 * 1000; # every day
+              urls = singleton {
+                template = "https://wiki.nixos.org/w/index.php";
+                params = attrsToList {
+                  "search" = "{searchTerms}";
+                };
+              };
+              iconMapObj."16" = "https://wiki.nixos.org/favicon.ico";
               definedAliases = ["@nw"];
             };
 
             "MyNixos" = {
-              urls = [
-                {
-                  template = "https://mynixos.com/search?q={searchTerms}";
-                }
-              ];
-              iconUpdateURL = "https://mynixos.com/favicon.ico";
-              updateInterval = 24 * 60 * 60 * 1000; # every day
+              urls = singleton {
+                template = "https://mynixos.com/search";
+                params = attrsToList {
+                  "q" = "{searchTerms}";
+                };
+              };
+              iconMapObj."16" = "https://mynixos.com/favicon.ico";
               definedAliases = ["@mn"];
             };
 
             "Noogle" = {
-              urls = [
-                {
-                  template = "https://noogle.dev/q?term={searchTerms}";
-                }
-              ];
-              iconUpdateURL = "https://noogle.dev/favicon.ico";
-              updateInterval = 24 * 60 * 60 * 1000; # every day
+              urls = singleton {
+                template = "https://noogle.dev/q";
+                params = attrsToList {
+                  "term" = "{searchTerms}";
+                };
+              };
+              iconMapObj."16" = "https://noogle.dev/favicon.ico";
               definedAliases = ["@ng"];
             };
 
             "Firefox Add-ons" = {
-              urls = [
-                {
-                  template = "https://addons.mozilla.org/en-US/firefox/search/?q={searchTerms}";
-                }
-              ];
-              iconUpdateURL = "https://addons.mozilla.org/favicon.ico";
-              updateInterval = 24 * 60 * 60 * 1000; # every day
+              urls = singleton {
+                template = "https://addons.mozilla.org/en-US/firefox/search";
+                params = attrsToList {
+                  "q" = "{searchTerms}";
+                };
+              };
+              iconMapObj."16" = "https://addons.mozilla.org/favicon.ico";
               definedAliases = ["@fa"];
             };
 
             "ProtonDB" = {
-              urls = [
-                {
-                  template = "https://www.protondb.com/search?q={searchTerms}";
-                }
-              ];
-              iconUpdateURL = "https://www.protondb.com/favicon.ico";
-              updateInterval = 24 * 60 * 60 * 1000; # every day
+              urls = singleton {
+                template = "https://www.protondb.com/search";
+                params = attrsToList {
+                  "q" = "{searchTerms}";
+                };
+              };
+              iconMapObj."16" = "https://www.protondb.com/favicon.ico";
               definedAliases = ["@pdb"];
             };
 
             "YouTube" = {
-              urls = [
-                {
-                  template = "https://www.youtube.com/results?search_query={searchTerms}";
-                }
-              ];
-              iconUpdateURL = "https://www.youtube.com/favicon.ico";
-              updateInterval = 24 * 60 * 60 * 1000; # every day
+              urls = singleton {
+                template = "https://www.youtube.com/results";
+                params = attrsToList {
+                  "search_query" = "{searchTerms}";
+                };
+              };
+              iconMapObj."16" = "https://www.youtube.com/favicon.ico";
               definedAliases = ["@yt" "@youtube"];
             };
 
@@ -218,11 +229,13 @@ in {
             "Google".metaData.hidden = true;
             "eBay".metaData.hidden = true;
           };
+
           order = [
             "SearXNG"
             "DuckDuckGo"
             "MyNixos"
             "NixOS Wiki"
+            "Github Search Code"
             "Github Nix Code"
             "Nixpkgs"
             "Noogle"
