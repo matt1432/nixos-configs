@@ -283,6 +283,7 @@
         treefmt-nix.follows = "treefmt-nix";
       };
       owner = "nix-community";
+      ref = "v2.25.0";
       repo = "nix-eval-jobs";
       type = "github";
     };
