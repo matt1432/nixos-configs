@@ -1,11 +1,11 @@
-rwDataDir: {
+{configPath, ...}: {
   config,
   pkgs,
   ...
 }: let
   inherit (config.sops) secrets;
 
-  rwPath = rwDataDir + "/freshrss";
+  rwPath = configPath + "/freshrss";
 in {
   virtualisation.docker.compose."freshrss" = {
     networks.proxy_net = {external = true;};

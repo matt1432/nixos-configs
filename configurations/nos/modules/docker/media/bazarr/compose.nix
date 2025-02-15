@@ -1,5 +1,11 @@
-rwDataDir: {pkgs, ...}: let
-  rwPath = rwDataDir + "/media/bazarr";
+{
+  configPath,
+  mainUID,
+  mainGID,
+  TZ,
+  ...
+}: {pkgs, ...}: let
+  rwPath = configPath + "/media/bazarr";
 in {
   virtualisation.docker.compose."bazarr" = {
     networks.proxy_net = {external = true;};
@@ -9,9 +15,9 @@ in {
       restart = "always";
 
       environment = {
-        PUID = "1000";
-        PGID = "1000";
-        TZ = "America/New_York";
+        PUID = mainUID;
+        PGID = mainGID;
+        inherit TZ;
       };
 
       ports = [

@@ -1,11 +1,11 @@
-rwDataDir: {
+{configPath, ...}: {
   pkgs,
   self,
   ...
 }: let
   inherit (self.packages.${pkgs.system}) jmusicbot;
 
-  rwPath = rwDataDir + "/music/jbots";
+  rwPath = configPath + "/music/jbots";
   image = pkgs.callPackage ./images/jmusicbot.nix {inherit pkgs jmusicbot;};
 in {
   virtualisation.docker.compose."jbots" = {

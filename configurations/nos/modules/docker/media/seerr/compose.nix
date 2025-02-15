@@ -1,5 +1,9 @@
-rwDataDir: {pkgs, ...}: let
-  rwPath = rwDataDir + "/media/seerr";
+{
+  configPath,
+  TZ,
+  ...
+}: {pkgs, ...}: let
+  rwPath = configPath + "/media/seerr";
 in {
   virtualisation.docker.compose."seerr" = {
     networks.proxy_net = {external = true;};
@@ -10,7 +14,7 @@ in {
 
       environment = {
         LOG_LEVEL = "debug";
-        TZ = "America/New_York";
+        inherit TZ;
       };
 
       volumes = [

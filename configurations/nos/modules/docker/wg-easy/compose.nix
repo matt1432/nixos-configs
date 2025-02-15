@@ -1,5 +1,5 @@
-rwDataDir: {pkgs, ...}: let
-  rwPath = rwDataDir + "/wg-easy";
+{configPath, ...}: {pkgs, ...}: let
+  rwPath = configPath + "/wg-easy";
 in {
   virtualisation.docker.compose."wg-easy" = {
     networks.proxy_net = {external = true;};

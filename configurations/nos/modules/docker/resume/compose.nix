@@ -1,11 +1,11 @@
-rwDataDir: {
+{configPath, ...}: {
   config,
   pkgs,
   ...
 }: let
   inherit (config.sops) secrets;
 
-  rwPath = rwDataDir + "/resume";
+  rwPath = configPath + "/resume";
 in {
   virtualisation.docker.compose."resume" = {
     networks.proxy_net = {external = true;};

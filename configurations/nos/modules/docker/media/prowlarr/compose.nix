@@ -1,5 +1,11 @@
-rwDataDir: {pkgs, ...}: let
-  rwPath = rwDataDir + "/media/prowlarr";
+{
+  configPath,
+  mainUID,
+  mainGID,
+  TZ,
+  ...
+}: {pkgs, ...}: let
+  rwPath = configPath + "/media/prowlarr";
 in {
   virtualisation.docker.compose."prowlarr" = {
     networks.proxy_net = {external = true;};
@@ -10,9 +16,9 @@ in {
         restart = "always";
 
         environment = {
-          PUID = "1000";
-          PGID = "1000";
-          TZ = "America/New_York";
+          PUID = mainUID;
+          PGID = mainGID;
+          inherit TZ;
         };
 
         volumes = ["${rwPath}/data:/config"];
@@ -29,7 +35,7 @@ in {
           LOG_LEVEL = "info";
           LOG_HTML = "false";
           CAPTCHA_SOLVER = "none";
-          TZ = "America/New_York";
+          inherit TZ;
 
           # https://github.com/FlareSolverr/FlareSolverr/pull/1300#issuecomment-2379596654
           DRIVER = "nodriver";

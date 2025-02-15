@@ -1,4 +1,4 @@
-rwDataDir: {
+{configPath, ...}: {
   config,
   lib,
   pkgs,
@@ -8,7 +8,7 @@ rwDataDir: {
 
   inherit (config.sops) secrets;
 
-  rwPath = rwDataDir + "/immich";
+  rwPath = configPath + "/immich";
 
   envFile = "${./env}";
   UPLOAD_LOCATION = "${rwPath}/data";

@@ -1,4 +1,4 @@
-rwDataDir: {
+{configPath, ...}: {
   config,
   pkgs,
   ...
@@ -6,7 +6,7 @@ rwDataDir: {
   inherit (config.sops) secrets;
 
   mainContainerName = "app-server";
-  rwPath = rwDataDir + "/nextcloud";
+  rwPath = configPath + "/nextcloud";
 in {
   virtualisation.docker.compose."nextcloud" = {
     networks.proxy_net = {external = true;};

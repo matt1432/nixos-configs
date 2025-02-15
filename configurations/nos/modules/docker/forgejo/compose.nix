@@ -1,11 +1,16 @@
-rwDataDir: {
+{
+  configPath,
+  mainUID,
+  mainGID,
+  ...
+}: {
   config,
   pkgs,
   ...
 }: let
   inherit (config.sops) secrets;
 
-  rwPath = rwDataDir + "/forgejo";
+  rwPath = configPath + "/forgejo";
 in {
   virtualisation.docker.compose."forgejo" = {
     networks.proxy_net = {external = true;};
@@ -29,9 +34,8 @@ in {
         environment = {
           APP_NAME = "Gitea";
 
-          # TODO: change ids
-          USER_UID = "1000";
-          USER_GID = "1000";
+          USER_UID = mainUID;
+          USER_GID = mainGID;
 
           ROOT_URL = "https://git.nelim.org";
           SSH_DOMAIN = "git.nelim.org";

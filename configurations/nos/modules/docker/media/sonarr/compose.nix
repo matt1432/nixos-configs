@@ -1,5 +1,11 @@
-rwDataDir: {pkgs, ...}: let
-  rwPath = rwDataDir + "/media/sonarr";
+{
+  configPath,
+  mainUID,
+  mainGID,
+  TZ,
+  ...
+}: {pkgs, ...}: let
+  rwPath = configPath + "/media/sonarr";
 in {
   virtualisation.docker.compose."sonarr" = {
     networks.proxy_net = {external = true;};
@@ -11,9 +17,9 @@ in {
       ports = ["8989:8989"];
 
       environment = {
-        PUID = "1000";
-        PGID = "1000";
-        TZ = "America/New_York";
+        PUID = mainUID;
+        PGID = mainGID;
+        inherit TZ;
       };
 
       volumes = [

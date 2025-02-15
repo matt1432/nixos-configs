@@ -1,11 +1,15 @@
-rwDataDir: {
+{
+  configPath,
+  TZ,
+  ...
+}: {
   config,
   pkgs,
   ...
 }: let
   inherit (config.sops) secrets;
 
-  rwPath = rwDataDir + "/jellystat";
+  rwPath = configPath + "/jellystat";
 in {
   virtualisation.docker.compose."jellystat" = {
     networks.proxy_net = {external = true;};
@@ -21,7 +25,7 @@ in {
 
           POSTGRES_IP = "jellystat-db";
           POSTGRES_PORT = 5432;
-          TZ = "America/New_York";
+          inherit TZ;
         };
 
         ports = ["3070:3000"];

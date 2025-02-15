@@ -1,5 +1,5 @@
-rwDataDir: {pkgs, ...}: let
-  rwPath = rwDataDir + "/media/joal";
+{configPath, ...}: {pkgs, ...}: let
+  rwPath = configPath + "/media/joal";
 in {
   virtualisation.docker.compose."joal" = {
     networks.proxy_net = {external = true;};

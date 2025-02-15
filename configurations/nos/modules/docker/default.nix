@@ -1,28 +1,33 @@
 {...}: let
-  configPath = "/var/lib/docker-data";
+  globalEnv = {
+    configPath = "/var/lib/docker-data";
+    mainUID = "1000";
+    mainGID = "1000";
+    TZ = "America/New_York";
+  };
 in {
   imports = [
-    (import ./forgejo/compose.nix configPath)
-    (import ./freshrss/compose.nix configPath)
-    (import ./gameyfin/compose.nix configPath)
-    (import ./hauk/compose.nix configPath)
-    (import ./immich/compose.nix configPath)
-    (import ./music/jbots/compose.nix configPath)
-    (import ./nextcloud/compose.nix configPath)
-    (import ./resume/compose.nix configPath)
-    (import ./vaultwarden/compose.nix configPath)
-    (import ./wg-easy/compose.nix configPath)
+    (import ./forgejo/compose.nix globalEnv)
+    (import ./freshrss/compose.nix globalEnv)
+    (import ./gameyfin/compose.nix globalEnv)
+    (import ./hauk/compose.nix globalEnv)
+    (import ./immich/compose.nix globalEnv)
+    (import ./music/jbots/compose.nix globalEnv)
+    (import ./nextcloud/compose.nix globalEnv)
+    (import ./resume/compose.nix globalEnv)
+    (import ./vaultwarden/compose.nix globalEnv)
+    (import ./wg-easy/compose.nix globalEnv)
 
-    (import ./media/bazarr/compose.nix configPath)
-    (import ./media/joal/compose.nix configPath)
-    (import ./media/jellystat/compose.nix configPath)
-    (import ./media/prowlarr/compose.nix configPath)
-    (import ./media/radarr/compose.nix configPath)
-    (import ./media/seerr/compose.nix configPath)
-    (import ./media/sonarr/compose.nix configPath)
+    (import ./media/bazarr/compose.nix globalEnv)
+    (import ./media/joal/compose.nix globalEnv)
+    (import ./media/jellystat/compose.nix globalEnv)
+    (import ./media/prowlarr/compose.nix globalEnv)
+    (import ./media/radarr/compose.nix globalEnv)
+    (import ./media/seerr/compose.nix globalEnv)
+    (import ./media/sonarr/compose.nix globalEnv)
   ];
 
   services.borgbackup.configs.docker = {
-    paths = [configPath];
+    paths = [globalEnv.configPath];
   };
 }

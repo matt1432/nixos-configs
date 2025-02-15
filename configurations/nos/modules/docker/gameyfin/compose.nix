@@ -1,4 +1,8 @@
-rwDataDir: {
+{
+  mainUID,
+  mainGID,
+  ...
+}: {
   config,
   pkgs,
   ...
@@ -11,7 +15,7 @@ in {
     services."gameyfin" = {
       image = pkgs.callPackage ./images/gameyfin.nix pkgs;
       restart = "always";
-      user = "1000:1000";
+      user = "${mainUID}:${mainGID}";
 
       env_file = [secrets.gameyfin.path];
       environment.GAMEYFIN_USER = "mathis";

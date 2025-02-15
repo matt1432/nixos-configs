@@ -1,5 +1,5 @@
-rwDataDir: {pkgs, ...}: let
-  rwPath = rwDataDir + "/vaultwarden";
+{configPath, ...}: {pkgs, ...}: let
+  rwPath = configPath + "/vaultwarden";
 in {
   virtualisation.docker.compose."vaultwarden" = {
     networks.proxy_net = {external = true;};

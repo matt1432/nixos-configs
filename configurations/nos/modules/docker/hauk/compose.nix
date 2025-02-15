@@ -1,4 +1,4 @@
-rwDataDir: {pkgs, ...}: {
+{...}: {pkgs, ...}: {
   virtualisation.docker.compose."hauk" = {
     networks.proxy_net = {external = true;};
 
