@@ -1,8 +1,10 @@
 {
   buildApp,
   callPackage,
+  curl,
   findutils,
   go,
+  jq,
   nix-update,
   nodejs_latest,
   prefetch-npm-deps,
@@ -13,8 +15,10 @@ buildApp {
   npmDepsHash = "sha256-2cWxVTCOEJOg2eBv+xX/mvr6MUX+UJQ8JlkoObD6+Uc=";
 
   runtimeInputs = [
+    curl
     findutils
     go
+    jq
     nix-update
     nodejs_latest
     prefetch-npm-deps

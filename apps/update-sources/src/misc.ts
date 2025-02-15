@@ -59,8 +59,9 @@ export const runNixUpdate = (
     const OLD_VERSION = getAttrVersion(attr);
 
     const execution = spawnSync(
-        `nix-update --flake ${attr} --write-commit-message >(head -n 1 -) > /dev/null`,
-        options,
+        `nix-update --flake ${attr} ${options
+            .join(' ')} --write-commit-message >(head -n 1 -) > /dev/null`,
+        [],
         { shell: true, cwd: FLAKE },
     );
 

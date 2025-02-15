@@ -67,10 +67,12 @@ const main = async() => {
         console.log(await updateNodeModules());
     }
 
-    // TODO: get latest tag instead of release
-    // if (args['p'] || args['pam-fprint-grosshack']) {
-    //     console.log(runNixUpdate('pam-fprint-grosshack'));
-    // }
+    if (args['p'] || args['pam-fprint-grosshack']) {
+        console.log(runNixUpdate(
+            'pam-fprint-grosshack',
+            ['--version="$(curl -s https://gitlab.com/api/v4/projects/mishakmak%2Fpam-fprint-grosshack/repository/tags | jq -r .[0].name)"'],
+        ));
+    }
 
     if (args['ph'] || args['protonhax']) {
         console.log(runNixUpdate('protonhax'));
@@ -129,8 +131,8 @@ const main = async() => {
         // nix-update executions
         let nixUpdateOutputs = '';
 
-        const updatePackage = (pkg: string): void => {
-            const execution = runNixUpdate(pkg);
+        const updatePackage = (pkg: string, opts: string[] = []): void => {
+            const execution = runNixUpdate(pkg, opts);
 
             nixUpdateOutputs += execution.stdout;
             console.log(execution.stderr);
@@ -139,7 +141,10 @@ const main = async() => {
 
         updatePackage('homepage');
         updatePackage('jmusicbot');
-        // updatePackage('pam-fprint-grosshack');
+        updatePackage(
+            'pam-fprint-grosshack',
+            ['--version="$(curl -s https://gitlab.com/api/v4/projects/mishakmak%2Fpam-fprint-grosshack/repository/tags | jq -r .[0].name)"'],
+        );
         updatePackage('protonhax');
         updatePackage('trash-d');
         updatePackage(
