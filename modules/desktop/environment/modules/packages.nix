@@ -166,7 +166,7 @@ in {
           (pkgs)
           xournalpp
           virt-manager
-          libreoffice-fresh # TODO: declarative conf?
+          libreoffice-fresh
           hunspell
           ;
 

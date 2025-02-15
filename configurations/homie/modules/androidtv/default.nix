@@ -73,10 +73,11 @@ in {
     }
   ];
 
-  # TODO: make the following declarative and also make the image declarative
-  # Add this to /var/lib/waydroid/waydroid.cfg for controller support
-  # persist.waydroid.udev = true
-  # persist.waydroid.uevent = true
+  # Stuff missing for complete declarative setup:
+  #   - make the following declarative and also make the image declarative
+  #   - Add this to /var/lib/waydroid/waydroid.cfg for controller support
+  #       persist.waydroid.udev = true
+  #       persist.waydroid.uevent = true
   virtualisation.waydroid.enable = true;
 
   users.users."greeter" = {

@@ -23,8 +23,7 @@ in {
 
       lfs.enable = true;
 
-      # TODO: check if this is right
-      signing.format = "openpgp";
+      signing.format = "ssh";
 
       includes = [
         {path = toString self.scopedPackages.${pkgs.system}.dracula.git;}
