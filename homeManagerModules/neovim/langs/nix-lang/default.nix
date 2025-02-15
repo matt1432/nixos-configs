@@ -13,6 +13,17 @@ self: {
   mainHmCfg = osConfig.home-manager.users.${cfg.user} or config;
 
   defaultFormatter = self.formatter.${pkgs.system};
+  formatCmd = pkgs.writeShellApplication {
+    name = "nix-fmt-cmd";
+    runtimeInputs = with pkgs; [jq];
+    text = ''
+      if info="$(nix flake show --json 2> /dev/null)" && [[ "$(jq -r .formatter <<< "$info")" != "null" ]]; then
+          exec nix fmt -- --
+      else
+          exec ${getExe defaultFormatter}
+      fi
+    '';
+  };
 
   nixdPkg = self.inputs.nixd.packages.${pkgs.system}.default;
 
@@ -70,8 +81,7 @@ in {
                 settings = {
                     nixd = {
                         formatting = {
-                            -- TODO: Try to find <flake>.formatter
-                            command = { '${getExe defaultFormatter}' },
+                            command = { '${getExe formatCmd}' },
                         },
                     },
                 },
