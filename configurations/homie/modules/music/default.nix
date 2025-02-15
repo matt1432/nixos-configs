@@ -24,12 +24,18 @@
   # Have pulseaudio and spotifyd start at boot but after bluetooth
   # so bluetooth accepts sound connections from the start.
   users.users.${mainUser}.linger = true;
+
   systemd.user.services = {
-    pulseaudio.after = ["bluetooth.service"];
-    spotifyd.after = ["pulseaudio.service"];
+    pulseaudio = {
+      after = ["bluetooth.service"];
+      wantedBy = ["default.target"];
+    };
+    spotifyd = {
+      after = ["pulseaudio.service"];
+      wantedBy = ["default.target"];
+    };
 
     ueboom = {
-      after = ["spotifyd.service"];
       path = builtins.attrValues {
         inherit (pkgs) bluez;
         inherit (config.services.pulseaudio) package;
@@ -46,11 +52,16 @@
       };
     };
   };
-  systemd.user.targets.default.wants = [
-    "pulseaudio.service"
-    "spotifyd.service"
-    "ueboom.service"
-  ];
+
+  systemd.user.timers.ueboom = {
+    after = ["spotifyd.service"];
+    timerConfig = {
+      Unit = "ueboom.service";
+      OnCalendar = "*-*-* *:0/10:50"; # Every 10 minutes
+      Persistent = true;
+    };
+    wantedBy = ["timers.target"];
+  };
 
   services = {
     # Allow pulseaudio to be managed by MPD
