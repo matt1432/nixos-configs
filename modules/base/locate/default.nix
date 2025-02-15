@@ -29,7 +29,6 @@ in {
       locateGroup
     ];
 
-    # TODO: add timer
     systemd.services.locate = {
       wantedBy = ["default.target"];
       serviceConfig = {
@@ -38,6 +37,14 @@ in {
         StateDirectory = "locate";
         StateDirectoryMode = "0770";
         ExecStart = updatedbBin;
+      };
+    };
+
+    systemd.timers.locate = {
+      wantedBy = ["timers.target"];
+      timerConfig = {
+        Unit = "locate.service";
+        OnCalendar = "*-*-* *:0/10:50"; # Every 10 minutes
       };
     };
 
