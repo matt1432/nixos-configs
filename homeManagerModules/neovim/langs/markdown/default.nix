@@ -90,8 +90,8 @@ in {
                     "--port=6565"
                     "--quiet"
                     "--no-browser"
-                    "--watch=%outputfile%"
-                    "--entry-file=%outputfile%"
+                    "--watch=/tmp/%outputfile%"
+                    "--entry-file=/tmp/%outputfile%"
                     "--wait=800"
                     "/tmp"
                   ]
@@ -103,7 +103,7 @@ in {
                     -- HTML
                     htmloutputext = 'html',
                     htmltohtml = 'none',
-                    htmltohtmlviewerlaunch = "",
+                    htmltohtmlviewerlaunch = 'true',
                     htmltohtmlviewerrefresh = 'none',
 
                     -- Markdown
@@ -127,7 +127,12 @@ in {
                     markdowntohtmlviewerrefresh = 'none',
 
                     -- LaTeX
-                    -- TODO: stop from polluting workspace
+                    texoutputext = 'pdf',
+                    textopdf = 'cp -rf %docroot% /tmp/%docroot%; pdflatex -interaction=batchmode -halt-on-error -synctex=1 /tmp/%docroot%',
+                    textopdfviewerlaunch = 'sioyek --inverse-search \'nvim --headless -es --cmd "lua require(\'"\'"\'knaphelper\'"\'"\').relayjump(\'"\'"\'%servername%\'"\'"\',\'"\'"\'%1\'"\'"\',%2,%3)"\' --new-window /tmp/%outputfile%',
+                    textopdfviewerrefresh = 'none',
+                    textopdfforwardjump = 'sioyek --inverse-search \'nvim --headless -es --cmd "lua require(\'"\'"\'knaphelper\'"\'"\').relayjump(\'"\'"\'%servername%\'"\'"\',\'"\'"\'%1\'"\'"\',%2,%3)"\' --reuse-window --forward-search-file %srcfile% --forward-search-line %line% /tmp/%docroot%/%outputfile%',
+                    textopdfshorterror = 'A=/tmp/%outputfile% ; LOGFILE="''${A%.pdf}.log" ; rubber-info "$LOGFILE" 2>&1 | head -n 1',
                 };
 
                 vim.api.nvim_create_autocmd('BufUnload', {
