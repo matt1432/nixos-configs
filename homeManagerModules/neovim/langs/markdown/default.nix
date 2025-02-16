@@ -14,6 +14,7 @@ self: {
   cfg = config.programs.neovim;
   flakeEnv = config.programs.bash.sessionVariables.FLAKE;
   isServer = osConfig.roles.server.sshd.enable or false;
+  isDesktop = osConfig.roles.desktop.enable or false;
 
   githubCSS = pkgs.fetchurl {
     url = "https://raw.githubusercontent.com/OzakIOne/markdown-github-dark/5bd0bcf3ad20cf9f58591f97a597fd68fc699f8e/style.css";
@@ -81,7 +82,7 @@ in {
 
               mdToHTML = "pandoc --standalone --embed-resource --highlight-style=breezedark --css ${githubCSS} %docroot% -o /tmp/%outputfile%";
               mdToHTMLViewer =
-                if isServer
+                if isServer && !isDesktop
                 then
                   concatStringsSep " " [
                     "${pkgs.nodePackages.live-server}/bin/live-server"
