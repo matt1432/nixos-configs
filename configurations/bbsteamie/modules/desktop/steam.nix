@@ -18,6 +18,11 @@ in {
       extraCompatPackages = [
         self.packages.${pkgs.system}.proton-ge-latest
       ];
+
+      # https://github.com/NixOS/nixpkgs/issues/25444#issuecomment-1977416787
+      extraPackages = with pkgs; [
+        kdePackages.breeze
+      ];
     };
 
     # Jovian Steam settings
