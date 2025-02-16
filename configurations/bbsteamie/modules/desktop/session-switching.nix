@@ -8,6 +8,12 @@ defaultSession: {
   config = let
     inherit (lib) findFirst getExe mkForce;
 
+    restartNetwork = getExe (pkgs.writeShellApplication {
+      name = "restart-network";
+      runtimeInputs = with pkgs; [systemd];
+      text = "systemctl restart NetworkManager";
+    });
+
     switch-session = pkgs.writeShellApplication {
       name = "switch-session";
 
@@ -63,14 +69,19 @@ defaultSession: {
       '';
     };
 
-    # Make it so we don't need root to switch to gaming mode
     security.sudo.extraRules = [
       {
         users = [mainUser];
         groups = [100];
         commands = [
+          # Make it so we don't need root to switch to gaming mode
           {
             command = "${pkgs.systemd}/bin/systemctl start to-gaming-mode.service";
+            options = ["SETENV" "NOPASSWD"];
+          }
+          # Make it so we don't need root to restart the network on launch
+          {
+            command = restartNetwork;
             options = ["SETENV" "NOPASSWD"];
           }
         ];
@@ -101,10 +112,11 @@ defaultSession: {
           "autostart/${name}.desktop".text = "[Desktop Entry]\nType=Application\nExec=${name} ${flags}";
         };
       in (
-        # Needs xdg-desktop-portal-kde patch provided by `self.overlays.xdg-desktop-portal-kde`
-        {"plasmaremotedesktoprc".text = "[Sharing]\nUnattended=true";}
-        // (mkAutostart "krfb" "--nodialog %c")
+        (mkAutostart "sudo" restartNetwork)
         // (mkAutostart "steam" "-silent %U")
+        # Needs xdg-desktop-portal-kde patch provided by `self.overlays.xdg-desktop-portal-kde`
+        // {"plasmaremotedesktoprc".text = "[Sharing]\nUnattended=true";}
+        // (mkAutostart "krfb" "--nodialog %c")
       );
     };
   };
