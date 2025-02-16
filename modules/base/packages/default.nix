@@ -15,10 +15,9 @@ in {
         "nixpkgs-wayland"
       ])
       ++ (attrValues {
-        inherit
-          (self.overlays)
-          xdg-desktop-portal-kde
-          ;
+        # inherit
+        #   (self.overlays)
+        #   ;
       });
 
     environment.systemPackages = remove null (attrValues {
