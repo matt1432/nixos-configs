@@ -108,15 +108,20 @@ defaultSession: {
 
       # Fix remote control prompt showing up everytime
       xdg.configFile = let
-        mkAutostart = name: flags: {
-          "autostart/${name}.desktop".text = "[Desktop Entry]\nType=Application\nExec=${name} ${flags}";
+        mkAutostart = name: exe: {
+          "autostart/${name}.desktop".text = "[Desktop Entry]\nType=Application\nExec=${exe}";
         };
       in (
-        (mkAutostart "sudo" restartNetwork)
-        // (mkAutostart "steam" "-silent %U")
-        # Needs xdg-desktop-portal-kde patch provided by `self.overlays.xdg-desktop-portal-kde`
-        // {"plasmaremotedesktoprc".text = "[Sharing]\nUnattended=true";}
-        // (mkAutostart "krfb" "--nodialog %c")
+        (mkAutostart "restart-network" "sudo ${restartNetwork}")
+        // (mkAutostart "steam" "steam -silent %U")
+        // (mkAutostart "krfb" "krfb --nodialog %c")
+        // (mkAutostart "kde-authorize-steam" (getExe (pkgs.writeShellApplication {
+          name = "kde-authorize-steam";
+          text = ''
+            flatpak permission-set kde-authorized remote-desktop org.kde.krdpserver yes
+            flatpak permission-set kde-authorized remote-desktop "" yes
+          '';
+        })))
       );
     };
   };
