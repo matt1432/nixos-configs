@@ -11,7 +11,6 @@ import updateNodeModules from './node-modules';
 import {
     runNixUpdate,
     updateCaddyPlugins,
-    updateCustomPackage,
     updateVuetorrent,
 } from './misc';
 
@@ -28,9 +27,7 @@ const args = parseArgs();
 
 const main = async() => {
     if (args['c'] || args['custom-sidebar']) {
-        console.log(updateCustomPackage(
-            'scopedPackages.x86_64-linux.lovelace-components.custom-sidebar',
-        ));
+        console.log(runNixUpdate('scopedPackages', 'lovelace-components', 'custom-sidebar'));
     }
 
     if (args['cp'] || args['caddy-plugins']) {
@@ -74,7 +71,7 @@ const main = async() => {
     }
 
     if (args['s'] || args['some-sass-language-server']) {
-        console.log(updateCustomPackage('some-sass-language-server'));
+        console.log(runNixUpdate('some-sass-language-server'));
     }
 
     if (args['t'] || args['trash-d']) {
@@ -117,12 +114,6 @@ const main = async() => {
         console.log(caddyPluginsOutput);
 
 
-        // These don't need to be added to commit message
-        console.log(updateCustomPackage(
-            'scopedPackages.x86_64-linux.lovelace-components.custom-sidebar',
-        ));
-        console.log(updateCustomPackage('some-sass-language-server'));
-
         // nix-update executions
         let nixUpdateOutputs = '';
 
@@ -142,7 +133,9 @@ const main = async() => {
         updatePackage('jmusicbot');
         updatePackage('pam-fprint-grosshack');
         updatePackage('protonhax');
+        updatePackage('some-sass-language-server');
         updatePackage('trash-d');
+        updatePackage('scopedPackages', 'lovelace-components', 'custom-sidebar');
         updatePackage('scopedPackages', 'lovelace-components', 'material-rounded-theme');
 
 

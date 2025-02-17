@@ -41,13 +41,6 @@ export const updateVuetorrent = () => {
 };
 
 
-export const updateCustomPackage = (pkg: string) => spawnSync(
-    `nix run ${FLAKE}#${pkg}.update`,
-    [],
-    { shell: true },
-).stderr.toString();
-
-
 const getAttrVersion = (attr: string): string => spawnSync('nix',
     ['eval', '--raw', `${FLAKE}#${attr}.version`],
     { shell: true }).stdout.toString();
