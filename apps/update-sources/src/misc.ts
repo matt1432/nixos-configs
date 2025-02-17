@@ -67,8 +67,6 @@ export const runNixUpdate = (
             '-u' :
         '';
 
-    console.log(`nix-update --flake ${realAttr} ${options} --write-commit-message >(head -n 1 -) > /dev/null`);
-
     const execution = spawnSync(
         `nix-update --flake ${realAttr} ${options} --write-commit-message >(head -n 1 -) > /dev/null`,
         [],

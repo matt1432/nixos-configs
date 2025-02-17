@@ -247,7 +247,7 @@ in {
           ];
         };
 
-        extensions = attrValues {
+        extensions.packages = attrValues {
           inherit
             (firefoxAddons)
             auto-refresh-page
