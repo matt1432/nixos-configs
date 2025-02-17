@@ -3,6 +3,7 @@
   lib,
   stdenv,
   fetchFromGitLab,
+  nix-update-script,
   # deps
   dbus,
   glib,
@@ -69,6 +70,12 @@ in
       "-Ddbus_service_dir=${placeholder "out"}/share/dbus-1/system-services"
       "-Dsystemd_system_unit_dir=${placeholder "out"}/lib/systemd/system"
     ];
+
+    passthru.updateScript = nix-update-script {
+      extraArgs = [
+        ''--version=$(curl -s https://gitlab.com/api/v4/projects/mishakmak%2Fpam-fprint-grosshack/repository/tags | jq -r .[0].name)''
+      ];
+    };
 
     meta = {
       license = with lib.licenses; [gpl2Plus];

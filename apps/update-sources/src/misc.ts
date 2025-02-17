@@ -54,21 +54,36 @@ const getAttrVersion = (attr: string): string => spawnSync('nix',
 
 export const runNixUpdate = (
     attr: string,
-    options: string[] = [],
+    scope?: string,
+    scopeAttr?: string,
 ): { stdout: string, stderr: string } => {
-    const OLD_VERSION = getAttrVersion(attr);
+    const realAttr = scope ? `${attr}.x86_64-linux.${scope}.${scopeAttr}` : attr;
+    const OLD_VERSION = getAttrVersion(realAttr);
 
-    const execution = spawnSync(
-        `nix-update --flake ${attr} ${options
-            .join(' ')} --write-commit-message >(head -n 1 -) > /dev/null`,
+    const execOptions = spawnSync(
+        `nix eval --json ${FLAKE}#${realAttr}.updateScript`,
         [],
         { shell: true, cwd: FLAKE },
     );
 
-    const NEW_VERSION = getAttrVersion(attr);
+    const options = execOptions.status === 0 ?
+        Array(JSON.parse(execOptions.stdout.toString()))[0].slice(1).join(' ') :
+        '';
+
+    const execution = spawnSync(
+        `nix-update --flake ${realAttr} ${options} --write-commit-message >(head -n 1 -) > /dev/null`,
+        [],
+        { shell: true, cwd: FLAKE },
+    );
+
+    const NEW_VERSION = getAttrVersion(realAttr);
 
     return {
-        stdout: OLD_VERSION !== NEW_VERSION ? execution.stdout.toString() : '',
+        stdout: OLD_VERSION !== NEW_VERSION ?
+            scope ?
+                execution.stdout.toString().replaceAll(`${attr}.x86_64-linux.${scope}.`, '') :
+                execution.stdout.toString() :
+            '',
         stderr: execution.stderr.toString(),
     };
 };

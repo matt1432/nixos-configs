@@ -58,9 +58,7 @@ const main = async() => {
     }
 
     if (args['m'] || args['material-rounded-theme']) {
-        console.log(runNixUpdate(
-            'scopedPackages.x86_64-linux.lovelace-components.material-rounded-theme',
-        ));
+        console.log(runNixUpdate('scopedPackages', 'lovelace-components', 'material-rounded-theme'));
     }
 
     if (args['n'] || args['node_modules']) {
@@ -68,10 +66,7 @@ const main = async() => {
     }
 
     if (args['p'] || args['pam-fprint-grosshack']) {
-        console.log(runNixUpdate(
-            'pam-fprint-grosshack',
-            ['--version="$(curl -s https://gitlab.com/api/v4/projects/mishakmak%2Fpam-fprint-grosshack/repository/tags | jq -r .[0].name)"'],
-        ));
+        console.log(runNixUpdate('pam-fprint-grosshack'));
     }
 
     if (args['ph'] || args['protonhax']) {
@@ -131,8 +126,12 @@ const main = async() => {
         // nix-update executions
         let nixUpdateOutputs = '';
 
-        const updatePackage = (pkg: string, opts: string[] = []): void => {
-            const execution = runNixUpdate(pkg, opts);
+        const updatePackage = (
+            attr: string,
+            scope?: string,
+            scopeAttr?: string,
+        ): void => {
+            const execution = runNixUpdate(attr, scope, scopeAttr);
 
             nixUpdateOutputs += execution.stdout;
             console.log(execution.stderr);
@@ -141,15 +140,10 @@ const main = async() => {
 
         updatePackage('homepage');
         updatePackage('jmusicbot');
-        updatePackage(
-            'pam-fprint-grosshack',
-            ['--version="$(curl -s https://gitlab.com/api/v4/projects/mishakmak%2Fpam-fprint-grosshack/repository/tags | jq -r .[0].name)"'],
-        );
+        updatePackage('pam-fprint-grosshack');
         updatePackage('protonhax');
         updatePackage('trash-d');
-        updatePackage(
-            'scopedPackages.x86_64-linux.lovelace-components.material-rounded-theme',
-        );
+        updatePackage('scopedPackages', 'lovelace-components', 'material-rounded-theme');
 
 
         spawnSync('nixFastBuild', [], {
