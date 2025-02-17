@@ -48,7 +48,7 @@ in {
         undollar
         ;
 
-      inherit (pkgs) alejandra;
+      inherit (pkgs) alejandra just;
 
       # Archiving
       inherit
