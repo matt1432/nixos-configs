@@ -50,6 +50,8 @@ export const runNixUpdate = (
     scope?: string,
     scopeAttr?: string,
 ): { stdout: string, stderr: string } => {
+    const getJsonArray = (jsonObj: string) => Array(JSON.parse(jsonObj))[0].slice(1).join(' ');
+
     const realAttr = scope ? `${attr}.x86_64-linux.${scope}.${scopeAttr}` : attr;
     const OLD_VERSION = getAttrVersion(realAttr);
 
@@ -60,8 +62,12 @@ export const runNixUpdate = (
     );
 
     const options = execOptions.status === 0 ?
-        Array(JSON.parse(execOptions.stdout.toString()))[0].slice(1).join(' ') :
+        execOptions.stdout.toString().startsWith('[') ?
+            getJsonArray(execOptions.stdout.toString()) :
+            '-u' :
         '';
+
+    console.log(`nix-update --flake ${realAttr} ${options} --write-commit-message >(head -n 1 -) > /dev/null`);
 
     const execution = spawnSync(
         `nix-update --flake ${realAttr} ${options} --write-commit-message >(head -n 1 -) > /dev/null`,

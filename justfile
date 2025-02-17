@@ -20,5 +20,5 @@ pin args:
   nix run "$FLAKE"#pin-inputs -- "$@"
 
 [positional-arguments]
-update args:
+up args:
   nix run "$FLAKE"#update-sources -- "$@"

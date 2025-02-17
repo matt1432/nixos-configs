@@ -3,7 +3,6 @@
   lib,
   buildNpmPackage,
   makeWrapper,
-  nix-update-script,
   writeShellApplication,
   # update script deps
   nodejs_latest,
@@ -33,23 +32,15 @@ in
 
     npmDepsHash = "sha256-BRo71A07BhrioiBFisCR01OrVFTIagVTIClZ2Tpjidk=";
 
-    passthru.updateScript = let
-      script = writeShellApplication {
-        name = "update";
-        runtimeInputs = [
-          nodejs_latest
-          prefetch-npm-deps
-          jq
-        ];
-        text = import ./update.nix;
-      };
-    in
-      nix-update-script {
-        extraArgs = [
-          "--version=skip"
-          "; ${script}"
-        ];
-      };
+    passthru.updateScript = writeShellApplication {
+      name = "update";
+      runtimeInputs = [
+        nodejs_latest
+        prefetch-npm-deps
+        jq
+      ];
+      text = import ./update.nix;
+    };
 
     meta = {
       mainProgram = pname;

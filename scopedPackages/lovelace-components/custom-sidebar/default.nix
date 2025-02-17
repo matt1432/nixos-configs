@@ -4,7 +4,6 @@
   nodejs,
   pnpm,
   stdenv,
-  nix-update-script,
   ...
 }: let
   inherit (builtins) fromJSON readFile;
@@ -36,18 +35,10 @@ in
       hash = "sha256-II8expO942jHylgbiePr5+V+t+UVh7fenffoyVFn/8k=";
     };
 
-    passthru.updateScript = let
-      script = "${concatTextFile {
-        name = "update";
-        files = [./update.sh];
-        executable = true;
-        destination = "/bin/update";
-      }}/bin/update";
-    in
-      nix-update-script {
-        extraArgs = [
-          "--version=skip"
-          "; ${script}"
-        ];
-      };
+    passthru.updateScript = concatTextFile {
+      name = "update";
+      files = [./update.sh];
+      executable = true;
+      destination = "/bin/update";
+    };
   })
