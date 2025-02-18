@@ -1,8 +1,9 @@
 {
   # params
   pname,
-  gpu-screen-recorder-src,
   isKmsServer ? false,
+  gpu-screen-recorder-src,
+  description,
   # nix build inputs
   lib,
   stdenv,
@@ -106,9 +107,6 @@ in
       license = lib.licenses.gpl3Only;
       platforms = ["x86_64-linux"];
       homepage = "https://git.dec05eba.com/gpu-screen-recorder/about";
-      description = ''
-        Screen recorder that has minimal impact on system performance by recording
-        a window using the GPU only.
-      '';
+      inherit description;
     };
   }

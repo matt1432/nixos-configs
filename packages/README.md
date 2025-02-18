@@ -6,8 +6,8 @@ This directory contains every derivations for packages exposed by this flake.
 
 | Name | Description | Homepage |
 | ---- | ----------- | -------- |
-| `gpu-screen-recorder` | Screen recorder that has minimal impact on system performance by recording a window using the GPU only | https://git.dec05eba.com/gpu-screen-recorder/about/ |
-| `gsr-kms-server` | Screen recorder that has minimal impact on system performance by recording a window using the GPU only | https://git.dec05eba.com/gpu-screen-recorder/about/ |
+| `gpu-screen-recorder` | Screen recorder that has minimal impact on system performance by recording a window using the GPU only. | https://git.dec05eba.com/gpu-screen-recorder/about |
+| `gsr-kms-server` | Small program giving safe KMS access to gpu-screen-recorder when recording a monitor. This is the only part of gpu-screen-recorder that could require root permissions. | https://git.dec05eba.com/gpu-screen-recorder/about |
 | `homepage` | Highly customisable dashboard with Docker and service API integrations. | https://gethomepage.dev |
 | `jmusicbot` | Discord music bot that's easy to set up and run yourself | https://github.com/jagrosh/MusicBot |
 | `libratbag` | Configuration library for gaming mice | https://github.com/libratbag/libratbag |
