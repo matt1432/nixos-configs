@@ -1,16 +1,5 @@
 # My NixOS configs
 
-TODO: add directory structure info and enforce it
-
-    - [x] every root folder in the repo represents a flake output except inputs
-    - [x] every root folder only has an optional `default.nix` and subfolders for each
-          of its attrs
-    - [x] if there is non nix code, it will be in a `config` folder
-    - [x] every module should not do anything if imported
-    - [x] all nix files that represent a module should be `default.nix` (a nix file
-         which is imported directly can be called anything alongside `default.nix`)
-    - [ ] redo docs
-
 ## AGS
 
 You might find it weird that most of my config is written in TypeScript.
@@ -27,9 +16,21 @@ in TypeScript because it's the scripting language I am most comfortable with.
 
 ### General
 
-This repo is the complete configuration of machines I own,
-running NixOS or Nix. Its structure is based on a flake's
+This repo is the complete configuration of machines I own running NixOS or Nix
+and any other related smaller projects exposed by a Nix Flake.
+
+Its main directory structure is based on a flake's
 [outputs](https://wiki.nixos.org/wiki/Flakes#Output_schema).
+
+I try to follow a few rules to better organise my Nix code:
+
+  - Every main subdirectory only has an optional `default.nix` and subfolders for each
+    of its attributes.
+  - Inside a subdirectory, if there is non nix code, it will be in a `config` folder.
+  - Every module should not do anything if imported. An enable option should be toggled
+    for it to have any effect.
+  - Any nix file that represents a module should be named `default.nix` (a nix file
+    which is imported directly can be called anything else alongside `default.nix`)
 
 ### Flake Location
 
@@ -47,43 +48,22 @@ echo "$FLAKE" # /home/matt/.nix
 sudo ln -sf /home/matt/.nix /etc/nixos
 ```
 
-### Flake Outputs
+### Subdirectories
 
-| Output                             | Description |
-| ---------------------------------- | ----------- |
-| `nixosConfigurations`              | [devices](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/devices)' + ISO's configurations |
-| `nixOnDroidConfigurations.default` | [Nix-On-Droid](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/devices/android)'s configuration |
-| `packages`                         | Some custom [packages](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/packages) not available in nixpkgs or modified from it |
-| `scopedPackages`                   | Some custom [package scopes](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/scopedPackages) not available in nixpkgs or modified from it |
-| `apps`                             | Scripts ran from the flake defined [here](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/apps) |
-| `homeManagerModules`               | [Modules](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/homeManagerModules) made for home-manager |
-| `homeManagerModules`               | [Modules](https://git.nelim.org/matt1432/nixos-configs/src/branch/master/modules) made for NixOS systems |
-| `formatter`                        | I format nix code with [alejandra](https://github.com/kamadorueda/alejandra) |
-| `devShells.default`                | A dev shell to build an ISO from the live-image nixosConfiguration |
-| `devShells.ags`                    | A dev shell to have a NodeJS env when I enter my AGS's config directory |
-
-### Flake Inputs
-
-To allow use of the full nix language for my inputs, I use [genflake](https://github.com/jorsn/flakegen).
-Therefore, the flake I edit is located at `./outputs.nix`.
-
-I also prefer using a more descriptive format for my inputs like so:
-
-```nix
-nixpkgs = {
-  type = "github";
-  owner = "NixOS";
-  repo = "nixpkgs";
-
-  # Branch name
-  ref = "nixos-unstable";
-
-  # Pin this input to a specific commit
-  rev = "842d9d80cfd4560648c785f8a4e6f3b096790e19";
-};
-```
-
-to make it more clear what is what in the flake URI
+| Output / Directory   | Description |
+| -------------------- | ----------- |
+| `apps`               | [Misc scripts ran from the flake](./apps)                                                   |
+| `configurations`     | [device, ISO and nix-on-droid configurations](./configurations)                             |
+| `devShells`          | [Development shells for a bunch of projects and languages](./devShells)                     |
+| `homeManagerModules` | [Modules made for home-manager](./homeManagerModules)                                       |
+| `inputs`             | [Pre-evaluated flake inputs](./inputs)                                                      |
+| `lib`                | [Custom Nix functions made easily available](./lib)                                         |
+| `modules`            | [Modules made for NixOS systems](./modules)                                                 |
+| `nixFastChecks`      | [Attribute set of derivations exposed by this flake](./nixFastChecks)                       |
+| `overlays`           | [Nixpkgs overlays](./overlays)                                                              |
+| `packages`           | [Some custom packages not available in nixpkgs or modified from it](./packages)             |
+| `results`            | Directory where I neatly keep my result symlinks from `nixFastChecks`                       |
+| `scopedPackages`     | [Some custom package scopes not available in nixpkgs or modified from it](./scopedPackages) |
 
 ### Secrets
 
@@ -117,6 +97,4 @@ and this shell command:
 nix eval --json --file ./.sops.nix | remarshal --if json --of yaml > .sops.yaml
 ```
 
-TLDR: I
-**[hate](https://ruudvanasseldonk.com/2023/01/11/the-yaml-document-from-hell)**
-YAML
+TLDR: I **[hate](https://ruudvanasseldonk.com/2023/01/11/the-yaml-document-from-hell)** YAML

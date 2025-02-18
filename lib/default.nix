@@ -1,4 +1,3 @@
-# TODO: add README and document functions
 {
   perSystem,
   inputs,

@@ -1,7 +1,7 @@
 default:
   @just --list
 
-docs args:
+docs:
   nix run "$FLAKE"#gen-docs
 
 genflake:
