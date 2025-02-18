@@ -90,8 +90,8 @@ in {
                     "--port=6565"
                     "--quiet"
                     "--no-browser"
-                    "--watch=/tmp/%outputfile%"
-                    "--entry-file=/tmp/%outputfile%"
+                    "--watch=%outputfile%"
+                    "--entry-file=%outputfile%"
                     "--wait=800"
                     "/tmp"
                   ]
