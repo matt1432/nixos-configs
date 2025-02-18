@@ -1,6 +1,8 @@
 {
-  yamaha-soundbar-src,
+  # nix build inputs
   buildHomeAssistantComponent,
+  yamaha-soundbar-src,
+  # deps
   python3Packages,
   ...
 }: let
@@ -19,4 +21,11 @@ in
       chardet
       validators
     ];
+
+    meta = {
+      homepage = "https://github.com/osk2/yamaha-soundbar";
+      description = ''
+        Yamaha soundbar integration for Home Assistant.
+      '';
+    };
   }

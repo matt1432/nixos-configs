@@ -1,7 +1,9 @@
 {
-  bat-theme-src,
-  mkVersion,
+  # nix build inputs
+  lib,
   stdenv,
+  mkVersion,
+  bat-theme-src,
   ...
 }:
 stdenv.mkDerivation {
@@ -13,4 +15,12 @@ stdenv.mkDerivation {
   installPhase = ''
     cat ./Dracula.tmTheme > $out
   '';
+
+  meta = {
+    license = lib.licenses.mit;
+    homepage = "https://github.com/matt1432/bat";
+    description = ''
+      Dark theme for bat based on the Dracula Sublime theme.
+    '';
+  };
 }

@@ -1,6 +1,9 @@
 {
-  spotifyplus-src,
+  # nix build inputs
+  lib,
   buildHomeAssistantComponent,
+  spotifyplus-src,
+  # deps
   python3Packages,
   ...
 }: let
@@ -26,4 +29,13 @@ in
       smartinspect # overridden in python3Packages
       spotifywebapi # overridden in python3Packages
     ];
+
+    meta = {
+      license = lib.licenses.mit;
+      homepage = "https://github.com/thlucas1/homeassistantcomponent_spotifyplus";
+      description = ''
+        Home Assistant integration for Spotify Player control, services,
+        and soundtouchplus integration support.
+      '';
+    };
   }

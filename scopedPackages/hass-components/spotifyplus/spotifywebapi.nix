@@ -1,5 +1,8 @@
 {
+  # nix build inputs
+  lib,
   spotifywebapi-src,
+  # deps
   python3Packages,
   ...
 }: let
@@ -30,4 +33,12 @@ in
     pythonImportsCheck = [
       "spotifywebapipython"
     ];
+
+    meta = {
+      license = lib.licenses.mit;
+      homepage = "https://github.com/thlucas1/SpotifyWebApiPython";
+      description = ''
+        A Spotify Web Api Client for Python.
+      '';
+    };
   }

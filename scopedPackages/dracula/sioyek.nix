@@ -1,7 +1,9 @@
 {
+  # nix build inputs
+  lib,
+  stdenv,
   mkVersion,
   sioyek-theme-src,
-  stdenv,
   ...
 }:
 stdenv.mkDerivation {
@@ -13,4 +15,12 @@ stdenv.mkDerivation {
   installPhase = ''
     cat ./dracula.config > $out
   '';
+
+  meta = {
+    license = lib.licenses.mit;
+    homepage = "https://github.com/dracula/sioyek";
+    description = ''
+      Dark theme for Sioyek.
+    '';
+  };
 }

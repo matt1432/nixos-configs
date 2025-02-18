@@ -1,6 +1,9 @@
 {
-  tuya-local-src,
+  # nix build inputs
+  lib,
   buildHomeAssistantComponent,
+  tuya-local-src,
+  # deps
   python3Packages,
   ...
 }: let
@@ -19,4 +22,12 @@ in
       tinytuya
       tuya-device-sharing-sdk
     ];
+
+    meta = {
+      license = lib.licenses.mit;
+      homepage = "https://github.com/make-all/tuya-local";
+      description = ''
+        Local support for Tuya devices in Home Assistant.
+      '';
+    };
   }

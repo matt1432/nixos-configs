@@ -1,6 +1,6 @@
 {
-  gtk-theme-src,
   pkgs,
+  gtk-theme-src,
   ...
 }:
 pkgs.dracula-theme.overrideAttrs (o: {

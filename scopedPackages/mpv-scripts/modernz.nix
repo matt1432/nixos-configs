@@ -1,7 +1,9 @@
 {
+  # nix build inputs
+  lib,
   buildLua,
-  makeFontsConf,
   mkVersion,
+  makeFontsConf,
   modernz-src,
   ...
 }:
@@ -24,4 +26,14 @@ buildLua (finalAttrs: {
       fontDirectories = ["${finalAttrs.finalPackage}/share/fonts"];
     }))
   ];
+
+  meta = {
+    license = lib.licenses.lgpl21;
+    homepage = "https://github.com/Samillion/ModernZ";
+    description = ''
+      A sleek and modern OSC for mpv designed to enhance functionality
+      by adding more features, all while preserving the core standards
+      of mpv's OSC.
+    '';
+  };
 })

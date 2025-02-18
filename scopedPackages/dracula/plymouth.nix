@@ -1,7 +1,9 @@
 {
+  # nix build inputs
+  lib,
   stdenv,
-  dracula-plymouth-src,
   mkVersion,
+  dracula-plymouth-src,
   ...
 }:
 stdenv.mkDerivation {
@@ -18,4 +20,13 @@ stdenv.mkDerivation {
     mkdir -p $out/share/plymouth/themes
     cp -a ./dracula $out/share/plymouth/themes/
   '';
+
+  meta = {
+    license = lib.licenses.mit;
+    homepage = "https://github.com/matt1432/dracula-plymouth";
+    description = ''
+      Dark theme for Plymouth. Forked by me to add a password prompt and
+      black background for more seemless boot sequence.
+    '';
+  };
 }

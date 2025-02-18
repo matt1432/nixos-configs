@@ -1,6 +1,8 @@
 {
-  fetchurl,
+  # nix build inputs
+  lib,
   stdenv,
+  fetchurl,
   ...
 }:
 stdenv.mkDerivation {
@@ -16,4 +18,12 @@ stdenv.mkDerivation {
   installPhase = ''
     cp -a $src $out
   '';
+
+  meta = {
+    license = lib.licenses.cc-by-sa-40;
+    homepage = "https://github.com/aynp/dracula-wallpapers";
+    description = ''
+      Wallpaper based on the Dracula Theme.
+    '';
+  };
 }

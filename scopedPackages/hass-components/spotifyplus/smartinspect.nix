@@ -1,5 +1,8 @@
 {
+  # nix build inputs
+  lib,
   smartinspect-src,
+  # deps
   python3Packages,
   ...
 }: let
@@ -20,4 +23,13 @@ in
     pythonImportsCheck = [
       "smartinspectpython"
     ];
+
+    meta = {
+      license = lib.licenses.bsd2;
+      homepage = "https://github.com/thlucas1/SmartInspectPython";
+      description = ''
+        Provides Python code execution tracing and diagnostics support via the
+        SmartInspect Console Viewer.
+      '';
+    };
   }

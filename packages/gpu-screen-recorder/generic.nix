@@ -105,10 +105,10 @@ in
       mainProgram = pname;
       license = lib.licenses.gpl3Only;
       platforms = ["x86_64-linux"];
-      homepage = "https://git.dec05eba.com/gpu-screen-recorder/about/";
+      homepage = "https://git.dec05eba.com/gpu-screen-recorder/about";
       description = ''
         Screen recorder that has minimal impact on system performance by recording
-        a window using the GPU only
+        a window using the GPU only.
       '';
     };
   }

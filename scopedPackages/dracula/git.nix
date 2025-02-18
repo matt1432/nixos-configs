@@ -1,7 +1,9 @@
 {
+  # nix build inputs
+  lib,
   stdenv,
-  git-theme-src,
   mkVersion,
+  git-theme-src,
   ...
 }:
 stdenv.mkDerivation {
@@ -19,4 +21,12 @@ stdenv.mkDerivation {
 
     cat ./config/gitconfig > $out
   '';
+
+  meta = {
+    license = lib.licenses.mit;
+    homepage = "https://github.com/dracula/git";
+    description = ''
+      Dark theme for Git.
+    '';
+  };
 }

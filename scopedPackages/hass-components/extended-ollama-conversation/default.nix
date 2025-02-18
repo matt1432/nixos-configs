@@ -1,6 +1,8 @@
 {
-  extended-ollama-conversation-src,
+  # nix build inputs
   buildHomeAssistantComponent,
+  extended-ollama-conversation-src,
+  # deps
   python3Packages,
   ...
 }: let
@@ -24,4 +26,11 @@ in
       ollama
       openai
     ];
+
+    meta = {
+      homepage = "https://github.com/TheNimaj/extended_ollama_conversation";
+      description = ''
+        Home Assistant custom component of conversation agent. It uses Ollama to control your devices.
+      '';
+    };
   }

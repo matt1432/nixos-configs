@@ -1,4 +1,6 @@
 {
+  # nix build inputs
+  lib,
   buildNpmPackage,
   fetchFromGitHub,
   ...
@@ -27,4 +29,12 @@ in
       mkdir $out
       cp ./dist/* $out
     '';
+
+    meta = {
+      license = lib.licenses.asl20;
+      homepage = "https://github.com/Nerwyn/material-rounded-theme";
+      description = ''
+        Material Design 3 Colors and Components in Home Assistant.
+      '';
+    };
   }

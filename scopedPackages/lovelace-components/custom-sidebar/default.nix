@@ -1,9 +1,12 @@
 {
+  # nix build inputs
+  lib,
+  stdenv,
   concatTextFile,
   custom-sidebar-src,
+  # deps
   nodejs,
   pnpm,
-  stdenv,
   ...
 }: let
   inherit (builtins) fromJSON readFile;
@@ -40,5 +43,14 @@ in
       files = [./update.sh];
       executable = true;
       destination = "/bin/update";
+    };
+
+    meta = {
+      license = lib.licenses.asl20;
+      homepage = "https://github.com/elchininet/custom-sidebar";
+      description = ''
+        Custom HACS plugin that allows you to personalise the
+        Home Assistant's sidebar per user or device basis.
+      '';
     };
   })

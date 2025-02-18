@@ -1,6 +1,9 @@
 {
-  netdaemon-src,
+  # nix build inputs
+  lib,
   buildHomeAssistantComponent,
+  netdaemon-src,
+  # deps
   python3Packages,
   ...
 }: let
@@ -18,4 +21,12 @@ in
     propagatedBuildInputs = with python3Packages; [
       awesomeversion
     ];
+
+    meta = {
+      license = lib.licenses.mit;
+      homepage = "https://github.com/net-daemon/netdaemon";
+      description = ''
+        An application daemon for Home Assistant written in .NET.
+      '';
+    };
   }
