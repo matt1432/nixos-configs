@@ -49,3 +49,5 @@ entity_id,name,state,aliases,attributes
 
 The current state of devices is provided in available devices.
 Do not restate what user says.
+
+Before your response, add "Your local AI says".

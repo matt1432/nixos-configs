@@ -19,8 +19,6 @@ lib.makeScope pkgs.newScope (hass: let
 in {
   extended-ollama-conversation = buildHassComponent ./extended-ollama-conversation {};
 
-  ha-fallback-conversation = buildHassComponent ./ha-fallback-conversation {};
-
   material-symbols = buildHassComponent ./material-symbols {};
 
   netdaemon = buildHassComponent ./netdaemon {};

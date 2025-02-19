@@ -49,7 +49,6 @@ Components I use for Home-Assistant that aren't in nixpkgs.
 | Name | Description | Homepage |
 | ---- | ----------- | -------- |
 | `extended-ollama-conversation` | Home Assistant custom component of conversation agent. It uses Ollama to control your devices. | https://github.com/TheNimaj/extended_ollama_conversation |
-| `ha-fallback-conversation` | HomeAssistant Assist Fallback Conversation Agent. | https://github.com/m50/ha-fallback-conversation |
 | `material-symbols` | Material Symbols for Home Assistant is a collection of 13,803 Google Material Symbols for use within Home Assistant. It uses the icon-set produced and maintained by iconify. | https://github.com/beecho01/material-symbols |
 | `netdaemon` | An application daemon for Home Assistant written in .NET. | https://github.com/net-daemon/netdaemon |
 | `spotifyplus` | Home Assistant integration for Spotify Player control, services, and soundtouchplus integration support. | https://github.com/thlucas1/homeassistantcomponent_spotifyplus |

@@ -466,22 +466,6 @@
         "type": "github"
       }
     },
-    "ha-fallback-conversation-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1733355294,
-        "narHash": "sha256-zg+wvMYkR65wiL3qT4SB5TkwkWxaQ9HZQS/IUYqGJvk=",
-        "owner": "m50",
-        "repo": "ha-fallback-conversation",
-        "rev": "1e8e616916d5e19f315554c843036948b686c2ac",
-        "type": "github"
-      },
-      "original": {
-        "owner": "m50",
-        "repo": "ha-fallback-conversation",
-        "type": "github"
-      }
-    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -1656,7 +1640,6 @@
         "grim-hyprland": "grim-hyprland",
         "gtk-session-lock": "gtk-session-lock",
         "gtk-theme-src": "gtk-theme-src",
-        "ha-fallback-conversation-src": "ha-fallback-conversation-src",
         "home-manager": "home-manager",
         "hyprgrass": "hyprgrass",
         "hyprland": "hyprland",

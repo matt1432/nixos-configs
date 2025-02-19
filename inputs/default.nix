@@ -241,10 +241,6 @@ let
       repo = "extended_ollama_conversation";
     }
     {
-      owner = "m50";
-      repo = "ha-fallback-conversation";
-    }
-    {
       owner = "make-all";
       repo = "tuya-local";
     }

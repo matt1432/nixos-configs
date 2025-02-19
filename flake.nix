@@ -133,12 +133,6 @@
       repo = "gtk";
       type = "github";
     };
-    ha-fallback-conversation-src = {
-      flake = false;
-      owner = "m50";
-      repo = "ha-fallback-conversation";
-      type = "github";
-    };
     home-manager = {
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "nix-community";
