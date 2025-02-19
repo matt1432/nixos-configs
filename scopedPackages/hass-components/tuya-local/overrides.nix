@@ -1,5 +1,6 @@
 {...}: python3Packages: final: prev: {
-  /* Keep this here to make it easier to always have the right version
+  /*
+     Keep this here to make it easier to always have the right version
   tinytuya = prev.tinytuya.overridePythonAttrs (o: rec {
     version = "1.16.1";
     src = pkgs.fetchFromGitHub {

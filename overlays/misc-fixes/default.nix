@@ -10,7 +10,9 @@ final: prev: {
   });
 
   # FIXME: https://pr-tracker.nelim.org/?pr=382559
-  obs-studio-plugins =
+  obs-studio-plugins = let
+    inherit (prev) lib libjpeg libimobiledevice obs-studio ffmpeg pkg-config;
+  in
     prev.obs-studio-plugins
     // {
       droidcam-obs = prev.obs-studio-plugins.droidcam-obs.overrideAttrs (o: rec {
@@ -22,12 +24,23 @@ final: prev: {
           sha256 = "sha256-KWMLhddK561xA+EjvoG4tXRW4xoLil31JcTTfppblmA=";
         };
         postPatch = "";
-        makeFlags =
-          o.makeFlags
-          ++ [
-            "LIBOBS_INCLUDES=${prev.obs-studio}/include/obs"
-            "FFMPEG_INCLUDES=${prev.lib.getLib prev.ffmpeg}"
-          ];
+
+        nativeBuildInputs = [
+          pkg-config
+        ];
+
+        # Flag reference in regard to:
+        # https://github.com/dev47apps/droidcam-obs-plugin/blob/master/linux/linux.mk
+        makeFlags = [
+          "ALLOW_STATIC=no"
+          "JPEG_DIR=${lib.getDev libjpeg}"
+          "JPEG_LIB=${lib.getLib libjpeg}/lib"
+          "IMOBILEDEV_DIR=${lib.getLib libimobiledevice}"
+          "LIBOBS_INCLUDES=${obs-studio}/include/obs"
+          "FFMPEG_INCLUDES=${lib.getLib ffmpeg}"
+          "LIBUSBMUXD=libusbmuxd-2.0"
+          "LIBIMOBILEDEV=libimobiledevice-1.0"
+        ];
       });
     };
 }
