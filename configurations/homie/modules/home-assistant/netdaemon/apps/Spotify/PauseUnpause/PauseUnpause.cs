@@ -1,5 +1,3 @@
-using System;
-
 using HomeAssistantGenerated;
 
 using NetDaemon.AppModel;
@@ -16,34 +14,27 @@ namespace NetDaemonConfig.Apps.Spotify.PauseUnpause
     [NetDaemonApp]
     public class PauseUnpause
     {
+        private static void CallBack(PauseUnpauseData e, Services services)
+        {
+            if (e.pause)
+            {
+                services.Spotifyplus.PlayerMediaPause(
+                    entityId: Globals.DefaultEntityId,
+                    deviceId: Globals.DefaultDevId);
+            }
+            else
+            {
+                services.Spotifyplus.PlayerMediaResume(
+                    entityId: Globals.DefaultEntityId,
+                    deviceId: Globals.DefaultDevId);
+            }
+        }
+
         public PauseUnpause(IHaContext ha, Services services)
         {
             ha.RegisterServiceCallBack<PauseUnpauseData>(
                 "spotify_pause_unpause",
-                (e) =>
-                {
-                    try
-                    {
-                        if (e.pause)
-                        {
-                            services.Spotifyplus.PlayerMediaPause(
-                                entityId: Globals.DefaultEntityId,
-                                deviceId: Globals.DefaultDevId);
-                        }
-                        else
-                        {
-                            services.Spotifyplus.PlayerMediaResume(
-                                entityId: Globals.DefaultEntityId,
-                                deviceId: Globals.DefaultDevId);
-                        }
-                    }
-                    catch (Exception error)
-                    {
-                        services.Notify.PersistentNotification(
-                            message: error.Message + "\n" + e.ToString(),
-                            title: "Erreur Spotify");
-                    }
-                }
+                (e) => Globals.RunSpotifyCallback(services, e, CallBack)
             );
         }
     }

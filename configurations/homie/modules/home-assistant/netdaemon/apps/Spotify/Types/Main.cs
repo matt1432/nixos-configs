@@ -1,4 +1,8 @@
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+
+using HomeAssistantGenerated;
 
 namespace NetDaemonConfig.Apps.Spotify.Types
 {
@@ -6,6 +10,60 @@ namespace NetDaemonConfig.Apps.Spotify.Types
     {
         public const string DefaultDevId = "homie";
         public const string DefaultEntityId = "media_player.spotifyplus";
+
+        public static void LogExceptions(Services services, Action callback, string extraInfo)
+        {
+            try
+            {
+                callback();
+            }
+            catch (Exception error)
+            {
+                services.Notify.PersistentNotification(
+                    message: error.Message + "\n" + extraInfo,
+                    title: "Erreur Spotify");
+            }
+        }
+
+        public static void RunSpotifyCallback<Params>(Services services, Params e, Action<Params, Services> callback)
+        {
+            void Callable() { callback(e, services); }
+
+            // I do this because SpotifyPlus sometimes takes a failed call to successfully reach the speaker
+            try { Callable(); }
+            catch (Exception error)
+            {
+                Console.WriteLine(error.ToString());
+                LogExceptions(services, Callable, e?.ToString() ?? "");
+            }
+        }
+
+        public static async void LogAsyncExceptions(Services services, Func<Task> callback, string extraInfo)
+        {
+            try
+            {
+                await callback();
+            }
+            catch (Exception error)
+            {
+                services.Notify.PersistentNotification(
+                    message: error.Message + "\n" + extraInfo,
+                    title: "Erreur Spotify");
+            }
+        }
+
+        public static async void RunAsyncSpotifyCallback<Params>(Services services, Params e, Func<Params, Services, Task> callback)
+        {
+            async Task Callable() { await callback(e, services); }
+
+            // I do this because SpotifyPlus sometimes takes a failed call to successfully reach the speaker
+            try { await Callable(); }
+            catch (Exception error)
+            {
+                Console.WriteLine(error.ToString());
+                LogAsyncExceptions(services, Callable, e?.ToString() ?? "");
+            }
+        }
     }
 
     // https://jsonformatter.org/yaml-to-json

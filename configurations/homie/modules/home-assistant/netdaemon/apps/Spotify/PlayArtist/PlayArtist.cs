@@ -1,6 +1,6 @@
-using System;
 using System.Reflection;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 using HomeAssistantGenerated;
 
@@ -24,44 +24,37 @@ namespace NetDaemonConfig.Apps.Spotify.PlayArtist
             PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
         };
 
+        private async Task CallBack(PlayArtistData e, Services services)
+        {
+            SpotifyplusSearchArtistsResponse? result = (
+                await services.Spotifyplus.SearchArtistsAsync(
+                    criteria: e?.artist ?? throw new TargetException($"The artist {e?.artist} could not be found."),
+                    limitTotal: 1,
+                    entityId: Globals.DefaultEntityId,
+                    // My Defaults
+                    market: "CA",
+                    includeExternal: "audio"
+                )
+            ).Value.Deserialize<SpotifyplusSearchArtistsResponse>(_jsonOptions);
+
+            string uri = result?.Result?.Items?[0]?.Uri ??
+                throw new TargetException($"The artist {e?.artist} could not be found.");
+
+            services.Spotifyplus.PlayerMediaPlayContext(
+                contextUri: uri,
+                entityId: Globals.DefaultEntityId,
+                deviceId: Globals.DefaultDevId,
+                // My Defaults
+                positionMs: 0,
+                delay: 0.50
+            );
+        }
+
         public PlayArtist(IHaContext ha, Services services)
         {
             ha.RegisterServiceCallBack<PlayArtistData>(
                 "spotify_play_artist",
-                async (e) =>
-                {
-                    try
-                    {
-                        SpotifyplusSearchArtistsResponse? result = (
-                            await services.Spotifyplus.SearchArtistsAsync(
-                                criteria: e?.artist ?? throw new TargetException($"The artist {e?.artist} could not be found."),
-                                limitTotal: 1,
-                                entityId: Globals.DefaultEntityId,
-                                // My Defaults
-                                market: "CA",
-                                includeExternal: "audio"
-                            )
-                        ).Value.Deserialize<SpotifyplusSearchArtistsResponse>(_jsonOptions);
-
-                        string uri = result?.Result?.Items?[0]?.Uri ??
-                            throw new TargetException($"The artist {e?.artist} could not be found.");
-
-                        services.Spotifyplus.PlayerMediaPlayContext(
-                            contextUri: uri,
-                            entityId: Globals.DefaultEntityId,
-                            deviceId: Globals.DefaultDevId,
-                            // My Defaults
-                            positionMs: 0,
-                            delay: 0.50
-                        );
-                    }
-                    catch (Exception error)
-                    {
-                        services.Notify.PersistentNotification(
-                            message: error.Message + "\n" + e.ToString(),
-                            title: "Erreur Spotify");
-                    }
-                }
+                (e) => Globals.RunAsyncSpotifyCallback(services, e, CallBack)
             );
         }
     }
