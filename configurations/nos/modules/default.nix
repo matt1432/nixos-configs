@@ -5,7 +5,7 @@
     ./jellyfin
     ./llm
     ./mergerfs
-    ./obsidian-livesync
+    # ./obsidian-livesync
     ./qbittorrent
     ./snapraid
     ./subtitles

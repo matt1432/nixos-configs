@@ -29,7 +29,7 @@ in {
         "/data:/data"
       ];
 
-      cpus = 2;
+      cpus = 0.5;
       networks = ["proxy_net"];
     };
   };

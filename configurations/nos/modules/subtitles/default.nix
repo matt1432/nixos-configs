@@ -41,8 +41,8 @@ in {
         find /data/{anime,history,movies,tv} -name '*.srt' | subscleaner
 
         # Bulk sync everything
-        bb movies sync
-        bb tv-shows sync
+        # bb movies sync
+        # bb tv-shows sync
       '';
     };
 
