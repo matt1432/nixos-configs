@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage rec {
-  imageName = "21hsmw/flaresolverr";
-  imageDigest = "sha256:3d99be35f845750adba3b9aa23844b7f585eeac6b1b45157bf14aaa8f7d16e20";
-  hash = "sha256-ggQ9Z01xBegTwnr/8fp9mN140ds5ZO5Lk1yWhCbJ1TQ=";
+  imageName = "alexfozor/flaresolverr";
+  imageDigest = "sha256:3e5e1335c31365b5b0d9a737097c6a719de0ba49fed7db65cd828d75ae1bbecb";
+  hash = "sha256-8FuBXLmqM/B/uuH/PJuKQIWhHnozSJ2RR0VI7m+rVDw=";
   finalImageName = imageName;
-  finalImageTag = "nodriver";
+  finalImageTag = "pr-1300-experimental";
 }
