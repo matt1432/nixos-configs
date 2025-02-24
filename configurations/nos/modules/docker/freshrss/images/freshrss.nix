@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage rec {
   imageName = "freshrss/freshrss";
-  imageDigest = "sha256:e7897e90c1e0ab4a68cb643ff509dec4e3b85bbe42e2688ed9f95eb190bcb2b1";
-  hash = "sha256-ohNo0vkAle9RWU2XnK/Ye4co7+k11SYjzuw0FthNrzM=";
+  imageDigest = "sha256:d18055cc1c2fa807f118accb4ba74f435d381daf96130f87b17d9d9d1d169341";
+  hash = "sha256-cYea9mHZhUFyEUNUBnvWnl265thohzlsAiz9aaXeMno=";
   finalImageName = imageName;
   finalImageTag = "latest";
 }
