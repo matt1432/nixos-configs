@@ -35,29 +35,84 @@ interface ModVersion {
     dependencies: Dependency[]
 }
 
-const loader = 'fabric';
-const game_version = '1.21.4';
+const LOADER = 'fabric';
+
+const game_version = process.argv[2] ?? '';
+const action = process.argv[3] ?? 'check';
 
 const getVersions = async(slug: string): Promise<ModVersion[]> => {
     const res = await fetch(`https://api.modrinth.com/v2/project/${slug}/version`);
 
-    if (res.ok) {
-        return await res.json() as ModVersion[];
-    }
-
-    return [];
+    return res.ok ?
+        await res.json() as ModVersion[] :
+        [];
 };
 
-// TODO: prefer version_type 'release'
-// TODO: only get latest version based on date_published
-const checkModCompat = async(slug: string) => {
+const checkModCompat = async(slug: string): Promise<ModVersion | null> => {
     const versions = await getVersions(slug);
 
     const matching = versions.filter((ver) =>
         ver.game_versions.includes(game_version) &&
-        ver.loaders.includes(loader));
+        ver.loaders.includes(LOADER));
 
-    console.log(matching);
+    if (matching.length === 0) {
+        return null;
+    }
+
+    const timeSorted = matching.sort((a, b) => {
+        const dateA = new Date(a.date_published);
+        const dateB = new Date(b.date_published);
+
+        return dateB.getTime() - dateA.getTime();
+    });
+
+    return timeSorted.some((v) => v.version_type === 'release') ?
+        timeSorted.filter((v) => v.version_type === 'release')[0] :
+        timeSorted[0];
 };
 
-checkModCompat('lithium');
+const getDownloadUrls = (version: ModVersion): string[] => version.files.map((file) => file.url);
+
+const showModDownloadUrls = async(modName: string): Promise<boolean> => {
+    const ver = await checkModCompat(modName);
+
+    if (ver) {
+        const urls = getDownloadUrls(ver);
+
+        console.log(`\n${modName}:`, urls);
+
+        return true;
+    }
+    else {
+        return false;
+    }
+};
+
+const main = () => {
+    const mods = [
+        'badpackets',
+        'c2me-fabric',
+        'cloth-config',
+        'clumps',
+        'fabric-api',
+        'ferrite-core',
+        'leaves-be-gone',
+        'lithium',
+        'modernfix',
+        'no-chat-reports',
+        'noisium',
+        'vmp-fabric',
+        'wthit',
+    ];
+
+    if (action === 'check') {
+        mods.forEach(async(modName) => {
+            if (!(await showModDownloadUrls(modName))) {
+                console.error(`No matching releases of ${modName} were found for ${game_version}`);
+            }
+        });
+    }
+    // TODO: add download action
+};
+
+main();
