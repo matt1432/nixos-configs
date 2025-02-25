@@ -16,6 +16,10 @@ genflake:
   alejandra -q "$FLAKE"/flake.nix
 
 [positional-arguments]
+mc-mods version action='check':
+  nix run "$FLAKE"#mc-mods -- "$@"
+
+[positional-arguments]
 pin args:
   nix run "$FLAKE"#pin-inputs -- "$@"
 
