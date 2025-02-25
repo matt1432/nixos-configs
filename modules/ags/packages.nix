@@ -33,7 +33,7 @@ in {
       package = ags.packages.${pkgs.system}.ags.override {
         extraPackages = cfg.astalLibs;
 
-        # Make sure we use my overlayed version for gtk4-session-lock
+        # FIXME: this makes sure we use my overlayed version for gtk4-session-lock
         gtk4-layer-shell = pkgs.gtk4-layer-shell;
       };
 

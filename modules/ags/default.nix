@@ -52,14 +52,16 @@ in {
     security.pam.services.astal-auth = {};
     services.upower.enable = true;
 
+    # FIXME: https://github.com/NixOS/nixpkgs/pull/377867
     nixpkgs.overlays = [
       (final: prev: {
-        gtk4-layer-shell = prev.gtk4-layer-shell.overrideAttrs (o: {
+        gtk4-layer-shell = prev.gtk4-layer-shell.overrideAttrs (o: rec {
+          version = "1.1.0";
           src = pkgs.fetchFromGitHub {
             owner = "wmww";
             repo = "gtk4-layer-shell";
-            rev = "e6c958189fcb78894d86db5beead1526084f8755";
-            hash = "sha256-QwOzgOJuf8K7v/aTDNw+hYRNa8TIel3Pac/cwCMU8zw=";
+            rev = "v${version}";
+            hash = "sha256-UGhFeaBBIfC4ToWdyoX+oUzLlqJsjF++9U7mtszE0y0=";
           };
         });
       })

@@ -40,7 +40,7 @@ export default () => {
                     min-width ${transition_duration / 2}ms;
     }`;
 
-    const lock = Gtk4SessionLock.get_singleton();
+    const lock = Gtk4SessionLock.Instance.new();
 
     const unlock = () => {
         blurBGs.forEach((b) => {
@@ -57,7 +57,7 @@ export default () => {
             });
         });
         timeout(transition_duration, () => {
-            Gtk4SessionLock.unlock();
+            lock.unlock();
             Gdk.Display.get_default()?.sync();
             App.quit();
         });
@@ -222,20 +222,13 @@ export default () => {
             }
         });
 
-        Gtk4SessionLock.lock();
+        lock.lock();
 
         windows.forEach((win, monitor) => {
-            Gtk4SessionLock.assign_window_to_monitor(win, monitor);
+            lock.assign_window_to_monitor(win, monitor);
             win.show();
         });
     };
-
-    const on_finished = () => {
-        Gdk.Display.get_default()?.sync();
-        App.quit();
-    };
-
-    lock.connect('finished', on_finished);
 
     if (Vars.hasFprintd) {
         globalThis.authFinger = () => AstalAuth.Pam.authenticate('', (_, task) => {
