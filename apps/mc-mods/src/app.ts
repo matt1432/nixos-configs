@@ -1,3 +1,6 @@
+import { createWriteStream, mkdirSync, rmSync } from 'fs';
+import { Readable } from 'stream';
+
 interface Hashes {
     sha1: string
     sha512: string
@@ -88,6 +91,9 @@ const showModDownloadUrls = async(modName: string): Promise<boolean> => {
     }
 };
 
+const download = async(url: string, path: string) => Readable
+    .fromWeb((await fetch(url)).body!).pipe(createWriteStream(path));
+
 const main = () => {
     const mods = [
         'badpackets',
@@ -112,7 +118,30 @@ const main = () => {
             }
         });
     }
-    // TODO: add download action
+    else if (action === 'download') {
+        rmSync('./out', { force: true, recursive: true });
+        mkdirSync('./out');
+
+        mods.forEach(async(modName) => {
+            const ver = await checkModCompat(modName);
+
+            if (ver === null) {
+                console.error(`No matching releases of ${modName} were found for ${game_version}`);
+
+                return;
+            }
+
+            const fileName =
+                `${modName}-${ver.version_number}.jar`;
+
+            console.log(`Downloading ${fileName}`);
+
+            await download(
+                ver.files[0].url,
+                `./out/${fileName}`,
+            );
+        });
+    }
 };
 
 main();
