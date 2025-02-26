@@ -26,6 +26,9 @@
   # ------------------------------------------------
   users.users.${mainUser} = {
     isNormalUser = true;
+
+    hashedPassword = "$y$j9T$uCv3kB5LI3Shj/5liU9cS0$4s3wWoH4iY29DLC3lJwNaIcurcjsj8L02cMY4EDtnC6";
+
     extraGroups = [
       "wheel"
       "input"

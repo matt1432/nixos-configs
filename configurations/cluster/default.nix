@@ -29,6 +29,12 @@ in {
     # ------------------------------------------------
     users.users.${mainUser} = {
       isNormalUser = true;
+
+      hashedPassword =
+        if deviceName == "thingone"
+        then "$y$j9T$H.Uu5T7k5OLomqiPtFkVX0$ojaLWjxi.MDjxY00rT5r2dhJkt.9h.pXHgOtlhf3sN/"
+        else "$y$j9T$dXC7oiLsG7fCBXS1HUxo21$JjDm17jEwM41gnjMUaFdvgSzWXoGYQbqm867VtDAjF7";
+
       extraGroups = [
         "wheel"
         "adm"

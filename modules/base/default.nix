@@ -116,6 +116,8 @@ in {
         ;
     };
 
+    users.mutableUsers = false;
+
     home-manager.users = let
       default = {
         imports = [
