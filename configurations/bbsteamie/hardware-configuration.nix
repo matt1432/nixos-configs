@@ -2,25 +2,9 @@
   config,
   jovian,
   modulesPath,
-  pkgs,
   ...
 }: {
   nixpkgs.hostPlatform = "x86_64-linux";
-
-  nixpkgs.overlays = [
-    jovian.overlays.default
-
-    # Overlays for gamescope don't get applied properly for some reason
-    (final: prev: {
-      inherit
-        (jovian.legacyPackages.${pkgs.system})
-        gamescope
-        gamescope-session
-        gamescope-wsi
-        pkgsi686Linux
-        ;
-    })
-  ];
 
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
