@@ -10,7 +10,7 @@
 in {
   config = mkIf cfg.enable {
     environment.systemPackages = [
-      pkgs.plasma5Packages.kio-admin
+      pkgs.kdePackages.kio-admin
     ];
 
     # To make it work with firefox
@@ -25,7 +25,7 @@ in {
       serviceConfig = {
         Type = "dbus";
         BusName = "org.freedesktop.FileManager1";
-        ExecStart = "${pkgs.dolphin}/bin/dolphin";
+        ExecStart = "${pkgs.kdePackages.dolphin}/bin/dolphin";
       };
     };
 
@@ -37,10 +37,6 @@ in {
       inherit
         (pkgs.kdePackages)
         kde-cli-tools
-        ;
-
-      inherit
-        (pkgs.plasma5Packages)
         ark
         kcharselect
         kdenlive

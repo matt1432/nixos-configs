@@ -13,7 +13,7 @@ in {
   config = mkIf cfg.enable {
     # For kdialog-open-files
     home.packages = [
-      pkgs.kdialog
+      pkgs.kdePackages.kdialog
     ];
 
     programs.mpv = {
