@@ -20,7 +20,10 @@ in {
 
     (import ./media/bazarr/compose.nix globalEnv)
     (import ./media/joal/compose.nix globalEnv)
-    (import ./media/jellystat/compose.nix globalEnv)
+
+    # Crashes jellyfin
+    # (import ./media/jellystat/compose.nix globalEnv)
+
     (import ./media/prowlarr/compose.nix globalEnv)
     (import ./media/radarr/compose.nix globalEnv)
     (import ./media/seerr/compose.nix globalEnv)
