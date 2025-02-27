@@ -2,7 +2,7 @@ import { App, Astal, Gtk, Widget } from 'astal/gtk3';
 import { property, register } from 'astal/gobject';
 import { Binding, idle } from 'astal';
 
-import { get_hyprland_monitor, hyprMessage } from '../../lib';
+import { hyprMessage } from '../../lib';
 
 /* Types */
 type CloseType = 'none' | 'stay' | 'released' | 'clicked';
@@ -87,16 +87,7 @@ export class PopupWindow extends Widget.Window {
         const monitor = this.gdkmonitor ??
             this.get_display().get_monitor_at_point(alloc.x, alloc.y);
 
-        const transform = get_hyprland_monitor(monitor)?.get_transform();
-
-        let width: number;
-
-        if (transform && (transform === 1 || transform === 3)) {
-            width = monitor.get_geometry().height;
-        }
-        else {
-            width = monitor.get_geometry().width;
-        }
+        const width = monitor.get_geometry().width;
 
         this.margin_right = side === 'right' ?
             (width - alloc.x - alloc.width) :
