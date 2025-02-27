@@ -165,9 +165,6 @@ let
       hyprland = mkInput {
         owner = "hyprwm";
         repo = "Hyprland";
-
-        # FIXME: Wait for plugins to chase 6787fe8933b54f9e68f123df457e502dee9be13a
-        rev = "f0850905f0275922340035f62b6d808c2980ceda";
       };
 
       hyprland-plugins = mkHyprDep {
