@@ -7,6 +7,8 @@ import Bluetooth from './items/bluetooth';
 import Brightness from './items/brightness';
 import Clock from './items/clock';
 import CurrentClient from './items/current-client';
+import Heart from './items/heart';
+import Keyboard from './items/keyboard-layout';
 import Network from './items/network';
 import NotifButton from './items/notif-button';
 import SysTray from './items/tray';
@@ -52,6 +54,10 @@ export default () => (
                     />
                 </button>
 
+                <Separator size={8} />
+
+                <Heart />
+
                 <CurrentClient />
 
                 <Separator size={8} />
@@ -67,6 +73,10 @@ export default () => (
                 <Separator size={8} />
 
                 <Bluetooth />
+
+                <Separator size={8} />
+
+                <Keyboard />
 
                 <Separator size={8} />
 
