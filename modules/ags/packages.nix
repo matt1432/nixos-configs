@@ -140,7 +140,15 @@ in {
             };
           '';
       in (
-        (buildGirTypes {
+        (import ./icons.nix {
+          inherit pkgs;
+          agsConfigDir = cfg.configDir;
+        })
+        // (import ./icons.nix {
+          inherit pkgs;
+          agsConfigDir = gtk4ConfigDir;
+        })
+        // (buildGirTypes {
           pname = "ags";
           configPath = "${cfg.configDir}/@girs";
           packages = filter (x:

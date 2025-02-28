@@ -3,12 +3,12 @@
   pkgs,
   ...
 }: {
-  "${agsConfigDir}/config/icons/down-large-symbolic.svg".source = pkgs.fetchurl {
+  "${agsConfigDir}/icons/down-large-symbolic.svg".source = pkgs.fetchurl {
     url = "https://www.svgrepo.com/download/158537/down-chevron.svg";
     hash = "sha256-mOfNjgZh0rt6XosKA2kpLY22lJldSS1XCphgrnvZH1s=";
   };
 
-  "${agsConfigDir}/config/icons/nixos-logo-symbolic.svg".text =
+  "${agsConfigDir}/icons/nixos-logo-symbolic.svg".text =
     # xml
     ''
       <svg viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
