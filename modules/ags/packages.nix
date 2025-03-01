@@ -115,6 +115,10 @@ in {
             playerctl
             wayfreeze
             ;
+          inherit
+            (self.packages.${pkgs.system})
+            coloryou
+            ;
         })
         ++ (optionals cfgDesktop.isTouchscreen (attrValues {
           inherit
