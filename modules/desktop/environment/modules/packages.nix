@@ -86,6 +86,7 @@ in {
                 }
               else pkgs.discord;
 
+            # FIXME: https://github.com/KaylorBen/nixcord/issues/84
             vencord.unstable = false;
             openASAR.enable = false;
 
@@ -210,31 +211,52 @@ in {
           .override {isNvidiaWayland = isNvidia;};
 
         GParted = let
-          inherit (pkgs) writeShellScriptBin libsForQt5 gparted makeWrapper symlinkJoin;
+          inherit
+            (pkgs)
+            # build deps
+            writeShellApplication
+            makeWrapper
+            symlinkJoin
+            # deps
+            gparted
+            psmisc
+            seahorse
+            ;
 
-          newWrapper = writeShellScriptBin "Gparted" ''
-            (
-                sleep 1.5
-                while killall -r -0 ksshaskpass > /dev/null 2>&1
-                do
-                    sleep 0.1
-                    if [[ $(hyprctl activewindow | grep Ksshaskpass) == "" ]]; then
-                        killall -r ksshaskpass
-                    fi
-                done
-            ) &
-            exec env SUDO_ASKPASS="${libsForQt5.ksshaskpass}/bin/ksshaskpass" sudo -k -EA "${getExe gparted}" "$@"
-          '';
+          sudoWrapper = writeShellApplication {
+            name = "GParted";
+            runtimeInputs = [
+              gparted
+              psmisc
+              "/run/wrappers"
+            ];
+            text = ''
+              (
+              sleep 1.5
+
+              while killall -r -0 ssh-askpass > /dev/null 2>&1; do
+                  sleep 0.1
+
+                  if [[ $(hyprctl activewindow | grep ssh-askpass) == "" ]]; then
+                      killall -r ssh-askpass
+                  fi
+              done
+              ) &
+
+              export SUDO_ASKPASS="${seahorse}/libexec/seahorse/ssh-askpass"
+
+              exec sudo -k -EA gparted "$@"
+            '';
+          };
         in
           symlinkJoin {
             name = "gparted";
             paths = [gparted];
             buildInputs = [makeWrapper];
-            postBuild = let
-            in ''
+            postBuild = ''
               mkdir $out/.wrapped
               mv $out/bin/gparted $out/.wrapped
-              cp ${getExe newWrapper} $out/bin/gparted
+              cp ${getExe sudoWrapper} $out/bin/gparted
 
               sed -i "s#Exec.*#Exec=$out/bin/gparted %f#" $out/share/applications/gparted.desktop
             '';

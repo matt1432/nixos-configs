@@ -85,8 +85,8 @@ in {
           "center,^(org.kde.polkit-kde-authentication-agent-1)$"
 
           # For GParted auth
-          "size 741 288,^(org.kde.ksshaskpass)$"
-          "move cursor -370 -144,^(org.kde.ksshaskpass)$"
+          "size 741 288,^(ssh-askpass)$"
+          "move cursor -370 -144,^(ssh-askpass)$"
         ];
 
         bind = map mkBind [
