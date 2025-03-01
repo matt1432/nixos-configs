@@ -3,9 +3,9 @@
   plugins = {
     cloudflare = {
       url = "github.com/caddy-dns/cloudflare";
-      version = "v0.0.0-20250214163716-188b4850c0f2";
+      version = "v0.0.0-20250228175314-1fb64108d4de";
     };
   };
 
-  hash = "sha256-dYZvFCSuDsOAYg8GgkdpulIzFud9EmP9mS81c87sOoY=";
+  hash = "sha256-3nvVGW+ZHLxQxc1VCc/oTzCLZPBKgw4mhn+O3IoyiSs=";
 }

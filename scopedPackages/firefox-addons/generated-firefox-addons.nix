@@ -29,10 +29,10 @@
   };
   "bitwarden" = buildFirefoxXpiAddon {
     pname = "bitwarden";
-    version = "2024.12.4";
+    version = "2025.2.0";
     addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4410896/bitwarden_password_manager-2024.12.4.xpi";
-    sha256 = "fad085bb5aadc852088b2d2da666ed182575e74e47848d40180e25b89ec70cb3";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4440363/bitwarden_password_manager-2025.2.0.xpi";
+    sha256 = "c4d7f355a2269620482f50edac7fce3c19f515190f24cdf80edc865f71d3a374";
     meta = with lib; {
       homepage = "https://bitwarden.com";
       description = "At home, at work, or on the go, Bitwarden easily secures all your passwords, passkeys, and sensitive information.";
@@ -52,7 +52,6 @@
         "webRequest"
         "webRequestBlocking"
         "file:///*"
-        "https://lastpass.com/export.php"
       ];
       platforms = platforms.all;
     };
@@ -82,10 +81,10 @@
   };
   "darkreader" = buildFirefoxXpiAddon {
     pname = "darkreader";
-    version = "4.9.101";
+    version = "4.9.103";
     addonId = "addon@darkreader.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4433330/darkreader-4.9.101.xpi";
-    sha256 = "acf683f6fc743e85d75778bf92bc99ae6d513543cefd20aa994479e5aedc4b3d";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4439735/darkreader-4.9.103.xpi";
+    sha256 = "f565b2263a71626a0310380915b7aef90be8cc6fe16ea43ac1a0846efedc2e4c";
     meta = with lib; {
       homepage = "https://darkreader.org/";
       description = "Dark mode for every website. Take care of your eyes, use dark theme for night and daily browsing.";
@@ -275,10 +274,10 @@
   };
   "stylus" = buildFirefoxXpiAddon {
     pname = "stylus";
-    version = "2.3.12";
+    version = "2.3.13";
     addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4433683/styl_us-2.3.12.xpi";
-    sha256 = "ad4b90a561164318e2ed79ac812d8c07ee683eff39677ff88d618fb5801874e3";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4439124/styl_us-2.3.13.xpi";
+    sha256 = "e4ea2c09079db3d178b1d5f76e687534d2e35888f36bc2742767e6a63f161320";
     meta = with lib; {
       homepage = "https://add0n.com/stylus.html";
       description = "Redesign your favorite websites with Stylus, an actively developed and community driven userstyles manager. Easily install custom themes from popular online repositories, or create, edit, and manage your own personalized CSS stylesheets.";
