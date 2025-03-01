@@ -1,20 +1,24 @@
-{ python3Packages }:
+{python3Packages, ...}: let
+  inherit (builtins.fromTOML (builtins.readFile ./pyproject.toml)) project;
+in
+  python3Packages.buildPythonPackage {
+    pname = project.name;
+    inherit (project) version;
+    pyproject = true;
 
-python3Packages.buildPythonPackage rec {
-  pname = "coloryou";
-  version = "0.0.1";
+    src = ./.;
 
-  src = ./.;
+    nativeBuildInputs = with python3Packages; [
+      setuptools
+    ];
 
-  propagatedBuildInputs = with python3Packages; [ utils material-color-utilities ];
+    propagatedBuildInputs = with python3Packages; [material-color-utilities];
 
-  postInstall = ''
-    mv -v $out/bin/coloryou.py $out/bin/coloryou
-  '';
-
-  meta = {
-    description = ''
-      Get Material You colors from an image.
+    postInstall = ''
+      mv -v $out/bin/coloryou.py $out/bin/coloryou
     '';
-  };
-}
+
+    meta = {
+      inherit (project) description;
+    };
+  }

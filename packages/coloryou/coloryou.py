@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 """
 The original script:
 https://github.com/dharmx/vile/blob/7d486c128c7e553912673755f97b118aaab0193d/src/shell/playerctl.py#L2
