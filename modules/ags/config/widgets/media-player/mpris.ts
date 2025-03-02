@@ -274,7 +274,7 @@ const PlayerButton = ({
     colors: Variable<Colors>
     children: Label[] | Icon[]
     onClick: keyof Mpris.Player
-    prop: string
+    prop: keyof Mpris.Player
 }) => {
     let hovered = false;
     const stack = new Stack({ children });
@@ -284,8 +284,7 @@ const PlayerButton = ({
 
         child: stack,
 
-        // @ts-expect-error FIXME
-        onButtonReleaseEvent: () => player[onClick](),
+        onButtonReleaseEvent: () => (player[onClick] as () => void)(),
 
         onHover: () => {
             hovered = true;
@@ -323,16 +322,12 @@ const PlayerButton = ({
         },
 
         setup: (self) => {
-            // @ts-expect-error FIXME
-            if (player[prop] && player[prop] !== false) {
-                // @ts-expect-error FIXME
+            if (player[prop] && (player[prop] as boolean) !== false) {
                 stack.shown = String(player[prop]);
             }
 
             player.connect(`notify::${kebabify(prop)}`, () => {
-                // @ts-expect-error FIXME
                 if (player[prop] !== 0) {
-                    // @ts-expect-error FIXME
                     stack.shown = String(player[prop]);
                 }
             });
@@ -476,7 +471,7 @@ export const PreviousButton = (
         })),
     ],
     onClick: 'previous',
-    prop: 'canGoPrev',
+    prop: 'canGoPrevious',
 });
 
 export const NextButton = (
