@@ -8,6 +8,8 @@ import { replaceInFile, npmRun } from './lib';
 /* Constants */
 const FLAKE = process.env.FLAKE as string;
 
+const PINS = new Map([]);
+
 
 const updatePackageJson = async(workspaceDir: string, updates: object) => {
     const currentPackageJson = await readPackageJSON(`${workspaceDir}/package.json`);
@@ -16,6 +18,12 @@ const updatePackageJson = async(workspaceDir: string, updates: object) => {
 
     const updateDeps = (deps: string) => {
         Object.keys(currentPackageJson[deps]).forEach((dep) => {
+            if (PINS.has(dep)) {
+                currentPackageJson[deps][dep] = PINS.get(dep);
+
+                return;
+            }
+
             const versions = outdated[dep];
             const current = versions?.wanted || versions?.current;
 
