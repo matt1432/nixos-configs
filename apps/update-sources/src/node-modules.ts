@@ -8,10 +8,7 @@ import { replaceInFile, npmRun } from './lib';
 /* Constants */
 const FLAKE = process.env.FLAKE as string;
 
-const PINS = new Map([
-    // FIXME: https://github.com/typescript-eslint/typescript-eslint/pull/10903
-    ['typescript', '5.7.3'],
-]);
+const PINS = new Map([]);
 
 
 const updatePackageJson = async(workspaceDir: string, updates: object) => {
