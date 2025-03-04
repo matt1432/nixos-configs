@@ -9,9 +9,12 @@
         l:
           nameValuePair
           l
-          ((pkgs.callPackage "${self}/homeManagerModules/neovim/langs/${l}/shell.nix" {inherit self;}).overrideAttrs (o: {
-            meta.description = "${l} shell to be loaded by my Neovim config dynamically.";
-          }))
+          ((pkgs.callPackage
+              "${self}/homeManagerModules/neovim/langs/${l}/shell.nix"
+              ({} // pkgs.selfPackages))
+            .overrideAttrs (o: {
+              meta.description = "${l} shell to be loaded by my Neovim config dynamically.";
+            }))
       )
       langs);
 in

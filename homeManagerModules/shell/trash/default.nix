@@ -1,4 +1,4 @@
-self: {
+{
   config,
   lib,
   pkgs,
@@ -7,7 +7,7 @@ self: {
   inherit (lib) elem mkIf;
 
   cfg = config.programs.bash;
-  trashPkg = self.packages.${pkgs.system}.trash-d;
+  trashPkg = pkgs.selfPackages.trash-d;
   isCorrectPlatform = elem pkgs.system (trashPkg.meta.platforms or [pkgs.system]);
 in {
   config = mkIf (cfg.enable && isCorrectPlatform) {
@@ -15,7 +15,4 @@ in {
 
     programs.bash.shellAliases.rm = "trash";
   };
-
-  # For accurate stack trace
-  _file = ./default.nix;
 }

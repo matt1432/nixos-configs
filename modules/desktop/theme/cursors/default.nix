@@ -4,7 +4,7 @@ self: {
   pkgs,
   ...
 }: let
-  inherit (self.scopedPackages.${pkgs.system}) dracula;
+  inherit (pkgs.scopedPackages) dracula;
 
   inherit (lib) mkIf;
 

@@ -3,11 +3,10 @@
   lib,
   mainUser,
   pkgs,
-  self,
   ...
 }: let
   inherit (lib) concatStringsSep getExe removePrefix;
-  inherit (self.packages.${pkgs.system}) gpu-screen-recorder gsr-kms-server;
+  inherit (pkgs.selfPackages) gpu-screen-recorder gsr-kms-server;
 
   hyprPkgs = config.home-manager.users.${mainUser}.wayland.windowManager.hyprland.finalPackage;
 

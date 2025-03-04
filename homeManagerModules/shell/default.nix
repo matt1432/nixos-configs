@@ -9,10 +9,10 @@ self: {
 in {
   imports = [
     ./starship
+    ./trash
     (import ./git self)
     (import ./misc self)
     (import ./nix-tools self)
-    (import ./trash self)
   ];
 
   options.programs.bash = {

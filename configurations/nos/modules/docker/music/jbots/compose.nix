@@ -1,9 +1,5 @@
-{configPath, ...}: {
-  pkgs,
-  self,
-  ...
-}: let
-  inherit (self.packages.${pkgs.system}) jmusicbot;
+{configPath, ...}: {pkgs, ...}: let
+  inherit (pkgs.selfPackages) jmusicbot;
 
   rwPath = configPath + "/music/jbots";
   image = pkgs.callPackage ./images/jmusicbot.nix {inherit pkgs jmusicbot;};

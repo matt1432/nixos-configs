@@ -34,6 +34,7 @@ in {
         extraPackages = cfg.astalLibs;
 
         # FIXME: this makes sure we use my overlayed version for gtk4-session-lock
+        # try to fix this with overlays
         gtk4-layer-shell = pkgs.gtk4-layer-shell;
       };
 
@@ -116,7 +117,7 @@ in {
             wayfreeze
             ;
           inherit
-            (self.packages.${pkgs.system})
+            (pkgs.selfPackages)
             coloryou
             ;
         })

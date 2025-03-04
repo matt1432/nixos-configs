@@ -26,7 +26,7 @@ in {
       signing.format = "ssh";
 
       includes = [
-        {path = toString self.scopedPackages.${pkgs.system}.dracula.git;}
+        {path = toString pkgs.scopedPackages.dracula.git;}
 
         (mkDefaultRemote "https://github.com")
         (mkDefaultRemote "git@github.com")

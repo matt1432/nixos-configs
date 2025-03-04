@@ -4,7 +4,7 @@ self: {
   pkgs,
   ...
 }: let
-  inherit (self.scopedPackages.${pkgs.system}) mpvScripts;
+  inherit (pkgs.scopedPackages) mpvScripts;
 
   inherit (lib) attrValues mkIf;
 

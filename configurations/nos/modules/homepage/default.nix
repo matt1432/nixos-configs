@@ -1,13 +1,12 @@
 {
   config,
   pkgs,
-  self,
   ...
 }: {
   services.homepage-dashboard = {
     enable = true;
 
-    package = self.packages.${pkgs.system}.homepage;
+    package = pkgs.selfPackages.homepage;
 
     listenPort = 3020;
 

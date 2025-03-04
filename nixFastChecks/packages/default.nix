@@ -1,7 +1,4 @@
-{
-  pkgs,
-  self,
-}: let
+pkgs: let
   inherit (pkgs.lib) elem filterAttrs hasAttr mapAttrs' nameValuePair;
 
   packages =
@@ -10,7 +7,7 @@
         !(hasAttr "platforms" v.meta)
         || elem pkgs.system v.meta.platforms
     )
-    self.packages.${pkgs.system};
+    pkgs.selfPackages;
 in
   mapAttrs'
   (name: pkg:

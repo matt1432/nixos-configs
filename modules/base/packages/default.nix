@@ -22,7 +22,7 @@ in {
 
     environment.systemPackages = remove null (attrValues {
       inherit
-        (self.packages.${pkgs.system})
+        (pkgs.selfPackages)
         pokemon-colorscripts
         repl
         ;

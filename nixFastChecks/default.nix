@@ -7,10 +7,10 @@
 }: let
   inherit (self.lib.attrs) recursiveUpdateList;
 
-  apps = perSystem (pkgs: import ./apps {inherit pkgs self;});
+  apps = perSystem (import ./apps);
   devices = perSystem (pkgs: import ./devices {inherit pkgs self;});
   devShells = perSystem (pkgs: import ./devShells {inherit pkgs self;});
-  packages = perSystem (pkgs: import ./packages {inherit pkgs self;});
+  packages = perSystem (import ./packages);
 in {
   inherit apps devices devShells packages;
 

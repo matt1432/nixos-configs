@@ -1,11 +1,10 @@
 {
   lib,
   pkgs,
-  self,
   ...
 }: let
   inherit (lib) mkDefault mkBefore;
-  inherit (self.packages.${pkgs.system}) pam-fprint-grosshack;
+  inherit (pkgs.selfPackages) pam-fprint-grosshack;
 
   pam_fprintd_grosshackSo = "${pam-fprint-grosshack}/lib/security/pam_fprintd_grosshack.so";
 

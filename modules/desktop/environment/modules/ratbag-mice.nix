@@ -1,10 +1,10 @@
-self: {
+{
   config,
   lib,
   pkgs,
   ...
 }: let
-  inherit (self.packages.${pkgs.system}) libratbag piper;
+  inherit (pkgs.selfPackages) libratbag piper;
   inherit (lib) mkIf;
 
   cfg = config.roles.desktop;
@@ -20,7 +20,4 @@ in {
       piper
     ];
   };
-
-  # For accurate stack trace
-  _file = ./ratbag-mice.nix;
 }

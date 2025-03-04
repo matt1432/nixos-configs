@@ -1,54 +1,55 @@
 {
   inputs,
   mkVersion,
-  pkgs,
   ...
-}: {
-  coloryou = pkgs.callPackage ./coloryou {};
+}: (final: prev: {
+  selfPackages = {
+    coloryou = final.callPackage ./coloryou {};
 
-  gpu-screen-recorder = pkgs.callPackage ./gpu-screen-recorder/gpu-screen-recorder.nix {
-    inherit (inputs) gpu-screen-recorder-src;
+    gpu-screen-recorder = final.callPackage ./gpu-screen-recorder/gpu-screen-recorder.nix {
+      inherit (inputs) gpu-screen-recorder-src;
+    };
+    gsr-kms-server = final.callPackage ./gpu-screen-recorder/gsr-kms-server.nix {
+      inherit (inputs) gpu-screen-recorder-src;
+    };
+
+    homepage = final.callPackage ./homepage {};
+
+    jmusicbot = final.callPackage ./jmusicbot {};
+
+    libratbag = final.callPackage ./libratbag {
+      inherit (inputs) libratbag-src;
+    };
+
+    librespot-auth = final.callPackage ./librespot-auth {};
+
+    pam-fprint-grosshack = final.callPackage ./pam-fprint-grosshack {};
+
+    piper = final.callPackage ./piper {
+      inherit (inputs) piper-src;
+    };
+
+    pokemon-colorscripts = final.callPackage ./pokemon-colorscripts {
+      inherit (inputs) pokemon-colorscripts-src;
+      inherit mkVersion;
+    };
+
+    proton-ge-latest = final.callPackage ./proton-ge-latest {};
+
+    protonhax = final.callPackage ./protonhax {};
+
+    repl = final.callPackage ./repl {};
+
+    some-sass-language-server = final.callPackage ./some-sass-language-server {};
+
+    subscleaner = final.callPackage ./subscleaner {
+      inherit (inputs) poetry2nix subscleaner-src;
+    };
+
+    trash-d = final.callPackage ./trash-d {
+      inherit (inputs) trash-d-src;
+    };
+
+    urllib3 = final.callPackage ./urllib3 {};
   };
-  gsr-kms-server = pkgs.callPackage ./gpu-screen-recorder/gsr-kms-server.nix {
-    inherit (inputs) gpu-screen-recorder-src;
-  };
-
-  homepage = pkgs.callPackage ./homepage {};
-
-  jmusicbot = pkgs.callPackage ./jmusicbot {};
-
-  libratbag = pkgs.callPackage ./libratbag {
-    inherit (inputs) libratbag-src;
-  };
-
-  librespot-auth = pkgs.callPackage ./librespot-auth {};
-
-  pam-fprint-grosshack = pkgs.callPackage ./pam-fprint-grosshack {};
-
-  piper = pkgs.callPackage ./piper {
-    inherit (inputs) piper-src;
-  };
-
-  pokemon-colorscripts = pkgs.callPackage ./pokemon-colorscripts {
-    inherit (inputs) pokemon-colorscripts-src;
-    inherit mkVersion;
-  };
-
-  proton-ge-latest = pkgs.callPackage ./proton-ge-latest {};
-
-  protonhax = pkgs.callPackage ./protonhax {};
-
-  repl = pkgs.callPackage ./repl {};
-
-  some-sass-language-server = pkgs.callPackage ./some-sass-language-server {};
-
-  subscleaner = pkgs.callPackage ./subscleaner {
-    inherit (inputs) poetry2nix subscleaner-src;
-  };
-
-  trash-d = pkgs.callPackage ./trash-d {
-    inherit (inputs) trash-d-src;
-  };
-
-  urllib3 = pkgs.callPackage ./urllib3 {};
-}
+})

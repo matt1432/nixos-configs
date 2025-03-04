@@ -4,7 +4,7 @@ self: {
   pkgs,
   ...
 }: let
-  inherit (self.scopedPackages.${pkgs.system}) firefoxAddons;
+  inherit (pkgs.scopedPackages) firefoxAddons;
 
   inherit (lib) attrsToList attrValues mkIf mkOption singleton types;
 

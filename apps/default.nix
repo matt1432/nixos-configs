@@ -1,8 +1,4 @@
-{
-  pkgs,
-  self,
-  ...
-}: let
+{pkgs, ...}: let
   inherit (pkgs.lib) getExe mapAttrs;
 
   mkApp = pkg: {
@@ -10,4 +6,4 @@
     type = "app";
   };
 in
-  mapAttrs (n: v: mkApp v) self.appsPackages.${pkgs.system}
+  mapAttrs (n: v: mkApp v) pkgs.appsPackages

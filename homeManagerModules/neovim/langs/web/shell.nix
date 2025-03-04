@@ -4,8 +4,7 @@
   nodejs_latest,
   vscode-langservers-extracted,
   nodePackages,
-  self,
-  system,
+  some-sass-language-server,
   ...
 }:
 mkShell {
@@ -16,6 +15,6 @@ mkShell {
 
     nodePackages.npm
 
-    self.packages.${system}.some-sass-language-server
+    some-sass-language-server
   ];
 }

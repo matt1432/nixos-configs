@@ -25,9 +25,9 @@ in {
 
     ./modules/dconf.nix
     ./modules/printer.nix
+    ./modules/ratbag-mice.nix
     (import ./modules/audio.nix self)
     (import ./modules/packages.nix self)
-    (import ./modules/ratbag-mice.nix self)
     (import ./modules/security.nix self)
   ];
 

@@ -3,7 +3,6 @@ defaultSession: {
   lib,
   mainUser,
   pkgs,
-  self,
   ...
 }: let
   inherit (lib) attrValues makeSearchPathOutput;
@@ -16,7 +15,7 @@ in {
 
       remotePlay.openFirewall = true;
       extraCompatPackages = [
-        self.packages.${pkgs.system}.proton-ge-latest
+        pkgs.selfPackages.proton-ge-latest
       ];
 
       # https://github.com/NixOS/nixpkgs/issues/25444#issuecomment-1977416787
@@ -75,7 +74,7 @@ in {
       pkgs.steam-rom-manager
       pkgs.r2modman
 
-      self.packages.${pkgs.system}.protonhax
+      pkgs.selfPackages.protonhax
 
       # Ryujinx ACNH crashes on Vulkan
       pkgs.ryujinx

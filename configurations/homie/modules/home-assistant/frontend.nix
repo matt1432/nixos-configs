@@ -3,13 +3,12 @@
   dracul-ha-src,
   lib,
   pkgs,
-  self,
   ...
 }: let
   inherit (lib) attrValues singleton;
   inherit (pkgs.writers) writeYAML;
 
-  material-rounded-theme-src = self.scopedPackages.${pkgs.system}.lovelace-components.material-rounded-theme.src;
+  material-rounded-theme-src = pkgs.scopedPackages.lovelace-components.material-rounded-theme.src;
 in {
   services.home-assistant = {
     configFiles = {
@@ -84,7 +83,7 @@ in {
 
     customComponents = attrValues {
       inherit
-        (self.scopedPackages.${pkgs.system}.hass-components)
+        (pkgs.scopedPackages.hass-components)
         material-symbols
         ;
     };
@@ -98,7 +97,7 @@ in {
         ;
 
       inherit
-        (self.scopedPackages.${pkgs.system}.lovelace-components)
+        (pkgs.scopedPackages.lovelace-components)
         big-slider-card
         custom-sidebar
         material-rounded-theme

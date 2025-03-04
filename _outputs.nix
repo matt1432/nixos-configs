@@ -8,7 +8,7 @@
     secrets,
     ...
   }: let
-    inherit (self.lib) mkVersion mkNixOS mkNixOnDroid mkPkgs;
+    inherit (self.lib) mkNixOS mkNixOnDroid mkPkgs;
 
     perSystem = attrs:
       nixpkgs.lib.genAttrs (import systems) (system:
@@ -103,13 +103,9 @@
       perSystem (pkgs:
         import ./devShells {inherit pkgs self;});
 
-    packages =
-      perSystem (pkgs:
-        import ./packages {inherit inputs mkVersion pkgs;});
+    packages = perSystem (pkgs: pkgs.selfPackages);
 
-    scopedPackages =
-      perSystem (pkgs:
-        import ./scopedPackages {inherit inputs mkVersion pkgs;});
+    scopedPackages = perSystem (pkgs: pkgs.scopedPackages);
 
     formatter = perSystem (pkgs: pkgs.alejandra);
   };

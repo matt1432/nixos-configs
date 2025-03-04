@@ -9,7 +9,7 @@ self: {
   cfg = osConfig.roles.desktop;
 
   hyprpaper = self.inputs.hyprpaper.packages.${pkgs.system}.default;
-  wallpaper = toString self.scopedPackages.${pkgs.system}.dracula.wallpaper;
+  wallpaper = toString pkgs.scopedPackages.dracula.wallpaper;
 in {
   config = mkIf cfg.enable {
     home.packages = [hyprpaper];

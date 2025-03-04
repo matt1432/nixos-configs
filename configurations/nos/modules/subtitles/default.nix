@@ -2,11 +2,10 @@
   config,
   mainUser,
   pkgs,
-  self,
   ...
 } @ extraArgs: let
-  inherit (self.appsPackages.${pkgs.system}) extract-subs;
-  inherit (self.packages.${pkgs.system}) subscleaner;
+  inherit (pkgs.appsPackages) extract-subs;
+  inherit (pkgs.selfPackages) subscleaner;
 
   convert-mkv = pkgs.callPackage ./convert.nix {};
   bazarr-bulk = pkgs.callPackage ./syncing.nix ({} // extraArgs);

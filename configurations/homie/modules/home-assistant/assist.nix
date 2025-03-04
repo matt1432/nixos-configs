@@ -26,7 +26,7 @@
 
       customComponents = builtins.attrValues {
         inherit
-          (self.scopedPackages.${pkgs.system}.hass-components)
+          (pkgs.scopedPackages.hass-components)
           extended-ollama-conversation # url is without subdirectory
           tuya-local
           ;

@@ -97,7 +97,7 @@
     enable = true;
     theme = "dracula";
     themePackages = [
-      self.scopedPackages.${pkgs.system}.dracula.plymouth
+      pkgs.scopedPackages.dracula.plymouth
     ];
   };
 
