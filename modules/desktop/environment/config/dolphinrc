@@ -9,7 +9,7 @@ Version=202
 ViewPropsTimestamp=2023,5,12,19,59,9.33
 
 [Icons]
-Theme=Adwaita:dark
+Theme=Flat-Remix-Violet-Dark
 
 [KFileDialog Settings]
 Places Icons Auto-resize=false
@@ -23,10 +23,12 @@ Places Icons Static Size=22
 
 [MainWindow]
 MenuBar=Disabled
-ToolBarsMovable=Disabled
 
 [PreviewSettings]
 Plugins=comicbookthumbnail,ebookthumbnail,imagethumbnail,jpegthumbnail,windowsexethumbnail,windowsimagethumbnail,svgthumbnail,textthumbnail
 
 [ViewPropertiesDialog]
 1920x1200 screen: Window-Maximized=true
+
+[UiSettings]
+ColorScheme=*
