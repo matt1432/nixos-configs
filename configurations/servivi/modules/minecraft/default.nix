@@ -7,6 +7,7 @@
   imports = [minix.nixosModules.default];
 
   environment.systemPackages = [
+    # TODO: add overlays to upstream flake
     minix.packages.${pkgs.system}.curseforge-server-downloader
   ];
 

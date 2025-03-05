@@ -1,4 +1,4 @@
-self: {
+{
   lib,
   osConfig,
   pkgs,
@@ -7,12 +7,10 @@ self: {
   inherit (lib) mkIf;
 
   cfg = osConfig.roles.desktop;
-
-  hyprpaper = self.inputs.hyprpaper.packages.${pkgs.system}.default;
   wallpaper = toString pkgs.scopedPackages.dracula.wallpaper;
 in {
   config = mkIf cfg.enable {
-    home.packages = [hyprpaper];
+    home.packages = [pkgs.hyprpaper];
 
     xdg.configFile."hypr/hyprpaper.conf" = {
       text = lib.hm.generators.toHyprconf {
@@ -29,7 +27,4 @@ in {
       };
     };
   };
-
-  # For accurate stack trace
-  _file = ./default.nix;
 }

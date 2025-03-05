@@ -6,6 +6,7 @@
 }: let
   jellyPkgs =
     if config.nvidia.enableCUDA
+    # TODO: add overlays to upstream flake
     then jellyfin-flake.packages.${pkgs.system}.cudaPackages
     else jellyfin-flake.packages.${pkgs.system};
 in {

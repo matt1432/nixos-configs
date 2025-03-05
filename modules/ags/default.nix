@@ -52,8 +52,10 @@ in {
     security.pam.services.astal-auth = {};
     services.upower.enable = true;
 
-    # FIXME: https://github.com/NixOS/nixpkgs/pull/377867
     nixpkgs.overlays = [
+      virtualkeyboard-adapter.overlays.default
+
+      # FIXME: https://github.com/NixOS/nixpkgs/pull/377867
       (final: prev: {
         gtk4-layer-shell = prev.gtk4-layer-shell.overrideAttrs (o: rec {
           version = "1.1.0";
@@ -75,7 +77,7 @@ in {
         waylandFrontend = true;
         plasma6Support = true;
         addons = [
-          virtualkeyboard-adapter.packages.${pkgs.system}.default
+          pkgs.virtualkeyboard-adapter
         ];
       };
     };

@@ -28,6 +28,13 @@ in {
         '';
       }
     ];
+
+    nixpkgs.overlays = map (i: self.inputs.${i}.overlays.default) [
+      "hyprland"
+      "hyprland-plugins"
+      "hyprpaper"
+      "nixpkgs-wayland"
+    ];
   };
 
   options.roles.desktop = {

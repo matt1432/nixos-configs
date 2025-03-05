@@ -25,7 +25,7 @@ self: {
     '';
   };
 
-  nixdPkg = self.inputs.nixd.packages.${pkgs.system}.default;
+  nixdPkg = pkgs.nixd;
 
   flakeEnv = config.programs.bash.sessionVariables.FLAKE;
   flakeDir = "${removePrefix "${mainHmCfg.home.homeDirectory}/" flakeEnv}";

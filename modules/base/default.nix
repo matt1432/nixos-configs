@@ -5,7 +5,7 @@ self: {
   ...
 }: let
   inherit (lib) attrValues mkDefault mkIf mkOption types;
-  inherit (self.inputs) home-manager nh;
+  inherit (self.inputs) home-manager;
 
   cfg = config.roles.base;
 in {
@@ -70,7 +70,7 @@ in {
 
     programs.nh = {
       enable = true;
-      package = nh.packages.${pkgs.system}.default;
+      package = pkgs.nh;
 
       # weekly cleanup
       clean = {

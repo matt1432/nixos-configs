@@ -12,6 +12,9 @@ in {
     nixpkgs.overlays =
       (map (i: self.inputs.${i}.overlays.default) [
         "grim-hyprland"
+        "nh"
+        "nixd"
+        "nurl"
         "nixpkgs-wayland"
       ])
       ++ (attrValues {
@@ -30,7 +33,7 @@ in {
       nurl =
         if (cfg.user != "nixos" && cfg.user != "nix-on-droid")
         then
-          self.inputs.nurl.packages.${pkgs.system}.default.overrideAttrs {
+          pkgs.nurl.overrideAttrs {
             postInstall = ''
               wrapProgram $out/bin/nurl --prefix PATH : ${makeBinPath [
                 (config.home-manager.users.${cfg.user}.programs.git.package or pkgs.gitMinimal)

@@ -4,7 +4,6 @@ self: {
   pkgs,
   ...
 }: let
-  inherit (self.inputs) hyprland;
   inherit (self.lib.hypr) mkBind mkMonitor;
 
   inherit (lib) attrValues concatStringsSep mkIf optionals removeSuffix;
@@ -65,13 +64,6 @@ in {
       };
     };
 
-    # Make sure we only use the package from the hyprland flake
-    nixpkgs.overlays = [
-      (final: prev: {
-        xdg-desktop-portal-hyprland = hyprCfg.finalPortalPackage;
-      })
-    ];
-
     home-manager.users.${cfg.user} = {
       imports = [
         ./home/dev.nix
@@ -88,18 +80,12 @@ in {
         enable = true;
 
         # Get rid of logs shown on the TTY right before Hyprland launches
-        package = hyprland.packages.${pkgs.system}.default.overrideAttrs (o: {
+        package = pkgs.hyprland.overrideAttrs (o: {
           postInstall = ''
             ${removeSuffix "\n\n" o.postInstall} \
                 --append-flags '&>/dev/null'
           '';
         });
-
-        portalPackage =
-          hyprland
-          .packages
-          .${pkgs.system}
-          .xdg-desktop-portal-hyprland;
 
         systemd.variables = ["-all"];
 

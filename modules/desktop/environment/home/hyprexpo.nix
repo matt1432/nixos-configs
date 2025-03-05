@@ -12,7 +12,7 @@ self: {
 in {
   config = mkIf cfg.enable {
     wayland.windowManager.hyprland = {
-      plugins = [self.inputs.hyprland-plugins.packages.${pkgs.system}.hyprexpo];
+      plugins = [pkgs.hyprlandPlugins.hyprexpo];
 
       settings = {
         plugin.hyprexpo = {

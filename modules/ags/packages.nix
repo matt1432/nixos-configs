@@ -30,6 +30,7 @@ in {
   config = mkIf cfgDesktop.ags.enable {
     # Make these accessible outside these files
     programs.ags = {
+      # TODO: add overlays to upstream flake
       package = ags.packages.${pkgs.system}.ags.override {
         extraPackages = cfg.astalLibs;
 
@@ -58,7 +59,10 @@ in {
           wireplumber
           ;
 
+        # TODO: switch to Gtk4 version to get rid of this dep
         gtkSessionLock = gtk-session-lock.packages.${pkgs.system}.default;
+
+        # TODO: add overlays to upstream flake
         libKompass = kompass.packages.${pkgs.system}.libkompass;
 
         # libkompass dependencies

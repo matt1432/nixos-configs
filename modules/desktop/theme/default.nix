@@ -9,10 +9,10 @@ self: {
 in {
   imports = [
     ./gtk
+    ./hyprpaper
     ./xresources
 
     (import ./cursors self)
-    (import ./hyprpaper self)
     (import ./qt self)
   ];
 

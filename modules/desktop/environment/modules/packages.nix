@@ -40,8 +40,8 @@ in {
     home-manager.users.${cfg.user} = {
       imports = [
         ../home/foot.nix
+        ../home/obs.nix
         (import ../home/mpv.nix self)
-        (import ../home/obs.nix self)
 
         nixcord.homeManagerModules.nixcord
 
