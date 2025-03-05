@@ -11,15 +11,14 @@ in rec {
   }:
     import nixpkgs {
       inherit system;
-      overlays =
-        [
+      overlays = nixpkgs.lib.unique ([
           (inputs.self.overlays.nix-version {inherit nix;})
           inputs.self.overlays.misc-fixes
           inputs.self.overlays.appsPackages
           inputs.self.overlays.selfPackages
           inputs.self.overlays.scopedPackages
         ]
-        ++ (cfg.overlays or []);
+        ++ (cfg.overlays or []));
       config =
         {
           inherit cudaSupport;
