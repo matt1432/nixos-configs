@@ -6,6 +6,7 @@ This directory contains every derivations for packages exposed by this flake.
 
 | Name | Description | Homepage |
 | ---- | ----------- | -------- |
+| `coloryou` | Get Material You colors from an image. | https://git.nelim.org/matt1432/nixos-configs/src/branch/master/packages/coloryou |
 | `gpu-screen-recorder` | Screen recorder that has minimal impact on system performance by recording a window using the GPU only. | https://git.dec05eba.com/gpu-screen-recorder/about |
 | `gsr-kms-server` | Small program giving safe KMS access to gpu-screen-recorder when recording a monitor. This is the only part of gpu-screen-recorder that could require root permissions. | https://git.dec05eba.com/gpu-screen-recorder/about |
 | `homepage` | Highly customisable dashboard with Docker and service API integrations. | https://gethomepage.dev |

@@ -20,5 +20,6 @@ in
 
     meta = {
       inherit (project) description;
+      homepage = "https://git.nelim.org/matt1432/nixos-configs/src/branch/master/packages/coloryou";
     };
   }

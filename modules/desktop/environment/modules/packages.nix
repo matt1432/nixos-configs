@@ -86,7 +86,7 @@ in {
                 }
               else pkgs.discord;
 
-            # FIXME: https://github.com/KaylorBen/nixcord/issues/84
+            # FIXME: wait for https://github.com/KaylorBen/nixcord/pull/85
             vencord.unstable = false;
             openASAR.enable = false;
 

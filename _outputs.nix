@@ -95,9 +95,7 @@
       perSystem (pkgs:
         import ./apps {inherit pkgs self;});
 
-    appsPackages =
-      perSystem (pkgs:
-        import ./apps/packages.nix {inherit inputs pkgs;});
+    appsPackages = perSystem (pkgs: pkgs.appsPackages);
 
     devShells =
       perSystem (pkgs:

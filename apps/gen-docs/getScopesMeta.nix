@@ -2,7 +2,7 @@ attr: selfPath: let
   inherit (builtins) currentSystem getFlake mapAttrs removeAttrs replaceStrings;
 
   self = getFlake selfPath;
-  scopes = import "${selfPath}/${attr}" {description = true;};
+  scopes = ((import "${selfPath}/${attr}" {description = true;}) {} {}).scopedPackages;
 
   trimNewlines = s: replaceStrings ["\n"] [" "] s;
 in {
