@@ -12,6 +12,7 @@ in {
     nixpkgs.overlays =
       (map (i: self.inputs.${i}.overlays.default) [
         "grim-hyprland"
+        "nixos-jellyfin"
         "nh"
         "nixd"
         "nurl"

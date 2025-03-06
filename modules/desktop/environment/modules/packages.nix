@@ -5,7 +5,7 @@ self: {
   ...
 }: let
   inherit (self.lib.hypr) mkBind;
-  inherit (self.inputs) jellyfin-flake nixcord;
+  inherit (self.inputs) nixcord;
 
   inherit (lib) attrValues getExe mkIf optionals;
   inherit (pkgs.writers) writeTOML;
@@ -203,12 +203,8 @@ in {
           satty
           ;
 
-        jellyfinMediaPlayer =
-          jellyfin-flake
-          .packages
-          .${pkgs.system}
-          .jellyfin-media-player
-          .override {isNvidiaWayland = isNvidia;};
+        # comes from nixos-jellyfin
+        jellyfinMediaPlayer = pkgs.jellyfin-media-player.override {isNvidiaWayland = isNvidia;};
 
         GParted = let
           inherit

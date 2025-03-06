@@ -1,8 +1,9 @@
 {
   config,
-  jellyfin-flake,
-  mainUser,
+  nixos-jellyfin,
   lib,
+  mainUser,
+  pkgs,
   ...
 }: let
   inherit (lib) hasAttr optionals;
@@ -14,8 +15,7 @@
 in {
   imports = [
     ./jfa-go.nix
-    ./packages.nix
-    jellyfin-flake.nixosModules.default
+    nixos-jellyfin.nixosModules.default
   ];
 
   users.users."jellyfin".extraGroups =
@@ -27,6 +27,11 @@ in {
 
   services.jellyfin = {
     enable = true;
+
+    webPackage = pkgs.jellyfin-web.override {
+      forceEnableBackdrops = true;
+      forceDisablePreferFmp4 = true;
+    };
 
     settings = {
       system = {

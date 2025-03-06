@@ -178,12 +178,6 @@
       repo = "hyprpaper";
       type = "github";
     };
-    jellyfin-flake = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      owner = "matt1432";
-      repo = "nixos-jellyfin";
-      type = "github";
-    };
     jovian = {
       inputs = {
         nix-github-actions.follows = "nix-github-actions";
@@ -340,6 +334,15 @@
       };
       owner = "nix-community";
       repo = "nixd";
+      type = "github";
+    };
+    nixos-jellyfin = {
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
+      owner = "matt1432";
+      repo = "nixos-jellyfin";
       type = "github";
     };
     nixpkgs = {

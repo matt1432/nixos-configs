@@ -149,7 +149,7 @@ let
       repo = "nixos-docker-compose";
     };
 
-    jellyfin-flake = mkInput {
+    nixos-jellyfin = mkInput {
       owner = "matt1432";
       repo = "nixos-jellyfin";
     };
