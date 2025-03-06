@@ -943,14 +943,17 @@
         "curseforge-server-downloader-src": "curseforge-server-downloader-src",
         "nixpkgs": [
           "nixpkgs"
+        ],
+        "systems": [
+          "systems"
         ]
       },
       "locked": {
-        "lastModified": 1732308766,
-        "narHash": "sha256-JRUEXBZ6UJ0QTuw1qtzSf9O5rkx4S226NSoSlwRjiQc=",
+        "lastModified": 1741240192,
+        "narHash": "sha256-Hd5spUwD+0fs7644OdQz64uifzAk55+wH1PS76eDrtQ=",
         "owner": "matt1432",
         "repo": "Minix",
-        "rev": "05d893eb53c5c6bcdb38b4a2a64bba65895d8817",
+        "rev": "775f99b1876d0e91d448d6078b9b1beae1f26ee6",
         "type": "github"
       },
       "original": {

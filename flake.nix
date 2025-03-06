@@ -216,7 +216,10 @@
       type = "github";
     };
     minix = {
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
       owner = "matt1432";
       repo = "Minix";
       type = "github";
