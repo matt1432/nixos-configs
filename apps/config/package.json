@@ -3,10 +3,10 @@
     "version": "0.0.0",
     "type": "module",
     "exports": "./index.ts",
-    "devDependencies": {
-        "@eslint/js": "9.21.0",
+    "dependencies": {
+        "@eslint/js": "9.22.0",
         "@stylistic/eslint-plugin": "4.2.0",
-        "eslint": "9.21.0",
+        "eslint": "9.22.0",
         "eslint-plugin-jsdoc": "50.6.3",
         "jiti": "2.4.2",
         "pkg-types": "2.1.0",
