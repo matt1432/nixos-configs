@@ -9,6 +9,23 @@ final: prev: {
     };
   });
 
+  # FIXME: tests fail on aarch64-linux
+  fish = prev.fish.overrideAttrs (o: {
+    doCheck = final.system != "aarch64-linux";
+  });
+
+  # FIXME: https://pr-tracker.nelim.org/?pr=387461
+  fcft = prev.fcft.overrideAttrs (o: rec {
+    version = "3.2.0";
+    src = prev.fetchFromGitea {
+      domain = "codeberg.org";
+      owner = "dnkl";
+      repo = "fcft";
+      rev = version;
+      hash = "sha256-VMNjTOil50/GslSzZnBPkSoy0Vg0729ndaEAeXk00GI=";
+    };
+  });
+
   # FIXME: https://pr-tracker.nelim.org/?pr=382559
   obs-studio-plugins = let
     inherit (prev) lib libjpeg libimobiledevice obs-studio ffmpeg pkg-config;
