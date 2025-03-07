@@ -75,7 +75,7 @@ export default () => {
                     <label
                         label={bind(focusedTitle)}
                         truncate
-                        maxWidthChars={40}
+                        maxWidthChars={35}
                     />
                 </box>
             </box>
