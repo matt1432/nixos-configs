@@ -221,11 +221,6 @@ let
         inputs.astal.follows = "astal";
       };
 
-      gtk-session-lock = mkInput {
-        owner = "Cu3PO42";
-        repo = "gtk-session-lock";
-      };
-
       virtualkeyboard-adapter = mkInput {
         owner = "horriblename";
         repo = "fcitx-virtualkeyboard-adapter";

@@ -438,26 +438,6 @@
         "type": "github"
       }
     },
-    "gtk-session-lock": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1713713322,
-        "narHash": "sha256-A9U/BnzdypE1rt53uhw5X4JQkayR8CkD2Qhn/vhmUSU=",
-        "owner": "Cu3PO42",
-        "repo": "gtk-session-lock",
-        "rev": "b9ddb2792b613d14622acada73c64f16a2635b40",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Cu3PO42",
-        "repo": "gtk-session-lock",
-        "type": "github"
-      }
-    },
     "gtk-theme-src": {
       "flake": false,
       "locked": {
@@ -1652,7 +1632,6 @@
         "git-theme-src": "git-theme-src",
         "gpu-screen-recorder-src": "gpu-screen-recorder-src",
         "grim-hyprland": "grim-hyprland",
-        "gtk-session-lock": "gtk-session-lock",
         "gtk-theme-src": "gtk-theme-src",
         "home-manager": "home-manager",
         "hyprgrass": "hyprgrass",

@@ -1,17 +1,8 @@
-import { App } from 'astal/gtk4';
+import { programArgs } from 'system';
 
-import style from './style.scss';
-
-// import Bar from './widgets/bar';
-import Lockscreen from './widgets/lockscreen';
+import lock from './configurations/lock';
 
 
-App.start({
-    css: style,
-    instanceName: 'gtk4',
-
-    main() {
-        // Bar();
-        Lockscreen();
-    },
-});
+switch (programArgs[0]) {
+    case 'lock': lock(); break;
+}

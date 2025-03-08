@@ -1,8 +1,8 @@
-import { App } from 'astal/gtk3';
+import { App } from 'astal/gtk4';
 
 import Lockscreen from '../widgets/lockscreen';
 
-import style from '../style/lock.scss';
+import style from '../style.scss';
 
 
 export default () => {

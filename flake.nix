@@ -127,12 +127,6 @@
       repo = "grim-hyprland";
       type = "github";
     };
-    gtk-session-lock = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      owner = "Cu3PO42";
-      repo = "gtk-session-lock";
-      type = "github";
-    };
     gtk-theme-src = {
       flake = false;
       owner = "dracula";

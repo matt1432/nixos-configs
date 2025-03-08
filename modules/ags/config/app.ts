@@ -9,7 +9,6 @@ import binto from './configurations/binto';
 import wim from './configurations/wim';
 
 import greeter from './configurations/greeter';
-import lock from './configurations/lock';
 
 
 switch (programArgs[0]) {
@@ -18,6 +17,4 @@ switch (programArgs[0]) {
     case 'wim': wim(); break;
 
     case 'greeter': greeter(); break;
-
-    case 'lock': lock(); break;
 }

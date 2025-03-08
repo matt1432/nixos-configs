@@ -14,14 +14,11 @@ self: {
 
   agsConfig = let
     homeFiles = config.home-manager.users.${cfg.user}.home.file;
-
     nodeModules = homeFiles."${agsCfg.configDir}/node_modules".source;
-    varsTs = homeFiles."${agsCfg.configDir}/widgets/lockscreen/vars.ts".source;
   in
     pkgs.runCommandLocal "agsConfig" {} ''
       cp -ar ${../../../ags/config}/* ./.
       chmod +w -R ./.
-      cp -ar ${varsTs} ./widgets/lockscreen/vars.ts
       cp -ar ${nodeModules} ./node_modules
       ${agsCfg.package}/bin/ags bundle ./app.ts $out
     '';

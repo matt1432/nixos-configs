@@ -5,7 +5,7 @@ self: {
   pkgs,
   ...
 }: let
-  inherit (self.inputs) gtk-session-lock kompass;
+  inherit (self.inputs) kompass;
 
   inherit (lib) attrValues boolToString filter getExe mkIf optionalAttrs optionals;
 
@@ -54,9 +54,6 @@ in {
           wireplumber
           ;
 
-        # TODO: switch to Gtk4 version to get rid of this dep
-        gtkSessionLock = gtk-session-lock.packages.${pkgs.system}.default;
-
         # TODO: add overlays to upstream flake
         libKompass = kompass.packages.${pkgs.system}.libkompass;
 
@@ -79,8 +76,10 @@ in {
         name = "lock";
         runtimeInputs = [cfg.package];
         text = ''
+          gsettings set org.gnome.desktop.interface cursor-size 30
+
           if [ "$#" == 0 ]; then
-              exec ags run ~/${cfg.configDir} -a lock
+              exec ags run ~/${gtk4ConfigDir}/app.ts -a lock --gtk4
           else
               exec ags "$@" -i lock
           fi
@@ -97,14 +96,12 @@ in {
             runtimeInputs = [cfg.package];
             text = ''
               gsettings set org.gnome.desktop.interface cursor-size 30
-              exec ags run ~/${gtk4ConfigDir}/app.ts --gtk4
-            '';
-          })
-          (pkgs.writeShellApplication {
-            name = "agsConf";
-            runtimeInputs = [cfg.package];
-            text = ''
-              exec ags run ~/${cfg.configDir} -a "$1"
+
+              if [ "$#" == 0 ]; then
+                  exec ags run ~/${gtk4ConfigDir}/app.ts --gtk4 -a ${hostName}
+              else
+                  exec ags "$@"
+              fi
             '';
           })
         ]
@@ -167,7 +164,7 @@ in {
           pname = "ags";
           configPath = "${gtk4ConfigDir}/@girs";
           packages = filter (x:
-            x.pname != "gtk-session-lock")
+            true)
           cfg.astalLibs;
         })
         // {
@@ -181,7 +178,6 @@ in {
             source = buildNodeModules ./config (import ./config).npmDepsHash;
           };
 
-          "${cfg.configDir}/widgets/lockscreen/vars.ts".text = lockscreenVars;
           "${gtk4ConfigDir}/widgets/lockscreen/vars.ts".text = lockscreenVars;
         }
         // optionalAttrs cfgDesktop.isTouchscreen {
