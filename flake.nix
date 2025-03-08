@@ -5,14 +5,20 @@
       inputs = {
         astal.follows = "astal";
         nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
       };
-      owner = "Aylur";
+      owner = "matt1432";
+      ref = "overlay";
       repo = "ags";
       type = "github";
     };
     astal = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      owner = "Aylur";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
+      owner = "matt1432";
+      ref = "overlay";
       repo = "astal";
       type = "github";
     };

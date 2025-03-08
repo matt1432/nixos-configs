@@ -195,13 +195,21 @@ let
 
     agsInputs = {
       astal = mkInput {
-        owner = "Aylur";
+        # owner = "Aylur";
         repo = "astal";
+
+        # FIXME: https://github.com/Aylur/astal/pull/314
+        owner = "matt1432";
+        ref = "overlay";
       };
 
       ags = mkInput {
-        owner = "Aylur";
+        # owner = "Aylur";
         repo = "ags";
+
+        # FIXME: https://github.com/Aylur/astal/pull/314
+        owner = "matt1432";
+        ref = "overlay";
 
         inputs.astal.follows = "astal";
       };

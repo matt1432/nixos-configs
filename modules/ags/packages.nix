@@ -5,7 +5,7 @@ self: {
   pkgs,
   ...
 }: let
-  inherit (self.inputs) ags astal gtk-session-lock kompass;
+  inherit (self.inputs) gtk-session-lock kompass;
 
   inherit (lib) attrValues boolToString filter getExe mkIf optionalAttrs optionals;
 
@@ -30,18 +30,13 @@ in {
   config = mkIf cfgDesktop.ags.enable {
     # Make these accessible outside these files
     programs.ags = {
-      # TODO: add overlays to upstream flake
-      package = ags.packages.${pkgs.system}.ags.override {
+      package = pkgs.ags.override {
         extraPackages = cfg.astalLibs;
-
-        # FIXME: this makes sure we use my overlayed version for gtk4-session-lock
-        # try to fix this with overlays
-        gtk4-layer-shell = pkgs.gtk4-layer-shell;
       };
 
       astalLibs = attrValues {
         inherit
-          (astal.packages.${pkgs.system})
+          (pkgs.astalLibs)
           io
           astal3
           astal4
@@ -67,7 +62,7 @@ in {
 
         # libkompass dependencies
         inherit
-          (astal.packages.${pkgs.system})
+          (pkgs.astalLibs)
           cava
           river
           ;

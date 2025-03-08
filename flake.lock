@@ -7,18 +7,22 @@
         ],
         "nixpkgs": [
           "nixpkgs"
+        ],
+        "systems": [
+          "systems"
         ]
       },
       "locked": {
-        "lastModified": 1738087375,
-        "narHash": "sha256-GLyNtU9A2VN22jNRHZ2OXuFfTJLh8uEVVt+ftsKUX0c=",
-        "owner": "Aylur",
+        "lastModified": 1741472109,
+        "narHash": "sha256-jQZ1zXK1yRoSz0+yuPVh/7CpYczfhwybzhnoZ7mPJ50=",
+        "owner": "matt1432",
         "repo": "ags",
-        "rev": "a6a7a0adb17740f4c34a59902701870d46fbb6a4",
+        "rev": "59e9dbcf32213398ab08d209c483e5d024ed7316",
         "type": "github"
       },
       "original": {
-        "owner": "Aylur",
+        "owner": "matt1432",
+        "ref": "overlay",
         "repo": "ags",
         "type": "github"
       }
@@ -60,18 +64,22 @@
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
+        ],
+        "systems": [
+          "systems"
         ]
       },
       "locked": {
-        "lastModified": 1741396597,
-        "narHash": "sha256-RQYpdggQLWTynaT1ISqbACo8plSTBNunG8rv8+A82g0=",
-        "owner": "Aylur",
+        "lastModified": 1741470966,
+        "narHash": "sha256-Ix4WQvwuGE/NmwRDiE1wxyqsD9FUani3NiHD2rRioyM=",
+        "owner": "matt1432",
         "repo": "astal",
-        "rev": "f38433594051ee75957720d1c36de00896a67eb6",
+        "rev": "ca9df70b99d53926643fb3567e758812b62785a0",
         "type": "github"
       },
       "original": {
-        "owner": "Aylur",
+        "owner": "matt1432",
+        "ref": "overlay",
         "repo": "astal",
         "type": "github"
       }
