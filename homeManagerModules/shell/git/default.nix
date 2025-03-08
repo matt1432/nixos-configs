@@ -44,6 +44,8 @@ in {
       };
 
       extraConfig = {
+        help.autocorrect = "prompt";
+
         alias = {
           diff-clean = "-c delta.side-by-side=false diff";
           diff-patch = "-c delta.side-by-side=false -c delta.keep-plus-minus-markers=true diff";
