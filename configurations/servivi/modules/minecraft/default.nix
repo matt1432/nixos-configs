@@ -31,6 +31,32 @@
           allow-flight = true;
         };
       in {
+        # Modded Ancient Dawn https://www.curseforge.com/minecraft/modpacks/the-ancient-dawn
+        ad = {
+          enable = true;
+
+          jvmMaxAllocation = "10G";
+          jvmInitialAllocation = "2G";
+          jvmPackage = jre21;
+
+          serverConfig =
+            {
+              server-port = 25560;
+              motd = "The Ancient Dawn gaming";
+
+              extra-options = {
+                difficulty = "hard";
+                enable-command-block = true;
+                enforce-white-list = true;
+                white-list = true;
+                max-players = 10;
+                view-distance = 12;
+                simulation-distance = 8;
+              };
+            }
+            // defaults;
+        };
+
         # Vanilla Survival
         sv = {
           enable = true;
