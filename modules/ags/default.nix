@@ -57,7 +57,7 @@ in {
       astal.overlays.default
       virtualkeyboard-adapter.overlays.default
 
-      # FIXME: https://github.com/NixOS/nixpkgs/pull/377867
+      # FIXME: https://pr-tracker.nelim.org/?pr=388345
       (final: prev: {
         gtk4-layer-shell = prev.gtk4-layer-shell.overrideAttrs (o: rec {
           version = "1.1.0";
