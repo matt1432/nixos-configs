@@ -41,6 +41,8 @@ final: prev: {
           "LIBUSBMUXD=libusbmuxd-2.0"
           "LIBIMOBILEDEV=libimobiledevice-1.0"
         ];
+
+        meta = o.meta // {broken = false;};
       });
     };
 }
