@@ -13,6 +13,7 @@ This directory contains every derivations for packages exposed by this flake.
 | `jmusicbot` | Discord music bot that's easy to set up and run yourself | https://github.com/jagrosh/MusicBot |
 | `libratbag` | Configuration library for gaming mice | https://github.com/libratbag/libratbag |
 | `librespot-auth` | A simple program for populating a credentials.json via Spotify's zeroconf authentication. | https://github.com/dspearson/librespot-auth |
+| `nbted` | Command-line NBT editor written in Rust. It does precisely one thing: convert NBT files to a pretty text format, and reverse the pretty text format back into NBT. | https://github.com/C4K3/nbted |
 | `pam-fprint-grosshack` | This is a fork of the pam module which implements the simultaneous password and fingerprint behaviour present in pam_thinkfinger. | https://gitlab.com/mishakmak/pam-fprint-grosshack |
 | `piper` | GTK frontend for ratbagd mouse config daemon | https://github.com/libratbag/piper |
 | `pokemon-colorscripts` | A script to print out images of pokemon to the terminal. | https://gitlab.com/phoneybadger/pokemon-colorscripts |

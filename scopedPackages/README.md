@@ -31,7 +31,7 @@ Every extensions I use in my firefox module.
 | `frankerfacez` | The Twitch Enhancement Suite - Get custom emotes and tons of new features you'll never want to go without. | https://www.frankerfacez.com |
 | `google-container` | THIS IS NOT AN OFFICIAL ADDON FROM MOZILLA! It is a fork of the Facebook Container addon. Prevent Google from tracking you around the web. The Google Container extension helps you take control and isolate your web activity from Google. | https://github.com/containers-everywhere/contain-google |
 | `image-search-options` | A customizable reverse image search tool that conveniently presents a variety of top image search engines. | http://saucenao.com/ |
-| `istilldontcareaboutcookies` | Community version of the popular extension "I don't care about cookies" `<a href="https://prod.outgoing.prod.webservices.mozgcp.net/v1/d899243c3222e303a4ac90833f850da61cdf8f7779e2685f60f657254302216d/https%3A//github.com/OhMyGuus/I-Dont-Care-About-Cookies" rel="nofollow">`{=html}https://github.com/OhMyGuus/I-Dont-Care-About-Cookies`</a>`{=html} | https://github.com/OhMyGuus/I-Dont-Care-About-Cookies |
+| `istilldontcareaboutcookies` | Community version of the popular extension "I don't care about cookies" https://github.com/OhMyGuus/I-Dont-Care-About-Cookies | https://github.com/OhMyGuus/I-Dont-Care-About-Cookies |
 | `opera-gx-witchcraft-purple` | inspired by Opera GX |  |
 | `return-youtube-dislikes` | Returns ability to see dislike statistics on youtube |  |
 | `seventv` | The Twitch Enhancement Suite. Get custom emotes and tons of new features you'll never want to go without. | https://www.frankerfacez.com/ |

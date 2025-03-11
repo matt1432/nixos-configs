@@ -23,6 +23,8 @@
 
     librespot-auth = final.callPackage ./librespot-auth {};
 
+    nbted = final.callPackage ./nbted {};
+
     pam-fprint-grosshack = final.callPackage ./pam-fprint-grosshack {};
 
     piper = final.callPackage ./piper {

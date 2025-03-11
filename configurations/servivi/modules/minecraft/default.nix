@@ -10,6 +10,7 @@
 
   environment.systemPackages = [
     pkgs.curseforge-server-downloader
+    pkgs.selfPackages.nbted
   ];
 
   services = {
