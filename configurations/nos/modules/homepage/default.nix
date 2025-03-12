@@ -86,9 +86,9 @@
             };
           }
           {
-            gitea = {
+            forgejo = {
               href = "https://git.nelim.org";
-              icon = "gitea.png";
+              icon = "forgejo.png";
               description = "git";
             };
           }
@@ -221,13 +221,6 @@
             };
           }
           {
-            docker-hub-rss = {
-              href = "https://drss.nelim.org";
-              icon = "freshrss.png";
-              description = "dockerhub feed maker";
-            };
-          }
-          {
             rss-bridge = {
               href = "https://bridge.nelim.org";
               icon = "rss-bridge.png";
@@ -279,6 +272,16 @@
               widget = {
                 type = "minecraft";
                 url = "udp://cv.nelim.org";
+              };
+            };
+          }
+          {
+            modded = {
+              icon = "minecraft.png";
+              description = "minecwaf";
+              widget = {
+                type = "minecraft";
+                url = "udp://mc2.nelim.org";
               };
             };
           }
