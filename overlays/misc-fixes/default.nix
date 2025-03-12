@@ -9,40 +9,16 @@ final: prev: {
     };
   });
 
-  # FIXME: https://pr-tracker.nelim.org/?pr=382559
-  obs-studio-plugins = let
-    inherit (prev) lib libjpeg libimobiledevice obs-studio ffmpeg pkg-config;
-  in
-    prev.obs-studio-plugins
-    // {
-      droidcam-obs = prev.obs-studio-plugins.droidcam-obs.overrideAttrs (o: rec {
-        version = "2.3.4";
-        src = prev.fetchFromGitHub {
-          owner = "dev47apps";
-          repo = "droidcam-obs-plugin";
-          tag = version;
-          sha256 = "sha256-KWMLhddK561xA+EjvoG4tXRW4xoLil31JcTTfppblmA=";
-        };
-        postPatch = "";
+  # FIXME: automate this or make PR for nixpkgs-wayland?
+  fcft = prev.fcft.overrideAttrs (o: rec {
+    version = "3.3.0";
 
-        nativeBuildInputs = [
-          pkg-config
-        ];
-
-        # Flag reference in regard to:
-        # https://github.com/dev47apps/droidcam-obs-plugin/blob/master/linux/linux.mk
-        makeFlags = [
-          "ALLOW_STATIC=no"
-          "JPEG_DIR=${lib.getDev libjpeg}"
-          "JPEG_LIB=${lib.getLib libjpeg}/lib"
-          "IMOBILEDEV_DIR=${lib.getLib libimobiledevice}"
-          "LIBOBS_INCLUDES=${obs-studio}/include/obs"
-          "FFMPEG_INCLUDES=${lib.getLib ffmpeg}"
-          "LIBUSBMUXD=libusbmuxd-2.0"
-          "LIBIMOBILEDEV=libimobiledevice-1.0"
-        ];
-
-        meta = o.meta // {broken = false;};
-      });
+    src = prev.fetchFromGitea {
+      domain = "codeberg.org";
+      owner = "dnkl";
+      repo = "fcft";
+      rev = version;
+      hash = "sha256-spK75cT6x0rHcJT2YxX1e39jvx4uQKL/b4CHO7bon4s=";
     };
+  });
 }

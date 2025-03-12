@@ -56,19 +56,6 @@ in {
       ags.overlays.default
       astal.overlays.default
       virtualkeyboard-adapter.overlays.default
-
-      # FIXME: https://pr-tracker.nelim.org/?pr=388345
-      (final: prev: {
-        gtk4-layer-shell = prev.gtk4-layer-shell.overrideAttrs (o: rec {
-          version = "1.1.0";
-          src = pkgs.fetchFromGitHub {
-            owner = "wmww";
-            repo = "gtk4-layer-shell";
-            rev = "v${version}";
-            hash = "sha256-UGhFeaBBIfC4ToWdyoX+oUzLlqJsjF++9U7mtszE0y0=";
-          };
-        });
-      })
     ];
 
     i18n.inputMethod = mkIf cfgDesktop.isTouchscreen {

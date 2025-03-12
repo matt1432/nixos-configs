@@ -104,7 +104,6 @@
 
     package = pkgs.spotifyd.override {
       withMpris = false;
-      withKeyring = false;
     };
 
     settings.global = {
