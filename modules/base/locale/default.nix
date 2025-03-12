@@ -12,9 +12,10 @@ in {
     fonts = {
       fontconfig = {
         enable = true;
+
         defaultFonts = {
           emoji = ["Noto Color Emoji"];
-          monospace = ["JetBrainsMono Nerd Font"];
+          monospace = ["JetBrainsMono Nerd Font Mono"];
           sansSerif = ["Noto Nerd Font"];
           serif = ["Noto Nerd Font"];
         };

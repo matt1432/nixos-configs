@@ -15,7 +15,7 @@ in {
       format = concatStrings [
         "╭╴"
         "[](fg:${cfg.promptColors.firstColor})"
-        "[   ](bg:${cfg.promptColors.firstColor} fg:#090c0c)"
+        "[  ](bg:${cfg.promptColors.firstColor} fg:#090c0c)"
         "[](bg:${cfg.promptColors.secondColor} fg:${cfg.promptColors.firstColor})"
         "$username$hostname"
         "[](fg:${cfg.promptColors.secondColor} bg:${cfg.promptColors.thirdColor})"
@@ -46,10 +46,10 @@ in {
         truncation_length = 0;
 
         substitutions = {
-          "Documents" = "󰈙 ";
-          "Downloads" = " ";
-          "Music" = " ";
-          "Pictures" = " ";
+          "Documents" = "󰈙";
+          "Downloads" = "";
+          "Music" = "";
+          "Pictures" = "";
         };
       };
 
@@ -63,8 +63,8 @@ in {
         disabled = false;
         threshold = 2;
 
-        symbol = "󰔳 ";
-        format = "[ $symbol]($style)";
+        symbol = " 󰔳";
+        format = "[$symbol]($style)";
 
         repeat = true;
         repeat_offset = 1;

@@ -20,7 +20,7 @@ in {
 
     fontDpi = mkOption {
       type = types.numbers.nonnegative;
-      default = 170;
+      default = 130;
     };
   };
 
@@ -29,7 +29,6 @@ in {
       useXkbConfig = true;
       hwRender = false;
 
-      # TODO: https://github.com/Aetf/kmscon/issues/18 find workaround with more spaces?
       extraOptions = concatStringsSep " " [
         "--font-size ${toString cfg.fontSize}"
         "--font-dpi ${toString cfg.fontDpi}"
