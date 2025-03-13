@@ -20,7 +20,7 @@ in {
       ])
       ++ [
         (final: prev: {
-          inherit (pkgs.selfPackages) fcft;
+          fcft = prev.fcft.overrideAttrs {inherit (pkgs.selfPackages.fcft) version src;};
         })
       ]
       ++ (attrValues {
