@@ -1,6 +1,3 @@
-// TODO: persisting data like bluetooth
-// TODO: quick-settings
-// TODO: music player stuff
 // TODO: see if I can bundle each config separately with nix
 
 import { programArgs } from 'system';

@@ -27,7 +27,7 @@ namespace NetDaemonConfig.Apps.Timer.Setup
         private readonly string _timerTtsTarget = "tts.piper";
         private readonly string _timerTtsMessage = "A set timer has finished.";
 
-        // TODO: private readonly string timerMediaLocation = "/path/to/file.mp3";
+        // private readonly string timerMediaLocation = "/path/to/file.mp3";
 
         public Setup(IHaContext ha, Services services, Entities entities)
         {

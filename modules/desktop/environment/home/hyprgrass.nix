@@ -12,7 +12,7 @@ self: {
 in {
   config = mkIf (cfg.enable && cfg.isTouchscreen) {
     wayland.windowManager.hyprland = {
-      # TODO: add overlays to upstream flake
+      # TODO: https://github.com/horriblename/hyprgrass/pull/222
       plugins = [self.inputs.hyprgrass.packages.${pkgs.system}.default];
 
       settings = {

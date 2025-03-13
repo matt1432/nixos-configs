@@ -1,4 +1,4 @@
-// TODO: right Ctrl https://handwiki.org/wiki/images/4/41/KB_Canadian_Multilingual_Standard.svg
+// keyboard is missing right Ctrl mod https://handwiki.org/wiki/images/4/41/KB_Canadian_Multilingual_Standard.svg
 
 export const defaultOskLayout = 'qwerty_custom';
 export const oskLayouts = {

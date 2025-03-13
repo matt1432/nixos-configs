@@ -1,4 +1,4 @@
-# TODO: rewrite this in NetDaemon
+# rewrite this in NetDaemon
 # From https://github.com/don86nl/ha_intents/blob/main/config/packages/assist_timers.yaml
 {lib, ...}: let
   inherit (lib) concatStrings concatStringsSep;
