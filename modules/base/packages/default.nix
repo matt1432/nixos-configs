@@ -18,6 +18,11 @@ in {
         "nurl"
         "nixpkgs-wayland"
       ])
+      ++ [
+        (final: prev: {
+          inherit (pkgs.selfPackages) fcft;
+        })
+      ]
       ++ (attrValues {
         # inherit
         #   (self.overlays)

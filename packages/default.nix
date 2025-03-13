@@ -6,6 +6,8 @@
   selfPackages = {
     coloryou = final.callPackage ./coloryou {};
 
+    fcft = final.callPackage ./fcft {};
+
     gpu-screen-recorder = final.callPackage ./gpu-screen-recorder/gpu-screen-recorder.nix {
       inherit (inputs) gpu-screen-recorder-src;
     };
