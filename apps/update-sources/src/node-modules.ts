@@ -17,7 +17,17 @@ const updatePackageJson = async(workspaceDir: string, updates: object) => {
     const outdated = JSON.parse(npmRun(['outdated', '--json'], workspaceDir));
 
     const updateDeps = (deps: string) => {
-        Object.keys(currentPackageJson[deps]).forEach((dep) => {
+        Object.keys(currentPackageJson[deps]).forEach(async(dep) => {
+            if (dep === 'astal') {
+                const latestCommit = JSON.parse(spawnSync('curl',
+                    ['-s', 'https://api.github.com/repos/Aylur/astal/commits/main'],
+                    { shell: true }).stdout.toString()).sha;
+
+                currentPackageJson[deps][dep] = `https://gitpkg.vercel.app/Aylur/astal/lang/gjs/src?${latestCommit}`;
+
+                return;
+            }
+
             if (PINS.has(dep)) {
                 currentPackageJson[deps][dep] = PINS.get(dep);
 
