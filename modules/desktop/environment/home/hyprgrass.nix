@@ -12,8 +12,7 @@ self: {
 in {
   config = mkIf (cfg.enable && cfg.isTouchscreen) {
     wayland.windowManager.hyprland = {
-      # TODO: https://github.com/horriblename/hyprgrass/pull/222
-      plugins = [self.inputs.hyprgrass.packages.${pkgs.system}.default];
+      plugins = [pkgs.hyprlandPlugins.hyprgrass];
 
       settings = {
         plugin.touch_gestures = {

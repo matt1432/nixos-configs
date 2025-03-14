@@ -140,7 +140,10 @@
       type = "github";
     };
     hyprgrass = {
-      inputs.hyprland.follows = "hyprland";
+      inputs = {
+        hyprland.follows = "hyprland";
+        nixpkgs.follows = "nixpkgs";
+      };
       owner = "horriblename";
       repo = "hyprgrass";
       type = "github";
@@ -153,6 +156,7 @@
       };
       owner = "hyprwm";
       repo = "Hyprland";
+      rev = "e86d3a14e46d19d8a47f8ceb6410546715d45f10";
       type = "github";
     };
     hyprland-plugins = {

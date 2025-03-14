@@ -29,12 +29,22 @@ in {
       }
     ];
 
-    nixpkgs.overlays = map (i: self.inputs.${i}.overlays.default) [
-      "hyprland"
-      "hyprland-plugins"
-      "hyprpaper"
-      "nixpkgs-wayland"
-    ];
+    nixpkgs.overlays =
+      (map (i: self.inputs.${i}.overlays.default) [
+        "hyprgrass"
+        "hyprland"
+        "hyprland-plugins"
+        "hyprpaper"
+        "nixpkgs-wayland"
+      ])
+      ++ [
+        (final: prev: {
+          # FIXME: wait for upstream to reach same nixpkgs rev
+          aquamarine = prev.aquamarine.override {mesa = final.libgbm;};
+          hyprland = prev.hyprland.override {mesa = final.libgbm;};
+          xdg-desktop-portal-hyprland = prev.xdg-desktop-portal-hyprland.override {mesa = final.libgbm;};
+        })
+      ];
   };
 
   options.roles.desktop = {
