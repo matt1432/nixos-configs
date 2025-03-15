@@ -8,25 +8,23 @@
   fetchFromGitHub,
   makeWrapper,
   # deps
-  git,
   nodejs,
   pnpm,
-  python3,
   ...
 }: let
-  inherit (lib) optionalString;
+  inherit (lib) getExe optionalString;
 
   installLocalIcons = import ./icons.nix {inherit fetchFromGitHub;};
 in
   stdenv.mkDerivation (finalAttrs: {
     pname = "homepage-dashboard";
-    version = "1.0.0";
+    version = "1.0.1";
 
     src = fetchFromGitHub {
       owner = "gethomepage";
       repo = "homepage";
       rev = "v${finalAttrs.version}";
-      hash = "sha256-j543lwSWOFuPjHCTN/4vEKME39RpG4D16qWeSrL5hZY=";
+      hash = "sha256-cnVnNA0+UYYLyo7HgNvkWoSAJhr0T51MGItd/JIencE=";
     };
 
     pnpmDepsHash = "sha256-E16+JLtfoiWCXwgFGdTGuFlx/pYxhINNl6tCuF9Z6MQ=";
@@ -36,24 +34,18 @@ in
       hash = finalAttrs.pnpmDepsHash;
     };
 
-    buildPhase = ''
-      pnpm build
-    '';
-
-    postBuild = ''
-      # Add a shebang to the server js file, then patch the shebang.
-      sed -i '1s|^|#!/usr/bin/env node\n|' .next/standalone/server.js
-      patchShebangs .next/standalone/server.js
-    '';
-
     nativeBuildInputs = [
-      git
       makeWrapper
       nodejs
       pnpm.configHook
     ];
 
-    env.PYTHON = "${python3}/bin/python";
+    buildPhase = ''
+      pnpm build
+
+      # Add a shebang to the server js file
+      sed -i '1s|^|#!${getExe nodejs}\n|' .next/standalone/server.js
+    '';
 
     installPhase = ''
       runHook preInstall

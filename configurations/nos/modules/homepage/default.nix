@@ -3,6 +3,8 @@
   pkgs,
   ...
 }: {
+  systemd.services.homepage-dashboard.environment.HOMEPAGE_ALLOWED_HOSTS = "lan.nelim.org";
+
   services.homepage-dashboard = {
     enable = true;
 
