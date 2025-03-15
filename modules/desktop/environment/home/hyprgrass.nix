@@ -12,7 +12,16 @@ self: {
 in {
   config = mkIf (cfg.enable && cfg.isTouchscreen) {
     wayland.windowManager.hyprland = {
-      plugins = [pkgs.hyprlandPlugins.hyprgrass];
+      plugins = [
+        # FIXME: I should prob do a PR
+        (pkgs.hyprlandPlugins.hyprgrass.overrideAttrs (o: {
+          patchPhase = ''
+            ${o.patchPhase or ""}
+            substituteInPlace ./src/TouchVisualizer.hpp --replace-fail \
+              "#include <hyprland/src/render/Shaders.hpp>" ""
+          '';
+        }))
+      ];
 
       settings = {
         plugin.touch_gestures = {

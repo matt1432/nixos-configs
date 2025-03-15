@@ -12,7 +12,7 @@ let
     nixpkgs = mkInput {
       owner = "NixOS";
       repo = "nixpkgs";
-      ref = "nixos-unstable-small";
+      ref = "nixos-unstable";
     };
 
     home-manager = mkInput {
@@ -165,9 +165,6 @@ let
       hyprland = mkInput {
         owner = "hyprwm";
         repo = "Hyprland";
-
-        # FIXME: breaks hypgrass, too lazy to fix
-        rev = "e86d3a14e46d19d8a47f8ceb6410546715d45f10";
       };
 
       hyprland-plugins = mkHyprDep {

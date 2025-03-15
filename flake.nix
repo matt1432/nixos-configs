@@ -156,7 +156,6 @@
       };
       owner = "hyprwm";
       repo = "Hyprland";
-      rev = "e86d3a14e46d19d8a47f8ceb6410546715d45f10";
       type = "github";
     };
     hyprland-plugins = {
@@ -354,7 +353,7 @@
     };
     nixpkgs = {
       owner = "NixOS";
-      ref = "nixos-unstable-small";
+      ref = "nixos-unstable";
       repo = "nixpkgs";
       type = "github";
     };
