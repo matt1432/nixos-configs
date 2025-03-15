@@ -1,11 +1,13 @@
 final: prev: {
-  # FIXME: do some other stuff and make PR
+  # FIXME: https://github.com/Mic92/nix-update/pull/330
   nix-update = prev.nix-update.overrideAttrs (o: {
+    version = o.version + "-mattpr";
+
     src = prev.fetchFromGitHub {
       owner = "matt1432";
       repo = "nix-update";
-      rev = "21de1ebd7e7c22de03f0a9c7e1f6cd488fa96d03";
-      hash = "sha256-ukapzy0+mS4rorX3D22lRKX/D9TXmkq8W2YNDQIq7A8=";
+      rev = "30e33f8dc10b7452d6fa36f4c11cf61c2075ded6";
+      hash = "sha256-Q7TJn1XEwGDaPZOvGdQ+B78e8mkZTtBrBVKngUCRABQ=";
     };
   });
 }

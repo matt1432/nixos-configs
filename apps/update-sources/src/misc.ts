@@ -68,7 +68,7 @@ export const runNixUpdate = (
         '';
 
     const execution = spawnSync(
-        `nix-update --flake ${realAttr} ${options} --write-commit-message >(head -n 1 -) > /dev/null`,
+        `nix-update --flake ${realAttr} ${options} --quiet --commit-message | head -n 1`,
         [],
         { shell: true, cwd: FLAKE },
     );
