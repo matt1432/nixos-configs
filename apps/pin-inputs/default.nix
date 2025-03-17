@@ -1,7 +1,7 @@
 {buildApp, ...}:
 buildApp {
   src = ./.;
-  npmDepsHash = "sha256-fk5yVpbPyJ5xOvYEKTG4EDFh4Ba7WwDjsyv2PmXz2eM=";
+  npmDepsHash = "sha256-Qmhx5S6eE37QQ/4/GLsHnPasX0UfCSJ/+n+1ClfEzWc=";
 
   runtimeInputs = [];
 
