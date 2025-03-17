@@ -12,7 +12,6 @@
     ./modules
 
     self.nixosModules.base
-    self.nixosModules.kmscon
     self.nixosModules.meta
     self.nixosModules.plymouth
     self.nixosModules.server
@@ -65,8 +64,6 @@
     enable = true;
     theme = "bgrt";
   };
-
-  services.kmscon.enable = true;
 
   home-manager.users.${mainUser} = {
     imports = [

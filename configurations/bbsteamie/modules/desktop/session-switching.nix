@@ -55,6 +55,9 @@ defaultSession: {
       '';
     };
 
+    # Disable getty on tty1 for seamless DE transitions
+    systemd.services.display-manager.conflicts = ["getty@tty1.service"];
+
     # Allows switching to gaming mode
     systemd.services."to-gaming-mode" = {
       wantedBy = mkForce [];
