@@ -27,7 +27,7 @@
   users.users.${mainUser} = {
     isNormalUser = true;
 
-    hashedPassword = "$y$j9T$OSui2t4Ol8HKY2E09k4Wl/$fv6kORhiLzbh7kaoAxAS1FypQD1VYjTUYhblwUJrcS8";
+    hashedPassword = "$y$j9T$b6YdvHx1b/HOD6Kt3Tw1W.$yIy5Km1xBViJA2kra9l38S/0auhEHPdXOMb6RBhgxID";
 
     extraGroups = [
       "wheel"
