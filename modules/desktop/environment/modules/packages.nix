@@ -292,7 +292,7 @@ in {
               "sleep 3; ${getExe restartTailscale}"
             ];
 
-          windowrulev2 =
+          windowrule =
             [
               "tile, class:^(libreoffice)$"
               "float, class:^(org.gnome.Calculator)$"
