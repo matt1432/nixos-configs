@@ -26,6 +26,7 @@
   # ------------------------------------------------
   users.users.${mainUser} = {
     isNormalUser = true;
+    uid = 1000;
 
     hashedPassword = "$y$j9T$DSLWphPlpiahIw7KQciF1/$FOjIbplU1Fknv5W.A15Xgdk.WNXP.zeWkJiewSUTGPC";
 

@@ -29,6 +29,7 @@ in {
     # ------------------------------------------------
     users.users.${mainUser} = {
       isNormalUser = true;
+      uid = 1000;
 
       hashedPassword =
         if deviceName == "thingone"
