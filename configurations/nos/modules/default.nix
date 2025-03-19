@@ -1,5 +1,6 @@
 {...}: {
   imports = [
+    ./comics
     ./docker
     ./homepage
     ./jellyfin
