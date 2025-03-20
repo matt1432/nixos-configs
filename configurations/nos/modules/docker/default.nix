@@ -1,4 +1,8 @@
-{config, mainUser, ...}: let
+{
+  config,
+  mainUser,
+  ...
+}: let
   globalEnv = {
     configPath = "/var/lib/docker-data";
     mainUID = toString config.users.users.${mainUser}.uid;

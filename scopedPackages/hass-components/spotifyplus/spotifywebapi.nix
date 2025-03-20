@@ -21,6 +21,7 @@ in
       oauthlib
       platformdirs
       pychromecast
+      pyotp
       requests
       requests_oauthlib
       setuptools
