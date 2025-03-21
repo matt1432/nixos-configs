@@ -71,6 +71,8 @@ in {
 
       "Jellyseer" = mkPublicReverseProxy "seerr" "${nosIP}:5055" {};
 
+      "Komga" = mkPublicReverseProxy "komga" "${nosIP}:7080" {};
+
       "Gameyfin" = mkPublicReverseProxy "games" "${nosIP}:8074" {};
 
       "Forgejo" = mkPublicReverseProxy "git" "${nosIP}:3000" {};
