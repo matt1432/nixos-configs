@@ -173,10 +173,11 @@ in {
         # Apps
         inherit
           (pkgs)
+          jellyfin-media-player
+          nextcloud-client
           protonmail-desktop # run with `XDG_SESSION_TYPE=x11 proton-mail` if it crashes  https://github.com/NixOS/nixpkgs/issues/365156
           spotifywm
           swayimg
-          nextcloud-client
           vesktop # screen-sharing on desktop
           ;
 
@@ -217,9 +218,6 @@ in {
           slurp
           satty
           ;
-
-        # comes from nixos-jellyfin
-        jellyfinMediaPlayer = pkgs.jellyfin-media-player.override {isNvidiaWayland = isNvidia;};
 
         GParted = let
           inherit
