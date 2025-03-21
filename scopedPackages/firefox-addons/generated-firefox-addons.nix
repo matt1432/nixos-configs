@@ -56,29 +56,6 @@
       platforms = platforms.all;
     };
   };
-  "checkmarks-web-ext" = buildFirefoxXpiAddon {
-    pname = "checkmarks-web-ext";
-    version = "1.6.1";
-    addonId = "{bd97f89b-17ba-4539-9fec-06852d07f917}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/3594420/checkmarks_web_ext-1.6.1.xpi";
-    sha256 = "c3ccf4b302ee96c9b883c4a1f7d26395ab4e276b976cab2d65c9cd898964e4f0";
-    meta = with lib; {
-      homepage = "https://github.com/tanwald/checkmarks";
-      description = "Checks, sorts, formats bookmarks and loads favicons.";
-      license = licenses.gpl3;
-      mozPermissions = [
-        "<all_urls>"
-        "bookmarks"
-        "browsingData"
-        "storage"
-        "tabs"
-        "webNavigation"
-        "webRequest"
-        "webRequestBlocking"
-      ];
-      platforms = platforms.all;
-    };
-  };
   "darkreader" = buildFirefoxXpiAddon {
     pname = "darkreader";
     version = "4.9.103";
@@ -198,19 +175,6 @@
         "webRequestBlocking"
         "webNavigation"
       ];
-      platforms = platforms.all;
-    };
-  };
-  "opera-gx-witchcraft-purple" = buildFirefoxXpiAddon {
-    pname = "opera-gx-witchcraft-purple";
-    version = "2.0";
-    addonId = "{bf197856-a3c2-4280-84c5-9b556379b706}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/3522842/opera_gx_witchcraft_purple-2.0.xpi";
-    sha256 = "aa3c6377b8571c42a3988de042694be70ec6a250a9aea7ae1cc262acdc9374eb";
-    meta = with lib; {
-      description = "inspired by Opera GX";
-      license = licenses.cc-by-sa-30;
-      mozPermissions = [];
       platforms = platforms.all;
     };
   };

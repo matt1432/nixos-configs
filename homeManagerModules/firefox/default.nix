@@ -8,12 +8,10 @@ self: {
 
   inherit (lib) attrsToList attrValues mkIf mkOption singleton types;
 
+  mainProfile = "dev-edition-default";
   cfg = config.programs.firefox;
 
-  rounding = (config.wayland.windowManager.hyprland.settings.decoration.rounding or 2) - 2;
-
-  firefox-gx = pkgs.callPackage ./firefox-gx {inherit self;};
-  custom-css = pkgs.callPackage ./custom-css {inherit rounding firefox-gx;};
+  custom-css = pkgs.callPackage ./custom-css {};
 in {
   options.programs.firefox.enableCustomConf = mkOption {
     type = types.bool;
@@ -21,32 +19,23 @@ in {
   };
 
   config = mkIf cfg.enableCustomConf {
-    home.file = {
-      ".mozilla/firefox/matt/chrome/userContent.css".source = "${firefox-gx}/chrome/userContent.css";
-      ".mozilla/firefox/matt/chrome/components".source = "${firefox-gx}/chrome/components";
-      ".mozilla/firefox/matt/chrome/images".source = "${firefox-gx}/chrome/images";
-      ".mozilla/firefox/matt/chrome/icons".source = "${firefox-gx}/chrome/icons";
-    };
-
     programs.firefox = {
       enable = true;
 
-      profiles.matt = {
+      package = pkgs.firefox-devedition;
+
+      profiles.${mainProfile} = {
         isDefault = true;
         id = 0;
 
         userChrome = ''
-          @import url("file://${firefox-gx}/chrome/userChrome.css");
           @import url("file://${custom-css}");
         '';
 
         settings = {
-          # Theme
-          "firefoxgx.tab-shapes" = true;
-          "firefoxgx.left-sidebar" = true;
-          "userChrome.tab.bottom_rounded_corner" = true;
-          "userChrome.tab.bottom_rounded_corner.wave" = false;
-          "userChrome.tab.bottom_rounded_corner.australis" = true;
+          # Developer Edition Settings
+          "xpinstall.signatures.required" = false;
+          "extensions.experiments.enabled" = true;
 
           # Use the normal file picker
           "widget.use-xdg-desktop-portal.file-picker" = 0;
@@ -62,9 +51,10 @@ in {
           "layout.css.backdrop-filter.enabled" = true;
           "browser.newtabpage.activity-stream.improvesearch.handoffToAwesomebar" = false;
           "browser.newtabpage.activity-stream.newtabWallpapers.enabled" = true;
+          "browser.newtabpage.activity-stream.newtabWallpapers.v2.enabled" = true;
 
           /*
-          To active container tabs without any extension
+          To activate container tabs without any extension
           */
           "privacy.userContext.enabled" = true;
           "privacy.userContext.ui.enabled" = true;
@@ -89,6 +79,7 @@ in {
 
           # remove first run and warning stuff
           "datareporting.policy.firstRunURL" = "";
+          "extensions.autoDisableScopes" = 0;
           "browser.aboutwelcome.enabled" = false;
           "browser.aboutConfig.showWarning" = false;
 
@@ -109,21 +100,24 @@ in {
         };
 
         search = {
-          default = "SearXNG";
+          default = "searxng";
           force = true;
+
           engines = {
-            "SearXNG" = {
+            searxng = {
+              name = "SearXNG";
               urls = singleton {
                 template = "https://search.nelim.org/search";
                 params = attrsToList {
                   "q" = "{searchTerms}";
                 };
               };
-              iconMapObj."16" = "https://search.nelim.org/favicon.ico";
+              icon = "https://search.nelim.org/favicon.ico";
               definedAliases = ["@s"];
             };
 
-            "Github Search Code" = {
+            code = {
+              name = "Github Search Code";
               urls = singleton {
                 template = "https://github.com/search";
                 params = attrsToList {
@@ -131,11 +125,12 @@ in {
                   "q" = "NOT is:fork {searchTerms}";
                 };
               };
-              iconMapObj."16" = "https://icon.horse/icon/github.com";
+              icon = "https://icon.horse/icon/github.com";
               definedAliases = ["@gs"];
             };
 
-            "Github Nix Code" = {
+            nixcode = {
+              name = "Github Nix Code";
               urls = singleton {
                 template = "https://github.com/search";
                 params = attrsToList {
@@ -143,11 +138,12 @@ in {
                   "q" = "lang:Nix NOT is:fork {searchTerms}";
                 };
               };
-              iconMapObj."16" = "https://icon.horse/icon/github.com";
+              icon = "https://icon.horse/icon/github.com";
               definedAliases = ["@gn"];
             };
 
-            "Nixpkgs" = {
+            nixpkgs = {
+              name = "Nixpkgs";
               urls = singleton {
                 template = "https://github.com/search";
                 params = attrsToList {
@@ -155,95 +151,100 @@ in {
                   "q" = "repo:NixOS/nixpkgs {searchTerms}";
                 };
               };
-              iconMapObj."16" = "https://icon.horse/icon/github.com";
+              icon = "https://icon.horse/icon/github.com";
               definedAliases = ["@pkgs"];
             };
 
-            "NixOS Wiki" = {
+            nixwiki = {
+              name = "NixOS Wiki";
               urls = singleton {
                 template = "https://wiki.nixos.org/w/index.php";
                 params = attrsToList {
                   "search" = "{searchTerms}";
                 };
               };
-              iconMapObj."16" = "https://wiki.nixos.org/favicon.ico";
+              icon = "https://wiki.nixos.org/favicon.ico";
               definedAliases = ["@nw"];
             };
 
-            "MyNixos" = {
+            mynixos = {
+              name = "MyNixos";
               urls = singleton {
                 template = "https://mynixos.com/search";
                 params = attrsToList {
                   "q" = "{searchTerms}";
                 };
               };
-              iconMapObj."16" = "https://mynixos.com/favicon.ico";
+              icon = "https://mynixos.com/favicon.ico";
               definedAliases = ["@mn"];
             };
 
-            "Noogle" = {
+            noogle = {
+              name = "Noogle";
               urls = singleton {
                 template = "https://noogle.dev/q";
                 params = attrsToList {
                   "term" = "{searchTerms}";
                 };
               };
-              iconMapObj."16" = "https://noogle.dev/favicon.ico";
+              icon = "https://noogle.dev/favicon.ico";
               definedAliases = ["@ng"];
             };
 
-            "Firefox Add-ons" = {
+            extensions = {
+              name = "Firefox Add-ons";
               urls = singleton {
                 template = "https://addons.mozilla.org/en-US/firefox/search";
                 params = attrsToList {
                   "q" = "{searchTerms}";
                 };
               };
-              iconMapObj."16" = "https://addons.mozilla.org/favicon.ico";
+              icon = "https://addons.mozilla.org/favicon.ico";
               definedAliases = ["@fa"];
             };
 
-            "ProtonDB" = {
+            protondb = {
+              name = "ProtonDB";
               urls = singleton {
                 template = "https://www.protondb.com/search";
                 params = attrsToList {
                   "q" = "{searchTerms}";
                 };
               };
-              iconMapObj."16" = "https://www.protondb.com/favicon.ico";
+              icon = "https://www.protondb.com/favicon.ico";
               definedAliases = ["@pdb"];
             };
 
-            "YouTube" = {
+            youtube = {
+              name = "YouTube";
               urls = singleton {
                 template = "https://www.youtube.com/results";
                 params = attrsToList {
                   "search_query" = "{searchTerms}";
                 };
               };
-              iconMapObj."16" = "https://www.youtube.com/favicon.ico";
+              icon = "https://www.youtube.com/favicon.ico";
               definedAliases = ["@yt" "@youtube"];
             };
 
-            "Bing".metaData.hidden = true;
-            "Google".metaData.hidden = true;
-            "eBay".metaData.hidden = true;
+            bing.metaData.hidden = true;
+            google.metaData.hidden = true;
+            ebay.metaData.hidden = true;
           };
 
           order = [
-            "SearXNG"
-            "DuckDuckGo"
-            "MyNixos"
-            "NixOS Wiki"
-            "Github Search Code"
-            "Github Nix Code"
-            "Nixpkgs"
-            "Noogle"
-            "Wikipedia (en)"
-            "YouTube"
-            "Firefox Add-ons"
-            "ProtonDB"
-            "Amazon.ca"
+            "searxng"
+            "ddg"
+            "mynixos"
+            "nixwiki"
+            "code"
+            "nixcode"
+            "nixpkgs"
+            "noogle"
+            "wikipedia"
+            "youtube"
+            "extensions"
+            "protondb"
           ];
         };
 
@@ -252,15 +253,13 @@ in {
             (firefoxAddons)
             auto-refresh-page
             bitwarden
-            checkmarks-web-ext
             darkreader
             floccus
+            frankerfacez
             google-container
             image-search-options
             istilldontcareaboutcookies
-            opera-gx-witchcraft-purple
             return-youtube-dislikes
-            seventv
             sponsorblock
             sound-volume
             stylus

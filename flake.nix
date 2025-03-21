@@ -79,13 +79,6 @@
       repo = "extended_ollama_conversation";
       type = "github";
     };
-    firefox-gx-src = {
-      flake = false;
-      owner = "Godiesc";
-      repo = "firefox-gx";
-      rev = "6f5d07e11e008d6cbf4461e53daf80820afa8418";
-      type = "github";
-    };
     flake-compat = {
       owner = "edolstra";
       repo = "flake-compat";
