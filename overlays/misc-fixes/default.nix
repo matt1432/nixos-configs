@@ -10,12 +10,4 @@ final: prev: {
       hash = "sha256-Q7TJn1XEwGDaPZOvGdQ+B78e8mkZTtBrBVKngUCRABQ=";
     };
   });
-
-  # FIXME: https://pr-tracker.nelim.org/?pr=389338
-  nuget-to-json = prev.nuget-to-json.overrideAttrs {
-    src = prev.fetchurl {
-      url = "https://raw.githubusercontent.com/NixOS/nixpkgs/3180769c2e59a8e82a2dcd94eec2de2a8459783a/pkgs/by-name/nu/nuget-to-json/nuget-to-json.sh";
-      hash = "sha256-BZR8WWzGNccgVGBBkpJbz+zCVgwpCmTSNdumN36JV10=";
-    };
-  };
 }
