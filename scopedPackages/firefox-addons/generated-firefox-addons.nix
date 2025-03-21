@@ -262,6 +262,34 @@
       platforms = platforms.all;
     };
   };
+  "tampermonkey" = buildFirefoxXpiAddon {
+    pname = "tampermonkey";
+    version = "5.3.3";
+    addonId = "firefox@tampermonkey.net";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4405733/tampermonkey-5.3.3.xpi";
+    sha256 = "1eb5ddffb3b93c0258ef0458658436563772d21bf5dffa334bb8a49cca8f0fff";
+    meta = with lib; {
+      homepage = "https://tampermonkey.net";
+      description = "Tampermonkey is the world's most popular userscript manager.";
+      mozPermissions = [
+        "alarms"
+        "notifications"
+        "tabs"
+        "idle"
+        "webNavigation"
+        "webRequest"
+        "webRequestBlocking"
+        "unlimitedStorage"
+        "storage"
+        "contextMenus"
+        "clipboardWrite"
+        "cookies"
+        "downloads"
+        "<all_urls>"
+      ];
+      platforms = platforms.all;
+    };
+  };
   "ttv-lol-pro" = buildFirefoxXpiAddon {
     pname = "ttv-lol-pro";
     version = "2.4.0";

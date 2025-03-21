@@ -7,10 +7,12 @@ This directory contains every derivations for packages exposed by this flake.
 | Name | Description | Homepage |
 | ---- | ----------- | -------- |
 | `coloryou` | Get Material You colors from an image. | https://git.nelim.org/matt1432/nixos-configs/src/branch/master/packages/coloryou |
+| `fcft` | Simple library for font loading and glyph rasterization | https://codeberg.org/dnkl/fcft |
 | `gpu-screen-recorder` | Screen recorder that has minimal impact on system performance by recording a window using the GPU only. | https://git.dec05eba.com/gpu-screen-recorder/about |
 | `gsr-kms-server` | Small program giving safe KMS access to gpu-screen-recorder when recording a monitor. This is the only part of gpu-screen-recorder that could require root permissions. | https://git.dec05eba.com/gpu-screen-recorder/about |
 | `homepage` | Highly customisable dashboard with Docker and service API integrations. | https://gethomepage.dev |
 | `jmusicbot` | Discord music bot that's easy to set up and run yourself | https://github.com/jagrosh/MusicBot |
+| `komf` | komf is a tool that fetches metadata and thumbnails for your digital comic book library. | https://github.com/Snd-R/komf |
 | `libratbag` | Configuration library for gaming mice | https://github.com/libratbag/libratbag |
 | `librespot-auth` | A simple program for populating a credentials.json via Spotify's zeroconf authentication. | https://github.com/dspearson/librespot-auth |
 | `nbted` | Command-line NBT editor written in Rust. It does precisely one thing: convert NBT files to a pretty text format, and reverse the pretty text format back into NBT. | https://github.com/C4K3/nbted |

@@ -25,19 +25,17 @@ Every extensions I use in my firefox module.
 | ---- | ----------- | -------- |
 | `auto-refresh-page` | Refresh web pages automatically. Auto-refresh and page monitor with specified time intervals. | https://www.hashtap.com/@refresh |
 | `bitwarden` | At home, at work, or on the go, Bitwarden easily secures all your passwords, passkeys, and sensitive information. | https://bitwarden.com |
-| `checkmarks-web-ext` | Checks, sorts, formats bookmarks and loads favicons. | https://github.com/tanwald/checkmarks |
 | `darkreader` | Dark mode for every website. Take care of your eyes, use dark theme for night and daily browsing. | https://darkreader.org/ |
 | `floccus` | Sync your bookmarks and tabs across browsers via Nextcloud, any WebDAV service, any Git service, via a local file, via Google Drive. | https://floccus.org |
 | `frankerfacez` | The Twitch Enhancement Suite - Get custom emotes and tons of new features you'll never want to go without. | https://www.frankerfacez.com |
 | `google-container` | THIS IS NOT AN OFFICIAL ADDON FROM MOZILLA! It is a fork of the Facebook Container addon. Prevent Google from tracking you around the web. The Google Container extension helps you take control and isolate your web activity from Google. | https://github.com/containers-everywhere/contain-google |
 | `image-search-options` | A customizable reverse image search tool that conveniently presents a variety of top image search engines. | http://saucenao.com/ |
 | `istilldontcareaboutcookies` | Community version of the popular extension "I don't care about cookies" https://github.com/OhMyGuus/I-Dont-Care-About-Cookies | https://github.com/OhMyGuus/I-Dont-Care-About-Cookies |
-| `opera-gx-witchcraft-purple` | inspired by Opera GX |  |
 | `return-youtube-dislikes` | Returns ability to see dislike statistics on youtube |  |
-| `seventv` | The Twitch Enhancement Suite. Get custom emotes and tons of new features you'll never want to go without. | https://www.frankerfacez.com/ |
 | `sound-volume` | Up to 600% volume boost |  |
 | `sponsorblock` | Easily skip YouTube video sponsors. When you visit a YouTube video, the extension will check the database for reported sponsors and automatically skip known sponsors. You can also report sponsors in videos. Other browsers: https://sponsor.ajay.app | https://sponsor.ajay.app |
 | `stylus` | Redesign your favorite websites with Stylus, an actively developed and community driven userstyles manager. Easily install custom themes from popular online repositories, or create, edit, and manage your own personalized CSS stylesheets. | https://add0n.com/stylus.html |
+| `tampermonkey` | Tampermonkey is the world's most popular userscript manager. | https://tampermonkey.net |
 | `ttv-lol-pro` | TTV LOL PRO removes most livestream ads from Twitch. | https://github.com/younesaassila/ttv-lol-pro |
 | `ublock-origin` | Finally, an efficient wide-spectrum content blocker. Easy on CPU and memory. | https://github.com/gorhill/uBlock#ublock-origin |
 | `undoclosetabbutton` | Allows you to restore the tab you just closed with a single click---plus it can offer a list of recently closed tabs within a convenient context menu. | https://github.com/M-Reimer/undoclosetab |

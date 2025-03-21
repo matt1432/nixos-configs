@@ -263,6 +263,7 @@ in {
             sponsorblock
             sound-volume
             stylus
+            tampermonkey
             ttv-lol-pro
             ublock-origin
             undoclosetabbutton
