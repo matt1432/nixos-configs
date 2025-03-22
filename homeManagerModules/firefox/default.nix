@@ -255,7 +255,6 @@ in {
             bitwarden
             darkreader
             floccus
-            frankerfacez
             google-container
             image-search-options
             istilldontcareaboutcookies

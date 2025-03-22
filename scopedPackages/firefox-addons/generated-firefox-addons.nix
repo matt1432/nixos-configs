@@ -99,19 +99,6 @@
       platforms = platforms.all;
     };
   };
-  "frankerfacez" = buildFirefoxXpiAddon {
-    pname = "frankerfacez";
-    version = "4.76.4.0";
-    addonId = "frankerfacez@frankerfacez.com";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4412136/frankerfacez-4.76.4.0.xpi";
-    sha256 = "6d96ccbade05ea144f67bd30f6b507ba21e6ff5bdfac2c773aa5ac64c76adc79";
-    meta = with lib; {
-      homepage = "https://www.frankerfacez.com";
-      description = "The Twitch Enhancement Suite - Get custom emotes and tons of new features you'll never want to go without.";
-      mozPermissions = ["*://*.twitch.tv/*"];
-      platforms = platforms.all;
-    };
-  };
   "google-container" = buildFirefoxXpiAddon {
     pname = "google-container";
     version = "1.5.4";
