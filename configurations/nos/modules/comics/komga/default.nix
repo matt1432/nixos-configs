@@ -27,7 +27,7 @@ in {
 
     komfConf = pkgs.writers.writeJSON "application.yml" {
       komga = {
-        baseUri = "http://nos:${toString cfg.settings.server.port}";
+        baseUri = "https://komga.nelim.org";
         metadataUpdate.default = {
           libraryType = "COMIC";
           overrideExistingCovers = false;
