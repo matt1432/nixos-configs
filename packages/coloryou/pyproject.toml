@@ -1,7 +1,3 @@
-[build-system]
-requires = ["setuptools"]
-build-backend = "setuptools.build_meta"
-
 [project]
 name = "coloryou"
 description="Get Material You colors from an image."
@@ -10,3 +6,10 @@ version = "0.1.0"
 dependencies = [
     "material_color_utilities_python",
 ]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project.scripts]
+coloryou = "coloryou:main"

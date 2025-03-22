@@ -4,7 +4,7 @@
   ...
 }: (final: prev: {
   selfPackages = {
-    coloryou = final.callPackage ./coloryou {};
+    coloryou = final.python3Packages.callPackage ./coloryou {};
 
     fcft = final.callPackage ./fcft {};
 

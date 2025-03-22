@@ -1,25 +1,30 @@
-{python3Packages, ...}: let
-  inherit (builtins.fromTOML (builtins.readFile ./pyproject.toml)) project;
+{
+  # nix build inputs
+  lib,
+  buildPythonApplication,
+  # deps
+  hatchling,
+  material-color-utilities,
+  ...
+}: let
+  inherit (builtins) fromTOML readFile;
+
+  inherit (fromTOML (readFile ./pyproject.toml)) project;
 in
-  python3Packages.buildPythonPackage {
+  buildPythonApplication rec {
     pname = project.name;
     inherit (project) version;
-    pyproject = true;
+    format = "pyproject";
 
     src = ./.;
 
-    nativeBuildInputs = with python3Packages; [
-      setuptools
-    ];
-
-    propagatedBuildInputs = with python3Packages; [material-color-utilities];
-
-    postInstall = ''
-      mv -v $out/bin/coloryou.py $out/bin/coloryou
-    '';
+    build-system = [hatchling];
+    dependencies = [material-color-utilities];
 
     meta = {
-      inherit (project) description;
+      mainProgram = pname;
+      license = lib.licenses.mit;
       homepage = "https://git.nelim.org/matt1432/nixos-configs/src/branch/master/packages/coloryou";
+      inherit (project) description;
     };
   }
