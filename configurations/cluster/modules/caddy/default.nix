@@ -148,6 +148,12 @@ in {
               radarr.reverseProxy = "${nosIP}:7878";
               sonarr.reverseProxy = "${nosIP}:8989";
 
+              jdownloader2 = {
+                subDirName = "jd2";
+                experimental = true;
+                reverseProxy = "${nosIP}:5800";
+              };
+
               qbittorent = {
                 subDirName = "qbt";
                 experimental = true;
