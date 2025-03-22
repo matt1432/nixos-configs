@@ -2,9 +2,9 @@
 {
   # nix build inputs
   lib,
-  fetchPypi,
-  # deps
   python3Packages,
+  fetchPypi,
+  ...
 }:
 python3Packages.buildPythonPackage rec {
   pname = "urllib3";

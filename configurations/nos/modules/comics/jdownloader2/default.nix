@@ -12,6 +12,7 @@
       USER_ID = toString config.users.users.${mainUser}.uid;
       GROUP_ID = toString config.users.users.${mainUser}.uid;
       KEEP_APP_RUNNING = 1;
+      DARK_MODE = 1;
       TZ = "America/New_York";
     };
 

@@ -1,8 +1,10 @@
 {
+  # nix build inputs
   lib,
   stdenv,
   fetchurl,
   makeWrapper,
+  # deps
   jre,
   ...
 }: let
@@ -43,7 +45,7 @@ in
       homepage = "https://github.com/Snd-R/komf";
       sourceProvenance = with lib.sourceTypes; [binaryBytecode];
       description = ''
-        komf is a tool that fetches metadata and thumbnails for your digital comic book library.
+        Komf is a tool that fetches metadata and thumbnails for your digital comic book library.
       '';
     };
   }

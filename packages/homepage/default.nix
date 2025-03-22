@@ -1,6 +1,4 @@
 {
-  # params
-  enableLocalIcons ? true,
   # nix build inputs
   lib,
   stdenv,
@@ -10,6 +8,8 @@
   # deps
   nodejs,
   pnpm,
+  # params
+  enableLocalIcons ? true,
   ...
 }: let
   inherit (lib) getExe optionalString;

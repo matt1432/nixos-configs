@@ -1,4 +1,5 @@
 {
+  # nix build inputs
   lib,
   pkgs,
   poetry2nix,

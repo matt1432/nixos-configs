@@ -1,6 +1,8 @@
 {
-  fcft,
+  # nix build inputs
   fetchFromGitea,
+  # deps
+  fcft,
   ...
 }:
 fcft.overrideAttrs (o: rec {
