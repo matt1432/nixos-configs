@@ -119,6 +119,8 @@ in {
             '';
           };
 
+          komf.reverseProxy = "${nosIP}:8085";
+
           # Resume builder
           resume.reverseProxy = "${nosIP}:3060";
           resauth.reverseProxy = "${nosIP}:3100";
