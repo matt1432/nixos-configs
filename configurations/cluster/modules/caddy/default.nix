@@ -147,6 +147,7 @@ in {
               prowlarr.reverseProxy = "${nosIP}:9696";
               radarr.reverseProxy = "${nosIP}:7878";
               sonarr.reverseProxy = "${nosIP}:8989";
+              kapowarr.reverseProxy = "${nosIP}:5676";
 
               jdownloader2 = {
                 subDirName = "jd2";
