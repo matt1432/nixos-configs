@@ -205,7 +205,7 @@
             joal = {
               href = "https://joal.nelim.org";
               icon = "joal.png";
-              description = "boosts YGGTorrent ratio";
+              description = "secret black magic stuff";
             };
           }
         ];
@@ -215,6 +215,34 @@
       #####################################################
       {
         "misc projects" = [
+          {
+            komga = rec {
+              href = "https://komga.nelim.org";
+              icon = "komga.png";
+              description = "comic book library";
+              widget = {
+                type = "komga";
+                url = href;
+                username = "{{HOMEPAGE_VAR_KOMGA_USER}}";
+                password = "{{HOMEPAGE_VAR_KOMGA_PASSWORD}}";
+                key = "{{HOMEPAGE_VAR_COMIC_VINE_KEY}}";
+              };
+            };
+          }
+          {
+            kapowarr = {
+              href = "https://lan.nelim.org/kapowarr";
+              icon = "kapowarr.png";
+              description = "organizes comic books";
+            };
+          }
+          {
+            jdownloader2 = {
+              href = "https://lan.nelim.org/jd2";
+              icon = "jdownloader2.png";
+              description = "multi use download client";
+            };
+          }
           {
             freshrss = {
               href = "https://rss.nelim.org";
