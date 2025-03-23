@@ -42,6 +42,12 @@ in
           "return folder_path(Constants.LOGGER_FILENAME)" \
           "return f\"{environ.get('KAPOWARR_LOG_DIR')}/{Constants.LOGGER_FILENAME}\""
 
+      sed -i '/from __future__ import annotations/a from os import environ' ./backend/internals/db.py
+
+      substituteInPlace ./backend/internals/db.py --replace-fail \
+          "db_folder or folder_path(*Constants.DB_FOLDER)" \
+          "environ.get('KAPOWARR_STATE_DIR')"
+
       substituteInPlace ./backend/internals/settings.py \
           --replace-fail \
               "from os import urandom" \
