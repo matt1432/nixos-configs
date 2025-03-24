@@ -8,6 +8,7 @@
     listToAttrs (map (x: nameValuePair x (callPackage ./${x})) [
       "extract-subs"
       "gen-docs"
+      "list2series"
       "mc-mods"
       "pin-inputs"
       "update-sources"

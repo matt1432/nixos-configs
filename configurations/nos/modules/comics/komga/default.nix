@@ -30,7 +30,9 @@ in {
         baseUri = "https://komga.nelim.org";
         metadataUpdate.default = {
           libraryType = "COMIC";
-          overrideExistingCovers = false;
+          bookCovers = true;
+          seriesCovers = true;
+          overrideExistingCovers = true;
           overrideComicInfo = true;
           postProcessing = {
             seriesTitle = true;

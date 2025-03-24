@@ -27,7 +27,6 @@ Every extensions I use in my firefox module.
 | `bitwarden` | At home, at work, or on the go, Bitwarden easily secures all your passwords, passkeys, and sensitive information. | https://bitwarden.com |
 | `darkreader` | Dark mode for every website. Take care of your eyes, use dark theme for night and daily browsing. | https://darkreader.org/ |
 | `floccus` | Sync your bookmarks and tabs across browsers via Nextcloud, any WebDAV service, any Git service, via a local file, via Google Drive. | https://floccus.org |
-| `frankerfacez` | The Twitch Enhancement Suite - Get custom emotes and tons of new features you'll never want to go without. | https://www.frankerfacez.com |
 | `google-container` | THIS IS NOT AN OFFICIAL ADDON FROM MOZILLA! It is a fork of the Facebook Container addon. Prevent Google from tracking you around the web. The Google Container extension helps you take control and isolate your web activity from Google. | https://github.com/containers-everywhere/contain-google |
 | `image-search-options` | A customizable reverse image search tool that conveniently presents a variety of top image search engines. | http://saucenao.com/ |
 | `istilldontcareaboutcookies` | Community version of the popular extension "I don't care about cookies" https://github.com/OhMyGuus/I-Dont-Care-About-Cookies | https://github.com/OhMyGuus/I-Dont-Care-About-Cookies |

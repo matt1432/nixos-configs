@@ -12,7 +12,8 @@ This directory contains every derivations for packages exposed by this flake.
 | `gsr-kms-server` | Small program giving safe KMS access to gpu-screen-recorder when recording a monitor. This is the only part of gpu-screen-recorder that could require root permissions. | https://git.dec05eba.com/gpu-screen-recorder/about |
 | `homepage` | Highly customisable dashboard with Docker and service API integrations. | https://gethomepage.dev |
 | `jmusicbot` | Discord music bot that's easy to set up and run yourself | https://github.com/jagrosh/MusicBot |
-| `komf` | komf is a tool that fetches metadata and thumbnails for your digital comic book library. | https://github.com/Snd-R/komf |
+| `kapowarr` | Kapowarr is a software to build and manage a comic book library, fitting in the \*arr suite of software | https://casvt.github.io/Kapowarr |
+| `komf` | Komf is a tool that fetches metadata and thumbnails for your digital comic book library. | https://github.com/Snd-R/komf |
 | `libratbag` | Configuration library for gaming mice | https://github.com/libratbag/libratbag |
 | `librespot-auth` | A simple program for populating a credentials.json via Spotify's zeroconf authentication. | https://github.com/dspearson/librespot-auth |
 | `nbted` | Command-line NBT editor written in Rust. It does precisely one thing: convert NBT files to a pretty text format, and reverse the pretty text format back into NBT. | https://github.com/C4K3/nbted |
