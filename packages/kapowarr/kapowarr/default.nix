@@ -98,13 +98,15 @@ in
       [project]
       name = "${pname}"
       version = "${version}"
-      dynamic = ["dependencies"]
+      dynamic = [ "dependencies", "optional-dependencies" ]
 
       [tool.setuptools]
       script-files = ["Kapowarr.py"]
+
       py-modules = [
           "Kapowarr",
       ]
+
       packages = [
           "frontend",
           "frontend.static",
@@ -117,9 +119,12 @@ in
           "backend.internals",
           "backend.lib",
       ]
+
       package-data."frontend" = [ "templates/*" ]
       package-data."frontend.static" = [ "css/*", "img/*", "js/*", "json/*" ]
-      dynamic."dependencies".file = [ "requirements.txt" ]
+
+      dynamic."dependencies".file = "requirements.txt"
+      dynamic."optional-dependencies".dev.file = "requirements-dev.txt"
       EOF
     '';
 
