@@ -156,6 +156,7 @@ in
     '';
 
     meta = {
+      inherit (rar.meta) platforms;
       mainProgram = pname;
       license = lib.licenses.gpl3Only;
       homepage = "https://casvt.github.io/Kapowarr";
