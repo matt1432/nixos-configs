@@ -65,10 +65,7 @@ in
               "port: int = int(environ.get('KAPOWARR_PORT'))" \
           --replace-fail \
               "download_folder: str = folder_path('temp_downloads')" \
-              "download_folder: str = environ.get('KAPOWARR_DOWNLOAD_DIR')" \
-          --replace-fail \
-              "filename = folder_path('frontend', 'static', 'json', 'pwa_manifest.json')" \
-              "filename = f\"{environ.get('KAPOWARR_STATE_DIR')}/pwa_manifest.json\""
+              "download_folder: str = environ.get('KAPOWARR_DOWNLOAD_DIR')"
     '';
 
     build-system = [setuptools];
