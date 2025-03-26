@@ -10,21 +10,20 @@
   aiohttp,
   beautifulsoup4,
   bencoding, # from overrides
+  cryptography,
   flask,
   flask-socketio,
-  pycryptodome,
   requests,
   setuptools,
-  simplejson,
-  tenacity, # from overrides
   typing-extensions, # from overrides
   waitress,
+  websocket-client,
   ...
 }: let
   inherit (lib) getExe;
 
   pname = "kapowarr";
-  version = "1.1.1";
+  version = "1.1.1+pkG4o8O";
 in
   buildPythonApplication {
     inherit pname version;
@@ -33,11 +32,9 @@ in
     src = fetchFromGitHub {
       owner = "Casvt";
       repo = "Kapowarr";
-      rev = "V${version}";
-      hash = "sha256-EeDzgi37f0cA86lQ1Z6hzLgpE3ORfz0YPoMWp5R4uPs=";
+      rev = "a97f907555bf02d5e737812bfa5c189d8cc639ba";
+      hash = "sha256-pkG4o8OfLu02M50JSnbrBDNiwnbYEJNutoutwBcLFwU=";
     };
-
-    patches = [./raise-errors.patch];
 
     postPatch = ''
       # FIXME: THIS DOESN'T WORK
@@ -82,12 +79,11 @@ in
       beautifulsoup4
       flask
       waitress
-      pycryptodome
-      tenacity
+      cryptography
       bencoding
-      simplejson
       aiohttp
       flask-socketio
+      websocket-client
     ];
 
     preBuild = ''
@@ -116,6 +112,7 @@ in
           "backend.base",
           "backend.features",
           "backend.implementations",
+          "backend.implementations.direct_clients",
           "backend.implementations.torrent_clients",
           "backend.internals",
           "backend.lib",
