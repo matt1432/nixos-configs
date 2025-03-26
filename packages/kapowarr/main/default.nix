@@ -5,6 +5,8 @@
   fetchFromGitHub,
   python,
   # deps
+  rar,
+  # python deps
   aiohttp,
   beautifulsoup4,
   bencoding, # from overrides
@@ -19,11 +21,14 @@
   waitress,
   ...
 }: let
+  inherit (lib) getExe;
+
   pname = "kapowarr";
   version = "1.1.1";
 in
   buildPythonApplication {
     inherit pname version;
+    format = "pyproject";
 
     src = fetchFromGitHub {
       owner = "Casvt";
@@ -35,6 +40,12 @@ in
     patches = [./raise-errors.patch];
 
     postPatch = ''
+      # FIXME: THIS DOESN'T WORK
+      substituteInPlace ./backend/implementations/converters.py \
+          --replace-fail \
+              "exe = folder_path('backend', 'lib', Constants.RAR_EXECUTABLES[platform])" \
+              "exe = '${getExe rar}'"
+
       # Insert import for following substituteInPlace
       sed -i '/# -\*- coding: utf-8 -\*-/a from os import environ' ./backend/base/logging.py
 
@@ -80,30 +91,38 @@ in
     ];
 
     preBuild = ''
-      cat > setup.py << EOF
-      from setuptools import setup, find_packages, find_namespace_packages
+      sed -i "s/bs4.*/beautifulsoup4 ~= 4.12.3/" requirements.txt
 
-      with open('requirements.txt') as f:
-           install_requires = f.read().splitlines()
+      cat >> pyproject.toml << EOF
 
-      setup(
-        name='${pname}',
-        version = '${version}',
-        install_requires=install_requires,
-        packages=[
-          'frontend',
-          'backend',
-          'backend.base',
-          'backend.features',
-          'backend.implementations',
-          'backend.implementations.torrent_clients',
-          'backend.internals',
-          'backend.lib',
-        ],
-        scripts=[
-          'Kapowarr.py'
-        ],
-      )
+      [build-system]
+      build-backend = "setuptools.build_meta"
+      requires = ["setuptools"]
+
+      [project]
+      name = "${pname}"
+      version = "${version}"
+      dynamic = ["dependencies"]
+
+      [tool.setuptools]
+      script-files = ["Kapowarr.py"]
+      py-modules = [
+          "Kapowarr",
+      ]
+      packages = [
+          "frontend",
+          "frontend.static",
+          "backend",
+          "backend.base",
+          "backend.features",
+          "backend.implementations",
+          "backend.implementations.torrent_clients",
+          "backend.internals",
+          "backend.lib",
+      ]
+      package-data."frontend" = [ "templates/*" ]
+      package-data."frontend.static" = [ "css/*", "img/*", "js/*", "json/*" ]
+      dynamic."dependencies".file = [ "requirements.txt" ]
       EOF
     '';
 
@@ -134,9 +153,6 @@ in
     postFixup = ''
       # I prefer a clean name for the executable
       mv $out/bin/Kapowarr.py $out/bin/${pname}
-
-      # Add missing resources that Kapowarr uses at runtime in sitePackages
-      cp -r ./frontend/{static,templates} "$out/${python.sitePackages}/frontend"
     '';
 
     meta = {
