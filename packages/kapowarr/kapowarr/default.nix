@@ -37,7 +37,7 @@ in
     };
 
     postPatch = ''
-      # FIXME: THIS DOESN'T WORK
+      # TODO: makes sure this works
       substituteInPlace ./backend/implementations/converters.py \
           --replace-fail \
               "exe = folder_path('backend', 'lib', Constants.RAR_EXECUTABLES[platform])" \

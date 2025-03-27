@@ -43,7 +43,7 @@
     firewall.enable = false;
   };
 
-  # FIXME: temporary fix while I figure out the issue with the Network Card?
+  # temporary fix while I figure out the issue with the Network Card
   systemd.services."temp-fix-nic" = {
     wantedBy = ["multi-user.target"];
     after = ["tailscaled.service"];
