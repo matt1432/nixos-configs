@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { copyFileSync, mkdirSync, readFileSync, rmSync } from 'fs';
+import { linkSync, mkdirSync, readFileSync, rmSync } from 'fs';
 import { basename } from 'path';
 
 // eslint-disable-next-line
@@ -178,8 +178,8 @@ const main = async() => {
             const bookPath = book.url;
             const inListPath = `${seriesPath}/${basename(bookPath)}`;
 
-            console.log(`copying ${basename(bookPath)}`);
-            copyFileSync(bookPath, inListPath);
+            console.log(`hardlinking ${basename(bookPath)}`);
+            linkSync(bookPath, inListPath);
         }
 
         await scanLibrary();
