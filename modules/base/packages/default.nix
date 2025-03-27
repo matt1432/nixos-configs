@@ -99,6 +99,7 @@ in {
         killall
         nix-output-monitor
         nix-melt
+        nix-tree
         progress
         tree
         gnugrep
@@ -114,7 +115,6 @@ in {
         tzdata
         ;
 
-      # TODO: `depOf` program that looks through `nix derivation show -r /run/current-system`
       listDerivs = pkgs.writeShellApplication {
         name = "listDerivs";
         text = ''
