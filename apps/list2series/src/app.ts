@@ -2,8 +2,8 @@ import axios from 'axios';
 import { linkSync, mkdirSync, readFileSync, rmSync } from 'fs';
 import { basename } from 'path';
 
-// eslint-disable-next-line
-type Book = any;
+import { type Book } from './types';
+
 
 const API = JSON.parse(
     readFileSync(`${process.env.FLAKE}/apps/list2series/.env`, { encoding: 'utf-8' }),
@@ -48,13 +48,17 @@ const getSeriesBooks = async(listName: string, seriesPath: string): Promise<Book
         }),
     });
 
-    const seriesId = (series.data.content as Book[]).find((s) => s.url === seriesPath).id;
+    const thisSeries = (series.data.content as Book[]).find((s) => s.url === seriesPath);
+
+    if (!thisSeries) {
+        throw new Error('Series could not be found');
+    }
 
     // Reset Series metadata
     axios.request({
         method: 'patch',
         maxBodyLength: Infinity,
-        url: `https://komga.nelim.org/api/v1/series/${seriesId}/metadata`,
+        url: `https://komga.nelim.org/api/v1/series/${thisSeries.id}/metadata`,
         headers: {
             'Content-Type': 'application/json',
             'X-API-Key': API,
@@ -102,7 +106,7 @@ const getSeriesBooks = async(listName: string, seriesPath: string): Promise<Book
             condition: {
                 seriesId: {
                     operator: 'is',
-                    value: seriesId,
+                    value: thisSeries.id,
                 },
             },
         }),
@@ -137,7 +141,7 @@ const scanLibrary = async() => {
 };
 
 const setBookMetadata = async(i: number, source: Book, target: Book) => {
-    source.metadata.title = `${source.seriesTitle} Issue #${source.number}`;
+    source.metadata.title = `${source.seriesTitle} Issue #${source.metadata.number}`;
     source.metadata.number = i.toString();
     source.metadata.numberSort = i;
 
