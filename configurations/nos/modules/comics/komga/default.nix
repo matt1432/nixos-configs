@@ -28,6 +28,12 @@ in {
     komfConf = pkgs.writers.writeJSON "application.yml" {
       komga = {
         baseUri = "https://komga.nelim.org";
+        eventListener = {
+          enabled = true;
+          metadataLibraryFilter = [];  # listen to all events if empty
+          metadataSeriesExcludeFilter = [];
+          notificationsLibraryFilter = []; # Will send notifications if any notification source is enabled. If empty will send notifications for all libraries
+        };
         metadataUpdate.default = {
           libraryType = "COMIC";
           bookCovers = true;
