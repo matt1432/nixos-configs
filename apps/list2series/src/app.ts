@@ -2,19 +2,19 @@ import axios from 'axios';
 import { linkSync, mkdirSync, readFileSync, rmSync } from 'fs';
 import { basename } from 'path';
 
-import { type Book } from './types';
+import { type Book, type ReadList, type Series } from './types';
 
-
-const API = JSON.parse(
-    readFileSync(`${process.env.FLAKE}/apps/list2series/.env`, { encoding: 'utf-8' }),
-).API;
 
 // Examples of calling this script:
 // $ just l2s copy 0K65Q482KK7SD
 // $ just l2s meta 0K65Q482KK7SD
+const API = JSON.parse(
+    readFileSync(`${process.env.FLAKE}/apps/list2series/.env`, { encoding: 'utf-8' }),
+).API;
+
 const LIST_ID = process.argv[3];
 
-const getListInfo = async() => {
+const getListInfo = async(): Promise<ReadList> => {
     const res = await axios.request({
         method: 'get',
         maxBodyLength: Infinity,
@@ -28,8 +28,8 @@ const getListInfo = async() => {
     return res.data;
 };
 
-const getSeriesBooks = async(listName: string, seriesPath: string): Promise<Book[]> => {
-    const series = await axios.request({
+const getSeries = async(seriesTitle: string, operator = true): Promise<Series[]> => {
+    return (await axios.request({
         method: 'post',
         maxBodyLength: Infinity,
         url: 'https://komga.nelim.org/api/v1/series/list?unpaged=true',
@@ -41,14 +41,16 @@ const getSeriesBooks = async(listName: string, seriesPath: string): Promise<Book
         data: JSON.stringify({
             condition: {
                 title: {
-                    operator: 'isNot',
-                    value: '',
+                    operator: operator ? 'is' : 'isNot',
+                    value: seriesTitle,
                 },
             },
         }),
-    });
+    })).data.content;
+};
 
-    const thisSeries = (series.data.content as Book[]).find((s) => s.url === seriesPath);
+const getSeriesBooks = async(listName: string, seriesPath: string): Promise<Book[]> => {
+    const thisSeries = (await getSeries('', false)).find((s) => s.url === seriesPath);
 
     if (!thisSeries) {
         throw new Error('Series could not be found');
@@ -115,7 +117,7 @@ const getSeriesBooks = async(listName: string, seriesPath: string): Promise<Book
     return books.data.content;
 };
 
-const getBookInfo = async(id: string) => {
+const getBookInfo = async(id: string): Promise<Book> => {
     const res = await axios.request({
         method: 'get',
         maxBodyLength: Infinity,
@@ -129,8 +131,9 @@ const getBookInfo = async(id: string) => {
     return res.data;
 };
 
-const scanLibrary = async() => {
-    return await axios.request({
+// There doesn't seem to be a way to wait for the scan to be done
+const scanLibrary = (): void => {
+    axios.request({
         method: 'post',
         maxBodyLength: Infinity,
         url: 'https://komga.nelim.org/api/v1/libraries/0K4QG58XA29DZ/scan',
@@ -140,14 +143,19 @@ const scanLibrary = async() => {
     });
 };
 
-const setBookMetadata = async(i: number, source: Book, target: Book) => {
-    source.metadata.title = `${source.seriesTitle} Issue #${source.metadata.number}`;
+const setBookMetadata = async(i: number, source: Book, target: Book): Promise<void> => {
+    const thisSeries = (await getSeries(source.seriesTitle))[0];
+
+    source.metadata.title = thisSeries.booksCount !== 1 ?
+        `${source.seriesTitle} Issue #${source.metadata.number}` :
+        source.metadata.title = source.seriesTitle;
+
     source.metadata.number = i.toString();
     source.metadata.numberSort = i;
 
     const metadata = JSON.stringify(source.metadata);
 
-    const res = await axios.request({
+    axios.request({
         method: 'patch',
         maxBodyLength: Infinity,
         url: `https://komga.nelim.org/api/v1/books/${target.id}/metadata`,
@@ -157,13 +165,11 @@ const setBookMetadata = async(i: number, source: Book, target: Book) => {
         },
         data: metadata,
     });
-
-    return res;
 };
 
-const main = async() => {
+const main = async(): Promise<void> => {
     const list = await getListInfo();
-    const ids = list.bookIds as string[];
+    const ids = list.bookIds;
     const seriesPath = `/data/comics/[List] ${list.name}`;
 
     const listBooks = [] as Book[];
@@ -186,7 +192,7 @@ const main = async() => {
             linkSync(bookPath, inListPath);
         }
 
-        await scanLibrary();
+        scanLibrary();
     }
 
     else if (process.argv[2] === 'meta') {
