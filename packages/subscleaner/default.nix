@@ -1,16 +1,35 @@
 {
   # nix build inputs
   lib,
-  pkgs,
-  poetry2nix,
+  buildPythonApplication,
   subscleaner-src,
+  # deps
+  appdirs,
+  chardet,
+  hatch,
+  pysrt,
   ...
 }: let
-  inherit (poetry2nix.lib.mkPoetry2Nix {inherit pkgs;}) mkPoetryApplication;
+  inherit (builtins) fromTOML readFile;
+
+  pyproject = fromTOML (readFile "${subscleaner-src}/pyproject.toml");
+
+  pname = pyproject.project.name;
+  version = "${pyproject.project.version}+${subscleaner-src.shortRev}";
 in
-  mkPoetryApplication {
-    projectDir = subscleaner-src;
-    preferWheels = true;
+  buildPythonApplication {
+    inherit pname version;
+    format = "pyproject";
+
+    src = subscleaner-src;
+
+    build-system = [hatch];
+
+    dependencies = [
+      pysrt
+      chardet
+      appdirs
+    ];
 
     meta = {
       mainProgram = "subscleaner";

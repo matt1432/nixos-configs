@@ -387,18 +387,6 @@
       repo = "piper";
       type = "github";
     };
-    poetry2nix = {
-      inputs = {
-        flake-utils.follows = "flake-utils";
-        nix-github-actions.follows = "nix-github-actions";
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-        treefmt-nix.follows = "treefmt-nix";
-      };
-      owner = "nix-community";
-      repo = "poetry2nix";
-      type = "github";
-    };
     pokemon-colorscripts-src = {
       flake = false;
       owner = "phoneybadger";

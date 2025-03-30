@@ -67,11 +67,6 @@ let
       repo = "nurl";
     };
 
-    poetry2nix = mkInput {
-      owner = "nix-community";
-      repo = "poetry2nix";
-    };
-
     # These are here to make sure all 'systems' and popular inputs are the same
     flake-compat = mkInput {
       owner = "edolstra";

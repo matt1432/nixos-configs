@@ -50,8 +50,8 @@
 
     some-sass-language-server = final.callPackage ./some-sass-language-server {};
 
-    subscleaner = final.callPackage ./subscleaner {
-      inherit (inputs) poetry2nix subscleaner-src;
+    subscleaner = final.python3Packages.callPackage ./subscleaner {
+      inherit (inputs) subscleaner-src;
     };
 
     trash-d = final.callPackage ./trash-d {
