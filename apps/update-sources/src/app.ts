@@ -150,7 +150,7 @@ const main = async() => {
         });
 
         const indentOutput = (output: string): string => {
-            return `    ${output.split('\n').join('\n    ')}`;
+            return `    ${output.replace(/\n*$/g, '').split('\n').join('\n    ')}`;
         };
 
         const output = [
@@ -158,25 +158,25 @@ const main = async() => {
         ];
 
         if (flakeOutput.length > 5) {
-            output.push(`Flake Inputs:\n${indentOutput(flakeOutput)}\n\n`);
+            output.push(`Flake Inputs:\n${indentOutput(flakeOutput)}\n\n\n`);
         }
         if (dockerOutput.length > 5) {
-            output.push(`Docker Images:\n${indentOutput(dockerOutput)}\n`);
+            output.push(`Docker Images:\n${indentOutput(dockerOutput)}\n\n\n`);
         }
         if (firefoxOutput.length > 5) {
-            output.push(`Firefox Addons:\n${indentOutput(firefoxOutput)}\n\n`);
+            output.push(`Firefox Addons:\n${indentOutput(firefoxOutput)}\n\n\n`);
         }
         if (nodeModulesOutput.length > 5) {
-            output.push(`Node modules:\n${indentOutput(nodeModulesOutput)}\n`);
+            output.push(`Node modules:\n${indentOutput(nodeModulesOutput)}\n\n\n`);
         }
         if (vuetorrentOutput.length > 5) {
-            output.push(`Misc Sources:\n${indentOutput(vuetorrentOutput)}\n\n`);
+            output.push(`Misc Sources:\n${indentOutput(vuetorrentOutput)}\n\n\n`);
         }
         if (caddyPluginsOutput.length > 5) {
-            output.push(`Caddy Plugins:\n${indentOutput(caddyPluginsOutput)}\n\n`);
+            output.push(`Caddy Plugins:\n${indentOutput(caddyPluginsOutput)}\n\n\n`);
         }
         if (nixUpdateOutputs.length > 5) {
-            output.push(`nix-update executions:\n${indentOutput(nixUpdateOutputs)}\n`);
+            output.push(`nix-update executions:\n${indentOutput(nixUpdateOutputs)}\n\n\n`);
         }
 
         if (args['f']) {
