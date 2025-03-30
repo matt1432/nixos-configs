@@ -20,14 +20,8 @@ in {
           ''
             local gitsigns = require("gitsigns");
 
-            local function visual_stage()
-                local first_line = vim.fn.line('v');
-                local last_line = vim.fn.getpos('.')[2];
-                gitsigns.stage_hunk({ first_line, last_line });
-            end
-
             vim.keymap.set("v", "gs", function()
-                visual_stage()
+                gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') });
             end);
 
             gitsigns.setup();
