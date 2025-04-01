@@ -34,7 +34,6 @@ in {
       "hyprland"
       "hyprland-plugins"
       "hyprpaper"
-      "nixpkgs-wayland"
     ];
   };
 

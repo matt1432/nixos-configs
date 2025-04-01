@@ -16,13 +16,7 @@ in {
         "nh"
         "nixd"
         "nurl"
-        "nixpkgs-wayland"
       ])
-      ++ [
-        (final: prev: {
-          fcft = prev.fcft.overrideAttrs {inherit (pkgs.selfPackages.fcft) version src;};
-        })
-      ]
       ++ (attrValues {
         # inherit
         #   (self.overlays)

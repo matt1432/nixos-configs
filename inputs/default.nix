@@ -101,11 +101,6 @@ let
   };
 
   overlays = {
-    nixpkgs-wayland = mkInput {
-      owner = "nix-community";
-      repo = "nixpkgs-wayland";
-    };
-
     nix-gaming = mkInput {
       owner = "fufexan";
       repo = "nix-gaming";

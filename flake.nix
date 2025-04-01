@@ -357,16 +357,6 @@
       repo = "nixpkgs";
       type = "github";
     };
-    nixpkgs-wayland = {
-      inputs = {
-        flake-compat.follows = "flake-compat";
-        lib-aggregate.follows = "lib-aggregate";
-        nixpkgs.follows = "nixpkgs";
-      };
-      owner = "nix-community";
-      repo = "nixpkgs-wayland";
-      type = "github";
-    };
     nurl = {
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "nix-community";

@@ -42,10 +42,6 @@ const main = async() => {
         console.log(updateFirefoxAddons());
     }
 
-    if (args['fcft']) {
-        console.log(runNixUpdate('fcft'));
-    }
-
     if (args['h'] || args['homepage']) {
         console.log(runNixUpdate('homepage'));
     }
@@ -133,7 +129,6 @@ const main = async() => {
             console.log(execution.stdout);
         };
 
-        updatePackage('fcft');
         updatePackage('homepage');
         updatePackage('jmusicbot');
         updatePackage('pam-fprint-grosshack');

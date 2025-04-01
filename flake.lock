@@ -1383,32 +1383,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-wayland": {
-      "inputs": {
-        "flake-compat": [
-          "flake-compat"
-        ],
-        "lib-aggregate": [
-          "lib-aggregate"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1743339045,
-        "narHash": "sha256-Hn33Mk/nElQV7GvT9CAJZdH744NZc0ew1wL0Q7htO2Y=",
-        "owner": "nix-community",
-        "repo": "nixpkgs-wayland",
-        "rev": "ff74c1325f0e541b991043791584b69e513ed5bd",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "nixpkgs-wayland",
-        "type": "github"
-      }
-    },
     "nmd": {
       "inputs": {
         "nixpkgs": [
@@ -1632,7 +1606,6 @@
         "nixd": "nixd",
         "nixos-jellyfin": "nixos-jellyfin",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-wayland": "nixpkgs-wayland",
         "nurl": "nurl",
         "nvim-theme-src": "nvim-theme-src",
         "pcsd": "pcsd",

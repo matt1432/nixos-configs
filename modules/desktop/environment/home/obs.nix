@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib) attrValues mkIf;
 
   cfg = osConfig.roles.desktop;
 in {
@@ -12,10 +12,13 @@ in {
     programs = {
       obs-studio = {
         enable = true;
-        plugins = [
-          pkgs.waylandPkgs.obs-wlrobs
-          pkgs.obs-studio-plugins.droidcam-obs
-        ];
+        plugins = attrValues {
+          inherit
+            (pkgs.obs-studio-plugins)
+            droidcam-obs
+            wlrobs
+            ;
+        };
       };
     };
   };
