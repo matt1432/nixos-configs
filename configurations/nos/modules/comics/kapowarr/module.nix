@@ -68,7 +68,7 @@ in {
       wantedBy = ["multi-user.target"];
 
       environment = {
-        KAPOWARR_PORT = toString cfg.port;
+        KAPOWARR_DEFAULT_PORT = toString cfg.port;
         KAPOWARR_LOG_DIR = cfg.logDir;
         KAPOWARR_STATE_DIR = cfg.dataDir;
         KAPOWARR_DOWNLOAD_DIR = cfg.downloadDir;

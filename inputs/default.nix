@@ -322,6 +322,14 @@ let
 
     # Overlays & packages
     {
+      name = "Kapowarr-src";
+      owner = "matt1432";
+      repo = "Kapowarr";
+      ref = "build-system";
+      # type = "path";
+      # path = "/home/matt/git/Kapowarr";
+    }
+    {
       type = "gitlab";
       owner = "rogs";
       repo = "subscleaner";

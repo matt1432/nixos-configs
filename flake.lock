@@ -1,5 +1,22 @@
 {
   "nodes": {
+    "Kapowarr-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1743470007,
+        "narHash": "sha256-BSf3wx789Gg/OwGM9sIrxIsphh06s1x18VRmJ5S5P9w=",
+        "owner": "matt1432",
+        "repo": "Kapowarr",
+        "rev": "08e7eacf410c3141513680688d09b4e51600caf5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "matt1432",
+        "ref": "build-system",
+        "repo": "Kapowarr",
+        "type": "github"
+      }
+    },
     "ags": {
       "inputs": {
         "astal": [
@@ -1567,6 +1584,7 @@
     },
     "root": {
       "inputs": {
+        "Kapowarr-src": "Kapowarr-src",
         "ags": "ags",
         "astal": "astal",
         "bat-theme-src": "bat-theme-src",

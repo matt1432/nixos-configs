@@ -1,6 +1,7 @@
 {
   # nix build inputs
   python3Packages,
+  Kapowarr-src,
   ...
 }: let
   pyPkgs = python3Packages.override {
@@ -10,4 +11,4 @@
     };
   };
 in
-  pyPkgs.callPackage ./kapowarr {}
+  pyPkgs.callPackage ./kapowarr {inherit Kapowarr-src;}
