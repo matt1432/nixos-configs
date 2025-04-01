@@ -6,7 +6,7 @@
   ...
 }: let
   pname = "material-rounded-theme";
-  version = "3.1.4";
+  version = "3.1.5";
 in
   buildNpmPackage {
     inherit pname version;
@@ -15,7 +15,7 @@ in
       owner = "Nerwyn";
       repo = pname;
       rev = version;
-      hash = "sha256-I5vV6HkKUvoWQFZulnpAcR4NBkqKwhN39/HhkBK0qoU=";
+      hash = "sha256-NvIAwuvy5SGs35ScmODXDwSrFdtRvYUhrzzI5WRH1WQ=";
     };
 
     postPatch = ''
@@ -23,7 +23,7 @@ in
           "git branch --show-current" "echo main"
     '';
 
-    npmDepsHash = "sha256-yNQnWoX9touEfwBRM7y+QAkyOKm24h58HU8MEmTIOZg=";
+    npmDepsHash = "sha256-Ph+qIViLVTfVDJPnO7wlYdLTRY8CwXayTqkdKDAt/ac=";
 
     installPhase = ''
       mkdir $out

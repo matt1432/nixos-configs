@@ -185,21 +185,19 @@
   };
   "sound-volume" = buildFirefoxXpiAddon {
     pname = "sound-volume";
-    version = "2.0.3";
+    version = "2.0.4";
     addonId = "{c4b582ec-4343-438c-bda2-2f691c16c262}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4454981/600_sound_volume-2.0.3.xpi";
-    sha256 = "dd269509257279c6fed2148a09b08a61b41c150849e5ac00ba980feeff3fdf94";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4462455/600_sound_volume-2.0.4.xpi";
+    sha256 = "72e3b7ea83cefc4c72f4c22cb2875b77c4e0f2c0db743445b5aa70f09d0291ac";
     meta = with lib; {
       description = "Up to 600% volume boost";
       license = licenses.mpl20;
       mozPermissions = [
         "<all_urls>"
         "tabs"
-        "scripting"
         "storage"
         "webRequest"
         "webRequestBlocking"
-        "webNavigation"
       ];
       platforms = platforms.all;
     };
