@@ -105,7 +105,7 @@ in
       homepage = "https://casvt.github.io/Kapowarr";
       description = ''
         Kapowarr is a software to build and manage a comic book library,
-        fitting in the *arr suite of software
+        fitting in the *arr suite of software.
       '';
     };
   }
