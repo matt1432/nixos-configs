@@ -1,13 +1,20 @@
 [Added Associations]
-application/pdf=firefox.desktop;
+application/pdf=firefox-devedition.desktop;wine-extension-pdf.desktop;okularApplication_pdf.desktop;com.github.xournalpp.xournalpp.desktop;draw.desktop;sioyek.desktop;
+application/zip=org.kde.ark.desktop;org.prismlauncher.PrismLauncher.desktop;
 image/jpeg=org.photoqt.PhotoQt.desktop;wine-extension-jpe.desktop;satty.desktop;okularApplication_kimgio.desktop;wine-extension-jfif.desktop;
 image/png=swayimg.desktop;okularApplication_kimgio.desktop;firefox.desktop;satty.desktop;
+text/plain=nvim.desktop;writer.desktop;okularApplication_txt.desktop;wine-extension-txt.desktop;
 text/x-java=nvim.desktop;
 
 [Default Applications]
-application/pdf=firefox.desktop;
-image/jpeg=org.photoqt.PhotoQt.desktop;
+application/pdf=firefox-devedition.desktop;
+application/zip=org.kde.ark.desktop;
+image/jpeg=swayimg.desktop;
 image/png=swayimg.desktop;
+text/plain=nvim.desktop;
 text/x-java=nvim.desktop;
 x-scheme-handler/discord-712465656758665259=discord-712465656758665259.desktop
 x-scheme-handler/ror2mm=r2modman.desktop
+
+[Removed Associations]
+application/pdf=firefox-3.desktop;firefox-2.desktop;

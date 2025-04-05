@@ -160,6 +160,13 @@ in {
       };
 
       home.packages = attrValues {
+        # KDE packages
+        inherit
+          (pkgs.kdePackages)
+          kdenlive
+          okular
+          ;
+
         # School
         inherit (pkgs.hunspellDicts) en_CA;
         inherit
@@ -173,6 +180,7 @@ in {
         # Apps
         inherit
           (pkgs)
+          gnome-calculator
           jellyfin-media-player
           nextcloud-client
           protonmail-desktop # run with `XDG_SESSION_TYPE=x11 proton-mail` if it crashes  https://github.com/NixOS/nixpkgs/issues/365156
