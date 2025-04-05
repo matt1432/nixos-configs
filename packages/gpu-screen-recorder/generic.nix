@@ -1,14 +1,14 @@
 {
   # params
   pname,
-  isKmsServer ? false,
-  gpu-screen-recorder-src,
   description,
+  isKmsServer ? false,
   # nix build inputs
   lib,
   stdenv,
   addDriverRunpath,
   makeWrapper,
+  gpu-screen-recorder-src,
   # deps
   dbus,
   ffmpeg,
@@ -22,10 +22,11 @@
   pkg-config,
   vulkan-headers,
   wayland,
+  wayland-scanner,
   xorg,
   ...
 }: let
-  inherit (lib) makeLibraryPath;
+  inherit (lib) makeLibraryPath optionalString;
   inherit (builtins) fromTOML readFile;
 
   tag =
@@ -39,27 +40,28 @@ in
 
     src = gpu-screen-recorder-src;
 
-    # Get rid of useless warning
+    # Get rid of useless warning due to how I install the package
     postPatch = ''
       sed -i 's/.*gsr-kms-server is not installed in the same directory.*//' ./kms/client/kms_client.c
     '';
 
     nativeBuildInputs = [
-      pkg-config
       makeWrapper
       meson
       ninja
+      pkg-config
     ];
 
     buildInputs = [
       dbus
-      libpulseaudio
-      pipewire
       ffmpeg
-      wayland
       libdrm
+      libpulseaudio
       libva
+      pipewire
       vulkan-headers
+      wayland
+      wayland-scanner
       xorg.libXcomposite
       xorg.libXdamage
       xorg.libXi
@@ -72,19 +74,22 @@ in
       "-Dsystemd=false"
     ];
 
-    fixupPhase = ''
-      runHook preFixup
+    fixupPhase =
+      optionalString (!isKmsServer)
+      # bash
+      ''
+        runHook preFixup
 
-      wrapProgram $out/bin/gpu-screen-recorder \
-        --prefix LD_LIBRARY_PATH : "${
-        makeLibraryPath [
-          addDriverRunpath.driverLink
-          libglvnd
-        ]
-      }"
+        wrapProgram $out/bin/gpu-screen-recorder \
+          --prefix LD_LIBRARY_PATH : "${
+          makeLibraryPath [
+            addDriverRunpath.driverLink
+            libglvnd
+          ]
+        }"
 
-      runHook postFixup
-    '';
+        runHook postFixup
+      '';
 
     # This is needed to force gsr to lookup kms in PATH
     # to get the security wrapper
@@ -94,7 +99,6 @@ in
         # bash
         ''
           rm $out/bin/gpu-screen-recorder
-          rm $out/bin/.gpu-screen-recorder-wrapped
         ''
       else
         # bash
