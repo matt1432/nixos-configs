@@ -11,6 +11,7 @@
     mkIf
     mkOption
     mkPackageOption
+    optionalString
     types
     ;
 
@@ -36,6 +37,12 @@ in {
       type = types.port;
       default = 5656;
       description = "Port where kapowarr should listen for incoming requests.";
+    };
+
+    urlBase = mkOption {
+      type = with types; nullOr str;
+      default = null;
+      description = "URL base where kapowarr should listen for incoming requests.";
     };
 
     dataDir = mkOption {
@@ -68,10 +75,7 @@ in {
       wantedBy = ["multi-user.target"];
 
       environment = {
-        KAPOWARR_DEFAULT_PORT = toString cfg.port;
         KAPOWARR_LOG_DIR = cfg.logDir;
-        KAPOWARR_STATE_DIR = cfg.dataDir;
-        KAPOWARR_DOWNLOAD_DIR = cfg.downloadDir;
       };
 
       serviceConfig = {
@@ -79,7 +83,14 @@ in {
         User = cfg.user;
         Group = cfg.group;
         StateDirectory = mkIf (cfg.dataDir == "/var/lib/kapowar") "kapowarr";
-        ExecStart = "${getExe cfg.package} -d ${cfg.dataDir}";
+        ExecStart = toString [
+          (getExe cfg.package)
+          "-d ${cfg.dataDir}"
+          "-D ${cfg.downloadDir}"
+          "-l ${cfg.logDir}"
+          "-p ${toString cfg.port}"
+          (optionalString (cfg.urlBase != null) "-u ${cfg.urlBase}")
+        ];
 
         # Hardening from komga service
         RemoveIPC = true;

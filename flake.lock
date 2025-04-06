@@ -3,11 +3,11 @@
     "Kapowarr-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1743790432,
-        "narHash": "sha256-pY7P6Po3GADi4SLTNb6lXtkqgE7OfNe59ZuiFZFuasc=",
+        "lastModified": 1743968884,
+        "narHash": "sha256-cfD9cHSYLW4LvnyhjrEsw4PTu9/HjAQIeflRDmNs6dA=",
         "owner": "matt1432",
         "repo": "Kapowarr",
-        "rev": "df8e6ad90654afa2eabb80c4c941cc310044e8c7",
+        "rev": "8e428559a94f9fb4c3e1c4c13ee07bdf6708985d",
         "type": "github"
       },
       "original": {
