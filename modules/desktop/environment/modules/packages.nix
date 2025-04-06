@@ -175,6 +175,7 @@ in {
           virt-manager
           libreoffice-fresh
           hunspell
+          krename
           ;
 
         # Apps
