@@ -42,7 +42,9 @@ export default () => {
             if (c.get_address() !== lastFocusedAddress) {
                 c.disconnect(id);
             }
-            focusedTitle.set(c.get_title());
+            else {
+                focusedTitle.set(c.get_title());
+            }
         });
     };
 
