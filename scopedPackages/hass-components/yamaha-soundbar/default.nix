@@ -3,11 +3,12 @@
   buildHomeAssistantComponent,
   yamaha-soundbar-src,
   # deps
-  python3Packages,
+  async-upnp-client,
+  chardet,
+  validators,
   ...
 }: let
   inherit (builtins) fromJSON readFile;
-
   manifest = fromJSON (readFile "${yamaha-soundbar-src}/custom_components/yamaha_soundbar/manifest.json");
 in
   buildHomeAssistantComponent {
@@ -16,7 +17,7 @@ in
     inherit (manifest) domain version;
     src = yamaha-soundbar-src;
 
-    propagatedBuildInputs = with python3Packages; [
+    dependencies = [
       async-upnp-client
       chardet
       validators

@@ -6,7 +6,6 @@
   ...
 }: let
   inherit (builtins) fromJSON readFile;
-
   manifest = fromJSON (readFile "${material-symbols-src}/custom_components/material_symbols/manifest.json");
 in
   buildHomeAssistantComponent {

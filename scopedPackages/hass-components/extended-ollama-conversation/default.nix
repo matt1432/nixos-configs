@@ -3,29 +3,25 @@
   buildHomeAssistantComponent,
   extended-ollama-conversation-src,
   # deps
-  python3Packages,
+  ollama,
+  openai,
   ...
 }: let
   inherit (builtins) fromJSON readFile;
-
   manifest = fromJSON (readFile "${extended-ollama-conversation-src}/custom_components/extended_ollama_conversation/manifest.json");
 in
   buildHomeAssistantComponent {
     owner = "TheNimaj";
 
     inherit (manifest) domain version;
-
     src = extended-ollama-conversation-src;
 
-    prePatch = ''
-      substituteInPlace ./custom_components/extended_ollama_conversation/manifest.json \
-          --replace-warn "ollama~=0.3.0" "ollama>=0.3.0"
-    '';
-
-    propagatedBuildInputs = with python3Packages; [
+    dependencies = [
       ollama
       openai
     ];
+
+    ignoreVersionRequirement = ["ollama"];
 
     meta = {
       homepage = "https://github.com/TheNimaj/extended_ollama_conversation";

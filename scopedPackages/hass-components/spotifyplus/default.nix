@@ -4,21 +4,27 @@
   buildHomeAssistantComponent,
   spotifyplus-src,
   # deps
-  python3Packages,
+  oauthlib,
+  platformdirs,
+  requests,
+  requests_oauthlib,
+  soco,
+  urllib3,
+  zeroconf,
+  smartinspect, # overridden in python3Packages
+  spotifywebapi, # overridden in python3Packages
   ...
 }: let
   inherit (builtins) fromJSON readFile;
-
   manifest = fromJSON (readFile "${spotifyplus-src}/custom_components/spotifyplus/manifest.json");
 in
   buildHomeAssistantComponent {
     owner = "thlucas1";
 
     inherit (manifest) domain version;
-
     src = spotifyplus-src;
 
-    propagatedBuildInputs = with python3Packages; [
+    dependencies = [
       oauthlib
       platformdirs
       requests
@@ -26,9 +32,13 @@ in
       soco
       urllib3
       zeroconf
-      smartinspect # overridden in python3Packages
-      spotifywebapi # overridden in python3Packages
+      smartinspect
+      spotifywebapi
     ];
+
+    # Upstream sometimes forgets to bump version number.
+    # Since we're guaranteed to have lastest git, this is safe
+    ignoreVersionRequirement = ["spotifywebapipython"];
 
     meta = {
       license = lib.licenses.mit;

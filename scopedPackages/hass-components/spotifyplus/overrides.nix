@@ -4,11 +4,11 @@
   pkgs,
   ...
 }: python3Packages: final: prev: rec {
-  smartinspect = pkgs.callPackage ./smartinspect.nix {
-    inherit python3Packages smartinspect-src;
+  smartinspect = python3Packages.callPackage ./smartinspect.nix {
+    inherit smartinspect-src;
   };
-  spotifywebapi = pkgs.callPackage ./spotifywebapi.nix {
-    inherit python3Packages smartinspect spotifywebapi-src;
+  spotifywebapi = python3Packages.callPackage ./spotifywebapi.nix {
+    inherit smartinspect spotifywebapi-src;
   };
   urllib3 = pkgs.selfPackages.urllib3.override {
     inherit python3Packages;
