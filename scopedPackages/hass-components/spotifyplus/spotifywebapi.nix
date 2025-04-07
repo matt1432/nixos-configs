@@ -6,6 +6,7 @@
   # deps
   lxml,
   oauthlib,
+  pillow,
   platformdirs,
   pychromecast,
   pyotp,
@@ -31,6 +32,7 @@ in
     dependencies = [
       lxml
       oauthlib
+      pillow
       platformdirs
       pychromecast
       pyotp

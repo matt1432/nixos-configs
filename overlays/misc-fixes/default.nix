@@ -10,16 +10,4 @@ final: prev: {
       hash = "sha256-Q7TJn1XEwGDaPZOvGdQ+B78e8mkZTtBrBVKngUCRABQ=";
     };
   });
-
-  # FIXME: https://pr-tracker.nelim.org/?pr=395654
-  platformioPackages = let
-    callPackage = final.newScope self;
-
-    self = {
-      platformio-core = callPackage "${final.path}/pkgs/development/embedded/platformio/core.nix" {};
-
-      platformio-chrootenv = callPackage "${final.path}/pkgs/development/embedded/platformio/chrootenv.nix" {};
-    };
-  in
-    self;
 }
