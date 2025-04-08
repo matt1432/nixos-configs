@@ -3,6 +3,7 @@ import { writeFileSync } from 'node:fs';
 
 import { parseArgs } from './lib';
 
+import { updateCaddyPlugins } from './caddy';
 import { updateDocker } from './docker';
 import { updateFirefoxAddons } from '././firefox';
 import { updateFlakeInputs } from './flake';
@@ -10,7 +11,6 @@ import updateNodeModules from './node-modules';
 
 import {
     runNixUpdate,
-    updateCaddyPlugins,
     updateVuetorrent,
 } from './misc';
 
