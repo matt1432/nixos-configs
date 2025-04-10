@@ -30,11 +30,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1741472109,
-        "narHash": "sha256-jQZ1zXK1yRoSz0+yuPVh/7CpYczfhwybzhnoZ7mPJ50=",
+        "lastModified": 1744304930,
+        "narHash": "sha256-Ud+mprss2S7jEfvkm8S0YYitqCmy8v1WPu+I4/Vgdx8=",
         "owner": "matt1432",
         "repo": "ags",
-        "rev": "59e9dbcf32213398ab08d209c483e5d024ed7316",
+        "rev": "b9c2222e5b28727840dace04415acb733f76e3bc",
         "type": "github"
       },
       "original": {
@@ -87,11 +87,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1744295965,
-        "narHash": "sha256-/X4aMlH/Mcmoop5WTfA48QIJGCPSfhwQrgQL4JezkPI=",
+        "lastModified": 1744305027,
+        "narHash": "sha256-6dVuAwHp45Z8iXfTpIxV0D7A9NkWWx37yJ0+nG9AGzs=",
         "owner": "matt1432",
         "repo": "astal",
-        "rev": "462862de0307a4dd9a4f50a02bd4ba3a37e127c7",
+        "rev": "54a5c81323dc10cad1464af653dd5ca187413882",
         "type": "github"
       },
       "original": {

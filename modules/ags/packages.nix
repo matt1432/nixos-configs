@@ -36,7 +36,7 @@ in {
 
       astalLibs = attrValues {
         inherit
-          (pkgs.astalLibs)
+          (pkgs.astal)
           io
           astal3
           astal4
@@ -59,7 +59,7 @@ in {
 
         # libkompass dependencies
         inherit
-          (pkgs.astalLibs)
+          (pkgs.astal)
           cava
           river
           ;
