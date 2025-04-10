@@ -29,10 +29,10 @@
   };
   "bitwarden" = buildFirefoxXpiAddon {
     pname = "bitwarden";
-    version = "2025.2.0";
+    version = "2025.3.2";
     addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4440363/bitwarden_password_manager-2025.2.0.xpi";
-    sha256 = "c4d7f355a2269620482f50edac7fce3c19f515190f24cdf80edc865f71d3a374";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4467426/bitwarden_password_manager-2025.3.2.xpi";
+    sha256 = "30f9384a46f6ef2ba6c9d273fc7c77a9afeef120dc4b3cbc5c28f171f4e8aeab";
     meta = with lib; {
       homepage = "https://bitwarden.com";
       description = "At home, at work, or on the go, Bitwarden easily secures all your passwords, passkeys, and sensitive information.";
@@ -79,10 +79,10 @@
   };
   "floccus" = buildFirefoxXpiAddon {
     pname = "floccus";
-    version = "5.4.5";
+    version = "5.5.1";
     addonId = "floccus@handmadeideas.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4458625/floccus-5.4.5.xpi";
-    sha256 = "2bdd6cca9e2e50dc70a39393f95f595d76c8ee53b7952c09ae6389e0c010134f";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4470978/floccus-5.5.1.xpi";
+    sha256 = "990a44ef126d888a8f00e5e8c4a5ff0b8cf979d2749d84dcba872c0ed20b94ed";
     meta = with lib; {
       homepage = "https://floccus.org";
       description = "Sync your bookmarks and tabs across browsers via Nextcloud, any WebDAV service, any Git service, via a local file, via Google Drive.";

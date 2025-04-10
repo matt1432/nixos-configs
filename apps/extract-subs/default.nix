@@ -5,7 +5,7 @@
 }:
 buildApp {
   src = ./.;
-  npmDepsHash = "sha256-Dc12E3mM3obxsgiZnNPyaVA8vK047E/mlmtNKw6M5i0=";
+  npmDepsHash = "sha256-4bv290XrCnBmyUBPHRyYGg5NQ2xV0VI8Fnc23yoAxy8=";
 
   runtimeInputs = [
     ffmpeg-full
