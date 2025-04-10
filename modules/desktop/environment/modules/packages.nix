@@ -207,16 +207,6 @@ in {
           });
         };
 
-        # force XWayland for stylus input
-        obsidian = pkgs.obsidian.overrideAttrs {
-          postFixup = ''
-            wrapProgram $out/bin/obsidian \
-                --set XDG_SESSION_TYPE "x11" \
-                --unset NIXOS_OZONE_WL \
-                --unset WAYLAND_DISPLAY
-          '';
-        };
-
         # tools
         inherit
           (pkgs)
