@@ -2,6 +2,7 @@ import { writeFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 
 import { parseFetchurl } from './lib';
+import { styleText } from 'node:util';
 
 
 /* Constants */
@@ -20,6 +21,8 @@ const genVueText = (
 `;
 
 export const updateVuetorrent = () => {
+    console.log(styleText(['magenta'], '\nUpdating Vuetorrent:\n'));
+
     const FILE = `${FLAKE}/configurations/nos/modules/qbittorrent/vuetorrent.nix`;
 
     const OLD_VERSION = JSON.parse(spawnSync('nix',
@@ -53,6 +56,9 @@ export const runNixUpdate = (
     const getJsonArray = (jsonObj: string) => Array(JSON.parse(jsonObj))[0].slice(1).join(' ');
 
     const realAttr = scope ? `${attr}.x86_64-linux.${scope}.${scopeAttr}` : attr;
+
+    console.log(styleText(['magenta'], `\nUpdating ${realAttr}:\n`));
+
     const OLD_VERSION = getAttrVersion(realAttr);
 
     const execOptions = spawnSync(

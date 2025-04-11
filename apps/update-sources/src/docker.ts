@@ -1,5 +1,6 @@
 import { readdirSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
+import { styleText } from 'node:util';
 
 
 /* Constants */
@@ -16,6 +17,8 @@ const updateImages = (imagePath: string): string | undefined => {
 };
 
 export const updateDocker = () => {
+    console.log(styleText(['magenta'], '\nUpdating docker images:\n'));
+
     let updates = '';
 
     updates += updateImages(`${FLAKE}/configurations/nos/modules/jellyfin`) ?? '';

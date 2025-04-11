@@ -1,10 +1,13 @@
 import { spawnSync } from 'node:child_process';
+import { styleText } from 'node:util';
 
 
 /* Constants */
 const FLAKE = process.env.FLAKE;
 
 export const updateFlakeInputs = () => {
+    console.log(styleText(['magenta'], '\nUpdating flake inputs:\n'));
+
     const output = spawnSync(
         `git restore flake.lock &> /dev/null; nix flake update --flake ${FLAKE}` +
         ' |& grep -v "warning: updating lock file" |& grep -v "unpacking"',

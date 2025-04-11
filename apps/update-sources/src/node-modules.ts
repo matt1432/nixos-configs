@@ -3,6 +3,7 @@ import { accessSync, constants, existsSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 
 import { replaceInFile, npmRun } from './lib';
+import { styleText } from 'node:util';
 
 
 /* Constants */
@@ -72,7 +73,7 @@ const prefetchNpmDeps = (workspaceDir: string): string => {
 
 
 export default async() => {
-    console.log('Updating node modules');
+    console.log(styleText(['magenta'], '\nUpdating node modules:\n'));
 
     const updates = {};
 

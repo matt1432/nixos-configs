@@ -13,6 +13,7 @@ import {
     runNixUpdate,
     updateVuetorrent,
 } from './misc';
+import { styleText } from 'node:util';
 
 
 /* Constants */
@@ -178,6 +179,7 @@ const main = async() => {
             writeFileSync(args['f'] as string, output.join(''));
         }
         else {
+            console.log(styleText(['magenta'], '\n\nCommit message:\n'));
             console.log(output.join(''));
         }
     }

@@ -1,12 +1,13 @@
 import { spawnSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
+import { styleText } from 'node:util';
 
 
 /* Constants */
 const FLAKE = process.env.FLAKE;
 
 export const updateFirefoxAddons = () => {
-    console.log('Updating firefox addons using mozilla-addons-to-nix');
+    console.log(styleText(['magenta'], '\nUpdating firefox addons using mozilla-addons-to-nix:\n'));
 
     const DIR = `${FLAKE}/scopedPackages/firefox-addons`;
     const GENERATED_FILE = `${DIR}/generated-firefox-addons.nix`;

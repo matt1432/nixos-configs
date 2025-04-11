@@ -2,6 +2,7 @@ import { writeFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 
 import { replaceInFile } from './lib';
+import { styleText } from 'node:util';
 
 /* Types */
 interface Plugin {
@@ -34,6 +35,8 @@ ${Object.entries(plugins)
 `;
 
 export const updateCaddyPlugins = () => {
+    console.log(styleText(['magenta'], '\nUpdating caddy plugins:\n'));
+
     let updates = '';
     const dir = `${FLAKE}/configurations/cluster/modules/caddy`;
 
