@@ -12,6 +12,9 @@ in rec {
     import nixpkgs {
       inherit system;
       overlays = nixpkgs.lib.unique ([
+          # Needed for nix-version overlay
+          inputs.nix-serve-ng.overlays.default
+
           (inputs.self.overlays.nix-version {inherit nix;})
           inputs.self.overlays.misc-fixes
           inputs.self.overlays.appsPackages

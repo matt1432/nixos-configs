@@ -1,11 +1,19 @@
 self: {nix ? null}: final: prev: let
-  inherit (builtins) mapAttrs;
+  inherit (builtins) functionArgs mapAttrs replaceStrings;
+  inherit (final.lib) generateSplicesForMkScope head splitString versions;
   inherit (self.inputs) nix-eval-jobs nix-fast-build;
 
   nullCheck = n: v:
     if nix == null
     then prev.${n}
     else v;
+
+  # This is for packages from flakes that don't offer overlays
+  overrideAll = pkg: extraArgs: let
+    pkgFile = head (splitString [":"] pkg.meta.position);
+    args = functionArgs (import pkgFile);
+  in
+    pkg.override (mapAttrs (n: v: final.${n} or v) (args // extraArgs));
 in
   mapAttrs nullCheck {
     inherit nix;
@@ -22,11 +30,27 @@ in
       '';
     });
 
-    nix-fast-build = nix-fast-build.packages.${final.system}.nix-fast-build.override {
-      inherit (final) nix-output-monitor;
+    nix-eval-jobs =
+      (overrideAll nix-eval-jobs.packages.${final.system}.default {
+        srcDir = null;
 
-      nix-eval-jobs = nix-eval-jobs.packages.${final.system}.default.override {
-        inherit nix;
-      };
-    };
+        nixComponents = let
+          generateSplicesForNixComponents = nixComponentsAttributeName:
+            generateSplicesForMkScope [
+              "nixVersions"
+              nixComponentsAttributeName
+            ];
+        in
+          final.nixDependencies.callPackage "${final.path}/pkgs/tools/package-management/nix/modular/packages.nix" {
+            inherit (nix) src version;
+            inherit (nix.meta) maintainers;
+
+            otherSplices = generateSplicesForNixComponents "nixComponents_${
+              replaceStrings ["."] ["_"] (versions.majorMinor nix.version)
+            }";
+          };
+      })
+      // {inherit nix;};
+
+    nix-fast-build = overrideAll nix-fast-build.packages.${final.system}.nix-fast-build {};
   }

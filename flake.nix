@@ -277,7 +277,7 @@
         treefmt-nix.follows = "treefmt-nix";
       };
       owner = "nix-community";
-      ref = "v2.25.0";
+      ref = "v2.28.1";
       repo = "nix-eval-jobs";
       type = "github";
     };
@@ -319,6 +319,16 @@
       };
       owner = "nix-community";
       repo = "nix-on-droid";
+      type = "github";
+    };
+    nix-serve-ng = {
+      inputs = {
+        flake-compat.follows = "flake-compat";
+        nixpkgs.follows = "nixpkgs";
+        utils.follows = "flake-utils";
+      };
+      owner = "aristanetworks";
+      repo = "nix-serve-ng";
       type = "github";
     };
     nixcord = {
