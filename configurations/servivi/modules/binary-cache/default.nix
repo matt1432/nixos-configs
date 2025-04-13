@@ -23,8 +23,10 @@
       cd "$FLAKE/results" || return
 
       # Home-assistant sometimes fails some tests when built with everything else
-      nom build --no-link \
-          ..#nixosConfigurations.homie.config.services.home-assistant.package
+      hass="..#nixosConfigurations.homie.config.services.home-assistant.package"
+      while ! nom build --no-link "$hass"; do
+          echo "Retrying to build home-assistant"
+      done
 
       # Build NixOnDroid activation package
       nom build --impure -o ./result-aarch64-linux.nixOnDroidConfigurations_default \
