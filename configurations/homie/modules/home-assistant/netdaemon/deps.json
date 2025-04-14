@@ -196,48 +196,48 @@
   },
   {
     "pname": "NetDaemon.AppModel",
-    "version": "25.14.0",
-    "hash": "sha256-RqEOhacR+59wdEKAd1D520uPy23CRXmLQxtD/hPvcu0="
+    "version": "25.14.1",
+    "hash": "sha256-sq2QVQWY5xZ3M7g0Nt913BkgSiayubpEdqoeyBHPpQo="
   },
   {
     "pname": "NetDaemon.AppModel.SourceDeployedApps",
-    "version": "25.14.0",
-    "hash": "sha256-XODlBGMWsHxN9dNoWsgSwE0yJCQGDnyKV32AYBL+j+4="
+    "version": "25.14.1",
+    "hash": "sha256-YazdkXWn5IowcJr7WhQ8vRTn8aUe0QI0mTO+GSNtkX4="
   },
   {
     "pname": "NetDaemon.Client",
-    "version": "25.14.0",
-    "hash": "sha256-tUY4eROBFTClXhci2kc8kPLSTZ9stp/dF63h9G+MJg4="
+    "version": "25.14.1",
+    "hash": "sha256-tIr5QQneaM6+7la4TkMDuJPKZSa6EWxNPwqebzK8hvg="
   },
   {
     "pname": "NetDaemon.Extensions.Logging",
-    "version": "25.14.0",
-    "hash": "sha256-f2FFwx0iC7Tkxv/P+1gldvzeTgUl7L2rNURk5wnVjFk="
+    "version": "25.14.1",
+    "hash": "sha256-IjNIIKKDH94vbfqRWo7gii7sFS52QOc6VvoSSn/QFrc="
   },
   {
     "pname": "NetDaemon.Extensions.Scheduling",
-    "version": "25.14.0",
-    "hash": "sha256-+QYyW8Pmob7a5A6ViI/WSpnWr88ql/Z9arr42c48Iec="
+    "version": "25.14.1",
+    "hash": "sha256-Khm/Ht+kwaYpr8KYesXZCG0SRss7brNBYvPSyNsfsOY="
   },
   {
     "pname": "NetDaemon.Extensions.Tts",
-    "version": "25.14.0",
-    "hash": "sha256-jwY4P1veQHSmYjp5hGifDGzlohrZeNXEj9DFh1cdrBc="
+    "version": "25.14.1",
+    "hash": "sha256-OkiqpBHWVjoKBkq2Gwd0SIdKx7QQ5m8ioz8H3xSuKdM="
   },
   {
     "pname": "NetDaemon.HassModel",
-    "version": "25.14.0",
-    "hash": "sha256-dbmf4RM3MJ2z/S4Sev6GGQitW25KTGPE3RajJsvXFGg="
+    "version": "25.14.1",
+    "hash": "sha256-yLXh6h1Co4VjJlBdtt1ZCwmq4q78sIUptSPlhXCVfPg="
   },
   {
     "pname": "NetDaemon.HassModel.Integration",
-    "version": "25.14.0",
-    "hash": "sha256-jc1LbrAi3y0OoltcDWmJED16DDw0m+YSSEN/3GDiwSI="
+    "version": "25.14.1",
+    "hash": "sha256-wq6fIo10KVYhP6IrkmAovQ9mld9wzoeCbkPCCiXCrsg="
   },
   {
     "pname": "NetDaemon.Runtime",
-    "version": "25.14.0",
-    "hash": "sha256-erU1iZOwq7lmkDyctiiC9Yl9hw3ZUgx8t0Q94sHjJZA="
+    "version": "25.14.1",
+    "hash": "sha256-5AzZMl0jTfeKhi5AfFzYraKnjkGnEY0PZeEI8X13dGs="
   },
   {
     "pname": "Serilog",
