@@ -4,7 +4,7 @@
     Kapowarr-src = {
       flake = false;
       owner = "matt1432";
-      ref = "build-system";
+      ref = "build-system-bak";
       repo = "Kapowarr";
       type = "github";
     };
