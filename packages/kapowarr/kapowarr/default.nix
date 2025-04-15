@@ -1,7 +1,9 @@
 {
   # nix build inputs
   lib,
-  buildPythonApplication,
+  stdenv,
+  python,
+  makeWrapper,
   Kapowarr-src,
   # deps
   rar,
@@ -13,7 +15,6 @@
   flask,
   flask-socketio,
   requests,
-  setuptools,
   typing-extensions, # from overrides
   waitress,
   websocket-client,
@@ -24,37 +25,56 @@
 
   pyproject = fromTOML (readFile "${Kapowarr-src}/pyproject.toml");
 
+  dependencies = [
+    typing-extensions
+    requests
+    beautifulsoup4
+    flask
+    waitress
+    cryptography
+    bencoding
+    aiohttp
+    flask-socketio
+    websocket-client
+  ];
+
+  pythonExe = getExe (python.withPackages (ps: dependencies));
+
   pname = "kapowarr";
   version = "${pyproject.project.version}+${Kapowarr-src.shortRev or "dirty"}";
 in
-  buildPythonApplication {
+  stdenv.mkDerivation {
     inherit pname version;
-    format = "pyproject";
 
     src = Kapowarr-src;
 
+    nativeBuildInputs = [makeWrapper];
+
     postPatch = ''
+      # Remove shebang
+      sed -i 1d ./Kapowarr.py
+
+      # Disable PWA for now
+      substituteInPlace ./backend/internals/settings.py \
+          --replace-fail "with open(filename, 'w') as f:" "" \
+          --replace-fail "dump(manifest, f, indent=4)" ""
+
       # TODO: makes sure this works
-      substituteInPlace ./src/backend/implementations/converters.py \
+      substituteInPlace ./backend/implementations/converters.py \
           --replace-fail \
               "exe = folder_path('backend', 'lib', Constants.RAR_EXECUTABLES[platform])" \
               "exe = '${getExe rar}'"
     '';
 
-    build-system = [setuptools];
+    buildPhase = ''
+      mkdir -p $out/${python.sitePackages}
+      cp -r ./. $out/${python.sitePackages}
+    '';
 
-    dependencies = [
-      typing-extensions
-      requests
-      beautifulsoup4
-      flask
-      waitress
-      cryptography
-      bencoding
-      aiohttp
-      flask-socketio
-      websocket-client
-    ];
+    installPhase = ''
+      makeWrapper ${pythonExe} $out/bin/kapowarr \
+          --add-flags "$out/${python.sitePackages}/Kapowarr.py"
+    '';
 
     meta = {
       inherit (rar.meta) platforms;

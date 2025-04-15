@@ -3,16 +3,16 @@
     "Kapowarr-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1744033989,
-        "narHash": "sha256-g+ORfY2UhPOk1bBwSTzAZ7zwbY+bgggOas6+9P1gWC4=",
+        "lastModified": 1744746361,
+        "narHash": "sha256-vu0nVGjwQSW5K1WtYeL8ixWQABJG0KgT6erenRK44Zs=",
         "owner": "matt1432",
         "repo": "Kapowarr",
-        "rev": "d797b9d7f3fee4c7ba7e7e9cd33ed78926c981e9",
+        "rev": "d5a170f80b39b8d3477574211bd775291268a129",
         "type": "github"
       },
       "original": {
         "owner": "matt1432",
-        "ref": "build-system-bak",
+        "ref": "build-system",
         "repo": "Kapowarr",
         "type": "github"
       }

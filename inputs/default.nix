@@ -327,7 +327,7 @@ let
       name = "Kapowarr-src";
       owner = "matt1432";
       repo = "Kapowarr";
-      ref = "build-system-bak";
+      ref = "build-system";
       # type = "path";
       # path = "/home/matt/git/Kapowarr";
     }

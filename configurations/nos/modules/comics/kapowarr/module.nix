@@ -11,7 +11,7 @@
     mkIf
     mkOption
     mkPackageOption
-    optionalString
+    # optionalString
     types
     ;
 
@@ -51,13 +51,6 @@ in {
       description = "The directory where Kapowarr stores its data files.";
     };
 
-    downloadDir = mkOption {
-      type = types.path;
-      default = "${cfg.dataDir}/temp_downloads";
-      defaultText = "/var/lib/kapowarr/temp_downloads";
-      description = "The directory where Kapowarr stores its downloaded files.";
-    };
-
     logDir = mkOption {
       type = types.path;
       default = cfg.dataDir;
@@ -74,10 +67,6 @@ in {
       after = ["network.target"];
       wantedBy = ["multi-user.target"];
 
-      environment = {
-        KAPOWARR_LOG_DIR = cfg.logDir;
-      };
-
       serviceConfig = {
         Type = "simple";
         User = cfg.user;
@@ -86,10 +75,9 @@ in {
         ExecStart = toString [
           (getExe cfg.package)
           "-d ${cfg.dataDir}"
-          "-D ${cfg.downloadDir}"
           "-l ${cfg.logDir}"
-          "-p ${toString cfg.port}"
-          (optionalString (cfg.urlBase != null) "-u ${cfg.urlBase}")
+          # "-p ${toString cfg.port}"
+          # (optionalString (cfg.urlBase != null) "-u ${cfg.urlBase}")
         ];
 
         # Hardening from komga service
