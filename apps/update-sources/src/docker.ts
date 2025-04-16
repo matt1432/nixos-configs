@@ -16,7 +16,7 @@ const updateImages = (imagePath: string): string | undefined => {
     }
 };
 
-export const updateDocker = () => {
+export default () => {
     console.log(styleText(['magenta'], '\nUpdating docker images:\n'));
 
     let updates = '';

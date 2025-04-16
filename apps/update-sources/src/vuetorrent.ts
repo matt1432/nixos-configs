@@ -1,8 +1,8 @@
 import { writeFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
+import { styleText } from 'node:util';
 
 import { parseFetchurl } from './lib';
-import { styleText } from 'node:util';
 
 
 /* Constants */
@@ -20,7 +20,7 @@ const genVueText = (
 }
 `;
 
-export const updateVuetorrent = () => {
+export default () => {
     console.log(styleText(['magenta'], '\nUpdating Vuetorrent:\n'));
 
     const FILE = `${FLAKE}/configurations/nos/modules/qbittorrent/vuetorrent.nix`;
@@ -41,38 +41,4 @@ export const updateVuetorrent = () => {
     writeFileSync(FILE, fileText);
 
     return OLD_VERSION !== VERSION ? `Vuetorrent: ${OLD_VERSION} -> ${VERSION}` : '';
-};
-
-
-const getAttrVersion = (attr: string): string => spawnSync('nix',
-    ['eval', '--raw', `${FLAKE}#${attr}.version`],
-    { shell: true }).stdout.toString();
-
-export const runNixUpdate = (
-    attr: string,
-    scope?: string,
-    scopeAttr?: string,
-): {
-    changelog: string | null
-    stdout: string
-    stderr: string
-} => {
-    const realAttr = scope ? `${attr}.x86_64-linux.${scope}.${scopeAttr}` : attr;
-    const cleanAttr = scope ? `${attr}.${scope}.${scopeAttr}` : attr;
-
-    console.log(styleText(['magenta'], `\nUpdating ${realAttr}:\n`));
-
-    const OLD_VERSION = getAttrVersion(realAttr);
-
-    const execution = spawnSync('nix-update', ['--flake', realAttr, '-u'], { cwd: FLAKE });
-
-    const NEW_VERSION = getAttrVersion(realAttr);
-
-    return {
-        changelog: OLD_VERSION !== NEW_VERSION ?
-            `${cleanAttr}: ${OLD_VERSION} -> ${NEW_VERSION}\n` :
-            null,
-        stdout: execution.stdout.toString(),
-        stderr: execution.stderr.toString(),
-    };
 };

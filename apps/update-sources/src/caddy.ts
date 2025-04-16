@@ -34,7 +34,7 @@ ${Object.entries(plugins)
 }
 `;
 
-export const updateCaddyPlugins = (): string => {
+export default (): string => {
     console.log(styleText(['magenta'], '\nUpdating caddy plugins:\n'));
 
     let updates = '';

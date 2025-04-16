@@ -5,7 +5,7 @@ import { styleText } from 'node:util';
 /* Constants */
 const FLAKE = process.env.FLAKE;
 
-export const updateFlakeInputs = () => {
+export default () => {
     console.log(styleText(['magenta'], '\nUpdating flake inputs:\n'));
 
     const output = spawnSync(

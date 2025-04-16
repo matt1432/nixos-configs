@@ -1,19 +1,16 @@
 import { spawnSync } from 'node:child_process';
 import { writeFileSync } from 'node:fs';
+import { styleText } from 'node:util';
 
 import { parseArgs } from './lib';
 
-import { updateCaddyPlugins } from './caddy';
-import { updateDocker } from './docker';
-import { updateFirefoxAddons } from '././firefox';
-import { updateFlakeInputs } from './flake';
+import updateCaddyPlugins from './caddy';
+import updateDocker from './docker';
+import updateFirefoxAddons from '././firefox';
+import updateFlakeInputs from './flake';
+import runNixUpdate from './nix-update';
 import updateNodeModules from './node-modules';
-
-import {
-    runNixUpdate,
-    updateVuetorrent,
-} from './misc';
-import { styleText } from 'node:util';
+import updateVuetorrent from './vuetorrent';
 
 
 /* Constants */

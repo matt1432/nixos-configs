@@ -1,16 +1,15 @@
 import { readPackageJSON, writePackageJSON } from 'pkg-types';
 import { accessSync, constants, existsSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
+import { styleText } from 'node:util';
 
 import { replaceInFile, npmRun } from './lib';
-import { styleText } from 'node:util';
 
 
 /* Constants */
 const FLAKE = process.env.FLAKE as string;
 
 const PINS = new Map([]);
-
 
 const updatePackageJson = async(workspaceDir: string, updates: object) => {
     const currentPackageJson = await readPackageJSON(`${workspaceDir}/package.json`);

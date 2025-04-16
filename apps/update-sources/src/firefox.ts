@@ -6,7 +6,7 @@ import { styleText } from 'node:util';
 /* Constants */
 const FLAKE = process.env.FLAKE;
 
-export const updateFirefoxAddons = () => {
+export default () => {
     console.log(styleText(['magenta'], '\nUpdating firefox addons using mozilla-addons-to-nix:\n'));
 
     const DIR = `${FLAKE}/scopedPackages/firefox-addons`;
