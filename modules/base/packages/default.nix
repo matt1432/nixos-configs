@@ -94,6 +94,7 @@ in {
         nix-output-monitor
         nix-melt
         nix-tree
+        nix-update
         progress
         tree
         gnugrep

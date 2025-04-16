@@ -125,7 +125,9 @@ const main = async() => {
         ): void => {
             const execution = runNixUpdate(attr, scope, scopeAttr);
 
-            nixUpdateOutputs += execution.stdout;
+            if (execution.changelog) {
+                nixUpdateOutputs += execution.changelog;
+            }
             console.log(execution.stderr);
             console.log(execution.stdout);
         };
@@ -168,10 +170,10 @@ const main = async() => {
         if (vuetorrentOutput.length > 5) {
             output.push(`Misc Sources:\n${indentOutput(vuetorrentOutput)}\n\n\n`);
         }
-        if (caddyPluginsOutput.length > 5) {
+        if (caddyPluginsOutput !== '') {
             output.push(`Caddy Plugins:\n${indentOutput(caddyPluginsOutput)}\n\n\n`);
         }
-        if (nixUpdateOutputs.length > 5) {
+        if (nixUpdateOutputs !== '') {
             output.push(`nix-update executions:\n${indentOutput(nixUpdateOutputs)}\n\n\n`);
         }
 
