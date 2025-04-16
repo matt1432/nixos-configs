@@ -29,15 +29,15 @@ const main = async() => {
     }
 
     if (args['cp'] || args['caddy-plugins']) {
-        console.log(updateCaddyPlugins());
+        console.log(updateCaddyPlugins() ?? '');
     }
 
     if (args['d'] || args['docker']) {
-        console.log(updateDocker());
+        console.log(updateDocker() ?? '');
     }
 
     if (args['f'] || args['firefox']) {
-        console.log(updateFirefoxAddons());
+        console.log(updateFirefoxAddons() ?? '');
     }
 
     if (args['h'] || args['homepage']) {
@@ -45,7 +45,7 @@ const main = async() => {
     }
 
     if (args['i'] || args['inputs']) {
-        console.log(updateFlakeInputs());
+        console.log(updateFlakeInputs() ?? '');
     }
 
     if (args['j'] || args['jmusicbot']) {
@@ -57,7 +57,7 @@ const main = async() => {
     }
 
     if (args['n'] || args['node_modules']) {
-        console.log(await updateNodeModules());
+        console.log((await updateNodeModules()) ?? '');
     }
 
     if (args['p'] || args['pam-fprint-grosshack']) {
@@ -77,43 +77,43 @@ const main = async() => {
     }
 
     if (args['v'] || args['vuetorrent']) {
-        console.log(updateVuetorrent());
+        console.log(updateVuetorrent() ?? '');
     }
 
     if (args['a'] || args['all']) {
         // Update this first because of nix run cmd
         const firefoxOutput = updateFirefoxAddons();
 
-        console.log(firefoxOutput);
+        console.log(firefoxOutput ?? 'No updates');
 
 
         const flakeOutput = updateFlakeInputs();
 
-        console.log(flakeOutput);
+        console.log(flakeOutput ?? 'No updates');
 
 
         const dockerOutput = updateDocker();
 
-        console.log(dockerOutput);
+        console.log(dockerOutput ?? 'No updates');
 
 
         const nodeModulesOutput = await updateNodeModules();
 
-        console.log(nodeModulesOutput);
+        console.log(nodeModulesOutput ?? 'No updates');
 
 
         const vuetorrentOutput = updateVuetorrent();
 
-        console.log(vuetorrentOutput);
+        console.log(vuetorrentOutput ?? 'No updates');
 
 
         const caddyPluginsOutput = updateCaddyPlugins();
 
-        console.log(caddyPluginsOutput);
+        console.log(caddyPluginsOutput ?? 'No updates');
 
 
         // nix-update executions
-        let nixUpdateOutputs = '';
+        const nixUpdateOutputs: string[] = [];
 
         const updatePackage = (
             attr: string,
@@ -123,7 +123,7 @@ const main = async() => {
             const execution = runNixUpdate(attr, scope, scopeAttr);
 
             if (execution.changelog) {
-                nixUpdateOutputs += execution.changelog;
+                nixUpdateOutputs.push(execution.changelog);
             }
             console.log(execution.stderr);
             console.log(execution.stdout);
@@ -139,6 +139,8 @@ const main = async() => {
         updatePackage('scopedPackages', 'lovelace-components', 'material-rounded-theme');
 
 
+        spawnSync('alejandra', ['-q', FLAKE], { shell: true });
+
         spawnSync('nixFastBuild', [], {
             shell: true,
             stdio: [process.stdin, process.stdout, process.stderr],
@@ -149,41 +151,40 @@ const main = async() => {
         };
 
         const output = [
-            'chore: update sources\n\n',
+            'chore: update sources',
         ];
 
-        if (flakeOutput.length > 5) {
-            output.push(`Flake Inputs:\n${indentOutput(flakeOutput)}\n\n\n`);
+        if (flakeOutput) {
+            output.push(`Flake Inputs:\n${indentOutput(flakeOutput)}\n`);
         }
-        if (dockerOutput.length > 5) {
-            output.push(`Docker Images:\n${indentOutput(dockerOutput)}\n\n\n`);
+        if (dockerOutput) {
+            output.push(`Docker Images:\n${indentOutput(dockerOutput)}\n`);
         }
-        if (firefoxOutput.length > 5) {
-            output.push(`Firefox Addons:\n${indentOutput(firefoxOutput)}\n\n\n`);
+        if (firefoxOutput) {
+            output.push(`Firefox Addons:\n${indentOutput(firefoxOutput)}\n`);
         }
-        if (nodeModulesOutput.length > 5) {
-            output.push(`Node modules:\n${indentOutput(nodeModulesOutput)}\n\n\n`);
+        if (nodeModulesOutput) {
+            output.push(`Node modules:\n${indentOutput(nodeModulesOutput)}\n`);
         }
-        if (vuetorrentOutput.length > 5) {
-            output.push(`Misc Sources:\n${indentOutput(vuetorrentOutput)}\n\n\n`);
+        if (vuetorrentOutput) {
+            output.push(`qBittorrent Sources:\n${indentOutput(vuetorrentOutput)}\n`);
         }
-        if (caddyPluginsOutput !== '') {
-            output.push(`Caddy Plugins:\n${indentOutput(caddyPluginsOutput)}\n\n\n`);
+        if (caddyPluginsOutput) {
+            output.push(`Caddy Plugins:\n${indentOutput(caddyPluginsOutput)}\n`);
         }
-        if (nixUpdateOutputs !== '') {
-            output.push(`nix-update executions:\n${indentOutput(nixUpdateOutputs)}\n\n\n`);
+        if (nixUpdateOutputs.length > 0) {
+            output.push(`nix-update executions:\n${indentOutput(nixUpdateOutputs.join('\n'))}\n`);
         }
 
         if (args['f']) {
-            writeFileSync(args['f'] as string, output.join(''));
+            console.log(styleText(['magenta'], `\n\nWriting commit message to ${args['f']}\n`));
+            writeFileSync(args['f'], output.join('\n\n'));
         }
         else {
             console.log(styleText(['magenta'], '\n\nCommit message:\n'));
-            console.log(output.join(''));
+            console.log(output.join('\n\n'));
         }
     }
-
-    spawnSync('alejandra', ['-q', FLAKE], { shell: true });
 };
 
 main();

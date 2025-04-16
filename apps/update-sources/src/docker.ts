@@ -16,21 +16,36 @@ const updateImages = (imagePath: string): string | undefined => {
     }
 };
 
-export default () => {
+export default (): string | null => {
     console.log(styleText(['magenta'], '\nUpdating docker images:\n'));
 
-    let updates = '';
+    const updates: string[] = [];
 
-    updates += updateImages(`${FLAKE}/configurations/nos/modules/jellyfin`) ?? '';
-    updates += updateImages(`${FLAKE}/configurations/homie/modules/home-assistant/netdaemon`) ?? '';
+    const jellfyinUpdates = updateImages(`${FLAKE}/configurations/nos/modules/jellyfin`);
+
+    if (jellfyinUpdates) {
+        updates.push(jellfyinUpdates);
+    }
+
+    const hassUpdates = updateImages(`${FLAKE}/configurations/homie/modules/home-assistant/netdaemon`);
+
+    if (hassUpdates) {
+        updates.push(hassUpdates);
+    }
 
     const DIR = `${FLAKE}/configurations/nos/modules/docker`;
 
     readdirSync(DIR, { withFileTypes: true, recursive: true }).forEach((path) => {
         if (path.name === 'compose.nix') {
-            updates += updateImages(path.parentPath) ?? '';
+            const composeUpdates = updateImages(path.parentPath);
+
+            if (composeUpdates) {
+                updates.push(composeUpdates);
+            }
         }
     });
 
-    return updates;
+    return updates.length > 0 ?
+        updates.join('') :
+        null;
 };

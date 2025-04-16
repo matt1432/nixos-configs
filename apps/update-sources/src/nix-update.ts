@@ -31,7 +31,7 @@ export default (
 
     return {
         changelog: OLD_VERSION !== NEW_VERSION ?
-            `${cleanAttr}: ${OLD_VERSION} -> ${NEW_VERSION}\n` :
+            `${cleanAttr}: ${OLD_VERSION} -> ${NEW_VERSION}` :
             null,
         stdout: execution.stdout.toString(),
         stderr: execution.stderr.toString(),

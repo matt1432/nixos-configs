@@ -20,7 +20,7 @@ const genVueText = (
 }
 `;
 
-export default () => {
+export default (): string | null => {
     console.log(styleText(['magenta'], '\nUpdating Vuetorrent:\n'));
 
     const FILE = `${FLAKE}/configurations/nos/modules/qbittorrent/vuetorrent.nix`;
@@ -40,5 +40,5 @@ export default () => {
 
     writeFileSync(FILE, fileText);
 
-    return OLD_VERSION !== VERSION ? `Vuetorrent: ${OLD_VERSION} -> ${VERSION}` : '';
+    return OLD_VERSION !== VERSION ? `Vuetorrent: ${OLD_VERSION} -> ${VERSION}\n` : null;
 };

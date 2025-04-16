@@ -71,7 +71,7 @@ const prefetchNpmDeps = (workspaceDir: string): string => {
 };
 
 
-export default async() => {
+export default async(): Promise<string | null> => {
     console.log(styleText(['magenta'], '\nUpdating node modules:\n'));
 
     const updates = {};
@@ -115,7 +115,9 @@ export default async() => {
         }
     }
 
-    return Object.entries(updates)
-        .map(([key, dep]) => `${key}: ${dep}`)
-        .join('\n');
+    return Object.entries(updates).length > 0 ?
+        Object.entries(updates)
+            .map(([key, dep]) => `${key}: ${dep}`)
+            .join('\n') :
+        null;
 };

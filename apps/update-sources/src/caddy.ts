@@ -34,10 +34,10 @@ ${Object.entries(plugins)
 }
 `;
 
-export default (): string => {
+export default (): string | null => {
     console.log(styleText(['magenta'], '\nUpdating caddy plugins:\n'));
 
-    let updates = '';
+    const updates: string[] = [];
     const dir = `${FLAKE}/configurations/cluster/modules/caddy`;
 
     // Setup workspace
@@ -70,7 +70,7 @@ export default (): string => {
             .split(' ')[1];
 
         if (plugins[key].version !== NEW_VERSION) {
-            updates += `${key}: ${plugins[key].version} -> ${NEW_VERSION}\n`;
+            updates.push(`${key}: ${plugins[key].version} -> ${NEW_VERSION}`);
             plugins[key].version = NEW_VERSION;
         }
     });
@@ -88,5 +88,5 @@ export default (): string => {
 
     replaceInFile(/hash = ".*";/, `hash = "${NEW_HASH}";`, `${dir}/plugins.nix`);
 
-    return updates;
+    return updates.length > 0 ? updates.join('\n') : null;
 };

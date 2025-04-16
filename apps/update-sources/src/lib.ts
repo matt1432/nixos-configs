@@ -1,9 +1,15 @@
 import { spawnSync } from 'node:child_process';
 import { readFileSync, writeFileSync } from 'node:fs';
 
+/* Types */
+interface Args {
+    f: string | undefined
+    [name: string]: unknown
+}
 
-export const parseArgs = () => {
-    const args = {} as Record<string, unknown>;
+
+export const parseArgs = (): Args => {
+    const args = {} as Args;
     let lastFlag: string | null = null;
 
     for (let i = 2; i < process.argv.length; ++i) {
@@ -25,12 +31,12 @@ export const parseArgs = () => {
     return args;
 };
 
-export const parseFetchurl = (url: string) => JSON.parse(spawnSync(
+export const parseFetchurl = (url: string): string => JSON.parse(spawnSync(
     'nix', ['store', 'prefetch-file', '--refresh', '--json',
         '--hash-type', 'sha256', url, '--name', '"escaped"'], { shell: true },
 ).stdout.toString()).hash;
 
-export const replaceInFile = (replace: RegExp, replacement: string, file: string) => {
+export const replaceInFile = (replace: RegExp, replacement: string, file: string): void => {
     const fileContents = readFileSync(file);
 
     const replaced = fileContents.toString().replace(replace, replacement);
@@ -38,6 +44,6 @@ export const replaceInFile = (replace: RegExp, replacement: string, file: string
     writeFileSync(file, replaced);
 };
 
-export const npmRun = (args: string[], workspaceDir: string) => spawnSync(
+export const npmRun = (args: string[], workspaceDir: string): string => spawnSync(
     'npm', args, { cwd: workspaceDir },
 ).stdout.toString();

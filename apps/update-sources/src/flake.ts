@@ -5,17 +5,18 @@ import { styleText } from 'node:util';
 /* Constants */
 const FLAKE = process.env.FLAKE;
 
-export default () => {
+export default (): string | null => {
     console.log(styleText(['magenta'], '\nUpdating flake inputs:\n'));
 
-    const output = spawnSync(
+    const output: string = spawnSync(
         `git restore flake.lock &> /dev/null; nix flake update --flake ${FLAKE}` +
         ' |& grep -v "warning: updating lock file" |& grep -v "unpacking"',
         [],
         { shell: true },
-    ).stdout
-        .toString()
-        // Add an extra blank line between inputs
+    ).stdout.toString();
+
+    const inputsUpdates: string[] = output
+        // Get an array of each update / change
         .split('\n•')
         // Filter out some inputs
         .filter((input) => ![
@@ -29,9 +30,12 @@ export default () => {
             'nix-gaming/umu',
             'nix-github-actions',
             'pre-commit-hooks',
-        ].some((inputName) => input.startsWith(` Updated input '${inputName}'`)))
+        ].some((inputName) => input.startsWith(` Updated input '${inputName}'`)));
+
+    const formattedOutput: string = inputsUpdates
+        // Add an extra blank line between inputs
         .join('\n\n•')
-        // help readability of git revs
+        // Help readability of git revs
         .split('\n')
         .map((l) => l
             .replace(
@@ -44,5 +48,7 @@ export default () => {
             ))
         .join('\n');
 
-    return output;
+    return inputsUpdates.length > 0 ?
+        formattedOutput :
+        null;
 };

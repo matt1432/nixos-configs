@@ -6,7 +6,7 @@ import { styleText } from 'node:util';
 /* Constants */
 const FLAKE = process.env.FLAKE;
 
-export default () => {
+export default (): string | null => {
     console.log(styleText(['magenta'], '\nUpdating firefox addons using mozilla-addons-to-nix:\n'));
 
     const DIR = `${FLAKE}/scopedPackages/firefox-addons`;
@@ -54,9 +54,12 @@ export default () => {
             return [nameMap[pinfo[0]], pinfo[2]];
         }));
 
-    return Object.keys(OLD_VERS)
+    const changelogs = Object.keys(OLD_VERS)
         .sort()
         .filter((pname) => OLD_VERS[pname] !== NEW_VERS[pname])
-        .map((pname) => `${pname}: ${OLD_VERS[pname]} -> ${NEW_VERS[pname]}`)
-        .join('\n');
+        .map((pname) => `${pname}: ${OLD_VERS[pname]} -> ${NEW_VERS[pname]}`);
+
+    return changelogs.length > 0 ?
+        changelogs.join('\n') :
+        null;
 };
