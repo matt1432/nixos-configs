@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-nix-update --flake homepage -q --commit-message | head -n 1
+nix-update --flake homepage
 
 file="$FLAKE/packages/homepage/default.nix"
 old_hash="$(sed -n 's/.*pnpmDepsHash = "\(.*\)";/\1/p' "$file")"
