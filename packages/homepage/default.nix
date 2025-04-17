@@ -2,7 +2,6 @@
   # nix build inputs
   lib,
   stdenv,
-  concatTextFile,
   fetchFromGitHub,
   makeWrapper,
   # deps
@@ -80,12 +79,7 @@ in
       runHook postInstall
     '';
 
-    passthru.updateScript = concatTextFile {
-      name = "update";
-      files = [./update.sh];
-      executable = true;
-      destination = "/bin/update";
-    };
+    passthru.updateScript = ./update.sh;
 
     meta = {
       mainProgram = "homepage";

@@ -73,6 +73,7 @@ in
 
     passthru.updateScript = nix-update-script {
       extraArgs = [
+        "--flake"
         ''--version=$(curl -s https://gitlab.com/api/v4/projects/mishakmak%2Fpam-fprint-grosshack/repository/tags | jq -r .[0].name)''
       ];
     };

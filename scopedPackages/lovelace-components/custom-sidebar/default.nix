@@ -38,12 +38,7 @@ in
       hash = "sha256-Nuig5vUC0UBic2MK2MNac0iD6N1ZaHZCuolQKVCVWDU=";
     };
 
-    passthru.updateScript = concatTextFile {
-      name = "update";
-      files = [./update.sh];
-      executable = true;
-      destination = "/bin/update";
-    };
+    passthru.updateScript = ./update.sh;
 
     meta = {
       license = lib.licenses.asl20;

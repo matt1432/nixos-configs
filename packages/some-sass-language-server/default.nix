@@ -10,6 +10,7 @@
   jq,
   ...
 }: let
+  inherit (lib) getExe;
   inherit (builtins) fromJSON readFile;
   package = fromJSON (readFile ./package.json);
 
@@ -32,7 +33,7 @@ in
 
     npmDepsHash = "sha256-/LWkQwDqU8ISY9v72sn6DmJTro8j18opW75n9ck0jGk=";
 
-    passthru.updateScript = writeShellApplication {
+    passthru.updateScript = getExe (writeShellApplication {
       name = "update";
       runtimeInputs = [
         nodejs_latest
@@ -40,7 +41,7 @@ in
         jq
       ];
       text = import ./update.nix;
-    };
+    });
 
     meta = {
       mainProgram = pname;
