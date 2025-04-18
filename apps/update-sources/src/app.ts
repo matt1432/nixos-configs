@@ -126,7 +126,6 @@ const main = async() => {
                 nixUpdateOutputs.push(execution.changelog);
             }
             console.log(execution.stderr);
-            console.log(execution.stdout);
         };
 
         updatePackage('homepage');
