@@ -3,14 +3,13 @@
   pkgs,
   ...
 }: {
-  systemd.services.homepage-dashboard.environment.HOMEPAGE_ALLOWED_HOSTS = "lan.nelim.org";
-
   services.homepage-dashboard = {
     enable = true;
 
     package = pkgs.selfPackages.homepage;
 
     listenPort = 3020;
+    allowedHosts = "lan.nelim.org";
 
     environmentFile = config.sops.secrets.homepage.path;
 

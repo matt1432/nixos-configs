@@ -4,7 +4,7 @@
   fetchurl,
   # deps
   jmusicbot,
-  jdk11_headless,
+  jdk21_headless,
   jre_minimal,
   ...
 }: let
@@ -15,17 +15,16 @@
     "jdk.crypto.cryptoki"
   ];
 
-  jre = (jre_minimal.override {jdk = jdk11_headless;}).overrideAttrs (o: {
+  jre = (jre_minimal.override {jdk = jdk21_headless;}).overrideAttrs (o: {
     buildPhase = ''
       runHook preBuild
 
       # further optimizations for image size https://github.com/NixOS/nixpkgs/issues/169775
       jlink \
-          --module-path ${jdk11_headless}/lib/openjdk/jmods \
+          --module-path ${jdk21_headless}/lib/openjdk/jmods \
           --add-modules ${concatStringsSep "," jre_modules} \
           --no-header-files \
           --no-man-pages \
-          --compress=2 \
           --output $out
 
       runHook postBuild

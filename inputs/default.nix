@@ -167,6 +167,9 @@ let
       hyprland-plugins = mkHyprDep {
         owner = "hyprwm";
         repo = "hyprland-plugins";
+
+        # FIXME: https://github.com/hyprwm/hyprland-plugins/pull/321
+        rev = "76de87aa975c2334ace0d798c92f268756e17731";
       };
 
       hyprgrass = mkHyprDep {

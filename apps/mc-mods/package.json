@@ -9,7 +9,7 @@
     "dependencies": {
         "@types/node": "22.14.1",
         "esbuild": "0.25.2",
-        "eslint": "9.24.0",
+        "eslint": "9.25.0",
         "jiti": "2.4.2",
         "pkg-types": "2.1.0",
         "typescript": "5.8.3"
