@@ -7,14 +7,12 @@
 }: let
   inherit (lib) attrValues singleton;
   inherit (pkgs.writers) writeYAML;
-
-  material-rounded-theme-src = pkgs.scopedPackages.lovelace-components.material-rounded-theme.src;
 in {
   services.home-assistant = {
     configFiles = {
       "themes/caule.yaml".source = "${caule-themes-src}/themes/caule-themes-pack-1.yaml";
       "themes/dracul-ha.yaml".source = "${dracul-ha-src}/themes/dracul-ha.yaml";
-      "themes/material_rounded.yaml".source = "${material-rounded-theme-src}/themes/material_rounded.yaml";
+      "themes/material_you.yaml".source = "${pkgs.scopedPackages.lovelace-components.material-rounded-theme}/share/material_you.yaml";
 
       "www/sidebar-config.yaml".source = writeYAML "sidebar" {
         id = "my-sidebar";
@@ -100,7 +98,7 @@ in {
         (pkgs.scopedPackages.lovelace-components)
         big-slider-card
         custom-sidebar
-        material-rounded-theme
+        material-you-utilities
         ;
     };
 
@@ -110,9 +108,19 @@ in {
         "big-slider-card"
         "card-mod"
         "custom-sidebar-yaml"
-        "material-rounded-theme"
+        "material-you-utilities"
       ];
     };
+
+    config.panel_custom = [
+      {
+        name = "material-you-panel";
+        url_path = "material-you-configuration";
+        sidebar_title = "Material You Utilities";
+        sidebar_icon = "mdi:material-design";
+        module_url = "/local/nixos-lovelace-modules/material-you-utilities.js";
+      }
+    ];
 
     config.template = [
       {

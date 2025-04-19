@@ -2,7 +2,6 @@
   # nix build inputs
   lib,
   stdenv,
-  concatTextFile,
   custom-sidebar-src,
   # deps
   nodejs,

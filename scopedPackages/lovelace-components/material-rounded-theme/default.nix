@@ -1,33 +1,26 @@
 {
   # nix build inputs
   lib,
-  buildNpmPackage,
+  stdenv,
   fetchFromGitHub,
   ...
 }: let
   pname = "material-rounded-theme";
-  version = "3.1.5";
+  version = "4.0.2";
 in
-  buildNpmPackage {
+  stdenv.mkDerivation {
     inherit pname version;
 
     src = fetchFromGitHub {
       owner = "Nerwyn";
       repo = pname;
       rev = version;
-      hash = "sha256-NvIAwuvy5SGs35ScmODXDwSrFdtRvYUhrzzI5WRH1WQ=";
+      hash = "sha256-ZsajvWYUbrOUVTmzSIyNiEUsCgURuYdah5Ra5NSmep8=";
     };
 
-    postPatch = ''
-      substituteInPlace ./webpack.config.js --replace-fail \
-          "git branch --show-current" "echo main"
-    '';
-
-    npmDepsHash = "sha256-Ph+qIViLVTfVDJPnO7wlYdLTRY8CwXayTqkdKDAt/ac=";
-
     installPhase = ''
-      mkdir $out
-      cp ./dist/* $out
+      mkdir -p $out/share
+      cp ./src/material_you.yaml $out/share
     '';
 
     meta = {
