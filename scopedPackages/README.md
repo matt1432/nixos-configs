@@ -61,6 +61,7 @@ Lovelace components I use for Home-Assistant that aren't in nixpkgs.
 | `big-slider-card` | A card with a big slider for light entities in Home Assistant. | https://github.com/nicufarmache/lovelace-big-slider-card |
 | `custom-sidebar` | Custom HACS plugin that allows you to personalise the Home Assistant's sidebar per user or device basis. | https://github.com/elchininet/custom-sidebar |
 | `material-rounded-theme` | Material Design 3 Colors and Components in Home Assistant. | https://github.com/Nerwyn/material-rounded-theme |
+| `material-you-utilities` | Material You color theme generation and Home Assistant component modification. | https://github.com/Nerwyn/ha-material-you-utilities |
 
 ### mpvScripts
 

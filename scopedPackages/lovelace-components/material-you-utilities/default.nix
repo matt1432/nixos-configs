@@ -1,4 +1,5 @@
 {
+  lib,
   buildNpmPackage,
   fetchFromGitHub,
   ...
@@ -27,4 +28,12 @@ in
     '';
 
     npmDepsHash = "sha256-5cc610/BhX19k2iREYVoE3c43yDmRJsE0Nvrq/gAVjY=";
+
+    meta = {
+      license = lib.licenses.asl20;
+      homepage = "https://github.com/Nerwyn/ha-material-you-utilities";
+      description = ''
+        Material You color theme generation and Home Assistant component modification.
+      '';
+    };
   }
