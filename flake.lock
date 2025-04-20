@@ -1493,11 +1493,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1745173892,
-        "narHash": "sha256-AtQ3eK1d/B+33ZnzvjbVm32LjYdsP5ODSo7uMTdynhs=",
+        "lastModified": 1745177494,
+        "narHash": "sha256-QPGqmYzTdhr2zUE6vxKade2MqyRo45dJdlqr87pmAVA=",
         "owner": "matt1432",
         "repo": "nixos-pcsd",
-        "rev": "05a9f5e0eb84ae840aba98c60591a5807e9b9158",
+        "rev": "a29ceed21b8ce1d88fbbe44ef4e88c4ae6aefbce",
         "type": "github"
       },
       "original": {
