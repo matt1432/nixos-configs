@@ -47,7 +47,7 @@
   systemd.services."temp-fix-nic" = {
     wantedBy = ["multi-user.target"];
     after = ["tailscaled.service"];
-    path = [pkgs.ripgrep];
+    path = [pkgs.ripgrep "/run/wrappers"];
     script = ''
       # Wait for boot to finish
       sleep 60
@@ -58,6 +58,7 @@
           if echo "$line" | rg 'NIC Link is Up' &> /dev/null; then
               echo "restarting tailscaled"
               systemctl restart tailscaled.service
+              sudo -u ${mainUser} systemctl --user restart spotifyd
           fi
       done
     '';
