@@ -8,10 +8,10 @@
 
     cloudflare = {
       url = "github.com/caddy-dns/cloudflare";
-      version = "v0.1.1-0.20250407183951-bbf79111721a";
+      version = "v0.2.2-0.20250419192618-6207298f499a";
       type = "git";
     };
   };
 
-  hash = "sha256-ReEyZI9Jg85EhGrAebU2d5y+OFkkdJiJ3Fic5r4srjM=";
+  hash = "sha256-C3sYu0ezjBocdsC6U76gv0UOZCID2jDIiyQBywLlOS4=";
 }
