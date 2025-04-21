@@ -14,6 +14,7 @@ in {
   imports = [
     ./bash
     ./c-lang
+    ./golang
     ./hyprlang
     ./java
     ./json
