@@ -22,7 +22,7 @@ in {
     programs.firefox = {
       enable = true;
 
-      package = pkgs.firefox-devedition;
+      package = pkgs.firefox-devedition-bin;
 
       profiles.${mainProfile} = {
         isDefault = true;
