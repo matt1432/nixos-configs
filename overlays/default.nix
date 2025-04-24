@@ -27,6 +27,13 @@ in {
       of the current `nixpkgs` revision of this flake.
     '';
 
+  forced =
+    overlay
+    (import ./forced self)
+    ''
+      Overrides packages from third party flakes that don't offer overlays.
+    '';
+
   nix-version =
     overlay
     (import ./nix-version self)

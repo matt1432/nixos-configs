@@ -1,6 +1,6 @@
 self: {nix ? null}: final: prev: let
-  inherit (builtins) functionArgs mapAttrs replaceStrings;
-  inherit (final.lib) generateSplicesForMkScope head splitString versions;
+  inherit (builtins) mapAttrs replaceStrings;
+  inherit (final.lib) generateSplicesForMkScope versions;
   inherit (self.inputs) nix-eval-jobs nix-fast-build;
 
   nullCheck = n: v:
@@ -8,12 +8,7 @@ self: {nix ? null}: final: prev: let
     then prev.${n}
     else v;
 
-  # This is for packages from flakes that don't offer overlays
-  overrideAll = pkg: extraArgs: let
-    pkgFile = head (splitString [":"] pkg.meta.position);
-    args = functionArgs (import pkgFile);
-  in
-    pkg.override (mapAttrs (n: v: final.${n} or v) (args // extraArgs));
+  overrideAll = self.lib.overrideAll final;
 in
   mapAttrs nullCheck {
     inherit nix;

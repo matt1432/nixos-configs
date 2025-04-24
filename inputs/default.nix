@@ -194,7 +194,12 @@ let
       };
     };
 
-    agsInputs = {
+    shellInputs = {
+      quickshell = mkInput {
+        type = "git";
+        url = "https://git.outfoxxed.me/outfoxxed/quickshell";
+      };
+
       astal = mkInput {
         # owner = "Aylur";
         repo = "astal";
@@ -434,7 +439,7 @@ in
   // nosInputs
   // bbsteamieInputs
   // desktopInputs.hyprlandInputs
-  // desktopInputs.agsInputs
+  // desktopInputs.shellInputs
   // (listToAttrs (map (x: {
       name = x.name or "${x.repo}-src";
       value = mkSrc (removeAttrs x ["name"]);

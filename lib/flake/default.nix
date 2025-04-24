@@ -1,6 +1,13 @@
 inputs: let
-  inherit (builtins) removeAttrs;
+  inherit (builtins) functionArgs mapAttrs removeAttrs;
 in rec {
+  # This is for packages from flakes that don't offer overlays
+  overrideAll = pkgs: pkg: extraArgs: let
+    pkgFile = pkgs.lib.head (pkgs.lib.splitString [":"] pkg.meta.position);
+    args = functionArgs (import pkgFile);
+  in
+    pkg.override ((mapAttrs (n: v: pkgs.${n} or v) args) // extraArgs);
+
   # Import pkgs from a nixpkgs instance
   mkPkgs = {
     system,
@@ -20,6 +27,7 @@ in rec {
           inputs.self.overlays.appsPackages
           inputs.self.overlays.selfPackages
           inputs.self.overlays.scopedPackages
+          inputs.self.overlays.forced
         ]
         ++ (cfg.overlays or []));
       config =
