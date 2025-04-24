@@ -7,10 +7,10 @@ This directory contains every derivations for packages exposed by this flake.
 | Name | Description | Homepage |
 | ---- | ----------- | -------- |
 | `coloryou` | Get Material You colors from an image. | https://git.nelim.org/matt1432/nixos-configs/src/branch/master/packages/coloryou |
-| `forgejo-guardian` | `forgejo-guardian` is a simple guardian for your Forgejo instance, it will ban users based on certain regular expressions (regex) and alert the admins about them. | https://git.4rs.nl/awiteb/forgejo-guardian |
 | `gpu-screen-recorder` | Screen recorder that has minimal impact on system performance by recording a window using the GPU only. | https://git.dec05eba.com/gpu-screen-recorder/about |
 | `gsr-kms-server` | Small program giving safe KMS access to gpu-screen-recorder when recording a monitor. This is the only part of gpu-screen-recorder that could require root permissions. | https://git.dec05eba.com/gpu-screen-recorder/about |
 | `homepage` | Highly customisable dashboard with Docker and service API integrations. | https://gethomepage.dev |
+| `jdownloader-cli` | Command line interface to JDownloader based on jdownloader-go library. | https://github.com/rkosegi/jdownloader-cli |
 | `jmusicbot` | Discord music bot that's easy to set up and run yourself | https://github.com/jagrosh/MusicBot |
 | `kapowarr` | Kapowarr is a software to build and manage a comic book library, fitting in the \*arr suite of software. | https://casvt.github.io/Kapowarr |
 | `komf` | Komf is a tool that fetches metadata and thumbnails for your digital comic book library. | https://github.com/Snd-R/komf |
