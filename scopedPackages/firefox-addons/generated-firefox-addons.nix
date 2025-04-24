@@ -275,31 +275,6 @@
       platforms = platforms.all;
     };
   };
-  "ttv-lol-pro" = buildFirefoxXpiAddon {
-    pname = "ttv-lol-pro";
-    version = "2.4.0";
-    addonId = "{76ef94a4-e3d0-4c6f-961a-d38a429a332b}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4436505/ttv_lol_pro-2.4.0.xpi";
-    sha256 = "78b42faab860a527c36822b34b16e5b12618aa387ea63deb822852d3065bf3f8";
-    meta = with lib; {
-      homepage = "https://github.com/younesaassila/ttv-lol-pro";
-      description = "TTV LOL PRO removes most livestream ads from Twitch.";
-      license = licenses.gpl3;
-      mozPermissions = [
-        "proxy"
-        "storage"
-        "webRequest"
-        "webRequestBlocking"
-        "https://*.live-video.net/*"
-        "https://*.ttvnw.net/*"
-        "https://*.twitch.tv/*"
-        "https://perfprod.com/ttvlolpro/telemetry"
-        "https://www.twitch.tv/*"
-        "https://m.twitch.tv/*"
-      ];
-      platforms = platforms.all;
-    };
-  };
   "ublock-origin" = buildFirefoxXpiAddon {
     pname = "ublock-origin";
     version = "1.63.2";
