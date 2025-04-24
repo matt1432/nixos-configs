@@ -6,18 +6,17 @@
   ...
 }: let
   pname = "jdownloader-cli";
-  rev = "0f32237df32dfddc4a577404ba93c7c9d79284c3";
-  version = "1.0.2+${builtins.substring 0 7 rev}";
+  version = "1.0.3";
   mainProgram = "jdcli";
 in
   buildGoModule {
     inherit pname version;
 
     src = fetchFromGitHub {
-      owner = "matt1432";
+      owner = "rkosegi";
       repo = pname;
-      inherit rev;
-      hash = "sha256-EZyXgd184NjK+eUKB4+Awc+aFrG6goyLfwZ0zVRyGLA=";
+      rev = "v${version}";
+      hash = "sha256-/qGV+v+Id5C7kTlvcolQmhRf6oHRHBoVXyd5YX0pxhE=";
     };
 
     vendorHash = "sha256-lBxddgaW1s3xjGODZhlvYBmK1vC+IdmpztTgagOy7J4=";
