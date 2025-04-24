@@ -10,9 +10,13 @@ let
     };
 
     nixpkgs = mkInput {
-      owner = "NixOS";
-      repo = "nixpkgs";
+      type = "git";
+      url = "https://github.com/NixOS/nixpkgs";
       ref = "nixos-unstable";
+      shallow = true;
+
+      # FIXME: remove this on next flake update
+      rev = "b024ced1aac25639f8ca8fdfc2f8c4fbd66c48ef";
     };
 
     home-manager = mkInput {

@@ -362,10 +362,11 @@
       type = "github";
     };
     nixpkgs = {
-      owner = "NixOS";
       ref = "nixos-unstable";
-      repo = "nixpkgs";
-      type = "github";
+      rev = "b024ced1aac25639f8ca8fdfc2f8c4fbd66c48ef";
+      shallow = true;
+      type = "git";
+      url = "https://github.com/NixOS/nixpkgs";
     };
     nurl = {
       inputs.nixpkgs.follows = "nixpkgs";
