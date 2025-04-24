@@ -3,7 +3,7 @@
   self,
   ...
 }: let
-  inherit (builtins) attrValues;
+  inherit (pkgs.lib) attrValues makeSearchPath;
 
   neovimShells = import ./neovim-shells {inherit pkgs self;};
 
@@ -36,6 +36,19 @@ in
     netdaemon = pkgs.callPackage ./netdaemon {};
 
     node = pkgs.callPackage ./node {inherit bumpNpmDeps;};
+
+    quickshell = pkgs.mkShell {
+      packages = [
+        pkgs.quickshell
+      ];
+
+      shellHook = ''
+        export QML2_IMPORT_PATH="$QML2_IMPORT_PATH:${makeSearchPath "lib/qt-6/qml" [
+          pkgs.quickshell
+          pkgs.kdePackages.qtdeclarative
+        ]}"
+      '';
+    };
 
     subtitles-dev = pkgs.callPackage ./subtitle-dev {inherit bumpNpmDeps;};
   }
