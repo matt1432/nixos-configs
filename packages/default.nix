@@ -6,8 +6,6 @@
   selfPackages = {
     coloryou = final.python3Packages.callPackage ./coloryou {};
 
-    forgejo-guardian = final.callPackage ./forgejo-guardian {};
-
     gpu-screen-recorder = final.callPackage ./gpu-screen-recorder/gpu-screen-recorder.nix {
       inherit (inputs) gpu-screen-recorder-src;
     };
