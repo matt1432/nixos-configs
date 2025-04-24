@@ -19,11 +19,12 @@
       langs);
 in
   mkLangsShells [
+    "c-lang"
     "csharp"
     "json"
     "lua"
     "markdown"
+    "qml"
     "rust"
     "web"
-    "c-lang"
   ]

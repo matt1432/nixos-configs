@@ -20,6 +20,7 @@ in {
     ./json
     ./lua
     ./python
+    ./qml
     ./rust
 
     (import ./csharp self)
