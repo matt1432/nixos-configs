@@ -14,9 +14,6 @@ let
       url = "https://github.com/NixOS/nixpkgs";
       ref = "nixos-unstable";
       shallow = true;
-
-      # FIXME: remove this on next flake update
-      rev = "b024ced1aac25639f8ca8fdfc2f8c4fbd66c48ef";
     };
 
     home-manager = mkInput {
@@ -176,6 +173,9 @@ let
       hyprgrass = mkHyprDep {
         owner = "horriblename";
         repo = "hyprgrass";
+
+        # FIXME: https://github.com/horriblename/hyprgrass/pull/232
+        rev = "dab59fb9ddb29e90c868d42a3486dd51d2863cfe";
       };
 
       hyprpaper = mkHyprDep {

@@ -146,6 +146,7 @@
       };
       owner = "horriblename";
       repo = "hyprgrass";
+      rev = "dab59fb9ddb29e90c868d42a3486dd51d2863cfe";
       type = "github";
     };
     hyprland = {
@@ -363,7 +364,6 @@
     };
     nixpkgs = {
       ref = "nixos-unstable";
-      rev = "b024ced1aac25639f8ca8fdfc2f8c4fbd66c48ef";
       shallow = true;
       type = "git";
       url = "https://github.com/NixOS/nixpkgs";
