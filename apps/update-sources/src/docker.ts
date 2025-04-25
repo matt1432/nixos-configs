@@ -11,7 +11,7 @@ const updateImages = (imagePath: string): string | undefined => {
 
     const out = spawnSync('updateImages', [imagePath], { shell: true }).stdout.toString();
 
-    if (!out.startsWith('# Locked')) {
+    if (out.length > 1) {
         return out;
     }
 };

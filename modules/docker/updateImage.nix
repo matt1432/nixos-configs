@@ -21,7 +21,7 @@ writeShellApplication {
 
         output="$IMAGE $TAG"
 
-        if ! grep "Locked" "$FILE"; then
+        if ! grep "Locked" "$FILE" &> /dev/null; then
             if [[ "$CURRENT_DIGEST" != "$NEW_DIGEST" ]]; then
                 echo -e "• $output:\n   $CURRENT_DIGEST\n → $NEW_DIGEST\n"
                 PREFETCH=$(nix-prefetch-docker "$IMAGE" "$TAG")
