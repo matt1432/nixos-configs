@@ -146,7 +146,7 @@
       };
       owner = "horriblename";
       repo = "hyprgrass";
-      rev = "dab59fb9ddb29e90c868d42a3486dd51d2863cfe";
+      rev = "669f8c80a15e9db815ac9e29068567735b9b1a79";
       type = "github";
     };
     hyprland = {
