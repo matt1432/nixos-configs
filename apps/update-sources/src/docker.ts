@@ -21,6 +21,12 @@ export default (): string | null => {
 
     const updates: string[] = [];
 
+    const jdownloaderUpdates = updateImages(`${FLAKE}/configurations/nos/modules/comics/jdownloader2`);
+
+    if (jdownloaderUpdates) {
+        updates.push(jdownloaderUpdates);
+    }
+
     const jellfyinUpdates = updateImages(`${FLAKE}/configurations/nos/modules/jellyfin`);
 
     if (jellfyinUpdates) {
