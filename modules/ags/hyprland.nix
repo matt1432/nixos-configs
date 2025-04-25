@@ -185,12 +185,13 @@ in {
           }
         ];
 
-        bindn = map mkBind [
-          {
-            key = "Escape";
-            command = "ags request closeAll";
-          }
-        ];
+        # FIXME: https://github.com/hyprwm/Hyprland/discussions/10146
+        # bindn = map mkBind [
+        #   {
+        #     key = "Escape";
+        #     command = "ags request closeAll";
+        #   }
+        # ];
 
         bindr = map mkBind [
           {
