@@ -43,7 +43,7 @@ in {
         ../home/obs.nix
         (import ../home/mpv.nix self)
 
-        nixcord.homeManagerModules.nixcord
+        nixcord.homeModules.nixcord
 
         ({config, ...}: let
           inherit (config.lib.file) mkOutOfStoreSymlink;
