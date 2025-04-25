@@ -17,67 +17,67 @@ import updateVuetorrent from './vuetorrent';
 const FLAKE = process.env.FLAKE;
 
 if (!FLAKE) {
-    console.error('Env var FLAKE not found');
+    console.error('Environment variable FLAKE was not found.\n');
     process.exit(1);
 }
 
 const args = parseArgs();
 
 const main = async() => {
-    if (args['c'] || args['custom-sidebar']) {
+    if (args['custom-sidebar']) {
         console.log(runNixUpdate('scopedPackages', 'lovelace-components', 'custom-sidebar'));
     }
 
-    if (args['cp'] || args['caddy-plugins']) {
-        console.log(updateCaddyPlugins() ?? '');
+    if (args['caddy'] || args['caddy-plugins']) {
+        console.log(updateCaddyPlugins() ?? 'No updates');
     }
 
-    if (args['d'] || args['docker']) {
-        console.log(updateDocker() ?? '');
+    if (args['docker']) {
+        console.log(updateDocker() ?? 'No updates');
     }
 
-    if (args['f'] || args['firefox']) {
-        console.log(updateFirefoxAddons() ?? '');
+    if (args['firefox']) {
+        console.log(updateFirefoxAddons() ?? 'No updates');
     }
 
-    if (args['h'] || args['homepage']) {
+    if (args['homepage']) {
         console.log(runNixUpdate('homepage'));
     }
 
-    if (args['i'] || args['inputs']) {
-        console.log(updateFlakeInputs() ?? '');
+    if (args['flake'] || args['inputs']) {
+        console.log(updateFlakeInputs() ?? 'No updates');
     }
 
-    if (args['j'] || args['jmusicbot']) {
+    if (args['jmusicbot']) {
         console.log(runNixUpdate('jmusicbot'));
     }
 
-    if (args['m'] || args['material-rounded-theme']) {
+    if (args['material-rounded-theme']) {
         console.log(runNixUpdate('scopedPackages', 'lovelace-components', 'material-rounded-theme'));
     }
 
-    if (args['n'] || args['node_modules']) {
-        console.log((await updateNodeModules()) ?? '');
+    if (args['node'] || args['node_modules']) {
+        console.log((await updateNodeModules()) ?? 'No updates');
     }
 
-    if (args['p'] || args['pam-fprint-grosshack']) {
+    if (args['pam-fprint-grosshack']) {
         console.log(runNixUpdate('pam-fprint-grosshack'));
     }
 
-    if (args['ph'] || args['protonhax']) {
+    if (args['protonhax']) {
         console.log(runNixUpdate('protonhax'));
     }
 
-    if (args['s'] || args['some-sass-language-server']) {
+    if (args['some-sass-language-server']) {
         console.log(runNixUpdate('some-sass-language-server'));
     }
 
-    if (args['t'] || args['trash-d']) {
+    if (args['trash'] || args['trash-d']) {
         console.log(runNixUpdate('trash-d'));
     }
 
-    if (args['v'] || args['vuetorrent']) {
-        console.log(updateVuetorrent() ?? '');
+    if (args['vuetorrent']) {
+        console.log(updateVuetorrent() ?? 'No updates');
     }
 
     if (args['a'] || args['all']) {
@@ -183,6 +183,9 @@ const main = async() => {
             console.log(styleText(['magenta'], '\n\nCommit message:\n'));
             console.log(output.join('\n\n'));
         }
+    }
+    else {
+        spawnSync('alejandra', ['-q', FLAKE], { shell: true });
     }
 };
 
