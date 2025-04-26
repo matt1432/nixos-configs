@@ -35,6 +35,7 @@ in {
 
             lsp.qmlls.setup({
                 cmd = { 'qmlls', '-E' },
+                root_dir = lsp.util.root_pattern('*.qml', '.git'),
                 capabilities = default_capabilities,
                 autostart = false,
             });

@@ -8,6 +8,7 @@
 mkShell {
   packages = [
     quickshell
+    kdePackages.qtdeclarative
   ];
 
   shellHook = ''
