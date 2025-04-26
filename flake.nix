@@ -419,7 +419,7 @@
     quickshell = {
       inputs.nixpkgs.follows = "nixpkgs";
       type = "git";
-      url = "https://git.outfoxxed.me/outfoxxed/quickshell";
+      url = "https://git.outfoxxed.me/quickshell/quickshell";
     };
     secrets = {
       inputs = {

@@ -197,7 +197,7 @@ let
     shellInputs = {
       quickshell = mkInput {
         type = "git";
-        url = "https://git.outfoxxed.me/outfoxxed/quickshell";
+        url = "https://git.outfoxxed.me/quickshell/quickshell";
       };
 
       astal = mkInput {
