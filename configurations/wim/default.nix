@@ -79,6 +79,7 @@
     user = mainUser;
 
     ags.enable = true;
+    quickshell.enable = true;
     mainMonitor = "eDP-1";
     isLaptop = true;
     isTouchscreen = true;
