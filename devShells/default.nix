@@ -37,8 +37,6 @@ in
 
     node = pkgs.callPackage ./node {inherit bumpNpmDeps;};
 
-    quickshell = pkgs.callPackage ./quickshell {};
-
     subtitles-dev = pkgs.callPackage ./subtitle-dev {inherit bumpNpmDeps;};
   }
   // neovimShells

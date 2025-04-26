@@ -15,7 +15,6 @@ This directory contains every derivations for devShells exposed by this flake.
 | `netdaemon` | Shell that makes sure we have the right dotnet-sdk version for NetDaemon development. |
 | `node` | Shell that provides `bumpNpmDeps`, node and typescript. |
 | `qml` | qml shell to be loaded by my Neovim config dynamically. |
-| `quickshell` | Shell that provides the quickshell executable with `QML2_IMPORT_PATH` correctly defined for quickshell development. |
 | `rust` | rust shell to be loaded by my Neovim config dynamically. |
 | `subtitles-dev` | Shell that provides the dependencies for my subtitle management scripts. |
 | `web` | web shell to be loaded by my Neovim config dynamically. |
