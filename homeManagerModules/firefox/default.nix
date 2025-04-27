@@ -40,26 +40,6 @@ in {
           # Use the normal file picker
           "widget.use-xdg-desktop-portal.file-picker" = 0;
 
-          # Firefox-gx user.js
-          /*
-          Default rules
-          */
-          "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-          "svg.context-properties.content.enabled" = true;
-          "layout.css.color-mix.enabled" = true;
-          "browser.tabs.delayHidingAudioPlayingIconMS" = 0;
-          "layout.css.backdrop-filter.enabled" = true;
-          "browser.newtabpage.activity-stream.improvesearch.handoffToAwesomebar" = false;
-          "browser.newtabpage.activity-stream.newtabWallpapers.enabled" = true;
-          "browser.newtabpage.activity-stream.newtabWallpapers.v2.enabled" = true;
-
-          /*
-          To activate container tabs without any extension
-          */
-          "privacy.userContext.enabled" = true;
-          "privacy.userContext.ui.enabled" = true;
-          "privacy.userContext.longPressBehavior" = 2;
-
           # Open previous windows and tabs
           "browser.startup.page" = 3;
 
@@ -70,11 +50,18 @@ in {
           "browser.toolbars.bookmarks.visibility" = "always";
           "browser.toolbars.bookmarks.showInPrivateBrowsing" = true;
           "ui.key.menuAccessKey" = 0;
+          "findbar.highlightAll" = true;
+          "browser.tabs.groups.enabled" = true;
+
+          # Enable devtools
+          "devtools.chrome.enabled" = true;
+          "devtools.debugger.remote-enabled" = true;
 
           # remove telemetry
-          "datareporting.policy.dataSubmissionEnabled" = false;
           "datareporting.healthreport.uploadEnabled" = false;
           "datareporting.healthreport.infoURL" = "";
+          "datareporting.policy.dataSubmissionEnabled" = false;
+          "datareporting.usage.uploadEnabled" = false;
           "dom.security.https_only_mode" = true;
 
           # remove first run and warning stuff
@@ -88,7 +75,7 @@ in {
           "extensions.formautofill.addresses.enabled" = false;
           "extensions.formautofill.creditCards.enabled" = false;
 
-          # remove new tab stuff
+          # remove "New Tab" stuff
           "extensions.pocket.enabled" = false;
           "services.sync.prefs.sync.browser.newtabpage.activity-stream.feeds.section.topstories" = false;
           "browser.newtabpage.activity-stream.section.highlights.includePocket" = false;
@@ -97,6 +84,21 @@ in {
           "browser.newtabpage.activity-stream.feeds.topsites" = false;
           "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons" = false;
           "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features" = false;
+
+          # Firefox-gx user.js
+          "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+          "svg.context-properties.content.enabled" = true;
+          "layout.css.color-mix.enabled" = true;
+          "browser.tabs.delayHidingAudioPlayingIconMS" = 0;
+          "layout.css.backdrop-filter.enabled" = true;
+          "browser.newtabpage.activity-stream.improvesearch.handoffToAwesomebar" = false;
+          "browser.newtabpage.activity-stream.newtabWallpapers.enabled" = true;
+          "browser.newtabpage.activity-stream.newtabWallpapers.v2.enabled" = true;
+
+          # To activate container tabs without any extension
+          "privacy.userContext.enabled" = true;
+          "privacy.userContext.ui.enabled" = true;
+          "privacy.userContext.longPressBehavior" = 2;
         };
 
         search = {
