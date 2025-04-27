@@ -1,7 +1,5 @@
 import QtQuick
 
-import "../../Config/Theme"
-
 Item {
     id: root
 
@@ -12,8 +10,8 @@ Item {
         BottomRight
     }
 
-    property color color: theme.windowBg
-    property int corner: RoundCorner.Corner.TopLeft // Default to TopLeft
+    property color color: "black"
+    property int corner: RoundCorner.Corner.TopLeft
 
     property int size: 15
 
@@ -22,11 +20,6 @@ Item {
 
     onColorChanged: {
         canvas.requestPaint();
-    }
-
-    Theme {
-        id: theme
-
     }
 
     Canvas {
