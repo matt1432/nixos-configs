@@ -1,14 +1,11 @@
-{...}: python3Packages: final: prev: {
-  /*
-     Keep this here to make it easier to always have the right version
+{pkgs, ...}: python3Packages: final: prev: {
   tinytuya = prev.tinytuya.overridePythonAttrs (o: rec {
-    version = "1.16.1";
+    version = "1.16.3";
     src = pkgs.fetchFromGitHub {
       owner = "jasonacox";
       repo = "tinytuya";
       rev = "v${version}";
-      hash = "sha256-+ReTNPKMYUXNA5tu7kZM8/7Bh4XjHSjZTiW8ROHkk5M=";
+      hash = "sha256-BnX12D758seiOPAEZOEOeKQbA/VDulKPiNh36D3nMo8=";
     };
   });
-  */
 }
