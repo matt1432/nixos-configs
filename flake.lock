@@ -441,11 +441,11 @@
     "gtk-theme-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1745008666,
-        "narHash": "sha256-jOhG8k3pn+sWFTyYIjtmGyi1k6Eye94s7p6wHHsP1W4=",
+        "lastModified": 1745785192,
+        "narHash": "sha256-T0X0h4Bz3sy5jqtB1PkpjFnB8jO3CehOxgRwPPG54Ds=",
         "owner": "dracula",
         "repo": "gtk",
-        "rev": "82837065c824158d4242c19ea7dded7645b9a9f1",
+        "rev": "3834a1bac175b226cff6b1c94faac9aba2819bd5",
         "type": "github"
       },
       "original": {
@@ -461,11 +461,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1745782215,
-        "narHash": "sha256-mx27J2HYQT+nGXTyUWKrUuxRzpr1FVVr59ZH4oNzOyw=",
+        "lastModified": 1745858959,
+        "narHash": "sha256-B1FQwPCFLL3cbHc2nxT3/UI1uprHp2h1EA6M2JVe0oQ=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "7b2aae3fb39928aecc5e41c10a9c87c4881614d5",
+        "rev": "d0d9d0a1454d5a0200693570618084d80a8b336c",
         "type": "github"
       },
       "original": {
@@ -542,11 +542,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1745682254,
-        "narHash": "sha256-bdkyE8HDfeOj9IOeSnh4ST+Sxte7ucY37ImOUTBrr5g=",
+        "lastModified": 1745790590,
+        "narHash": "sha256-E/GvnES9Rf3qQWy/w+Ru5s/U76zN+bYBIck1g/YZPw0=",
         "owner": "horriblename",
         "repo": "hyprgrass",
-        "rev": "9125826ccc16bd3722fd07d74e7c5677b9c6d128",
+        "rev": "9b548876dcd30924047feed6b3b3086142d53ab4",
         "type": "github"
       },
       "original": {
@@ -577,11 +577,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1745756886,
-        "narHash": "sha256-oXfvqaWENRd8CaxbQEHntH9PzNsjUaWalBIcG7xk/Lw=",
+        "lastModified": 1745795931,
+        "narHash": "sha256-i4zlEa2lnANuOZA1aA/X0cNGM7x9MLZqqmKP6fwfPEA=",
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "0302bfdc2207f9b5482fb07aa6052e7f6cb237ca",
+        "rev": "f5c5cfa960c157c8df50b496f621290234ac4505",
         "type": "github"
       },
       "original": {
@@ -956,11 +956,11 @@
     "modernz-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1745028019,
-        "narHash": "sha256-7d1+7HtuqNrw5n68xorUv6gimbFFHS9nUQeGnIh1zhg=",
+        "lastModified": 1745861103,
+        "narHash": "sha256-IOdYF47qc456Ffzi6NNsr2nsskg+MBj+Y7xHVPdvPKg=",
         "owner": "Samillion",
         "repo": "ModernZ",
-        "rev": "6c49917529ab419a539d04f355a4760279964e57",
+        "rev": "7b0a1ab702a4f2773eb20ad1c77ec257bdeca22d",
         "type": "github"
       },
       "original": {
@@ -1112,11 +1112,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1745781855,
-        "narHash": "sha256-0y0x9VF7UgNXyWZpgR55fVjzAxp1hd6aEwcff9NEFfs=",
+        "lastModified": 1745850287,
+        "narHash": "sha256-YsVPbA+6ytOz4hh7lSHieRzHGBw7uglWNQ47tPo2jIU=",
         "owner": "Mic92",
         "repo": "nix-fast-build",
-        "rev": "0e5cbf407f2189941a766906bafe919b71f9126f",
+        "rev": "fc256b5e39013bb147e230a4fec513bd72c3b699",
         "type": "github"
       },
       "original": {
@@ -1775,11 +1775,11 @@
     "spotifyplus-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1745728452,
-        "narHash": "sha256-mvKbDchFvD1Z4BmisSWCidwLWBBQL7rFM7CT717ZUr0=",
+        "lastModified": 1745785499,
+        "narHash": "sha256-zKJPUjMlLD9MHeqr70wEBHc6dhLCvPj9uDFR0hXi4hs=",
         "owner": "thlucas1",
         "repo": "homeassistantcomponent_spotifyplus",
-        "rev": "e2b82ab5371636f5b1c13f78264667c1732aa4d5",
+        "rev": "bca176bb4a35299a8378d9ec504593e268c87868",
         "type": "github"
       },
       "original": {
@@ -1842,11 +1842,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1745780832,
-        "narHash": "sha256-jGzkZoJWx+nJnPe0Z2xQBUOqMKuR1slVFQrMjFTKgeM=",
+        "lastModified": 1745848521,
+        "narHash": "sha256-gNrTO3pEjmu3WiuYrUHJrTGCFw9v+qZXCFmX/Vjf5WI=",
         "owner": "numtide",
         "repo": "treefmt-nix",
-        "rev": "b2b6c027d708fbf4b01c9c11f6e80f2800b5a624",
+        "rev": "763f1ce0dd12fe44ce6a5c6ea3f159d438571874",
         "type": "github"
       },
       "original": {
@@ -1958,11 +1958,11 @@
     "wakewords-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1745474691,
-        "narHash": "sha256-XpfmqO2x0AnY88q5eNg+OHO9slYVoI3UHXxICazkM54=",
+        "lastModified": 1745833925,
+        "narHash": "sha256-94Bm3WWIx/dP88RbmSCOJvE9qPYcaPhgkfGuNyNSYek=",
         "owner": "fwartner",
         "repo": "home-assistant-wakewords-collection",
-        "rev": "755eded16d3f6feeb8556d2044357f07713e04e2",
+        "rev": "c7fbdcef2342974f05831dddae15462fd00bad4f",
         "type": "github"
       },
       "original": {
