@@ -12,7 +12,6 @@ This directory contains every derivations for packages exposed by this flake.
 | `homepage` | Highly customisable dashboard with Docker and service API integrations. | https://gethomepage.dev |
 | `jdownloader-cli` | Command line interface to JDownloader based on jdownloader-go library. | https://github.com/rkosegi/jdownloader-cli |
 | `jmusicbot` | Discord music bot that's easy to set up and run yourself | https://github.com/jagrosh/MusicBot |
-| `kapowarr` | Kapowarr is a software to build and manage a comic book library, fitting in the \*arr suite of software. | https://casvt.github.io/Kapowarr |
 | `komf` | Komf is a tool that fetches metadata and thumbnails for your digital comic book library. | https://github.com/Snd-R/komf |
 | `libratbag` | Configuration library for gaming mice | https://github.com/libratbag/libratbag |
 | `librespot-auth` | A simple program for populating a credentials.json via Spotify's zeroconf authentication. | https://github.com/dspearson/librespot-auth |

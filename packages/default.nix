@@ -19,8 +19,6 @@
 
     jmusicbot = final.callPackage ./jmusicbot {};
 
-    kapowarr = import ./kapowarr (final // inputs);
-
     komf = final.callPackage ./komf {};
 
     libratbag = final.callPackage ./libratbag {

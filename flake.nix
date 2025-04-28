@@ -1,13 +1,6 @@
 # Do not modify! This file is generated.
 {
   inputs = {
-    Kapowarr-src = {
-      flake = false;
-      owner = "matt1432";
-      ref = "build-system";
-      repo = "Kapowarr";
-      type = "github";
-    };
     ags = {
       inputs = {
         astal.follows = "astal";
@@ -188,6 +181,16 @@
       };
       owner = "Jovian-Experiments";
       repo = "Jovian-NixOS";
+      type = "github";
+    };
+    kapowarr = {
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
+      owner = "matt1432";
+      ref = "build-system";
+      repo = "Kapowarr";
       type = "github";
     };
     kompass = {

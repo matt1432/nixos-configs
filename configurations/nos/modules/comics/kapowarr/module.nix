@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  kapowarr,
   pkgs,
   ...
 }: let
@@ -19,7 +20,7 @@
 in {
   options.services.kapowarr = {
     enable = mkEnableOption "kapowarr";
-    package = mkPackageOption pkgs.selfPackages "kapowarr" {};
+    package = mkPackageOption pkgs "kapowarr" {};
 
     user = mkOption {
       type = types.str;
@@ -62,6 +63,10 @@ in {
   };
 
   config = mkIf cfg.enable {
+    nixpkgs.overlays = [
+      kapowarr.overlays.default
+    ];
+
     systemd.services.kapowarr = {
       description = "Kapowarr";
       after = ["network.target"];

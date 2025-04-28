@@ -156,6 +156,14 @@ let
       owner = "mateoradman";
       repo = "bazarr-bulk";
     };
+
+    kapowarr = mkInput {
+      owner = "matt1432";
+      repo = "Kapowarr";
+      ref = "build-system";
+      # type = "path";
+      # path = "/home/matt/git/Kapowarr";
+    };
   };
 
   desktopInputs = {
@@ -329,14 +337,6 @@ let
     }
 
     # Overlays & packages
-    {
-      name = "Kapowarr-src";
-      owner = "matt1432";
-      repo = "Kapowarr";
-      ref = "build-system";
-      # type = "path";
-      # path = "/home/matt/git/Kapowarr";
-    }
     {
       type = "gitlab";
       owner = "rogs";
