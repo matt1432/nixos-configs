@@ -65,6 +65,7 @@ Item {
     readonly property color colorYellow3: '#f6d32d'
     readonly property color colorYellow4: '#f5c211'
     readonly property color colorYellow5: '#e5a50a'
+    readonly property color darkWindowBg: '#21232D'
     readonly property color destructiveBg: dracula.errorBg
     readonly property color destructiveFg: dracula.accentFg
     readonly property color dialogBg: dracula.windowBg
@@ -76,6 +77,7 @@ Item {
     readonly property color headerbarBorder: 'white'
     readonly property color headerbarFg: dracula.accentFg
     readonly property color headerbarShade: Qt.rgba(0, 0, 0, 0.36)
+    readonly property color lightWindowBg: '#333643'
     readonly property color popoverBg: dracula.windowBg
     readonly property color popoverFg: dracula.accentFg
     readonly property color scrollbarOutline: Qt.rgba(0, 0, 0, 0.5)
