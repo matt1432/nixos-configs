@@ -21,7 +21,7 @@ export default (
     const realAttr = scope ? `${attr}.x86_64-linux.${scope}.${scopeAttr}` : attr;
     const cleanAttr = scope ? `${attr}.${scope}.${scopeAttr}` : attr;
 
-    console.log(styleText(['magenta'], `\nUpdating ${realAttr}:\n`));
+    console.log(styleText(['magenta'], `\nUpdating ${cleanAttr}:\n`));
 
     const OLD_VERSION = getAttrVersion(realAttr);
 

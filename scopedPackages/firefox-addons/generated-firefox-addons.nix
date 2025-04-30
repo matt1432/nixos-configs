@@ -79,10 +79,10 @@
   };
   "floccus" = buildFirefoxXpiAddon {
     pname = "floccus";
-    version = "5.5.2";
+    version = "5.5.3";
     addonId = "floccus@handmadeideas.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4475378/floccus-5.5.2.xpi";
-    sha256 = "204300ace8d68440cb6c3eee85f0f200a3964624deb2e16f3cc880cca1b510da";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4484128/floccus-5.5.3.xpi";
+    sha256 = "00412977f8f6e7d3ae3ffab36a9ef68788f605e4d89ceb80aac03c88667ea0f9";
     meta = with lib; {
       homepage = "https://floccus.org";
       description = "Sync your bookmarks and tabs across browsers via Nextcloud, any WebDAV service, any Git service, via a local file, via Google Drive.";
