@@ -26,11 +26,9 @@ in
       hash = "sha256-B6hgQWAILfZNRFN4APX/3T2LcVj2FQPS/CAUdUA+drU=";
     };
 
-    pnpmDepsHash = "sha256-1WsiSG+dZVpd28bBjf3EYn95sxMCXsQPd27/otWW0nI=";
-
     pnpmDeps = pnpm.fetchDeps {
       inherit (finalAttrs) pname version src;
-      hash = finalAttrs.pnpmDepsHash;
+      hash = "sha256-1WsiSG+dZVpd28bBjf3EYn95sxMCXsQPd27/otWW0nI=";
     };
 
     nativeBuildInputs = [
@@ -78,8 +76,6 @@ in
 
       runHook postInstall
     '';
-
-    passthru.updateScript = ./update.sh;
 
     meta = {
       mainProgram = "homepage";
