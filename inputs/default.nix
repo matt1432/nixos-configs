@@ -171,6 +171,9 @@ let
       hyprland = mkInput {
         owner = "hyprwm";
         repo = "Hyprland";
+
+        # FIXME: wait for hyprland-plugins to chase hl
+        rev = "2ee5118d7a4a59d3ccfaed305bfc05c79cea7637";
       };
 
       hyprland-plugins = mkHyprDep {
