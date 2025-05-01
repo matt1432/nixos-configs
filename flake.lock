@@ -444,11 +444,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1746040799,
-        "narHash": "sha256-osgPX/SzIpkR50vev/rqoTEAVkEcOWXoQXmbzsaI4KU=",
+        "lastModified": 1746130285,
+        "narHash": "sha256-pWSSUkba57gjbvUTC7xknNOGjpGeVt2lFsViHFYNYdA=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "5f217e5a319f6c186283b530f8c975e66c028433",
+        "rev": "81431b6d6fa756db641109461fc943ba23b550b7",
         "type": "github"
       },
       "original": {
@@ -525,17 +525,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1746044997,
-        "narHash": "sha256-c8Xoy2IEMwQOcNvRqC88d67x8gG0JiwkHt2HqKRWYiY=",
+        "lastModified": 1746060234,
+        "narHash": "sha256-ZpkxqayhemQjGBM2hZdEYZgDnU656DmNpx9eOioCJ8I=",
         "owner": "horriblename",
         "repo": "hyprgrass",
-        "rev": "989def277955e7ae49aa8b52cdee97b8c872a79f",
+        "rev": "405275bb8918ac2acf1ea6dd5cd2303e3bde3a57",
         "type": "github"
       },
       "original": {
         "owner": "horriblename",
+        "ref": "405275bb8918ac2acf1ea6dd5cd2303e3bde3a57",
         "repo": "hyprgrass",
-        "rev": "989def277955e7ae49aa8b52cdee97b8c872a79f",
         "type": "github"
       }
     },
@@ -561,17 +561,16 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1746030925,
-        "narHash": "sha256-D0qU3BhDg9XrU1S/DdozBPnWViGPtyRYhsgOrDAP/Gs=",
+        "lastModified": 1746125293,
+        "narHash": "sha256-uRNqLIZISbzdCi1NSuecT0bUgDv1oQYe7as5q+YYRgU=",
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "2ee5118d7a4a59d3ccfaed305bfc05c79cea7637",
+        "rev": "2670b8f7724e94020f21fe81483e69d73e1337cf",
         "type": "github"
       },
       "original": {
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "2ee5118d7a4a59d3ccfaed305bfc05c79cea7637",
         "type": "github"
       }
     },
@@ -588,11 +587,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1745974265,
-        "narHash": "sha256-1x8RBFCKR12BZjGX5/zM9pFY9Zj/UsvddRq1HXS4TBs=",
+        "lastModified": 1746119074,
+        "narHash": "sha256-6SMWBHEeXm6iDTRqufMkMqHyov8bZX4cov+289W64GY=",
         "owner": "hyprwm",
         "repo": "hyprland-plugins",
-        "rev": "a53ebab1caca961be2172c47e05f9b06a60ebb7f",
+        "rev": "16fddaab1eb501b19543b950d8eb68fd7974c81c",
         "type": "github"
       },
       "original": {
@@ -1319,11 +1318,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1744423808,
-        "narHash": "sha256-DiivRNDj39u86uUilkmbgbx2c1NqWVQ3fxw6fFfVO14=",
+        "lastModified": 1746099458,
+        "narHash": "sha256-TTyKacsiHrJutwRzcKAfs4N8ndZpFwOGEQAnX828G+4=",
         "owner": "nix-community",
         "repo": "nixd",
-        "rev": "3aa27fde1edcf7b126c70a62aad05d120209363c",
+        "rev": "4e103b988dff459f8f8a5f845711179e7127ca36",
         "type": "github"
       },
       "original": {
@@ -1342,11 +1341,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1745173825,
-        "narHash": "sha256-zKaJKlBk9AVHGcWl87cCxh4Z/8Y1ppW36plQ9MTmBRk=",
+        "lastModified": 1746087983,
+        "narHash": "sha256-X9WL5+AZCBPK1EmG/6wsPNB8e/FNy9d0W6VsO3B5Vdk=",
         "owner": "matt1432",
         "repo": "nixos-jellyfin",
-        "rev": "6cf5ea1f14d318273bfab8a0c5caf174b6ae9b7d",
+        "rev": "937a2287568742e2a672a07bb227c744e6118b60",
         "type": "github"
       },
       "original": {
@@ -1883,11 +1882,11 @@
     "tuya-local-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1745746451,
-        "narHash": "sha256-V9Tt8Zkl9tt7o4eqXQz4hp/XTIh/WpFS98kQCDsf9cc=",
+        "lastModified": 1746077473,
+        "narHash": "sha256-Ddgydwek75603iAmZFhjOZ8OuPxzNQ05HRnUOr2YE6c=",
         "owner": "make-all",
         "repo": "tuya-local",
-        "rev": "f34ff5e864de4424cb784284ee4f1596a9e6964b",
+        "rev": "dda598f81b6ef650485ae664efbf1797dab9b5f0",
         "type": "github"
       },
       "original": {

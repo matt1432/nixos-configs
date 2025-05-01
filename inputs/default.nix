@@ -171,9 +171,6 @@ let
       hyprland = mkInput {
         owner = "hyprwm";
         repo = "Hyprland";
-
-        # FIXME: wait for hyprland-plugins to chase hl
-        rev = "2ee5118d7a4a59d3ccfaed305bfc05c79cea7637";
       };
 
       hyprland-plugins = mkHyprDep {
@@ -186,7 +183,7 @@ let
         repo = "hyprgrass";
 
         # FIXME: https://github.com/horriblename/hyprgrass/pull/234
-        rev = "989def277955e7ae49aa8b52cdee97b8c872a79f";
+        ref = "405275bb8918ac2acf1ea6dd5cd2303e3bde3a57";
       };
 
       hyprpaper = mkHyprDep {

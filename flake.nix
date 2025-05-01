@@ -138,8 +138,8 @@
         nixpkgs.follows = "nixpkgs";
       };
       owner = "horriblename";
+      ref = "405275bb8918ac2acf1ea6dd5cd2303e3bde3a57";
       repo = "hyprgrass";
-      rev = "989def277955e7ae49aa8b52cdee97b8c872a79f";
       type = "github";
     };
     hyprland = {
@@ -150,7 +150,6 @@
       };
       owner = "hyprwm";
       repo = "Hyprland";
-      rev = "2ee5118d7a4a59d3ccfaed305bfc05c79cea7637";
       type = "github";
     };
     hyprland-plugins = {
