@@ -18,4 +18,7 @@ final: prev: {
     version = "${pyproject.project.version}+${substring 0 7 rev}";
     inherit src;
   });
+
+  # normal electron has a lot of cache misses for me
+  electron = final.electron-bin;
 }

@@ -10,7 +10,7 @@
         "@types/node": "22.15.3",
         "axios": "1.9.0",
         "esbuild": "0.25.3",
-        "eslint": "9.25.1",
+        "eslint": "9.26.0",
         "jiti": "2.4.2",
         "pkg-types": "2.1.0",
         "typescript": "5.8.3"
