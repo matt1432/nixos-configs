@@ -183,7 +183,7 @@ let
         repo = "hyprgrass";
 
         # FIXME: https://github.com/horriblename/hyprgrass/pull/234
-        ref = "e2effc755ccac0450a554da6014755d1ae8bf5e1";
+        ref = "ea3067fd9cdff09821121a6c63d633226266aaa8";
       };
 
       hyprpaper = mkHyprDep {

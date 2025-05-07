@@ -173,7 +173,7 @@ in {
           (pkgs)
           xournalpp
           virt-manager
-          libreoffice-fresh
+          libreoffice
           hunspell
           krename
           ;
@@ -182,7 +182,6 @@ in {
         inherit
           (pkgs)
           gnome-calculator
-          jellyfin-media-player
           nextcloud-client
           protonmail-desktop # run with `XDG_SESSION_TYPE=x11 proton-mail` if it crashes  https://github.com/NixOS/nixpkgs/issues/365156
           spotifywm
