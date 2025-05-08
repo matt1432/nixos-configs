@@ -1,11 +1,12 @@
 self: {
   lib,
   osConfig,
+  pkgs,
   ...
 }: let
   inherit (self.lib.hypr) mkAnimation mkBezier mkBind mkLayerRule;
 
-  inherit (lib) mkIf;
+  inherit (lib) getExe mkIf;
 
   cfgDesktop = osConfig.roles.desktop;
 in {
@@ -161,7 +162,13 @@ in {
           {
             modifier = "$mainMod";
             key = "Print";
-            command = "bash -c \"grim -g \\\"$(slurp)\\\" - | satty -f -\"";
+            command = getExe (pkgs.writeShellApplication {
+              name = "select-screenshot";
+              runtimeInputs = with pkgs; [grim-hyprland satty slurp];
+              text = ''
+                grim -g "$(slurp)" - | satty -f -
+              '';
+            });
           }
         ];
 
