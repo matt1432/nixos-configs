@@ -84,7 +84,10 @@ namespace NetDaemonConfig.Apps.Frontend.BathroomLight
                     this.TemperatureCallback((_, input) =>
                         services.Light.TurnOn(
                             target: ServiceTarget.FromEntity(this.Entity.EntityId),
-                            kelvin: input)));
+                            new LightTurnOnParameters
+                            {
+                                ColorTempKelvin = input,
+                            })));
 
             this.Entity
                 .StateAllChanges()
