@@ -138,7 +138,6 @@
         nixpkgs.follows = "nixpkgs";
       };
       owner = "horriblename";
-      ref = "ea3067fd9cdff09821121a6c63d633226266aaa8";
       repo = "hyprgrass";
       type = "github";
     };

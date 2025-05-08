@@ -6,7 +6,7 @@
   ...
 }: let
   pname = "material-rounded-theme";
-  version = "4.0.4";
+  version = "4.0.5";
 in
   stdenv.mkDerivation {
     inherit pname version;
@@ -15,7 +15,7 @@ in
       owner = "Nerwyn";
       repo = pname;
       rev = version;
-      hash = "sha256-fCXkKRTN3JzmBcgVaeCDahMxQl8CRXRQ/oTt/DqzfD8=";
+      hash = "sha256-9q93FyRFISKaDLnSDCF1gn/pJnzGk3QNelY6w8Oba1k=";
     };
 
     installPhase = ''
