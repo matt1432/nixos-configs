@@ -8,6 +8,7 @@ import updateCaddyPlugins from './caddy';
 import updateDocker from './docker';
 import updateFirefoxAddons from '././firefox';
 import updateFlakeInputs from './flake';
+import updateNetDaemon from './netdaemon';
 import runNixUpdate from './nix-update';
 import updateNodeModules from './node-modules';
 import updateVuetorrent from './vuetorrent';
@@ -56,6 +57,10 @@ const main = async() => {
         console.log(runNixUpdate('scopedPackages', 'lovelace-components', 'material-rounded-theme'));
     }
 
+    if (args['netdaemon']) {
+        console.log(updateNetDaemon());
+    }
+
     if (args['node'] || args['node_modules']) {
         console.log((await updateNodeModules()) ?? 'No updates');
     }
@@ -95,6 +100,11 @@ const main = async() => {
         const dockerOutput = updateDocker();
 
         console.log(dockerOutput ?? 'No updates');
+
+
+        const netdaemonOutput = updateNetDaemon();
+
+        console.log(netdaemonOutput ?? 'No updates');
 
 
         const nodeModulesOutput = await updateNodeModules();
@@ -170,6 +180,9 @@ const main = async() => {
         }
         if (caddyPluginsOutput) {
             output.push(`Caddy Plugins:\n${indentOutput(caddyPluginsOutput)}\n`);
+        }
+        if (netdaemonOutput) {
+            output.push(`NetDaemon:\n${indentOutput(netdaemonOutput)}\n`);
         }
         if (nixUpdateOutputs.length > 0) {
             output.push(`nix-update executions:\n${indentOutput(nixUpdateOutputs.join('\n'))}\n`);

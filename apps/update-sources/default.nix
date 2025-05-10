@@ -23,6 +23,7 @@ buildApp {
     nodejs_latest
     prefetch-npm-deps
     (callPackage ../../modules/docker/updateImage.nix {})
+    (callPackage ../../configurations/homie/modules/home-assistant/netdaemon/update.nix {})
   ];
 
   meta.description = ''
