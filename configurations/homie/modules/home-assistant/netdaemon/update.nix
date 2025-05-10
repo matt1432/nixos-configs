@@ -17,7 +17,7 @@
         config = (builtins.getFlake ("$FLAKE")).nixosConfigurations.homie;
         inherit (config) pkgs;
 
-        netdaemonConfig = pkgs.callPackage ${toString ./package.nix} {};
+        netdaemonConfig = pkgs.callPackage "$FLAKE/configurations/homie/modules/home-assistant/netdaemon/package.nix" {};
       in
         netdaemonConfig.fetch-deps
     '';
