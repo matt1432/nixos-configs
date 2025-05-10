@@ -25,13 +25,13 @@ export default (): string | null => {
 
     const FILE = `${FLAKE}/configurations/nos/modules/qbittorrent/vuetorrent.nix`;
 
-    const OLD_VERSION = JSON.parse(spawnSync('nix',
-        ['eval', '-f', FILE, '--json'],
-        { shell: true }).stdout.toString()).version;
+    const OLD_VERSION = JSON.parse(spawnSync(
+        ['nix', 'eval', '-f', FILE, '--json'].join(' '), [], { shell: true },
+    ).stdout.toString()).version;
 
-    const VERSION = JSON.parse(spawnSync('curl',
-        ['-s', 'https://api.github.com/repos/VueTorrent/VueTorrent/releases/latest'],
-        { shell: true }).stdout.toString()).tag_name.replace('v', '');
+    const VERSION = JSON.parse(spawnSync(
+        ['curl', '-s', 'https://api.github.com/repos/VueTorrent/VueTorrent/releases/latest'].join(' '), [], { shell: true },
+    ).stdout.toString()).tag_name.replace('v', '');
 
     const URL = `https://github.com/VueTorrent/VueTorrent/releases/download/v${VERSION}/vuetorrent.zip`;
     const HASH = parseFetchurl(URL);

@@ -13,9 +13,9 @@ export default (): string | null => {
 
     const OLD_VERSION = readFileSync(`${FOLDER}/.version`).toString().replace('\n', '');
 
-    const VERSION = JSON.parse(spawnSync('curl',
-        ['-s', 'https://api.github.com/repos/net-daemon/netdaemon/releases/latest'],
-        { shell: true }).stdout.toString()).tag_name.replace('v', '');
+    const VERSION = JSON.parse(spawnSync([
+        'curl', '-s', 'https://api.github.com/repos/net-daemon/netdaemon/releases/latest',
+    ].join(' '), [], { shell: true }).stdout.toString()).tag_name.replace('v', '');
 
     if (OLD_VERSION !== VERSION) {
         writeFileSync(`${FOLDER}/.version`, `${VERSION}\n`);

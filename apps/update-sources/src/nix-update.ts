@@ -5,9 +5,9 @@ import { styleText } from 'node:util';
 /* Constants */
 const FLAKE = process.env.FLAKE;
 
-const getAttrVersion = (attr: string): string => spawnSync('nix',
-    ['eval', '--raw', `${FLAKE}#${attr}.version`],
-    { shell: true }).stdout.toString();
+const getAttrVersion = (attr: string): string => spawnSync(
+    ['nix', 'eval', '--raw', `${FLAKE}#${attr}.version`].join(' '), [], { shell: true },
+).stdout.toString();
 
 export default (
     attr: string,

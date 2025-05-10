@@ -26,13 +26,14 @@ export default (): string | null => {
             y.type == "derivation") (attrValues x))
     '`;
 
-    const OLD_VERS = Object.fromEntries([...JSON.parse(spawnSync('nix', [
+    const OLD_VERS = Object.fromEntries([...JSON.parse(spawnSync([
+        'nix',
         'eval',
         '.#scopedPackages.x86_64-linux.firefoxAddons',
         '--apply',
         nixExpr,
         '--json',
-    ], { shell: true }).stdout.toString())]
+    ].join(' '), [], { shell: true }).stdout.toString())]
         .map((p) => {
             const pname = p.replace(/-[0-9].*$/, '');
 
@@ -40,12 +41,9 @@ export default (): string | null => {
         })
         .filter((pinfo) => pinfo[0] !== 'frankerfacez'));
 
-    const NEW_VERS = Object.fromEntries(spawnSync(
-        'nix',
-        ['run', 'sourcehut:~rycee/mozilla-addons-to-nix',
-            SLUGS, GENERATED_FILE],
-        { shell: true },
-    ).stdout
+    const NEW_VERS = Object.fromEntries(spawnSync([
+        'nix', 'run', 'sourcehut:~rycee/mozilla-addons-to-nix', SLUGS, GENERATED_FILE,
+    ].join(' '), [], { shell: true }).stdout
         .toString()
         .split('\n')
         .map((p) => {

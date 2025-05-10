@@ -148,11 +148,11 @@ const main = async() => {
         updatePackage('scopedPackages', 'lovelace-components', 'material-rounded-theme');
 
 
-        spawnSync('alejandra', ['-q', FLAKE], { shell: true });
+        spawnSync(`alejandra -q ${FLAKE}`, [], { shell: true });
 
         spawnSync('nixFastBuild', [], {
             shell: true,
-            stdio: [process.stdin, process.stdout, process.stderr],
+            stdio: 'inherit',
         });
 
         const indentOutput = (output: string): string => {
@@ -198,7 +198,7 @@ const main = async() => {
         }
     }
     else {
-        spawnSync('alejandra', ['-q', FLAKE], { shell: true });
+        spawnSync(`alejandra -q ${FLAKE}`, [], { shell: true });
     }
 };
 

@@ -9,7 +9,7 @@ const FLAKE = process.env.FLAKE;
 const updateImages = (imagePath: string): string | undefined => {
     console.log(`Updating ${imagePath.split('/').at(-1)} images`);
 
-    const out = spawnSync('updateImages', [imagePath], { shell: true }).stdout.toString();
+    const out = spawnSync(`updateImages ${imagePath}`, [], { shell: true }).stdout.toString();
 
     if (out.length > 1) {
         return out;

@@ -52,9 +52,9 @@ export default (): string | null => {
         { shell: true, cwd: '/tmp' },
     );
 
-    const plugins = JSON.parse(spawnSync('nix',
-        ['eval', '-f', `${dir}/plugins.nix`, '--json'],
-        { shell: true }).stdout.toString()).plugins as Record<string, Plugin>;
+    const plugins = JSON.parse(spawnSync(
+        ['nix', 'eval', '-f', `${dir}/plugins.nix`, '--json'].join(' '), [], { shell: true },
+    ).stdout.toString()).plugins as Record<string, Plugin>;
 
     // Get most recent versions of plugins
     Object.entries(plugins).forEach(([key, value]) => {

@@ -32,8 +32,8 @@ export const parseArgs = (): Args => {
 };
 
 export const parseFetchurl = (url: string): string => JSON.parse(spawnSync(
-    'nix', ['store', 'prefetch-file', '--refresh', '--json',
-        '--hash-type', 'sha256', url, '--name', '"escaped"'], { shell: true },
+    ['nix', 'store', 'prefetch-file', '--refresh', '--json',
+        '--hash-type', 'sha256', url, '--name', '"escaped"'].join(' '), [], { shell: true },
 ).stdout.toString()).hash;
 
 export const replaceInFile = (replace: RegExp, replacement: string, file: string): void => {
