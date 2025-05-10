@@ -9,11 +9,18 @@
   cfg = config.programs.neovim;
 
   # We keep the packages here because python is a bit complicated and common
-  pythonPkgs = py:
+  pythonPkgs = p:
     (attrValues {
-      inherit (py) python-lsp-server;
+      inherit
+        (p)
+        python-lsp-server
+        pyls-isort
+        pylsp-mypy
+        python-lsp-ruff
+        python-lsp-jsonrpc
+        ;
     })
-    ++ py.python-lsp-server.optional-dependencies.all;
+    ++ p.python-lsp-server.optional-dependencies.all;
 in {
   config = mkIf (cfg.enable && cfg.ideConfig.enablePython) {
     programs = {
@@ -32,8 +39,26 @@ in {
                 settings = {
                     pylsp = {
                         plugins = {
-                            pycodestyle = {
-                                maxLineLength = 100,
+                            -- auto-completion options
+                            jedi_completion = {
+                                fuzzy = true,
+                            },
+
+                            -- import sorting
+                            pyls_isort = {
+                                enabled = true,
+                            },
+
+                            -- type checker
+                            pylsp_mypy = {
+                                enabled = true,
+                            },
+
+                            -- linter
+                            ruff = {
+                                enabled = true,
+                                formatEnabled = true,
+                                lineLength = 100,
                             },
                         },
                     },
