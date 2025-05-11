@@ -5,6 +5,7 @@ self: {
   ...
 }: let
   inherit (lib) mkIf mkOption types;
+  inherit (config.sops) secrets;
 
   cfg = config.roles.docker;
 in {
@@ -38,6 +39,12 @@ in {
     # Script for updating the images of a compose.nix file
     environment.systemPackages = [
       (pkgs.callPackage ./updateImage.nix {})
+    ];
+    nix.settings.extra-sandbox-paths = [secrets.docker.path];
+    nixpkgs.overlays = [
+      (final: prev: {
+        skopeo = pkgs.writeScriptBin "skopeo" ''exec ${prev.skopeo}/bin/skopeo "$@" --authfile=${secrets.docker.path}'';
+      })
     ];
 
     home-manager.users.root.home.file.".docker/config.json".text = ''

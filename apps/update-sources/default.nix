@@ -12,7 +12,7 @@
 }:
 buildApp {
   src = ./.;
-  npmDepsHash = "sha256-mUU1yZ30ubDWYRgWwdskGZOTYaA65DFFYPGV3Wbkh1M=";
+  npmDepsHash = "sha256-P2VhFaR/8Sdhj127a6sfK6QrzTdXCXjxZm/HIq8hTHc=";
 
   runtimeInputs = [
     curl
@@ -22,7 +22,8 @@ buildApp {
     nix-update
     nodejs_latest
     prefetch-npm-deps
-    (callPackage ../../modules/docker/updateImage.nix {})
+    # We want to use the one from my config with authfile
+    # (callPackage ../../modules/docker/updateImage.nix {})
     (callPackage ../../configurations/homie/modules/home-assistant/netdaemon/update.nix {})
   ];
 
