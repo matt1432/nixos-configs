@@ -12,6 +12,9 @@
     gsr-kms-server = final.callPackage ./gpu-screen-recorder/gsr-kms-server.nix {
       inherit (inputs) gpu-screen-recorder-src;
     };
+    gsr-dbus-server = final.callPackage ./gpu-screen-recorder/gsr-dbus-server.nix {
+      inherit (inputs) gpu-screen-recorder-src;
+    };
 
     homepage = final.callPackage ./homepage {};
 

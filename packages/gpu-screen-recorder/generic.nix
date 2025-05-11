@@ -2,7 +2,6 @@
   # params
   pname,
   description,
-  isKmsServer ? false,
   # nix build inputs
   lib,
   stdenv,
@@ -75,7 +74,7 @@ in
     ];
 
     fixupPhase =
-      optionalString (!isKmsServer)
+      optionalString (pname == "gsr-kms-server")
       # bash
       ''
         runHook preFixup
@@ -94,16 +93,20 @@ in
     # This is needed to force gsr to lookup kms in PATH
     # to get the security wrapper
     postFixup =
-      if isKmsServer
-      then
+      optionalString (pname == "gsr-kms-server")
         # bash
         ''
-          rm $out/bin/gpu-screen-recorder
-        ''
-      else
+          rm $out/bin/{gpu-screen-recorder,gsr-dbus-server}
+        '' +
+      optionalString (pname == "gpu-screen-recorder")
         # bash
         ''
-          rm $out/bin/gsr-kms-server
+          rm $out/bin/{gsr-kms-server,gsr-dbus-server}
+        '' +
+      optionalString (pname == "gsr-dbus-server")
+        # bash
+        ''
+          rm $out/bin/{gpu-screen-recorder,gsr-kms-server}
         '';
 
     meta = {
