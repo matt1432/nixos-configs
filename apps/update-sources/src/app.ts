@@ -26,7 +26,9 @@ const args = parseArgs();
 
 const main = async() => {
     if (args['custom-sidebar']) {
-        console.log(runNixUpdate('scopedPackages', 'lovelace-components', 'custom-sidebar'));
+        console.log(
+            runNixUpdate('scopedPackages', 'lovelace-components', 'custom-sidebar') ?? 'No updates',
+        );
     }
 
     if (args['caddy'] || args['caddy-plugins']) {
@@ -42,7 +44,7 @@ const main = async() => {
     }
 
     if (args['homepage']) {
-        console.log(runNixUpdate('homepage'));
+        console.log(runNixUpdate('homepage') ?? 'No updates');
     }
 
     if (args['flake'] || args['inputs']) {
@@ -50,15 +52,18 @@ const main = async() => {
     }
 
     if (args['jmusicbot']) {
-        console.log(runNixUpdate('jmusicbot'));
+        console.log(runNixUpdate('jmusicbot') ?? 'No updates');
     }
 
     if (args['material-rounded-theme']) {
-        console.log(runNixUpdate('scopedPackages', 'lovelace-components', 'material-rounded-theme'));
+        console.log(
+            runNixUpdate('scopedPackages', 'lovelace-components', 'material-rounded-theme') ??
+            'No updates',
+        );
     }
 
     if (args['netdaemon']) {
-        console.log(updateNetDaemon());
+        console.log(updateNetDaemon() ?? 'No updates');
     }
 
     if (args['node'] || args['node_modules']) {
@@ -66,19 +71,19 @@ const main = async() => {
     }
 
     if (args['pam-fprint-grosshack']) {
-        console.log(runNixUpdate('pam-fprint-grosshack'));
+        console.log(runNixUpdate('pam-fprint-grosshack') ?? 'No updates');
     }
 
     if (args['protonhax']) {
-        console.log(runNixUpdate('protonhax'));
+        console.log(runNixUpdate('protonhax') ?? 'No updates');
     }
 
     if (args['some-sass-language-server']) {
-        console.log(runNixUpdate('some-sass-language-server'));
+        console.log(runNixUpdate('some-sass-language-server') ?? 'No updates');
     }
 
     if (args['trash'] || args['trash-d']) {
-        console.log(runNixUpdate('trash-d'));
+        console.log(runNixUpdate('trash-d') ?? 'No updates');
     }
 
     if (args['vuetorrent']) {
@@ -132,10 +137,9 @@ const main = async() => {
         ): void => {
             const execution = runNixUpdate(attr, scope, scopeAttr);
 
-            if (execution.changelog) {
-                nixUpdateOutputs.push(execution.changelog);
+            if (execution) {
+                nixUpdateOutputs.push(execution);
             }
-            console.log(execution.stderr);
         };
 
         updatePackage('homepage');

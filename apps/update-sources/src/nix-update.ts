@@ -13,11 +13,7 @@ export default (
     attr: string,
     scope?: string,
     scopeAttr?: string,
-): {
-    changelog: string | null
-    stdout: string
-    stderr: string
-} => {
+): string | null => {
     const realAttr = scope ? `${attr}.x86_64-linux.${scope}.${scopeAttr}` : attr;
     const cleanAttr = scope ? `${attr}.${scope}.${scopeAttr}` : attr;
 
@@ -25,15 +21,11 @@ export default (
 
     const OLD_VERSION = getAttrVersion(realAttr);
 
-    const execution = spawnSync('nix-update', ['--flake', realAttr, '-u'], { cwd: FLAKE });
+    spawnSync('nix-update', ['--flake', realAttr, '-u'], { cwd: FLAKE, stdio: 'inherit' });
 
     const NEW_VERSION = getAttrVersion(realAttr);
 
-    return {
-        changelog: OLD_VERSION !== NEW_VERSION ?
-            `${cleanAttr}: ${OLD_VERSION} -> ${NEW_VERSION}` :
-            null,
-        stdout: execution.stdout.toString(),
-        stderr: execution.stderr.toString(),
-    };
+    return OLD_VERSION !== NEW_VERSION ?
+        `${cleanAttr}: ${OLD_VERSION} -> ${NEW_VERSION}` :
+        null;
 };
