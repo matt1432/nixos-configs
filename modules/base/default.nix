@@ -79,6 +79,24 @@ in {
       };
     };
 
+    environment.systemPackages = attrValues {
+      switch = pkgs.writeShellApplication {
+        name = "switch";
+        text = ''
+          exec nh os switch --hostname ${config.networking.hostName}
+        '';
+      };
+
+      # Peripherals
+      inherit
+        (pkgs)
+        hdparm
+        pciutils
+        usbutils
+        rar
+        ;
+    };
+
     services = {
       fwupd.enable = true;
 
@@ -104,17 +122,6 @@ in {
       fund = false
       update-notifier = false
     '';
-
-    environment.systemPackages = attrValues {
-      # Peripherals
-      inherit
-        (pkgs)
-        hdparm
-        pciutils
-        usbutils
-        rar
-        ;
-    };
 
     users.mutableUsers = false;
 

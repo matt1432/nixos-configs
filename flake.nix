@@ -262,7 +262,7 @@
     };
     nh = {
       inputs.nixpkgs.follows = "nixpkgs";
-      owner = "viperML";
+      owner = "nix-community";
       repo = "nh";
       type = "github";
     };
@@ -410,10 +410,7 @@
       type = "github";
     };
     pre-commit-hooks = {
-      inputs = {
-        flake-compat.follows = "flake-compat";
-        nixpkgs.follows = "nixpkgs";
-      };
+      inputs.flake-compat.follows = "flake-compat";
       owner = "cachix";
       repo = "git-hooks.nix";
       type = "github";

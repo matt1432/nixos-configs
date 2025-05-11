@@ -66,7 +66,7 @@ let
     };
 
     nh = mkInput {
-      owner = "viperML";
+      owner = "nix-community";
       repo = "nh";
     };
 
