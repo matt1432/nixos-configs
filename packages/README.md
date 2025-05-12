@@ -8,7 +8,6 @@ This directory contains every derivations for packages exposed by this flake.
 | ---- | ----------- | -------- |
 | `coloryou` | Get Material You colors from an image. | https://git.nelim.org/matt1432/nixos-configs/src/branch/master/packages/coloryou |
 | `gpu-screen-recorder` | Screen recorder that has minimal impact on system performance by recording a window using the GPU only. | https://git.dec05eba.com/gpu-screen-recorder/about |
-| `gsr-kms-server` | Small program giving safe KMS access to gpu-screen-recorder when recording a monitor. This is the only part of gpu-screen-recorder that could require root permissions. | https://git.dec05eba.com/gpu-screen-recorder/about |
 | `homepage` | Highly customisable dashboard with Docker and service API integrations. | https://gethomepage.dev |
 | `jdownloader-cli` | Command line interface to JDownloader based on jdownloader-go library. | https://github.com/rkosegi/jdownloader-cli |
 | `jmusicbot` | Discord music bot that's easy to set up and run yourself | https://github.com/jagrosh/MusicBot |
