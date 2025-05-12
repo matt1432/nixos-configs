@@ -6,13 +6,7 @@
   selfPackages = {
     coloryou = final.python3Packages.callPackage ./coloryou {};
 
-    gpu-screen-recorder = final.callPackage ./gpu-screen-recorder/gpu-screen-recorder.nix {
-      inherit (inputs) gpu-screen-recorder-src;
-    };
-    gsr-kms-server = final.callPackage ./gpu-screen-recorder/gsr-kms-server.nix {
-      inherit (inputs) gpu-screen-recorder-src;
-    };
-    gsr-dbus-server = final.callPackage ./gpu-screen-recorder/gsr-dbus-server.nix {
+    gpu-screen-recorder = final.callPackage ./gpu-screen-recorder {
       inherit (inputs) gpu-screen-recorder-src;
     };
 

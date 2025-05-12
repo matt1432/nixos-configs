@@ -6,7 +6,7 @@
   ...
 }: let
   inherit (lib) concatStringsSep getExe removePrefix;
-  inherit (pkgs.selfPackages) gpu-screen-recorder gsr-kms-server gsr-dbus-server;
+  inherit (pkgs.selfPackages) gpu-screen-recorder;
 
   hyprPkgs = config.home-manager.users.${mainUser}.wayland.windowManager.hyprland.finalPackage;
 
@@ -24,7 +24,7 @@ in {
       owner = "root";
       group = "video";
       capabilities = "cap_sys_admin+ep";
-      source = getExe gsr-kms-server;
+      source = getExe gpu-screen-recorder.gsr-kms-server;
     };
   };
 
@@ -47,7 +47,7 @@ in {
           pkgs.pulseaudio
           pkgs.xorg.xrandr
 
-          gsr-dbus-server
+          gpu-screen-recorder.gsr-dbus-server
           hyprPkgs
         ];
 

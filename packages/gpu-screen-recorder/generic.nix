@@ -94,20 +94,20 @@ in
     # to get the security wrapper
     postFixup =
       optionalString (pname == "gsr-kms-server")
-        # bash
-        ''
-          rm $out/bin/{gpu-screen-recorder,gsr-dbus-server}
-        '' +
-      optionalString (pname == "gpu-screen-recorder")
-        # bash
-        ''
-          rm $out/bin/{gsr-kms-server,gsr-dbus-server}
-        '' +
-      optionalString (pname == "gsr-dbus-server")
-        # bash
-        ''
-          rm $out/bin/{gpu-screen-recorder,gsr-kms-server}
-        '';
+      # bash
+      ''
+        rm $out/bin/{gpu-screen-recorder,gsr-dbus-server}
+      ''
+      + optionalString (pname == "gpu-screen-recorder")
+      # bash
+      ''
+        rm $out/bin/{gsr-kms-server,gsr-dbus-server}
+      ''
+      + optionalString (pname == "gsr-dbus-server")
+      # bash
+      ''
+        rm $out/bin/{gpu-screen-recorder,gsr-kms-server}
+      '';
 
     meta = {
       mainProgram = pname;
