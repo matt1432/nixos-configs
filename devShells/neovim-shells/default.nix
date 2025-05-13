@@ -22,6 +22,7 @@ in
     "c-lang"
     "csharp"
     "json"
+    "kotlin"
     "lua"
     "markdown"
     "qml"

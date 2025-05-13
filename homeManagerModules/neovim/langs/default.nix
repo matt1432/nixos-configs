@@ -18,6 +18,7 @@ in {
     ./hyprlang
     ./java
     ./json
+    ./kotlin
     ./lua
     ./python
     ./qml
