@@ -17,11 +17,15 @@
 in
   stdenv.mkDerivation (finalAttrs: {
     inherit pname version;
+
+    # TODO: make PR
     src = fetchFromGitHub {
-      owner = "Snd-R";
+      # owner = "Snd-R";
+      owner = "matt1432";
       repo = pname;
-      tag = version;
-      hash = "sha256-5kz/9Gm5vdOfUFC2B7MEjdBnRpL3BSeKTzoTMvN/uNM=";
+      # tag = version;
+      rev = "3bbfb554a8f9500555d312d9674f258307cd0a99";
+      hash = "sha256-ZXoNqyaB+/mvmxDfi3aS9l4sDPHw+ZL7QcQ2/NXw5fE=";
     };
 
     gradleFlags = ["-Dorg.gradle.java.home=${jdk}"];
