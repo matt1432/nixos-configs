@@ -17,8 +17,8 @@
           home-assistant-intents = prev.home-assistant-intents.overrideAttrs (o: {
             nativeBuildInputs = o.nativeBuildInputs ++ [pkgs.findutils];
             postPatch = ''
-              find ./. -name "*Timer*" -delete
-              find ./. -name "*Start*" -delete
+              find ./. -name "*Timer*" -exec rm -r {} +
+              find ./. -name "*Start*" -exec rm -r {} +
             '';
           });
         };

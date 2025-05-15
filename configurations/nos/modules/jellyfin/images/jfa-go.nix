@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage rec {
   imageName = "hrfee/jfa-go";
-  imageDigest = "sha256:739977423a29f65811d50d1bb98571db38da109e2f6f2d2dc4384092d009cacc";
-  sha256 = "07dcxwqgkk2kb2mr3pvmabbmry39sw03dqymzhs9gws489w4wzcm";
+  imageDigest = "sha256:f7c4b928848c9901a4b18663a0a89274e89c11637576218e356864d1d5e3218f";
+  hash = "sha256-GroCx/MmVYwqSWX9DXbHw60AZVGL+4fDfYn6FFvZXMk=";
   finalImageName = imageName;
   finalImageTag = "unstable";
 }
