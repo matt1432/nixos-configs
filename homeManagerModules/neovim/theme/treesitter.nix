@@ -52,7 +52,7 @@ in {
             --
             vim.api.nvim_create_autocmd('BufEnter', {
                 pattern = '*.j2',
-                command = "TSBufDisable highlight | LspStop",
+                command = "TSBufDisable highlight",
             });
           '';
       }

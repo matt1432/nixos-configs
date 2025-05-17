@@ -35,7 +35,16 @@ in {
             end;
 
             vim.api.nvim_create_autocmd('FileType', {
-                pattern = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx', 'css', 'scss' },
+                pattern = {
+                    'javascript',
+                    'javascriptreact',
+                    'javascript.jsx',
+                    'typescript',
+                    'typescriptreact',
+                    'typescript.tsx',
+                    'css',
+                    'scss',
+                },
 
                 callback = function()
                     vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
@@ -44,8 +53,11 @@ in {
                 end,
             });
 
-            vim.api.nvim_create_autocmd('FileType', {
-                pattern = 'html',
+            vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {
+                pattern = {
+                    'html',
+                    'j2',
+                },
 
                 callback = function()
                     vim.cmd[[setlocal ts=4 sw=4 expandtab]];
@@ -157,6 +169,7 @@ in {
             lsp.html.setup({
                 capabilities = html_caps,
                 autostart = false,
+                filetypes = { 'html', 'templ', 'j2', },
 
                 settings = {
                     configurationSection = { "html", "css", "javascript" },
