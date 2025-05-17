@@ -61,7 +61,7 @@ in {
                     });
                 end;
 
-                vim.api.nvim_create_autocmd('FileType', {
+                vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {
                     pattern = { 'cs' },
 
                     callback = function()

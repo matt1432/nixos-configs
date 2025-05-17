@@ -22,7 +22,7 @@ in {
         extraLuaConfig =
           # lua
           ''
-            vim.api.nvim_create_autocmd('FileType', {
+            vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {
                pattern = 'java',
                command = 'setlocal ts=4 sw=4 sts=0 expandtab',
             });
@@ -63,7 +63,7 @@ in {
                     require('jdtls').start_or_attach(config);
                 end
 
-                vim.api.nvim_create_autocmd('FileType', {
+                vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {
                     pattern = 'java',
                     callback = startJdtls,
                 });

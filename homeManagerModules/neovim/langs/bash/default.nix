@@ -37,7 +37,7 @@ in {
         extraLuaConfig =
           # lua
           ''
-            vim.api.nvim_create_autocmd('FileType', {
+            vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {
                 pattern = 'sh',
                 command = 'setlocal ts=4 sw=4 sts=0 expandtab',
             });

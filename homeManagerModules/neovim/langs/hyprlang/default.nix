@@ -17,7 +17,7 @@ in {
                 pattern = { [ '.*/hypr/.*%.conf' ] = 'hyprlang' },
             });
 
-            vim.api.nvim_create_autocmd('FileType', {
+            vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {
                pattern = 'hyprlang',
                command = 'setlocal ts=4 sw=4 sts=0 expandtab',
             });

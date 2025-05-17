@@ -34,7 +34,7 @@ in {
                 end
             end;
 
-            vim.api.nvim_create_autocmd('FileType', {
+            vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {
                 pattern = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx', 'css', 'scss' },
 
                 callback = function()
@@ -44,7 +44,7 @@ in {
                 end,
             });
 
-            vim.api.nvim_create_autocmd('FileType', {
+            vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {
                 pattern = 'html',
 
                 callback = function()
@@ -54,7 +54,7 @@ in {
                 end,
             });
 
-            vim.api.nvim_create_autocmd('FileType', {
+            vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {
                 pattern = 'scss',
                 command = 'setlocal iskeyword+=@-@',
             });

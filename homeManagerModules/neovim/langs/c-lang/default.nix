@@ -15,7 +15,7 @@ in {
         extraLuaConfig =
           # lua
           ''
-            vim.api.nvim_create_autocmd('FileType', {
+            vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {
                 pattern = { 'cpp', 'c' },
 
                 callback = function()
