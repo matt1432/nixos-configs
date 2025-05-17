@@ -493,6 +493,12 @@
       repo = "easytables.nvim";
       type = "github";
     };
+    vimplugin-jinja-vim-src = {
+      flake = false;
+      owner = "HiPhish";
+      repo = "jinja.vim";
+      type = "github";
+    };
     vimplugin-roslyn-nvim-src = {
       flake = false;
       owner = "seblj";

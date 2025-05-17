@@ -1830,6 +1830,7 @@
         "ts-for-gir-src": "ts-for-gir-src",
         "tuya-local-src": "tuya-local-src",
         "vimplugin-easytables-src": "vimplugin-easytables-src",
+        "vimplugin-jinja-vim-src": "vimplugin-jinja-vim-src",
         "vimplugin-roslyn-nvim-src": "vimplugin-roslyn-nvim-src",
         "vimplugin-ts-error-translator-src": "vimplugin-ts-error-translator-src",
         "virtualkeyboard-adapter": "virtualkeyboard-adapter",
@@ -2056,6 +2057,22 @@
       "original": {
         "owner": "Myzel394",
         "repo": "easytables.nvim",
+        "type": "github"
+      }
+    },
+    "vimplugin-jinja-vim-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1746986029,
+        "narHash": "sha256-o3nk0O6Dd2L2x7ALeXZaN5DaZPAXNtgg7tw2fyRgaUM=",
+        "owner": "HiPhish",
+        "repo": "jinja.vim",
+        "rev": "966cc763f35472ea1033743766688621d93a39af",
+        "type": "github"
+      },
+      "original": {
+        "owner": "HiPhish",
+        "repo": "jinja.vim",
         "type": "github"
       }
     },

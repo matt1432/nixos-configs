@@ -11,7 +11,7 @@ self: {
 
   cfg = config.programs.neovim;
 in {
-  imports = [./treesitter.nix];
+  imports = [(import ./treesitter.nix self)];
 
   config = mkIf cfg.enable {
     programs.neovim = {

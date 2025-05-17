@@ -330,6 +330,11 @@ let
       repo = "roslyn.nvim";
     }
     {
+      owner = "HiPhish";
+      repo = "jinja.vim";
+      name = "vimplugin-jinja-vim-src";
+    }
+    {
       name = "nix-develop-nvim-src";
       owner = "matt1432";
       repo = "nix-develop.nvim";
