@@ -857,19 +857,21 @@
         ],
         "systems": [
           "systems"
+        ],
+        "treefmt-nix": [
+          "treefmt-nix"
         ]
       },
       "locked": {
-        "lastModified": 1747319627,
-        "narHash": "sha256-oGhD615W9/uOOWMZDcUYEPV44bqKjPXm4w1nzDepsjo=",
+        "lastModified": 1747452031,
+        "narHash": "sha256-Z4rYXcup5bkixLNxerQCL7EnDqW8z0x4kS73IMJJ8+I=",
         "owner": "matt1432",
         "repo": "Kapowarr",
-        "rev": "beadec5d649d183a94b0decda2a10d22b2a96a30",
+        "rev": "3b408f456a6a67e84e7429f537ebd1c42477ae83",
         "type": "github"
       },
       "original": {
         "owner": "matt1432",
-        "ref": "build-system",
         "repo": "Kapowarr",
         "type": "github"
       }
@@ -931,7 +933,10 @@
           "kapowarr",
           "systems"
         ],
-        "treefmt-nix": "treefmt-nix"
+        "treefmt-nix": [
+          "kapowarr",
+          "treefmt-nix"
+        ]
       },
       "locked": {
         "lastModified": 1747187755,
@@ -1821,7 +1826,7 @@
         "spotifywebapi-src": "spotifywebapi-src",
         "subscleaner-src": "subscleaner-src",
         "systems": "systems",
-        "treefmt-nix": "treefmt-nix_2",
+        "treefmt-nix": "treefmt-nix",
         "ts-for-gir-src": "ts-for-gir-src",
         "tuya-local-src": "tuya-local-src",
         "vimplugin-easytables-src": "vimplugin-easytables-src",
@@ -1987,28 +1992,6 @@
       }
     },
     "treefmt-nix": {
-      "inputs": {
-        "nixpkgs": [
-          "kapowarr",
-          "libgencomics",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1746216483,
-        "narHash": "sha256-4h3s1L/kKqt3gMDcVfN8/4v2jqHrgLIe4qok4ApH5x4=",
-        "owner": "numtide",
-        "repo": "treefmt-nix",
-        "rev": "29ec5026372e0dec56f890e50dbe4f45930320fd",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "treefmt-nix",
-        "type": "github"
-      }
-    },
-    "treefmt-nix_2": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"

@@ -160,7 +160,6 @@ let
     kapowarr = mkInput {
       owner = "matt1432";
       repo = "Kapowarr";
-      ref = "build-system";
       # type = "path";
       # path = "/home/matt/git/Kapowarr";
     };

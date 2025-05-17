@@ -187,9 +187,9 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
+        treefmt-nix.follows = "treefmt-nix";
       };
       owner = "matt1432";
-      ref = "build-system";
       repo = "Kapowarr";
       type = "github";
     };

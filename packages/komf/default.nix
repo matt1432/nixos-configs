@@ -24,8 +24,8 @@ in
       owner = "matt1432";
       repo = pname;
       # tag = version;
-      rev = "3bbfb554a8f9500555d312d9674f258307cd0a99";
-      hash = "sha256-ZXoNqyaB+/mvmxDfi3aS9l4sDPHw+ZL7QcQ2/NXw5fE=";
+      rev = "f6865e6fd1f84d584c8fbb9adeefd8c245c8567e";
+      hash = "sha256-7P2HoXcANAB9si/fQc6+QEaOdvJEcS8vIGce9KQea9o=";
     };
 
     gradleFlags = ["-Dorg.gradle.java.home=${jdk}"];
