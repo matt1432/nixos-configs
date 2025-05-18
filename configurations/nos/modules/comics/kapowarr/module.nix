@@ -80,6 +80,7 @@ in {
           # "-p ${toString cfg.port}"
           # (optionalString (cfg.urlBase != null) "-u ${cfg.urlBase}")
         ];
+        KillSignal = "SIGINT";
 
         # Hardening from komga service
         RemoveIPC = true;
