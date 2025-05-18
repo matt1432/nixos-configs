@@ -60,7 +60,15 @@ in rec {
     };
     inherit (pkgs.lib) mkForce;
   in {
-    _module.args.pkgs = mkForce pkgs;
+    _module.args = {
+      pkgs = mkForce pkgs;
+
+      # Expose a non-overlayed version of nixpkgs to avoid cache misses
+      purePkgs = import inputs.nixpkgs {
+        inherit system cudaSupport;
+        config.allowUnfree = true;
+      };
+    };
   });
 
   # Default system

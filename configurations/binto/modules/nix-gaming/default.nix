@@ -1,6 +1,7 @@
 {
   nix-gaming,
   pkgs,
+  purePkgs ? pkgs,
   ...
 }: {
   imports = [
@@ -22,7 +23,7 @@
   };
 
   environment.systemPackages = [
-    (pkgs.lutris.override {
+    (purePkgs.lutris.override {
       extraLibraries = pkgs: [
         # List library dependencies here
       ];

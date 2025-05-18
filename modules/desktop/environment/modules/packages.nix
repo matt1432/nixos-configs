@@ -2,6 +2,7 @@ self: {
   config,
   lib,
   pkgs,
+  purePkgs ? pkgs,
   ...
 }: let
   inherit (self.lib.hypr) mkBind;
@@ -168,12 +169,12 @@ in {
           ;
 
         # School
+        inherit (purePkgs) libreoffice;
         inherit (pkgs.hunspellDicts) en_CA;
         inherit
           (pkgs)
           xournalpp
           virt-manager
-          libreoffice
           hunspell
           krename
           ;
