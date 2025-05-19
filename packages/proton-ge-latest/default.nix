@@ -39,4 +39,6 @@ in
           from nix keep using it after every version change.
         '';
       };
+
+    __intentionallyOverridingVersion = true;
   })
