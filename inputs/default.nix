@@ -68,6 +68,9 @@ let
     nh = mkInput {
       owner = "nix-community";
       repo = "nh";
+
+      # FIXME: nvd doesn't show any changes in latest
+      ref = "v4.0.2";
     };
 
     nurl = mkInput {

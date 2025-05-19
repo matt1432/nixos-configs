@@ -263,6 +263,7 @@
     nh = {
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "nix-community";
+      ref = "v4.0.2";
       repo = "nh";
       type = "github";
     };
