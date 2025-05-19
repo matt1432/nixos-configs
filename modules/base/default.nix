@@ -139,6 +139,7 @@ in {
           }
         ];
 
+        home.enableNixpkgsReleaseCheck = false;
         home.stateVersion = config.system.stateVersion;
       };
     in {

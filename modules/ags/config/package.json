@@ -4,9 +4,9 @@
     "main": "app.ts",
     "dependencies": {
         "astal": "https://gitpkg.vercel.app/Aylur/astal/lang/gjs/src?4820a3e37cc8eb81db6ed991528fb23472a8e4de",
-        "@eslint/js": "9.26.0",
+        "@eslint/js": "9.27.0",
         "@stylistic/eslint-plugin": "4.2.0",
-        "eslint": "9.26.0",
+        "eslint": "9.27.0",
         "eslint-plugin-jsdoc": "50.6.17",
         "fzf": "0.5.2",
         "jiti": "2.4.2",
