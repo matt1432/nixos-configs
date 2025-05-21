@@ -2,6 +2,7 @@
   config,
   modulesPath,
   pkgs,
+  purePkgs ? pkgs,
   ...
 }: {
   nixpkgs.hostPlatform = "x86_64-linux";
@@ -102,7 +103,7 @@
   };
   environment.systemPackages = builtins.attrValues {
     inherit
-      (pkgs)
+      (purePkgs)
       qemu
       virtiofsd
       ;
