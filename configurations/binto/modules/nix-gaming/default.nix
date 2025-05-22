@@ -15,6 +15,7 @@
       remotePlay.openFirewall = true;
 
       extraCompatPackages = [
+        pkgs.selfPackages.proton-ge-9-27
         pkgs.selfPackages.proton-ge-latest
       ];
 

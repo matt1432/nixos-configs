@@ -10,6 +10,7 @@
 in
   proton-ge-bin.overrideAttrs (o: {
     version = replaceStrings ["-"] ["."] (elemAt (match "^[^0-9]*(.*)" o.version) 0);
+    steamDisplayName = "GE-Proton-Latest";
 
     buildInputs = [rsync];
 
