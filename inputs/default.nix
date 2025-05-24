@@ -340,6 +340,13 @@ let
 
     # Overlays & packages
     {
+      name = "komf-src";
+      owner = "matt1432";
+      repo = "komf";
+      # type = "path";
+      # path = "/home/matt/git/komf";
+    }
+    {
       type = "gitlab";
       owner = "rogs";
       repo = "subscleaner";

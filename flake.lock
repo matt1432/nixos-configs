@@ -863,16 +863,32 @@
         ]
       },
       "locked": {
-        "lastModified": 1748023821,
-        "narHash": "sha256-rL72AVdNHolTvvkJrEh4h0xv5i+CZuIVZulKf7tfgC8=",
+        "lastModified": 1748120210,
+        "narHash": "sha256-LIRtwSeyBzfy2/Fj6DG21ODHm8TOqn9fA1Xr3qHtQuc=",
         "owner": "matt1432",
         "repo": "Kapowarr",
-        "rev": "0c4fd9306330a455e0bab6d7383433d022196f1d",
+        "rev": "7a77e9ee8675518dd7472ce801b714c025f6ba6b",
         "type": "github"
       },
       "original": {
         "owner": "matt1432",
         "repo": "Kapowarr",
+        "type": "github"
+      }
+    },
+    "komf-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1747096226,
+        "narHash": "sha256-ZXoNqyaB+/mvmxDfi3aS9l4sDPHw+ZL7QcQ2/NXw5fE=",
+        "owner": "matt1432",
+        "repo": "komf",
+        "rev": "3bbfb554a8f9500555d312d9674f258307cd0a99",
+        "type": "github"
+      },
+      "original": {
+        "owner": "matt1432",
+        "repo": "komf",
         "type": "github"
       }
     },
@@ -939,11 +955,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1747778241,
-        "narHash": "sha256-b5Y8yt1xH/lnH/E5tuejUUIBJFERST/awhP+nTPuZog=",
+        "lastModified": 1748104202,
+        "narHash": "sha256-Y61b+lAY/PaHBiFIH+BI1xRxuOgP42T4p5/7tAKwz9M=",
         "owner": "matt1432",
         "repo": "LibgenComics",
-        "rev": "563b0f8c61afc185a4b9ac863b1604ef54f2bb91",
+        "rev": "3e4da4aec96fa0410db0f610cfd14cec8959a79d",
         "type": "github"
       },
       "original": {
@@ -1788,6 +1804,7 @@
         "hyprpaper": "hyprpaper",
         "jovian": "jovian",
         "kapowarr": "kapowarr",
+        "komf-src": "komf-src",
         "kompass": "kompass",
         "lib-aggregate": "lib-aggregate",
         "libratbag-src": "libratbag-src",

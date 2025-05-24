@@ -16,7 +16,9 @@
 
     jmusicbot = final.callPackage ./jmusicbot {};
 
-    komf = final.callPackage ./komf {};
+    komf = final.callPackage ./komf {
+      inherit (inputs) komf-src;
+    };
 
     libratbag = final.callPackage ./libratbag {
       inherit (inputs) libratbag-src;

@@ -2,15 +2,15 @@
   # nix build inputs
   lib,
   stdenv,
-  fetchFromGitHub,
   makeWrapper,
+  komf-src,
   # deps
   gradle_8,
   jdk17_headless,
   ...
 }: let
   pname = "komf";
-  version = "1.3.0";
+  version = "1.3.0+${komf-src.shortRev or "dirty"}";
 
   jdk = jdk17_headless;
   gradle = gradle_8.override {java = jdk;};
@@ -18,15 +18,7 @@ in
   stdenv.mkDerivation (finalAttrs: {
     inherit pname version;
 
-    # TODO: make PR
-    src = fetchFromGitHub {
-      # owner = "Snd-R";
-      owner = "matt1432";
-      repo = pname;
-      # tag = version;
-      rev = "f6865e6fd1f84d584c8fbb9adeefd8c245c8567e";
-      hash = "sha256-7P2HoXcANAB9si/fQc6+QEaOdvJEcS8vIGce9KQea9o=";
-    };
+    src = komf-src;
 
     gradleFlags = ["-Dorg.gradle.java.home=${jdk}"];
 

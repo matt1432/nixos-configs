@@ -193,6 +193,12 @@
       repo = "Kapowarr";
       type = "github";
     };
+    komf-src = {
+      flake = false;
+      owner = "matt1432";
+      repo = "komf";
+      type = "github";
+    };
     kompass = {
       inputs = {
         astal.follows = "astal";
