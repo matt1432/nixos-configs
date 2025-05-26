@@ -1,3 +1,14 @@
+export interface ListJson {
+    readlistId: string
+    seriesId: string
+    issues: {
+        series: string
+        title: string
+    }[]
+}
+
+export type ListsJson = Record<string, ListJson>;
+
 export interface Media {
     status: string
     mediaType: string
