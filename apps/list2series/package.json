@@ -7,9 +7,9 @@
         "build": "node_ver=$(node -v); esbuild src/app.ts --bundle --platform=node --target=\"node${node_ver:1:2}\" --outfile=out/bin/app.cjs"
     },
     "dependencies": {
-        "@types/node": "22.15.21",
+        "@types/node": "22.15.23",
         "axios": "1.9.0",
-        "esbuild": "0.25.4",
+        "esbuild": "0.25.5",
         "eslint": "9.27.0",
         "jiti": "2.4.2",
         "pkg-types": "2.1.0",

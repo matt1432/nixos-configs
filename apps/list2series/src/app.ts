@@ -334,7 +334,7 @@ const main = async(): Promise<void> => {
 
     else {
         console.error('Arguments not recognized.');
-        exit(1);
+        process.exit(1);
     }
 };
 
