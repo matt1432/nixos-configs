@@ -48,6 +48,11 @@ export default (): string | null => {
             ))
         .join('\n');
 
+    // make sure we cleanup 'follows' statements
+    spawnSync('just genflake', [], {
+        cwd: FLAKE, shell: true, stdio: 'inherit',
+    });
+
     return inputsUpdates.length > 0 ?
         formattedOutput :
         null;

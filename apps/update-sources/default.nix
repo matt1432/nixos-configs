@@ -5,6 +5,7 @@
   findutils,
   go,
   jq,
+  just,
   nix-update,
   nodejs_latest,
   prefetch-npm-deps,
@@ -19,6 +20,7 @@ buildApp {
     findutils
     go
     jq
+    just
     nix-update
     nodejs_latest
     prefetch-npm-deps
