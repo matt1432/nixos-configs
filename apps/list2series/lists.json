@@ -1,4 +1,356 @@
 {
+    "infinity": {
+        "readlistId": "0KV2TXXX0RS9X",
+        "seriesId": "0KV32Y9WRRN5M",
+        "issues": [
+            {
+                "series": "Avengers",
+                "title": "The Signal; Prelude to Infinity"
+            },
+            {
+                "series": "Avengers",
+                "title": "Sent and Received; Prelude to Infinity"
+            },
+            {
+                "series": "Avengers",
+                "title": "To The End; Prelude to Infinity"
+            },
+            {
+                "series": "Avengers",
+                "title": "...To the Light; Prelude to Infinity"
+            },
+            {
+                "series": "Infinity",
+                "title": "Infinity"
+            },
+            {
+                "series": "Infinity: Against the Tide",
+                "title": "Against the Tide"
+            },
+            {
+                "series": "Infinity: Against the Tide",
+                "title": "Against the Tide Conclusion"
+            },
+            {
+                "series": "Thunderbolts",
+                "title": "Issue #14"
+            },
+            {
+                "series": "Nova",
+                "title": "Chapter Eight: Infinity"
+            },
+            {
+                "series": "Nova",
+                "title": "Chapter Nine: Infinity²"
+            },
+            {
+                "series": "Infinity: The Hunt",
+                "title": "The Hunt"
+            },
+            {
+                "series": "Infinity: The Hunt",
+                "title": "School's Out... Forever"
+            },
+            {
+                "series": "New Avengers",
+                "title": "What Maximus Made; Prelude to Infinity"
+            },
+            {
+                "series": "New Avengers",
+                "title": "The Cull Obsidian"
+            },
+            {
+                "series": "Thunderbolts",
+                "title": "Issue #15"
+            },
+            {
+                "series": "Thunderbolts",
+                "title": "Issue #16"
+            },
+            {
+                "series": "Mighty Avengers",
+                "title": "Issue #1"
+            },
+            {
+                "series": "Mighty Avengers",
+                "title": "Issue #2"
+            },
+            {
+                "series": "Mighty Avengers",
+                "title": "No Single Hero"
+            },
+            {
+                "series": "Avengers",
+                "title": "Avengers Universe I"
+            },
+            {
+                "series": "Avengers Assemble",
+                "title": "Infinity Part 1 of 2"
+            },
+            {
+                "series": "Captain Marvel",
+                "title": "Kiss Today Goodbye, Part One of Two"
+            },
+            {
+                "series": "Infinity",
+                "title": "Fall"
+            },
+            {
+                "series": "New Avengers",
+                "title": "The Thanos Seed"
+            },
+            {
+                "series": "Avengers",
+                "title": "Avengers Universe II: Building Towards Collapse"
+            },
+            {
+                "series": "Infinity",
+                "title": "Kingdoms Fall"
+            },
+            {
+                "series": "Infinity: Heist",
+                "title": "The Heist"
+            },
+            {
+                "series": "Infinity: The Hunt",
+                "title": "Pass... Fail"
+            },
+            {
+                "series": "Captain Marvel",
+                "title": "Kiss Today Goodbye Part 2 of 2"
+            },
+            {
+                "series": "Avengers Assemble",
+                "title": "Infinity Part 2 of 2"
+            },
+            {
+                "series": "Avengers",
+                "title": "Avengers Universe III: The Offer"
+            },
+            {
+                "series": "Infinity",
+                "title": "Thane"
+            },
+            {
+                "series": "Avengers",
+                "title": "Avengers Universe IV: Emancipation"
+            },
+            {
+                "series": "New Avengers",
+                "title": "Builders"
+            },
+            {
+                "series": "Infinity: Heist",
+                "title": "Part 2"
+            },
+            {
+                "series": "Superior Spider-Man Team-Up",
+                "title": "Infinity Part 1"
+            },
+            {
+                "series": "Superior Spider-Man Team-Up",
+                "title": "Infinity Part 2"
+            },
+            {
+                "series": "Fearless Defenders",
+                "title": "Issue #10"
+            },
+            {
+                "series": "Infinity",
+                "title": "The Left Hand of Death"
+            },
+            {
+                "series": "Avengers",
+                "title": "Avengers Universe V: To the Earth..."
+            },
+            {
+                "series": "Infinity: Heist",
+                "title": "Part 3"
+            },
+            {
+                "series": "Infinity: Heist",
+                "title": "Part 4"
+            },
+            {
+                "series": "Secret Avengers",
+                "title": "Mission 010: Brooklyn"
+            },
+            {
+                "series": "Secret Avengers",
+                "title": "Mission 011: Brooklyn, Pt. 2"
+            },
+            {
+                "series": "Avengers Assemble",
+                "title": "Infinity Part 3; Give 'em a Hand"
+            },
+            {
+                "series": "Thunderbolts",
+                "title": "Issue #17"
+            },
+            {
+                "series": "Thunderbolts",
+                "title": "Issue #18"
+            },
+            {
+                "series": "Infinity: The Hunt",
+                "title": "Final Exam"
+            },
+            {
+                "series": "Avengers",
+                "title": "Avengers Universe VI: ...to the Very End"
+            },
+            {
+                "series": "Guardians of the Galaxy",
+                "title": "Issue #8"
+            },
+            {
+                "series": "Guardians of the Galaxy",
+                "title": "Issue #9"
+            },
+            {
+                "series": "Infinity",
+                "title": "Amber"
+            },
+            {
+                "series": "New Avengers",
+                "title": "Epilogue"
+            },
+            {
+                "series": "Wolverine & the X-Men Annual",
+                "title": "Gladiator Zero"
+            }
+        ]
+    },
+    "hickman": {
+        "readlistId": "0KFP4H1Y0XTSH",
+        "seriesId": "0KFP7H2NWXTJ5",
+        "issues": [
+            {
+                "series": "List Redirects",
+                "title": "AvX - Redirect"
+            },
+            {
+                "series": "New Avengers",
+                "title": "Memento Mori"
+            },
+            {
+                "series": "New Avengers",
+                "title": "In Secret, They Rule"
+            },
+            {
+                "series": "New Avengers",
+                "title": "Infinity"
+            },
+            {
+                "series": "Avengers",
+                "title": "Avengers World"
+            },
+            {
+                "series": "Avengers",
+                "title": "We Were Avengers"
+            },
+            {
+                "series": "Avengers",
+                "title": "The Garden"
+            },
+            {
+                "series": "Avengers",
+                "title": "The Death and Resurrection of Major Titans"
+            },
+            {
+                "series": "Avengers",
+                "title": "Superguardian"
+            },
+            {
+                "series": "New Avengers",
+                "title": "World Eater"
+            },
+            {
+                "series": "New Avengers",
+                "title": "Black Swans"
+            },
+            {
+                "series": "New Avengers",
+                "title": "Blue Hell"
+            },
+            {
+                "series": "Avengers",
+                "title": "Zen and the Art of Cosmology"
+            },
+            {
+                "series": "Avengers",
+                "title": "The Last White Event"
+            },
+            {
+                "series": "Avengers",
+                "title": "Starbranded"
+            },
+            {
+                "series": "Avengers",
+                "title": "Star Bound"
+            },
+            {
+                "series": "Avengers",
+                "title": "Validator"
+            },
+            {
+                "series": "Avengers",
+                "title": "Wake the Dragon"
+            },
+            {
+                "series": "Thanos Rising",
+                "title": "TPB/HC"
+            },
+            {
+                "series": "Guardians of the Galaxy",
+                "title": "Issue #0.1"
+            },
+            {
+                "series": "Guardians of the Galaxy",
+                "title": "Issue #1"
+            },
+            {
+                "series": "Guardians of the Galaxy",
+                "title": "Issue #2"
+            },
+            {
+                "series": "Guardians of the Galaxy",
+                "title": "Issue #3"
+            },
+            {
+                "series": "Guardians of the Galaxy",
+                "title": "Issue #4"
+            },
+            {
+                "series": "Avengers",
+                "title": "Evolve"
+            },
+            {
+                "series": "Avengers",
+                "title": "Strong"
+            },
+            {
+                "series": "Guardians of the Galaxy",
+                "title": "Issue #5"
+            },
+            {
+                "series": "Guardians of the Galaxy",
+                "title": "Issue #6"
+            },
+            {
+                "series": "Guardians of the Galaxy",
+                "title": "Issue #7"
+            },
+            {
+                "series": "New Avengers",
+                "title": "Thrones"
+            },
+            {
+                "series": "List Redirects",
+                "title": "Infinity - Redirect"
+            }
+        ]
+    },
     "1610": {
         "readlistId": "0KR1N0BZ5NF1Q",
         "seriesId": "0K6GGF8DABQK8",
