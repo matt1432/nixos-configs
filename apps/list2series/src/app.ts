@@ -331,6 +331,11 @@ const main = async(): Promise<void> => {
 
         console.log(`Updated ${listKey}.`);
     }
+
+    else {
+        console.error('Arguments not recognized.');
+        exit(1);
+    }
 };
 
 main();
