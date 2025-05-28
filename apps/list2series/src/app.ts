@@ -173,11 +173,20 @@ const setBookMetadata = async(i: number, source: Book, target: Book): Promise<vo
     });
 };
 
-const getListBooks = async(listId: string): Promise<{
+const getListBooks = async(listKeyOrId: string): Promise<{
     list: ReadList
     seriesPath: string
     listBooks: Book[]
 }> => {
+    let listId = listKeyOrId;
+
+    const listMappings = readNeighborFile('lists.json') as ListsJson;
+
+    // support giving key instead of ID
+    if (Object.keys(listMappings).includes(listKeyOrId)) {
+        listId = listMappings[listKeyOrId].readlistId;
+    }
+
     const list = await getListInfo(listId);
     const ids = list.bookIds;
     const seriesPath = `/data/comics/[List] ${list.name}`;
