@@ -31,6 +31,7 @@
     '';
   });
 in
+  # FIXME: this fork doesn't work anymore
   (jmusicbot.override {jre_headless = jre;}).overrideAttrs (o: rec {
     version = "0.4.3.5";
     src = fetchurl {

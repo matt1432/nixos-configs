@@ -879,15 +879,16 @@
     "komf-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1747096226,
-        "narHash": "sha256-ZXoNqyaB+/mvmxDfi3aS9l4sDPHw+ZL7QcQ2/NXw5fE=",
+        "lastModified": 1748135194,
+        "narHash": "sha256-oBDxlPhKBh8bBHSOaEWcEPGvTQMvRftrid1YdcGG1ro=",
         "owner": "matt1432",
         "repo": "komf",
-        "rev": "3bbfb554a8f9500555d312d9674f258307cd0a99",
+        "rev": "dc9249a7dad04470a1e025e6463a3ea480b74393",
         "type": "github"
       },
       "original": {
         "owner": "matt1432",
+        "ref": "personal",
         "repo": "komf",
         "type": "github"
       }
