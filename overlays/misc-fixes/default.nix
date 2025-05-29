@@ -19,18 +19,6 @@ final: prev: {
     inherit src;
   });
 
-  # FIXME: https://github.com/NixOS/nixpkgs/issues/411302
-  mlt = prev.mlt.overrideAttrs (o: rec {
-    version = "7.30.0";
-    src = final.fetchFromGitHub {
-      owner = "mltframework";
-      repo = "mlt";
-      rev = "v${version}";
-      hash = "sha256-z1bW+hcVeMeibC1PUS5XNpbkNB+75YLoOWZC2zuDol4=";
-      fetchSubmodules = true;
-    };
-  });
-
   # normal electron has a lot of cache misses for me
   electron = final.electron-bin;
 }

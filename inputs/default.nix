@@ -69,7 +69,7 @@ let
       owner = "nix-community";
       repo = "nh";
 
-      # FIXME: nvd doesn't show any changes in latest
+      # FIXME: https://github.com/nix-community/nh/issues/299
       ref = "v4.0.2";
     };
 
