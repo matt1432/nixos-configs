@@ -13,11 +13,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1744304930,
-        "narHash": "sha256-Ud+mprss2S7jEfvkm8S0YYitqCmy8v1WPu+I4/Vgdx8=",
+        "lastModified": 1748482291,
+        "narHash": "sha256-Nj2kysd8a5ZfIVaUt5vPbksjlc7/qF4jVR30tUHTGdA=",
         "owner": "matt1432",
         "repo": "ags",
-        "rev": "b9c2222e5b28727840dace04415acb733f76e3bc",
+        "rev": "776b3d6c400086cf3db20e9a3836ee6a602b22e2",
         "type": "github"
       },
       "original": {
@@ -70,11 +70,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1744305027,
-        "narHash": "sha256-6dVuAwHp45Z8iXfTpIxV0D7A9NkWWx37yJ0+nG9AGzs=",
+        "lastModified": 1748525578,
+        "narHash": "sha256-7sEKxI6x9SG82uRkC6E7b7B/n4Fmiz+gyf8EpR5waAQ=",
         "owner": "matt1432",
         "repo": "astal",
-        "rev": "54a5c81323dc10cad1464af653dd5ca187413882",
+        "rev": "83f0f0beef93e36e00880e2338b6a8485df5c0f5",
         "type": "github"
       },
       "original": {
@@ -905,11 +905,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1745323308,
-        "narHash": "sha256-24sYD/Yxu5AuyoFatLwkTMFJIZqWXHngX5u5/8RUmjo=",
+        "lastModified": 1748510288,
+        "narHash": "sha256-4OL1Ch+4J5/wMDaY7lV/HzbV02X5J33bmSbW+EUdUI4=",
         "owner": "kotontrion",
         "repo": "kompass",
-        "rev": "9849f59c5c97af7ab76d8219f182e259d50a6929",
+        "rev": "0a2cc224c869cf11ffbf6bb17a725c6393be820f",
         "type": "github"
       },
       "original": {

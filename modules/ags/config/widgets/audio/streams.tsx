@@ -61,7 +61,7 @@ export default (streams: AstalWp.Endpoint[]) => {
                     >
                         <icon
                             icon={bind(stream, 'mute').as((isMuted) => {
-                                if (stream.get_media_class() === AstalWp.MediaClass.AUDIO_MICROPHONE) {
+                                if (stream.get_media_class() === AstalWp.MediaClass.STREAM_INPUT_AUDIO) {
                                     return isMuted ?
                                         'audio-input-microphone-muted-symbolic' :
                                         'audio-input-microphone-symbolic';

@@ -32,7 +32,7 @@ export default (devices: AstalWp.Device[]) => devices
 
                     self.set_active(
                         profiles.indexOf(
-                            device.get_profile(device.get_active_profile())!,
+                            device.get_profile(device.get_active_profile_id())!,
                         ),
                     );
                 }}
@@ -41,7 +41,7 @@ export default (devices: AstalWp.Device[]) => devices
                     const activeId = self.get_active_id();
 
                     if (activeId) {
-                        device.set_active_profile(parseInt(activeId));
+                        device.set_active_profile_id(parseInt(activeId));
                     }
                 }}
             />
