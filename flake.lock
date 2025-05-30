@@ -863,11 +863,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1748120210,
-        "narHash": "sha256-LIRtwSeyBzfy2/Fj6DG21ODHm8TOqn9fA1Xr3qHtQuc=",
+        "lastModified": 1748609540,
+        "narHash": "sha256-fJXILZ07bFCW3pH6mVoKXr+LkZSMB2PSXObcQtDkWBg=",
         "owner": "matt1432",
         "repo": "Kapowarr",
-        "rev": "7a77e9ee8675518dd7472ce801b714c025f6ba6b",
+        "rev": "aebda36b96c46bd5333f0d14e560557338eb226c",
         "type": "github"
       },
       "original": {

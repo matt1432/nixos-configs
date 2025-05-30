@@ -73,6 +73,7 @@ in {
         (getExe pkgs.selfPackages.komf)
         stateDir
       ];
+      SuccessExitStatus = "143";
 
       StateDirectory = "komf";
 
