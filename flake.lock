@@ -460,11 +460,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1748489961,
-        "narHash": "sha256-uGnudxMoQi2c8rpPoHXuQSm80NBqlOiNF4xdT3hhzLM=",
+        "lastModified": 1748668774,
+        "narHash": "sha256-fYk/vk4ClmvHIgnGv/5GNRiDLtNCwXo9aLq36L/x+P4=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "95c988cf08e9a5a8fe7cc275d5e3f24e9e87bd51",
+        "rev": "60e4624302d956fe94d3f7d96a560d14d70591b9",
         "type": "github"
       },
       "original": {
@@ -576,11 +576,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1748438403,
-        "narHash": "sha256-uNgR25LfmSOYQ1wNlC91UZ/avt+bmxZpwlqOYM6vI20=",
+        "lastModified": 1748645134,
+        "narHash": "sha256-nXTdGPXgI/aUsLSS0vjNqZfCYiWoG7TCp/dVfg2Bwsc=",
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "9bf1b491440eac6f9c0d6853013ad5666c12d1d9",
+        "rev": "af2fdb5d58f5d3017aafd78a8ddafb40f710e34b",
         "type": "github"
       },
       "original": {
@@ -836,11 +836,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1748411314,
-        "narHash": "sha256-fvtRp+oHGDLiSQico9+LTAr6Z8CU1AIldLYLQ9mHqjo=",
+        "lastModified": 1748683484,
+        "narHash": "sha256-RXiY6t9E9oLEtfdGChHk/OIPqxYg1tu8XLvbPnJlfi4=",
         "owner": "Jovian-Experiments",
         "repo": "Jovian-NixOS",
-        "rev": "9d69aed9023082af370b71bffdfcd414b6b61593",
+        "rev": "6f6bd4a27fb01c9dd623a157d769f34561407f47",
         "type": "github"
       },
       "original": {
@@ -906,11 +906,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1748510288,
-        "narHash": "sha256-4OL1Ch+4J5/wMDaY7lV/HzbV02X5J33bmSbW+EUdUI4=",
+        "lastModified": 1748594638,
+        "narHash": "sha256-EI++aKeBvnULVVvfjP1uGky47P6Vl85/Uw55v1ziFCg=",
         "owner": "kotontrion",
         "repo": "kompass",
-        "rev": "0a2cc224c869cf11ffbf6bb17a725c6393be820f",
+        "rev": "da43fa3a125ad1e2ffd463ac039e68d9b546713a",
         "type": "github"
       },
       "original": {
@@ -1256,11 +1256,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1748397391,
-        "narHash": "sha256-g2quQIkkDOHFMipUOBs7+D3xr490slZp9qiamOkPzO4=",
+        "lastModified": 1748656608,
+        "narHash": "sha256-VU+8/kZ57Y7XTmgMBpybGMxO/elvUn/4yMndZji2pY8=",
         "owner": "fufexan",
         "repo": "nix-gaming",
-        "rev": "39bae253dc201cfe03ee53bd90ed813f89afa9cd",
+        "rev": "b585487bb87faec1c7a09aada7cfe77dd7b3c5fe",
         "type": "github"
       },
       "original": {
@@ -1389,11 +1389,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1748457463,
-        "narHash": "sha256-y8PPlVQOcWpMBYP7YOM69ua163hjiABJY+QynKIjTXs=",
+        "lastModified": 1748569769,
+        "narHash": "sha256-IiGGUW+BPwpmj8eC0nxROnDj0wYF4wCP6jy9ya5a62M=",
         "owner": "kaylorben",
         "repo": "nixcord",
-        "rev": "b3e71cd6aa3534017f46e3cd2dba700be688ddb4",
+        "rev": "ee9430233df39da82bfb5268ab83afdb059d8bd4",
         "type": "github"
       },
       "original": {
@@ -1439,11 +1439,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1747415194,
-        "narHash": "sha256-+Q4OsfAKm/CU+tXN3NeZos0eTI08Qr2+ZkWL2r7tydM=",
+        "lastModified": 1748543102,
+        "narHash": "sha256-YhfgNgYLBQ+ylBr/D0iaYfJ6kofTPyov5TAJiyHswSg=",
         "owner": "matt1432",
         "repo": "nixos-jellyfin",
-        "rev": "ce4d2adc826f32e874e12f62f10eb2e0a9297c67",
+        "rev": "9103295093e02776f3632a490f4ce3d32ff49681",
         "type": "github"
       },
       "original": {
@@ -1533,10 +1533,10 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1748370509,
-        "narHash": "sha256-QlL8slIgc16W5UaI3w7xHQEP+Qmv/6vSNTpoZrrSlbk=",
+        "lastModified": 1748460289,
+        "narHash": "sha256-7doLyJBzCllvqX4gszYtmZUToxKvMUrg45EUWaUYmBg=",
         "ref": "nixos-unstable",
-        "rev": "4faa5f5321320e49a78ae7848582f684d64783e9",
+        "rev": "96ec055edbe5ee227f28cdbc3f1ddf1df5965102",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/NixOS/nixpkgs"
@@ -1758,11 +1758,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1748423241,
-        "narHash": "sha256-k3mKLLfEf2j3inHcOqRxOWCMJZcU4jNfBKBrIHN9JSA=",
+        "lastModified": 1748598934,
+        "narHash": "sha256-c8o4KJPda4HNj/jWwjrWip7QZmfnuOQxKiAadzu/Ibs=",
         "ref": "refs/heads/master",
-        "rev": "2e3c15f7a1e76da788c89ac1e252aaf4885bda5d",
-        "revCount": 557,
+        "rev": "aa547bad843439615bc0a7f97a55d81058b2e9c8",
+        "revCount": 565,
         "type": "git",
         "url": "https://git.outfoxxed.me/quickshell/quickshell"
       },
@@ -1944,11 +1944,11 @@
     "spotifyplus-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1747689270,
-        "narHash": "sha256-aiUK732meyfbImEGmGtQEWrnncZLIwMZToluaNxz0MM=",
+        "lastModified": 1748613093,
+        "narHash": "sha256-gqegTpzpS/ATwMbP+ZMlJwYkruyyvxlOb6xLeU+hjj0=",
         "owner": "thlucas1",
         "repo": "homeassistantcomponent_spotifyplus",
-        "rev": "8084a5bc6e51d75f6901505082952cb846a37858",
+        "rev": "9882eddf4f7fa0d6e89938779f2995230c4f3de8",
         "type": "github"
       },
       "original": {
@@ -2043,11 +2043,11 @@
     "tuya-local-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1748526266,
-        "narHash": "sha256-wbM8tBbb2HNfPV5dyJGIt1nba63lBjoiw9+W8pne0nw=",
+        "lastModified": 1748691587,
+        "narHash": "sha256-mOMJYQvslLFx1yASdwCmeToz1RZPoFMaWgsmwrQOhfc=",
         "owner": "make-all",
         "repo": "tuya-local",
-        "rev": "69ef1ef66d28834d972d1dca122bd563053ede66",
+        "rev": "3171291b865c167529bd38f762e37aa60c94240e",
         "type": "github"
       },
       "original": {
@@ -2127,11 +2127,11 @@
     "wakewords-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1745833925,
-        "narHash": "sha256-94Bm3WWIx/dP88RbmSCOJvE9qPYcaPhgkfGuNyNSYek=",
+        "lastModified": 1748682861,
+        "narHash": "sha256-kx8O8zwxhJxWpTCICkwuoJ5u/17YnMIpuSFyz/E/Shg=",
         "owner": "fwartner",
         "repo": "home-assistant-wakewords-collection",
-        "rev": "c7fbdcef2342974f05831dddae15462fd00bad4f",
+        "rev": "6631e07f811a7e28e9a51ff6be79bfaec6b9a3a3",
         "type": "github"
       },
       "original": {

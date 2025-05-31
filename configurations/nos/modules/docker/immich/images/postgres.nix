@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage rec {
   imageName = "ghcr.io/immich-app/postgres";
-  imageDigest = "sha256:125826edbd668fbd94d4ca649e9892a6a57304a56d79f7e13697ebfade5ea60c";
-  hash = "sha256-DFMVs2piphlqKlAQ/2KTh+WH+45zo4GR5fCZca6WEsU=";
+  imageDigest = "sha256:b8a840254e8e2db8720db3700a104623da372056347e80b598f00dd4da8df568";
+  hash = "sha256-3AFzVH/zX+Ge3Q+Y7rZ9P5B7ZlNlAqy8pHsd2h26Bqo=";
   finalImageName = imageName;
   finalImageTag = "14-vectorchord0.3.0-pgvectors0.2.0";
 }
