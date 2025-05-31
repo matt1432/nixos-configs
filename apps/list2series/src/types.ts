@@ -1,6 +1,5 @@
 export interface ListJson {
     readlistId: string
-    seriesId: string
     issues: {
         series: string
         title: string
