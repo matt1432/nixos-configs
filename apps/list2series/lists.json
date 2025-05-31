@@ -1917,6 +1917,31 @@
                 "number": 4
             },
             {
+                "series": "Ultimate New Ultimates",
+                "title": "Thor Reborn, Chapter 1",
+                "number": 1
+            },
+            {
+                "series": "Ultimate New Ultimates",
+                "title": "Thor Reborn, Chapter 2: Lost",
+                "number": 2
+            },
+            {
+                "series": "Ultimate New Ultimates",
+                "title": "Thor Reborn, Chapter 3: Lies",
+                "number": 3
+            },
+            {
+                "series": "Ultimate New Ultimates",
+                "title": "Thor Reborn, Chapter 4: Loki",
+                "number": 4
+            },
+            {
+                "series": "Ultimate New Ultimates",
+                "title": "Thor Reborn, Chapter 5: Love",
+                "number": 5
+            },
+            {
                 "series": "Ultimate Comics Thor",
                 "title": "HC/TPB",
                 "number": 1
@@ -2084,6 +2109,371 @@
             {
                 "series": "Spider-Men",
                 "title": "HC",
+                "number": 1
+            },
+            {
+                "series": "Ultimate Comics X-Men",
+                "title": "Born Free",
+                "number": 13
+            },
+            {
+                "series": "Ultimate Comics X-Men",
+                "title": "Divided We Fall; Chapter One: Road Worn",
+                "number": 14
+            },
+            {
+                "series": "Ultimate Comics Ultimates",
+                "title": "Divided We Fall, Part One",
+                "number": 13
+            },
+            {
+                "series": "Ultimate Comics Ultimates",
+                "title": "Divided We Fall, Part Two: America's Team",
+                "number": 14
+            },
+            {
+                "series": "Ultimate Comics Spider-Man",
+                "title": "Divided We Fall, Part One",
+                "number": 13
+            },
+            {
+                "series": "Ultimate Comics Spider-Man",
+                "title": "Divided We Fall Part 2",
+                "number": 14
+            },
+            {
+                "series": "Ultimate Comics X-Men",
+                "title": "Divided We Fall; Chapter Two",
+                "number": 15
+            },
+            {
+                "series": "Ultimate Comics Ultimates",
+                "title": "United We Stand, Divided We Fall",
+                "number": 15
+            },
+            {
+                "series": "Ultimate Comics Spider-Man",
+                "title": "United We Stand; Part 1",
+                "number": 15
+            },
+            {
+                "series": "Ultimate Comics Spider-Man",
+                "title": "United We Stand; Part 2",
+                "number": 16
+            },
+            {
+                "series": "Ultimate Comics Ultimates",
+                "title": "United We Stand, Part One: The Call of the People",
+                "number": 16
+            },
+            {
+                "series": "Ultimate Comics X-Men",
+                "title": "United We Stand; Chapter One",
+                "number": 16
+            },
+            {
+                "series": "Ultimate Comics X-Men",
+                "title": "United We Stand; Chapter Two",
+                "number": 17
+            },
+            {
+                "series": "Ultimate Comics Spider-Man",
+                "title": "United We Stand; Part 3",
+                "number": 17
+            },
+            {
+                "series": "Ultimate Comics Ultimates",
+                "title": "United We Stand Part Two: Hydra War One",
+                "number": 17
+            },
+            {
+                "series": "Ultimate Comics Ultimates",
+                "title": "United We Stand Part Three: We, The People",
+                "number": 18
+            },
+            {
+                "series": "Ultimate Comics X-Men",
+                "title": "United We Stand; Chapter Three",
+                "number": 18
+            },
+            {
+                "series": "Ultimate Comics X-Men",
+                "title": "Point One",
+                "number": 18.1
+            },
+            {
+                "series": "Ultimate Comics Spider-Man",
+                "title": "United We Stand; Part 4; Prologue",
+                "number": 18
+            },
+            {
+                "series": "Ultimate Comics Ultimates",
+                "title": "Point One",
+                "number": 18.1
+            },
+            {
+                "series": "Ultimate Comics Spider-Man",
+                "title": "Point-One",
+                "number": 16.1
+            },
+            {
+                "series": "Ultimate Comics Spider-Man",
+                "title": "Venom War; Part 1",
+                "number": 19
+            },
+            {
+                "series": "Ultimate Comics Spider-Man",
+                "title": "Venom War; Part 2",
+                "number": 20
+            },
+            {
+                "series": "Ultimate Comics Spider-Man",
+                "title": "Venom War; Part 3",
+                "number": 21
+            },
+            {
+                "series": "Ultimate Comics Spider-Man",
+                "title": "Venom War; Part 4",
+                "number": 22
+            },
+            {
+                "series": "Ultimate Comics Ultimates",
+                "title": "Reconstruction, Part 1 of 6: Any Given Sunday",
+                "number": 19
+            },
+            {
+                "series": "Ultimate Comics Ultimates",
+                "title": "Reconstruction, Part 2 of 6",
+                "number": 20
+            },
+            {
+                "series": "Ultimate Comics Ultimates",
+                "title": "Reconstruction, Part 3 of 6",
+                "number": 21
+            },
+            {
+                "series": "Ultimate Comics Ultimates",
+                "title": "Reconstruction, Part 4 of 6",
+                "number": 22
+            },
+            {
+                "series": "Ultimate Comics Ultimates",
+                "title": "Reconstruction, Part 5 of 6",
+                "number": 23
+            },
+            {
+                "series": "Ultimate Comics Ultimates",
+                "title": "Reconstruction, Part 6 of 6",
+                "number": 24
+            },
+            {
+                "series": "Ultimate Comics X-Men",
+                "title": "Reservation X; Part One",
+                "number": 19
+            },
+            {
+                "series": "Ultimate Comics X-Men",
+                "title": "Reservation X; Part Two",
+                "number": 20
+            },
+            {
+                "series": "Ultimate Comics X-Men",
+                "title": "Reservation X; Part Three",
+                "number": 21
+            },
+            {
+                "series": "Ultimate Comics X-Men",
+                "title": "Reservation X, Conclusion",
+                "number": 22
+            },
+            {
+                "series": "Ultimate Comics Wolverine: Legacies",
+                "title": "Legacies",
+                "number": 1
+            },
+            {
+                "series": "Ultimate Comics X-Men",
+                "title": "Stormfront",
+                "number": 23
+            },
+            {
+                "series": "Ultimate Comics X-Men By Brian Wood",
+                "title": "Volume 2",
+                "number": 2
+            },
+            {
+                "series": "Ultimate Comics Iron Man",
+                "title": "TPB",
+                "number": 1
+            },
+            {
+                "series": "Ultimate Comics X-Men By Brian Wood",
+                "title": "Volume 3",
+                "number": 3
+            },
+            {
+                "series": "Ultimate Comics Ultimates",
+                "title": "Disassembled Part 1",
+                "number": 25
+            },
+            {
+                "series": "Ultimate Comics Ultimates",
+                "title": "Disassembled Part 2; The Dark Ultimates?!",
+                "number": 26
+            },
+            {
+                "series": "Ultimate Comics Ultimates",
+                "title": "Disassembled Part 3; New World Order",
+                "number": 27
+            },
+            {
+                "series": "Ultimate Comics Ultimates",
+                "title": "Disassembled Part 4",
+                "number": 28
+            },
+            {
+                "series": "Ultimate Comics Ultimates",
+                "title": "Disassembled Part 5; Infinity and Beyond!",
+                "number": 29
+            },
+            {
+                "series": "Ultimate Comics Ultimates",
+                "title": "Disassembled Part 6; Conclusion",
+                "number": 30
+            },
+            {
+                "series": "Ultimate Comics Spider-Man",
+                "title": "Spider-Man No More!",
+                "number": 23
+            },
+            {
+                "series": "Ultimate Comics Spider-Man",
+                "title": "Spider-Man No More, Part 2; Cloak and Dagger vs. Bombshell",
+                "number": 24
+            },
+            {
+                "series": "Ultimate Comics Spider-Man",
+                "title": "Spider-Man No More, Part 3; The Spider Returns?",
+                "number": 25
+            },
+            {
+                "series": "Ultimate Comics Spider-Man",
+                "title": "Spider-Man No More, Part 4; Ultimate Amazing Fantasy #14 - Here Comes... Bombshell",
+                "number": 26
+            },
+            {
+                "series": "Ultimate Comics Spider-Man",
+                "title": "Spider-Man No More, Part 5; Hello, Roxxon!",
+                "number": 27
+            },
+            {
+                "series": "Ultimate Comics Spider-Man",
+                "title": "Spider-Man No More, Part 6; Conclusion",
+                "number": 28
+            },
+            {
+                "series": "Cataclysm: The Ultimates Last Stand",
+                "title": "HC/TPB",
+                "number": 1
+            },
+            {
+                "series": "Ultimate Comics Spider-Man",
+                "title": "Issue #200",
+                "number": 200
+            },
+            {
+                "series": "Ultimate FF",
+                "title": "Doomed",
+                "number": 1
+            },
+            {
+                "series": "Ultimate FF",
+                "title": "Palace of the Brine Part 1",
+                "number": 2
+            },
+            {
+                "series": "Ultimate FF",
+                "title": "Palace of the Brine Part 2",
+                "number": 3
+            },
+            {
+                "series": "Miles Morales: Ultimate Spider-Man",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "Miles Morales: Ultimate Spider-Man",
+                "title": "Issue #2",
+                "number": 2
+            },
+            {
+                "series": "Miles Morales: Ultimate Spider-Man",
+                "title": "Issue #3",
+                "number": 3
+            },
+            {
+                "series": "Miles Morales: Ultimate Spider-Man",
+                "title": "Issue #4",
+                "number": 4
+            },
+            {
+                "series": "Miles Morales: Ultimate Spider-Man",
+                "title": "Issue #5",
+                "number": 5
+            },
+            {
+                "series": "Miles Morales: Ultimate Spider-Man",
+                "title": "Issue #6",
+                "number": 6
+            },
+            {
+                "series": "Miles Morales: Ultimate Spider-Man",
+                "title": "Issue #7",
+                "number": 7
+            },
+            {
+                "series": "Miles Morales: Ultimate Spider-Man",
+                "title": "Issue #8",
+                "number": 8
+            },
+            {
+                "series": "Miles Morales: Ultimate Spider-Man",
+                "title": "Issue #9",
+                "number": 9
+            },
+            {
+                "series": "Ultimate FF",
+                "title": "Stuck, Part 1 of 2",
+                "number": 4
+            },
+            {
+                "series": "Ultimate FF",
+                "title": "Stuck, Part 2 of 2",
+                "number": 5
+            },
+            {
+                "series": "Ultimate FF",
+                "title": "Issue #6",
+                "number": 6
+            },
+            {
+                "series": "Miles Morales: Ultimate Spider-Man",
+                "title": "Issue #10",
+                "number": 10
+            },
+            {
+                "series": "Miles Morales: Ultimate Spider-Man",
+                "title": "Issue #11",
+                "number": 11
+            },
+            {
+                "series": "Miles Morales: Ultimate Spider-Man",
+                "title": "Is this the End?",
+                "number": 12
+            },
+            {
+                "series": "Ultimate End",
+                "title": "TPB",
                 "number": 1
             }
         ]
