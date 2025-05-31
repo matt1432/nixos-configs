@@ -37,6 +37,7 @@ in {
       what = "${host}:/volume1/Photo-Immich";
       where = synologyPath;
       wantedBy = ["multi-user.target"];
+      startLimitBurst = 0;
     }
   ];
 
