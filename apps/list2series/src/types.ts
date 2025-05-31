@@ -4,6 +4,7 @@ export interface ListJson {
     issues: {
         series: string
         title: string
+        number: number
     }[]
 }
 

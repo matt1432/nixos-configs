@@ -5,195 +5,243 @@
         "issues": [
             {
                 "series": "Secret Warriors: Nick Fury, Agent of Nothing",
-                "title": "Secret Warriors: Nick Fury, Agent of Nothing"
+                "title": "Secret Warriors: Nick Fury, Agent of Nothing",
+                "number": 1
             },
             {
                 "series": "Dark Reign: Fantastic Four",
-                "title": "TPB"
+                "title": "TPB",
+                "number": 1
             },
             {
                 "series": "Dark Reign: The Cabal",
-                "title": "Issue #1"
+                "title": "Issue #1",
+                "number": 1
             },
             {
                 "series": "Secret Warriors: God of Fear, God of War",
-                "title": "Secret Warriors: God of Fear, God of War"
+                "title": "Secret Warriors: God of Fear, God of War",
+                "number": 1
             },
             {
                 "series": "Secret Warriors: Wake the Beast",
-                "title": "Secret Warriors: Wake the Beast"
+                "title": "Secret Warriors: Wake the Beast",
+                "number": 1
             },
             {
                 "series": "Fantastic Four By Jonathan Hickman",
-                "title": "Solve Everything"
+                "title": "Solve Everything",
+                "number": 1
             },
             {
                 "series": "Fantastic Four By Jonathan Hickman",
-                "title": "Prime Elements"
+                "title": "Prime Elements",
+                "number": 2
             },
             {
                 "series": "S.H.I.E.L.D.: Architects of Forever",
-                "title": "HC/TPB"
+                "title": "HC/TPB",
+                "number": 1
             },
             {
                 "series": "Fantastic Four By Jonathan Hickman",
-                "title": "The Future Foundation"
+                "title": "The Future Foundation",
+                "number": 3
             },
             {
                 "series": "Secret Warriors: Last Ride of the Howling Commandos",
-                "title": "Secret Warriors: Last Ride of the Howling Commandos"
+                "title": "Secret Warriors: Last Ride of the Howling Commandos",
+                "number": 1
             },
             {
                 "series": "Secret Warriors: Night",
-                "title": "Volume 5"
+                "title": "Volume 5",
+                "number": 1
             },
             {
                 "series": "Fantastic Four By Jonathan Hickman",
-                "title": "Three"
+                "title": "Three",
+                "number": 4
             },
             {
                 "series": "Secret Warriors: Wheels Within Wheels",
-                "title": "Volume 6"
+                "title": "Volume 6",
+                "number": 1
             },
             {
                 "series": "S.H.I.E.L.D. by Hickman & Weaver: The Human Machine",
-                "title": "HC"
+                "title": "HC",
+                "number": 1
             },
             {
                 "series": "FF by Jonathan Hickman",
-                "title": "Volume One"
+                "title": "Volume One",
+                "number": 1
             },
             {
                 "series": "Fantastic Four by Jonathan Hickman: The Complete Collection",
-                "title": "Volume 3"
+                "title": "Volume 3",
+                "number": 3
             },
             {
                 "series": "Fantastic Four by Jonathan Hickman: The Complete Collection",
-                "title": "Volume 4"
+                "title": "Volume 4",
+                "number": 4
             },
             {
                 "series": "List Redirects",
-                "title": "AvX - Redirect"
+                "title": "AvX - Redirect",
+                "number": 1
             },
             {
                 "series": "New Avengers",
-                "title": "Memento Mori"
+                "title": "Memento Mori",
+                "number": 1
             },
             {
                 "series": "New Avengers",
-                "title": "In Secret, They Rule"
+                "title": "In Secret, They Rule",
+                "number": 2
             },
             {
                 "series": "New Avengers",
-                "title": "Infinity"
+                "title": "Infinity",
+                "number": 3
             },
             {
                 "series": "Avengers",
-                "title": "Avengers World"
+                "title": "Avengers World",
+                "number": 1
             },
             {
                 "series": "Avengers",
-                "title": "We Were Avengers"
+                "title": "We Were Avengers",
+                "number": 2
             },
             {
                 "series": "Avengers",
-                "title": "The Garden"
+                "title": "The Garden",
+                "number": 3
             },
             {
                 "series": "Avengers",
-                "title": "The Death and Resurrection of Major Titans"
+                "title": "The Death and Resurrection of Major Titans",
+                "number": 4
             },
             {
                 "series": "Avengers",
-                "title": "Superguardian"
+                "title": "Superguardian",
+                "number": 5
             },
             {
                 "series": "New Avengers",
-                "title": "World Eater"
+                "title": "World Eater",
+                "number": 4
             },
             {
                 "series": "New Avengers",
-                "title": "Black Swans"
+                "title": "Black Swans",
+                "number": 5
             },
             {
                 "series": "New Avengers",
-                "title": "Blue Hell"
+                "title": "Blue Hell",
+                "number": 6
             },
             {
                 "series": "Avengers",
-                "title": "Zen and the Art of Cosmology"
+                "title": "Zen and the Art of Cosmology",
+                "number": 6
             },
             {
                 "series": "Avengers",
-                "title": "The Last White Event"
+                "title": "The Last White Event",
+                "number": 7
             },
             {
                 "series": "Avengers",
-                "title": "Starbranded"
+                "title": "Starbranded",
+                "number": 8
             },
             {
                 "series": "Avengers",
-                "title": "Star Bound"
+                "title": "Star Bound",
+                "number": 9
             },
             {
                 "series": "Avengers",
-                "title": "Validator"
+                "title": "Validator",
+                "number": 10
             },
             {
                 "series": "Avengers",
-                "title": "Wake the Dragon"
+                "title": "Wake the Dragon",
+                "number": 11
             },
             {
                 "series": "Thanos Rising",
-                "title": "TPB/HC"
+                "title": "TPB/HC",
+                "number": 1
             },
             {
                 "series": "Guardians of the Galaxy",
-                "title": "Issue #0.1"
+                "title": "Issue #0.1",
+                "number": 0.1
             },
             {
                 "series": "Guardians of the Galaxy",
-                "title": "Issue #1"
+                "title": "Issue #1",
+                "number": 1
             },
             {
                 "series": "Guardians of the Galaxy",
-                "title": "Issue #2"
+                "title": "Issue #2",
+                "number": 2
             },
             {
                 "series": "Guardians of the Galaxy",
-                "title": "Issue #3"
+                "title": "Issue #3",
+                "number": 3
             },
             {
                 "series": "Guardians of the Galaxy",
-                "title": "Issue #4"
+                "title": "Issue #4",
+                "number": 4
             },
             {
                 "series": "Avengers",
-                "title": "Evolve"
+                "title": "Evolve",
+                "number": 12
             },
             {
                 "series": "Avengers",
-                "title": "Strong"
+                "title": "Strong",
+                "number": 13
             },
             {
                 "series": "Guardians of the Galaxy",
-                "title": "Issue #5"
+                "title": "Issue #5",
+                "number": 5
             },
             {
                 "series": "Guardians of the Galaxy",
-                "title": "Issue #6"
+                "title": "Issue #6",
+                "number": 6
             },
             {
                 "series": "Guardians of the Galaxy",
-                "title": "Issue #7"
+                "title": "Issue #7",
+                "number": 7
             },
             {
                 "series": "New Avengers",
-                "title": "Thrones"
+                "title": "Thrones",
+                "number": 7
             },
             {
                 "series": "List Redirects",
-                "title": "Infinity - Redirect"
+                "title": "Infinity - Redirect",
+                "number": 2
             }
         ]
     },
@@ -203,275 +251,343 @@
         "issues": [
             {
                 "series": "Marvel NOW! Point One",
-                "title": "Issue #1"
+                "title": "Issue #1",
+                "number": 1
             },
             {
                 "series": "Avengers: X-Sanction",
-                "title": "TPB"
+                "title": "TPB",
+                "number": 1
             },
             {
                 "series": "Avengers",
-                "title": "A Vision Of Things To Come!"
+                "title": "A Vision Of Things To Come!",
+                "number": 24.1
             },
             {
                 "series": "Avengers Vs. X-Men",
-                "title": "Prologue"
+                "title": "Prologue",
+                "number": 0
             },
             {
                 "series": "Avengers Vs. X-Men",
-                "title": "Round 1"
+                "title": "Round 1",
+                "number": 1
             },
             {
                 "series": "Wolverine & the X-Men",
-                "title": "Day of the Phoenix. Dark Night of the Soul"
+                "title": "Day of the Phoenix. Dark Night of the Soul",
+                "number": 9
             },
             {
                 "series": "New Avengers",
-                "title": "Issue #24"
+                "title": "Issue #24",
+                "number": 24
             },
             {
                 "series": "Avengers Vs. X-Men",
-                "title": "Round 2"
+                "title": "Round 2",
+                "number": 2
             },
             {
                 "series": "Avengers",
-                "title": "Issue #25"
+                "title": "Issue #25",
+                "number": 25
             },
             {
                 "series": "AVX: VS",
-                "title": "The Invincible Iron Man Vs. Magneto; Thing Vs. Namor the Sub-Mariner"
+                "title": "The Invincible Iron Man Vs. Magneto; Thing Vs. Namor the Sub-Mariner",
+                "number": 1
             },
             {
                 "series": "Uncanny X-Men",
-                "title": "Issue #11"
+                "title": "Issue #11",
+                "number": 11
             },
             {
                 "series": "Avengers Vs. X-Men",
-                "title": "Round 3"
+                "title": "Round 3",
+                "number": 3
             },
             {
                 "series": "Avengers Academy",
-                "title": "Protective Services, Part 1"
+                "title": "Protective Services, Part 1",
+                "number": 29
             },
             {
                 "series": "Avengers Academy",
-                "title": "Protective Services, Part 2"
+                "title": "Protective Services, Part 2",
+                "number": 30
             },
             {
                 "series": "Avengers Academy",
-                "title": "Protective Services, Part 3"
+                "title": "Protective Services, Part 3",
+                "number": 31
             },
             {
                 "series": "Wolverine & the X-Men",
-                "title": "Avengers vs. X-Men ... vs. X-Men"
+                "title": "Avengers vs. X-Men ... vs. X-Men",
+                "number": 10
             },
             {
                 "series": "X-Men: Legacy",
-                "title": "Occupy The Jean Grey School, Pt. 1"
+                "title": "Occupy The Jean Grey School, Pt. 1",
+                "number": 266
             },
             {
                 "series": "X-Men: Legacy",
-                "title": "Occupy The Jean Grey School, Pt. 2"
+                "title": "Occupy The Jean Grey School, Pt. 2",
+                "number": 267
             },
             {
                 "series": "Secret Avengers",
-                "title": "Operation Phoenix"
+                "title": "Operation Phoenix",
+                "number": 26
             },
             {
                 "series": "Secret Avengers",
-                "title": "Sacred Ground"
+                "title": "Sacred Ground",
+                "number": 27
             },
             {
                 "series": "Secret Avengers",
-                "title": "Fire Falls on Hala"
+                "title": "Fire Falls on Hala",
+                "number": 28
             },
             {
                 "series": "Avengers",
-                "title": "Loyalties Divided"
+                "title": "Loyalties Divided",
+                "number": 26
             },
             {
                 "series": "Avengers",
-                "title": "Kree Supremacy"
+                "title": "Kree Supremacy",
+                "number": 27
             },
             {
                 "series": "Avengers Vs. X-Men",
-                "title": "Round 4"
+                "title": "Round 4",
+                "number": 4
             },
             {
                 "series": "AVX: VS",
-                "title": "Angel vs. Hawkeye; Black Panther vs. Storm;"
+                "title": "Angel vs. Hawkeye; Black Panther vs. Storm;",
+                "number": 5
             },
             {
                 "series": "AVX: VS",
-                "title": "Captain America vs. Gambit; The Amazing Spider-Man vs. Colossus"
+                "title": "Captain America vs. Gambit; The Amazing Spider-Man vs. Colossus",
+                "number": 2
             },
             {
                 "series": "Uncanny X-Men",
-                "title": "Issue #12"
+                "title": "Issue #12",
+                "number": 12
             },
             {
                 "series": "Wolverine & the X-Men",
-                "title": "Got Hope?"
+                "title": "Got Hope?",
+                "number": 11
             },
             {
                 "series": "Avengers Vs. X-Men",
-                "title": "Round 5"
+                "title": "Round 5",
+                "number": 5
             },
             {
                 "series": "Uncanny X-Men",
-                "title": "Issue #13"
+                "title": "Issue #13",
+                "number": 13
             },
             {
                 "series": "AVX: VS",
-                "title": "The Thing vs. Colossus; Black Widow vs. Magik"
+                "title": "The Thing vs. Colossus; Black Widow vs. Magik",
+                "number": 3
             },
             {
                 "series": "X-Men: Legacy",
-                "title": "Loose Ends"
+                "title": "Loose Ends",
+                "number": 268
             },
             {
                 "series": "Avengers Academy",
-                "title": "What the Heart Wants, Part 1"
+                "title": "What the Heart Wants, Part 1",
+                "number": 32
             },
             {
                 "series": "Avengers Academy",
-                "title": "What the Heart Wants, Conclusion"
+                "title": "What the Heart Wants, Conclusion",
+                "number": 33
             },
             {
                 "series": "Uncanny X-Men",
-                "title": "Issue #14"
+                "title": "Issue #14",
+                "number": 14
             },
             {
                 "series": "Avengers Vs. X-Men",
-                "title": "Round 6"
+                "title": "Round 6",
+                "number": 6
             },
             {
                 "series": "New Avengers",
-                "title": "Dragon vs Phoenix"
+                "title": "Dragon vs Phoenix",
+                "number": 25
             },
             {
                 "series": "New Avengers",
-                "title": "Legacy of Fire"
+                "title": "Legacy of Fire",
+                "number": 26
             },
             {
                 "series": "Avengers",
-                "title": "A Rampaging Hulk, Defeated?"
+                "title": "A Rampaging Hulk, Defeated?",
+                "number": 28
             },
             {
                 "series": "Uncanny X-Men",
-                "title": "This Strange Unpleasant Land, Part 1"
+                "title": "This Strange Unpleasant Land, Part 1",
+                "number": 15
             },
             {
                 "series": "Uncanny X-Men",
-                "title": "This Strange Unpleasant Land, Part 2"
+                "title": "This Strange Unpleasant Land, Part 2",
+                "number": 16
             },
             {
                 "series": "Uncanny X-Men",
-                "title": "This Strange Unpleasant Land, Part 3"
+                "title": "This Strange Unpleasant Land, Part 3",
+                "number": 17
             },
             {
                 "series": "Avengers",
-                "title": "Avengers Ambush!"
+                "title": "Avengers Ambush!",
+                "number": 29
             },
             {
                 "series": "Wolverine & the X-Men",
-                "title": "Hounded"
+                "title": "Hounded",
+                "number": 12
             },
             {
                 "series": "Wolverine & the X-Men",
-                "title": "Born Warbird"
+                "title": "Born Warbird",
+                "number": 13
             },
             {
                 "series": "Avengers Vs. X-Men",
-                "title": "Round 7"
+                "title": "Round 7",
+                "number": 7
             },
             {
                 "series": "AVX: VS",
-                "title": "Daredevil vs. Psylocke; Thor vs. Emma Frost"
+                "title": "Daredevil vs. Psylocke; Thor vs. Emma Frost",
+                "number": 4
             },
             {
                 "series": "New Avengers",
-                "title": "Breakout from the X-Brig"
+                "title": "Breakout from the X-Brig",
+                "number": 28
             },
             {
                 "series": "New Avengers",
-                "title": "Illuminati Assemble"
+                "title": "Illuminati Assemble",
+                "number": 29
             },
             {
                 "series": "Avengers Vs. X-Men",
-                "title": "Round 8"
+                "title": "Round 8",
+                "number": 8
             },
             {
                 "series": "New Avengers",
-                "title": "A Phoenix Rises In K'un Lun"
+                "title": "A Phoenix Rises In K'un Lun",
+                "number": 27
             },
             {
                 "series": "X-Men: Legacy",
-                "title": "Allegiances, Pt. 1"
+                "title": "Allegiances, Pt. 1",
+                "number": 269
             },
             {
                 "series": "X-Men: Legacy",
-                "title": "Allegiances, Pt. 2"
+                "title": "Allegiances, Pt. 2",
+                "number": 270
             },
             {
                 "series": "Wolverine & the X-Men",
-                "title": "My Dinner with the Phoenix"
+                "title": "My Dinner with the Phoenix",
+                "number": 14
             },
             {
                 "series": "Avengers Vs. X-Men",
-                "title": "Round 9"
+                "title": "Round 9",
+                "number": 9
             },
             {
                 "series": "Avengers Vs. X-Men",
-                "title": "Round 10"
+                "title": "Round 10",
+                "number": 10
             },
             {
                 "series": "Wolverine & the X-Men",
-                "title": "On the Eve of Battle"
+                "title": "On the Eve of Battle",
+                "number": 15
             },
             {
                 "series": "Wolverine & the X-Men",
-                "title": "The Fires of Hell A-Glowing"
+                "title": "The Fires of Hell A-Glowing",
+                "number": 16
             },
             {
                 "series": "Avengers Vs. X-Men",
-                "title": "Round 11"
+                "title": "Round 11",
+                "number": 11
             },
             {
                 "series": "Uncanny X-Men",
-                "title": "Issue #18"
+                "title": "Issue #18",
+                "number": 18
             },
             {
                 "series": "Avengers Vs. X-Men",
-                "title": "Round 12"
+                "title": "Round 12",
+                "number": 12
             },
             {
                 "series": "Uncanny X-Men",
-                "title": "The Passion of Scott Summers"
+                "title": "The Passion of Scott Summers",
+                "number": 19
             },
             {
                 "series": "AVX: VS",
-                "title": "Scarlet Witch vs. Hope"
+                "title": "Scarlet Witch vs. Hope",
+                "number": 6
             },
             {
                 "series": "New Avengers",
-                "title": "In The Trenches"
+                "title": "In The Trenches",
+                "number": 30
             },
             {
                 "series": "Avengers",
-                "title": "Ready! Aim..."
+                "title": "Ready! Aim...",
+                "number": 30
             },
             {
                 "series": "Wolverine & the X-Men",
-                "title": "Dance Like There's No Tomorrow!"
+                "title": "Dance Like There's No Tomorrow!",
+                "number": 18
             },
             {
                 "series": "Uncanny X-Men",
-                "title": "Fallout"
+                "title": "Fallout",
+                "number": 20
             },
             {
                 "series": "A-Babies vs. X-Babies",
-                "title": "Marvelous Meadows"
+                "title": "Marvelous Meadows",
+                "number": 1
             }
         ]
     },
@@ -481,219 +597,273 @@
         "issues": [
             {
                 "series": "Avengers",
-                "title": "The Signal; Prelude to Infinity"
+                "title": "The Signal; Prelude to Infinity",
+                "number": 14
             },
             {
                 "series": "Avengers",
-                "title": "Sent and Received; Prelude to Infinity"
+                "title": "Sent and Received; Prelude to Infinity",
+                "number": 15
             },
             {
                 "series": "Avengers",
-                "title": "To The End; Prelude to Infinity"
+                "title": "To The End; Prelude to Infinity",
+                "number": 16
             },
             {
                 "series": "Avengers",
-                "title": "...To the Light; Prelude to Infinity"
+                "title": "...To the Light; Prelude to Infinity",
+                "number": 17
             },
             {
                 "series": "Infinity",
-                "title": "Infinity"
+                "title": "Infinity",
+                "number": 1
             },
             {
                 "series": "Infinity: Against the Tide",
-                "title": "Against the Tide"
+                "title": "Against the Tide",
+                "number": 1
             },
             {
                 "series": "Infinity: Against the Tide",
-                "title": "Against the Tide Conclusion"
+                "title": "Against the Tide Conclusion",
+                "number": 2
             },
             {
                 "series": "Thunderbolts",
-                "title": "Issue #14"
+                "title": "Issue #14",
+                "number": 14
             },
             {
                 "series": "Nova",
-                "title": "Chapter Eight: Infinity"
+                "title": "Chapter Eight: Infinity",
+                "number": 8
             },
             {
                 "series": "Nova",
-                "title": "Chapter Nine: Infinity²"
+                "title": "Chapter Nine: Infinity²",
+                "number": 9
             },
             {
                 "series": "Infinity: The Hunt",
-                "title": "The Hunt"
+                "title": "The Hunt",
+                "number": 1
             },
             {
                 "series": "Infinity: The Hunt",
-                "title": "School's Out... Forever"
+                "title": "School's Out... Forever",
+                "number": 2
             },
             {
                 "series": "New Avengers",
-                "title": "What Maximus Made; Prelude to Infinity"
+                "title": "What Maximus Made; Prelude to Infinity",
+                "number": 8
             },
             {
                 "series": "New Avengers",
-                "title": "The Cull Obsidian"
+                "title": "The Cull Obsidian",
+                "number": 9
             },
             {
                 "series": "Thunderbolts",
-                "title": "Issue #15"
+                "title": "Issue #15",
+                "number": 15
             },
             {
                 "series": "Thunderbolts",
-                "title": "Issue #16"
+                "title": "Issue #16",
+                "number": 16
             },
             {
                 "series": "Mighty Avengers",
-                "title": "Issue #1"
+                "title": "Issue #1",
+                "number": 1
             },
             {
                 "series": "Mighty Avengers",
-                "title": "Issue #2"
+                "title": "Issue #2",
+                "number": 2
             },
             {
                 "series": "Mighty Avengers",
-                "title": "No Single Hero"
+                "title": "No Single Hero",
+                "number": 3
             },
             {
                 "series": "Avengers",
-                "title": "Avengers Universe I"
+                "title": "Avengers Universe I",
+                "number": 18
             },
             {
                 "series": "Avengers Assemble",
-                "title": "Infinity Part 1 of 2"
+                "title": "Infinity Part 1 of 2",
+                "number": 18
             },
             {
                 "series": "Captain Marvel",
-                "title": "Kiss Today Goodbye, Part One of Two"
+                "title": "Kiss Today Goodbye, Part One of Two",
+                "number": 15
             },
             {
                 "series": "Infinity",
-                "title": "Fall"
+                "title": "Fall",
+                "number": 2
             },
             {
                 "series": "New Avengers",
-                "title": "The Thanos Seed"
+                "title": "The Thanos Seed",
+                "number": 10
             },
             {
                 "series": "Avengers",
-                "title": "Avengers Universe II: Building Towards Collapse"
+                "title": "Avengers Universe II: Building Towards Collapse",
+                "number": 19
             },
             {
                 "series": "Infinity",
-                "title": "Kingdoms Fall"
+                "title": "Kingdoms Fall",
+                "number": 3
             },
             {
                 "series": "Infinity: Heist",
-                "title": "The Heist"
+                "title": "The Heist",
+                "number": 1
             },
             {
                 "series": "Infinity: The Hunt",
-                "title": "Pass... Fail"
+                "title": "Pass... Fail",
+                "number": 3
             },
             {
                 "series": "Captain Marvel",
-                "title": "Kiss Today Goodbye Part 2 of 2"
+                "title": "Kiss Today Goodbye Part 2 of 2",
+                "number": 16
             },
             {
                 "series": "Avengers Assemble",
-                "title": "Infinity Part 2 of 2"
+                "title": "Infinity Part 2 of 2",
+                "number": 19
             },
             {
                 "series": "Avengers",
-                "title": "Avengers Universe III: The Offer"
+                "title": "Avengers Universe III: The Offer",
+                "number": 20
             },
             {
                 "series": "Infinity",
-                "title": "Thane"
+                "title": "Thane",
+                "number": 4
             },
             {
                 "series": "Avengers",
-                "title": "Avengers Universe IV: Emancipation"
+                "title": "Avengers Universe IV: Emancipation",
+                "number": 21
             },
             {
                 "series": "New Avengers",
-                "title": "Builders"
+                "title": "Builders",
+                "number": 11
             },
             {
                 "series": "Infinity: Heist",
-                "title": "Part 2"
+                "title": "Part 2",
+                "number": 2
             },
             {
                 "series": "Superior Spider-Man Team-Up",
-                "title": "Infinity Part 1"
+                "title": "Infinity Part 1",
+                "number": 3
             },
             {
                 "series": "Superior Spider-Man Team-Up",
-                "title": "Infinity Part 2"
+                "title": "Infinity Part 2",
+                "number": 4
             },
             {
                 "series": "Fearless Defenders",
-                "title": "Issue #10"
+                "title": "Issue #10",
+                "number": 10
             },
             {
                 "series": "Infinity",
-                "title": "The Left Hand of Death"
+                "title": "The Left Hand of Death",
+                "number": 5
             },
             {
                 "series": "Avengers",
-                "title": "Avengers Universe V: To the Earth..."
+                "title": "Avengers Universe V: To the Earth...",
+                "number": 22
             },
             {
                 "series": "Infinity: Heist",
-                "title": "Part 3"
+                "title": "Part 3",
+                "number": 3
             },
             {
                 "series": "Infinity: Heist",
-                "title": "Part 4"
+                "title": "Part 4",
+                "number": 4
             },
             {
                 "series": "Secret Avengers",
-                "title": "Mission 010: Brooklyn"
+                "title": "Mission 010: Brooklyn",
+                "number": 10
             },
             {
                 "series": "Secret Avengers",
-                "title": "Mission 011: Brooklyn, Pt. 2"
+                "title": "Mission 011: Brooklyn, Pt. 2",
+                "number": 11
             },
             {
                 "series": "Avengers Assemble",
-                "title": "Infinity Part 3; Give 'em a Hand"
+                "title": "Infinity Part 3; Give 'em a Hand",
+                "number": 20
             },
             {
                 "series": "Thunderbolts",
-                "title": "Issue #17"
+                "title": "Issue #17",
+                "number": 17
             },
             {
                 "series": "Thunderbolts",
-                "title": "Issue #18"
+                "title": "Issue #18",
+                "number": 18
             },
             {
                 "series": "Infinity: The Hunt",
-                "title": "Final Exam"
+                "title": "Final Exam",
+                "number": 4
             },
             {
                 "series": "Avengers",
-                "title": "Avengers Universe VI: ...to the Very End"
+                "title": "Avengers Universe VI: ...to the Very End",
+                "number": 23
             },
             {
                 "series": "Guardians of the Galaxy",
-                "title": "Issue #8"
+                "title": "Issue #8",
+                "number": 8
             },
             {
                 "series": "Guardians of the Galaxy",
-                "title": "Issue #9"
+                "title": "Issue #9",
+                "number": 9
             },
             {
                 "series": "Infinity",
-                "title": "Amber"
+                "title": "Amber",
+                "number": 6
             },
             {
                 "series": "New Avengers",
-                "title": "Epilogue"
+                "title": "Epilogue",
+                "number": 12
             },
             {
                 "series": "Wolverine & the X-Men Annual",
-                "title": "Gladiator Zero"
+                "title": "Gladiator Zero",
+                "number": 1
             }
         ]
     },
@@ -703,815 +873,1218 @@
         "issues": [
             {
                 "series": "Ultimate Spider-Man: Power and Responsibility",
-                "title": "Power and Responsibility"
+                "title": "Power and Responsibility",
+                "number": 1
             },
             {
                 "series": "Ultimate Spider-Man: Learning Curve",
-                "title": "Learning Curve"
+                "title": "Learning Curve",
+                "number": 1
+            },
+            {
+                "series": "Ultimate Marvel Team-Up",
+                "title": "Spider-Man & Wolverine",
+                "number": 1
+            },
+            {
+                "series": "Ultimate Marvel Team-Up",
+                "title": "Spider-Man & Hulk Part One of Two",
+                "number": 2
+            },
+            {
+                "series": "Ultimate Marvel Team-Up",
+                "title": "Spider-Man & Hulk Part Two of Two",
+                "number": 3
+            },
+            {
+                "series": "Ultimate Marvel Team-Up",
+                "title": "Spider-Man & Iron Man Part One of Two",
+                "number": 4
+            },
+            {
+                "series": "Ultimate Marvel Team-Up",
+                "title": "Spider-Man & Iron Man Part Two of Two",
+                "number": 5
             },
             {
                 "series": "Ultimate Daredevil and Elektra",
-                "title": "Ultimate Daredevil & Elektra"
+                "title": "Ultimate Daredevil & Elektra",
+                "number": 1
             },
             {
                 "series": "Ultimate Elektra: Devil's Due",
-                "title": "TPB"
+                "title": "TPB",
+                "number": 1
+            },
+            {
+                "series": "Ultimate Marvel Team-Up",
+                "title": "Spider-Man & The Punisher",
+                "number": 6
+            },
+            {
+                "series": "Ultimate Marvel Team-Up",
+                "title": "Spider-Man & The Punisher & Daredevil Part One of Two",
+                "number": 7
+            },
+            {
+                "series": "Ultimate Marvel Team-Up",
+                "title": "Spider-Man & The Punisher & Daredevil Part Two of Two",
+                "number": 8
             },
             {
                 "series": "Ultimate X-Men: The Tomorrow People",
-                "title": "The Tomorrow People"
+                "title": "The Tomorrow People",
+                "number": 1
             },
             {
-                "series": "Ultimate Iron Man",
-                "title": "Ultimate Iron Man"
-            },
-            {
-                "series": "Ultimate Iron Man II",
-                "title": "Issue #1"
-            },
-            {
-                "series": "Ultimate Iron Man II",
-                "title": "Issue #2"
-            },
-            {
-                "series": "Ultimate Iron Man II",
-                "title": "Issue #3"
-            },
-            {
-                "series": "Ultimate Iron Man II",
-                "title": "Issue #4"
-            },
-            {
-                "series": "Ultimate Iron Man II",
-                "title": "Issue #5"
-            },
-            {
-                "series": "Ultimate Marvel Team-Up: Ultimate Collection",
-                "title": "TPB"
-            },
-            {
-                "series": "Ultimate X-Men: Return to Weapon X",
-                "title": "Return to Weapon X"
-            },
-            {
-                "series": "Ultimate X-Men: World Tour",
-                "title": "World Tour"
-            },
-            {
-                "series": "The Ultimates",
-                "title": "Super Human"
-            },
-            {
-                "series": "The Ultimates",
-                "title": "Homeland Security"
+                "series": "Ultimate X-Men",
+                "title": "Brutal Service",
+                "number": 0.5
             },
             {
                 "series": "Ultimate Spider-Man: Double Trouble",
-                "title": "Double Trouble"
+                "title": "Double Trouble",
+                "number": 1
+            },
+            {
+                "series": "Ultimate Marvel Team-Up",
+                "title": "Spider-Man & The Man-Thing",
+                "number": 10
+            },
+            {
+                "series": "Ultimate Marvel Team-Up",
+                "title": "Spider-Man & X-Men: Peter Parker's Day Off",
+                "number": 11
+            },
+            {
+                "series": "Ultimate Marvel Team-Up",
+                "title": "Spider-Man & Doctor Strange Part One of Two",
+                "number": 12
+            },
+            {
+                "series": "Ultimate Marvel Team-Up",
+                "title": "Spider-Man & Doctor Strange Part Two of Two",
+                "number": 13
+            },
+            {
+                "series": "Ultimate Marvel Team-Up",
+                "title": "Spider-Man & Black Widow",
+                "number": 14
+            },
+            {
+                "series": "Ultimate Marvel Team-Up",
+                "title": "Spider-Man & Shang-Chi, Master of Kung Fu! Part One of Two",
+                "number": 15
+            },
+            {
+                "series": "Ultimate Marvel Team-Up",
+                "title": "Spider-Man & Shang-Chi, Master of Kung Fu! Part Two of Two",
+                "number": 16
+            },
+            {
+                "series": "Ultimate X-Men: Return to Weapon X",
+                "title": "Return to Weapon X",
+                "number": 1
+            },
+            {
+                "series": "Ultimate X-Men: World Tour",
+                "title": "World Tour",
+                "number": 1
+            },
+            {
+                "series": "The Ultimates",
+                "title": "Super Human",
+                "number": 1
             },
             {
                 "series": "Ultimate Spider-Man: Legacy",
-                "title": "Legacy"
+                "title": "Legacy",
+                "number": 1
+            },
+            {
+                "series": "Ultimate Spider-Man Super Special",
+                "title": "Issue #1",
+                "number": 1
             },
             {
                 "series": "Ultimate Spider-Man: Public Scrutiny",
-                "title": "Public Scrutiny"
+                "title": "Public Scrutiny",
+                "number": 1
+            },
+            {
+                "series": "The Ultimates",
+                "title": "Homeland Security",
+                "number": 2
             },
             {
                 "series": "Ultimate Spider-Man: Venom",
-                "title": "Venom"
+                "title": "Venom",
+                "number": 1
             },
             {
                 "series": "Ultimate X-Men",
-                "title": "Hellfire and Brimstone: Part 1"
+                "title": "Hellfire and Brimstone: Part 1",
+                "number": 21
             },
             {
                 "series": "Ultimate X-Men",
-                "title": "Hellfire and Brimstone: Part 2"
+                "title": "Hellfire and Brimstone: Part 2",
+                "number": 22
             },
             {
                 "series": "Ultimate X-Men",
-                "title": "Hellfire and Brimstone: Part 3"
+                "title": "Hellfire and Brimstone: Part 3",
+                "number": 23
             },
             {
                 "series": "Ultimate X-Men",
-                "title": "Hellfire and Brimstone: Part 4"
+                "title": "Hellfire and Brimstone: Part 4",
+                "number": 24
             },
             {
                 "series": "Ultimate X-Men",
-                "title": "Hellfire and Brimstone: Part 5"
+                "title": "Hellfire and Brimstone: Part 5",
+                "number": 25
             },
             {
                 "series": "Ultimate X-Men: Ultimate War",
-                "title": "Ultimate War"
+                "title": "Ultimate War",
+                "number": 1
             },
             {
                 "series": "Ultimate X-Men: Return of the King",
-                "title": "Return of the King"
+                "title": "Return of the King",
+                "number": 1
             },
             {
                 "series": "Ultimate Spider-Man: Irresponsible",
-                "title": "Irresponsible"
+                "title": "Irresponsible",
+                "number": 1
+            },
+            {
+                "series": "Ultimate Spider-Man",
+                "title": "Issue #½",
+                "number": 0.5
             },
             {
                 "series": "Ultimate X-Men: Blockbuster",
-                "title": "Blockbuster"
+                "title": "Blockbuster",
+                "number": 1
+            },
+            {
+                "series": "Ultimate Spider-Man: Cats and Kings",
+                "title": "Cats and Kings",
+                "number": 1
             },
             {
                 "series": "Ultimate Spider-Man: Ultimate Six",
-                "title": "Ultimate Six"
+                "title": "Ultimate Six",
+                "number": 1
             },
             {
                 "series": "Ultimate Fantastic Four",
-                "title": "The Fantastic: Part 1"
+                "title": "The Fantastic: Part 1",
+                "number": 1
             },
             {
                 "series": "Ultimate Fantastic Four",
-                "title": "The Fantastic: Part 2"
+                "title": "The Fantastic: Part 2",
+                "number": 2
             },
             {
                 "series": "Ultimate Fantastic Four",
-                "title": "The Fantastic: Part 3"
+                "title": "The Fantastic: Part 3",
+                "number": 3
             },
             {
                 "series": "Ultimate Fantastic Four",
-                "title": "The Fantastic: Part 4"
+                "title": "The Fantastic: Part 4",
+                "number": 4
             },
             {
                 "series": "Ultimate Fantastic Four",
-                "title": "The Fantastic: Part 5"
+                "title": "The Fantastic: Part 5",
+                "number": 5
             },
             {
                 "series": "Ultimate Fantastic Four",
-                "title": "The Fantastic: Part 6"
+                "title": "The Fantastic: Part 6",
+                "number": 6
             },
             {
                 "series": "Ultimate Spider-Man: Hollywood",
-                "title": "Hollywood"
+                "title": "Hollywood",
+                "number": 1
             },
             {
                 "series": "Ultimate X-Men: New Mutants",
-                "title": "New Mutants"
+                "title": "New Mutants",
+                "number": 1
+            },
+            {
+                "series": "Ultimate Fantastic Four",
+                "title": "Doom: Part 1",
+                "number": 7
+            },
+            {
+                "series": "Ultimate Fantastic Four",
+                "title": "Doom: Part 2",
+                "number": 8
+            },
+            {
+                "series": "Ultimate Fantastic Four",
+                "title": "Doom: Part 3",
+                "number": 9
+            },
+            {
+                "series": "Ultimate Fantastic Four",
+                "title": "Doom: Part 4",
+                "number": 10
+            },
+            {
+                "series": "Ultimate Fantastic Four",
+                "title": "Doom: Part 5",
+                "number": 11
+            },
+            {
+                "series": "Ultimate Fantastic Four",
+                "title": "Doom: Part 6",
+                "number": 12
             },
             {
                 "series": "Ultimate X-Men: The Tempest",
-                "title": "The Tempest"
-            },
-            {
-                "series": "Ultimate Fantastic Four",
-                "title": "Doom: Part 1"
-            },
-            {
-                "series": "Ultimate Fantastic Four",
-                "title": "Doom: Part 2"
-            },
-            {
-                "series": "Ultimate Fantastic Four",
-                "title": "Doom: Part 3"
-            },
-            {
-                "series": "Ultimate Fantastic Four",
-                "title": "Doom: Part 4"
-            },
-            {
-                "series": "Ultimate Fantastic Four",
-                "title": "Doom: Part 5"
-            },
-            {
-                "series": "Ultimate Fantastic Four",
-                "title": "Doom: Part 6"
+                "title": "The Tempest",
+                "number": 1
             },
             {
                 "series": "Ultimate Spider-Man: Carnage",
-                "title": "Carnage"
+                "title": "Carnage",
+                "number": 1
             },
             {
                 "series": "Ultimate Spider-Man: Superstars",
-                "title": "Superstars"
+                "title": "Superstars",
+                "number": 1
             },
             {
                 "series": "Ultimate Fantastic Four",
-                "title": "N-Zone: Part 1"
+                "title": "N-Zone: Part 1",
+                "number": 13
             },
             {
                 "series": "Ultimate Fantastic Four",
-                "title": "N-Zone: Part 2"
+                "title": "N-Zone: Part 2",
+                "number": 14
             },
             {
                 "series": "Ultimate Fantastic Four",
-                "title": "N-Zone: Part 3"
+                "title": "N-Zone: Part 3",
+                "number": 15
             },
             {
                 "series": "Ultimate Fantastic Four",
-                "title": "N-Zone: Part 4"
+                "title": "N-Zone: Part 4",
+                "number": 16
             },
             {
                 "series": "Ultimate Fantastic Four",
-                "title": "N-Zone: Part 5"
+                "title": "N-Zone: Part 5",
+                "number": 17
             },
             {
                 "series": "Ultimate Fantastic Four",
-                "title": "N-Zone: Part 6"
+                "title": "N-Zone: Part 6",
+                "number": 18
             },
             {
                 "series": "Ultimate Fantastic Four",
-                "title": "Think Tank: Part 1"
+                "title": "Think Tank: Part 1",
+                "number": 19
             },
             {
                 "series": "Ultimate Fantastic Four",
-                "title": "Think Tank: Part 2"
+                "title": "Think Tank: Part 2",
+                "number": 20
             },
             {
                 "series": "Ultimate X-Men: Cry Wolf",
-                "title": "Cry Wolf"
+                "title": "Cry Wolf",
+                "number": 1
             },
             {
                 "series": "Ultimate Fantastic Four",
-                "title": "Crossover: Part 1"
+                "title": "Crossover: Part 1",
+                "number": 21
             },
             {
                 "series": "Ultimate Fantastic Four",
-                "title": "Crossover: Part 2"
+                "title": "Crossover: Part 2",
+                "number": 22
             },
             {
                 "series": "Ultimate Fantastic Four",
-                "title": "Crossover: Part 3"
+                "title": "Crossover: Part 3",
+                "number": 23
             },
             {
                 "series": "Ultimate Fantastic Four",
-                "title": "Tomb of Namor: Part 1"
+                "title": "Tomb of Namor: Part 1",
+                "number": 24
             },
             {
                 "series": "Ultimate Fantastic Four",
-                "title": "Tomb of Namor: Part 2; Visions, Part 3"
+                "title": "Tomb of Namor: Part 2; Visions, Part 3",
+                "number": 25
             },
             {
                 "series": "Ultimate Fantastic Four",
-                "title": "Tomb of Namor: Part 3; Visions, Part 6"
+                "title": "Tomb of Namor: Part 3; Visions, Part 6",
+                "number": 26
             },
             {
                 "series": "Ultimate Spider-Man: Hobgoblin",
-                "title": "Hobgoblin"
+                "title": "Hobgoblin",
+                "number": 1
             },
             {
                 "series": "Ultimate Fantastic Four Annual",
-                "title": "Inhumans"
+                "title": "Inhumans",
+                "number": 1
             },
             {
                 "series": "Ultimate Fantastic Four",
-                "title": "President Thor: Part 1"
+                "title": "President Thor: Part 1",
+                "number": 27
             },
             {
                 "series": "Ultimate Fantastic Four",
-                "title": "President Thor: Part 2"
+                "title": "President Thor: Part 2",
+                "number": 28
             },
             {
                 "series": "Ultimate Fantastic Four",
-                "title": "President Thor: Part 3"
+                "title": "President Thor: Part 3",
+                "number": 29
             },
             {
                 "series": "Ultimate Fantastic Four",
-                "title": "Frightful: Part 1"
+                "title": "Frightful: Part 1",
+                "number": 30
             },
             {
                 "series": "Ultimate Fantastic Four",
-                "title": "Frightful: Part 2"
+                "title": "Frightful: Part 2",
+                "number": 31
             },
             {
                 "series": "Ultimate Fantastic Four",
-                "title": "Frightful: Part 3"
+                "title": "Frightful: Part 3",
+                "number": 32
+            },
+            {
+                "series": "Ultimate Fantastic Four Annual",
+                "title": "Issue #2",
+                "number": 2
             },
             {
                 "series": "Ultimate Spider-Man: Warriors",
-                "title": "Warriors"
+                "title": "Warriors",
+                "number": 1
             },
             {
                 "series": "Ultimate X-Men: The Most Dangerous Game",
-                "title": "The Most Dangerous Game"
+                "title": "The Most Dangerous Game",
+                "number": 1
             },
             {
-                "series": "Ultimate X-Men: Hard Lessons",
-                "title": "Hard Lessons"
+                "series": "Ultimate X-Men",
+                "title": "A Hard Lesson",
+                "number": 58
+            },
+            {
+                "series": "Ultimate X-Men",
+                "title": "Shock and Awe: Part 1",
+                "number": 59
+            },
+            {
+                "series": "Ultimate X-Men",
+                "title": "Shock and Awe: Conclusion",
+                "number": 60
             },
             {
                 "series": "Ultimate Galactus Trilogy",
-                "title": "TPB"
+                "title": "TPB",
+                "number": 1
             },
             {
                 "series": "Ultimate Vision",
-                "title": "Ultimate Vision"
+                "title": "Ultimate Vision",
+                "number": 1
             },
             {
                 "series": "Ultimates 2",
-                "title": "Volume 1: Gods and Monsters"
+                "title": "Volume 1: Gods and Monsters",
+                "number": 1
+            },
+            {
+                "series": "Ultimates Annual",
+                "title": "The Reserves",
+                "number": 1
             },
             {
                 "series": "Ultimate X-Men: Magnetic North",
-                "title": "Vol. 13"
-            },
-            {
-                "series": "Ultimate Fantastic Four Annual",
-                "title": "Issue #2"
+                "title": "Vol. 13",
+                "number": 1
             },
             {
                 "series": "Ultimate X4",
-                "title": "Part 1 of 2"
+                "title": "Part 1 of 2",
+                "number": 1
             },
             {
                 "series": "Ultimate X4",
-                "title": "Ultimate X4, Part 2 of 2"
+                "title": "Ultimate X4, Part 2 of 2",
+                "number": 2
             },
             {
-                "series": "Ultimate Spider-Man: Silver Sable",
-                "title": "Volume 15"
+                "series": "Ultimate Spider-Man Annual",
+                "title": "Issue #1",
+                "number": 1
             },
             {
-                "series": "Ultimates Annual",
-                "title": "The Reserves"
+                "series": "Ultimate Spider-Man",
+                "title": "Silver Sable: Part 1; Visions, Part 1",
+                "number": 86
+            },
+            {
+                "series": "Ultimate Spider-Man",
+                "title": "Silver Sable: Part 2; Visions, Part 4",
+                "number": 87
+            },
+            {
+                "series": "Ultimate Spider-Man",
+                "title": "Silver Sable: Part 3; Visions, Part 5",
+                "number": 88
+            },
+            {
+                "series": "Ultimate Spider-Man",
+                "title": "Silver Sable: Part 4",
+                "number": 89
+            },
+            {
+                "series": "Ultimate Spider-Man",
+                "title": "Silver Sable: Part 5",
+                "number": 90
+            },
+            {
+                "series": "Ultimate Spider-Man",
+                "title": "Deadpool: Part 1",
+                "number": 91
+            },
+            {
+                "series": "Ultimate Spider-Man",
+                "title": "Deadpool: Part 2",
+                "number": 92
+            },
+            {
+                "series": "Ultimate Spider-Man",
+                "title": "Deadpool: Part 3",
+                "number": 93
+            },
+            {
+                "series": "Ultimate Spider-Man",
+                "title": "Deadpool: Part 4",
+                "number": 94
             },
             {
                 "series": "Ultimate X-Men: Phoenix?",
-                "title": "Phoenix"
+                "title": "Phoenix",
+                "number": 1
             },
             {
                 "series": "Ultimate Wolverine vs. Hulk",
-                "title": "Ultimate Wolverine vs. Hulk"
+                "title": "Ultimate Wolverine vs. Hulk",
+                "number": 1
             },
             {
                 "series": "Ultimates 2",
-                "title": "Volume 2: Grand Theft America"
+                "title": "Volume 2: Grand Theft America",
+                "number": 2
             },
             {
                 "series": "Ultimates Annual",
-                "title": "Issue #2"
-            },
-            {
-                "series": "Ultimate Spider-Man: Deadpool",
-                "title": "Volume 16"
+                "title": "Issue #2",
+                "number": 2
             },
             {
                 "series": "Ultimate X-Men: Magical",
-                "title": "Volume 15"
+                "title": "Volume 15",
+                "number": 1
+            },
+            {
+                "series": "Ultimate Spider-Man",
+                "title": "Morbius: Part 1",
+                "number": 95
+            },
+            {
+                "series": "Ultimate Spider-Man",
+                "title": "Morbius: Part 2",
+                "number": 96
+            },
+            {
+                "series": "Ultimate Spider-Man Annual",
+                "title": "Issue #2",
+                "number": 2
             },
             {
                 "series": "Ultimate Fantastic Four",
-                "title": "God War: Part 1"
+                "title": "God War: Part 1",
+                "number": 33
             },
             {
                 "series": "Ultimate Fantastic Four",
-                "title": "God War: Part 2"
+                "title": "God War: Part 2",
+                "number": 34
             },
             {
                 "series": "Ultimate Fantastic Four",
-                "title": "God War: Part 3"
+                "title": "God War: Part 3",
+                "number": 35
             },
             {
                 "series": "Ultimate Fantastic Four",
-                "title": "God War: Part 4"
+                "title": "God War: Part 4",
+                "number": 36
             },
             {
                 "series": "Ultimate Fantastic Four",
-                "title": "God War: Part 5"
+                "title": "God War: Part 5",
+                "number": 37
             },
             {
                 "series": "Ultimate Fantastic Four",
-                "title": "God War: Part 6"
-            },
-            {
-                "series": "Ultimate Fantastic Four",
-                "title": "Devils: Part 1"
-            },
-            {
-                "series": "Ultimate Fantastic Four",
-                "title": "Devils: Part 2"
-            },
-            {
-                "series": "Ultimate Fantastic Four",
-                "title": "Devils: Part 3"
-            },
-            {
-                "series": "Ultimate Fantastic Four",
-                "title": "Silver Surfer: Part 1"
-            },
-            {
-                "series": "Ultimate Fantastic Four",
-                "title": "Silver Surfer: Part 2"
-            },
-            {
-                "series": "Ultimate Fantastic Four",
-                "title": "Silver Surfer: Part 3"
-            },
-            {
-                "series": "Ultimate Fantastic Four",
-                "title": "Silver Surfer: Part 4"
-            },
-            {
-                "series": "Ultimate Fantastic Four",
-                "title": "Silver Surfer: Part 5"
-            },
-            {
-                "series": "Ultimate Power",
-                "title": "Part 1 of 9"
-            },
-            {
-                "series": "Ultimate Power",
-                "title": "Part 2 of 9"
-            },
-            {
-                "series": "Ultimate Power",
-                "title": "Part 3 of 9"
-            },
-            {
-                "series": "Ultimate Power",
-                "title": "Part 4 of 9"
-            },
-            {
-                "series": "Ultimate Power",
-                "title": "Part 5 of 9"
-            },
-            {
-                "series": "Ultimate Power",
-                "title": "Part 6 of 9"
-            },
-            {
-                "series": "Ultimate Power",
-                "title": "Part 7 of 9"
-            },
-            {
-                "series": "Ultimate Power",
-                "title": "Part 8 of 9"
-            },
-            {
-                "series": "Ultimate Power",
-                "title": "Part 9 of 9"
-            },
-            {
-                "series": "Ultimate Fantastic Four",
-                "title": "Ghosts, Part 1"
-            },
-            {
-                "series": "Ultimate Fantastic Four",
-                "title": "Ghosts, Part 2"
-            },
-            {
-                "series": "Ultimate Fantastic Four",
-                "title": "Ghosts, Part 3"
-            },
-            {
-                "series": "Ultimate Fantastic Four",
-                "title": "Four Cubed, Part 1"
-            },
-            {
-                "series": "Ultimate Fantastic Four",
-                "title": "Four Cubed, Part 2"
-            },
-            {
-                "series": "Ultimate Fantastic Four",
-                "title": "Four Cubed, Part 3"
-            },
-            {
-                "series": "Ultimate Fantastic Four",
-                "title": "Four Cubed, Part 4"
+                "title": "God War: Part 6",
+                "number": 38
             },
             {
                 "series": "Ultimate Spider-Man: Clone Saga",
-                "title": "Volume 17"
+                "title": "Volume 17",
+                "number": 1
             },
             {
                 "series": "Ultimate X-Men: Cable",
-                "title": "Cable"
+                "title": "Cable",
+                "number": 1
             },
             {
                 "series": "Ultimate X-Men: Sentinels",
-                "title": "Volume 17"
+                "title": "Volume 17",
+                "number": 1
+            },
+            {
+                "series": "Ultimate Fantastic Four",
+                "title": "Devils: Part 1",
+                "number": 39
+            },
+            {
+                "series": "Ultimate Fantastic Four",
+                "title": "Devils: Part 2",
+                "number": 40
+            },
+            {
+                "series": "Ultimate Fantastic Four",
+                "title": "Devils: Part 3",
+                "number": 41
+            },
+            {
+                "series": "Ultimate Fantastic Four",
+                "title": "Silver Surfer: Part 1",
+                "number": 42
+            },
+            {
+                "series": "Ultimate Fantastic Four",
+                "title": "Silver Surfer: Part 2",
+                "number": 43
+            },
+            {
+                "series": "Ultimate Fantastic Four",
+                "title": "Silver Surfer: Part 3",
+                "number": 44
+            },
+            {
+                "series": "Ultimate Fantastic Four",
+                "title": "Silver Surfer: Part 4",
+                "number": 45
+            },
+            {
+                "series": "Ultimate Fantastic Four",
+                "title": "Silver Surfer: Part 5",
+                "number": 46
+            },
+            {
+                "series": "Ultimate Power",
+                "title": "Part 1 of 9",
+                "number": 1
+            },
+            {
+                "series": "Ultimate Power",
+                "title": "Part 2 of 9",
+                "number": 2
+            },
+            {
+                "series": "Ultimate Power",
+                "title": "Part 3 of 9",
+                "number": 3
+            },
+            {
+                "series": "Ultimate Power",
+                "title": "Part 4 of 9",
+                "number": 4
+            },
+            {
+                "series": "Ultimate Power",
+                "title": "Part 5 of 9",
+                "number": 5
+            },
+            {
+                "series": "Ultimate Power",
+                "title": "Part 6 of 9",
+                "number": 6
+            },
+            {
+                "series": "Ultimate Power",
+                "title": "Part 7 of 9",
+                "number": 7
+            },
+            {
+                "series": "Ultimate Power",
+                "title": "Part 8 of 9",
+                "number": 8
+            },
+            {
+                "series": "Ultimate Power",
+                "title": "Part 9 of 9",
+                "number": 9
+            },
+            {
+                "series": "Ultimate Fantastic Four",
+                "title": "Ghosts, Part 1",
+                "number": 47
+            },
+            {
+                "series": "Ultimate Fantastic Four",
+                "title": "Ghosts, Part 2",
+                "number": 48
+            },
+            {
+                "series": "Ultimate Fantastic Four",
+                "title": "Ghosts, Part 3",
+                "number": 49
+            },
+            {
+                "series": "Ultimate Fantastic Four",
+                "title": "Four Cubed, Part 1",
+                "number": 50
+            },
+            {
+                "series": "Ultimate Fantastic Four",
+                "title": "Four Cubed, Part 2",
+                "number": 51
+            },
+            {
+                "series": "Ultimate Fantastic Four",
+                "title": "Four Cubed, Part 3",
+                "number": 52
+            },
+            {
+                "series": "Ultimate Fantastic Four",
+                "title": "Four Cubed, Part 4",
+                "number": 53
             },
             {
                 "series": "Ultimate Hulk vs. Iron Man: Ultimate Human",
-                "title": "Ultimate Human"
+                "title": "Ultimate Human",
+                "number": 1
             },
             {
                 "series": "Ultimate Spider-Man: Ultimate Knights",
-                "title": "Ultimate Knights"
+                "title": "Ultimate Knights",
+                "number": 1
             },
             {
                 "series": "Ultimate Spider-Man: Death of A Goblin",
-                "title": "Volume 19"
+                "title": "Volume 19",
+                "number": 1
             },
             {
                 "series": "Ultimate X-Men: Apocalypse",
-                "title": "Apocalypse"
+                "title": "Apocalypse",
+                "number": 1
             },
             {
-                "series": "Ultimate Spider-Man: And His Amazing Friends",
-                "title": "Volume 20"
+                "series": "Ultimate Captain America Annual",
+                "title": "Favorite Son: The Origin of the Black Panther;  Training Day",
+                "number": 1
+            },
+            {
+                "series": "Ultimate Hulk Annual",
+                "title": "No Shoes, No Shirt, No Pants, No Service!",
+                "number": 1
+            },
+            {
+                "series": "Ultimate Spider-Man",
+                "title": "Spider-Man and his Amazing Friends, Part 1",
+                "number": 118
+            },
+            {
+                "series": "Ultimate Spider-Man",
+                "title": "Spider-Man & his Amazing Friends: Part 2",
+                "number": 119
+            },
+            {
+                "series": "Ultimate Spider-Man",
+                "title": "Spider-Man and His Amazing Friends: Part 3",
+                "number": 120
+            },
+            {
+                "series": "Ultimate Spider-Man Annual",
+                "title": "Issue #3",
+                "number": 3
+            },
+            {
+                "series": "Ultimate Spider-Man",
+                "title": "Omega Red",
+                "number": 121
+            },
+            {
+                "series": "Ultimate Spider-Man",
+                "title": "The Worst Day In Peter Parker's Life",
+                "number": 122
             },
             {
                 "series": "Ultimate Spider-Man: War of the Symbiotes",
-                "title": "Volume 21"
+                "title": "Volume 21",
+                "number": 1
             },
             {
                 "series": "Ultimates 3: Who Killed the Scarlet Witch?",
-                "title": "TPB"
+                "title": "TPB",
+                "number": 1
             },
             {
                 "series": "Ultimate Fantastic Four",
-                "title": "Salem's Seven, Part 1"
+                "title": "Salem's Seven, Part 1",
+                "number": 54
             },
             {
                 "series": "Ultimate Fantastic Four",
-                "title": "Salem's Seven, Part 2"
+                "title": "Salem's Seven, Part 2",
+                "number": 55
             },
             {
                 "series": "Ultimate Fantastic Four",
-                "title": "Salem's Seven, Part 3"
+                "title": "Salem's Seven, Part 3",
+                "number": 56
             },
             {
                 "series": "Ultimate Fantastic Four",
-                "title": "Salem's Seven, Part 4"
+                "title": "Salem's Seven, Part 4",
+                "number": 57
             },
             {
                 "series": "Ultimate X-Men: Absolute Power",
-                "title": "Vol. 19"
+                "title": "Vol. 19",
+                "number": 1
             },
             {
-                "series": "Ultimatum: March On Ultimatum",
-                "title": "HC/TPB"
+                "series": "Ultimate X-Men/Ultimate Fantastic Four Annual",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "Ultimate Fantastic Four/Ultimate X-Men Annual",
+                "title": "Issue #1",
+                "number": 1
             },
             {
                 "series": "Ultimate Origins",
-                "title": "TPB"
+                "title": "TPB",
+                "number": 1
             },
             {
                 "series": "Ultimate Spider-Man",
-                "title": "Ultimatum"
+                "title": "Ultimatum",
+                "number": 129
             },
             {
                 "series": "Ultimatum",
-                "title": "Three Kings"
+                "title": "Three Kings",
+                "number": 1
             },
             {
                 "series": "Ultimate Spider-Man",
-                "title": "Ultimatum"
+                "title": "Ultimatum",
+                "number": 130
             },
             {
                 "series": "Ultimate X-Men",
-                "title": "Ultimatium"
+                "title": "Ultimatium",
+                "number": 98
             },
             {
                 "series": "Ultimatum",
-                "title": "It Gets Worse..."
+                "title": "It Gets Worse...",
+                "number": 2
             },
             {
                 "series": "Ultimate Spider-Man",
-                "title": "Ultimatum"
+                "title": "Ultimatum",
+                "number": 131
             },
             {
                 "series": "Ultimate Fantastic Four",
-                "title": "Issue #58"
+                "title": "Issue #58",
+                "number": 58
             },
             {
                 "series": "Ultimate Fantastic Four",
-                "title": "Journey to the Center of an Invisible Woman"
+                "title": "Journey to the Center of an Invisible Woman",
+                "number": 59
             },
             {
                 "series": "Ultimate X-Men",
-                "title": "Ultimatum: Part 2 of 3"
+                "title": "Ultimatum: Part 2 of 3",
+                "number": 99
             },
             {
                 "series": "Ultimatum",
-                "title": "Heaven on Earth"
+                "title": "Heaven on Earth",
+                "number": 3
             },
             {
                 "series": "Ultimate Spider-Man",
-                "title": "Ultimatum"
+                "title": "Ultimatum",
+                "number": 132
             },
             {
                 "series": "Ultimate Fantastic Four",
-                "title": "To A Shattered Atlantis"
+                "title": "To A Shattered Atlantis",
+                "number": 60
             },
             {
                 "series": "Ultimate X-Men",
-                "title": "Ultimatum: Part 3 of 3"
+                "title": "Ultimatum: Part 3 of 3",
+                "number": 100
             },
             {
                 "series": "Ultimate Spider-Man",
-                "title": "Ultimatum"
+                "title": "Ultimatum",
+                "number": 133
             },
             {
                 "series": "Ultimatum",
-                "title": "A Time To Die"
+                "title": "A Time To Die",
+                "number": 4
             },
             {
                 "series": "Ultimatum",
-                "title": "The Ugly Truth"
+                "title": "The Ugly Truth",
+                "number": 5
             },
             {
                 "series": "Ultimatum: Fantastic Four Requiem",
-                "title": "Fantastic Four: Requiem"
+                "title": "Fantastic Four: Requiem",
+                "number": 1
             },
             {
                 "series": "Ultimatum: X-Men Requiem",
-                "title": "Requiem"
+                "title": "Requiem",
+                "number": 1
             },
             {
                 "series": "Ultimatum: Spider-Man - Requiem",
-                "title": "Part One"
+                "title": "Part One",
+                "number": 1
             },
             {
                 "series": "Ultimatum: Spider-Man - Requiem",
-                "title": "Part Two"
+                "title": "Part Two",
+                "number": 2
             },
             {
                 "series": "Ultimate Comics Armor Wars",
-                "title": "Ultimate Comics Armor Wars Part One"
+                "title": "Ultimate Comics Armor Wars Part One",
+                "number": 1
             },
             {
                 "series": "Ultimate Comics Armor Wars",
-                "title": "Ultimate Comics Armor Wars Part Two"
+                "title": "Ultimate Comics Armor Wars Part Two",
+                "number": 2
             },
             {
                 "series": "Ultimate Comics Armor Wars",
-                "title": "Ultimate Armor Wars Part Three"
+                "title": "Ultimate Armor Wars Part Three",
+                "number": 3
             },
             {
                 "series": "Ultimate Comics Armor Wars",
-                "title": "Ultimate Armor Wars Part Four"
+                "title": "Ultimate Armor Wars Part Four",
+                "number": 4
             },
             {
                 "series": "Ultimate Comics X: Origins",
-                "title": "HC/TPB"
+                "title": "HC/TPB",
+                "number": 1
             },
             {
                 "series": "Ultimate Comics Spider-Man: The New World According to Peter Parker",
-                "title": "The New World According to Peter Parker"
+                "title": "The New World According to Peter Parker",
+                "number": 1
             },
             {
                 "series": "Ultimate Comics Avengers: Next Generation",
-                "title": "Next Generation"
+                "title": "Next Generation",
+                "number": 1
+            },
+            {
+                "series": "Ultimate Spider-Man",
+                "title": "Crossroads Part 1",
+                "number": 7
+            },
+            {
+                "series": "Ultimate Spider-Man",
+                "title": "Crossroads Part 2",
+                "number": 8
             },
             {
                 "series": "Ultimate Comics Avengers: Crime and Punishment",
-                "title": "Crime and Punishment"
+                "title": "Crime and Punishment",
+                "number": 1
             },
             {
-                "series": "Ultimate Comics Spider-Man: Chameleons",
-                "title": "Ultimate Comics Spider-Man: Chameleons"
+                "series": "Ultimate Spider-Man",
+                "title": "Tainted Love: Part 1 of 6",
+                "number": 9
+            },
+            {
+                "series": "Ultimate Spider-Man",
+                "title": "Tainted Love: Part 2 of 6",
+                "number": 10
+            },
+            {
+                "series": "Ultimate Spider-Man",
+                "title": "Tainted Love: Part 3",
+                "number": 11
+            },
+            {
+                "series": "Ultimate Spider-Man",
+                "title": "Tainted Love: Part 4 of 6",
+                "number": 12
+            },
+            {
+                "series": "Ultimate Spider-Man",
+                "title": "Tainted Love: Part 5 of 6",
+                "number": 13
+            },
+            {
+                "series": "Ultimate Spider-Man",
+                "title": "Tainted Love Part 6 of 6",
+                "number": 14
             },
             {
                 "series": "Ultimate Comics Doomsday",
-                "title": "Ultimate Doomsday"
+                "title": "Ultimate Doomsday",
+                "number": 1
             },
             {
                 "series": "Ultimate Captain America",
-                "title": "Ultimate Captain America"
+                "title": "Ultimate Captain America",
+                "number": 1
             },
             {
                 "series": "Ultimate Captain America",
-                "title": "Covert Cap..."
+                "title": "Covert Cap...",
+                "number": 2
             },
             {
                 "series": "Ultimate Captain America",
-                "title": "Super-Soldier Showdown"
+                "title": "Super-Soldier Showdown",
+                "number": 3
             },
             {
                 "series": "Ultimate Captain America",
-                "title": "The Last Stand"
-            },
-            {
-                "series": "Ultimate New Ultimates",
-                "title": "Thor Reborn, Chapter 1"
-            },
-            {
-                "series": "Ultimate New Ultimates",
-                "title": "Thor Reborn, Chapter 2: Lost"
-            },
-            {
-                "series": "Ultimate New Ultimates",
-                "title": "Thor Reborn, Chapter 3: Lies"
-            },
-            {
-                "series": "Ultimate New Ultimates",
-                "title": "Thor Reborn, Chapter 4: Loki"
-            },
-            {
-                "series": "Ultimate New Ultimates",
-                "title": "Thor Reborn, Chapter 5: Love"
+                "title": "The Last Stand",
+                "number": 4
             },
             {
                 "series": "Ultimate Comics Thor",
-                "title": "HC/TPB"
-            },
-            {
-                "series": "Ultimate Avengers",
-                "title": "Blade versus the Avengers, Part One of Six"
-            },
-            {
-                "series": "Ultimate Avengers",
-                "title": "Blade Versus The Avengers, Part Two of Six"
-            },
-            {
-                "series": "Ultimate Avengers",
-                "title": "Blade versus the Avengers, Part Three of Six"
-            },
-            {
-                "series": "Ultimate Avengers",
-                "title": "Blade versus the Avengers, Part Four of Six"
-            },
-            {
-                "series": "Ultimate Avengers",
-                "title": "Blade versus the Avengers, Part Five"
-            },
-            {
-                "series": "Ultimate Avengers",
-                "title": "Blade versus the Avengers, Part Six"
+                "title": "HC/TPB",
+                "number": 1
             },
             {
                 "series": "Ultimate Comics Spider-Man: Death of Spider-Man Prelude",
-                "title": "Ultimate Comics Spider-Man: Death of Spider-Man Prelude"
+                "title": "Ultimate Comics Spider-Man: Death of Spider-Man Prelude",
+                "number": 1
+            },
+            {
+                "series": "Ultimate Avengers",
+                "title": "Blade versus the Avengers, Part One of Six",
+                "number": 13
+            },
+            {
+                "series": "Ultimate Avengers",
+                "title": "Blade Versus The Avengers, Part Two of Six",
+                "number": 14
+            },
+            {
+                "series": "Ultimate Avengers",
+                "title": "Blade versus the Avengers, Part Three of Six",
+                "number": 15
+            },
+            {
+                "series": "Ultimate Avengers",
+                "title": "Blade versus the Avengers, Part Four of Six",
+                "number": 16
+            },
+            {
+                "series": "Ultimate Avengers",
+                "title": "Blade versus the Avengers, Part Five",
+                "number": 17
+            },
+            {
+                "series": "Ultimate Avengers",
+                "title": "Blade versus the Avengers, Part Six",
+                "number": 18
             },
             {
                 "series": "Ultimate Comics Spider-Man: Death of Spider-Man",
-                "title": "Ultimate Comics Spider-Man: Death of Spider-Man"
+                "title": "Ultimate Comics Spider-Man: Death of Spider-Man",
+                "number": 1
             },
             {
                 "series": "Ultimate Avengers vs. New Ultimates: Death of Spider-Man",
-                "title": "TPB"
+                "title": "TPB",
+                "number": 1
             },
             {
                 "series": "Ultimate Comics Spider-Man: Death of Spider-Man Fallout",
-                "title": "HC/TPB"
+                "title": "HC/TPB",
+                "number": 1
             },
             {
                 "series": "Ultimate Comics Spider-Man",
-                "title": "All-New Spider-Man"
+                "title": "All-New Spider-Man",
+                "number": 1
             },
             {
                 "series": "Ultimate Comics Spider-Man",
-                "title": "Who is Miles Morales?"
+                "title": "Who is Miles Morales?",
+                "number": 2
             },
             {
                 "series": "Ultimate Comics Spider-Man",
-                "title": "To Be or Not to Be... Spider-Man!"
+                "title": "To Be or Not to Be... Spider-Man!",
+                "number": 3
             },
             {
                 "series": "Ultimate Comics Spider-Man",
-                "title": "What Would Peter Do?"
+                "title": "What Would Peter Do?",
+                "number": 4
             },
             {
                 "series": "Ultimate Comics Spider-Man",
-                "title": "The Boy Who Would Be Spider-Man"
+                "title": "The Boy Who Would Be Spider-Man",
+                "number": 5
             },
             {
-                "series": "Ultimate Comics Ultimates by Jonathan Hickman",
-                "title": "Volume One"
+                "series": "Ultimate Comics Spider-Man",
+                "title": "Meet The New Spider-Man!",
+                "number": 6
+            },
+            {
+                "series": "Ultimate Comics Ultimates",
+                "title": "The Republic Is Burning, Part I",
+                "number": 1
+            },
+            {
+                "series": "Ultimate Comics Ultimates",
+                "title": "The Republic Is Burning, Part II",
+                "number": 2
+            },
+            {
+                "series": "Ultimate Comics Ultimates",
+                "title": "The Republic is Burning, Part III",
+                "number": 3
+            },
+            {
+                "series": "Ultimate Comics Ultimates",
+                "title": "The Republic is Burning Pt. 4",
+                "number": 4
             },
             {
                 "series": "Ultimate Comics Hawkeye by Hickman",
-                "title": "Ultimate Comics Hawkeye by Hickman"
+                "title": "Ultimate Comics Hawkeye by Hickman",
+                "number": 1
             },
             {
                 "series": "Ultimate Comics X-Men by Nick Spencer",
-                "title": "Volume One"
+                "title": "Volume One",
+                "number": 1
+            },
+            {
+                "series": "Ultimate Comics Ultimates",
+                "title": "The World: Part One",
+                "number": 5
+            },
+            {
+                "series": "Ultimate Comics Ultimates",
+                "title": "The World: Part 2",
+                "number": 6
             },
             {
                 "series": "Ultimate Comics Spider-Man",
-                "title": "Meet The New Spider-Man!"
+                "title": "Meet The New Spider-Man!",
+                "number": 7
             },
             {
                 "series": "Ultimate Comics Spider-Man",
-                "title": "Meet The New Spider-Man!"
+                "title": "The Scorpion's Sting",
+                "number": 8
             },
             {
                 "series": "Ultimate Comics Spider-Man",
-                "title": "The Scorpion's Sting"
+                "title": "Issue #9",
+                "number": 9
             },
             {
                 "series": "Ultimate Comics Spider-Man",
-                "title": "Issue #9"
+                "title": "Issue #10",
+                "number": 10
             },
             {
                 "series": "Ultimate Comics Spider-Man",
-                "title": "Issue #10"
+                "title": "Issue #11",
+                "number": 11
             },
             {
-                "series": "Ultimate Comics Ultimates by Jonathan Hickman",
-                "title": "Volume Two"
+                "series": "Ultimate Comics Spider-Man",
+                "title": "Prowl This!",
+                "number": 12
+            },
+            {
+                "series": "Ultimate Comics Ultimates By Jonathan Hickman",
+                "title": "Volume Two",
+                "number": 2
             },
             {
                 "series": "Ultimate Comics X-Men by Nick Spencer",
-                "title": "Volume Two"
+                "title": "Volume Two",
+                "number": 2
             },
             {
                 "series": "Spider-Men",
-                "title": "HC"
-            },
-            {
-                "series": "Ultimate Comics Spider-Man",
-                "title": "Issue #11"
-            },
-            {
-                "series": "Ultimate Comics Spider-Man",
-                "title": "Prowl This!"
+                "title": "HC",
+                "number": 1
             }
         ]
     }

@@ -240,12 +240,13 @@ const main = async(): Promise<void> => {
     else if (process.argv[2] === 'json') {
         const { listBooks } = await getListBooks(process.argv[3]);
 
-        const output = [] as { series: string, title: string }[];
+        const output = [] as { series: string, title: string, number: number }[];
 
         listBooks.forEach((book) => {
             output.push({
                 series: book.seriesTitle,
                 title: book.metadata.title,
+                number: book.metadata.numberSort,
             });
         });
 
@@ -262,7 +263,7 @@ const main = async(): Promise<void> => {
         const bookIds = [] as string[];
 
         for (let i = 0; i < cvIssueLinks.length; ++i) {
-            const { series, title } = cvIssueLinks[i];
+            const { series, title, number } = cvIssueLinks[i];
 
             const seriesSearch = (await axios.request({
                 method: 'post',
@@ -312,9 +313,12 @@ const main = async(): Promise<void> => {
                 })).data.content as Book[]));
             }
 
-            const matchingBooks = bookSearch.filter((b) => b.metadata.title === title);
+            const matchingBooks = bookSearch.filter((b) =>
+                b.metadata.title === title &&
+                b.metadata.numberSort === number);
 
             if (matchingBooks.length !== 1) {
+                console.error(matchingBooks, number);
                 throw new Error(`More than one issue matched the title '${title}'`);
             }
 
