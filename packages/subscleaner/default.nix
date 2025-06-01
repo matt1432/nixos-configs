@@ -1,13 +1,10 @@
 {
   # nix build inputs
   lib,
-  buildPythonApplication,
   subscleaner-src,
   # deps
-  appdirs,
-  chardet,
   hatch,
-  pysrt,
+  python3Packages,
   ...
 }: let
   inherit (builtins) fromTOML readFile;
@@ -17,7 +14,7 @@
   pname = pyproject.project.name;
   version = "${pyproject.project.version}+${subscleaner-src.shortRev}";
 in
-  buildPythonApplication {
+  python3Packages.buildPythonApplication {
     inherit pname version;
     format = "pyproject";
 
@@ -25,7 +22,7 @@ in
 
     build-system = [hatch];
 
-    dependencies = [
+    dependencies = with python3Packages; [
       pysrt
       chardet
       appdirs

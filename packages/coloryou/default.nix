@@ -1,25 +1,23 @@
 {
   # nix build inputs
   lib,
-  buildPythonApplication,
   # deps
-  hatchling,
-  material-color-utilities,
+  python3Packages,
   ...
 }: let
   inherit (builtins) fromTOML readFile;
 
   inherit (fromTOML (readFile ./pyproject.toml)) project;
 in
-  buildPythonApplication rec {
+  python3Packages.buildPythonApplication rec {
     pname = project.name;
     inherit (project) version;
     format = "pyproject";
 
     src = ./.;
 
-    build-system = [hatchling];
-    dependencies = [material-color-utilities];
+    build-system = with python3Packages; [hatchling];
+    dependencies = with python3Packages; [material-color-utilities];
 
     meta = {
       mainProgram = pname;

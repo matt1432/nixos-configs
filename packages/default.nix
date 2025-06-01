@@ -4,7 +4,7 @@
   ...
 }: (final: prev: {
   selfPackages = {
-    coloryou = final.python3Packages.callPackage ./coloryou {};
+    coloryou = final.callPackage ./coloryou {};
 
     gpu-screen-recorder = final.callPackage ./gpu-screen-recorder {
       inherit (inputs) gpu-screen-recorder-src;
@@ -48,7 +48,7 @@
 
     some-sass-language-server = final.callPackage ./some-sass-language-server {};
 
-    subscleaner = final.python3Packages.callPackage ./subscleaner {
+    subscleaner = final.callPackage ./subscleaner {
       inherit (inputs) subscleaner-src;
     };
 
