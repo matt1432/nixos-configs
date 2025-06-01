@@ -863,11 +863,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1748748278,
-        "narHash": "sha256-2lR5nVfPpxTta8H4F9bJaeZFZnG2AcrL/N14+Htv8l0=",
+        "lastModified": 1748795208,
+        "narHash": "sha256-ywbtIW3jyGj4Cj92krTXhZZhwWp8gi29V5J6sg+HqCU=",
         "owner": "matt1432",
         "repo": "Kapowarr",
-        "rev": "32c03c36afa87c3d1fddd99a5ada36d9a7bfaf10",
+        "rev": "a50b902d082c016f0dccdbacf16fceac8a726a4d",
         "type": "github"
       },
       "original": {
@@ -879,11 +879,11 @@
     "komf-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1748135194,
-        "narHash": "sha256-oBDxlPhKBh8bBHSOaEWcEPGvTQMvRftrid1YdcGG1ro=",
+        "lastModified": 1748803196,
+        "narHash": "sha256-/tWPOj1tVGsUlHvzgQMOTPOVa/dIsyu3SDaj8UEwq5s=",
         "owner": "matt1432",
         "repo": "komf",
-        "rev": "dc9249a7dad04470a1e025e6463a3ea480b74393",
+        "rev": "4b6655ce016aeee6b5213416b144df19015385b2",
         "type": "github"
       },
       "original": {
