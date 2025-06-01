@@ -14,6 +14,7 @@ in {
         extraLuaConfig =
           # lua
           ''
+            --
             local lsp = require('lspconfig');
             local default_capabilities = require('cmp_nvim_lsp').default_capabilities();
 

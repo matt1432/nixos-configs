@@ -20,6 +20,7 @@ in {
             config =
               # lua
               ''
+                --
                 local default_capabilities = require('cmp_nvim_lsp').default_capabilities();
 
                 vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {

@@ -36,6 +36,7 @@ in {
         mkBefore
         # lua
         ''
+          --
           -- Init object to keep track of loaded devShells
           local devShells = {};
 
@@ -93,6 +94,7 @@ in {
           config =
             # lua
             ''
+              --
               require('nvim-autopairs').setup({});
             '';
         };
@@ -103,6 +105,7 @@ in {
           config =
             # lua
             ''
+              --
               -- Disable virtual_text since it's redundant due to tiny-inline-diagnostic.
               vim.diagnostic.config({
                   virtual_text = false,

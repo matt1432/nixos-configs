@@ -27,6 +27,7 @@ in {
         extraLuaConfig =
           # lua
           ''
+            --
             vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {
                 pattern = { 'markdown', 'tex' },
 
@@ -69,6 +70,7 @@ in {
             config =
               # lua
               ''
+                --
                 require('easytables').setup();
               '';
           }
@@ -99,6 +101,7 @@ in {
             in
               # lua
               ''
+                --
                 vim.g.knap_settings = {
                     -- HTML
                     htmloutputext = 'html',

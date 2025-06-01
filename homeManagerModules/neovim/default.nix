@@ -25,10 +25,6 @@ in {
         type = types.bool;
         default = true;
       };
-      enableGolang = mkOption {
-        type = types.bool;
-        default = true;
-      };
       enableJava = mkOption {
         type = types.bool;
         default = true;

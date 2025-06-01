@@ -52,7 +52,6 @@
           user = "nix-on-droid";
 
           ideConfig = {
-            enableGolang = false;
             enableJava = false;
             enableNix = false;
           };

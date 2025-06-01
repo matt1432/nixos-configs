@@ -20,6 +20,7 @@ in {
         extraLuaConfig =
           # lua
           ''
+            --
             local lsp = require('lspconfig');
             local tsserver = require('typescript-tools');
             local default_capabilities = require('cmp_nvim_lsp').default_capabilities();
@@ -35,7 +36,16 @@ in {
             end;
 
             vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {
-                pattern = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx', 'css', 'scss' },
+                pattern = {
+                    'javascript',
+                    'javascriptreact',
+                    'javascript.jsx',
+                    'typescript',
+                    'typescriptreact',
+                    'typescript.tsx',
+                    'css',
+                    'scss',
+                },
 
                 callback = function()
                     vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
@@ -185,6 +195,7 @@ in {
             config =
               # lua
               ''
+                --
                 local packageInfo = require('package-info');
 
                 packageInfo.setup({

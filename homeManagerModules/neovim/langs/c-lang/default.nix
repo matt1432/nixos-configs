@@ -15,6 +15,7 @@ in {
         extraLuaConfig =
           # lua
           ''
+            --
             vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {
                 pattern = { 'cpp', 'c' },
 
@@ -39,6 +40,7 @@ in {
             config =
               # lua
               ''
+                --
                 local lsp = require('lspconfig');
                 local default_capabilities = require('cmp_nvim_lsp').default_capabilities();
 

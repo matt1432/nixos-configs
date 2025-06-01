@@ -25,6 +25,7 @@ in
     "kotlin"
     "lua"
     "markdown"
+    "golang"
     "python"
     "qml"
     "rust"
