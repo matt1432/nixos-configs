@@ -38,7 +38,7 @@
                 "number": 2
             },
             {
-                "series": "S.H.I.E.L.D.: Architects of Forever",
+                "series": "S.H.I.E.L.D.",
                 "title": "HC/TPB",
                 "number": 1
             },
@@ -90,20 +90,20 @@
             {
                 "series": "List Redirects",
                 "title": "AvX - Redirect",
-                "number": 1
+                "number": 2
             },
             {
-                "series": "New Avengers",
+                "series": "New Avengers (2013)",
                 "title": "Memento Mori",
                 "number": 1
             },
             {
-                "series": "New Avengers",
+                "series": "New Avengers (2013)",
                 "title": "In Secret, They Rule",
                 "number": 2
             },
             {
-                "series": "New Avengers",
+                "series": "New Avengers (2013)",
                 "title": "Infinity",
                 "number": 3
             },
@@ -133,17 +133,17 @@
                 "number": 5
             },
             {
-                "series": "New Avengers",
+                "series": "New Avengers (2013)",
                 "title": "World Eater",
                 "number": 4
             },
             {
-                "series": "New Avengers",
+                "series": "New Avengers (2013)",
                 "title": "Black Swans",
                 "number": 5
             },
             {
-                "series": "New Avengers",
+                "series": "New Avengers (2013)",
                 "title": "Blue Hell",
                 "number": 6
             },
@@ -233,25 +233,365 @@
                 "number": 7
             },
             {
-                "series": "New Avengers",
+                "series": "New Avengers (2013)",
                 "title": "Thrones",
                 "number": 7
             },
             {
                 "series": "List Redirects",
                 "title": "Infinity - Redirect",
+                "number": 3
+            },
+            {
+                "series": "Avengers",
+                "title": ".NOW Rogue Planet Part 1",
+                "number": 24
+            },
+            {
+                "series": "New Avengers (2013)",
+                "title": "Inhumanity",
+                "number": 13
+            },
+            {
+                "series": "New Avengers (2013)",
+                "title": "The Agamotto Gambit",
+                "number": 14
+            },
+            {
+                "series": "New Avengers (2013)",
+                "title": "See How the Swans Fly",
+                "number": 15
+            },
+            {
+                "series": "Original Sin",
+                "title": "Hulk vs Iron Man, Part 1",
+                "number": 3.1
+            },
+            {
+                "series": "Original Sin",
+                "title": "Hulk vs. Iron Man, Part 2",
+                "number": 3.2
+            },
+            {
+                "series": "Original Sin",
+                "title": "Hulk vs. Iron Man, Part 3",
+                "number": 3.3
+            },
+            {
+                "series": "Original Sin",
+                "title": "Hulk vs. Iron Man, Part 4",
+                "number": 3.4
+            },
+            {
+                "series": "Avengers",
+                "title": "Carve A Hole ... Climb Inside",
+                "number": 25
+            },
+            {
+                "series": "Avengers",
+                "title": "Look Around... There's No Way Out",
+                "number": 26
+            },
+            {
+                "series": "Avengers",
+                "title": "Only Dirt... Six Feet Deep",
+                "number": 27
+            },
+            {
+                "series": "Avengers",
+                "title": "The Case",
+                "number": 28
+            },
+            {
+                "series": "New Avengers (2013)",
+                "title": ".NOW A Perfect World",
+                "number": 16
+            },
+            {
+                "series": "New Avengers (2013)",
+                "title": "A Perfect World II",
+                "number": 17
+            },
+            {
+                "series": "Avengers",
+                "title": "Infinite Avengers",
+                "number": 29
+            },
+            {
+                "series": "Avengers",
+                "title": "Fifty Into the Future",
+                "number": 30
+            },
+            {
+                "series": "Avengers",
+                "title": "500 Into the Future",
+                "number": 31
+            },
+            {
+                "series": "Avengers",
+                "title": "Five Thousand Into the Future",
+                "number": 32
+            },
+            {
+                "series": "Avengers",
+                "title": "Fifty Thousand Into the Future",
+                "number": 33
+            },
+            {
+                "series": "Avengers",
+                "title": "The Last Avenger",
+                "number": 34
+            },
+            {
+                "series": "New Avengers (2013)",
+                "title": "Into the Breach",
+                "number": 18
+            },
+            {
+                "series": "New Avengers (2013)",
+                "title": "We Are All Monsters Now",
+                "number": 19
+            },
+            {
+                "series": "New Avengers (2013)",
+                "title": "Blu-dakorr",
+                "number": 20
+            },
+            {
+                "series": "New Avengers (2013)",
+                "title": "The Bomb",
+                "number": 21
+            },
+            {
+                "series": "New Avengers (2013)",
+                "title": "We are not Brothers",
+                "number": 22
+            },
+            {
+                "series": "New Avengers (2013)",
+                "title": "All the Angels Have Fallen",
+                "number": 23
+            },
+            {
+                "series": "New Avengers Annual",
+                "title": "Self-Surgery",
+                "number": 1
+            },
+            {
+                "series": "Avengers",
+                "title": "The World In His Hands",
+                "number": 34.1
+            },
+            {
+                "series": "Avengers",
+                "title": "Big City",
+                "number": 34.2
+            },
+            {
+                "series": "Captain America",
+                "title": "Loose Nuke Part 2",
+                "number": 12
+            },
+            {
+                "series": "Captain America",
+                "title": "Loose Nuke Part 3",
+                "number": 13
+            },
+            {
+                "series": "Captain America",
+                "title": "Loose Nuke Part 4",
+                "number": 14
+            },
+            {
+                "series": "Captain America",
+                "title": "Loose Nuke Part 5",
+                "number": 15
+            },
+            {
+                "series": "Captain America",
+                "title": "The Iron Nail: Part 1",
+                "number": 17
+            },
+            {
+                "series": "Captain America",
+                "title": "The Iron Nail: Part 2",
+                "number": 18
+            },
+            {
+                "series": "Captain America",
+                "title": "The Iron Nail: Part 3",
+                "number": 19
+            },
+            {
+                "series": "Captain America",
+                "title": "The Iron Nail: Part 4",
+                "number": 20
+            },
+            {
+                "series": "Captain America",
+                "title": "The Iron Nail: Part 5: Super-Soldier No More",
+                "number": 21
+            },
+            {
+                "series": "Inhuman",
+                "title": "Part 7: Out of the Darkness",
+                "number": 7
+            },
+            {
+                "series": "Inhuman",
+                "title": "Part 8: Comes the Light",
+                "number": 8
+            },
+            {
+                "series": "Superior Iron Man",
+                "title": "Chapter 1: Nightmare Scenario",
+                "number": 1
+            },
+            {
+                "series": "Superior Iron Man",
+                "title": "Chapter 2: Daredevil Vs. Iron Man",
                 "number": 2
+            },
+            {
+                "series": "Superior Iron Man",
+                "title": "Chapter 3: Man of Vision",
+                "number": 3
+            },
+            {
+                "series": "Thor",
+                "title": "If He Be Worthy",
+                "number": 1
+            },
+            {
+                "series": "Thor",
+                "title": "The Goddess of Thunder",
+                "number": 2
+            },
+            {
+                "series": "Thor",
+                "title": "When the Ice Lords Make War",
+                "number": 3
+            },
+            {
+                "series": "Thor",
+                "title": "Thor Vs. Thor",
+                "number": 4
+            },
+            {
+                "series": "Avengers",
+                "title": "The Three Avengers",
+                "number": 35
+            },
+            {
+                "series": "New Avengers (2013)",
+                "title": "The Cabal",
+                "number": 24
+            },
+            {
+                "series": "Avengers",
+                "title": "Universal Avengers",
+                "number": 36
+            },
+            {
+                "series": "New Avengers (2013)",
+                "title": "What Happened When the World Woke Up",
+                "number": 25
+            },
+            {
+                "series": "Avengers",
+                "title": "Archangel",
+                "number": 37
+            },
+            {
+                "series": "New Avengers (2013)",
+                "title": "Cages",
+                "number": 26
+            },
+            {
+                "series": "Avengers",
+                "title": "Origin Sites",
+                "number": 38
+            },
+            {
+                "series": "New Avengers (2013)",
+                "title": "Triage",
+                "number": 27
+            },
+            {
+                "series": "Avengers",
+                "title": "You Can't Win, Part 1",
+                "number": 39
+            },
+            {
+                "series": "New Avengers (2013)",
+                "title": "You Can't Win Part 2",
+                "number": 28
+            },
+            {
+                "series": "Avengers",
+                "title": "We Three Kings",
+                "number": 40
+            },
+            {
+                "series": "New Avengers (2013)",
+                "title": "8 Months Ago...",
+                "number": 29
+            },
+            {
+                "series": "Avengers",
+                "title": "Over there",
+                "number": 41
+            },
+            {
+                "series": "New Avengers (2013)",
+                "title": "Beyonders",
+                "number": 30
+            },
+            {
+                "series": "Avengers",
+                "title": "It All Comes Crashing Down",
+                "number": 42
+            },
+            {
+                "series": "New Avengers (2013)",
+                "title": "Rabum Alal",
+                "number": 31
+            },
+            {
+                "series": "New Avengers (2013)",
+                "title": "The Fall of Gods",
+                "number": 32
+            },
+            {
+                "series": "Avengers",
+                "title": "...And All That's Left Is Ashes",
+                "number": 43
+            },
+            {
+                "series": "List Redirects",
+                "title": "1610 - Redirect",
+                "number": 1
+            },
+            {
+                "series": "New Avengers (2013)",
+                "title": "In Latveria, the Flowers Die in Summer",
+                "number": 33
+            },
+            {
+                "series": "Avengers",
+                "title": "One Was Life, One Was Death",
+                "number": 44
+            },
+            {
+                "series": "List Redirects",
+                "title": "Secret Wars - Redirect",
+                "number": 4
             }
         ]
     },
     "avx": {
         "readlistId": "0KHSW0R17YMQQ",
         "issues": [
-            {
-                "series": "Marvel NOW! Point One",
-                "title": "Issue #1",
-                "number": 1
-            },
             {
                 "series": "Avengers: X-Sanction",
                 "title": "TPB",
