@@ -1,68 +1,46 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }: let
-  inherit (lib) attrValues mkIf;
+  inherit (lib) mkIf;
 
   cfg = config.programs.neovim;
-
-  # We keep the packages here because python is a bit complicated and common
-  pythonPkgs = p:
-    (attrValues {
-      inherit
-        (p)
-        python-lsp-server
-        pyls-isort
-        pylsp-mypy
-        python-lsp-ruff
-        python-lsp-jsonrpc
-        ;
-    })
-    ++ p.python-lsp-server.optional-dependencies.all;
+  flakeEnv = config.programs.bash.sessionVariables.FLAKE;
 in {
-  config = mkIf (cfg.enable && cfg.ideConfig.enablePython) {
+  config = mkIf cfg.enable {
     programs = {
       neovim = {
-        withPython3 = true;
-
-        extraPython3Packages = pythonPkgs;
-        extraPackages = pythonPkgs pkgs.python3Packages;
-
         extraLuaConfig =
           # lua
           ''
-            require('lspconfig').pylsp.setup({
-                capabilities = require('cmp_nvim_lsp').default_capabilities(),
+            local lsp = require('lspconfig');
+            local default_capabilities = require('cmp_nvim_lsp').default_capabilities();
 
-                settings = {
-                    pylsp = {
-                        plugins = {
-                            -- auto-completion options
-                            jedi_completion = {
-                                fuzzy = true,
-                            },
+            lsp.basedpyright.setup({
+                capabilities = default_capabilities,
+                autostart = false,
+            });
 
-                            -- import sorting
-                            pyls_isort = {
-                                enabled = true,
-                            },
+            lsp.ruff.setup({
+                capabilities = default_capabilities,
+                autostart = false,
+            });
 
-                            -- type checker
-                            pylsp_mypy = {
-                                enabled = true,
-                            },
+            vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {
+                pattern = { 'python' },
 
-                            -- linter
-                            ruff = {
-                                enabled = true,
-                                formatEnabled = true,
-                                lineLength = 100,
-                            },
-                        },
-                    },
-                },
+                callback = function()
+                    vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
+
+                    if (devShells['python'] == nil) then
+                        devShells['python'] = 1;
+
+                        require('nix-develop').nix_develop_extend({'${flakeEnv}#python'}, function()
+                            vim.cmd[[LspStart]];
+                        end);
+                    end
+                end,
             });
           '';
       };

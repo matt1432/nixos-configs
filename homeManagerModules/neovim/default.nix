@@ -37,10 +37,6 @@ in {
         type = types.bool;
         default = true;
       };
-      enablePython = mkOption {
-        type = types.bool;
-        default = true;
-      };
     };
   };
 
