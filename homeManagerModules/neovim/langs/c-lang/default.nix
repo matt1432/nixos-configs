@@ -44,7 +44,8 @@ in {
                 local lsp = require('lspconfig');
                 local default_capabilities = require('cmp_nvim_lsp').default_capabilities();
 
-                local clangd_extensions = require('clangd_extensions.inlay_hints');
+                -- FIXME: https://github.com/p00f/clangd_extensions.nvim/issues/69
+                -- local clangd_extensions = require('clangd_extensions.inlay_hints');
 
                 lsp.cmake.setup({
                     capabilities = default_capabilities,
@@ -55,11 +56,11 @@ in {
                     capabilities = default_capabilities,
                     autostart = false,
 
-                    handlers = require('lsp-status').extensions.clangd.setup(),
+                    -- handlers = require('lsp-status').extensions.clangd.setup(),
 
                     on_attach = function(_, bufnr)
-                        clangd_extensions.setup_autocmd();
-                        clangd_extensions.set_inlay_hints();
+                        -- clangd_extensions.setup_autocmd();
+                        -- clangd_extensions.set_inlay_hints();
                     end,
                 });
               '';
