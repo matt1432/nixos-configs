@@ -345,6 +345,7 @@
     nixcord = {
       inputs = {
         flake-compat.follows = "flake-compat";
+        flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
       };
       owner = "kaylorben";
