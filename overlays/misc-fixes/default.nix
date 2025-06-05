@@ -19,6 +19,17 @@ final: prev: {
     inherit src;
   });
 
+  # FIXME: breaking changes with LspStart in nivm-lspconfig
+  neovim-unwrapped = prev.neovim-unwrapped.overrideAttrs (o: rec {
+    version = "0.11.1";
+    src = final.fetchFromGitHub {
+      owner = "neovim";
+      repo = "neovim";
+      tag = "v${version}";
+      hash = "sha256-kJvKyNjpqIKa5aBi62jHTCb1KxQ4YgYtBh/aNYZSeO8=";
+    };
+  });
+
   # normal electron has a lot of cache misses for me
   electron = final.electron-bin;
 }
