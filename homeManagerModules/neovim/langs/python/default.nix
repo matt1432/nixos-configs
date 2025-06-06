@@ -21,6 +21,11 @@ in {
             lsp.basedpyright.setup({
                 capabilities = default_capabilities,
                 autostart = false,
+                settings = {
+                    python = {
+                        pythonPath = vim.fn.exepath("python"),
+                    },
+                },
             });
 
             lsp.ruff.setup({
