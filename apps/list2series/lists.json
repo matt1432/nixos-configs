@@ -1,4 +1,809 @@
 {
+    "secret-wars": {
+        "readlistId": "0KYSGSPVB5KGT",
+        "issues": [
+            {
+                "series": "Black Widow",
+                "title": "January: Part One",
+                "number": 19
+            },
+            {
+                "series": "Black Widow",
+                "title": "January: Part Two",
+                "number": 20
+            },
+            {
+                "series": "Free Comic Book Day 2015 (Secret Wars)",
+                "title": "Secret Wars #0; Attack on Avengers",
+                "number": 1
+            },
+            {
+                "series": "Secret Wars",
+                "title": "The End Times",
+                "number": 1
+            },
+            {
+                "series": "Loki: Agent of Asgard",
+                "title": "Born One Morning and the Sun didn't Shine",
+                "number": 14
+            },
+            {
+                "series": "Loki: Agent of Asgard",
+                "title": "The Old Army Game",
+                "number": 15
+            },
+            {
+                "series": "Captain America & the Mighty Avengers",
+                "title": "Sorry, We're Closed",
+                "number": 9
+            },
+            {
+                "series": "Ms. Marvel",
+                "title": "Last Days Part One",
+                "number": 16
+            },
+            {
+                "series": "Ms. Marvel",
+                "title": "Last Days Part Two",
+                "number": 17
+            },
+            {
+                "series": "Ms. Marvel",
+                "title": "Last Days Part Three",
+                "number": 18
+            },
+            {
+                "series": "Ms. Marvel",
+                "title": "Last Days Part Four",
+                "number": 19
+            },
+            {
+                "series": "Magneto",
+                "title": "Issue #18",
+                "number": 18
+            },
+            {
+                "series": "Magneto",
+                "title": "Issue #19",
+                "number": 19
+            },
+            {
+                "series": "Magneto",
+                "title": "Issue #20",
+                "number": 20
+            },
+            {
+                "series": "Magneto",
+                "title": "Issue #21",
+                "number": 21
+            },
+            {
+                "series": "The Punisher",
+                "title": "Final Punishment: Part One",
+                "number": 19
+            },
+            {
+                "series": "The Punisher",
+                "title": "Final Punishment: Part Two",
+                "number": 20
+            },
+            {
+                "series": "Ant-Man: Last Days",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "Silk",
+                "title": "[Untitled]",
+                "number": 7
+            },
+            {
+                "series": "Silver Surfer",
+                "title": "The Death of Everything That Ever Was or Will Be",
+                "number": 13
+            },
+            {
+                "series": "Silver Surfer",
+                "title": "Hard Restart",
+                "number": 14
+            },
+            {
+                "series": "Loki: Agent of Asgard",
+                "title": "Would You Know More?",
+                "number": 16
+            },
+            {
+                "series": "Loki: Agent of Asgard",
+                "title": "“Out the Gate You Go and Never Stop”",
+                "number": 17
+            },
+            {
+                "series": "Secret Wars",
+                "title": "Doom Messiah",
+                "number": 2
+            },
+            {
+                "series": "Secret Wars: Battleworld",
+                "title": "Soldier Supreme; M.O.D.O.K. Madness",
+                "number": 1
+            },
+            {
+                "series": "Secret Wars: Battleworld",
+                "title": "A Monster So Fowl; Ross Against the Machine",
+                "number": 2
+            },
+            {
+                "series": "Secret Wars: Battleworld",
+                "title": "A Thousand Cuts; Fistful of 'changas; World War Ant",
+                "number": 3
+            },
+            {
+                "series": "Secret Wars: Battleworld",
+                "title": "Silver Surfer vs. Galactus; Silver Surfer vs. Maestro",
+                "number": 4
+            },
+            {
+                "series": "Secret Wars Journal",
+                "title": "The Arrowhead; We Worship What We Don't Understand",
+                "number": 1
+            },
+            {
+                "series": "Secret Wars Journal",
+                "title": "The Hunt; Hell's Kitchen",
+                "number": 2
+            },
+            {
+                "series": "Secret Wars Journal",
+                "title": "Who Killed Tony Stark?; The Smashing Cure",
+                "number": 3
+            },
+            {
+                "series": "Secret Wars Journal",
+                "title": "Primary Function; Another Last Stand",
+                "number": 4
+            },
+            {
+                "series": "Secret Wars Journal",
+                "title": "Risk of Infection; MILL-E: The Model Citizen!",
+                "number": 5
+            },
+            {
+                "series": "Old Man Logan",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "Secret Wars",
+                "title": "The Eye of Doom",
+                "number": 3
+            },
+            {
+                "series": "Master of Kung Fu",
+                "title": "Chapter One: Master Drunk",
+                "number": 1
+            },
+            {
+                "series": "Master of Kung Fu",
+                "title": "Chapter Two: Master's Son",
+                "number": 2
+            },
+            {
+                "series": "Master of Kung Fu",
+                "title": "Chapter Three: Masters All",
+                "number": 3
+            },
+            {
+                "series": "Master of Kung Fu",
+                "title": "Chapter Four: Master and Apprentice",
+                "number": 4
+            },
+            {
+                "series": "A-Force",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "A-Force",
+                "title": "Issue #2",
+                "number": 2
+            },
+            {
+                "series": "A-Force",
+                "title": "Issue #3",
+                "number": 3
+            },
+            {
+                "series": "A-Force",
+                "title": "Issue #4",
+                "number": 4
+            },
+            {
+                "series": "Planet Hulk",
+                "title": "Part One: The Oath; Phoenix Burning",
+                "number": 1
+            },
+            {
+                "series": "Planet Hulk",
+                "title": "Part Two: The Path",
+                "number": 2
+            },
+            {
+                "series": "Planet Hulk",
+                "title": "Part Three: The Storm",
+                "number": 3
+            },
+            {
+                "series": "Planet Hulk",
+                "title": "Part Four: The Kingdom",
+                "number": 4
+            },
+            {
+                "series": "Planet Hulk",
+                "title": "Part Five: The Chronicle",
+                "number": 5
+            },
+            {
+                "series": "Spider-Verse",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "Spider-Verse",
+                "title": "Issue #2",
+                "number": 2
+            },
+            {
+                "series": "Spider-Verse",
+                "title": "Issue #3",
+                "number": 3
+            },
+            {
+                "series": "Spider-Verse",
+                "title": "Issue #4",
+                "number": 4
+            },
+            {
+                "series": "Spider-Verse",
+                "title": "Issue #5",
+                "number": 5
+            },
+            {
+                "series": "M.O.D.O.K. Assassin",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "M.O.D.O.K. Assassin",
+                "title": "Issue #2",
+                "number": 2
+            },
+            {
+                "series": "M.O.D.O.K. Assassin",
+                "title": "Issue #3",
+                "number": 3
+            },
+            {
+                "series": "M.O.D.O.K. Assassin",
+                "title": "Issue #4",
+                "number": 4
+            },
+            {
+                "series": "M.O.D.O.K. Assassin",
+                "title": "Issue #5",
+                "number": 5
+            },
+            {
+                "series": "The Infinity Gauntlet: Warzones!",
+                "title": "TPB",
+                "number": 1
+            },
+            {
+                "series": "Inferno: Warzones!",
+                "title": "TPB",
+                "number": 1
+            },
+            {
+                "series": "Secret Wars 2099: Warzones!",
+                "title": "TPB",
+                "number": 1
+            },
+            {
+                "series": "Where Monsters Dwell",
+                "title": "Let's Fly, Let's Fly Away",
+                "number": 1
+            },
+            {
+                "series": "Where Monsters Dwell",
+                "title": "Meet the King",
+                "number": 2
+            },
+            {
+                "series": "Where Monsters Dwell",
+                "title": "Tipping the Velvet",
+                "number": 3
+            },
+            {
+                "series": "Where Monsters Dwell",
+                "title": "See, the Conqu'ring Hero Comes",
+                "number": 4
+            },
+            {
+                "series": "Where Monsters Dwell",
+                "title": "5: What Comes of Empire-Building",
+                "number": 5
+            },
+            {
+                "series": "X-Men '92: Warzones!",
+                "title": "Volume 0",
+                "number": 1
+            },
+            {
+                "series": "Years of Future Past",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "Years of Future Past",
+                "title": "Issue #2",
+                "number": 2
+            },
+            {
+                "series": "Years of Future Past",
+                "title": "Issue #3",
+                "number": 3
+            },
+            {
+                "series": "Years of Future Past",
+                "title": "Issue #4",
+                "number": 4
+            },
+            {
+                "series": "Years of Future Past",
+                "title": "Issue #5",
+                "number": 5
+            },
+            {
+                "series": "X-Tinction Agenda",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "X-Tinction Agenda",
+                "title": "Issue #2",
+                "number": 2
+            },
+            {
+                "series": "X-Tinction Agenda",
+                "title": "Issue #3",
+                "number": 3
+            },
+            {
+                "series": "X-Tinction Agenda",
+                "title": "Issue #4",
+                "number": 4
+            },
+            {
+                "series": "Giant Size Little Marvel: AvX",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "Giant Size Little Marvel: AvX",
+                "title": "Issue #2",
+                "number": 2
+            },
+            {
+                "series": "Giant Size Little Marvel: AvX",
+                "title": "Issue #3",
+                "number": 3
+            },
+            {
+                "series": "Giant Size Little Marvel: AvX",
+                "title": "Issue #4",
+                "number": 4
+            },
+            {
+                "series": "Future Imperfect",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "Future Imperfect",
+                "title": "Issue #2",
+                "number": 2
+            },
+            {
+                "series": "Future Imperfect",
+                "title": "Issue #3",
+                "number": 3
+            },
+            {
+                "series": "Future Imperfect",
+                "title": "Issue #4",
+                "number": 4
+            },
+            {
+                "series": "Amazing Spider-Man: Renew Your Vows",
+                "title": "Part 1: Why We Can't Have Nice Things",
+                "number": 1
+            },
+            {
+                "series": "Amazing Spider-Man: Renew Your Vows",
+                "title": "Part 2: \"Because We Said So, That's Why.\"",
+                "number": 2
+            },
+            {
+                "series": "Amazing Spider-Man: Renew Your Vows",
+                "title": "Calling a Family Meeting",
+                "number": 3
+            },
+            {
+                "series": "Amazing Spider-Man: Renew Your Vows",
+                "title": "\"Daddy has to Go Away for a While\"",
+                "number": 4
+            },
+            {
+                "series": "Amazing Spider-Man: Renew Your Vows",
+                "title": "I'll Always Be There For You.",
+                "number": 5
+            },
+            {
+                "series": "Armor Wars: Warzones!",
+                "title": "TPB",
+                "number": 1
+            },
+            {
+                "series": "Marvel Zombies: Battleworld",
+                "title": "TPB",
+                "number": 1
+            },
+            {
+                "series": "Weirdworld",
+                "title": "Where Lost Things Go",
+                "number": 1
+            },
+            {
+                "series": "Weirdworld",
+                "title": "Escape From Apelantis",
+                "number": 2
+            },
+            {
+                "series": "Weirdworld",
+                "title": "The Coming of the Slayer",
+                "number": 3
+            },
+            {
+                "series": "Weirdworld",
+                "title": "Queen of the Man-Things",
+                "number": 4
+            },
+            {
+                "series": "1602 Witch Hunter Angela: Warzones!",
+                "title": "TPB",
+                "number": 1
+            },
+            {
+                "series": "Captain Marvel & The Carol Corps",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "Captain Marvel & The Carol Corps",
+                "title": "Issue #2",
+                "number": 2
+            },
+            {
+                "series": "Captain Marvel & The Carol Corps",
+                "title": "Issue #3",
+                "number": 3
+            },
+            {
+                "series": "Captain Marvel & The Carol Corps",
+                "title": "Issue #4",
+                "number": 4
+            },
+            {
+                "series": "Mrs. Deadpool and the Howling Commandos: Warzones!",
+                "title": "TPB",
+                "number": 1
+            },
+            {
+                "series": "Marvel 1872: Warzones!",
+                "title": "TPB",
+                "number": 1
+            },
+            {
+                "series": "Runaways",
+                "title": "Doomed Youth: Part One",
+                "number": 1
+            },
+            {
+                "series": "Runaways",
+                "title": "Doomed Youth: Part Two",
+                "number": 2
+            },
+            {
+                "series": "Runaways",
+                "title": "Doomed Youth: Part Three",
+                "number": 3
+            },
+            {
+                "series": "Runaways",
+                "title": "Doomed Youth: Finale",
+                "number": 4
+            },
+            {
+                "series": "Old Man Logan",
+                "title": "Issue #2",
+                "number": 2
+            },
+            {
+                "series": "Squadron Sinister: Warzones!",
+                "title": "TPB",
+                "number": 1
+            },
+            {
+                "series": "Age of Ultron vs. Marvel Zombies",
+                "title": "TPB",
+                "number": 1
+            },
+            {
+                "series": "E Is For Extinction: Warzones!",
+                "title": "TPB",
+                "number": 1
+            },
+            {
+                "series": "Korvac Saga: Wazones!",
+                "title": "TPB",
+                "number": 1
+            },
+            {
+                "series": "Secret Wars",
+                "title": "All the Angels Sing, All the Devils Dance",
+                "number": 4
+            },
+            {
+                "series": "Star-Lord and Kitty Pryde: Battleworld",
+                "title": "TPB",
+                "number": 1
+            },
+            {
+                "series": "Inhumans: Attilan Rising",
+                "title": "TPB",
+                "number": 1
+            },
+            {
+                "series": "Future Imperfect",
+                "title": "Issue #5",
+                "number": 5
+            },
+            {
+                "series": "Secret Wars: Secret Love",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "Ghost Racers",
+                "title": "Live Fast. Die Hard. Race Forever.",
+                "number": 1
+            },
+            {
+                "series": "Ghost Racers",
+                "title": "Issue #2",
+                "number": 2
+            },
+            {
+                "series": "Ghost Racers",
+                "title": "Issue #3",
+                "number": 3
+            },
+            {
+                "series": "Ghost Racers",
+                "title": "Issue #4",
+                "number": 4
+            },
+            {
+                "series": "Thors",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "Thors",
+                "title": "The Jane Foster Murders",
+                "number": 2
+            },
+            {
+                "series": "Thors",
+                "title": "The Thunder Room",
+                "number": 3
+            },
+            {
+                "series": "Red Skull: Battleworld",
+                "title": "TPB",
+                "number": 1
+            },
+            {
+                "series": "Spider-Island: Warzones!",
+                "title": "TPB",
+                "number": 1
+            },
+            {
+                "series": "Captain Britain and the Mighty Defenders",
+                "title": "Theirs is a Land With a Wall Around It...",
+                "number": 1
+            },
+            {
+                "series": "Captain Britain and the Mighty Defenders",
+                "title": "... And Mine Is A Faith In My Fellow Man",
+                "number": 2
+            },
+            {
+                "series": "Civil War: Warzones!",
+                "title": "TPB",
+                "number": 1
+            },
+            {
+                "series": "Age of Apocalypse: Warzones",
+                "title": "TPB",
+                "number": 1
+            },
+            {
+                "series": "Guardians of Knowhere: Warzones!",
+                "title": "TPB",
+                "number": 1
+            },
+            {
+                "series": "Hail Hydra",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "Hail Hydra",
+                "title": "Issue #2",
+                "number": 2
+            },
+            {
+                "series": "Hail Hydra",
+                "title": "Issue #3",
+                "number": 3
+            },
+            {
+                "series": "Hail Hydra",
+                "title": "Futility",
+                "number": 4
+            },
+            {
+                "series": "Old Man Logan",
+                "title": "Issue #3",
+                "number": 3
+            },
+            {
+                "series": "Ultimate End",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "Ultimate End",
+                "title": "Issue #2",
+                "number": 2
+            },
+            {
+                "series": "Ultimate End",
+                "title": "Issue #3",
+                "number": 3
+            },
+            {
+                "series": "Ultimate End",
+                "title": "Issue #4",
+                "number": 4
+            },
+            {
+                "series": "House of M: Warzones!",
+                "title": "TPB",
+                "number": 1
+            },
+            {
+                "series": "Howard the Human",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "Secret Wars",
+                "title": "Owen Reece Died For Our Sins",
+                "number": 5
+            },
+            {
+                "series": "Siege",
+                "title": "They Can't Ever Win. They Can't Afford To Lose.",
+                "number": 1
+            },
+            {
+                "series": "Siege",
+                "title": "To Waste Their Lives Saving People Who Just Don't Care? It's The Only Thing They've Ever Wanted.",
+                "number": 2
+            },
+            {
+                "series": "Siege",
+                "title": "It's Called \"Siege\" Because It's About A Siege.",
+                "number": 3
+            },
+            {
+                "series": "Old Man Logan",
+                "title": "Issue #4",
+                "number": 4
+            },
+            {
+                "series": "Hank Johnson, Agent of Hydra",
+                "title": "Who Is? Hank Johnson",
+                "number": 1
+            },
+            {
+                "series": "Secret Wars",
+                "title": "We Raise Them Up...Just So We Can Pull Them Down.",
+                "number": 6
+            },
+            {
+                "series": "Siege",
+                "title": "What Are You Fighting For?",
+                "number": 4
+            },
+            {
+                "series": "Secret Wars: Agents of Atlas",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "Thors",
+                "title": "Excessive Thunder",
+                "number": 4
+            },
+            {
+                "series": "Secret Wars",
+                "title": "King of the Dead",
+                "number": 7
+            },
+            {
+                "series": "Secret Wars",
+                "title": "Under Siege",
+                "number": 8
+            },
+            {
+                "series": "Secret Wars",
+                "title": "Beyond",
+                "number": 9
+            },
+            {
+                "series": "Ultimate End",
+                "title": "Issue #5",
+                "number": 5
+            },
+            {
+                "series": "A-Force",
+                "title": "Issue #5",
+                "number": 5
+            },
+            {
+                "series": "Old Man Logan",
+                "title": "Issue #5",
+                "number": 5
+            },
+            {
+                "series": "Weirdworld",
+                "title": "The War of the Weird",
+                "number": 5
+            },
+            {
+                "series": "Silver Surfer",
+                "title": "Your Universe",
+                "number": 15
+            },
+            {
+                "series": "Secret Wars, Too",
+                "title": "Issue #1",
+                "number": 1
+            }
+        ]
+    },
     "hickman": {
         "readlistId": "0KFP4H1Y0XTSH",
         "issues": [
