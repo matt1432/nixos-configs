@@ -19,7 +19,7 @@ final: prev: {
     inherit src;
   });
 
-  # FIXME: breaking changes with LspStart in nivm-lspconfig
+  # FIXME: https://github.com/neovim/nvim-lspconfig/issues/3892
   neovim-unwrapped = prev.neovim-unwrapped.overrideAttrs (o: rec {
     version = "0.11.1";
     src = final.fetchFromGitHub {
