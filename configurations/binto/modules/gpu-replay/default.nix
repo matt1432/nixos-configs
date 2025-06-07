@@ -13,13 +13,6 @@
   cfgDesktop = config.roles.desktop;
 in {
   security.wrappers = {
-    gpu-screen-recorder = {
-      owner = "root";
-      group = "video";
-      capabilities = "cap_sys_nice+ep";
-      source = getExe gpu-screen-recorder;
-    };
-
     gsr-kms-server = {
       owner = "root";
       group = "video";
@@ -47,6 +40,7 @@ in {
           pkgs.pulseaudio
           pkgs.xorg.xrandr
 
+          gpu-screen-recorder
           gpu-screen-recorder.gsr-dbus-server
           hyprPkgs
         ];

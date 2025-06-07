@@ -74,7 +74,7 @@ in
     ];
 
     fixupPhase =
-      optionalString (pname == "gsr-kms-server")
+      optionalString (pname == "gpu-screen-recorder")
       # bash
       ''
         runHook preFixup

@@ -401,11 +401,11 @@
     "gpu-screen-recorder-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1748326440,
-        "narHash": "sha256-rqt8Fl3zaZxV6YjZENoq9iq42zF0L7URAyYqG/0Wp80=",
+        "lastModified": 1749289909,
+        "narHash": "sha256-NYi68hvFFRvJv9h0/NTeeuOv/FgfQtGMwP5v9lUFNr8=",
         "ref": "refs/heads/master",
-        "rev": "b2487788c2f9c0e73ebf6271bab6598be44e7cbb",
-        "revCount": 1104,
+        "rev": "b0b1442a037be7bc6b07c11920dbf25207a9136e",
+        "revCount": 1109,
         "type": "git",
         "url": "https://repo.dec05eba.com/gpu-screen-recorder"
       },
