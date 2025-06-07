@@ -317,9 +317,14 @@ const main = async(): Promise<void> => {
                 b.metadata.title === title &&
                 b.metadata.numberSort === number);
 
+            if (matchingBooks.length === 0) {
+                console.error(matchingBooks, number);
+                throw new Error(`No issue matched the title '${title}' from ${series}`);
+            }
+
             if (matchingBooks.length !== 1) {
                 console.error(matchingBooks, number);
-                throw new Error(`More than one issue matched the title '${title}'`);
+                throw new Error(`More than one issue matched the title '${title}' from ${series}`);
             }
 
             bookIds[i] = matchingBooks[0].id;

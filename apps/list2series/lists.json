@@ -538,6 +538,11 @@
                 "number": 29
             },
             {
+                "series": "List Redirects",
+                "title": "1610 - Redirect",
+                "number": 1
+            },
+            {
                 "series": "Avengers",
                 "title": "Over there",
                 "number": 41
@@ -566,11 +571,6 @@
                 "series": "Avengers",
                 "title": "...And All That's Left Is Ashes",
                 "number": 43
-            },
-            {
-                "series": "List Redirects",
-                "title": "1610 - Redirect",
-                "number": 1
             },
             {
                 "series": "New Avengers (2013)",
@@ -1413,7 +1413,7 @@
                 "number": 1
             },
             {
-                "series": "Ultimate Spider-Man: Ultimate Six",
+                "series": "Ultimate Spider-Man",
                 "title": "Ultimate Six",
                 "number": 1
             },
@@ -1943,7 +1943,7 @@
                 "number": 1
             },
             {
-                "series": "Ultimate Spider-Man: Ultimate Knights",
+                "series": "Ultimate Spider-Man",
                 "title": "Ultimate Knights",
                 "number": 1
             },
@@ -1998,7 +1998,7 @@
                 "number": 122
             },
             {
-                "series": "Ultimate Spider-Man: War of the Symbiotes",
+                "series": "Ultimate Spider-Man",
                 "title": "Volume 21",
                 "number": 1
             },
@@ -2383,7 +2383,7 @@
                 "number": 4
             },
             {
-                "series": "Ultimate Comics Hawkeye by Hickman",
+                "series": "Ultimate Comics Hawkeye by Jonathan Hickman",
                 "title": "Ultimate Comics Hawkeye by Hickman",
                 "number": 1
             },
@@ -2806,11 +2806,6 @@
                 "series": "Miles Morales: Ultimate Spider-Man",
                 "title": "Is this the End?",
                 "number": 12
-            },
-            {
-                "series": "Ultimate End",
-                "title": "TPB",
-                "number": 1
             }
         ]
     }
