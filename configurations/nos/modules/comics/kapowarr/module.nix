@@ -12,7 +12,7 @@
     mkIf
     mkOption
     mkPackageOption
-    # optionalString
+    optionalString
     types
     ;
 
@@ -77,8 +77,8 @@ in {
           (getExe cfg.package)
           "-d ${cfg.dataDir}"
           "-l ${cfg.logDir}"
-          # "-p ${toString cfg.port}"
-          # (optionalString (cfg.urlBase != null) "-u ${cfg.urlBase}")
+          "-p ${toString cfg.port}"
+          (optionalString (cfg.urlBase != null) "-u ${cfg.urlBase}")
         ];
         KillSignal = "SIGINT";
 
