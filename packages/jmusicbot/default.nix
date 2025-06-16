@@ -12,7 +12,7 @@
   jre_minimal,
   ...
 }: let
-  inherit (lib) concatStringsSep getExe;
+  inherit (lib) concatStringsSep elem filter getExe;
 
   jre_modules = [
     "java.se"
@@ -72,6 +72,7 @@ in
     '';
 
     meta = {
-      inherit (jmusicbot.meta) description license mainProgram platforms;
+      inherit (jmusicbot.meta) description license mainProgram;
+      platforms = filter (x: elem x google-chrome.meta.platforms) jmusicbot.meta.platforms;
     };
   }
