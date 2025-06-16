@@ -58,7 +58,7 @@ in {
                 pattern = 'html',
 
                 callback = function()
-                    vim.cmd[[setlocal ts=4 sw=4 expandtab]];
+                    vim.cmd[[setlocal ts=4 sw=4 sts expandtab]];
 
                     loadDevShell();
                 end,

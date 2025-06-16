@@ -1,33 +1,40 @@
-{configPath, ...}: {pkgs, ...}: let
+{configPath, ...}: {
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit (lib) getExe;
   inherit (pkgs.selfPackages) jmusicbot;
 
   rwPath = configPath + "/music/jbots";
-  image = pkgs.callPackage ./images/jmusicbot.nix {inherit pkgs jmusicbot;};
 in {
-  virtualisation.docker.compose."jbots" = {
-    networks.proxy_net = {external = true;};
+  # TODO: make module to clean this up
+  systemd.services = {
+    jbot-be = {
+      description = "JMusicBot-Be";
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
-    services = {
-      "musicbot_be" = {
-        container_name = "be";
-        restart = "always";
-        inherit image;
-
-        volumes = [
-          "${rwPath}/be:/jmb/config:rw"
-        ];
-        networks = ["proxy_net"];
+      serviceConfig = {
+        Type = "simple";
+        User = "matt";
+        Group = "matt";
+        WorkingDirectory = "${rwPath}/be";
+        ExecStart = getExe jmusicbot;
       };
+    };
 
-      "musicbot_br" = {
-        container_name = "br";
-        restart = "always";
-        inherit image;
+    jbot-br = {
+      description = "JMusicBot-Br";
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
-        volumes = [
-          "${rwPath}/br:/jmb/config:rw"
-        ];
-        networks = ["proxy_net"];
+      serviceConfig = {
+        Type = "simple";
+        User = "matt";
+        Group = "matt";
+        WorkingDirectory = "${rwPath}/br";
+        ExecStart = getExe jmusicbot;
       };
     };
   };
