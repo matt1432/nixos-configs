@@ -10,7 +10,7 @@ This directory contains every derivations for packages exposed by this flake.
 | `gpu-screen-recorder` | Screen recorder that has minimal impact on system performance by recording a window using the GPU only. | https://git.dec05eba.com/gpu-screen-recorder/about |
 | `homepage` | Highly customisable dashboard with Docker and service API integrations. | https://gethomepage.dev |
 | `jdownloader-cli` | Command line interface to JDownloader based on jdownloader-go library. | https://github.com/rkosegi/jdownloader-cli |
-| `jmusicbot` | Discord music bot that's easy to set up and run yourself | https://github.com/jagrosh/MusicBot |
+| `jmusicbot` | Discord music bot that's easy to set up and run yourself |  |
 | `komf` | Komf is a tool that fetches metadata and thumbnails for your digital comic book library. | https://github.com/Snd-R/komf |
 | `libratbag` | Configuration library for gaming mice | https://github.com/libratbag/libratbag |
 | `librespot-auth` | A simple program for populating a credentials.json via Spotify's zeroconf authentication. | https://github.com/dspearson/librespot-auth |

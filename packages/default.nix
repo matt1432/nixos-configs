@@ -39,7 +39,6 @@
       inherit mkVersion;
     };
 
-    proton-ge-9-27 = final.callPackage ./proton-ge-9-27 {};
     proton-ge-latest = final.callPackage ./proton-ge-latest {};
 
     protonhax = final.callPackage ./protonhax {};
