@@ -15,6 +15,8 @@ mkShell {
 
     nodePackages.npm
 
+    nodePackages.typescript-language-server
+
     some-sass-language-server
   ];
 }

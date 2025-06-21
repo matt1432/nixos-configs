@@ -10,7 +10,6 @@ self: {
   inherit (lib) mkIf;
 
   cfg = config.programs.neovim;
-  flakeEnv = config.programs.bash.sessionVariables.FLAKE;
 in {
   config = mkIf cfg.enable {
     programs = {
@@ -60,23 +59,17 @@ in {
 
                         exe = 'Microsoft.CodeAnalysis.LanguageServer',
                     });
+
+                    vim.cmd[[e]]; -- reload to attach on current file
                 end;
 
-                vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {
+                loadDevShell({
+                    name = 'csharp',
                     pattern = { 'cs' },
-
-                    callback = function()
+                    pre_shell_callback = function()
                         vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
-
-                        if (devShells['csharp'] == nil) then
-                            devShells['csharp'] = 1;
-
-                            require('nix-develop').nix_develop_extend({'${flakeEnv}#csharp'}, function()
-                                startRoslyn();
-                                vim.cmd[[e]]; -- reload to attach on current file
-                            end);
-                        end
                     end,
+                    post_shell_callback = startRoslyn,
                 });
               '';
           }

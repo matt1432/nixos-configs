@@ -42,10 +42,9 @@ in {
                 command = 'setlocal ts=4 sw=4 sts=0 expandtab',
             });
 
-            local default_capabilities = require('cmp_nvim_lsp').default_capabilities();
-
-            require('lspconfig').bashls.setup({
-                capabilities = default_capabilities,
+            vim.lsp.enable('bashls');
+            vim.lsp.config('bashls', {
+                capabilities = require('cmp_nvim_lsp').default_capabilities(),
 
                 settings = {
                     bashIde = {

@@ -12,7 +12,6 @@ self: {
   inherit (lib) concatStringsSep mkIf;
 
   cfg = config.programs.neovim;
-  flakeEnv = config.programs.bash.sessionVariables.FLAKE;
   isServer = osConfig.roles.server.sshd.enable or false;
   isDesktop = osConfig.roles.desktop.enable or false;
 
@@ -28,37 +27,29 @@ in {
           # lua
           ''
             --
-            vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {
+            loadDevShell({
+                name = 'markdown',
                 pattern = { 'markdown', 'tex' },
-
-                callback = function()
+                pre_shell_callback = function()
                     vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
-
-                    if (devShells['markdown'] == nil) then
-                        devShells['markdown'] = 1;
-
-                        require('nix-develop').nix_develop_extend({'${flakeEnv}#markdown'}, function()
-                            vim.cmd[[LspStart]];
-                        end);
-                    end
                 end,
-            });
+                language_servers = {
+                    texlab = function()
+                        vim.lsp.start(vim.tbl_deep_extend('force', vim.lsp.config['texlab'], {
+                            capabilities = require('cmp_nvim_lsp').default_capabilities(),
 
-            local lsp = require('lspconfig');
-
-            lsp.texlab.setup({
-                capabilities = require('cmp_nvim_lsp').default_capabilities(),
-                autostart = false,
-
-                settings = {
-                    texlab = {
-                        formatterLineLength = 100,
-                        latexFormatter = 'latexindent',
-                        latexindent = {
-                            modifyLineBreaks = false,
-                            ["local"] = '.indentconfig.yaml';
-                        },
-                    },
+                            settings = {
+                                texlab = {
+                                    formatterLineLength = 100,
+                                    latexFormatter = 'latexindent',
+                                    latexindent = {
+                                        modifyLineBreaks = false,
+                                        ["local"] = '.indentconfig.yaml';
+                                    },
+                                },
+                            },
+                        }));
+                    end,
                 },
             });
           '';

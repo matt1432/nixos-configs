@@ -10,6 +10,7 @@ self: {
   inherit (lib) attrValues fileContents mkBefore mkIf;
 
   cfg = config.programs.neovim;
+  flakeEnv = config.programs.bash.sessionVariables.FLAKE;
 in {
   imports = [
     ./bash
@@ -37,8 +38,50 @@ in {
         # lua
         ''
           --
+          local nix_develop = require('nix-develop');
+
           -- Init object to keep track of loaded devShells
           local devShells = {};
+
+          --- @param name string
+          --- @param pattern string|string[]
+          --- @param pre_shell_callback function
+          --- @param language_servers function?
+          --- @param post_shell_callback function?
+          local loadDevShell = function(args)
+              local name = args.name;
+              local pattern = args.pattern;
+              local pre_shell_callback = args.pre_shell_callback;
+
+              local post_shell_callback = args.post_shell_callback or function()
+                  local filetype = vim.api.nvim_buf_get_option(0, 'filetype')
+
+                  for name, func in pairs(args.language_servers) do
+                      if vim.tbl_contains(vim.lsp.config[name].filetypes, filetype) then
+                          func();
+                      end;
+                  end;
+              end;
+
+              vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {
+                  pattern = pattern,
+
+                  callback = function()
+                      pre_shell_callback();
+
+                      if (devShells[name] == nil) then
+                          devShells[name] = 1;
+
+                          nix_develop.nix_develop_extend(
+                              {'${flakeEnv}#' .. name},
+                              post_shell_callback
+                          );
+                      else
+                          post_shell_callback();
+                      end
+                  end,
+              });
+          end;
 
           -- Add formatting cmd
           vim.api.nvim_create_user_command(

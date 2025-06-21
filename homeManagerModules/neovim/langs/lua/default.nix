@@ -7,8 +7,6 @@
   inherit (lib) mkIf;
 
   cfg = config.programs.neovim;
-
-  flakeEnv = config.programs.bash.sessionVariables.FLAKE;
 in {
   config = mkIf cfg.enable {
     programs = {
@@ -21,34 +19,26 @@ in {
               # lua
               ''
                 --
-                local default_capabilities = require('cmp_nvim_lsp').default_capabilities();
-
-                vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {
-                    pattern = 'lua',
-
-                    callback = function()
+                loadDevShell({
+                    name = 'lua',
+                    pattern = { 'lua' },
+                    pre_shell_callback = function()
                         vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
-
-                        if (devShells['lua'] == nil) then
-                            devShells['lua'] = 1;
-
-                            require('nix-develop').nix_develop_extend({'${flakeEnv}#lua'}, function()
-                                vim.cmd[[LspStart]];
-                            end);
-                        end
                     end,
-                });
+                    language_servers = {
+                        lua_ls = function()
+                            require('lazydev').setup({
+                                library = {
+                                    -- Load luvit types when the `vim.uv` word is found
+                                    { path = '${pkgs.vimPlugins.luvit-meta}/library', words = { 'vim%.uv' } },
+                                },
+                            });
 
-                require('lazydev').setup({
-                    library = {
-                        -- Load luvit types when the `vim.uv` word is found
-                        { path = '${pkgs.vimPlugins.luvit-meta}/library', words = { 'vim%.uv' } },
+                            vim.lsp.start(vim.tbl_deep_extend('force', vim.lsp.config['lua_ls'], {
+                                capabilities = require('cmp_nvim_lsp').default_capabilities(),
+                            }));
+                        end,
                     },
-                });
-
-                require('lspconfig').lua_ls.setup({
-                    capabilities = default_capabilities,
-                    autostart = false,
                 });
               '';
           }

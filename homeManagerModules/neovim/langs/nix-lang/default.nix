@@ -75,7 +75,8 @@ in {
           # lua
           ''
             --
-            require('lspconfig').nixd.setup({
+            vim.lsp.enable('nixd');
+            vim.lsp.config('nixd', {
                 capabilities = require('cmp_nvim_lsp').default_capabilities(),
 
                 filetypes = { 'nix', 'in.nix' },

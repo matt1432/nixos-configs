@@ -10,7 +10,6 @@ self: {
   inherit (lib) mkIf;
 
   cfg = config.programs.neovim;
-  flakeEnv = config.programs.bash.sessionVariables.FLAKE;
 in {
   config = mkIf cfg.enable {
     programs = {
@@ -21,21 +20,139 @@ in {
           # lua
           ''
             --
-            local lsp = require('lspconfig');
-            local tsserver = require('typescript-tools');
             local default_capabilities = require('cmp_nvim_lsp').default_capabilities();
 
-            local loadDevShell = function()
-                if (devShells['web'] == nil) then
-                    devShells['web'] = 1;
+            local eslintConfig = function()
+                local config = vim.lsp.config['eslint'];
+                config.before_init = nil;
 
-                    require('nix-develop').nix_develop_extend({'${flakeEnv}#web'}, function()
-                        vim.cmd[[LspStart]];
-                    end);
-                end
+                vim.lsp.start(vim.tbl_deep_extend('force', config, {
+                    capabilities = default_capabilities,
+
+                    -- auto-save
+                    on_attach = function(client, bufnr)
+                        vim.lsp.config['eslint'].on_attach(client, bufnr);
+
+                        vim.api.nvim_create_autocmd('BufWritePre', {
+                            buffer = bufnr,
+                            command = 'LspEslintFixAll',
+                        });
+                    end,
+
+                    settings = {
+                        validate = 'on',
+                        packageManager = 'npm',
+                        useESLintClass = true,
+                        useFlatConfig = true,
+                        experimental = {
+                            useFlatConfig = true,
+                        },
+                        codeAction = {
+                            disableRuleComment = {
+                                enable = true,
+                                location = 'separateLine'
+                            },
+                            showDocumentation = {
+                                enable = true,
+                            },
+                        },
+                        codeActionOnSave = {
+                            mode = 'all',
+                            rules = {},
+                        },
+                        format = true,
+                        quiet = false,
+                        onIgnoredFiles = 'off',
+                        rulesCustomizations = {},
+                        run = 'onType',
+                        problems = {
+                            shortenToSingleLine = false,
+                        },
+                        nodePath = "",
+                        workingDirectory = {
+                            mode = 'location',
+                        },
+                    },
+                }));
             end;
 
             vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {
+                pattern = 'scss',
+                command = 'setlocal iskeyword+=@-@',
+            });
+            local cssConfig = function()
+                vim.lsp.start(vim.tbl_deep_extend('force', vim.lsp.config['cssls'], {
+                    capabilities = default_capabilities,
+
+                    settings = {
+                        css = {
+                            validate = false,
+                        },
+                        less = {
+                            validate = false,
+                        },
+                        scss = {
+                            validate = false,
+                        },
+                    },
+                }));
+
+                vim.lsp.start(vim.tbl_deep_extend('force', vim.lsp.config['somesass_ls'], {
+                    capabilities = default_capabilities,
+
+                    settings = {
+                        somesass = {
+                            scss = {
+                                completion = {
+                                    suggestFromUseOnly = true,
+                                },
+                            },
+                        },
+                    };
+                }));
+            end;
+
+            local htmlConfig = function()
+                local html_caps = default_capabilities;
+                html_caps.textDocument.completion.completionItem.snippetSupport = true;
+
+                vim.lsp.start(vim.tbl_deep_extend('force', vim.lsp.config['html'], {
+                    capabilities = html_caps,
+                    autostart = false,
+
+                    settings = {
+                        configurationSection = { "html", "css", "javascript" },
+                        embeddedLanguages = {
+                            css = true,
+                            javascript = true,
+                        },
+                        provideFormatter = true,
+                        tabSize = 4,
+                        insertSpaces = true,
+                        indentEmptyLines = false,
+                        wrapAttributes = 'auto',
+                        wrapAttributesIndentSize = 4,
+                        endWithNewline = true,
+                    },
+                }));
+            end;
+
+            local typescriptConfig = function()
+                vim.lsp.start(vim.tbl_deep_extend('force', vim.lsp.config['ts_ls'], {
+                    capabilities = default_capabilities,
+
+                    handlers = {
+                        -- format error code with better error message
+                        ['textDocument/publishDiagnostics'] = function(err, result, ctx, config)
+                            require('ts-error-translator').translate_diagnostics(err, result, ctx, config)
+                            vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
+                        end,
+                    },
+                }));
+            end;
+
+            loadDevShell({
+                name = 'web',
                 pattern = {
                     'javascript',
                     'javascriptreact',
@@ -45,148 +162,21 @@ in {
                     'typescript.tsx',
                     'css',
                     'scss',
+                    'html',
                 },
-
-                callback = function()
+                pre_shell_callback = function()
                     vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
-
-                    loadDevShell();
                 end,
-            });
-
-            vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {
-                pattern = 'html',
-
-                callback = function()
-                    vim.cmd[[setlocal ts=4 sw=4 sts expandtab]];
-
-                    loadDevShell();
-                end,
-            });
-
-            vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {
-                pattern = 'scss',
-                command = 'setlocal iskeyword+=@-@',
-            });
-
-            tsserver.setup({
-                capabilities = default_capabilities,
-                autostart = false,
-
-                handlers = {
-                    -- format error code with better error message
-                    ['textDocument/publishDiagnostics'] = function(err, result, ctx, config)
-                        require('ts-error-translator').translate_diagnostics(err, result, ctx, config)
-                        vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
-                    end,
-                },
-            });
-
-            lsp.eslint.setup({
-                capabilities = default_capabilities,
-                autostart = false,
-
-                -- auto-save
-                on_attach = function(client, bufnr)
-                    vim.api.nvim_create_autocmd('BufWritePre', {
-                        buffer = bufnr,
-                        command = 'EslintFixAll',
-                    });
-                end,
-
-                settings = {
-                    validate = 'on',
-                    packageManager = 'npm',
-                    useESLintClass = true,
-                    useFlatConfig = true,
-                    experimental = {
-                        useFlatConfig = true,
-                    },
-                    codeAction = {
-                        disableRuleComment = {
-                            enable = true,
-                            location = 'separateLine'
-                        },
-                        showDocumentation = {
-                            enable = true,
-                        },
-                    },
-                    codeActionOnSave = {
-                        mode = 'all',
-                        rules = {},
-                    },
-                    format = true,
-                    quiet = false,
-                    onIgnoredFiles = 'off',
-                    rulesCustomizations = {},
-                    run = 'onType',
-                    problems = {
-                        shortenToSingleLine = false,
-                    },
-                    nodePath = "",
-                    workingDirectory = {
-                        mode = 'location',
-                    },
-                },
-            });
-
-            lsp.cssls.setup({
-                capabilities = default_capabilities,
-                autostart = false,
-
-                settings = {
-                    css = {
-                        validate = false,
-                    },
-                    less = {
-                        validate = false,
-                    },
-                    scss = {
-                        validate = false,
-                    },
-                },
-            });
-
-            lsp.somesass_ls.setup({
-                capabilities = default_capabilities,
-                autostart = false,
-            });
-            lsp.somesass_ls.manager.config.settings = {
-                somesass = {
-                    scss = {
-                        completion = {
-                            suggestFromUseOnly = true,
-                        },
-                    },
-                },
-            };
-
-            local html_caps = default_capabilities;
-            html_caps.textDocument.completion.completionItem.snippetSupport = true;
-
-            lsp.html.setup({
-                capabilities = html_caps,
-                autostart = false,
-
-                settings = {
-                    configurationSection = { "html", "css", "javascript" },
-                    embeddedLanguages = {
-                        css = true,
-                        javascript = true,
-                    },
-                    provideFormatter = true,
-                    tabSize = 4,
-                    insertSpaces = true,
-                    indentEmptyLines = false,
-                    wrapAttributes = 'auto',
-                    wrapAttributesIndentSize = 4,
-                    endWithNewline = true,
+                language_servers = {
+                    cssls = cssConfig,
+                    eslint = eslintConfig,
+                    html = htmlConfig,
+                    ts_ls = typescriptConfig,
                 },
             });
           '';
 
         plugins = [
-          pkgs.vimPlugins.typescript-tools-nvim
           (buildPlugin "ts-error-translator" vimplugin-ts-error-translator-src)
 
           {

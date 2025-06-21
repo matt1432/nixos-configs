@@ -6,7 +6,6 @@
   inherit (lib) mkIf;
 
   cfg = config.programs.neovim;
-  flakeEnv = config.programs.bash.sessionVariables.FLAKE;
 in {
   config = mkIf cfg.enable {
     programs = {
@@ -15,38 +14,31 @@ in {
           # lua
           ''
             --
-            local lsp = require('lspconfig');
             local default_capabilities = require('cmp_nvim_lsp').default_capabilities();
 
-            lsp.basedpyright.setup({
-                capabilities = default_capabilities,
-                autostart = false,
-                settings = {
-                    python = {
-                        pythonPath = vim.fn.exepath("python"),
-                    },
-                },
-            });
-
-            lsp.ruff.setup({
-                capabilities = default_capabilities,
-                autostart = false,
-            });
-
-            vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {
+            loadDevShell({
+                name = 'python',
                 pattern = { 'python' },
-
-                callback = function()
+                pre_shell_callback = function()
                     vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
-
-                    if (devShells['python'] == nil) then
-                        devShells['python'] = 1;
-
-                        require('nix-develop').nix_develop_extend({'${flakeEnv}#python'}, function()
-                            vim.cmd[[LspStart]];
-                        end);
-                    end
                 end,
+                language_servers = {
+                    basedpyright = function()
+                        vim.lsp.start(vim.tbl_deep_extend('force', vim.lsp.config['basedpyright'], {
+                            capabilities = default_capabilities,
+                            settings = {
+                                python = {
+                                    pythonPath = vim.fn.exepath("python"),
+                                },
+                            },
+                        }));
+                    end,
+                    ruff = function()
+                        vim.lsp.start(vim.tbl_deep_extend('force', vim.lsp.config['ruff'], {
+                            capabilities = default_capabilities,
+                        }));
+                    end,
+                },
             });
           '';
       };

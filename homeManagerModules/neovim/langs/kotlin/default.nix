@@ -6,7 +6,6 @@
   inherit (lib) mkIf;
 
   cfg = config.programs.neovim;
-  flakeEnv = config.programs.bash.sessionVariables.FLAKE;
 in {
   config = mkIf cfg.enable {
     programs = {
@@ -15,28 +14,19 @@ in {
           # lua
           ''
             --
-            vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {
+            loadDevShell({
+                name = 'kotlin',
                 pattern = { 'kotlin' },
-
-                callback = function()
+                pre_shell_callback = function()
                     vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
-
-                    if (devShells['kotlin'] == nil) then
-                        devShells['kotlin'] = 1;
-
-                        require('nix-develop').nix_develop_extend({'${flakeEnv}#kotlin'}, function()
-                            vim.cmd[[LspStart]];
-                        end);
-                    end
                 end,
-            });
-
-            local lsp = require('lspconfig');
-            local default_capabilities = require('cmp_nvim_lsp').default_capabilities();
-
-            lsp.kotlin_language_server.setup({
-                capabilities = default_capabilities,
-                autostart = false,
+                language_servers = {
+                    rust_analyzer = function()
+                        vim.lsp.start(vim.tbl_deep_extend('force', vim.lsp.config['kotlin_language_server'], {
+                            capabilities = require('cmp_nvim_lsp').default_capabilities(),
+                        }));
+                    end,
+                },
             });
           '';
       };
