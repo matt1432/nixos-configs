@@ -3,7 +3,6 @@
   lib,
   subscleaner-src,
   # deps
-  hatch,
   python3Packages,
   ...
 }: let
@@ -20,7 +19,7 @@ in
 
     src = subscleaner-src;
 
-    build-system = [hatch];
+    build-system = with python3Packages; [hatchling];
 
     dependencies = with python3Packages; [
       pysrt

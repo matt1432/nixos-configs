@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage rec {
   imageName = "onlyoffice/documentserver";
-  imageDigest = "sha256:0daa2d1d414d49286bfa9495fc0c936e7e73edaf8944a61102a7a6353a952297";
-  hash = "sha256-HO2z4wjDWYTUWaOtrbPC0+XsxMMU/fBDykava6KVLiY=";
+  imageDigest = "sha256:68ef4bee1827ca4cd3dace67e127f4e796fa91303900007cd8dd97151b0e623c";
+  hash = "sha256-Qlf37RkTjJv1wrekL8Brjy1j9sDtruSYgRsavmtBs+E=";
   finalImageName = imageName;
   finalImageTag = "latest";
 }

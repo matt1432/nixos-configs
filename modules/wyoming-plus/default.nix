@@ -10,7 +10,9 @@
 
   cfg = config.services.wyoming;
 
-  forkedPkg = pkgs.callPackage ./pkgs {};
+  forkedPkg = pkgs.callPackage ./pkgs {
+    python3Packages = pkgs.python312Packages;
+  };
 in {
   options.services.wyoming.openwakeword.vadThreshold = mkOption {
     type = types.float;

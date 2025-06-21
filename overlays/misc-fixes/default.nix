@@ -19,14 +19,19 @@ final: prev: {
     inherit src;
   });
 
-  # FIXME: https://github.com/neovim/nvim-lspconfig/issues/3892
-  neovim-unwrapped = prev.neovim-unwrapped.overrideAttrs (o: rec {
-    version = "0.11.1";
+  # FIXME: https://github.com/NixOS/nixpkgs/issues/418453
+  waydroid = prev.waydroid.override {
+    python3Packages = final.python312Packages;
+  };
+
+  # FIXME: https://pr-tracker.nelim.org/?pr=418139
+  liburing = prev.liburing.overrideAttrs (o: rec {
+    version = "2.11";
     src = final.fetchFromGitHub {
-      owner = "neovim";
-      repo = "neovim";
-      tag = "v${version}";
-      hash = "sha256-kJvKyNjpqIKa5aBi62jHTCb1KxQ4YgYtBh/aNYZSeO8=";
+      owner = "axboe";
+      repo = "liburing";
+      tag = "liburing-${version}";
+      hash = "sha256-V73QP89WMrL2fkPRbo/TSkfO7GeDsCudlw2Ut5baDzA=";
     };
   });
 

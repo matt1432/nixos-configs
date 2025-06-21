@@ -8,7 +8,9 @@
 }: let
   inherit (lib) makeLibraryPath;
 in
-  wyoming-openwakeword.overridePythonAttrs (o: {
+  (wyoming-openwakeword.override {
+    inherit python3Packages;
+  }).overridePythonAttrs (o: {
     version = o.version + "-vad";
 
     # https://github.com/rhasspy/wyoming-openwakeword/pull/17

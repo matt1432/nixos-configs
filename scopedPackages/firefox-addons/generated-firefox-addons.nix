@@ -315,10 +315,10 @@
   };
   "undoclosetabbutton" = buildFirefoxXpiAddon {
     pname = "undoclosetabbutton";
-    version = "8.0.0";
+    version = "8.1.0";
     addonId = "{4853d046-c5a3-436b-bc36-220fd935ee1d}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4212173/undoclosetabbutton-8.0.0.xpi";
-    sha256 = "c83a058c417f98d75e62ab310e2995971bf79c99cd83cf1dcbd8a44797aa60c4";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4513641/undoclosetabbutton-8.1.0.xpi";
+    sha256 = "ff9a47b466fe29a860a1846a65502e327717945dc9f7ce627c9cd64a2859baab";
     meta = with lib; {
       homepage = "https://github.com/M-Reimer/undoclosetab";
       description = "Allows you to restore the tab you just closed with a single click—plus it can offer a list of recently closed tabs within a convenient context menu.";
