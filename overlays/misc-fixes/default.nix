@@ -19,7 +19,7 @@ final: prev: {
     inherit src;
   });
 
-  # FIXME: https://github.com/NixOS/nixpkgs/issues/418453
+  # FIXME: https://pr-tracker.nelim.org/?pr=418518
   waydroid = prev.waydroid.override {
     python3Packages = final.python312Packages;
   };

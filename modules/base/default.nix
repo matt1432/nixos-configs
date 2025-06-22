@@ -125,6 +125,8 @@ in {
 
     users.mutableUsers = false;
 
+    home-manager.backupFileExtension = "bak";
+
     home-manager.users = let
       default = {
         imports = [
