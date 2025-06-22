@@ -67,7 +67,7 @@ in {
                   pattern = pattern,
 
                   callback = function()
-                      pre_shell_callback();
+                      vim.schedule(pre_shell_callback);
 
                       if (devShells[name] == nil) then
                           devShells[name] = 1;
@@ -77,7 +77,8 @@ in {
                               post_shell_callback
                           );
                       else
-                          post_shell_callback();
+                          print('trying to run lsps');
+                          vim.schedule(post_shell_callback);
                       end
                   end,
               });
