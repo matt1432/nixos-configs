@@ -28,18 +28,14 @@ in {
       };
 
       "flaresolverr" = {
-        image = pkgs.callPackage ./images/flaresolverr.nix pkgs;
+        image = pkgs.callPackage ./images/byparr.nix pkgs;
         restart = "always";
 
         environment = {
-          LOG_LEVEL = "info";
-          LOG_HTML = "false";
-          CAPTCHA_SOLVER = "none";
           inherit TZ;
-
-          # https://github.com/FlareSolverr/FlareSolverr/pull/1300#issuecomment-2379596654
-          DRIVER = "nodriver";
         };
+
+        shm_size = "2gb";
 
         ports = ["8191:8191"];
 
