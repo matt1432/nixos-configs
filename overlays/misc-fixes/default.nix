@@ -19,22 +19,6 @@ final: prev: {
     inherit src;
   });
 
-  # FIXME: https://pr-tracker.nelim.org/?pr=418518
-  waydroid = prev.waydroid.override {
-    python3Packages = final.python312Packages;
-  };
-
-  # FIXME: https://pr-tracker.nelim.org/?pr=418139
-  liburing = prev.liburing.overrideAttrs (o: rec {
-    version = "2.11";
-    src = final.fetchFromGitHub {
-      owner = "axboe";
-      repo = "liburing";
-      tag = "liburing-${version}";
-      hash = "sha256-V73QP89WMrL2fkPRbo/TSkfO7GeDsCudlw2Ut5baDzA=";
-    };
-  });
-
   # normal electron has a lot of cache misses for me
   electron = final.electron-bin;
 }
