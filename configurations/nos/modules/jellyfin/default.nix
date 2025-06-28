@@ -28,6 +28,8 @@ in {
   services.jellyfin = {
     enable = true;
 
+    ffmpegPackage = pkgs.jellyfin-ffmpeg-cuda;
+
     webPackage = pkgs.jellyfin-web.override {
       forceEnableBackdrops = true;
       forceDisablePreferFmp4 = true;

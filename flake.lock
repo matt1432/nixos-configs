@@ -1442,11 +1442,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1750452262,
-        "narHash": "sha256-NOFlIP+sRga9o5G8MY4UtZFPHB4D3EyJQxTo1hHNqig=",
+        "lastModified": 1751118449,
+        "narHash": "sha256-Zb2aHJQ4itgoeN+eIBn40hgDeo3TlvavUPK3ogzylGs=",
         "owner": "matt1432",
         "repo": "nixos-jellyfin",
-        "rev": "e3093a4524da624cefee0f4181189d8b838a54c1",
+        "rev": "a2fb9ec24ed811ebe46dccd16fc8ba875601aa0e",
         "type": "github"
       },
       "original": {
@@ -1879,11 +1879,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1746919476,
-        "narHash": "sha256-3o0OyCoila/0jKAz8NSB7pY4zpOJZ7teBoQnHZF5Zqg=",
+        "lastModified": 1751119270,
+        "narHash": "sha256-uMPsjW3kp8Mc6ekmEZ6gUzaQR0ReW/7yxf+l2H97YIc=",
         "ref": "refs/heads/main",
-        "rev": "6d066eafc7f751adb063f1910b8c5009774dc3ff",
-        "revCount": 98,
+        "rev": "704b3c5eaae219cfb32b60e17504835ba67c1ddd",
+        "revCount": 100,
         "type": "git",
         "url": "ssh://git@git.nelim.org/matt1432/nixos-secrets"
       },
