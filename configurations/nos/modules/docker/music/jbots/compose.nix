@@ -21,6 +21,7 @@ in {
         Group = "matt";
         WorkingDirectory = "${rwPath}/be";
         ExecStart = getExe jmusicbot;
+        Restart = "always";
       };
     };
 
@@ -35,6 +36,7 @@ in {
         Group = "matt";
         WorkingDirectory = "${rwPath}/br";
         ExecStart = getExe jmusicbot;
+        Restart = "always";
       };
     };
   };
