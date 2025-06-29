@@ -13,5 +13,7 @@ buildApp {
 
   meta.description = ''
     Extract all `srt` subtitle files from a `mkv` video with the appropriate name.
+
+    FIXME: fluent-ffmpeg is deprecated
   '';
 }

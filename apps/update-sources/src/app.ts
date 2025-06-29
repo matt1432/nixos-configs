@@ -51,10 +51,6 @@ const main = async() => {
         console.log(updateFlakeInputs() ?? 'No updates');
     }
 
-    if (args['jmusicbot']) {
-        console.log(runNixUpdate('jmusicbot') ?? 'No updates');
-    }
-
     if (args['material-rounded-theme']) {
         console.log(
             runNixUpdate('scopedPackages', 'lovelace-components', 'material-rounded-theme') ??
@@ -143,7 +139,6 @@ const main = async() => {
         };
 
         updatePackage('homepage');
-        updatePackage('jmusicbot');
         updatePackage('pam-fprint-grosshack');
         updatePackage('protonhax');
         updatePackage('some-sass-language-server');

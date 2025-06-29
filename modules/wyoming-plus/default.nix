@@ -14,7 +14,7 @@
     python3Packages = pkgs.python312Packages;
   };
 in {
-  # FIXME: https://github.com/NixOS/nixpkgs/pull/417413
+  # FIXME: https://pr-tracker.nelim.org/?pr=421107
   disabledModules = ["services/home-automation/wyoming/faster-whisper.nix"];
   imports = [./faster-whisper.nix];
 
