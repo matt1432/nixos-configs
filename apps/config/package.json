@@ -4,12 +4,12 @@
     "type": "module",
     "exports": "./index.ts",
     "dependencies": {
-        "@eslint/js": "9.29.0",
-        "@stylistic/eslint-plugin": "5.0.0",
-        "eslint": "9.29.0",
+        "@eslint/js": "9.30.0",
+        "@stylistic/eslint-plugin": "5.1.0",
+        "eslint": "9.30.0",
         "eslint-plugin-jsdoc": "51.2.3",
         "jiti": "2.4.2",
-        "pkg-types": "2.1.0",
+        "pkg-types": "2.1.1",
         "typescript": "5.8.3",
         "typescript-eslint": "8.35.0"
     }

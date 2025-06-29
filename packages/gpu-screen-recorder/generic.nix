@@ -96,17 +96,17 @@ in
       optionalString (pname == "gsr-kms-server")
       # bash
       ''
-        rm $out/bin/{gpu-screen-recorder,gsr-dbus-server}
+        rm -f $out/bin/{gpu-screen-recorder,gsr-dbus-server}
       ''
       + optionalString (pname == "gpu-screen-recorder")
       # bash
       ''
-        rm $out/bin/{gsr-kms-server,gsr-dbus-server}
+        rm -f $out/bin/{gsr-kms-server,gsr-dbus-server}
       ''
       + optionalString (pname == "gsr-dbus-server")
       # bash
       ''
-        rm $out/bin/{gpu-screen-recorder,gsr-kms-server}
+        rm -f $out/bin/{gpu-screen-recorder,gsr-kms-server}
       '';
 
     meta = {

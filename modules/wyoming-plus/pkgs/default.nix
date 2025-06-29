@@ -9,7 +9,7 @@
   inherit (lib) makeLibraryPath;
 in
   (wyoming-openwakeword.override {
-    inherit python3Packages;
+    python312Packages = python3Packages;
   }).overridePythonAttrs (o: {
     version = o.version + "-vad";
 
