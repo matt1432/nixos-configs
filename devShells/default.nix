@@ -18,7 +18,7 @@
     };
     text = ''
       # this command might fail but still updates the main lockfile
-      npm update --package-lock-only || true
+      npm update --package-lock-only --legacy-peer-deps || true
 
       hash="$(prefetch-npm-deps ./package-lock.json)"
       echo "$hash"
