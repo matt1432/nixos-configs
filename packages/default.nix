@@ -54,7 +54,5 @@
     trash-d = final.callPackage ./trash-d {
       inherit (inputs) trash-d-src;
     };
-
-    urllib3 = final.callPackage ./urllib3 {};
   };
 })

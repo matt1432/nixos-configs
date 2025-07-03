@@ -24,4 +24,3 @@ This directory contains every derivations for packages exposed by this flake.
 | `some-sass-language-server` | Some Sass is a language server extension for Visual Studio Code and other editors with a language server protocol (LSP) client. It brings improved code suggestions, documentation and code navigation for both SCSS and indented syntaxes. | https://github.com/wkillerud/some-sass |
 | `subscleaner` | Subscleaner is a Python script that removes advertisements from subtitle files. It's designed to help you enjoy your favorite shows and movies without the distraction of unwanted ads in the subtitles. | https://gitlab.com/rogs/subscleaner |
 | `trash-d` | A near drop-in replacement for `rm` that uses the [FreeDesktop trash bin](https://specifications.freedesktop.org/trash-spec/trashspec-latest.html). | https://github.com/rushsteve1/trash-d |
-| `urllib3` | Powerful, sanity-friendly HTTP client for Python. | https://github.com/shazow/urllib3 |
