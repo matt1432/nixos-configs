@@ -21,7 +21,11 @@ export default (
 
     const OLD_VERSION = getAttrVersion(realAttr);
 
-    spawnSync('nix-update', ['--flake', realAttr, '-u'], { cwd: FLAKE, stdio: 'inherit' });
+    spawnSync(
+        'nix-update',
+        ['--flake', realAttr, '-u'],
+        { cwd: FLAKE, stdio: ['inherit', 'ignore', 'inherit'] },
+    );
 
     const NEW_VERSION = getAttrVersion(realAttr);
 

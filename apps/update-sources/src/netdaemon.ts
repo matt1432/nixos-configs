@@ -22,7 +22,7 @@ export default (): string | null => {
 
         spawnSync('bumpNetdaemonDeps', [], {
             cwd: FOLDER,
-            stdio: 'inherit',
+            stdio: ['inherit', 'ignore', 'inherit'],
         });
 
         return `NetDaemon: ${OLD_VERSION} -> ${VERSION}\n`;
