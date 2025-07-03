@@ -14,10 +14,6 @@
     python3Packages = pkgs.python312Packages;
   };
 in {
-  # FIXME: https://pr-tracker.nelim.org/?pr=421107
-  disabledModules = ["services/home-automation/wyoming/faster-whisper.nix"];
-  imports = [./faster-whisper.nix];
-
   options.services.wyoming.openwakeword.vadThreshold = mkOption {
     type = types.float;
     default = 0.0;
