@@ -25,7 +25,9 @@ in
   buildPythonPackage {
     pname = "spotifywebapiPython";
     version = "${tag}+${spotifywebapi-src.shortRev}";
+
     pyproject = true;
+    build-system = [setuptools];
 
     src = spotifywebapi-src;
 

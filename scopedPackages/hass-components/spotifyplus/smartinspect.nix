@@ -5,6 +5,7 @@
   smartinspect-src,
   # deps
   pycryptodome,
+  setuptools,
   watchdog,
   ...
 }: let
@@ -15,12 +16,17 @@ in
     pname = "smartinspectPython";
     version = "${tag}+${smartinspect-src.shortRev}";
 
+    pyproject = true;
+    build-system = [setuptools];
+
     src = smartinspect-src;
 
     dependencies = [
       pycryptodome
       watchdog
     ];
+
+    pythonRelaxDeps = ["watchdog"];
 
     pythonImportsCheck = [
       "smartinspectpython"
