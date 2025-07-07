@@ -77,5 +77,11 @@ in {
       fsType = "ext4";
       device = "/dev/disk/by-id/ata-ST8000DM004-2U9188_ZR15JMHV-part1";
     };
+
+    "d9 8tb-7" = {
+      mountPoint = "/mnt/drives/8tb7";
+      fsType = "ext4";
+      device = "/dev/disk/by-id/ata-WDC_WD80EAZZ-00BKLB0_WD-CA3N86SK-part1";
+    };
   };
 }
