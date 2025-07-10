@@ -63,7 +63,7 @@ export default ({
                 });
             }
         }
-        catch (e) {
+        catch(e) {
             console.log(e);
         }
     });
@@ -166,6 +166,8 @@ export default ({
                     if (!BarVisible.get()) {
                         barCloser.visible = true;
                         BarVisible.set(true);
+
+                        console.log('hi');
                     }
                 }}
             >
