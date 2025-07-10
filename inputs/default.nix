@@ -70,7 +70,7 @@ let
       repo = "nh";
 
       # FIXME: https://github.com/nix-community/nh/issues/299
-      ref = "v4.0.2";
+      rev = "0b24ce35503f5e7610efb9f17cd9801dbd17fcbc";
     };
 
     nurl = mkInput {

@@ -270,8 +270,8 @@
     nh = {
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "nix-community";
-      ref = "v4.0.2";
       repo = "nh";
+      rev = "0b24ce35503f5e7610efb9f17cd9801dbd17fcbc";
       type = "github";
     };
     nix-develop-nvim-src = {
