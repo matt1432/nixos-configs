@@ -77,7 +77,7 @@ in {
                               post_shell_callback
                           );
                       else
-                          print('trying to run lsps');
+                          print('Shell already extended. Launching Language Servers');
                           vim.schedule(post_shell_callback);
                       end
                   end,
