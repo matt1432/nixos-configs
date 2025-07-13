@@ -9,7 +9,7 @@ self: {
 
   cfg = config.programs.bash;
 in {
-  imports = [nix-index-db.hmModules.nix-index];
+  imports = [nix-index-db.homeModules.nix-index];
 
   config.programs = mkIf cfg.enable {
     direnv = {
