@@ -2,6 +2,7 @@
   config,
   jovian,
   modulesPath,
+  pkgs,
   ...
 }: {
   nixpkgs.hostPlatform = "x86_64-linux";
@@ -19,7 +20,21 @@
       enableGyroDsuService = true;
     };
     hardware.has.amd.gpu = true;
+    devices.steamdeck.autoUpdate = true;
   };
+  environment.systemPackages = with pkgs; [steamdeck-firmware xorg.xwininfo];
+
+  nixpkgs.overlays = [
+    (final: prev: {
+      steamos-manager = prev.steamos-manager.overrideAttrs (o: {
+        postPatch = ''
+          ${o.postPatch or ""}
+          substituteInPlace ./data/user/steamos-manager.service --replace-fail \
+            "EnvironmentFile=%t/gamescope-environment" ""
+        '';
+      });
+    })
+  ];
 
   boot = {
     kernelModules = ["kvm-amd"];
