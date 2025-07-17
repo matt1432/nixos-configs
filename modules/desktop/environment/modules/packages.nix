@@ -67,6 +67,14 @@ in {
             };
           };
         })
+
+        ({lib, ...}: {
+          home.activation = {
+            deleteDiscordSettings = lib.hm.dag.entryAfter ["writeBoundary"] ''
+              run rm -f "$HOME/.config/discord/settings.json.bak"
+            '';
+          };
+        })
       ];
 
       programs = {
