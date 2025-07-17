@@ -68,9 +68,6 @@ let
     nh = mkInput {
       owner = "nix-community";
       repo = "nh";
-
-      # FIXME: https://github.com/nix-community/nh/issues/299
-      rev = "0b24ce35503f5e7610efb9f17cd9801dbd17fcbc";
     };
 
     nurl = mkInput {

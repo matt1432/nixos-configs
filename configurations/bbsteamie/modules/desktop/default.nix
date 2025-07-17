@@ -6,7 +6,12 @@ in {
     (import ./steam.nix defaultSession)
   ];
 
-  services.desktopManager.plasma6.enable = true;
+  services = {
+    desktopManager.plasma6.enable = true;
+
+    power-profiles-daemon.enable = false;
+    tlp.enable = true;
+  };
 
   programs = {
     kdeconnect.enable = true;

@@ -33,6 +33,7 @@ in
     '';
 
     pnpmDeps = pnpm.fetchDeps {
+      fetcherVersion = 1;
       inherit (finalAttrs) pname version src;
       hash = "sha256-+frLF0bHJvlGyf9zYKStowA2z+CI3L8ug/cwpWE5TsY=";
     };

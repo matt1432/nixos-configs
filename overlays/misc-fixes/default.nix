@@ -1,4 +1,6 @@
-final: prev: {
+final: prev: let
+  inherit (final) lib;
+in {
   # FIXME: wait for next version of nix-update to reach nixpkgs (after 1.11.0)
   # https://github.com/NixOS/nixpkgs/blob/master/pkgs/by-name/ni/nix-update/package.nix
   nix-update = prev.nix-update.overrideAttrs (o: let
@@ -19,6 +21,18 @@ final: prev: {
     inherit src;
   });
 
-  # normal electron has a lot of cache misses for me
-  electron = final.electron-bin;
+  # FIXME: https://pr-tracker.nelim.org/?pr=425299
+  clisp = prev.clisp.overrideAttrs (o: let
+    modules = lib.removePrefix ''bash ./clisp-link add "$out"/lib/clisp*/base "$(dirname "$out"/lib/clisp*/base)"/full'' o.postInstall;
+  in {
+    postInstall = lib.optionalString (modules != "") ''
+      bash ./clisp-link add "$out"/lib/clisp*/base "$(dirname "$out"/lib/clisp*/base)"/full \
+        ${modules}
+      find "$out"/lib/clisp*/full -type l -name "*.o" | while read -r symlink; do
+        if [[ "$(readlink "$symlink")" =~ (.*\/builddir\/)(.*) ]]; then
+          ln -sf "../''${BASH_REMATCH[2]}" "$symlink"
+        fi
+      done
+    '';
+  });
 }
