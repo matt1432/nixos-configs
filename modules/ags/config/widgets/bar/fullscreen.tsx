@@ -166,13 +166,13 @@ export default ({
                     if (!BarVisible.get()) {
                         barCloser.visible = true;
                         BarVisible.set(true);
-
-                        console.log('hi');
                     }
                 }}
             >
                 <box
-                    css="min-height: 1px; padding: 1px;"
+                    // Not sure why but the min-height needs to be
+                    // set to allow interacting with the bar
+                    css="min-height: 80px; padding: 1px;"
                     hexpand
                     halign={Gtk.Align.FILL}
                     vertical={vertical}
