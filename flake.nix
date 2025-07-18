@@ -273,12 +273,6 @@
       repo = "nh";
       type = "github";
     };
-    nix-develop-nvim-src = {
-      flake = false;
-      owner = "matt1432";
-      repo = "nix-develop.nvim";
-      type = "github";
-    };
     nix-eval-jobs = {
       inputs = {
         flake-parts.follows = "flake-parts";
@@ -499,7 +493,19 @@
       repo = "easytables.nvim";
       type = "github";
     };
-    vimplugin-roslyn-nvim-src = {
+    vimplugin-gitsigns-src = {
+      flake = false;
+      owner = "lewis6991";
+      repo = "gitsigns.nvim";
+      type = "github";
+    };
+    vimplugin-nix-develop-src = {
+      flake = false;
+      owner = "matt1432";
+      repo = "nix-develop.nvim";
+      type = "github";
+    };
+    vimplugin-roslyn-src = {
       flake = false;
       owner = "seblj";
       repo = "roslyn.nvim";

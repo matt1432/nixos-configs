@@ -5,7 +5,7 @@ self: {
   ...
 }: let
   inherit (self.lib.${pkgs.system}) buildPlugin;
-  inherit (self.inputs) vimplugin-roslyn-nvim-src;
+  inherit (self.inputs) vimplugin-roslyn-src;
 
   inherit (lib) mkIf;
 
@@ -16,7 +16,7 @@ in {
       neovim = {
         plugins = [
           {
-            plugin = buildPlugin "roslyn-nvim" vimplugin-roslyn-nvim-src;
+            plugin = buildPlugin "roslyn-nvim" vimplugin-roslyn-src;
             type = "lua";
             config =
               # lua

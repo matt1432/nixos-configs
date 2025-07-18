@@ -9,8 +9,7 @@ self: {
   cfg = config.programs.neovim;
 in {
   imports = [
-    ./git
-
+    (import ./git self)
     (import ./langs self)
     (import ./theme self)
   ];

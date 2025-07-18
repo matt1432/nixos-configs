@@ -1147,22 +1147,6 @@
         "type": "github"
       }
     },
-    "nix-develop-nvim-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1752294466,
-        "narHash": "sha256-LtoxudOmG08Z50hMo5xUTrYsGlybErLiICY4Ipd5+xU=",
-        "owner": "matt1432",
-        "repo": "nix-develop.nvim",
-        "rev": "b756fe9111a6d7a1c17735f3fc4849765851ff61",
-        "type": "github"
-      },
-      "original": {
-        "owner": "matt1432",
-        "repo": "nix-develop.nvim",
-        "type": "github"
-      }
-    },
     "nix-eval-jobs": {
       "inputs": {
         "flake-parts": [
@@ -1813,7 +1797,6 @@
         "mpv-touch-gestures-src": "mpv-touch-gestures-src",
         "netdaemon-src": "netdaemon-src",
         "nh": "nh",
-        "nix-develop-nvim-src": "nix-develop-nvim-src",
         "nix-eval-jobs": "nix-eval-jobs",
         "nix-fast-build": "nix-fast-build",
         "nix-gaming": "nix-gaming",
@@ -1845,7 +1828,9 @@
         "ts-for-gir-src": "ts-for-gir-src",
         "tuya-local-src": "tuya-local-src",
         "vimplugin-easytables-src": "vimplugin-easytables-src",
-        "vimplugin-roslyn-nvim-src": "vimplugin-roslyn-nvim-src",
+        "vimplugin-gitsigns-src": "vimplugin-gitsigns-src",
+        "vimplugin-nix-develop-src": "vimplugin-nix-develop-src",
+        "vimplugin-roslyn-src": "vimplugin-roslyn-src",
         "vimplugin-ts-error-translator-src": "vimplugin-ts-error-translator-src",
         "virtualkeyboard-adapter": "virtualkeyboard-adapter",
         "wakewords-src": "wakewords-src",
@@ -2074,7 +2059,39 @@
         "type": "github"
       }
     },
-    "vimplugin-roslyn-nvim-src": {
+    "vimplugin-gitsigns-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1752682345,
+        "narHash": "sha256-zrn67MsSYuZSH5L5XyWGKopN/KKepvmV7WZF6+DPpig=",
+        "owner": "lewis6991",
+        "repo": "gitsigns.nvim",
+        "rev": "0cb5a7753d3c4b8e9cfdc9d88d9110cb8d4b1544",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lewis6991",
+        "repo": "gitsigns.nvim",
+        "type": "github"
+      }
+    },
+    "vimplugin-nix-develop-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1752294466,
+        "narHash": "sha256-LtoxudOmG08Z50hMo5xUTrYsGlybErLiICY4Ipd5+xU=",
+        "owner": "matt1432",
+        "repo": "nix-develop.nvim",
+        "rev": "b756fe9111a6d7a1c17735f3fc4849765851ff61",
+        "type": "github"
+      },
+      "original": {
+        "owner": "matt1432",
+        "repo": "nix-develop.nvim",
+        "type": "github"
+      }
+    },
+    "vimplugin-roslyn-src": {
       "flake": false,
       "locked": {
         "lastModified": 1752531551,

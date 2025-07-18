@@ -1,9 +1,12 @@
-{
+self: {
   config,
   lib,
   pkgs,
   ...
 }: let
+  inherit (self.inputs) vimplugin-gitsigns-src;
+
+  inherit (builtins) fromJSON readFile;
   inherit (lib) mkIf substring;
 
   cfg = config.programs.neovim;
@@ -13,18 +16,13 @@ in {
       pkgs.vimPlugins.fugitive
 
       {
-        # FIXME: wait for it to reach nixpkgs
         plugin = let
+          tag = (fromJSON (readFile "${vimplugin-gitsigns-src}/.release-please-manifest.json")).".";
           rev = "4666d040b60d1dc0e474ccd9a3fd3c4d67b4767c";
         in
           pkgs.vimPlugins.gitsigns-nvim.overrideAttrs (o: {
-            version = "1.0.2+${substring 0 7 rev}";
-            src = pkgs.fetchFromGitHub {
-              owner = "lewis6991";
-              repo = "gitsigns.nvim";
-              inherit rev;
-              hash = "sha256-81sJe2qkEmq9QeiZvGKKaAfv8Fx1EDxn+A1AeNFl2aE=";
-            };
+            version = "${tag}+${substring 0 7 rev}";
+            src = vimplugin-gitsigns-src;
           });
         type = "lua";
         config =

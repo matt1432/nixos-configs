@@ -4,7 +4,7 @@ self: {
   pkgs,
   ...
 }: let
-  inherit (self.inputs) nix-develop-nvim-src;
+  inherit (self.inputs) vimplugin-nix-develop-src;
   inherit (self.lib.${pkgs.system}) mkVersion;
 
   inherit (lib) attrValues fileContents mkBefore mkIf;
@@ -122,8 +122,8 @@ in {
           ;
 
         nix-develop-nvim = pkgs.vimPlugins.nix-develop-nvim.overrideAttrs (o: {
-          name = "vimplugin-${o.pname}-${mkVersion nix-develop-nvim-src}";
-          src = nix-develop-nvim-src;
+          name = "vimplugin-${o.pname}-${mkVersion vimplugin-nix-develop-src}";
+          src = vimplugin-nix-develop-src;
         });
 
         nvim-cmp = {

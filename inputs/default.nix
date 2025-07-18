@@ -325,14 +325,19 @@ let
       repo = "ts-error-translator.nvim";
     }
     {
-      name = "vimplugin-roslyn-nvim-src";
+      name = "vimplugin-roslyn-src";
       owner = "seblj";
       repo = "roslyn.nvim";
     }
     {
-      name = "nix-develop-nvim-src";
+      name = "vimplugin-nix-develop-src";
       owner = "matt1432";
       repo = "nix-develop.nvim";
+    }
+    {
+      name = "vimplugin-gitsigns-src";
+      owner = "lewis6991";
+      repo = "gitsigns.nvim";
     }
 
     # Overlays & packages
