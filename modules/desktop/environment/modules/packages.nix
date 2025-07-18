@@ -95,7 +95,6 @@ in {
                 }
               else pkgs.discord;
 
-            # FIXME: wait for upstream to update nixpkgs
             vencord.unstable = true;
             openASAR.enable = false;
 
