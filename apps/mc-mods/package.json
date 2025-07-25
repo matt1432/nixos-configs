@@ -7,10 +7,10 @@
         "build": "node_ver=$(node -v); esbuild src/app.ts --bundle --platform=node --target=\"node${node_ver:1:2}\" --outfile=out/bin/app.cjs"
     },
     "dependencies": {
-        "@types/node": "24.0.15",
+        "@types/node": "24.1.0",
         "esbuild": "0.25.8",
         "eslint": "9.31.0",
-        "jiti": "2.4.2",
+        "jiti": "2.5.1",
         "pkg-types": "2.2.0",
         "typescript": "5.8.3"
     },
