@@ -6,6 +6,7 @@
 }: let
   inherit (lib) head mapAttrsToList;
 in {
+  # FIXME: not working super well
   services.searx = {
     enable = true;
 
