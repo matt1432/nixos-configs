@@ -1,5 +1,4 @@
 # FIXME: look into https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/torrent/qbittorrent.nix
-
 {
   config,
   lib,
