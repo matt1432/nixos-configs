@@ -1,4 +1,3 @@
-# FIXME: not working
 {
   config,
   lib,
@@ -68,8 +67,8 @@ in {
             "-ac aac"
 
             # Audio device or application to record from (pulse audio device).
-            "-a desktop/default_output"
-            "-a microphone/default_input"
+            "-a default_output"
+            "-a default_input"
 
             # Window id to record, display (monitor name), "screen", "screen-direct", "focused" or "portal".
             "-w \"$WINDOW\""
