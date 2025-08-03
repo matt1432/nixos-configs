@@ -89,8 +89,8 @@ in {
 
       pkgs.selfPackages.protonhax
 
-      # Ryujinx ACNH crashes on Vulkan
       pkgs.ryujinx
+      pkgs.vesktop
     ];
   };
 
