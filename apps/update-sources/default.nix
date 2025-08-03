@@ -13,7 +13,7 @@
 }:
 buildApp {
   src = ./.;
-  npmDepsHash = "sha256-GTozDXzOIu3Q8mwedjsWI+cs6voFD43epnvGiaIvpDc=";
+  npmDepsHash = "sha256-lh60xfqQ5kpTrnCM9CsCbp6dXv6gEevdba4qywpiFoo=";
 
   runtimeInputs = [
     curl

@@ -12,7 +12,7 @@
         "eslint": "9.32.0",
         "jiti": "2.5.1",
         "pkg-types": "2.2.0",
-        "typescript": "5.8.3"
+        "typescript": "5.9.2"
     },
     "devDependencies": {
         "eslint-conf": "file:../config"

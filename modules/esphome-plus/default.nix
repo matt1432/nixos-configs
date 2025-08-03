@@ -55,44 +55,36 @@ in {
     # Fixes https://github.com/NixOS/nixpkgs/issues/370611
     nixpkgs.overlays = [
       (final: prev: {
-        esphome =
-          (prev.esphome.override (o: {
-            # FIXME: https://pr-tracker.nelim.org/?pr=429157
-            platformio = o.platformio.override (old: {
-              platformio-core = old.platformio-core.overridePythonAttrs {
-                doCheck = false;
-              };
-            });
-          })).overrideAttrs (o: {
-            patches = [
-              (builtins.toFile "post-build.patch" ''
-                --- a/esphome/components/esp32/post_build.py.script
-                +++ b/esphome/components/esp32/post_build.py.script
-                @@ -2,10 +2,13 @@
+        esphome = prev.esphome.overrideAttrs (o: {
+          patches = [
+            (builtins.toFile "post-build.patch" ''
+              --- a/esphome/components/esp32/post_build.py.script
+              +++ b/esphome/components/esp32/post_build.py.script
+              @@ -2,10 +2,13 @@
 
-                 # pylint: disable=E0602
-                 Import("env")  # noqa
-                +#print(env.Dump())
+               # pylint: disable=E0602
+               Import("env")  # noqa
+              +#print(env.Dump())
 
-                 import os
-                 import shutil
+               import os
+               import shutil
 
-                +os.environ["PATH"] = os.path.dirname(env.get("PYTHONEXE")) + os.pathsep + os.environ["PATH"]
-                +
-                 if os.environ.get("ESPHOME_USE_SUBPROCESS") is None:
-                     try:
-                         import esptool
-                @@ -63,6 +66,7 @@ def esp32_create_combined_bin(source, target, env):
-                         esptool.main(cmd)
-                     else:
-                         subprocess.run(["esptool.py", *cmd])
-                +        #subprocess.run([env.get("PYTHONEXE"), "/var/lib/esphome/.platformio/packages/tool-esptoolpy/esptool.py", *cmd])
+              +os.environ["PATH"] = os.path.dirname(env.get("PYTHONEXE")) + os.pathsep + os.environ["PATH"]
+              +
+               if os.environ.get("ESPHOME_USE_SUBPROCESS") is None:
+                   try:
+                       import esptool
+              @@ -63,6 +66,7 @@ def esp32_create_combined_bin(source, target, env):
+                       esptool.main(cmd)
+                   else:
+                       subprocess.run(["esptool.py", *cmd])
+              +        #subprocess.run([env.get("PYTHONEXE"), "/var/lib/esphome/.platformio/packages/tool-esptoolpy/esptool.py", *cmd])
 
 
-                 def esp32_copy_ota_bin(source, target, env):
-              '')
-            ];
-          });
+               def esp32_copy_ota_bin(source, target, env):
+            '')
+          ];
+        });
       })
     ];
 

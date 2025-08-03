@@ -21,14 +21,13 @@ in {
   ];
 
   systemd = {
-    extraConfig = "DefaultLimitNOFILE=10240";
-
     services."7-days-to-die" = {
       wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         User = "matt";
         Group = "users";
+        LimitNOFILE = "10240";
       };
 
       path = builtins.attrValues {
