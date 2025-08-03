@@ -18,10 +18,15 @@ in {
         pkgs.selfPackages.proton-ge-latest
       ];
 
-      # https://github.com/NixOS/nixpkgs/issues/25444#issuecomment-1977416787
-      extraPackages = with pkgs; [
-        kdePackages.breeze
-      ];
+      extraPackages = attrValues {
+        inherit
+          (pkgs)
+          flatpak
+          ;
+
+        # https://github.com/NixOS/nixpkgs/issues/25444#issuecomment-1977416787
+        inherit (pkgs.kdePackages) breeze;
+      };
     };
 
     # Jovian Steam settings
@@ -50,8 +55,10 @@ in {
       # https://github.com/Jovian-Experiments/Jovian-NixOS/blob/1171169117f63f1de9ef2ea36efd8dcf377c6d5a/modules/decky-loader.nix#L80-L84
 
       extraPackages = attrValues {
+        # General CLI tools
         inherit
           (pkgs)
+          gawk
           curl
           unzip
           util-linux
@@ -59,6 +66,12 @@ in {
           readline
           procps
           pciutils
+          ;
+
+        # System Utils
+        inherit
+          (pkgs)
+          flatpak
           libpulseaudio
           ;
       };
