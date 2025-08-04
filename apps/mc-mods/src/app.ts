@@ -1,5 +1,6 @@
 import { createWriteStream, mkdirSync, rmSync } from 'fs';
 import { Readable } from 'stream';
+import { styleText } from 'node:util';
 
 interface Hashes {
     sha1: string
@@ -114,7 +115,12 @@ const main = () => {
     if (action === 'check') {
         mods.forEach(async(modName) => {
             if (!(await showModDownloadUrls(modName))) {
-                console.error(`No matching releases of ${modName} were found for ${game_version}`);
+                console.error(
+                    styleText(
+                        ['red'],
+                        `\nNo matching releases of ${modName} were found for ${game_version}`,
+                    ),
+                );
             }
         });
     }
