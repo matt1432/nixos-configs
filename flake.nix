@@ -371,7 +371,7 @@
       url = "https://github.com/NixOS/nixpkgs";
     };
     nixpkgs-kde63 = {
-      rev = "b5f3cd3add96ac8dad03806d818d397dea74417a";
+      rev = "613a39c66e9e3ad85d50a7ca2ea052f70475f356";
       shallow = true;
       type = "git";
       url = "https://github.com/NixOS/nixpkgs";

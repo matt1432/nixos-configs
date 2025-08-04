@@ -5,19 +5,22 @@
   ...
 }: let
   defaultSession = "plasma";
+
+  kde63Pkgs = import nixpkgs-kde63 {
+    inherit (pkgs) system cudaSupport;
+    config.allowUnfree = true;
+  };
 in {
-  # -= KDE 6.3.5
+  # -= KDE 6.3.0
   disabledModules = ["${nixpkgs}/nixos/modules/services/desktop-managers/plasma6.nix"];
   nixpkgs.overlays = [
     (final: prev: {
-      qt6Packages = final.callPackage "${nixpkgs-kde63}/pkgs/top-level/qt6-packages.nix" {};
-      qt6 = final.callPackage "${nixpkgs-kde63}/pkgs/development/libraries/qt-6" {};
-      kdePackages = final.callPackage "${nixpkgs-kde63}/pkgs/kde" {};
+      inherit (kde63Pkgs) kdePackages;
     })
   ];
   imports = [
     "${nixpkgs-kde63}/nixos/modules/services/desktop-managers/plasma6.nix"
-    # KDE 6.3.5 =-
+    # KDE 6.3.0 =-
 
     (import ./session-switching.nix defaultSession)
     (import ./steam.nix defaultSession)
