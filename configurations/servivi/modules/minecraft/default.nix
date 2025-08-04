@@ -24,6 +24,7 @@
       user = mainUser;
 
       instances = let
+        jre23 = pkgs.temurin-bin-23;
         jre21 = pkgs.temurin-bin-21;
 
         defaults = {
@@ -64,7 +65,7 @@
 
           jvmMaxAllocation = "10G";
           jvmInitialAllocation = "2G";
-          jvmPackage = jre21;
+          jvmPackage = jre23;
 
           serverConfig =
             {

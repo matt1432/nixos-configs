@@ -108,7 +108,10 @@ const main = () => {
         'modernfix',
         'no-chat-reports',
         'noisium',
+        'puzzles-lib',
+        'forge-config-api-port',
         'vmp-fabric',
+        'worldedit',
         'wthit',
     ];
 
