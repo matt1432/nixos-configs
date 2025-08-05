@@ -5,17 +5,19 @@
   ...
 }: let
   defaultSession = "plasma";
-
-  kde63Pkgs = import nixpkgs-kde63 {
-    inherit (pkgs) system cudaSupport;
-  };
 in {
-  # -= KDE 6.3.1
+  # -= KDE 6.3.0
   disabledModules = ["${nixpkgs}/nixos/modules/services/desktop-managers/plasma6.nix"];
   nixpkgs.overlays = [
     (final: prev: {
-      # KRDP requires specific FreeRDP version
-      inherit (kde63Pkgs) freerdp;
+      freerdp = final.callPackage "${nixpkgs-kde63}/pkgs/applications/networking/remote/freerdp" {
+        AudioToolbox = null;
+        AVFoundation = null;
+        Carbon = null;
+        Cocoa = null;
+        CoreMedia = null;
+        inherit (final.gst_all_1) gstreamer gst-plugins-base gst-plugins-good;
+      };
 
       # Fixes plasma-workspace and other calls to substituteAll
       substituteAll = attrs:
@@ -23,31 +25,14 @@ in {
           (builtins.removeAttrs attrs ["src"]) // {QtBinariesDir = null;}
         );
 
-      kdePackages = (final.callPackage "${nixpkgs-kde63}/pkgs/kde" {}).overrideScope (
-        kdeFinal: kdePrev: {
-          threadweaver = kdePrev.threadweaver.overrideAttrs (o: {
-            postPatch = ''
-              ${o.postPatch or ""}
-              substituteInPlace ./CMakeLists.txt --replace-fail \
-                  'add_subdirectory(examples)' ""
-            '';
-          });
-
-          inherit
-            (prev.kdePackages)
-            breeze
-            kdeconnect-kde
-            ktextaddons
-            kpimtextedit
-            konsole
-            ;
-        }
-      );
+      qt6Packages = final.callPackage "${nixpkgs-kde63}/pkgs/top-level/qt6-packages.nix" {};
+      qt6 = final.callPackage "${nixpkgs-kde63}/pkgs/development/libraries/qt-6" {};
+      kdePackages = final.callPackage "${nixpkgs-kde63}/pkgs/kde" {};
     })
   ];
   imports = [
     "${nixpkgs-kde63}/nixos/modules/services/desktop-managers/plasma6.nix"
-    # KDE 6.3.1 =-
+    # KDE 6.3.0 =-
 
     (import ./session-switching.nix defaultSession)
     (import ./steam.nix defaultSession)
