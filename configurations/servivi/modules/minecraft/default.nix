@@ -35,7 +35,7 @@
       in {
         # Modded Ancient Dawn https://www.curseforge.com/minecraft/modpacks/the-ancient-dawn
         ad = {
-          enable = true;
+          enable = false;
 
           jvmMaxAllocation = "10G";
           jvmInitialAllocation = "2G";
@@ -70,7 +70,7 @@
           serverConfig =
             {
               server-port = 25569;
-              motd = "1.21 gaming";
+              motd = "1.21.4 gaming";
 
               extra-options = {
                 difficulty = "hard";
@@ -84,13 +84,37 @@
             // defaults;
         };
 
+        # Public Survival
+        pv = {
+          enable = true;
+
+          jvmMaxAllocation = "12G";
+          jvmInitialAllocation = "2G";
+          jvmPackage = jre23;
+
+          serverConfig =
+            {
+              server-port = 25560;
+              motd = "It's craftin' time";
+
+              extra-options = {
+                difficulty = "hard";
+                enable-command-block = true;
+                enforce-white-list = true;
+                max-players = 12;
+                view-distance = 12;
+              };
+            }
+            // defaults;
+        };
+
         # Vanilla Creative
         cv = {
           enable = true;
 
           jvmMaxAllocation = "8G";
           jvmInitialAllocation = "2G";
-          jvmPackage = jre21;
+          jvmPackage = jre23;
 
           serverConfig =
             {

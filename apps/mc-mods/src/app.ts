@@ -104,6 +104,8 @@ const main = () => {
         'fabric-api',
         'ferrite-core',
         'leaves-be-gone',
+        'ledger',
+        'fabric-language-kotlin',
         'lithium',
         'modernfix',
         'no-chat-reports',
