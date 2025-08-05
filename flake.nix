@@ -370,12 +370,6 @@
       type = "git";
       url = "https://github.com/NixOS/nixpkgs";
     };
-    nixpkgs-kde63 = {
-      rev = "2ff53fe64443980e139eaa286017f53f88336dd0";
-      shallow = true;
-      type = "git";
-      url = "https://github.com/NixOS/nixpkgs";
-    };
     nurl = {
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "nix-community";

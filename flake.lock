@@ -1486,23 +1486,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-kde63": {
-      "locked": {
-        "lastModified": 1739446958,
-        "narHash": "sha256-+/bYK3DbPxMIvSL4zArkMX0LQvS7rzBKXnDXLfKyRVc=",
-        "ref": "refs/heads/master",
-        "rev": "2ff53fe64443980e139eaa286017f53f88336dd0",
-        "shallow": true,
-        "type": "git",
-        "url": "https://github.com/NixOS/nixpkgs"
-      },
-      "original": {
-        "rev": "2ff53fe64443980e139eaa286017f53f88336dd0",
-        "shallow": true,
-        "type": "git",
-        "url": "https://github.com/NixOS/nixpkgs"
-      }
-    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1753579242,
@@ -1825,7 +1808,6 @@
         "nixd": "nixd",
         "nixos-jellyfin": "nixos-jellyfin",
         "nixpkgs": "nixpkgs_2",
-        "nixpkgs-kde63": "nixpkgs-kde63",
         "nurl": "nurl",
         "nvim-theme-src": "nvim-theme-src",
         "pcsd": "pcsd",

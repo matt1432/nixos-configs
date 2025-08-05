@@ -243,13 +243,6 @@ let
       owner = "Jovian-Experiments";
       repo = "Jovian-NixOS";
     };
-
-    nixpkgs-kde63 = mkInput {
-      type = "git";
-      url = "https://github.com/NixOS/nixpkgs";
-      rev = "2ff53fe64443980e139eaa286017f53f88336dd0";
-      shallow = true;
-    };
   };
 
   srcs = [
