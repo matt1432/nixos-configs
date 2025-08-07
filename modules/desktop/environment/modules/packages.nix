@@ -315,7 +315,8 @@ in {
             ++ optionals isNvidia [
               "workspace 1 silent, class:^(discord)$"
               "workspace 2 silent, class:^(steam)$"
-              "workspace 2 silent, initialTitle:^(.*Marvel Rivals.*)$"
+              "workspace 2 silent, class:^(steam_app_.*)$"
+              "fullscreen, class:^(steam_app_.*)$"
             ];
 
           workspace = optionals isNvidia [
