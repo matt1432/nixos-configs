@@ -1,10 +1,12 @@
 import { spawnSync as spawn } from 'child_process';
+import { ffprobe } from '@dropb/ffprobe';
 
-import ffprobe from './ffprobe';
 import { ISO6393To1 } from './lang-codes';
 
 /* Types */
-import { FfprobeStream } from 'fluent-ffmpeg';
+import type { FfprobeData } from '@dropb/ffprobe';
+
+type FFProbeStream = FfprobeData['streams'][0];
 
 
 const SPAWN_OPTS = {
@@ -34,8 +36,8 @@ let baseName: string;
  * @param sub the stream of the subtitles to extract
  * @returns the path of the subtitle file
  */
-const getSubPath = (sub: FfprobeStream): string => {
-    const language = ISO6393To1.get(sub.tags.language);
+const getSubPath = (sub: FFProbeStream): string => {
+    const language = ISO6393To1.get(sub.tags.language ?? '');
 
     const forced = sub.disposition?.forced === 0 ?
         '' :
@@ -74,7 +76,7 @@ const removeContainerSubs = (): void => {
  *
  * @param sub the stream of the subtitles to extract
  */
-const extractSub = (sub: FfprobeStream): void => {
+const extractSub = (sub: FFProbeStream): void => {
     const subFile = getSubPath(sub);
 
     spawn('ffmpeg', [
@@ -95,8 +97,8 @@ const extractSub = (sub: FfprobeStream): void => {
  */
 const findSubs = (
     lang: string,
-    streams: FfprobeStream[],
-): FfprobeStream[] => {
+    streams: FFProbeStream[],
+): FFProbeStream[] => {
     const subs = streams.filter((s) => s.tags?.language &&
       s.tags.language === lang &&
       s.codec_type === 'subtitle');

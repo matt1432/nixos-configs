@@ -5,7 +5,7 @@
 }:
 buildApp {
   src = ./.;
-  npmDepsHash = "sha256-0NNbfyLoBlEFnackX/p4nPIHFzgEem6ucUjKYNJxELs=";
+  npmDepsHash = "sha256-k8HoTHL5iNrT4zuQfdauO5gQOJwDTH3Bnefn4fA4cY4=";
 
   runtimeInputs = [
     ffmpeg-full
@@ -13,7 +13,5 @@ buildApp {
 
   meta.description = ''
     Extract all `srt` subtitle files from a `mkv` video with the appropriate name.
-
-    FIXME: fluent-ffmpeg is deprecated
   '';
 }
