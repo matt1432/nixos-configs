@@ -89,7 +89,7 @@ in {
 
       pkgs.selfPackages.protonhax
 
-      pkgs.ryujinx
+      pkgs.ryubing
       pkgs.vesktop
     ];
   };

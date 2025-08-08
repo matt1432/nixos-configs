@@ -33,6 +33,6 @@
     })
 
     pkgs.r2modman
-    pkgs.ryujinx
+    pkgs.ryubing
   ];
 }

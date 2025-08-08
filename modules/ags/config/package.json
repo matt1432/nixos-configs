@@ -5,9 +5,9 @@
     "dependencies": {
         "astal": "https://gitpkg.vercel.app/Aylur/astal/lang/gjs/src?2c5eb54f39e1710c6e2c80915a240978beb3269a",
         "@eslint/js": "9.32.0",
-        "@stylistic/eslint-plugin": "5.2.2",
+        "@stylistic/eslint-plugin": "5.2.3",
         "eslint": "9.32.0",
-        "eslint-plugin-jsdoc": "52.0.2",
+        "eslint-plugin-jsdoc": "52.0.4",
         "fzf": "0.5.2",
         "jiti": "2.5.1",
         "typescript-eslint": "8.39.0"

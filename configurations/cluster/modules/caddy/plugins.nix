@@ -2,7 +2,7 @@
   plugins = {
     certmagic = {
       url = "github.com/caddyserver/certmagic";
-      version = "v0.23.1-0.20250416233037-0d908a37e8f8";
+      version = "v0.24.0";
       type = "git";
     };
 
@@ -13,5 +13,5 @@
     };
   };
 
-  hash = "sha256-Dm9/xDKx9ZbuTNAdVr3M9P4t7KaGt3XgrRAQymxX+iU=";
+  hash = "sha256-Nzcc51B1VazDUiJjqnVdx1soBbxhNv46rQNxrR8bds4=";
 }
