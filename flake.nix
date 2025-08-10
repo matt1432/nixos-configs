@@ -47,10 +47,6 @@
       type = "github";
     };
     docker-compose = {
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
       owner = "matt1432";
       repo = "nixos-docker-compose";
       type = "github";
@@ -404,7 +400,6 @@
       type = "gitlab";
     };
     pr-tracker = {
-      inputs.nixpkgs.follows = "nixpkgs";
       owner = "matt1432";
       repo = "pr-tracker";
       type = "github";
