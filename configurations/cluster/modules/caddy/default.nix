@@ -75,6 +75,8 @@ in {
 
       "Gameyfin" = mkPublicReverseProxy "games" "${nosIP}:8074" {};
 
+      "Dynmap" = mkPublicReverseProxy "kitemap" "${serviviIP}:8123" {};
+
       "Forgejo" = mkPublicReverseProxy "git" "${nosIP}:3000" {};
 
       "Nextcloud" = mkPublicReverseProxy "cloud" "${nosIP}:8042" {
