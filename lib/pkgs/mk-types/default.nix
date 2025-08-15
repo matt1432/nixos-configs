@@ -21,7 +21,7 @@ in
     pname = "${pname}-types";
     version = "0.0.0";
 
-    npmDepsHash = "sha256-tbgTrbx4x0H/WaMkP7mAPJaVMgdplfAR0R7HbnaoSKM=";
+    npmDepsHash = "sha256-uUNzdKpXXDwX77lNJyHr1k8z5ID//5hlEX2jVrEwYpc=";
 
     src = ./.;
     dontNpmBuild = true;

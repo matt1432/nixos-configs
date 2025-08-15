@@ -57,7 +57,7 @@ let
     nix-eval-jobs = mkInput {
       owner = "nix-community";
       repo = "nix-eval-jobs";
-      ref = "v2.28.1";
+      ref = "v2.30.0";
     };
 
     nix-index-db = mkInput {

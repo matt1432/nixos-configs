@@ -8,8 +8,8 @@
     },
     "dependencies": {
         "@dropb/ffprobe": "3.0.1",
-        "@types/node": "24.2.1",
-        "esbuild": "0.25.8",
+        "@types/node": "24.3.0",
+        "esbuild": "0.25.9",
         "eslint": "9.33.0",
         "jiti": "2.5.1",
         "typescript": "5.9.2"

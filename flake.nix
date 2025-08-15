@@ -272,12 +272,11 @@
     nix-eval-jobs = {
       inputs = {
         flake-parts.follows = "flake-parts";
-        nix-github-actions.follows = "nix-github-actions";
         nixpkgs.follows = "nixpkgs";
         treefmt-nix.follows = "treefmt-nix";
       };
       owner = "nix-community";
-      ref = "v2.28.1";
+      ref = "v2.30.0";
       repo = "nix-eval-jobs";
       type = "github";
     };

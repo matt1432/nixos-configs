@@ -15,7 +15,7 @@ self: {
 
   nixdInput =
     findFirst
-    (x: x.pname == "nix") {}
+    (x: x.pname == "nix-main") {}
     nixd.packages.x86_64-linux.nixd.buildInputs;
 
   nixVersions = filter (x: ! throws x && hasVersion x) (attrValues pkgs.nixVersions);
