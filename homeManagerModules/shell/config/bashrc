@@ -17,7 +17,7 @@ fetchNix() {(
 )}
 
 # Check for internet
-if wget -q --spider https://git.nelim.org; then
+if wget -q --timeout=5 --spider https://git.nelim.org; then
     fetchNix
 else
     echo "Offline"
