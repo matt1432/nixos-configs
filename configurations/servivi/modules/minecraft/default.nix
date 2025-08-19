@@ -102,7 +102,7 @@
                 enable-command-block = true;
                 enforce-white-list = true;
                 max-players = 12;
-                view-distance = 12;
+                view-distance = 16;
               };
             }
             // defaults;
