@@ -11,7 +11,7 @@
         "esbuild": "0.25.9",
         "eslint": "9.33.0",
         "jiti": "2.5.1",
-        "pkg-types": "2.2.0",
+        "pkg-types": "2.3.0",
         "typescript": "5.9.2"
     },
     "devDependencies": {

@@ -86,7 +86,7 @@
     sha256 = "b34083d6adfc12fbbc6497c852096667883173739190c1a5cd7110a19fa49af7";
     meta = with lib; {
       homepage = "https://floccus.org";
-      description = "Sync your bookmarks and tabs across browsers via Nextcloud, any WebDAV service, any Git service, via a local file, via Google Drive.";
+      description = "Securely synchronize bookmarks across Chrome, Firefox, Edge, and more using your own cloud storage.";
       license = licenses.mpl20;
       mozPermissions = [
         "*://*/*"
@@ -226,10 +226,10 @@
   };
   "stylus" = buildFirefoxXpiAddon {
     pname = "stylus";
-    version = "2.3.14";
+    version = "2.3.16";
     addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4451438/styl_us-2.3.14.xpi";
-    sha256 = "02861b4256d7001a091ce1fbeaaf5ddcf670c3df9db55be3af2bd703a11315d8";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4554444/styl_us-2.3.16.xpi";
+    sha256 = "2cda3445f1e5e5aa95b8b814cc395079185216e10ec42d20811b0350f4c378a8";
     meta = with lib; {
       homepage = "https://add0n.com/stylus.html";
       description = "Redesign your favorite websites with Stylus, an actively developed and community driven userstyles manager. Easily install custom themes from popular online repositories, or create, edit, and manage your own personalized CSS stylesheets.";
