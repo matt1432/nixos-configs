@@ -15,6 +15,7 @@
 in {
   imports = [
     ./jfa-go.nix
+    ./meilisearch.nix
     nixos-jellyfin.nixosModules.default
   ];
 
@@ -56,6 +57,10 @@ in {
           {
             name = "Merge Versions Plugin";
             url = "https://raw.githubusercontent.com/danieladov/JellyfinPluginManifest/master/manifest.json";
+          }
+          {
+            name = "Meilisearch";
+            url = "https://raw.githubusercontent.com/arnesacnussem/jellyfin-plugin-meilisearch/refs/heads/master/manifest.json";
           }
         ];
 
