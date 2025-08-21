@@ -62,6 +62,14 @@ in {
             name = "Meilisearch";
             url = "https://raw.githubusercontent.com/arnesacnussem/jellyfin-plugin-meilisearch/refs/heads/master/manifest.json";
           }
+          {
+            name = "Air Times";
+            url = "https://raw.githubusercontent.com/apteryxxyz/jellyfin-plugin-airtimes/main/manifest.json";
+          }
+          {
+            name = "InPlayerEpisodePreview";
+            url = "https://raw.githubusercontent.com/Namo2/InPlayerEpisodePreview/master/manifest.json";
+          }
         ];
 
         enableSlowResponseWarning = false;
