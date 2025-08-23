@@ -14,6 +14,7 @@ This directory contains every modules for NixOS exposed by this flake.
 | `docker` | Imports [nixos-docker-compose](https://github.com/matt1432/nixos-docker-compose), sets default options such as BTRFS filesystem and adds an update script for images. |
 | `esphome-plus` | Fixes a bug with compilation of m5-atom-stack firmware and allows declaring firmware configurations in nix code. |
 | `ha-plus` | Extends the home-assistant options to allow declaring the content of specific configuration files in the home-assistant configuration directory such as custom sentences through nix code. |
+| `jmusicbot` | Allows declaring multiple JMusicBot instances. |
 | `kmscon` | Extends the kmscon options to add more descriptive ones. |
 | `meta` | Adds options to declare the documentation of my devices that will be generated to `./configurations/README.md`. |
 | `nvidia` | Abstracts NVIDIA options and miscellaneous fixes behind simpler options. |

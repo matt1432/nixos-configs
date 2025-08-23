@@ -16,7 +16,6 @@ in {
     (import ./gameyfin/compose.nix globalEnv)
     (import ./hauk/compose.nix globalEnv)
     (import ./immich/compose.nix globalEnv)
-    (import ./music/jbots/compose.nix globalEnv)
     (import ./nextcloud/compose.nix globalEnv)
     (import ./resume/compose.nix globalEnv)
     (import ./vaultwarden/compose.nix globalEnv)

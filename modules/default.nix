@@ -73,6 +73,13 @@ in {
       custom sentences through nix code.
     '';
 
+  jmusicbot =
+    module
+    (import ./jmusicbot)
+    ''
+      Allows declaring multiple JMusicBot instances.
+    '';
+
   kmscon =
     module
     (import ./kmscon)

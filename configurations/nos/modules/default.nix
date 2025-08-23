@@ -4,6 +4,7 @@
     ./docker
     ./homepage
     ./jellyfin
+    ./jmusicbot
     ./llm
     ./mergerfs
     ./qbittorrent
