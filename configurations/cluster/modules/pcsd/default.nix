@@ -51,7 +51,7 @@ in {
       }
 
       {
-        systemdName = "searx";
+        systemdName = "whoogle-search";
         enable = true;
         group = "caddy-grp";
       }

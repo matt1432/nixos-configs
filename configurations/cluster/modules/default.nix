@@ -5,7 +5,7 @@
     ./headscale
     ./nfs-client
     ./pcsd
-    ./searxng
     ./unbound
+    ./whoogle
   ];
 }
