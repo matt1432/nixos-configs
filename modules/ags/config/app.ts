@@ -1,5 +1,3 @@
-// TODO: see if I can bundle each config separately with nix
-
 import { programArgs } from 'system';
 
 import binto from './configurations/binto';

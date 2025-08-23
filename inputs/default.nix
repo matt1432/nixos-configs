@@ -204,11 +204,10 @@ let
         url = "https://git.outfoxxed.me/quickshell/quickshell";
       };
 
+      # Too lazy to switch to V3 for now
       astal = mkInput {
         # owner = "Aylur";
         repo = "astal";
-
-        # FIXME: https://github.com/Aylur/astal/pull/314
         owner = "matt1432";
         ref = "overlay";
       };
@@ -216,8 +215,6 @@ let
       ags = mkInput {
         # owner = "Aylur";
         repo = "ags";
-
-        # FIXME: https://github.com/Aylur/astal/pull/314
         owner = "matt1432";
         ref = "overlay";
 

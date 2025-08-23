@@ -54,7 +54,6 @@ in {
           wireplumber
           ;
 
-        # TODO: add overlays to upstream flake after ags PR is merged
         libKompass = kompass.packages.${pkgs.system}.libkompass;
 
         # libkompass dependencies

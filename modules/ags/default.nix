@@ -1,4 +1,3 @@
-# TODO: move everything to Gtk4
 self: {
   config,
   lib,
