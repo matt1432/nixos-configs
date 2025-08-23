@@ -17,13 +17,13 @@
 in
   stdenv.mkDerivation (finalAttrs: {
     pname = "homepage-dashboard";
-    version = "1.4.5";
+    version = "1.4.6";
 
     src = fetchFromGitHub {
       owner = "gethomepage";
       repo = "homepage";
       rev = "v${finalAttrs.version}";
-      hash = "sha256-wbiYtfWRHT1dJwGAE6G+uSSzWdByDZPr/1BBaOxRWxk=";
+      hash = "sha256-ug7cT/HMiOQF6CX6EEFlvgttXFZdRctSTqPAAkun2KU=";
     };
 
     pnpmDeps = pnpm.fetchDeps {

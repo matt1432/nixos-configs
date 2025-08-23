@@ -4,9 +4,9 @@
     "type": "module",
     "exports": "./index.ts",
     "dependencies": {
-        "@eslint/js": "9.33.0",
+        "@eslint/js": "9.34.0",
         "@stylistic/eslint-plugin": "5.2.3",
-        "eslint": "9.33.0",
+        "eslint": "9.34.0",
         "eslint-plugin-jsdoc": "54.1.1",
         "jiti": "2.5.1",
         "pkg-types": "2.3.0",
