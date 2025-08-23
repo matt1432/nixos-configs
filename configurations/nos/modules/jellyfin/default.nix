@@ -70,6 +70,10 @@ in {
             name = "InPlayerEpisodePreview";
             url = "https://raw.githubusercontent.com/Namo2/InPlayerEpisodePreview/master/manifest.json";
           }
+          {
+            name = "Streamyfin";
+            url = "https://raw.githubusercontent.com/streamyfin/jellyfin-plugin-streamyfin/main/manifest.json";
+          }
         ];
 
         enableSlowResponseWarning = false;
