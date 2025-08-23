@@ -102,12 +102,12 @@ in {
         };
 
         search = {
-          default = "searxng";
+          default = "whoogle";
           force = true;
 
           engines = {
-            searxng = {
-              name = "SearXNG";
+            whoogle = {
+              name = "Whoogle Search";
               urls = singleton {
                 template = "https://search.nelim.org/search";
                 params = attrsToList {
@@ -235,7 +235,7 @@ in {
           };
 
           order = [
-            "searxng"
+            "whoogle"
             "ddg"
             "mynixos"
             "nixwiki"
