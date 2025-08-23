@@ -11,7 +11,6 @@ import updateFlakeInputs from './flake';
 import updateNetDaemon from './netdaemon';
 import runNixUpdate from './nix-update';
 import updateNodeModules from './node-modules';
-import updateVuetorrent from './vuetorrent';
 
 
 /* Constants */
@@ -82,10 +81,6 @@ const main = async() => {
         console.log(runNixUpdate('trash-d') ?? 'No updates');
     }
 
-    if (args['vuetorrent']) {
-        console.log(updateVuetorrent() ?? 'No updates');
-    }
-
     if (args['a'] || args['all']) {
         // Update this first because of nix run cmd
         const firefoxOutput = updateFirefoxAddons();
@@ -111,11 +106,6 @@ const main = async() => {
         const nodeModulesOutput = await updateNodeModules();
 
         console.log(nodeModulesOutput ?? 'No updates');
-
-
-        const vuetorrentOutput = updateVuetorrent();
-
-        console.log(vuetorrentOutput ?? 'No updates');
 
 
         const caddyPluginsOutput = updateCaddyPlugins();
@@ -173,9 +163,6 @@ const main = async() => {
         }
         if (nodeModulesOutput) {
             output.push(`Node modules:\n${indentOutput(nodeModulesOutput)}\n`);
-        }
-        if (vuetorrentOutput) {
-            output.push(`qBittorrent Sources:\n${indentOutput(vuetorrentOutput)}\n`);
         }
         if (caddyPluginsOutput) {
             output.push(`Caddy Plugins:\n${indentOutput(caddyPluginsOutput)}\n`);
