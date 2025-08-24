@@ -1,4 +1,3 @@
-# FIXME: look into https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/torrent/qbittorrent.nix
 {
   config,
   lib,
@@ -34,6 +33,7 @@
     mkIf
     ;
 in {
+  # Tried it and qBit stopped working
   disabledModules = ["services/torrent/qbittorrent.nix"];
 
   options.services.qbittorrent = {
