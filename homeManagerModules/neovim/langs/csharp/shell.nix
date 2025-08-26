@@ -7,6 +7,7 @@
 mkShell {
   packages = [
     dotnetCorePackages.sdk_9_0
-    roslyn-ls
+    # FIXME: build failure
+    # roslyn-ls
   ];
 }

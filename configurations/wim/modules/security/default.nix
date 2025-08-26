@@ -23,7 +23,7 @@ in {
     serviceConfig.Type = "simple";
   };
 
-  services.logind.lidSwitch = "lock";
+  services.logind.settings.Login.HandleLidSwitch = "lock";
 
   security.sudo.extraConfig = ''
     Defaults        timestamp_timeout=600

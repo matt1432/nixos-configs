@@ -11,6 +11,6 @@
         "jiti": "2.5.1",
         "pkg-types": "2.3.0",
         "typescript": "5.9.2",
-        "typescript-eslint": "8.40.0"
+        "typescript-eslint": "8.41.0"
     }
 }

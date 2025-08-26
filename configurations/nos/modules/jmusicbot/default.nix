@@ -1,4 +1,8 @@
-{mainUser, self, ...}: {
+{
+  mainUser,
+  self,
+  ...
+}: {
   imports = [self.nixosModules.jmusicbot];
 
   services.jmusicbot = {
