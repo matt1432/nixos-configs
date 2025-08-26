@@ -32,7 +32,10 @@
       nom build --impure -o ./result-aarch64-linux.nixOnDroidConfigurations_default \
           ..#nixOnDroidConfigurations.default.config.build.activationPackage
 
-      nix-fast-build -f ..#nixFastChecks.all "$@"
+      nix-fast-build \
+          --eval-workers 6 \
+          --eval-max-memory-size 3072 \
+          -f ..#nixFastChecks.all "$@"
     '';
   };
 in {

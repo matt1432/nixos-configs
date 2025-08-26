@@ -25,7 +25,6 @@
 
       instances = let
         jre23 = pkgs.temurin-bin-23;
-        jre21 = pkgs.temurin-bin-21;
 
         defaults = {
           spawn-protection = 0;
@@ -33,37 +32,11 @@
           allow-flight = true;
         };
       in {
-        # Modded Ancient Dawn https://www.curseforge.com/minecraft/modpacks/the-ancient-dawn
-        ad = {
-          enable = false;
-
-          jvmMaxAllocation = "10G";
-          jvmInitialAllocation = "2G";
-          jvmPackage = jre21;
-
-          serverConfig =
-            {
-              server-port = 25560;
-              motd = "The Ancient Dawn gaming";
-
-              extra-options = {
-                difficulty = "hard";
-                enable-command-block = true;
-                enforce-white-list = true;
-                white-list = true;
-                max-players = 10;
-                view-distance = 12;
-                simulation-distance = 8;
-              };
-            }
-            // defaults;
-        };
-
         # Vanilla Survival
         sv = {
           enable = true;
 
-          jvmMaxAllocation = "10G";
+          jvmMaxAllocation = "8G";
           jvmInitialAllocation = "2G";
           jvmPackage = jre23;
 
@@ -112,7 +85,7 @@
         cv = {
           enable = true;
 
-          jvmMaxAllocation = "8G";
+          jvmMaxAllocation = "6G";
           jvmInitialAllocation = "2G";
           jvmPackage = jre23;
 
