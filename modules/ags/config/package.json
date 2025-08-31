@@ -3,7 +3,7 @@
     "version": "0.0.0",
     "main": "app.ts",
     "dependencies": {
-        "astal": "https://gitpkg.vercel.app/Aylur/astal/lang/gjs/src?5d4eef66392b0dff99a63a4f39ff886624bd69dd",
+        "astal": "https://gitpkg.vercel.app/Aylur/astal/lang/gjs/src?20bd8318e4136fbd3d4eb2d64dbabc3acbc915dd",
         "@eslint/js": "9.34.0",
         "@stylistic/eslint-plugin": "5.2.3",
         "eslint": "9.34.0",

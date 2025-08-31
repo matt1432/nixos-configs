@@ -84,7 +84,7 @@ in rec {
         [
           (allowModularOverrides {inherit system cudaSupport;})
           inputs.home-manager.nixosModules.home-manager
-          {home-manager.extraSpecialArgs = specialArgs;}
+          ({purePkgs, ...}: {home-manager.extraSpecialArgs = specialArgs // {inherit purePkgs;};})
         ]
         ++ extraModules;
     };

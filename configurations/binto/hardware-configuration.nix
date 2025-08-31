@@ -30,16 +30,9 @@
     extraModulePackages = builtins.attrValues {
       inherit
         (config.boot.kernelPackages)
+        v4l2loopback
         zenpower
         ;
-
-      # FIXME: https://pr-tracker.nelim.org/?pr=436682
-      v4l2loopback = config.boot.kernelPackages.v4l2loopback.overrideAttrs (o: {
-        postBuild = ''
-          make utils
-        '';
-        makeFlags = o.makeFlags ++ ["v4l2loopback.ko"];
-      });
     };
     blacklistedKernelModules = ["k10temp"];
 
