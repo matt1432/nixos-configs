@@ -46,6 +46,7 @@ in {
           "browser.startup.page" = 3;
 
           # Prefs
+          "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
           "apz.overscroll.enabled" = false;
           "layout.css.devPixelsPerPx" = 1.12;
           "browser.search.widget.inNavBar" = true;
