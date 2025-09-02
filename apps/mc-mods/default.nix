@@ -5,7 +5,7 @@
 }:
 buildApp {
   src = ./.;
-  npmDepsHash = "sha256-/Bex35w0UcbvxaYfPi/63ieQ9R9Ib8IJ6d02ddh3MoI=";
+  npmDepsHash = "sha256-PG2RNINCGHQDydRgBbAqW8NaqmzMy0si+AesFFgUX2M=";
 
   runtimeInputs = [
     nodejs_latest

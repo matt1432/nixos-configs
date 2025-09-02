@@ -65,16 +65,7 @@ in {
       fcitx5 = {
         waylandFrontend = true;
         addons = [
-          (pkgs.virtualkeyboard-adapter.overrideAttrs (o: {
-            # FIXME: make PR
-            cmakeFlags = o.cmakeFlags or [] ++ ["-DCMAKE_CXX_STANDARD=20"];
-            postPatch = ''
-              ${o.postPatch or ""}
-              substituteInPlace ./CMakeLists.txt --replace-fail \
-                  'cmake_minimum_required(VERSION 3.6)' \
-                  'cmake_minimum_required(VERSION 3.10)'
-            '';
-          }))
+          pkgs.virtualkeyboard-adapter
         ];
       };
     };
