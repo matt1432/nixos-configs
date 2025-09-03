@@ -23,20 +23,22 @@ in {
                     vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
                 end,
                 language_servers = {
-                    basedpyright = function()
-                        vim.lsp.start(vim.tbl_deep_extend('force', vim.lsp.config['basedpyright'], {
-                            capabilities = default_capabilities,
+                    basedpyright = function(start)
+                        start({
                             settings = {
                                 python = {
                                     pythonPath = vim.fn.exepath("python"),
                                 },
+                                basedpyright = {
+                                    analysis = {
+                                        diagnosticMode = 'workspace',
+                                    },
+                                },
                             },
-                        }));
+                        });
                     end,
-                    ruff = function()
-                        vim.lsp.start(vim.tbl_deep_extend('force', vim.lsp.config['ruff'], {
-                            capabilities = default_capabilities,
-                        }));
+                    ruff = function(start)
+                        start();
                     end,
                 },
             });

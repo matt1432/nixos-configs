@@ -21,10 +21,8 @@ in {
                     vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
                 end,
                 language_servers = {
-                    gopls = function()
-                        vim.lsp.start(vim.tbl_deep_extend('force', vim.lsp.config['gopls'], {
-                            capabilities = require('cmp_nvim_lsp').default_capabilities(),
-                        }));
+                    gopls = function(start)
+                        start();
                     end,
                 },
             });

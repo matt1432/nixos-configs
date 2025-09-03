@@ -14,8 +14,6 @@ in {
           # lua
           ''
             --
-            local default_capabilities = require('cmp_nvim_lsp').default_capabilities();
-
             loadDevShell({
                 name = 'json',
                 pattern = { 'json', 'yaml', '.clang-.*' },
@@ -23,16 +21,12 @@ in {
                     vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
                 end,
                 language_servers = {
-                    jsonls = function()
-                        vim.lsp.start(vim.tbl_deep_extend('force', vim.lsp.config['jsonls'], {
-                            capabilities = default_capabilities,
-                        }));
+                    jsonls = function(start)
+                        start();
                     end,
 
-                    yamlls = function()
-                        vim.lsp.start(vim.tbl_deep_extend('force', vim.lsp.config['yamlls'], {
-                            capabilities = default_capabilities,
-
+                    yamlls = function(start)
+                        start({
                             settings = {
                                 yaml = {
                                     format = {
@@ -46,7 +40,7 @@ in {
                                     },
                                 },
                             },
-                        }));
+                        });
                     end,
                 },
             });

@@ -22,13 +22,11 @@ in {
             --
             local default_capabilities = require('cmp_nvim_lsp').default_capabilities();
 
-            local eslintConfig = function()
+            local eslintConfig = function(start)
                 local config = vim.lsp.config['eslint'];
                 config.before_init = nil;
 
-                vim.lsp.start(vim.tbl_deep_extend('force', config, {
-                    capabilities = default_capabilities,
-
+                start({
                     -- auto-save
                     on_attach = function(client, bufnr)
                         vim.lsp.config['eslint'].on_attach(client, bufnr);
@@ -73,17 +71,15 @@ in {
                             mode = 'location',
                         },
                     },
-                }));
+                });
             end;
 
             vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {
                 pattern = 'scss',
                 command = 'setlocal iskeyword+=@-@',
             });
-            local cssConfig = function()
-                vim.lsp.start(vim.tbl_deep_extend('force', vim.lsp.config['cssls'], {
-                    capabilities = default_capabilities,
-
+            local cssConfig = function(start)
+                start({
                     settings = {
                         css = {
                             validate = false,
@@ -95,7 +91,7 @@ in {
                             validate = false,
                         },
                     },
-                }));
+                });
 
                 vim.lsp.start(vim.tbl_deep_extend('force', vim.lsp.config['somesass_ls'], {
                     capabilities = default_capabilities,
@@ -112,13 +108,12 @@ in {
                 }));
             end;
 
-            local htmlConfig = function()
+            local htmlConfig = function(start)
                 local html_caps = default_capabilities;
                 html_caps.textDocument.completion.completionItem.snippetSupport = true;
 
-                vim.lsp.start(vim.tbl_deep_extend('force', vim.lsp.config['html'], {
+                start({
                     capabilities = html_caps,
-                    autostart = false,
 
                     settings = {
                         configurationSection = { "html", "css", "javascript" },
@@ -134,13 +129,11 @@ in {
                         wrapAttributesIndentSize = 4,
                         endWithNewline = true,
                     },
-                }));
+                });
             end;
 
-            local typescriptConfig = function()
-                vim.lsp.start(vim.tbl_deep_extend('force', vim.lsp.config['ts_ls'], {
-                    capabilities = default_capabilities,
-
+            local typescriptConfig = function(start)
+                start({
                     handlers = {
                         -- format error code with better error message
                         ['textDocument/publishDiagnostics'] = function(err, result, ctx, config)
@@ -148,7 +141,7 @@ in {
                             vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
                         end,
                     },
-                }));
+                });
             end;
 
             loadDevShell({

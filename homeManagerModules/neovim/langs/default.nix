@@ -39,6 +39,7 @@ in {
         ''
           --
           local nix_develop = require('nix-develop');
+          local default_capabilities = require('cmp_nvim_lsp').default_capabilities();
 
           -- Init object to keep track of loaded devShells
           local devShells = {};
@@ -58,7 +59,27 @@ in {
 
                   for name, func in pairs(args.language_servers) do
                       if vim.tbl_contains(vim.lsp.config[name].filetypes, filetype) then
-                          func();
+                          func(function(opts)
+                              local final_opts = vim.tbl_deep_extend(
+                                  'force',
+                                  vim.lsp.config[name],
+                                  {
+                                      capabilities = default_capabilities,
+                                  }
+                              );
+
+                              if vim.lsp.config[name]['root_markers'] ~= nil then
+                                  final_opts = vim.tbl_deep_extend('force', final_opts, {
+                                      root_dir = vim.fs.root(
+                                          0,
+                                          vim.lsp.config[name]['root_markers']
+                                      ),
+                                      workspace_folders = nil,
+                                  });
+                              end;
+
+                              vim.lsp.start(vim.tbl_deep_extend('force', final_opts, opts or {}));
+                          end);
                       end;
                   end;
               end;

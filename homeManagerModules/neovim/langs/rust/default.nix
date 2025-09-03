@@ -21,10 +21,8 @@ in {
                     vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
                 end,
                 language_servers = {
-                    rust_analyzer = function()
-                        vim.lsp.start(vim.tbl_deep_extend('force', vim.lsp.config['rust_analyzer'], {
-                            capabilities = require('cmp_nvim_lsp').default_capabilities(),
-                        }));
+                    rust_analyzer = function(start)
+                        start();
                     end,
                 },
             });

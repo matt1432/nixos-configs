@@ -26,7 +26,7 @@ in {
                         vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
                     end,
                     language_servers = {
-                        lua_ls = function()
+                        lua_ls = function(start)
                             require('lazydev').setup({
                                 library = {
                                     -- Load luvit types when the `vim.uv` word is found
@@ -34,9 +34,7 @@ in {
                                 },
                             });
 
-                            vim.lsp.start(vim.tbl_deep_extend('force', vim.lsp.config['lua_ls'], {
-                                capabilities = require('cmp_nvim_lsp').default_capabilities(),
-                            }));
+                            start();
                         end,
                     },
                 });
