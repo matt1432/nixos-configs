@@ -1833,7 +1833,6 @@
         "vimplugin-gitsigns-src": "vimplugin-gitsigns-src",
         "vimplugin-nix-develop-src": "vimplugin-nix-develop-src",
         "vimplugin-roslyn-src": "vimplugin-roslyn-src",
-        "vimplugin-ts-error-translator-src": "vimplugin-ts-error-translator-src",
         "virtualkeyboard-adapter": "virtualkeyboard-adapter",
         "wakewords-src": "wakewords-src",
         "yamaha-soundbar-src": "yamaha-soundbar-src"
@@ -2106,22 +2105,6 @@
       "original": {
         "owner": "seblj",
         "repo": "roslyn.nvim",
-        "type": "github"
-      }
-    },
-    "vimplugin-ts-error-translator-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1731721659,
-        "narHash": "sha256-fi68jJVNTL2WlTehcl5Q8tijAeu2usjIsWXjcuixkCM=",
-        "owner": "dmmulroy",
-        "repo": "ts-error-translator.nvim",
-        "rev": "47e5ba89f71b9e6c72eaaaaa519dd59bd6897df4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "dmmulroy",
-        "repo": "ts-error-translator.nvim",
         "type": "github"
       }
     },

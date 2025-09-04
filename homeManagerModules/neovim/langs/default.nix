@@ -68,17 +68,26 @@ in {
                                   }
                               );
 
-                              if vim.lsp.config[name]['root_markers'] ~= nil then
+                              local has_root_dir_callback = vim.lsp.config[name]['root_dir'] ~= nil and type(vim.lsp.config[name]['root_dir']) == 'function';
+
+                              if not has_root_dir_callback and vim.lsp.config[name]['root_markers'] ~= nil then
                                   final_opts = vim.tbl_deep_extend('force', final_opts, {
                                       root_dir = vim.fs.root(
                                           0,
                                           vim.lsp.config[name]['root_markers']
                                       ),
-                                      workspace_folders = nil,
                                   });
                               end;
 
-                              vim.lsp.start(vim.tbl_deep_extend('force', final_opts, opts or {}));
+                              if has_root_dir_callback then
+                                  vim.lsp.config[name]['root_dir'](0, function(root_dir)
+                                      vim.lsp.start(vim.tbl_deep_extend('force', final_opts, {
+                                          root_dir = root_dir,
+                                      }, opts or {}));
+                                  end);
+                              else
+                                  vim.lsp.start(vim.tbl_deep_extend('force', final_opts, opts or {}));
+                              end;
                           end);
                       end;
                   end;

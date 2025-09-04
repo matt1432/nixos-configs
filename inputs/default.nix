@@ -317,11 +317,6 @@ let
       repo = "easytables.nvim";
     }
     {
-      name = "vimplugin-ts-error-translator-src";
-      owner = "dmmulroy";
-      repo = "ts-error-translator.nvim";
-    }
-    {
       name = "vimplugin-roslyn-src";
       owner = "seblj";
       repo = "roslyn.nvim";

@@ -505,12 +505,6 @@
       repo = "roslyn.nvim";
       type = "github";
     };
-    vimplugin-ts-error-translator-src = {
-      flake = false;
-      owner = "dmmulroy";
-      repo = "ts-error-translator.nvim";
-      type = "github";
-    };
     virtualkeyboard-adapter = {
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "horriblename";

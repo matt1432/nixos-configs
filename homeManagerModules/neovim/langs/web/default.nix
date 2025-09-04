@@ -4,9 +4,6 @@ self: {
   pkgs,
   ...
 }: let
-  inherit (self.inputs) vimplugin-ts-error-translator-src;
-  inherit (self.lib.${pkgs.system}) buildPlugin;
-
   inherit (lib) mkIf;
 
   cfg = config.programs.neovim;
@@ -20,129 +17,12 @@ in {
           # lua
           ''
             --
-            local default_capabilities = require('cmp_nvim_lsp').default_capabilities();
-
-            local eslintConfig = function(start)
-                local config = vim.lsp.config['eslint'];
-                config.before_init = nil;
-
-                start({
-                    -- auto-save
-                    on_attach = function(client, bufnr)
-                        vim.lsp.config['eslint'].on_attach(client, bufnr);
-
-                        vim.api.nvim_create_autocmd('BufWritePre', {
-                            buffer = bufnr,
-                            command = 'LspEslintFixAll',
-                        });
-                    end,
-
-                    settings = {
-                        validate = 'on',
-                        packageManager = 'npm',
-                        useESLintClass = true,
-                        useFlatConfig = true,
-                        experimental = {
-                            useFlatConfig = true,
-                        },
-                        codeAction = {
-                            disableRuleComment = {
-                                enable = true,
-                                location = 'separateLine'
-                            },
-                            showDocumentation = {
-                                enable = true,
-                            },
-                        },
-                        codeActionOnSave = {
-                            mode = 'all',
-                            rules = {},
-                        },
-                        format = true,
-                        quiet = false,
-                        onIgnoredFiles = 'off',
-                        rulesCustomizations = {},
-                        run = 'onType',
-                        problems = {
-                            shortenToSingleLine = false,
-                        },
-                        nodePath = "",
-                        workingDirectory = {
-                            mode = 'location',
-                        },
-                    },
-                });
-            end;
+            vim.lsp.config['eslint'].before_init = nil;
 
             vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {
                 pattern = 'scss',
                 command = 'setlocal iskeyword+=@-@',
             });
-            local cssConfig = function(start)
-                start({
-                    settings = {
-                        css = {
-                            validate = false,
-                        },
-                        less = {
-                            validate = false,
-                        },
-                        scss = {
-                            validate = false,
-                        },
-                    },
-                });
-
-                vim.lsp.start(vim.tbl_deep_extend('force', vim.lsp.config['somesass_ls'], {
-                    capabilities = default_capabilities,
-
-                    settings = {
-                        somesass = {
-                            scss = {
-                                completion = {
-                                    suggestFromUseOnly = true,
-                                },
-                            },
-                        },
-                    };
-                }));
-            end;
-
-            local htmlConfig = function(start)
-                local html_caps = default_capabilities;
-                html_caps.textDocument.completion.completionItem.snippetSupport = true;
-
-                start({
-                    capabilities = html_caps,
-
-                    settings = {
-                        configurationSection = { "html", "css", "javascript" },
-                        embeddedLanguages = {
-                            css = true,
-                            javascript = true,
-                        },
-                        provideFormatter = true,
-                        tabSize = 4,
-                        insertSpaces = true,
-                        indentEmptyLines = false,
-                        wrapAttributes = 'auto',
-                        wrapAttributesIndentSize = 4,
-                        endWithNewline = true,
-                    },
-                });
-            end;
-
-            local typescriptConfig = function(start)
-                start({
-                    handlers = {
-                        -- format error code with better error message
-                        ['textDocument/publishDiagnostics'] = function(err, result, ctx, config)
-                            require('ts-error-translator').translate_diagnostics(err, result, ctx, config)
-                            vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
-                        end,
-                    },
-                });
-            end;
 
             loadDevShell({
                 name = 'web',
@@ -161,17 +41,117 @@ in {
                     vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
                 end,
                 language_servers = {
-                    cssls = cssConfig,
-                    eslint = eslintConfig,
-                    html = htmlConfig,
-                    ts_ls = typescriptConfig,
+                    cssls = function(start)
+                        start({
+                            settings = {
+                                css = {
+                                    validate = false,
+                                },
+                                less = {
+                                    validate = false,
+                                },
+                                scss = {
+                                    validate = false,
+                                },
+                            },
+                        });
+                    end,
+
+                    somesass_ls = function(start)
+                        start({
+                            settings = {
+                                somesass = {
+                                    scss = {
+                                        completion = {
+                                            suggestFromUseOnly = true,
+                                        },
+                                    },
+                                },
+                            };
+                        });
+                    end,
+
+                    eslint = function(start)
+                        start({
+                            -- auto-save
+                            on_attach = function(client, bufnr)
+                                vim.lsp.config['eslint'].on_attach(client, bufnr);
+
+                                vim.api.nvim_create_autocmd('BufWritePre', {
+                                    buffer = bufnr,
+                                    command = 'LspEslintFixAll',
+                                });
+                            end,
+
+                            settings = {
+                                validate = 'on',
+                                packageManager = 'npm',
+                                useESLintClass = true,
+                                useFlatConfig = true,
+                                experimental = {
+                                    useFlatConfig = true,
+                                },
+                                codeAction = {
+                                    disableRuleComment = {
+                                        enable = true,
+                                        location = 'separateLine'
+                                    },
+                                    showDocumentation = {
+                                        enable = true,
+                                    },
+                                },
+                                codeActionOnSave = {
+                                    mode = 'all',
+                                    rules = {},
+                                },
+                                format = true,
+                                quiet = false,
+                                onIgnoredFiles = 'off',
+                                rulesCustomizations = {},
+                                run = 'onType',
+                                problems = {
+                                    shortenToSingleLine = false,
+                                },
+                                nodePath = "",
+                                workingDirectory = {
+                                    mode = 'location',
+                                },
+                            },
+                        });
+                    end,
+
+                    html = function(start)
+                        local html_caps = require('cmp_nvim_lsp').default_capabilities();
+                        html_caps.textDocument.completion.completionItem.snippetSupport = true;
+
+                        start({
+                            capabilities = html_caps,
+
+                            settings = {
+                                configurationSection = { "html", "css", "javascript" },
+                                embeddedLanguages = {
+                                    css = true,
+                                    javascript = true,
+                                },
+                                provideFormatter = true,
+                                tabSize = 4,
+                                insertSpaces = true,
+                                indentEmptyLines = false,
+                                wrapAttributes = 'auto',
+                                wrapAttributesIndentSize = 4,
+                                endWithNewline = true,
+                            },
+                        });
+                    end,
+
+                    ts_ls = function(start)
+                        start();
+                    end,
                 },
             });
           '';
 
         plugins = [
-          (buildPlugin "ts-error-translator" vimplugin-ts-error-translator-src)
-
           {
             plugin = pkgs.vimPlugins.package-info-nvim;
             type = "lua";
