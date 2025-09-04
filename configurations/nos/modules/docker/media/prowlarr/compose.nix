@@ -25,6 +25,7 @@ in {
 
         ports = ["9696:9696"];
         networks = ["proxy_net"];
+        depends_on = ["flaresolverr"];
       };
 
       "flaresolverr" = {
@@ -39,7 +40,6 @@ in {
 
         ports = ["8191:8191"];
 
-        depends_on = ["prowlarr"];
         networks = ["proxy_net"];
       };
     };
