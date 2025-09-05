@@ -7,13 +7,15 @@ import Network from './items/network';
 import NotifButton from './items/notif-button';
 import SysTray from './items/tray';
 
-import BarRevealer from './fullscreen';
 import Separator from '../misc/separator';
 import { get_gdkmonitor_from_desc } from '../../lib';
 
 
 export default () => (
-    <BarRevealer
+    <window
+        name="noanim-bar"
+        namespace="noanim-bar"
+        layer={Astal.Layer.OVERLAY}
         gdkmonitor={get_gdkmonitor_from_desc('desc:Acer Technologies Acer K212HQL T3EAA0014201')}
         exclusivity={Astal.Exclusivity.EXCLUSIVE}
         anchor={
@@ -52,5 +54,5 @@ export default () => (
             </box>
         </centerbox>
 
-    </BarRevealer>
+    </window>
 );
