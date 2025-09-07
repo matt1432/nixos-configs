@@ -125,7 +125,7 @@ in {
               clearURLs.enable = true;
               crashHandler.enable = true;
               disableCallIdle.enable = true;
-              emoteCloner.enable = true;
+              expressionCloner.enable = true;
               imageZoom.enable = true;
               memberCount.enable = true;
               messageLinkEmbeds.enable = true;
@@ -184,7 +184,6 @@ in {
           xournalpp
           virt-manager
           hunspell
-          krename
           ;
 
         # Apps

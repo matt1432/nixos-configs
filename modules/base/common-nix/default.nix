@@ -7,7 +7,7 @@ self: {
   inherit (self.inputs) nixd nixpkgs;
   inherit (self.lib) hasVersion throws;
 
-  inherit (lib) attrValues filter findFirst hasAttr mkIf optionalString;
+  inherit (lib) attrValues filter findFirst hasAttr isDerivation mkIf optionalString;
 
   inherit (config.sops.secrets) access-token;
 
@@ -18,7 +18,7 @@ self: {
     (x: x.pname == "nix-main") {}
     nixd.packages.x86_64-linux.nixd.buildInputs;
 
-  nixVersions = filter (x: ! throws x && hasVersion x) (attrValues pkgs.nixVersions);
+  nixVersions = filter (x: ! throws x && isDerivation x && hasVersion x) (attrValues pkgs.nixVersions);
 in {
   config = mkIf cfg.enable {
     nix = {
