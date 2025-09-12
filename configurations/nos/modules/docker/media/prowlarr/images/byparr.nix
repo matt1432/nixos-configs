@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage rec {
   imageName = "ghcr.io/thephaseless/byparr";
-  imageDigest = "sha256:453ddd73debc110f42290d6d3b2bbe9b53c3ca7fed03beedd34538efdab46ea0";
-  hash = "sha256-GMht5pP7i3DrStKtW0bQlwLY9fg61jOrKup7h0kGaSo=";
+  imageDigest = "sha256:dd2ab939fd616c17da5f58d85f5264e5ad125de1db732f3f27a4b52e96b78cbb";
+  hash = "sha256-HadzwFl8cYMEkeoiyY64kZ/wKooMtsMx6C6LLjBbEDE=";
   finalImageName = imageName;
   finalImageTag = "latest";
 }
