@@ -27,7 +27,7 @@ in {
   };
 
   systemd.mounts = let
-    host = "10.0.0.117";
+    host = "10.0.0.170";
   in [
     {
       type = "nfs";
