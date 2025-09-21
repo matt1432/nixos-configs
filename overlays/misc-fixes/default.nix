@@ -13,4 +13,11 @@ final: prev: {
       hash = "sha256-EvmNDU1hRUIy+CTwECLzIdcEjzcJgiiFYd2iMy0wDG0=";
     };
   });
+
+  # FIXME: https://github.com/NixOS/nixpkgs/pull/443076
+  hyprlandPlugins =
+    prev.hyprlandPlugins
+    // {
+      mkHyprlandPlugin = hyprland: attrs: (prev.hyprlandPlugins.mkHyprlandPlugin (attrs // {inherit hyprland;}));
+    };
 }

@@ -54,6 +54,8 @@
         # see https://github.com/rhasspy/rhasspy3/blob/master/programs/tts/piper/script/download.py
         voice = "en_US-hfc_male-medium";
         speaker = 0;
+
+        useCUDA = true;
       };
 
       openwakeword = {
