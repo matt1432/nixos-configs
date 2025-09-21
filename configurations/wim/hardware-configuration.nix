@@ -8,6 +8,22 @@
   nixpkgs.hostPlatform = "x86_64-linux";
   imports = [(modulesPath + "/installer/scan/not-detected.nix")];
 
+  nixpkgs.overlays = [
+    (final: prev: {
+      # FIXME: https://www.reddit.com/r/arch/comments/1nkyll1/if_you_have_a_mediatek_wifi_you_might_want_to/
+      linux-firmware = prev.linux-firmware.overrideAttrs (o: rec {
+        version = "20250808";
+
+        src = final.fetchFromGitLab {
+          owner = "kernel-firmware";
+          repo = "linux-firmware";
+          tag = version;
+          hash = "sha256-bmvhAKAY43WaPr3VLUUYoX6BU2Ret47vDnyCVP7157s=";
+        };
+      });
+    })
+  ];
+
   boot = {
     kernelPackages = pkgs.linuxPackages_zen;
 
