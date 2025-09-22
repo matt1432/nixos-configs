@@ -841,7 +841,7 @@
         "type": "github"
       }
     },
-    "kapowarr": {
+    "kapowarr-react": {
       "inputs": {
         "libgencomics": "libgencomics",
         "nixpkgs": [
@@ -855,16 +855,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1758433593,
-        "narHash": "sha256-CVGX9SNmWxY145PFAv1gCorks/eo8MJOk28CsZFu10s=",
+        "lastModified": 1758552955,
+        "narHash": "sha256-fEgYm0k7I87WsNsUjs+/Xm5uqpyRCUbN8Vds3H79KEo=",
         "owner": "matt1432",
-        "repo": "Kapowarr",
-        "rev": "853360d326fd8ee5cc5b649fb0ee52d26d571017",
+        "repo": "KapowarrReact",
+        "rev": "7f335ba7de80aa3bfb5d139795ea69cd4138e298",
         "type": "github"
       },
       "original": {
         "owner": "matt1432",
-        "repo": "Kapowarr",
+        "repo": "KapowarrReact",
         "type": "github"
       }
     },
@@ -935,15 +935,15 @@
     "libgencomics": {
       "inputs": {
         "nixpkgs": [
-          "kapowarr",
+          "kapowarr-react",
           "nixpkgs"
         ],
         "systems": [
-          "kapowarr",
+          "kapowarr-react",
           "systems"
         ],
         "treefmt-nix": [
-          "kapowarr",
+          "kapowarr-react",
           "treefmt-nix"
         ]
       },
@@ -1786,7 +1786,7 @@
         "hyprland-plugins": "hyprland-plugins",
         "hyprpaper": "hyprpaper",
         "jovian": "jovian",
-        "kapowarr": "kapowarr",
+        "kapowarr-react": "kapowarr-react",
         "komf-src": "komf-src",
         "kompass": "kompass",
         "lib-aggregate": "lib-aggregate",

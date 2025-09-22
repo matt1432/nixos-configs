@@ -157,9 +157,9 @@ let
       repo = "bazarr-bulk";
     };
 
-    kapowarr = mkInput {
+    kapowarr-react = mkInput {
       owner = "matt1432";
-      repo = "Kapowarr";
+      repo = "KapowarrReact";
       # type = "path";
       # path = "/home/matt/git/Kapowarr";
     };
