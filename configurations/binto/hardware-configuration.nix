@@ -12,6 +12,7 @@
     kernelPackages = pkgs.linuxPackages_zen;
 
     kernelParams = [
+      "nowatchdog"
       "amd_pstate=active"
 
       # Remove these if I use plymouth module
