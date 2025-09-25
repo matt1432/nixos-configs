@@ -1,4 +1,8 @@
-{kapowarr-react, mainUser, ...}: {
+{
+  kapowarr-react,
+  mainUser,
+  ...
+}: {
   imports = [kapowarr-react.nixosModules.default];
 
   services.kapowarr-react = {

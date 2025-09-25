@@ -5,6 +5,7 @@
   spotifywebapi-src,
   # deps
   lxml,
+  numpy,
   oauthlib,
   pillow,
   platformdirs,
@@ -33,6 +34,7 @@ in
 
     dependencies = [
       lxml
+      numpy
       oauthlib
       pillow
       platformdirs

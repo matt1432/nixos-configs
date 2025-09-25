@@ -3,7 +3,9 @@
   lib,
   stdenv,
   fetchFromGitLab,
-  nix-update-script,
+  writeShellApplication,
+  nix-update,
+  jq,
   # deps
   dbus,
   glib,
@@ -71,12 +73,17 @@ in
       "-Dsystemd_system_unit_dir=${placeholder "out"}/lib/systemd/system"
     ];
 
-    passthru.updateScript = nix-update-script {
-      extraArgs = [
-        "--flake"
-        ''--version=$(curl -s https://gitlab.com/api/v4/projects/mishakmak%2Fpam-fprint-grosshack/repository/tags | jq -r .[0].name)''
-      ];
-    };
+    passthru.updateScript = [
+      (lib.getExe (writeShellApplication {
+        name = "updateScript";
+        runtimeInputs = [nix-update jq];
+        text = ''
+          nix-update --flake \
+            --version="$(curl -s https://gitlab.com/api/v4/projects/mishakmak%2Fpam-fprint-grosshack/repository/tags | jq -r .[0].name)" \
+            ${pname}
+        '';
+      }))
+    ];
 
     meta = {
       license = with lib.licenses; [gpl2Plus];
