@@ -1,10 +1,10 @@
 final: prev: {
-  # FIXME: missing dep
+  # FIXME: https://pr-tracker.nelim.org/?pr=443349
   spotifywm = prev.spotifywm.overrideAttrs (o: {
     buildInputs = o.buildInputs ++ [final.libxcb];
   });
 
-  # FIXME: remove when it reaches nixpkgs
+  # FIXME: https://pr-tracker.nelim.org/?pr=445274
   whoogle-search = prev.whoogle-search.overridePythonAttrs (o: rec {
     version = "0.9.4";
     src = final.fetchPypi {
