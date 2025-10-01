@@ -22,6 +22,8 @@ in {
     programs.firefox = {
       enable = true;
 
+      package = pkgs.firefox-devedition;
+
       profiles.${mainProfile} = {
         isDefault = true;
         id = 0;
