@@ -1604,6 +1604,726 @@
             }
         ]
     },
+    "civil-war-2": {
+        "readlistId": "0N3Z1W70EGMBW",
+        "issues": [
+            {
+                "series": "The Totally Awesome Hulk",
+                "title": "Issue #7",
+                "number": 7
+            },
+            {
+                "series": "The Totally Awesome Hulk",
+                "title": "Issue #8",
+                "number": 8
+            },
+            {
+                "series": "Invincible Iron Man",
+                "title": "[The War Machines]",
+                "number": 6
+            },
+            {
+                "series": "Invincible Iron Man",
+                "title": "Issue #7",
+                "number": 7
+            },
+            {
+                "series": "Invincible Iron Man",
+                "title": "Issue #8",
+                "number": 8
+            },
+            {
+                "series": "Invincible Iron Man",
+                "title": "Issue #9",
+                "number": 9
+            },
+            {
+                "series": "Invincible Iron Man",
+                "title": "Issue #10",
+                "number": 10
+            },
+            {
+                "series": "Invincible Iron Man",
+                "title": "Issue #11",
+                "number": 11
+            },
+            {
+                "series": "Ultimates",
+                "title": "The Bringer of War",
+                "number": 7
+            },
+            {
+                "series": "Civil War II",
+                "title": "Issue #0",
+                "number": 0
+            },
+            {
+                "series": "All-New Wolverine",
+                "title": "The Box Part 1",
+                "number": 8
+            },
+            {
+                "series": "All-New Wolverine",
+                "title": "The Box Part 2",
+                "number": 9
+            },
+            {
+                "series": "Ms. Marvel",
+                "title": "The Road To War",
+                "number": 7
+            },
+            {
+                "series": "Civil War II: Ulysses Infinite Comic",
+                "title": "Tower of Wisdom, Part I",
+                "number": 1
+            },
+            {
+                "series": "Civil War II: Ulysses Infinite Comic",
+                "title": "Tower of Wisdom, Part II",
+                "number": 2
+            },
+            {
+                "series": "Civil War II: Ulysses Infinite Comic",
+                "title": "Tower of Wisdom, Part III",
+                "number": 3
+            },
+            {
+                "series": "Civil War II: Ulysses Infinite Comic",
+                "title": "Tower of Wisdom, Part IV",
+                "number": 4
+            },
+            {
+                "series": "Civil War II: Ulysses Infinite Comic",
+                "title": "Tower of Wisdom, Part V",
+                "number": 5
+            },
+            {
+                "series": "Civil War II: Ulysses Infinite Comic",
+                "title": "Tower of Wisdom, Part VI",
+                "number": 6
+            },
+            {
+                "series": "Civil War II",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "Captain Marvel",
+                "title": "Lonely At the Top: Part 1",
+                "number": 6
+            },
+            {
+                "series": "Free Comic Book Day 2016 (Civil War II)",
+                "title": "Civil War II; All-New All-Different Avengers: Buzzed",
+                "number": 1
+            },
+            {
+                "series": "Civil War II: Gods of War",
+                "title": "Gods and Monsters",
+                "number": 1
+            },
+            {
+                "series": "New Avengers",
+                "title": "A.I.M. vs. S.H.I.E.L.D., Part I: What's Coming Next",
+                "number": 12
+            },
+            {
+                "series": "Civil War II: Choosing Sides",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "Deadpool: World's Greatest: Civil War II",
+                "title": "Volume 5",
+                "number": 1
+            },
+            {
+                "series": "Spider-Man 2099: Civil War II",
+                "title": "Volume 5",
+                "number": 1
+            },
+            {
+                "series": "Civil War II: Amazing Spider-Man",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "Civil War II: Amazing Spider-Man",
+                "title": "Issue #2",
+                "number": 2
+            },
+            {
+                "series": "Civil War II: Amazing Spider-Man",
+                "title": "Issue #3",
+                "number": 3
+            },
+            {
+                "series": "Civil War II: Amazing Spider-Man",
+                "title": "Issue #4",
+                "number": 4
+            },
+            {
+                "series": "Spider-Woman",
+                "title": "Issue #9",
+                "number": 9
+            },
+            {
+                "series": "All-New Wolverine",
+                "title": "Destiny: Part One",
+                "number": 10
+            },
+            {
+                "series": "All-New Wolverine",
+                "title": "Destiny: Part Two",
+                "number": 11
+            },
+            {
+                "series": "All-New Wolverine",
+                "title": "Destiny: Part Three",
+                "number": 12
+            },
+            {
+                "series": "Power Man and Iron Fist",
+                "title": "Issue #6",
+                "number": 6
+            },
+            {
+                "series": "Ultimates",
+                "title": "Sacrifice play",
+                "number": 8
+            },
+            {
+                "series": "Patsy Walker, A.K.A. Hellcat!",
+                "title": "Issue #8",
+                "number": 8
+            },
+            {
+                "series": "A-Force",
+                "title": "Issue #8",
+                "number": 8
+            },
+            {
+                "series": "A-Force",
+                "title": "Issue #9",
+                "number": 9
+            },
+            {
+                "series": "A-Force",
+                "title": "Issue #10",
+                "number": 10
+            },
+            {
+                "series": "Scarlet Witch",
+                "title": "Issue #9",
+                "number": 9
+            },
+            {
+                "series": "Spider-Man",
+                "title": "Issue #6",
+                "number": 6
+            },
+            {
+                "series": "Civil War II",
+                "title": "Issue #2",
+                "number": 2
+            },
+            {
+                "series": "Agents of S.H.I.E.L.D.",
+                "title": "Under New Management Episode One: Whose Side Are You On?",
+                "number": 7
+            },
+            {
+                "series": "Uncanny Inhumans",
+                "title": "Issue #11",
+                "number": 11
+            },
+            {
+                "series": "Uncanny Inhumans",
+                "title": "Issue #12",
+                "number": 12
+            },
+            {
+                "series": "Uncanny Inhumans",
+                "title": "Issue #13",
+                "number": 13
+            },
+            {
+                "series": "Uncanny Inhumans",
+                "title": "Issue #14",
+                "number": 14
+            },
+            {
+                "series": "Invincible Iron Man",
+                "title": "Issue #12",
+                "number": 12
+            },
+            {
+                "series": "Invincible Iron Man",
+                "title": "Issue #13",
+                "number": 13
+            },
+            {
+                "series": "Captain America: Sam Wilson",
+                "title": "Issue #10",
+                "number": 10
+            },
+            {
+                "series": "Civil War II: Choosing Sides",
+                "title": "Issue #2",
+                "number": 2
+            },
+            {
+                "series": "Civil War II: X-Men",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "Civil War II: X-Men",
+                "title": "Issue #2",
+                "number": 2
+            },
+            {
+                "series": "Civil War II: X-Men",
+                "title": "Issue #3",
+                "number": 3
+            },
+            {
+                "series": "Civil War II: X-Men",
+                "title": "Issue #4",
+                "number": 4
+            },
+            {
+                "series": "Captain Marvel",
+                "title": "Lonely At the Top: Part 2",
+                "number": 7
+            },
+            {
+                "series": "Ms. Marvel",
+                "title": "Issue #8",
+                "number": 8
+            },
+            {
+                "series": "Ms. Marvel",
+                "title": "Issue #9",
+                "number": 9
+            },
+            {
+                "series": "Ms. Marvel",
+                "title": "Issue #10",
+                "number": 10
+            },
+            {
+                "series": "Captain America: Sam Wilson",
+                "title": "Issue #11",
+                "number": 11
+            },
+            {
+                "series": "Captain America: Sam Wilson",
+                "title": "Issue #12",
+                "number": 12
+            },
+            {
+                "series": "Captain America: Sam Wilson",
+                "title": "Issue #13",
+                "number": 13
+            },
+            {
+                "series": "Civil War II: Kingpin",
+                "title": "Shouldn't Have Come Back; The Death & Birth of Janus Jardeesh",
+                "number": 1
+            },
+            {
+                "series": "Civil War II: Kingpin",
+                "title": "Idle Hands Are the Devil's Playthings",
+                "number": 2
+            },
+            {
+                "series": "Civil War II: Kingpin",
+                "title": "Red In Tooth and Claw",
+                "number": 3
+            },
+            {
+                "series": "Civil War II: Kingpin",
+                "title": "Issue #4",
+                "number": 4
+            },
+            {
+                "series": "Civil War II: Gods of War",
+                "title": "Brand Recognition",
+                "number": 2
+            },
+            {
+                "series": "Civil War II: Gods of War",
+                "title": "Friends and Foes",
+                "number": 3
+            },
+            {
+                "series": "Civil War II: Gods of War",
+                "title": "Issue #4",
+                "number": 4
+            },
+            {
+                "series": "Captain America: Steve Rogers",
+                "title": "Issue #4",
+                "number": 4
+            },
+            {
+                "series": "Spider-Man",
+                "title": "Issue #7",
+                "number": 7
+            },
+            {
+                "series": "Civil War II",
+                "title": "Issue #3",
+                "number": 3
+            },
+            {
+                "series": "Spider-Man",
+                "title": "Issue #8",
+                "number": 8
+            },
+            {
+                "series": "Civil War II: Choosing Sides",
+                "title": "Issue #3",
+                "number": 3
+            },
+            {
+                "series": "Civil War II: Choosing Sides",
+                "title": "Issue #4",
+                "number": 4
+            },
+            {
+                "series": "Civil War II: Choosing Sides",
+                "title": "Issue #5",
+                "number": 5
+            },
+            {
+                "series": "Civil War II: Choosing Sides",
+                "title": "Issue #6",
+                "number": 6
+            },
+            {
+                "series": "Nova",
+                "title": "Issue #8",
+                "number": 8
+            },
+            {
+                "series": "Nova",
+                "title": "Issue #9",
+                "number": 9
+            },
+            {
+                "series": "Spider-Woman",
+                "title": "Issue #10",
+                "number": 10
+            },
+            {
+                "series": "Uncanny Avengers",
+                "title": "Don't Do the Crime",
+                "number": 13
+            },
+            {
+                "series": "Spider-Woman",
+                "title": "Issue #11",
+                "number": 11
+            },
+            {
+                "series": "Uncanny Avengers",
+                "title": "A Failed Experiment",
+                "number": 14
+            },
+            {
+                "series": "All-New, All-Different Avengers",
+                "title": "Issue #13",
+                "number": 13
+            },
+            {
+                "series": "All-New, All-Different Avengers",
+                "title": "Issue #14",
+                "number": 14
+            },
+            {
+                "series": "All-New, All-Different Avengers",
+                "title": "Issue #15",
+                "number": 15
+            },
+            {
+                "series": "Captain Marvel",
+                "title": "Lonely At the Top: Part 3",
+                "number": 8
+            },
+            {
+                "series": "Ms. Marvel",
+                "title": "Issue #11",
+                "number": 11
+            },
+            {
+                "series": "Power Man and Iron Fist",
+                "title": "Issue #7",
+                "number": 7
+            },
+            {
+                "series": "Power Man and Iron Fist",
+                "title": "Issue #8",
+                "number": 8
+            },
+            {
+                "series": "Power Man and Iron Fist",
+                "title": "Issue #9",
+                "number": 9
+            },
+            {
+                "series": "Mockingbird",
+                "title": "Issue #6",
+                "number": 6
+            },
+            {
+                "series": "New Avengers",
+                "title": "A.I.M. vs. S.H.I.E.L.D., Part II: Part of the Team",
+                "number": 13
+            },
+            {
+                "series": "New Avengers",
+                "title": "A.I.M. vs. S.H.I.E.L.D., Part III: Knowledge Is Power",
+                "number": 14
+            },
+            {
+                "series": "New Avengers",
+                "title": "A.I.M. vs. S.H.I.E.L.D., Part IV: Quick, Make Something Up",
+                "number": 15
+            },
+            {
+                "series": "New Avengers",
+                "title": "A.I.M. vs. S.H.I.E.L.D., Part V: Dream Bigger, Darling",
+                "number": 16
+            },
+            {
+                "series": "New Avengers",
+                "title": "A.I.M. Vs. S.H.I.E.L.D. Part VI: If You Choose to Accept It",
+                "number": 17
+            },
+            {
+                "series": "New Avengers",
+                "title": "...And One For Your Dreams",
+                "number": 18
+            },
+            {
+                "series": "Ultimates",
+                "title": "A Voice From the Dark",
+                "number": 9
+            },
+            {
+                "series": "Squadron Supreme",
+                "title": "Issue #9",
+                "number": 9
+            },
+            {
+                "series": "Squadron Supreme",
+                "title": "Issue #10",
+                "number": 10
+            },
+            {
+                "series": "Squadron Supreme",
+                "title": "Issue #11",
+                "number": 11
+            },
+            {
+                "series": "Squadron Supreme",
+                "title": "Issue #12",
+                "number": 12
+            },
+            {
+                "series": "Guardians of the Galaxy",
+                "title": "Issue #11",
+                "number": 11
+            },
+            {
+                "series": "Rocket Raccoon & Groot: Civil War II",
+                "title": "Volume 2",
+                "number": 1
+            },
+            {
+                "series": "Venom: Space Knight",
+                "title": "Issue #11",
+                "number": 11
+            },
+            {
+                "series": "Venom: Space Knight",
+                "title": "Issue #12",
+                "number": 12
+            },
+            {
+                "series": "Venom: Space Knight",
+                "title": "Issue #13",
+                "number": 13
+            },
+            {
+                "series": "Ultimates",
+                "title": "Breaking Point",
+                "number": 10
+            },
+            {
+                "series": "Ultimates",
+                "title": "Endgame",
+                "number": 11
+            },
+            {
+                "series": "Civil War II",
+                "title": "Issue #4",
+                "number": 4
+            },
+            {
+                "series": "Captain Marvel",
+                "title": "Lonely At the Top: Part 4",
+                "number": 9
+            },
+            {
+                "series": "Captain Marvel",
+                "title": "Lonely At the Top: Part 5",
+                "number": 10
+            },
+            {
+                "series": "The Accused",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "The Fallen",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "The Totally Awesome Hulk",
+                "title": "Issue #9",
+                "number": 9
+            },
+            {
+                "series": "The Totally Awesome Hulk",
+                "title": "Issue #10",
+                "number": 10
+            },
+            {
+                "series": "The Totally Awesome Hulk",
+                "title": "Issue #11",
+                "number": 11
+            },
+            {
+                "series": "The Totally Awesome Hulk",
+                "title": "Issue #12",
+                "number": 12
+            },
+            {
+                "series": "Mockingbird",
+                "title": "Issue #7",
+                "number": 7
+            },
+            {
+                "series": "Mockingbird",
+                "title": "Issue #8",
+                "number": 8
+            },
+            {
+                "series": "Agents of S.H.I.E.L.D.",
+                "title": "Under New Management Episode Two: The Third Faction",
+                "number": 8
+            },
+            {
+                "series": "Agents of S.H.I.E.L.D.",
+                "title": "Under New Management Episode Three: Elektra, Agent of S.H.I.E.L.D.",
+                "number": 9
+            },
+            {
+                "series": "Agents of S.H.I.E.L.D.",
+                "title": "Under New Management Episode Four: End of the Line",
+                "number": 10
+            },
+            {
+                "series": "Invincible Iron Man",
+                "title": "Issue #14",
+                "number": 14
+            },
+            {
+                "series": "Civil War II",
+                "title": "Issue #5",
+                "number": 5
+            },
+            {
+                "series": "Civil War II",
+                "title": "Issue #6",
+                "number": 6
+            },
+            {
+                "series": "Guardians of the Galaxy",
+                "title": "Issue #12",
+                "number": 12
+            },
+            {
+                "series": "Guardians of the Galaxy",
+                "title": "Issue #13",
+                "number": 13
+            },
+            {
+                "series": "Captain America: Steve Rogers",
+                "title": "Issue #5",
+                "number": 5
+            },
+            {
+                "series": "Captain America: Steve Rogers",
+                "title": "Issue #6",
+                "number": 6
+            },
+            {
+                "series": "Thunderbolts",
+                "title": "There Is No High Road: Part Five: What We Do Best",
+                "number": 5
+            },
+            {
+                "series": "Spider-Man",
+                "title": "Issue #9",
+                "number": 9
+            },
+            {
+                "series": "Civil War II",
+                "title": "Issue #7",
+                "number": 7
+            },
+            {
+                "series": "Civil War II",
+                "title": "Issue #8",
+                "number": 8
+            },
+            {
+                "series": "Spider-Man",
+                "title": "Issue #10",
+                "number": 10
+            },
+            {
+                "series": "Ultimates",
+                "title": "After The Fall",
+                "number": 12
+            },
+            {
+                "series": "Uncanny Avengers",
+                "title": "The Rebound",
+                "number": 15
+            },
+            {
+                "series": "Uncanny Avengers",
+                "title": "Gamma Gamma Hey!",
+                "number": 16
+            },
+            {
+                "series": "Uncanny Avengers",
+                "title": "No Rest For the Weary",
+                "number": 17
+            },
+            {
+                "series": "Civil War II: The Oath",
+                "title": "Issue #1",
+                "number": 1
+            }
+        ]
+    },
     "secret-wars": {
         "readlistId": "0KYSGSPVB5KGT",
         "issues": [
