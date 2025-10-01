@@ -16,7 +16,7 @@ genflake:
   alejandra -q "$FLAKE"/flake.nix
 
 [positional-arguments]
-l2s action list:
+l2s action list='':
   nix run "$FLAKE"#list2series -- "$@"
 
 [positional-arguments]

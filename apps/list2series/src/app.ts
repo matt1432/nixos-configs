@@ -257,6 +257,14 @@ const main = async(): Promise<void> => {
         console.log(JSON.stringify(output, null, 4));
     }
 
+    else if (process.argv[2] === 'ls') {
+        const listMappings = readNeighborFile('lists.json') as ListsJson;
+
+        Object.keys(listMappings).forEach((key) => {
+            console.log(key);
+        });
+    }
+
     else if (process.argv[2] === 'save') {
         const listKey = process.argv[3];
         const listMappings = readNeighborFile('lists.json') as ListsJson;
