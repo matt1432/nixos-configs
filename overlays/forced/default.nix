@@ -6,7 +6,7 @@ in {
   quickshell = overrideAll quickshell.packages.${final.system}.default {
     gitRev = quickshell.rev;
 
-    buildStdenv = final.clangStdenv;
+    stdenv = final.clangStdenv;
 
     debug = false;
     withI3 = false;

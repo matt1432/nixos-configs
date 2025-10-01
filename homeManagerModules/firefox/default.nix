@@ -2,7 +2,6 @@ self: {
   config,
   lib,
   pkgs,
-  purePkgs,
   ...
 }: let
   inherit (pkgs.scopedPackages) firefoxAddons;
@@ -22,9 +21,6 @@ in {
   config = mkIf cfg.enableCustomConf {
     programs.firefox = {
       enable = true;
-
-      # FIXME: overlays cause cache miss
-      package = purePkgs.firefox-devedition;
 
       profiles.${mainProfile} = {
         isDefault = true;
