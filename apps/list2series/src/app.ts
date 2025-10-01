@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { linkSync, mkdirSync, readFileSync, rmSync } from 'fs';
+import { linkSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'fs';
 import { basename } from 'path';
 
 import {
@@ -17,6 +17,10 @@ import {
 const readNeighborFile = (filename: string) => JSON.parse(
     readFileSync(`${process.env.FLAKE}/apps/list2series/${filename}`, { encoding: 'utf-8' }),
 );
+
+const writeToNeighborFile = (filename: string, content: string) => {
+    writeFileSync(`${process.env.FLAKE}/apps/list2series/${filename}`, content);
+};
 
 const API = readNeighborFile('.env').API;
 
@@ -251,6 +255,30 @@ const main = async(): Promise<void> => {
         });
 
         console.log(JSON.stringify(output, null, 4));
+    }
+
+    else if (process.argv[2] === 'save') {
+        const listKey = process.argv[3];
+        const listMappings = readNeighborFile('lists.json') as ListsJson;
+
+        if (!(listKey in listMappings)) {
+            process.exit(1);
+        }
+
+        const { listBooks } = await getListBooks(process.argv[3]);
+
+        const output = [] as { series: string, title: string, number: number }[];
+
+        listBooks.forEach((book) => {
+            output.push({
+                series: book.seriesTitle,
+                title: book.metadata.title,
+                number: book.metadata.numberSort,
+            });
+        });
+
+        listMappings[listKey].issues = output;
+        writeToNeighborFile('lists.json', `${JSON.stringify(listMappings, null, 4)}\n`);
     }
 
     else if (process.argv[2] === 'init') {
