@@ -1,11 +1,18 @@
-{buildApp, ...}:
-buildApp {
-  src = ./.;
-  npmDepsHash = "sha256-sR9bkRbBueKIQjlfRlWU4Nn7K8DqtdCS735/eKlfxkU=";
+{buildApp, ...}: let
+  inherit (builtins) baseNameOf elem filterSource;
+in
+  buildApp {
+    src = filterSource (filepath: type:
+      !(elem (baseNameOf filepath) [
+        "lists.json"
+      ]))
+    ./.;
 
-  runtimeInputs = [];
+    npmDepsHash = "sha256-sR9bkRbBueKIQjlfRlWU4Nn7K8DqtdCS735/eKlfxkU=";
 
-  meta.description = ''
-    Converts a Komga read list into a comics series for reading with mihon.
-  '';
-}
+    runtimeInputs = [];
+
+    meta.description = ''
+      Converts a Komga read list into a comics series for reading with mihon.
+    '';
+  }
