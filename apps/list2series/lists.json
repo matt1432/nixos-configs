@@ -1604,6 +1604,151 @@
             }
         ]
     },
+    "venom-cates": {
+        "readlistId": "0N48R960N4208",
+        "issues": [
+            {
+                "series": "Venom",
+                "title": "Rex, Part 1",
+                "number": 1
+            },
+            {
+                "series": "Venom",
+                "title": "Rex, Part 2",
+                "number": 2
+            },
+            {
+                "series": "Venom",
+                "title": "Rex, Part 3",
+                "number": 3
+            },
+            {
+                "series": "Venom",
+                "title": "Rex, Part 4",
+                "number": 4
+            },
+            {
+                "series": "Venom",
+                "title": "Rex, Part 5",
+                "number": 5
+            },
+            {
+                "series": "Web of Venom: Ve'Nam",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "Venom",
+                "title": "Rex, Part 6",
+                "number": 6
+            },
+            {
+                "series": "Venom Annual",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "Venom",
+                "title": "Oversight Part One",
+                "number": 7
+            },
+            {
+                "series": "Venom",
+                "title": "Issue #8",
+                "number": 8
+            },
+            {
+                "series": "Web of Venom: Carnage Born",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "Venom",
+                "title": "The Abyss Chapter One",
+                "number": 9
+            },
+            {
+                "series": "Web of Venom: Venom Unleashed",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "Venom",
+                "title": "Issue #10",
+                "number": 10
+            },
+            {
+                "series": "Venom",
+                "title": "Issue #11",
+                "number": 11
+            },
+            {
+                "series": "Venom",
+                "title": "Issue #12",
+                "number": 12
+            },
+            {
+                "series": "Web of Venom: Cult of Carnage",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "War of the Realms Omnibus",
+                "title": "HC",
+                "number": 1
+            },
+            {
+                "series": "Free Comic Book Day 2019 (Spider-Man/Venom)",
+                "title": "[Untitled]; Friendly Neighborhood Rivalry!",
+                "number": 1
+            },
+            {
+                "series": "Web of Venom: Funeral Pyre",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "Absolute Carnage Omnibus",
+                "title": "HC",
+                "number": 1
+            },
+            {
+                "series": "Web of Venom: Wraith",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "Web of Venom: The Good Son",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "Venom by Donny Cates: Venom Island",
+                "title": "Volume 4",
+                "number": 1
+            },
+            {
+                "series": "Venom by Donny Cates: Venom Beyond",
+                "title": "Volume 5",
+                "number": 1
+            },
+            {
+                "series": "Web of Venom: Empyre's End",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "King In Black Omnibus",
+                "title": "HC",
+                "number": 1
+            },
+            {
+                "series": "Venom",
+                "title": "[Untitled]; Mini Marvels",
+                "number": 35
+            }
+        ]
+    },
     "maker616": {
         "readlistId": "0N3JNQWFPGM3S",
         "issues": [
