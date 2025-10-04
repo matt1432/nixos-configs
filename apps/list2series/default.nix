@@ -8,7 +8,7 @@ in
       ]))
     ./.;
 
-    npmDepsHash = "sha256-sR9bkRbBueKIQjlfRlWU4Nn7K8DqtdCS735/eKlfxkU=";
+    npmDepsHash = "sha256-qADYJha4mLTDLdecVt5qFzUH73FUBwbzice3OCsYYS0=";
 
     runtimeInputs = [];
 

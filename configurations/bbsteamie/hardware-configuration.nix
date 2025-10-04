@@ -24,18 +24,6 @@
   };
   environment.systemPackages = with pkgs; [steamdeck-firmware xorg.xwininfo];
 
-  nixpkgs.overlays = [
-    (final: prev: {
-      steamos-manager = prev.steamos-manager.overrideAttrs (o: {
-        postPatch = ''
-          ${o.postPatch or ""}
-          substituteInPlace ./data/user/steamos-manager.service --replace-fail \
-            "EnvironmentFile=%t/gamescope-environment" ""
-        '';
-      });
-    })
-  ];
-
   boot = {
     kernelModules = ["kvm-amd"];
     initrd.availableKernelModules = ["nvme" "xhci_pci" "usbhid" "sdhci_pci"];

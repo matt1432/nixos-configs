@@ -30,6 +30,7 @@ export default (): string | null => {
             'nix-gaming/umu',
             'nix-github-actions',
             'pre-commit-hooks',
+            'pre-commit-hooks/nixpkgs',
         ].some((inputName) => input.startsWith(` Updated input '${inputName}'`)));
 
     const formattedOutput: string = inputsUpdates

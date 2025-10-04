@@ -3,11 +3,11 @@
     "version": "0.0.0",
     "main": "app.ts",
     "dependencies": {
-        "astal": "https://gitpkg.vercel.app/Aylur/astal/lang/gjs/src?344a6dce56437a190b99e516a6cab8332cccf19e",
-        "@eslint/js": "9.36.0",
+        "astal": "https://gitpkg.vercel.app/Aylur/astal/lang/gjs/src?a8e2862bc76daffb3e9bcb6bcebb9232dc46b96c",
+        "@eslint/js": "9.37.0",
         "@stylistic/eslint-plugin": "5.4.0",
-        "eslint": "9.36.0",
-        "eslint-plugin-jsdoc": "60.7.0",
+        "eslint": "9.37.0",
+        "eslint-plugin-jsdoc": "60.8.0",
         "fzf": "0.5.2",
         "jiti": "2.6.1",
         "typescript-eslint": "8.45.0"

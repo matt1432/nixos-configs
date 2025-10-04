@@ -47,7 +47,7 @@ in {
       };
 
       "freshrss-db" = {
-        image = pkgs.callPackage ./images/postgres.nix pkgs;
+        image = pkgs.callPackage ../forgejo/images/postgres.nix pkgs;
         restart = "always";
 
         volumes = [
