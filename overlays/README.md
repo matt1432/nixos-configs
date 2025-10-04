@@ -12,4 +12,3 @@ This directory contains every overlay exposed by this flake.
 | `nix-version` | Overrides the nix package for everything so I don't need multiple versions. |
 | `scopedPackages` | This overlay puts every package scopes exposed by this flake under pkgs.scopedPackages. |
 | `selfPackages` | This overlay puts every derivations for packages exposed by this flake under pkgs.selfPackages. |
-| `xdg-desktop-portal-kde` | Fixes this issue: https://invent.kde.org/plasma/xdg-desktop-portal-kde/-/issues/15 |

@@ -62,11 +62,4 @@ in {
       This overlay puts every derivations for packages exposed by this flake
       under pkgs.selfPackages.
     '';
-
-  xdg-desktop-portal-kde =
-    overlay
-    (import ./xdg-desktop-portal-kde)
-    ''
-      Fixes this issue: https://invent.kde.org/plasma/xdg-desktop-portal-kde/-/issues/15
-    '';
 }
