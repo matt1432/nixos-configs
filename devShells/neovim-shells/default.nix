@@ -26,6 +26,7 @@ in
     "lua"
     "markdown"
     "golang"
+    "ocaml"
     "python"
     "qml"
     "rust"

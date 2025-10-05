@@ -21,6 +21,7 @@ in {
     ./json
     ./kotlin
     ./lua
+    ./ocaml
     ./python
     ./qml
     ./rust
