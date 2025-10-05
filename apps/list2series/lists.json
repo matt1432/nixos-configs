@@ -3223,9 +3223,24 @@
                 "number": 4
             },
             {
-                "series": "House of M: Warzones!",
-                "title": "TPB",
+                "series": "House of M",
+                "title": "Issue #1",
                 "number": 1
+            },
+            {
+                "series": "House of M",
+                "title": "Issue #2",
+                "number": 2
+            },
+            {
+                "series": "House of M",
+                "title": "Issue #3",
+                "number": 3
+            },
+            {
+                "series": "House of M",
+                "title": "Issue #4",
+                "number": 4
             },
             {
                 "series": "Howard the Human",
