@@ -10,7 +10,8 @@ self: {
 
   cfg = osConfig.roles.desktop;
 in {
-  config = mkIf cfg.enable {
+  # FIXME: crashes hyprland on binto
+  config = mkIf (cfg.enable && cfg.isTouchscreen) {
     wayland.windowManager.hyprland = {
       plugins = [pkgs.hyprlandPlugins.hyprexpo];
 
