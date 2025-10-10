@@ -1,9 +1,4 @@
 final: prev: {
-  # FIXME: https://pr-tracker.nelim.org/?pr=443349
-  spotifywm = prev.spotifywm.overrideAttrs (o: {
-    buildInputs = o.buildInputs ++ [final.libxcb];
-  });
-
   # FIXME: remove when 1.1.0 reaches nixos-unstable
   whoogle-search = prev.whoogle-search.overridePythonAttrs (o: rec {
     version = "1.1.0";

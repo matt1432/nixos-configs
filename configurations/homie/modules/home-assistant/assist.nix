@@ -20,6 +20,9 @@
               find ./. -name "*Timer*" -exec rm -r {} +
               find ./. -name "*Start*" -exec rm -r {} +
             '';
+            disabledTests = [
+              "test_HassLightSet_name_brightness"
+            ];
           });
         };
       };

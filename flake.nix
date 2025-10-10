@@ -360,7 +360,7 @@
       type = "github";
     };
     nixpkgs = {
-      ref = "nixos-unstable";
+      ref = "nixos-unstable-small";
       shallow = true;
       type = "git";
       url = "https://github.com/NixOS/nixpkgs";

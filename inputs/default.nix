@@ -12,7 +12,8 @@ let
     nixpkgs = mkInput {
       type = "git";
       url = "https://github.com/NixOS/nixpkgs";
-      ref = "nixos-unstable";
+      # FIXME: https://tracker.nixos.c3d2.de/?pr=449482
+      ref = "nixos-unstable-small";
       shallow = true;
     };
 
