@@ -121,24 +121,27 @@ in {
               position = "0x2920";
             }
             {
-              description = "Samsung Electric Company C27JG5x HTOM100586";
-              resolution = "2560x1440";
-              refreshRate = 120;
-              position = "1920x120";
-            }
-            {
               description = "GIGA-BYTE TECHNOLOGY CO. LTD. G27QC 0x00000B1D";
               resolution = "2560x1440";
               refreshRate = 120;
-              position = "1920x1560";
-            }
-            {
-              description = "Acer Technologies Acer K212HQL T3EAA0014201";
-              resolution = "1920x1080";
-              refreshRate = 60;
-              position = "840x450";
+              position = "0x100";
               transform = "270";
             }
+
+            # Same Model so we use the adapter name unfortunately
+            {
+              name = "DP-1";
+              resolution = "2560x1440";
+              refreshRate = 179.88;
+              position = "1440x0";
+            }
+            {
+              name = "DP-2";
+              resolution = "2560x1440";
+              refreshRate = 179.88;
+              position = "1440x1440";
+            }
+
             {
               description = "Sharp Corporation LC-40LB480U 0x00000001";
               resolution = "1680x1050";

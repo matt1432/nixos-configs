@@ -69,7 +69,7 @@
     user = mainUser;
 
     ags.enable = true;
-    mainMonitor = "desc:GIGA-BYTE TECHNOLOGY CO. LTD. G27QC 0x00000B1D";
+    mainMonitor = "DP-2";
 
     fontSize = 12.5;
   };

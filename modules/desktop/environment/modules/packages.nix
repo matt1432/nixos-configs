@@ -319,7 +319,7 @@ in {
             ];
 
           workspace = optionals isNvidia [
-            "1, monitor:desc:Acer Technologies Acer K212HQL T3EAA0014201, default:true"
+            "1, monitor:desc:GIGA-BYTE TECHNOLOGY CO. LTD. G27QC 0x00000B1D, default:true"
             "2, monitor:${cfg.mainMonitor}, default:true"
           ];
 

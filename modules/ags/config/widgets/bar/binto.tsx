@@ -16,7 +16,7 @@ export default () => (
         name="noanim-bar"
         namespace="noanim-bar"
         layer={Astal.Layer.OVERLAY}
-        gdkmonitor={get_gdkmonitor_from_desc('desc:Acer Technologies Acer K212HQL T3EAA0014201')}
+        gdkmonitor={get_gdkmonitor_from_desc('desc:GIGA-BYTE TECHNOLOGY CO. LTD. G27QC 0x00000B1D')}
         exclusivity={Astal.Exclusivity.EXCLUSIVE}
         anchor={
             Astal.WindowAnchor.BOTTOM |

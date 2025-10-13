@@ -9,7 +9,7 @@ import AudioWidget from './main';
 export default () => (
     <PopupWindow
         name="audio"
-        gdkmonitor={get_gdkmonitor_from_desc('desc:Acer Technologies Acer K212HQL T3EAA0014201')}
+        gdkmonitor={get_gdkmonitor_from_desc('desc:GIGA-BYTE TECHNOLOGY CO. LTD. G27QC 0x00000B1D')}
         anchor={Astal.WindowAnchor.RIGHT | Astal.WindowAnchor.BOTTOM}
         transition="slide bottom"
     >
