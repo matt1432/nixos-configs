@@ -29,7 +29,10 @@
       };
       binto = mkNixOS {
         cudaSupport = true;
-        extraModules = [./configurations/binto];
+        extraModules = [
+          ./configurations/binto
+          secrets.nixosModules.default
+        ];
       };
 
       bbsteamie = mkNixOS {
