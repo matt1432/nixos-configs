@@ -123,7 +123,7 @@ in {
 
           # Resume builder
           resume.reverseProxy = "${nosIP}:3060";
-          resauth.reverseProxy = "${nosIP}:3100";
+          resume-storage.reverseProxy = "${nosIP}:9000";
 
           # FreshRSS & Co
           bridge.reverseProxy = "${nosIP}:3006";
