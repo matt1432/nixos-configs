@@ -3,7 +3,7 @@
   pr-tracker,
   ...
 }: {
-  # FIXME: not working
+  # When it's not working, check pr-tracker-update for errors
   imports = [pr-tracker.nixosModules.default];
 
   services.pr-tracker = {
