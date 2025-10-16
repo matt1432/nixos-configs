@@ -1,10 +1,17 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
   inherit (lib) head replaceStrings;
 in {
+  nixpkgs.overlays = [
+    (final: prev: {
+      inherit (pkgs.selfPackages) whoogle-search;
+    })
+  ];
+
   services.whoogle-search = {
     enable = true;
 

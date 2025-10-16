@@ -54,5 +54,7 @@
     trash-d = final.callPackage ./trash-d {
       inherit (inputs) trash-d-src;
     };
+
+    whoogle-search = final.callPackage ./whoogle-search {};
   };
 })

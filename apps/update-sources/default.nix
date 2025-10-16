@@ -24,8 +24,10 @@ buildApp {
     nix-update
     nodejs_latest
     prefetch-npm-deps
+
     # We want to use the one from my config with authfile
     # (callPackage ../../modules/docker/updateImage.nix {})
+
     (callPackage ../../configurations/homie/modules/home-assistant/netdaemon/update.nix {})
   ];
 

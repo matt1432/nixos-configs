@@ -86,6 +86,10 @@ const main = async() => {
         console.log(updateVuetorrent() ?? 'No updates');
     }
 
+    if (args['w'] || args['whoogle']) {
+        console.log(runNixUpdate('whoogle-search') ?? 'No updates');
+    }
+
     if (args['a'] || args['all']) {
         // Update this first because of nix run cmd
         const firefoxOutput = updateFirefoxAddons();
@@ -143,6 +147,7 @@ const main = async() => {
         updatePackage('protonhax');
         updatePackage('some-sass-language-server');
         updatePackage('trash-d');
+        updatePackage('whoogle-search');
         updatePackage('scopedPackages', 'lovelace-components', 'custom-sidebar');
         updatePackage('scopedPackages', 'lovelace-components', 'material-rounded-theme');
 
