@@ -252,10 +252,10 @@
   };
   "tampermonkey" = buildFirefoxXpiAddon {
     pname = "tampermonkey";
-    version = "5.3.3";
+    version = "5.4.0";
     addonId = "firefox@tampermonkey.net";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4405733/tampermonkey-5.3.3.xpi";
-    sha256 = "1eb5ddffb3b93c0258ef0458658436563772d21bf5dffa334bb8a49cca8f0fff";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4578764/tampermonkey-5.4.0.xpi";
+    sha256 = "20159d57c510cd0df9ad3992f818042b54d9b52e500fc384fc697314047fdf11";
     meta = with lib; {
       homepage = "https://tampermonkey.net";
       description = "Tampermonkey is the world's most popular userscript manager.";
