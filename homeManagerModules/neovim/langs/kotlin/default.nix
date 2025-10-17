@@ -21,7 +21,7 @@ in {
                     vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
                 end,
                 language_servers = {
-                    rust_analyzer = function(start)
+                    kotlin_language_server = function(start)
                         start();
                     end,
                 },
