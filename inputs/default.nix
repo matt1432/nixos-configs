@@ -337,7 +337,6 @@ let
       name = "komf-src";
       owner = "matt1432";
       repo = "komf";
-      ref = "personal";
       # type = "path";
       # path = "/home/matt/git/komf";
     }

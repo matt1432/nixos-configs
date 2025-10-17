@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+find "$(nom build "$FLAKE"#komf.mitmCache --print-out-paths)" -name "*.jar" | paste -sd:

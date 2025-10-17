@@ -28,28 +28,38 @@ in {
     komfConf = pkgs.writers.writeJSON "application.yml" {
       komga = {
         baseUri = "https://komga.nelim.org";
+
         eventListener = {
           enabled = true;
           metadataLibraryFilter = []; # listen to all events if empty
           metadataSeriesExcludeFilter = [];
           notificationsLibraryFilter = []; # Will send notifications if any notification source is enabled. If empty will send notifications for all libraries
         };
+
         metadataUpdate.default = {
           libraryType = "COMIC";
           bookCovers = true;
           seriesCovers = true;
           overrideExistingCovers = true;
           overrideComicInfo = true;
+
           postProcessing = {
             seriesTitle = true;
             orderBooks = true;
           };
         };
       };
+
       database.file = "${stateDir}/database.sqlite";
-      metadataProviders.defaultProviders.comicVine = {
-        priority = 1;
-        enabled = true;
+
+      metadataProviders = {
+        comicVineIssueName = "Issue #{number}";
+        comicVineIdFormat = "[cv-{id}]";
+
+        defaultProviders.comicVine = {
+          priority = 1;
+          enabled = true;
+        };
       };
     };
   in {
