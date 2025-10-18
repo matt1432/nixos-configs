@@ -6,7 +6,7 @@ self: {
 }: let
   inherit (pkgs.scopedPackages) dracula;
 
-  inherit (lib) mkIf;
+  inherit (lib) getExe mkIf;
 
   cfg = osConfig.roles.desktop;
 in {
@@ -20,6 +20,35 @@ in {
       enable = true;
       style.name = "kvantum";
       platformTheme.name = "qtct";
+    };
+
+    home.activation = let
+      setupOkularThemeScript = getExe (pkgs.writeShellApplication {
+        name = "setupOkularThemeScript";
+        text = ''
+          if [[ -f "$HOME/.config/okularrc" ]]; then
+              exit 0
+          fi
+
+          cat <<EOF > "$HOME/.config/okularrc"
+          [Desktop Entry]
+          FullScreen=false
+          shouldShowMenuBarComingFromFullScreen=true
+          shouldShowToolBarComingFromFullScreen=true
+
+          [General]
+          LockSidebar=true
+          ShowSidebar=false
+
+          [UiSettings]
+          ColorScheme=LavandaDark
+          EOF
+        '';
+      });
+    in {
+      setupOkularTheme = lib.hm.dag.entryAfter ["writeBoundary"] ''
+        run ${setupOkularThemeScript}
+      '';
     };
 
     xdg.configFile = let
