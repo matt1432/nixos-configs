@@ -2383,9 +2383,19 @@
                 "number": 11
             },
             {
-                "series": "Rocket Raccoon & Groot: Civil War II",
-                "title": "Volume 2",
-                "number": 1
+                "series": "Rocket Raccoon & Groot",
+                "title": "Part I of the Bad Southern Pun Trilogy: Georgia O'Thief",
+                "number": 8
+            },
+            {
+                "series": "Rocket Raccoon & Groot",
+                "title": "Part II of the Bad Southern Pun Trilogy: Gone With the Gwen'd",
+                "number": 9
+            },
+            {
+                "series": "Rocket Raccoon & Groot",
+                "title": "Part III of the Bad Southern Pun Trilogy: Y'alls Well That Ends Well",
+                "number": 10
             },
             {
                 "series": "Venom: Space Knight",
@@ -2786,6 +2796,11 @@
                 "series": "A-Force",
                 "title": "Issue #4",
                 "number": 4
+            },
+            {
+                "series": "A-Force",
+                "title": "Issue #5",
+                "number": 5
             },
             {
                 "series": "Planet Hulk",
@@ -3193,9 +3208,29 @@
                 "number": 1
             },
             {
-                "series": "Spider-Island: Warzones!",
-                "title": "TPB",
+                "series": "Spider-Island",
+                "title": "Part One: Altered States; Mayday Parker: Spider-Woman in... \"Shattered!\"",
                 "number": 1
+            },
+            {
+                "series": "Spider-Island",
+                "title": "Part Two: You Say You Want Evolution; Avengers At the Gate!",
+                "number": 2
+            },
+            {
+                "series": "Spider-Island",
+                "title": "Part Three: Goblin Knight In Shining Armor; The Enemy Within!",
+                "number": 3
+            },
+            {
+                "series": "Spider-Island",
+                "title": "Part Four: Intelligent Design",
+                "number": 4
+            },
+            {
+                "series": "Spider-Island",
+                "title": "Part Five: The Grand Finale; The Long Row!",
+                "number": 5
             },
             {
                 "series": "Captain Britain and the Mighty Defenders",
@@ -3359,11 +3394,6 @@
             },
             {
                 "series": "Ultimate End",
-                "title": "Issue #5",
-                "number": 5
-            },
-            {
-                "series": "A-Force",
                 "title": "Issue #5",
                 "number": 5
             },
