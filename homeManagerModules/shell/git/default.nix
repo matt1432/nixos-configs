@@ -17,6 +17,16 @@ self: {
   mkGitAlias = script: "!${getExe script}";
 in {
   config.programs = mkIf cfg.enable {
+    delta = {
+      enable = true;
+      enableGitIntegration = true;
+
+      options = {
+        side-by-side = true;
+        line-numbers-zero-style = "#E6EDF3";
+      };
+    };
+
     git = {
       enable = true;
       package = pkgs.gitFull;
@@ -35,15 +45,7 @@ in {
         (mkRemoteConf "git@gitlab.info.uqam.ca" "gj591944@ens.uqam.ca" "Mathis Hurtubise")
       ];
 
-      delta = {
-        enable = true;
-        options = {
-          side-by-side = true;
-          line-numbers-zero-style = "#E6EDF3";
-        };
-      };
-
-      extraConfig = {
+      settings = {
         help.autocorrect = "prompt";
 
         alias = {
