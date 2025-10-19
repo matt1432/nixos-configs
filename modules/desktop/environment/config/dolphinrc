@@ -29,6 +29,3 @@ Plugins=comicbookthumbnail,ebookthumbnail,imagethumbnail,jpegthumbnail,windowsex
 
 [ViewPropertiesDialog]
 1920x1200 screen: Window-Maximized=true
-
-[UiSettings]
-ColorScheme=*

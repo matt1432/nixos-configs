@@ -24,6 +24,7 @@ in {
         BusName = "org.freedesktop.FileManager1";
         ExecStart = "${pkgs.kdePackages.dolphin}/bin/dolphin";
       };
+      wantedBy = ["graphical-session.target"];
     };
 
     services.udisks2.enable = true;

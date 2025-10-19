@@ -23,3 +23,12 @@ View Style=DetailTree
 
 [PreviewSettings]
 MaximumRemoteSize=0
+
+[Colors:View]
+BackgroundNormal=#00000000
+
+[KDE]
+widgetStyle=kvantum
+
+[UiSettings]
+ColorScheme=LavandaDark
