@@ -42,10 +42,6 @@ in {
           # in pixels, the distance from the edge that is considered an edge
           edge_margin = 10;
 
-          # send proper cancel events to windows instead of hacky touch_up events,
-          # NOT recommended as it crashed a few times, once it's stabilized I'll make it the default
-          experimental.send_cancel = 0;
-
           hyprgrass-bind = map mkBind [
             {
               key = "edge:u:d";

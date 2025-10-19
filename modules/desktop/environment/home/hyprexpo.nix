@@ -22,7 +22,7 @@ in {
           bg_col = "rgb(111111)";
           workspace_method = "center current"; # [center/first] [workspace] e.g. first 1 or center m+1
 
-          enable_gesture = true; # laptop touchpad
+          enable_gesture = cfg.isTouchscreen; # laptop touchpad
           gesture_fingers = 3;
           gesture_distance = 300; # how far is the "max"
           gesture_positive = true; # positive = swipe down. Negative = swipe up.
@@ -35,6 +35,12 @@ in {
             dispatcher = "hyprexpo:expo";
             command = "toggle"; # can be: toggle, off/disable or on/enable
           })
+        ];
+
+        hyprexpo-gesture = mkIf cfg.isTouchscreen [
+          # FIXME: https://github.com/hyprwm/hyprland-plugins/issues/494
+          # "3, vertical, expo"
+          "3, vertical, dispatcher, hyprexpo:expo, toggle"
         ];
       };
     };
