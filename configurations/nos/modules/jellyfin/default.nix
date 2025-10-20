@@ -15,7 +15,10 @@
 in {
   imports = [
     ./jfa-go.nix
-    ./meilisearch.nix
+
+    # FIXME: doesn't work with jellyfin 10.11.0 https://github.com/arnesacnussem/jellyfin-plugin-meilisearch/issues/62
+    # ./meilisearch.nix
+
     nixos-jellyfin.nixosModules.default
   ];
 
