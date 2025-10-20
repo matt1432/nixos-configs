@@ -1431,11 +1431,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1760052100,
-        "narHash": "sha256-tv2U+ihi3mJodiZ/qMLD3D/c3kfGggDYs1O5zbsbPbU=",
+        "lastModified": 1760982815,
+        "narHash": "sha256-S+xebwBKMzjTeeq/zv8lk9yK2dmvfR2Ux9B3dP52AwA=",
         "owner": "matt1432",
         "repo": "nixos-jellyfin",
-        "rev": "f812c70063dab3797558171a9e760542f59eff5f",
+        "rev": "87cc9d498de94838266a372231c177446ac2809b",
         "type": "github"
       },
       "original": {
