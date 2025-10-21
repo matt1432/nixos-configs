@@ -855,11 +855,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1760860481,
-        "narHash": "sha256-03854YdSR9sSEPyo+kb5DqAml5W47nKdc03zcg4IUHY=",
+        "lastModified": 1761018408,
+        "narHash": "sha256-lma+XQouByDeZ5vQtTxnHd7AeBcMAR8OQSnvzfyUKzI=",
         "owner": "matt1432",
         "repo": "KapowarrReact",
-        "rev": "1c782151ec413b85e3c66c5cbbcdc862268c49c5",
+        "rev": "8919874b7aeff1cb3812e5a5e8e8fc24e18a4bf7",
         "type": "github"
       },
       "original": {
@@ -947,11 +947,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1759726199,
-        "narHash": "sha256-X16UvmMKy3meVvBQ3MJwmTcit/RNwpIJrQ+SiIk69GI=",
+        "lastModified": 1761016975,
+        "narHash": "sha256-Mfzz9jW8reE02XBfYo2L/ZC+tJDwU2FuAYahQGeKoqg=",
         "owner": "matt1432",
         "repo": "LibgenComics",
-        "rev": "9a3100bcca4ea284a7b2ad68def71947e1b92a91",
+        "rev": "121ff09110a80c8106f31573f348455cec83cdd5",
         "type": "github"
       },
       "original": {
@@ -1863,11 +1863,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1760396821,
-        "narHash": "sha256-yl3hTm1AFSgn8qhXwW6sieajG4IKmgGzpCJN/Mz7gFI=",
+        "lastModified": 1761078177,
+        "narHash": "sha256-pVYRlVe1AMEwAn9jd+RgmUd7Ljsn7PteBTyd1ogmE3o=",
         "ref": "refs/heads/main",
-        "rev": "04008fa3010a45d1262d224e4192a4fabbb33480",
-        "revCount": 104,
+        "rev": "5bfeed4776591a4bada4a293f363d59d778577ba",
+        "revCount": 105,
         "type": "git",
         "url": "ssh://git@git.nelim.org/matt1432/nixos-secrets"
       },

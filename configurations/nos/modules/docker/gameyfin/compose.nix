@@ -1,4 +1,5 @@
 {
+  configPath,
   mainUID,
   mainGID,
   ...
@@ -8,6 +9,8 @@
   ...
 }: let
   inherit (config.sops) secrets;
+
+  rwPath = configPath + "/gameyfin";
 in {
   virtualisation.docker.compose."gameyfin" = {
     networks.proxy_net = {external = true;};
@@ -15,16 +18,22 @@ in {
     services."gameyfin" = {
       image = pkgs.callPackage ./images/gameyfin.nix pkgs;
       restart = "always";
-      user = "${mainUID}:${mainGID}";
+
+      environment = {
+        APP_URL = "https://games.nelim.org";
+        PUID = mainUID;
+        PGID = mainGID;
+      };
 
       env_file = [secrets.gameyfin.path];
-      environment.GAMEYFIN_USER = "mathis";
 
       volumes = [
+        "${rwPath}/db:/opt/gameyfin/db"
+        "${rwPath}/data:/opt/gameyfin/data"
+        "${rwPath}/logs:/opt/gameyfin/logs"
         "/data/games:/opt/gameyfin-library"
       ];
 
-      expose = ["8080"];
       ports = ["8074:8080"];
       networks = ["proxy_net"];
     };
