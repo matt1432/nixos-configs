@@ -163,7 +163,18 @@ const setBookMetadata = async(i: number, source: Book, target: Book): Promise<vo
     source.metadata.number = i.toString();
     source.metadata.numberSort = i;
 
-    const metadata = JSON.stringify(source.metadata);
+    const metadata = JSON.stringify({
+        ...source.metadata,
+        titleLock: true,
+        summaryLock: true,
+        numberLock: true,
+        numberSortLock: true,
+        releaseDateLock: true,
+        authorsLock: true,
+        tagsLock: true,
+        isbnLock: true,
+        linksLock: true,
+    });
 
     axios.request({
         method: 'patch',
