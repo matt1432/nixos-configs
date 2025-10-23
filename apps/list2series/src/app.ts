@@ -319,11 +319,11 @@ const getKnownLists = () => {
     return Object.keys(readNeighborFile('lists.json') as ListsJson);
 };
 
-const onceOrAll = (id: string, func: (id: string) => void): void => {
+const onceOrAll = async(id: string, func: (id: string) => Promise<void>) => {
     if (id === 'all') {
-        getKnownLists().forEach((key) => {
-            func(key);
-        });
+        for (const key of getKnownLists()) {
+            await func(key);
+        }
     }
     else {
         func(id);
@@ -371,6 +371,8 @@ const saveListToFile = async(id: string) => {
         process.exit(1);
     }
 
+    console.log(`Saving ${id}`);
+
     const { listBooks } = await getListBooks(id);
 
     const output = [] as { series: string, title: string, number: number }[];
@@ -385,6 +387,8 @@ const saveListToFile = async(id: string) => {
 
     listMappings[id].issues = output;
     writeToNeighborFile('lists.json', `${JSON.stringify(listMappings, null, 4)}\n`);
+
+    console.log(`Saved ${id}`);
 };
 
 const restoreList = async(id: string) => {
