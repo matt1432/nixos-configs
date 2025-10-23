@@ -22,10 +22,17 @@
     text = ''
       cd "$FLAKE/results" || return
 
+      i=0
+
       # Home-assistant sometimes fails some tests when built with everything else
       hass="..#nixosConfigurations.homie.config.services.home-assistant.package"
       while ! nom build --no-link "$hass"; do
           echo "Retrying to build home-assistant"
+          i=$((i+1))
+
+          if [[ "$i" -ge 5 ]]; then
+              break
+          fi
       done
 
       # Build NixOnDroid activation package
