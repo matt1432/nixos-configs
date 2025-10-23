@@ -88,7 +88,7 @@ in {
           [Troubleshooting]
           force_raster_widgets=1
           ignored_applications=@Invalid()
-      '';
+        '';
 
       qtStyleColors =
         # ini

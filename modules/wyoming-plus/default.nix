@@ -14,10 +14,32 @@
     python3Packages = pkgs.python312Packages;
   };
 in {
-  options.services.wyoming.openwakeword.vadThreshold = mkOption {
-    type = types.float;
-    default = 0.0;
-    apply = toString;
+  options.services.wyoming.openwakeword = {
+    preloadModels = mkOption {
+      type = with types; listOf str;
+
+      default = [
+        "ok_nabu"
+      ];
+
+      example = [
+        # wyoming_openwakeword/models/*.tflite
+        "alexa"
+        "hey_jarvis"
+        "hey_mycroft"
+        "hey_rhasspy"
+        "ok_nabu"
+      ];
+
+      description = ''
+        List of wake word models to preload after startup.
+      '';
+    };
+    vadThreshold = mkOption {
+      type = types.float;
+      default = 0.0;
+      apply = toString;
+    };
   };
 
   config = {

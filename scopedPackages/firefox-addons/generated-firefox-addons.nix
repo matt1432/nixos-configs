@@ -29,10 +29,10 @@
   };
   "bitwarden" = buildFirefoxXpiAddon {
     pname = "bitwarden";
-    version = "2025.9.0";
+    version = "2025.10.0";
     addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4580978/bitwarden_password_manager-2025.9.0.xpi";
-    sha256 = "601b6e38ddcdde8f42fc48c7c978e3ad5a69ae5c082312932b7998c824bf9343";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4599707/bitwarden_password_manager-2025.10.0.xpi";
+    sha256 = "31b88743f36032fa3cfb78e0582fb732ef00a3c5915182ba37fd08b04aac1d3b";
     meta = with lib; {
       homepage = "https://bitwarden.com";
       description = "At home, at work, or on the go, Bitwarden easily secures all your passwords, passkeys, and sensitive information.";
@@ -59,10 +59,10 @@
   };
   "darkreader" = buildFirefoxXpiAddon {
     pname = "darkreader";
-    version = "4.9.110";
+    version = "4.9.112";
     addonId = "addon@darkreader.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4535824/darkreader-4.9.110.xpi";
-    sha256 = "846245826470cc1a08597480493b2076fcf03322a1228682b8a85b866fae30dc";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4598977/darkreader-4.9.112.xpi";
+    sha256 = "dc1fc27b5e61662f1e1e8a60cbf8e11a77443888e40603f88db7c6b9e4ecb437";
     meta = with lib; {
       homepage = "https://darkreader.org/";
       description = "Dark mode for every website. Take care of your eyes, use dark theme for night and daily browsing.";
@@ -146,10 +146,10 @@
   };
   "istilldontcareaboutcookies" = buildFirefoxXpiAddon {
     pname = "istilldontcareaboutcookies";
-    version = "1.1.4";
+    version = "1.1.5";
     addonId = "idcac-pub@guus.ninja";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4216095/istilldontcareaboutcookies-1.1.4.xpi";
-    sha256 = "cadeb24622d3b9a2b82bf4308242fd802546b126bb9dd14e1ea66f2aa2066795";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4599774/istilldontcareaboutcookies-1.1.5.xpi";
+    sha256 = "adf58328227a0362df046876d07d83838d5c05f3ff2130b3fe0e7b0d53903647";
     meta = with lib; {
       homepage = "https://github.com/OhMyGuus/I-Dont-Care-About-Cookies";
       description = "Community version of the popular extension \"I don't care about cookies\"  \n\nhttps://github.com/OhMyGuus/I-Dont-Care-About-Cookies";
@@ -206,10 +206,10 @@
   };
   "sponsorblock" = buildFirefoxXpiAddon {
     pname = "sponsorblock";
-    version = "6.0";
+    version = "6.0.3";
     addonId = "sponsorBlocker@ajay.app";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4580722/sponsorblock-6.0.xpi";
-    sha256 = "a7081b4d16cf3d81ce44418a92fcadbdb5c10acacfe39cc2a9854b840e4ea84c";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4598130/sponsorblock-6.0.3.xpi";
+    sha256 = "accbfb3bb634834a16685cbc66c1a8e5e8ae51c075c7c86d4b7141c67ad4c88b";
     meta = with lib; {
       homepage = "https://sponsor.ajay.app";
       description = "Easily skip YouTube video sponsors. When you visit a YouTube video, the extension will check the database for reported sponsors and automatically skip known sponsors. You can also report sponsors in videos. Other browsers: https://sponsor.ajay.app";
@@ -280,10 +280,10 @@
   };
   "ublock-origin" = buildFirefoxXpiAddon {
     pname = "ublock-origin";
-    version = "1.66.4";
+    version = "1.67.0";
     addonId = "uBlock0@raymondhill.net";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4578681/ublock_origin-1.66.4.xpi";
-    sha256 = "bc62cd930601212f1568964389352bbd4b1808466f2c9ac1198c754338077fb0";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4598854/ublock_origin-1.67.0.xpi";
+    sha256 = "b83c6ec49f817a8d05d288b53dbc7005cceccf82e9490d8683b3120aab3c133a";
     meta = with lib; {
       homepage = "https://github.com/gorhill/uBlock#ublock-origin";
       description = "Finally, an efficient wide-spectrum content blocker. Easy on CPU and memory.";

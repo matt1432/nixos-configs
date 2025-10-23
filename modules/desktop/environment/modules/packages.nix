@@ -199,20 +199,6 @@ in {
 
         prismlauncher = pkgs.prismlauncher.override {
           jdk8 = pkgs.temurin-bin-8;
-          glfw3-minecraft = pkgs.glfw3-minecraft.overrideAttrs (o: {
-            patches =
-              o.patches
-              ++ [
-                (pkgs.fetchpatch {
-                  url = "https://aur.archlinux.org/cgit/aur.git/plain/0006-Avoid-error-on-startup.patch?h=glfw-wayland-minecraft-cursorfix";
-                  hash = "sha256-oF+mTNOXPq/yr+y58tTeRkLJE67QzJJSleKFZ85+Uys=";
-                })
-                (pkgs.fetchpatch {
-                  url = "https://aur.archlinux.org/cgit/aur.git/plain/0002-Fix-duplicate-pointer-scroll-events.patch?h=glfw-wayland-minecraft-cursorfix";
-                  hash = "sha256-qd92eEqXjBPf0mgD19U5H8E88idd6NC6WnRTfvm829w=";
-                })
-              ];
-          });
         };
 
         # tools
