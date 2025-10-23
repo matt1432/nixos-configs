@@ -18,6 +18,10 @@ import type {
 // $ just l2s copy 0K65Q482KK7SD
 // $ just l2s meta 0K65Q482KK7SD
 
+// -----------------
+// Helper Functions
+// -----------------
+
 const readNeighborFile = (filename: string) => JSON.parse(
     readFileSync(`${process.env.FLAKE}/apps/list2series/${filename}`, { encoding: 'utf-8' }),
 );
@@ -307,39 +311,203 @@ const getListBooks = async(listKeyOrId: string): Promise<{
     return { list, seriesPath, listBooks };
 };
 
-const main = async(): Promise<void> => {
-    if (process.argv[2] === 'copy') {
-        const { seriesPath, listBooks } = await getListBooks(process.argv[3]);
+// ---------------
+// Main Functions
+// ---------------
 
-        rmSync(seriesPath, { recursive: true, force: true });
-        mkdirSync(seriesPath, { recursive: true });
+const getKnownLists = () => {
+    return Object.keys(readNeighborFile('lists.json') as ListsJson);
+};
 
-        for (const book of listBooks) {
-            const bookPath = book.url;
-            const inListPath = `${seriesPath}/${basename(bookPath)}`;
+const onceOrAll = (id: string, func: (id: string) => void): void => {
+    if (id === 'all') {
+        getKnownLists().forEach((key) => {
+            func(key);
+        });
+    }
+    else {
+        func(id);
+    }
+};
 
-            console.log(`hardlinking ${basename(bookPath)}`);
-            linkSync(bookPath, inListPath);
+const copyListBooks = async(id: string) => {
+    const { seriesPath, listBooks } = await getListBooks(id);
+
+    rmSync(seriesPath, { recursive: true, force: true });
+    mkdirSync(seriesPath, { recursive: true });
+
+    for (const book of listBooks) {
+        const bookPath = book.url;
+        const inListPath = `${seriesPath}/${basename(bookPath)}`;
+
+        console.log(`hardlinking ${basename(bookPath)}`);
+        linkSync(bookPath, inListPath);
+    }
+
+    scanLibrary();
+};
+
+const transferListMetadata = async(id: string) => {
+    const { list, seriesPath, listBooks } = await getListBooks(id);
+
+    const seriesBooks = await getSeriesBooks(`[List] ${list.name}`, seriesPath);
+
+    for (const target of seriesBooks) {
+        const source = listBooks.find((b) => basename(b.url) === basename(target.url));
+
+        if (source) {
+            const i = listBooks.indexOf(source) + 1;
+
+            console.log(`Setting metadata for ${source.name}`);
+            setBookMetadata(i, source, target);
+        }
+    }
+};
+
+const saveListToFile = async(id: string) => {
+    const listMappings = readNeighborFile('lists.json') as ListsJson;
+
+    if (!(id in listMappings)) {
+        process.exit(1);
+    }
+
+    const { listBooks } = await getListBooks(id);
+
+    const output = [] as { series: string, title: string, number: number }[];
+
+    listBooks.forEach((book) => {
+        output.push({
+            series: book.seriesTitle,
+            title: book.metadata.title,
+            number: book.metadata.numberSort,
+        });
+    });
+
+    listMappings[id].issues = output;
+    writeToNeighborFile('lists.json', `${JSON.stringify(listMappings, null, 4)}\n`);
+};
+
+const restoreList = async(id: string) => {
+    const listMappings = readNeighborFile('lists.json') as ListsJson;
+
+    if (!(id in listMappings)) {
+        process.exit(1);
+    }
+
+    const listData = listMappings[id];
+    const cvIssueLinks = listData.issues;
+
+    const bookIds = [] as string[];
+
+    for (let i = 0; i < cvIssueLinks.length; ++i) {
+        const { series, title, number } = cvIssueLinks[i];
+
+        const seriesSearch = (await axios.request({
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: 'https://komga.nelim.org/api/v1/series/list?unpaged=true',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'X-API-Key': API,
+            },
+            data: JSON.stringify({
+                condition: {
+                    title: {
+                        operator: 'is',
+                        value: series,
+                    },
+                },
+            }),
+        })).data.content;
+
+        const bookSearch = [] as Book[];
+
+        for (const seriesResult of seriesSearch) {
+            const seriesId = seriesResult.id;
+
+            bookSearch.push(...((await axios.request({
+                method: 'post',
+                maxBodyLength: Infinity,
+                url: 'https://komga.nelim.org/api/v1/books/list?unpaged=true',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'X-API-Key': API,
+                },
+                data: JSON.stringify({
+                    condition: {
+                        seriesId: {
+                            operator: 'is',
+                            value: seriesId,
+                        },
+                        title: {
+                            operator: 'is',
+                            value: title,
+                        },
+                    },
+                }),
+            })).data.content as Book[]));
         }
 
-        scanLibrary();
+        const matchingBooks = bookSearch.filter((b) =>
+            b.metadata.title === title &&
+            b.metadata.numberSort === number);
+
+        if (matchingBooks.length === 0) {
+            console.error(matchingBooks, number);
+            throw new Error(`No issue matched the title '${title}' from ${series}`);
+        }
+
+        if (matchingBooks.length !== 1) {
+            console.error(matchingBooks, number);
+            throw new Error(`More than one issue matched the title '${title}' from ${series}`);
+        }
+
+        bookIds[i] = matchingBooks[0].id;
+    }
+
+    await axios.request({
+        method: 'patch',
+        maxBodyLength: Infinity,
+        url: `https://komga.nelim.org/api/v1/readlists/${listData.readlistId}`,
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'X-API-Key': API,
+        },
+        data: JSON.stringify({
+            bookIds,
+            ordered: true,
+                // name: 'string',
+                // summary: 'string',
+        }),
+    });
+
+    console.log(`Restored ${id}.`);
+};
+
+const main = async(): Promise<void> => {
+    if (process.argv[2] === 'ls') {
+        getKnownLists().forEach((key) => {
+            console.log(key);
+        });
+    }
+
+    else if (process.argv[2] === 'save') {
+        onceOrAll(process.argv[3], saveListToFile);
+    }
+
+    else if (process.argv[2] === 'copy') {
+        onceOrAll(process.argv[3], copyListBooks);
     }
 
     else if (process.argv[2] === 'meta') {
-        const { list, seriesPath, listBooks } = await getListBooks(process.argv[3]);
+        onceOrAll(process.argv[3], transferListMetadata);
+    }
 
-        const seriesBooks = await getSeriesBooks(`[List] ${list.name}`, seriesPath);
-
-        for (const target of seriesBooks) {
-            const source = listBooks.find((b) => basename(b.url) === basename(target.url));
-
-            if (source) {
-                const i = listBooks.indexOf(source) + 1;
-
-                console.log(`Setting metadata for ${source.name}`);
-                setBookMetadata(i, source, target);
-            }
-        }
+    else if (process.argv[2] === 'restore') {
+        onceOrAll(process.argv[3], restoreList);
     }
 
     else if (process.argv[2] === 'json') {
@@ -356,135 +524,6 @@ const main = async(): Promise<void> => {
         });
 
         console.log(JSON.stringify(output, null, 4));
-    }
-
-    else if (process.argv[2] === 'ls') {
-        const listMappings = readNeighborFile('lists.json') as ListsJson;
-
-        Object.keys(listMappings).forEach((key) => {
-            console.log(key);
-        });
-    }
-
-    else if (process.argv[2] === 'save') {
-        const listKey = process.argv[3];
-        const listMappings = readNeighborFile('lists.json') as ListsJson;
-
-        if (!(listKey in listMappings)) {
-            process.exit(1);
-        }
-
-        const { listBooks } = await getListBooks(process.argv[3]);
-
-        const output = [] as { series: string, title: string, number: number }[];
-
-        listBooks.forEach((book) => {
-            output.push({
-                series: book.seriesTitle,
-                title: book.metadata.title,
-                number: book.metadata.numberSort,
-            });
-        });
-
-        listMappings[listKey].issues = output;
-        writeToNeighborFile('lists.json', `${JSON.stringify(listMappings, null, 4)}\n`);
-    }
-
-    else if (process.argv[2] === 'init') {
-        const listKey = process.argv[3];
-        const listMappings = readNeighborFile('lists.json') as ListsJson;
-
-        const listData = listMappings[listKey];
-        const cvIssueLinks = listData.issues;
-
-        const bookIds = [] as string[];
-
-        for (let i = 0; i < cvIssueLinks.length; ++i) {
-            const { series, title, number } = cvIssueLinks[i];
-
-            const seriesSearch = (await axios.request({
-                method: 'post',
-                maxBodyLength: Infinity,
-                url: 'https://komga.nelim.org/api/v1/series/list?unpaged=true',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'X-API-Key': API,
-                },
-                data: JSON.stringify({
-                    condition: {
-                        title: {
-                            operator: 'is',
-                            value: series,
-                        },
-                    },
-                }),
-            })).data.content;
-
-            const bookSearch = [] as Book[];
-
-            for (const seriesResult of seriesSearch) {
-                const seriesId = seriesResult.id;
-
-                bookSearch.push(...((await axios.request({
-                    method: 'post',
-                    maxBodyLength: Infinity,
-                    url: 'https://komga.nelim.org/api/v1/books/list?unpaged=true',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                        'X-API-Key': API,
-                    },
-                    data: JSON.stringify({
-                        condition: {
-                            seriesId: {
-                                operator: 'is',
-                                value: seriesId,
-                            },
-                            title: {
-                                operator: 'is',
-                                value: title,
-                            },
-                        },
-                    }),
-                })).data.content as Book[]));
-            }
-
-            const matchingBooks = bookSearch.filter((b) =>
-                b.metadata.title === title &&
-                b.metadata.numberSort === number);
-
-            if (matchingBooks.length === 0) {
-                console.error(matchingBooks, number);
-                throw new Error(`No issue matched the title '${title}' from ${series}`);
-            }
-
-            if (matchingBooks.length !== 1) {
-                console.error(matchingBooks, number);
-                throw new Error(`More than one issue matched the title '${title}' from ${series}`);
-            }
-
-            bookIds[i] = matchingBooks[0].id;
-        }
-
-        axios.request({
-            method: 'patch',
-            maxBodyLength: Infinity,
-            url: `https://komga.nelim.org/api/v1/readlists/${listData.readlistId}`,
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'X-API-Key': API,
-            },
-            data: JSON.stringify({
-                bookIds,
-                ordered: true,
-                // name: 'string',
-                // summary: 'string',
-            }),
-        });
-
-        console.log(`Updated ${listKey}.`);
     }
 
     else {
