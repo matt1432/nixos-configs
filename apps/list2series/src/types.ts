@@ -144,3 +144,14 @@ export interface ReadList {
     lastModifiedDate: string
     filtered: boolean
 }
+
+export interface Poster {
+    bookId: string
+    fileSize: number
+    height: number
+    id: string
+    mediaType: string
+    selected: boolean
+    type: string
+    width: number
+}

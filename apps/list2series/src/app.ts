@@ -1,12 +1,16 @@
 import axios from 'axios';
-import { linkSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'fs';
-import { basename } from 'path';
+import FormData from 'form-data';
 
-import {
-    type Book,
-    type ListsJson,
-    type ReadList,
-    type Series,
+import { createReadStream, linkSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'fs';
+import { basename } from 'path';
+import { spawnSync } from 'child_process';
+
+import type {
+    Book,
+    ListsJson,
+    Poster,
+    ReadList,
+    Series,
 } from './types';
 
 
@@ -153,6 +157,86 @@ const scanLibrary = (): void => {
     });
 };
 
+type BookCoverInfo = Poster & { imagePath: string };
+
+const getBookCover = async(book: Book): Promise<BookCoverInfo> => {
+    const imagePath = `/tmp/cover${book.id}.jpeg`;
+
+    spawnSync('curl', [
+        '-L', `https://komga.nelim.org/api/v1/books/${book.id}/thumbnail`,
+        '-H', `X-API-Key: ${API}`,
+        '--output', imagePath,
+    ]);
+
+    const posterList: Poster[] = (await axios.request({
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: `https://komga.nelim.org/api/v1/books/${book.id}/thumbnails`,
+        headers: {
+            'Accept': 'application/json',
+            'X-API-Key': API,
+        },
+    })).data;
+
+    const posterInfo = posterList.find((poster) => poster.selected);
+
+    if (!posterInfo) {
+        throw new Error(`Poster info for book ${book.id} could not be found`);
+    }
+
+    return {
+        ...posterInfo,
+        imagePath,
+    };
+};
+
+const updateBookCover = async(book: Book, cover: BookCoverInfo): Promise<void> => {
+    const res = await axios.request({
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: `https://komga.nelim.org/api/v1/books/${book.id}/thumbnails`,
+        headers: {
+            'Accept': 'application/json',
+            'X-API-Key': API,
+        },
+    });
+
+    const posterList: Poster[] = res.data;
+
+    for (const poster of posterList) {
+        // delete every poster
+        try {
+            await axios.request({
+                method: 'delete',
+                maxBodyLength: Infinity,
+                url: `https://komga.nelim.org/api/v1/books/${book.id}/thumbnails/${poster.id}`,
+                headers: {
+                    'X-API-Key': API,
+                },
+            });
+        }
+        catch(_e) { /**/ }
+    }
+
+    // add and mark selected
+    const data = new FormData();
+
+    data.append('file', createReadStream(cover.imagePath));
+
+    await axios.request({
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: `https://komga.nelim.org/api/v1/books/${book.id}/thumbnails?selected=true`,
+        headers: {
+            'Content-Type': 'multipart/form-data',
+            'Accept': 'application/json',
+            'X-API-Key': API,
+            ...data.getHeaders(),
+        },
+        data,
+    });
+};
+
 const setBookMetadata = async(i: number, source: Book, target: Book): Promise<void> => {
     const thisSeries = (await getSeries(source.seriesTitle))[0];
 
@@ -176,7 +260,7 @@ const setBookMetadata = async(i: number, source: Book, target: Book): Promise<vo
         linksLock: true,
     });
 
-    axios.request({
+    await axios.request({
         method: 'patch',
         maxBodyLength: Infinity,
         url: `https://komga.nelim.org/api/v1/books/${target.id}/metadata`,
@@ -186,6 +270,12 @@ const setBookMetadata = async(i: number, source: Book, target: Book): Promise<vo
         },
         data: metadata,
     });
+
+    const cover = await getBookCover(source);
+
+    await updateBookCover(target, cover);
+
+    rmSync(cover.imagePath);
 };
 
 const getListBooks = async(listKeyOrId: string): Promise<{
