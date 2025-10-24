@@ -24,7 +24,7 @@ export default () => (
             Astal.WindowAnchor.RIGHT
         }
     >
-        <centerbox className="bar widget">
+        <centerbox className="bar binto widget">
             <box hexpand halign={Gtk.Align.START}>
                 <CurrentIcon />
 
