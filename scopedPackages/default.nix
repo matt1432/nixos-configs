@@ -32,5 +32,9 @@ in {
     mpvScripts = mkScope ./mpv-scripts ''
       MPV scripts I use that aren't in nixpkgs.
     '';
+
+    protonGE = mkScope ./proton-ge ''
+      My pinned versions of proton-ge-bin.
+    '';
   };
 })

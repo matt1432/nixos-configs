@@ -15,7 +15,10 @@
       remotePlay.openFirewall = true;
 
       extraCompatPackages = [
-        pkgs.selfPackages.proton-ge-latest
+        pkgs.scopedPackages.protonGE.latest
+
+        # For Marvel Rivals
+        pkgs.scopedPackages.protonGE.v10-20
       ];
 
       platformOptimizations.enable = true;
