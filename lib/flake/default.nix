@@ -25,10 +25,7 @@ in rec {
         src = nixpkgs;
         patches = [
           # FIXME: https://pr-tracker.nelim.org/?pr=454184
-          (builtins.fetchurl {
-            url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/454184.patch";
-            sha256 = "sha256:0ml8fg85db7mq20m8wjw18y70w9ycakzig1rcw6yr7dc0i6p1jvr";
-          })
+          ./fcitx5.patch
         ];
       };
   in

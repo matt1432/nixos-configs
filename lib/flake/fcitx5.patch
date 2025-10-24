@@ -1,0 +1,44 @@
+From b208b07fd09818a1b3308ef197dc4cf869827e8a Mon Sep 17 00:00:00 2001
+From: Guanran Wang <guanran928@outlook.com>
+Date: Tue, 21 Oct 2025 20:06:07 +0800
+Subject: [PATCH] kdePackages.fcitx5-qt: fix build for Qt 6.10
+
+---
+ pkgs/tools/inputmethods/fcitx5/fcitx5-qt.nix | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
+
+diff --git a/pkgs/tools/inputmethods/fcitx5/fcitx5-qt.nix b/pkgs/tools/inputmethods/fcitx5/fcitx5-qt.nix
+index 0a7564adfbfcc3..efc7719e6c8bdb 100644
+--- a/pkgs/tools/inputmethods/fcitx5/fcitx5-qt.nix
++++ b/pkgs/tools/inputmethods/fcitx5/fcitx5-qt.nix
+@@ -10,6 +10,7 @@
+   qtwayland,
+   wrapQtAppsHook,
+   wayland,
++  fetchpatch2,
+ }:
+ let
+   majorVersion = lib.versions.major qtbase.version;
+@@ -25,6 +26,22 @@ stdenv.mkDerivation rec {
+     hash = "sha256-JhmaAAJ1fevCPItVnneUCAalnDDaCjjkAl9QRhSkBk4=";
+   };
+ 
++  patches = [
++    # TODO: remove on next release
++    (fetchpatch2 {
++      url = "https://github.com/fcitx/fcitx5-qt/commit/46a07a85d191fd77a1efc39c8ed43d0cd87788d2.patch?full_index=1";
++      hash = "sha256-qv8Rj6YoFdMQLOB2R9LGgwCHKdhEji0Sg67W37jSIac=";
++    })
++    (fetchpatch2 {
++      url = "https://github.com/fcitx/fcitx5-qt/commit/6ac4fdd8e90ff9c25a5219e15e83740fa38c9c71.patch?full_index=1";
++      hash = "sha256-x0OdlIVmwVuq2TfBlgmfwaQszXLxwRFVf+gEU224uVA=";
++    })
++    (fetchpatch2 {
++      url = "https://github.com/fcitx/fcitx5-qt/commit/1d07f7e8d6a7ae8651eda658f87ab0c9df08bef4.patch?full_index=1";
++      hash = "sha256-22tKD7sbsTJcNqur9/Uf+XAvMvA7tzNQ9hUCMm+E+E0=";
++    })
++  ];
++
+   postPatch = ''
+     substituteInPlace qt${majorVersion}/platforminputcontext/CMakeLists.txt \
+       --replace \$"{CMAKE_INSTALL_QT${majorVersion}PLUGINDIR}" $out/${qtbase.qtPluginPrefix}
