@@ -1604,6 +1604,316 @@
             }
         ]
     },
+    "kib": {
+        "readlistId": "0NBPM1QKDAHYQ",
+        "issues": [
+            {
+                "series": "Symbiote Spider-Man: King In Black",
+                "title": "TPB",
+                "number": 1
+            },
+            {
+                "series": "King In Black: Namor",
+                "title": "Chapter 1: In the Depths",
+                "number": 1
+            },
+            {
+                "series": "King In Black: Namor",
+                "title": "Chapter 2: Swift and Sure",
+                "number": 2
+            },
+            {
+                "series": "King In Black: Namor",
+                "title": "Chapter 3: The Tide Is Turned",
+                "number": 3
+            },
+            {
+                "series": "King In Black: Namor",
+                "title": "Chapter 4: Cold Currents",
+                "number": 4
+            },
+            {
+                "series": "Atlantis Attacks",
+                "title": "Part Five: Eye of the Storm",
+                "number": 5
+            },
+            {
+                "series": "King In Black: Wiccan and Hulking",
+                "title": "In the Name of the Honeymoon",
+                "number": 1
+            },
+            {
+                "series": "King In Black",
+                "title": "Chapter One: Reign",
+                "number": 1
+            },
+            {
+                "series": "The Union",
+                "title": "The Britannia Project Part One: The Flag Game",
+                "number": 1
+            },
+            {
+                "series": "The Union",
+                "title": "The Britannia Project Part Two: Making Waves",
+                "number": 2
+            },
+            {
+                "series": "Black Cat",
+                "title": "Queen In Black Part One; Things To Come",
+                "number": 1
+            },
+            {
+                "series": "Spider-Woman",
+                "title": "Issue #7",
+                "number": 7
+            },
+            {
+                "series": "Spider-Woman",
+                "title": "Issue #8",
+                "number": 8
+            },
+            {
+                "series": "Guardians of the Galaxy",
+                "title": "I think I had this album.",
+                "number": 10
+            },
+            {
+                "series": "King In Black: Ghost Rider",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "King In Black: Black Knight",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "King In Black: Black Panther",
+                "title": "Cathexis",
+                "number": 1
+            },
+            {
+                "series": "Venom",
+                "title": "Thirty-Two Seconds",
+                "number": 31
+            },
+            {
+                "series": "King In Black",
+                "title": "Chapter Two: Fall",
+                "number": 2
+            },
+            {
+                "series": "Venom",
+                "title": "The Other Side",
+                "number": 32
+            },
+            {
+                "series": "King In Black: Iron Man/Doom",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "King In Black: Return of the Valkyries",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "King In Black: Planet of the Symbiotes",
+                "title": "Scream; Ravencroft Institute For the Criminally Insane",
+                "number": 1
+            },
+            {
+                "series": "King In Black: Planet of the Symbiotes",
+                "title": "American Kaiju!; Hornet",
+                "number": 2
+            },
+            {
+                "series": "King In Black: Thunderbolts",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "King In Black: Thunderbolts",
+                "title": "Issue #2",
+                "number": 2
+            },
+            {
+                "series": "King In Black: Thunderbolts",
+                "title": "Issue #3",
+                "number": 3
+            },
+            {
+                "series": "King in Black: Gwenom vs. Carnage",
+                "title": "Part One",
+                "number": 1
+            },
+            {
+                "series": "King in Black: Gwenom vs. Carnage",
+                "title": "Part Two",
+                "number": 2
+            },
+            {
+                "series": "King in Black: Gwenom vs. Carnage",
+                "title": "Part Three",
+                "number": 3
+            },
+            {
+                "series": "King In Black: Immortal Hulk",
+                "title": "Black Christmas; ...and to all a GOOD NIGHT.",
+                "number": 1
+            },
+            {
+                "series": "S.W.O.R.D.",
+                "title": "In the Dark",
+                "number": 2
+            },
+            {
+                "series": "S.W.O.R.D.",
+                "title": "Everywhere Man",
+                "number": 3
+            },
+            {
+                "series": "King In Black",
+                "title": "Chapter Three: Thunder",
+                "number": 3
+            },
+            {
+                "series": "Daredevil",
+                "title": "The Black Kitchen Part 1",
+                "number": 26
+            },
+            {
+                "series": "Daredevil",
+                "title": "The Black Kitchen Part 2",
+                "number": 27
+            },
+            {
+                "series": "Deadpool",
+                "title": "Issue #10",
+                "number": 10
+            },
+            {
+                "series": "King In Black: Marauders",
+                "title": "Queen In Red",
+                "number": 1
+            },
+            {
+                "series": "Savage Avengers",
+                "title": "Chapter Seventeen: A Cooler King",
+                "number": 17
+            },
+            {
+                "series": "Savage Avengers",
+                "title": "Chapter Eighteen: The Night Flyer Job",
+                "number": 18
+            },
+            {
+                "series": "Savage Avengers",
+                "title": "Chapter Nineteen: The Son of Ymir",
+                "number": 19
+            },
+            {
+                "series": "Miles Morales: Spider-Man",
+                "title": "Issue #23",
+                "number": 23
+            },
+            {
+                "series": "King In Black: Return of the Valkyries",
+                "title": "Issue #2",
+                "number": 2
+            },
+            {
+                "series": "King In Black: Return of the Valkyries",
+                "title": "Issue #3",
+                "number": 3
+            },
+            {
+                "series": "King In Black: Return of the Valkyries",
+                "title": "Issue #4",
+                "number": 4
+            },
+            {
+                "series": "Black Cat",
+                "title": "Queen In Black Part Two",
+                "number": 2
+            },
+            {
+                "series": "Black Cat",
+                "title": "Queen In Black Part Three",
+                "number": 3
+            },
+            {
+                "series": "Venom",
+                "title": "Agents Venom",
+                "number": 33
+            },
+            {
+                "series": "King In Black",
+                "title": "Chapter Four: Lightning",
+                "number": 4
+            },
+            {
+                "series": "Fantastic Four",
+                "title": "Soul Bound",
+                "number": 29
+            },
+            {
+                "series": "King In Black: Captain America",
+                "title": "Blackened Blue",
+                "number": 1
+            },
+            {
+                "series": "King In Black: Scream",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "King In Black: Spider-Man",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "S.W.O.R.D.",
+                "title": "The Krakoan Sun",
+                "number": 4
+            },
+            {
+                "series": "Fantastic Four",
+                "title": "Friends & Enemies",
+                "number": 30
+            },
+            {
+                "series": "Venom",
+                "title": "Rise",
+                "number": 34
+            },
+            {
+                "series": "Avengers",
+                "title": "The King In Blood",
+                "number": 45
+            },
+            {
+                "series": "King In Black",
+                "title": "Chapter Five: Dawn",
+                "number": 5
+            },
+            {
+                "series": "King In Black: Namor",
+                "title": "Chapter 5: The Breaking Wave",
+                "number": 5
+            },
+            {
+                "series": "King In Black: Planet of the Symbiotes",
+                "title": "[Untitled]; It's All Dangerous",
+                "number": 3
+            },
+            {
+                "series": "Venom",
+                "title": "[Untitled]; Mini Marvels",
+                "number": 35
+            }
+        ]
+    },
     "carnage": {
         "readlistId": "0NB1SB5WM157T",
         "issues": [
@@ -2139,8 +2449,8 @@
             },
             {
                 "series": "List Redirects",
-                "title": "War of the Realms - Redirect",
-                "number": 8
+                "title": "Redirect 009 - War of the Realms",
+                "number": 9
             },
             {
                 "series": "Free Comic Book Day 2019 (Spider-Man/Venom)",
@@ -2154,7 +2464,7 @@
             },
             {
                 "series": "List Redirects",
-                "title": "Absolute Carnage - Redirect",
+                "title": "Redirect 002 - Absolute Carnage",
                 "number": 2
             },
             {
@@ -2183,14 +2493,9 @@
                 "number": 1
             },
             {
-                "series": "King In Black Omnibus",
-                "title": "HC",
-                "number": 1
-            },
-            {
-                "series": "Venom",
-                "title": "[Untitled]; Mini Marvels",
-                "number": 35
+                "series": "List Redirects",
+                "title": "Redirect 006 - King In Black",
+                "number": 6
             }
         ]
     },
@@ -2209,7 +2514,7 @@
             },
             {
                 "series": "List Redirects",
-                "title": "Civil War II - Redirect",
+                "title": "Redirect 004 - Civil War II",
                 "number": 4
             },
             {
@@ -2289,8 +2594,8 @@
             },
             {
                 "series": "List Redirects",
-                "title": "Venom by Donny Cates - Redirect",
-                "number": 7
+                "title": "Redirect 008 - Venom by Donny Cates",
+                "number": 8
             }
         ]
     },
@@ -3979,7 +4284,7 @@
             },
             {
                 "series": "List Redirects",
-                "title": "AvX - Redirect",
+                "title": "Redirect 003 - AvX",
                 "number": 3
             },
             {
@@ -4129,7 +4434,7 @@
             },
             {
                 "series": "List Redirects",
-                "title": "Infinity - Redirect",
+                "title": "Redirect 005 - Infinity",
                 "number": 5
             },
             {
@@ -4429,7 +4734,7 @@
             },
             {
                 "series": "List Redirects",
-                "title": "1610 - Redirect",
+                "title": "Redirect 001 - 1610",
                 "number": 1
             },
             {
@@ -4474,8 +4779,8 @@
             },
             {
                 "series": "List Redirects",
-                "title": "Secret Wars - Redirect",
-                "number": 6
+                "title": "Redirect 007 - Secret Wars",
+                "number": 7
             }
         ]
     },
