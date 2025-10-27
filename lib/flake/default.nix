@@ -23,10 +23,7 @@ in rec {
       {
         name = "nixpkgs-patched";
         src = nixpkgs;
-        patches = [
-          # FIXME: https://pr-tracker.nelim.org/?pr=454184
-          ./fcitx5.patch
-        ];
+        patches = [];
       };
   in
     import nixpkgs' {
