@@ -22,6 +22,9 @@ in {
       platformTheme.name = "qtct";
     };
 
+    # For Flatpak, Dolphin and Okular
+    home.file.".local/share/color-schemes/Dracula.colors".source = "${dracula.gtk}/share/color-schemes/Dracula.colors";
+
     home.activation = let
       setupOkularThemeScript = getExe (pkgs.writeShellApplication {
         name = "setupOkularThemeScript";
@@ -41,7 +44,7 @@ in {
           ShowSidebar=false
 
           [UiSettings]
-          ColorScheme=LavandaDark
+          ColorScheme=Dracula
           EOF
         '';
       });
@@ -57,7 +60,7 @@ in {
         # ini
         ''
           [Appearance]
-          color_scheme_path=/home/matt/.config/qt6ct/style-colors.conf
+          color_scheme_path=~/.config/qt6ct/style-colors.conf
           custom_palette=true
           standard_dialogs=xdgdesktopportal
           style=kvantum-dark
