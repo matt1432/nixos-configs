@@ -29,6 +29,5 @@ in
     "ocaml"
     "python"
     "qml"
-    "rust"
     "web"
   ]
