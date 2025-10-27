@@ -82,6 +82,18 @@
       device = "/dev/disk/by-uuid/da62f4ee-d4a6-4fdd-ab12-9c5e131c6f30";
       fsType = "ext4";
     };
+
+    "/run/media/matt/HDD-3TB" = {
+      device = "/dev/disk/by-uuid/F8626F57626F19A0";
+      fsType = "ntfs";
+      options = ["defaults" "noauto" "nofail" "noatime" "nodev" "exec" "umask=000" "uid=1000" "gid=1000" "x-systemd.automount"];
+    };
+
+    "/run/media/matt/HDD" = {
+      device = "/dev/disk/by-uuid/5A10119710117B69";
+      fsType = "ntfs";
+      options = ["defaults" "noauto" "nofail" "noatime" "nodev" "exec" "umask=000" "uid=1000" "gid=1000" "x-systemd.automount"];
+    };
   };
 
   swapDevices = [
