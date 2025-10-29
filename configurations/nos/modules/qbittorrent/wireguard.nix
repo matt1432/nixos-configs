@@ -6,6 +6,7 @@
   inherit (config.sops) secrets;
 
   wgPort = 51820;
+  wgDns = "10.2.0.1";
   clientIP = "10.2.0.2";
   serverIP = "146.70.198.2";
 in {
@@ -33,13 +34,20 @@ in {
     };
   };
 
+  environment.etc."netns/wg/resolv.conf".text = "nameserver ${wgDns}";
+
+  boot.kernelModules = ["ip_tables" "iptable_nat"];
+
   systemd.services = let
     joinWgNamespace = {
       bindsTo = ["netns@wg.service"];
       requires = ["network-online.target"];
       after = ["wireguard-wg0.service"];
       unitConfig.JoinsNamespaceOf = "netns@wg.service";
-      serviceConfig.NetworkNamespacePath = "/var/run/netns/wg";
+      serviceConfig = {
+        NetworkNamespacePath = "/var/run/netns/wg";
+        BindReadOnlyPaths = "/etc/netns/wg/resolv.conf:/etc/resolv.conf";
+      };
     };
 
     mkPortRoute = service: port: {
