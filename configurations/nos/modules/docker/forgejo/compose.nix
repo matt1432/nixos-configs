@@ -71,13 +71,16 @@ in {
         restart = "always";
         depends_on = ["forgejo"];
 
-        env_file = [secrets.forgejo-runner.path];
         environment = {
-          GITEA_INSTANCE_URL = "https://git.nelim.org";
           GITEA_RUNNER_NAME = "DinD";
+          GITEA_INSTANCE_URL = "https://git.nelim.org";
+          GITEA_RUNNER_REGISTRATION_TOKEN_FILE = secrets.forgejo-runner.path;
         };
 
-        volumes = ["${rwPath}/act:/data"];
+        volumes = [
+          "${rwPath}/act:/data"
+          "${secrets.forgejo-runner.path}:${secrets.forgejo-runner.path}"
+        ];
         extra_hosts = ["git.nelim.org:10.0.0.130"];
       };
     };
