@@ -222,8 +222,12 @@ let
       };
 
       kompass = mkInput {
-        owner = "kotontrion";
+        # owner = "kotontrion";
         repo = "kompass";
+
+        # FIXME: https://github.com/kotontrion/kompass/pull/7
+        owner = "matt1432";
+        ref = "nix-gapps";
 
         inputs.astal.follows = "astal";
       };

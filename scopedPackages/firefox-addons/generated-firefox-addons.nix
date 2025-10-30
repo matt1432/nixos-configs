@@ -146,10 +146,10 @@
   };
   "istilldontcareaboutcookies" = buildFirefoxXpiAddon {
     pname = "istilldontcareaboutcookies";
-    version = "1.1.5";
+    version = "1.1.7";
     addonId = "idcac-pub@guus.ninja";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4599774/istilldontcareaboutcookies-1.1.5.xpi";
-    sha256 = "adf58328227a0362df046876d07d83838d5c05f3ff2130b3fe0e7b0d53903647";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4606669/istilldontcareaboutcookies-1.1.7.xpi";
+    sha256 = "159754a3dea6538e0433db5b06bdafdf1d86d6df93ed01f21a9b1da200c8e1a9";
     meta = with lib; {
       homepage = "https://github.com/OhMyGuus/I-Dont-Care-About-Cookies";
       description = "Community version of the popular extension \"I don't care about cookies\"  \n\nhttps://github.com/OhMyGuus/I-Dont-Care-About-Cookies";

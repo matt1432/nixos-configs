@@ -36,7 +36,7 @@ in {
       extraPackages = attrValues {
         inherit
           (pkgs)
-          vaapiVdpau
+          libva-vdpau-driver
           libvdpau-va-gl
           nvidia-vaapi-driver
           ;
@@ -44,7 +44,7 @@ in {
       extraPackages32 = attrValues {
         inherit
           (pkgs)
-          vaapiVdpau
+          libva-vdpau-driver
           ;
       };
     };
