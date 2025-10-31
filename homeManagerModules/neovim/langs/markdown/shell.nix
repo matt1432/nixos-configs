@@ -2,7 +2,7 @@
   mkShell,
   pandoc,
   texlab,
-  texliveFull,
+  texliveSmall,
   rubber,
   ...
 }:
@@ -10,7 +10,7 @@ mkShell {
   packages = [
     pandoc
     texlab
-    texliveFull
+    texliveSmall
     rubber
   ];
 }
