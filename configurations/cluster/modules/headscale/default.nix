@@ -46,10 +46,26 @@ in {
           if hostName == "thingone"
           then "100.64.0.8"
           else "100.64.0.9";
+
+        publicDNS = [
+          "1.1.1.1"
+          "1.0.0.1"
+          "2606:4700:4700::1111"
+          "2606:4700:4700::1001"
+        ];
       in {
         magic_dns = false;
         override_local_dns = true;
-        nameservers.global = [caddyIp];
+
+        nameservers = {
+          global = [caddyIp] ++ publicDNS;
+
+          split = {
+            "headscale.nelim.org" = publicDNS;
+
+            "nelim.org" = [caddyIp];
+          };
+        };
       };
 
       log = {
