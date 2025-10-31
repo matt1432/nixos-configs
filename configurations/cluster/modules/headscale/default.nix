@@ -6,6 +6,7 @@
   inherit (config.networking) hostName;
 
   clusterIP = (builtins.head config.services.pcsd.virtualIps).ip;
+  wanIP = "166.62.184.216";
 in {
   users.users.${mainUser}.extraGroups = ["headscale"];
 
@@ -14,16 +15,21 @@ in {
 
     settings = {
       server_url = "https://headscale.nelim.org";
+
       listen_addr = "${clusterIP}:8085";
+      metrics_listen_addr = "127.0.0.1:9090";
+
+      grpc_listen_addr = "0.0.0.0:50443";
+      grpc_allow_insecure = false;
+
       prefixes = {
         v4 = "100.64.0.0/10";
         v6 = "fd7a:115c:a1e0::/48";
       };
-      metrics_listen_addr = "127.0.0.1:9090";
-      grpc_listen_addr = "0.0.0.0:50443";
-      grpc_allow_insecure = false;
+
       disable_check_updates = true;
       ephemeral_node_inactivity_timeout = "30m";
+
       unix_socket = "/run/headscale/headscale.sock";
       unix_socket_permission = "0770";
 
@@ -63,6 +69,8 @@ in {
           region_id = 995;
           region_code = "mon";
           region_name = "montreal";
+
+          ipv4 = wanIP;
         };
       };
     };
