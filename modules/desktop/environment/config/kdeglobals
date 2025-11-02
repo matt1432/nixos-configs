@@ -1,14 +1,17 @@
+[Colors:View]
+BackgroundNormal=#00000000
+
 [General]
 TerminalApplication=foot
+
+[KDE]
+widgetStyle=kvantum
 
 [KFileDialog Settings]
 Allow Expansion=false
 Automatically select filename extension=true
 Breadcrumb Navigation=false
 Decoration position=2
-LocationCombo Completionmode=5
-PathCombo Completionmode=5
-Show Bookmarks=false
 Show Full Path=false
 Show Inline Previews=true
 Show Preview=false
@@ -23,12 +26,6 @@ View Style=DetailTree
 
 [PreviewSettings]
 MaximumRemoteSize=0
-
-[Colors:View]
-BackgroundNormal=#00000000
-
-[KDE]
-widgetStyle=kvantum
 
 [UiSettings]
 ColorScheme=Dracula
