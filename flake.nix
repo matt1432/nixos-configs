@@ -201,8 +201,7 @@
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
       };
-      owner = "matt1432";
-      ref = "nix-gapps";
+      owner = "kotontrion";
       repo = "kompass";
       type = "github";
     };

@@ -8,8 +8,8 @@
     },
     "dependencies": {
         "@types/node": "24.9.2",
-        "esbuild": "0.25.11",
-        "eslint": "9.38.0",
+        "esbuild": "0.25.12",
+        "eslint": "9.39.0",
         "jiti": "2.6.1",
         "pkg-types": "2.3.0",
         "typescript": "5.9.3"

@@ -7,7 +7,7 @@
   oauthlib,
   platformdirs,
   requests,
-  requests_oauthlib,
+  requests-oauthlib,
   soco,
   urllib3,
   zeroconf,
@@ -28,7 +28,7 @@ in
       oauthlib
       platformdirs
       requests
-      requests_oauthlib
+      requests-oauthlib
       soco
       urllib3
       zeroconf

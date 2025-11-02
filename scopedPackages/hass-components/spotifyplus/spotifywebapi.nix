@@ -12,7 +12,7 @@
   pychromecast,
   pyotp,
   requests,
-  requests_oauthlib,
+  requests-oauthlib,
   setuptools,
   soco,
   urllib3,
@@ -41,7 +41,7 @@ in
       pychromecast
       pyotp
       requests
-      requests_oauthlib
+      requests-oauthlib
       setuptools
       soco
       urllib3
