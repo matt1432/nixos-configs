@@ -26,7 +26,7 @@ in
     });
 
     nix-eval-jobs =
-      (overrideAll nix-eval-jobs.packages.${final.system}.default {
+      (overrideAll nix-eval-jobs.packages.${final.stdenv.hostPlatform.system}.default {
         srcDir = null;
 
         nixComponents = let
@@ -47,5 +47,5 @@ in
       })
       // {inherit nix;};
 
-    nix-fast-build = overrideAll nix-fast-build.packages.${final.system}.nix-fast-build {};
+    nix-fast-build = overrideAll nix-fast-build.packages.${final.stdenv.hostPlatform.system}.nix-fast-build {};
   }

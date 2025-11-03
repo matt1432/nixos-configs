@@ -4,7 +4,7 @@ self: {
   pkgs,
   ...
 }: let
-  inherit (self.lib.${pkgs.system}) buildPlugin;
+  inherit (self.lib.${pkgs.stdenv.hostPlatform.system}) buildPlugin;
   inherit (self.inputs) vimplugin-roslyn-src;
 
   inherit (lib) mkIf;

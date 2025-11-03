@@ -3,7 +3,7 @@ self: final: prev: let
 
   overrideAll = self.lib.overrideAll final;
 in {
-  quickshell = overrideAll quickshell.packages.${final.system}.default {
+  quickshell = overrideAll quickshell.packages.${final.stdenv.hostPlatform.system}.default {
     gitRev = quickshell.rev;
 
     stdenv = final.clangStdenv;

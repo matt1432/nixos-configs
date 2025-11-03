@@ -2,13 +2,13 @@
   bazarr-bulk,
   config,
   lib,
-  system,
+  stdenv,
   writeShellApplication,
   ...
 }: let
   inherit (lib) getExe;
 
-  bbPkg = bazarr-bulk.packages.${system}.default;
+  bbPkg = bazarr-bulk.packages.${stdenv.hostPlatform.system}.default;
 in
   writeShellApplication {
     name = "bb";

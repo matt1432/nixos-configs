@@ -54,7 +54,7 @@ in {
           wireplumber
           ;
 
-        libKompass = kompass.packages.${pkgs.system}.libkompass;
+        libKompass = kompass.packages.${pkgs.stdenv.hostPlatform.system}.libkompass;
 
         # libkompass dependencies
         inherit
@@ -125,7 +125,7 @@ in {
 
       file = let
         inherit
-          (self.lib.${pkgs.system})
+          (self.lib.${pkgs.stdenv.hostPlatform.system})
           buildNodeModules
           buildGirTypes
           ;

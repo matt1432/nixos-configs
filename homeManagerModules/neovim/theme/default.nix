@@ -5,7 +5,7 @@ self: {
   ...
 }: let
   inherit (self.inputs) nvim-theme-src;
-  inherit (self.lib.${pkgs.system}) mkVersion;
+  inherit (self.lib.${pkgs.stdenv.hostPlatform.system}) mkVersion;
 
   inherit (lib) attrValues fileContents getExe mkIf;
 

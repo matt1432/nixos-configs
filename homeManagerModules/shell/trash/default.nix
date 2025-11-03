@@ -8,7 +8,7 @@
 
   cfg = config.programs.bash;
   trashPkg = pkgs.selfPackages.trash-d;
-  isCorrectPlatform = elem pkgs.system (trashPkg.meta.platforms or [pkgs.system]);
+  isCorrectPlatform = elem pkgs.stdenv.hostPlatform.system (trashPkg.meta.platforms or [pkgs.stdenv.hostPlatform.system]);
 in {
   config = mkIf (cfg.enable && isCorrectPlatform) {
     home.packages = [trashPkg];

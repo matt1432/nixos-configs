@@ -6,7 +6,7 @@
 
   devices =
     filterAttrs
-    (n: config: config.pkgs.system == pkgs.system)
+    (n: config: config.pkgs.stdenv.hostPlatform.system == pkgs.stdenv.hostPlatform.system)
     self.nixosConfigurations;
 in
   mapAttrs'

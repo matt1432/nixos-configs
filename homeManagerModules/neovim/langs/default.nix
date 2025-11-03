@@ -5,7 +5,7 @@ self: {
   ...
 }: let
   inherit (self.inputs) vimplugin-nix-develop-src;
-  inherit (self.lib.${pkgs.system}) mkVersion;
+  inherit (self.lib.${pkgs.stdenv.hostPlatform.system}) mkVersion;
 
   inherit (lib) attrValues fileContents mkBefore mkIf;
 

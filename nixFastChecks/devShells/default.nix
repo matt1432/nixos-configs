@@ -7,4 +7,4 @@ in
   mapAttrs'
   (name: shell:
     nameValuePair "devShell_${name}" shell)
-  self.devShells.${pkgs.system}
+  self.devShells.${pkgs.stdenv.hostPlatform.system}

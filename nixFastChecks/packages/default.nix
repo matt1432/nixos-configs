@@ -5,7 +5,7 @@ pkgs: let
     filterAttrs (
       _: v:
         !(hasAttr "platforms" v.meta)
-        || elem pkgs.system v.meta.platforms
+        || elem pkgs.stdenv.hostPlatform.system v.meta.platforms
     )
     pkgs.selfPackages;
 in

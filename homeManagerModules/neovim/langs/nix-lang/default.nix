@@ -12,7 +12,7 @@ self: {
   cfg = config.programs.neovim;
   mainHmCfg = osConfig.home-manager.users.${cfg.user} or config;
 
-  defaultFormatter = self.formatter.${pkgs.system};
+  defaultFormatter = self.formatter.${pkgs.stdenv.hostPlatform.system};
   formatCmd = pkgs.writeShellApplication {
     name = "nix-fmt-cmd";
     runtimeInputs = with pkgs; [jq];

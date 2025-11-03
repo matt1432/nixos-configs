@@ -855,11 +855,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1762052838,
-        "narHash": "sha256-3ERDAc8BkJ/3oHTWuXf6ZMG3JOFwCGX8lf63ZJJItKs=",
+        "lastModified": 1762129871,
+        "narHash": "sha256-oSZk9N2ge7l/sMU3rmrGOccOxH4LzmkMWD8zKeC4i3E=",
         "owner": "matt1432",
         "repo": "KapowarrReact",
-        "rev": "bd952004d42f3399fe8167e15de15cfe79c89327",
+        "rev": "7959c58b440dff70ba649b1201b7b49424606a56",
         "type": "github"
       },
       "original": {
@@ -897,15 +897,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1761907450,
-        "narHash": "sha256-XzP6a3tSJuLOwmVznfDyW2Nh/l++bpItmwvm9dNLaUU=",
-        "owner": "kotontrion",
+        "lastModified": 1762132832,
+        "narHash": "sha256-S3kbpyo2C4KxhaOTEkliERXFgKPTZzyPz1nRut7w4gU=",
+        "owner": "matt1432",
         "repo": "kompass",
-        "rev": "ef47ff1a89cda2d30b6ee3564f5d34f67403bdd6",
+        "rev": "82d11232d188dd5cf144f20ac12669db61b369d0",
         "type": "github"
       },
       "original": {
-        "owner": "kotontrion",
+        "owner": "matt1432",
+        "ref": "system",
         "repo": "kompass",
         "type": "github"
       }

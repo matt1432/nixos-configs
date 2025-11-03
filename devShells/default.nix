@@ -31,7 +31,7 @@
 in
   {
     flake = pkgs.callPackage ./flake {};
-    default = self.devShells.${pkgs.system}.flake;
+    default = self.devShells.${pkgs.stdenv.hostPlatform.system}.flake;
 
     netdaemon = pkgs.callPackage ./netdaemon {};
 

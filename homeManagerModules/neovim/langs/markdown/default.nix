@@ -7,7 +7,7 @@ self: {
   ...
 }: let
   inherit (self.inputs) vimplugin-easytables-src;
-  inherit (self.lib.${pkgs.system}) buildPlugin;
+  inherit (self.lib.${pkgs.stdenv.hostPlatform.system}) buildPlugin;
 
   inherit (lib) concatStringsSep mkIf;
 
