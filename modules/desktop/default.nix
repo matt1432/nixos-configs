@@ -9,6 +9,15 @@ self: {
 
   cfg = config.roles.desktop;
   flakeDir = config.environment.variables.FLAKE;
+
+  hyprCfg =
+    config
+    .home-manager
+    .users
+    .${cfg.user}
+    .wayland
+    .windowManager
+    .hyprland;
 in {
   imports = [
     (import ./manager self)
@@ -29,11 +38,18 @@ in {
       }
     ];
 
-    nixpkgs.overlays = map (i: self.inputs.${i}.overlays.default) [
-      "hyprgrass"
-      "hyprland"
-      "hyprland-plugins"
-      "hyprpaper"
+    nixpkgs.overlays = [
+      self.inputs."hyprland".overlays.default
+
+      (final: prev: {
+        hyprlandPlugins = final.callPackage "${final.path}/pkgs/applications/window-managers/hyprwm/hyprland-plugins/default.nix" {
+          hyprland = hyprCfg.finalPackage;
+        };
+      })
+
+      self.inputs."hyprland-plugins".overlays.default
+      self.inputs."hyprgrass".overlays.default
+      self.inputs."hyprpaper".overlays.default
     ];
   };
 

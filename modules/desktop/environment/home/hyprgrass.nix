@@ -9,10 +9,23 @@ self: {
   inherit (lib) mkIf;
 
   cfg = osConfig.roles.desktop;
+
+  hyprCfg =
+    osConfig
+    .home-manager
+    .users
+    .${cfg.user}
+    .wayland
+    .windowManager
+    .hyprland;
 in {
   config = mkIf (cfg.enable && cfg.isTouchscreen) {
     wayland.windowManager.hyprland = {
-      plugins = [pkgs.hyprlandPlugins.hyprgrass];
+      plugins = [
+        (pkgs.hyprlandPlugins.hyprgrass.overrideAttrs {
+          hyprland = hyprCfg.finalPackage;
+        })
+      ];
 
       settings = {
         plugin.touch_gestures = {
