@@ -1604,6 +1604,221 @@
             }
         ]
     },
+    "6160": {
+        "readlistId": "0NEX3FNTGSK7E",
+        "issues": [
+            {
+                "series": "Ultimate Invasion",
+                "title": "TPB",
+                "number": 1
+            },
+            {
+                "series": "Ultimate Universe",
+                "title": "Epilogue",
+                "number": 1
+            },
+            {
+                "series": "Ultimate Spider-Man by Jonathan Hickman",
+                "title": "Vol. 1: Married with Children",
+                "number": 1
+            },
+            {
+                "series": "Ultimate Black Panther By Bryan Hill: Darkness and Light (2025)",
+                "title": "Volume 1: Peace and War",
+                "number": 1
+            },
+            {
+                "series": "Ultimate X-Men by Peach Momoko",
+                "title": "Vol. 1: Fears and Hates",
+                "number": 1
+            },
+            {
+                "series": "Free Comic Book Day 2024: Ultimate Universe/Spider-Man",
+                "title": "Target: Peter Parker; Forgotten Marvels; [Untitled]",
+                "number": 1
+            },
+            {
+                "series": "Ultimates",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "Ultimates",
+                "title": "Issue #2",
+                "number": 2
+            },
+            {
+                "series": "Ultimates",
+                "title": "Issue #3",
+                "number": 3
+            },
+            {
+                "series": "Ultimates",
+                "title": "Issue #4",
+                "number": 4
+            },
+            {
+                "series": "Ultimates",
+                "title": "Issue #5",
+                "number": 5
+            },
+            {
+                "series": "Ultimates",
+                "title": "Issue #6",
+                "number": 6
+            },
+            {
+                "series": "Ultimates",
+                "title": "Issue #7",
+                "number": 7
+            },
+            {
+                "series": "Ultimate Spider-Man by Jonathan Hickman",
+                "title": "Vol. 2: The Paper",
+                "number": 2
+            },
+            {
+                "series": "Ultimate Black Panther By Bryan Hill: Darkness and Light (2025)",
+                "title": "Vol. 2: Gods and Kings",
+                "number": 2
+            },
+            {
+                "series": "Ultimate X-Men by Peach Momoko",
+                "title": "Vol. 2: Children of the Atom",
+                "number": 2
+            },
+            {
+                "series": "Ultimate Universe: One Year In",
+                "title": "The World: As Remade by the Maker's Council; Ultimate Wolverine Prologue",
+                "number": 1
+            },
+            {
+                "series": "Ultimate Spider-Man by Jonathan Hickman",
+                "title": "Vol. 3: Family Business",
+                "number": 3
+            },
+            {
+                "series": "Ultimate Black Panther By Bryan Hill: Darkness and Light (2025)",
+                "title": "Vol. 3: Darkness and Light",
+                "number": 3
+            },
+            {
+                "series": "Ultimate X-Men",
+                "title": "Issue #13",
+                "number": 13
+            },
+            {
+                "series": "Ultimate X-Men",
+                "title": "Issue #18",
+                "number": 18
+            },
+            {
+                "series": "Ultimate X-Men",
+                "title": "Issue #17",
+                "number": 17
+            },
+            {
+                "series": "Ultimate X-Men",
+                "title": "Issue #16",
+                "number": 16
+            },
+            {
+                "series": "Ultimate X-Men",
+                "title": "Issue #15",
+                "number": 15
+            },
+            {
+                "series": "Ultimate X-Men",
+                "title": "Issue #14",
+                "number": 14
+            },
+            {
+                "series": "Ultimates",
+                "title": "Issue #8",
+                "number": 8
+            },
+            {
+                "series": "Ultimates",
+                "title": "Issue #9",
+                "number": 9
+            },
+            {
+                "series": "Ultimates",
+                "title": "Issue #10",
+                "number": 10
+            },
+            {
+                "series": "Ultimates",
+                "title": "Issue #11",
+                "number": 11
+            },
+            {
+                "series": "Ultimates",
+                "title": "Issue #12",
+                "number": 12
+            },
+            {
+                "series": "Ultimate Wolverine",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "Ultimate Wolverine",
+                "title": "Issue #2",
+                "number": 2
+            },
+            {
+                "series": "Ultimate Wolverine",
+                "title": "Issue #3",
+                "number": 3
+            },
+            {
+                "series": "Ultimate Wolverine",
+                "title": "Issue #4",
+                "number": 4
+            },
+            {
+                "series": "Ultimate Wolverine",
+                "title": "Issue #5",
+                "number": 5
+            },
+            {
+                "series": "Ultimate Wolverine",
+                "title": "Issue #6",
+                "number": 6
+            },
+            {
+                "series": "Free Comic Book Day 2025 - Amazing Spider-Man-Ultimate Universe",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "Ultimate Spider-Man: Incursion",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "Ultimate Spider-Man: Incursion",
+                "title": "Issue #2",
+                "number": 2
+            },
+            {
+                "series": "Ultimate Spider-Man: Incursion",
+                "title": "Issue #3",
+                "number": 3
+            },
+            {
+                "series": "Ultimate Spider-Man: Incursion",
+                "title": "Issue #4",
+                "number": 4
+            },
+            {
+                "series": "Ultimate Spider-Man: Incursion",
+                "title": "Issue #5",
+                "number": 5
+            }
+        ]
+    },
     "kib": {
         "readlistId": "0NBPM1QKDAHYQ",
         "issues": [
@@ -2596,6 +2811,11 @@
                 "series": "List Redirects",
                 "title": "Redirect 008 - Venom by Donny Cates",
                 "number": 8
+            },
+            {
+                "series": "List Redirects",
+                "title": "Redirect 010 - The New Ultimate Universe",
+                "number": 10
             }
         ]
     },
