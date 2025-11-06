@@ -1,5 +1,5 @@
 inputs: let
-  inherit (builtins) functionArgs mapAttrs removeAttrs;
+  inherit (builtins) functionArgs mapAttrs;
 in rec {
   # This is for packages from flakes that don't offer overlays
   overrideAll = pkgs: pkg: extraArgs: let

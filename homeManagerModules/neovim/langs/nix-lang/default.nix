@@ -5,8 +5,7 @@ self: {
   pkgs,
   ...
 }: let
-  inherit (builtins) toJSON;
-  inherit (lib) attrValues getExe hasPrefix mkIf removePrefix;
+  inherit (lib) attrValues getExe hasPrefix mkIf;
   inherit (osConfig.networking) hostName;
 
   cfg = config.programs.neovim;
@@ -28,11 +27,18 @@ self: {
   nixdPkg = pkgs.nixd;
 
   flakeEnv = config.programs.bash.sessionVariables.FLAKE;
-  flakeDir = "${removePrefix "${mainHmCfg.home.homeDirectory}/" flakeEnv}";
+
+  getFlake = "(builtins.getFlake \"${flakeEnv}\")";
+
   optionsAttr =
     if osConfig != null
     then "nixosConfigurations.${hostName}.options"
-    else "nixOnDroidConfigurations.default";
+    else "nixOnDroidConfigurations.default.options";
+
+  homeOptionsAttr =
+    if osConfig != null
+    then "${optionsAttr}.home-manager.users.type.getSubOptions []"
+    else "${optionsAttr}.home-manager";
 in {
   config = mkIf (cfg.enable && cfg.ideConfig.enableNix) {
     assertions = [
@@ -56,15 +62,6 @@ in {
     # nixd by default kinda spams LspLog
     home.sessionVariables.NIXD_FLAGS = "-log=error";
 
-    xdg.dataFile."${flakeDir}/.nixd.json".text = toJSON {
-      nixpkgs = {
-        expr = "import (builtins.getFlake \"${flakeDir}\").inputs.nixpkgs {}";
-      };
-      options.nixos = {
-        expr = "(builtins.getFlake \"${flakeDir}\").${optionsAttr}";
-      };
-    };
-
     programs = {
       neovim = {
         extraPackages = attrValues {
@@ -82,8 +79,23 @@ in {
                 filetypes = { 'nix', 'in.nix' },
                 settings = {
                     nixd = {
+                        nixpkgs = {
+                            expr = 'import ${getFlake}.inputs.nixpkgs {}',
+                        },
                         formatting = {
                             command = { '${getExe formatCmd}' },
+                        },
+                        options = {
+                            nixos = {
+                                expr = '${getFlake}.${optionsAttr}',
+                            },
+                            home_manager = {
+                                expr = '${getFlake}.${homeOptionsAttr}',
+                            },
+                        },
+                        -- https://github.com/nix-community/nixd/issues/727
+                        diagnostic = {
+                            suppress = { 'sema-primop-overridden' },
                         },
                     },
                 },
