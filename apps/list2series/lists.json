@@ -1663,6 +1663,11 @@
                 "number": 5
             },
             {
+                "series": "Ultimate Spider-Man by Jonathan Hickman",
+                "title": "Vol. 2: The Paper",
+                "number": 2
+            },
+            {
                 "series": "Ultimates",
                 "title": "Issue #6",
                 "number": 6
@@ -1673,16 +1678,6 @@
                 "number": 7
             },
             {
-                "series": "Ultimate Spider-Man by Jonathan Hickman",
-                "title": "Vol. 2: The Paper",
-                "number": 2
-            },
-            {
-                "series": "Ultimate Black Panther By Bryan Hill: Darkness and Light (2025)",
-                "title": "Vol. 2: Gods and Kings",
-                "number": 2
-            },
-            {
                 "series": "Ultimate X-Men by Peach Momoko",
                 "title": "Vol. 2: Children of the Atom",
                 "number": 2
@@ -1691,6 +1686,11 @@
                 "series": "Ultimate Universe: One Year In",
                 "title": "The World: As Remade by the Maker's Council; Ultimate Wolverine Prologue",
                 "number": 1
+            },
+            {
+                "series": "Ultimate Black Panther By Bryan Hill: Darkness and Light (2025)",
+                "title": "Vol. 2: Gods and Kings",
+                "number": 2
             },
             {
                 "series": "Ultimate Spider-Man by Jonathan Hickman",
@@ -1709,18 +1709,8 @@
             },
             {
                 "series": "Ultimate X-Men",
-                "title": "Issue #18",
-                "number": 18
-            },
-            {
-                "series": "Ultimate X-Men",
-                "title": "Issue #17",
-                "number": 17
-            },
-            {
-                "series": "Ultimate X-Men",
-                "title": "Issue #16",
-                "number": 16
+                "title": "Issue #14",
+                "number": 14
             },
             {
                 "series": "Ultimate X-Men",
@@ -1729,8 +1719,18 @@
             },
             {
                 "series": "Ultimate X-Men",
-                "title": "Issue #14",
-                "number": 14
+                "title": "Issue #16",
+                "number": 16
+            },
+            {
+                "series": "Ultimate X-Men",
+                "title": "Issue #17",
+                "number": 17
+            },
+            {
+                "series": "Ultimate X-Men",
+                "title": "Issue #18",
+                "number": 18
             },
             {
                 "series": "Ultimates",
