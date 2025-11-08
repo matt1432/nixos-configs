@@ -11,7 +11,7 @@
     url = "https://addons.mozilla.org/firefox/downloads/file/4064190/auto_refresh_page-3.2.xpi";
     sha256 = "e703d1031107bb440e3081b210e58ebf5a05a620683e42ce6255b66994475f8d";
     meta = with lib; {
-      homepage = "https://www.hashtap.com/@refresh";
+      homepage = "https://autorefresh.page/";
       description = "Refresh web pages automatically. Auto-refresh and page monitor with specified time intervals.";
       license = licenses.mit;
       mozPermissions = [
@@ -146,10 +146,10 @@
   };
   "istilldontcareaboutcookies" = buildFirefoxXpiAddon {
     pname = "istilldontcareaboutcookies";
-    version = "1.1.7";
+    version = "1.1.8";
     addonId = "idcac-pub@guus.ninja";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4606669/istilldontcareaboutcookies-1.1.7.xpi";
-    sha256 = "159754a3dea6538e0433db5b06bdafdf1d86d6df93ed01f21a9b1da200c8e1a9";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4613590/istilldontcareaboutcookies-1.1.8.xpi";
+    sha256 = "3a0fe9eb2a72e725b0f799b0be4a86afb9b4a11291480c5a5c1b70d5730ba0c7";
     meta = with lib; {
       homepage = "https://github.com/OhMyGuus/I-Dont-Care-About-Cookies";
       description = "Community version of the popular extension \"I don't care about cookies\"  \n\nhttps://github.com/OhMyGuus/I-Dont-Care-About-Cookies";
@@ -227,10 +227,10 @@
   };
   "stylus" = buildFirefoxXpiAddon {
     pname = "stylus";
-    version = "2.3.16";
+    version = "2.3.17";
     addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4554444/styl_us-2.3.16.xpi";
-    sha256 = "2cda3445f1e5e5aa95b8b814cc395079185216e10ec42d20811b0350f4c378a8";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4611621/styl_us-2.3.17.xpi";
+    sha256 = "ad952d5fc19bd36d0fd2aecc7d4b4ebf7add538faecab79ad96e1db631857667";
     meta = with lib; {
       homepage = "https://add0n.com/stylus.html";
       description = "Redesign your favorite websites with Stylus, an actively developed and community driven userstyles manager. Easily install custom themes from popular online repositories, or create, edit, and manage your own personalized CSS stylesheets.";

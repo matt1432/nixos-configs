@@ -203,6 +203,7 @@
       };
       owner = "kotontrion";
       repo = "kompass";
+      rev = "0ea87abe506ebe6b6fd3d5d3c4f3ff72720d665c";
       type = "github";
     };
     lib-aggregate = {
