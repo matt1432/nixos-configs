@@ -1,7 +1,10 @@
 self: {nix ? null}: final: prev: let
   inherit (builtins) mapAttrs replaceStrings;
   inherit (final.lib) generateSplicesForMkScope versions;
-  inherit (self.inputs) nix-eval-jobs nix-fast-build;
+
+  inherit (self.inputs) nix-eval-jobs nix-fast-build nix-output-monitor;
+
+  inherit (final.stdenv.hostPlatform) system;
 
   nullCheck = n: v:
     if nix == null
@@ -17,16 +20,17 @@ in
       inherit nix;
     };
 
-    nix-output-monitor = prev.nix-output-monitor.overrideAttrs (o: {
+    # Can't use `overrideAll` because of the package's complexity upstream
+    nix-output-monitor = nix-output-monitor.packages.${system}.default.overrideAttrs (o: {
       postPatch = ''
-        ${o.postPatch}
+        ${o.postPatch or ""}
 
         sed -i 's/.*" nom hasn‘t detected any input. Have you redirected nix-build stderr into nom? (See -h and the README for details.)".*//' ./lib/NOM/Print.hs
       '';
     });
 
     nix-eval-jobs =
-      (overrideAll nix-eval-jobs.packages.${final.stdenv.hostPlatform.system}.default {
+      (overrideAll nix-eval-jobs.packages.${system}.default {
         srcDir = null;
 
         nixComponents = let
@@ -47,5 +51,5 @@ in
       })
       // {inherit nix;};
 
-    nix-fast-build = overrideAll nix-fast-build.packages.${final.stdenv.hostPlatform.system}.nix-fast-build {};
+    nix-fast-build = overrideAll nix-fast-build.packages.${system}.nix-fast-build {};
   }

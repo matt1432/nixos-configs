@@ -70,6 +70,11 @@ let
       repo = "nh";
     };
 
+    nix-output-monitor = mkInput {
+      owner = "maralorn";
+      repo = "nix-output-monitor";
+    };
+
     nurl = mkInput {
       owner = "nix-community";
       repo = "nurl";

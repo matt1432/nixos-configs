@@ -320,6 +320,15 @@
       repo = "nix-on-droid";
       type = "github";
     };
+    nix-output-monitor = {
+      inputs = {
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+      };
+      owner = "maralorn";
+      repo = "nix-output-monitor";
+      type = "github";
+    };
     nix-serve-ng = {
       inputs = {
         flake-compat.follows = "flake-compat";
@@ -404,7 +413,10 @@
       type = "github";
     };
     pre-commit-hooks = {
-      inputs.flake-compat.follows = "flake-compat";
+      inputs = {
+        flake-compat.follows = "flake-compat";
+        nixpkgs.follows = "nixpkgs";
+      };
       owner = "cachix";
       repo = "git-hooks.nix";
       type = "github";
