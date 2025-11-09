@@ -1,6 +1,6 @@
 let
   inherit (import ./lib.nix) mkInput mkHyprDep mkSrc;
-  inherit (builtins) listToAttrs map removeAttrs;
+  inherit (builtins) listToAttrs;
 
   # Inputs
   mainInputs = {

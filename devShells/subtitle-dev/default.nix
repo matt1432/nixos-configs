@@ -3,7 +3,6 @@
   bumpNpmDeps,
   ffmpeg-full,
   nodejs_latest,
-  nodePackages,
   typescript,
   ...
 }:
@@ -12,7 +11,6 @@ mkShell {
     nodejs_latest
     typescript
     ffmpeg-full
-    nodePackages.ts-node
 
     bumpNpmDeps
   ];

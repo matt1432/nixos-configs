@@ -12,7 +12,7 @@
     sha256 = "e703d1031107bb440e3081b210e58ebf5a05a620683e42ce6255b66994475f8d";
     meta = with lib; {
       homepage = "https://autorefresh.page/";
-      description = "Refresh web pages automatically. Auto-refresh and page monitor with specified time intervals.";
+      description = "Refresh web pages automatically. Auto refresh page monitor with specified time intervals.";
       license = licenses.mit;
       mozPermissions = [
         "tabs"
