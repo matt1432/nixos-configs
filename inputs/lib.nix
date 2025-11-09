@@ -1,5 +1,5 @@
 let
-  inherit (builtins) fetchTarball fromJSON readFile removeAttrs;
+  inherit (builtins) fromJSON readFile;
 
   lock = fromJSON (readFile ../flake.lock);
   lib = import "${fetchTarball {
@@ -41,14 +41,18 @@ in rec {
         {inherit type;}
 
         # Generic inputs
-        (mkOverride "systems")
         (mkOverride "flake-compat")
-        (mkOverride "flake-utils")
         (mkOverride "flake-parts")
+        (mkOverride "flake-utils")
+        (mkOverride "git-hooks")
         (mkOverride "lib-aggregate")
+        (mkOverride "lix")
         (mkOverride "nix-eval-jobs")
+        (mkOverride "nixpkgs-docs")
+        (mkOverride "nixpkgs-lib")
         (mkOverride "nix-github-actions")
         (mkOverride "pre-commit-hooks")
+        (mkOverride "systems")
         (mkOverride "treefmt-nix")
       ]
       # Specify if we can't make an input use this flake's nixpkgs

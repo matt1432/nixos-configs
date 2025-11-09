@@ -85,31 +85,45 @@ let
       owner = "edolstra";
       repo = "flake-compat";
     };
+    flake-parts = mkInput {
+      owner = "hercules-ci";
+      repo = "flake-parts";
+    };
     flake-utils = mkInput {
       owner = "numtide";
       repo = "flake-utils";
     };
-    flake-parts = mkInput {
-      owner = "hercules-ci";
-      repo = "flake-parts";
-      inputs.nixpkgs-lib.follows = "nixpkgs";
-    };
-    treefmt-nix = mkInput {
-      owner = "numtide";
-      repo = "treefmt-nix";
-    };
+    git-hooks.follows = "pre-commit-hooks";
     lib-aggregate = mkInput {
       owner = "nix-community";
       repo = "lib-aggregate";
+    };
+    nix_2_18 = mkInput {
+      owner = "NixOS";
+      ref = "2.18.9";
+      repo = "nix";
+    };
+    lix = mkInput {
+      type = "git";
+      url = "https://git.lix.systems/lix-project/lix";
+      inputs = {
+        nix_2_18.follows = "nix_2_18";
+        nixpkgs-regression.follows = "nix_2_18/nixpkgs-regression";
+      };
     };
     nix-github-actions = mkInput {
       owner = "nix-community";
       repo = "nix-github-actions";
     };
+    nixpkgs-docs.follows = "nixpkgs";
+    nixpkgs-lib.follows = "nixpkgs";
     pre-commit-hooks = mkInput {
       owner = "cachix";
       repo = "git-hooks.nix";
-      inputs.flake-compat.follows = "flake-compat";
+    };
+    treefmt-nix = mkInput {
+      owner = "numtide";
+      repo = "treefmt-nix";
     };
   };
 
