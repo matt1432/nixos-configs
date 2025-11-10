@@ -1628,7 +1628,7 @@
                 "number": 1
             },
             {
-                "series": "Ultimate Black Panther By Bryan Hill: Darkness and Light (2025)",
+                "series": "Ultimate Black Panther by Bryan Hill",
                 "title": "Volume 1: Peace and War",
                 "number": 1
             },
@@ -1688,18 +1688,13 @@
                 "number": 1
             },
             {
-                "series": "Ultimate Black Panther By Bryan Hill: Darkness and Light (2025)",
+                "series": "Ultimate Black Panther by Bryan Hill",
                 "title": "Vol. 2: Gods and Kings",
                 "number": 2
             },
             {
                 "series": "Ultimate Spider-Man by Jonathan Hickman",
                 "title": "Vol. 3: Family Business",
-                "number": 3
-            },
-            {
-                "series": "Ultimate Black Panther By Bryan Hill: Darkness and Light (2025)",
-                "title": "Vol. 3: Darkness and Light",
                 "number": 3
             },
             {
@@ -1803,6 +1798,11 @@
                 "number": 2
             },
             {
+                "series": "Ultimate Black Panther by Bryan Hill",
+                "title": "Vol. 3: Darkness and Light",
+                "number": 3
+            },
+            {
                 "series": "Ultimate Spider-Man: Incursion",
                 "title": "Issue #3",
                 "number": 3
@@ -1816,6 +1816,131 @@
                 "series": "Ultimate Spider-Man: Incursion",
                 "title": "Issue #5",
                 "number": 5
+            }
+        ]
+    },
+    "punisher-ennis": {
+        "readlistId": "0NGTY61N44099",
+        "issues": [
+            {
+                "series": "Marvel Knights Punisher by Garth Ennis: The Complete Collection",
+                "title": "Volume 1",
+                "number": 1
+            },
+            {
+                "series": "Marvel Knights Punisher by Garth Ennis: The Complete Collection",
+                "title": "Volume 2",
+                "number": 2
+            },
+            {
+                "series": "Marvel Knights Punisher by Garth Ennis: The Complete Collection",
+                "title": "Volume 3",
+                "number": 3
+            },
+            {
+                "series": "The Punisher/Painkiller Jane",
+                "title": "Lovesick",
+                "number": 1
+            },
+            {
+                "series": "Punisher: The Tyger",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "Punisher: The Platoon",
+                "title": "TPB",
+                "number": 1
+            },
+            {
+                "series": "Punisher MAX: Born",
+                "title": "Born",
+                "number": 1
+            },
+            {
+                "series": "Punisher: The Cell",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "Punisher MAX: The Complete Collection",
+                "title": "Volume One",
+                "number": 1
+            },
+            {
+                "series": "Punisher MAX: The Complete Collection",
+                "title": "Volume Two",
+                "number": 2
+            },
+            {
+                "series": "Punisher MAX: The Complete Collection",
+                "title": "Volume Three",
+                "number": 3
+            },
+            {
+                "series": "The Punisher",
+                "title": "Long Cold Dark: Part 1",
+                "number": 50
+            },
+            {
+                "series": "The Punisher",
+                "title": "Long Cold Dark: Part 2",
+                "number": 51
+            },
+            {
+                "series": "The Punisher",
+                "title": "Long Cold Dark: Part 3",
+                "number": 52
+            },
+            {
+                "series": "The Punisher",
+                "title": "Long Cold Dark: Part 4",
+                "number": 53
+            },
+            {
+                "series": "The Punisher",
+                "title": "Long Cold Dark: Part 5",
+                "number": 54
+            },
+            {
+                "series": "The Punisher",
+                "title": "Valley Forge, Valley Forge: Part 1",
+                "number": 55
+            },
+            {
+                "series": "The Punisher",
+                "title": "Valley Forge, Valley Forge: Part 2",
+                "number": 56
+            },
+            {
+                "series": "The Punisher",
+                "title": "Valley Forge, Valley Forge: Part 3",
+                "number": 57
+            },
+            {
+                "series": "The Punisher",
+                "title": "Valley Forge, Valley Forge: Part 4",
+                "number": 58
+            },
+            {
+                "series": "The Punisher",
+                "title": "Valley Forge, Valley Forge: Part 5",
+                "number": 59
+            },
+            {
+                "series": "The Punisher",
+                "title": "Valley Forge, Valley Forge: Conclusion",
+                "number": 60
+            },
+            {
+                "series": "Punisher: Soviet",
+                "title": "TPB",
+                "number": 1
+            },
+            {
+                "series": "Punisher: The End",
+                "title": "Issue #1",
+                "number": 1
             }
         ]
     },
