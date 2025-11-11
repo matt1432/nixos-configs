@@ -355,10 +355,8 @@ let
     # Overlays & packages
     {
       name = "komf-src";
-      owner = "matt1432";
+      owner = "Snd-R";
       repo = "komf";
-      # type = "path";
-      # path = "/home/matt/git/komf";
     }
     {
       type = "gitlab";

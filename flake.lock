@@ -906,15 +906,15 @@
     "komf-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1760738140,
-        "narHash": "sha256-DDX9NgcDwDxFuIH6bcDWHlnZmR7O9+ydLrhg4aRDHpM=",
-        "owner": "matt1432",
+        "lastModified": 1762876289,
+        "narHash": "sha256-j0FRc0DKtnkM+6dPYy+m4BiNMah8Wd+JOidGKmNul4s=",
+        "owner": "Snd-R",
         "repo": "komf",
-        "rev": "0ba721d594828b8ae1cc86cd97cd58c5aead9a97",
+        "rev": "315ca297f2da1b78f2afa293db2b01dc607f0add",
         "type": "github"
       },
       "original": {
-        "owner": "matt1432",
+        "owner": "Snd-R",
         "repo": "komf",
         "type": "github"
       }

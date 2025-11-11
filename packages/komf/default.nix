@@ -9,8 +9,10 @@
   jdk17_headless,
   ...
 }: let
+  inherit (import ./version.nix) tag;
+
   pname = "komf";
-  version = "1.3.0+${komf-src.shortRev or "dirty"}";
+  version = "${tag}+${komf-src.shortRev or "dirty"}";
 
   jdk = jdk17_headless;
   gradle = gradle_8.override {java = jdk;};
@@ -25,7 +27,6 @@ in
     gradleBuildTask = ":komf-app:shadowjar";
     gradleUpdateTask = finalAttrs.gradleBuildTask;
 
-    # nix build .#komf.mitmCache.updateScript --no-link --print-out-paths
     mitmCache = gradle.fetchDeps {
       pkg = finalAttrs.finalPackage;
       data = ./deps.json;
@@ -54,11 +55,12 @@ in
       runHook postInstall
     '';
 
+    passthru.updateScript = ./update.sh;
+
     meta = {
       mainProgram = pname;
       license = lib.licenses.mit;
       homepage = "https://github.com/Snd-R/komf";
-      sourceProvenance = with lib.sourceTypes; [binaryBytecode];
       description = ''
         Komf is a tool that fetches metadata and thumbnails for your digital comic book library.
       '';

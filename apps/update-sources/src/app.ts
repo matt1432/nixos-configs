@@ -43,12 +43,16 @@ const main = async() => {
         console.log(updateFirefoxAddons() ?? 'No updates');
     }
 
+    if (args['flake'] || args['inputs']) {
+        console.log(updateFlakeInputs() ?? 'No updates');
+    }
+
     if (args['homepage']) {
         console.log(runNixUpdate('homepage') ?? 'No updates');
     }
 
-    if (args['flake'] || args['inputs']) {
-        console.log(updateFlakeInputs() ?? 'No updates');
+    if (args['komf']) {
+        console.log(runNixUpdate('komf') ?? 'No updates');
     }
 
     if (args['material-rounded-theme']) {
@@ -143,6 +147,7 @@ const main = async() => {
         };
 
         updatePackage('homepage');
+        updatePackage('komf');
         updatePackage('pam-fprint-grosshack');
         updatePackage('protonhax');
         updatePackage('some-sass-language-server');
