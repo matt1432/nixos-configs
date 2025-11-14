@@ -90,7 +90,7 @@ const main = async() => {
         console.log(updateVuetorrent() ?? 'No updates');
     }
 
-    if (args['w'] || args['whoogle']) {
+    if (args['whoogle']) {
         console.log(runNixUpdate('whoogle-search') ?? 'No updates');
     }
 
@@ -106,9 +106,11 @@ const main = async() => {
         console.log(flakeOutput ?? 'No updates');
 
 
-        const dockerOutput = updateDocker();
+        const dockerOutput = args['d'] ? null : updateDocker();
 
-        console.log(dockerOutput ?? 'No updates');
+        if (!args['d']) {
+            console.log(dockerOutput ?? 'No updates');
+        }
 
 
         const netdaemonOutput = updateNetDaemon();
