@@ -993,56 +993,6 @@
         "type": "github"
       }
     },
-    "lix": {
-      "inputs": {
-        "flake-compat": [
-          "flake-compat"
-        ],
-        "nix2container": "nix2container",
-        "nix_2_18": [
-          "nix_2_18"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "nixpkgs-regression": [
-          "nix_2_18",
-          "nixpkgs-regression"
-        ],
-        "pre-commit-hooks": [
-          "pre-commit-hooks"
-        ]
-      },
-      "locked": {
-        "lastModified": 1762523642,
-        "narHash": "sha256-N176NqnIhym6Ki8G13heS73I4b30ZJ2QGYhP9eL0+Zs=",
-        "ref": "refs/heads/main",
-        "rev": "3ad1af8a9883986eb95744e088eab15c752c339c",
-        "revCount": 18506,
-        "type": "git",
-        "url": "https://git.lix.systems/lix-project/lix"
-      },
-      "original": {
-        "type": "git",
-        "url": "https://git.lix.systems/lix-project/lix"
-      }
-    },
-    "lowdown-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1633514407,
-        "narHash": "sha256-Dw32tiMjdK9t3ETl5fzGrutQTzh2rufgZV4A/BbxuD4=",
-        "owner": "kristapsdz",
-        "repo": "lowdown",
-        "rev": "d2c2b44ff6c27b936ec27358a2653caaef8f73b8",
-        "type": "github"
-      },
-      "original": {
-        "owner": "kristapsdz",
-        "repo": "lowdown",
-        "type": "github"
-      }
-    },
     "material-symbols-src": {
       "flake": false,
       "locked": {
@@ -1403,9 +1353,6 @@
         "flake-compat": [
           "flake-compat"
         ],
-        "lix": [
-          "lix"
-        ],
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -1414,58 +1361,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1748458972,
-        "narHash": "sha256-N6c3NozYqAGwmjf+k5GHOZzlcquDntrJwsZQ7O2sqtQ=",
+        "lastModified": 1763069480,
+        "narHash": "sha256-dbjGP/uD2WeGYf6A5CmLb6z5owleoYXybFbkTcWSvxA=",
         "owner": "aristanetworks",
         "repo": "nix-serve-ng",
-        "rev": "1d21f73a2d563ffbb924a4244c29b35e898caefe",
+        "rev": "3b9c80f78501813b1a29c5b33a3ccc50a7506f0e",
         "type": "github"
       },
       "original": {
         "owner": "aristanetworks",
         "repo": "nix-serve-ng",
-        "type": "github"
-      }
-    },
-    "nix2container": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1724996935,
-        "narHash": "sha256-njRK9vvZ1JJsP8oV2OgkBrpJhgQezI03S7gzskCcHos=",
-        "owner": "nlewo",
-        "repo": "nix2container",
-        "rev": "fa6bb0a1159f55d071ba99331355955ae30b3401",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nlewo",
-        "repo": "nix2container",
-        "type": "github"
-      }
-    },
-    "nix_2_18": {
-      "inputs": {
-        "flake-compat": [
-          "flake-compat"
-        ],
-        "lowdown-src": "lowdown-src",
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "nixpkgs-regression": "nixpkgs-regression"
-      },
-      "locked": {
-        "lastModified": 1730375271,
-        "narHash": "sha256-RrOFlDGmRXcVRV2p2HqHGqvzGNyWoD0Dado/BNlJ1SI=",
-        "owner": "NixOS",
-        "repo": "nix",
-        "rev": "0f665ff6779454f2117dcc32e44380cda7f45523",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "2.18.9",
-        "repo": "nix",
         "type": "github"
       }
     },
@@ -1575,22 +1480,6 @@
         "owner": "NixOS",
         "repo": "nixpkgs",
         "rev": "49ee0e94463abada1de470c9c07bfc12b36dcf40",
-        "type": "github"
-      }
-    },
-    "nixpkgs-regression": {
-      "locked": {
-        "lastModified": 1643052045,
-        "narHash": "sha256-uGJ0VXIhWKGXxkeNnq4TvV3CIOkUJ3PAoLZ3HMzNVMw=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "215d4d0fd80ca5163643b03a33fde804a29cc1e2",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "215d4d0fd80ca5163643b03a33fde804a29cc1e2",
         "type": "github"
       }
     },
@@ -1817,7 +1706,6 @@
         "kompass": "kompass",
         "lib-aggregate": "lib-aggregate",
         "libratbag-src": "libratbag-src",
-        "lix": "lix",
         "material-symbols-src": "material-symbols-src",
         "minix": "minix",
         "modernz-src": "modernz-src",
@@ -1834,7 +1722,6 @@
         "nix-on-droid": "nix-on-droid",
         "nix-output-monitor": "nix-output-monitor",
         "nix-serve-ng": "nix-serve-ng",
-        "nix_2_18": "nix_2_18",
         "nixcord": "nixcord",
         "nixd": "nixd",
         "nixos-jellyfin": "nixos-jellyfin",

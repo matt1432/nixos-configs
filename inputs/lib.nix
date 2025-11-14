@@ -43,10 +43,12 @@ in rec {
         # Generic inputs
         (mkOverride "flake-compat")
         (mkOverride "flake-parts")
+
         (mkOverride "flake-utils")
+        (mkFollowsFrom info "utils" "flake-utils")
+
         (mkOverride "git-hooks")
         (mkOverride "lib-aggregate")
-        (mkOverride "lix")
         (mkOverride "nix-eval-jobs")
         (mkOverride "nixpkgs-docs")
         (mkOverride "nixpkgs-lib")

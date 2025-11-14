@@ -45,8 +45,6 @@ let
     nix-serve-ng = mkInput {
       owner = "aristanetworks";
       repo = "nix-serve-ng";
-
-      inputs.utils.follows = "flake-utils";
     };
 
     nix-fast-build = mkInput {
@@ -97,19 +95,6 @@ let
     lib-aggregate = mkInput {
       owner = "nix-community";
       repo = "lib-aggregate";
-    };
-    nix_2_18 = mkInput {
-      owner = "NixOS";
-      ref = "2.18.9";
-      repo = "nix";
-    };
-    lix = mkInput {
-      type = "git";
-      url = "https://git.lix.systems/lix-project/lix";
-      inputs = {
-        nix_2_18.follows = "nix_2_18";
-        nixpkgs-regression.follows = "nix_2_18/nixpkgs-regression";
-      };
     };
     nix-github-actions = mkInput {
       owner = "nix-community";

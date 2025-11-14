@@ -222,17 +222,6 @@
       repo = "libratbag";
       type = "github";
     };
-    lix = {
-      inputs = {
-        flake-compat.follows = "flake-compat";
-        nix_2_18.follows = "nix_2_18";
-        nixpkgs.follows = "nixpkgs";
-        nixpkgs-regression.follows = "nix_2_18/nixpkgs-regression";
-        pre-commit-hooks.follows = "pre-commit-hooks";
-      };
-      type = "git";
-      url = "https://git.lix.systems/lix-project/lix";
-    };
     material-symbols-src = {
       flake = false;
       owner = "beecho01";
@@ -349,22 +338,11 @@
     nix-serve-ng = {
       inputs = {
         flake-compat.follows = "flake-compat";
-        lix.follows = "lix";
         nixpkgs.follows = "nixpkgs";
         utils.follows = "flake-utils";
       };
       owner = "aristanetworks";
       repo = "nix-serve-ng";
-      type = "github";
-    };
-    nix_2_18 = {
-      inputs = {
-        flake-compat.follows = "flake-compat";
-        nixpkgs.follows = "nixpkgs";
-      };
-      owner = "NixOS";
-      ref = "2.18.9";
-      repo = "nix";
       type = "github";
     };
     nixcord = {
