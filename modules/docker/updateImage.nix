@@ -14,19 +14,38 @@ writeShellApplication {
       text = ''
         FILE="$1"
 
-        IMAGE=$(sed -n 's/.*imageName = "\([^"]*\).*/\1/p' "$FILE")
-        TAG=$(sed -n 's/.*finalImageTag = "\([^"]*\).*/\1/p' "$FILE")
-        CURRENT_DIGEST=$(sed -n 's/.*imageDigest = "\([^"]*\).*/\1/p' "$FILE")
-        NEW_DIGEST=$(skopeo inspect "docker://$IMAGE:$TAG" | jq '.Digest' -r)
-
-        output="$IMAGE $TAG"
-
         if ! grep "Locked" "$FILE" &> /dev/null; then
+            IMAGE=$(sed -n 's/.*imageName = "\([^"]*\).*/\1/p' "$FILE")
+            TAG=$(sed -n 's/.*finalImageTag = "\([^"]*\).*/\1/p' "$FILE")
+            CURRENT_DIGEST=$(sed -n 's/.*imageDigest = "\([^"]*\).*/\1/p' "$FILE")
+            NEW_DIGEST=$(skopeo inspect "docker://$IMAGE:$TAG" --no-tags | jq '.Digest' -r)
+
+            output="$IMAGE $TAG"
+
             if [[ "$CURRENT_DIGEST" != "$NEW_DIGEST" ]]; then
                 echo -e "• $output:\n   $CURRENT_DIGEST\n → $NEW_DIGEST\n"
-                PREFETCH=$(nix-prefetch-docker "$IMAGE" "$TAG")
-                echo -e "pkgs:\npkgs.dockerTools.pullImage rec $PREFETCH" > "$FILE"
-                sed -i 's/finalImageName.*/finalImageName = imageName;/' "$FILE"
+
+                has_file=false
+
+                for file in /nix/store/*"''${IMAGE//\//-}-$TAG".tar.drv; do
+                    file_digest="$(nix derivation show "$file" | jq -r '.[].env.imageDigest')"
+
+                    if [[ "$file_digest" = "$NEW_DIGEST" ]]; then
+                        out_file="$(nix derivation show "$file" | jq -r '.[].env.out')"
+
+                        HASH=$(nix-hash --flat --type sha256 --sri "$out_file")
+
+                        has_file=true
+                        break
+                    fi
+                done
+
+                if [[ "$has_file" != true ]]; then
+                    HASH=$(nix-prefetch-docker "$IMAGE" "$TAG" --image-digest "$NEW_DIGEST" --json | jq -r '.hash')
+                fi
+
+                sed -i "s#imageDigest.*#imageDigest = \"''${NEW_DIGEST//#/\\#}\";#" "$FILE"
+                sed -i "s#hash.*#hash = \"''${HASH//#/\\#}\";#" "$FILE"
             fi
         fi
       '';
