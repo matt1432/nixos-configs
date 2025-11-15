@@ -146,6 +146,9 @@ const main = async() => {
             if (execution) {
                 nixUpdateOutputs.push(execution);
             }
+            else {
+                console.log('No updates');
+            }
         };
 
         updatePackage('homepage');
