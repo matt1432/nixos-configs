@@ -23,7 +23,7 @@ Every extensions I use in my firefox module.
 
 | Name | Description | Homepage |
 | ---- | ----------- | -------- |
-| `auto-refresh-page` | Refresh web pages automatically. Auto-refresh and page monitor with specified time intervals. | https://www.hashtap.com/@refresh |
+| `auto-refresh-page` | Refresh web pages automatically. Auto refresh page monitor with specified time intervals. | https://autorefresh.page/ |
 | `bitwarden` | At home, at work, or on the go, Bitwarden easily secures all your passwords, passkeys, and sensitive information. | https://bitwarden.com |
 | `darkreader` | Dark mode for every website. Take care of your eyes, use dark theme for night and daily browsing. | https://darkreader.org/ |
 | `floccus` | Securely synchronize bookmarks across Chrome, Firefox, Edge, and more using your own cloud storage. | https://floccus.org |
@@ -74,3 +74,12 @@ MPV scripts I use that aren't in nixpkgs.
 | `pointer-event` | Mouse/Touch input event detection for mpv. | https://github.com/christoph-heinrich/mpv-pointer-event |
 | `touch-gestures` | Touch gestures for mpv. | https://github.com/christoph-heinrich/mpv-touch-gestures |
 | `undo-redo` | Accidentally seeked? No worries, simply undo.. Undo is not enough to fix your accidental seek? Well now you can redo as well.. | https://github.com/Eisa01/mpv-scripts?tab=readme-ov-file#undoredo |
+
+### protonGE
+
+My pinned versions of proton-ge-bin.
+
+| Name | Description | Homepage |
+| ---- | ----------- | -------- |
+| `latest` | Compatibility tool for Steam Play based on Wine and additional components. (This is intended for use in the `programs.steam.extraCompatPackages` option only.) | https://github.com/GloriousEggroll/proton-ge-custom |
+| `v10-20` | Compatibility tool for Steam Play based on Wine and additional components. (This is intended for use in the `programs.steam.extraCompatPackages` option only.) This was the last working version for Marvel Rivals afaik. |  |

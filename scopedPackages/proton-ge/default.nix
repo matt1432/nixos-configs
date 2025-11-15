@@ -13,9 +13,15 @@ lib.makeScope pkgs.newScope (ge: {
       version = "GE-Proton10-20";
       src = pkgs.fetchzip {
         url = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/${version}/${version}.tar.gz";
-
         hash = "sha256-sJkaDEnfAuEqcLDBtAfU6Rny3P3lOCnG1DusWfvv2Fg=";
       };
+      meta =
+        o
+        // {
+          description = ''
+            ${o.meta.description} This was the last working version for Marvel Rivals afaik.
+          '';
+        };
     })).override {
       steamDisplayName = "GE-Proton10-20";
     };
