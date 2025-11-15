@@ -12,8 +12,6 @@
 
     homepage = final.callPackage ./homepage {};
 
-    jdownloader-cli = final.callPackage ./jdownloader-cli {};
-
     jmusicbot = final.callPackage ./jmusicbot {};
 
     komf = final.callPackage ./komf {
