@@ -2,7 +2,6 @@ self: {
   config,
   lib,
   pkgs,
-  purePkgs ? pkgs,
   ...
 }: let
   inherit (pkgs.scopedPackages) firefoxAddons;
@@ -23,7 +22,7 @@ in {
     programs.firefox = {
       enable = true;
 
-      package = purePkgs.firefox-devedition;
+      package = pkgs.firefox-devedition;
 
       profiles.${mainProfile} = {
         isDefault = true;
