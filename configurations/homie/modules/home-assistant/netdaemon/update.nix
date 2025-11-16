@@ -4,12 +4,16 @@
   # deps
   alejandra,
   dos2unix,
-  dotnet-sdk_9,
+  dotnetCorePackages,
   findutils,
   gnused,
   nix,
   ...
 }: let
+  versionFile = import ./version.nix;
+  version = versionFile.version;
+  dotnetVersion = builtins.replaceStrings ["."] ["_"] versionFile.dotnetVersion;
+
   nixFetchDeps =
     #nix
     ''
@@ -28,22 +32,25 @@ in
     runtimeInputs = [
       alejandra
       dos2unix
-      dotnet-sdk_9
+      dotnetCorePackages."sdk_${dotnetVersion}"
       findutils
       gnused
       nix
     ];
 
     text = ''
+      echo -n ${version} > .version
+      echo -n net${versionFile.dotnetVersion} > .dotnetversion
+
       # Install codegen
-      dotnet tool install --create-manifest-if-needed NetDaemon.HassModel.CodeGen --version "$(cat ./.version)"
+      dotnet tool install --create-manifest-if-needed NetDaemon.HassModel.CodeGen --version "${version}"
 
       # Run it
-      dotnet tool run nd-codegen -token "$(sed 's/HomeAssistant__Token=//' /run/secrets/netdaemon)"
-      dos2unix ./HomeAssistantGenerated.cs
+      dotnet tool run nd-codegen -token "$(sed 's/HomeAssistant__Token=//' /run/secrets/netdaemon)" || true
+      dos2unix ./HomeAssistantGenerated.cs || true
 
       # This is to not have it count towards CSharp in the repo
-      mv ./HomeAssistantGenerated.cs ./HomeAssistantGenerated
+      mv ./HomeAssistantGenerated.cs ./HomeAssistantGenerated || true
 
       # Update all nugets to latest versions
       regex='PackageReference Include="([^"]*)" Version="([^"]*)"'
@@ -62,12 +69,13 @@ in
       $(nix build --no-link --print-out-paths --impure --expr "$(cat <<EOF
       ${nixFetchDeps}
       EOF
-      )") .
+      )") ./deps.json
+
+      sed -i "s/finalImageTag = .*/finalImageTag = \"${version}\";/" ./images/netdaemon.nix
+      updateImages .
 
       alejandra -q .
       rm -r "$FLAKE/.config"
-
-      sed -i "s/finalImageTag = .*/finalImageTag = \"$(cat ./.version)\";/" ./images/netdaemon.nix
-      updateImages .
+      rm -r "$FLAKE/dotnet-tools.json"
     '';
   }

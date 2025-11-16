@@ -2,3 +2,6 @@ obj
 bin
 NetDaemonCodegen
 HomeAssistantGenerated.cs
+
+.version
+.dotnetversion

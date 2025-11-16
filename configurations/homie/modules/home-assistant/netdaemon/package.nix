@@ -3,16 +3,19 @@
   buildDotnetModule,
   dotnetCorePackages,
 }: let
-  inherit (lib) any hasInfix hasSuffix removeSuffix;
+  inherit (lib) any hasInfix hasSuffix replaceStrings;
 
   srcDirs = ["apps"];
-  srcPatterns = [".cs" ".csproj" ".json" ".version" "HomeAssistantGenerated"];
+  srcPatterns = [".cs" ".csproj" ".json" "HomeAssistantGenerated"];
 
   pname = "netdaemon-config";
+
+  versionFile = import ./version.nix;
+  version = versionFile.version;
+  dotnetVersion = replaceStrings ["."] ["_"] versionFile.dotnetVersion;
 in
   buildDotnetModule {
-    inherit pname;
-    version = removeSuffix "\n" (builtins.readFile ./.version);
+    inherit pname version;
 
     src = builtins.path {
       name = "netdaemon-src";
@@ -22,15 +25,17 @@ in
         || any (s: hasSuffix s file) srcPatterns;
     };
 
-    preBuild = ''
+    postPatch = ''
       mv HomeAssistantGenerated HomeAssistantGenerated.cs
+      echo -n ${version} > .version
+      echo -n net${versionFile.dotnetVersion} > .dotnetversion
     '';
 
     projectFile = "netdaemon.csproj";
     nugetDeps = ./deps.json;
 
-    dotnet-sdk = dotnetCorePackages.sdk_9_0;
-    dotnet-runtime = dotnetCorePackages.runtime_9_0;
+    dotnet-sdk = dotnetCorePackages."sdk_${dotnetVersion}";
+    dotnet-runtime = dotnetCorePackages."runtime_${dotnetVersion}";
     executables = [];
 
     postFixup = ''

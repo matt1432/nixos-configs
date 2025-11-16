@@ -38,8 +38,4 @@ in {
         ;
     };
   };
-
-  environment.systemPackages = [
-    (pkgs.callPackage ./update.nix {})
-  ];
 }

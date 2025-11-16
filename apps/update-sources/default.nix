@@ -1,6 +1,5 @@
 {
   buildApp,
-  callPackage,
   curl,
   findutils,
   go,
@@ -27,8 +26,6 @@ buildApp {
 
     # We want to use the one from my config with authfile
     # (callPackage ../../modules/docker/updateImage.nix {})
-
-    (callPackage ../../configurations/homie/modules/home-assistant/netdaemon/update.nix {})
   ];
 
   meta.description = ''
