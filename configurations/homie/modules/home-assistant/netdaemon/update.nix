@@ -42,16 +42,6 @@ in
       echo -n ${version} > .version
       echo -n net${versionFile.dotnetVersion} > .dotnetversion
 
-      # Install codegen
-      dotnet tool install --create-manifest-if-needed NetDaemon.HassModel.CodeGen --version "${version}"
-
-      # Run it
-      dotnet tool run nd-codegen -token "$(sed 's/HomeAssistant__Token=//' /run/secrets/netdaemon)" || true
-      dos2unix ./HomeAssistantGenerated.cs || true
-
-      # This is to not have it count towards CSharp in the repo
-      mv ./HomeAssistantGenerated.cs ./HomeAssistantGenerated || true
-
       # Update all nugets to latest versions
       regex='PackageReference Include="([^"]*)" Version="([^"]*)"'
 
@@ -71,11 +61,20 @@ in
       EOF
       )") ./deps.json
 
-      sed -i "s/finalImageTag = .*/finalImageTag = \"${version}\";/" ./images/netdaemon.nix
-      updateImages .
+      updateImages . --eval
+
+      # Install codegen
+      dotnet tool install --allow-downgrade --create-manifest-if-needed NetDaemon.HassModel.CodeGen --version "${version}"
+
+      # Run it
+      dotnet tool run nd-codegen -token "$(sed 's/HomeAssistant__Token=//' /run/secrets/netdaemon)" || true
+      dos2unix ./HomeAssistantGenerated.cs || true
+
+      # This is to not have it count towards CSharp in the repo
+      mv ./HomeAssistantGenerated.cs ./HomeAssistantGenerated || true
 
       alejandra -q .
-      rm -r "$FLAKE/.config"
-      rm -r "$FLAKE/dotnet-tools.json"
+      rm -rf "$FLAKE/.config"
+      rm -rf "$FLAKE/dotnet-tools.json"
     '';
   }

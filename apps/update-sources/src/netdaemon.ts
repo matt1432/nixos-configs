@@ -7,9 +7,11 @@ import { styleText } from 'node:util';
 const FLAKE = process.env.FLAKE;
 
 const genVersionFileText = (
+    majorVersion: string,
     version: string,
     dotnetVersion: string,
 ) => `{
+  majorVersion = "${majorVersion}";
   version = "${version}";
   dotnetVersion = "${dotnetVersion}";
 }
@@ -31,7 +33,10 @@ export default (): string | null => {
     ].join(' '), [], { shell: true }).stdout.toString()).tag_name.replace('v', '');
 
     if (OLD_VERSION !== VERSION) {
-        writeFileSync(`${FOLDER}/version.nix`, genVersionFileText(VERSION, versionFile.dotnetVersion));
+        writeFileSync(
+            `${FOLDER}/version.nix`,
+            genVersionFileText(versionFile.majorVersion, VERSION, versionFile.dotnetVersion),
+        );
 
         spawnSync('sh', [
             '-c',

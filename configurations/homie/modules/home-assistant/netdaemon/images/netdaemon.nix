@@ -1,8 +1,10 @@
-pkgs:
-pkgs.dockerTools.pullImage rec {
-  imageName = "netdaemon/netdaemon5";
-  imageDigest = "sha256:28335e5f72a9a0c9801e9e46c90157a2a143771b59124bf9d2cc3789e4908986";
-  hash = "sha256-OrSdEWD8fHDkme2TPPmqd/6FyWOMmf4flRNEghJfZnc=";
-  finalImageName = imageName;
-  finalImageTag = "25.18.1";
-}
+pkgs: let
+  inherit (import ../version.nix) majorVersion version;
+in
+  pkgs.dockerTools.pullImage rec {
+    imageName = "netdaemon/netdaemon${majorVersion}";
+    imageDigest = "sha256:4b3750d76c12c84c82f723f31a92e37d4b75d007742ecf2a7226b51fd077f406";
+    hash = "sha256-UZ/Ao11/XhVEb8Mfd0LOL0nULA+kCJE5XN+oZHfzeZY=";
+    finalImageName = imageName;
+    finalImageTag = version;
+  }

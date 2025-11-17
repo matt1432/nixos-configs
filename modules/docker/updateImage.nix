@@ -15,8 +15,15 @@ writeShellApplication {
         FILE="$1"
 
         if ! grep "Locked" "$FILE" &> /dev/null; then
-            IMAGE=$(sed -n 's/.*imageName = "\([^"]*\).*/\1/p' "$FILE")
-            TAG=$(sed -n 's/.*finalImageTag = "\([^"]*\).*/\1/p' "$FILE")
+            if [[ "$2" = "--eval" ]]; then
+                FILE="$(realpath "$FILE")"
+                IMAGE="$(nix eval --impure --expr "let inherit ((builtins.getFlake \"$FLAKE\").nixosConfigurations.nos) pkgs; in (pkgs.callPackage \"$FILE\" pkgs).imageName" --raw)"
+                TAG="$(nix eval --impure --expr "let inherit ((builtins.getFlake \"$FLAKE\").nixosConfigurations.nos) pkgs; in (pkgs.callPackage \"$FILE\" pkgs).imageTag" --raw)"
+            else
+                IMAGE=$(sed -n 's/.*imageName = "\([^"]*\).*/\1/p' "$FILE")
+                TAG=$(sed -n 's/.*finalImageTag = "\([^"]*\).*/\1/p' "$FILE")
+            fi
+
             CURRENT_DIGEST=$(sed -n 's/.*imageDigest = "\([^"]*\).*/\1/p' "$FILE")
             NEW_DIGEST=$(skopeo inspect "docker://$IMAGE:$TAG" --no-tags | jq '.Digest' -r)
 
@@ -54,6 +61,7 @@ writeShellApplication {
 
   text = ''
     DIR=''${1:-"."}
-    find "$DIR"/images -type f -exec pullImage {} \;
+    EVAL=''${2:-""}
+    find "$DIR"/images -type f -exec pullImage {} "$EVAL" \;
   '';
 }
