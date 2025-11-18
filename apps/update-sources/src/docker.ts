@@ -27,12 +27,6 @@ export default (): string | null => {
         updates.push(jellfyinUpdates);
     }
 
-    const hassUpdates = updateImages(`${FLAKE}/configurations/homie/modules/home-assistant/netdaemon`);
-
-    if (hassUpdates) {
-        updates.push(hassUpdates);
-    }
-
     const DIR = `${FLAKE}/configurations/nos/modules/docker`;
 
     readdirSync(DIR, { withFileTypes: true, recursive: true }).forEach((path) => {

@@ -1,5 +1,5 @@
 {
-  majorVersion = "5";
-  version = "25.42.0";
-  dotnetVersion = "9.0";
+  majorVersion = "6";
+  version = "25.45.1";
+  dotnetVersion = "10.0";
 }

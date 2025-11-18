@@ -6,7 +6,7 @@ self: {
 }: let
   inherit (self.lib.hypr) mkBind mkMonitor;
 
-  inherit (lib) attrValues concatStringsSep mkIf optionals removeSuffix;
+  inherit (lib) attrValues concatStringsSep mkIf optionals replaceStrings;
 
   cfg = config.roles.desktop;
 
@@ -82,10 +82,7 @@ in {
 
         # Get rid of logs shown on the TTY right before Hyprland launches
         package = pkgs.hyprland.overrideAttrs (o: {
-          postInstall = ''
-            ${removeSuffix "\n\n" o.postInstall} \
-                --append-flags '&>/dev/null'
-          '';
+          postInstall = replaceStrings ["--suffix"] ["--append-flags '&>/dev/null' --suffix"] o.postInstall;
         });
 
         systemd.variables = ["-all"];

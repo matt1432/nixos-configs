@@ -2,9 +2,9 @@ pkgs: let
   inherit (import ../version.nix) majorVersion version;
 in
   pkgs.dockerTools.pullImage rec {
-    imageName = "netdaemon/netdaemon${majorVersion}";
-    imageDigest = "sha256:4b3750d76c12c84c82f723f31a92e37d4b75d007742ecf2a7226b51fd077f406";
-    hash = "sha256-UZ/Ao11/XhVEb8Mfd0LOL0nULA+kCJE5XN+oZHfzeZY=";
+    imageName = "ghcr.io/net-daemon/netdaemon${majorVersion}";
+    imageDigest = "sha256:b20ea2285243e013232bf074d6148ec93287d622d0e1aa94ef4d80af20039a1d";
+    hash = "sha256-o6K5uqZykoU6lLaOjyvetj/0anfS7DaSfCWHRei3gc4=";
     finalImageName = imageName;
     finalImageTag = version;
   }

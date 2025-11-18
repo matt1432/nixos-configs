@@ -35,15 +35,17 @@ writeShellApplication {
                 has_file=false
 
                 for file in /nix/store/*"''${IMAGE//\//-}-$TAG".tar.drv; do
-                    file_digest="$(nix derivation show "$file" | jq -r '.[].env.imageDigest')"
+                    if [[ -f "$file" ]]; then
+                        file_digest="$(nix derivation show "$file" | jq -r '.[].env.imageDigest')"
 
-                    if [[ "$file_digest" = "$NEW_DIGEST" ]]; then
-                        out_file="$(nix derivation show "$file" | jq -r '.[].env.out')"
+                        if [[ "$file_digest" = "$NEW_DIGEST" ]]; then
+                            out_file="$(nix derivation show "$file" | jq -r '.[].env.out')"
 
-                        HASH=$(nix-hash --flat --type sha256 --sri "$out_file")
+                            HASH=$(nix-hash --flat --type sha256 --sri "$out_file")
 
-                        has_file=true
-                        break
+                            has_file=true
+                            break
+                        fi
                     fi
                 done
 

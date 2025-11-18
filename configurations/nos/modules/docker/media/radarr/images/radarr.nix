@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage rec {
   imageName = "ghcr.io/linuxserver/radarr";
-  imageDigest = "sha256:c984533510abe0219a70e80d15bd0d212b7df21baa0913759c4ce6cc9092240b";
-  hash = "sha256-+j3cELGw3YtClV+AXCIs3++mzdiS2niSq3uetgSbm/M=";
+  imageDigest = "sha256:e26fbfd3782520c0bb820666f041ca056acfe187a8b95214ee1f47512cc05a29";
+  hash = "sha256-jwDF8yETnAQCO65XbI/KxT9spOpVUXW++/e4LYPQLTw=";
   finalImageName = imageName;
   finalImageTag = "latest";
 }

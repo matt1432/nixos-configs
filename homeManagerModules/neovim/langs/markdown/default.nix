@@ -76,7 +76,9 @@ in {
                 if isServer && !isDesktop
                 then
                   concatStringsSep " " [
-                    "${pkgs.nodePackages.live-server}/bin/live-server"
+                    # FIXME: find replacement for live-server
+                    # "${pkgs.nodePackages.live-server}/bin/live-server"
+                    "true"
                     "--host=0.0.0.0"
                     "--port=6565"
                     "--quiet"
