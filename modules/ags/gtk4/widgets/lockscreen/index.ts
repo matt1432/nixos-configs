@@ -46,17 +46,16 @@ export default () => {
         blurBGs.forEach((b) => {
             b.css = bgCSS({
                 w: b.geometry.w,
-                h: 1,
             });
 
             timeout(transition_duration / 2, () => {
                 b.css = bgCSS({
-                    w: 1,
-                    h: 1,
+                    w: 0,
+                    h: 0,
                 });
             });
         });
-        timeout(transition_duration, () => {
+        timeout(transition_duration + 100, () => {
             lock.unlock();
             Gdk.Display.get_default()?.sync();
             App.quit();
@@ -91,7 +90,6 @@ export default () => {
 
             rev.css = bgCSS({
                 w: rev.geometry.w,
-                h: 1,
             });
 
             timeout(transition_duration / 2, () => {
@@ -177,7 +175,7 @@ export default () => {
                                                 AstalAuth.Pam.authenticate_finish(task);
                                                 unlock();
                                             }
-                                            catch (e) {
+                                            catch(e) {
                                                 self.set_text('');
                                                 label.set_label((e as Error).message);
                                                 self.set_sensitive(true);
@@ -236,7 +234,7 @@ export default () => {
                 AstalAuth.Pam.authenticate_finish(task);
                 unlock();
             }
-            catch (e) {
+            catch(e) {
                 console.error((e as Error).message);
             }
         });

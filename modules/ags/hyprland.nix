@@ -31,6 +31,8 @@ in {
           shadow.enabled = false;
         };
 
+        misc.session_lock_xray = true;
+
         animations = {
           enabled = true;
 
