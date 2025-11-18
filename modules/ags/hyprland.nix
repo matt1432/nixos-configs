@@ -111,17 +111,26 @@ in {
             namespace = "^(bg-layer.*)";
           }
           {
-            rule = "noanim";
+            rule = "no_anim on";
             namespace = "^(noanim-.*)";
           }
 
           {
-            rule = "blur";
+            rule = "blur on";
             namespace = "^(blur-bg.*)";
           }
           {
-            rule = "ignorealpha 0.19";
+            rule = "ignore_alpha 0.19";
             namespace = "^(blur-bg.*)";
+          }
+
+          # FIXME: remove this once dynamic animation layerrules work again
+          {
+            rule =
+              if osConfig.networking.hostName == "wim"
+              then "animation slide top"
+              else "animation slide bottom";
+            namespace = "^(win-.*)";
           }
         ];
 

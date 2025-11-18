@@ -80,13 +80,13 @@ in {
         ];
 
         windowrule = [
-          "float       , class:^(org.kde.polkit-kde-authentication-agent-1)$"
-          "size 741 288, class:^(org.kde.polkit-kde-authentication-agent-1)$"
-          "center      , class:^(org.kde.polkit-kde-authentication-agent-1)$"
+          "float on      , match:class ^(org.kde.polkit-kde-authentication-agent-1)$"
+          "size 741 288  , match:class ^(org.kde.polkit-kde-authentication-agent-1)$"
+          "move -50% -50%, match:class ^(org.kde.polkit-kde-authentication-agent-1)$"
 
           # For GParted auth
-          "size 741 288         , class:^(ssh-askpass)$"
-          "move cursor -370 -144, class:^(ssh-askpass)$"
+          "size 741 288         , match:class ^(ssh-askpass)$"
+          "move cursor -370 -144, match:class ^(ssh-askpass)$"
         ];
 
         bind = map mkBind [

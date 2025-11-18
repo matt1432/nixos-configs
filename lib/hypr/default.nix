@@ -43,7 +43,7 @@
     rule,
     namespace,
   }:
-    concatStringsSep "," [rule namespace];
+    concatStringsSep ", match:namespace " [rule namespace];
 
   mkBind = {
     modifier ? "",

@@ -285,23 +285,23 @@ in {
 
           windowrule =
             [
-              "tile, class:^(libreoffice)$"
-              "float, class:^(org.gnome.Calculator)$"
-              "float, class:^(com.gabm.satty)$"
-              "size 1000 700, class:^(com.gabm.satty)$"
+              "tile on      , match:class ^(libreoffice)$"
+              "float on     , match:class ^(org.gnome.Calculator)$"
+              "float on     , match:class ^(com.gabm.satty)$"
+              "size 1000 700, match:class ^(com.gabm.satty)$"
 
-              "float, class:^(com.nextcloud.desktopclient.nextcloud)$"
-              "move cursor -15 -10, class:^(com.nextcloud.desktopclient.nextcloud)$"
-              "size 400 581, class:^(com.nextcloud.desktopclient.nextcloud)$"
+              "float on       , match:class ^(com.nextcloud.desktopclient.nextcloud)$"
+              "size 400 581   , match:class ^(com.nextcloud.desktopclient.nextcloud)$"
+              "move move 50 80, match:class ^(com.nextcloud.desktopclient.nextcloud)$"
 
-              "workspace special:protonmail silent, class:^(Proton Mail)$"
-              "workspace special:spot silent, class:^(Spotify)$"
+              "workspace special:protonmail silent, match:class ^(Proton Mail)$"
+              "workspace special:spot silent, match:class ^(spotify)$"
             ]
             ++ optionals isNvidia [
-              "workspace 1 silent, class:^(discord)$"
-              "workspace 2 silent, class:^(steam)$"
-              "workspace 2 silent, class:^(steam_app_.*)$"
-              "fullscreen, class:^(steam_app_.*)$"
+              "workspace 1 silent, match:class ^(discord)$"
+              "workspace 2 silent, match:class ^(steam)$"
+              "workspace 2 silent, match:class ^(steam_app_.*)$"
+              "fullscreen on     , match:class ^(steam_app_.*)$"
             ];
 
           workspace = optionals isNvidia [

@@ -49,7 +49,7 @@
 
     bind = SUPER, Q, exec, kitty
 
-    windowrule = fullscreen, ^(.*)$
+    windowrule = fullscreen, match:class ^(.*)$
     exec-once = waydroid show-full-ui
     exec-once = sleep 10; sudo ${connectControllers}
   '';

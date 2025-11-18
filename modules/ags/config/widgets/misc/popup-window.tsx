@@ -57,7 +57,9 @@ export class PopupWindow extends Widget.Window {
         App.add_window(this);
 
         const setTransition = (_: PopupWindow, t: HyprTransition | Binding<HyprTransition>) => {
-            hyprMessage(`keyword layerrule animation ${t}, ${this.name}`).catch(console.log);
+            hyprMessage(
+                `keyword layerrule animation ${t}, match:namespace ${this.name}`,
+            ).catch(console.log);
         };
 
         this.connect('notify::transition', setTransition);

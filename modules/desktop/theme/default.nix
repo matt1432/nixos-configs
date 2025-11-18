@@ -20,15 +20,15 @@ in {
     wayland.windowManager.hyprland = {
       settings = {
         windowrule = [
-          "size 1231 950, title:^(Open Folder)$"
-          "float        , title:^(Open Folder)$"
+          "size 1231 950, match:title ^(Open Folder)$"
+          "float on     , match:title ^(Open Folder)$"
 
-          "size 1231 950, title:^(Open File)$"
-          "float        , title:^(Open File)$"
+          "size 1231 950, match:title ^(Open File)$"
+          "float on     , match:title ^(Open File)$"
         ];
 
         layerrule = [
-          "noanim, selection"
+          "no_anim on, match:namespace selection"
         ];
       };
     };
