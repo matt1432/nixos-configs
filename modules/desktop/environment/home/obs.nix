@@ -15,11 +15,9 @@ in {
         plugins = attrValues {
           inherit
             (pkgs.obs-studio-plugins)
+            droidcam-obs
             wlrobs
             ;
-
-          # FIXME: https://github.com/NixOS/nixpkgs/issues/461403
-          droidcam-obs = pkgs.obs-studio-plugins.droidcam-obs.override {ffmpeg = pkgs.ffmpeg_7;};
         };
       };
     };
