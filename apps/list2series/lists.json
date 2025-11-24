@@ -1819,6 +1819,616 @@
             }
         ]
     },
+    "xmen-1": {
+        "readlistId": "0NNC77X8TWDPE",
+        "issues": [
+            {
+                "series": "The X-Men",
+                "title": "X-Men",
+                "number": 1
+            },
+            {
+                "series": "The X-Men",
+                "title": "No One Can Stop the Vanisher",
+                "number": 2
+            },
+            {
+                "series": "Tales of Suspense",
+                "title": "The New Iron Man Meets The Angel!",
+                "number": 49
+            },
+            {
+                "series": "The X-Men",
+                "title": "Beware the Blob!",
+                "number": 3
+            },
+            {
+                "series": "The X-Men",
+                "title": "The Brotherhood of Evil Mutants",
+                "number": 4
+            },
+            {
+                "series": "The X-Men",
+                "title": "Trapped: One X-man!",
+                "number": 5
+            },
+            {
+                "series": "Strange Tales",
+                "title": "The Torch Meets Iceman!; The House Of Shadows!; The Salesman",
+                "number": 120
+            },
+            {
+                "series": "The X-Men",
+                "title": "Submariner Joins the Evil Mutants",
+                "number": 6
+            },
+            {
+                "series": "Fantastic Four",
+                "title": "We Have To Fight The X-Men!",
+                "number": 28
+            },
+            {
+                "series": "The X-Men",
+                "title": "The Return of the Blob",
+                "number": 7
+            },
+            {
+                "series": "The X-Men",
+                "title": "Unus the Untouchable!",
+                "number": 8
+            },
+            {
+                "series": "The X-Men",
+                "title": "Enter, the Avengers!",
+                "number": 9
+            },
+            {
+                "series": "The X-Men",
+                "title": "The Coming Of... Ka-Zar!",
+                "number": 10
+            },
+            {
+                "series": "The X-Men",
+                "title": "The Triumph of Magneto!",
+                "number": 11
+            },
+            {
+                "series": "The X-Men",
+                "title": "The Origin of Professor X",
+                "number": 12
+            },
+            {
+                "series": "The X-Men",
+                "title": "Where Walks the Juggernaut!",
+                "number": 13
+            },
+            {
+                "series": "Fantastic Four Annual",
+                "title": "Bedlam At The Baxter Building!",
+                "number": 3
+            },
+            {
+                "series": "The X-Men",
+                "title": "Among Us Stalk... the Sentinels!",
+                "number": 14
+            },
+            {
+                "series": "The X-Men",
+                "title": "Prisoners of the Mysterious Master Mold!",
+                "number": 15
+            },
+            {
+                "series": "The X-Men",
+                "title": "The Supreme Sacrifice!",
+                "number": 16
+            },
+            {
+                "series": "The X-Men",
+                "title": "...and None Shall Survive",
+                "number": 17
+            },
+            {
+                "series": "The X-Men",
+                "title": "If Iceman Should Fail!",
+                "number": 18
+            },
+            {
+                "series": "The X-Men",
+                "title": "Lo! Now Shall Appear the Mimic!",
+                "number": 19
+            },
+            {
+                "series": "The X-Men",
+                "title": "I, Lucifer...",
+                "number": 20
+            },
+            {
+                "series": "The X-Men",
+                "title": "From Whence Comes... Dominus?",
+                "number": 21
+            },
+            {
+                "series": "The X-Men",
+                "title": "Divided We Fall!",
+                "number": 22
+            },
+            {
+                "series": "The X-Men",
+                "title": "To Save a City",
+                "number": 23
+            },
+            {
+                "series": "The X-Men",
+                "title": "The Plague of... the Locust!",
+                "number": 24
+            },
+            {
+                "series": "The X-Men",
+                "title": "The Power and the Pendant!",
+                "number": 25
+            },
+            {
+                "series": "The X-Men",
+                "title": "Holocaust!",
+                "number": 26
+            },
+            {
+                "series": "The X-Men",
+                "title": "Re-enter: the Mimic!",
+                "number": 27
+            },
+            {
+                "series": "The X-Men",
+                "title": "The Wail of the Banshee",
+                "number": 28
+            },
+            {
+                "series": "The X-Men",
+                "title": "When Titans Clash!",
+                "number": 29
+            },
+            {
+                "series": "The X-Men",
+                "title": "The Warlock Wakes!",
+                "number": 30
+            },
+            {
+                "series": "The X-Men",
+                "title": "We Must Destroy... the Cobalt Man!",
+                "number": 31
+            },
+            {
+                "series": "The X-Men",
+                "title": "Beware the Juggernaut, my Son!",
+                "number": 32
+            },
+            {
+                "series": "The X-Men",
+                "title": "Into the Crimson Cosmos!",
+                "number": 33
+            },
+            {
+                "series": "The X-Men",
+                "title": "War in a World of Darkness",
+                "number": 34
+            },
+            {
+                "series": "The X-Men",
+                "title": "Along Came a Spider...",
+                "number": 35
+            },
+            {
+                "series": "The X-Men",
+                "title": "Mekano Lives!",
+                "number": 36
+            },
+            {
+                "series": "The X-Men",
+                "title": "We, the Jury...",
+                "number": 37
+            },
+            {
+                "series": "The X-Men",
+                "title": "The Sinister Shadow of... Doomsday!; A man called... X",
+                "number": 38
+            },
+            {
+                "series": "The X-Men",
+                "title": "The Fateful Finale!; Lonely are the Hunted!",
+                "number": 39
+            },
+            {
+                "series": "The X-Men",
+                "title": "The Mark of the Monster!; The first evil Mutant!",
+                "number": 40
+            },
+            {
+                "series": "The X-Men",
+                "title": "Now Strikes... the Sub-Human; The living Diamond!",
+                "number": 41
+            },
+            {
+                "series": "The X-Men",
+                "title": "If I Should Die...!; The end ... or the beginning?",
+                "number": 42
+            },
+            {
+                "series": "The Avengers",
+                "title": "Magneto Walks The Earth",
+                "number": 47
+            },
+            {
+                "series": "The Avengers",
+                "title": "The Black Knight Lives Again",
+                "number": 48
+            },
+            {
+                "series": "The Avengers",
+                "title": "Mine Is the Power",
+                "number": 49
+            },
+            {
+                "series": "The X-Men",
+                "title": "The Torch Is Passed...!; Call Him...Cyclops",
+                "number": 43
+            },
+            {
+                "series": "The X-Men",
+                "title": "Red Raven,Red Raven...!; The Iceman Cometh!",
+                "number": 44
+            },
+            {
+                "series": "The X-Men",
+                "title": "When Mutants Clash!; And the Mob cried... Vengeance!",
+                "number": 45
+            },
+            {
+                "series": "The Avengers",
+                "title": "In Battle Joined!",
+                "number": 53
+            },
+            {
+                "series": "The X-Men",
+                "title": "The End Of The X-Men!; ...And Then There Were Two",
+                "number": 46
+            },
+            {
+                "series": "The X-Men",
+                "title": "The Warlock Wears Three Faces; I, the Iceman",
+                "number": 47
+            },
+            {
+                "series": "The X-Men",
+                "title": "Beware Computo, Commander of the Robot Hive!; Yours Truly, the Beast",
+                "number": 48
+            },
+            {
+                "series": "The X-Men",
+                "title": "Who Dares Defy The Demi-Men?; A Beast Is Born",
+                "number": 49
+            },
+            {
+                "series": "The X-Men",
+                "title": "City of Mutants; This Boy -- This Bombshell!",
+                "number": 50
+            },
+            {
+                "series": "The X-Men",
+                "title": "The Devil Had A Daughter!; The Lure of the Beast-Nappers!",
+                "number": 51
+            },
+            {
+                "series": "The X-Men",
+                "title": "Twilight of the Mutants; The Crimes of the Conquistador!",
+                "number": 52
+            },
+            {
+                "series": "The X-Men",
+                "title": "The Rage of Blastaar!; Welcome to the Club, Beast!",
+                "number": 53
+            },
+            {
+                "series": "The X-Men",
+                "title": "Wanted: Dead or Alive...Cyclops!; The Million Dollar Angel",
+                "number": 54
+            },
+            {
+                "series": "The X-Men",
+                "title": "The Living Pharaoh!; Where Angels Dare to Tread!",
+                "number": 55
+            },
+            {
+                "series": "The X-Men",
+                "title": "What is... the Power?; The Flying A-Bomb!",
+                "number": 56
+            },
+            {
+                "series": "The X-Men",
+                "title": "The Sentinels Live!; The Female of the Species!",
+                "number": 57
+            },
+            {
+                "series": "The X-Men",
+                "title": "Mission: Murder",
+                "number": 58
+            },
+            {
+                "series": "The X-Men",
+                "title": "Do or Die, Baby!",
+                "number": 59
+            },
+            {
+                "series": "Ka-Zar",
+                "title": "From the Sky... Winged Wrath!; Sightless In a Savage Land; The Secret of Ka-Zar's Origin!",
+                "number": 2
+            },
+            {
+                "series": "Ka-Zar",
+                "title": "...In the Den of the Dazzler!; If This Be Justice...!; The Coming of Ka-zar!",
+                "number": 3
+            },
+            {
+                "series": "Marvel Tales",
+                "title": "To Kill a Spider-Man!",
+                "number": 30
+            },
+            {
+                "series": "The X-Men",
+                "title": "In the Shadow of Sauron",
+                "number": 60
+            },
+            {
+                "series": "The X-Men",
+                "title": "Monsters Also Weep",
+                "number": 61
+            },
+            {
+                "series": "The X-Men",
+                "title": "Strangers in a Savage Land",
+                "number": 62
+            },
+            {
+                "series": "The X-Men",
+                "title": "War in the World Below",
+                "number": 63
+            },
+            {
+                "series": "The X-Men",
+                "title": "The Coming of Sunfire",
+                "number": 64
+            },
+            {
+                "series": "The X-Men",
+                "title": "Before I'd Be Slave",
+                "number": 65
+            },
+            {
+                "series": "The X-Men",
+                "title": "The Mutants and the Monster",
+                "number": 66
+            },
+            {
+                "series": "X-Men",
+                "title": "Hidden Lives. Part 2 of 2: Pandora's Box",
+                "number": 94
+            },
+            {
+                "series": "X-Men: The Hidden Years",
+                "title": "Once More The Savage Land",
+                "number": 1
+            },
+            {
+                "series": "X-Men: The Hidden Years",
+                "title": "The Ghost And The Darkness",
+                "number": 2
+            },
+            {
+                "series": "X-Men: The Hidden Years",
+                "title": "On Wings Of Angels",
+                "number": 3
+            },
+            {
+                "series": "X-Men: The Hidden Years",
+                "title": "Escape To Oblivion",
+                "number": 4
+            },
+            {
+                "series": "X-Men: The Hidden Years",
+                "title": "Riders On the Storm",
+                "number": 5
+            },
+            {
+                "series": "X-Men: The Hidden Years",
+                "title": "Behold A Goddess Rising..!",
+                "number": 6
+            },
+            {
+                "series": "X-Men: The Hidden Years",
+                "title": "Power Play",
+                "number": 7
+            },
+            {
+                "series": "X-Men: The Hidden Years",
+                "title": "Shadow On The Stars!",
+                "number": 8
+            },
+            {
+                "series": "X-Men: The Hidden Years",
+                "title": "Dark Destiny",
+                "number": 9
+            },
+            {
+                "series": "X-Men: The Hidden Years",
+                "title": "Home is Where The HURT Is...",
+                "number": 10
+            },
+            {
+                "series": "X-Men: The Hidden Years",
+                "title": "Destroy All Mutants!",
+                "number": 11
+            },
+            {
+                "series": "X-Men: The Hidden Years",
+                "title": "And Death Alone Shall Know My Name",
+                "number": 12
+            },
+            {
+                "series": "X-Men: The Hidden Years",
+                "title": "Blood and Circuses",
+                "number": 13
+            },
+            {
+                "series": "X-Men: The Hidden Years",
+                "title": "Yet No More Like My Father",
+                "number": 14
+            },
+            {
+                "series": "X-Men: The Hidden Years",
+                "title": "Death be Not Proud",
+                "number": 15
+            },
+            {
+                "series": "X-Men: The Hidden Years",
+                "title": "Echoes of a Lost Generation",
+                "number": 16
+            },
+            {
+                "series": "X-Men: The Hidden Years",
+                "title": "Hunter and Hunted",
+                "number": 17
+            },
+            {
+                "series": "X-Men: The Hidden Years",
+                "title": "Promise of a New Tomorrow",
+                "number": 18
+            },
+            {
+                "series": "X-Men: The Hidden Years",
+                "title": "Broken Promises",
+                "number": 19
+            },
+            {
+                "series": "Fantastic Four",
+                "title": "The Strength Of The Sub-Mariner",
+                "number": 102
+            },
+            {
+                "series": "X-Men: The Hidden Years",
+                "title": "Worlds Within Worlds",
+                "number": 20
+            },
+            {
+                "series": "Fantastic Four",
+                "title": "At War With Atlantis!",
+                "number": 103
+            },
+            {
+                "series": "X-Men: The Hidden Years",
+                "title": "Let Loose The Dogs of War",
+                "number": 21
+            },
+            {
+                "series": "Fantastic Four",
+                "title": "Our World Enslaved!",
+                "number": 104
+            },
+            {
+                "series": "X-Men: The Hidden Years",
+                "title": "Friends and Enemies",
+                "number": 22
+            },
+            {
+                "series": "Amazing Adventures",
+                "title": "The Beast!",
+                "number": 11
+            },
+            {
+                "series": "Amazing Adventures",
+                "title": "Iron Man: D.O.A.",
+                "number": 12
+            },
+            {
+                "series": "Amazing Adventures",
+                "title": "Evil Is All In Your Mind!",
+                "number": 13
+            },
+            {
+                "series": "Amazing Adventures",
+                "title": "The Vampire Machine",
+                "number": 14
+            },
+            {
+                "series": "Marvel Team-Up",
+                "title": "And Then-- The X-Men!",
+                "number": 4
+            },
+            {
+                "series": "Amazing Adventures",
+                "title": "Murder in Mid-Air!",
+                "number": 15
+            },
+            {
+                "series": "Amazing Adventures",
+                "title": "The Juggernaut Will Get You... If You Don't Watch Out!",
+                "number": 16
+            },
+            {
+                "series": "The Incredible Hulk",
+                "title": "Beyond the Border Lurks Death",
+                "number": 161
+            },
+            {
+                "series": "The Avengers",
+                "title": "...And Now Magneto!",
+                "number": 110
+            },
+            {
+                "series": "Daredevil",
+                "title": "The Mark of Hawkeye",
+                "number": 99
+            },
+            {
+                "series": "The Avengers",
+                "title": "With Two Beside Them",
+                "number": 111
+            },
+            {
+                "series": "Captain America",
+                "title": "When a Legend Dies",
+                "number": 169
+            },
+            {
+                "series": "Captain America",
+                "title": "J'Accuse",
+                "number": 170
+            },
+            {
+                "series": "Captain America",
+                "title": "Bust-Out",
+                "number": 171
+            },
+            {
+                "series": "Captain America",
+                "title": "Believe It or Not: The Banshee",
+                "number": 172
+            },
+            {
+                "series": "Captain America",
+                "title": "The Sins of the Secret Empire",
+                "number": 173
+            },
+            {
+                "series": "Captain America",
+                "title": "It's Always Darkest...",
+                "number": 174
+            },
+            {
+                "series": "Captain America",
+                "title": "Before the Dawn",
+                "number": 175
+            }
+        ]
+    },
     "punisher-ennis": {
         "readlistId": "0NGTY61N44099",
         "issues": [
