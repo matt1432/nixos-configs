@@ -145,12 +145,34 @@ export interface ReadList {
     filtered: boolean
 }
 
-export interface Poster {
+export interface BookPoster {
     bookId: string
     fileSize: number
     height: number
     id: string
     mediaType: string
+    selected: boolean
+    type: string
+    width: number
+}
+
+export interface SeriesPoster {
+    fileSize: number
+    height: number
+    id: string
+    mediaType: string
+    seriesId: string
+    selected: boolean
+    type: string
+    width: number
+}
+
+export interface ReadlistPoster {
+    fileSize: number
+    height: number
+    id: string
+    mediaType: string
+    readListId: string
     selected: boolean
     type: string
     width: number
