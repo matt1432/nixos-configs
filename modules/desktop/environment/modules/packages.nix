@@ -122,7 +122,7 @@ in {
             plugins = {
               alwaysTrust.enable = true;
               biggerStreamPreview.enable = true;
-              clearURLs.enable = true;
+              clearUrLs.enable = true;
               crashHandler.enable = true;
               disableCallIdle.enable = true;
               expressionCloner.enable = true;
@@ -137,7 +137,7 @@ in {
               };
 
               mutualGroupDMs.enable = true;
-              onePingPerDM.enable = true;
+              onePingPerDm.enable = true;
               openInApp.enable = true;
               platformIndicators.enable = true;
               previewMessage.enable = true;
