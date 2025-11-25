@@ -38,9 +38,9 @@ in {
 
         metadataUpdate.default = {
           libraryType = "COMIC";
-          bookCovers = true;
-          seriesCovers = true;
-          overrideExistingCovers = true;
+          bookCovers = false;
+          seriesCovers = false;
+          overrideExistingCovers = false;
           overrideComicInfo = true;
 
           postProcessing = {
@@ -59,6 +59,8 @@ in {
         defaultProviders.comicVine = {
           priority = 1;
           enabled = true;
+          seriesMetadata.thumbnail = false;
+          bookMetadata.thumbnail = false;
         };
       };
     };
