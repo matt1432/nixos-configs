@@ -1,10 +1,11 @@
 import { bind, timeout } from 'astal';
-import { App, Gtk, Widget } from 'astal/gtk3';
+import { Gtk, Widget } from 'astal/gtk3';
 
 import AstalNotifd from 'gi://AstalNotifd';
 
 import { Notification, HasNotifs } from './notification';
 import NotifGestureWrapper from './gesture';
+import { getWindow } from '../../lib';
 
 
 const addNotif = (box: Widget.Box, notifObj: AstalNotifd.Notification) => {
@@ -77,7 +78,7 @@ const ClearButton = () => {
                         notif.dismiss();
                     });
                     timeout(1000, () => {
-                        App.get_window('win-notif-center')?.set_visible(false);
+                        getWindow('win-notif-center')?.set_visible(false);
                     });
                 }}
             >

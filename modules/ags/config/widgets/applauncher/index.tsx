@@ -1,11 +1,11 @@
-import { App } from 'astal/gtk3';
-
 import AstalApps from 'gi://AstalApps';
 
 import SortedList from '../misc/sorted-list';
 
 import { launchApp } from './launch';
 import AppItem from './app-item';
+
+import { getWindow } from '../../lib';
 
 
 export default () => SortedList({
@@ -29,7 +29,7 @@ export default () => SortedList({
         const app = (row.get_children()[0] as AppItem).app;
 
         launchApp(app);
-        App.get_window('win-applauncher')?.set_visible(false);
+        getWindow('win-applauncher')?.set_visible(false);
     },
 
     sort_func: (a, b, entry, fzfResults) => {

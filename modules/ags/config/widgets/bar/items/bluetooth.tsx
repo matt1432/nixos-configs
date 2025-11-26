@@ -1,9 +1,9 @@
 import { bind, Variable } from 'astal';
-import { App, Gtk } from 'astal/gtk3';
+import { Gtk } from 'astal/gtk3';
 
 import AstalBluetooth from 'gi://AstalBluetooth';
 
-import PopupWindow from '../../misc/popup-window';
+import { getWindow } from '../../../lib';
 
 
 export default () => {
@@ -20,7 +20,7 @@ export default () => {
             onHoverLost={() => Hovered.set(false)}
 
             onButtonReleaseEvent={(self) => {
-                const win = App.get_window('win-bluetooth') as PopupWindow;
+                const win = getWindow('win-bluetooth')!;
 
                 win.set_x_pos(
                     self.get_allocation(),

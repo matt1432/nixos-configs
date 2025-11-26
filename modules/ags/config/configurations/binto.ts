@@ -14,7 +14,7 @@ import OnScreenDisplay from '../widgets/on-screen-display';
 import PowerMenu from '../widgets/powermenu';
 import Screenshot from '../widgets/screenshot';
 
-import { closeAll, perMonitor } from '../lib';
+import { closeAll, getWindow, perMonitor } from '../lib';
 import Brightness from '../services/brightness';
 import GpuScreenRecorder from '../services/gpu-screen-recorder';
 import MonitorClicks from '../services/monitor-clicks';
@@ -26,7 +26,7 @@ export default () => {
 
         requestHandler(request, respond) {
             if (request.startsWith('open')) {
-                App.get_window(request.replace('open ', ''))?.set_visible(true);
+                getWindow(request.replace('open ', ''))?.set_visible(true);
                 respond('window opened');
             }
             else if (request.startsWith('closeAll')) {

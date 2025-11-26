@@ -1,11 +1,13 @@
 import { bind, timeout } from 'astal';
-import { App, Astal, Gtk, Widget } from 'astal/gtk3';
+import { Astal, Gtk, Widget } from 'astal/gtk3';
 
 import AstalWp from 'gi://AstalWp';
 
 import { ProgressBar } from '../misc/subclasses';
 import PopupWindow from '../misc/popup-window';
 import Brightness from '../../services/brightness';
+
+import { getWindow } from '../../lib';
 
 /* Types */
 declare global {
@@ -28,13 +30,13 @@ export default () => {
         ++n_showing;
         stack.shown = osd;
 
-        App.get_window('win-osd')?.set_visible(true);
+        getWindow('win-osd')?.set_visible(true);
 
         timeout(HIDE_DELAY, () => {
             --n_showing;
 
             if (n_showing === 0) {
-                App.get_window('win-osd')?.set_visible(false);
+                getWindow('win-osd')?.set_visible(false);
             }
         });
     };

@@ -1,9 +1,9 @@
 import { execAsync } from 'astal';
-import { App } from 'astal/gtk3';
 
 import SortedList from '../misc/sorted-list';
 
 import { CLIP_SCRIPT, ClipItem, EntryObject } from './clip-item';
+import { getWindow } from '../../lib';
 
 
 export default () => SortedList<EntryObject>({
@@ -40,7 +40,7 @@ export default () => SortedList<EntryObject>({
         const clip = row.get_children()[0] as ClipItem;
 
         execAsync(`${CLIP_SCRIPT} --copy-by-id ${clip.id}`);
-        App.get_window('win-clipboard')?.set_visible(false);
+        getWindow('win-clipboard')?.set_visible(false);
     },
 
     sort_func: (a, b, entry, fzfResults) => {

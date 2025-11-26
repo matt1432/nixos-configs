@@ -27,6 +27,11 @@ export interface CursorPos {
     y: number
 }
 
+export const getWindow = (name: string): PopupWindow | undefined => {
+    return (App.get_windows() as PopupWindow[])
+        .find((w) => name.startsWith(w.name) || w.name.startsWith(name));
+};
+
 export const closeAll = () => {
     (App.get_windows() as PopupWindow[])
         .filter((w) => w &&

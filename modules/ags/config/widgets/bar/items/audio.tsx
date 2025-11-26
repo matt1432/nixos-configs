@@ -1,9 +1,8 @@
 import { bind } from 'astal';
-import { App } from 'astal/gtk3';
 
 import AstalWp from 'gi://AstalWp';
 
-import PopupWindow from '../../misc/popup-window';
+import { getWindow } from '../../../lib';
 
 
 export default () => {
@@ -19,7 +18,7 @@ export default () => {
             className="bar-item audio"
 
             onButtonReleaseEvent={(self) => {
-                const win = App.get_window('win-audio') as PopupWindow;
+                const win = getWindow('win-audio')!;
 
                 win.set_x_pos(
                     self.get_allocation(),

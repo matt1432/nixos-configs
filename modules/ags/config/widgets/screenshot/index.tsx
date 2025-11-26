@@ -1,5 +1,5 @@
 import { bind, execAsync, Variable } from 'astal';
-import { App, Gtk, Widget } from 'astal/gtk3';
+import { Gtk, Widget } from 'astal/gtk3';
 
 import AstalApps from 'gi://AstalApps';
 import AstalHyprland from 'gi://AstalHyprland';
@@ -7,12 +7,12 @@ import AstalHyprland from 'gi://AstalHyprland';
 import PopupWindow from '../misc/popup-window';
 import Separator from '../misc/separator';
 
-import { hyprMessage } from '../../lib';
+import { getWindow, hyprMessage } from '../../lib';
 
 
 const ICON_SEP = 6;
 const takeScreenshot = (selector: string[], delay = 1000): void => {
-    App.get_window('win-screenshot')?.set_visible(false);
+    getWindow('win-screenshot')?.set_visible(false);
 
     setTimeout(() => {
         execAsync([
@@ -27,7 +27,7 @@ export default () => {
     const windowList = <box vertical /> as Widget.Box;
 
     const updateWindows = async() => {
-        if (!App.get_window('win-screenshot')?.get_visible()) {
+        if (!getWindow('win-screenshot')?.get_visible()) {
             return;
         }
 

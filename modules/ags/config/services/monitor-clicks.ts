@@ -4,7 +4,7 @@ import GObject, { register, signal } from 'astal/gobject';
 
 import AstalIO from 'gi://AstalIO';
 
-import { hyprMessage } from '../lib';
+import { getWindow, hyprMessage } from '../lib';
 
 const ON_RELEASE_TRIGGERS = [
     'released',
@@ -169,15 +169,11 @@ export default class MonitorClicks extends GObject.Object {
                     const noCloseWidgets = getNoCloseWidgets(noCloseWidgetsNames);
 
                     const widgets = overlayLayer.filter((n) => {
-                        let window = null as null | PopupWindow;
+                        const win = getWindow(n.namespace);
 
-                        if (App.get_windows().some((win) => win.name === n.namespace)) {
-                            window = (App.get_window(n.namespace) as PopupWindow);
-                        }
-
-                        return window &&
-                            window.close_on_unfocus &&
-                            window.close_on_unfocus ===
+                        return win &&
+                            win.close_on_unfocus &&
+                            win.close_on_unfocus ===
                             clickStage;
                     });
 
@@ -190,14 +186,14 @@ export default class MonitorClicks extends GObject.Object {
                                 pos.x > w.x && pos.x < w.x + w.w &&
                                 pos.y > w.y && pos.y < w.y + w.h
                             )) {
-                                App.get_window(w.namespace)?.set_visible(false);
+                                getWindow(w.namespace)?.set_visible(false);
                             }
                         });
                     }
                 }
             });
         }
-        catch (e) {
+        catch(e) {
             console.log(e);
         }
     }

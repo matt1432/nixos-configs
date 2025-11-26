@@ -2,7 +2,7 @@ import { bind, Variable } from 'astal';
 import { App } from 'astal/gtk3';
 
 import GLib from 'gi://GLib';
-import PopupWindow from '../../misc/popup-window';
+import { getWindow } from '../../../lib';
 
 
 export default () => {
@@ -31,7 +31,7 @@ export default () => {
             cursor="pointer"
 
             onButtonReleaseEvent={(self) => {
-                const win = App.get_window('win-calendar') as PopupWindow;
+                const win = getWindow('win-calendar')!;
 
                 win.set_x_pos(
                     self.get_allocation(),
@@ -43,7 +43,7 @@ export default () => {
 
             setup={(self) => {
                 App.connect('window-toggled', (_, win) => {
-                    if (win.get_name() === 'win-notif-center') {
+                    if (win.get_name()?.startsWith('win-notif-center')) {
                         self.toggleClassName('toggle-on', win.get_visible());
                     }
                 });

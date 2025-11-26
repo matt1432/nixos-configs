@@ -20,7 +20,7 @@ import OnScreenKeyboard from '../widgets/on-screen-keyboard';
 import PowerMenu from '../widgets/powermenu';
 import Screenshot from '../widgets/screenshot';
 
-import { closeAll, perMonitor } from '../lib';
+import { closeAll, getWindow, perMonitor } from '../lib';
 import Brightness from '../services/brightness';
 import MonitorClicks from '../services/monitor-clicks';
 import Tablet from '../services/tablet';
@@ -32,7 +32,7 @@ export default () => {
 
         requestHandler(request, respond) {
             if (request.startsWith('open')) {
-                App.get_window(request.replace('open ', ''))?.set_visible(true);
+                getWindow(request.replace('open ', ''))?.set_visible(true);
                 respond('window opened');
             }
             else if (request.startsWith('closeAll')) {

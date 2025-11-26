@@ -1,9 +1,8 @@
 import { bind } from 'astal';
-import { App } from 'astal/gtk3';
 
 import Brightness from '../../../services/brightness';
 
-import PopupWindow from '../../misc/popup-window';
+import { getWindow } from '../../../lib';
 
 
 export default () => {
@@ -15,7 +14,7 @@ export default () => {
             className="bar-item brightness"
 
             onButtonReleaseEvent={(self) => {
-                const win = App.get_window('win-brightness-slider') as PopupWindow;
+                const win = getWindow('win-brightness-slider')!;
 
                 win.set_x_pos(
                     self.get_allocation(),

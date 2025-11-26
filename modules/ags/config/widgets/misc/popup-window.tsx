@@ -35,42 +35,42 @@ export class PopupWindow extends Widget.Window {
         layer = Astal.Layer.OVERLAY,
         ...rest
     }: PopupWindowProps) {
-        let namePrefix = 'win-';
+        let finalName = `win-${name}`;
 
         switch (transition) {
             case 'fade':
-                namePrefix += 'fade-';
+                finalName += '-fade';
                 break;
 
             case 'popin':
-                namePrefix += 'popin-';
+                finalName += '-popin';
                 break;
 
             case 'slide':
-                namePrefix += 'slide-';
+                finalName += '-slide';
                 break;
 
             case 'slide top':
-                namePrefix += 'top-';
+                finalName += '-top';
                 break;
 
             case 'slide left':
-                namePrefix += 'left-';
+                finalName += '-left';
                 break;
 
             case 'slide right':
-                namePrefix += 'right-';
+                finalName += '-right';
                 break;
 
             case 'slide bottom':
-                namePrefix += 'bottom-';
+                finalName += '-bottom';
                 break;
         }
 
         super({
             ...rest,
             name: `win-${name}`,
-            namespace: `${namePrefix}${name}`,
+            namespace: finalName,
             visible: false,
             layer,
             setup: () => idle(() => {

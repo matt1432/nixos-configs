@@ -5,10 +5,9 @@ import AstalNotifd from 'gi://AstalNotifd';
 
 import Separator from '../../misc/separator';
 
-const SPACING = 4;
+import { getWindow } from '../../../lib';
 
-// Types
-import PopupWindow from '../../misc/popup-window';
+const SPACING = 4;
 
 
 export default () => {
@@ -20,7 +19,7 @@ export default () => {
             cursor="pointer"
 
             onButtonReleaseEvent={(self) => {
-                const win = App.get_window('win-notif-center') as PopupWindow;
+                const win = getWindow('win-notif-center')!;
 
                 win.set_x_pos(
                     self.get_allocation(),
@@ -32,7 +31,7 @@ export default () => {
 
             setup={(self) => {
                 App.connect('window-toggled', (_, win) => {
-                    if (win.get_name() === 'win-notif-center') {
+                    if (win.get_name()?.startsWith('win-notif-center')) {
                         self.toggleClassName('toggle-on', win.get_visible());
                     }
                 });
