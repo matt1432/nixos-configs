@@ -29,7 +29,7 @@ in {
       };
 
       "flaresolverr" = {
-        image = pkgs.callPackage ./images/byparr.nix pkgs;
+        image = pkgs.callPackage ./images/flaresolverr.nix pkgs;
         restart = "always";
 
         environment = {
