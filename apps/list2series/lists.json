@@ -1819,6 +1819,991 @@
             }
         ]
     },
+    "xmen-4": {
+        "readlistId": "0NP1A3W2JW2HT",
+        "issues": [
+            {
+                "series": "The Avengers",
+                "title": "What Lurks Below?",
+                "number": 263
+            },
+            {
+                "series": "Fantastic Four",
+                "title": "Like a Phoenix!",
+                "number": 286
+            },
+            {
+                "series": "X-Factor",
+                "title": "Third Genesis",
+                "number": 1
+            },
+            {
+                "series": "The New Mutants",
+                "title": "Way of the Warrior",
+                "number": 41
+            },
+            {
+                "series": "The New Mutants",
+                "title": "New Song for Old",
+                "number": 42
+            },
+            {
+                "series": "X-Factor",
+                "title": "Bless the Beasts and Children",
+                "number": 2
+            },
+            {
+                "series": "X-Factor",
+                "title": "Regression Obsession",
+                "number": 3
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Freedom is a Four Letter Word",
+                "number": 206
+            },
+            {
+                "series": "Web of Spider-Man Annual",
+                "title": "Wake Me Up I Gotta Be Dreaming; You're Lying, Peter Parker",
+                "number": 2
+            },
+            {
+                "series": "X-Factor",
+                "title": "Trials and Terrors",
+                "number": 4
+            },
+            {
+                "series": "Iron Man Annual",
+                "title": "When Innocence Dies!",
+                "number": 8
+            },
+            {
+                "series": "The New Mutants",
+                "title": "Getting Even",
+                "number": 43
+            },
+            {
+                "series": "X-Factor Annual",
+                "title": "Grand Design",
+                "number": 1
+            },
+            {
+                "series": "The New Mutants",
+                "title": "Runaway",
+                "number": 44
+            },
+            {
+                "series": "The New Mutants Annual",
+                "title": "Why Do We Do These Things We Do ?",
+                "number": 2
+            },
+            {
+                "series": "X-Factor",
+                "title": "Tapped Out",
+                "number": 5
+            },
+            {
+                "series": "X-Factor",
+                "title": "Apocalypse Now!",
+                "number": 6
+            },
+            {
+                "series": "X-Factor",
+                "title": "Fall Out!",
+                "number": 7
+            },
+            {
+                "series": "The Amazing Spider-Man",
+                "title": "The Fury of X-Factor",
+                "number": 282
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Ghosts",
+                "number": 207
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Retribution",
+                "number": 208
+            },
+            {
+                "series": "X-Factor",
+                "title": "Lost and Found!",
+                "number": 8
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Salvation",
+                "number": 209
+            },
+            {
+                "series": "X-Factor",
+                "title": "Spots!",
+                "number": 9
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "The Morning After",
+                "number": 210
+            },
+            {
+                "series": "X-Men Annual",
+                "title": "Performance",
+                "number": 10
+            },
+            {
+                "series": "The New Mutants",
+                "title": "We Were Only Foolin'",
+                "number": 45
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Massacre",
+                "number": 211
+            },
+            {
+                "series": "X-Factor",
+                "title": "Falling Angel!",
+                "number": 10
+            },
+            {
+                "series": "The New Mutants",
+                "title": "Bloody Sunday",
+                "number": 46
+            },
+            {
+                "series": "Thor",
+                "title": "The Gift of Death",
+                "number": 373
+            },
+            {
+                "series": "Power Pack",
+                "title": "Whose Power--?",
+                "number": 27
+            },
+            {
+                "series": "Thor",
+                "title": "Fires of the Night!",
+                "number": 374
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "The Last Run",
+                "number": 212
+            },
+            {
+                "series": "The New Mutants",
+                "title": "My Heart for the Highlands",
+                "number": 47
+            },
+            {
+                "series": "X-Factor",
+                "title": "Redemption!",
+                "number": 11
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Psylocke",
+                "number": 213
+            },
+            {
+                "series": "Daredevil",
+                "title": "It Comes With The Claws",
+                "number": 238
+            },
+            {
+                "series": "X-Factor",
+                "title": "Boom Boom Boom!",
+                "number": 12
+            },
+            {
+                "series": "The New Mutants",
+                "title": "Ashes of the Heart",
+                "number": 48
+            },
+            {
+                "series": "The New Mutants",
+                "title": "Ashes of the Soul",
+                "number": 49
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "With Malice Toward All",
+                "number": 214
+            },
+            {
+                "series": "The New Mutants",
+                "title": "Father's Day",
+                "number": 50
+            },
+            {
+                "series": "The New Mutants",
+                "title": "Teacher's Choice",
+                "number": 51
+            },
+            {
+                "series": "The New Mutants Annual",
+                "title": "Anything You Can Do...",
+                "number": 3
+            },
+            {
+                "series": "Mephisto Vs. ...",
+                "title": "Give The Devil His Due",
+                "number": 1
+            },
+            {
+                "series": "Mephisto Vs. ...",
+                "title": "Sympathy For The Devil",
+                "number": 2
+            },
+            {
+                "series": "Marvel Fanfare",
+                "title": "Chiaroscuro",
+                "number": 40
+            },
+            {
+                "series": "Mephisto Vs. ...",
+                "title": "The Devil You Say",
+                "number": 3
+            },
+            {
+                "series": "Mephisto Vs. ...",
+                "title": "His Satanic Majesty's Request",
+                "number": 4
+            },
+            {
+                "series": "X-Factor",
+                "title": "Ghosts!",
+                "number": 13
+            },
+            {
+                "series": "X-Factor",
+                "title": "The Mutant Program!",
+                "number": 14
+            },
+            {
+                "series": "X-Factor",
+                "title": "Whose Death Is This Anyway?",
+                "number": 15
+            },
+            {
+                "series": "Thor",
+                "title": "This Hollowed Armor",
+                "number": 377
+            },
+            {
+                "series": "Thor",
+                "title": "When Loki Stood Alone!",
+                "number": 378
+            },
+            {
+                "series": "Thor",
+                "title": "There Were Giants In Those Days",
+                "number": 379
+            },
+            {
+                "series": "Thor",
+                "title": "Mjolnir's Song",
+                "number": 380
+            },
+            {
+                "series": "Thor",
+                "title": "Ye Olde Shelle Game",
+                "number": 381
+            },
+            {
+                "series": "Thor",
+                "title": "Journey Into Mystery",
+                "number": 382
+            },
+            {
+                "series": "X-Factor",
+                "title": "Playing With Fire!",
+                "number": 16
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "\"Old Soldiers\"",
+                "number": 215
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "\"Crucible\"",
+                "number": 216
+            },
+            {
+                "series": "The New Mutants",
+                "title": "Grounded Forever",
+                "number": 52
+            },
+            {
+                "series": "Fallen Angels",
+                "title": "Runaway",
+                "number": 1
+            },
+            {
+                "series": "Fallen Angels",
+                "title": "I'll Take the High Road and I'll Take the Low",
+                "number": 2
+            },
+            {
+                "series": "X-Factor",
+                "title": "Die, Mutants, Die!",
+                "number": 17
+            },
+            {
+                "series": "Fallen Angels",
+                "title": "Every Card Is Wild",
+                "number": 3
+            },
+            {
+                "series": "Fallen Angels",
+                "title": "A Devil Among The Angels!",
+                "number": 4
+            },
+            {
+                "series": "Fallen Angels",
+                "title": "Lost And Found",
+                "number": 5
+            },
+            {
+                "series": "X-Factor",
+                "title": "The Enemy Within",
+                "number": 18
+            },
+            {
+                "series": "X-Factor",
+                "title": "All Together Now!",
+                "number": 19
+            },
+            {
+                "series": "X-Factor",
+                "title": "Children's Crusade",
+                "number": 20
+            },
+            {
+                "series": "The Incredible Hulk",
+                "title": "X-Tremes!",
+                "number": 336
+            },
+            {
+                "series": "The Incredible Hulk",
+                "title": "Crossroads",
+                "number": 337
+            },
+            {
+                "series": "Fallen Angels",
+                "title": "The Coconut Grove",
+                "number": 6
+            },
+            {
+                "series": "Fallen Angels",
+                "title": "Triple Cross",
+                "number": 7
+            },
+            {
+                "series": "Fallen Angels",
+                "title": "Grownups and Children",
+                "number": 8
+            },
+            {
+                "series": "The New Mutants",
+                "title": "Seduced & Abandoned",
+                "number": 53
+            },
+            {
+                "series": "The New Mutants",
+                "title": "Ratrace",
+                "number": 54
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Folly's Gambit",
+                "number": 217
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Charge of the Light Brigade",
+                "number": 218
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Where Duty Lies",
+                "number": 219
+            },
+            {
+                "series": "X-Men Annual",
+                "title": "Lost in The Funhouse",
+                "number": 11
+            },
+            {
+                "series": "Fantastic Four vs. X-Men",
+                "title": "Are You Sure?!",
+                "number": 1
+            },
+            {
+                "series": "Fantastic Four vs. X-Men",
+                "title": "Truths & Consequences",
+                "number": 2
+            },
+            {
+                "series": "Fantastic Four vs. X-Men",
+                "title": "By the Soul's Darkest Light",
+                "number": 3
+            },
+            {
+                "series": "Fantastic Four vs. X-Men",
+                "title": "A Matter of Faith",
+                "number": 4
+            },
+            {
+                "series": "The X-Men vs. The Avengers",
+                "title": "Justice For All!",
+                "number": 1
+            },
+            {
+                "series": "The X-Men vs. The Avengers",
+                "title": "Uneasy Allies",
+                "number": 2
+            },
+            {
+                "series": "The X-Men vs. The Avengers",
+                "title": "The Soviets Strike Back!",
+                "number": 3
+            },
+            {
+                "series": "The X-Men vs. The Avengers",
+                "title": "The Day of Judgement",
+                "number": 4
+            },
+            {
+                "series": "X-Factor Annual",
+                "title": "…That I be Bound in a Nutshell",
+                "number": 4
+            },
+            {
+                "series": "The New Mutants",
+                "title": "Flying Wild!",
+                "number": 55
+            },
+            {
+                "series": "X-Factor Annual",
+                "title": "The Man In The Moon",
+                "number": 2
+            },
+            {
+                "series": "The New Mutants",
+                "title": "Scavenger Hunt!",
+                "number": 56
+            },
+            {
+                "series": "The New Mutants",
+                "title": "Birds of a Feather",
+                "number": 57
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Unfinished Business",
+                "number": 220
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Death by Drowning!",
+                "number": 221
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Heartbreak",
+                "number": 222
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Omens & Portents",
+                "number": 223
+            },
+            {
+                "series": "Power Pack",
+                "title": "Special Effects!",
+                "number": 33
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "The Dark Before the Dawn",
+                "number": 224
+            },
+            {
+                "series": "The Incredible Hulk",
+                "title": "Vicious Circle",
+                "number": 340
+            },
+            {
+                "series": "The New Mutants",
+                "title": "A Bird in the Hand",
+                "number": 58
+            },
+            {
+                "series": "X-Factor",
+                "title": "For Every Action...",
+                "number": 21
+            },
+            {
+                "series": "X-Factor",
+                "title": "If I Should Die.......",
+                "number": 22
+            },
+            {
+                "series": "X-Factor",
+                "title": "You Say You Want Some Evolution",
+                "number": 23
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "False Dawn!",
+                "number": 225
+            },
+            {
+                "series": "X-Factor",
+                "title": "Masks",
+                "number": 24
+            },
+            {
+                "series": "The New Mutants",
+                "title": "Fang and Claw",
+                "number": 59
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Go Tell The Spartans",
+                "number": 226
+            },
+            {
+                "series": "X-Factor",
+                "title": "Judgment Day",
+                "number": 25
+            },
+            {
+                "series": "Power Pack",
+                "title": "Life or Death!",
+                "number": 35
+            },
+            {
+                "series": "Daredevil",
+                "title": "Ground Zero",
+                "number": 252
+            },
+            {
+                "series": "The New Mutants",
+                "title": "Suspended Ani-Mation!",
+                "number": 60
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "The Belly Of The Beast!",
+                "number": 227
+            },
+            {
+                "series": "Captain America",
+                "title": "America the Scorched!",
+                "number": 339
+            },
+            {
+                "series": "X-Factor",
+                "title": "Casualities",
+                "number": 26
+            },
+            {
+                "series": "Fantastic Four",
+                "title": "The Turning Point!",
+                "number": 312
+            },
+            {
+                "series": "The New Mutants",
+                "title": "Our Way!",
+                "number": 61
+            },
+            {
+                "series": "X-Factor",
+                "title": "Gifts",
+                "number": 27
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Deadly Games",
+                "number": 228
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Down Under",
+                "number": 229
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "´ Twas the night ...",
+                "number": 230
+            },
+            {
+                "series": "The New Mutants",
+                "title": "To Build A Fire",
+                "number": 62
+            },
+            {
+                "series": "Spellbound",
+                "title": "Money Changes Everything",
+                "number": 4
+            },
+            {
+                "series": "The New Mutants",
+                "title": "Redemption",
+                "number": 63
+            },
+            {
+                "series": "The New Mutants",
+                "title": "Instant Replay!",
+                "number": 64
+            },
+            {
+                "series": "The New Mutants",
+                "title": "Demons!",
+                "number": 65
+            },
+            {
+                "series": "The New Mutants",
+                "title": "Sorcerer's Duel!",
+                "number": 66
+            },
+            {
+                "series": "X-Factor",
+                "title": "Countdown",
+                "number": 28
+            },
+            {
+                "series": "Power Pack",
+                "title": "Seeing the Light!",
+                "number": 37
+            },
+            {
+                "series": "X-Factor",
+                "title": "Fame!",
+                "number": 29
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "... Dressed for Dinner!",
+                "number": 231
+            },
+            {
+                "series": "Excalibur Special Edition",
+                "title": "The Sword Is Drawn",
+                "number": 1
+            },
+            {
+                "series": "Strange Tales",
+                "title": "Bitter Obligations Like An Unmade Bed / Go Ask Alice",
+                "number": 16
+            },
+            {
+                "series": "Strange Tales",
+                "title": "Desperate Straits / this Old Man Came Rogging Home",
+                "number": 17
+            },
+            {
+                "series": "Strange Tales",
+                "title": "Descent Into Darkness",
+                "number": 18
+            },
+            {
+                "series": "The Mutant Misadventures of Cloak and Dagger",
+                "title": "Blind Salvation!",
+                "number": 1
+            },
+            {
+                "series": "X-Factor Annual",
+                "title": "Unnatural Selection",
+                "number": 3
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Earthfall",
+                "number": 232
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Dawn Of Blood",
+                "number": 233
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Glory Day",
+                "number": 234
+            },
+            {
+                "series": "Excalibur",
+                "title": "Warwolves of London!",
+                "number": 1
+            },
+            {
+                "series": "Excalibur",
+                "title": "A Warwolf Possessed",
+                "number": 2
+            },
+            {
+                "series": "Power Pack",
+                "title": "Lights, Camera, Action!",
+                "number": 39
+            },
+            {
+                "series": "Power Pack",
+                "title": "Fire With Fire",
+                "number": 40
+            },
+            {
+                "series": "The New Mutants Annual",
+                "title": "Mind Games",
+                "number": 4
+            },
+            {
+                "series": "X-Men Annual",
+                "title": "Ressurrection",
+                "number": 12
+            },
+            {
+                "series": "West Coast Avengers Annual",
+                "title": "Heads You Lose, Tails You Win",
+                "number": 3
+            },
+            {
+                "series": "X-Factor",
+                "title": "Kiss Of Death",
+                "number": 30
+            },
+            {
+                "series": "X-Factor",
+                "title": "Kiss Off!",
+                "number": 31
+            },
+            {
+                "series": "X-Factor",
+                "title": "The Carbon Copy Avengers",
+                "number": 32
+            },
+            {
+                "series": "X-Factor",
+                "title": "For All The World To See",
+                "number": 33
+            },
+            {
+                "series": "X-Factor",
+                "title": "Death!",
+                "number": 34
+            },
+            {
+                "series": "X-Terminators",
+                "title": "Invasion of the Baby-Snatchers",
+                "number": 1
+            },
+            {
+                "series": "X-Terminators",
+                "title": "Speed Demon",
+                "number": 2
+            },
+            {
+                "series": "The Avengers Annual",
+                "title": "Prometheus Mutans",
+                "number": 17
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "\"Welcome to Genosha\"",
+                "number": 235
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Busting Loose!",
+                "number": 236
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Who's Human?",
+                "number": 237
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Gonna be a Revolution",
+                "number": 238
+            },
+            {
+                "series": "The New Mutants",
+                "title": "Promise",
+                "number": 67
+            },
+            {
+                "series": "The New Mutants",
+                "title": "Illusion!",
+                "number": 68
+            },
+            {
+                "series": "The New Mutants",
+                "title": "Bad Company",
+                "number": 69
+            },
+            {
+                "series": "The New Mutants",
+                "title": "Self-Fulfilling Prophesy",
+                "number": 70
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Vanities",
+                "number": 239
+            },
+            {
+                "series": "X-Factor",
+                "title": "Go To The Orphan Maker",
+                "number": 35
+            },
+            {
+                "series": "X-Terminators",
+                "title": "Guess Who's Coming to Dinner?",
+                "number": 3
+            },
+            {
+                "series": "The New Mutants",
+                "title": "Limbo",
+                "number": 71
+            },
+            {
+                "series": "Power Pack",
+                "title": "Revenge of the Boogyman (Part 1)",
+                "number": 42
+            },
+            {
+                "series": "Power Pack",
+                "title": "Revenge Of The Boogeyman (Part 2): The Bogeyman Must Die",
+                "number": 43
+            },
+            {
+                "series": "X-Factor",
+                "title": "Transformations",
+                "number": 36
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Strike The Match",
+                "number": 240
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Fan The Flames",
+                "number": 241
+            },
+            {
+                "series": "The Avengers",
+                "title": "I Love NY",
+                "number": 299
+            },
+            {
+                "series": "The Avengers",
+                "title": "Inferno2",
+                "number": 300
+            },
+            {
+                "series": "X-Terminators",
+                "title": "Finale!",
+                "number": 4
+            },
+            {
+                "series": "The New Mutants",
+                "title": "Demon Reign",
+                "number": 72
+            },
+            {
+                "series": "The New Mutants",
+                "title": "The Gift",
+                "number": 73
+            },
+            {
+                "series": "X-Factor",
+                "title": "A Matter of Honor",
+                "number": 37
+            },
+            {
+                "series": "Excalibur",
+                "title": "Goblin Night",
+                "number": 6
+            },
+            {
+                "series": "Excalibur",
+                "title": "Goblin Morn!",
+                "number": 7
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Burn",
+                "number": 242
+            },
+            {
+                "series": "X-Factor",
+                "title": "Duet",
+                "number": 38
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Ashes",
+                "number": 243
+            },
+            {
+                "series": "X-Factor",
+                "title": "Ashes to Ashes",
+                "number": 39
+            },
+            {
+                "series": "The Mutant Misadventures of Cloak and Dagger",
+                "title": "Isolation!",
+                "number": 4
+            },
+            {
+                "series": "Power Pack",
+                "title": "Revenge Of The Boogeyman (Part 3): What Price Victory?",
+                "number": 44
+            },
+            {
+                "series": "The New Mutants",
+                "title": "The Right Stuff",
+                "number": 74
+            },
+            {
+                "series": "Excalibur",
+                "title": "Excalibur's New York Adventure",
+                "number": 8
+            },
+            {
+                "series": "The New Mutants",
+                "title": "King Of The Hill!",
+                "number": 75
+            },
+            {
+                "series": "Damage Control",
+                "title": "Excessive Farce",
+                "number": 4
+            },
+            {
+                "series": "X-Factor Annual",
+                "title": "Inferno Aftermath",
+                "number": 4
+            },
+            {
+                "series": "X-Factor",
+                "title": "Dust to Dust",
+                "number": 40
+            },
+            {
+                "series": "The New Mutants",
+                "title": "Splash!",
+                "number": 76
+            }
+        ]
+    },
     "xmen-3": {
         "readlistId": "0NNW0KHPEW8BM",
         "issues": [
@@ -2149,7 +3134,7 @@
             },
             {
                 "series": "Marvel Fanfare",
-                "title": "Chiaroscuro; Deal With The Devil!",
+                "title": "Deal With The Devil!",
                 "number": 40
             },
             {
