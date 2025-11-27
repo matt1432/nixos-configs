@@ -5,7 +5,7 @@
   ...
 }: let
   pname = "whoogle-search";
-  version = "1.1.0";
+  version = "1.1.2";
 in
   python3Packages.buildPythonApplication rec {
     inherit pname version;
@@ -15,7 +15,7 @@ in
     src = fetchPypi {
       pname = "whoogle_search";
       inherit version;
-      hash = "sha256-2whW58feLNqBvarqbMEfoMUz8U+1L3iLl5OMtX3svW4=";
+      hash = "sha256-1oPpCn9qeg/N/BA8Hv3+x4d7A5qEgcSI8i8B5XALQdw=";
     };
 
     build-system = with python3Packages; [setuptools];

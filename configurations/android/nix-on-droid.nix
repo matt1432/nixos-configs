@@ -91,6 +91,8 @@
       }
     ];
 
+    home.enableNixpkgsReleaseCheck = false;
+
     home.stateVersion = "23.05";
   };
 }

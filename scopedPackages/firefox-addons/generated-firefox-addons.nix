@@ -29,10 +29,10 @@
   };
   "bitwarden" = buildFirefoxXpiAddon {
     pname = "bitwarden";
-    version = "2025.11.0";
+    version = "2025.11.1";
     addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4619294/bitwarden_password_manager-2025.11.0.xpi";
-    sha256 = "6be183d581fb81aa19e9fe658aa533aeea91185b54917700952ea3a576cacfc6";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4624303/bitwarden_password_manager-2025.11.1.xpi";
+    sha256 = "d5a0ce8bb3eecd6cc5d716b15f36b50ac8dcc368704ff137c12e465fd7924afa";
     meta = with lib; {
       homepage = "https://bitwarden.com";
       description = "At home, at work, or on the go, Bitwarden easily secures all your passwords, passkeys, and sensitive information.";
@@ -252,10 +252,10 @@
   };
   "tampermonkey" = buildFirefoxXpiAddon {
     pname = "tampermonkey";
-    version = "5.4.0";
+    version = "5.4.1";
     addonId = "firefox@tampermonkey.net";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4578764/tampermonkey-5.4.0.xpi";
-    sha256 = "20159d57c510cd0df9ad3992f818042b54d9b52e500fc384fc697314047fdf11";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4624137/tampermonkey-5.4.1.xpi";
+    sha256 = "60f3f2bc86d43a3f5704b4878490beb7f4c44d27c14ac8747845082fe1773ad0";
     meta = with lib; {
       homepage = "https://tampermonkey.net";
       description = "Tampermonkey is the world's most popular userscript manager.";
