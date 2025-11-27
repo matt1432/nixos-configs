@@ -1819,6 +1819,701 @@
             }
         ]
     },
+    "xmen-5": {
+        "readlistId": "0NP98Y5ZYW9DH",
+        "issues": [
+            {
+                "series": "Wolverine",
+                "title": "24 Hours",
+                "number": 10
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Ladies' Night",
+                "number": 244
+            },
+            {
+                "series": "X-Men Annual",
+                "title": "Jubilation Day",
+                "number": 13
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Men!",
+                "number": 245
+            },
+            {
+                "series": "Silver Surfer Annual",
+                "title": "How Sharper Than A Serpent's Tooth",
+                "number": 2
+            },
+            {
+                "series": "Havok & Wolverine: Meltdown",
+                "title": "Mexican Standoff",
+                "number": 1
+            },
+            {
+                "series": "Havok & Wolverine: Meltdown",
+                "title": "Tender Loving Lies!",
+                "number": 2
+            },
+            {
+                "series": "Havok & Wolverine: Meltdown",
+                "title": "Duel",
+                "number": 3
+            },
+            {
+                "series": "Havok & Wolverine: Meltdown",
+                "title": "Endgame",
+                "number": 4
+            },
+            {
+                "series": "X-Factor",
+                "title": "Golden Boy!",
+                "number": 41
+            },
+            {
+                "series": "X-Factor",
+                "title": "All that Glitters.....",
+                "number": 42
+            },
+            {
+                "series": "The New Mutants",
+                "title": "Strange!",
+                "number": 77
+            },
+            {
+                "series": "The New Mutants",
+                "title": "Let's Make A Deal",
+                "number": 78
+            },
+            {
+                "series": "X-Factor",
+                "title": "Kidnapped",
+                "number": 43
+            },
+            {
+                "series": "X-Factor",
+                "title": "Another World",
+                "number": 44
+            },
+            {
+                "series": "The New Mutants",
+                "title": "Asgard",
+                "number": 79
+            },
+            {
+                "series": "The New Mutants",
+                "title": "Curse of the Valkyries",
+                "number": 80
+            },
+            {
+                "series": "The New Mutants",
+                "title": "The Road to Hel",
+                "number": 82
+            },
+            {
+                "series": "X-Factor",
+                "title": "Arena",
+                "number": 45
+            },
+            {
+                "series": "X-Factor",
+                "title": "Exchange",
+                "number": 46
+            },
+            {
+                "series": "X-Factor",
+                "title": "Guardian",
+                "number": 47
+            },
+            {
+                "series": "The New Mutants",
+                "title": "Faith",
+                "number": 81
+            },
+            {
+                "series": "The New Mutants",
+                "title": "The Quick and The Dead (pages 1-19)",
+                "number": 83
+            },
+            {
+                "series": "The New Mutants",
+                "title": "The Swords Edge",
+                "number": 84
+            },
+            {
+                "series": "The New Mutants",
+                "title": "The Killing Stroke (pages 1-18)",
+                "number": 85
+            },
+            {
+                "series": "The New Mutants",
+                "title": "Bang! You’re Dead! (pages 22-24)",
+                "number": 86
+            },
+            {
+                "series": "X-Men Annual",
+                "title": "Double-X-Cross / Serpent in the Garden",
+                "number": 13
+            },
+            {
+                "series": "Marvel Super-Heroes",
+                "title": "Third Time's the Charm!; Natives in a Strange Land; Mercy St.; Fruits of the Wound; The Bouncer; Pin-up Gallery",
+                "number": 6
+            },
+            {
+                "series": "Marvel Super-Heroes",
+                "title": "Sterility 'R' Us!; Guardian Angel; The Shroud vs the Deacon!; The Gator Show",
+                "number": 7
+            },
+            {
+                "series": "Marvel Super-Heroes",
+                "title": "Three Strikes, Yer Out/ Leftovers /The Coming Of Squirrel Girl",
+                "number": 8
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "The Day of Other Lights",
+                "number": 246
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "The Light That Failed",
+                "number": 247
+            },
+            {
+                "series": "X-Factor",
+                "title": "Common Ground",
+                "number": 48
+            },
+            {
+                "series": "X-Factor",
+                "title": "Power Struggle",
+                "number": 49
+            },
+            {
+                "series": "X-Factor",
+                "title": "Judgement Day",
+                "number": 50
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "The Cradle Will Fall",
+                "number": 248
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "The Dane Curse",
+                "number": 249
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "The Shattered Star",
+                "number": 250
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Fever Dream",
+                "number": 251
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Where's Wolverine?",
+                "number": 252
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Storm Warnings",
+                "number": 253
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "All-New, All-Different...Here We Go Again",
+                "number": 254
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Crash & Burn",
+                "number": 255
+            },
+            {
+                "series": "The New Mutants",
+                "title": "A Show of Power (pgs 8-11, 15-16, 19-20, 27)",
+                "number": 87
+            },
+            {
+                "series": "The Avengers Annual",
+                "title": "Avengers Assembled",
+                "number": 18
+            },
+            {
+                "series": "The New Mutants Annual",
+                "title": "Here Be Monsters",
+                "number": 5
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "The Key That Breaks The Locke",
+                "number": 256
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "I am Lady Mandarin",
+                "number": 257
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Broken Chains",
+                "number": 258
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Dream a Little Dream",
+                "number": 259
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Blam! Star 90",
+                "number": 260
+            },
+            {
+                "series": "X-Factor",
+                "title": "Home!",
+                "number": 51
+            },
+            {
+                "series": "The New Mutants",
+                "title": "A Show of Power (top of page 31)",
+                "number": 87
+            },
+            {
+                "series": "The New Mutants",
+                "title": "The Great Escape (bottom of pg 6 – top of pg 9, second panel pg 13-14, pg 19-22, 27-29)",
+                "number": 88
+            },
+            {
+                "series": "X-Factor",
+                "title": "Celebrity!",
+                "number": 52
+            },
+            {
+                "series": "X-Factor",
+                "title": "Ghosts",
+                "number": 53
+            },
+            {
+                "series": "X-Factor",
+                "title": "Crimson",
+                "number": 54
+            },
+            {
+                "series": "X-Factor Annual",
+                "title": "I Must Go Down To The Sea Again",
+                "number": 4
+            },
+            {
+                "series": "The New Mutants",
+                "title": "The Quick and The Dead (pages 20-22)",
+                "number": 83
+            },
+            {
+                "series": "The New Mutants",
+                "title": "The Swords Edge (pages 11-13)",
+                "number": 84
+            },
+            {
+                "series": "The New Mutants",
+                "title": "The Killing Stroke (pages 19-22)",
+                "number": 85
+            },
+            {
+                "series": "The New Mutants",
+                "title": "Bang! You’re Dead! (pages 1-20, 25-31)",
+                "number": 86
+            },
+            {
+                "series": "The New Mutants",
+                "title": "A Show of Power (pgs 1-6, 13-14, 17-18, 22-25, 29-30, bottom of 31)",
+                "number": 87
+            },
+            {
+                "series": "The New Mutants",
+                "title": "The Great Escape (pgs 1 – top of 6, bottom of pg 9 – first panel of 13, pgs 15-18, pgs 24-25, pg 30)",
+                "number": 88
+            },
+            {
+                "series": "The New Mutants",
+                "title": "The Gift",
+                "number": 89
+            },
+            {
+                "series": "X-Factor Annual",
+                "title": "Tribute the Third",
+                "number": 6
+            },
+            {
+                "series": "Web of Spider-Man Annual",
+                "title": "War Zone: New York",
+                "number": 5
+            },
+            {
+                "series": "West Coast Avengers Annual",
+                "title": "Heads You Lose, Tails You Win",
+                "number": 3
+            },
+            {
+                "series": "The Mighty Thor Annual",
+                "title": "Set Ascending",
+                "number": 14
+            },
+            {
+                "series": "Fantastic Four Annual",
+                "title": "For Crown and Conquest",
+                "number": 22
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Harriers Hunt",
+                "number": 261
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Scary Monsters",
+                "number": 262
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "The Lower Depths",
+                "number": 263
+            },
+            {
+                "series": "X-Factor",
+                "title": "Desperately Seeking Vera",
+                "number": 55
+            },
+            {
+                "series": "X-Factor",
+                "title": "Ravens",
+                "number": 56
+            },
+            {
+                "series": "X-Factor",
+                "title": "Reflections",
+                "number": 57
+            },
+            {
+                "series": "X-Factor",
+                "title": "Nevermore",
+                "number": 58
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Hot Pursuit",
+                "number": 264
+            },
+            {
+                "series": "The New Mutants",
+                "title": "To Hunt the Hunter",
+                "number": 90
+            },
+            {
+                "series": "The New Mutants",
+                "title": "Prey for the Living",
+                "number": 91
+            },
+            {
+                "series": "The New Mutants",
+                "title": "When The Carnival Comes To Town",
+                "number": 92
+            },
+            {
+                "series": "New Mutants Summer Special",
+                "title": "A Mutant in Megalopolis",
+                "number": 1
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Storm",
+                "number": 265
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Gambit – Out of the Frying Pan",
+                "number": 266
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Nanny Into The Fire",
+                "number": 267
+            },
+            {
+                "series": "Fantastic Four Annual",
+                "title": "Days of Future Present (Part 1)",
+                "number": 23
+            },
+            {
+                "series": "The New Mutants Annual",
+                "title": "Days of Future Present Part Three",
+                "number": 6
+            },
+            {
+                "series": "X-Factor Annual",
+                "title": "Days of Future Present (Part 2):",
+                "number": 5
+            },
+            {
+                "series": "X-Men Annual",
+                "title": "Days of Future Present Part 4: You Must Remember This",
+                "number": 14
+            },
+            {
+                "series": "The New Mutants",
+                "title": "Madripoor",
+                "number": 93
+            },
+            {
+                "series": "The New Mutants",
+                "title": "Lethal Weapons",
+                "number": 94
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Madripoor Knights",
+                "number": 268
+            },
+            {
+                "series": "Wolverine: Rahne of Terra",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "X-Factor",
+                "title": "Yesterday's News",
+                "number": 59
+            },
+            {
+                "series": "X-Factor - Prisoner of Love",
+                "title": "Issue #1",
+                "number": 1
+            },
+            {
+                "series": "Marvel Fanfare",
+                "title": "If I had the Wings of an Angel...",
+                "number": 50
+            },
+            {
+                "series": "Ghost Rider",
+                "title": "Pursuit",
+                "number": 9
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Rogue Redux",
+                "number": 269
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "The X-Tinction Agenda: First Strike",
+                "number": 270
+            },
+            {
+                "series": "The New Mutants",
+                "title": "X-Tinction Agenda (Part 2): Shell Game",
+                "number": 95
+            },
+            {
+                "series": "X-Factor",
+                "title": "X-Tinction Agenda (Part 3): Brotherhood",
+                "number": 60
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "The X-Tinction Agenda (Part 4): Flashpoint!",
+                "number": 271
+            },
+            {
+                "series": "The New Mutants",
+                "title": "X-Tinction Agenda (Part 5): United We Stand",
+                "number": 96
+            },
+            {
+                "series": "X-Factor",
+                "title": "X-Tinction Agenda (Part 6): Betrayal",
+                "number": 61
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "The X-Tinction Agenda (Part 7): Capital Crimes",
+                "number": 272
+            },
+            {
+                "series": "The New Mutants",
+                "title": "X-Tinction Agenda (Part 8): War",
+                "number": 97
+            },
+            {
+                "series": "X-Factor",
+                "title": "X-Tinction Agenda (Part 9): Capital Punishment",
+                "number": 62
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Too Many Mutants",
+                "number": 273
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Crossroads",
+                "number": 274
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "The Path Not Taken",
+                "number": 275
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Double Death",
+                "number": 276
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Free Charley",
+                "number": 277
+            },
+            {
+                "series": "The New Mutants",
+                "title": "The Beginning of the End Part One",
+                "number": 98
+            },
+            {
+                "series": "The New Mutants",
+                "title": "The Beginning of the End Part Two",
+                "number": 99
+            },
+            {
+                "series": "The New Mutants",
+                "title": "The End of the Beginning",
+                "number": 100
+            },
+            {
+                "series": "X-Factor",
+                "title": "Family",
+                "number": 63
+            },
+            {
+                "series": "X-Factor",
+                "title": "The Price",
+                "number": 64
+            },
+            {
+                "series": "The New Mutants Annual",
+                "title": "Pawns of Senescence",
+                "number": 7
+            },
+            {
+                "series": "The New Warriors Annual",
+                "title": "Errant Knights",
+                "number": 1
+            },
+            {
+                "series": "X-Men Annual",
+                "title": "Queens of Sacrifice",
+                "number": 15
+            },
+            {
+                "series": "X-Factor Annual",
+                "title": "King of Pain",
+                "number": 6
+            },
+            {
+                "series": "The New Mutants Annual",
+                "title": "The Killing Stroke Part I: The First Cut",
+                "number": 7
+            },
+            {
+                "series": "X-Men Annual",
+                "title": "The Killing Stroke Part II: The Razor’s Edge",
+                "number": 15
+            },
+            {
+                "series": "X-Factor Annual",
+                "title": "The Killing Stroke Part III Sacrificial Lambs",
+                "number": 6
+            },
+            {
+                "series": "X-Factor",
+                "title": "Endgame (Part 1): Malign Influence",
+                "number": 65
+            },
+            {
+                "series": "X-Factor",
+                "title": "Endgame (Part 2): Heroic Effort",
+                "number": 66
+            },
+            {
+                "series": "X-Factor",
+                "title": "Endgame (Part 3): Lunar Opposition!",
+                "number": 67
+            },
+            {
+                "series": "X-Factor",
+                "title": "Endgame (Part 4): Finale",
+                "number": 68
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "The Battle of Muir Isle",
+                "number": 278
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "Bad to the Bone",
+                "number": 279
+            },
+            {
+                "series": "X-Factor",
+                "title": "The Muir Island Saga: Clash Reunion",
+                "number": 69
+            },
+            {
+                "series": "The Uncanny X-Men",
+                "title": "One Step Back --Two Steps Forward",
+                "number": 280
+            },
+            {
+                "series": "X-Factor",
+                "title": "The Muir Island Saga Epilogue",
+                "number": 70
+            },
+            {
+                "series": "Deathlok",
+                "title": "The Souls of the Cyber-Folk (Part One):Caught in the Cybernet",
+                "number": 2
+            },
+            {
+                "series": "Deathlok",
+                "title": "The Souls of the Cyber-Folk (Part Two):Impending Doom",
+                "number": 3
+            },
+            {
+                "series": "Deathlok",
+                "title": "The Souls of the Cyber-Folk (Part 3): Thinking About Thinking",
+                "number": 4
+            },
+            {
+                "series": "Deathlok",
+                "title": "The Souls of the Cyber-Folk (Part Four): Deus Ex Machina",
+                "number": 5
+            },
+            {
+                "series": "Excalibur",
+                "title": "At Last...The Reunion! (or the Office Furniture that ate London!)",
+                "number": 41
+            }
+        ]
+    },
     "xmen-4": {
         "readlistId": "0NP1A3W2JW2HT",
         "issues": [
