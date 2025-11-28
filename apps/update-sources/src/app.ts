@@ -25,6 +25,10 @@ if (!FLAKE) {
 const args = parseArgs();
 
 const main = async() => {
+    if (args['alive-server']) {
+        console.log(runNixUpdate('alive-server') ?? 'No updates');
+    }
+
     if (args['custom-sidebar']) {
         console.log(
             runNixUpdate('scopedPackages', 'lovelace-components', 'custom-sidebar') ?? 'No updates',
@@ -151,6 +155,7 @@ const main = async() => {
             }
         };
 
+        updatePackage('alive-server');
         updatePackage('homepage');
         updatePackage('komf');
         updatePackage('pam-fprint-grosshack');

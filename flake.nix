@@ -12,6 +12,12 @@
       repo = "ags";
       type = "github";
     };
+    alive-server-src = {
+      flake = false;
+      owner = "ljcp";
+      repo = "alive-server";
+      type = "github";
+    };
     astal = {
       inputs = {
         nixpkgs.follows = "nixpkgs";

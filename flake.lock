@@ -27,6 +27,22 @@
         "type": "github"
       }
     },
+    "alive-server-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1736883307,
+        "narHash": "sha256-+/12uuyuHwyRDMaVmAziq4IgnbERzD9Upz2+9DGzpLQ=",
+        "owner": "ljcp",
+        "repo": "alive-server",
+        "rev": "a6ba1427f6d38f859781fa77d7b80d0fadffe370",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ljcp",
+        "repo": "alive-server",
+        "type": "github"
+      }
+    },
     "aquamarine": {
       "inputs": {
         "hyprutils": [
@@ -1674,6 +1690,7 @@
     "root": {
       "inputs": {
         "ags": "ags",
+        "alive-server-src": "alive-server-src",
         "astal": "astal",
         "bat-theme-src": "bat-theme-src",
         "bazarr-bulk": "bazarr-bulk",

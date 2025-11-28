@@ -339,6 +339,10 @@ let
 
     # Overlays & packages
     {
+      owner = "ljcp";
+      repo = "alive-server";
+    }
+    {
       name = "komf-src";
       owner = "Snd-R";
       repo = "komf";

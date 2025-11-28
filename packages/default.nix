@@ -4,6 +4,10 @@
   ...
 }: (final: prev: {
   selfPackages = {
+    alive-server = final.callPackage ./alive-server {
+      inherit (inputs) alive-server-src;
+    };
+
     coloryou = final.callPackage ./coloryou {};
 
     gpu-screen-recorder = final.callPackage ./gpu-screen-recorder {
