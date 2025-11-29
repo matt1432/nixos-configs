@@ -126,15 +126,6 @@
       ;
   };
 
-  # FIXME: cuda enabled onnxruntime makes firefox not compile
-  nixpkgs.overlays = [
-    (final: prev: {
-      firefox-devedition-unwrapped = prev.firefox-devedition-unwrapped.override {
-        inherit (purePkgs) onnxruntime;
-      };
-    })
-  ];
-
   nvidia = {
     enable = true;
     enableNvidiaSettings = true;
