@@ -2,6 +2,8 @@
 vim.g.loaded_netrw = 0;
 vim.g.loaded_netrwPlugin = 0;
 
+local neotreeCmd = require('neo-tree.command');
+
 require('neo-tree').setup({
     close_if_last_window = true,
     enable_refresh_on_write = true,
@@ -24,16 +26,17 @@ require('neo-tree').setup({
             never_show = {},
             never_show_by_pattern = {},
         },
+
+        follow_current_file = {
+            enabled = true,
+            leave_dirs_open = true,
+        },
     },
 
     source_selector = {
         winbar = true,
         statusline = false,
-    },
-
-    follow_current_file = {
-        enabled = true,
-        leave_dirs_open = true,
+        truncation_character = '...',
     },
 });
 
@@ -52,13 +55,13 @@ vim.api.nvim_create_autocmd({ 'VimEnter', 'VimResized' }, {
     callback = function()
         if vim.api.nvim_eval([[&columns]]) > 100 then
             if is_neotree_open() == false then
-                vim.cmd[[Neotree show]];
-                vim.cmd[[Neotree close]];
-                vim.cmd[[Neotree show]];
+                neotreeCmd.execute({ action = 'show' });
+                neotreeCmd.execute({ action = 'close' });
+                neotreeCmd.execute({ action = 'show' });
             end;
         else
             if is_neotree_open() then
-                vim.cmd[[Neotree close]];
+                neotreeCmd.execute({ action = 'close' });
             end;
         end;
     end,
