@@ -16,12 +16,7 @@
       format = "other";
       dontWrapGApps = true;
 
-      patches = [
-        (pkgs.fetchpatch {
-          url = "https://github.com/V-Mann-Nick/nix-home-manager/raw/e68c661f21bf17323f8f0657f3af06c7f837cc07/gnome/gradience.patch";
-          hash = "sha256-CcOd5KXjSSwYan8MwIJ4SBmmMXriBlOLYk5XFADLf6c=";
-        })
-      ];
+      patches = [./gradience.patch];
 
       nativeBuildInputs = with pkgs; [
         appstream-glib
