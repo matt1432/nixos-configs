@@ -198,7 +198,8 @@
     };
     komf-src = {
       flake = false;
-      owner = "Snd-R";
+      owner = "matt1432";
+      ref = "personal";
       repo = "komf";
       type = "github";
     };

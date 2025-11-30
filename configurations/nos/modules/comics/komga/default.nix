@@ -53,6 +53,7 @@ in {
       database.file = "${stateDir}/database.sqlite";
 
       metadataProviders = {
+        cacheDatabaseExpiry = 30;
         comicVineIssueName = "Issue #{number}";
         comicVineIdFormat = "[cv-{id}]";
 
@@ -88,6 +89,7 @@ in {
       SuccessExitStatus = "143";
 
       StateDirectory = "komf";
+      WorkingDirectory = stateDir;
 
       # Hardening from komga service
       RemoveIPC = true;

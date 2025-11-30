@@ -344,8 +344,12 @@ let
     }
     {
       name = "komf-src";
-      owner = "Snd-R";
+      # owner = "Snd-R";
       repo = "komf";
+
+      # FIXME: https://github.com/Snd-R/komf/pull/259
+      owner = "matt1432";
+      ref = "personal";
     }
     {
       type = "gitlab";
