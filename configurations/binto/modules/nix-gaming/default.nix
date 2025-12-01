@@ -1,4 +1,5 @@
 {
+  mainUser,
   nix-gaming,
   pkgs,
   ...
@@ -36,5 +37,16 @@
 
     pkgs.r2modman
     pkgs.ryubing
+  ];
+
+  # https://wiki.nixos.org/wiki/Lutris Esync
+  systemd.settings.Manager.DefaultLimitNOFILE = 524288;
+  security.pam.loginLimits = [
+    {
+      domain = mainUser;
+      type = "hard";
+      item = "nofile";
+      value = "524288";
+    }
   ];
 }
