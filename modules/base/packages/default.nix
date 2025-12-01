@@ -2,6 +2,7 @@ self: {
   config,
   lib,
   pkgs,
+  purePkgs ? pkgs,
   ...
 }: let
   inherit (lib) attrValues makeBinPath mkIf remove;
@@ -17,11 +18,15 @@ in {
         "nixd"
         "nurl"
       ])
-      ++ (attrValues {
-        # inherit
-        #   (self.overlays)
-        #   ;
-      });
+      ++ [
+        (final: prev: {
+          firefox-devedition-unwrapped = prev.firefox-devedition-unwrapped.override {
+            # Don't compile firefox on machines with cuda enabled
+            # since it's not worth the > 3 hour build time
+            inherit (purePkgs) onnxruntime;
+          };
+        })
+      ];
 
     environment.systemPackages = remove null (attrValues {
       inherit
