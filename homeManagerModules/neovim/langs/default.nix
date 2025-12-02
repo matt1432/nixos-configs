@@ -49,14 +49,14 @@ in {
           --- @param pattern string|string[]
           --- @param pre_shell_callback function
           --- @param language_servers function?
-          --- @param post_shell_callback function?
+          --- @param post_shell_callback fun(bufnr: integer)?
           local loadDevShell = function(args)
               local name = args.name;
               local pattern = args.pattern;
               local pre_shell_callback = args.pre_shell_callback;
 
-              local post_shell_callback = args.post_shell_callback or function()
-                  local filetype = vim.api.nvim_buf_get_option(0, 'filetype')
+              local post_shell_callback = args.post_shell_callback or function(bufnr)
+                  local filetype = vim.api.nvim_buf_get_option(bufnr, 'filetype');
 
                   for name, func in pairs(args.language_servers) do
                       if vim.tbl_contains(vim.lsp.config[name].filetypes, filetype) then
@@ -84,10 +84,10 @@ in {
                                   vim.lsp.config[name]['root_dir'](0, function(root_dir)
                                       vim.lsp.start(vim.tbl_deep_extend('force', final_opts, {
                                           root_dir = root_dir,
-                                      }, opts or {}));
+                                      }, opts or {}), { bufnr = bufnr });
                                   end);
                               else
-                                  vim.lsp.start(vim.tbl_deep_extend('force', final_opts, opts or {}));
+                                  vim.lsp.start(vim.tbl_deep_extend('force', final_opts, opts or {}), { bufnr = bufnr });
                               end;
                           end);
                       end;
@@ -97,19 +97,25 @@ in {
               vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {
                   pattern = pattern,
 
-                  callback = function()
+                  callback = function(args)
+                      local bufnr = args.buf;
+
                       vim.schedule(pre_shell_callback);
+
+                      local final_post_shell_callback = function()
+                          post_shell_callback(bufnr);
+                      end;
 
                       if (devShells[name] == nil) then
                           devShells[name] = 1;
 
                           nix_develop.nix_develop_extend(
-                              {'${flakeEnv}#' .. name},
-                              post_shell_callback
+                              { '${flakeEnv}#' .. name },
+                              final_post_shell_callback
                           );
                       else
                           print('Shell already extended. Launching Language Servers');
-                          vim.schedule(post_shell_callback);
+                          vim.schedule(final_post_shell_callback);
                       end
                   end,
               });

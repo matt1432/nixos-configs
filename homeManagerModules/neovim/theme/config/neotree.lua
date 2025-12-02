@@ -56,8 +56,6 @@ vim.api.nvim_create_autocmd({ 'VimEnter', 'VimResized' }, {
         if vim.api.nvim_eval([[&columns]]) > 100 then
             if is_neotree_open() == false then
                 neotreeCmd.execute({ action = 'show' });
-                neotreeCmd.execute({ action = 'close' });
-                neotreeCmd.execute({ action = 'show' });
             end;
         else
             if is_neotree_open() then
