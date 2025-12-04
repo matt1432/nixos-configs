@@ -254,7 +254,6 @@ in {
         extensions.packages = attrValues {
           inherit
             (firefoxAddons)
-            auto-refresh-page
             bitwarden
             darkreader
             floccus

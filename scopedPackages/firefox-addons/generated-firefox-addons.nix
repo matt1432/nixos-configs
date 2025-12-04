@@ -4,29 +4,6 @@
   lib,
   stdenv,
 }: {
-  "auto-refresh-page" = buildFirefoxXpiAddon {
-    pname = "auto-refresh-page";
-    version = "3.2";
-    addonId = "{da35dad8-f912-4c74-8f64-c4e6e6d62610}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4064190/auto_refresh_page-3.2.xpi";
-    sha256 = "e703d1031107bb440e3081b210e58ebf5a05a620683e42ce6255b66994475f8d";
-    meta = with lib; {
-      homepage = "https://autorefresh.page/";
-      description = "Refresh web pages automatically. Auto refresh page monitor with specified time intervals.";
-      license = licenses.mit;
-      mozPermissions = [
-        "tabs"
-        "storage"
-        "contextMenus"
-        "browsingData"
-        "notifications"
-        "webRequest"
-        "webRequestBlocking"
-        "<all_urls>"
-      ];
-      platforms = platforms.all;
-    };
-  };
   "bitwarden" = buildFirefoxXpiAddon {
     pname = "bitwarden";
     version = "2025.11.1";
