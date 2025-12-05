@@ -39,12 +39,18 @@ in {
           libva-vdpau-driver
           libvdpau-va-gl
           nvidia-vaapi-driver
+          vulkan-loader
+          vulkan-validation-layers
+          vulkan-extension-layer
           ;
       };
       extraPackages32 = attrValues {
         inherit
           (pkgs)
           libva-vdpau-driver
+          vulkan-loader
+          vulkan-validation-layers
+          vulkan-extension-layer
           ;
       };
     };
@@ -70,6 +76,7 @@ in {
           nvidia-vaapi-driver
           pciutils
           vdpauinfo
+          vulkan-tools
           ;
       });
 
