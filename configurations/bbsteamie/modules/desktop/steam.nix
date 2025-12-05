@@ -16,9 +16,6 @@ in {
       remotePlay.openFirewall = true;
       extraCompatPackages = [
         pkgs.scopedPackages.protonGE.latest
-
-        # For Marvel Rivals
-        pkgs.scopedPackages.protonGE.v10-20
       ];
 
       extraPackages = attrValues {

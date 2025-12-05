@@ -16,9 +16,6 @@
 
       extraCompatPackages = [
         pkgs.scopedPackages.protonGE.latest
-
-        # For Marvel Rivals
-        pkgs.scopedPackages.protonGE.v10-20
       ];
 
       platformOptimizations.enable = true;

@@ -34,10 +34,4 @@ lib.makeScope pkgs.newScope (_: let
     };
 in {
   latest = mkProtonVersion {};
-
-  v10-20 = mkProtonVersion {
-    versionSuffix = "10-20";
-    hash = "sha256-sJkaDEnfAuEqcLDBtAfU6Rny3P3lOCnG1DusWfvv2Fg=";
-    desc = "This was the last working version for Marvel Rivals afaik.";
-  };
 })
