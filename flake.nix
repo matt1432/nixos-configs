@@ -152,6 +152,7 @@
       };
       owner = "hyprwm";
       repo = "Hyprland";
+      rev = "f82a8630d7a51dab4cc70924f500bf70e723db12";
       type = "github";
     };
     hyprland-plugins = {
@@ -166,17 +167,16 @@
     };
     hyprpaper = {
       inputs = {
-        aquamarine.follows = "hyprland/aquamarine";
         hyprgraphics.follows = "hyprland/hyprgraphics";
         hyprlang.follows = "hyprland/hyprlang";
         hyprutils.follows = "hyprland/hyprutils";
         hyprwayland-scanner.follows = "hyprland/hyprwayland-scanner";
-        hyprwire.follows = "hyprland/hyprwire";
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
       };
       owner = "hyprwm";
       repo = "hyprpaper";
+      rev = "1733e0025b194c9bc083f4cd8782c5f151858a58";
       type = "github";
     };
     jovian = {

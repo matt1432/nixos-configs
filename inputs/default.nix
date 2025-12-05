@@ -174,6 +174,9 @@ let
       hyprland = mkInput {
         owner = "hyprwm";
         repo = "Hyprland";
+
+        # FIXME: start-hyprland error even when started with start-hyprland
+        rev = "f82a8630d7a51dab4cc70924f500bf70e723db12";
       };
 
       hyprland-plugins = mkHyprDep {
@@ -189,6 +192,9 @@ let
       hyprpaper = mkHyprDep {
         owner = "hyprwm";
         repo = "hyprpaper";
+
+        # FIXME: black screen since hyprtoolkit
+        rev = "1733e0025b194c9bc083f4cd8782c5f151858a58";
       };
 
       grim-hyprland = mkInput {
