@@ -166,10 +166,12 @@
     };
     hyprpaper = {
       inputs = {
+        aquamarine.follows = "hyprland/aquamarine";
         hyprgraphics.follows = "hyprland/hyprgraphics";
         hyprlang.follows = "hyprland/hyprlang";
         hyprutils.follows = "hyprland/hyprutils";
         hyprwayland-scanner.follows = "hyprland/hyprwayland-scanner";
+        hyprwire.follows = "hyprland/hyprwire";
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
       };
