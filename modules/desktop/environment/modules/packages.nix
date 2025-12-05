@@ -82,18 +82,7 @@ in {
           enable = true;
 
           discord = {
-            package =
-              if isNvidia
-              then
-                pkgs.discord.overrideAttrs {
-                  postFixup = ''
-                    wrapProgramShell $out/bin/Discord \
-                        --set XDG_SESSION_TYPE "x11" \
-                        --unset NIXOS_OZONE_WL \
-                        --unset WAYLAND_DISPLAY
-                  '';
-                }
-              else pkgs.discord;
+            package = pkgs.discord;
 
             vencord.unstable = true;
             openASAR.enable = false;
@@ -105,7 +94,7 @@ in {
               minHeight = 500;
               isMaximized = true;
               isMinimized = false;
-              enableHardwareAcceleration = !isNvidia;
+              enableHardwareAcceleration = true;
             };
           };
 
@@ -194,7 +183,6 @@ in {
           protonmail-desktop # run with `XDG_SESSION_TYPE=x11 proton-mail` if it crashes  https://github.com/NixOS/nixpkgs/issues/365156
           spotifywm
           swayimg
-          vesktop # screen-sharing on desktop
           ;
 
         prismlauncher = pkgs.prismlauncher.override {
