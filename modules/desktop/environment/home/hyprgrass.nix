@@ -22,7 +22,7 @@ in {
   config = mkIf (cfg.enable && cfg.isTouchscreen) {
     wayland.windowManager.hyprland = {
       plugins = [
-        (pkgs.hyprlandPlugins.hyprgrass.overrideAttrs {
+        (pkgs.hyprlandPlugins.hyprgrass.override {
           hyprland = hyprCfg.finalPackage;
         })
       ];
