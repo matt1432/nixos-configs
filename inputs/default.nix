@@ -192,9 +192,6 @@ let
       hyprpaper = mkHyprDep {
         owner = "hyprwm";
         repo = "hyprpaper";
-
-        # FIXME: black screen since hyprtoolkit
-        rev = "1733e0025b194c9bc083f4cd8782c5f151858a58";
       };
 
       grim-hyprland = mkInput {

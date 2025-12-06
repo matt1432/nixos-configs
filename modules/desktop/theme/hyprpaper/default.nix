@@ -12,19 +12,18 @@ in {
   config = mkIf cfg.enable {
     home.packages = [pkgs.hyprpaper];
 
-    xdg.configFile."hypr/hyprpaper.conf" = {
-      text = lib.hm.generators.toHyprconf {
-        attrs = {
-          ipc = "on";
-          splash = false;
+    # NB: order of props in wallpaper matters
+    xdg.configFile."hypr/hyprpaper.conf".text =
+      # hyprlang
+      ''
+        ipc    = true
+        splash = false
 
-          preload = [wallpaper];
-
-          wallpaper = [
-            ",${wallpaper}"
-          ];
-        };
-      };
-    };
+        wallpaper {
+            monitor  =
+            path     = ${wallpaper}
+            fit_mode = cover
+        }
+      '';
   };
 }

@@ -167,6 +167,7 @@
     };
     hyprpaper = {
       inputs = {
+        aquamarine.follows = "hyprland/aquamarine";
         hyprgraphics.follows = "hyprland/hyprgraphics";
         hyprlang.follows = "hyprland/hyprlang";
         hyprutils.follows = "hyprland/hyprutils";
@@ -176,7 +177,6 @@
       };
       owner = "hyprwm";
       repo = "hyprpaper";
-      rev = "1733e0025b194c9bc083f4cd8782c5f151858a58";
       type = "github";
     };
     jovian = {
