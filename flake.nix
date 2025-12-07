@@ -152,7 +152,6 @@
       };
       owner = "hyprwm";
       repo = "Hyprland";
-      rev = "f82a8630d7a51dab4cc70924f500bf70e723db12";
       type = "github";
     };
     hyprland-plugins = {
@@ -172,6 +171,7 @@
         hyprlang.follows = "hyprland/hyprlang";
         hyprutils.follows = "hyprland/hyprutils";
         hyprwayland-scanner.follows = "hyprland/hyprwayland-scanner";
+        hyprwire.follows = "hyprland/hyprwire";
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
       };

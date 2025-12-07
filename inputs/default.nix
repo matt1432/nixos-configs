@@ -174,9 +174,6 @@ let
       hyprland = mkInput {
         owner = "hyprwm";
         repo = "Hyprland";
-
-        # FIXME: start-hyprland error even when started with start-hyprland
-        rev = "f82a8630d7a51dab4cc70924f500bf70e723db12";
       };
 
       hyprland-plugins = mkHyprDep {

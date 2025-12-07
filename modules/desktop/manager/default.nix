@@ -3,7 +3,7 @@ self: {
   lib,
   ...
 }: let
-  inherit (lib) getExe mkIf;
+  inherit (lib) mkIf;
 
   cfg = config.roles.desktop;
 
@@ -16,6 +16,8 @@ self: {
     .windowManager
     .hyprland
     .finalPackage;
+
+  hyprlandExe = "${hyprland}/bin/start-hyprland --";
 in {
   imports = [
     (import ./ags self)
@@ -30,12 +32,12 @@ in {
         enable = true;
         settings = {
           default_session = {
-            command = getExe hyprland;
+            command = hyprlandExe;
             user = "greeter";
           };
 
           initial_session = {
-            command = getExe hyprland;
+            command = hyprlandExe;
             user = cfg.user;
           };
         };

@@ -55,7 +55,7 @@
   '';
 
   user = "matt";
-  command = "Hyprland --config ${hyprConf}";
+  command = "start-hyprland --config ${hyprConf}";
 
   session = {inherit command user;};
 in {
