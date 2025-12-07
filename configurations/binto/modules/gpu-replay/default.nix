@@ -5,12 +5,19 @@
   pkgs,
   ...
 }: let
-  inherit (lib) concatStringsSep getExe removePrefix;
+  inherit (lib) concatStringsSep getExe hasPrefix removePrefix;
   inherit (pkgs.selfPackages) gpu-screen-recorder;
 
   hyprPkgs = config.home-manager.users.${mainUser}.wayland.windowManager.hyprland.finalPackage;
 
   cfgDesktop = config.roles.desktop;
+
+  recordedWindow =
+    if hasPrefix "desc:" cfgDesktop.mainMonitor
+    then
+      # bash
+      ''$(hyprctl -j monitors | jq '.[] |= (.description |= gsub(","; ""))' | jq -r ".[] | select(.description | test(\"${removePrefix "desc:" cfgDesktop.mainMonitor}\")) | .name")''
+    else cfgDesktop.mainMonitor;
 in {
   security.wrappers = {
     gsr-kms-server = {
@@ -46,13 +53,12 @@ in {
         ];
 
         text = ''
-          main="${removePrefix "desc:" cfgDesktop.mainMonitor}"
-          WINDOW=$(hyprctl -j monitors | jq '.[] |= (.description |= gsub(","; ""))' | jq -r ".[] | select(.description | test(\"$main\")) | .name")
+          WINDOW=${recordedWindow}
 
           # Fix fullscreen game resolution
           xrandr --output "$WINDOW" --primary
 
-          gpu-screen-recorder ${concatStringsSep " " [
+          exec gpu-screen-recorder ${concatStringsSep " " [
             # Prints fps and damage info once per second.
             "-v no"
 
