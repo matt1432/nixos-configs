@@ -1,4 +1,8 @@
-{self, ...}: let
+{
+  pkgs,
+  self,
+  ...
+}: let
   tailscaleIP = "100.64.0.4";
 in {
   imports = [self.nixosModules.wyoming-plus];
@@ -21,7 +25,7 @@ in {
     # Text-to-Intent
     ollama = {
       enable = true;
-      acceleration = "cuda";
+      package = pkgs.ollama-cuda;
 
       host = tailscaleIP;
       port = 11434;
