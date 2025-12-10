@@ -60,7 +60,7 @@ in {
     hardware.nvidia = {
       open = true;
 
-      package = config.boot.kernelPackages.nvidiaPackages.latest;
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
 
       # Whether to enable nvidia-settings, NVIDIA's GUI configuration tool
       nvidiaSettings = cfg.enableNvidiaSettings;
