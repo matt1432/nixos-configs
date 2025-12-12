@@ -110,41 +110,44 @@ in {
             ]);
 
           xwayland.force_zero_scaling = true;
-          monitor = map mkMonitor [
-            {
-              description = "Lenovo Group Limited 0x41A0";
-              resolution = "1920x1200";
-              refreshRate = 60;
-              position = "0x2920";
-            }
-            {
-              description = "GIGA-BYTE TECHNOLOGY CO. LTD. G27QC 0x00000B1D";
-              resolution = "2560x1440";
-              refreshRate = 120;
-              position = "0x100";
-              transform = "270";
-            }
+          monitor =
+            # Plug N' Play for unknown monitors
+            [",preferred,auto,1"]
+            ++ map mkMonitor [
+              {
+                description = "Lenovo Group Limited 0x41A0";
+                resolution = "1920x1200";
+                refreshRate = 60;
+                position = "0x2920";
+              }
+              {
+                description = "GIGA-BYTE TECHNOLOGY CO. LTD. G27QC 0x00000B1D";
+                resolution = "2560x1440";
+                refreshRate = 120;
+                position = "0x100";
+                transform = "270";
+              }
 
-            # Same Model so we use the adapter name unfortunately
-            {
-              name = "DP-1";
-              resolution = "2560x1440";
-              refreshRate = 179.88;
-              position = "1440x0";
-            }
-            {
-              name = "DP-2";
-              resolution = "2560x1440";
-              refreshRate = 179.88;
-              position = "1440x1440";
-            }
+              # Same Model so we use the adapter name unfortunately
+              {
+                name = "DP-1";
+                resolution = "2560x1440";
+                refreshRate = 179.88;
+                position = "1440x0";
+              }
+              {
+                name = "DP-2";
+                resolution = "2560x1440";
+                refreshRate = 179.88;
+                position = "1440x1440";
+              }
 
-            {
-              description = "Sharp Corporation LC-40LB480U 0x00000001";
-              resolution = "1680x1050";
-              mirror = cfg.mainMonitor;
-            }
-          ];
+              {
+                description = "Sharp Corporation LC-40LB480U 0x00000001";
+                resolution = "1680x1050";
+                mirror = cfg.mainMonitor;
+              }
+            ];
 
           "$mainMod" = "SUPER";
 
