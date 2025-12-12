@@ -53,8 +53,8 @@ export default ({
             ]));
 
             const hasChanged =
-            !arrayEquals(monitors, fs.monitors) ||
-            !mapEquals(clientAddrs, fs.clientAddrs);
+                !arrayEquals(monitors, fs.monitors) ||
+                !mapEquals(clientAddrs, fs.clientAddrs);
 
             if (hasChanged) {
                 FullscreenState.set({
@@ -170,9 +170,6 @@ export default ({
                 }}
             >
                 <box
-                    // Not sure why but the min-height needs to be
-                    // set to allow interacting with the bar
-                    css="min-height: 80px; padding: 1px;"
                     hexpand
                     halign={Gtk.Align.FILL}
                     vertical={vertical}
