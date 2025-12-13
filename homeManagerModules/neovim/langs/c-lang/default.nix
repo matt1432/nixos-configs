@@ -21,7 +21,7 @@ in {
                 --
                 loadDevShell({
                     name = 'c-lang',
-                    pattern = { 'cpp', 'c' },
+                    pattern = { 'cpp', 'c', 'cuda' },
                     pre_shell_callback = function()
                         vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
                     end,
