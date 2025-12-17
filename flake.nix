@@ -430,10 +430,6 @@
       type = "github";
     };
     pre-commit-hooks = {
-      inputs = {
-        flake-compat.follows = "flake-compat";
-        nixpkgs.follows = "nixpkgs";
-      };
       owner = "cachix";
       repo = "git-hooks.nix";
       type = "github";
