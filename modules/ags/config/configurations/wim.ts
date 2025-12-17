@@ -92,6 +92,10 @@ export default () => {
         main: () => {
             execAsync('hyprpaper').catch(() => { /**/ });
 
+
+            // Fixes weird margin above bar
+            execAsync('hyprctl reload').catch(() => { /**/ });
+
             perMonitor((monitor) => BgLayer(monitor, true));
 
             AppLauncher();
