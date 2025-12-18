@@ -1,18 +1,15 @@
-import { spawnSync as spawn } from 'child_process';
+import type { FfprobeData } from '@dropb/ffprobe';
+
 import { ffprobe } from '@dropb/ffprobe';
+import { spawnSync as spawn } from 'child_process';
 
 import { ISO6393To1 } from './lang-codes';
 
-/* Types */
-import type { FfprobeData } from '@dropb/ffprobe';
-
 type FFProbeStream = FfprobeData['streams'][0];
-
 
 const SPAWN_OPTS = {
     stdio: [process.stdin, process.stdout, process.stderr],
 };
-
 
 /**
  * These are the cli arguments
@@ -23,12 +20,10 @@ const SPAWN_OPTS = {
 const video = process.argv[2];
 const languages = process.argv[3]?.split(',');
 
-
 // Global Vars
 const subIndexes: number[] = [];
 let videoPath: string;
 let baseName: string;
-
 
 /**
  * Gets the relative path to the subtitle file of a ffmpeg stream.
@@ -39,13 +34,10 @@ let baseName: string;
 const getSubPath = (sub: FFProbeStream): string => {
     const language = ISO6393To1.get(sub.tags.language ?? '');
 
-    const forced = sub.disposition?.forced === 0 ?
-        '' :
-        '.forced';
+    const forced = sub.disposition?.forced === 0 ? '' : '.forced';
 
-    const hearingImpaired = sub.disposition?.hearing_impaired === 0 ?
-        '' :
-        '.sdh';
+    const hearingImpaired =
+        sub.disposition?.hearing_impaired === 0 ? '' : '.sdh';
 
     return `${baseName}${forced}.${language}${hearingImpaired}.srt`;
 };
@@ -54,21 +46,24 @@ const getSubPath = (sub: FFProbeStream): string => {
  * Removes all subtitles streams from the video file.
  */
 const removeContainerSubs = (): void => {
-    spawn('mv', [
-        videoPath,
-        `${videoPath}.bak`,
-    ], SPAWN_OPTS);
+    spawn('mv', [videoPath, `${videoPath}.bak`], SPAWN_OPTS);
 
-    spawn('ffmpeg', [
-        '-i', `${videoPath}.bak`,
-        '-map', '0',
-        ...subIndexes.map((i) => ['-map', `-0:${i}`]).flat(),
-        '-c', 'copy', videoPath,
-    ], SPAWN_OPTS);
+    spawn(
+        'ffmpeg',
+        [
+            '-i',
+            `${videoPath}.bak`,
+            '-map',
+            '0',
+            ...subIndexes.map((i) => ['-map', `-0:${i}`]).flat(),
+            '-c',
+            'copy',
+            videoPath,
+        ],
+        SPAWN_OPTS,
+    );
 
-    spawn('rm', [
-        `${videoPath}.bak`,
-    ], SPAWN_OPTS);
+    spawn('rm', [`${videoPath}.bak`], SPAWN_OPTS);
 };
 
 /**
@@ -79,10 +74,11 @@ const removeContainerSubs = (): void => {
 const extractSub = (sub: FFProbeStream): void => {
     const subFile = getSubPath(sub);
 
-    spawn('ffmpeg', [
-        '-i', videoPath,
-        '-map', `0:${sub.index}`, subFile,
-    ], SPAWN_OPTS);
+    spawn(
+        'ffmpeg',
+        ['-i', videoPath, '-map', `0:${sub.index}`, subFile],
+        SPAWN_OPTS,
+    );
 
     subIndexes.push(sub.index);
 };
@@ -95,13 +91,13 @@ const extractSub = (sub: FFProbeStream): void => {
  * @param streams the streams
  * @returns the streams that represent subtitles
  */
-const findSubs = (
-    lang: string,
-    streams: FFProbeStream[],
-): FFProbeStream[] => {
-    const subs = streams.filter((s) => s.tags?.language &&
-      s.tags.language === lang &&
-      s.codec_type === 'subtitle');
+const findSubs = (lang: string, streams: FFProbeStream[]): FFProbeStream[] => {
+    const subs = streams.filter(
+        (s) =>
+            s.tags?.language &&
+            s.tags.language === lang &&
+            s.codec_type === 'subtitle',
+    );
 
     const pgs = subs.filter((s) => s.codec_name === 'hdmv_pgs_subtitle');
 
@@ -117,9 +113,12 @@ const findSubs = (
 /**
  * Where the magic happens.
  */
-const main = async(): Promise<void> => {
+const main = async (): Promise<void> => {
     // Get rid of video extension
-    baseName = videoPath.split('/').at(-1)!.replace(/\.[^.]*$/, '');
+    baseName = videoPath
+        .split('/')
+        .at(-1)!
+        .replace(/\.[^.]*$/, '');
 
     // ffprobe the video file to see available sub tracks
     const data = await ffprobe(videoPath);
@@ -146,7 +145,6 @@ const main = async(): Promise<void> => {
 
     removeContainerSubs();
 };
-
 
 // Check if there are 2 params
 if (video && languages) {
