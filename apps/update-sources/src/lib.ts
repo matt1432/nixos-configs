@@ -3,10 +3,9 @@ import { readFileSync, writeFileSync } from 'node:fs';
 
 /* Types */
 interface Args {
-    f: string | undefined
-    [name: string]: unknown
+    f: string | undefined;
+    [name: string]: unknown;
 }
-
 
 export const parseArgs = (): Args => {
     const args = {} as Args;
@@ -37,12 +36,31 @@ export const parseArgs = (): Args => {
     return args;
 };
 
-export const parseFetchurl = (url: string): string => JSON.parse(spawnSync(
-    ['nix', 'store', 'prefetch-file', '--refresh', '--json',
-        '--hash-type', 'sha256', url, '--name', '"escaped"'].join(' '), [], { shell: true },
-).stdout.toString()).hash;
+export const parseFetchurl = (url: string): string =>
+    JSON.parse(
+        spawnSync(
+            [
+                'nix',
+                'store',
+                'prefetch-file',
+                '--refresh',
+                '--json',
+                '--hash-type',
+                'sha256',
+                url,
+                '--name',
+                '"escaped"',
+            ].join(' '),
+            [],
+            { shell: true },
+        ).stdout.toString(),
+    ).hash;
 
-export const replaceInFile = (replace: RegExp, replacement: string, file: string): void => {
+export const replaceInFile = (
+    replace: RegExp,
+    replacement: string,
+    file: string,
+): void => {
     const fileContents = readFileSync(file);
 
     const replaced = fileContents.toString().replace(replace, replacement);
@@ -50,6 +68,5 @@ export const replaceInFile = (replace: RegExp, replacement: string, file: string
     writeFileSync(file, replaced);
 };
 
-export const npmRun = (args: string[], workspaceDir: string): string => spawnSync(
-    'npm', args, { cwd: workspaceDir },
-).stdout.toString();
+export const npmRun = (args: string[], workspaceDir: string): string =>
+    spawnSync('npm', args, { cwd: workspaceDir }).stdout.toString();

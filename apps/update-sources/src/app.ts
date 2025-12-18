@@ -2,17 +2,15 @@ import { spawnSync } from 'node:child_process';
 import { writeFileSync } from 'node:fs';
 import { styleText } from 'node:util';
 
-import { parseArgs } from './lib';
-
+import updateFirefoxAddons from '././firefox';
 import updateCaddyPlugins from './caddy';
 import updateDocker from './docker';
-import updateFirefoxAddons from '././firefox';
 import updateFlakeInputs from './flake';
+import { parseArgs } from './lib';
 import updateNetDaemon from './netdaemon';
 import runNixUpdate from './nix-update';
 import updateNodeModules from './node-modules';
 import updateVuetorrent from './vuetorrent';
-
 
 /* Constants */
 const FLAKE = process.env.FLAKE;
@@ -24,14 +22,18 @@ if (!FLAKE) {
 
 const args = parseArgs();
 
-const main = async() => {
+const main = async () => {
     if (args['alive-server']) {
         console.log(runNixUpdate('alive-server') ?? 'No updates');
     }
 
     if (args['custom-sidebar']) {
         console.log(
-            runNixUpdate('scopedPackages', 'lovelace-components', 'custom-sidebar') ?? 'No updates',
+            runNixUpdate(
+                'scopedPackages',
+                'lovelace-components',
+                'custom-sidebar',
+            ) ?? 'No updates',
         );
     }
 
@@ -61,8 +63,11 @@ const main = async() => {
 
     if (args['material-rounded-theme']) {
         console.log(
-            runNixUpdate('scopedPackages', 'lovelace-components', 'material-rounded-theme') ??
-            'No updates',
+            runNixUpdate(
+                'scopedPackages',
+                'lovelace-components',
+                'material-rounded-theme',
+            ) ?? 'No updates',
         );
     }
 
@@ -104,11 +109,9 @@ const main = async() => {
 
         console.log(firefoxOutput ?? 'No updates');
 
-
         const flakeOutput = updateFlakeInputs();
 
         console.log(flakeOutput ?? 'No updates');
-
 
         const dockerOutput = args['d'] ? null : updateDocker();
 
@@ -116,26 +119,21 @@ const main = async() => {
             console.log(dockerOutput ?? 'No updates');
         }
 
-
         const netdaemonOutput = updateNetDaemon();
 
         console.log(netdaemonOutput ?? 'No updates');
-
 
         const nodeModulesOutput = await updateNodeModules();
 
         console.log(nodeModulesOutput ?? 'No updates');
 
-
         const vuetorrentOutput = updateVuetorrent();
 
         console.log(vuetorrentOutput ?? 'No updates');
 
-
         const caddyPluginsOutput = updateCaddyPlugins();
 
         console.log(caddyPluginsOutput ?? 'No updates');
-
 
         // nix-update executions
         const nixUpdateOutputs: string[] = [];
@@ -163,9 +161,16 @@ const main = async() => {
         updatePackage('some-sass-language-server');
         updatePackage('trash-d');
         updatePackage('whoogle-search');
-        updatePackage('scopedPackages', 'lovelace-components', 'custom-sidebar');
-        updatePackage('scopedPackages', 'lovelace-components', 'material-rounded-theme');
-
+        updatePackage(
+            'scopedPackages',
+            'lovelace-components',
+            'custom-sidebar',
+        );
+        updatePackage(
+            'scopedPackages',
+            'lovelace-components',
+            'material-rounded-theme',
+        );
 
         spawnSync(`alejandra -q ${FLAKE}`, [], { shell: true });
 
@@ -178,9 +183,7 @@ const main = async() => {
             return `    ${output.replace(/\n*$/g, '').split('\n').join('\n    ')}`;
         };
 
-        const output = [
-            'chore: update sources',
-        ];
+        const output = ['chore: update sources'];
 
         if (flakeOutput) {
             output.push(`Flake Inputs:\n${indentOutput(flakeOutput)}\n`);
@@ -195,20 +198,31 @@ const main = async() => {
             output.push(`Node modules:\n${indentOutput(nodeModulesOutput)}\n`);
         }
         if (vuetorrentOutput) {
-            output.push(`qBittorrent Sources:\n${indentOutput(vuetorrentOutput)}\n`);
+            output.push(
+                `qBittorrent Sources:\n${indentOutput(vuetorrentOutput)}\n`,
+            );
         }
         if (caddyPluginsOutput) {
-            output.push(`Caddy Plugins:\n${indentOutput(caddyPluginsOutput)}\n`);
+            output.push(
+                `Caddy Plugins:\n${indentOutput(caddyPluginsOutput)}\n`,
+            );
         }
         if (netdaemonOutput) {
             output.push(`NetDaemon:\n${indentOutput(netdaemonOutput)}\n`);
         }
         if (nixUpdateOutputs.length > 0) {
-            output.push(`nix-update executions:\n${indentOutput(nixUpdateOutputs.join('\n'))}\n`);
+            output.push(
+                `nix-update executions:\n${indentOutput(nixUpdateOutputs.join('\n'))}\n`,
+            );
         }
 
         if (args['f']) {
-            console.log(styleText(['magenta'], `\n\nWriting commit message to ${args['f']}\n`));
+            console.log(
+                styleText(
+                    ['magenta'],
+                    `\n\nWriting commit message to ${args['f']}\n`,
+                ),
+            );
             writeFileSync(args['f'], output.join('\n\n'));
         }
         else {

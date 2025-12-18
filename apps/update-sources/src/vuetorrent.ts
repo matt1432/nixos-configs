@@ -1,9 +1,8 @@
-import { writeFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
+import { writeFileSync } from 'node:fs';
 import { styleText } from 'node:util';
 
 import { parseFetchurl } from './lib';
-
 
 /* Constants */
 const FLAKE = process.env.FLAKE;
@@ -25,13 +24,23 @@ export default (): string | null => {
 
     const FILE = `${FLAKE}/configurations/nos/modules/qbittorrent/vuetorrent.nix`;
 
-    const OLD_VERSION = JSON.parse(spawnSync(
-        ['nix', 'eval', '-f', FILE, '--json'].join(' '), [], { shell: true },
-    ).stdout.toString()).version;
+    const OLD_VERSION = JSON.parse(
+        spawnSync(['nix', 'eval', '-f', FILE, '--json'].join(' '), [], {
+            shell: true,
+        }).stdout.toString(),
+    ).version;
 
-    const VERSION = JSON.parse(spawnSync(
-        ['curl', '-s', 'https://api.github.com/repos/VueTorrent/VueTorrent/releases/latest'].join(' '), [], { shell: true },
-    ).stdout.toString()).tag_name.replace('v', '');
+    const VERSION = JSON.parse(
+        spawnSync(
+            [
+                'curl',
+                '-s',
+                'https://api.github.com/repos/VueTorrent/VueTorrent/releases/latest',
+            ].join(' '),
+            [],
+            { shell: true },
+        ).stdout.toString(),
+    ).tag_name.replace('v', '');
 
     const URL = `https://github.com/VueTorrent/VueTorrent/releases/download/v${VERSION}/vuetorrent.zip`;
     const HASH = parseFetchurl(URL);
@@ -40,5 +49,7 @@ export default (): string | null => {
 
     writeFileSync(FILE, fileText);
 
-    return OLD_VERSION !== VERSION ? `Vuetorrent: ${OLD_VERSION} -> ${VERSION}\n` : null;
+    return OLD_VERSION !== VERSION
+        ? `Vuetorrent: ${OLD_VERSION} -> ${VERSION}\n`
+        : null;
 };

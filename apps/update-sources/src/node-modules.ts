@@ -1,23 +1,24 @@
-import { readPackageJSON, writePackageJSON } from 'pkg-types';
-import { accessSync, constants, existsSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
+import { accessSync, constants, existsSync } from 'node:fs';
 import { styleText } from 'node:util';
+import { readPackageJSON, writePackageJSON } from 'pkg-types';
 
-import { replaceInFile, npmRun } from './lib';
-
+import { npmRun, replaceInFile } from './lib';
 
 /* Constants */
 const FLAKE = process.env.FLAKE as string;
 
 const PINS = new Map([]);
 
-const updatePackageJson = async(workspaceDir: string, updates: object) => {
-    const currentPackageJson = await readPackageJSON(`${workspaceDir}/package.json`);
+const updatePackageJson = async (workspaceDir: string, updates: object) => {
+    const currentPackageJson = await readPackageJSON(
+        `${workspaceDir}/package.json`,
+    );
 
     const outdated = JSON.parse(npmRun(['outdated', '--json'], workspaceDir));
 
     const updateDeps = (deps: string) => {
-        Object.keys(currentPackageJson[deps]).forEach(async(dep) => {
+        Object.keys(currentPackageJson[deps]).forEach(async (dep) => {
             if (dep === 'astal') {
                 const astalRev = spawnSync(
                     [
@@ -27,10 +28,13 @@ const updatePackageJson = async(workspaceDir: string, updates: object) => {
                         '--impure',
                         '--expr',
                         '"(builtins.getFlake \\"$FLAKE\\").inputs.astal.rev"',
-                    ].join(' '), [], { shell: true },
+                    ].join(' '),
+                    [],
+                    { shell: true },
                 ).stdout.toString();
 
-                currentPackageJson[deps][dep] = `https://github.com/matt1432/astal/raw/${astalRev}/gjs.tar.gz`;
+                currentPackageJson[deps][dep] =
+                    `https://github.com/matt1432/astal/raw/${astalRev}/gjs.tar.gz`;
 
                 return;
             }
@@ -67,29 +71,29 @@ const updatePackageJson = async(workspaceDir: string, updates: object) => {
     await writePackageJSON(`${workspaceDir}/package.json`, currentPackageJson);
 };
 
-
 const prefetchNpmDeps = (workspaceDir: string): string => {
     npmRun(['update', '--package-lock-only'], workspaceDir);
 
-    return spawnSync(
-        'prefetch-npm-deps',
-        [`${workspaceDir}/package-lock.json`],
-    ).stdout.toString().replace('\n', '');
+    return spawnSync('prefetch-npm-deps', [`${workspaceDir}/package-lock.json`])
+        .stdout.toString()
+        .replace('\n', '');
 };
 
-
-export default async(): Promise<string | null> => {
+export default async (): Promise<string | null> => {
     console.log(styleText(['magenta'], '\nUpdating node modules:\n'));
 
     const updates = {};
 
-    const packages = spawnSync('find', [FLAKE, '-name', 'package.json']).stdout.toString().split('\n')
+    const packages = spawnSync('find', [FLAKE, '-name', 'package.json'])
+        .stdout.toString()
+        .split('\n')
         .filter((f) => f !== '')
-        .filter((f) => ![
-            '.direnv',
-            'node_modules',
-            'results',
-        ].some((dirName) => f.includes(dirName)));
+        .filter(
+            (f) =>
+                !['.direnv', 'node_modules', 'results'].some((dirName) =>
+                    f.includes(dirName),
+                ),
+        );
 
     for (const path of packages) {
         console.log(path);
@@ -116,15 +120,15 @@ export default async(): Promise<string | null> => {
                 npmRun(['i'], parentPath);
             }
         }
-        catch(e) {
+        catch (e) {
             console.warn(`Could not write to ${path}`);
             console.warn(e);
         }
     }
 
-    return Object.entries(updates).length > 0 ?
-        Object.entries(updates)
-            .map(([key, dep]) => `${key}: ${dep}`)
-            .join('\n') :
-        null;
+    return Object.entries(updates).length > 0
+        ? Object.entries(updates)
+              .map(([key, dep]) => `${key}: ${dep}`)
+              .join('\n')
+        : null;
 };
