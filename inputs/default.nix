@@ -83,29 +83,41 @@ let
       owner = "edolstra";
       repo = "flake-compat";
     };
+
     flake-parts = mkInput {
       owner = "hercules-ci";
       repo = "flake-parts";
     };
+
     flake-utils = mkInput {
       owner = "numtide";
       repo = "flake-utils";
     };
-    git-hooks.follows = "pre-commit-hooks";
+
+    gitignore = mkInput {
+      owner = "hercules-ci";
+      repo = "gitignore.nix";
+    };
+
     lib-aggregate = mkInput {
       owner = "nix-community";
       repo = "lib-aggregate";
     };
+
     nix-github-actions = mkInput {
       owner = "nix-community";
       repo = "nix-github-actions";
     };
-    nixpkgs-docs.follows = "nixpkgs";
-    nixpkgs-lib.follows = "nixpkgs";
+
     pre-commit-hooks = mkInput {
       owner = "cachix";
       repo = "git-hooks.nix";
+      inputs = {
+        flake-compat.follows = "flake-compat";
+        gitignore.follows = "gitignore";
+      };
     };
+
     treefmt-nix = mkInput {
       owner = "numtide";
       repo = "treefmt-nix";

@@ -87,7 +87,7 @@
       type = "github";
     };
     flake-parts = {
-      inputs.nixpkgs-lib.follows = "nixpkgs-lib";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
       owner = "hercules-ci";
       repo = "flake-parts";
       type = "github";
@@ -102,11 +102,16 @@
       inputs.systems.follows = "systems";
       url = "github:jorsn/flakegen";
     };
-    git-hooks.follows = "pre-commit-hooks";
     git-theme-src = {
       flake = false;
       owner = "dracula";
       repo = "git";
+      type = "github";
+    };
+    gitignore = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      owner = "hercules-ci";
+      repo = "gitignore.nix";
       type = "github";
     };
     gpu-screen-recorder-src = {
@@ -219,7 +224,7 @@
     lib-aggregate = {
       inputs = {
         flake-utils.follows = "flake-utils";
-        nixpkgs-lib.follows = "nixpkgs-lib";
+        nixpkgs-lib.follows = "nixpkgs";
       };
       owner = "nix-community";
       repo = "lib-aggregate";
@@ -328,7 +333,7 @@
       inputs = {
         home-manager.follows = "home-manager";
         nixpkgs.follows = "nixpkgs";
-        nixpkgs-docs.follows = "nixpkgs-docs";
+        nixpkgs-docs.follows = "nixpkgs";
       };
       owner = "nix-community";
       repo = "nix-on-droid";
@@ -337,7 +342,7 @@
     nix-output-monitor = {
       inputs = {
         flake-utils.follows = "flake-utils";
-        git-hooks.follows = "git-hooks";
+        git-hooks.follows = "pre-commit-hooks";
         nixpkgs.follows = "nixpkgs";
       };
       owner = "maralorn";
@@ -389,8 +394,6 @@
       type = "git";
       url = "https://github.com/NixOS/nixpkgs";
     };
-    nixpkgs-docs.follows = "nixpkgs";
-    nixpkgs-lib.follows = "nixpkgs";
     nurl = {
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "nix-community";
@@ -430,6 +433,10 @@
       type = "github";
     };
     pre-commit-hooks = {
+      inputs = {
+        flake-compat.follows = "flake-compat";
+        gitignore.follows = "gitignore";
+      };
       owner = "cachix";
       repo = "git-hooks.nix";
       type = "github";

@@ -35,6 +35,7 @@ in rec {
     ...
   } @ info: let
     mkOverride = i: mkFollowsFrom info i i;
+    mkOverrideAlias = alias: input: mkFollowsFrom info alias input;
   in
     recursiveUpdateList ([
         (removeAttrs info ["overrideNixpkgs"])
@@ -45,15 +46,21 @@ in rec {
         (mkOverride "flake-parts")
 
         (mkOverride "flake-utils")
-        (mkFollowsFrom info "utils" "flake-utils")
+        (mkOverrideAlias "utils" "flake-utils")
 
-        (mkOverride "git-hooks")
+        (mkOverride "gitignore")
+
         (mkOverride "lib-aggregate")
         (mkOverride "nix-eval-jobs")
-        (mkOverride "nixpkgs-docs")
-        (mkOverride "nixpkgs-lib")
+
+        (mkOverrideAlias "nixpkgs-docs" "nixpkgs")
+        (mkOverrideAlias "nixpkgs-lib" "nixpkgs")
+
         (mkOverride "nix-github-actions")
+
         (mkOverride "pre-commit-hooks")
+        (mkOverrideAlias "git-hooks" "pre-commit-hooks")
+
         (mkOverride "systems")
         (mkOverride "treefmt-nix")
       ]
