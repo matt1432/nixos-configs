@@ -1,9 +1,15 @@
 import axios from 'axios';
-import FormData from 'form-data';
-
-import { createReadStream, linkSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'fs';
-import { basename } from 'path';
 import { spawnSync } from 'child_process';
+import FormData from 'form-data';
+import {
+    createReadStream,
+    linkSync,
+    mkdirSync,
+    readFileSync,
+    rmSync,
+    writeFileSync,
+} from 'fs';
+import { basename } from 'path';
 
 import type {
     Book,
@@ -17,7 +23,6 @@ import type {
     SeriesPoster,
 } from './types';
 
-
 // Examples of calling this script:
 // $ just l2s copy 0K65Q482KK7SD
 // $ just l2s meta 0K65Q482KK7SD
@@ -26,9 +31,12 @@ import type {
 // Helper Functions
 // -----------------
 
-const readNeighborFile = (filename: string) => JSON.parse(
-    readFileSync(`${process.env.FLAKE}/apps/list2series/${filename}`, { encoding: 'utf-8' }),
-);
+const readNeighborFile = (filename: string) =>
+    JSON.parse(
+        readFileSync(`${process.env.FLAKE}/apps/list2series/${filename}`, {
+            encoding: 'utf-8',
+        }),
+    );
 
 const writeToNeighborFile = (filename: string, content: string) => {
     writeFileSync(`${process.env.FLAKE}/apps/list2series/${filename}`, content);
@@ -36,13 +44,13 @@ const writeToNeighborFile = (filename: string, content: string) => {
 
 const API = readNeighborFile('.env').API;
 
-const getListInfo = async(listId: string): Promise<ReadList> => {
+const getListInfo = async (listId: string): Promise<ReadList> => {
     const res = await axios.request({
         method: 'get',
         maxBodyLength: Infinity,
         url: `https://komga.nelim.org/api/v1/readlists/${listId}`,
         headers: {
-            'Accept': 'application/json',
+            Accept: 'application/json',
             'X-API-Key': API,
         },
     });
@@ -50,29 +58,39 @@ const getListInfo = async(listId: string): Promise<ReadList> => {
     return res.data;
 };
 
-const getSeries = async(seriesTitle: string, operator = true): Promise<Series[]> => {
-    return (await axios.request({
-        method: 'post',
-        maxBodyLength: Infinity,
-        url: 'https://komga.nelim.org/api/v1/series/list?unpaged=true',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'X-API-Key': API,
-        },
-        data: JSON.stringify({
-            condition: {
-                title: {
-                    operator: operator ? 'is' : 'isNot',
-                    value: seriesTitle,
-                },
+const getSeries = async (
+    seriesTitle: string,
+    operator = true,
+): Promise<Series[]> => {
+    return (
+        await axios.request({
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: 'https://komga.nelim.org/api/v1/series/list?unpaged=true',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                'X-API-Key': API,
             },
-        }),
-    })).data.content;
+            data: JSON.stringify({
+                condition: {
+                    title: {
+                        operator: operator ? 'is' : 'isNot',
+                        value: seriesTitle,
+                    },
+                },
+            }),
+        })
+    ).data.content;
 };
 
-const getSeriesBooks = async(listName: string, seriesPath: string): Promise<Book[]> => {
-    const thisSeries = (await getSeries('', false)).find((s) => s.url === seriesPath);
+const getSeriesBooks = async (
+    listName: string,
+    seriesPath: string,
+): Promise<Book[]> => {
+    const thisSeries = (await getSeries('', false)).find(
+        (s) => s.url === seriesPath,
+    );
 
     if (!thisSeries) {
         throw new Error('Series could not be found');
@@ -123,7 +141,7 @@ const getSeriesBooks = async(listName: string, seriesPath: string): Promise<Book
         url: 'https://komga.nelim.org/api/v1/books/list?unpaged=true',
         headers: {
             'Content-Type': 'application/json',
-            'Accept': 'application/json',
+            Accept: 'application/json',
             'X-API-Key': API,
         },
         data: JSON.stringify({
@@ -139,13 +157,13 @@ const getSeriesBooks = async(listName: string, seriesPath: string): Promise<Book
     return books.data.content;
 };
 
-const getBookInfo = async(id: string): Promise<Book> => {
+const getBookInfo = async (id: string): Promise<Book> => {
     const res = await axios.request({
         method: 'get',
         maxBodyLength: Infinity,
         url: `https://komga.nelim.org/api/v1/books/${id}`,
         headers: {
-            'Accept': 'application/json',
+            Accept: 'application/json',
             'X-API-Key': API,
         },
     });
@@ -167,24 +185,29 @@ const scanLibrary = (): void => {
 
 type BookCoverInfo = BookPoster & { imagePath: string };
 
-const getBookCover = async(book: Book): Promise<BookCoverInfo> => {
+const getBookCover = async (book: Book): Promise<BookCoverInfo> => {
     const imagePath = `/tmp/cover${book.id}.jpeg`;
 
     spawnSync('curl', [
-        '-L', `https://komga.nelim.org/api/v1/books/${book.id}/thumbnail`,
-        '-H', `X-API-Key: ${API}`,
-        '--output', imagePath,
+        '-L',
+        `https://komga.nelim.org/api/v1/books/${book.id}/thumbnail`,
+        '-H',
+        `X-API-Key: ${API}`,
+        '--output',
+        imagePath,
     ]);
 
-    const posterList: BookPoster[] = (await axios.request({
-        method: 'get',
-        maxBodyLength: Infinity,
-        url: `https://komga.nelim.org/api/v1/books/${book.id}/thumbnails`,
-        headers: {
-            'Accept': 'application/json',
-            'X-API-Key': API,
-        },
-    })).data;
+    const posterList: BookPoster[] = (
+        await axios.request({
+            method: 'get',
+            maxBodyLength: Infinity,
+            url: `https://komga.nelim.org/api/v1/books/${book.id}/thumbnails`,
+            headers: {
+                Accept: 'application/json',
+                'X-API-Key': API,
+            },
+        })
+    ).data;
 
     const posterInfo = posterList.find((poster) => poster.selected);
 
@@ -200,24 +223,29 @@ const getBookCover = async(book: Book): Promise<BookCoverInfo> => {
 
 type ReadlistCoverInfo = ReadlistPoster & { imagePath: string };
 
-const getReadlistCover = async(id: string): Promise<ReadlistCoverInfo> => {
+const getReadlistCover = async (id: string): Promise<ReadlistCoverInfo> => {
     const imagePath = `/tmp/cover${id}.jpeg`;
 
     spawnSync('curl', [
-        '-L', `https://komga.nelim.org/api/v1/readlists/${id}/thumbnail`,
-        '-H', `X-API-Key: ${API}`,
-        '--output', imagePath,
+        '-L',
+        `https://komga.nelim.org/api/v1/readlists/${id}/thumbnail`,
+        '-H',
+        `X-API-Key: ${API}`,
+        '--output',
+        imagePath,
     ]);
 
-    const posterList: ReadlistPoster[] = (await axios.request({
-        method: 'get',
-        maxBodyLength: Infinity,
-        url: `https://komga.nelim.org/api/v1/readlists/${id}/thumbnails`,
-        headers: {
-            'Accept': 'application/json',
-            'X-API-Key': API,
-        },
-    })).data;
+    const posterList: ReadlistPoster[] = (
+        await axios.request({
+            method: 'get',
+            maxBodyLength: Infinity,
+            url: `https://komga.nelim.org/api/v1/readlists/${id}/thumbnails`,
+            headers: {
+                Accept: 'application/json',
+                'X-API-Key': API,
+            },
+        })
+    ).data;
 
     const posterInfo = posterList.find((poster) => poster.selected);
 
@@ -231,13 +259,16 @@ const getReadlistCover = async(id: string): Promise<ReadlistCoverInfo> => {
     };
 };
 
-const updateBookCover = async(book: Book, cover: BookCoverInfo): Promise<void> => {
+const updateBookCover = async (
+    book: Book,
+    cover: BookCoverInfo,
+): Promise<void> => {
     const res = await axios.request({
         method: 'get',
         maxBodyLength: Infinity,
         url: `https://komga.nelim.org/api/v1/books/${book.id}/thumbnails`,
         headers: {
-            'Accept': 'application/json',
+            Accept: 'application/json',
             'X-API-Key': API,
         },
     });
@@ -256,7 +287,9 @@ const updateBookCover = async(book: Book, cover: BookCoverInfo): Promise<void> =
                 },
             });
         }
-        catch(_e) { /**/ }
+        catch (_e) {
+            /**/
+        }
     }
 
     // add and mark selected
@@ -270,7 +303,7 @@ const updateBookCover = async(book: Book, cover: BookCoverInfo): Promise<void> =
         url: `https://komga.nelim.org/api/v1/books/${book.id}/thumbnails?selected=true`,
         headers: {
             'Content-Type': 'multipart/form-data',
-            'Accept': 'application/json',
+            Accept: 'application/json',
             'X-API-Key': API,
             ...data.getHeaders(),
         },
@@ -278,13 +311,16 @@ const updateBookCover = async(book: Book, cover: BookCoverInfo): Promise<void> =
     });
 };
 
-const updateListSeriesCover = async(series: Series, cover: ReadlistCoverInfo): Promise<void> => {
+const updateListSeriesCover = async (
+    series: Series,
+    cover: ReadlistCoverInfo,
+): Promise<void> => {
     const res = await axios.request({
         method: 'get',
         maxBodyLength: Infinity,
         url: `https://komga.nelim.org/api/v1/series/${series.id}/thumbnails`,
         headers: {
-            'Accept': 'application/json',
+            Accept: 'application/json',
             'X-API-Key': API,
         },
     });
@@ -303,7 +339,9 @@ const updateListSeriesCover = async(series: Series, cover: ReadlistCoverInfo): P
                 },
             });
         }
-        catch(_e) { /**/ }
+        catch (_e) {
+            /**/
+        }
     }
 
     // add and mark selected
@@ -317,7 +355,7 @@ const updateListSeriesCover = async(series: Series, cover: ReadlistCoverInfo): P
         url: `https://komga.nelim.org/api/v1/series/${series.id}/thumbnails?selected=true`,
         headers: {
             'Content-Type': 'multipart/form-data',
-            'Accept': 'application/json',
+            Accept: 'application/json',
             'X-API-Key': API,
             ...data.getHeaders(),
         },
@@ -325,12 +363,17 @@ const updateListSeriesCover = async(series: Series, cover: ReadlistCoverInfo): P
     });
 };
 
-const setBookMetadata = async(i: number, source: Book, target: Book): Promise<void> => {
+const setBookMetadata = async (
+    i: number,
+    source: Book,
+    target: Book,
+): Promise<void> => {
     const thisSeries = (await getSeries(source.seriesTitle))[0];
 
-    source.metadata.title = thisSeries.booksCount !== 1 ?
-        `${source.seriesTitle} Issue #${source.metadata.number}` :
-        source.metadata.title = source.seriesTitle;
+    source.metadata.title =
+        thisSeries.booksCount !== 1
+            ? `${source.seriesTitle} Issue #${source.metadata.number}`
+            : (source.metadata.title = source.seriesTitle);
 
     source.metadata.number = i.toString();
     source.metadata.numberSort = i;
@@ -366,7 +409,10 @@ const setBookMetadata = async(i: number, source: Book, target: Book): Promise<vo
     rmSync(cover.imagePath);
 };
 
-const setListSeriesMetadata = async(source: ReadList, target: Series): Promise<void> => {
+const setListSeriesMetadata = async (
+    source: ReadList,
+    target: Series,
+): Promise<void> => {
     const metadata = JSON.stringify({
         ...target.metadata,
         title: `[List] ${source.name}`,
@@ -395,10 +441,12 @@ const setListSeriesMetadata = async(source: ReadList, target: Series): Promise<v
     rmSync(cover.imagePath);
 };
 
-const getListBooks = async(listKeyOrId: string): Promise<{
-    list: ReadList
-    seriesPath: string
-    listBooks: Book[]
+const getListBooks = async (
+    listKeyOrId: string,
+): Promise<{
+    list: ReadList;
+    seriesPath: string;
+    listBooks: Book[];
 }> => {
     let listId = listKeyOrId;
 
@@ -419,7 +467,7 @@ const getListBooks = async(listKeyOrId: string): Promise<{
         const book = await getBookInfo(ids[i]);
 
         listBooks[i] = book;
-    };
+    }
 
     return { list, seriesPath, listBooks };
 };
@@ -432,7 +480,7 @@ const getKnownLists = () => {
     return Object.keys(readNeighborFile('lists.json') as ListsJson);
 };
 
-const onceOrAll = async(id: string, func: (id: string) => Promise<void>) => {
+const onceOrAll = async (id: string, func: (id: string) => Promise<void>) => {
     if (id === 'all') {
         for (const key of getKnownLists()) {
             await func(key);
@@ -443,7 +491,7 @@ const onceOrAll = async(id: string, func: (id: string) => Promise<void>) => {
     }
 };
 
-const copyListBooks = async(id: string) => {
+const copyListBooks = async (id: string) => {
     const { seriesPath, listBooks } = await getListBooks(id);
 
     rmSync(seriesPath, { recursive: true, force: true });
@@ -460,13 +508,15 @@ const copyListBooks = async(id: string) => {
     scanLibrary();
 };
 
-const transferListMetadata = async(id: string) => {
+const transferListMetadata = async (id: string) => {
     const { list, seriesPath, listBooks } = await getListBooks(id);
 
     const seriesBooks = await getSeriesBooks(`[List] ${list.name}`, seriesPath);
 
     for (const target of seriesBooks) {
-        const source = listBooks.find((b) => basename(b.url) === basename(target.url));
+        const source = listBooks.find(
+            (b) => basename(b.url) === basename(target.url),
+        );
 
         if (source) {
             const i = listBooks.indexOf(source) + 1;
@@ -483,7 +533,7 @@ const transferListMetadata = async(id: string) => {
     }
 };
 
-const saveListToFile = async(id: string) => {
+const saveListToFile = async (id: string) => {
     const listMappings = readNeighborFile('lists.json') as ListsJson;
 
     if (!(id in listMappings)) {
@@ -494,7 +544,7 @@ const saveListToFile = async(id: string) => {
 
     const { listBooks } = await getListBooks(id);
 
-    const output = [] as { series: string, title: string, number: number }[];
+    const output = [] as { series: string; title: string; number: number }[];
 
     listBooks.forEach((book) => {
         output.push({
@@ -505,12 +555,15 @@ const saveListToFile = async(id: string) => {
     });
 
     listMappings[id].issues = output;
-    writeToNeighborFile('lists.json', `${JSON.stringify(listMappings, null, 4)}\n`);
+    writeToNeighborFile(
+        'lists.json',
+        `${JSON.stringify(listMappings, null, 4)}\n`,
+    );
 
     console.log(`Saved ${id}`);
 };
 
-const restoreList = async(id: string) => {
+const restoreList = async (id: string) => {
     const listMappings = readNeighborFile('lists.json') as ListsJson;
 
     if (!(id in listMappings)) {
@@ -525,66 +578,77 @@ const restoreList = async(id: string) => {
     for (let i = 0; i < cvIssueLinks.length; ++i) {
         const { series, title, number } = cvIssueLinks[i];
 
-        const seriesSearch = (await axios.request({
-            method: 'post',
-            maxBodyLength: Infinity,
-            url: 'https://komga.nelim.org/api/v1/series/list?unpaged=true',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'X-API-Key': API,
-            },
-            data: JSON.stringify({
-                condition: {
-                    title: {
-                        operator: 'is',
-                        value: series,
-                    },
+        const seriesSearch = (
+            await axios.request({
+                method: 'post',
+                maxBodyLength: Infinity,
+                url: 'https://komga.nelim.org/api/v1/series/list?unpaged=true',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                    'X-API-Key': API,
                 },
-            }),
-        })).data.content;
+                data: JSON.stringify({
+                    condition: {
+                        title: {
+                            operator: 'is',
+                            value: series,
+                        },
+                    },
+                }),
+            })
+        ).data.content;
 
         const bookSearch = [] as Book[];
 
         for (const seriesResult of seriesSearch) {
             const seriesId = seriesResult.id;
 
-            bookSearch.push(...((await axios.request({
-                method: 'post',
-                maxBodyLength: Infinity,
-                url: 'https://komga.nelim.org/api/v1/books/list?unpaged=true',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'X-API-Key': API,
-                },
-                data: JSON.stringify({
-                    condition: {
-                        seriesId: {
-                            operator: 'is',
-                            value: seriesId,
+            bookSearch.push(
+                ...((
+                    await axios.request({
+                        method: 'post',
+                        maxBodyLength: Infinity,
+                        url: 'https://komga.nelim.org/api/v1/books/list?unpaged=true',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Accept: 'application/json',
+                            'X-API-Key': API,
                         },
-                        title: {
-                            operator: 'is',
-                            value: title,
-                        },
-                    },
-                }),
-            })).data.content as Book[]));
+                        data: JSON.stringify({
+                            condition: {
+                                seriesId: {
+                                    operator: 'is',
+                                    value: seriesId,
+                                },
+                                title: {
+                                    operator: 'is',
+                                    value: title,
+                                },
+                            },
+                        }),
+                    })
+                ).data.content as Book[]),
+            );
         }
 
-        const matchingBooks = bookSearch.filter((b) =>
-            b.metadata.title === title &&
-            b.metadata.numberSort === number);
+        const matchingBooks = bookSearch.filter(
+            (b) =>
+                b.metadata.title === title && b.metadata.numberSort === number,
+        );
 
         if (matchingBooks.length === 0) {
             console.error(matchingBooks, number);
-            throw new Error(`No issue matched the title '${title}' from ${series}`);
+            throw new Error(
+                `No issue matched the title '${title}' from ${series}`,
+            );
         }
 
         if (matchingBooks.length !== 1) {
             console.error(matchingBooks, number);
-            throw new Error(`More than one issue matched the title '${title}' from ${series}`);
+            throw new Error(
+                `More than one issue matched the title '${title}' from ${series}`,
+            );
         }
 
         bookIds[i] = matchingBooks[0].id;
@@ -596,7 +660,7 @@ const restoreList = async(id: string) => {
         url: `https://komga.nelim.org/api/v1/readlists/${listData.readlistId}`,
         headers: {
             'Content-Type': 'application/json',
-            'Accept': 'application/json',
+            Accept: 'application/json',
             'X-API-Key': API,
         },
         data: JSON.stringify({
@@ -608,33 +672,32 @@ const restoreList = async(id: string) => {
     console.log(`Restored ${id}.`);
 };
 
-const main = async(): Promise<void> => {
+const main = async (): Promise<void> => {
     if (process.argv[2] === 'ls') {
         getKnownLists().forEach((key) => {
             console.log(key);
         });
     }
-
     else if (process.argv[2] === 'save') {
         onceOrAll(process.argv[3], saveListToFile);
     }
-
     else if (process.argv[2] === 'copy') {
         onceOrAll(process.argv[3], copyListBooks);
     }
-
     else if (process.argv[2] === 'meta') {
         onceOrAll(process.argv[3], transferListMetadata);
     }
-
     else if (process.argv[2] === 'restore') {
         onceOrAll(process.argv[3], restoreList);
     }
-
     else if (process.argv[2] === 'json') {
         const { listBooks } = await getListBooks(process.argv[3]);
 
-        const output = [] as { series: string, title: string, number: number }[];
+        const output = [] as {
+            series: string;
+            title: string;
+            number: number;
+        }[];
 
         listBooks.forEach((book) => {
             output.push({
@@ -646,7 +709,6 @@ const main = async(): Promise<void> => {
 
         console.log(JSON.stringify(output, null, 4));
     }
-
     else {
         console.error('Arguments not recognized.');
         process.exit(1);
