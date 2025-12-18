@@ -1,6 +1,10 @@
 import { readFileSync, writeFileSync } from 'fs';
 
-export const replaceInFile = (replace: RegExp, replacement: string, file: string) => {
+export const replaceInFile = (
+    replace: RegExp,
+    replacement: string,
+    file: string,
+) => {
     const fileContents = readFileSync(file);
 
     const replaced = fileContents.toString().replace(replace, replacement);
@@ -16,7 +20,9 @@ if (!FLAKE) {
     process.exit(1);
 }
 
-const FLAKE_LOCK = JSON.parse(readFileSync(`${FLAKE}/flake.lock`, 'utf8')).nodes;
+const FLAKE_LOCK = JSON.parse(
+    readFileSync(`${FLAKE}/flake.lock`, 'utf8'),
+).nodes;
 const INPUT_REVS = new Map<string, string>();
 
 Object.entries(FLAKE_LOCK).forEach(([key, val]) => {
@@ -27,7 +33,6 @@ Object.entries(FLAKE_LOCK).forEach(([key, val]) => {
 });
 
 const INPUTS = process.argv.slice(2);
-
 
 /**
  * Gets the commit hash of the specified input in this flake.
