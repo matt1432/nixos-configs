@@ -6,10 +6,10 @@
 }: {
   "bitwarden" = buildFirefoxXpiAddon {
     pname = "bitwarden";
-    version = "2025.11.2";
+    version = "2025.12.0";
     addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4633659/bitwarden_password_manager-2025.11.2.xpi";
-    sha256 = "0fcda36efb4c8b54913d4536e43b07f6c1ea4daaa8969ff45bac77509af5f861";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4640726/bitwarden_password_manager-2025.12.0.xpi";
+    sha256 = "0256a61e84e23903fd379f5971150a8b23a53a126da62d276d57e514408839cd";
     meta = with lib; {
       homepage = "https://bitwarden.com";
       description = "At home, at work, or on the go, Bitwarden easily secures all your passwords, passkeys, and sensitive information.";
@@ -183,10 +183,10 @@
   };
   "sponsorblock" = buildFirefoxXpiAddon {
     pname = "sponsorblock";
-    version = "6.1.0";
+    version = "6.1.2";
     addonId = "sponsorBlocker@ajay.app";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4608179/sponsorblock-6.1.0.xpi";
-    sha256 = "48f412540ad0217c52caece0eb84186041b28241b24457aaa8c256565f050844";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4644570/sponsorblock-6.1.2.xpi";
+    sha256 = "598f66c9eb6bbab2bd5f87376b632a5860f442d3694e233610f5b37f8b6e3f10";
     meta = with lib; {
       homepage = "https://sponsor.ajay.app";
       description = "Easily skip YouTube video sponsors. When you visit a YouTube video, the extension will check the database for reported sponsors and automatically skip known sponsors. You can also report sponsors in videos. Other browsers: https://sponsor.ajay.app";
