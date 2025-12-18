@@ -1,3 +1,5 @@
+# Generated files that I want to exclude from `git diff`
+# use `git diff --text` to view diff anyway
 flake.lock -diff
 flake.nix -diff
 **/non-declarative-conf -diff
