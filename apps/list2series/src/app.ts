@@ -370,10 +370,21 @@ const setBookMetadata = async (
 ): Promise<void> => {
     const thisSeries = (await getSeries(source.seriesTitle))[0];
 
-    source.metadata.title =
-        thisSeries.booksCount !== 1
-            ? `${source.seriesTitle} Issue #${source.metadata.number}`
-            : (source.metadata.title = source.seriesTitle);
+    let newTitle = source.seriesTitle;
+
+    if (thisSeries.booksCount !== 1) {
+        newTitle += ` #${source.metadata.number}`;
+    }
+
+    if (
+        source.metadata.title &&
+        source.metadata.title !== thisSeries.name &&
+        source.metadata.title !== `Issue #${source.metadata.number}`
+    ) {
+        newTitle += `: ${source.metadata.title}`;
+    }
+
+    source.metadata.title = newTitle;
 
     source.metadata.number = i.toString();
     source.metadata.numberSort = i;
