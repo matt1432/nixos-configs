@@ -368,20 +368,25 @@ const setBookMetadata = async (
     source: Book,
     target: Book,
 ): Promise<void> => {
-    const thisSeries = (await getSeries(source.seriesTitle))[0];
-
     let newTitle = source.seriesTitle;
 
-    if (thisSeries.booksCount !== 1) {
-        newTitle += ` #${source.metadata.number}`;
+    if (source.seriesTitle === 'List Redirects') {
+        newTitle = 'Redirect';
     }
+    else {
+        const thisSeries = (await getSeries(source.seriesTitle))[0];
 
-    if (
-        source.metadata.title &&
-        source.metadata.title !== thisSeries.name &&
-        source.metadata.title !== `Issue #${source.metadata.number}`
-    ) {
-        newTitle += `: ${source.metadata.title}`;
+        if (thisSeries.booksCount !== 1) {
+            newTitle += ` #${source.metadata.number}`;
+        }
+
+        if (
+            source.metadata.title &&
+            source.metadata.title !== thisSeries.name &&
+            source.metadata.title !== `Issue #${source.metadata.number}`
+        ) {
+            newTitle += `: ${source.metadata.title}`;
+        }
     }
 
     source.metadata.title = newTitle;
