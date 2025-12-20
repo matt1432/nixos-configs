@@ -979,29 +979,6 @@
         "type": "github"
       }
     },
-    "jovian": {
-      "inputs": {
-        "nix-github-actions": [
-          "nix-github-actions"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1766067735,
-        "narHash": "sha256-cRC/rOYRtZNzc5y9nTccozyo/mkI4/1eFE33Aqgs+SQ=",
-        "owner": "Jovian-Experiments",
-        "repo": "Jovian-NixOS",
-        "rev": "34a16089be30f77ac9444907ec97c02b4b711896",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Jovian-Experiments",
-        "repo": "Jovian-NixOS",
-        "type": "github"
-      }
-    },
     "kapowarr-react": {
       "inputs": {
         "libgencomics": "libgencomics",
@@ -2253,7 +2230,6 @@
         "hyprland": "hyprland",
         "hyprland-plugins": "hyprland-plugins",
         "hyprpaper": "hyprpaper",
-        "jovian": "jovian",
         "kapowarr-react": "kapowarr-react",
         "komf-src": "komf-src",
         "kompass": "kompass",

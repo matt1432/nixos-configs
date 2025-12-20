@@ -252,13 +252,6 @@ let
     };
   };
 
-  bbsteamieInputs = {
-    jovian = mkInput {
-      owner = "Jovian-Experiments";
-      repo = "Jovian-NixOS";
-    };
-  };
-
   srcs = [
     # Home-assistant
     ## Components
@@ -460,7 +453,6 @@ in
   // clusterInputs
   // serviviInputs
   // nosInputs
-  // bbsteamieInputs
   // desktopInputs.hyprlandInputs
   // desktopInputs.shellInputs
   // (listToAttrs (map (x: {

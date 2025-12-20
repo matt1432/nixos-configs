@@ -35,11 +35,6 @@
         ];
       };
 
-      bbsteamie = mkNixOS {
-        mainUser = "mariah";
-        extraModules = [./configurations/bbsteamie];
-      };
-
       # NAS
       nos = mkNixOS {
         cudaSupport = true;

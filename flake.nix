@@ -184,15 +184,6 @@
       repo = "hyprpaper";
       type = "github";
     };
-    jovian = {
-      inputs = {
-        nix-github-actions.follows = "nix-github-actions";
-        nixpkgs.follows = "nixpkgs";
-      };
-      owner = "Jovian-Experiments";
-      repo = "Jovian-NixOS";
-      type = "github";
-    };
     kapowarr-react = {
       inputs = {
         nixpkgs.follows = "nixpkgs";
