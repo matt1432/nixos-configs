@@ -2,6 +2,8 @@
   # nix build inputs
   lib,
   stdenv,
+  fetchPnpmDeps,
+  pnpmConfigHook,
   custom-sidebar-src,
   # deps
   nodejs,
@@ -20,7 +22,8 @@ in
 
     nativeBuildInputs = [
       nodejs
-      pnpm.configHook
+      pnpm
+      pnpmConfigHook
     ];
 
     buildPhase = ''
@@ -32,7 +35,7 @@ in
       cp ./dist/* $out
     '';
 
-    pnpmDeps = pnpm.fetchDeps {
+    pnpmDeps = fetchPnpmDeps {
       fetcherVersion = 1;
       inherit (finalAttrs) pname version src;
       hash = "sha256-R9EZxGEX1bFd0qS1e47nygre7I564zfJwS5YUNXSc0E=";

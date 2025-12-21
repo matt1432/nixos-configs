@@ -2,8 +2,10 @@
   # nix build inputs
   lib,
   stdenv,
+  fetchPnpmDeps,
   fetchFromGitHub,
   makeWrapper,
+  pnpmConfigHook,
   # deps
   nodejs,
   pnpm,
@@ -26,7 +28,7 @@ in
       hash = "sha256-T2bAN8ucCjcWhXScTI8YxtfrwK9NEfHGHIE8xJgD6Bs=";
     };
 
-    pnpmDeps = pnpm.fetchDeps {
+    pnpmDeps = fetchPnpmDeps {
       fetcherVersion = 1;
       inherit (finalAttrs) pname version src;
       hash = "sha256-42dT1za9M4DowBh27UYh2QDyoVoNWA/L/9lyIY5OVwM=";
@@ -35,7 +37,8 @@ in
     nativeBuildInputs = [
       makeWrapper
       nodejs
-      pnpm.configHook
+      pnpm
+      pnpmConfigHook
     ];
 
     buildPhase = ''
