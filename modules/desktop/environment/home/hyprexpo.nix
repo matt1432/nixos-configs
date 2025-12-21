@@ -36,9 +36,7 @@ in {
           })
         ];
 
-        # FIXME: https://github.com/hyprwm/hyprland-plugins/issues/494
-        # hyprexpo-gesture = mkIf cfg.isTouchscreen ["3, vertical, expo"];
-        gesture = mkIf cfg.isTouchscreen ["3, vertical, dispatcher, hyprexpo:expo, toggle"];
+        hyprexpo-gesture = mkIf cfg.isTouchscreen ["3, vertical, expo"];
       };
     };
   };
