@@ -34,6 +34,7 @@
     misc {
         disable_hyprland_logo = true
         disable_splash_rendering = true
+        disable_watchdog_warning = true
     }
 
     decoration {
@@ -55,7 +56,7 @@
   '';
 
   user = "matt";
-  command = "start-hyprland --config ${hyprConf}";
+  command = "Hyprland --config ${hyprConf}";
 
   session = {inherit command user;};
 in {
