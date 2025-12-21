@@ -83,6 +83,32 @@ in {
         # Get rid of logs shown on the TTY right before Hyprland launches
         package = pkgs.hyprland.overrideAttrs (o: {
           postInstall = replaceStrings ["--suffix"] ["--append-flags '&>/dev/null' --suffix"] o.postInstall;
+
+          patches =
+            o.patches or []
+            ++ [
+              # FIXME: https://github.com/hyprwm/Hyprland/pull/12224#issuecomment-3678374328
+              (builtins.toFile "fix-crash.patch" ''
+                diff --git a/src/protocols/XDGShell.cpp b/src/protocols/XDGShell.cpp
+                index ebb56342..12698827 100644
+                --- a/src/protocols/XDGShell.cpp
+                +++ b/src/protocols/XDGShell.cpp
+                @@ -257,11 +257,12 @@ CXDGToplevelResource::CXDGToplevelResource(SP<CXdgToplevel> resource_, SP<CXDGSum_parent = newp;
+
+                -        if (m_parent)
+                +        if (m_parent) {
+                             m_parent->m_children.emplace_back(m_self);
+
+                -        if (m_parent->m_window->m_pinned)
+                -            m_self->m_window->m_pinned = true;
+                +            if (m_parent->m_window->m_pinned)
+                +                m_self->m_window->m_pinned = true;
+                +        }
+
+                         LOGM(Log::DEBUG, "Toplevel {:x} sets parent to {:x}{}", (uintptr_t)this, (uintptr_t)newp.get(), (oldParent ? std::format(" (was {:x})", (uintptr_t)oldParent.get()) : ""));
+                     });
+              '')
+            ];
         });
 
         systemd.variables = ["-all"];
