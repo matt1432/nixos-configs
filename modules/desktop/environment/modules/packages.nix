@@ -111,7 +111,7 @@ in {
             plugins = {
               alwaysTrust.enable = true;
               biggerStreamPreview.enable = true;
-              clearUrLs.enable = true;
+              ClearURLs.enable = true;
               crashHandler.enable = true;
               disableCallIdle.enable = true;
               expressionCloner.enable = true;
@@ -125,8 +125,8 @@ in {
                 ignoreSelf = true;
               };
 
-              mutualGroupDMs.enable = true;
-              onePingPerDm.enable = true;
+              MutualGroupDMs.enable = true;
+              OnePingPerDM.enable = true;
               openInApp.enable = true;
               platformIndicators.enable = true;
               previewMessage.enable = true;
