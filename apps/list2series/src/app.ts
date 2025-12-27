@@ -654,16 +654,18 @@ const restoreList = async (id: string) => {
         );
 
         if (matchingBooks.length === 0) {
+            const list = await getListInfo(listData.readlistId);
             console.error(matchingBooks, number);
             throw new Error(
-                `No issue matched the title '${title}' from ${series}`,
+                `No issue matched the title '${title}' from ${series} in list ${list.name}`,
             );
         }
 
         if (matchingBooks.length !== 1) {
+            const list = await getListInfo(listData.readlistId);
             console.error(matchingBooks, number);
             throw new Error(
-                `More than one issue matched the title '${title}' from ${series}`,
+                `More than one issue matched the title '${title}' from ${series} in list ${list.name}`,
             );
         }
 
