@@ -4688,11 +4688,6 @@
                 "number": 136
             },
             {
-                "series": "The X-Men",
-                "title": "The Fate of the Phoenix!",
-                "number": 137
-            },
-            {
                 "series": "Classic X-Men",
                 "title": "The Fate of the Phoenix!; Flights of Angels",
                 "number": 43
@@ -4819,12 +4814,12 @@
             },
             {
                 "series": "Marvel Fanfare",
-                "title": "Pin Up; Fast Descent Into Hell; Editori-Al; Snow",
+                "title": "Fast Descent Into Hell",
                 "number": 1
             },
             {
                 "series": "Marvel Fanfare",
-                "title": "Editori-Al; To Sacrifice My Soul; Annihilation",
+                "title": "To Sacrifice My Soul",
                 "number": 2
             },
             {
@@ -4849,12 +4844,12 @@
             },
             {
                 "series": "Marvel Fanfare",
-                "title": "Editori-Al; Into the Land of Death; Swashbucklers",
+                "title": "Into the Land of Death",
                 "number": 3
             },
             {
                 "series": "Marvel Fanfare",
-                "title": "Editori-Al; Lost Souls; Mindgame; Ordeal",
+                "title": "Lost Souls",
                 "number": 4
             },
             {
@@ -5618,11 +5613,6 @@
                 "number": 1
             },
             {
-                "series": "Punisher: The Platoon",
-                "title": "TPB",
-                "number": 1
-            },
-            {
                 "series": "Punisher MAX: The Complete Collection",
                 "title": "Volume One",
                 "number": 1
@@ -5696,6 +5686,11 @@
                 "series": "The Punisher",
                 "title": "Valley Forge, Valley Forge: Conclusion",
                 "number": 60
+            },
+            {
+                "series": "Punisher: The Platoon",
+                "title": "TPB",
+                "number": 1
             },
             {
                 "series": "Punisher: Soviet",
