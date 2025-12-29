@@ -493,7 +493,7 @@ const getListBooks = async (
 // ---------------
 
 const getKnownLists = () => {
-    return Object.keys(readNeighborFile('lists.json') as ListsJson);
+    return Object.keys(readNeighborFile('lists.json') as ListsJson).sort();
 };
 
 const onceOrAll = async (id: string, func: (id: string) => Promise<void>) => {

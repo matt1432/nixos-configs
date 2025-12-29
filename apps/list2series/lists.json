@@ -1819,6 +1819,46 @@
             }
         ]
     },
+    "hitman-ennis": {
+        "readlistId": "0P0M1KP6M00MZ",
+        "issues": [
+            {
+                "series": "Hitman:  A Rage in Arkham",
+                "title": "Vol. 1",
+                "number": 1
+            },
+            {
+                "series": "Hitman: Ten Thousand Bullets",
+                "title": "Volume 2",
+                "number": 1
+            },
+            {
+                "series": "Hitman: Local Heroes",
+                "title": "Volume 3",
+                "number": 1
+            },
+            {
+                "series": "Hitman: Ace of Killers",
+                "title": "Volume 4",
+                "number": 1
+            },
+            {
+                "series": "Hitman: Tommy's Heroes",
+                "title": "Volume 5",
+                "number": 1
+            },
+            {
+                "series": "Hitman: For Tomorrow",
+                "title": "Vol. 6",
+                "number": 1
+            },
+            {
+                "series": "Hitman: Closing Time",
+                "title": "Vol. 7",
+                "number": 1
+            }
+        ]
+    },
     "crossed": {
         "readlistId": "0NXBZ7MQZZPKR",
         "issues": [
