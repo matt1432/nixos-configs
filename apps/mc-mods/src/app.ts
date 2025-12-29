@@ -101,6 +101,7 @@ const download = async (url: string, path: string) =>
 const main = () => {
     const mods = [
         'badpackets',
+        'carpet',
         'c2me-fabric',
         'cloth-config',
         'clumps',
