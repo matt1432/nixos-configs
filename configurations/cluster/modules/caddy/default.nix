@@ -64,7 +64,7 @@ in {
 
       "Jellyfin" = mkPublicReverseProxy "jelly" "${nosIP}:8096" {
         subDirectories.jfa-go = {
-          subDirName = "accounts";
+          subDirName = "a";
           reverseProxy = "${nosIP}:8056";
         };
       };

@@ -19,6 +19,7 @@ in {
 
       volumes = [
         "${jellyService.WorkingDirectory}/jfa-go:/data"
+        "${jellyService.WorkingDirectory}/data:/var/lib/jellyfin/data"
         "/etc/localtime:/etc/localtime:ro"
       ];
     };
