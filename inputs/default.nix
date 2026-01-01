@@ -189,11 +189,8 @@ let
       };
 
       hyprland-plugins = mkHyprDep {
-        # FIXME: https://github.com/hyprwm/hyprland-plugins/pull/581
-        # owner = "hyprwm";
-        owner = "matt1432";
+        owner = "hyprwm";
         repo = "hyprland-plugins";
-        ref = "chase-inhibit";
       };
 
       hyprgrass = mkHyprDep {
