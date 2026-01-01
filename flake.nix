@@ -165,7 +165,8 @@
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
       };
-      owner = "hyprwm";
+      owner = "matt1432";
+      ref = "chase-inhibit";
       repo = "hyprland-plugins";
       type = "github";
     };
