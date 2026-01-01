@@ -1,4 +1,6 @@
 # Do not modify! This file is generated.
+# One exception: If you use a different template than "flake.in.nix" set
+#                its relative path through the first argument to inputs.flakegen.
 {
   inputs = {
     ags = {
