@@ -75,6 +75,14 @@ in {
             name = "Streamyfin";
             url = "https://raw.githubusercontent.com/streamyfin/jellyfin-plugin-streamyfin/main/manifest.json";
           }
+          {
+            name = "Editor's Choice";
+            url = "https://github.com/lachlandcp/jellyfin-editors-choice-plugin/raw/main/manifest.json";
+          }
+          {
+            name = "JS Injector";
+            url = "https://raw.githubusercontent.com/n00bcodr/jellyfin-plugins/main/10.11/manifest.json ";
+          }
         ];
 
         enableSlowResponseWarning = false;
@@ -122,6 +130,12 @@ in {
           .mediaSourceIndicator,
           .playedIndicator {
               background-color: rgba(var(--accent), 0.8);
+          }
+
+          /* Editor's Choice */
+          /* Editor's Choice */
+          .splide__track.splide__track--loop.splide__track--ltr.splide__track--draggable {
+              border-radius: var(--rounding);
           }
         '';
       };
