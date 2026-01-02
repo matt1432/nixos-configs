@@ -80,40 +80,4 @@
       zeroconf = {};
     };
   };
-
-  environment.systemPackages = [
-    (pkgs.writeShellApplication {
-      name = "yaml2nix";
-      runtimeInputs = with pkgs; [yj];
-      text = ''
-        input="$(yj < "$1")"
-        output="''${2:-""}"
-
-        nixCode="$(nix eval --expr "builtins.fromJSON '''$input'''" --impure | alejandra -q | sed 's/ = null;/ = {};/g')"
-
-        if [[ "$output" != "" ]]; then
-            echo "$nixCode" > "$output"
-        else
-            echo "$nixCode"
-        fi
-      '';
-    })
-
-    (pkgs.writeShellApplication {
-      name = "nix2yaml";
-      runtimeInputs = with pkgs; [remarshal];
-      text = ''
-        input="$1"
-        output="''${2:-""}"
-
-        yamlCode="$(nix eval --json --file "$input" | remarshal --if json --of yaml)"
-
-        if [[ "$output" != "" ]]; then
-            echo "$yamlCode" > "$output"
-        else
-            echo "$yamlCode"
-        fi
-      '';
-    })
-  ];
 }
