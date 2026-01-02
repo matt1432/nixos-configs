@@ -44,7 +44,8 @@ in {
         quickConnectAvailable = false;
         isStartupWizardCompleted = true;
 
-        enableGroupingIntoCollections = true;
+        enableGroupingMoviesIntoCollections = true;
+        enableGroupingShowsIntoCollections = true;
         enableExternalContentInSuggestions = false;
 
         pluginRepositories = [
