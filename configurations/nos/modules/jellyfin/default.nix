@@ -14,6 +14,7 @@
     [config.users.groups.${name}.name];
 in {
   imports = [
+    ./collections
     ./jfa-go.nix
     ./meilisearch.nix
 
