@@ -40,7 +40,7 @@ in {
 
         (mkDefaultRemote "https://github.com")
         (mkDefaultRemote "git@github.com")
-        (mkDefaultRemote "git@git.nelim.org")
+        (mkDefaultRemote "ssh://git@git.nelim.org")
 
         (mkRemoteConf "git@gitlab.info.uqam.ca" "gj591944@ens.uqam.ca" "Mathis Hurtubise")
       ];
