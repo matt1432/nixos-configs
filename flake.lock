@@ -979,6 +979,22 @@
         "type": "github"
       }
     },
+    "jellyfin-auto-collections-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1767481006,
+        "narHash": "sha256-NIWWEO+8Gp4TjNI7JU14oxypDR61eSdbrnoTUSeVFFI=",
+        "owner": "matt1432",
+        "repo": "Jellyfin-Auto-Collections",
+        "rev": "2035a273024357bac8f56dd76f6b1ce5ba1cc3a3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "matt1432",
+        "repo": "Jellyfin-Auto-Collections",
+        "type": "github"
+      }
+    },
     "kapowarr-react": {
       "inputs": {
         "libgencomics": "libgencomics",
@@ -2230,6 +2246,7 @@
         "hyprland": "hyprland",
         "hyprland-plugins": "hyprland-plugins",
         "hyprpaper": "hyprpaper",
+        "jellyfin-auto-collections-src": "jellyfin-auto-collections-src",
         "kapowarr-react": "kapowarr-react",
         "komf-src": "komf-src",
         "kompass": "kompass",

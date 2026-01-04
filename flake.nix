@@ -186,6 +186,12 @@
       repo = "hyprpaper";
       type = "github";
     };
+    jellyfin-auto-collections-src = {
+      flake = false;
+      owner = "matt1432";
+      repo = "Jellyfin-Auto-Collections";
+      type = "github";
+    };
     kapowarr-react = {
       inputs = {
         nixpkgs.follows = "nixpkgs";

@@ -1,6 +1,6 @@
 {
   stdenv,
-  fetchFromGitHub,
+  jellyfin-auto-collections-src,
   makeWrapper,
   python3Packages,
   ...
@@ -46,12 +46,7 @@ in
   stdenv.mkDerivation {
     inherit pname version;
 
-    src = fetchFromGitHub {
-      owner = "ghomasHudson";
-      repo = "Jellyfin-Auto-Collections";
-      rev = "5976716bc5fb69d9d81e1f6050f60901ebd6c930";
-      hash = "sha256-4dfpOgZ6mCbyzFKeP53ZQpfjK1dOp45rsclQzoQjzeQ=";
-    };
+    src = jellyfin-auto-collections-src;
 
     nativeBuildInputs = [
       makeWrapper

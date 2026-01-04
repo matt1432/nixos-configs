@@ -1,4 +1,4 @@
-{...}: {
+{pkgs, ...}: {
   imports = [./jellyfin-auto-collections.nix];
 
   services.jellyfin-auto-collections = {
@@ -17,13 +17,23 @@
 
       plugins = {
         letterboxd = {
-          enabled = false;
+          enabled = true;
           clear_collection = true;
           imdb_id_filter = true;
           list_ids = [
             {
-              list_name = "MCU Test";
+              list_name = "MCU Collection";
               list_id = "arinbicer/list/mcu";
+              images = {
+                primary = pkgs.fetchurl {
+                  url = "https://git.nelim.org/matt1432/pub-images/raw/commit/0bb39c73837a03519f5bb2d68e5c3ff69adac266/jellyfin-collections/mcu/Primary.png";
+                  hash = "sha256-aGTy+F/DoyKUmkR+s5F0apwQnTMc/ZPU7z+khlllwK4=";
+                };
+                backdrop = pkgs.fetchurl {
+                  url = "https://git.nelim.org/matt1432/pub-images/raw/commit/0bb39c73837a03519f5bb2d68e5c3ff69adac266/jellyfin-collections/mcu/Backdrop.jpg";
+                  hash = "sha256-T2F16N5h4qKjztGw6fOKRnpW9cfPvANv32sEiCJKzc8=";
+                };
+              };
             }
           ];
         };

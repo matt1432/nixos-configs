@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  jellyfin-auto-collections-src,
   ...
 }: let
   inherit
@@ -30,8 +31,8 @@ in {
 
     package = mkOption {
       type = types.package;
-      default = pkgs.callPackage ./package.nix {};
-      defaultText = literalExpression "pkgs.callPackage ./package.nix {}";
+      default = pkgs.callPackage ./package.nix {inherit jellyfin-auto-collections-src;};
+      defaultText = literalExpression "pkgs.callPackage ./package.nix {inherit jellyfin-auto-collections-src;}";
     };
 
     settings = lib.mkOption {
