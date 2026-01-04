@@ -253,6 +253,12 @@ let
   };
 
   srcs = [
+    {
+      name = "my-images-src";
+      type = "git";
+      url = "https://git.nelim.org/matt1432/pub-images.git";
+    }
+
     # Home-assistant
     ## Components
     {

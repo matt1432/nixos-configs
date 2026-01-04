@@ -982,11 +982,11 @@
     "jellyfin-auto-collections-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1767481006,
-        "narHash": "sha256-NIWWEO+8Gp4TjNI7JU14oxypDR61eSdbrnoTUSeVFFI=",
+        "lastModified": 1767498869,
+        "narHash": "sha256-vtjDOOUmYMAf/wAP/fT7gudTy9r9c5fnOZH5fFLs9HY=",
         "owner": "matt1432",
         "repo": "Jellyfin-Auto-Collections",
-        "rev": "2035a273024357bac8f56dd76f6b1ce5ba1cc3a3",
+        "rev": "8ba8d5f7c4276be88acbb9b895bd39c6a4256c2b",
         "type": "github"
       },
       "original": {
@@ -1339,6 +1339,22 @@
         "owner": "christoph-heinrich",
         "repo": "mpv-touch-gestures",
         "type": "github"
+      }
+    },
+    "my-images-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1767506991,
+        "narHash": "sha256-1dxBLm/8r7QK0z/rK/A6t3F9WWb5ZJkpzrrIV5gXGTE=",
+        "ref": "refs/heads/main",
+        "rev": "ba6f30175994c258b925ac34953843803f467c7f",
+        "revCount": 11,
+        "type": "git",
+        "url": "https://git.nelim.org/matt1432/pub-images.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://git.nelim.org/matt1432/pub-images.git"
       }
     },
     "netdaemon-src": {
@@ -2258,6 +2274,7 @@
         "mpv-persist-properties-src": "mpv-persist-properties-src",
         "mpv-pointer-event-src": "mpv-pointer-event-src",
         "mpv-touch-gestures-src": "mpv-touch-gestures-src",
+        "my-images-src": "my-images-src",
         "netdaemon-src": "netdaemon-src",
         "nh": "nh",
         "nix-eval-jobs": "nix-eval-jobs",

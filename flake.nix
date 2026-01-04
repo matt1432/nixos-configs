@@ -274,6 +274,11 @@
       repo = "mpv-touch-gestures";
       type = "github";
     };
+    my-images-src = {
+      flake = false;
+      type = "git";
+      url = "https://git.nelim.org/matt1432/pub-images.git";
+    };
     netdaemon-src = {
       flake = false;
       owner = "net-daemon";
