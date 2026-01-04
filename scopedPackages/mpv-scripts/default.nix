@@ -1,11 +1,7 @@
 {pkgs, ...} @ inputs:
 pkgs.lib.makeScope pkgs.newScope (mpv: let
-  buildLua =
-    mpv.callPackage
-    "${pkgs.path}/pkgs/applications/video/mpv/scripts/buildLua.nix" {};
-
   buildLuaScript = file:
-    mpv.callPackage file (inputs // {inherit buildLua;});
+    mpv.callPackage file (inputs // {inherit (pkgs.mpvScripts) buildLua;});
 in {
   modernz = buildLuaScript ./modernz;
   pointer-event = buildLuaScript ./pointer-event;
