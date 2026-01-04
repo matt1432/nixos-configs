@@ -581,16 +581,19 @@
       },
       "locked": {
         "lastModified": 1767241021,
-        "narHash": "sha256-Hwc/ANr3WKPdLCmRFzUK28oIr+w2V4Y88PltE3OfHbk=",
-        "owner": "horriblename",
-        "repo": "hyprgrass",
+        "narHash": "sha256-3FyvffYaAcEDDru9Q0/BWWCYL5HMgg2YPjQHktJab9I=",
+        "ref": "refs/heads/main",
         "rev": "dcdd6b1933e7399e3de373e1e7954b7400b4b9b9",
-        "type": "github"
+        "shallow": true,
+        "submodules": true,
+        "type": "git",
+        "url": "https://github.com/horriblename/hyprgrass"
       },
       "original": {
-        "owner": "horriblename",
-        "repo": "hyprgrass",
-        "type": "github"
+        "shallow": true,
+        "submodules": true,
+        "type": "git",
+        "url": "https://github.com/horriblename/hyprgrass"
       }
     },
     "hyprland": {
@@ -1982,22 +1985,6 @@
         "url": "https://github.com/NixOS/nixpkgs"
       }
     },
-    "nixpkgs_7": {
-      "locked": {
-        "lastModified": 1767242400,
-        "narHash": "sha256-knFaYjeg7swqG1dljj1hOxfg39zrIy8pfGuicjm9s+o=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "c04833a1e584401bb63c1a63ddc51a71e6aa457a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nmd": {
       "inputs": {
         "nixpkgs": [
@@ -2198,7 +2185,9 @@
         "gitignore": [
           "gitignore"
         ],
-        "nixpkgs": "nixpkgs_7"
+        "nixpkgs": [
+          "nixpkgs"
+        ]
       },
       "locked": {
         "lastModified": 1765911976,

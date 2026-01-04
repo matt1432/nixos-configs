@@ -115,6 +115,7 @@ let
       inputs = {
         flake-compat.follows = "flake-compat";
         gitignore.follows = "gitignore";
+        nixpkgs.follows = "nixpkgs";
       };
     };
 
@@ -194,8 +195,10 @@ let
       };
 
       hyprgrass = mkHyprDep {
-        owner = "horriblename";
-        repo = "hyprgrass";
+        type = "git";
+        url = "https://github.com/horriblename/hyprgrass";
+        shallow = true;
+        submodules = true;
       };
 
       hyprpaper = mkHyprDep {

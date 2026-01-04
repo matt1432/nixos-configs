@@ -147,9 +147,10 @@
         hyprland.follows = "hyprland";
         nixpkgs.follows = "nixpkgs";
       };
-      owner = "horriblename";
-      repo = "hyprgrass";
-      type = "github";
+      shallow = true;
+      submodules = true;
+      type = "git";
+      url = "https://github.com/horriblename/hyprgrass";
     };
     hyprland = {
       inputs = {
@@ -440,6 +441,7 @@
       inputs = {
         flake-compat.follows = "flake-compat";
         gitignore.follows = "gitignore";
+        nixpkgs.follows = "nixpkgs";
       };
       owner = "cachix";
       repo = "git-hooks.nix";
