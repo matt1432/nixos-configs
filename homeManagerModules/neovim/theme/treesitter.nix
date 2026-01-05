@@ -34,9 +34,23 @@ in {
         config =
           # lua
           ''
-            require('nvim-treesitter.configs').setup({
+            require('nvim-treesitter').setup({
                 highlight = { enable = true },
                 indent = { enable = true },
+            });
+            vim.api.nvim_create_autocmd('FileType', {
+                callback = function()
+                    local filetype = vim.filetype.match({
+                        buf = vim.api.nvim_get_current_buf(),
+                    });
+
+                    for _, language in ipairs(require('nvim-treesitter').get_available()) do
+                        if filetype == language then
+                            vim.treesitter.start();
+                            return;
+                        end;
+                    end;
+                end,
             });
           '';
       }
