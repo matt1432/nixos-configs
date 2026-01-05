@@ -169,6 +169,13 @@ let
       repo = "nixos-jellyfin";
     };
 
+    jellarr = mkInput {
+      owner = "venkyr77";
+      repo = "jellarr";
+      # FIXME: move to main once it reaches 0.1.0
+      ref = "v0.1.0";
+    };
+
     bazarr-bulk = mkInput {
       owner = "mateoradman";
       repo = "bazarr-bulk";

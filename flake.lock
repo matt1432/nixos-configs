@@ -982,6 +982,36 @@
         "type": "github"
       }
     },
+    "jellarr": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": [
+          "systems"
+        ],
+        "treefmt-nix": [
+          "treefmt-nix"
+        ]
+      },
+      "locked": {
+        "lastModified": 1766552185,
+        "narHash": "sha256-LY4vN5/Q7YJnzvXv8p76lw5+cwuSkEujSht0FG8zjU4=",
+        "owner": "venkyr77",
+        "repo": "jellarr",
+        "rev": "8d81e1203cd122565791fdf20173d99f1236dc5d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "venkyr77",
+        "ref": "v0.1.0",
+        "repo": "jellarr",
+        "type": "github"
+      }
+    },
     "jellyfin-auto-collections-src": {
       "flake": false,
       "locked": {
@@ -2251,6 +2281,7 @@
         "hyprland": "hyprland",
         "hyprland-plugins": "hyprland-plugins",
         "hyprpaper": "hyprpaper",
+        "jellarr": "jellarr",
         "jellyfin-auto-collections-src": "jellyfin-auto-collections-src",
         "kapowarr-react": "kapowarr-react",
         "komf-src": "komf-src",
@@ -2332,11 +2363,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1767328927,
-        "narHash": "sha256-DNG2DbiFIq5y3hp8qWN8CkNpfIDDAzvpaA+HYDXgMUI=",
+        "lastModified": 1767653954,
+        "narHash": "sha256-ZJ51z5gzKg0zvNTxQPDj6m0QQjHuE0xWcrKASYbIYyc=",
         "ref": "refs/heads/main",
-        "rev": "941183f5cfb2e592b280ea9b54528bb0d27cd379",
-        "revCount": 110,
+        "rev": "b2ac9bfdffc9b00dc37838245b3f1e45c4d540ef",
+        "revCount": 112,
         "type": "git",
         "url": "ssh://git@git.nelim.org/matt1432/nixos-secrets"
       },

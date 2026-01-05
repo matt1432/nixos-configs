@@ -187,6 +187,18 @@
       repo = "hyprpaper";
       type = "github";
     };
+    jellarr = {
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+      owner = "venkyr77";
+      ref = "v0.1.0";
+      repo = "jellarr";
+      type = "github";
+    };
     jellyfin-auto-collections-src = {
       flake = false;
       owner = "matt1432";
