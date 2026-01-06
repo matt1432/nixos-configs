@@ -56,7 +56,7 @@ in
       runHook preInstall
 
       mkdir -p $out/bin $out/share $out/share/Jellyfin-Auto-Collections
-      cp -R . $out/share/Jellyfin-Auto-Collections
+      cp -R ./{plugins,utils,*.py} $out/share/Jellyfin-Auto-Collections
 
       makeWrapper ${interpreter} $out/bin/${pname} \
         --add-flags "-u $out/share/Jellyfin-Auto-Collections/main.py" \

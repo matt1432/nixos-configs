@@ -16,6 +16,69 @@
       };
 
       plugins = {
+        local = {
+          enabled = true;
+          clear_collection = true;
+          list_ids = [
+            {
+              list_name = "Legacy Marvel Collection";
+              list_id = "legacy-marvel";
+              images = {
+                primary = "${my-images-src}/jellyfin-collections/legacy-marvel/Primary.png";
+                backdrop = "${my-images-src}/jellyfin-collections/legacy-marvel/Backdrop.jpg";
+              };
+
+              items = [
+                # Movies
+                {
+                  title = "Howard the Duck";
+                  imdb_id = "tt0091225";
+                  media_type = "movie";
+                  release_year = 1986;
+                }
+                {
+                  title = "Daredevil";
+                  imdb_id = "tt0287978";
+                  media_type = "movie";
+                  release_year = 2003;
+                }
+                {
+                  title = "The Punisher";
+                  imdb_id = "tt0330793";
+                  media_type = "movie";
+                  release_year = 2004;
+                }
+                {
+                  title = "Elektra";
+                  imdb_id = "tt0357277";
+                  media_type = "movie";
+                  release_year = 2005;
+                }
+                {
+                  title = "Fantastic Four";
+                  imdb_id = "tt1502712";
+                  media_type = "movie";
+                  release_year = 2015;
+                }
+
+                # Collections
+                {
+                  title = "Blade Collection";
+                  tmdb_id = "735";
+                }
+                {
+                  title = "Fantastic Four Collection";
+                  tmdb_id = "9744";
+                }
+                {
+                  title = "Ghost Rider Collection";
+                  tmdb_id = "90306";
+                }
+              ];
+            }
+          ];
+        };
+
         letterboxd = {
           enabled = true;
           clear_collection = true;
