@@ -1,5 +1,15 @@
-{config, jellarr, ...}: let
-  inherit (config.sops.secrets) /*jellarr-api-key*/ jellarr-env;
+{
+  config,
+  jellarr,
+  ...
+}: let
+  inherit
+    (config.sops.secrets)
+    /*
+    jellarr-api-key
+    */
+    jellarr-env
+    ;
 in {
   imports = [jellarr.nixosModules.default];
 
