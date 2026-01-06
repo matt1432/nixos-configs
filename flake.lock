@@ -1015,11 +1015,11 @@
     "jellyfin-auto-collections-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1767498869,
-        "narHash": "sha256-vtjDOOUmYMAf/wAP/fT7gudTy9r9c5fnOZH5fFLs9HY=",
+        "lastModified": 1767678599,
+        "narHash": "sha256-jFIQHcd1tttNOaHByR7maFyPXuzZSs5M352Xj2RHkgE=",
         "owner": "matt1432",
         "repo": "Jellyfin-Auto-Collections",
-        "rev": "8ba8d5f7c4276be88acbb9b895bd39c6a4256c2b",
+        "rev": "f81374a3ec2e2542f92a21660a43b0a6c40f9843",
         "type": "github"
       },
       "original": {
@@ -1377,11 +1377,11 @@
     "my-images-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1767510000,
-        "narHash": "sha256-QsBVLUp4woyQiyRGtCeYkdIkNYc0f+u2BvxqlrJh5ps=",
+        "lastModified": 1767678987,
+        "narHash": "sha256-7njsM2jk7zJ8WZ72MC3J8TGxMTbjrKD9hZY1wCciJcE=",
         "ref": "refs/heads/main",
-        "rev": "c4e561f21c0738c42225c8ee03f778e444aa8956",
-        "revCount": 12,
+        "rev": "431394050a6815417ff703b34a3d7a4444531d7a",
+        "revCount": 13,
         "type": "git",
         "url": "https://git.nelim.org/matt1432/pub-images.git"
       },

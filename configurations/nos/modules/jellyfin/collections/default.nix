@@ -76,6 +76,96 @@
                 }
               ];
             }
+
+            {
+              list_name = "Netflix's Marvel Defenders";
+              list_id = "marvel-defenders";
+              images = {
+                primary = "${my-images-src}/jellyfin-collections/marvel-defenders/Primary.jpg";
+                backdrop = "${my-images-src}/jellyfin-collections/marvel-defenders/Backdrop.jpg";
+              };
+
+              items = [
+                {
+                  title = "Season 1";
+                  series = "Marvel's Daredevil";
+                  media_type = "tvSeries";
+                  tvdb_id = "586321";
+                }
+                {
+                  title = "Season 1";
+                  series = "Marvel's Jessica Jones";
+                  media_type = "tvSeries";
+                  tvdb_id = "635536";
+                }
+                {
+                  title = "Season 2";
+                  series = "Marvel's Daredevil";
+                  media_type = "tvSeries";
+                  tvdb_id = "651300";
+                }
+                {
+                  title = "Season 1";
+                  series = "Marvel's Luke Cage";
+                  media_type = "tvSeries";
+                  tvdb_id = "659707";
+                }
+                {
+                  title = "Season 1";
+                  series = "Marvel's Iron Fist";
+                  media_type = "tvSeries";
+                  tvdb_id = "683460";
+                }
+                {
+                  title = "Season 1";
+                  series = "Marvel's The Defenders";
+                  media_type = "tvSeries";
+                  tvdb_id = "706739";
+                }
+                {
+                  title = "Season 1";
+                  series = "Marvel's The Punisher";
+                  media_type = "tvSeries";
+                  tvdb_id = "727172";
+                }
+                {
+                  title = "Season 2";
+                  series = "Marvel's Jessica Jones";
+                  media_type = "tvSeries";
+                  tvdb_id = "741219";
+                }
+                {
+                  title = "Season 2";
+                  series = "Marvel's Luke Cage";
+                  media_type = "tvSeries";
+                  tvdb_id = "755153";
+                }
+                {
+                  title = "Season 2";
+                  series = "Marvel's Iron Fist";
+                  media_type = "tvSeries";
+                  tvdb_id = "772348";
+                }
+                {
+                  title = "Season 3";
+                  series = "Marvel's Daredevil";
+                  media_type = "tvSeries";
+                  tvdb_id = "778668";
+                }
+                {
+                  title = "Season 2";
+                  series = "Marvel's The Punisher";
+                  media_type = "tvSeries";
+                  tvdb_id = "791784";
+                }
+                {
+                  title = "Season 3";
+                  series = "Marvel's Jessica Jones";
+                  media_type = "tvSeries";
+                  tvdb_id = "812668";
+                }
+              ];
+            }
           ];
         };
 
