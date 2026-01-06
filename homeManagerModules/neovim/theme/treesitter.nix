@@ -4,11 +4,24 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib) getExe mkIf;
 
   cfg = config.programs.neovim;
 in {
   config = mkIf cfg.enable {
+    home.activation = {
+      installParsers = lib.hm.dag.entryAfter ["writeBoundary"] ''
+        run ${getExe (pkgs.writeShellApplication {
+          name = "installParsersWrapper";
+          runtimeInputs = [cfg.finalPackage];
+          text = ''
+            # Doesn't exit with 0 for some reason
+            ${pkgs.vimPlugins.nvim-treesitter.src}/scripts/install-parsers.lua || true
+          '';
+        })}
+      '';
+    };
+
     programs.neovim.plugins = [
       {
         plugin = pkgs.vimPlugins.nvim-treesitter-context;
