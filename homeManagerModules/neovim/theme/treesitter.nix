@@ -34,10 +34,6 @@ in {
         config =
           # lua
           ''
-            require('nvim-treesitter').setup({
-                highlight = { enable = true },
-                indent = { enable = true },
-            });
             vim.api.nvim_create_autocmd('FileType', {
                 callback = function()
                     local filetype = vim.filetype.match({
@@ -47,6 +43,7 @@ in {
                     for _, language in ipairs(require('nvim-treesitter').get_available()) do
                         if filetype == language then
                             vim.treesitter.start();
+                            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
                             return;
                         end;
                     end;
