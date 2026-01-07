@@ -204,10 +204,10 @@
   };
   "stylus" = buildFirefoxXpiAddon {
     pname = "stylus";
-    version = "2.3.17";
+    version = "2.3.18";
     addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4611621/styl_us-2.3.17.xpi";
-    sha256 = "ad952d5fc19bd36d0fd2aecc7d4b4ebf7add538faecab79ad96e1db631857667";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4659939/styl_us-2.3.18.xpi";
+    sha256 = "dcf1d6504652ee34e40991df030817825ea980d96d5859676103317b5695fdbb";
     meta = with lib; {
       homepage = "https://add0n.com/stylus.html";
       description = "Redesign your favorite websites with Stylus, an actively developed and community driven userstyles manager. Easily install custom themes from popular online repositories, or create, edit, and manage your own personalized CSS stylesheets.";

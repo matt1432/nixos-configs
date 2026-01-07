@@ -1,6 +1,7 @@
 {
   mainUser,
   self,
+  pkgs,
   ...
 }: {
   # ------------------------------------------------
@@ -41,7 +42,7 @@
     ];
   };
 
-  programs.adb.enable = true;
+  environment.systemPackages = [pkgs.android-tools];
 
   networking = {
     hostName = "binto";
