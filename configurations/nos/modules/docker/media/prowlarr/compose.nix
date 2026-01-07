@@ -25,7 +25,20 @@ in {
 
         ports = ["9696:9696"];
         networks = ["proxy_net"];
-        depends_on = ["flaresolverr"];
+        depends_on = ["flaresolverr" "ygege"];
+      };
+
+      "ygege" = {
+        image = pkgs.callPackage ./images/ygege.nix pkgs;
+        restart = "always";
+
+        volumes = [
+          "${rwPath}/ygege/sessions:/app/sessions"
+          "${rwPath}/ygege/config.json:/app/config.json"
+        ];
+
+        ports = ["8715:8715"];
+        networks = ["proxy_net"];
       };
 
       "flaresolverr" = {
