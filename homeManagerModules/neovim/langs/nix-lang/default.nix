@@ -93,10 +93,6 @@ in {
                                 expr = '${getFlake}.${homeOptionsAttr}',
                             },
                         },
-                        -- https://github.com/nix-community/nixd/issues/727
-                        diagnostic = {
-                            suppress = { 'sema-primop-overridden' },
-                        },
                     },
                 },
             });
