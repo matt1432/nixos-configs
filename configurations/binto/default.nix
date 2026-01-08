@@ -84,25 +84,31 @@
 
   services.kmscon.enable = true;
 
+  home-manager.sharedModules = [
+    self.homeManagerModules.neovim
+    self.homeManagerModules.shell
+
+    {
+      programs = {
+        bash = {
+          enable = true;
+          promptMainColor = "purple";
+        };
+        neovim = {
+          enable = true;
+          user = mainUser;
+        };
+      };
+    }
+  ];
+
   home-manager.users.${mainUser} = {
     imports = [
       self.homeManagerModules.firefox
-      self.homeManagerModules.neovim
-      self.homeManagerModules.shell
     ];
 
     programs = {
-      bash = {
-        enable = true;
-        promptMainColor = "purple";
-      };
-
       firefox.enableCustomConf = true;
-
-      neovim = {
-        enable = true;
-        user = mainUser;
-      };
     };
   };
 }

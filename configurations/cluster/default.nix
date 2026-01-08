@@ -83,29 +83,29 @@ in {
 
     services.kmscon.enable = true;
 
-    home-manager.users.${mainUser} = {
-      imports = [
-        self.homeManagerModules.neovim
-        self.homeManagerModules.shell
-      ];
+    home-manager.sharedModules = [
+      self.homeManagerModules.neovim
+      self.homeManagerModules.shell
 
-      programs = {
-        bash = {
-          enable = true;
-          promptMainColor =
-            if deviceName == "thingone"
-            then "green"
-            else if deviceName == "thingtwo"
-            then "red"
-            else "purple";
-        };
+      {
+        programs = {
+          bash = {
+            enable = true;
+            promptMainColor =
+              if deviceName == "thingone"
+              then "green"
+              else if deviceName == "thingtwo"
+              then "red"
+              else "purple";
+          };
 
-        neovim = {
-          enable = true;
-          user = mainUser;
+          neovim = {
+            enable = true;
+            user = mainUser;
+          };
         };
-      };
-    };
+      }
+    ];
   };
 
   # For accurate stack trace

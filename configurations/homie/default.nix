@@ -94,22 +94,22 @@
 
   services.kmscon.enable = true;
 
-  home-manager.users.${mainUser} = {
-    imports = [
-      self.homeManagerModules.neovim
-      self.homeManagerModules.shell
-    ];
+  home-manager.sharedModules = [
+    self.homeManagerModules.neovim
+    self.homeManagerModules.shell
 
-    programs = {
-      bash = {
-        enable = true;
-        promptMainColor = "yellow";
-      };
+    {
+      programs = {
+        bash = {
+          enable = true;
+          promptMainColor = "yellow";
+        };
 
-      neovim = {
-        enable = true;
-        user = mainUser;
+        neovim = {
+          enable = true;
+          user = mainUser;
+        };
       };
-    };
-  };
+    }
+  ];
 }
