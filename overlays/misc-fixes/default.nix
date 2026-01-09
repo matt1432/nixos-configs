@@ -7,13 +7,4 @@ final: prev: {
         };
       }).pkgs;
   };
-
-  # FIXME: https://pr-tracker.nelim.org/?pr=477651
-  vimPlugins =
-    prev.vimPlugins
-    // {
-      nvim-treesitter-textobjects = prev.vimPlugins.nvim-treesitter-textobjects.overrideAttrs (o: {
-        dependencies = [final.vimPlugins.nvim-treesitter];
-      });
-    };
 }
