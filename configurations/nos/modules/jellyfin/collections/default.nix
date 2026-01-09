@@ -80,6 +80,8 @@
             {
               list_name = "Netflix's Marvel Defenders";
               list_id = "marvel-defenders";
+              list_type = "playlist";
+
               images = {
                 primary = "${my-images-src}/jellyfin-collections/marvel-defenders/Primary.jpg";
                 backdrop = "${my-images-src}/jellyfin-collections/marvel-defenders/Backdrop.jpg";
@@ -181,6 +183,48 @@
                 primary = "${my-images-src}/jellyfin-collections/mcu/Primary.png";
                 backdrop = "${my-images-src}/jellyfin-collections/mcu/Backdrop.jpg";
               };
+              items = [
+                {
+                  title = "Marvel One-Shot: The Consultant";
+                  imdb_id = "tt2011118";
+                  release_year = 2011;
+                }
+                {
+                  title = "Marvel One-Shot: A Funny Thing Happened on the Way to Thor's Hammer";
+                  imdb_id = "tt2011109";
+                  release_year = 2011;
+                }
+                {
+                  title = "Marvel One-Shot: Item 47";
+                  imdb_id = "tt2247732";
+                  release_year = 2012;
+                }
+                {
+                  title = "Marvel One-Shot: Agent Carter";
+                  imdb_id = "tt3067038";
+                  release_year = 2013;
+                }
+                {
+                  title = "Marvel One-Shot: All Hail the King";
+                  imdb_id = "tt3438640";
+                  release_year = 2014;
+                }
+                {
+                  title = "Team Thor";
+                  imdb_id = "tt6016776";
+                  release_year = 2016;
+                }
+                {
+                  title = "Team Thor: Part 2";
+                  imdb_id = "tt6599818";
+                  release_year = 2017;
+                }
+                {
+                  title = "Team Darryl";
+                  imdb_id = "tt8023090";
+                  release_year = 2018;
+                }
+              ];
             }
 
             {

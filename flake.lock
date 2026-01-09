@@ -1015,11 +1015,11 @@
     "jellyfin-auto-collections-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1767678599,
-        "narHash": "sha256-jFIQHcd1tttNOaHByR7maFyPXuzZSs5M352Xj2RHkgE=",
+        "lastModified": 1767937464,
+        "narHash": "sha256-eNtBrglI4OdZ7jZgtotfnWdkvdaBuHzyr1ycc12ZjcQ=",
         "owner": "matt1432",
         "repo": "Jellyfin-Auto-Collections",
-        "rev": "f81374a3ec2e2542f92a21660a43b0a6c40f9843",
+        "rev": "fccad677dafac48b0da073bcba9459deaf04646f",
         "type": "github"
       },
       "original": {
