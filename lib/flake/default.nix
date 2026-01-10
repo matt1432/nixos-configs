@@ -29,9 +29,6 @@ in rec {
     import nixpkgs' {
       inherit system;
       overlays = nixpkgs.lib.unique ([
-          # Needs to be before nix-version overlay
-          inputs.nix-serve-ng.overlays.default
-
           (inputs.self.overlays.nix-version {inherit nix;})
 
           # Expose this flake's packages to `pkgs`

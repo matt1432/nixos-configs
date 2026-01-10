@@ -304,27 +304,6 @@
       repo = "nh";
       type = "github";
     };
-    nix-eval-jobs = {
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        nixpkgs.follows = "nixpkgs";
-        treefmt-nix.follows = "treefmt-nix";
-      };
-      owner = "nix-community";
-      ref = "v2.30.0";
-      repo = "nix-eval-jobs";
-      type = "github";
-    };
-    nix-fast-build = {
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        nixpkgs.follows = "nixpkgs";
-        treefmt-nix.follows = "treefmt-nix";
-      };
-      owner = "Mic92";
-      repo = "nix-fast-build";
-      type = "github";
-    };
     nix-gaming = {
       inputs = {
         flake-parts.follows = "flake-parts";
@@ -364,16 +343,6 @@
       };
       owner = "maralorn";
       repo = "nix-output-monitor";
-      type = "github";
-    };
-    nix-serve-ng = {
-      inputs = {
-        flake-compat.follows = "flake-compat";
-        nixpkgs.follows = "nixpkgs";
-        utils.follows = "flake-utils";
-      };
-      owner = "aristanetworks";
-      repo = "nix-serve-ng";
       type = "github";
     };
     nixcord = {

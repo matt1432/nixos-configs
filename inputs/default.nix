@@ -42,22 +42,6 @@ let
   };
 
   nixTools = {
-    nix-serve-ng = mkInput {
-      owner = "aristanetworks";
-      repo = "nix-serve-ng";
-    };
-
-    nix-fast-build = mkInput {
-      owner = "Mic92";
-      repo = "nix-fast-build";
-    };
-
-    nix-eval-jobs = mkInput {
-      owner = "nix-community";
-      repo = "nix-eval-jobs";
-      ref = "v2.30.0";
-    };
-
     nix-index-db = mkInput {
       owner = "Mic92";
       repo = "nix-index-database";

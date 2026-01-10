@@ -4,25 +4,17 @@ self: {
   pkgs,
   ...
 }: let
-  inherit (self.inputs) nixd nixpkgs;
-  inherit (self.lib) hasVersion throws;
+  inherit (self.inputs) nixpkgs;
 
-  inherit (lib) attrValues filter findFirst hasAttr isDerivation mkIf optionalString;
+  inherit (lib) hasAttr mkIf optionalString;
 
   inherit (config.sops.secrets) access-token;
 
   cfg = config.roles.base;
-
-  nixdInput =
-    findFirst
-    (x: x.pname == "nix-main") {}
-    nixd.packages.x86_64-linux.nixd.buildInputs;
-
-  nixVersions = filter (x: ! throws x && isDerivation x && hasVersion x) (attrValues pkgs.nixVersions);
 in {
   config = mkIf cfg.enable {
     nix = {
-      package = findFirst (x: x.version == nixdInput.version) {} nixVersions;
+      package = pkgs.lixPackageSets.stable.lix;
 
       # Minimize dowloads of indirect nixpkgs flakes
       registry.nixpkgs.flake = nixpkgs;

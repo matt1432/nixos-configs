@@ -80,13 +80,6 @@ in {
     };
 
     environment.systemPackages = attrValues {
-      switch = pkgs.writeShellApplication {
-        name = "switch";
-        text = ''
-          exec nh os switch --hostname ${config.networking.hostName}
-        '';
-      };
-
       # Peripherals
       inherit
         (pkgs)

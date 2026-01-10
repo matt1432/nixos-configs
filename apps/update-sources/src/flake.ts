@@ -9,7 +9,7 @@ export default (): string | null => {
 
     const output: string = spawnSync(
         `git restore flake.lock &> /dev/null; nix flake update --flake ${FLAKE}` +
-            ' |& grep -v "warning: updating lock file" |& grep -v "unpacking"',
+            ' |& grep -v "warning: updating lock file" |& grep -v "unpacking" |& grep -v "fetching"',
         [],
         { shell: true },
     ).stdout.toString();
