@@ -31,7 +31,7 @@ in {
       package = pkgs.ripgrep-all;
 
       arguments = [
-        "--max-columns=150"
+        "--max-columns=250"
         "--max-columns-preview"
         "--hidden"
         "--glob=!.git/*"
