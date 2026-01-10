@@ -57,11 +57,6 @@ let
       repo = "nix-output-monitor";
     };
 
-    nurl = mkInput {
-      owner = "nix-community";
-      repo = "nurl";
-    };
-
     # These are here to make sure all 'systems' and popular inputs are the same
     flake-compat = mkInput {
       owner = "edolstra";

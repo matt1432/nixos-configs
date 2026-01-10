@@ -5,7 +5,7 @@ self: {
   purePkgs ? pkgs,
   ...
 }: let
-  inherit (lib) attrValues makeBinPath mkIf remove;
+  inherit (lib) attrValues mkIf remove;
 
   cfg = config.roles.base;
 in {
@@ -16,7 +16,6 @@ in {
         "nixos-jellyfin"
         "nh"
         "nixd"
-        "nurl"
       ])
       ++ [
         (final: prev: {
@@ -35,21 +34,9 @@ in {
         repl
         ;
 
-      nurl =
-        if (cfg.user != "nixos" && cfg.user != "nix-on-droid")
-        then
-          pkgs.nurl.overrideAttrs {
-            postInstall = ''
-              wrapProgram $out/bin/nurl --prefix PATH : ${makeBinPath [
-                (config.home-manager.users.${cfg.user}.programs.git.package or pkgs.gitMinimal)
-                (config.nix.package or pkgs.nix)
-                pkgs.mercurial
-              ]}
-              installManPage artifacts/nurl.1
-              installShellCompletion artifacts/nurl.{bash,fish} --zsh artifacts/_nurl
-            '';
-          }
-        else null;
+      nurl = pkgs.nurl.override {
+        gitMinimal = config.home-manager.users.${cfg.user}.programs.git.package or pkgs.gitMinimal;
+      };
 
       inherit
         (pkgs.nodePackages)

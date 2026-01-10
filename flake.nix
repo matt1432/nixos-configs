@@ -380,12 +380,6 @@
       type = "git";
       url = "https://github.com/NixOS/nixpkgs";
     };
-    nurl = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      owner = "nix-community";
-      repo = "nurl";
-      type = "github";
-    };
     nvim-theme-src = {
       flake = false;
       owner = "Mofiqul";
