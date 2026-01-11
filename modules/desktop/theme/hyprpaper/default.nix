@@ -20,7 +20,7 @@ in {
         splash = false
 
         wallpaper {
-            monitor  =
+            monitor  = *
             path     = ${wallpaper}
             fit_mode = cover
         }
