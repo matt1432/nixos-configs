@@ -6,7 +6,7 @@ let
   mainInputs = {
     systems = mkInput {
       owner = "nix-systems";
-      repo = "default-linux";
+      repo = "default";
     };
 
     nixpkgs = mkInput {

@@ -9,7 +9,7 @@ self: {
   inherit (self.inputs) vimplugin-easytables-src;
   inherit (self.lib.${pkgs.stdenv.hostPlatform.system}) buildPlugin;
 
-  inherit (lib) concatStringsSep mkIf;
+  inherit (lib) concatStringsSep getExe mkIf optionalString;
 
   cfg = config.programs.neovim;
   isServer = osConfig.roles.server.sshd.enable or false;
@@ -76,7 +76,7 @@ in {
                 if isServer && !isDesktop
                 then
                   concatStringsSep " " [
-                    "${pkgs.selfPackages.alive-server}/bin/live-server"
+                    (getExe pkgs.selfPackages.alive-server)
                     "--host=0.0.0.0"
                     "--port=6565"
                     "--quiet"
@@ -127,12 +127,16 @@ in {
                     textopdfshorterror = 'A=/tmp/%outputfile% ; LOGFILE="''${A%.pdf}.log" ; rubber-info "$LOGFILE" 2>&1 | head -n 1',
                 };
 
-                vim.api.nvim_create_autocmd('BufUnload', {
-                    pattern = '*',
-                    callback = function()
-                        os.execute('${pkgs.psmisc}/bin/killall -qr live-server');
-                    end,
-                });
+                ${optionalString (isServer && !isDesktop)
+                  # lua
+                  ''
+                    vim.api.nvim_create_autocmd('BufUnload', {
+                        pattern = '*',
+                        callback = function()
+                            os.execute('${pkgs.psmisc}/bin/killall -qr live-server');
+                        end,
+                    });
+                  ''}
 
                 -- F4 processes the document once, and refreshes the view
                 vim.keymap.set({ 'n', 'v', 'i' }, '<F4>', function()

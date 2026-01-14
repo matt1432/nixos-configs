@@ -16,4 +16,6 @@ mkShell {
       kdePackages.qtdeclarative
     ]}"
   '';
+
+  meta.platforms = ["x86-64_linux"];
 }

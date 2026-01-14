@@ -13,7 +13,11 @@
             "${self}/homeManagerModules/neovim/langs/${l}/shell.nix"
             ({} // pkgs.selfPackages))
             .overrideAttrs (o: {
-            meta.description = "${l} shell to be loaded by my Neovim config dynamically.";
+            meta =
+              (o.meta or {})
+              // {
+                description = "${l} shell to be loaded by my Neovim config dynamically.";
+              };
           }))
       )
       langs);

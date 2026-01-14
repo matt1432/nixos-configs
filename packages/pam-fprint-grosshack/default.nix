@@ -86,6 +86,8 @@ in
     ];
 
     meta = {
+      inherit (libfprint.meta) platforms;
+
       license = with lib.licenses; [gpl2Plus];
       homepage = "https://gitlab.com/mishakmak/pam-fprint-grosshack";
       description = ''

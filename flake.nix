@@ -473,7 +473,7 @@
     };
     systems = {
       owner = "nix-systems";
-      repo = "default-linux";
+      repo = "default";
       type = "github";
     };
     treefmt-nix = {
