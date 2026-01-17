@@ -5,7 +5,8 @@ self: {
   pkgs,
   ...
 }: let
-  inherit (lib) attrValues getExe hasPrefix mkIf;
+  inherit (builtins) attrValues;
+  inherit (lib) getExe hasPrefix mkIf;
   inherit (osConfig.networking) hostName;
 
   cfg = config.programs.neovim;

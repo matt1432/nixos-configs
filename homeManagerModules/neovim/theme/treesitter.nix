@@ -17,6 +17,7 @@ in {
           text = ''
             # Doesn't exit with 0 for some reason
             ${pkgs.vimPlugins.nvim-treesitter.src}/scripts/install-parsers.lua || true
+            echo # Add new line
           '';
         })}
       '';
@@ -56,7 +57,7 @@ in {
                     for _, language in ipairs(require('nvim-treesitter').get_available()) do
                         if filetype == language then
                             vim.treesitter.start();
-                            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()";
                             return;
                         end;
                     end;

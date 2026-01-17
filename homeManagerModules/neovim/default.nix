@@ -32,6 +32,10 @@ in {
         type = types.bool;
         default = true;
       };
+      enableWeb = mkOption {
+        type = types.bool;
+        default = true;
+      };
     };
   };
 

@@ -7,7 +7,8 @@ self: {
   inherit (self.inputs) vimplugin-nix-develop-src;
   inherit (self.lib.${pkgs.stdenv.hostPlatform.system}) mkVersion;
 
-  inherit (lib) attrValues fileContents mkBefore mkIf;
+  inherit (builtins) attrValues;
+  inherit (lib) fileContents mkBefore mkIf;
 
   cfg = config.programs.neovim;
   flakeEnv = config.programs.bash.sessionVariables.FLAKE;

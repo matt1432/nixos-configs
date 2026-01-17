@@ -54,6 +54,7 @@
           ideConfig = {
             enableJava = false;
             enableNix = false;
+            enableWeb = false;
           };
         };
       }

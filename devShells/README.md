@@ -20,4 +20,3 @@ This directory contains every derivations for devShells exposed by this flake.
 | `python` | python shell to be loaded by my Neovim config dynamically. |
 | `qml` | qml shell to be loaded by my Neovim config dynamically. |
 | `subtitles-dev` | Shell that provides the dependencies for my subtitle management scripts. |
-| `web` | web shell to be loaded by my Neovim config dynamically. |

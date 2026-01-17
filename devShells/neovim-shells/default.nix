@@ -3,7 +3,8 @@
   self,
   ...
 }: let
-  inherit (pkgs.lib) listToAttrs nameValuePair;
+  inherit (builtins) listToAttrs;
+  inherit (pkgs.lib) nameValuePair;
   mkLangsShells = langs:
     listToAttrs (map (
         l:
@@ -33,5 +34,4 @@ in
     "ocaml"
     "python"
     "qml"
-    "web"
   ]
