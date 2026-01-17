@@ -8,13 +8,33 @@
     secrets,
     ...
   }: let
-    inherit (self.lib) mkNixOS mkNixOnDroid mkPkgs;
+    inherit (self.lib) mkNixOS mkNixDarwin mkNixOnDroid mkPkgs;
 
     perSystem = attrs:
       nixpkgs.lib.genAttrs (import systems) (system:
         attrs (mkPkgs {inherit system nixpkgs;}));
   in {
     lib = import ./lib {inherit inputs perSystem;};
+
+    darwinConfigurations."MGCOMP0192" = mkNixDarwin {
+      mainUser = "mhurtubise";
+      system = "x86_64-darwin";
+      extraModules = [
+        ./configurations/darwin
+
+        ({pkgs, ...}: {
+          nix = {
+            package = pkgs.lixPackageSets.stable.lix;
+            settings = {
+              experimental-features = "nix-command flakes";
+              substituters = ["https://cache.nelim.org?priority=200" "https://cache.nixos.org/"];
+              trusted-public-keys = ["cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" "cache.nelim.org:JmFqkUdH11EA9EZOFAGVHuRYp7EbsdJDHvTQzG2pPyY="];
+              warn-dirty = false;
+            };
+          };
+        })
+      ];
+    };
 
     nixOnDroidConfigurations.default =
       mkNixOnDroid [./configurations/android];

@@ -304,6 +304,12 @@
       repo = "nh";
       type = "github";
     };
+    nix-darwin = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      owner = "nix-darwin";
+      repo = "nix-darwin";
+      type = "github";
+    };
     nix-gaming = {
       inputs = {
         flake-parts.follows = "flake-parts";

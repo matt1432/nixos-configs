@@ -1275,6 +1275,26 @@
         "type": "github"
       }
     },
+    "nix-darwin": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1768561867,
+        "narHash": "sha256-prGOZ+w3pZfGTRxworKcJliCNsewF0L4HUPjgU/6eaw=",
+        "owner": "nix-darwin",
+        "repo": "nix-darwin",
+        "rev": "8b720b9662d4dd19048664b7e4216ce530591adc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-darwin",
+        "repo": "nix-darwin",
+        "type": "github"
+      }
+    },
     "nix-formatter-pack": {
       "inputs": {
         "nixpkgs": [
@@ -1742,6 +1762,7 @@
         "my-images-src": "my-images-src",
         "netdaemon-src": "netdaemon-src",
         "nh": "nh",
+        "nix-darwin": "nix-darwin",
         "nix-gaming": "nix-gaming",
         "nix-github-actions": "nix-github-actions",
         "nix-index-db": "nix-index-db",

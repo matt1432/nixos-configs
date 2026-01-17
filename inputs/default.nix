@@ -21,6 +21,11 @@ let
       repo = "home-manager";
     };
 
+    nix-darwin = mkInput {
+      owner = "nix-darwin";
+      repo = "nix-darwin";
+    };
+
     nix-on-droid = mkInput {
       owner = "nix-community";
       repo = "nix-on-droid";

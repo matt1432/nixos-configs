@@ -98,6 +98,24 @@ in rec {
         ++ extraModules;
     };
 
+  mkNixDarwin = {
+    extraModules ? [],
+    mainUser ? "matt",
+    system,
+  }:
+    inputs.nix-darwin.lib.darwinSystem rec {
+      inherit system;
+      specialArgs = inputs // {inherit mainUser;};
+      modules =
+        [
+          {nixpkgs.hostPlatform = system;}
+          (allowModularOverrides {inherit system;})
+          inputs.home-manager.darwinModules.home-manager
+          ({purePkgs, ...}: {home-manager.extraSpecialArgs = specialArgs // {inherit purePkgs;};})
+        ]
+        ++ extraModules;
+    };
+
   mkNixOnDroid = extraModules: let
     system = "aarch64-linux";
   in
