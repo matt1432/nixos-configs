@@ -1,9 +1,10 @@
 self: {
   config,
   lib,
+  pkgs,
   ...
 }: let
-  inherit (lib) fileContents mkIf mkOption types;
+  inherit (lib) fileContents mkIf mkOption optionalString types;
 
   cfg = config.programs.bash;
 in {
@@ -16,6 +17,11 @@ in {
   ];
 
   options.programs.bash = {
+    enableNvm = mkOption {
+      type = types.bool;
+      default = false;
+    };
+
     promptMainColor = mkOption {
       type = types.enum (import ./prompt-schemes.nix {});
       default = "purple";
@@ -95,11 +101,31 @@ in {
 
           ${fileContents ./config/colorgrid.sh}
           ${fileContents ./config/bashrc}
+
+          ${optionalString cfg.enableNvm
+          # bash
+          ''
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+            [[ -r $NVM_DIR/bash_completion ]] && \. $NVM_DIR/bash_completion
+          ''}
         '';
       #initExtra = ''
       #'';
       #logoutExtra = ''
       #'';
+    };
+
+    home.file = mkIf cfg.enableNvm {
+      ".nvm" = {
+        recursive = true;
+        source = pkgs.fetchFromGitHub {
+          owner = "nvm-sh";
+          repo = "nvm";
+          tag = "v0.40.3";
+          sha256 = "sha256-s36EQojnNKm4x410nllC3nbnzzwcLZCKSP3DkJPpjjo=";
+        };
+      };
     };
   };
 
