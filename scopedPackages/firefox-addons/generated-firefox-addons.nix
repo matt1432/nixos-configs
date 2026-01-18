@@ -36,10 +36,10 @@
   };
   "darkreader" = buildFirefoxXpiAddon {
     pname = "darkreader";
-    version = "4.9.118";
+    version = "4.9.119";
     addonId = "addon@darkreader.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4638146/darkreader-4.9.118.xpi";
-    sha256 = "69d2da0e84545ee19ded9a5872f300765280cf25b2edbef7041d4d752c4c9394";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4665768/darkreader-4.9.119.xpi";
+    sha256 = "261a422f2fcf83ee320ac7a2809d926b8637fbadece8a5758b825bd0602944be";
     meta = with lib; {
       homepage = "https://darkreader.org/";
       description = "Dark mode for every website. Take care of your eyes, use dark theme for night and daily browsing.";
@@ -206,8 +206,8 @@
     pname = "stylus";
     version = "2.3.19";
     addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4661054/styl_us-2.3.19.xpi";
-    sha256 = "f479caf673b2f1b1f821d16f5c341a52433542930a9a2597c81f0798b4ecaa32";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4661054/styl_us-2.3.19_qtD9vir.xpi";
+    sha256 = "fed97d9b8cb8793d1b1f95c95abfaf7660377c0ba71d49ec48ffd3d676f66af1";
     meta = with lib; {
       homepage = "https://add0n.com/stylus.html";
       description = "Redesign your favorite websites with Stylus, an actively developed and community driven userstyles manager. Easily install custom themes from popular online repositories, or create, edit, and manage your own personalized CSS stylesheets.";
