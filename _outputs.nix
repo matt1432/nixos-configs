@@ -103,6 +103,12 @@
       };
     };
 
+    # For gen-docs
+    configurations = let
+      inherit (nixpkgs.lib) mapAttrs' nameValuePair;
+    in
+      self.nixosConfigurations // (mapAttrs' (n: v: nameValuePair "darwin" v) self.darwinConfigurations);
+
     # For nix-fast-build. I use a custom output to alleviate eval time of this flake. ie. when doing nix flake show
     nixFastChecks = import ./nixFastChecks {inherit perSystem self;};
 

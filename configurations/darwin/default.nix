@@ -9,7 +9,7 @@
   # ------------------------------------------------
   imports = [
     # self.nixosModules.base
-    # self.nixosModules.meta
+    self.nixosModules.meta
   ];
 
   # State Version: DO NOT CHANGE
@@ -22,9 +22,7 @@
   # ------------------------------------------------
   # User Settings
   # ------------------------------------------------
-  users.users.${mainUser} = {
-    home = "/Users/${mainUser}";
-  };
+  users.users.${mainUser}.home = "/Users/${mainUser}";
 
   networking.hostName = "MGCOMP0192";
 
@@ -35,12 +33,12 @@
   # ------------------------------------------------
   # `Self` Modules configuration
   # ------------------------------------------------
-  /*
   meta = {
-    roleDescription = "2-1 Lenovo Laptop that I use for university";
-    hardwareDescription = "ThinkPad L13 Yoga Gen 3 (Ryzen 7 PRO 5875U)";
+    roleDescription = "Work Laptop";
+    hardwareDescription = "MacBook Pro 16.1 2019";
   };
 
+  /*
   roles.base = {
     enable = true;
     user = mainUser;
