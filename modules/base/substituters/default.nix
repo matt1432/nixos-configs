@@ -6,6 +6,8 @@
 }: let
   inherit (lib) foldl isList mergeAttrsWithFunc mkIf optionals unique;
 
+  inherit (pkgs.stdenv.hostPlatform) isDarwin;
+
   cfg = config.roles.base;
 
   mergeAttrsList = list:
@@ -16,7 +18,7 @@
     list;
 in {
   config = mkIf cfg.enable {
-    environment.systemPackages = [
+    environment.systemPackages = optionals (!isDarwin) [
       (pkgs.writeShellApplication {
         name = "rebuild-no-cache";
         runtimeInputs = [config.programs.nh.package];

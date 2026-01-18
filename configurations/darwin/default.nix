@@ -8,16 +8,12 @@
   # Imports
   # ------------------------------------------------
   imports = [
-    # self.nixosModules.base
+    self.nixosModules.base-darwin
     self.nixosModules.meta
   ];
 
   # State Version: DO NOT CHANGE
   system.stateVersion = 6;
-
-  # TODO: remove this
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
 
   # ------------------------------------------------
   # User Settings
@@ -26,9 +22,7 @@
 
   networking.hostName = "MGCOMP0192";
 
-  /*
   time.timeZone = "America/Montreal";
-  */
 
   # ------------------------------------------------
   # `Self` Modules configuration
@@ -38,12 +32,10 @@
     hardwareDescription = "MacBook Pro 16.1 2019";
   };
 
-  /*
   roles.base = {
     enable = true;
     user = mainUser;
   };
-  */
 
   home-manager.users.${mainUser} = {
     imports = [
@@ -52,11 +44,10 @@
       self.homeManagerModules.shell
     ];
 
+    # State Version: DO NOT CHANGE
     home.stateVersion = "25.11";
 
     home.packages = [
-      pkgs.wget
-      pkgs.selfPackages.pokemon-colorscripts
       pkgs.pnpm
       pkgs.yarn
     ];
@@ -66,8 +57,6 @@
         enable = true;
         enableNvm = true;
         promptMainColor = "purple";
-
-        sessionVariables.FLAKE = "/Users/${mainUser}/.nix";
       };
 
       firefox.enableCustomConf = true;
@@ -79,7 +68,9 @@
 
       ssh = {
         enable = true;
+
         enableDefaultConfig = false;
+
         matchBlocks."*" = {
           forwardAgent = false;
           addKeysToAgent = "no";
