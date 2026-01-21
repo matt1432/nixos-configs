@@ -58,16 +58,13 @@
         ];
       };
 
-      # TODO: re-enable this when homie is back up
       # Home-assistant
-      /*
-        homie = mkNixOS {
+      homie = mkNixOS {
         extraModules = [
           ./configurations/homie
           secrets.nixosModules.homie
         ];
       };
-      */
 
       # Cluster
       thingone = mkNixOS {

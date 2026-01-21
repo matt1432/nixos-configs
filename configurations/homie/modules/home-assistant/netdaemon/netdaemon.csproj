@@ -24,15 +24,15 @@
     </Target>
 
     <ItemGroup>
-        <PackageReference Include="NetDaemon.AppModel" Version="25.48.0" />
-        <PackageReference Include="NetDaemon.AppModel.SourceDeployedApps" Version="25.48.0" />
-        <PackageReference Include="NetDaemon.Runtime" Version="25.48.0" />
-        <PackageReference Include="NetDaemon.HassModel" Version="25.48.0" />
-        <PackageReference Include="NetDaemon.HassModel.Integration" Version="25.48.0" />
-        <PackageReference Include="NetDaemon.Client" Version="25.48.0" />
-        <PackageReference Include="NetDaemon.Extensions.Scheduling" Version="25.48.0" />
-        <PackageReference Include="NetDaemon.Extensions.Logging" Version="25.48.0" />
-        <PackageReference Include="NetDaemon.Extensions.Tts" Version="25.48.0" />
+        <PackageReference Include="NetDaemon.AppModel" Version="26.3.0" />
+        <PackageReference Include="NetDaemon.AppModel.SourceDeployedApps" Version="26.3.0" />
+        <PackageReference Include="NetDaemon.Runtime" Version="26.3.0" />
+        <PackageReference Include="NetDaemon.HassModel" Version="26.3.0" />
+        <PackageReference Include="NetDaemon.HassModel.Integration" Version="26.3.0" />
+        <PackageReference Include="NetDaemon.Client" Version="26.3.0" />
+        <PackageReference Include="NetDaemon.Extensions.Scheduling" Version="26.3.0" />
+        <PackageReference Include="NetDaemon.Extensions.Logging" Version="26.3.0" />
+        <PackageReference Include="NetDaemon.Extensions.Tts" Version="26.3.0" />
         <PackageReference Include="FuzzySharp" Version="2.0.2" />
     </ItemGroup>
 </Project>

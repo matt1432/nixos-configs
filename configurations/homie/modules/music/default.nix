@@ -88,14 +88,16 @@
         port = 6600;
       };
 
-      extraConfig = ''
-        audio_output {
-          type "pulse"
-          name "UE Boom 2"
-          sink "bluez_sink.88_C6_26_93_4B_77.a2dp_sink"
-          server "127.0.0.1"
-        }
-      '';
+      settings = {
+        audio_output = [
+          {
+            type = "pulse";
+            name = "UE Boom 2";
+            sink = "bluez_sink.88_C6_26_93_4B_77.a2dp_sink";
+            server = "127.0.0.1";
+          }
+        ];
+      };
     };
   };
 

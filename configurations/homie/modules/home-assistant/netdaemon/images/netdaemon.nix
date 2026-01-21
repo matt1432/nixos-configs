@@ -3,8 +3,8 @@ pkgs: let
 in
   pkgs.dockerTools.pullImage rec {
     imageName = "ghcr.io/net-daemon/netdaemon${majorVersion}";
-    imageDigest = "sha256:0906c7fa561db725a5e19cb7e02b00b8ade436f02e9b264e719632a7d5f41c42";
-    hash = "sha256-IrJ7SgHvsbA+y95EdxoFdgyUgVO9Th+UuKtpGzLX250=";
+    imageDigest = "sha256:6995c3788ae800d0b9255ec44dfd04f5aa4d2f264144be8e16c72677c582eeef";
+    hash = "sha256-pI540MjzlXzcjLI80Vw3rb6MkLNuuH14xN4trm9gU8Y=";
     finalImageName = imageName;
     finalImageTag = version;
   }
