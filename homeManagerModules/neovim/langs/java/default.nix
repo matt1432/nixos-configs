@@ -22,7 +22,6 @@ in {
         initLua =
           # lua
           ''
-            --
             vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {
                pattern = 'java',
                command = 'setlocal ts=4 sw=4 sts=0 expandtab',
@@ -34,42 +33,39 @@ in {
             # TOOD: setup debugger https://github.com/mfussenegger/nvim-jdtls#debugger-via-nvim-dap
             plugin = pkgs.vimPlugins.nvim-jdtls;
             type = "lua";
-            config =
-              # lua
-              ''
-                --
-                local startJdtls = function()
-                    local config = {
-                        capabilities = require('cmp_nvim_lsp').default_capabilities(),
+            config = ''
+              local startJdtls = function()
+                  local config = {
+                      capabilities = require('cmp_nvim_lsp').default_capabilities(),
 
-                        cmd = { '${getExe pkgs.jdt-language-server}' },
-                        root_dir = vim.fs.dirname(vim.fs.find(
-                            { 'gradlew', '.git', 'mvnw', 'pom.xml' },
-                            { upward = true }
-                        )[1]),
+                      cmd = { '${getExe pkgs.jdt-language-server}' },
+                      root_dir = vim.fs.dirname(vim.fs.find(
+                          { 'gradlew', '.git', 'mvnw', 'pom.xml' },
+                          { upward = true }
+                      )[1]),
 
-                        settings = {
-                            java = {
-                                configuration = {
-                                    runtimes = {
-                                        {
-                                            name = 'JavaSE-21',
-                                            path = '${javaSdk}',
-                                        },
-                                    },
-                                },
-                            },
-                        },
-                    };
+                      settings = {
+                          java = {
+                              configuration = {
+                                  runtimes = {
+                                      {
+                                          name = 'JavaSE-21',
+                                          path = '${javaSdk}',
+                                      },
+                                  },
+                              },
+                          },
+                      },
+                  };
 
-                    require('jdtls').start_or_attach(config);
-                end
+                  require('jdtls').start_or_attach(config);
+              end;
 
-                vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {
-                    pattern = 'java',
-                    callback = startJdtls,
-                });
-              '';
+              vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {
+                  pattern = 'java',
+                  callback = startJdtls,
+              });
+            '';
           }
         ];
       };

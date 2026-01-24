@@ -78,11 +78,9 @@ in {
         {
           plugin = pkgs.vimPlugins.todo-comments-nvim;
           type = "lua";
-          config =
-            # lua
-            ''
-              require('todo-comments').setup();
-            '';
+          config = ''
+            require('todo-comments').setup();
+          '';
         }
         {
           plugin = pkgs.vimPlugins.mini-nvim;
@@ -93,16 +91,14 @@ in {
         {
           plugin = pkgs.vimPlugins.nvim-config-local;
           type = "lua";
-          config =
-            # lua
-            ''
-              require('config-local').setup({
-                  config_files = { '.nvim.lua', '.nvimrc', '.exrc' },
+          config = ''
+            require('config-local').setup({
+                config_files = { '.nvim.lua', '.nvimrc', '.exrc' },
 
-                  -- Where the plugin keeps files data
-                  hashfile = '${config.xdg.cacheHome}/nvim/config-local',
-              });
-            '';
+                -- Where the plugin keeps files data
+                hashfile = '${config.xdg.cacheHome}/nvim/config-local',
+            });
+          '';
         }
       ];
     };

@@ -39,7 +39,6 @@ in {
         mkBefore
         # lua
         ''
-          --
           local nix_develop = require('nix-develop');
           local default_capabilities = require('cmp_nvim_lsp').default_capabilities();
 
@@ -173,53 +172,47 @@ in {
         nvim-autopairs = {
           plugin = pkgs.vimPlugins.nvim-autopairs;
           type = "lua";
-          config =
-            # lua
-            ''
-              --
-              require('nvim-autopairs').setup({});
-            '';
+          config = ''
+            require('nvim-autopairs').setup({});
+          '';
         };
 
         tiny-inline-diagnostic = {
           plugin = pkgs.vimPlugins.tiny-inline-diagnostic-nvim;
           type = "lua";
-          config =
-            # lua
-            ''
-              --
-              -- Disable virtual_text since it's redundant due to tiny-inline-diagnostic.
-              vim.diagnostic.config({
-                  virtual_text = false,
-              });
+          config = ''
+            -- Disable virtual_text since it's redundant due to tiny-inline-diagnostic.
+            vim.diagnostic.config({
+                virtual_text = false,
+            });
 
-              require("tiny-inline-diagnostic").setup({
-                  -- Available options:
-                  -- "modern", "classic", "minimal", "powerline",
-                  -- "ghost", "simple", "nonerdfont", "amongus"
-                  preset = 'modern',
+            require("tiny-inline-diagnostic").setup({
+                -- Available options:
+                -- "modern", "classic", "minimal", "powerline",
+                -- "ghost", "simple", "nonerdfont", "amongus"
+                preset = 'modern',
 
-                  options = {
-                      show_source = true,
-                      use_icons_from_diagnostic = false,
+                options = {
+                    show_source = true,
+                    use_icons_from_diagnostic = false,
 
-                      -- Minimum message length before wrapping to a new line
-                      softwrap = 30,
+                    -- Minimum message length before wrapping to a new line
+                    softwrap = 30,
 
-                      -- Show all diagnostics under the cursor if multiple diagnostics exist on the same line
-                      -- If set to false, only the diagnostics under the cursor will be displayed
-                      multiple_diag_under_cursor = true,
+                    -- Show all diagnostics under the cursor if multiple diagnostics exist on the same line
+                    -- If set to false, only the diagnostics under the cursor will be displayed
+                    multiple_diag_under_cursor = true,
 
-                      multilines = {
-                          enabled = true,
-                          always_show = true,
-                      },
+                    multilines = {
+                        enabled = true,
+                        always_show = true,
+                    },
 
-                      enable_on_insert = true,
-                      throttle = 0,
-                  },
-              });
-            '';
+                    enable_on_insert = true,
+                    throttle = 0,
+                },
+            });
+          '';
         };
       };
     };

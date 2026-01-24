@@ -13,7 +13,6 @@ in {
         initLua =
           # lua
           ''
-            --
             loadDevShell({
                 name = 'json',
                 pattern = { 'json', 'yaml', '.clang-.*' },

@@ -13,7 +13,6 @@ in {
         initLua =
           # lua
           ''
-            --
             local lsp = require('lspconfig');
 
             loadDevShell({

@@ -26,7 +26,6 @@ in {
         initLua =
           # lua
           ''
-            --
             loadDevShell({
                 name = 'markdown',
                 pattern = { 'markdown', 'tex' },
@@ -56,12 +55,9 @@ in {
           {
             plugin = buildPlugin "easytables-nvim" vimplugin-easytables-src;
             type = "lua";
-            config =
-              # lua
-              ''
-                --
-                require('easytables').setup();
-              '';
+            config = ''
+              require('easytables').setup();
+            '';
           }
 
           {
@@ -90,7 +86,6 @@ in {
             in
               # lua
               ''
-                --
                 vim.g.knap_settings = {
                     -- HTML
                     htmloutputext = 'html',

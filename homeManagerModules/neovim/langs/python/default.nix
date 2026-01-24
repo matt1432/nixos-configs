@@ -13,7 +13,6 @@ in {
         initLua =
           # lua
           ''
-            --
             local default_capabilities = require('cmp_nvim_lsp').default_capabilities();
 
             loadDevShell({

@@ -13,7 +13,6 @@ in {
         initLua =
           # lua
           ''
-            --
             loadDevShell({
                 name = 'golang',
                 pattern = { 'go', 'gomod', 'gowork', 'gotmpl' },

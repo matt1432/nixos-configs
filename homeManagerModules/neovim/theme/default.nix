@@ -26,74 +26,67 @@ in {
             src = nvim-theme-src;
           });
           type = "lua";
-          config =
-            # lua
-            ''
-              -- set dot icon in place of trailing whitespaces
-              vim.opt.listchars = {
-                  tab = '→ ',
-                  trail = '•',
-                  extends = '⟩',
-                  precedes = '⟨',
-                  nbsp = '␣',
-              };
-              vim.opt.list = true;
+          config = ''
+            -- set dot icon in place of trailing whitespaces
+            vim.opt.listchars = {
+                tab = '→ ',
+                trail = '•',
+                extends = '⟩',
+                precedes = '⟨',
+                nbsp = '␣',
+            };
+            vim.opt.list = true;
 
-              -- Add visual indicator for trailing whitespaces
-              vim.opt.fillchars = { eob = " " };
-              vim.fn.matchadd('errorMsg', [[\s\+$]]);
+            -- Add visual indicator for trailing whitespaces
+            vim.opt.fillchars = { eob = " " };
+            vim.fn.matchadd('errorMsg', [[\s\+$]]);
 
-              vim.cmd.colorscheme('dracula');
-            '';
+            vim.cmd.colorscheme('dracula');
+          '';
         }
         {
           plugin = pkgs.vimPlugins.indent-blankline-nvim;
           type = "lua";
-          config =
-            # lua
-            ''
-              --
-              local highlight = {
-                  "RainbowRed",
-                  "RainbowYellow",
-                  "RainbowBlue",
-                  "RainbowOrange",
-                  "RainbowGreen",
-                  "RainbowViolet",
-                  "RainbowCyan",
-              };
+          config = ''
+            local highlight = {
+                "RainbowRed",
+                "RainbowYellow",
+                "RainbowBlue",
+                "RainbowOrange",
+                "RainbowGreen",
+                "RainbowViolet",
+                "RainbowCyan",
+            };
 
-              local hooks = require('ibl.hooks');
-              hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-                  vim.api.nvim_set_hl(0, "RainbowRed",    { fg = "#E06C75" });
-                  vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" });
-                  vim.api.nvim_set_hl(0, "RainbowBlue",   { fg = "#61AFEF" });
-                  vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" });
-                  vim.api.nvim_set_hl(0, "RainbowGreen",  { fg = "#98C379" });
-                  vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" });
-                  vim.api.nvim_set_hl(0, "RainbowCyan",   { fg = "#56B6C2" });
-              end);
+            local hooks = require('ibl.hooks');
+            hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+                vim.api.nvim_set_hl(0, "RainbowRed",    { fg = "#E06C75" });
+                vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" });
+                vim.api.nvim_set_hl(0, "RainbowBlue",   { fg = "#61AFEF" });
+                vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" });
+                vim.api.nvim_set_hl(0, "RainbowGreen",  { fg = "#98C379" });
+                vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" });
+                vim.api.nvim_set_hl(0, "RainbowCyan",   { fg = "#56B6C2" });
+            end);
 
-              require('ibl').setup({
-                  indent = {
-                      highlight = highlight,
-                      char = "▏",
-                  },
-              });
-            '';
+            require('ibl').setup({
+                indent = {
+                    highlight = highlight,
+                    char = "▏",
+                },
+            });
+          '';
         }
 
         {
           plugin = pkgs.vimPlugins.nvim-highlight-colors;
           type = "lua";
-          config =
-            # lua
-            ''
-              -- Ensure termguicolors is enabled if not already
-              vim.opt.termguicolors = true;
+          config = ''
+            -- Ensure termguicolors is enabled if not already
+            vim.opt.termguicolors = true;
 
-              require('nvim-highlight-colors').setup({});
-            '';
+            require('nvim-highlight-colors').setup({});
+          '';
         }
 
         # Deps of heirline config
@@ -119,41 +112,39 @@ in {
         {
           plugin = pkgs.vimPlugins.transparent-nvim;
           type = "lua";
-          config =
-            # lua
-            ''
-              require('transparent').setup({
-                  groups = {
-                      'Normal',
-                      'NormalNC',
-                      'Comment',
-                      'Constant',
-                      'Special',
-                      'Identifier',
-                      'Statement',
-                      'PreProc',
-                      'Type',
-                      'Underlined',
-                      'Todo',
-                      'String',
-                      'Function',
-                      'Conditional',
-                      'Repeat',
-                      'Operator',
-                      'Structure',
-                      'LineNr',
-                      'NonText',
-                      'SignColumn',
-                      'CursorLine',
-                      'CursorLineNr',
-                      'StatusLine',
-                      'StatusLineNC',
-                      'EndOfBuffer',
-                  },
-                  extra_groups = {},
-                  exclude_groups = {},
-              });
-            '';
+          config = ''
+            require('transparent').setup({
+                groups = {
+                    'Normal',
+                    'NormalNC',
+                    'Comment',
+                    'Constant',
+                    'Special',
+                    'Identifier',
+                    'Statement',
+                    'PreProc',
+                    'Type',
+                    'Underlined',
+                    'Todo',
+                    'String',
+                    'Function',
+                    'Conditional',
+                    'Repeat',
+                    'Operator',
+                    'Structure',
+                    'LineNr',
+                    'NonText',
+                    'SignColumn',
+                    'CursorLine',
+                    'CursorLineNr',
+                    'StatusLine',
+                    'StatusLineNC',
+                    'EndOfBuffer',
+                },
+                extra_groups = {},
+                exclude_groups = {},
+            });
+          '';
         }
       ];
     };

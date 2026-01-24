@@ -13,7 +13,6 @@ in {
         initLua =
           # lua
           ''
-            --
             loadDevShell({
                 name = 'kotlin',
                 pattern = { 'kotlin' },

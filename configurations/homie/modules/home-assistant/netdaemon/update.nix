@@ -15,7 +15,7 @@
   dotnetVersion = builtins.replaceStrings ["."] ["_"] versionFile.dotnetVersion;
 
   nixFetchDeps =
-    #nix
+    # nix
     ''
       let
         config = (builtins.getFlake ("$FLAKE")).nixosConfigurations.homie;

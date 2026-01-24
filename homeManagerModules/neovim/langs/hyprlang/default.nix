@@ -13,7 +13,6 @@ in {
         initLua =
           # lua
           ''
-            --
             vim.filetype.add({
                 pattern = { [ '.*/hypr/.*%.conf' ] = 'hyprlang' },
             });

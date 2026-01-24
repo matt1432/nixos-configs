@@ -159,24 +159,22 @@ in {
           {
             plugin = pkgs.vimPlugins.package-info-nvim;
             type = "lua";
-            config =
-              # lua
-              ''
-                local packageInfo = require('package-info');
+            config = ''
+              local packageInfo = require('package-info');
 
-                packageInfo.setup({
-                    hide_up_to_date = true,
-                    package_manager = 'npm',
-                });
+              packageInfo.setup({
+                  hide_up_to_date = true,
+                  package_manager = 'npm',
+              });
 
-                vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
-                    pattern = { 'package.json' },
+              vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+                  pattern = { 'package.json' },
 
-                    callback = function()
-                        packageInfo.show({ force = true });
-                    end,
-                });
-              '';
+                  callback = function()
+                      packageInfo.show({ force = true });
+                  end,
+              });
+            '';
           }
         ];
       };
