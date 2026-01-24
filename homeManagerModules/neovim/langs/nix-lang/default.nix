@@ -69,7 +69,7 @@ in {
           inherit nixdPkg;
         };
 
-        extraLuaConfig =
+        initLua =
           # lua
           ''
             --

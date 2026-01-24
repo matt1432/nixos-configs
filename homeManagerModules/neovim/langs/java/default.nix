@@ -19,7 +19,7 @@ in {
       };
 
       neovim = {
-        extraLuaConfig =
+        initLua =
           # lua
           ''
             --

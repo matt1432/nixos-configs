@@ -15,7 +15,7 @@ in {
           inherit (pkgs) rust-analyzer;
         };
 
-        extraLuaConfig =
+        initLua =
           # lua
           ''
             --

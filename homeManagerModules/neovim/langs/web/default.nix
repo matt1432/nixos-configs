@@ -30,7 +30,7 @@ in {
       neovim = {
         withNodeJs = true;
 
-        extraLuaConfig =
+        initLua =
           # lua
           ''
             vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {

@@ -41,7 +41,7 @@ in {
 
   config = mkIf cfg.enable {
     programs.neovim = {
-      extraLuaConfig =
+      initLua =
         # lua
         ''
           -- by default, the indent is 2 spaces.

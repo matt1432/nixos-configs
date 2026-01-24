@@ -34,7 +34,7 @@ in {
             ;
         };
 
-        extraLuaConfig =
+        initLua =
           # lua
           ''
             vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {
