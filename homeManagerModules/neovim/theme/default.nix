@@ -98,6 +98,24 @@ in {
         }
 
         {
+          plugin = pkgs.vimPlugins.barbar-nvim;
+          type = "lua";
+          config = ''
+            vim.g.barbar_auto_setup = false; -- disable auto-setup
+            require('barbar').setup({
+                icons = {
+                    preset = 'default',
+                    separator = { left = '│', right = "" },
+                    inactive = { separator = { left = '│', right = "" } },
+                },
+                sidebar_filetypes = {
+                    ['neo-tree'] = true,
+                },
+            });
+          '';
+        }
+
+        {
           plugin = pkgs.vimPlugins.neo-tree-nvim.overrideAttrs (o: {
             postPatch = ''
               ${o.postPatch or ""}

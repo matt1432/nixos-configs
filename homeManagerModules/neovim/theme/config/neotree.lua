@@ -9,7 +9,7 @@ require('neo-tree').setup({
     enable_refresh_on_write = true,
 
     window = {
-        width = 22,
+        width = 30,
     },
 
     filesystem = {
@@ -34,9 +34,8 @@ require('neo-tree').setup({
     },
 
     source_selector = {
-        winbar = true,
+        winbar = false,
         statusline = false,
-        truncation_character = '...',
     },
 });
 
@@ -62,5 +61,7 @@ vim.api.nvim_create_autocmd({ 'VimEnter', 'VimResized' }, {
                 neotreeCmd.execute({ action = 'close' });
             end;
         end;
+        -- https://github.com/romgrk/barbar.nvim/issues/421#issuecomment-1502473406
+        vim.api.nvim_exec_autocmds('BufWinEnter', {buffer = vim.fn.bufnr('#')})
     end,
 });
