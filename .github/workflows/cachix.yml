@@ -32,5 +32,5 @@ jobs:
                   sudo mv /etc/zshrc{,.before-nix-darwin} || true
 
                   # Build and switch to config
-                  nix build .#darwinConfigurations.MGCOMP0192.system
+                  nix --extra-experimental-features 'nix-command flakes' build .#darwinConfigurations.MGCOMP0192.system
                   sudo ./result/sw/bin/darwin-rebuild switch --flake .#MGCOMP0192
