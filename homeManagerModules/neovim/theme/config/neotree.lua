@@ -36,6 +36,7 @@ require('neo-tree').setup({
     source_selector = {
         winbar = false,
         statusline = false,
+        truncation_character = '...',
     },
 });
 
@@ -62,6 +63,6 @@ vim.api.nvim_create_autocmd({ 'VimEnter', 'VimResized' }, {
             end;
         end;
         -- https://github.com/romgrk/barbar.nvim/issues/421#issuecomment-1502473406
-        vim.api.nvim_exec_autocmds('BufWinEnter', {buffer = vim.fn.bufnr('#')})
+        vim.api.nvim_exec_autocmds('BufWinEnter', { buffer = vim.fn.bufnr('#') });
     end,
 });
