@@ -291,6 +291,15 @@
       type = "git";
       url = "https://git.nelim.org/matt1432/pub-images.git";
     };
+    neovim-nightly = {
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+      };
+      owner = "nix-community";
+      repo = "neovim-nightly-overlay";
+      type = "github";
+    };
     netdaemon-src = {
       flake = false;
       owner = "net-daemon";

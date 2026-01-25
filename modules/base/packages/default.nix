@@ -16,6 +16,7 @@ in {
         "nixos-jellyfin"
         "nh"
         "nixd"
+        "neovim-nightly"
       ])
       ++ [
         (final: prev: {

@@ -1238,6 +1238,46 @@
         "url": "https://git.nelim.org/matt1432/pub-images.git"
       }
     },
+    "neovim-nightly": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "neovim-src": "neovim-src",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1769299463,
+        "narHash": "sha256-RxUJUDLWIvBJ6Dv6p//Ept7gUPb03ZURSWGirjlYwSQ=",
+        "owner": "nix-community",
+        "repo": "neovim-nightly-overlay",
+        "rev": "041b08bc200ba1b08850943797a7e1a7f4ad142b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "neovim-nightly-overlay",
+        "type": "github"
+      }
+    },
+    "neovim-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1769260606,
+        "narHash": "sha256-hTJJSGgYrPkVnpJCLXeCIKia6PM9y7D9/KBNmNafwOA=",
+        "owner": "neovim",
+        "repo": "neovim",
+        "rev": "57574db15460be27f056eb21a71b96312396a615",
+        "type": "github"
+      },
+      "original": {
+        "owner": "neovim",
+        "repo": "neovim",
+        "type": "github"
+      }
+    },
     "netdaemon-src": {
       "flake": false,
       "locked": {
@@ -1759,6 +1799,7 @@
         "mpv-pointer-event-src": "mpv-pointer-event-src",
         "mpv-touch-gestures-src": "mpv-touch-gestures-src",
         "my-images-src": "my-images-src",
+        "neovim-nightly": "neovim-nightly",
         "netdaemon-src": "netdaemon-src",
         "nh": "nh",
         "nix-darwin": "nix-darwin",

@@ -114,6 +114,12 @@ let
       owner = "fufexan";
       repo = "nix-gaming";
     };
+
+    # FIXME: remove this once neovim reaches 0.12 on nixpkgs
+    neovim-nightly = mkInput {
+      owner = "nix-community";
+      repo = "neovim-nightly-overlay";
+    };
   };
 
   nvimInputs = {
