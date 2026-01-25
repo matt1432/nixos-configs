@@ -195,7 +195,6 @@
         treefmt-nix.follows = "treefmt-nix";
       };
       owner = "venkyr77";
-      ref = "v0.1.0";
       repo = "jellarr";
       type = "github";
     };
