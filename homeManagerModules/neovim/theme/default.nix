@@ -38,7 +38,6 @@ in {
             vim.opt.list = true;
 
             -- Add visual indicator for trailing whitespaces
-            vim.opt.fillchars = { eob = " " };
             vim.fn.matchadd('errorMsg', [[\s\+$]]);
 
             vim.cmd.colorscheme('dracula');

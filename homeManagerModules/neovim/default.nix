@@ -44,6 +44,17 @@ in {
       initLua =
         # lua
         ''
+          vim.opt.fillchars = {
+              eob = ' ',
+              foldopen = '',
+              foldclose = '',
+              foldinner = ' ',
+              foldsep = ' ',
+              vert = '▕',
+              diff = '╱',
+              msgsep = '‾',
+          };
+
           -- by default, the indent is 2 spaces.
           vim.opt.smartindent = true;
           vim.opt.expandtab = true;
@@ -99,6 +110,12 @@ in {
                 hashfile = '${config.xdg.cacheHome}/nvim/config-local',
             });
           '';
+        }
+
+        {
+          plugin = pkgs.vimPlugins.nvim-ufo;
+          type = "lua";
+          config = fileContents ./config/ufo.lua;
         }
       ];
     };
