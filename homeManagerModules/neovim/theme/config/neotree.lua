@@ -56,13 +56,13 @@ vim.api.nvim_create_autocmd({ 'VimEnter', 'VimResized' }, {
         if vim.api.nvim_eval([[&columns]]) > 100 then
             if is_neotree_open() == false then
                 neotreeCmd.execute({ action = 'show' });
+                -- https://github.com/romgrk/barbar.nvim/issues/421#issuecomment-1502473406
+                vim.api.nvim_exec_autocmds('BufWinEnter', { buffer = vim.fn.bufnr('#') });
             end;
         else
             if is_neotree_open() then
                 neotreeCmd.execute({ action = 'close' });
             end;
         end;
-        -- https://github.com/romgrk/barbar.nvim/issues/421#issuecomment-1502473406
-        vim.api.nvim_exec_autocmds('BufWinEnter', { buffer = vim.fn.bufnr('#') });
     end,
 });
