@@ -22,18 +22,19 @@
     text = ''
       cd "$FLAKE/results" || return
 
+      # TODO: re-enable this when homie is back up
       # Home-assistant sometimes fails some tests when built with everything else
-      hass="..#nixosConfigurations.homie.config.services.home-assistant.package"
-      i=0
+      # hass="..#nixosConfigurations.homie.config.services.home-assistant.package"
+      # i=0
 
-      while ! nom build --no-link "$hass"; do
-          echo "Retrying to build home-assistant"
-          i=$((i+1))
+      # while ! nom build --no-link "$hass"; do
+      #     echo "Retrying to build home-assistant"
+      #     i=$((i+1))
 
-          if [[ "$i" -ge 5 ]]; then
-              break
-          fi
-      done
+      #     if [[ "$i" -ge 5 ]]; then
+      #         break
+      #     fi
+      # done
 
       # Build NixOnDroid activation package
       nom build --impure -o ./result-aarch64-linux.nixOnDroidConfigurations_default \
