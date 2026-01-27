@@ -83,12 +83,10 @@
     mpd = {
       enable = true;
 
-      network = {
-        listenAddress = "127.0.0.1";
-        port = 6600;
-      };
-
       settings = {
+        bind_to_address = "127.0.0.1";
+        port = 6600;
+
         audio_output = [
           {
             type = "pulse";
