@@ -106,12 +106,6 @@ in {
           }
           // optionalAttrs (!isDarwin) {
             "layout.css.devPixelsPerPx" = 1.12;
-          }
-          // optionalAttrs isDarwin {
-            "ui.key.accelKey" = 17;
-            "ui.key.textcontrol.prefer_native_key_bindings_over_builtin_shortcut_key_definitions" = false;
-            "ui.key.menuAccessKey" = 0;
-            "ui.key.menuAccessKeyFocuses" = false;
           };
 
         search = {
