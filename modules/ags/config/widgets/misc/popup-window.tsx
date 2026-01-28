@@ -2,6 +2,8 @@ import { App, Astal, Gtk, Widget } from 'astal/gtk3';
 import { property, register } from 'astal/gobject';
 import { Binding, idle } from 'astal';
 
+import { hyprMessage } from '../../lib';
+
 /* Types */
 type CloseType = 'none' | 'stay' | 'released' | 'clicked';
 type HyprTransition = 'slide' | 'slide top' | 'slide bottom' | 'slide left' |
@@ -19,6 +21,9 @@ export type PopupWindowProps = Widget.WindowProps & {
 @register()
 export class PopupWindow extends Widget.Window {
     @property(String)
+    declare transition: HyprTransition | Binding<HyprTransition>;
+
+    @property(String)
     declare close_on_unfocus: CloseType | Binding<CloseType>;
 
     on_open: PopupCallback;
@@ -35,42 +40,10 @@ export class PopupWindow extends Widget.Window {
         layer = Astal.Layer.OVERLAY,
         ...rest
     }: PopupWindowProps) {
-        let finalName = `win-${name}`;
-
-        switch (transition) {
-            case 'fade':
-                finalName += '-fade';
-                break;
-
-            case 'popin':
-                finalName += '-popin';
-                break;
-
-            case 'slide':
-                finalName += '-slide';
-                break;
-
-            case 'slide top':
-                finalName += '-top';
-                break;
-
-            case 'slide left':
-                finalName += '-left';
-                break;
-
-            case 'slide right':
-                finalName += '-right';
-                break;
-
-            case 'slide bottom':
-                finalName += '-bottom';
-                break;
-        }
-
         super({
             ...rest,
             name: `win-${name}`,
-            namespace: finalName,
+            namespace: `win-${name}`,
             visible: false,
             layer,
             setup: () => idle(() => {
@@ -83,11 +56,23 @@ export class PopupWindow extends Widget.Window {
 
         App.add_window(this);
 
+        const setTransition = (_: PopupWindow, t: HyprTransition | Binding<HyprTransition>) => {
+            hyprMessage(
+                `keyword layerrule animation ${t}, match:namespace ${this.name}`,
+            ).catch(console.log);
+        };
+
+        this.connect('notify::transition', setTransition);
+
         this.close_on_unfocus = close_on_unfocus;
+        this.transition = transition;
         this.on_open = on_open;
         this.on_close = on_close;
 
         this.connect('notify::visible', () => {
+            // Make sure we have the right animation
+            setTransition(this, this.transition);
+
             if (this.visible) {
                 this.on_open(this);
             }

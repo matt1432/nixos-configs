@@ -125,36 +125,6 @@ in {
             rule = "ignore_alpha 0.19";
             namespace = "^(blur-bg.*)";
           }
-
-          # Customizable animations
-          {
-            rule = "animation slide top";
-            namespace = "^(win-.*-top)$";
-          }
-          {
-            rule = "animation slide bottom";
-            namespace = "^(win-.*-bottom)$";
-          }
-          {
-            rule = "animation slide left";
-            namespace = "^(win-.*-left)$";
-          }
-          {
-            rule = "animation slide right";
-            namespace = "^(win-.*-right)$";
-          }
-          {
-            rule = "animation slide";
-            namespace = "^(win-.*-slide)$";
-          }
-          {
-            rule = "animation popin";
-            namespace = "^(win-.*-popin)$";
-          }
-          {
-            rule = "animation fade";
-            namespace = "^(win-.*-fade)$";
-          }
         ];
 
         exec-once = [
