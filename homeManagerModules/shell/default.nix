@@ -98,6 +98,13 @@ in {
           # Check if shell is interactive
           [[ $- == *i* ]] || return 0
 
+          ${optionalString isDarwin
+          # bash
+          ''
+            # Remove zsh lines in MacOS terminal
+            clear
+          ''}
+
           ${fileContents ./config/dracula/less.sh}
           ${fileContents ./config/dracula/fzf.sh}
 
