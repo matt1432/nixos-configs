@@ -7,9 +7,9 @@
         "@eslint/js": "9.39.2",
         "@stylistic/eslint-plugin": "5.7.1",
         "eslint": "9.39.2",
-        "eslint-plugin-jsdoc": "62.4.0",
+        "eslint-plugin-jsdoc": "62.4.1",
         "fzf": "0.5.2",
         "jiti": "2.6.1",
-        "typescript-eslint": "8.53.1"
+        "typescript-eslint": "8.54.0"
     }
 }
