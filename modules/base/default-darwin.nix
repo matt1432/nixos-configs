@@ -51,9 +51,7 @@ in {
     };
 
     environment.systemPackages = attrValues {
-      nh = pkgs.nh.overrideAttrs {
-        doCheck = false;
-      };
+      inherit (pkgs) nh;
 
       # Peripherals
       inherit

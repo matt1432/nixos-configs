@@ -50,11 +50,6 @@ let
       repo = "nix-index-database";
     };
 
-    nh = mkInput {
-      owner = "nix-community";
-      repo = "nh";
-    };
-
     nix-output-monitor = mkInput {
       owner = "maralorn";
       repo = "nix-output-monitor";

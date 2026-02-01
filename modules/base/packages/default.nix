@@ -14,7 +14,6 @@ in {
       (map (i: self.inputs.${i}.overlays.default) [
         "grim-hyprland"
         "nixos-jellyfin"
-        "nh"
         "nixd"
         "neovim-nightly"
       ])

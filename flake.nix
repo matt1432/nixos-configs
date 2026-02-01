@@ -306,12 +306,6 @@
       repo = "integration";
       type = "github";
     };
-    nh = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      owner = "nix-community";
-      repo = "nh";
-      type = "github";
-    };
     nix-darwin = {
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "nix-darwin";
