@@ -4,7 +4,7 @@
 }: let
   inherit (builtins) readFile fromJSON;
   inherit (self.lib) mkVersion;
-  inherit (pkgs.lib) concatStringsSep elemAt hasAttr length map optionalString toLower;
+  inherit (pkgs.lib) concatStringsSep elemAt hasAttr length optionalString toLower;
 in {
   buildPlugin = pname: src:
     pkgs.vimUtils.buildVimPlugin {

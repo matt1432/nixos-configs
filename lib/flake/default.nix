@@ -1,9 +1,15 @@
 inputs: let
   inherit (builtins) functionArgs mapAttrs;
+
+  hmSetupModule = specialArgs: {purePkgs, ...}: {
+    home-manager.extraSpecialArgs = specialArgs // {inherit purePkgs;};
+  };
 in rec {
   # This is for packages from flakes that don't offer overlays
   overrideAll = pkgs: pkg: extraArgs: let
-    pkgFile = pkgs.lib.head (pkgs.lib.splitString [":"] pkg.meta.position);
+    inherit (pkgs.lib) head splitString;
+
+    pkgFile = head (splitString [":"] pkg.meta.position);
     args = functionArgs (import pkgFile);
   in
     pkg.override ((mapAttrs (n: v: pkgs.${n} or v) args) // extraArgs);
@@ -16,19 +22,16 @@ in rec {
     nix ? null,
     cudaSupport ? false,
   }: let
-    nixpkgs' =
-      (import nixpkgs {
-        inherit system;
-      }).applyPatches
-      {
-        name = "nixpkgs-patched";
-        src = nixpkgs;
-        patches = [];
-      };
+    nixpkgs' = (import nixpkgs {inherit system;}).applyPatches {
+      name = "nixpkgs-patched";
+      src = nixpkgs;
+      patches = [];
+    };
   in
     import nixpkgs' {
       inherit system;
-      overlays = nixpkgs.lib.unique ([
+      overlays = nixpkgs.lib.unique (
+        [
           (inputs.self.overlays.nix-version {inherit nix;})
 
           # Expose this flake's packages to `pkgs`
@@ -38,16 +41,15 @@ in rec {
           inputs.self.overlays.scopedPackages
           inputs.self.overlays.forced
         ]
-        ++ (cfg.overlays or []));
+        ++ (cfg.overlays or [])
+      );
       config =
         {
           inherit cudaSupport;
           allowUnfree = true;
 
           # In case I need an insecure package in my devShells
-          permittedInsecurePackages =
-            []
-            ++ (cfg.config.permittedInsecurePackages or []);
+          permittedInsecurePackages = (cfg.config.permittedInsecurePackages or []) ++ [];
         }
         // (removeAttrs (
           if cfg.config or null == null
@@ -92,9 +94,10 @@ in rec {
       specialArgs = inputs // {inherit mainUser;};
       modules =
         [
-          (allowModularOverrides {inherit system cudaSupport;})
           inputs.home-manager.nixosModules.home-manager
-          ({purePkgs, ...}: {home-manager.extraSpecialArgs = specialArgs // {inherit purePkgs;};})
+
+          (allowModularOverrides {inherit system cudaSupport;})
+          (hmSetupModule specialArgs)
         ]
         ++ extraModules;
     };
@@ -110,9 +113,10 @@ in rec {
       modules =
         [
           {nixpkgs.hostPlatform = system;}
-          (allowModularOverrides {inherit system;})
           inputs.home-manager.darwinModules.home-manager
-          ({purePkgs, ...}: {home-manager.extraSpecialArgs = specialArgs // {inherit purePkgs;};})
+
+          (allowModularOverrides {inherit system;})
+          (hmSetupModule specialArgs)
         ]
         ++ extraModules;
     };
