@@ -42,20 +42,6 @@ in {
       self.inputs."hyprland".overlays.default
 
       (final: prev: {
-        # FIXME: https://github.com/hyprwm/Hyprland/discussions/13043
-        glaze-hyprland = prev.glaze-hyprland.overrideAttrs (o: {
-          version = "6.2.0";
-
-          src = final.fetchFromGitHub {
-            owner = "stephenberry";
-            repo = "glaze";
-            tag = "v${o.version}";
-            hash = "sha256-gxSmCKzehnDfoexEm1V2cs91qDUzRJrtFjCsM1NHI9Y=";
-          };
-        });
-      })
-
-      (final: prev: {
         hyprlandPlugins = final.callPackage "${final.path}/pkgs/applications/window-managers/hyprwm/hyprland-plugins/default.nix" {
           hyprland = hyprCfg.finalPackage;
         };
