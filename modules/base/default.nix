@@ -4,8 +4,10 @@ self: {
   pkgs,
   ...
 }: let
-  inherit (lib) attrValues mkDefault mkIf mkOption types;
+  inherit (lib) attrValues mkDefault mkIf mkOption optionalAttrs types;
   inherit (self.inputs) home-manager;
+
+  inherit (pkgs.stdenv.hostPlatform) system;
 
   cfg = config.roles.base;
 in {
@@ -79,16 +81,21 @@ in {
       };
     };
 
-    environment.systemPackages = attrValues {
-      # Peripherals
-      inherit
-        (pkgs)
-        hdparm
-        pciutils
-        usbutils
-        rar
-        ;
-    };
+    environment.systemPackages = attrValues ({
+        # Peripherals
+        inherit
+          (pkgs)
+          hdparm
+          pciutils
+          usbutils
+          ;
+      }
+      // optionalAttrs (system == "x86_64-linux") {
+        inherit
+          (pkgs)
+          rar
+          ;
+      });
 
     services = {
       fwupd.enable = true;

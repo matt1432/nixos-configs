@@ -85,9 +85,10 @@ in rec {
     extraModules ? [],
     cudaSupport ? false,
     mainUser ? "matt",
+    system ? "x86_64-linux",
   }:
     inputs.nixpkgs.lib.nixosSystem rec {
-      system = "x86_64-linux";
+      inherit system;
       specialArgs = inputs // {inherit mainUser;};
       modules =
         [
@@ -112,50 +113,6 @@ in rec {
           (allowModularOverrides {inherit system;})
           inputs.home-manager.darwinModules.home-manager
           ({purePkgs, ...}: {home-manager.extraSpecialArgs = specialArgs // {inherit purePkgs;};})
-        ]
-        ++ extraModules;
-    };
-
-  mkNixOnDroid = extraModules: let
-    system = "aarch64-linux";
-  in
-    inputs.nix-on-droid.lib.nixOnDroidConfiguration rec {
-      extraSpecialArgs = inputs;
-      home-manager-path = inputs.home-manager.outPath;
-      pkgs = mkPkgs {
-        inherit system;
-        inherit (inputs) nixpkgs;
-      };
-
-      modules =
-        [
-          (allowModularOverrides {inherit system;})
-
-          ({
-            config,
-            lib,
-            ...
-          }: let
-            inherit (lib) mkForce mkOption types;
-          in {
-            # Adapt NixOnDroid to NixOS options
-            options.environment = {
-              variables.FLAKE = mkOption {
-                type = with types; nullOr str;
-              };
-              systemPackages = mkOption {
-                type = with types; listOf package;
-                default = [];
-              };
-            };
-
-            config.environment.packages = config.environment.systemPackages;
-
-            # This disables the assertion that fails because of nixpkgs.overlays
-            config._module.args.isFlake = mkForce false;
-          })
-
-          {home-manager = {inherit extraSpecialArgs;};}
         ]
         ++ extraModules;
     };

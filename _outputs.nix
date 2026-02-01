@@ -8,7 +8,7 @@
     secrets,
     ...
   }: let
-    inherit (self.lib) mkNixOS mkNixDarwin mkNixOnDroid mkPkgs;
+    inherit (self.lib) mkNixOS mkNixDarwin mkPkgs;
 
     perSystem = attrs:
       nixpkgs.lib.genAttrs (import systems) (system:
@@ -21,9 +21,6 @@
       system = "x86_64-darwin";
       extraModules = [./configurations/darwin];
     };
-
-    nixOnDroidConfigurations.default =
-      mkNixOnDroid [./configurations/android];
 
     nixosConfigurations = {
       # Desktops
@@ -39,6 +36,11 @@
           ./configurations/binto
           secrets.nixosModules.default
         ];
+      };
+
+      android = mkNixOS {
+        system = "aarch64-linux";
+        extraModules = [./configurations/android];
       };
 
       # NAS

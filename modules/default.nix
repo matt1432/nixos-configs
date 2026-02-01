@@ -23,14 +23,6 @@ in {
       miscellaneous configs I might want on every darwin device I use.
     '';
 
-  base-droid =
-    module
-    (import ./base/default-droid.nix self)
-    ''
-      Sets up locale, nix config, binary caches, general packages and some
-      miscellaneous configs I might want on every nix-on-droid device I use.
-    '';
-
   borgbackup =
     module
     (import ./borgbackup)

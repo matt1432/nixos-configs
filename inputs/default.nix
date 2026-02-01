@@ -26,11 +26,9 @@ let
       repo = "nix-darwin";
     };
 
-    nix-on-droid = mkInput {
+    nixos-avf = mkInput {
       owner = "nix-community";
-      repo = "nix-on-droid";
-
-      inputs.home-manager.follows = "home-manager";
+      repo = "nixos-avf";
     };
 
     sops-nix = mkInput {

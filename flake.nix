@@ -339,16 +339,6 @@
       repo = "nix-index-database";
       type = "github";
     };
-    nix-on-droid = {
-      inputs = {
-        home-manager.follows = "home-manager";
-        nixpkgs.follows = "nixpkgs";
-        nixpkgs-docs.follows = "nixpkgs";
-      };
-      owner = "nix-community";
-      repo = "nix-on-droid";
-      type = "github";
-    };
     nix-output-monitor = {
       inputs = {
         flake-utils.follows = "flake-utils";
@@ -377,6 +367,12 @@
       };
       owner = "nix-community";
       repo = "nixd";
+      type = "github";
+    };
+    nixos-avf = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      owner = "nix-community";
+      repo = "nixos-avf";
       type = "github";
     };
     nixos-jellyfin = {

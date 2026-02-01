@@ -7,7 +7,7 @@ This directory contains every modules for NixOS exposed by this flake.
 | Name | Description |
 | ---- | ----------- |
 | `base` | Sets up locale, nix config, binary caches, general packages and some miscellaneous configs I might want on every device I use. |
-| `base-droid` | Sets up locale, nix config, binary caches, general packages and some miscellaneous configs I might want on every nix-on-droid device I use. |
+| `base-darwin` | Sets up locale, nix config, binary caches, general packages and some miscellaneous configs I might want on every darwin device I use. |
 | `borgbackup` | Sets up a wrapper around `services.borgbackup` to setup default behaviour and make configuration of backups easier. |
 | `caddy-plus` | Extends the caddy options to allow declaring subdirectory routes and reverse proxy directives through nix code. |
 | `desktop` | Sets up a Display Manager, a Desktop Environment and themes for any graphical apps to use the Dracula Theme. This module uses Hyprland as window manager and AGS / Astal for the UI. |

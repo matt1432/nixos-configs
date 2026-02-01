@@ -1,56 +1,86 @@
 {
-  config,
-  lib,
-  pkgs,
+  mainUser,
+  nixos-avf,
+  self,
   ...
-}: let
-  inherit (lib) attrValues concatStringsSep;
-in {
-  imports = [./nix-on-droid.nix];
-
-  environment.variables.FLAKE = "/data/data/com.termux.nix/files/home/.nix";
-
-  terminal.font = "${
-    pkgs.nerd-fonts.jetbrains-mono
-  }/share/fonts/truetype/NerdFonts/JetBrainsMono/JetBrainsMonoNerdFontMono-Regular.ttf";
-
-  environment.packages = [
-    (pkgs.writeShellApplication {
-      name = "switch";
-
-      runtimeInputs = attrValues {
-        inherit
-          (pkgs)
-          coreutils
-          nix-output-monitor
-          nvd
-          ;
-      };
-
-      text = ''
-        oldProfile=$(realpath /nix/var/nix/profiles/per-user/nix-on-droid/profile)
-
-        nix-on-droid ${concatStringsSep " " [
-          "switch"
-          "--flake ${config.environment.variables.FLAKE}"
-          "--builders ssh-ng://matt@100.64.0.7"
-          ''"$@"''
-          "|&"
-          "nom"
-        ]} &&
-
-        nvd diff "$oldProfile" "$(realpath /nix/var/nix/profiles/per-user/nix-on-droid/profile)"
-      '';
-    })
+}: {
+  # ------------------------------------------------
+  # Imports
+  # ------------------------------------------------
+  imports = [
+    nixos-avf.nixosModules.avf
+    self.nixosModules.base
+    self.nixosModules.meta
   ];
 
-  environment.etcBackupExtension = ".bak";
-  environment.motd = null;
-  home-manager.backupFileExtension = "hm-bak";
+  # State Version: DO NOT CHANGE
+  system.stateVersion = "26.05";
 
-  # Set your time zone.
+  # ------------------------------------------------
+  # User Settings
+  # ------------------------------------------------
+  users.users.${mainUser}.uid = 1000;
+
+  avf.defaultUser = mainUser;
+
+  networking = {
+    hostName = "avf";
+  };
+
   time.timeZone = "America/Montreal";
 
-  # No touchy
-  system.stateVersion = "23.05";
+  # ------------------------------------------------
+  # `Self` Modules configuration
+  # ------------------------------------------------
+  meta = {
+    roleDescription = "NixOS running on AVF on my phone";
+    hardwareDescription = "Google Pixel 8";
+  };
+
+  roles.base = {
+    enable = true;
+    user = mainUser;
+  };
+
+  home-manager.sharedModules = [
+    self.homeManagerModules.neovim
+    self.homeManagerModules.shell
+
+    {
+      programs = {
+        bash = {
+          enable = true;
+          promptMainColor = "purple";
+          shellAliases = {
+            # SSH
+            # Desktop
+            pc = "ssh -t matt@100.64.0.6 'tmux -2u new -At phone'";
+
+            # NAS
+            nos = "ssh -t matt@100.64.0.4 'tmux -2u new -At phone'";
+
+            # Build server
+            servivi = "ssh -t matt@100.64.0.7 'tmux -2u new -At phone'";
+
+            # Home-assistant
+            homie = "ssh -t matt@100.64.0.10 'tmux -2u new -At phone'";
+
+            # Cluster nodes
+            thingone = "ssh -t matt@100.64.0.8 'tmux -2u new -At phone'";
+            thingtwo = "ssh -t matt@100.64.0.9 'tmux -2u new -At phone'";
+          };
+        };
+        neovim = {
+          enable = true;
+          user = mainUser;
+
+          ideConfig = {
+            enableJava = false;
+            enableNix = false;
+            enableWeb = false;
+          };
+        };
+      };
+    }
+  ];
 }

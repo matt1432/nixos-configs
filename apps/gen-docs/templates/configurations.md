@@ -7,7 +7,6 @@ unique to them.
 
 | Name      | Model / Specs | Description                                                                                      |
 | --------- | ------------- | ------------------------------------------------------------------------------------------------ |
-| `android` | OnePlus 9 Pro | [Nix-On-Droid](https://github.com/nix-community/nix-on-droid) configuration for my OnePlus 9 Pro |
 $for(attrs/pairs)$
 | `$it.key$` | $it.value.hwDesc/nowrap$ | $it.value.roleDesc/nowrap$ |
 $endfor$
