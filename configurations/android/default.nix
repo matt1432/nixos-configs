@@ -24,7 +24,7 @@
   avf.defaultUser = mainUser;
 
   networking = {
-    hostName = "avf";
+    hostName = "android";
   };
 
   time.timeZone = "America/Montreal";
