@@ -16,6 +16,8 @@ in {
   imports = [
     self.nixosModules.base-darwin
     self.nixosModules.meta
+
+    ./modules
   ];
 
   # State Version: DO NOT CHANGE
