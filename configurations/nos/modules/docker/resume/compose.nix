@@ -1,4 +1,4 @@
-{configPath, ...}: {pkgs, ...}: let
+{configPath, TZ, ...}: {pkgs, ...}: let
   rwPath = configPath + "/resume";
 in {
   virtualisation.docker.compose."resume" = {
@@ -9,76 +9,38 @@ in {
         image = pkgs.callPackage ./images/reactive-resume.nix pkgs;
         restart = "always";
 
-        ports = ["3060:3060"];
+        ports = ["3060:3000"];
         networks = ["proxy_net"];
 
-        dependsOn = ["postgres" "minio" "chrome"];
+        volumes = [
+          "${rwPath}/data:/app/data"
+        ];
+
+        dependsOn = {
+          postgres.condition = "service_healthy";
+          printer.condition = "service_healthy";
+        };
 
         environment = {
-          # -- Environment Variables --
-          PORT = "3060";
-          NODE_ENV = "production";
+          # --- Server ---
+          inherit TZ;
+          APP_URL = "https://resume.nelim.org";
 
-          # -- URLs --
-          PUBLIC_URL = "http://app:3060";
-          STORAGE_URL = "https://resume-storage.nelim.org/default";
+          # --- Printer ---
+          PRINTER_ENDPOINT = "ws://printer:3000";
 
-          # -- Printer (Chrome) --
-          CHROME_TOKEN = "chrome_token";
-          CHROME_URL = "ws://chrome:3000";
-
-          # -- Database (Postgres) --
+          # --- Database (PostgreSQL) ---
           DATABASE_URL = "postgresql://postgres:postgres@postgres:5432/postgres";
 
-          # -- Auth --
-          ACCESS_TOKEN_SECRET = "access_token_secret";
-          REFRESH_TOKEN_SECRET = "refresh_token_secret";
-
-          # -- Emails --
-          MAIL_FROM = "noreply@localhost";
-          # SMTP_URL = "smtp://user:pass@smtp:587"; # Optional
-
-          # -- Storage (Minio) --
-          STORAGE_ENDPOINT = "minio";
-          STORAGE_PORT = "9000";
-          STORAGE_REGION = "us-east-1";
-          STORAGE_BUCKET = "default";
-          STORAGE_ACCESS_KEY = "minioadmin";
-          STORAGE_SECRET_KEY = "minioadmin";
-          STORAGE_USE_SSL = "false";
-          STORAGE_SKIP_BUCKET_CHECK = "false";
+          # --- Authentication ---
+          AUTH_SECRET = "access_token_secret";
         };
-      };
 
-      "chrome" = {
-        image = pkgs.callPackage ./images/chrome.nix pkgs;
-        restart = "always";
-
-        networks = ["proxy_net"];
-
-        environment = {
-          TIMEOUT = "50000";
-          CONCURRENT = "10";
-          TOKEN = "chrome_token";
-          HEALTH = "true";
-          EXIT_ON_HEALTH_FAILURE = "true";
-        };
-      };
-
-      "minio" = {
-        image = pkgs.callPackage ./images/minio.nix pkgs;
-        restart = "always";
-
-        command = "server /data";
-
-        ports = ["9000:9000"];
-        networks = ["proxy_net"];
-
-        volumes = ["${rwPath}/minio:/data"];
-
-        environment = {
-          MINIO_ROOT_PASSWORD = "minioadmin";
-          MINIO_ROOT_USER = "minioadmin";
+        healthcheck = {
+          interval = "30s";
+          retries = 3;
+          test = ["CMD" "curl" "-f" "http://localhost:3000/api/health"];
+          timeout = "10s";
         };
       };
 
@@ -89,7 +51,7 @@ in {
         networks = ["proxy_net"];
 
         volumes = [
-          "${rwPath}/db:/var/lib/postgresql/data"
+          "${rwPath}/db:/var/lib/postgresql"
         ];
 
         environment = {
@@ -100,8 +62,30 @@ in {
 
         healthcheck = {
           interval = "10s";
-          retries = 5;
+          retries = 10;
           test = ["CMD-SHELL" "pg_isready -U postgres -d postgres"];
+          timeout = "5s";
+        };
+      };
+
+      # FIXME: export to pdf doesn't work
+      "printer" = {
+        image = pkgs.callPackage ./images/chrome.nix pkgs;
+        restart = "always";
+
+        ports = ["4000:3000"];
+        networks = ["proxy_net"];
+
+        environment = {
+          HEALTH = "true";
+          CONCURRENT = "20";
+          QUEUED = "10";
+        };
+
+        healthcheck = {
+          interval = "10s";
+          retries = 10;
+          test = ["CMD" "curl" "-f" "http://localhost:3000/pressure"];
           timeout = "5s";
         };
       };

@@ -1,9 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage rec {
   imageName = "ghcr.io/amruthpillai/reactive-resume";
-  imageDigest = "sha256:f26fd329f35b97bccdf5ee5a7b558df0ccf1e073a1d7a5787e433043e22b9296";
-  hash = "sha256-qWcT+3l9MOAEDzfqEOmc7gfB0gkia5dJ3ziG/PMESgo=";
+  imageDigest = "sha256:de8ac87d29421127b51259c11b3ff7b3152648c9c5785ab0bdaa0aa57493d18d";
+  hash = "sha256-EAQ2L8pZPxcOjUuKBGNpNECUy48KVX0ZvE3XD/PEc5Y=";
   finalImageName = imageName;
-  # FIXME: https://docs.rxresu.me/self-hosting/migration
-  finalImageTag = "v4.5.5";
+  finalImageTag = "latest";
 }
