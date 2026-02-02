@@ -2,9 +2,12 @@
   inherit (builtins) toJSON;
 in {
   home-manager.users.${mainUser} = let
-    exceptTerminalCondition = {
-      bundle_identifiers = ["^com\\.apple\\.Terminal$" "^com\\.github\\.wez\\.wezterm$"];
-      type = "frontmost_application_if";
+    exceptTerminalCondition = type: {
+      bundle_identifiers = [
+        "^com\\.apple\\.Terminal$"
+        "^com\\.github\\.wez\\.wezterm$"
+      ];
+      type = "frontmost_application_${type}";
     };
 
     isLaptopKeyboardCondition = {
@@ -158,7 +161,7 @@ in {
                   {
                     conditions = [
                       isLaptopKeyboardCondition
-                      exceptTerminalCondition
+                      (exceptTerminalCondition "if")
                     ];
                     from = [{key_code = "left_control";}];
                     to = {apple_vendor_top_case_key_code = "keyboard_fn";};
@@ -168,7 +171,7 @@ in {
                   {
                     conditions = [
                       isLaptopKeyboardCondition
-                      exceptTerminalCondition
+                      (exceptTerminalCondition "if")
                     ];
                     from = {apple_vendor_top_case_key_code = "keyboard_fn";};
                     to = [{key_code = "left_control";}];
@@ -178,7 +181,7 @@ in {
                   {
                     conditions = [
                       isLaptopKeyboardCondition
-                      exceptTerminalCondition
+                      (exceptTerminalCondition "unless")
                     ];
                     from = {apple_vendor_top_case_key_code = "keyboard_fn";};
                     to = [{key_code = "left_command";}];
@@ -188,7 +191,7 @@ in {
                   {
                     conditions = [
                       isLaptopKeyboardCondition
-                      exceptTerminalCondition
+                      (exceptTerminalCondition "unless")
                     ];
                     from = {key_code = "left_command";};
                     to = [{key_code = "left_control";}];
@@ -198,7 +201,7 @@ in {
                   {
                     conditions = [
                       isLaptopKeyboardCondition
-                      exceptTerminalCondition
+                      (exceptTerminalCondition "unless")
                     ];
                     from = {key_code = "left_control";};
                     to = [{apple_vendor_top_case_key_code = "keyboard_fn";}];
@@ -208,7 +211,7 @@ in {
                   {
                     conditions = [
                       isGSkillKeyboardCondition
-                      exceptTerminalCondition
+                      (exceptTerminalCondition "unless")
                     ];
                     from = {key_code = "left_control";};
                     to = [{key_code = "left_command";}];
@@ -218,7 +221,7 @@ in {
                   {
                     conditions = [
                       isGSkillKeyboardCondition
-                      exceptTerminalCondition
+                      (exceptTerminalCondition "unless")
                     ];
                     from = {key_code = "left_command";};
                     to = [{key_code = "left_control";}];
@@ -228,7 +231,7 @@ in {
                   {
                     conditions = [
                       isGSkillKeyboardCondition
-                      exceptTerminalCondition
+                      (exceptTerminalCondition "unless")
                     ];
                     from = {key_code = "right_control";};
                     to = [{key_code = "right_command";}];
@@ -238,7 +241,7 @@ in {
                   {
                     conditions = [
                       isGSkillKeyboardCondition
-                      exceptTerminalCondition
+                      (exceptTerminalCondition "unless")
                     ];
                     from = {key_code = "right_command";};
                     to = [{key_code = "right_control";}];
