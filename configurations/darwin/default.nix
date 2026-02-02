@@ -34,6 +34,7 @@ in {
     completion.enable = true;
   };
 
+  environment.shells = [bashPkg];
   environment.variables.SHELL = getExe bashPkg;
 
   networking.hostName = "MGCOMP0192";
@@ -58,6 +59,8 @@ in {
       self.homeManagerModules.firefox
       self.homeManagerModules.neovim
       self.homeManagerModules.shell
+
+      ./home
     ];
 
     # State Version: DO NOT CHANGE
@@ -80,25 +83,6 @@ in {
       neovim = {
         enable = true;
         user = mainUser;
-      };
-
-      ssh = {
-        enable = true;
-
-        enableDefaultConfig = false;
-
-        matchBlocks."*" = {
-          forwardAgent = false;
-          addKeysToAgent = "no";
-          compression = false;
-          serverAliveInterval = 0;
-          serverAliveCountMax = 3;
-          hashKnownHosts = false;
-          userKnownHostsFile = "~/.ssh/known_hosts";
-          controlMaster = "no";
-          controlPath = "~/.ssh/master-%r@%n:%p";
-          controlPersist = "no";
-        };
       };
     };
   };
