@@ -24,21 +24,22 @@ in {
         # Connect to headscale
         tup = "tailscale up --login-server https://headscale.nelim.org";
 
+        # SSH
         # Desktop
-        pc = "ssh -t matt@binto 'tmux -2u new -At ${hostName}'";
+        pc = "ssh -t matt@100.64.0.6 'tmux -2u new -At ${hostName}'";
 
         # NAS
-        nos = "ssh -t matt@nos 'tmux -2u new -At ${hostName}'";
+        nos = "ssh -t matt@100.64.0.4 'tmux -2u new -At ${hostName}'";
 
-        # Experimenting server
-        servivi = "ssh -t matt@servivi 'tmux -2u new -At ${hostName}'";
+        # Build server
+        servivi = "ssh -t matt@100.64.0.7 'tmux -2u new -At ${hostName}'";
 
         # Home-assistant
-        homie = "ssh -t matt@homie 'tmux -2u new -At ${hostName}'";
+        homie = "ssh -t matt@100.64.0.10 'tmux -2u new -At ${hostName}'";
 
         # Cluster nodes
-        thingone = "ssh -t matt@thingone 'tmux -2u new -At ${hostName}'";
-        thingtwo = "ssh -t matt@thingtwo 'tmux -2u new -At ${hostName}'";
+        thingone = "ssh -t matt@100.64.0.8 'tmux -2u new -At ${hostName}'";
+        thingtwo = "ssh -t matt@100.64.0.9 'tmux -2u new -At ${hostName}'";
       };
     };
   };
