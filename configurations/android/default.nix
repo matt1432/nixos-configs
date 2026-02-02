@@ -11,6 +11,7 @@
     nixos-avf.nixosModules.avf
     self.nixosModules.base
     self.nixosModules.meta
+    self.nixosModules.server
   ];
 
   # State Version: DO NOT CHANGE
@@ -42,6 +43,12 @@
     user = mainUser;
   };
 
+  roles.server = {
+    enable = true;
+    user = mainUser;
+    tailscale.enable = true;
+  };
+
   home-manager.sharedModules = [
     self.homeManagerModules.neovim
     self.homeManagerModules.shell
@@ -51,24 +58,6 @@
         bash = {
           enable = true;
           promptMainColor = "purple";
-          shellAliases = {
-            # SSH
-            # Desktop
-            pc = "ssh -t matt@100.64.0.6 'tmux -2u new -At phone'";
-
-            # NAS
-            nos = "ssh -t matt@100.64.0.4 'tmux -2u new -At phone'";
-
-            # Build server
-            servivi = "ssh -t matt@100.64.0.7 'tmux -2u new -At phone'";
-
-            # Home-assistant
-            homie = "ssh -t matt@100.64.0.10 'tmux -2u new -At phone'";
-
-            # Cluster nodes
-            thingone = "ssh -t matt@100.64.0.8 'tmux -2u new -At phone'";
-            thingtwo = "ssh -t matt@100.64.0.9 'tmux -2u new -At phone'";
-          };
         };
         neovim = {
           enable = true;
