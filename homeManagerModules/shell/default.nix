@@ -4,7 +4,7 @@ self: {
   pkgs,
   ...
 }: let
-  inherit (lib) fileContents mkIf mkOption optionalString types;
+  inherit (lib) concatMapStringsSep fileContents mkIf mkOption optionalString types;
 
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
 
@@ -98,13 +98,6 @@ in {
           # Check if shell is interactive
           [[ $- == *i* ]] || return 0
 
-          ${optionalString isDarwin
-            # bash
-            ''
-              # Remove zsh lines in MacOS terminal
-              clear
-            ''}
-
           ${fileContents ./config/dracula/less.sh}
           ${fileContents ./config/dracula/fzf.sh}
 
@@ -131,7 +124,7 @@ in {
         ];
 
         makeBinSearchPath =
-          lib.concatMapStringsSep ":" (path: "${path}/bin");
+          concatMapStringsSep ":" (path: "${path}/bin");
       in
         optionalString isDarwin
         # bash

@@ -1,9 +1,15 @@
 {
+  config,
+  lib,
   mainUser,
   pkgs,
   self,
   ...
-}: {
+}: let
+  inherit (lib) getExe;
+
+  bashPkg = config.home-manager.users.${mainUser}.programs.bash.package;
+in {
   # ------------------------------------------------
   # Imports
   # ------------------------------------------------
@@ -18,7 +24,17 @@
   # ------------------------------------------------
   # User Settings
   # ------------------------------------------------
-  users.users.${mainUser}.home = "/Users/${mainUser}";
+  users.users.${mainUser} = {
+    home = "/Users/${mainUser}";
+    shell = bashPkg;
+  };
+
+  programs.bash = {
+    enable = true;
+    completion.enable = true;
+  };
+
+  environment.variables.SHELL = getExe bashPkg;
 
   networking.hostName = "MGCOMP0192";
 
