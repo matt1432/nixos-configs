@@ -19,10 +19,10 @@
           config.hide_tab_bar_if_only_one_tab = true;
           config.window_background_opacity = 0.8;
           config.window_padding = {
-            top = 0,
-            right = 0,
-            bottom = 0,
-            left = 0,
+              top = 0,
+              right = 0,
+              bottom = 0,
+              left = 0,
           };
 
           -- disable ligatures
@@ -35,10 +35,20 @@
 
           config.keys = {
             {
-              -- Spawn a window with from the cwd
-              key = 'Enter',
-              mods = 'SHIFT|CTRL',
-              action = wezterm.action.SpawnWindow,
+                -- Spawn a window with from the cwd
+                key = 'Enter',
+                mods = 'SHIFT|CTRL',
+                action = wezterm.action.SpawnWindow,
+            },
+            {
+                key='C',
+                mods='CTRL|SHIFT',
+                action=wezterm.action({ CopyTo='Clipboard' }),
+            },
+            {
+                mods='CTRL|SHIFT',
+                key='V',
+                action=wezterm.action({ PasteFrom='Clipboard' }),
             },
           };
 
