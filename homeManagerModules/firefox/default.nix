@@ -22,6 +22,12 @@ in {
   };
 
   config = mkIf cfg.enableCustomConf {
+    darwin.tcc = mkIf isDarwin {
+      ScreenCapture = [
+        "${config.home.homeDirectory}/Applications/Home Manager Apps/Firefox Developer Edition.app"
+      ];
+    };
+
     programs.firefox = {
       enable = true;
 

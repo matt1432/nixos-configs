@@ -52,7 +52,7 @@ in {
                 },
                 callback = function()
                     vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
-                    -- This is probably needed because the queries and parsers need to be installed manually?
+                    -- FIXME: this is because of a bug with darwin
                     vim.treesitter.start();
                     vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()";
                 end,

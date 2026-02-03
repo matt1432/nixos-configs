@@ -64,6 +64,7 @@ in {
       self.homeManagerModules.firefox
       self.homeManagerModules.neovim
       self.homeManagerModules.shell
+      self.homeManagerModules.tcc
 
       ./home
     ];
