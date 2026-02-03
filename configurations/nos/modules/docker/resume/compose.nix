@@ -1,4 +1,8 @@
-{configPath, TZ, ...}: {pkgs, ...}: let
+{
+  configPath,
+  TZ,
+  ...
+}: {pkgs, ...}: let
   rwPath = configPath + "/resume";
 in {
   virtualisation.docker.compose."resume" = {

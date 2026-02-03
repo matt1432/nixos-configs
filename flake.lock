@@ -1516,6 +1516,26 @@
         "url": "https://github.com/NixOS/nixpkgs"
       }
     },
+    "nixpkgs-firefox-darwin": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1769995625,
+        "narHash": "sha256-iTrOeJap7/Uj1Now8rLm1xThMHdiQewgANNGlcJ9WEQ=",
+        "owner": "bandithedoge",
+        "repo": "nixpkgs-firefox-darwin",
+        "rev": "884e4be0f1c970be21677ec3fa5f9c6fa3b0f346",
+        "type": "github"
+      },
+      "original": {
+        "owner": "bandithedoge",
+        "repo": "nixpkgs-firefox-darwin",
+        "type": "github"
+      }
+    },
     "nvim-theme-src": {
       "flake": false,
       "locked": {
@@ -1702,6 +1722,7 @@
         "nixos-avf": "nixos-avf",
         "nixos-jellyfin": "nixos-jellyfin",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-firefox-darwin": "nixpkgs-firefox-darwin",
         "nvim-theme-src": "nvim-theme-src",
         "pcsd": "pcsd",
         "piper-src": "piper-src",

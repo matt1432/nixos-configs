@@ -384,6 +384,12 @@
       type = "git";
       url = "https://github.com/NixOS/nixpkgs";
     };
+    nixpkgs-firefox-darwin = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      owner = "bandithedoge";
+      repo = "nixpkgs-firefox-darwin";
+      type = "github";
+    };
     nvim-theme-src = {
       flake = false;
       owner = "Mofiqul";

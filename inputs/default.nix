@@ -113,6 +113,11 @@ let
       owner = "nix-community";
       repo = "neovim-nightly-overlay";
     };
+
+    nixpkgs-firefox-darwin = mkInput {
+      owner = "bandithedoge";
+      repo = "nixpkgs-firefox-darwin";
+    };
   };
 
   nvimInputs = {

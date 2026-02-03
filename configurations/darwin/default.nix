@@ -2,6 +2,7 @@
   config,
   lib,
   mainUser,
+  nixpkgs-firefox-darwin,
   pkgs,
   self,
   ...
@@ -19,6 +20,8 @@ in {
 
     ./modules
   ];
+
+  nixpkgs.overlays = [nixpkgs-firefox-darwin.overlay];
 
   # State Version: DO NOT CHANGE
   system.stateVersion = 6;

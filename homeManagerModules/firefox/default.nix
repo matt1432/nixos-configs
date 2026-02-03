@@ -7,7 +7,7 @@ self: {
   inherit (pkgs.scopedPackages) firefoxAddons;
 
   inherit (builtins) attrValues;
-  inherit (lib) attrsToList mkIf mkOption optionalAttrs optionals singleton types;
+  inherit (lib) attrsToList mkIf mkOption makeOverridable optionalAttrs optionals singleton types;
 
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
 
@@ -25,7 +25,11 @@ in {
     programs.firefox = {
       enable = true;
 
-      package = pkgs.firefox-devedition;
+      package =
+        if isDarwin
+        # https://github.com/nix-community/home-manager/issues/6955#issuecomment-3109421819
+        then makeOverridable ({...}: pkgs.firefox-devedition-bin) {}
+        else pkgs.firefox-devedition;
 
       profiles.${mainProfile} = {
         isDefault = true;
