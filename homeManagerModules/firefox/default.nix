@@ -16,6 +16,8 @@ self: {
 
   custom-css = pkgs.callPackage ./custom-css {};
 in {
+  imports = [self.homeManagerModules.tcc];
+
   options.programs.firefox.enableCustomConf = mkOption {
     type = types.bool;
     default = false;
