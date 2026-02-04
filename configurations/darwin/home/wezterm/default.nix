@@ -16,6 +16,8 @@
           config.color_scheme = 'Dracula';
           config.xcursor_theme = 'Dracula-cursors';
 
+          config.audible_bell = 'Disabled';
+
           config.hide_tab_bar_if_only_one_tab = true;
           config.window_background_opacity = 0.8;
           config.window_padding = {
