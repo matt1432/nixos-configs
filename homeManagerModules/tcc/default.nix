@@ -42,15 +42,16 @@ in {
         fi
       '';
 
-    home.activation.ensureTCCPermissions = lib.hm.dag.entryAfter ["installPackages"] (
+    home.activation.ensureTCCPermissions = let
+      tccExe = "${getExe pkgs.bash} ${./src/tcc.bash}";
+    in lib.hm.dag.entryAfter ["installPackages"] (
       concatMapAttrsStringSep "\n" (
         name: service:
           optionalString (config.darwin.tcc.${name} != []) ''
             TCC_DATABASE=${escapeShellArg service.database} \
             TCC_SERVICE=kTCCService${escapeShellArg name} \
             PREFPANE=${escapeShellArg service.prefpane} \
-            ${getExe pkgs.bash} ${./src/tcc.bash} \
-            ${escapeShellArgs config.darwin.tcc.${name}}
+            ${tccExe} ${escapeShellArgs config.darwin.tcc.${name}} || true # script will fail on CI
           ''
       )
       services

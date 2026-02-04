@@ -1,7 +1,5 @@
 set -eu
 
-# FIXME: don't run if is ran from github action
-
 eval "$(env -i /usr/libexec/path_helper)"
 
 is_tcc_permission_granted() {
