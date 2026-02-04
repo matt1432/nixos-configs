@@ -140,6 +140,11 @@ in {
                   local client = vim.lsp.get_client_by_id(args.data.client_id);
                   client.server_capabilities.semanticTokensProvider = nil;
                   lsp_status.on_attach(client);
+
+                  -- ensure treesitter is started, in case starting the lsp messed with it
+                  -- happens sometimes on darwin for some reason?
+                  vim.treesitter.start();
+                  vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()";
               end,
           });
         '';
