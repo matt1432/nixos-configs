@@ -42,17 +42,23 @@ in {
             rules = [
               {
                 description = "CTRL Right Arrow to end of line";
-                enabled = false;
+                enabled = true;
                 manipulators = [
                   {
+                    conditions = [
+                      isLaptopKeyboardCondition
+                      (exceptTerminalCondition "if")
+                    ];
                     from = {
                       key_code = "right_arrow";
-                      modifiers = {mandatory = ["left_control"];};
+                      modifiers = {
+                        mandatory = ["left_control"];
+                      };
                     };
                     to = [
                       {
-                        key_code = "right_arrow";
-                        modifiers = ["left_option"];
+                        key_code = "end";
+                        modifiers = [];
                       }
                     ];
                     type = "basic";
@@ -62,17 +68,23 @@ in {
 
               {
                 description = "CTRL Left Arrow to beginning of line";
-                enabled = false;
+                enabled = true;
                 manipulators = [
                   {
+                    conditions = [
+                      isLaptopKeyboardCondition
+                      (exceptTerminalCondition "if")
+                    ];
                     from = {
                       key_code = "left_arrow";
-                      modifiers = {mandatory = ["left_control"];};
+                      modifiers = {
+                        mandatory = ["left_control"];
+                      };
                     };
                     to = [
                       {
-                        key_code = "left_arrow";
-                        modifiers = ["left_option"];
+                        key_code = "home";
+                        modifiers = [];
                       }
                     ];
                     type = "basic";
