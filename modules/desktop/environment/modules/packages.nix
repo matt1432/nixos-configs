@@ -165,7 +165,7 @@ in {
           okular
           ;
 
-        # FIXME: https://github.com/NixOS/nixpkgs/issues/483540
+        # FIXME: https://pr-tracker.nelim.org/?pr=486634
         kdenlive = pkgs.kdePackages.kdenlive.override {ffmpeg-full = pkgs.ffmpeg_7-full;};
 
         # School
