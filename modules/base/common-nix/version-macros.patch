@@ -3,9 +3,9 @@ Author: Qyriad <qyriad@qyriad.me>
 Date:   Tue, 18 Nov 2025 17:36:40 +0100
 
     libutil: include LIX_MAJOR, LIX_MINOR, and LIX_PATCH macros
-    
+
     Fixes #1038
-    
+
     Change-Id: I7d8a4648890fce7ff15695876c9b9d3a6a6a6964
 
 diff --git a/lix/meson.build b/lix/meson.build
@@ -29,4 +29,3 @@ index 40960c486..ac411679c 100644
 +    'LIX_PATCH': lix_patch,
      'PACKAGE_TARNAME': '"' + meson.project_name() + '"',
      'PACKAGE_STRING': '"' + meson.project_name() + ' ' + meson.project_version() + '"',
-     'HAVE_STRUCT_DIRENT_D_TYPE': 1, # FIXME: actually check this for solaris

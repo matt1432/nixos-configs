@@ -161,12 +161,9 @@ in {
         # KDE packages
         inherit
           (pkgs.kdePackages)
-          # kdenlive
+          kdenlive
           okular
           ;
-
-        # FIXME: https://pr-tracker.nelim.org/?pr=486634
-        kdenlive = pkgs.kdePackages.kdenlive.override {ffmpeg-full = pkgs.ffmpeg_7-full;};
 
         # School
         inherit (purePkgs) libreoffice;
