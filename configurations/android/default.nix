@@ -1,6 +1,8 @@
 {
+  config,
   mainUser,
   nixos-avf,
+  pkgs,
   self,
   ...
 }: {
@@ -37,6 +39,16 @@
     roleDescription = "NixOS running on AVF on my phone";
     hardwareDescription = "Google Pixel 8";
   };
+
+  environment.systemPackages = [
+    (pkgs.writeShellApplication {
+      name = "switch";
+      runtimeInputs = [config.programs.nh.package];
+      text = ''
+        exec nh os boot "$FLAKE#nixosConfigurations.android" --max-jobs 1
+      '';
+    })
+  ];
 
   roles.base = {
     enable = true;
