@@ -35,8 +35,8 @@ in
         src = final.fetchFromGitHub {
           repo = "nix-serve-ng";
           owner = "aristanetworks";
-          rev = "3b9c80f78501813b1a29c5b33a3ccc50a7506f0e";
-          hash = "sha256-dbjGP/uD2WeGYf6A5CmLb6z5owleoYXybFbkTcWSvxA=";
+          rev = "8ce0104efdf7f72e5a371bc48613084673b23cc0";
+          hash = "sha256-Pck7/jhaoYAUM9M0nWR/dwYEVwXXNP2bzB4+XtZBmno=";
         };
       })
     ];
