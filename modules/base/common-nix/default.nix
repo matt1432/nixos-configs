@@ -17,7 +17,7 @@ in {
       package = pkgs.lixPackageSets.stable.lix.overrideAttrs (o: {
         patches =
           o.patches
-          ++ optionals (config.services.nix-serve.enable) [
+          ++ optionals (config.services.nix-serve.enable or false) [
             ./pkg-config.patch
             ./version-macros.patch
           ];
