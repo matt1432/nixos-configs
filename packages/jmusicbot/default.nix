@@ -12,7 +12,7 @@
   jre_minimal,
   ...
 }: let
-  inherit (lib) concatStringsSep elem filter getExe;
+  inherit (lib) concatStringsSep elem filter getExe hasSuffix;
 
   jre_modules = [
     "java.se"
@@ -73,6 +73,7 @@ in
 
     meta = {
       inherit (jmusicbot.meta) description license mainProgram;
-      platforms = filter (x: elem x google-chrome.meta.platforms) jmusicbot.meta.platforms;
+      # https://github.com/NixOS/nixpkgs/pull/486721
+      platforms = ["x86_64-linux"];
     };
   }
