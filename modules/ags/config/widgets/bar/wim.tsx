@@ -1,6 +1,9 @@
 import { bind } from 'astal';
 import { Astal, Gtk } from 'astal/gtk3';
 
+import Tablet from '../../services/tablet';
+import Separator from '../misc/separator';
+import BarRevealer from './fullscreen';
 import Audio from './items/audio';
 import Battery from './items/battery';
 import Bluetooth from './items/bluetooth';
@@ -13,11 +16,6 @@ import Network from './items/network';
 import NotifButton from './items/notif-button';
 import SysTray from './items/tray';
 import Workspaces from './items/workspaces';
-
-import BarRevealer from './fullscreen';
-import Separator from '../misc/separator';
-import Tablet from '../../services/tablet';
-
 
 export default () => (
     <BarRevealer
@@ -41,7 +39,6 @@ export default () => (
                 <button
                     className="bar-item tablet-mode"
                     cursor="pointer"
-
                     onButtonReleaseEvent={() => {
                         const tablet = Tablet.get_default();
 
@@ -49,8 +46,9 @@ export default () => (
                     }}
                 >
                     <icon
-                        icon={bind(Tablet.get_default(), 'currentMode')
-                            .as((mode) => `${mode}-symbolic`)}
+                        icon={bind(Tablet.get_default(), 'currentMode').as(
+                            (mode) => `${mode}-symbolic`,
+                        )}
                     />
                 </button>
 
@@ -97,6 +95,5 @@ export default () => (
                 <Separator size={2} />
             </box>
         </centerbox>
-
     </BarRevealer>
 );

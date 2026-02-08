@@ -1,12 +1,12 @@
-import { Gdk, Gtk } from 'astal/gtk3';
+/* eslint-disable no-magic-numbers */
 
+import { Gdk, Gtk } from 'astal/gtk3';
 import Cairo from 'cairo';
 
 import { Bezier, BezierPoints, Point } from '../../lib';
 
 /* Types */
 type Side = 'top' | 'right' | 'bottom' | 'left';
-
 
 const SIDES: Side[] = ['top', 'right', 'bottom', 'left'];
 
@@ -17,25 +17,34 @@ export default ({
     <box>
         <drawingarea
             css={css}
-
             setup={(widget) => {
                 widget.set_size_request(allocation.width, allocation.height);
 
                 widget.connect('draw', (_, cairoContext: Cairo.Context) => {
-                    widget.set_size_request(allocation.width, allocation.height);
+                    widget.set_size_request(
+                        allocation.width,
+                        allocation.height,
+                    );
 
                     const styleContext = widget.get_style_context();
 
-                    const bgColor = styleContext.get_background_color(Gtk.StateFlags.NORMAL);
+                    const bgColor = styleContext.get_background_color(
+                        Gtk.StateFlags.NORMAL,
+                    );
 
-                    const borderWidth = styleContext.get_border(Gtk.StateFlags.NORMAL);
+                    const borderWidth = styleContext.get_border(
+                        Gtk.StateFlags.NORMAL,
+                    );
 
-                    const borderColor = Object.fromEntries(SIDES.map((side) => [
-                        side,
-                        styleContext.get_property(
-                            `border-${side}-color`, Gtk.StateFlags.NORMAL,
-                        ) as Gdk.RGBA,
-                    ])) as Record<Side, Gdk.RGBA>;
+                    const borderColor = Object.fromEntries(
+                        SIDES.map((side) => [
+                            side,
+                            styleContext.get_property(
+                                `border-${side}-color`,
+                                Gtk.StateFlags.NORMAL,
+                            ) as Gdk.RGBA,
+                        ]),
+                    ) as Record<Side, Gdk.RGBA>;
 
                     /*
                      * Draws a cubic bezier curve from the current point
@@ -45,7 +54,10 @@ export default ({
                      * @param curve the cubic bezier's control points. this
                      *              is the same as a CSS easing function
                      */
-                    const drawBezier = (dest: Point, curve: BezierPoints): void => {
+                    const drawBezier = (
+                        dest: Point,
+                        curve: BezierPoints,
+                    ): void => {
                         const start = new Point(cairoContext.getCurrentPoint());
 
                         // Converts the ratios to absolute coordinates
@@ -135,7 +147,12 @@ export default ({
                     cairoContext.closePath();
 
                     // Add color
-                    cairoContext.setSourceRGBA(bgColor.red, bgColor.green, bgColor.blue, bgColor.alpha);
+                    cairoContext.setSourceRGBA(
+                        bgColor.red,
+                        bgColor.green,
+                        bgColor.blue,
+                        bgColor.alpha,
+                    );
                     cairoContext.fill();
 
                     colorBorder('left', bottomLeft, topLeft);

@@ -1,8 +1,13 @@
 import { timeout } from 'astal';
-import { Gtk } from 'astal/gtk3';
 import { property, register } from 'astal/gobject';
-import { CenterBox, CenterBoxProps, EventBox, Overlay, OverlayProps } from 'astal/gtk3/widget';
-
+import { Gtk } from 'astal/gtk3';
+import {
+    CenterBox,
+    CenterBoxProps,
+    EventBox,
+    Overlay,
+    OverlayProps,
+} from 'astal/gtk3/widget';
 import Mpris from 'gi://AstalMpris';
 
 const MAX_OFFSET = 200;
@@ -13,11 +18,10 @@ const TRANSITION = `transition: margin ${ANIM_DURATION}ms ease,
 
 /* Types */
 export interface Gesture {
-    attribute?: object
-    setup?: (self: PlayerGesture) => void
-    props?: OverlayProps
+    attribute?: object;
+    setup?: (self: PlayerGesture) => void;
+    props?: OverlayProps;
 }
-
 
 @register()
 export class PlayerBox extends CenterBox {
@@ -27,11 +31,13 @@ export class PlayerBox extends CenterBox {
     @property(Object)
     declare player: Mpris.Player;
 
-    constructor(props: Omit<CenterBoxProps, 'setup'> & {
-        bgStyle?: string
-        player?: Mpris.Player
-        setup?: (self: PlayerBox) => void
-    }) {
+    constructor(
+        props: Omit<CenterBoxProps, 'setup'> & {
+            bgStyle?: string;
+            player?: Mpris.Player;
+            setup?: (self: PlayerBox) => void;
+        },
+    ) {
         super(props as CenterBoxProps);
     }
 }
@@ -172,12 +178,12 @@ export class PlayerGesture extends Overlay {
     }
 
     constructor({
-        setup = () => { /**/ },
+        setup = () => {},
         widget,
         ...props
     }: Omit<OverlayProps, 'setup'> & {
-        widget: EventBox
-        setup: (self: PlayerGesture) => void
+        widget: EventBox;
+        setup: (self: PlayerGesture) => void;
     }) {
         super(props);
         setup(this);
@@ -185,15 +191,14 @@ export class PlayerGesture extends Overlay {
         this._widget = widget;
         this._gesture = Gtk.GestureDrag.new(this);
 
-        this.hook(this._gesture, 'drag-update', (_, realGesture) => this.dragUpdate(realGesture));
+        this.hook(this._gesture, 'drag-update', (_, realGesture) =>
+            this.dragUpdate(realGesture),
+        );
         this.hook(this._gesture, 'drag-end', () => this.dragEnd());
     }
 }
 
-export default ({
-    setup = () => { /**/ },
-    ...props
-}: Gesture) => {
+export default ({ setup = () => {}, ...props }: Gesture) => {
     const widget = new EventBox();
 
     // Have empty PlayerBox to define the size of the widget

@@ -2,15 +2,12 @@ import { Astal } from 'astal/gtk3';
 
 import RoundedCorner from './screen-corners';
 
-
 const TopLeft = () => (
     <window
         name="cornertl"
         layer={Astal.Layer.OVERLAY}
         exclusivity={Astal.Exclusivity.IGNORE}
-        anchor={
-            Astal.WindowAnchor.TOP | Astal.WindowAnchor.LEFT
-        }
+        anchor={Astal.WindowAnchor.TOP | Astal.WindowAnchor.LEFT}
         clickThrough={true}
     >
         {RoundedCorner('topleft')}
@@ -22,9 +19,7 @@ const TopRight = () => (
         name="cornertr"
         layer={Astal.Layer.OVERLAY}
         exclusivity={Astal.Exclusivity.IGNORE}
-        anchor={
-            Astal.WindowAnchor.TOP | Astal.WindowAnchor.RIGHT
-        }
+        anchor={Astal.WindowAnchor.TOP | Astal.WindowAnchor.RIGHT}
         clickThrough={true}
     >
         {RoundedCorner('topright')}
@@ -36,9 +31,7 @@ const BottomLeft = () => (
         name="cornerbl"
         layer={Astal.Layer.OVERLAY}
         exclusivity={Astal.Exclusivity.IGNORE}
-        anchor={
-            Astal.WindowAnchor.BOTTOM | Astal.WindowAnchor.LEFT
-        }
+        anchor={Astal.WindowAnchor.BOTTOM | Astal.WindowAnchor.LEFT}
         clickThrough={true}
     >
         {RoundedCorner('bottomleft')}
@@ -50,19 +43,11 @@ const BottomRight = () => (
         name="cornerbr"
         layer={Astal.Layer.OVERLAY}
         exclusivity={Astal.Exclusivity.IGNORE}
-        anchor={
-            Astal.WindowAnchor.BOTTOM | Astal.WindowAnchor.RIGHT
-        }
+        anchor={Astal.WindowAnchor.BOTTOM | Astal.WindowAnchor.RIGHT}
         clickThrough={true}
     >
         {RoundedCorner('bottomright')}
     </window>
 );
 
-
-export default () => [
-    TopLeft(),
-    TopRight(),
-    BottomLeft(),
-    BottomRight(),
-];
+export default () => [TopLeft(), TopRight(), BottomLeft(), BottomRight()];

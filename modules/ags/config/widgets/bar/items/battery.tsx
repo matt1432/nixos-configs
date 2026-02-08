@@ -1,9 +1,7 @@
 import { bind } from 'astal';
-
 import AstalBattery from 'gi://AstalBattery';
 
 import Separator from '../../misc/separator';
-
 
 const LOW_BATT = 20;
 
@@ -15,15 +13,17 @@ export default () => {
             <icon
                 setup={(self) => {
                     const update = () => {
-                        const percent = Math.round(battery.get_percentage() * 100);
+                        const percent = Math.round(
+                            battery.get_percentage() * 100,
+                        );
                         const level = Math.floor(percent / 10) * 10;
                         const isCharging = battery.get_charging();
                         const charged = percent === 100 && isCharging;
-                        const iconName = charged ?
-                            'battery-level-100-charged-symbolic' :
-                        `battery-level-${level}${isCharging ?
-                            '-charging' :
-                            ''}-symbolic`;
+                        const iconName = charged
+                            ? 'battery-level-100-charged-symbolic'
+                            : `battery-level-${level}${
+                                  isCharging ? '-charging' : ''
+                              }-symbolic`;
 
                         self.set_icon(iconName);
 
@@ -36,13 +36,19 @@ export default () => {
 
                     battery.connect('notify::percentage', () => update());
                     battery.connect('notify::icon-name', () => update());
-                    battery.connect('notify::battery-icon-name', () => update());
+                    battery.connect('notify::battery-icon-name', () =>
+                        update(),
+                    );
                 }}
             />
 
             <Separator size={8} />
 
-            <label label={bind(battery, 'percentage').as((v) => `${Math.round(v * 100)}%`)} />
+            <label
+                label={bind(battery, 'percentage').as(
+                    (v) => `${Math.round(v * 100)}%`,
+                )}
+            />
         </box>
     );
 };

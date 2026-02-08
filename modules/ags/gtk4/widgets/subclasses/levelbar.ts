@@ -3,7 +3,6 @@ import { Gtk } from 'astal/gtk4';
 
 import astalify, { type AstalifyProps, type ConstructProps } from '../astalify';
 
-
 export type LevelBarProps = ConstructProps<
     LevelBarClass,
     Gtk.LevelBar.ConstructorProps & AstalifyProps
@@ -15,7 +14,9 @@ export class LevelBarClass extends astalify(Gtk.LevelBar) {
         super({ cssName, ...props });
     }
 
-    getChildren() { return []; }
+    getChildren() {
+        return [];
+    }
 }
 
 export const LevelBar = (props?: LevelBarProps) => new LevelBarClass(props);

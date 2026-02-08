@@ -1,11 +1,10 @@
 import { bind } from 'astal';
+import { property, register } from 'astal/gobject';
 import { Gtk, Widget } from 'astal/gtk3';
-import { register, property } from 'astal/gobject';
 
 type SmoothProgressProps = Widget.BoxProps & {
-    transition_duration?: string
+    transition_duration?: string;
 };
-
 
 // PERF: this is kinda laggy
 @register()
@@ -42,18 +41,15 @@ class SmoothProgress extends Widget.Box {
                     return `
                         transition: margin-right ${this.transition_duration} linear;
                         margin-right: ${
-                            Math.abs(fraction - 1) * background.get_allocated_width()
+                            Math.abs(fraction - 1) *
+                            background.get_allocated_width()
                         }px;
                     `;
                 })}
             />
         );
 
-        this.add((
-            <overlay overlay={progress}>
-                {background}
-            </overlay>
-        ));
+        this.add(<overlay overlay={progress}>{background}</overlay>);
         this.show_all();
     }
 }

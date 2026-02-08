@@ -3,7 +3,6 @@ import { Gtk } from 'astal/gtk4';
 
 import astalify, { type AstalifyProps, type ConstructProps } from '../astalify';
 
-
 export type ImageProps = ConstructProps<
     ImageClass,
     Gtk.Image.ConstructorProps & AstalifyProps
@@ -15,7 +14,9 @@ export class ImageClass extends astalify(Gtk.Image) {
         super({ cssName, ...props });
     }
 
-    getChildren() { return []; }
+    getChildren() {
+        return [];
+    }
 }
 
 export const Image = (props?: ImageProps) => new ImageClass(props);

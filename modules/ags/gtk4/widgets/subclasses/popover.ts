@@ -3,7 +3,6 @@ import { Gtk } from 'astal/gtk4';
 
 import astalify, { type AstalifyProps, type ConstructProps } from '../astalify';
 
-
 export type PopoverProps = ConstructProps<
     PopoverClass,
     Gtk.Popover.ConstructorProps & AstalifyProps

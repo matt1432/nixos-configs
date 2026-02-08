@@ -2,9 +2,7 @@ import { bind } from 'astal';
 import { Astal, Gtk } from 'astal/gtk3';
 
 import Brightness from '../../services/brightness';
-
 import PopupWindow from '../misc/popup-window';
-
 
 export default () => {
     const brightness = Brightness.get_default();
@@ -20,13 +18,13 @@ export default () => {
                     halign={Gtk.Align.FILL}
                     drawValue
                     cursor="pointer"
-
                     min={0}
                     max={100}
-
                     value={bind(brightness, 'screen').as((v) => v * 100)}
                     onDragged={(self) => {
-                        brightness.screen = Number((self.value / 100).toFixed(2));
+                        brightness.screen = Number(
+                            (self.value / 100).toFixed(2),
+                        );
                     }}
                 />
             </box>

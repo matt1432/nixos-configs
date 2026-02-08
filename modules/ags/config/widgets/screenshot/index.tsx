@@ -1,51 +1,58 @@
 import { bind, execAsync, Variable } from 'astal';
 import { Gtk, Widget } from 'astal/gtk3';
-
 import AstalApps from 'gi://AstalApps';
 import AstalHyprland from 'gi://AstalHyprland';
 
+import { getWindow, hyprMessage } from '../../lib';
 import PopupWindow from '../misc/popup-window';
 import Separator from '../misc/separator';
-
-import { getWindow, hyprMessage } from '../../lib';
-
 
 const ICON_SEP = 6;
 const takeScreenshot = (selector: string[], delay = 1000): void => {
     getWindow('win-screenshot')?.set_visible(false);
 
     setTimeout(() => {
-        execAsync([
-            `${SRC}/widgets/screenshot/capture.sh`,
-        ].concat(selector)).catch(console.error);
+        execAsync(
+            [`${SRC}/widgets/screenshot/capture.sh`].concat(selector),
+        ).catch(console.error);
     }, delay);
 };
 
 export default () => {
     const hyprland = AstalHyprland.get_default();
 
-    const windowList = <box vertical /> as Widget.Box;
+    const windowList = (<box vertical />) as Widget.Box;
 
-    const updateWindows = async() => {
+    const updateWindows = async () => {
         if (!getWindow('win-screenshot')?.get_visible()) {
             return;
         }
 
         const applications = AstalApps.Apps.new();
 
-        windowList.children = (JSON.parse(await hyprMessage('j/clients')) as AstalHyprland.Client[])
-            .filter((client) => client.workspace.id === hyprland.get_focused_workspace().get_id())
+        windowList.children = (
+            JSON.parse(await hyprMessage('j/clients')) as AstalHyprland.Client[]
+        )
+            .filter(
+                (client) =>
+                    client.workspace.id ===
+                    hyprland.get_focused_workspace().get_id(),
+            )
             .map((client) => (
                 <button
                     className="item-btn"
                     cursor="pointer"
-
                     onButtonReleaseEvent={() => {
                         takeScreenshot(['-w', client.address]);
                     }}
                 >
                     <box halign={Gtk.Align.CENTER}>
-                        <icon icon={applications.fuzzy_query(client.class)[0].iconName} />
+                        <icon
+                            icon={
+                                applications.fuzzy_query(client.class)[0]
+                                    .iconName
+                            }
+                        />
 
                         <Separator size={ICON_SEP} />
 
@@ -71,70 +78,67 @@ export default () => {
         >
             <scrollable name="monitors">
                 <box vertical>
-                    {bind(hyprland, 'monitors').as((monitors) => monitors.map((monitor) => (
-                        <button
-                            className="item-btn"
-                            cursor="pointer"
-
-                            onButtonReleaseEvent={() => {
-                                takeScreenshot(['-o', monitor.get_name()]);
-                            }}
-                        >
-                            <label
-                                label={`${monitor.get_name()}: ${monitor.get_description()}`}
-                                truncate
-                                maxWidthChars={50}
-                            />
-                        </button>
-                    )))}
+                    {bind(hyprland, 'monitors').as((monitors) =>
+                        monitors.map((monitor) => (
+                            <button
+                                className="item-btn"
+                                cursor="pointer"
+                                onButtonReleaseEvent={() => {
+                                    takeScreenshot(['-o', monitor.get_name()]);
+                                }}
+                            >
+                                <label
+                                    label={`${monitor.get_name()}: ${monitor.get_description()}`}
+                                    truncate
+                                    maxWidthChars={50}
+                                />
+                            </button>
+                        )),
+                    )}
                 </box>
             </scrollable>
 
-            <scrollable name="windows">
-                {windowList}
-            </scrollable>
+            <scrollable name="windows">{windowList}</scrollable>
         </stack>
     ) as Widget.Stack;
 
-    const StackButton = ({ label = '', iconName = '' }) => (
-        <button
-            cursor="pointer"
-            className={bind(Shown).as((shown) =>
-                `header-btn${shown === label ? ' active' : ''}`)}
+    const StackButton = ({ label = '', iconName = '' }) =>
+        (
+            <button
+                cursor="pointer"
+                className={bind(Shown).as(
+                    (shown) => `header-btn${shown === label ? ' active' : ''}`,
+                )}
+                onButtonReleaseEvent={() => {
+                    Shown.set(label);
+                }}
+            >
+                <box halign={Gtk.Align.CENTER}>
+                    <icon icon={iconName} />
 
-            onButtonReleaseEvent={() => {
-                Shown.set(label);
-            }}
-        >
-            <box halign={Gtk.Align.CENTER}>
-                <icon icon={iconName} />
+                    <Separator size={ICON_SEP} />
 
-                <Separator size={ICON_SEP} />
-
-                {label}
-            </box>
-        </button>
-    ) as Widget.Button;
+                    {label}
+                </box>
+            </button>
+        ) as Widget.Button;
 
     let frozen = false;
-    const freezeIcon = <icon icon="checkbox-symbolic" /> as Widget.Icon;
+    const freezeIcon = (<icon icon="checkbox-symbolic" />) as Widget.Icon;
     const freezeButton = (
         <button
             cursor="pointer"
             className="header-btn"
-
             onButtonReleaseEvent={() => {
                 frozen = !frozen;
-                freezeIcon.set_icon(frozen ?
-                    'checkbox-checked-symbolic' :
-                    'checkbox-symbolic');
+                freezeIcon.set_icon(
+                    frozen ? 'checkbox-checked-symbolic' : 'checkbox-symbolic',
+                );
             }}
         >
             <box halign={Gtk.Align.CENTER}>
                 {freezeIcon}
-
                 <Separator size={ICON_SEP} />
-
                 freeze
             </box>
         </button>
@@ -144,7 +148,6 @@ export default () => {
         <button
             cursor="pointer"
             className="header-btn"
-
             onButtonReleaseEvent={() => {
                 takeScreenshot(['region', frozen ? 'true' : 'false'], 0);
             }}
@@ -162,14 +165,8 @@ export default () => {
                 updateWindows();
             }}
         >
-            <box
-                className="screenshot widget"
-                vertical
-            >
-                <box
-                    className="header"
-                    homogeneous
-                >
+            <box className="screenshot widget" vertical>
+                <box className="header" homogeneous>
                     <StackButton label="monitors" iconName="display-symbolic" />
                     <StackButton label="windows" iconName="window-symbolic" />
                     <box>

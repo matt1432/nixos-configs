@@ -1,18 +1,16 @@
 import { bind, idle, Variable } from 'astal';
 import { Astal, Gtk, Widget } from 'astal/gtk3';
 
-import { ToggleButton } from '../misc/subclasses';
 import Separator from '../misc/separator';
-
+import { ToggleButton } from '../misc/subclasses';
 import Arc from './arcs';
-import Key from './keys';
-
 import { defaultOskLayout, oskLayouts } from './keyboard-layouts';
-
+import Key from './keys';
 
 const keyboardLayout = defaultOskLayout;
 const keyboardJson = oskLayouts[keyboardLayout];
 
+// eslint-disable-next-line no-magic-numbers
 const L_KEY_PER_ROW = [8, 7, 6, 6, 6, 4];
 const SPACING = 4;
 const COLOR = 'rgba(0, 0, 0, 0.5)';
@@ -23,18 +21,19 @@ export default () => {
     return (
         <box
             vertical
-            onRealize={(self) => idle(() => {
-                ThirdWidth.set(self.get_allocated_width() / 3);
-            })}
+            onRealize={(self) =>
+                idle(() => {
+                    ThirdWidth.set(self.get_allocated_width() / 3);
+                })
+            }
         >
-            <centerbox
-                className="osk hidden"
-                hexpand
-            >
+            <centerbox className="osk hidden" hexpand>
                 {/* LEFT */}
                 <box
                     widthRequest={bind(ThirdWidth)}
-                    css={`background: ${COLOR};`}
+                    css={`
+                        background: ${COLOR};
+                    `}
                     className="left-side side"
                     halign={Gtk.Align.START}
                     vertical
@@ -69,15 +68,14 @@ export default () => {
                     valign={Gtk.Align.FILL}
                     vertical
                 >
-                    <box
-                        valign={Gtk.Align.START}
-                    >
+                    <box valign={Gtk.Align.START}>
                         {bind(ThirdWidth).as((width) => (
                             <Arc
                                 allocation={{ width, height: 160 }}
-                                css={`background: ${COLOR};`}
+                                css={`
+                                    background: ${COLOR};
+                                `}
                             />
-
                         ))}
                     </box>
 
@@ -85,14 +83,12 @@ export default () => {
                         halign={Gtk.Align.FILL}
                         hexpand
                         vexpand
-                        css={`background: ${COLOR};`}
+                        css={`
+                            background: ${COLOR};
+                        `}
                         className="settings"
                     >
-                        <centerbox
-                            halign={Gtk.Align.FILL}
-                            hexpand
-                            vexpand
-                        >
+                        <centerbox halign={Gtk.Align.FILL} hexpand vexpand>
                             <box />
 
                             <ToggleButton
@@ -101,7 +97,6 @@ export default () => {
                                 active
                                 valign={Gtk.Align.CENTER}
                                 halign={Gtk.Align.CENTER}
-
                                 onToggled={(self) => {
                                     self.toggleClassName(
                                         'toggled',
@@ -112,12 +107,15 @@ export default () => {
                                         return;
                                     }
 
-                                    (self.get_toplevel() as Widget.Window | undefined)
-                                        ?.set_exclusivity(
-                                            self.get_active() ?
-                                                Astal.Exclusivity.EXCLUSIVE :
-                                                Astal.Exclusivity.NORMAL,
-                                        );
+                                    (
+                                        self.get_toplevel() as
+                                            | Widget.Window
+                                            | undefined
+                                    )?.set_exclusivity(
+                                        self.get_active()
+                                            ? Astal.Exclusivity.EXCLUSIVE
+                                            : Astal.Exclusivity.NORMAL,
+                                    );
                                 }}
                             >
                                 Exclusive
@@ -131,7 +129,9 @@ export default () => {
                 {/* RIGHT */}
                 <box
                     widthRequest={bind(ThirdWidth)}
-                    css={`background: ${COLOR};`}
+                    css={`
+                        background: ${COLOR};
+                    `}
                     className="right-side side"
                     halign={Gtk.Align.END}
                     vertical
@@ -147,10 +147,7 @@ export default () => {
 
                         return (
                             <box vertical>
-                                <box
-                                    className="row"
-                                    halign={Gtk.Align.END}
-                                >
+                                <box className="row" halign={Gtk.Align.END}>
                                     {...keys}
                                 </box>
 

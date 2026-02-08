@@ -1,10 +1,8 @@
-import { Gtk, Widget } from 'astal/gtk3';
 import { timeout } from 'astal';
-
+import { Gtk, Widget } from 'astal/gtk3';
 import AstalHyprland from 'gi://AstalHyprland';
 
 import { hyprMessage } from '../../../lib';
-
 
 const URGENT_DURATION = 1000;
 
@@ -19,7 +17,6 @@ const Workspace = ({ id = 0 }) => {
             <eventbox
                 cursor="pointer"
                 tooltip_text={id.toString()}
-
                 onClickRelease={() => {
                     hyprMessage(`dispatch workspace ${id}`).catch(console.log);
                 }}
@@ -27,14 +24,14 @@ const Workspace = ({ id = 0 }) => {
                 <box
                     valign={Gtk.Align.CENTER}
                     className="button"
-
                     setup={(self) => {
                         const update = (
                             _: Widget.Box,
                             client?: AstalHyprland.Client,
                         ) => {
                             const workspace = hyprland.get_workspace(id);
-                            const occupied = workspace && workspace.get_clients().length > 0;
+                            const occupied =
+                                workspace && workspace.get_clients().length > 0;
 
                             self.toggleClassName('occupied', occupied);
 
@@ -42,14 +39,19 @@ const Workspace = ({ id = 0 }) => {
                                 return;
                             }
 
-                            const isUrgent = client &&
+                            const isUrgent =
+                                client &&
                                 client.get_workspace().get_id() === id;
 
                             if (isUrgent) {
                                 self.toggleClassName('urgent', true);
 
                                 // Only show for a sec when urgent is current workspace
-                                if (hyprland.get_focused_workspace().get_id() === id) {
+                                if (
+                                    hyprland
+                                        .get_focused_workspace()
+                                        .get_id() === id
+                                ) {
                                     timeout(URGENT_DURATION, () => {
                                         self.toggleClassName('urgent', false);
                                     });
@@ -58,14 +60,17 @@ const Workspace = ({ id = 0 }) => {
                         };
 
                         update(self);
-                        self
-                            .hook(hyprland, 'event', () => update(self))
+                        self.hook(hyprland, 'event', () => update(self))
 
                             // Deal with urgent windows
                             .hook(hyprland, 'urgent', update)
 
                             .hook(hyprland, 'notify::focused-workspace', () => {
-                                if (hyprland.get_focused_workspace().get_id() === id) {
+                                if (
+                                    hyprland
+                                        .get_focused_workspace()
+                                        .get_id() === id
+                                ) {
                                     self.toggleClassName('urgent', false);
                                 }
                             });
@@ -85,26 +90,30 @@ export default () => {
     const updateHighlight = (self: Widget.Box) => {
         const currentId = Hyprland.get_focused_workspace().get_id().toString();
 
-        const indicators = ((self.get_parent() as Widget.Overlay)
-            .get_child() as Widget.Box)
-            .get_children() as Widget.Revealer[];
+        const indicators = (
+            (self.get_parent() as Widget.Overlay).get_child() as Widget.Box
+        ).get_children() as Widget.Revealer[];
 
         const currentIndex = indicators.findIndex((w) => w.name === currentId);
 
         if (currentIndex >= 0) {
-            self.set_css(`margin-left: ${L_PADDING + (currentIndex * WS_WIDTH)}px`);
+            self.set_css(
+                `margin-left: ${L_PADDING + currentIndex * WS_WIDTH}px`,
+            );
         }
     };
 
     const highlight = (
         <box
             className="button active"
-
             valign={Gtk.Align.CENTER}
             halign={Gtk.Align.START}
-
             setup={(self) => {
-                self.hook(Hyprland, 'notify::focused-workspace', updateHighlight);
+                self.hook(
+                    Hyprland,
+                    'notify::focused-workspace',
+                    updateHighlight,
+                );
             }}
         />
     ) as Widget.Box;
@@ -112,20 +121,16 @@ export default () => {
     let workspaces: Widget.Revealer[] = [];
 
     return (
-        <box
-            className="bar-item"
-        >
-            <overlay
-                className="workspaces"
-                passThrough
-                overlay={highlight}
-            >
+        <box className="bar-item">
+            <overlay className="workspaces" passThrough overlay={highlight}>
                 <box
                     setup={(self) => {
                         const refresh = () => {
-                            (self.get_children() as Widget.Revealer[]).forEach((rev) => {
-                                rev.set_reveal_child(false);
-                            });
+                            (self.get_children() as Widget.Revealer[]).forEach(
+                                (rev) => {
+                                    rev.set_reveal_child(false);
+                                },
+                            );
 
                             workspaces.forEach((ws) => {
                                 ws.set_reveal_child(true);
@@ -134,8 +139,11 @@ export default () => {
 
                         const updateWorkspaces = () => {
                             Hyprland.get_workspaces().forEach((ws) => {
-                                const currentWs = (self.get_children() as Widget.Revealer[])
-                                    .find((ch) => ch.name === ws.get_id().toString());
+                                const currentWs = (
+                                    self.get_children() as Widget.Revealer[]
+                                ).find(
+                                    (ch) => ch.name === ws.get_id().toString(),
+                                );
 
                                 if (!currentWs && ws.get_id() > 0) {
                                     self.add(Workspace({ id: ws.get_id() }));
@@ -144,19 +152,31 @@ export default () => {
 
                             // Make sure the order is correct
                             workspaces.forEach((workspace, i) => {
-                                (workspace.get_parent() as Widget.Box)
-                                    .reorder_child(workspace, i);
+                                (
+                                    workspace.get_parent() as Widget.Box
+                                ).reorder_child(workspace, i);
                             });
                         };
 
                         const updateAll = () => {
-                            workspaces = (self.get_children() as Widget.Revealer[])
+                            workspaces = (
+                                self.get_children() as Widget.Revealer[]
+                            )
                                 .filter((ch) => {
-                                    return Hyprland.get_workspaces().find((ws) => {
-                                        return ws.get_id().toString() === ch.name;
-                                    });
+                                    return Hyprland.get_workspaces().find(
+                                        (ws) => {
+                                            return (
+                                                ws.get_id().toString() ===
+                                                ch.name
+                                            );
+                                        },
+                                    );
                                 })
-                                .sort((a, b) => parseInt(a.name ?? '0') - parseInt(b.name ?? '0'));
+                                .sort(
+                                    (a, b) =>
+                                        parseInt(a.name ?? '0') -
+                                        parseInt(b.name ?? '0'),
+                                );
 
                             updateWorkspaces();
                             refresh();
@@ -164,7 +184,9 @@ export default () => {
                             // Make sure the highlight doesn't go too far
                             const TEMP_TIMEOUT = 100;
 
-                            timeout(TEMP_TIMEOUT, () => updateHighlight(highlight));
+                            timeout(TEMP_TIMEOUT, () =>
+                                updateHighlight(highlight),
+                            );
                         };
 
                         updateAll();

@@ -1,9 +1,7 @@
-import { App, Gtk, Gdk, Widget } from 'astal/gtk3';
 import { Variable } from 'astal';
-
-import GLib from 'gi://GLib';
-
+import { App, Gdk, Gtk, Widget } from 'astal/gtk3';
 import AstalApps from 'gi://AstalApps';
+import GLib from 'gi://GLib';
 const Applications = AstalApps.Apps.new();
 
 import AstalNotifd from 'gi://AstalNotifd';
@@ -11,25 +9,24 @@ import AstalNotifd from 'gi://AstalNotifd';
 import NotifGestureWrapper from './gesture';
 // import SmoothProgress from '../misc/smooth-progress';
 
-
 // Make a variable to connect to for Widgets
 // to know when there are notifs or not
 export const HasNotifs = Variable(false);
 
-const setTime = (time: number): string => GLib.DateTime
-    .new_from_unix_local(time)
-    .format('%H:%M') ?? '';
+const setTime = (time: number): string =>
+    GLib.DateTime.new_from_unix_local(time).format('%H:%M') ?? '';
 
-const NotifIcon = ({ notifObj }: {
-    notifObj: AstalNotifd.Notification
-}) => {
+const NotifIcon = ({ notifObj }: { notifObj: AstalNotifd.Notification }) => {
     let icon: string | undefined;
 
     if (notifObj.get_image() && notifObj.get_image() !== '') {
         icon = notifObj.get_image();
         App.add_icons(icon);
     }
-    else if (notifObj.get_app_icon() !== '' && Widget.Icon.lookup_icon(notifObj.get_app_icon())) {
+    else if (
+        notifObj.get_app_icon() !== '' &&
+        Widget.Icon.lookup_icon(notifObj.get_app_icon())
+    ) {
         icon = notifObj.get_app_icon();
     }
     else {
@@ -69,10 +66,9 @@ const setupButton = (self: Gtk.Widget) => {
         if (!display) {
             return;
         }
-        self.get_window()?.set_cursor(Gdk.Cursor.new_from_name(
-            display,
-            'pointer',
-        ));
+        self.get_window()?.set_cursor(
+            Gdk.Cursor.new_from_name(display, 'pointer'),
+        );
     });
 
     // OnHoverLost
@@ -84,9 +80,7 @@ const setupButton = (self: Gtk.Widget) => {
     });
 };
 
-const BlockedApps = [
-    'Spotify',
-];
+const BlockedApps = ['Spotify'];
 
 export const Notification = ({
     id = 0,
@@ -127,14 +121,16 @@ export const Notification = ({
                 }
             }}*/
         >
-            <box vertical className={`notification ${notifObj.get_urgency()} widget`}>
+            <box
+                vertical
+                className={`notification ${notifObj.get_urgency()} widget`}
+            >
                 {/* Content */}
                 <box>
                     <NotifIcon notifObj={notifObj} />
 
                     {/* Top of Content */}
                     <box vertical css="min-width: 400px">
-
                         <box>
                             {/* Title */}
                             <label
@@ -147,7 +143,9 @@ export const Notification = ({
                                 truncate
                                 wrap
                                 label={notifObj.get_summary()}
-                                use_markup={notifObj.get_summary().startsWith('<')}
+                                use_markup={notifObj
+                                    .get_summary()
+                                    .startsWith('<')}
                             />
 
                             {/* Time */}
@@ -164,14 +162,12 @@ export const Notification = ({
                                 valign={Gtk.Align.START}
                                 halign={Gtk.Align.END}
                                 setup={setupButton}
-
                                 onButtonReleaseEvent={() => {
                                     notifObj.dismiss();
                                 }}
                             >
                                 <icon icon="window-close-symbolic" />
                             </button>
-
                         </box>
 
                         {/* Description */}
@@ -195,8 +191,9 @@ export const Notification = ({
                             className="action-button"
                             hexpand
                             setup={setupButton}
-
-                            onButtonReleaseEvent={() => notifObj.invoke(action.id)}
+                            onButtonReleaseEvent={() =>
+                                notifObj.invoke(action.id)
+                            }
                         >
                             <label label={action.label} />
                         </button>

@@ -1,30 +1,27 @@
 import { execAsync } from 'astal';
 import { App } from 'astal/gtk3';
 
+import { closeAll, getWindow, perMonitor } from '../lib';
+import Brightness from '../services/brightness';
+import MonitorClicks from '../services/monitor-clicks';
+import Tablet from '../services/tablet';
 import style from '../style/main.scss';
-
 import AppLauncher from '../widgets/applauncher';
 import AudioWindow from '../widgets/audio/wim';
 import Bar from '../widgets/bar/wim';
 import BgLayer from '../widgets/bg-layer';
 import BluetoothWindow from '../widgets/bluetooth/wim';
 import BrightnessSlider from '../widgets/brightness-slider/main';
-import Calendar from '../widgets/date/wim';
 import Clipboard from '../widgets/clipboard';
 import Corners from '../widgets/corners';
+import Calendar from '../widgets/date/wim';
 import IconBrowser from '../widgets/icon-browser';
 import NetworkWindow from '../widgets/network/wim';
-import { NotifPopups, NotifCenter } from '../widgets/notifs/wim';
+import { NotifCenter, NotifPopups } from '../widgets/notifs/wim';
 import OnScreenDisplay from '../widgets/on-screen-display';
 import OnScreenKeyboard from '../widgets/on-screen-keyboard';
 import PowerMenu from '../widgets/powermenu';
 import Screenshot from '../widgets/screenshot';
-
-import { closeAll, getWindow, perMonitor } from '../lib';
-import Brightness from '../services/brightness';
-import MonitorClicks from '../services/monitor-clicks';
-import Tablet from '../services/tablet';
-
 
 export default () => {
     App.start({
@@ -44,14 +41,15 @@ export default () => {
                 respond('fetched caps_lock state');
             }
             else if (request.startsWith('Brightness.screen')) {
-                Brightness.get_default().screen += parseFloat(request.replace('Brightness.screen ', ''));
+                Brightness.get_default().screen += parseFloat(
+                    request.replace('Brightness.screen ', ''),
+                );
                 respond('screen brightness changed');
             }
             else if (request.startsWith('popup')) {
                 popup_osd(request.replace('popup ', ''));
                 respond('osd popped up');
             }
-
             else if (request.startsWith('show-osk')) {
                 const tablet = Tablet.get_default();
 
@@ -69,7 +67,6 @@ export default () => {
                     respond('osk state was unchanged');
                 }
             }
-
             else if (request.startsWith('hide-osk')) {
                 const tablet = Tablet.get_default();
 
@@ -90,11 +87,10 @@ export default () => {
         },
 
         main: () => {
-            execAsync('hyprpaper').catch(() => { /**/ });
-
+            execAsync('hyprpaper').catch(() => {});
 
             // Fixes weird margin above bar
-            execAsync('hyprctl reload').catch(() => { /**/ });
+            execAsync('hyprctl reload').catch(() => {});
 
             perMonitor((monitor) => BgLayer(monitor, true));
 

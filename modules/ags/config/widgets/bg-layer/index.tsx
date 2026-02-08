@@ -1,6 +1,5 @@
 import { Astal, Gdk } from 'astal/gtk3';
 
-
 export default (
     monitor = Gdk.Display.get_default()?.get_monitor(0) as Gdk.Monitor,
     gradient = true,
@@ -19,14 +18,14 @@ export default (
                 Astal.WindowAnchor.RIGHT
             }
             css={
-                gradient ?
-                    `
+                gradient
+                    ? `
                         background-image: -gtk-gradient (linear,
                             left top, left bottom,
                             from(rgba(0, 0, 0, 0.5)),
                             to(rgba(0, 0, 0, 0)));
-                    ` :
                     `
+                    : `
                         background-color: rgba(0, 0, 0, 0.4);
                     `
             }

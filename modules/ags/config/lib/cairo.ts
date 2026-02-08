@@ -1,7 +1,10 @@
-type PointProps = [number, number] | {
-    x: number
-    y: number
-} | number;
+type PointProps =
+    | [number, number]
+    | {
+          x: number;
+          y: number;
+      }
+    | number;
 
 export class Point {
     public x = 0;

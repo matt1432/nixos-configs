@@ -3,9 +3,8 @@ import { Astal } from 'astal/gtk4';
 
 import astalify, { type AstalifyProps, type ConstructProps } from '../astalify';
 
-
 type SliderSignals = Record<`on${string}`, unknown[]> & {
-    onClicked: []
+    onClicked: [];
 };
 export type SliderProps = ConstructProps<
     SliderClass,
@@ -19,7 +18,9 @@ export class SliderClass extends astalify(Astal.Slider) {
         super({ cssName, ...props });
     }
 
-    getChildren() { return []; }
+    getChildren() {
+        return [];
+    }
 }
 
 export const Slider = (props?: SliderProps) => new SliderClass(props);

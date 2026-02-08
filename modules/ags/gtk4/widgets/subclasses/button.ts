@@ -3,9 +3,8 @@ import { Gtk } from 'astal/gtk4';
 
 import astalify, { type AstalifyProps, type ConstructProps } from '../astalify';
 
-
 type ButtonSignals = Record<`on${string}`, unknown[]> & {
-    onClicked: []
+    onClicked: [];
 };
 export type ButtonProps = ConstructProps<
     ButtonClass,

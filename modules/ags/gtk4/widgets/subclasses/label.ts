@@ -3,7 +3,6 @@ import { Gtk } from 'astal/gtk4';
 
 import astalify, { type AstalifyProps, type ConstructProps } from '../astalify';
 
-
 export type LabelProps = ConstructProps<
     LabelClass,
     Gtk.Label.ConstructorProps & AstalifyProps
@@ -15,7 +14,9 @@ export class LabelClass extends astalify(Gtk.Label) {
         super({ cssName, ...props });
     }
 
-    getChildren() { return []; }
+    getChildren() {
+        return [];
+    }
 }
 
 export const Label = (props?: LabelProps) => new LabelClass(props);

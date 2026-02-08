@@ -1,13 +1,14 @@
 import { execAsync } from 'astal';
-
 import AstalApps from 'gi://AstalApps';
 
-
-const bash = async(strings: TemplateStringsArray | string, ...values: unknown[]) => {
-    const cmd = typeof strings === 'string' ?
-        strings :
-        strings.flatMap((str, i) => `${str}${values[i] ?? ''}`)
-            .join('');
+const bash = async (
+    strings: TemplateStringsArray | string,
+    ...values: unknown[]
+) => {
+    const cmd =
+        typeof strings === 'string'
+            ? strings
+            : strings.flatMap((str, i) => `${str}${values[i] ?? ''}`).join('');
 
     return execAsync(['bash', '-c', cmd]).catch((err) => {
         console.error(cmd, err);

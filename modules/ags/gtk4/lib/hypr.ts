@@ -1,16 +1,18 @@
 import { Gdk } from 'astal/gtk4';
-
 import AstalHyprland from 'gi://AstalHyprland';
 
-
-export const get_hyprland_monitor = (monitor: Gdk.Monitor): AstalHyprland.Monitor | undefined => {
+export const get_hyprland_monitor = (
+    monitor: Gdk.Monitor,
+): AstalHyprland.Monitor | undefined => {
     const hyprland = AstalHyprland.get_default();
 
     const manufacturer = monitor.get_manufacturer()?.replace(',', '');
     const model = monitor.get_model()?.replace(',', '');
     const start = `${manufacturer} ${model}`;
 
-    return hyprland.get_monitors().find((m) => m.get_description()?.startsWith(start));
+    return hyprland
+        .get_monitors()
+        .find((m) => m.get_description()?.startsWith(start));
 };
 
 export const get_hyprland_monitor_desc = (monitor: Gdk.Monitor): string => {
@@ -22,7 +24,8 @@ export const get_hyprland_monitor_desc = (monitor: Gdk.Monitor): string => {
 
     return `desc:${hyprland
         .get_monitors()
-        .find((m) => m.get_description()?.startsWith(start))?.get_description()}`;
+        .find((m) => m.get_description()?.startsWith(start))
+        ?.get_description()}`;
 };
 
 export const get_gdkmonitor_from_desc = (desc: string): Gdk.Monitor => {
@@ -43,23 +46,21 @@ export const get_monitor_desc = (mon: AstalHyprland.Monitor): string => {
     return `desc:${mon.get_description()}`;
 };
 
-export const hyprMessage = (message: string) => new Promise<string>((
-    resolution = () => { /**/ },
-    rejection = () => { /**/ },
-) => {
-    const hyprland = AstalHyprland.get_default();
+export const hyprMessage = (message: string) =>
+    new Promise<string>((resolution = () => {}, rejection = () => {}) => {
+        const hyprland = AstalHyprland.get_default();
 
-    try {
-        hyprland.message_async(message, (_, asyncResult) => {
-            const result = hyprland.message_finish(asyncResult);
+        try {
+            hyprland.message_async(message, (_, asyncResult) => {
+                const result = hyprland.message_finish(asyncResult);
 
-            resolution(result);
-        });
-    }
-    catch (e) {
-        rejection(e);
-    }
-});
+                resolution(result);
+            });
+        }
+        catch (e) {
+            rejection(e);
+        }
+    });
 
 export const centerCursor = (): void => {
     const hyprland = AstalHyprland.get_default();
@@ -70,23 +71,23 @@ export const centerCursor = (): void => {
 
     switch (monitor.get_transform()) {
         case 1:
-            x = monitor.get_x() - (monitor.get_height() / 2);
-            y = monitor.get_y() - (monitor.get_width() / 2);
+            x = monitor.get_x() - monitor.get_height() / 2;
+            y = monitor.get_y() - monitor.get_width() / 2;
             break;
 
         case 2:
-            x = monitor.get_x() - (monitor.get_width() / 2);
-            y = monitor.get_y() - (monitor.get_height() / 2);
+            x = monitor.get_x() - monitor.get_width() / 2;
+            y = monitor.get_y() - monitor.get_height() / 2;
             break;
 
         case 3:
-            x = monitor.get_x() + (monitor.get_height() / 2);
-            y = monitor.get_y() + (monitor.get_width() / 2);
+            x = monitor.get_x() + monitor.get_height() / 2;
+            y = monitor.get_y() + monitor.get_width() / 2;
             break;
 
         default:
-            x = monitor.get_x() + (monitor.get_width() / 2);
-            y = monitor.get_y() + (monitor.get_height() / 2);
+            x = monitor.get_x() + monitor.get_width() / 2;
+            y = monitor.get_y() + monitor.get_height() / 2;
             break;
     }
 

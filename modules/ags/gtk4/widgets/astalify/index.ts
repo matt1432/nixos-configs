@@ -5,6 +5,6 @@ export default astalify;
 export {
     type AstalifyProps,
     type BindableProps,
-    type ConstructProps,
     childType,
+    type ConstructProps,
 } from './generics';

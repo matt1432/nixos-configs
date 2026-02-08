@@ -3,7 +3,6 @@ import { Gtk } from 'astal/gtk4';
 
 import astalify, { type AstalifyProps, type ConstructProps } from '../astalify';
 
-
 export type SwitchProps = ConstructProps<
     SwitchClass,
     Gtk.Switch.ConstructorProps & AstalifyProps
@@ -15,7 +14,9 @@ export class SwitchClass extends astalify(Gtk.Switch) {
         super({ cssName, ...props });
     }
 
-    getChildren() { return []; }
+    getChildren() {
+        return [];
+    }
 }
 
 export const Switch = (props?: SwitchProps) => new SwitchClass(props);

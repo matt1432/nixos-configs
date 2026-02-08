@@ -1,18 +1,16 @@
 import { bind, idle } from 'astal';
-import { Gtk, Widget } from 'astal/gtk3';
 import { register } from 'astal/gobject';
-
+import { Gtk, Widget } from 'astal/gtk3';
 import AstalBluetooth from 'gi://AstalBluetooth';
 
 import Separator from '../misc/separator';
 
 /* Types */
 interface DevToggleProps {
-    label: string
-    prop: keyof AstalBluetooth.Device
-    onToggle: (active: boolean) => void
+    label: string;
+    prop: keyof AstalBluetooth.Device;
+    onToggle: (active: boolean) => void;
 }
-
 
 @register()
 export default class DeviceWidget extends Widget.Revealer {
@@ -35,9 +33,7 @@ export default class DeviceWidget extends Widget.Revealer {
                     cursor="pointer"
                     valign={Gtk.Align.CENTER}
                     halign={Gtk.Align.END}
-
                     active={bind(dev, prop).as(Boolean)}
-
                     setup={(self) => {
                         self.connect('notify::active', () => {
                             onToggle(self.active);
@@ -48,9 +44,7 @@ export default class DeviceWidget extends Widget.Revealer {
         );
 
         const rev = (
-            <revealer
-                transitionType={Gtk.RevealerTransitionType.SLIDE_DOWN}
-            >
+            <revealer transitionType={Gtk.RevealerTransitionType.SLIDE_DOWN}>
                 <box vertical halign={Gtk.Align.FILL} hexpand>
                     <Separator size={8} vertical />
 
@@ -116,20 +110,24 @@ export default class DeviceWidget extends Widget.Revealer {
             >
                 <box>
                     <icon
-                        icon={bind(dev, 'connected').as((isConnected) => isConnected ?
-                            'check-active-symbolic' :
-                            'check-mixed-symbolic')}
-
-                        css={bind(dev, 'paired').as((isPaired) => isPaired ?
-                            '' :
-                            'opacity: 0;')}
+                        icon={bind(dev, 'connected').as((isConnected) =>
+                            isConnected
+                                ? 'check-active-symbolic'
+                                : 'check-mixed-symbolic',
+                        )}
+                        css={bind(dev, 'paired').as((isPaired) =>
+                            isPaired ? '' : 'opacity: 0;',
+                        )}
                     />
 
                     <Separator size={8} />
 
                     <icon
                         icon={bind(dev, 'icon').as((iconName) =>
-                            iconName ? `${iconName}-symbolic` : 'help-browser-symbolic')}
+                            iconName
+                                ? `${iconName}-symbolic`
+                                : 'help-browser-symbolic',
+                        )}
                     />
 
                     <Separator size={8} />
@@ -154,8 +152,10 @@ export default class DeviceWidget extends Widget.Revealer {
 
         this.dev = dev;
 
-        this.connect('realize', () => idle(() => {
-            this.set_reveal_child(true);
-        }));
-    };
-};
+        this.connect('realize', () =>
+            idle(() => {
+                this.set_reveal_child(true);
+            }),
+        );
+    }
+}

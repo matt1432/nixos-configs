@@ -1,9 +1,16 @@
-import { App, Astal, Gdk, Gtk } from 'astal/gtk4';
 import { Variable } from 'astal';
-
+import { App, Astal, Gdk, Gtk } from 'astal/gtk4';
 import Kompass from 'gi://Kompass';
 
-import { Box, Calendar, CenterBox, Label, MenuButton, Popover, Window } from './subclasses';
+import {
+    Box,
+    Calendar,
+    CenterBox,
+    Label,
+    MenuButton,
+    Popover,
+    Window,
+} from './subclasses';
 
 const { EXCLUSIVE } = Astal.Exclusivity;
 const { TOP, LEFT, RIGHT } = Astal.WindowAnchor;
@@ -17,7 +24,10 @@ setInterval(() => {
 
 export default () => {
     const styledBox = Box({
-        css: time().as((t) => `* { background: red; min-height: 10px; min-width: ${t}px; }`),
+        css: time().as(
+            (t) =>
+                `* { background: red; min-height: 10px; min-width: ${t}px; }`,
+        ),
     });
 
     return Window({

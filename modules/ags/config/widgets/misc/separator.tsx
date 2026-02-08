@@ -1,6 +1,5 @@
 import { Widget } from 'astal/gtk3';
 
-
 export default ({
     size,
     vertical = false,
@@ -8,7 +7,10 @@ export default ({
     ...rest
 }: { size: number } & Widget.BoxProps) => (
     <box
-        css={`${vertical ? 'min-height' : 'min-width'}: ${size}px; ${css}`}
+        css={`
+            ${vertical ? 'min-height' : 'min-width'}: ${size}px;
+            ${css}
+        `}
         {...rest}
     />
 );

@@ -1,6 +1,5 @@
 import { execAsync, interval } from 'astal';
-import GObject, { register, property } from 'astal/gobject';
-
+import GObject, { property, register } from 'astal/gobject';
 
 const SCREEN_ICONS: Record<number, string> = {
     90: 'display-brightness-high-symbolic',
@@ -21,7 +20,7 @@ export default class Brightness extends GObject.Object {
     @property(Number)
     get screen() {
         return this._screen;
-    };
+    }
 
     set screen(percent) {
         if (percent < 0) {
@@ -98,20 +97,23 @@ export default class Brightness extends GObject.Object {
         return this._capsIcon;
     }
 
-    public constructor({ kbd, caps }: { kbd?: string, caps?: string } = {}) {
+    public constructor({ kbd, caps }: { kbd?: string; caps?: string } = {}) {
         super();
 
         try {
-            (async() => {
+            (async () => {
                 if (kbd) {
                     this.hasKbd = true;
                     this._kbd = kbd;
                     this._monitorKbdState();
-                    this._kbdMax = Number(await execAsync(`brightnessctl -d ${this._kbd} m`));
+                    this._kbdMax = Number(
+                        await execAsync(`brightnessctl -d ${this._kbd} m`),
+                    );
                 }
 
                 this._caps = caps;
-                this._screen = Number(await execAsync('brightnessctl g')) /
+                this._screen =
+                    Number(await execAsync('brightnessctl g')) /
                     Number(await execAsync('brightnessctl m'));
                 this.notify('screen');
             })();
@@ -123,7 +125,10 @@ export default class Brightness extends GObject.Object {
 
     private static _default: InstanceType<typeof Brightness> | undefined;
 
-    public static get_default({ kbd, caps }: { kbd?: string, caps?: string } = {}) {
+    public static get_default({
+        kbd,
+        caps,
+    }: { kbd?: string; caps?: string } = {}) {
         if (!Brightness._default) {
             Brightness._default = new Brightness({ kbd, caps });
         }
@@ -134,6 +139,7 @@ export default class Brightness extends GObject.Object {
     private _getScreenIcon() {
         const brightness = this._screen * 100;
 
+        // eslint-disable-next-line no-magic-numbers
         for (const threshold of [4, 19, 69, 89]) {
             if (brightness > threshold + 1) {
                 this._screenIcon = SCREEN_ICONS[threshold + 1];
@@ -145,14 +151,12 @@ export default class Brightness extends GObject.Object {
     private _monitorKbdState() {
         const timer = interval(INTERVAL, () => {
             execAsync(`brightnessctl -d ${this._kbd} g`)
-                .then(
-                    (out) => {
-                        if (parseInt(out) !== this._kbdLevel) {
-                            this._kbdLevel = parseInt(out);
-                            this.notify('kbd-level');
-                        }
-                    },
-                )
+                .then((out) => {
+                    if (parseInt(out) !== this._kbdLevel) {
+                        this._kbdLevel = parseInt(out);
+                        this.notify('kbd-level');
+                    }
+                })
                 .catch(() => {
                     timer?.cancel();
                 });
@@ -163,9 +167,9 @@ export default class Brightness extends GObject.Object {
         execAsync(`brightnessctl -d ${this._caps} g`)
             .then((out) => {
                 this._capsLevel = Number(out);
-                this._capsIcon = this._capsLevel ?
-                    'caps-lock-symbolic' :
-                    'capslock-disabled-symbolic';
+                this._capsIcon = this._capsLevel
+                    ? 'caps-lock-symbolic'
+                    : 'capslock-disabled-symbolic';
 
                 this.notify('caps-icon');
                 this.notify('caps-level');

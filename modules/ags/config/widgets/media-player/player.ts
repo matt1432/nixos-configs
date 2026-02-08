@@ -1,90 +1,77 @@
 import { Variable } from 'astal';
 import { Gtk } from 'astal/gtk3';
 import { Box, CenterBox } from 'astal/gtk3/widget';
-
 import Mpris from 'gi://AstalMpris';
 
 import Separator from '../misc/separator';
-
-import * as mpris from './mpris';
-
 import PlayerGesture, {
-    PlayerGesture as PlayerGestureClass,
     PlayerBox as PlayerBoxClass,
+    PlayerGesture as PlayerGestureClass,
 } from './gesture';
+import * as mpris from './mpris';
 
 const FAVE_PLAYER = 'org.mpris.MediaPlayer2.spotify';
 const SPACING = 8;
 
+const Top = (player: Mpris.Player, overlay: PlayerGestureClass) =>
+    new Box({
+        className: 'top',
+        halign: Gtk.Align.START,
+        valign: Gtk.Align.START,
 
-const Top = (
-    player: Mpris.Player,
-    overlay: PlayerGestureClass,
-) => new Box({
-    className: 'top',
-    halign: Gtk.Align.START,
-    valign: Gtk.Align.START,
+        children: [mpris.PlayerIcon(player, overlay)],
+    });
 
-    children: [
-        mpris.PlayerIcon(player, overlay),
-    ],
-});
+const Center = (player: Mpris.Player, colors: Variable<mpris.Colors>) =>
+    new Box({
+        className: 'center',
 
-const Center = (
-    player: Mpris.Player,
-    colors: Variable<mpris.Colors>,
-) => new Box({
-    className: 'center',
-
-    children: [
-        (new CenterBox({
-            vertical: true,
-
-            start_widget: new Box({
-                className: 'metadata',
+        children: [
+            new CenterBox({
                 vertical: true,
-                halign: Gtk.Align.START,
-                valign: Gtk.Align.CENTER,
-                hexpand: true,
 
-                children: [
-                    mpris.TitleLabel(player),
-                    mpris.ArtistLabel(player),
-                ],
+                start_widget: new Box({
+                    className: 'metadata',
+                    vertical: true,
+                    halign: Gtk.Align.START,
+                    valign: Gtk.Align.CENTER,
+                    hexpand: true,
+
+                    children: [
+                        mpris.TitleLabel(player),
+                        mpris.ArtistLabel(player),
+                    ],
+                }),
             }),
-        })),
 
-        (new CenterBox({
-            vertical: true,
+            new CenterBox({
+                vertical: true,
 
-            center_widget: mpris.PlayPauseButton(player, colors),
-        })),
+                center_widget: mpris.PlayPauseButton(player, colors),
+            }),
+        ],
+    });
 
-    ],
-});
+const Bottom = (player: Mpris.Player, colors: Variable<mpris.Colors>) =>
+    new Box({
+        className: 'bottom',
 
-const Bottom = (
-    player: Mpris.Player,
-    colors: Variable<mpris.Colors>,
-) => new Box({
-    className: 'bottom',
+        children: [
+            mpris.PreviousButton(player, colors),
+            Separator({ size: SPACING }),
 
-    children: [
-        mpris.PreviousButton(player, colors),
-        Separator({ size: SPACING }),
+            mpris.PositionSlider(player, colors),
+            Separator({ size: SPACING }),
 
-        mpris.PositionSlider(player, colors),
-        Separator({ size: SPACING }),
+            mpris.NextButton(player, colors),
+            Separator({ size: SPACING }),
 
-        mpris.NextButton(player, colors),
-        Separator({ size: SPACING }),
+            mpris.ShuffleButton(player, colors),
+            Separator({ size: SPACING }),
 
-        mpris.ShuffleButton(player, colors),
-        Separator({ size: SPACING }),
-
-        mpris.LoopButton(player, colors),
-    ],
-});
+            mpris.LoopButton(player, colors),
+        ],
+    });
 
 const PlayerBox = (
     player: Mpris.Player,
@@ -157,9 +144,11 @@ export default () => {
                     self.moveToTop(previousFirst);
                 }
                 else {
-                    self.moveToTop(self.players.has(FAVE_PLAYER) ?
-                        self.players.get(FAVE_PLAYER) :
-                        self.overlays[0]);
+                    self.moveToTop(
+                        self.players.has(FAVE_PLAYER)
+                            ? self.players.get(FAVE_PLAYER)
+                            : self.overlays[0],
+                    );
                 }
 
                 // Remake overlays without deleted one
@@ -169,8 +158,12 @@ export default () => {
 
             const mprisDefault = Mpris.get_default();
 
-            self.hook(mprisDefault, 'player-added', (_, player) => addPlayer(player));
-            self.hook(mprisDefault, 'player-closed', (_, player) => removePlayer(player));
+            self.hook(mprisDefault, 'player-added', (_, player) =>
+                addPlayer(player),
+            );
+            self.hook(mprisDefault, 'player-closed', (_, player) =>
+                removePlayer(player),
+            );
 
             mprisDefault.players.forEach(addPlayer);
         },

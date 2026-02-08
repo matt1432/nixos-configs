@@ -3,7 +3,6 @@ import { Gtk } from 'astal/gtk4';
 
 import astalify, { type AstalifyProps, type ConstructProps } from '../astalify';
 
-
 export type MenuButtonProps = ConstructProps<
     MenuButtonClass,
     Gtk.MenuButton.ConstructorProps & AstalifyProps
@@ -31,4 +30,5 @@ export class MenuButtonClass extends astalify(Gtk.MenuButton) {
     }
 }
 
-export const MenuButton = (props?: MenuButtonProps) => new MenuButtonClass(props);
+export const MenuButton = (props?: MenuButtonProps) =>
+    new MenuButtonClass(props);

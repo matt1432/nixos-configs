@@ -3,14 +3,12 @@ import { Gtk } from 'astal/gtk4';
 
 import astalify, { type AstalifyProps, type ConstructProps } from '../astalify';
 
-
 type CalendarSignals = Record<`on${string}`, unknown[]> & {
-    onDaySelected: []
-    onNextMonth: []
-    onNextYear: []
-    onPrevMonth: []
-    onPrevYear: []
-
+    onDaySelected: [];
+    onNextMonth: [];
+    onNextYear: [];
+    onPrevMonth: [];
+    onPrevYear: [];
 };
 export type CalendarProps = ConstructProps<
     CalendarClass,

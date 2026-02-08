@@ -3,7 +3,6 @@ import { Astal, Gtk } from 'astal/gtk4';
 
 import astalify, { type AstalifyProps, type ConstructProps } from '../astalify';
 
-
 export type BoxProps = ConstructProps<
     BoxClass,
     Astal.Box.ConstructorProps & AstalifyProps

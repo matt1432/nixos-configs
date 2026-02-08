@@ -1,13 +1,12 @@
+/* eslint-disable no-magic-numbers */
+
 import { bind } from 'astal';
 import { Gtk } from 'astal/gtk3';
-
 import AstalBluetooth from 'gi://AstalBluetooth';
 
-import { ListBox, ToggleButton } from '../misc/subclasses';
 import Separator from '../misc/separator';
-
+import { ListBox, ToggleButton } from '../misc/subclasses';
 import DeviceWidget from './device';
-
 
 const calculateDevSort = (dev: AstalBluetooth.Device) => {
     let value = 0;
@@ -48,14 +47,12 @@ export default () => {
     const deviceList = (
         <scrollable
             className="list"
-
             css="min-height: 300px;"
             hscroll={Gtk.PolicyType.NEVER}
             vscroll={Gtk.PolicyType.AUTOMATIC}
         >
             <ListBox
                 selectionMode={Gtk.SelectionMode.SINGLE}
-
                 setup={(self) => {
                     bluetooth.devices
                         .filter((dev) => dev.get_name())
@@ -90,9 +87,12 @@ export default () => {
                         const devA = (a.get_child() as DeviceWidget).dev;
                         const devB = (b.get_child() as DeviceWidget).dev;
 
-                        const sort = calculateDevSort(devB) - calculateDevSort(devA);
+                        const sort =
+                            calculateDevSort(devB) - calculateDevSort(devA);
 
-                        return sort !== 0 ? sort : devA.get_name().localeCompare(devB.get_name());
+                        return sort !== 0
+                            ? sort
+                            : devA.get_name().localeCompare(devB.get_name());
                     });
                 }}
             />
@@ -100,18 +100,13 @@ export default () => {
     );
 
     return (
-        <box
-            className="bluetooth widget"
-            vertical
-        >
+        <box className="bluetooth widget" vertical>
             <centerbox homogeneous>
                 <switch
                     cursor="pointer"
                     valign={Gtk.Align.CENTER}
                     halign={Gtk.Align.START}
-
                     active={bind(bluetooth, 'isPowered')}
-
                     setup={(self) => {
                         self.connect('notify::active', () => {
                             bluetooth.get_adapter()?.set_powered(self.active);
@@ -124,11 +119,8 @@ export default () => {
                 <ToggleButton
                     cursor="pointer"
                     halign={Gtk.Align.END}
-
                     className="toggle-button"
-
                     sensitive={bind(bluetooth, 'isPowered')}
-
                     onToggled={(self) => {
                         self.toggleClassName('active', self.active);
 
@@ -140,7 +132,10 @@ export default () => {
                         }
                     }}
                 >
-                    <icon icon="emblem-synchronizing-symbolic" css="font-size: 30px;" />
+                    <icon
+                        icon="emblem-synchronizing-symbolic"
+                        css="font-size: 30px;"
+                    />
                 </ToggleButton>
             </centerbox>
 

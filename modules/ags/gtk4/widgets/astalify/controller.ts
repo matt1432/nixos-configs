@@ -1,50 +1,66 @@
 import { Gdk, Gtk } from 'astal/gtk4';
 
 export interface EventController<Self extends Gtk.Widget> {
-    onFocusEnter?: (self: Self) => void
-    onFocusLeave?: (self: Self) => void
+    onFocusEnter?: (self: Self) => void;
+    onFocusLeave?: (self: Self) => void;
 
-    onKeyPressed?: (self: Self, keyval: number, keycode: number, state: Gdk.ModifierType) => void
-    onKeyReleased?: (self: Self, keyval: number, keycode: number, state: Gdk.ModifierType) => void
-    onKeyModifier?: (self: Self, state: Gdk.ModifierType) => void
+    onKeyPressed?: (
+        self: Self,
+        keyval: number,
+        keycode: number,
+        state: Gdk.ModifierType,
+    ) => void;
+    onKeyReleased?: (
+        self: Self,
+        keyval: number,
+        keycode: number,
+        state: Gdk.ModifierType,
+    ) => void;
+    onKeyModifier?: (self: Self, state: Gdk.ModifierType) => void;
 
-    onLegacy?: (self: Self, event: Gdk.Event) => void
-    onButtonPressed?: (self: Self, state: Gdk.ButtonEvent) => void
-    onButtonReleased?: (self: Self, state: Gdk.ButtonEvent) => void
+    onLegacy?: (self: Self, event: Gdk.Event) => void;
+    onButtonPressed?: (self: Self, state: Gdk.ButtonEvent) => void;
+    onButtonReleased?: (self: Self, state: Gdk.ButtonEvent) => void;
 
-    onHoverEnter?: (self: Self, x: number, y: number) => void
-    onHoverLeave?: (self: Self) => void
-    onMotion?: (self: Self, x: number, y: number) => void
+    onHoverEnter?: (self: Self, x: number, y: number) => void;
+    onHoverLeave?: (self: Self) => void;
+    onMotion?: (self: Self, x: number, y: number) => void;
 
-    onScroll?: (self: Self, dx: number, dy: number) => void
-    onScrollDecelerate?: (self: Self, vel_x: number, vel_y: number) => void
+    onScroll?: (self: Self, dx: number, dy: number) => void;
+    onScrollDecelerate?: (self: Self, vel_x: number, vel_y: number) => void;
 }
 
-
-export default <T>(widget: Gtk.Widget, {
-    onFocusEnter,
-    onFocusLeave,
-    onKeyPressed,
-    onKeyReleased,
-    onKeyModifier,
-    onLegacy,
-    onButtonPressed,
-    onButtonReleased,
-    onHoverEnter,
-    onHoverLeave,
-    onMotion,
-    onScroll,
-    onScrollDecelerate,
-    ...props
-}: EventController<Gtk.Widget> & T) => {
+export default <T>(
+    widget: Gtk.Widget,
+    {
+        onFocusEnter,
+        onFocusLeave,
+        onKeyPressed,
+        onKeyReleased,
+        onKeyModifier,
+        onLegacy,
+        onButtonPressed,
+        onButtonReleased,
+        onHoverEnter,
+        onHoverLeave,
+        onMotion,
+        onScroll,
+        onScrollDecelerate,
+        ...props
+    }: EventController<Gtk.Widget> & T,
+) => {
     if (onFocusEnter || onFocusLeave) {
         const focus = new Gtk.EventControllerFocus();
 
         widget.add_controller(focus);
 
-        if (onFocusEnter) { focus.connect('focus-enter', () => onFocusEnter(widget)); }
+        if (onFocusEnter) {
+            focus.connect('focus-enter', () => onFocusEnter(widget));
+        }
 
-        if (onFocusLeave) { focus.connect('focus-leave', () => onFocusLeave(widget)); }
+        if (onFocusLeave) {
+            focus.connect('focus-leave', () => onFocusLeave(widget));
+        }
     }
 
     if (onKeyPressed || onKeyReleased || onKeyModifier) {
@@ -53,16 +69,21 @@ export default <T>(widget: Gtk.Widget, {
         widget.add_controller(key);
 
         if (onKeyPressed) {
-            key.connect('key-pressed', (_, val, code, state) => onKeyPressed(widget, val, code, state));
+            key.connect('key-pressed', (_, val, code, state) =>
+                onKeyPressed(widget, val, code, state),
+            );
         }
 
         if (onKeyReleased) {
             key.connect('key-released', (_, val, code, state) =>
-                onKeyReleased(widget, val, code, state));
+                onKeyReleased(widget, val, code, state),
+            );
         }
 
         if (onKeyModifier) {
-            key.connect('modifiers', (_, state) => onKeyModifier(widget, state));
+            key.connect('modifiers', (_, state) =>
+                onKeyModifier(widget, state),
+            );
         }
     }
 
@@ -112,7 +133,9 @@ export default <T>(widget: Gtk.Widget, {
         }
 
         if (onScrollDecelerate) {
-            scroll.connect('decelerate', (_, x, y) => onScrollDecelerate(widget, x, y));
+            scroll.connect('decelerate', (_, x, y) =>
+                onScrollDecelerate(widget, x, y),
+            );
         }
     }
 

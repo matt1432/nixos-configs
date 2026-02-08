@@ -1,5 +1,5 @@
-import { Gtk } from 'astal/gtk4';
 import { Binding } from 'astal/binding';
+import { Gtk } from 'astal/gtk4';
 
 import { EventController } from './controller';
 
@@ -20,14 +20,14 @@ export const childType = Symbol('child type');
 export const dummyBuilder = new Gtk.Builder();
 
 export type GenericWidget = InstanceType<typeof Gtk.Widget> & {
-    [setChildren]: (children: Gtk.Widget[]) => void
+    [setChildren]: (children: Gtk.Widget[]) => void;
 };
 
 export interface AstalifyProps {
-    css: string
-    child: Gtk.Widget
-    children: Gtk.Widget[]
-    cursorName: Cursor
+    css: string;
+    child: Gtk.Widget;
+    children: Gtk.Widget[];
+    cursorName: Cursor;
 }
 
 type SigHandler<
@@ -38,21 +38,23 @@ type SigHandler<
 export type ConstructProps<
     Self extends InstanceType<typeof Gtk.Widget>,
     Props extends Gtk.Widget.ConstructorProps,
-    Signals extends Record<`on${string}`, unknown[]> = Record<`on${string}`, unknown[]>,
+    Signals extends Record<`on${string}`, unknown[]> = Record<
+        `on${string}`,
+        unknown[]
+    >,
 > = Partial<{
     // @ts-expect-error can't assign to unknown, but it works as expected though
-    [S in keyof Signals]: SigHandler<Self, Signals[S]>
-}> & Partial<Record<`on${string}`, SigHandler<Self, unknown[]>>> & Partial<BindableProps<Omit<
-    Props,
-    'cssName' | 'css_name' | 'cursor'
->>> & {
-    noImplicitDestroy?: true
-    type?: string
-    cssName?: string
-} & EventController<Self> & {
-    onDestroy?: (self: Self) => unknown
-    setup?: (self: Self) => void
-};
+    [S in keyof Signals]: SigHandler<Self, Signals[S]>;
+}> &
+    Partial<Record<`on${string}`, SigHandler<Self, unknown[]>>> &
+    Partial<BindableProps<Omit<Props, 'cssName' | 'css_name' | 'cursor'>>> & {
+        noImplicitDestroy?: true;
+        type?: string;
+        cssName?: string;
+    } & EventController<Self> & {
+        onDestroy?: (self: Self) => unknown;
+        setup?: (self: Self) => void;
+    };
 
 export type Cursor =
     | 'default'

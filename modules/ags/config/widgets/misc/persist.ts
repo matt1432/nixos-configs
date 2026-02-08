@@ -1,7 +1,6 @@
-import { execAsync, readFileAsync, timeout, GLib, type Variable } from 'astal';
+import { execAsync, GLib, readFileAsync, timeout, type Variable } from 'astal';
 
 const { get_home_dir } = GLib;
-
 
 export default <T>({
     name,
@@ -10,16 +9,19 @@ export default <T>({
     whenTrue = condition,
     whenFalse = false,
 }: {
-    name: string
-    variable: Variable<T>
-    condition?: boolean | string
-    whenTrue?: boolean | string
-    whenFalse?: boolean | string
+    name: string;
+    variable: Variable<T>;
+    condition?: boolean | string;
+    whenTrue?: boolean | string;
+    whenFalse?: boolean | string;
 }) => {
     const cacheFile = `${get_home_dir()}/.cache/ags/.${name}`;
 
-    const stateCmd = () => ['bash', '-c',
-        `echo ${variable.get() === condition} > ${cacheFile}`];
+    const stateCmd = () => [
+        'bash',
+        '-c',
+        `echo ${variable.get() === condition} > ${cacheFile}`,
+    ];
 
     const monitorState = () => {
         variable.subscribe(() => {

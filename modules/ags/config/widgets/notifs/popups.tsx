@@ -3,17 +3,15 @@ import AstalNotifd from 'gi://AstalNotifd';
 import NotifGestureWrapper from './gesture';
 import { Notification } from './notification';
 
-
 export default () => {
     const notifications = AstalNotifd.get_default();
 
     return (
         <box
-        // Needed so it occupies space at the start
-        // It needs to be bigger than the notifs to not jiggle
+            // Needed so it occupies space at the start
+            // It needs to be bigger than the notifs to not jiggle
             css="min-width: 550px;"
             vertical
-
             setup={(self) => {
                 const notifQueue: number[] = [];
 
@@ -26,7 +24,7 @@ export default () => {
                         const NewNotif = Notification({ id, popup_timer: 5 });
 
                         if (NewNotif) {
-                        // Use this instead of add to put it at the top
+                            // Use this instead of add to put it at the top
                             self.pack_end(NewNotif, false, false, 0);
                             self.show_all();
 
@@ -59,9 +57,11 @@ export default () => {
                     NotifGestureWrapper.popups.delete(id);
                 };
 
-                self
-                    .hook(notifications, 'notified', (_, id) => addPopup(id))
-                    .hook(notifications, 'resolved', (_, id) => handleResolved(id));
+                self.hook(notifications, 'notified', (_, id) =>
+                    addPopup(id),
+                ).hook(notifications, 'resolved', (_, id) =>
+                    handleResolved(id),
+                );
             }}
         />
     );

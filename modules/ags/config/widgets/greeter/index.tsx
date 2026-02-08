@@ -1,10 +1,8 @@
-import { idle, readFile, Process } from 'astal';
+import { idle, Process, readFile } from 'astal';
 import { App, Astal, Gtk, Widget } from 'astal/gtk3';
-
 import AstalGreet from 'gi://AstalGreet';
 
 import { centerCursor } from '../../lib';
-
 
 export default (hyprpaper: InstanceType<typeof Process>) => {
     const DEFAULT_NAME = 'matt';
@@ -32,11 +30,13 @@ export default (hyprpaper: InstanceType<typeof Process>) => {
             };
         });
 
-                // Filter out system users, nixbld users and nobody
+        // Filter out system users, nixbld users and nobody
         return parsedUsers.filter((u) => {
-            return u.uid >= 1000 &&
-                    !u.name.includes('nixbld') &&
-                    u.name !== 'nobody';
+            return (
+                u.uid >= 1000 &&
+                !u.name.includes('nixbld') &&
+                u.name !== 'nobody'
+            );
         });
     };
 
@@ -50,17 +50,17 @@ export default (hyprpaper: InstanceType<typeof Process>) => {
         dropdown.append(null, u.name);
     });
 
-    const response = <label /> as Widget.Label;
+    const response = (<label />) as Widget.Label;
 
     const password = (
         <entry
             placeholderText="Password"
             visibility={false}
-
-            setup={(self) => idle(() => {
-                self.grab_focus();
-            })}
-
+            setup={(self) =>
+                idle(() => {
+                    self.grab_focus();
+                })
+            }
             onActivate={(self) => {
                 AstalGreet.login(
                     dropdown.get_active_text() ?? '',
@@ -114,13 +114,14 @@ export default (hyprpaper: InstanceType<typeof Process>) => {
                     hexpand
                     vexpand
                     className="linked"
-
                     setup={() => {
                         idle(() => {
                             const usernames = users.map((u) => u.name);
 
                             if (usernames.includes(DEFAULT_NAME)) {
-                                dropdown.set_active(usernames.indexOf(DEFAULT_NAME));
+                                dropdown.set_active(
+                                    usernames.indexOf(DEFAULT_NAME),
+                                );
                             }
                         });
                     }}

@@ -1,19 +1,14 @@
-import { Gdk, Gtk, Widget } from 'astal/gtk3';
-import { property, register } from 'astal/gobject';
 import { idle, interval, timeout } from 'astal';
-
+import { property, register } from 'astal/gobject';
+import { Gdk, Gtk, Widget } from 'astal/gtk3';
 import AstalIO from 'gi://AstalIO';
-
 import AstalNotifd from 'gi://AstalNotifd';
 
 import { hyprMessage } from '../../lib';
-
-import { HasNotifs } from './notification';
 import { get_hyprland_monitor } from '../../lib';
-
 /* Types */
 import { CursorPos, LayerResult } from '../../lib';
-
+import { HasNotifs } from './notification';
 
 const display = Gdk.Display.get_default();
 
@@ -38,10 +33,10 @@ const slideRight = `${TRANSITION} ${MAX_RIGHT} opacity: 0;`;
 const defaultStyle = `${TRANSITION} margin: unset; opacity: 1;`;
 
 type NotifGestureWrapperProps = Widget.BoxProps & {
-    id: number
-    slide_in_from?: 'Left' | 'Right'
-    popup_timer?: number
-    setup_notif?: (self: NotifGestureWrapper) => void
+    id: number;
+    slide_in_from?: 'Left' | 'Right';
+    popup_timer?: number;
+    setup_notif?: (self: NotifGestureWrapper) => void;
 };
 
 @register()
@@ -66,7 +61,9 @@ export class NotifGestureWrapper extends Widget.EventBox {
 
     private async get_hovered(): Promise<boolean> {
         const layers = JSON.parse(await hyprMessage('j/layers')) as LayerResult;
-        const cursorPos = JSON.parse(await hyprMessage('j/cursorpos')) as CursorPos;
+        const cursorPos = JSON.parse(
+            await hyprMessage('j/cursorpos'),
+        ) as CursorPos;
 
         const win = this.get_window();
 
@@ -82,8 +79,9 @@ export class NotifGestureWrapper extends Widget.EventBox {
 
         const plugName = get_hyprland_monitor(monitor)?.name;
 
-        const notifLayer = layers[plugName ?? '']?.levels['3']
-            ?.find((n) => n.namespace === 'notifications');
+        const notifLayer = layers[plugName ?? '']?.levels['3']?.find(
+            (n) => n.namespace === 'notifications',
+        );
 
         if (!notifLayer) {
             return false;
@@ -97,14 +95,21 @@ export class NotifGestureWrapper extends Widget.EventBox {
             .sort((a, b) => b[0] - a[0])
             .map(([key, val]) => [key, val.get_allocated_height()]);
 
-        const thisY = notifLayer.y + popups
-            .map((v) => v[1])
-            .slice(0, index)
-            .reduce((prev, curr) => prev + curr, 0);
+        const thisY =
+            notifLayer.y +
+            popups
+                .map((v) => v[1])
+                .slice(0, index)
+                .reduce((prev, curr) => prev + curr, 0);
 
-        if (cursorPos.y >= thisY && cursorPos.y <= thisY + (popups[index]?.at(1) ?? 0)) {
-            if (cursorPos.x >= notifLayer.x &&
-                cursorPos.x <= notifLayer.x + notifLayer.w) {
+        if (
+            cursorPos.y >= thisY &&
+            cursorPos.y <= thisY + (popups[index]?.at(1) ?? 0)
+        ) {
+            if (
+                cursorPos.x >= notifLayer.x &&
+                cursorPos.x <= notifLayer.x + notifLayer.w
+            ) {
                 return true;
             }
         }
@@ -116,10 +121,7 @@ export class NotifGestureWrapper extends Widget.EventBox {
         if (!display) {
             return;
         }
-        this.window.set_cursor(Gdk.Cursor.new_from_name(
-            display,
-            cursor,
-        ));
+        this.window.set_cursor(Gdk.Cursor.new_from_name(display, cursor));
     }
 
     public slideAway(side: 'Left' | 'Right', duplicate = false): void {
@@ -163,7 +165,9 @@ export class NotifGestureWrapper extends Widget.EventBox {
                         notifications.get_notification(this.id)?.dismiss();
 
                         // Update HasNotifs
-                        HasNotifs.set(notifications.get_notifications().length > 0);
+                        HasNotifs.set(
+                            notifications.get_notifications().length > 0,
+                        );
                     }
                     else {
                         // Make sure we cleanup any references to this instance
@@ -181,7 +185,7 @@ export class NotifGestureWrapper extends Widget.EventBox {
         id,
         slide_in_from = 'Left',
         popup_timer = 0,
-        setup_notif = () => { /**/ },
+        setup_notif = () => {},
         ...rest
     }: NotifGestureWrapperProps) {
         const notifications = AstalNotifd.get_default();
@@ -220,7 +224,7 @@ export class NotifGestureWrapper extends Widget.EventBox {
 
         // Handle timeout before sliding away if it is a popup
         if (this.popup_timer !== 0) {
-            this.timer_object = interval(1000, async() => {
+            this.timer_object = interval(1000, async () => {
                 try {
                     if (!(await this.get_hovered())) {
                         if (this.popup_timer === 0) {
@@ -283,7 +287,8 @@ export class NotifGestureWrapper extends Widget.EventBox {
                                 }
 
                                 // Put a threshold on if a click is actually dragging
-                                this.dragging = Math.abs(offset) > SLIDE_MIN_THRESHOLD;
+                                this.dragging =
+                                    Math.abs(offset) > SLIDE_MIN_THRESHOLD;
 
                                 this.setCursor('grabbing');
                             })
@@ -298,7 +303,9 @@ export class NotifGestureWrapper extends Widget.EventBox {
 
                                 // If crosses threshold after letting go, slide away
                                 if (Math.abs(offset) > MAX_OFFSET) {
-                                    this.slideAway(offset > 0 ? 'Right' : 'Left');
+                                    this.slideAway(
+                                        offset > 0 ? 'Right' : 'Left',
+                                    );
                                 }
                                 else {
                                     self.set_css(defaultStyle);
@@ -309,20 +316,25 @@ export class NotifGestureWrapper extends Widget.EventBox {
                             });
 
                         if (this.is_popup) {
-                            NotifGestureWrapper.on_sliding_in(++NotifGestureWrapper.sliding_in);
+                            NotifGestureWrapper.on_sliding_in(
+                                ++NotifGestureWrapper.sliding_in,
+                            );
                         }
 
                         // Reverse of slideAway, so it started at squeeze, then we go to slide
-                        self.set_css(this.slide_in_from === 'Left' ?
-                            slideLeft :
-                            slideRight);
+                        self.set_css(
+                            this.slide_in_from === 'Left'
+                                ? slideLeft
+                                : slideRight,
+                        );
 
                         idle(() => {
                             if (!notifications.get_notification(id)) {
                                 return;
                             }
 
-                            const rev = self?.get_parent() as Widget.Revealer | null;
+                            const rev =
+                                self?.get_parent() as Widget.Revealer | null;
 
                             if (!rev) {
                                 return;

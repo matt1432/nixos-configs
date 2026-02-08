@@ -1,16 +1,15 @@
 import { Variable } from 'astal';
 import { Binding } from 'astal/binding';
 
-
 export const mergeBindings = <Value = unknown>(
     array: (Value | Binding<Value> | Binding<Value[]>)[],
 ): Value[] | Binding<Value[]> => {
     const getValues = (args: Value[]) => {
         let i = 0;
 
-        return array.map((value) => value instanceof Binding ?
-            args[i++] :
-            value);
+        return array.map((value) =>
+            value instanceof Binding ? args[i++] : value,
+        );
     };
 
     const bindings = array.filter((i) => i instanceof Binding);

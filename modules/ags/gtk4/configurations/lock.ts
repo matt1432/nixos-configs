@@ -1,9 +1,7 @@
 import { App } from 'astal/gtk4';
 
-import Lockscreen from '../widgets/lockscreen';
-
 import style from '../style.scss';
-
+import Lockscreen from '../widgets/lockscreen';
 
 export default () => {
     App.start({

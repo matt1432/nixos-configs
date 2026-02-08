@@ -1,6 +1,5 @@
-import { App, Widget } from 'astal/gtk3';
 import { register } from 'astal/gobject';
-
+import { App, Widget } from 'astal/gtk3';
 
 @register()
 export default class OskWindow extends Widget.Window {
@@ -15,7 +14,10 @@ export default class OskWindow extends Widget.Window {
     }
 
     get_grandchildren(): (Widget.Box | Widget.CenterBox)[] {
-        return this.get_child().get_children() as (Widget.Box | Widget.CenterBox)[];
+        return this.get_child().get_children() as (
+            | Widget.Box
+            | Widget.CenterBox
+        )[];
     }
 
     constructor({ ...rest }: Widget.WindowProps) {

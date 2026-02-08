@@ -2,12 +2,10 @@ import { execAsync } from 'astal';
 import { Astal, Gtk } from 'astal/gtk3';
 
 import { hyprMessage } from '../../lib';
-
 import PopupWindow from '../misc/popup-window';
 
-
 const PowermenuWidget = () => {
-    const label = <label /> as Astal.Label;
+    const label = (<label />) as Astal.Label;
 
     return (
         <centerbox className="powermenu widget">
@@ -18,7 +16,9 @@ const PowermenuWidget = () => {
                         cursor="pointer"
                         onButtonReleaseEvent={(self) => {
                             label.set_label('Shutting down...');
-                            (self.get_parent()?.get_parent() as Astal.Stack).set_shown('message');
+                            (
+                                self.get_parent()?.get_parent() as Astal.Stack
+                            ).set_shown('message');
                             execAsync(['systemctl', 'poweroff']).catch(print);
                         }}
                     >
@@ -30,7 +30,9 @@ const PowermenuWidget = () => {
                         cursor="pointer"
                         onButtonReleaseEvent={(self) => {
                             label.set_label('Rebooting...');
-                            (self.get_parent()?.get_parent() as Astal.Stack).set_shown('message');
+                            (
+                                self.get_parent()?.get_parent() as Astal.Stack
+                            ).set_shown('message');
                             execAsync(['systemctl', 'reboot']).catch(print);
                         }}
                     >
@@ -42,7 +44,9 @@ const PowermenuWidget = () => {
                         cursor="pointer"
                         onButtonReleaseEvent={(self) => {
                             label.set_label('Logging out...');
-                            (self.get_parent()?.get_parent() as Astal.Stack).set_shown('message');
+                            (
+                                self.get_parent()?.get_parent() as Astal.Stack
+                            ).set_shown('message');
                             hyprMessage('dispatch exit').catch(print);
                         }}
                     >

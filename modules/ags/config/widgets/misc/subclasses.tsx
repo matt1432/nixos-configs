@@ -1,13 +1,11 @@
-import { astalify, Gtk, type ConstructProps } from 'astal/gtk3';
 import { register } from 'astal/gobject';
-
+import { astalify, type ConstructProps, Gtk } from 'astal/gtk3';
 
 @register()
 export class ToggleButton extends astalify(Gtk.ToggleButton) {
-    constructor(props: ConstructProps<
-        ToggleButton,
-        Gtk.ToggleButton.ConstructorProps
-    >) {
+    constructor(
+        props: ConstructProps<ToggleButton, Gtk.ToggleButton.ConstructorProps>,
+    ) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         super(props as any);
     }
@@ -15,10 +13,12 @@ export class ToggleButton extends astalify(Gtk.ToggleButton) {
 
 @register()
 export class RadioButton extends astalify(Gtk.RadioButton) {
-    constructor(props: ConstructProps<
-        RadioButton,
-        Gtk.RadioButton.ConstructorProps
-    > = {}) {
+    constructor(
+        props: ConstructProps<
+            RadioButton,
+            Gtk.RadioButton.ConstructorProps
+        > = {},
+    ) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         super(props as any);
     }
@@ -30,10 +30,9 @@ export class ListBox extends astalify(Gtk.ListBox) {
         return super.get_children() as Gtk.ListBoxRow[];
     }
 
-    constructor(props: ConstructProps<
-        ListBox,
-        Gtk.ListBox.ConstructorProps
-    > = {}) {
+    constructor(
+        props: ConstructProps<ListBox, Gtk.ListBox.ConstructorProps> = {},
+    ) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         super(props as any);
     }
@@ -41,10 +40,12 @@ export class ListBox extends astalify(Gtk.ListBox) {
 
 @register()
 export class ProgressBar extends astalify(Gtk.ProgressBar) {
-    constructor(props: ConstructProps<
-        ProgressBar,
-        Gtk.ProgressBar.ConstructorProps
-    > = {}) {
+    constructor(
+        props: ConstructProps<
+            ProgressBar,
+            Gtk.ProgressBar.ConstructorProps
+        > = {},
+    ) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         super(props as any);
     }
@@ -52,10 +53,12 @@ export class ProgressBar extends astalify(Gtk.ProgressBar) {
 
 @register()
 export class ComboBoxText extends astalify(Gtk.ComboBoxText) {
-    constructor(props: ConstructProps<
-        ComboBoxText,
-        Gtk.ComboBoxText.ConstructorProps
-    > = {}) {
+    constructor(
+        props: ConstructProps<
+            ComboBoxText,
+            Gtk.ComboBoxText.ConstructorProps
+        > = {},
+    ) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         super(props as any);
     }

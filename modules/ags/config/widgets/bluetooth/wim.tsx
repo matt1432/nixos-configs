@@ -1,9 +1,7 @@
 import { Astal } from 'astal/gtk3';
 
 import PopupWindow from '../misc/popup-window';
-
 import BluetoothWidget from './main';
-
 
 export default () => (
     <PopupWindow

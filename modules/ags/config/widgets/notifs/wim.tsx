@@ -1,10 +1,8 @@
 import { Astal } from 'astal/gtk3';
 
 import PopupWindow from '../misc/popup-window';
-
-import Popups from './popups';
 import Center from './center';
-
+import Popups from './popups';
 
 export const NotifPopups = () => (
     <window

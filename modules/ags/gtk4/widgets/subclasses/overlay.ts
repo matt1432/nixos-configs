@@ -1,8 +1,11 @@
 import { register } from 'astal';
 import { Gtk } from 'astal/gtk4';
 
-import astalify, { childType, type AstalifyProps, type ConstructProps } from '../astalify';
-
+import astalify, {
+    type AstalifyProps,
+    childType,
+    type ConstructProps,
+} from '../astalify';
 
 export type OverlayProps = ConstructProps<
     OverlayClass,
@@ -29,9 +32,10 @@ export class OverlayClass extends astalify(Gtk.Overlay) {
 
     setChildren(self: OverlayClass, children: Gtk.Widget[]) {
         for (const child of children) {
-            const types = childType in child ?
-                (child[childType] as string).split(/\s+/) :
-                [];
+            const types =
+                childType in child
+                    ? (child[childType] as string).split(/\s+/)
+                    : [];
 
             if (types.includes('overlay')) {
                 self.add_overlay(child);

@@ -3,7 +3,6 @@ import { Astal } from 'astal/gtk4';
 
 import astalify, { type AstalifyProps, type ConstructProps } from '../astalify';
 
-
 export type WindowProps = ConstructProps<
     WindowClass,
     Astal.Window.ConstructorProps & AstalifyProps

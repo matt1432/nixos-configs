@@ -1,5 +1,7 @@
 import { Astal, Gtk } from 'astal/gtk3';
 
+import { get_gdkmonitor_from_desc } from '../../lib';
+import Separator from '../misc/separator';
 import Audio from './items/audio';
 import Clock from './items/clock';
 import CurrentIcon from './items/current-icon';
@@ -7,16 +9,14 @@ import Network from './items/network';
 import NotifButton from './items/notif-button';
 import SysTray from './items/tray';
 
-import Separator from '../misc/separator';
-import { get_gdkmonitor_from_desc } from '../../lib';
-
-
 export default () => (
     <window
         name="noanim-bar"
         namespace="noanim-bar"
         layer={Astal.Layer.OVERLAY}
-        gdkmonitor={get_gdkmonitor_from_desc('desc:GIGA-BYTE TECHNOLOGY CO. LTD. G27QC 0x00000B1D')}
+        gdkmonitor={get_gdkmonitor_from_desc(
+            'desc:GIGA-BYTE TECHNOLOGY CO. LTD. G27QC 0x00000B1D',
+        )}
         exclusivity={Astal.Exclusivity.EXCLUSIVE}
         anchor={
             Astal.WindowAnchor.BOTTOM |
@@ -53,6 +53,5 @@ export default () => (
                 <Separator size={2} />
             </box>
         </centerbox>
-
     </window>
 );

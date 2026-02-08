@@ -1,24 +1,21 @@
 import { execAsync } from 'astal';
 import { App } from 'astal/gtk3';
 
-import style from '../style/main.scss';
-
-import AppLauncher from '../widgets/applauncher';
-import AudioWindow from '../widgets/audio/binto';
-import Bar from '../widgets/bar/binto';
-import BgLayer from '../widgets/bg-layer';
-import Calendar from '../widgets/date/binto';
-import Clipboard from '../widgets/clipboard';
-import { NotifPopups, NotifCenter } from '../widgets/notifs/binto';
-import OnScreenDisplay from '../widgets/on-screen-display';
-import PowerMenu from '../widgets/powermenu';
-import Screenshot from '../widgets/screenshot';
-
 import { closeAll, getWindow, perMonitor } from '../lib';
 import Brightness from '../services/brightness';
 import GpuScreenRecorder from '../services/gpu-screen-recorder';
 import MonitorClicks from '../services/monitor-clicks';
-
+import style from '../style/main.scss';
+import AppLauncher from '../widgets/applauncher';
+import AudioWindow from '../widgets/audio/binto';
+import Bar from '../widgets/bar/binto';
+import BgLayer from '../widgets/bg-layer';
+import Clipboard from '../widgets/clipboard';
+import Calendar from '../widgets/date/binto';
+import { NotifCenter, NotifPopups } from '../widgets/notifs/binto';
+import OnScreenDisplay from '../widgets/on-screen-display';
+import PowerMenu from '../widgets/powermenu';
+import Screenshot from '../widgets/screenshot';
 
 export default () => {
     App.start({
@@ -48,7 +45,7 @@ export default () => {
         },
 
         main: () => {
-            execAsync('hyprpaper').catch(() => { /**/ });
+            execAsync('hyprpaper').catch(() => {});
 
             perMonitor((monitor) => BgLayer(monitor, false));
 

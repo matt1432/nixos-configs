@@ -1,23 +1,20 @@
 import { execAsync, idle } from 'astal';
 import { Astal, Gtk } from 'astal/gtk3';
 
-import Tablet from '../../services/tablet';
 import { hyprMessage } from '../../lib';
-
-import OskWindow from './osk-window';
+import Tablet from '../../services/tablet';
 import { Keys } from './keys';
-
+import OskWindow from './osk-window';
 
 const KEY_N = 249;
-const KEYCODES = Array.from(Array(KEY_N).keys()).map((keycode) => `${keycode}:0`);
+const KEYCODES = Array.from(Array(KEY_N).keys()).map(
+    (keycode) => `${keycode}:0`,
+);
 
 const ANIM_DURATION = 700;
 
 const releaseAllKeys = () => {
-    execAsync([
-        'ydotool', 'key',
-        ...KEYCODES,
-    ]).catch(print);
+    execAsync(['ydotool', 'key', ...KEYCODES]).catch(print);
 };
 
 export default (window: OskWindow) => {
@@ -151,7 +148,9 @@ export default (window: OskWindow) => {
         signals.push(
             gesture.connect('drag-begin', () => {
                 hyprMessage('j/cursorpos').then((out) => {
-                    const hasActiveKey = Keys.get().map((v) => v.get()).includes(true);
+                    const hasActiveKey = Keys.get()
+                        .map((v) => v.get())
+                        .includes(true);
 
                     if (!hasActiveKey) {
                         window.startY = JSON.parse(out).y;
@@ -198,7 +197,7 @@ export default (window: OskWindow) => {
                     const currentY = JSON.parse(out).y;
                     const offset = window.startY - currentY;
 
-                    if (offset < -(calculatedHeight * 2 / 3)) {
+                    if (offset < -((calculatedHeight * 2) / 3)) {
                         window.get_child().set_css(`
                             transition: margin-bottom 0.5s ease-in-out;
                             margin-bottom: -${calculatedHeight}px;

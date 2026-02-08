@@ -1,25 +1,15 @@
 import { subprocess } from 'astal';
-import { App } from 'astal/gtk3';
 import GObject, { register, signal } from 'astal/gobject';
-
+import { App } from 'astal/gtk3';
 import AstalIO from 'gi://AstalIO';
 
 import { getWindow, hyprMessage } from '../lib';
 
-const ON_RELEASE_TRIGGERS = [
-    'released',
-    'TOUCH_UP',
-    'HOLD_END',
-];
-const ON_CLICK_TRIGGERS = [
-    'pressed',
-    'TOUCH_DOWN',
-];
+const ON_RELEASE_TRIGGERS = ['released', 'TOUCH_UP', 'HOLD_END'];
+const ON_CLICK_TRIGGERS = ['pressed', 'TOUCH_DOWN'];
 
-/* Types */
-import PopupWindow from '../widgets/misc/popup-window';
 import { CursorPos, Layer, LayerResult } from '../lib';
-
+import PopupWindow from '../widgets/misc/popup-window';
 
 @register()
 export default class MonitorClicks extends GObject.Object {
@@ -47,24 +37,21 @@ export default class MonitorClicks extends GObject.Object {
             return;
         }
 
-        this.process = subprocess(
-            ['libinput', 'debug-events'],
-            (output) => {
-                if (output.includes('cancelled')) {
-                    return;
-                }
+        this.process = subprocess(['libinput', 'debug-events'], (output) => {
+            if (output.includes('cancelled')) {
+                return;
+            }
 
-                if (ON_RELEASE_TRIGGERS.some((p) => output.includes(p))) {
-                    MonitorClicks.detectClickedOutside('released');
-                    this.emit('released', output);
-                }
+            if (ON_RELEASE_TRIGGERS.some((p) => output.includes(p))) {
+                MonitorClicks.detectClickedOutside('released');
+                this.emit('released', output);
+            }
 
-                if (ON_CLICK_TRIGGERS.some((p) => output.includes(p))) {
-                    MonitorClicks.detectClickedOutside('clicked');
-                    this.emit('clicked', output);
-                }
-            },
-        );
+            if (ON_CLICK_TRIGGERS.some((p) => output.includes(p))) {
+                MonitorClicks.detectClickedOutside('clicked');
+                this.emit('clicked', output);
+            }
+        });
         this.emit('proc-started', true);
     }
 
@@ -78,21 +65,22 @@ export default class MonitorClicks extends GObject.Object {
 
     private _initAppConnection() {
         App.connect('window-toggled', () => {
-            const anyVisibleAndClosable =
-                (App.get_windows() as PopupWindow[]).some((w) => {
-                    const closable = w.close_on_unfocus &&
-                        !(
-                            w.close_on_unfocus === 'none' ||
-                            w.close_on_unfocus === 'stay'
-                        );
+            const anyVisibleAndClosable = (
+                App.get_windows() as PopupWindow[]
+            ).some((w) => {
+                const closable =
+                    w.close_on_unfocus &&
+                    !(
+                        w.close_on_unfocus === 'none' ||
+                        w.close_on_unfocus === 'stay'
+                    );
 
-                    return w.visible && closable;
-                });
+                return w.visible && closable;
+            });
 
             if (anyVisibleAndClosable) {
                 this._startProc();
             }
-
             else {
                 this._killProc();
             }
@@ -110,11 +98,9 @@ export default class MonitorClicks extends GObject.Object {
     }
 
     public static async detectClickedOutside(clickStage: string) {
-        const toClose = ((App.get_windows() as PopupWindow[])).some((w) => {
-            const closable = (
-                w.close_on_unfocus &&
-                w.close_on_unfocus === clickStage
-            );
+        const toClose = (App.get_windows() as PopupWindow[]).some((w) => {
+            const closable =
+                w.close_on_unfocus && w.close_on_unfocus === clickStage;
 
             return w.visible && closable;
         });
@@ -124,36 +110,36 @@ export default class MonitorClicks extends GObject.Object {
         }
 
         try {
-            const layers = JSON.parse(await hyprMessage('j/layers')) as LayerResult;
-            const pos = JSON.parse(await hyprMessage('j/cursorpos')) as CursorPos;
+            const layers = JSON.parse(
+                await hyprMessage('j/layers'),
+            ) as LayerResult;
+            const pos = JSON.parse(
+                await hyprMessage('j/cursorpos'),
+            ) as CursorPos;
 
             Object.values(layers).forEach((key) => {
                 const overlayLayer = key.levels['3'];
 
                 if (overlayLayer) {
-                    const noCloseWidgetsNames = [
-                        'bar-',
-                        'osk',
-                        'noanim-',
-                    ];
+                    const noCloseWidgetsNames = ['bar-', 'osk', 'noanim-'];
 
                     const getNoCloseWidgets = (names: string[]) => {
                         const arr = [] as Layer[];
 
                         names.forEach((name) => {
                             arr.push(
-                                overlayLayer.find(
-                                    (n) => n.namespace.startsWith(name),
+                                overlayLayer.find((n) =>
+                                    n.namespace.startsWith(name),
                                 ) ||
-                                // Return an empty Layer if widget doesn't exist
-                                {
-                                    address: '',
-                                    x: 0,
-                                    y: 0,
-                                    w: 0,
-                                    h: 0,
-                                    namespace: '',
-                                },
+                                    // Return an empty Layer if widget doesn't exist
+                                    {
+                                        address: '',
+                                        x: 0,
+                                        y: 0,
+                                        w: 0,
+                                        h: 0,
+                                        namespace: '',
+                                    },
                             );
                         });
 
@@ -161,20 +147,24 @@ export default class MonitorClicks extends GObject.Object {
                     };
                     const clickIsOnWidget = (w: Layer) => {
                         return (
-                            pos.x > w.x && pos.x < w.x + w.w &&
-                            pos.y > w.y && pos.y < w.y + w.h
+                            pos.x > w.x &&
+                            pos.x < w.x + w.w &&
+                            pos.y > w.y &&
+                            pos.y < w.y + w.h
                         );
                     };
 
-                    const noCloseWidgets = getNoCloseWidgets(noCloseWidgetsNames);
+                    const noCloseWidgets =
+                        getNoCloseWidgets(noCloseWidgetsNames);
 
                     const widgets = overlayLayer.filter((n) => {
                         const win = getWindow(n.namespace);
 
-                        return win &&
+                        return (
+                            win &&
                             win.close_on_unfocus &&
-                            win.close_on_unfocus ===
-                            clickStage;
+                            win.close_on_unfocus === clickStage
+                        );
                     });
 
                     if (noCloseWidgets.some(clickIsOnWidget)) {
@@ -182,10 +172,14 @@ export default class MonitorClicks extends GObject.Object {
                     }
                     else {
                         widgets.forEach((w) => {
-                            if (!(
-                                pos.x > w.x && pos.x < w.x + w.w &&
-                                pos.y > w.y && pos.y < w.y + w.h
-                            )) {
+                            if (
+                                !(
+                                    pos.x > w.x &&
+                                    pos.x < w.x + w.w &&
+                                    pos.y > w.y &&
+                                    pos.y < w.y + w.h
+                                )
+                            ) {
                                 getWindow(w.namespace)?.set_visible(false);
                             }
                         });
@@ -193,7 +187,7 @@ export default class MonitorClicks extends GObject.Object {
                 }
             });
         }
-        catch(e) {
+        catch (e) {
             console.log(e);
         }
     }

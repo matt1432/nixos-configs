@@ -3,10 +3,9 @@ import { Gtk } from 'astal/gtk4';
 
 import astalify, { type AstalifyProps, type ConstructProps } from '../astalify';
 
-
 type EntrySignals = Record<`on${string}`, unknown[]> & {
-    onActivate: []
-    onNotifyText: []
+    onActivate: [];
+    onNotifyText: [];
 };
 export type EntryProps = ConstructProps<
     EntryClass,
@@ -20,7 +19,9 @@ export class EntryClass extends astalify(Gtk.Entry) {
         super({ cssName, ...props });
     }
 
-    getChildren() { return []; }
+    getChildren() {
+        return [];
+    }
 }
 
 export const Entry = (props?: EntryProps) => new EntryClass(props);

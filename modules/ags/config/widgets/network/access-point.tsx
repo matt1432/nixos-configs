@@ -1,31 +1,28 @@
 import { bind, execAsync } from 'astal';
-import { Gtk, Widget } from 'astal/gtk3';
 import { register } from 'astal/gobject';
-
+import { Gtk, Widget } from 'astal/gtk3';
 import AstalNetwork from 'gi://AstalNetwork';
 
-import Separator from '../misc/separator';
 import { notifySend } from '../../lib';
-
+import Separator from '../misc/separator';
 
 const apCommand = (ap: AstalNetwork.AccessPoint, cmd: string[]): void => {
-    execAsync([
-        'nmcli',
-        ...cmd,
-        ap.get_ssid()!,
-    ]).catch((e) => notifySend({
-        title: 'Network',
-        iconName: ap.get_icon_name(),
-        body: (e as Error).message,
-        actions: [
-            {
-                id: 'open',
-                label: 'Open network manager',
-                callback: () =>
-                    execAsync('nm-connection-editor'),
-            },
-        ],
-    })).catch((e) => console.error(e));
+    execAsync(['nmcli', ...cmd, ap.get_ssid()!])
+        .catch((e) =>
+            notifySend({
+                title: 'Network',
+                iconName: ap.get_icon_name(),
+                body: (e as Error).message,
+                actions: [
+                    {
+                        id: 'open',
+                        label: 'Open network manager',
+                        callback: () => execAsync('nm-connection-editor'),
+                    },
+                ],
+            }),
+        )
+        .catch((e) => console.error(e));
 };
 
 const apConnect = (ap: AstalNetwork.AccessPoint): void => {
@@ -43,7 +40,9 @@ export default class AccessPointWidget extends Widget.Box {
     readonly aps: AstalNetwork.AccessPoint[];
 
     getStrongest() {
-        return this.aps.sort((apA, apB) => apB.get_strength() - apA.get_strength())[0];
+        return this.aps.sort(
+            (apA, apB) => apB.get_strength() - apA.get_strength(),
+        )[0];
     }
 
     constructor({ aps }: { aps: AstalNetwork.AccessPoint[] }) {
@@ -54,9 +53,7 @@ export default class AccessPointWidget extends Widget.Box {
         }
 
         const rev = (
-            <revealer
-                transitionType={Gtk.RevealerTransitionType.SLIDE_DOWN}
-            >
+            <revealer transitionType={Gtk.RevealerTransitionType.SLIDE_DOWN}>
                 <box vertical halign={Gtk.Align.FILL} hexpand>
                     <Separator size={8} vertical />
 
@@ -73,10 +70,9 @@ export default class AccessPointWidget extends Widget.Box {
                             cursor="pointer"
                             valign={Gtk.Align.CENTER}
                             halign={Gtk.Align.END}
-
-                            state={bind(wifi, 'activeAccessPoint')
-                                .as((activeAp) => aps.includes(activeAp))}
-
+                            state={bind(wifi, 'activeAccessPoint').as(
+                                (activeAp) => aps.includes(activeAp),
+                            )}
                             onButtonReleaseEvent={(self) => {
                                 if (self.state) {
                                     apDisconnect(this.getStrongest());
@@ -85,7 +81,6 @@ export default class AccessPointWidget extends Widget.Box {
                                     apConnect(this.getStrongest());
                                 }
                             }}
-
                         />
                     </centerbox>
 
@@ -104,17 +99,14 @@ export default class AccessPointWidget extends Widget.Box {
                 <box>
                     <icon
                         icon="check-active-symbolic"
-
-                        css={bind(wifi, 'activeAccessPoint').as((activeAp) => aps.includes(activeAp) ?
-                            '' :
-                            'opacity: 0;')}
+                        css={bind(wifi, 'activeAccessPoint').as((activeAp) =>
+                            aps.includes(activeAp) ? '' : 'opacity: 0;',
+                        )}
                     />
 
                     <Separator size={8} />
 
-                    <icon
-                        icon={bind(aps[0], 'iconName')}
-                    />
+                    <icon icon={bind(aps[0], 'iconName')} />
 
                     <Separator size={8} />
 
@@ -125,13 +117,9 @@ export default class AccessPointWidget extends Widget.Box {
 
         super({
             vertical: true,
-            children: [
-                button,
-                rev,
-                (<Separator size={8} vertical />),
-            ],
+            children: [button, rev, <Separator size={8} vertical />],
         });
 
         this.aps = aps;
-    };
-};
+    }
+}

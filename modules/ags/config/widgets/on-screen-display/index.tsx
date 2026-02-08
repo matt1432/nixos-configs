@@ -1,19 +1,16 @@
 import { bind, timeout } from 'astal';
 import { Astal, Gtk, Widget } from 'astal/gtk3';
-
 import AstalWp from 'gi://AstalWp';
 
-import { ProgressBar } from '../misc/subclasses';
-import PopupWindow from '../misc/popup-window';
-import Brightness from '../../services/brightness';
-
 import { getWindow } from '../../lib';
+import Brightness from '../../services/brightness';
+import PopupWindow from '../misc/popup-window';
+import { ProgressBar } from '../misc/subclasses';
 
 /* Types */
 declare global {
     function popup_osd(osd: string): void;
 }
-
 
 const HIDE_DELAY = 2000;
 const transition_duration = 300;
@@ -45,7 +42,9 @@ export default () => {
 
     const brightness = Brightness.get_default();
     const speaker = AstalWp.get_default()?.get_audio()?.get_default_speaker();
-    const microphone = AstalWp.get_default()?.get_audio()?.get_default_microphone();
+    const microphone = AstalWp.get_default()
+        ?.get_audio()
+        ?.get_default_microphone();
 
     if (!speaker || !microphone) {
         throw new Error('Could not find default audio devices.');
@@ -68,11 +67,9 @@ export default () => {
                     });
                 }}
             >
-
                 <box
                     name="speaker"
                     css="margin-bottom: 80px;"
-
                     setup={(self) => {
                         self.hook(speaker, 'notify::mute', () => {
                             popup('speaker');
@@ -93,7 +90,6 @@ export default () => {
                 <box
                     name="microphone"
                     css="margin-bottom: 80px;"
-
                     setup={(self) => {
                         self.hook(microphone, 'notify::mute', () => {
                             popup('microphone');
@@ -114,7 +110,6 @@ export default () => {
                 <box
                     name="brightness"
                     css="margin-bottom: 80px;"
-
                     setup={(self) => {
                         self.hook(brightness, 'notify::screen-icon', () => {
                             popup('brightness');
@@ -131,35 +126,35 @@ export default () => {
                     </box>
                 </box>
 
-                {
-                    brightness.hasKbd && (
-                        <box
-                            name="keyboard"
-                            css="margin-bottom: 80px;"
+                {brightness.hasKbd && (
+                    <box
+                        name="keyboard"
+                        css="margin-bottom: 80px;"
+                        setup={(self) => {
+                            self.hook(brightness, 'notify::kbd-level', () => {
+                                popup('keyboard');
+                            });
+                        }}
+                    >
+                        <box className="osd-item widget">
+                            <icon icon="keyboard-brightness-symbolic" />
 
-                            setup={(self) => {
-                                self.hook(brightness, 'notify::kbd-level', () => {
-                                    popup('keyboard');
-                                });
-                            }}
-                        >
-                            <box className="osd-item widget">
-                                <icon icon="keyboard-brightness-symbolic" />
-
-                                <ProgressBar
-                                    fraction={bind(brightness, 'kbdLevel').as((v) => (v ?? 0) / 2)}
-                                    sensitive={bind(brightness, 'kbdLevel').as((v) => v !== 0)}
-                                    valign={Gtk.Align.CENTER}
-                                />
-                            </box>
+                            <ProgressBar
+                                fraction={bind(brightness, 'kbdLevel').as(
+                                    (v) => (v ?? 0) / 2,
+                                )}
+                                sensitive={bind(brightness, 'kbdLevel').as(
+                                    (v) => v !== 0,
+                                )}
+                                valign={Gtk.Align.CENTER}
+                            />
                         </box>
-                    )
-                }
+                    </box>
+                )}
 
                 <box
                     name="caps"
                     css="margin-bottom: 80px;"
-
                     setup={(self) => {
                         self.hook(brightness, 'notify::caps-icon', () => {
                             popup('caps');
@@ -172,7 +167,6 @@ export default () => {
                         <label label="Caps Lock" />
                     </box>
                 </box>
-
             </stack>
         </PopupWindow>
     );

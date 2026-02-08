@@ -1,22 +1,19 @@
 import { bind, execAsync, interval, Variable } from 'astal';
 import { Gtk, Widget } from 'astal/gtk3';
-
-import Brightness from '../../services/brightness';
-
-import Separator from '../misc/separator';
-
 /* Types */
 import AstalIO from 'gi://AstalIO';
 
-interface Key {
-    keytype: string
-    label: string
-    labelShift?: string
-    labelAltGr?: string
-    shape: string
-    keycode: number
-}
+import Brightness from '../../services/brightness';
+import Separator from '../misc/separator';
 
+interface Key {
+    keytype: string;
+    label: string;
+    labelShift?: string;
+    labelAltGr?: string;
+    shape: string;
+    keycode: number;
+}
 
 const brightness = Brightness.get_default();
 
@@ -53,7 +50,6 @@ RShift.subscribe(() => {
     Shift.set(LShift.get() || RShift.get());
 });
 
-
 const ModKey = (key: Key) => {
     let Mod: Variable<boolean>;
 
@@ -65,23 +61,18 @@ const ModKey = (key: Key) => {
     else if (key.label === 'Shift' && key.keycode === LSHIFT_CODE) {
         Mod = LShift;
     }
-
     else if (key.label === 'Alt' && key.keycode === LALT_CODE) {
         Mod = LAlt;
     }
-
     else if (key.label === 'Ctrl' && key.keycode === LCTRL_CODE) {
         Mod = LCtrl;
     }
-
     else if (key.label === 'Shift') {
         Mod = RShift;
     }
-
     else if (key.label === 'AltGr') {
         Mod = AltGr;
     }
-
     else if (key.label === 'Ctrl') {
         Mod = RCtrl;
     }
@@ -89,17 +80,13 @@ const ModKey = (key: Key) => {
     Keys.set([...Keys.get(), Mod!]);
 
     const label = (
-        <label
-            className={`mod ${key.label}`}
-            label={key.label}
-        />
+        <label className={`mod ${key.label}`} label={key.label} />
     ) as Widget.Label;
 
     const button = (
         <eventbox
             className="key"
             cursor="pointer"
-
             onButtonPressEvent={() => {
                 execAsync(`ydotool key ${key.keycode}:${Mod.get() ? 0 : 1}`);
 
@@ -129,30 +116,24 @@ const RegularKey = (key: Key) => {
         <eventbox
             className="key"
             cursor="pointer"
-
             onButtonReleaseEvent={() => {
                 IsLongPressing.set(false);
                 IsActive.set(false);
             }}
         >
             <label
-                className={bind(IsActive).as((v) => [
-                    'normal',
-                    key.label,
-                    (v ? 'active' : ''),
-                ].join(' '))}
-
+                className={bind(IsActive).as((v) =>
+                    ['normal', key.label, v ? 'active' : ''].join(' '),
+                )}
                 label={key.label}
-
                 setup={(self) => {
-                    self
-                        .hook(Shift, () => {
-                            if (key.labelShift) {
-                                self.set_label(Shift.get() ?
-                                    key.labelShift :
-                                    key.label);
-                            }
-                        })
+                    self.hook(Shift, () => {
+                        if (key.labelShift) {
+                            self.set_label(
+                                Shift.get() ? key.labelShift : key.label,
+                            );
+                        }
+                    })
                         .hook(Caps, () => {
                             if (key.label === 'Caps') {
                                 IsActive.set(Caps.get());
@@ -161,18 +142,18 @@ const RegularKey = (key: Key) => {
                             }
 
                             if (key.labelShift && key.label.match(/[A-Za-z]/)) {
-                                self.set_label(Caps.get() ?
-                                    key.labelShift :
-                                    key.label);
+                                self.set_label(
+                                    Caps.get() ? key.labelShift : key.label,
+                                );
                             }
                         })
                         .hook(AltGr, () => {
                             if (key.labelAltGr) {
                                 self.toggleClassName('altgr', AltGr.get());
 
-                                self.set_label(AltGr.get() ?
-                                    key.labelAltGr :
-                                    key.label);
+                                self.set_label(
+                                    AltGr.get() ? key.labelAltGr : key.label,
+                                );
                             }
                         });
                 }}
@@ -189,7 +170,7 @@ const RegularKey = (key: Key) => {
         const x = pointer[1];
         const y = pointer[2];
 
-        if ((!x || !y) || (x === 0 && y === 0)) {
+        if (!x || !y || (x === 0 && y === 0)) {
             return;
         }
 
@@ -238,6 +219,5 @@ const RegularKey = (key: Key) => {
     ) as Widget.Box;
 };
 
-export default (key: Key): Widget.Box => key.keytype === 'normal' ?
-    RegularKey(key) :
-    ModKey(key);
+export default (key: Key): Widget.Box =>
+    key.keytype === 'normal' ? RegularKey(key) : ModKey(key);

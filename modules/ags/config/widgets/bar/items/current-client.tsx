@@ -1,11 +1,9 @@
 import { bind, Variable } from 'astal';
 import { Gtk } from 'astal/gtk3';
-
 import AstalApps from 'gi://AstalApps';
 import AstalHyprland from 'gi://AstalHyprland';
 
 import Separator from '../../misc/separator';
-
 
 export default () => {
     const applications = AstalApps.Apps.new();
@@ -17,15 +15,12 @@ export default () => {
 
     let lastFocusedAddress: string | null;
 
-
     const updateVars = (
         client: AstalHyprland.Client | null = hyprland.get_focused_client(),
     ) => {
         lastFocusedAddress = client ? client.get_address() : null;
 
-        const app = applications.fuzzy_query(
-            client?.get_class() ?? '',
-        )[0];
+        const app = applications.fuzzy_query(client?.get_class() ?? '')[0];
 
         const icon = app?.get_icon_name();
 

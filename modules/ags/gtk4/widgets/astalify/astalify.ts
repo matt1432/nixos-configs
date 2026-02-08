@@ -1,10 +1,9 @@
 import { property, register } from 'astal';
-import { Gtk, hook } from 'astal/gtk4';
 import { type Connectable, type Subscribable } from 'astal/binding';
+import { Gtk, hook } from 'astal/gtk4';
 
 import construct from './construct';
 import setupControllers from './controller';
-
 import {
     type BindableProps,
     childType,
@@ -14,7 +13,6 @@ import {
     noImplicitDestroy,
     setChildren,
 } from './generics';
-
 
 export default <
     C extends new (...props: MixinParams) => Gtk.Widget,
@@ -47,31 +45,42 @@ export default <
             this._provider.load_from_string(value);
         }
 
-
         declare private [childType]: string;
 
         @property(String)
-        get type(): string { return this[childType]; }
+        get type(): string {
+            return this[childType];
+        }
 
-        set type(value: string) { this[childType] = value; }
-
+        set type(value: string) {
+            this[childType] = value;
+        }
 
         @property(Object)
-        get children(): Gtk.Widget[] { return this.getChildren(this); }
+        get children(): Gtk.Widget[] {
+            return this.getChildren(this);
+        }
 
-        set children(value: Gtk.Widget[]) { this.setChildren(this, value); }
-
+        set children(value: Gtk.Widget[]) {
+            this.setChildren(this, value);
+        }
 
         declare private [noImplicitDestroy]: boolean;
 
         @property(String)
-        get noImplicitDestroy(): boolean { return this[noImplicitDestroy]; }
+        get noImplicitDestroy(): boolean {
+            return this[noImplicitDestroy];
+        }
 
-        set noImplicitDestroy(value: boolean) { this[noImplicitDestroy] = value; }
-
+        set noImplicitDestroy(value: boolean) {
+            this[noImplicitDestroy] = value;
+        }
 
         protected getChildren(widget: Gtk.Widget): Gtk.Widget[] {
-            if ('get_child' in widget && typeof widget.get_child == 'function') {
+            if (
+                'get_child' in widget &&
+                typeof widget.get_child == 'function'
+            ) {
                 return widget.get_child() ? [widget.get_child()] : [];
             }
 
@@ -91,13 +100,13 @@ export default <
                 widget.vfunc_add_child(
                     dummyBuilder,
                     child,
-                    childType in widget ? widget[childType] as string : null,
+                    childType in widget ? (widget[childType] as string) : null,
                 );
             }
         }
 
         [setChildren](children: Gtk.Widget[]) {
-            for (const child of (this.getChildren(this))) {
+            for (const child of this.getChildren(this)) {
                 child?.unparent();
 
                 if (!children.includes(child) && noImplicitDestroy in this) {
@@ -107,7 +116,6 @@ export default <
 
             this.setChildren(this, children);
         }
-
 
         private _cursorName: Cursor = 'default';
 
@@ -120,7 +128,6 @@ export default <
             this._cursorName = val;
             this.set_cursor_from_name(val);
         }
-
 
         hook(
             object: Connectable,
@@ -135,14 +142,15 @@ export default <
 
         hook(
             object: Connectable | Subscribable,
-            signalOrCallback: string | ((self: this, ...args: unknown[]) => void),
+            signalOrCallback:
+                | string
+                | ((self: this, ...args: unknown[]) => void),
             callback?: (self: this, ...args: unknown[]) => void,
         ) {
             hook(this, object, signalOrCallback, callback);
 
             return this;
         }
-
 
         constructor(...params: MixinParams) {
             const props = params[0] || {};

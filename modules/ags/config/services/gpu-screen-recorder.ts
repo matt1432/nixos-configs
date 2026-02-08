@@ -3,7 +3,6 @@ import GObject, { register } from 'astal/gobject';
 
 import { notifySend } from '../lib';
 
-
 const APP_NAME = 'gpu-screen-recorder';
 const ICON_NAME = 'nvidia';
 
@@ -19,7 +18,9 @@ export default class GpuScreenRecorder extends GObject.Object {
                 ['gsr-start'],
                 (path) => {
                     if (!this._lastNotifID) {
-                        console.error('[GpuScreenRecorder] ID of warning notif not found');
+                        console.error(
+                            '[GpuScreenRecorder] ID of warning notif not found',
+                        );
 
                         setTimeout(() => {
                             this._onSaved(path);
@@ -29,7 +30,7 @@ export default class GpuScreenRecorder extends GObject.Object {
                         this._onSaved(path);
                     }
                 },
-                () => { /**/ },
+                () => {},
             );
         }
         catch (_e) {
@@ -49,7 +50,7 @@ export default class GpuScreenRecorder extends GObject.Object {
 
     public saveReplay() {
         execAsync(['gpu-save-replay'])
-            .then(async() => {
+            .then(async () => {
                 this._lastNotifID = await notifySend({
                     appName: APP_NAME,
                     iconName: ICON_NAME,
@@ -76,10 +77,11 @@ export default class GpuScreenRecorder extends GObject.Object {
                     id: 'folder',
                     label: 'Open Folder',
 
-                    callback: () => execAsync([
-                        'xdg-open',
-                        path.substring(0, path.lastIndexOf('/')),
-                    ]).catch(print),
+                    callback: () =>
+                        execAsync([
+                            'xdg-open',
+                            path.substring(0, path.lastIndexOf('/')),
+                        ]).catch(print),
                 },
 
                 {
@@ -93,11 +95,10 @@ export default class GpuScreenRecorder extends GObject.Object {
                     id: 'kdenlive',
                     label: 'Edit in kdenlive',
 
-                    callback: () => execAsync([
-                        'bash',
-                        '-c',
-                        `kdenlive -i ${path}`,
-                    ]).catch(print),
+                    callback: () =>
+                        execAsync(['bash', '-c', `kdenlive -i ${path}`]).catch(
+                            print,
+                        ),
                 },
             ],
         });

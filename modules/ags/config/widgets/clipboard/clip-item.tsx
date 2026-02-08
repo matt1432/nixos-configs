@@ -3,9 +3,9 @@ import { register } from 'astal/gobject';
 import { Gtk, Widget } from 'astal/gtk3';
 
 export interface EntryObject {
-    id: number
-    content: string
-    entry: string
+    id: number;
+    content: string;
+    entry: string;
 }
 
 const SCALE = 150;
@@ -18,7 +18,11 @@ export class ClipItem extends Widget.Box {
     declare id: number;
     declare content: string;
 
-    public show_image(file: string, width: string | number, height: string | number) {
+    public show_image(
+        file: string,
+        width: string | number,
+        height: string | number,
+    ) {
         this.children[2].destroy();
 
         const initCss = () => {
@@ -41,15 +45,10 @@ export class ClipItem extends Widget.Box {
             return css;
         };
 
-        const icon = (
-            <box
-                valign={Gtk.Align.CENTER}
-                css={initCss()}
-            />
-        );
+        const icon = <box valign={Gtk.Align.CENTER} css={initCss()} />;
 
         this.children = [...this.children, icon];
-    };
+    }
 
     constructor({ item }: { item: EntryObject }) {
         super({
@@ -59,11 +58,7 @@ export class ClipItem extends Widget.Box {
                     xalign={0}
                     valign={Gtk.Align.CENTER}
                 />,
-                <label
-                    label="・"
-                    xalign={0}
-                    valign={Gtk.Align.CENTER}
-                />,
+                <label label="・" xalign={0} valign={Gtk.Align.CENTER} />,
                 <label
                     label={item.content}
                     xalign={0}

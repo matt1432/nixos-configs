@@ -1,8 +1,6 @@
-import { App, Gtk, Widget } from 'astal/gtk3';
 import { bind, idle } from 'astal';
-
+import { App, Gtk, Widget } from 'astal/gtk3';
 import AstalTray from 'gi://AstalTray';
-
 
 const SKIP_ITEMS = ['.spotify-wrapped'];
 
@@ -19,10 +17,12 @@ const TrayItem = (item: AstalTray.TrayItem) => {
             <menubutton
                 className="tray-item"
                 cursor="pointer"
-
                 usePopover={false}
                 tooltipMarkup={bind(item, 'tooltipMarkup')}
-                actionGroup={bind(item, 'actionGroup').as((ag) => ['dbusmenu', ag])}
+                actionGroup={bind(item, 'actionGroup').as((ag) => [
+                    'dbusmenu',
+                    ag,
+                ])}
                 menuModel={bind(item, 'menuModel')}
             >
                 <icon gicon={bind(item, 'gicon')} />
@@ -41,22 +41,26 @@ export default () => {
             className="bar-item system-tray"
             visible={bind(tray, 'items').as((items) => items.length !== 0)}
             setup={(self) => {
-                self
-                    .hook(tray, 'item-added', (_, item: string) => {
-                        if (itemMap.has(item) || SKIP_ITEMS.includes(tray.get_item(item).get_title())) {
-                            return;
-                        }
+                self.hook(tray, 'item-added', (_, item: string) => {
+                    if (
+                        itemMap.has(item) ||
+                        SKIP_ITEMS.includes(tray.get_item(item).get_title())
+                    ) {
+                        return;
+                    }
 
-                        const widget = TrayItem(tray.get_item(item)) as Widget.Revealer;
+                    const widget = TrayItem(
+                        tray.get_item(item),
+                    ) as Widget.Revealer;
 
-                        itemMap.set(item, widget);
+                    itemMap.set(item, widget);
 
-                        self.add(widget);
+                    self.add(widget);
 
-                        idle(() => {
-                            widget.set_reveal_child(true);
-                        });
-                    })
+                    idle(() => {
+                        widget.set_reveal_child(true);
+                    });
+                })
 
                     .hook(tray, 'item-removed', (_, item: string) => {
                         if (!itemMap.has(item)) {

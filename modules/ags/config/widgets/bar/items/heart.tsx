@@ -11,12 +11,10 @@ Persist({
     whenFalse: '󰣐',
 });
 
-
 export default () => (
     <button
         className="bar-item heart-toggle"
         cursor="pointer"
-
         onButtonReleaseEvent={() => {
             HeartState.set(HeartState.get() === '' ? '󰣐' : '');
         }}

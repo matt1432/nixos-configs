@@ -1,10 +1,12 @@
-import { App, Astal, Gdk, Gtk, Widget } from 'astal/gtk3';
 import { bind, idle, Variable } from 'astal';
-
+import { App, Astal, Gdk, Gtk, Widget } from 'astal/gtk3';
 import AstalHyprland from 'gi://AstalHyprland';
 
-import { get_hyprland_monitor_desc, get_monitor_desc, hyprMessage } from '../../lib';
-
+import {
+    get_hyprland_monitor_desc,
+    get_monitor_desc,
+    hyprMessage,
+} from '../../lib';
 
 const FullscreenState = Variable({
     monitors: [] as string[],
@@ -17,40 +19,47 @@ export default ({
     child,
     ...rest
 }: {
-    anchor: Astal.WindowAnchor
-    gdkmonitor?: Gdk.Monitor
+    anchor: Astal.WindowAnchor;
+    gdkmonitor?: Gdk.Monitor;
 } & Widget.WindowProps) => {
     const hyprland = AstalHyprland.get_default();
 
     const monitor = get_hyprland_monitor_desc(gdkmonitor);
     const BarVisible = Variable(false);
 
-    hyprland.connect('event', async() => {
+    hyprland.connect('event', async () => {
         const arrayEquals = (a1: unknown[], a2: unknown[]) =>
             a1.sort().toString() === a2.sort().toString();
 
         const mapEquals = (m1: Map<string, string>, m2: Map<string, string>) =>
             m1.size === m2.size &&
-        Array.from(m1.keys()).every((key) => m1.get(key) === m2.get(key));
+            Array.from(m1.keys()).every((key) => m1.get(key) === m2.get(key));
 
         try {
-            const newMonitors = JSON.parse(await hyprMessage('j/monitors')) as AstalHyprland.Monitor[];
+            const newMonitors = JSON.parse(
+                await hyprMessage('j/monitors'),
+            ) as AstalHyprland.Monitor[];
 
             const fs = FullscreenState.get();
             const fsClients = hyprland.get_clients().filter((c) => {
-                const mon = newMonitors.find((m) => m.id === c.get_monitor()?.id);
+                const mon = newMonitors.find(
+                    (m) => m.id === c.get_monitor()?.id,
+                );
 
-                return c.fullscreenClient !== 0 &&
-                c.workspace.id === mon?.activeWorkspace.id;
+                return (
+                    c.fullscreenClient !== 0 &&
+                    c.workspace.id === mon?.activeWorkspace.id
+                );
             });
 
-            const monitors = fsClients.map((c) =>
-                get_monitor_desc(c.monitor));
+            const monitors = fsClients.map((c) => get_monitor_desc(c.monitor));
 
-            const clientAddrs = new Map(fsClients.map((c) => [
-                get_monitor_desc(c.monitor),
-                c.address ?? '',
-            ]));
+            const clientAddrs = new Map(
+                fsClients.map((c) => [
+                    get_monitor_desc(c.monitor),
+                    c.address ?? '',
+                ]),
+            );
 
             const hasChanged =
                 !arrayEquals(monitors, fs.monitors) ||
@@ -63,7 +72,7 @@ export default ({
                 });
             }
         }
-        catch(e) {
+        catch (e) {
             console.log(e);
         }
     });
@@ -105,7 +114,10 @@ export default ({
         if (addr) {
             const client = hyprland.get_client(addr);
 
-            if (client?.workspace.id !== hyprland.get_focused_workspace().get_id()) {
+            if (
+                client?.workspace.id !==
+                hyprland.get_focused_workspace().get_id()
+            ) {
                 BarVisible.set(true);
                 barCloser.visible = false;
             }
@@ -117,37 +129,36 @@ export default ({
     });
 
     const buffer = (
-        <box
-            css="min-height: 10px;"
-            visible={bind(BarVisible).as((v) => !v)}
-        />
+        <box css="min-height: 10px;" visible={bind(BarVisible).as((v) => !v)} />
     );
 
-    const vertical = anchor >= (Astal.WindowAnchor.LEFT | Astal.WindowAnchor.RIGHT);
-    const isBottomOrLeft = (
-        anchor === (Astal.WindowAnchor.LEFT | Astal.WindowAnchor.RIGHT | Astal.WindowAnchor.BOTTOM)
-    ) || (
-        anchor === (Astal.WindowAnchor.LEFT | Astal.WindowAnchor.TOP | Astal.WindowAnchor.BOTTOM)
-    );
+    const vertical =
+        anchor >= (Astal.WindowAnchor.LEFT | Astal.WindowAnchor.RIGHT);
+    const isBottomOrLeft =
+        anchor ===
+            (Astal.WindowAnchor.LEFT |
+                Astal.WindowAnchor.RIGHT |
+                Astal.WindowAnchor.BOTTOM) ||
+        anchor ===
+            (Astal.WindowAnchor.LEFT |
+                Astal.WindowAnchor.TOP |
+                Astal.WindowAnchor.BOTTOM);
 
     let transition: Gtk.RevealerTransitionType;
 
     if (vertical) {
-        transition = isBottomOrLeft ?
-            Gtk.RevealerTransitionType.SLIDE_UP :
-            Gtk.RevealerTransitionType.SLIDE_DOWN;
+        transition = isBottomOrLeft
+            ? Gtk.RevealerTransitionType.SLIDE_UP
+            : Gtk.RevealerTransitionType.SLIDE_DOWN;
     }
     else {
-        transition = isBottomOrLeft ?
-            Gtk.RevealerTransitionType.SLIDE_RIGHT :
-            Gtk.RevealerTransitionType.SLIDE_LEFT;
+        transition = isBottomOrLeft
+            ? Gtk.RevealerTransitionType.SLIDE_RIGHT
+            : Gtk.RevealerTransitionType.SLIDE_LEFT;
     }
 
     const barWrap = (
-        <revealer
-            reveal_child={bind(BarVisible)}
-            transitionType={transition}
-        >
+        <revealer reveal_child={bind(BarVisible)} transitionType={transition}>
             {child}
         </revealer>
     );
@@ -169,14 +180,8 @@ export default ({
                     }
                 }}
             >
-                <box
-                    hexpand
-                    halign={Gtk.Align.FILL}
-                    vertical={vertical}
-                >
-                    {isBottomOrLeft ?
-                        [buffer, barWrap] :
-                        [barWrap, buffer]}
+                <box hexpand halign={Gtk.Align.FILL} vertical={vertical}>
+                    {isBottomOrLeft ? [buffer, barWrap] : [barWrap, buffer]}
                 </box>
             </eventbox>
         </window>
