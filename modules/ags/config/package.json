@@ -4,12 +4,17 @@
     "main": "app.ts",
     "dependencies": {
         "astal": "https://github.com/matt1432/astal/raw/d537296abad1390ac02c8dc594cd07737840e4ee/gjs.tar.gz",
-        "@eslint/js": "9.39.2",
-        "@stylistic/eslint-plugin": "5.7.1",
-        "eslint": "9.39.2",
-        "eslint-plugin-jsdoc": "62.5.3",
         "fzf": "0.5.2",
+        "@eslint/js": "9.39.2",
+        "eslint": "9.39.2",
+        "eslint-config-prettier": "10.1.8",
+        "eslint-plugin-jsdoc": "62.5.3",
+        "eslint-plugin-perfectionist": "5.5.0",
+        "eslint-plugin-prettier": "5.5.5",
         "jiti": "2.6.1",
+        "prettier": "3.8.1",
+        "prettier-plugin-brace-style": "0.9.0",
+        "typescript": "5.9.3",
         "typescript-eslint": "8.54.0"
     }
 }
