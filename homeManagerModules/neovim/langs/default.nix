@@ -143,8 +143,17 @@ in {
 
                   -- ensure treesitter is started, in case starting the lsp messed with it
                   -- happens sometimes on darwin for some reason?
-                  vim.treesitter.start();
-                  vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()";
+                  local filetype = vim.filetype.match({
+                      buf = vim.api.nvim_get_current_buf(),
+                  });
+
+                  for _, language in ipairs(require('nvim-treesitter').get_available()) do
+                      if filetype == language then
+                          vim.treesitter.start();
+                          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()";
+                          return;
+                      end;
+                  end;
               end,
           });
         '';

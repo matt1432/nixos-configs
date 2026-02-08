@@ -17,5 +17,5 @@ mkShell {
     ]}"
   '';
 
-  meta.platforms = ["x86-64_linux"];
+  meta.platforms = ["x86_64-linux"];
 }
