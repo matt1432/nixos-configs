@@ -1648,26 +1648,6 @@
         "type": "github"
       }
     },
-    "quickshell": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1769593411,
-        "narHash": "sha256-WW00FaBiUmQyxvSbefvgxIjwf/WmRrEGBbwMHvW/7uQ=",
-        "ref": "refs/heads/master",
-        "rev": "1e4d804e7f3fa7465811030e8da2bf10d544426a",
-        "revCount": 732,
-        "type": "git",
-        "url": "https://git.outfoxxed.me/quickshell/quickshell"
-      },
-      "original": {
-        "type": "git",
-        "url": "https://git.outfoxxed.me/quickshell/quickshell"
-      }
-    },
     "root": {
       "inputs": {
         "ags": "ags",
@@ -1729,7 +1709,6 @@
         "pokemon-colorscripts-src": "pokemon-colorscripts-src",
         "pr-tracker": "pr-tracker",
         "pre-commit-hooks": "pre-commit-hooks",
-        "quickshell": "quickshell",
         "secrets": "secrets",
         "sioyek-theme-src": "sioyek-theme-src",
         "smartinspect-src": "smartinspect-src",

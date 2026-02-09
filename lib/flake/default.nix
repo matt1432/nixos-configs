@@ -39,7 +39,6 @@ in rec {
           inputs.self.overlays.appsPackages
           inputs.self.overlays.selfPackages
           inputs.self.overlays.scopedPackages
-          inputs.self.overlays.forced
         ]
         ++ (cfg.overlays or [])
       );

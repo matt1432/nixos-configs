@@ -74,14 +74,6 @@ in {
       '';
     };
 
-    quickshell.enable = mkOption {
-      type = types.bool;
-      default = false;
-      description = ''
-        Whether we want to enable Quickshell for the DE shell.
-      '';
-    };
-
     mainMonitor = mkOption {
       type = types.str;
       description = ''

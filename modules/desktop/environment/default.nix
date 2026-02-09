@@ -21,7 +21,6 @@ self: {
 in {
   imports = [
     (import ../../ags self)
-    ../../quickshell
 
     ./modules/dconf.nix
     ./modules/printer.nix

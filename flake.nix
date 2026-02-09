@@ -432,11 +432,6 @@
       repo = "git-hooks.nix";
       type = "github";
     };
-    quickshell = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      type = "git";
-      url = "https://git.outfoxxed.me/quickshell/quickshell";
-    };
     secrets = {
       inputs = {
         nixpkgs.follows = "nixpkgs";

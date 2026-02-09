@@ -211,11 +211,6 @@ let
     };
 
     shellInputs = {
-      quickshell = mkInput {
-        type = "git";
-        url = "https://git.outfoxxed.me/quickshell/quickshell";
-      };
-
       # Too lazy to switch to V3 for now
       astal = mkInput {
         # owner = "Aylur";
