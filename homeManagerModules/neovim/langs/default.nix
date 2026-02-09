@@ -7,6 +7,8 @@ self: {
   inherit (self.inputs) vimplugin-nix-develop-src;
   inherit (self.lib.${pkgs.stdenv.hostPlatform.system}) mkVersion;
 
+  inherit (pkgs.stdenv.hostPlatform) isDarwin;
+
   inherit (builtins) attrValues;
   inherit (lib) fileContents mkBefore mkIf;
 
@@ -142,7 +144,20 @@ in {
                   lsp_status.on_attach(client);
 
                   -- ensure treesitter is started, in case starting the lsp messed with it
-                  -- happens sometimes on darwin for some reason?
+                  ${
+            if isDarwin
+            then
+              # lua
+              ''
+                --
+                  -- On Darwin, `require('nvim-treesitter').get_available()` doesn't seem to work
+                  vim.treesitter.start();
+                  vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()";
+              ''
+            else
+              # lua
+              ''
+                --
                   local filetype = vim.filetype.match({
                       buf = vim.api.nvim_get_current_buf(),
                   });
@@ -154,6 +169,8 @@ in {
                           return;
                       end;
                   end;
+              ''
+          }
               end,
           });
         '';
