@@ -15,6 +15,7 @@ in {
     home.packages = attrValues {
       inherit
         (pkgs)
+        corepack
         neovim-node-client
         vscode-langservers-extracted
         typescript-language-server

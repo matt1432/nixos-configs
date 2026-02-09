@@ -3,7 +3,6 @@
   lib,
   mainUser,
   nixpkgs-firefox-darwin,
-  pkgs,
   self,
   ...
 }: let
@@ -70,11 +69,6 @@ in {
 
     # State Version: DO NOT CHANGE
     home.stateVersion = "25.11";
-
-    home.packages = [
-      pkgs.pnpm
-      pkgs.yarn
-    ];
 
     programs = {
       bash = {
