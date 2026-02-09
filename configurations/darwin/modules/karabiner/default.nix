@@ -137,7 +137,7 @@ in {
                     type = "basic";
                   }
                   {
-                    description = "Change CSA Ù to Backslash";
+                    description = "Change CSA Ù to Backslash outside terminal";
                     from = {
                       key_code = "grave_accent_and_tilde";
                       modifiers = {mandatory = ["left_shift"];};
@@ -149,6 +149,26 @@ in {
                       }
                     ];
                     type = "basic";
+                    conditions = [
+                      (exceptTerminalCondition "unless")
+                    ];
+                  }
+                  {
+                    description = "Change CSA Ù to Backslash inside terminal";
+                    from = {
+                      key_code = "grave_accent_and_tilde";
+                      modifiers = {mandatory = ["left_shift"];};
+                    };
+                    to = [
+                      {
+                        key_code = "quote";
+                        modifiers = ["right_option"];
+                      }
+                    ];
+                    type = "basic";
+                    conditions = [
+                      (exceptTerminalCondition "if")
+                    ];
                   }
                   {
                     description = "Pipe";
