@@ -2,7 +2,7 @@
   flakePath,
   hostnamePath ? "/etc/hostname",
 }: let
-  inherit (builtins) currentSystem getFlake head match pathExists readFile removeAttrs;
+  inherit (builtins) currentSystem getFlake head match pathExists readFile;
 
   hostname =
     if pathExists hostnamePath
@@ -26,6 +26,6 @@
     else {};
 in
   {inherit lib pkgs self;}
-  // self.nixosConfigurations.${hostname}
-  or self.nixOnDroidConfigurations.default
-  or {}
+  // (self.nixosConfigurations.${hostname}
+  or self.darwinConfigurations."MGCOMP0192"
+  or {})
