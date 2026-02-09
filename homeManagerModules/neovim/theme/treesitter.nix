@@ -15,9 +15,12 @@ in {
           name = "installParsersWrapper";
           runtimeInputs = [cfg.finalPackage];
           text = ''
-            # Doesn't exit with 0 for some reason
-            ${pkgs.vimPlugins.nvim-treesitter.src}/scripts/install-parsers.lua || true
-            echo # Add new line
+            ${pkgs.vimPlugins.nvim-treesitter.src}/scripts/install-parsers.lua |&
+                grep -v 'Compiling' |
+                grep -v 'Generating' |
+                grep -v 'Downloading' ||
+                # Doesn't exit with 0 because it only installs missing ones
+                true
           '';
         })}
       '';
