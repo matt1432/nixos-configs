@@ -7,32 +7,63 @@ self: {
   inherit (lib) mkIf;
 
   cfg = config.roles.desktop;
-  agsCfg = hmCfg.programs.ags;
   hmCfg = config.home-manager.users.${cfg.user};
 
   hyprland = hmCfg.wayland.windowManager.hyprland.finalPackage;
+  agsPkg = pkgs.ags.override {
+    extraPackages = builtins.attrValues {
+      inherit
+        (pkgs.astal)
+        io
+        astal3
+        astal4
+        apps
+        auth
+        battery
+        bluetooth
+        greet
+        hyprland
+        mpris
+        network
+        notifd
+        powerprofiles
+        tray
+        wireplumber
+        ;
+
+      # libkompass dependencies
+      inherit
+        (pkgs.astal)
+        cava
+        river
+        ;
+
+      inherit
+        (pkgs)
+        libadwaita
+        networkmanager
+        gtk4-layer-shell
+        gtk4 # Needed to build types
+        ;
+    };
+  };
 
   agsConfig = let
-    homeFiles = config.home-manager.users.${cfg.user}.home.file;
-    nodeModules = homeFiles."${agsCfg.configDir}/node_modules".source;
+    inherit
+      (self.lib.${pkgs.stdenv.hostPlatform.system})
+      buildNodeModules
+      ;
+
+    nodeModules = buildNodeModules ../../../ags/config (import ../../../ags/config).npmDepsHash;
   in
     pkgs.runCommandLocal "agsConfig" {} ''
       cp -ar ${../../../ags/config}/* ./.
       chmod +w -R ./.
       cp -ar ${nodeModules} ./node_modules
-      ${agsCfg.package}/bin/ags bundle ./app.ts $out
+      ${agsPkg}/bin/ags bundle ./app.ts $out
     '';
 in {
   config = mkIf cfg.enable {
-    assertions = [
-      {
-        assertion = cfg.ags.enable;
-        message = ''
-          The Display Manager requires AGS to be enabled.
-        '';
-      }
-    ];
-
     # Add home folder for home-manager to work
     users.users.greeter = {
       home = "/var/lib/greeter";
@@ -40,6 +71,7 @@ in {
     };
 
     home-manager.users.greeter = {
+      home.file."agsGreeter".source = agsConfig;
       home.packages = [
         hyprland
 
@@ -47,7 +79,7 @@ in {
           name = "agsGreeter";
 
           runtimeInputs = [
-            agsCfg.package
+            agsPkg
             hyprland
           ];
 

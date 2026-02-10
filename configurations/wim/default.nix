@@ -78,7 +78,7 @@
     enable = true;
     user = mainUser;
 
-    ags.enable = true;
+    noctalia.enable = true;
     mainMonitor = "eDP-1";
     isLaptop = true;
     isTouchscreen = true;

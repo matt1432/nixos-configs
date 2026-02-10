@@ -1536,6 +1536,26 @@
         "type": "github"
       }
     },
+    "noctalia": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1770594057,
+        "narHash": "sha256-gzBpiTiIlnxkyqcYYkaIt5lH6Jbw9bAIOSO2uSXHam0=",
+        "owner": "noctalia-dev",
+        "repo": "noctalia-shell",
+        "rev": "c4a83d7e0b5687ffe17a6726fad5918788600f4f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "noctalia-dev",
+        "repo": "noctalia-shell",
+        "type": "github"
+      }
+    },
     "nvim-theme-src": {
       "flake": false,
       "locked": {
@@ -1703,6 +1723,7 @@
         "nixos-jellyfin": "nixos-jellyfin",
         "nixpkgs": "nixpkgs",
         "nixpkgs-firefox-darwin": "nixpkgs-firefox-darwin",
+        "noctalia": "noctalia",
         "nvim-theme-src": "nvim-theme-src",
         "pcsd": "pcsd",
         "piper-src": "piper-src",

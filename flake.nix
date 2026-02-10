@@ -390,6 +390,12 @@
       repo = "nixpkgs-firefox-darwin";
       type = "github";
     };
+    noctalia = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      owner = "noctalia-dev";
+      repo = "noctalia-shell";
+      type = "github";
+    };
     nvim-theme-src = {
       flake = false;
       owner = "Mofiqul";

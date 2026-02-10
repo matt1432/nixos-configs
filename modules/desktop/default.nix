@@ -74,6 +74,19 @@ in {
       '';
     };
 
+    noctalia.enable = mkOption {
+      type = types.bool;
+      default = false;
+      description = ''
+        Whether we want to enable Noctalia for the DE shell.
+      '';
+    };
+
+    lockPackage = lib.mkOption {
+      type = with lib.types; nullOr package;
+      default = null;
+    };
+
     mainMonitor = mkOption {
       type = types.str;
       description = ''

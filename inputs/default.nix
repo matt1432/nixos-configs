@@ -211,6 +211,11 @@ let
     };
 
     shellInputs = {
+      noctalia = mkInput {
+        owner = "noctalia-dev";
+        repo = "noctalia-shell";
+      };
+
       # Too lazy to switch to V3 for now
       astal = mkInput {
         # owner = "Aylur";

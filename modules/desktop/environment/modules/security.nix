@@ -6,7 +6,7 @@ self: {
 }: let
   inherit (self.lib.hypr) mkBind;
 
-  inherit (lib) getExe map mkIf;
+  inherit (lib) getExe mkIf;
 
   cfg = config.roles.desktop;
 
@@ -14,7 +14,7 @@ self: {
   hyprPkg = hmCfg.wayland.windowManager.hyprland.finalPackage;
 
   # See modules/ags/packages.nix
-  lockPkg = hmCfg.programs.ags.lockPkg;
+  lockPkg = cfg.lockPackage;
 
   runInDesktop = pkgs.writeShellApplication {
     name = "runInDesktop";
@@ -53,7 +53,7 @@ in {
 
           case "$state" in
               *open*)
-                  ${getExe runInDesktop} "${getExe lockPkg} request 'authFinger()'"
+                  ${getExe runInDesktop} "${getExe lockPkg}"
                   ;;
 
               *close*)

@@ -21,6 +21,7 @@ self: {
 in {
   imports = [
     (import ../../ags self)
+    (import ../../noctalia self)
 
     ./modules/dconf.nix
     ./modules/printer.nix
