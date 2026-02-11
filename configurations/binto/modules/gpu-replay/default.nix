@@ -45,7 +45,7 @@ in {
 
         runtimeInputs = [
           pkgs.pulseaudio
-          pkgs.xorg.xrandr
+          pkgs.xrandr
 
           gpu-screen-recorder
           gpu-screen-recorder.gsr-dbus-server

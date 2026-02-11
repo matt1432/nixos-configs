@@ -15,6 +15,10 @@
   libglvnd,
   libpulseaudio,
   libva,
+  libxcomposite,
+  libxdamage,
+  libxi,
+  libxrandr,
   meson,
   ninja,
   pipewire,
@@ -22,7 +26,6 @@
   vulkan-headers,
   wayland,
   wayland-scanner,
-  xorg,
   ...
 }: let
   inherit (lib) makeLibraryPath optionalString;
@@ -61,10 +64,10 @@ in
       vulkan-headers
       wayland
       wayland-scanner
-      xorg.libXcomposite
-      xorg.libXdamage
-      xorg.libXi
-      xorg.libXrandr
+      libxcomposite
+      libxdamage
+      libxi
+      libxrandr
     ];
 
     mesonFlags = [

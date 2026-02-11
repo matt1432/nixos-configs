@@ -83,7 +83,7 @@ in {
         '';
 
       plugins = [
-        pkgs.vimPlugins.fzfWrapper
+        pkgs.vimPlugins.fzf-wrapper
         pkgs.vimPlugins.fzf-vim
 
         {

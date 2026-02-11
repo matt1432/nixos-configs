@@ -13,7 +13,7 @@ self: {
 in {
   config = mkIf cfg.enable {
     programs.neovim.plugins = [
-      pkgs.vimPlugins.fugitive
+      pkgs.vimPlugins.vim-fugitive
 
       {
         plugin = let

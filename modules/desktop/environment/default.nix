@@ -236,15 +236,11 @@ in {
           libinput
           xclip
           libnotify
+          xrandr
           ;
 
         qt5Wayland = pkgs.qt5.qtwayland;
         qt6Wayland = pkgs.qt6.qtwayland;
-
-        inherit
-          (pkgs.xorg)
-          xrandr
-          ;
       };
     };
   };
