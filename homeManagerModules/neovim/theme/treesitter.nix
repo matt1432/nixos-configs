@@ -53,8 +53,12 @@ in {
                       buf = vim.api.nvim_get_current_buf(),
                   });
 
+                  if filetype == nil then
+                      return;
+                  end;
+
                   for _, language in ipairs(require('nvim-treesitter').get_available()) do
-                      if filetype == language then
+                      if (filetype):find("^" .. language) then
                           vim.treesitter.start();
                           vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()";
                           return;
