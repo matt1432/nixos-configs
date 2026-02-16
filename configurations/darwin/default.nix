@@ -33,6 +33,8 @@ in {
     shell = bashPkg;
   };
 
+  system.primaryUser = mainUser;
+
   programs.bash = {
     enable = true;
     completion.enable = true;

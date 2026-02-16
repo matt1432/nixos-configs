@@ -1727,6 +1727,7 @@
         "vimplugin-roslyn-src": "vimplugin-roslyn-src",
         "virtualkeyboard-adapter": "virtualkeyboard-adapter",
         "wakewords-src": "wakewords-src",
+        "yabai-src": "yabai-src",
         "yamaha-soundbar-src": "yamaha-soundbar-src"
       }
     },
@@ -2074,6 +2075,22 @@
       "original": {
         "owner": "hyprwm",
         "repo": "xdg-desktop-portal-hyprland",
+        "type": "github"
+      }
+    },
+    "yabai-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1768665206,
+        "narHash": "sha256-IVVwlqMlkfkgqmZegVeVwt/YRSIfaH+swTWAikl64wY=",
+        "owner": "asmvik",
+        "repo": "yabai",
+        "rev": "5bde933ec85a4a601a186163b7db04aa3bf6c3b1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "asmvik",
+        "repo": "yabai",
         "type": "github"
       }
     },

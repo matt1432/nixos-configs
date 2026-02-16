@@ -535,6 +535,12 @@
       repo = "home-assistant-wakewords-collection";
       type = "github";
     };
+    yabai-src = {
+      flake = false;
+      owner = "asmvik";
+      repo = "yabai";
+      type = "github";
+    };
     yamaha-soundbar-src = {
       flake = false;
       owner = "osk2";

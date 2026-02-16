@@ -1,5 +1,6 @@
 {...}: {
   imports = [
     ./karabiner
+    ./yabai
   ];
 }

@@ -341,6 +341,10 @@ let
 
     # Overlays & packages
     {
+      owner = "asmvik";
+      repo = "yabai";
+    }
+    {
       name = "jellyfin-auto-collections-src";
       owner = "matt1432";
       repo = "Jellyfin-Auto-Collections";
