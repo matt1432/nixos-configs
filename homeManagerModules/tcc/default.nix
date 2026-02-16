@@ -74,7 +74,7 @@ in {
                 TCC_DATABASE=${escapeShellArg service.database} \
                 TCC_SERVICE=kTCCService${escapeShellArg name} \
                 PREFPANE=${escapeShellArg service.prefpane} \
-                ${tccExe} ${escapeShellArgs config.darwin.tcc.${name}} || true # script will fail on CI
+                ${tccExe} ${escapeShellArgs config.darwin.tcc.${name}}
               ''
           )
           services
