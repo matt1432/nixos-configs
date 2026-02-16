@@ -51,6 +51,8 @@
       inherit (inputs) subscleaner-src;
     };
 
+    tccutil = final.callPackage ./tccutil {};
+
     trash-d = final.callPackage ./trash-d {
       inherit (inputs) trash-d-src;
     };

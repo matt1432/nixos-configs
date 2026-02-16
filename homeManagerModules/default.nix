@@ -37,7 +37,7 @@ in {
 
   tcc =
     module
-    (import ./tcc)
+    (import ./tcc self)
     ''
       Allows declaring permissions declaratively for darwin.
     '';
