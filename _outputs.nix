@@ -8,14 +8,16 @@
     secrets,
     ...
   }: let
+    inherit (nixpkgs.lib) filter genAttrs hasSuffix mapAttrs' nameValuePair;
+
     inherit (self.lib) mkNixOS mkNixDarwin mkPkgs;
 
     mkPerSystem = supportedSystems: attrs:
-      nixpkgs.lib.genAttrs supportedSystems (system:
+      genAttrs supportedSystems (system:
         attrs (mkPkgs {inherit system nixpkgs;}));
 
     perSystem = mkPerSystem (import systems);
-    perLinuxSystem = mkPerSystem (builtins.filter (nixpkgs.lib.hasSuffix "linux") (import systems));
+    perLinuxSystem = mkPerSystem (filter (hasSuffix "linux") (import systems));
   in {
     lib = import ./lib {inherit inputs perSystem;};
 
@@ -95,10 +97,7 @@
     };
 
     # For gen-docs
-    configurations = let
-      inherit (nixpkgs.lib) mapAttrs' nameValuePair;
-    in
-      self.nixosConfigurations // (mapAttrs' (n: v: nameValuePair "darwin" v) self.darwinConfigurations);
+    configurations = self.nixosConfigurations // (mapAttrs' (n: v: nameValuePair "darwin" v) self.darwinConfigurations);
 
     # For nix-fast-build. I use a custom output to alleviate eval time of this flake. ie. when doing nix flake show
     nixFastChecks = import ./nixFastChecks {
