@@ -23,22 +23,22 @@ const updatePackageJson = async (workspaceDir: string, updates: object) => {
 
     const updateDeps = (deps: string) => {
         Object.keys(currentPackageJson[deps]).forEach(async (dep) => {
-            if (dep === 'astal') {
-                const astalRev = spawnSync(
+            if (dep === 'ags') {
+                const agsRev = spawnSync(
                     [
                         'nix',
                         'eval',
                         '--raw',
                         '--impure',
                         '--expr',
-                        '"(builtins.getFlake \\"$FLAKE\\").inputs.astal.rev"',
+                        '"(builtins.getFlake \\"$FLAKE\\").inputs.ags.rev"',
                     ].join(' '),
                     [],
                     { shell: true },
                 ).stdout.toString();
 
                 currentPackageJson[deps][dep] =
-                    `https://github.com/matt1432/astal/raw/${astalRev}/gjs.tar.gz`;
+                    `https://github.com/Aylur/ags/archive/${agsRev}.tar.gz`;
 
                 return;
             }
