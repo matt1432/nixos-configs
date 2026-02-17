@@ -7,7 +7,7 @@
   inherit (builtins) head match readFile;
 
   pname = "tccutil";
-  version = head (match ".*util_version = ['\"](.*)['\"].*" (readFile "${tccutil-src}/tccutil.py"));
+  version = head (match ".*util_version = ['\"]([^'\"]*)['\"].*" (readFile "${tccutil-src}/tccutil.py"));
 in
   python3Packages.buildPythonApplication {
     inherit pname version;
