@@ -1,15 +1,15 @@
-import { App } from 'astal/gtk4';
+import app from 'ags/gtk4/app';
 
 import style from '../style.scss';
 import Lockscreen from '../widgets/lockscreen';
 
 export default () => {
-    App.start({
+    app.start({
         css: style,
         instanceName: 'lock',
 
-        requestHandler(js, res) {
-            App.eval(js).then(res).catch(res);
+        requestHandler() {
+            globalThis.authFinger();
         },
 
         main: () => {

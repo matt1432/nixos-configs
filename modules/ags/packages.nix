@@ -5,11 +5,12 @@ self: {
   pkgs,
   ...
 }: let
-  inherit (self.inputs) kompass;
+  inherit (self.inputs) ags astal;
 
   inherit (lib) attrValues boolToString filter getExe mkIf optionalAttrs optionals;
 
   inherit (osConfig.networking) hostName;
+  inherit (pkgs.stdenv.hostPlatform) system;
 
   cfg = config.programs.ags;
   cfgDesktop = osConfig.roles.desktop;
@@ -20,7 +21,7 @@ self: {
     runtimeInputs = [cfg.package];
     text = ''
       if [ "$#" == 0 ]; then
-          exec ags run ~/${cfg.configDir} -a ${hostName}
+          exec ags run ~/${cfg.configDir} --gtk 3 ${hostName}
       else
           exec ags "$@"
       fi
@@ -30,13 +31,14 @@ in {
   config = mkIf cfgDesktop.ags.enable {
     # Make these accessible outside these files
     programs.ags = {
-      package = pkgs.ags.override {
+      package = ags.packages.${system}.ags.override {
         extraPackages = cfg.astalLibs;
+        inherit (pkgs) gtk4-layer-shell;
       };
 
       astalLibs = attrValues {
         inherit
-          (pkgs.astal)
+          (astal.packages.${system})
           io
           astal3
           astal4
@@ -54,15 +56,6 @@ in {
           wireplumber
           ;
 
-        libKompass = kompass.packages.${pkgs.stdenv.hostPlatform.system}.libkompass;
-
-        # libkompass dependencies
-        inherit
-          (pkgs.astal)
-          cava
-          river
-          ;
-
         inherit
           (pkgs)
           libadwaita
@@ -78,7 +71,7 @@ in {
           gsettings set org.gnome.desktop.interface cursor-size 30
 
           if [ "$#" == 0 ]; then
-              exec ags run ~/${gtk4ConfigDir}/app.ts -a lock --gtk4
+              exec ags run ~/${gtk4ConfigDir}/app.ts --gtk 4 lock
           else
               exec ags "$@" -i lock
           fi
@@ -97,7 +90,7 @@ in {
               gsettings set org.gnome.desktop.interface cursor-size 30
 
               if [ "$#" == 0 ]; then
-                  exec ags run ~/${gtk4ConfigDir}/app.ts --gtk4 -a ${hostName}
+                  exec ags run ~/${gtk4ConfigDir}/app.ts --gtk 4 ${hostName}
               else
                   exec ags "$@"
               fi
@@ -154,7 +147,6 @@ in {
           packages = filter (x:
             true
             && x.pname != "libadwaita"
-            && x.pname != "libkompass"
             && x.pname != "gtk4-layer-shell"
             && x.pname != "gtk4-session-lock")
           cfg.astalLibs;

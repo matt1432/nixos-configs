@@ -1,11 +1,9 @@
-import { Variable } from 'astal';
-import { Gtk } from 'astal/gtk3';
-import { Label } from 'astal/gtk3/widget';
+import { createState } from 'ags';
+import { Astal, Gtk } from 'ags/gtk3';
 import AstalHyprland from 'gi://AstalHyprland';
 
 import { hyprMessage } from '../../../lib';
 
-/* Types */
 interface Keyboard {
     address: string;
     name: string;
@@ -21,11 +19,11 @@ interface Keyboard {
 const DEFAULT_KB = 'at-translated-set-2-keyboard';
 
 export default () => {
-    const Hovered = Variable(false);
+    const [isHovered, setIsHovered] = createState(false);
 
     const hyprland = AstalHyprland.get_default();
 
-    const getKbdLayout = (self: Label, _: string, layout?: string) => {
+    const getKbdLayout = (self: Astal.Label, _: string, layout?: string) => {
         if (layout) {
             if (layout === 'error') {
                 return;
@@ -60,31 +58,27 @@ export default () => {
     };
 
     return (
-        <button
-            className="bar-item keyboard"
+        <cursor-button
+            class="bar-item keyboard"
             cursor="pointer"
-            onHover={() => Hovered.set(true)}
-            onHoverLost={() => Hovered.set(false)}
+            onHover={() => setIsHovered(true)}
+            onHoverLost={() => setIsHovered(false)}
         >
             <box>
                 <icon icon="input-keyboard-symbolic" />
 
                 <revealer
-                    revealChild={Hovered()}
+                    revealChild={isHovered}
                     transitionType={Gtk.RevealerTransitionType.SLIDE_LEFT}
                 >
                     <label
-                        setup={(self) => {
-                            self.hook(
-                                hyprland,
-                                'keyboard-layout',
-                                getKbdLayout,
-                            );
+                        $={(self) => {
+                            hyprland.connect('keyboard-layout', getKbdLayout);
                             getKbdLayout(self, '');
                         }}
                     />
                 </revealer>
             </box>
-        </button>
+        </cursor-button>
     );
 };

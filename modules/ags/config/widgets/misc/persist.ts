@@ -1,16 +1,22 @@
-import { execAsync, GLib, readFileAsync, timeout, type Variable } from 'astal';
+import { readFileAsync } from 'ags/file';
+import { execAsync } from 'ags/process';
+import { timeout } from 'ags/time';
+import GLib from 'gi://GLib';
+import { Accessor, Setter } from 'gnim';
 
 const { get_home_dir } = GLib;
 
 export default <T>({
     name,
-    variable,
+    variableGetter,
+    variableSetter,
     condition = true,
     whenTrue = condition,
     whenFalse = false,
 }: {
     name: string;
-    variable: Variable<T>;
+    variableGetter: Accessor<T>;
+    variableSetter: Setter<T>;
     condition?: boolean | string;
     whenTrue?: boolean | string;
     whenFalse?: boolean | string;
@@ -20,11 +26,11 @@ export default <T>({
     const stateCmd = () => [
         'bash',
         '-c',
-        `echo ${variable.get() === condition} > ${cacheFile}`,
+        `echo ${variableGetter() === condition} > ${cacheFile}`,
     ];
 
     const monitorState = () => {
-        variable.subscribe(() => {
+        variableGetter.subscribe(() => {
             execAsync(stateCmd()).catch(print);
         });
     };
@@ -35,7 +41,7 @@ export default <T>({
             // convert a string of 'true' or 'false' into a bool
             const value = (JSON.parse(content) ? whenTrue : whenFalse) as T;
 
-            variable.set(value);
+            variableSetter(value);
 
             timeout(1000, () => {
                 monitorState();

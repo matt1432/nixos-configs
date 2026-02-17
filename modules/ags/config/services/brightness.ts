@@ -1,5 +1,6 @@
-import { execAsync, interval } from 'astal';
-import GObject, { property, register } from 'astal/gobject';
+import GObject, { getter, register, setter } from 'ags/gobject';
+import { execAsync } from 'ags/process';
+import { interval } from 'ags/time';
 
 const SCREEN_ICONS: Record<number, string> = {
     90: 'display-brightness-high-symbolic',
@@ -15,13 +16,14 @@ export default class Brightness extends GObject.Object {
     declare private _kbd: string | undefined;
     declare private _caps: string | undefined;
 
-    declare private _screen: number;
+    private _screen: number = 0;
 
-    @property(Number)
+    @getter(Number)
     get screen() {
         return this._screen;
     }
 
+    @setter(Number)
     set screen(percent) {
         if (percent < 0) {
             percent = 0;
@@ -44,7 +46,7 @@ export default class Brightness extends GObject.Object {
 
     private _screenIcon = 'display-brightness-high-symbolic';
 
-    @property(String)
+    @getter(String)
     get screenIcon() {
         return this._screenIcon;
     }
@@ -53,7 +55,7 @@ export default class Brightness extends GObject.Object {
     declare private _kbdMax: number | undefined;
     declare private _kbdLevel: number | undefined;
 
-    @property(Number)
+    @getter(Number)
     get kbdLevel() {
         if (!this._kbdMax) {
             console.error('[get kbdLevel] No Keyboard brightness');
@@ -61,9 +63,10 @@ export default class Brightness extends GObject.Object {
             return -1;
         }
 
-        return this._kbdLevel;
+        return this._kbdLevel ?? 0;
     }
 
+    @setter(Number)
     set kbdLevel(value) {
         if (!this._kbdMax || !value) {
             console.error('[set kbdLevel] No Keyboard brightness');
@@ -85,14 +88,14 @@ export default class Brightness extends GObject.Object {
 
     declare private _capsLevel: number;
 
-    @property(Number)
+    @getter(Number)
     get capsLevel() {
         return this._capsLevel;
     }
 
     private _capsIcon = 'caps-lock-symbolic';
 
-    @property(String)
+    @getter(String)
     get capsIcon() {
         return this._capsIcon;
     }

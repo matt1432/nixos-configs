@@ -1,14 +1,9 @@
-import { timeout } from 'astal';
-import { property, register } from 'astal/gobject';
-import { Gtk } from 'astal/gtk3';
-import {
-    CenterBox,
-    CenterBoxProps,
-    EventBox,
-    Overlay,
-    OverlayProps,
-} from 'astal/gtk3/widget';
+import { property, register } from 'ags/gobject';
+import { Astal, Gtk } from 'ags/gtk3';
+import { timeout } from 'ags/time';
 import Mpris from 'gi://AstalMpris';
+
+import { getCssProvider, setCss } from '../../lib/widgets';
 
 const MAX_OFFSET = 200;
 const OFFSCREEN = 500;
@@ -16,35 +11,38 @@ const ANIM_DURATION = 500;
 const TRANSITION = `transition: margin ${ANIM_DURATION}ms ease,
                                 opacity ${ANIM_DURATION}ms ease;`;
 
-/* Types */
 export interface Gesture {
     attribute?: object;
     setup?: (self: PlayerGesture) => void;
-    props?: OverlayProps;
+    props?: Astal.Overlay.ConstructorProps;
 }
 
 @register()
-export class PlayerBox extends CenterBox {
-    @property(String)
-    declare bgStyle: string;
+export class PlayerBox extends Astal.CenterBox {
+    @property(String) bgStyle: string = '';
 
-    @property(Object)
-    declare player: Mpris.Player;
+    @property(Object) player: Mpris.Player =
+        undefined as unknown as Mpris.Player;
+
+    readonly cssProvider: Gtk.CssProvider;
 
     constructor(
-        props: Omit<CenterBoxProps, 'setup'> & {
-            bgStyle?: string;
-            player?: Mpris.Player;
-            setup?: (self: PlayerBox) => void;
-        },
+        props: Partial<
+            Omit<Astal.CenterBox.ConstructorProps, 'setup'> & {
+                bgStyle?: string;
+                player?: Mpris.Player;
+                setup?: (self: PlayerBox) => void;
+            }
+        >,
     ) {
-        super(props as CenterBoxProps);
+        super(props);
+        this.cssProvider = getCssProvider(this);
     }
 }
 
 @register()
-export class PlayerGesture extends Overlay {
-    private _widget: EventBox;
+export class PlayerGesture extends Astal.Overlay {
+    private _widget: Astal.EventBox;
     private _gesture: Gtk.GestureDrag;
 
     players = new Map();
@@ -102,21 +100,27 @@ export class PlayerGesture extends Overlay {
 
         // Slide right
         if (offset >= 0) {
-            playerBox.css = `
-                margin-left:   ${offset}px;
-                margin-right: -${offset}px;
-                ${playerBox.bgStyle}
-            `;
+            setCss(
+                playerBox.cssProvider,
+                `
+                    margin-left:   ${offset}px;
+                    margin-right: -${offset}px;
+                    ${playerBox.bgStyle}
+                `,
+            );
         }
 
         // Slide left
         else {
             offset = Math.abs(offset);
-            playerBox.css = `
-                margin-left: -${offset}px;
-                margin-right: ${offset}px;
-                ${playerBox.bgStyle}
-            `;
+            setCss(
+                playerBox.cssProvider,
+                `
+                    margin-left: -${offset}px;
+                    margin-right: ${offset}px;
+                    ${playerBox.bgStyle}
+                `,
+            );
         }
     }
 
@@ -138,29 +142,35 @@ export class PlayerGesture extends Overlay {
 
             // Slide away right
             if (offset >= 0) {
-                playerBox.css = `
-                    ${TRANSITION}
-                    margin-left:   ${OFFSCREEN}px;
-                    margin-right: -${OFFSCREEN}px;
-                    opacity: 0.7; ${playerBox.bgStyle}
-                `;
+                setCss(
+                    playerBox.cssProvider,
+                    `
+                        ${TRANSITION}
+                        margin-left:   ${OFFSCREEN}px;
+                        margin-right: -${OFFSCREEN}px;
+                        opacity: 0.7; ${playerBox.bgStyle}
+                    `,
+                );
             }
 
             // Slide away left
             else {
-                playerBox.css = `
-                    ${TRANSITION}
-                    margin-left: -${OFFSCREEN}px;
-                    margin-right: ${OFFSCREEN}px;
-                    opacity: 0.7; ${playerBox.bgStyle}
-                `;
+                setCss(
+                    playerBox.cssProvider,
+                    `
+                        ${TRANSITION}
+                        margin-left: -${OFFSCREEN}px;
+                        margin-right: ${OFFSCREEN}px;
+                        opacity: 0.7; ${playerBox.bgStyle}
+                    `,
+                );
             }
 
             timeout(ANIM_DURATION, () => {
                 // Put the player in the back after anim
                 this.reorder_overlay(playerBox, 0);
                 // Recenter player
-                playerBox.css = playerBox.bgStyle;
+                setCss(playerBox.cssProvider, playerBox.bgStyle);
 
                 this._widget.sensitive = true;
 
@@ -169,7 +179,7 @@ export class PlayerGesture extends Overlay {
         }
         else {
             // Recenter with transition for animation
-            playerBox.css = `${TRANSITION} ${playerBox.bgStyle}`;
+            setCss(playerBox.cssProvider, `${TRANSITION} ${playerBox.bgStyle}`);
 
             timeout(ANIM_DURATION, () => {
                 this.showTopOnly();
@@ -181,8 +191,8 @@ export class PlayerGesture extends Overlay {
         setup = () => {},
         widget,
         ...props
-    }: Omit<OverlayProps, 'setup'> & {
-        widget: EventBox;
+    }: Partial<Omit<Astal.Overlay.ConstructorProps, 'setup'>> & {
+        widget: Astal.EventBox;
         setup: (self: PlayerGesture) => void;
     }) {
         super(props);
@@ -191,27 +201,27 @@ export class PlayerGesture extends Overlay {
         this._widget = widget;
         this._gesture = Gtk.GestureDrag.new(this);
 
-        this.hook(this._gesture, 'drag-update', (_, realGesture) =>
+        this._gesture.connect('drag-update', (realGesture) =>
             this.dragUpdate(realGesture),
         );
-        this.hook(this._gesture, 'drag-end', () => this.dragEnd());
+        this._gesture.connect('drag-end', () => this.dragEnd());
     }
 }
 
 export default ({ setup = () => {}, ...props }: Gesture) => {
-    const widget = new EventBox();
+    const widget = new Astal.EventBox();
 
     // Have empty PlayerBox to define the size of the widget
-    const emptyPlayer = new PlayerBox({
-        className: 'player',
-    });
+    const emptyPlayer = (<PlayerBox class="player" />) as PlayerBox;
 
-    const content = new PlayerGesture({
-        ...props,
-        setup,
-        widget,
-        child: emptyPlayer,
-    });
+    const content = (
+        <PlayerGesture
+            {...props}
+            setup={setup}
+            widget={widget}
+            child={emptyPlayer}
+        />
+    ) as PlayerGesture;
 
     widget.add(content);
 

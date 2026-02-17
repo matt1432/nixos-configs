@@ -1,7 +1,8 @@
-import { bind, Variable } from 'astal';
-import { Gtk } from 'astal/gtk3';
+import { createBinding, createState, For } from 'ags';
+import { Gtk } from 'ags/gtk3';
 import AstalNetwork from 'gi://AstalNetwork';
 
+import { toggleClassName } from '../../lib/widgets';
 import Separator from '../misc/separator';
 import { ToggleButton } from '../misc/subclasses';
 import AccessPointWidget from './access-point';
@@ -13,94 +14,101 @@ export default () => {
         throw new Error('Could not find wifi device.');
     }
 
-    const IsRefreshing = Variable<boolean>(false);
-    const AccessPoints = Variable<AstalNetwork.AccessPoint[]>(
-        wifi.get_access_points(),
-    );
+    const [isRefreshing, setIsRefreshing] = createState(false);
+    const [accessPoints, setAccessPoints] = createState<
+        AstalNetwork.AccessPoint[]
+    >(wifi.get_access_points());
 
+    // FIXME: doesn't update?
     wifi.connect('notify::access-points', () => {
-        if (IsRefreshing.get()) {
-            AccessPoints.set(wifi.get_access_points());
+        if (isRefreshing()) {
+            setAccessPoints(wifi.get_access_points());
         }
     });
 
-    IsRefreshing.subscribe(() => {
-        if (IsRefreshing.get()) {
-            AccessPoints.set(wifi.get_access_points());
+    isRefreshing.subscribe(() => {
+        if (isRefreshing()) {
+            setAccessPoints(wifi.get_access_points());
         }
     });
 
     const apList = (
         <scrollable
-            className="list"
+            class="list"
             css="min-height: 300px;"
             hscroll={Gtk.PolicyType.NEVER}
             vscroll={Gtk.PolicyType.AUTOMATIC}
         >
             <box vertical>
-                {bind(AccessPoints).as(() => {
-                    const joined = new Map<
-                        string,
-                        AstalNetwork.AccessPoint[]
-                    >();
+                <For
+                    each={accessPoints.as(() => {
+                        const joined = new Map<
+                            string,
+                            AstalNetwork.AccessPoint[]
+                        >();
 
-                    AccessPoints.get()
-                        .filter((ap) => ap.get_ssid())
-                        .sort((apA, apB) => {
-                            const sort =
-                                apB.get_strength() - apA.get_strength();
+                        accessPoints()
+                            .filter((ap) => ap.get_ssid())
+                            .sort((apA, apB) => {
+                                const sort =
+                                    apB.get_strength() - apA.get_strength();
 
-                            return sort !== 0
-                                ? sort
-                                : apA
-                                      .get_ssid()!
-                                      .localeCompare(apB.get_ssid()!);
-                        })
-                        .forEach((ap) => {
-                            const arr = joined.get(ap.get_ssid()!);
+                                return sort !== 0
+                                    ? sort
+                                    : apA
+                                          .get_ssid()!
+                                          .localeCompare(apB.get_ssid()!);
+                            })
+                            .forEach((ap) => {
+                                const arr = joined.get(ap.get_ssid()!);
 
-                            if (arr) {
-                                arr.push(ap);
-                            }
-                            else {
-                                joined.set(ap.get_ssid()!, [ap]);
-                            }
-                        });
+                                if (arr) {
+                                    arr.push(ap);
+                                }
+                                else {
+                                    joined.set(ap.get_ssid()!, [ap]);
+                                }
+                            });
 
-                    return [...joined.values()].map((aps) => (
+                        return [...joined.values()];
+                    })}
+                >
+                    {(aps: AstalNetwork.AccessPoint[]) => (
                         <AccessPointWidget aps={aps} />
-                    ));
-                })}
+                    )}
+                </For>
             </box>
         </scrollable>
     );
 
     return (
-        <box className="network widget" vertical>
+        <box class="network widget" vertical>
             <centerbox homogeneous>
-                <switch
+                <cursor-switch
+                    $type="start"
                     cursor="pointer"
                     valign={Gtk.Align.CENTER}
                     halign={Gtk.Align.START}
-                    active={bind(wifi, 'enabled')}
-                    setup={(self) => {
+                    active={createBinding(wifi, 'enabled')}
+                    $={(self) => {
                         self.connect('notify::active', () => {
                             wifi.set_enabled(self.active);
                         });
                     }}
                 />
 
-                <box />
+                <box $type="center" />
 
                 <ToggleButton
+                    $type="end"
                     cursor="pointer"
                     halign={Gtk.Align.END}
-                    className="toggle-button"
-                    sensitive={bind(wifi, 'enabled')}
-                    active={bind(IsRefreshing)}
+                    class="toggle-button"
+                    sensitive={createBinding(wifi, 'enabled')}
+                    active={isRefreshing}
                     onToggled={(self) => {
-                        self.toggleClassName('active', self.active);
-                        IsRefreshing.set(self.active);
+                        toggleClassName(self, 'active', self.active);
+                        setIsRefreshing(self.active);
                     }}
                 >
                     <icon

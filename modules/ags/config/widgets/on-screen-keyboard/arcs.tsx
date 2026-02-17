@@ -1,11 +1,10 @@
 /* eslint-disable no-magic-numbers */
 
-import { Gdk, Gtk } from 'astal/gtk3';
+import { Gdk, Gtk } from 'ags/gtk3';
 import Cairo from 'cairo';
 
 import { Bezier, BezierPoints, Point } from '../../lib';
 
-/* Types */
 type Side = 'top' | 'right' | 'bottom' | 'left';
 
 const SIDES: Side[] = ['top', 'right', 'bottom', 'left'];
@@ -17,7 +16,7 @@ export default ({
     <box>
         <drawingarea
             css={css}
-            setup={(widget) => {
+            $={(widget) => {
                 widget.set_size_request(allocation.width, allocation.height);
 
                 widget.connect('draw', (_, cairoContext: Cairo.Context) => {

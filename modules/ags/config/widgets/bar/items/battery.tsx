@@ -1,6 +1,7 @@
-import { bind } from 'astal';
+import { createBinding } from 'ags';
 import AstalBattery from 'gi://AstalBattery';
 
+import { toggleClassName } from '../../../lib/widgets';
 import Separator from '../../misc/separator';
 
 const LOW_BATT = 20;
@@ -9,9 +10,9 @@ export default () => {
     const battery = AstalBattery.get_default();
 
     return (
-        <box className="bar-item battery">
+        <box class="bar-item battery">
             <icon
-                setup={(self) => {
+                $={(self) => {
                     const update = () => {
                         const percent = Math.round(
                             battery.get_percentage() * 100,
@@ -27,9 +28,9 @@ export default () => {
 
                         self.set_icon(iconName);
 
-                        self.toggleClassName('charging', isCharging);
-                        self.toggleClassName('charged', charged);
-                        self.toggleClassName('low', percent < LOW_BATT);
+                        toggleClassName(self, 'charging', isCharging);
+                        toggleClassName(self, 'charged', charged);
+                        toggleClassName(self, 'low', percent < LOW_BATT);
                     };
 
                     update();
@@ -45,7 +46,7 @@ export default () => {
             <Separator size={8} />
 
             <label
-                label={bind(battery, 'percentage').as(
+                label={createBinding(battery, 'percentage').as(
                     (v) => `${Math.round(v * 100)}%`,
                 )}
             />

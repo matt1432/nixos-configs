@@ -1,7 +1,7 @@
-import { idle } from 'astal';
-import { App, Gdk, Gtk } from 'astal/gtk3';
+import { Gdk, Gtk } from 'ags/gtk3';
+import app from 'ags/gtk3/app';
+import { idle } from 'ags/time';
 
-/* Types */
 import PopupWindow from '../widgets/misc/popup-window';
 
 export interface Layer {
@@ -28,16 +28,16 @@ export interface CursorPos {
 }
 
 export const getWindow = (name: string): PopupWindow | undefined => {
-    return (App.get_windows() as PopupWindow[]).find(
+    return (app.get_windows() as PopupWindow[]).find(
         (w) => name.startsWith(w.name) || w.name.startsWith(name),
     );
 };
 
 export const closeAll = () => {
-    (App.get_windows() as PopupWindow[])
-        .filter((w) => w && w.close_on_unfocus && w.close_on_unfocus !== 'stay')
+    (app.get_windows() as PopupWindow[])
+        .filter((w) => w && w.closeOnUnfocus && w.closeOnUnfocus !== 'stay')
         .forEach((w) => {
-            App.get_window(w.name)?.set_visible(false);
+            app.get_window(w.name)?.set_visible(false);
         });
 };
 

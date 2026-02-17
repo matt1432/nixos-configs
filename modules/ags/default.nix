@@ -4,7 +4,7 @@ self: {
   pkgs,
   ...
 }: let
-  inherit (self.inputs) ags astal virtualkeyboard-adapter;
+  inherit (self.inputs) virtualkeyboard-adapter;
   inherit (lib) hasPrefix mkIf removePrefix;
 
   # Configs
@@ -53,8 +53,6 @@ in {
     services.upower.enable = true;
 
     nixpkgs.overlays = [
-      ags.overlays.default
-      astal.overlays.default
       virtualkeyboard-adapter.overlays.default
     ];
 

@@ -1,5 +1,5 @@
-import { execAsync, subprocess } from 'astal';
-import GObject, { register } from 'astal/gobject';
+import GObject, { register } from 'ags/gobject';
+import { execAsync, subprocess } from 'ags/process';
 
 import { notifySend } from '../lib';
 

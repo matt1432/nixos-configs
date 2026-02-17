@@ -1,11 +1,10 @@
-import { Binding, idle } from 'astal';
-import { property, register } from 'astal/gobject';
-import { App, Astal, Gtk } from 'astal/gtk4';
+import { property, register } from 'ags/gobject';
+import { Astal, Gtk } from 'ags/gtk4';
+import app from 'ags/gtk4/app';
+import { idle } from 'ags/time';
 
 import { get_hyprland_monitor, hyprMessage } from '../../lib';
-import { WindowClass, WindowProps } from '../subclasses';
 
-/* Types */
 type CloseType = 'none' | 'stay' | 'released' | 'clicked';
 type HyprTransition =
     | 'slide'
@@ -15,22 +14,20 @@ type HyprTransition =
     | 'slide right'
     | 'popin'
     | 'fade';
-type PopupCallback = (self?: WindowClass) => void;
+type PopupCallback = (self?: Astal.Window) => void;
 
-export type PopupWindowProps = WindowProps & {
-    transition?: HyprTransition | Binding<HyprTransition>;
-    close_on_unfocus?: CloseType | Binding<CloseType>;
+export type PopupWindowProps = Partial<Astal.Window.ConstructorProps> & {
+    transition?: HyprTransition;
+    close_on_unfocus?: CloseType;
     on_open?: PopupCallback;
     on_close?: PopupCallback;
 };
 
 @register()
-export class PopupWindow extends WindowClass {
-    @property(String)
-    declare transition: HyprTransition | Binding<HyprTransition>;
+export class PopupWindow extends Astal.Window {
+    @property(String) transition: HyprTransition;
 
-    @property(String)
-    declare close_on_unfocus: CloseType | Binding<CloseType>;
+    @property(String) close_on_unfocus: CloseType;
 
     on_open: PopupCallback;
     on_close: PopupCallback;
@@ -52,21 +49,17 @@ export class PopupWindow extends WindowClass {
             namespace: `win-${name}`,
             visible: false,
             layer,
-            setup: () =>
-                idle(() => {
-                    // Add way to make window open on startup
-                    if (visible) {
-                        this.visible = true;
-                    }
-                }),
-        } as WindowProps);
+        });
+        idle(() => {
+            // Adds way to make window open on startup
+            if (visible) {
+                this.visible = true;
+            }
+        });
 
-        App.add_window(this);
+        app.add_window(this);
 
-        const setTransition = (
-            _: PopupWindow,
-            t: HyprTransition | Binding<HyprTransition>,
-        ) => {
+        const setTransition = (_: PopupWindow, t: HyprTransition) => {
             hyprMessage(
                 `keyword layerrule animation ${t}, match:namespace ${this.name}`,
             ).catch(console.log);

@@ -1,5 +1,5 @@
-import { bind } from 'astal';
-import { Astal, Gtk } from 'astal/gtk3';
+import { Astal, Gtk } from 'ags/gtk3';
+import { createBinding } from 'gnim';
 
 import Tablet from '../../services/tablet';
 import Separator from '../misc/separator';
@@ -26,8 +26,8 @@ export default () => (
             Astal.WindowAnchor.RIGHT
         }
     >
-        <centerbox className="bar widget">
-            <box hexpand halign={Gtk.Align.START}>
+        <centerbox class="bar widget">
+            <box $type="start" hexpand halign={Gtk.Align.START}>
                 <Workspaces />
 
                 <Separator size={8} />
@@ -36,8 +36,8 @@ export default () => (
 
                 <Separator size={8} />
 
-                <button
-                    className="bar-item tablet-mode"
+                <cursor-button
+                    class="bar-item tablet-mode"
                     cursor="pointer"
                     onButtonReleaseEvent={() => {
                         const tablet = Tablet.get_default();
@@ -46,11 +46,12 @@ export default () => (
                     }}
                 >
                     <icon
-                        icon={bind(Tablet.get_default(), 'currentMode').as(
-                            (mode) => `${mode}-symbolic`,
-                        )}
+                        icon={createBinding(
+                            Tablet.get_default(),
+                            'currentMode',
+                        ).as((mode) => `${mode}-symbolic`)}
                     />
-                </button>
+                </cursor-button>
 
                 <Separator size={8} />
 
@@ -61,11 +62,11 @@ export default () => (
                 <Separator size={8} />
             </box>
 
-            <box>
+            <box $type="center">
                 <Clock />
             </box>
 
-            <box hexpand halign={Gtk.Align.END}>
+            <box $type="end" hexpand halign={Gtk.Align.END}>
                 <Network />
 
                 <Separator size={8} />

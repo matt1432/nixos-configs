@@ -1,27 +1,28 @@
-import { Variable } from 'astal';
+import { createState } from 'ags';
 
 import Persist from '../../misc/persist';
 
-const HeartState = Variable('');
+const [HeartState, setHeartState] = createState('');
 
 Persist({
     name: 'heart',
-    variable: HeartState,
+    variableGetter: HeartState,
+    variableSetter: setHeartState,
     condition: '',
     whenFalse: '󰣐',
 });
 
 export default () => (
-    <button
-        className="bar-item heart-toggle"
+    <cursor-button
+        class="bar-item heart-toggle"
         cursor="pointer"
         onButtonReleaseEvent={() => {
-            HeartState.set(HeartState.get() === '' ? '󰣐' : '');
+            setHeartState(HeartState() === '' ? '󰣐' : '');
         }}
     >
         <label
-            label={HeartState()}
+            label={HeartState}
             css="margin-left: -6px; margin-right: 4px; font-size: 28px;"
         />
-    </button>
+    </cursor-button>
 );

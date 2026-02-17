@@ -1,9 +1,10 @@
 /* eslint-disable no-magic-numbers */
 
-import { bind } from 'astal';
-import { Gtk } from 'astal/gtk3';
+import { createBinding } from 'ags';
+import { Gtk } from 'ags/gtk3';
 import AstalBluetooth from 'gi://AstalBluetooth';
 
+import { toggleClassName } from '../../lib/widgets';
 import Separator from '../misc/separator';
 import { ListBox, ToggleButton } from '../misc/subclasses';
 import DeviceWidget from './device';
@@ -46,28 +47,32 @@ export default () => {
 
     const deviceList = (
         <scrollable
-            className="list"
+            class="list"
             css="min-height: 300px;"
             hscroll={Gtk.PolicyType.NEVER}
             vscroll={Gtk.PolicyType.AUTOMATIC}
         >
             <ListBox
                 selectionMode={Gtk.SelectionMode.SINGLE}
-                setup={(self) => {
+                $={(self) => {
                     bluetooth.devices
                         .filter((dev) => dev.get_name())
                         .forEach((dev) => {
-                            self.add(<DeviceWidget dev={dev} />);
+                            self.add(
+                                (<DeviceWidget dev={dev} />) as DeviceWidget,
+                            );
                         });
 
-                    self.hook(bluetooth, 'device-added', (_, dev) => {
+                    bluetooth.connect('device-added', (_, dev) => {
                         if (dev.get_name()) {
-                            self.add(<DeviceWidget dev={dev} />);
+                            self.add(
+                                (<DeviceWidget dev={dev} />) as DeviceWidget,
+                            );
                             self.invalidate_sort();
                         }
                     });
 
-                    self.hook(bluetooth, 'device-removed', (_, dev) => {
+                    bluetooth.connect('device-removed', (_, dev) => {
                         const children = self
                             .get_children()
                             .map((ch) => ch.get_child()) as DeviceWidget[];
@@ -78,14 +83,15 @@ export default () => {
                             devWidget.set_reveal_child(false);
 
                             setTimeout(() => {
+                                devWidget.dispose?.();
                                 devWidget.get_parent()?.destroy();
                             }, devWidget.get_transition_duration() + 100);
                         }
                     });
 
                     self.set_sort_func((a, b) => {
-                        const devA = (a.get_child() as DeviceWidget).dev;
-                        const devB = (b.get_child() as DeviceWidget).dev;
+                        const devA = (a.get_child() as DeviceWidget).dev!;
+                        const devB = (b.get_child() as DeviceWidget).dev!;
 
                         const sort =
                             calculateDevSort(devB) - calculateDevSort(devA);
@@ -100,29 +106,31 @@ export default () => {
     );
 
     return (
-        <box className="bluetooth widget" vertical>
+        <box class="bluetooth widget" vertical>
             <centerbox homogeneous>
-                <switch
+                <cursor-switch
+                    $type="start"
                     cursor="pointer"
                     valign={Gtk.Align.CENTER}
                     halign={Gtk.Align.START}
-                    active={bind(bluetooth, 'isPowered')}
-                    setup={(self) => {
+                    active={createBinding(bluetooth, 'isPowered')}
+                    $={(self) => {
                         self.connect('notify::active', () => {
                             bluetooth.get_adapter()?.set_powered(self.active);
                         });
                     }}
                 />
 
-                <box />
+                <box $type="center" />
 
                 <ToggleButton
+                    $type="end"
                     cursor="pointer"
                     halign={Gtk.Align.END}
-                    className="toggle-button"
-                    sensitive={bind(bluetooth, 'isPowered')}
+                    class="toggle-button"
+                    sensitive={createBinding(bluetooth, 'isPowered')}
                     onToggled={(self) => {
-                        self.toggleClassName('active', self.active);
+                        toggleClassName(self, 'active', self.active);
 
                         if (self.active) {
                             bluetooth.get_adapter()?.start_discovery();

@@ -1,6 +1,8 @@
-import { bind, idle, Variable } from 'astal';
-import { Astal, Gtk, Widget } from 'astal/gtk3';
+import { Astal, Gtk } from 'ags/gtk3';
+// import { idle } from 'ags/time';
+import { createState, With } from 'gnim';
 
+import { toggleClassName } from '../../lib/widgets';
 import Separator from '../misc/separator';
 import { ToggleButton } from '../misc/subclasses';
 import Arc from './arcs';
@@ -16,30 +18,35 @@ const SPACING = 4;
 const COLOR = 'rgba(0, 0, 0, 0.5)';
 
 export default () => {
-    const ThirdWidth = Variable(0);
+    // FIXME: get value by getting width of monitor with Tablet orientation
+    // eslint-disable-next-line no-magic-numbers
+    const [thirdWidth /*, setThirdWidth*/] = createState(1920 / 3);
 
     return (
         <box
             vertical
+            /*
             onRealize={(self) =>
                 idle(() => {
-                    ThirdWidth.set(self.get_allocated_width() / 3);
+                    setThirdWidth(self.get_allocated_width() / 3);
                 })
             }
+            */
         >
-            <centerbox className="osk hidden" hexpand>
+            <centerbox class="osk hidden" hexpand>
                 {/* LEFT */}
                 <box
-                    widthRequest={bind(ThirdWidth)}
+                    $type="start"
+                    widthRequest={thirdWidth}
                     css={`
                         background: ${COLOR};
                     `}
-                    className="left-side side"
+                    class="left-side side"
                     halign={Gtk.Align.START}
                     vertical
                 >
                     {...keyboardJson.keys.map((row, rowIndex) => {
-                        const keys = [] as Widget.Box[];
+                        const keys = [] as Astal.Box[];
 
                         row.forEach((key, keyIndex) => {
                             if (keyIndex < L_KEY_PER_ROW[rowIndex]) {
@@ -49,7 +56,7 @@ export default () => {
 
                         return (
                             <box vertical>
-                                <box className="row">
+                                <box class="row">
                                     <Separator size={SPACING} />
 
                                     {...keys}
@@ -63,20 +70,23 @@ export default () => {
 
                 {/* MIDDLE */}
                 <box
-                    widthRequest={bind(ThirdWidth)}
+                    $type="center"
+                    widthRequest={thirdWidth}
                     halign={Gtk.Align.CENTER}
                     valign={Gtk.Align.FILL}
                     vertical
                 >
                     <box valign={Gtk.Align.START}>
-                        {bind(ThirdWidth).as((width) => (
-                            <Arc
-                                allocation={{ width, height: 160 }}
-                                css={`
-                                    background: ${COLOR};
-                                `}
-                            />
-                        ))}
+                        <With value={thirdWidth}>
+                            {(width) => (
+                                <Arc
+                                    allocation={{ width, height: 160 }}
+                                    css={`
+                                        background: ${COLOR};
+                                    `}
+                                />
+                            )}
+                        </With>
                     </box>
 
                     <box
@@ -86,19 +96,21 @@ export default () => {
                         css={`
                             background: ${COLOR};
                         `}
-                        className="settings"
+                        class="settings"
                     >
                         <centerbox halign={Gtk.Align.FILL} hexpand vexpand>
-                            <box />
+                            <box $type="start" />
 
                             <ToggleButton
-                                className="button"
+                                $type="center"
+                                class="button"
                                 cursor="pointer"
                                 active
                                 valign={Gtk.Align.CENTER}
                                 halign={Gtk.Align.CENTER}
                                 onToggled={(self) => {
-                                    self.toggleClassName(
+                                    toggleClassName(
+                                        self,
                                         'toggled',
                                         self.get_active(),
                                     );
@@ -109,7 +121,7 @@ export default () => {
 
                                     (
                                         self.get_toplevel() as
-                                            | Widget.Window
+                                            | Astal.Window
                                             | undefined
                                     )?.set_exclusivity(
                                         self.get_active()
@@ -121,23 +133,24 @@ export default () => {
                                 Exclusive
                             </ToggleButton>
 
-                            <box />
+                            <box $type="end" />
                         </centerbox>
                     </box>
                 </box>
 
                 {/* RIGHT */}
                 <box
-                    widthRequest={bind(ThirdWidth)}
+                    $type="end"
+                    widthRequest={thirdWidth}
                     css={`
                         background: ${COLOR};
                     `}
-                    className="right-side side"
+                    class="right-side side"
                     halign={Gtk.Align.END}
                     vertical
                 >
                     {...keyboardJson.keys.map((row, rowIndex) => {
-                        const keys = [] as Widget.Box[];
+                        const keys = [] as Astal.Box[];
 
                         row.forEach((key, keyIndex) => {
                             if (keyIndex >= L_KEY_PER_ROW[rowIndex]) {
@@ -147,7 +160,7 @@ export default () => {
 
                         return (
                             <box vertical>
-                                <box className="row" halign={Gtk.Align.END}>
+                                <box class="row" halign={Gtk.Align.END}>
                                     {...keys}
                                 </box>
 
@@ -158,5 +171,5 @@ export default () => {
                 </box>
             </centerbox>
         </box>
-    ) as Widget.Box;
+    ) as Astal.Box;
 };

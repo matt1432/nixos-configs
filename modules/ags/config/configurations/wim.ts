@@ -1,5 +1,5 @@
-import { execAsync } from 'astal';
-import { App } from 'astal/gtk3';
+import app from 'ags/gtk3/app';
+import { execAsync } from 'ags/process';
 
 import { closeAll, getWindow, perMonitor } from '../lib';
 import Brightness from '../services/brightness';
@@ -24,10 +24,12 @@ import PowerMenu from '../widgets/powermenu';
 import Screenshot from '../widgets/screenshot';
 
 export default () => {
-    App.start({
+    app.start({
         css: style,
 
-        requestHandler(request, respond) {
+        requestHandler(_request, respond) {
+            const request = _request.at(0) ?? '';
+
             if (request.startsWith('open')) {
                 getWindow(request.replace('open ', ''))?.set_visible(true);
                 respond('window opened');

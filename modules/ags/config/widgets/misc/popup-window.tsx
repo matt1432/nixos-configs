@@ -1,10 +1,10 @@
-import { Binding, idle } from 'astal';
-import { property, register } from 'astal/gobject';
-import { App, Astal, Gtk, Widget } from 'astal/gtk3';
+import { property, register } from 'ags/gobject';
+import { Astal, Gtk } from 'ags/gtk3';
+import app from 'ags/gtk3/app';
+import { idle } from 'ags/time';
 
 import { hyprMessage } from '../../lib';
 
-/* Types */
 type CloseType = 'none' | 'stay' | 'released' | 'clicked';
 type HyprTransition =
     | 'slide'
@@ -14,32 +14,29 @@ type HyprTransition =
     | 'slide right'
     | 'popin'
     | 'fade';
-type PopupCallback = (self?: Widget.Window) => void;
+type PopupCallback = (self?: Astal.Window) => void;
 
-export type PopupWindowProps = Widget.WindowProps & {
-    children?: Gtk.Widget;
-    transition?: HyprTransition | Binding<HyprTransition>;
-    close_on_unfocus?: CloseType | Binding<CloseType>;
-    on_open?: PopupCallback;
-    on_close?: PopupCallback;
+export type PopupWindowProps = Partial<Astal.Window.ConstructorProps> & {
+    transition?: HyprTransition;
+    closeOnUnfocus?: CloseType;
+    openCallback?: PopupCallback;
+    closeCallback?: PopupCallback;
 };
 
 @register()
-export class PopupWindow extends Widget.Window {
-    @property(String)
-    declare transition: HyprTransition | Binding<HyprTransition>;
+export class PopupWindow extends Astal.Window {
+    @property(String) transition: HyprTransition;
 
-    @property(String)
-    declare close_on_unfocus: CloseType | Binding<CloseType>;
+    @property(String) closeOnUnfocus: CloseType;
 
-    on_open: PopupCallback;
-    on_close: PopupCallback;
+    openCallback: PopupCallback;
+    closeCallback: PopupCallback;
 
     constructor({
         transition = 'slide top',
-        close_on_unfocus = 'released',
-        on_open = () => {},
-        on_close = () => {},
+        closeOnUnfocus = 'released',
+        openCallback = () => {},
+        closeCallback = () => {},
 
         name,
         visible = false,
@@ -52,21 +49,17 @@ export class PopupWindow extends Widget.Window {
             namespace: `win-${name}`,
             visible: false,
             layer,
-            setup: () =>
-                idle(() => {
-                    // Add way to make window open on startup
-                    if (visible) {
-                        this.visible = true;
-                    }
-                }),
+        });
+        idle(() => {
+            // Adds way to make window closed on startup
+            if (!visible) {
+                this.visible = false;
+            }
         });
 
-        App.add_window(this);
+        app.add_window(this);
 
-        const setTransition = (
-            _: PopupWindow,
-            t: HyprTransition | Binding<HyprTransition>,
-        ) => {
+        const setTransition = (_: PopupWindow, t: HyprTransition) => {
             hyprMessage(
                 `keyword layerrule animation ${t}, match:namespace ${this.name}`,
             ).catch(console.log);
@@ -74,20 +67,20 @@ export class PopupWindow extends Widget.Window {
 
         this.connect('notify::transition', setTransition);
 
-        this.close_on_unfocus = close_on_unfocus;
+        this.closeOnUnfocus = closeOnUnfocus;
         this.transition = transition;
-        this.on_open = on_open;
-        this.on_close = on_close;
+        this.openCallback = openCallback;
+        this.closeCallback = closeCallback;
 
         this.connect('notify::visible', () => {
             // Make sure we have the right animation
             setTransition(this, this.transition);
 
             if (this.visible) {
-                this.on_open(this);
+                this.openCallback(this);
             }
             else {
-                this.on_close(this);
+                this.closeCallback(this);
             }
         });
     }

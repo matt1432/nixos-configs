@@ -1,4 +1,4 @@
-import { subprocess } from 'astal';
+import { subprocess } from 'ags/process';
 
 /* Types */
 interface NotifyAction {

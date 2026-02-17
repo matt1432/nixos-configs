@@ -11,7 +11,7 @@ export default () => {
 
         create_list: () => AstalApps.Apps.new().get_list(),
 
-        create_row: (app) => <AppItem app={app} />,
+        create_row: (app) => (<AppItem app={app} class="app" />) as AppItem,
 
         fzf_options: {
             selector: (app) => app.get_name() + app.get_executable(),

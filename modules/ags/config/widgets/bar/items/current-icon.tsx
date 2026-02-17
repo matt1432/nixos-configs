@@ -1,5 +1,5 @@
-import { bind, Variable } from 'astal';
-import { Gtk } from 'astal/gtk3';
+import { createState } from 'ags';
+import { Gtk } from 'ags/gtk3';
 import AstalApps from 'gi://AstalApps';
 import AstalHyprland from 'gi://AstalHyprland';
 
@@ -9,8 +9,8 @@ export default () => {
     const applications = AstalApps.Apps.new();
     const hyprland = AstalHyprland.get_default();
 
-    const visibleIcon = Variable<boolean>(false);
-    const focusedIcon = Variable<string>('');
+    const [visibleIcon, setVisibleIcon] = createState(false);
+    const [focusedIcon, setFocusedIcon] = createState('');
 
     const updateVars = (
         client: AstalHyprland.Client | null = hyprland.get_focused_client(),
@@ -20,11 +20,11 @@ export default () => {
         const icon = app?.get_icon_name();
 
         if (icon) {
-            visibleIcon.set(true);
-            focusedIcon.set(icon);
+            setVisibleIcon(true);
+            setFocusedIcon(icon);
         }
         else {
-            visibleIcon.set(false);
+            setVisibleIcon(false);
         }
     };
 
@@ -34,11 +34,11 @@ export default () => {
     return (
         <revealer
             transitionType={Gtk.RevealerTransitionType.SLIDE_RIGHT}
-            revealChild={bind(visibleIcon)}
+            revealChild={visibleIcon}
         >
             <box>
-                <box className="bar-item current-window">
-                    <icon css="font-size: 32px;" icon={bind(focusedIcon)} />
+                <box class="bar-item current-window">
+                    <icon css="font-size: 32px;" icon={focusedIcon} />
                 </box>
 
                 <Separator size={8} />

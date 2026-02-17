@@ -12,7 +12,7 @@ export default () => {
             // It needs to be bigger than the notifs to not jiggle
             css="min-width: 550px;"
             vertical
-            setup={(self) => {
+            $={(self) => {
                 const notifQueue: number[] = [];
 
                 const addPopup = (id: number) => {
@@ -57,9 +57,8 @@ export default () => {
                     NotifGestureWrapper.popups.delete(id);
                 };
 
-                self.hook(notifications, 'notified', (_, id) =>
-                    addPopup(id),
-                ).hook(notifications, 'resolved', (_, id) =>
+                notifications.connect('notified', (_, id) => addPopup(id));
+                notifications.connect('resolved', (_, id) =>
                     handleResolved(id),
                 );
             }}

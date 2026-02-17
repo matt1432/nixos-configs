@@ -1,5 +1,5 @@
-import { execAsync } from 'astal';
-import { Astal } from 'astal/gtk3';
+import { Astal } from 'ags/gtk3';
+import { execAsync } from 'ags/process';
 
 import Gesture from './gesture';
 import Keyboard from './keyboard';
@@ -9,19 +9,15 @@ export default () => {
     execAsync('ydotoold').catch(() => {});
 
     return Gesture(
-        (
-            <OskWindow
-                name="osk"
-                namespace="noanim-osk"
-                layer={Astal.Layer.OVERLAY}
-                anchor={
-                    Astal.WindowAnchor.BOTTOM |
-                    Astal.WindowAnchor.LEFT |
-                    Astal.WindowAnchor.RIGHT
-                }
-            >
-                <Keyboard />
-            </OskWindow>
-        ) as OskWindow,
+        new OskWindow({
+            name: 'osk',
+            namespace: 'noanim-osk',
+            layer: Astal.Layer.OVERLAY,
+            anchor:
+                Astal.WindowAnchor.BOTTOM |
+                Astal.WindowAnchor.LEFT |
+                Astal.WindowAnchor.RIGHT,
+            child: Keyboard(),
+        }),
     );
 };

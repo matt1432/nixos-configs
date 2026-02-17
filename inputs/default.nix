@@ -211,28 +211,14 @@ let
     };
 
     shellInputs = {
-      # Too lazy to switch to V3 for now
       astal = mkInput {
-        # owner = "Aylur";
+        owner = "Aylur";
         repo = "astal";
-        owner = "matt1432";
-        ref = "overlay";
       };
 
       ags = mkInput {
-        # owner = "Aylur";
+        owner = "Aylur";
         repo = "ags";
-        owner = "matt1432";
-        ref = "overlay";
-
-        inputs.astal.follows = "astal";
-      };
-
-      kompass = mkInput {
-        owner = "kotontrion";
-        repo = "kompass";
-        rev = "0ea87abe506ebe6b6fd3d5d3c4f3ff72720d665c";
-
         inputs.astal.follows = "astal";
       };
 

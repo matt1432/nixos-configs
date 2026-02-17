@@ -1,4 +1,4 @@
-import { Astal } from 'astal/gtk3';
+import { Astal } from 'ags/gtk3';
 
 import { get_gdkmonitor_from_desc } from '../../lib';
 import PopupWindow from '../misc/popup-window';

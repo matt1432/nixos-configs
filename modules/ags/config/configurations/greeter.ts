@@ -1,16 +1,17 @@
-import { subprocess } from 'astal';
-import { App } from 'astal/gtk3';
+import app from 'ags/gtk3/app';
+import { subprocess } from 'ags/process';
 
 import style from '../style/greeter.scss';
 import Greeter from '../widgets/greeter';
 
+// FIXME: white flash
 export default () => {
-    App.start({
+    app.start({
         css: style,
         instanceName: 'greeter',
 
         main: () => {
-            Greeter(subprocess('hyprpaper'));
+            Greeter(subprocess('hyprpaper', () => {}, console.error));
         },
     });
 };

@@ -1,10 +1,13 @@
-import { idle, Process, readFile } from 'astal';
-import { App, Astal, Gtk, Widget } from 'astal/gtk3';
+import { readFile } from 'ags/file';
+import { Astal, Gtk } from 'ags/gtk3';
+import app from 'ags/gtk3/app';
+import { subprocess } from 'ags/process';
+import { idle } from 'ags/time';
 import AstalGreet from 'gi://AstalGreet';
 
 import { centerCursor } from '../../lib';
 
-export default (hyprpaper: InstanceType<typeof Process>) => {
+export default (hyprpaper: ReturnType<typeof subprocess>) => {
     const DEFAULT_NAME = 'matt';
     const PARSED_INDEX = {
         name: 0,
@@ -50,13 +53,13 @@ export default (hyprpaper: InstanceType<typeof Process>) => {
         dropdown.append(null, u.name);
     });
 
-    const response = (<label />) as Widget.Label;
+    const response = (<label />) as Astal.Label;
 
     const password = (
         <entry
             placeholderText="Password"
             visibility={false}
-            setup={(self) =>
+            $={(self) =>
                 idle(() => {
                     self.grab_focus();
                 })
@@ -69,11 +72,11 @@ export default (hyprpaper: InstanceType<typeof Process>) => {
                     (_, res) => {
                         try {
                             AstalGreet.login_finish(res);
-                            App.get_window('greeter')?.set_visible(false);
+                            app.get_window('greeter')?.set_visible(false);
                             hyprpaper.kill();
 
                             setTimeout(() => {
-                                App.quit();
+                                app.quit();
                             }, 500);
                         }
                         catch (error) {
@@ -83,15 +86,15 @@ export default (hyprpaper: InstanceType<typeof Process>) => {
                 );
             }}
         />
-    );
+    ) as Gtk.Entry;
 
     return (
         <window
             name="greeter"
-            application={App}
+            application={app}
             keymode={Astal.Keymode.ON_DEMAND}
             visible={false}
-            setup={(self) => {
+            $={(self) => {
                 centerCursor();
                 setTimeout(() => {
                     self.set_visible(true);
@@ -105,7 +108,7 @@ export default (hyprpaper: InstanceType<typeof Process>) => {
                 valign={Gtk.Align.CENTER}
                 hexpand
                 vexpand
-                className="base"
+                class="base"
             >
                 <box
                     vertical
@@ -113,8 +116,8 @@ export default (hyprpaper: InstanceType<typeof Process>) => {
                     valign={Gtk.Align.CENTER}
                     hexpand
                     vexpand
-                    className="linked"
-                    setup={() => {
+                    class="linked"
+                    $={() => {
                         idle(() => {
                             const usernames = users.map((u) => u.name);
 

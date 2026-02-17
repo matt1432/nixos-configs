@@ -1,8 +1,10 @@
-import { bind, execAsync, interval, Variable } from 'astal';
-import { Gtk, Widget } from 'astal/gtk3';
-/* Types */
+import { Astal, Gtk } from 'ags/gtk3';
+import { execAsync } from 'ags/process';
+import { interval } from 'ags/time';
 import AstalIO from 'gi://AstalIO';
+import { Accessor, createState, Setter } from 'gnim';
 
+import { toggleClassName } from '../../lib/widgets';
 import Brightness from '../../services/brightness';
 import Separator from '../misc/separator';
 
@@ -22,80 +24,88 @@ const LSHIFT_CODE = 42;
 const LALT_CODE = 56;
 const LCTRL_CODE = 29;
 
-export const Keys = Variable<Variable<boolean>[]>([]);
+export const [Keys, setKeys] = createState<Accessor<boolean>[]>([]);
 
 // Keep track of modifier statuses
-const Super = Variable(false);
-const LAlt = Variable(false);
-const LCtrl = Variable(false);
-const AltGr = Variable(false);
-const RCtrl = Variable(false);
+const [Super, setSuper] = createState(false);
+const [LAlt, setLAlt] = createState(false);
+const [LCtrl, setLCtrl] = createState(false);
+const [AltGr, setAltGr] = createState(false);
+const [RCtrl, setRCtrl] = createState(false);
 
-const Caps = Variable(false);
+const [Caps, setCaps] = createState(false);
 
 brightness.connect('notify::caps-level', (_, state) => {
-    Caps.set(state);
+    setCaps(state);
 });
 
 // Assume both shifts are the same for key.labelShift
-const LShift = Variable(false);
-const RShift = Variable(false);
+const [LShift, setLShift] = createState(false);
+const [RShift, setRShift] = createState(false);
 
-const Shift = Variable(false);
+const [Shift, setShift] = createState(false);
 
 LShift.subscribe(() => {
-    Shift.set(LShift.get() || RShift.get());
+    setShift(LShift() || RShift());
 });
 RShift.subscribe(() => {
-    Shift.set(LShift.get() || RShift.get());
+    setShift(LShift() || RShift());
 });
 
 const ModKey = (key: Key) => {
-    let Mod: Variable<boolean>;
+    let Mod: Accessor<boolean>;
+    let setMod: Setter<boolean>;
 
     if (key.label === 'Super') {
         Mod = Super;
+        setMod = setSuper;
     }
 
     // Differentiate left and right mods
     else if (key.label === 'Shift' && key.keycode === LSHIFT_CODE) {
         Mod = LShift;
+        setMod = setLShift;
     }
     else if (key.label === 'Alt' && key.keycode === LALT_CODE) {
         Mod = LAlt;
+        setMod = setLAlt;
     }
     else if (key.label === 'Ctrl' && key.keycode === LCTRL_CODE) {
         Mod = LCtrl;
+        setMod = setLCtrl;
     }
     else if (key.label === 'Shift') {
         Mod = RShift;
+        setMod = setRShift;
     }
     else if (key.label === 'AltGr') {
         Mod = AltGr;
+        setMod = setAltGr;
     }
     else if (key.label === 'Ctrl') {
         Mod = RCtrl;
+        setMod = setRCtrl;
     }
 
-    Keys.set([...Keys.get(), Mod!]);
+    setKeys([...Keys(), Mod!]);
 
     const label = (
-        <label className={`mod ${key.label}`} label={key.label} />
-    ) as Widget.Label;
+        <label class={`mod ${key.label}`} label={key.label} />
+    ) as Astal.Label;
 
     const button = (
-        <eventbox
-            className="key"
+        <cursor-eventbox
+            class="key"
             cursor="pointer"
             onButtonPressEvent={() => {
-                execAsync(`ydotool key ${key.keycode}:${Mod.get() ? 0 : 1}`);
+                execAsync(`ydotool key ${key.keycode}:${Mod() ? 0 : 1}`);
 
-                label.toggleClassName('active', !Mod.get());
-                Mod.set(!Mod.get());
+                toggleClassName(label, 'active', !Mod());
+                setMod(!Mod());
             }}
         >
             {label}
-        </eventbox>
+        </cursor-eventbox>
     );
 
     return (
@@ -103,63 +113,63 @@ const ModKey = (key: Key) => {
             {button}
             <Separator size={SPACING} />
         </box>
-    ) as Widget.Box;
+    ) as Astal.Box;
 };
 
 const RegularKey = (key: Key) => {
-    const IsActive = Variable(false);
-    const IsLongPressing = Variable(false);
+    const [IsActive, setIsActive] = createState(false);
+    const [IsLongPressing, setIsLongPressing] = createState(false);
 
-    Keys.set([...Keys.get(), IsActive]);
+    setKeys([...Keys(), IsActive]);
 
     const widget = (
-        <eventbox
-            className="key"
+        <cursor-eventbox
+            class="key"
             cursor="pointer"
             onButtonReleaseEvent={() => {
-                IsLongPressing.set(false);
-                IsActive.set(false);
+                setIsLongPressing(false);
+                setIsActive(false);
             }}
         >
             <label
-                className={bind(IsActive).as((v) =>
+                class={IsActive.as((v) =>
                     ['normal', key.label, v ? 'active' : ''].join(' '),
                 )}
                 label={key.label}
-                setup={(self) => {
-                    self.hook(Shift, () => {
+                $={(self) => {
+                    Shift.subscribe(() => {
                         if (key.labelShift) {
                             self.set_label(
-                                Shift.get() ? key.labelShift : key.label,
+                                Shift() ? key.labelShift : key.label,
                             );
                         }
-                    })
-                        .hook(Caps, () => {
-                            if (key.label === 'Caps') {
-                                IsActive.set(Caps.get());
+                    });
 
-                                return;
-                            }
+                    Caps.subscribe(() => {
+                        if (key.label === 'Caps') {
+                            setIsActive(Caps());
 
-                            if (key.labelShift && key.label.match(/[A-Za-z]/)) {
-                                self.set_label(
-                                    Caps.get() ? key.labelShift : key.label,
-                                );
-                            }
-                        })
-                        .hook(AltGr, () => {
-                            if (key.labelAltGr) {
-                                self.toggleClassName('altgr', AltGr.get());
+                            return;
+                        }
 
-                                self.set_label(
-                                    AltGr.get() ? key.labelAltGr : key.label,
-                                );
-                            }
-                        });
+                        if (key.labelShift && key.label.match(/[A-Za-z]/)) {
+                            self.set_label(Caps() ? key.labelShift : key.label);
+                        }
+                    });
+
+                    AltGr.subscribe(() => {
+                        if (key.labelAltGr) {
+                            toggleClassName(self, 'altgr', AltGr());
+
+                            self.set_label(
+                                AltGr() ? key.labelAltGr : key.label,
+                            );
+                        }
+                    });
                 }}
             />
-        </eventbox>
-    ) as Widget.EventBox;
+        </cursor-eventbox>
+    ) as Astal.EventBox;
 
     const gesture = Gtk.GestureLongPress.new(widget);
 
@@ -177,30 +187,30 @@ const RegularKey = (key: Key) => {
         callback();
     };
 
-    widget.hook(gesture, 'begin', () => {
-        IsActive.set(true);
+    gesture.connect('begin', () => {
+        setIsActive(true);
     });
 
-    widget.hook(gesture, 'cancelled', () => {
+    gesture.connect('cancelled', () => {
         onClick(() => {
             execAsync(`ydotool key ${key.keycode}:1`);
             execAsync(`ydotool key ${key.keycode}:0`);
 
-            IsActive.set(false);
+            setIsActive(false);
         });
     });
 
     // Long Press
-    widget.hook(gesture, 'pressed', () => {
+    gesture.connect('pressed', () => {
         onClick(() => {
-            IsLongPressing.set(true);
+            setIsLongPressing(true);
         });
     });
 
     let spamClick: AstalIO.Time | undefined;
 
-    IsLongPressing.subscribe((v) => {
-        if (v) {
+    IsLongPressing.subscribe(() => {
+        if (IsLongPressing()) {
             spamClick = interval(100, () => {
                 execAsync(`ydotool key ${key.keycode}:1`);
                 execAsync(`ydotool key ${key.keycode}:0`);
@@ -216,8 +226,8 @@ const RegularKey = (key: Key) => {
             {widget}
             <Separator size={SPACING} />
         </box>
-    ) as Widget.Box;
+    ) as Astal.Box;
 };
 
-export default (key: Key): Widget.Box =>
+export default (key: Key): Astal.Box =>
     key.keytype === 'normal' ? RegularKey(key) : ModKey(key);

@@ -1,4 +1,4 @@
-import { Gtk, Widget } from 'astal/gtk3';
+import { Astal, Gtk } from 'ags/gtk3';
 
 import SortedList from '../misc/sorted-list';
 
@@ -12,18 +12,22 @@ export default () =>
                 .filter((icon) => icon.endsWith('symbolic'))
                 .sort(),
 
-        create_row: (icon) => (
-            <box>
-                <icon css="font-size: 60px; margin-right: 25px;" icon={icon} />
-                <label label={icon} />
-            </box>
-        ),
+        create_row: (icon) =>
+            (
+                <box>
+                    <icon
+                        css="font-size: 60px; margin-right: 25px;"
+                        icon={icon}
+                    />
+                    <label label={icon} />
+                </box>
+            ) as Astal.Box,
 
         on_row_activated: (row) => {
             const icon = (
                 (
-                    row.get_children()[0] as Widget.Box
-                ).get_children()[0] as Widget.Icon
+                    row.get_children()[0] as Astal.Box
+                ).get_children()[0] as Astal.Icon
             ).icon;
 
             console.log(icon);
@@ -32,13 +36,13 @@ export default () =>
         sort_func: (a, b, entry, fzfResults) => {
             const row1 = (
                 (
-                    a.get_children()[0] as Widget.Box
-                ).get_children()[0] as Widget.Icon
+                    a.get_children()[0] as Astal.Box
+                ).get_children()[0] as Astal.Icon
             ).icon;
             const row2 = (
                 (
-                    b.get_children()[0] as Widget.Box
-                ).get_children()[0] as Widget.Icon
+                    b.get_children()[0] as Astal.Box
+                ).get_children()[0] as Astal.Icon
             ).icon;
 
             if (entry.text === '' || entry.text === '-') {

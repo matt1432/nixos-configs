@@ -1,7 +1,8 @@
-import { bind, execAsync } from 'astal';
-import { register } from 'astal/gobject';
-import { Gtk, Widget } from 'astal/gtk3';
+import { register } from 'ags/gobject';
+import { Astal, Gtk } from 'ags/gtk3';
+import { execAsync } from 'ags/process';
 import AstalNetwork from 'gi://AstalNetwork';
+import { createBinding, createRoot, onCleanup } from 'gnim';
 
 import { notifySend } from '../../lib';
 import Separator from '../misc/separator';
@@ -36,8 +37,10 @@ const apDisconnect = (ap: AstalNetwork.AccessPoint): void => {
 };
 
 @register()
-export default class AccessPointWidget extends Widget.Box {
-    readonly aps: AstalNetwork.AccessPoint[];
+export default class AccessPointWidget extends Astal.Box {
+    aps: AstalNetwork.AccessPoint[] = [];
+
+    dispose: (() => void) | null = null;
 
     getStrongest() {
         return this.aps.sort(
@@ -46,80 +49,100 @@ export default class AccessPointWidget extends Widget.Box {
     }
 
     constructor({ aps }: { aps: AstalNetwork.AccessPoint[] }) {
-        const wifi = AstalNetwork.get_default().get_wifi();
-
-        if (!wifi) {
-            throw new Error('Could not find wifi device.');
-        }
-
-        const rev = (
-            <revealer transitionType={Gtk.RevealerTransitionType.SLIDE_DOWN}>
-                <box vertical halign={Gtk.Align.FILL} hexpand>
-                    <Separator size={8} vertical />
-
-                    <centerbox>
-                        <label
-                            label="Connected"
-                            valign={Gtk.Align.CENTER}
-                            halign={Gtk.Align.START}
-                        />
-
-                        <box />
-
-                        <switch
-                            cursor="pointer"
-                            valign={Gtk.Align.CENTER}
-                            halign={Gtk.Align.END}
-                            state={bind(wifi, 'activeAccessPoint').as(
-                                (activeAp) => aps.includes(activeAp),
-                            )}
-                            onButtonReleaseEvent={(self) => {
-                                if (self.state) {
-                                    apDisconnect(this.getStrongest());
-                                }
-                                else {
-                                    apConnect(this.getStrongest());
-                                }
-                            }}
-                        />
-                    </centerbox>
-
-                    <Separator size={8} vertical />
-                </box>
-            </revealer>
-        ) as Widget.Revealer;
-
-        const button = (
-            <button
-                cursor="pointer"
-                onButtonReleaseEvent={() => {
-                    rev.revealChild = !rev.revealChild;
-                }}
-            >
-                <box>
-                    <icon
-                        icon="check-active-symbolic"
-                        css={bind(wifi, 'activeAccessPoint').as((activeAp) =>
-                            aps.includes(activeAp) ? '' : 'opacity: 0;',
-                        )}
-                    />
-
-                    <Separator size={8} />
-
-                    <icon icon={bind(aps[0], 'iconName')} />
-
-                    <Separator size={8} />
-
-                    <label label={aps[0].get_ssid()!} />
-                </box>
-            </button>
-        );
-
         super({
-            vertical: true,
-            children: [button, rev, <Separator size={8} vertical />],
+            orientation: Gtk.Orientation.VERTICAL,
+        });
+        this.aps = aps;
+
+        createRoot((dispose) => {
+            this.dispose = dispose;
+
+            const wifi = AstalNetwork.get_default().get_wifi();
+
+            if (!wifi) {
+                throw new Error('Could not find wifi device.');
+            }
+
+            const rev = (
+                <revealer
+                    transitionType={Gtk.RevealerTransitionType.SLIDE_DOWN}
+                >
+                    <box vertical halign={Gtk.Align.FILL} hexpand>
+                        <Separator size={8} vertical />
+
+                        <centerbox>
+                            <label
+                                $type="start"
+                                label="Connected"
+                                valign={Gtk.Align.CENTER}
+                                halign={Gtk.Align.START}
+                            />
+
+                            <box $type="center" />
+
+                            <cursor-switch
+                                $type="end"
+                                cursor="pointer"
+                                valign={Gtk.Align.CENTER}
+                                halign={Gtk.Align.END}
+                                state={createBinding(
+                                    wifi,
+                                    'activeAccessPoint',
+                                ).as((activeAp) => aps.includes(activeAp))}
+                                onButtonReleaseEvent={(self) => {
+                                    if (self.state) {
+                                        apDisconnect(this.getStrongest());
+                                    }
+                                    else {
+                                        apConnect(this.getStrongest());
+                                    }
+                                }}
+                            />
+                        </centerbox>
+
+                        <Separator size={8} vertical />
+                    </box>
+                </revealer>
+            ) as Gtk.Revealer;
+
+            const button = (
+                <cursor-button
+                    cursor="pointer"
+                    onButtonReleaseEvent={() => {
+                        rev.revealChild = !rev.revealChild;
+                    }}
+                >
+                    <box>
+                        <icon
+                            icon="check-active-symbolic"
+                            css={createBinding(wifi, 'activeAccessPoint').as(
+                                (activeAp) =>
+                                    aps.includes(activeAp) ? '' : 'opacity: 0;',
+                            )}
+                        />
+
+                        <Separator size={8} />
+
+                        <icon icon={createBinding(aps[0], 'iconName')} />
+
+                        <Separator size={8} />
+
+                        <label label={aps[0].get_ssid()!} />
+                    </box>
+                </cursor-button>
+            ) as Astal.Button;
+
+            this.set_children([
+                button,
+                rev,
+                (<Separator size={8} vertical />) as Gtk.Widget,
+            ]);
+            this.show_all();
         });
 
-        this.aps = aps;
+        // Ran by `For` in ./main.tsx
+        onCleanup(() => {
+            this.dispose?.();
+        });
     }
 }

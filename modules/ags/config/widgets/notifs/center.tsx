@@ -1,12 +1,13 @@
-import { bind, timeout } from 'astal';
-import { Gtk, Widget } from 'astal/gtk3';
+import { Astal, Gtk } from 'ags/gtk3';
+import { timeout } from 'ags/time';
 import AstalNotifd from 'gi://AstalNotifd';
+import { createBinding } from 'gnim';
 
 import { getWindow } from '../../lib';
 import NotifGestureWrapper from './gesture';
 import { HasNotifs, Notification } from './notification';
 
-const addNotif = (box: Widget.Box, notifObj: AstalNotifd.Notification) => {
+const addNotif = (box: Astal.Box, notifObj: AstalNotifd.Notification) => {
     if (notifObj) {
         const NewNotif = Notification({
             id: notifObj.id,
@@ -28,15 +29,15 @@ const NotificationList = () => {
             vertical
             vexpand
             valign={Gtk.Align.START}
-            visible={bind(HasNotifs)}
+            visible={HasNotifs}
             // It needs to be bigger than the notifs to not jiggle
             css="min-width: 550px;"
-            setup={(self) => {
+            $={(self) => {
                 notifications.get_notifications().forEach((n) => {
                     addNotif(self, n);
                 });
 
-                self.hook(notifications, 'notified', (_, id) => {
+                notifications.connect('notified', (_, id) => {
                     if (id) {
                         const notifObj = notifications.get_notification(id);
 
@@ -44,7 +45,8 @@ const NotificationList = () => {
                             addNotif(self, notifObj);
                         }
                     }
-                }).hook(notifications, 'resolved', (_, id) => {
+                });
+                notifications.connect('resolved', (_, id) => {
                     const notif = (
                         self.get_children() as NotifGestureWrapper[]
                     ).find((ch) => ch.id === id);
@@ -62,14 +64,14 @@ const ClearButton = () => {
     const notifications = AstalNotifd.get_default();
 
     return (
-        <eventbox
-            cursor={bind(HasNotifs).as((hasNotifs) =>
+        <cursor-eventbox
+            cursor={HasNotifs.as((hasNotifs) =>
                 hasNotifs ? 'pointer' : 'not-allowed',
             )}
         >
             <button
-                className="clear"
-                sensitive={bind(HasNotifs)}
+                class="clear"
+                sensitive={HasNotifs}
                 onButtonReleaseEvent={() => {
                     notifications.get_notifications().forEach((notif) => {
                         notif.dismiss();
@@ -83,7 +85,7 @@ const ClearButton = () => {
                     <label label="Clear " />
 
                     <icon
-                        icon={bind(notifications, 'notifications').as(
+                        icon={createBinding(notifications, 'notifications').as(
                             (notifs) =>
                                 notifs.length > 0
                                     ? 'user-trash-full-symbolic'
@@ -92,12 +94,12 @@ const ClearButton = () => {
                     />
                 </box>
             </button>
-        </eventbox>
+        </cursor-eventbox>
     );
 };
 
 const Header = () => (
-    <box className="header">
+    <box class="header">
         <label label="Notifications" hexpand xalign={0} />
         <ClearButton />
     </box>
@@ -106,10 +108,10 @@ const Header = () => (
 const Placeholder = () => (
     <revealer
         transitionType={Gtk.RevealerTransitionType.CROSSFADE}
-        revealChild={bind(HasNotifs).as((v) => !v)}
+        revealChild={HasNotifs.as((v) => !v)}
     >
         <box
-            className="placeholder"
+            class="placeholder"
             vertical
             valign={Gtk.Align.CENTER}
             halign={Gtk.Align.CENTER}
@@ -123,16 +125,16 @@ const Placeholder = () => (
 );
 
 export default () => (
-    <box className="notification-center widget" vertical>
+    <box class="notification-center widget" vertical>
         <Header />
 
-        <box className="notification-wallpaper-box">
+        <box class="notification-wallpaper-box">
             <scrollable
-                className="notification-list-box"
+                class="notification-list-box"
                 hscroll={Gtk.PolicyType.NEVER}
                 vscroll={Gtk.PolicyType.AUTOMATIC}
             >
-                <box className="notification-list" vertical>
+                <box class="notification-list" vertical>
                     <NotificationList />
 
                     <Placeholder />

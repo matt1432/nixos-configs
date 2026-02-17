@@ -1,6 +1,6 @@
-import { bind, Variable } from 'astal';
-import { Gtk, Widget } from 'astal/gtk3';
+import { Astal, Gtk } from 'ags/gtk3';
 import AstalWp from 'gi://AstalWp';
+import { createBinding, createState } from 'gnim';
 
 import Separator from '../misc/separator';
 import Profiles from './profiles';
@@ -13,66 +13,44 @@ export default () => {
         throw new Error('Could not find default audio devices.');
     }
 
-    const Shown = Variable<string>('outputs');
+    const [shown, setShown] = createState('outputs');
+
+    const content = [
+        <scrollable $type="named" name="outputs" hscroll={Gtk.PolicyType.NEVER}>
+            <box vertical>{Streams(createBinding(audio, 'speakers'))}</box>
+        </scrollable>,
+
+        <scrollable $type="named" name="inputs" hscroll={Gtk.PolicyType.NEVER}>
+            <box vertical>{Streams(createBinding(audio, 'microphones'))}</box>
+        </scrollable>,
+
+        <scrollable
+            $type="named"
+            name="profiles"
+            hscroll={Gtk.PolicyType.NEVER}
+        >
+            <box vertical>{Profiles(createBinding(audio, 'devices'))}</box>
+        </scrollable>,
+    ] as Gtk.Widget[];
 
     const stack = (
         <stack
-            shown={bind(Shown)}
+            visibleChildName={shown}
             transitionType={Gtk.StackTransitionType.SLIDE_LEFT_RIGHT}
         >
-            <scrollable
-                name="outputs"
-                hscroll={Gtk.PolicyType.NEVER}
-                setup={(self) =>
-                    setTimeout(() => {
-                        self.add(
-                            <box vertical>
-                                {bind(audio, 'speakers').as(Streams)}
-                            </box>,
-                        );
-                    }, 1000)
-                }
-            />
-
-            <scrollable
-                name="inputs"
-                hscroll={Gtk.PolicyType.NEVER}
-                setup={(self) =>
-                    setTimeout(() => {
-                        self.add(
-                            <box vertical>
-                                {bind(audio, 'microphones').as(Streams)}
-                            </box>,
-                        );
-                    }, 1000)
-                }
-            />
-
-            <scrollable
-                name="profiles"
-                hscroll={Gtk.PolicyType.NEVER}
-                setup={(self) =>
-                    setTimeout(() => {
-                        self.add(
-                            <box vertical>
-                                {bind(audio, 'devices').as(Profiles)}
-                            </box>,
-                        );
-                    }, 1000)
-                }
-            />
+            {content}
         </stack>
-    ) as Widget.Stack;
+    ) as Astal.Stack;
 
     const StackButton = ({ label = '', iconName = '' }) => {
         return (
-            <button
+            <cursor-button
                 cursor="pointer"
-                className={bind(Shown).as(
-                    (shown) => `header-btn${shown === label ? ' active' : ''}`,
+                class={shown(
+                    (s) => `header-btn${s === label ? ' active' : ''}`,
                 )}
                 onButtonReleaseEvent={() => {
-                    Shown.set(label);
+                    setShown(label);
                 }}
             >
                 <box halign={Gtk.Align.CENTER}>
@@ -82,13 +60,13 @@ export default () => {
 
                     {label}
                 </box>
-            </button>
-        ) as Widget.Button;
+            </cursor-button>
+        ) as Astal.Button;
     };
 
     return (
-        <box className="audio widget" vertical>
-            <box className="header" homogeneous>
+        <box class="audio widget" vertical>
+            <box class="header" homogeneous>
                 <StackButton
                     label="outputs"
                     iconName="audio-speakers-symbolic"

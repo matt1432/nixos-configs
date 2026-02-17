@@ -1,4 +1,4 @@
-import { bind } from 'astal';
+import { createBinding } from 'ags';
 import AstalWp from 'gi://AstalWp';
 
 import { getWindow } from '../../../lib';
@@ -11,9 +11,9 @@ export default () => {
     }
 
     return (
-        <button
+        <cursor-button
             cursor="pointer"
-            className="bar-item audio"
+            class="bar-item audio"
             onButtonReleaseEvent={(self) => {
                 const win = getWindow('win-audio')!;
 
@@ -22,19 +22,27 @@ export default () => {
                 win.set_visible(!win.get_visible());
             }}
         >
-            <overlay passThrough>
+            <overlay
+                $={(self) => {
+                    // passThrough doesn't work?
+                    self.set_overlay_pass_through(self.get_children()[1], true);
+                }}
+            >
                 <circularprogress
                     startAt={0.75}
                     endAt={0.75}
-                    value={bind(speaker, 'volume')}
+                    value={createBinding(speaker, 'volume')}
                     rounded
-                    className={bind(speaker, 'mute').as((muted) =>
+                    class={createBinding(speaker, 'mute').as((muted) =>
                         muted ? 'disabled' : '',
                     )}
                 />
 
-                <icon icon={bind(speaker, 'volumeIcon')} />
+                <icon
+                    $type="overlay"
+                    icon={createBinding(speaker, 'volumeIcon')}
+                />
             </overlay>
-        </button>
+        </cursor-button>
     );
 };

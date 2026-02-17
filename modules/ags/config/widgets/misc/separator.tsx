@@ -1,11 +1,15 @@
-import { Widget } from 'astal/gtk3';
+import { Astal } from 'ags/gtk3';
+import { CCProps } from 'gnim';
 
 export default ({
     size,
     vertical = false,
     css = '',
     ...rest
-}: { size: number } & Widget.BoxProps) => (
+}: CCProps<
+    Astal.Box,
+    { size: number } & Partial<Astal.Box.ConstructorProps>
+>) => (
     <box
         css={`
             ${vertical ? 'min-height' : 'min-width'}: ${size}px;

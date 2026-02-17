@@ -1,4 +1,4 @@
-import { Gtk } from 'astal/gtk3';
+import { Gtk } from 'ags/gtk3';
 import Cairo from 'cairo';
 
 export default (place = 'top left', css = 'background-color: black;') => (
@@ -19,7 +19,7 @@ export default (place = 'top left', css = 'background-color: black;') => (
                 border-width: 0.068rem;
                 ${css}
             `}
-            setup={(widget) => {
+            $={(widget) => {
                 const styleContext = widget.get_style_context();
 
                 let radius = styleContext.get_property(

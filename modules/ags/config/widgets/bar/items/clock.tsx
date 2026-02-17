@@ -1,11 +1,12 @@
-import { bind, Variable } from 'astal';
-import { App } from 'astal/gtk3';
+import app from 'ags/gtk3/app';
+import { createPoll } from 'ags/time';
 import GLib from 'gi://GLib';
 
 import { getWindow } from '../../../lib';
+import { toggleClassName } from '../../../lib/widgets';
 
 export default () => {
-    const timeVar = Variable<string>('').poll(1000, (prev) => {
+    const timeVar = createPoll('', 1000, (prev) => {
         const time = GLib.DateTime.new_now_local();
 
         const dayName = time.format('%a. ');
@@ -27,8 +28,8 @@ export default () => {
     });
 
     return (
-        <button
-            className="bar-item"
+        <cursor-button
+            class="bar-item"
             cursor="pointer"
             onButtonReleaseEvent={(self) => {
                 const win = getWindow('win-calendar')!;
@@ -37,15 +38,15 @@ export default () => {
 
                 win.set_visible(!win.get_visible());
             }}
-            setup={(self) => {
-                App.connect('window-toggled', (_, win) => {
+            $={(self) => {
+                app.connect('window-toggled', (_, win) => {
                     if (win.get_name()?.startsWith('win-notif-center')) {
-                        self.toggleClassName('toggle-on', win.get_visible());
+                        toggleClassName(self, 'toggle-on', win.get_visible());
                     }
                 });
             }}
         >
-            <label label={bind(timeVar)} />
-        </button>
+            <label label={timeVar} />
+        </cursor-button>
     );
 };

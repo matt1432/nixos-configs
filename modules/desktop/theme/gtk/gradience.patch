@@ -15,7 +15,7 @@ index 18e7890f..92786a73 100644
  
          version_target_str = str(self.version_target)
          # Theme source/output paths
-@@ -87,9 +81,13 @@ class ShellTheme:
+@@ -87,8 +81,12 @@ class ShellTheme:
              shutil.rmtree(self.source_dir)
  
          # Copy shell theme source directories to ~/.cache/gradience/gradience-shell
@@ -29,7 +29,6 @@ index 18e7890f..92786a73 100644
 +            self.source_dir, dirs_exist_ok=True, copy_function=copy_with_permissions
          )
  
-         # TODO: Allow user to use different name than "gradience-shell" (also, with default name, we should append "-light" suffix when generated from light preset)
 @@ -252,15 +250,15 @@ class ShellTheme:
      def _set_shell_theme(self):
          key = self.THEME_GSETTINGS_SCHEMA_KEY

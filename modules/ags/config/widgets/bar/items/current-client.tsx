@@ -1,7 +1,7 @@
-import { bind, Variable } from 'astal';
-import { Gtk } from 'astal/gtk3';
+import { Gtk } from 'ags/gtk3';
 import AstalApps from 'gi://AstalApps';
 import AstalHyprland from 'gi://AstalHyprland';
+import { createState } from 'gnim';
 
 import Separator from '../../misc/separator';
 
@@ -9,9 +9,9 @@ export default () => {
     const applications = AstalApps.Apps.new();
     const hyprland = AstalHyprland.get_default();
 
-    const visibleIcon = Variable<boolean>(false);
-    const focusedIcon = Variable<string>('');
-    const focusedTitle = Variable<string>('');
+    const [visibleIcon, setVisibleIcon] = createState(false);
+    const [focusedIcon, setFocusedIcon] = createState('');
+    const [focusedTitle, setFocusedTitle] = createState('');
 
     let lastFocusedAddress: string | null;
 
@@ -25,20 +25,20 @@ export default () => {
         const icon = app?.get_icon_name();
 
         if (icon) {
-            visibleIcon.set(true);
-            focusedIcon.set(icon);
+            setVisibleIcon(true);
+            setFocusedIcon(icon);
         }
         else {
-            visibleIcon.set(false);
+            setVisibleIcon(false);
         }
 
-        focusedTitle.set(client?.get_title() ?? '');
+        setFocusedTitle(client?.get_title() ?? '');
         const id = client?.connect('notify::title', (c) => {
-            if (c.get_address() !== lastFocusedAddress) {
+            if (c.get_address() !== lastFocusedAddress && id) {
                 c.disconnect(id);
             }
             else {
-                focusedTitle.set(c.get_title());
+                setFocusedTitle(c.get_title());
             }
         });
     };
@@ -49,31 +49,24 @@ export default () => {
     return (
         <revealer
             transitionType={Gtk.RevealerTransitionType.SLIDE_RIGHT}
-            revealChild={bind(focusedTitle).as((title) => title !== '')}
+            revealChild={focusedTitle.as((title) => title !== '')}
         >
             <box>
                 <Separator size={8} />
 
-                <box className="bar-item current-window">
+                <box class="bar-item current-window">
                     <revealer
                         transitionType={Gtk.RevealerTransitionType.SLIDE_RIGHT}
-                        revealChild={bind(visibleIcon)}
+                        revealChild={visibleIcon}
                     >
                         <box>
-                            <icon
-                                css="font-size: 32px;"
-                                icon={bind(focusedIcon)}
-                            />
+                            <icon css="font-size: 32px;" icon={focusedIcon} />
 
                             <Separator size={8} />
                         </box>
                     </revealer>
 
-                    <label
-                        label={bind(focusedTitle)}
-                        truncate
-                        maxWidthChars={35}
-                    />
+                    <label label={focusedTitle} truncate maxWidthChars={35} />
                 </box>
             </box>
         </revealer>

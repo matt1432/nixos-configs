@@ -1,20 +1,22 @@
-import { bind, Variable } from 'astal';
-import { Gtk } from 'astal/gtk3';
+import { Gtk } from 'ags/gtk3';
+import { createPoll } from 'ags/time';
 import GLib from 'gi://GLib';
 
-const Divider = () => <box className="divider" vertical />;
+const Divider = () => <box class="divider" vertical />;
 
 const Time = () => {
-    const hour = Variable<string>('').poll(
+    const hour = createPoll(
+        '',
         1000,
         () => GLib.DateTime.new_now_local().format('%H') || '',
     );
-    const min = Variable<string>('').poll(
+    const min = createPoll(
+        '',
         1000,
         () => GLib.DateTime.new_now_local().format('%M') || '',
     );
 
-    const fullDate = Variable<string>('').poll(1000, () => {
+    const fullDate = createPoll('', 1000, () => {
         const time = GLib.DateTime.new_now_local();
 
         const dayNameMonth = time.format('%A, %B ');
@@ -27,21 +29,21 @@ const Time = () => {
     });
 
     return (
-        <box className="timebox" vertical>
+        <box class="timebox" vertical>
             <box
-                className="time-container"
+                class="time-container"
                 halign={Gtk.Align.CENTER}
                 valign={Gtk.Align.CENTER}
             >
-                <label className="content" label={bind(hour)} />
+                <label class="content" label={hour} />
 
                 <Divider />
 
-                <label className="content" label={bind(min)} />
+                <label class="content" label={min} />
             </box>
 
-            <box className="date-container" halign={Gtk.Align.CENTER}>
-                <label css="font-size: 20px;" label={bind(fullDate)} />
+            <box class="date-container" halign={Gtk.Align.CENTER}>
+                <label css="font-size: 20px;" label={fullDate} />
             </box>
         </box>
     );
@@ -56,10 +58,10 @@ export default () => {
     cal.show_all();
 
     return (
-        <box className="date widget" vertical>
+        <box class="date widget" vertical>
             <Time />
 
-            <box className="cal-box">{cal}</box>
+            <box class="cal-box">{cal}</box>
         </box>
     );
 };

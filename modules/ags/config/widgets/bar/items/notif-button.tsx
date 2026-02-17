@@ -1,8 +1,9 @@
-import { bind } from 'astal';
-import { App } from 'astal/gtk3';
+import { createBinding } from 'ags';
+import app from 'ags/gtk3/app';
 import AstalNotifd from 'gi://AstalNotifd';
 
 import { getWindow } from '../../../lib';
+import { toggleClassName } from '../../../lib/widgets';
 import Separator from '../../misc/separator';
 
 const SPACING = 4;
@@ -11,8 +12,8 @@ export default () => {
     const notifications = AstalNotifd.get_default();
 
     return (
-        <button
-            className="bar-item"
+        <cursor-button
+            class="bar-item"
             cursor="pointer"
             onButtonReleaseEvent={(self) => {
                 const win = getWindow('win-notif-center')!;
@@ -21,37 +22,39 @@ export default () => {
 
                 win.set_visible(!win.get_visible());
             }}
-            setup={(self) => {
-                App.connect('window-toggled', (_, win) => {
+            $={(self) => {
+                app.connect('window-toggled', (_, win) => {
                     if (win.get_name()?.startsWith('win-notif-center')) {
-                        self.toggleClassName('toggle-on', win.get_visible());
+                        toggleClassName(self, 'toggle-on', win.get_visible());
                     }
                 });
             }}
         >
             <box>
                 <icon
-                    icon={bind(notifications, 'notifications').as((notifs) => {
-                        if (notifications.get_dont_disturb()) {
-                            return 'notification-disabled-symbolic';
-                        }
-                        else if (notifs.length > 0) {
-                            return 'notification-new-symbolic';
-                        }
-                        else {
-                            return 'notification-symbolic';
-                        }
-                    })}
+                    icon={createBinding(notifications, 'notifications').as(
+                        (notifs) => {
+                            if (notifications.get_dont_disturb()) {
+                                return 'notification-disabled-symbolic';
+                            }
+                            else if (notifs.length > 0) {
+                                return 'notification-new-symbolic';
+                            }
+                            else {
+                                return 'notification-symbolic';
+                            }
+                        },
+                    )}
                 />
 
                 <Separator size={SPACING} />
 
                 <label
-                    label={bind(notifications, 'notifications').as((n) =>
-                        String(n.length),
+                    label={createBinding(notifications, 'notifications').as(
+                        (n) => String(n.length),
                     )}
                 />
             </box>
-        </button>
+        </cursor-button>
     );
 };

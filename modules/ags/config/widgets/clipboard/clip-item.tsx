@@ -1,6 +1,6 @@
-import { execAsync } from 'astal';
-import { register } from 'astal/gobject';
-import { Gtk, Widget } from 'astal/gtk3';
+import { register } from 'ags/gobject';
+import { Astal, Gtk } from 'ags/gtk3';
+import { execAsync } from 'ags/process';
 
 export interface EntryObject {
     id: number;
@@ -14,7 +14,7 @@ const BINARY_DATA = /\[\[ binary data (\d+) (KiB|MiB) (\w+) (\d+)x(\d+) \]\]/;
 export const CLIP_SCRIPT = `${SRC}/widgets/clipboard/cliphist.sh`;
 
 @register()
-export class ClipItem extends Widget.Box {
+export class ClipItem extends Astal.Box {
     declare id: number;
     declare content: string;
 
@@ -47,26 +47,25 @@ export class ClipItem extends Widget.Box {
 
         const icon = <box valign={Gtk.Align.CENTER} css={initCss()} />;
 
-        this.children = [...this.children, icon];
+        this.children = [...this.children, icon as Gtk.Widget];
     }
 
     constructor({ item }: { item: EntryObject }) {
-        super({
-            children: [
-                <label
-                    label={item.id.toString()}
-                    xalign={0}
-                    valign={Gtk.Align.CENTER}
-                />,
-                <label label="・" xalign={0} valign={Gtk.Align.CENTER} />,
-                <label
-                    label={item.content}
-                    xalign={0}
-                    valign={Gtk.Align.CENTER}
-                    truncate
-                />,
-            ],
-        });
+        super();
+        this.set_children([
+            <label
+                label={item.id.toString()}
+                xalign={0}
+                valign={Gtk.Align.CENTER}
+            />,
+            <label label="・" xalign={0} valign={Gtk.Align.CENTER} />,
+            <label
+                label={item.content}
+                xalign={0}
+                valign={Gtk.Align.CENTER}
+                truncate
+            />,
+        ] as Gtk.Widget[]);
 
         this.id = item.id;
         this.content = item.content;

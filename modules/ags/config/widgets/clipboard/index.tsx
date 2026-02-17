@@ -1,4 +1,4 @@
-import { execAsync } from 'astal';
+import { execAsync } from 'ags/process';
 
 import { getWindow } from '../../lib';
 import SortedList from '../misc/sorted-list';
@@ -31,7 +31,7 @@ export default () =>
                 });
         },
 
-        create_row: (item) => <ClipItem item={item} />,
+        create_row: (item) => (<ClipItem item={item} />) as ClipItem,
 
         fzf_options: {
             selector: (item) => item.content,

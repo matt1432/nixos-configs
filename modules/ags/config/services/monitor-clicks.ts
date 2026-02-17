@@ -1,7 +1,6 @@
-import { subprocess } from 'astal';
-import GObject, { register, signal } from 'astal/gobject';
-import { App } from 'astal/gtk3';
-import AstalIO from 'gi://AstalIO';
+import GObject, { register, signal } from 'ags/gobject';
+import app from 'ags/gtk3/app';
+import { subprocess } from 'ags/process';
 
 import { getWindow, hyprMessage } from '../lib';
 
@@ -11,21 +10,45 @@ const ON_CLICK_TRIGGERS = ['pressed', 'TOUCH_DOWN'];
 import { CursorPos, Layer, LayerResult } from '../lib';
 import PopupWindow from '../widgets/misc/popup-window';
 
+interface MonitorClicksSignals extends GObject.Object.SignalSignatures {
+    'proc-started': MonitorClicks['procStarted'];
+    'proc-destroyed': MonitorClicks['procDestroyed'];
+    released: MonitorClicks['released'];
+    clicked: MonitorClicks['clicked'];
+}
+
 @register()
 export default class MonitorClicks extends GObject.Object {
-    @signal(Boolean)
-    declare procStarted: (state: boolean) => void;
+    @signal([Boolean], GObject.TYPE_NONE, { default: false })
+    procStarted(state: boolean): undefined {
+        console.log(state);
+    }
 
-    @signal(Boolean)
-    declare procDestroyed: (state: boolean) => void;
+    @signal([Boolean], GObject.TYPE_NONE, { default: false })
+    procDestroyed(state: boolean): undefined {
+        console.log(state);
+    }
 
-    @signal(String)
-    declare released: (procLine: string) => void;
+    @signal([String], GObject.TYPE_NONE, { default: false })
+    released(procLine: string): undefined {
+        console.log(procLine);
+    }
 
-    @signal(String)
-    declare clicked: (procLine: string) => void;
+    @signal([String], GObject.TYPE_NONE, { default: false })
+    clicked(procLine: string): undefined {
+        console.log(procLine);
+    }
 
-    private process = null as AstalIO.Process | null;
+    declare $signals: MonitorClicksSignals; // this makes signals inferable in JSX
+
+    override connect<S extends keyof MonitorClicksSignals>(
+        signal: S,
+        callback: GObject.SignalCallback<this, MonitorClicksSignals[S]>,
+    ): number {
+        return super.connect(signal, callback);
+    }
+
+    private process: ReturnType<typeof subprocess> | null = null;
 
     constructor() {
         super();
@@ -64,15 +87,15 @@ export default class MonitorClicks extends GObject.Object {
     }
 
     private _initAppConnection() {
-        App.connect('window-toggled', () => {
+        app.connect('window-toggled', () => {
             const anyVisibleAndClosable = (
-                App.get_windows() as PopupWindow[]
+                app.get_windows() as PopupWindow[]
             ).some((w) => {
                 const closable =
-                    w.close_on_unfocus &&
+                    w.closeOnUnfocus &&
                     !(
-                        w.close_on_unfocus === 'none' ||
-                        w.close_on_unfocus === 'stay'
+                        w.closeOnUnfocus === 'none' ||
+                        w.closeOnUnfocus === 'stay'
                     );
 
                 return w.visible && closable;
@@ -98,9 +121,9 @@ export default class MonitorClicks extends GObject.Object {
     }
 
     public static async detectClickedOutside(clickStage: string) {
-        const toClose = (App.get_windows() as PopupWindow[]).some((w) => {
+        const toClose = (app.get_windows() as PopupWindow[]).some((w) => {
             const closable =
-                w.close_on_unfocus && w.close_on_unfocus === clickStage;
+                w.closeOnUnfocus && w.closeOnUnfocus === clickStage;
 
             return w.visible && closable;
         });
@@ -162,8 +185,8 @@ export default class MonitorClicks extends GObject.Object {
 
                         return (
                             win &&
-                            win.close_on_unfocus &&
-                            win.close_on_unfocus === clickStage
+                            win.closeOnUnfocus &&
+                            win.closeOnUnfocus === clickStage
                         );
                     });
 

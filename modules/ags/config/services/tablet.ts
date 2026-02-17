@@ -1,6 +1,5 @@
-import { execAsync, subprocess } from 'astal';
-import GObject, { property, register, signal } from 'astal/gobject';
-import AstalIO from 'gi://AstalIO';
+import GObject, { getter, register, setter, signal } from 'ags/gobject';
+import { execAsync, subprocess } from 'ags/process';
 
 import { hyprMessage } from '../lib';
 type RotationName = 'normal' | 'right-up' | 'bottom-up' | 'left-up';
@@ -16,21 +15,43 @@ const SCREEN = 'desc:BOE 0x0964';
 
 const DEVICES = ['wacom-hid-52eb-finger', 'wacom-hid-52eb-pen'];
 
+interface TabletSignals extends GObject.Object.SignalSignatures {
+    'autorotate-changed': Tablet['autorotateChanged'];
+    'inputs-changed': Tablet['inputsChanged'];
+    'notify::current-mode': (val: Tablet['currentMode']) => void;
+    'notify::osk-state': (val: Tablet['oskState']) => void;
+    'notify::osk-auto-changed': (val: Tablet['oskAutoChanged']) => void;
+}
+
 @register()
 export default class Tablet extends GObject.Object {
-    @signal(Boolean)
-    declare autorotateChanged: (running: boolean) => void;
+    @signal([Boolean], GObject.TYPE_NONE, { default: false })
+    autorotateChanged(running: boolean): undefined {
+        console.log(running);
+    }
 
-    @signal(Boolean)
-    declare inputsChanged: (blocked: boolean) => void;
+    @signal([Boolean], GObject.TYPE_NONE, { default: false })
+    inputsChanged(blocked: boolean): undefined {
+        console.log(blocked);
+    }
+
+    declare $signals: TabletSignals; // this makes signals inferable in JSX
+
+    override connect<S extends keyof TabletSignals>(
+        signal: S,
+        callback: GObject.SignalCallback<this, TabletSignals[S]>,
+    ): number {
+        return super.connect(signal, callback);
+    }
 
     private _currentMode: 'laptop' | 'tablet' = 'laptop';
 
-    @property(String)
+    @getter(String)
     get currentMode() {
         return this._currentMode;
     }
 
+    @setter(String)
     set currentMode(val) {
         this._currentMode = val;
 
@@ -67,11 +88,12 @@ export default class Tablet extends GObject.Object {
 
     private _oskState = false;
 
-    @property(Boolean)
+    @getter(Boolean)
     get oskState() {
         return this._oskState;
     }
 
+    @setter(Boolean)
     set oskState(val) {
         this._oskState = val;
         // this is set to true after this setter in the request.
@@ -85,16 +107,17 @@ export default class Tablet extends GObject.Object {
 
     private _oskAutoChanged = false;
 
-    @property(Boolean)
+    @getter(Boolean)
     get oskAutoChanged() {
         return this._oskAutoChanged;
     }
 
+    @setter(Boolean)
     set oskAutoChanged(val) {
         this._oskAutoChanged = val;
     }
 
-    private _inputDetection = null as AstalIO.Process | null;
+    private _inputDetection: ReturnType<typeof subprocess> | null = null;
 
     private _startInputDetection() {
         if (this._inputDetection) {
@@ -121,13 +144,13 @@ export default class Tablet extends GObject.Object {
         }
     }
 
-    private _autorotate = null as AstalIO.Process | null;
+    private _autorotate: ReturnType<typeof subprocess> | null = null;
 
     get autorotateState() {
         return this._autorotate !== null;
     }
 
-    private _blockedInputs = null as AstalIO.Process | null;
+    private _blockedInputs: ReturnType<typeof subprocess> | null = null;
 
     private _blockInputs() {
         if (this._blockedInputs) {

@@ -7,10 +7,8 @@
       inputs = {
         astal.follows = "astal";
         nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
       };
-      owner = "matt1432";
-      ref = "overlay";
+      owner = "Aylur";
       repo = "ags";
       type = "github";
     };
@@ -21,12 +19,8 @@
       type = "github";
     };
     astal = {
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
-      owner = "matt1432";
-      ref = "overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+      owner = "Aylur";
       repo = "astal";
       type = "github";
     };
@@ -219,17 +213,6 @@
       owner = "matt1432";
       ref = "personal";
       repo = "komf";
-      type = "github";
-    };
-    kompass = {
-      inputs = {
-        astal.follows = "astal";
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
-      owner = "kotontrion";
-      repo = "kompass";
-      rev = "0ea87abe506ebe6b6fd3d5d3c4f3ff72720d665c";
       type = "github";
     };
     lib-aggregate = {

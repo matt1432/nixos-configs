@@ -1,4 +1,5 @@
-import { Astal } from 'astal/gtk3';
+import { Astal } from 'ags/gtk3';
+import Cairo from 'gi://cairo';
 
 import RoundedCorner from './screen-corners';
 
@@ -8,7 +9,10 @@ const TopLeft = () => (
         layer={Astal.Layer.OVERLAY}
         exclusivity={Astal.Exclusivity.IGNORE}
         anchor={Astal.WindowAnchor.TOP | Astal.WindowAnchor.LEFT}
-        clickThrough={true}
+        $={(self) => {
+            const value = new Cairo.Region();
+            self.input_shape_combine_region(value);
+        }}
     >
         {RoundedCorner('topleft')}
     </window>
@@ -20,7 +24,10 @@ const TopRight = () => (
         layer={Astal.Layer.OVERLAY}
         exclusivity={Astal.Exclusivity.IGNORE}
         anchor={Astal.WindowAnchor.TOP | Astal.WindowAnchor.RIGHT}
-        clickThrough={true}
+        $={(self) => {
+            const value = new Cairo.Region();
+            self.input_shape_combine_region(value);
+        }}
     >
         {RoundedCorner('topright')}
     </window>
@@ -32,7 +39,10 @@ const BottomLeft = () => (
         layer={Astal.Layer.OVERLAY}
         exclusivity={Astal.Exclusivity.IGNORE}
         anchor={Astal.WindowAnchor.BOTTOM | Astal.WindowAnchor.LEFT}
-        clickThrough={true}
+        $={(self) => {
+            const value = new Cairo.Region();
+            self.input_shape_combine_region(value);
+        }}
     >
         {RoundedCorner('bottomleft')}
     </window>
@@ -44,10 +54,14 @@ const BottomRight = () => (
         layer={Astal.Layer.OVERLAY}
         exclusivity={Astal.Exclusivity.IGNORE}
         anchor={Astal.WindowAnchor.BOTTOM | Astal.WindowAnchor.RIGHT}
-        clickThrough={true}
+        $={(self) => {
+            const value = new Cairo.Region();
+            self.input_shape_combine_region(value);
+        }}
     >
         {RoundedCorner('bottomright')}
     </window>
 );
 
-export default () => [TopLeft(), TopRight(), BottomLeft(), BottomRight()];
+export default () =>
+    [TopLeft(), TopRight(), BottomLeft(), BottomRight()] as Astal.Window[];

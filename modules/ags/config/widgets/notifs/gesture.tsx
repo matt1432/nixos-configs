@@ -1,14 +1,16 @@
-import { idle, interval, timeout } from 'astal';
-import { property, register } from 'astal/gobject';
-import { Gdk, Gtk, Widget } from 'astal/gtk3';
+import { property, register } from 'ags/gobject';
+import { Astal, Gdk, Gtk } from 'ags/gtk3';
+import { idle, interval, timeout } from 'ags/time';
 import AstalIO from 'gi://AstalIO';
 import AstalNotifd from 'gi://AstalNotifd';
+import { createRoot, onCleanup } from 'gnim';
+import GObject from 'gnim/gobject';
 
 import { hyprMessage } from '../../lib';
 import { get_hyprland_monitor } from '../../lib';
-/* Types */
 import { CursorPos, LayerResult } from '../../lib';
-import { HasNotifs } from './notification';
+import { getCssProvider, setCss } from '../../lib/widgets';
+import { setHasNotifs } from './notification';
 
 const display = Gdk.Display.get_default();
 
@@ -32,15 +34,22 @@ const slideRight = `${TRANSITION} ${MAX_RIGHT} opacity: 0;`;
 
 const defaultStyle = `${TRANSITION} margin: unset; opacity: 1;`;
 
-type NotifGestureWrapperProps = Widget.BoxProps & {
+type NotifGestureWrapperProps = Omit<
+    Partial<Astal.Box.ConstructorProps>,
+    'children'
+> & {
     id: number;
     slide_in_from?: 'Left' | 'Right';
     popup_timer?: number;
     setup_notif?: (self: NotifGestureWrapper) => void;
+    disposeCallback?: () => void;
+    children: GObject.Object[];
 };
 
 @register()
-export class NotifGestureWrapper extends Widget.EventBox {
+export class NotifGestureWrapper extends Astal.EventBox {
+    dispose: (() => void) | null = null;
+
     public static popups = new Map<number, NotifGestureWrapper>();
     public static sliding_in = 0;
     public static on_sliding_in: (amount: number) => void;
@@ -51,11 +60,9 @@ export class NotifGestureWrapper extends Widget.EventBox {
 
     private timer_object: AstalIO.Time | undefined;
 
-    @property(Number)
-    declare popup_timer: number;
+    @property(Number) popup_timer: number;
 
-    @property(Boolean)
-    declare dragging: boolean;
+    @property(Boolean) dragging: boolean;
 
     private _sliding_away = false;
 
@@ -133,22 +140,25 @@ export class NotifGestureWrapper extends Widget.EventBox {
         this.sensitive = false;
         this._sliding_away = true;
 
-        let rev = this.get_child() as Widget.Revealer | null;
+        let rev = this.get_child() as Gtk.Revealer | null;
 
         if (!rev) {
             return;
         }
 
-        const revChild = rev.get_child() as Widget.Box | null;
+        const revChild = rev.get_child() as Astal.Box | null;
 
         if (!revChild) {
             return;
         }
 
-        revChild.set_css(side === 'Left' ? slideLeft : slideRight);
+        setCss(
+            getCssProvider(revChild),
+            side === 'Left' ? slideLeft : slideRight,
+        );
 
         timeout(ANIM_DURATION - 100, () => {
-            rev = this.get_child() as Widget.Revealer | null;
+            rev = this.get_child() as Gtk.Revealer | null;
 
             if (!rev) {
                 return;
@@ -165,7 +175,7 @@ export class NotifGestureWrapper extends Widget.EventBox {
                         notifications.get_notification(this.id)?.dismiss();
 
                         // Update HasNotifs
-                        HasNotifs.set(
+                        setHasNotifs(
                             notifications.get_notifications().length > 0,
                         );
                     }
@@ -176,6 +186,7 @@ export class NotifGestureWrapper extends Widget.EventBox {
                 }
 
                 // Get rid of disappeared widget
+                this.dispose?.();
                 this.destroy();
             });
         });
@@ -186,34 +197,11 @@ export class NotifGestureWrapper extends Widget.EventBox {
         slide_in_from = 'Left',
         popup_timer = 0,
         setup_notif = () => {},
+        disposeCallback = () => {},
+        children,
         ...rest
     }: NotifGestureWrapperProps) {
-        const notifications = AstalNotifd.get_default();
-
-        super({
-            on_button_press_event: () => {
-                this.setCursor('grabbing');
-            },
-
-            // OnRelease
-            on_button_release_event: () => {
-                this.setCursor('grab');
-            },
-
-            // OnHover
-            on_enter_notify_event: () => {
-                this.setCursor('grab');
-            },
-
-            // OnHoverLost
-            on_leave_notify_event: () => {
-                this.setCursor('grab');
-            },
-
-            onDestroy: () => {
-                this.timer_object?.cancel();
-            },
-        });
+        super();
 
         this.id = id;
         this.slide_in_from = slide_in_from;
@@ -222,149 +210,203 @@ export class NotifGestureWrapper extends Widget.EventBox {
         this.popup_timer = popup_timer;
         this.is_popup = this.popup_timer !== 0;
 
-        // Handle timeout before sliding away if it is a popup
-        if (this.popup_timer !== 0) {
-            this.timer_object = interval(1000, async () => {
-                try {
-                    if (!(await this.get_hovered())) {
-                        if (this.popup_timer === 0) {
-                            this.slideAway('Left');
-                        }
-                        else {
-                            --this.popup_timer;
+        createRoot((dispose) => {
+            this.dispose = dispose;
+
+            const notifications = AstalNotifd.get_default();
+
+            this.connect('button-press-event', () => {
+                this.setCursor('grabbing');
+            });
+
+            // OnRelease
+            this.connect('button-release-event', () => {
+                this.setCursor('grab');
+            });
+
+            // OnHover
+            this.connect('enter-notify-event', () => {
+                this.setCursor('grab');
+            });
+
+            // OnHoverLost
+            this.connect('leave-notify-event', () => {
+                this.setCursor('grab');
+            });
+
+            // Handle timeout before sliding away if it is a popup
+            if (this.popup_timer !== 0) {
+                this.timer_object = interval(1000, async () => {
+                    try {
+                        if (!(await this.get_hovered())) {
+                            if (this.popup_timer === 0) {
+                                this.slideAway('Left');
+                            }
+                            else {
+                                --this.popup_timer;
+                            }
                         }
                     }
-                }
-                catch (_e) {
-                    this.timer_object?.cancel();
-                }
-            });
-        }
-
-        this.hook(notifications, 'notified', (_, notifId) => {
-            if (notifId === this.id) {
-                this.slideAway(this.is_popup ? 'Left' : 'Right', true);
+                    catch (_e) {
+                        this.timer_object?.cancel();
+                    }
+                });
             }
-        });
 
-        const gesture = Gtk.GestureDrag.new(this);
+            const notifsConnections: number[] = [];
 
-        this.add(
-            <revealer
-                transitionType={Gtk.RevealerTransitionType.SLIDE_DOWN}
-                transitionDuration={500}
-                revealChild={false}
-            >
-                <box
-                    {...rest}
-                    setup={(self) => {
-                        self
-                            // When dragging
-                            .hook(gesture, 'drag-update', () => {
-                                let offset = gesture.get_offset()[1];
+            notifsConnections.push(
+                notifications.connect('notified', (_, notifId) => {
+                    if (notifId === this.id) {
+                        this.slideAway(this.is_popup ? 'Left' : 'Right', true);
+                    }
+                }),
+            );
 
-                                if (!offset || offset === 0) {
-                                    return;
-                                }
+            const gesture = Gtk.GestureDrag.new(this);
+            const gestureConnections: number[] = [];
 
-                                // Slide right
-                                if (offset > 0) {
-                                    self.set_css(`
-                                        opacity: 1; transition: none;
-                                        margin-left:   ${offset}px;
-                                        margin-right: -${offset}px;
-                                    `);
-                                }
+            const rev = (
+                <revealer
+                    transitionType={Gtk.RevealerTransitionType.SLIDE_DOWN}
+                    transitionDuration={500}
+                    revealChild={false}
+                >
+                    <box
+                        {...rest}
+                        $={(self) => {
+                            const provider = getCssProvider(self);
 
-                                // Slide left
-                                else {
-                                    offset = Math.abs(offset);
-                                    self.set_css(`
-                                        opacity: 1; transition: none;
-                                        margin-right: ${offset}px;
-                                        margin-left: -${offset}px;
-                                    `);
-                                }
+                            gestureConnections.push(
+                                // When dragging
+                                gesture.connect('drag-update', () => {
+                                    let offset = gesture.get_offset()[1];
 
-                                // Put a threshold on if a click is actually dragging
-                                this.dragging =
-                                    Math.abs(offset) > SLIDE_MIN_THRESHOLD;
+                                    if (!offset || offset === 0) {
+                                        return;
+                                    }
 
-                                this.setCursor('grabbing');
-                            })
+                                    // Slide right
+                                    if (offset > 0) {
+                                        setCss(
+                                            provider,
+                                            `
+                                            opacity: 1; transition: none;
+                                            margin-left:   ${offset}px;
+                                            margin-right: -${offset}px;
+                                        `,
+                                        );
+                                    }
 
-                            // On drag end
-                            .hook(gesture, 'drag-end', () => {
-                                const offset = gesture.get_offset()[1];
+                                    // Slide left
+                                    else {
+                                        offset = Math.abs(offset);
+                                        setCss(
+                                            provider,
+                                            `
+                                            opacity: 1; transition: none;
+                                            margin-right: ${offset}px;
+                                            margin-left: -${offset}px;
+                                        `,
+                                        );
+                                    }
 
-                                if (!offset) {
-                                    return;
-                                }
+                                    // Put a threshold on if a click is actually dragging
+                                    this.dragging =
+                                        Math.abs(offset) > SLIDE_MIN_THRESHOLD;
 
-                                // If crosses threshold after letting go, slide away
-                                if (Math.abs(offset) > MAX_OFFSET) {
-                                    this.slideAway(
-                                        offset > 0 ? 'Right' : 'Left',
-                                    );
-                                }
-                                else {
-                                    self.set_css(defaultStyle);
-                                    this.dragging = false;
+                                    this.setCursor('grabbing');
+                                }),
 
-                                    this.setCursor('grab');
-                                }
-                            });
+                                // On drag end
+                                gesture.connect('drag-end', () => {
+                                    const offset = gesture.get_offset()[1];
 
-                        if (this.is_popup) {
-                            NotifGestureWrapper.on_sliding_in(
-                                ++NotifGestureWrapper.sliding_in,
+                                    if (!offset) {
+                                        return;
+                                    }
+
+                                    // If crosses threshold after letting go, slide away
+                                    if (Math.abs(offset) > MAX_OFFSET) {
+                                        this.slideAway(
+                                            offset > 0 ? 'Right' : 'Left',
+                                        );
+                                    }
+                                    else {
+                                        setCss(provider, defaultStyle);
+                                        this.dragging = false;
+
+                                        this.setCursor('grab');
+                                    }
+                                }),
                             );
-                        }
 
-                        // Reverse of slideAway, so it started at squeeze, then we go to slide
-                        self.set_css(
-                            this.slide_in_from === 'Left'
-                                ? slideLeft
-                                : slideRight,
-                        );
-
-                        idle(() => {
-                            if (!notifications.get_notification(id)) {
-                                return;
+                            if (this.is_popup) {
+                                NotifGestureWrapper.on_sliding_in(
+                                    ++NotifGestureWrapper.sliding_in,
+                                );
                             }
 
-                            const rev =
-                                self?.get_parent() as Widget.Revealer | null;
+                            // Reverse of slideAway, so it started at squeeze, then we go to slide
+                            setCss(
+                                provider,
+                                this.slide_in_from === 'Left'
+                                    ? slideLeft
+                                    : slideRight,
+                            );
 
-                            if (!rev) {
-                                return;
-                            }
-
-                            rev.revealChild = true;
-
-                            timeout(ANIM_DURATION, () => {
+                            idle(() => {
                                 if (!notifications.get_notification(id)) {
                                     return;
                                 }
 
-                                // Then we go to center
-                                self.set_css(defaultStyle);
+                                const rev =
+                                    self?.get_parent() as Gtk.Revealer | null;
 
-                                if (this.is_popup) {
-                                    timeout(ANIM_DURATION, () => {
-                                        NotifGestureWrapper.on_sliding_in(
-                                            --NotifGestureWrapper.sliding_in,
-                                        );
-                                    });
+                                if (!rev) {
+                                    return;
                                 }
-                            });
-                        });
-                    }}
-                />
-            </revealer>,
-        );
 
-        setup_notif(this);
+                                rev.revealChild = true;
+
+                                timeout(ANIM_DURATION, () => {
+                                    if (!notifications.get_notification(id)) {
+                                        return;
+                                    }
+
+                                    // Then we go to center
+                                    setCss(provider, defaultStyle);
+
+                                    if (this.is_popup) {
+                                        timeout(ANIM_DURATION, () => {
+                                            NotifGestureWrapper.on_sliding_in(
+                                                --NotifGestureWrapper.sliding_in,
+                                            );
+                                        });
+                                    }
+                                });
+                            });
+                        }}
+                    >
+                        {children}
+                    </box>
+                </revealer>
+            ) as Gtk.Revealer;
+            this.add(rev);
+
+            setup_notif(this);
+
+            onCleanup(() => {
+                this.timer_object?.cancel();
+                notifsConnections.forEach((id) => {
+                    notifications.disconnect(id);
+                });
+                gestureConnections.forEach((id) => {
+                    gesture.disconnect(id);
+                });
+                disposeCallback();
+            });
+        });
     }
 }
 

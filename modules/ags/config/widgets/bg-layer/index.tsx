@@ -1,4 +1,4 @@
-import { Astal, Gdk } from 'astal/gtk3';
+import { Astal, Gdk } from 'ags/gtk3';
 
 export default (
     monitor = Gdk.Display.get_default()?.get_monitor(0) as Gdk.Monitor,
@@ -30,5 +30,5 @@ export default (
                     `
             }
         />
-    );
+    ) as Astal.Window;
 };

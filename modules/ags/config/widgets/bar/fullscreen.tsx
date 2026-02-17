@@ -1,6 +1,8 @@
-import { bind, idle, Variable } from 'astal';
-import { App, Astal, Gdk, Gtk, Widget } from 'astal/gtk3';
+import { Astal, Gdk, Gtk } from 'ags/gtk3';
+import app from 'ags/gtk3/app';
+import { idle } from 'ags/time';
 import AstalHyprland from 'gi://AstalHyprland';
+import { createState, Node } from 'gnim';
 
 import {
     get_hyprland_monitor_desc,
@@ -8,7 +10,7 @@ import {
     hyprMessage,
 } from '../../lib';
 
-const FullscreenState = Variable({
+const [FullscreenState, setFullscreenState] = createState({
     monitors: [] as string[],
     clientAddrs: new Map() as Map<string, string>,
 });
@@ -16,16 +18,17 @@ const FullscreenState = Variable({
 export default ({
     anchor,
     gdkmonitor = Gdk.Display.get_default()?.get_monitor(0) as Gdk.Monitor,
-    child,
+    children: child,
     ...rest
 }: {
+    children: object;
     anchor: Astal.WindowAnchor;
     gdkmonitor?: Gdk.Monitor;
-} & Widget.WindowProps) => {
+} & Partial<Astal.Window.ConstructorProps>) => {
     const hyprland = AstalHyprland.get_default();
 
     const monitor = get_hyprland_monitor_desc(gdkmonitor);
-    const BarVisible = Variable(false);
+    const [BarVisible, setBarVisible] = createState(false);
 
     hyprland.connect('event', async () => {
         const arrayEquals = (a1: unknown[], a2: unknown[]) =>
@@ -40,7 +43,7 @@ export default ({
                 await hyprMessage('j/monitors'),
             ) as AstalHyprland.Monitor[];
 
-            const fs = FullscreenState.get();
+            const fs = FullscreenState();
             const fsClients = hyprland.get_clients().filter((c) => {
                 const mon = newMonitors.find(
                     (m) => m.id === c.get_monitor()?.id,
@@ -66,7 +69,7 @@ export default ({
                 !mapEquals(clientAddrs, fs.clientAddrs);
 
             if (hasChanged) {
-                FullscreenState.set({
+                setFullscreenState({
                     monitors,
                     clientAddrs,
                 });
@@ -77,8 +80,8 @@ export default ({
         }
     });
 
-    FullscreenState.subscribe((v) => {
-        BarVisible.set(!v.monitors.includes(monitor));
+    FullscreenState.subscribe(() => {
+        setBarVisible(!FullscreenState().monitors.includes(monitor));
     });
 
     const barCloser = (
@@ -97,19 +100,19 @@ export default ({
             }
         >
             <eventbox
-                on_hover={() => {
+                onHover={() => {
                     barCloser.visible = false;
-                    BarVisible.set(false);
+                    setBarVisible(false);
                 }}
             >
                 <box css="padding: 1px;" />
             </eventbox>
         </window>
-    );
+    ) as Astal.Window;
 
     // Hide bar instantly when out of focus
     hyprland.connect('notify::focused-workspace', () => {
-        const addr = FullscreenState.get().clientAddrs.get(monitor);
+        const addr = FullscreenState().clientAddrs.get(monitor);
 
         if (addr) {
             const client = hyprland.get_client(addr);
@@ -118,18 +121,18 @@ export default ({
                 client?.workspace.id !==
                 hyprland.get_focused_workspace().get_id()
             ) {
-                BarVisible.set(true);
+                setBarVisible(true);
                 barCloser.visible = false;
             }
             else {
-                BarVisible.set(false);
+                setBarVisible(false);
                 barCloser.visible = true;
             }
         }
     });
 
     const buffer = (
-        <box css="min-height: 10px;" visible={bind(BarVisible).as((v) => !v)} />
+        <box css="min-height: 10px;" visible={BarVisible.as((v) => !v)} />
     );
 
     const vertical =
@@ -158,8 +161,8 @@ export default ({
     }
 
     const barWrap = (
-        <revealer reveal_child={bind(BarVisible)} transitionType={transition}>
-            {child}
+        <revealer revealChild={BarVisible} transitionType={transition}>
+            {child as Node}
         </revealer>
     );
 
@@ -174,9 +177,9 @@ export default ({
         >
             <eventbox
                 onHover={() => {
-                    if (!BarVisible.get()) {
+                    if (!BarVisible()) {
                         barCloser.visible = true;
-                        BarVisible.set(true);
+                        setBarVisible(true);
                     }
                 }}
             >
@@ -185,12 +188,12 @@ export default ({
                 </box>
             </eventbox>
         </window>
-    ) as Widget.Window;
+    ) as Astal.Window;
 
-    App.add_window(win);
+    app.add_window(win);
 
     idle(() => {
-        BarVisible.set(true);
+        setBarVisible(true);
     });
 
     return win;

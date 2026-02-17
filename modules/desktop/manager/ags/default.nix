@@ -20,7 +20,7 @@ self: {
       cp -ar ${../../../ags/config}/* ./.
       chmod +w -R ./.
       cp -ar ${nodeModules} ./node_modules
-      ${agsCfg.package}/bin/ags bundle ./app.ts $out
+      cp -ar . $out
     '';
 in {
   config = mkIf cfg.enable {
@@ -52,7 +52,7 @@ in {
           ];
 
           text = ''
-            exec ags run ${agsConfig} -a greeter
+            exec ags run ${agsConfig} --gtk 3 greeter
           '';
         })
       ];

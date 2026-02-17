@@ -1,4 +1,4 @@
-import { Gdk } from 'astal/gtk3';
+import { Gdk } from 'ags/gtk3';
 import AstalHyprland from 'gi://AstalHyprland';
 
 export const get_hyprland_monitor = (

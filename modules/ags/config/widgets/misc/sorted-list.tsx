@@ -1,8 +1,8 @@
 // This is definitely not good practice but I couldn't figure out how to extend PopupWindow
 // so here we are with a cursed function that returns a prop of the class.
 
-import { idle } from 'astal';
-import { Astal, Gtk, Widget } from 'astal/gtk3';
+import { Astal, Gtk } from 'ags/gtk3';
+import { idle } from 'ags/time';
 import { AsyncFzf, AsyncFzfOptions, FzfResultItem } from 'fzf';
 
 import { centerCursor } from '../../lib';
@@ -17,7 +17,7 @@ export interface SortedListProps<T> {
     sort_func: (
         a: Gtk.ListBoxRow,
         b: Gtk.ListBoxRow,
-        entry: Widget.Entry,
+        entry: Gtk.Entry,
         fzf: FzfResultItem<T>[],
     ) => number;
     name: string;
@@ -40,7 +40,7 @@ export class SortedList<T> {
     readonly sort_func: (
         a: Gtk.ListBoxRow,
         b: Gtk.ListBoxRow,
-        entry: Widget.Entry,
+        entry: Gtk.Entry,
         fzf: FzfResultItem<T>[],
     ) => number;
 
@@ -63,12 +63,9 @@ export class SortedList<T> {
 
         const placeholder = (
             <revealer>
-                <label
-                    label="   Couldn't find a match"
-                    className="placeholder"
-                />
+                <label label="   Couldn't find a match" class="placeholder" />
             </revealer>
-        ) as Widget.Revealer;
+        ) as Gtk.Revealer;
 
         const on_text_change = (text: string) => {
             // @ts-expect-error this works
@@ -88,15 +85,15 @@ export class SortedList<T> {
         };
 
         const entry = (
-            <entry onChanged={(self) => on_text_change(self.text)} hexpand />
-        ) as Widget.Entry;
+            <entry onNotifyText={(self) => on_text_change(self.text)} hexpand />
+        ) as Gtk.Entry;
 
         list.set_sort_func((a, b) => {
             return this.sort_func(a, b, entry, this.fzf_results);
         });
 
-        const refreshItems = () =>
-            idle(async () => {
+        const refreshItems = () => {
+            const callback = async () => {
                 // Delete items that don't exist anymore
                 const new_list = await this.create_list();
 
@@ -135,26 +132,31 @@ export class SortedList<T> {
 
                 list.show_all();
                 on_text_change('');
+            };
+
+            idle(() => {
+                callback().catch(console.error);
             });
+        };
 
         this.window = (
             <PopupWindow
                 name={name}
                 keymode={Astal.Keymode.ON_DEMAND}
-                on_open={() => {
+                openCallback={() => {
                     entry.set_text('');
                     refreshItems();
                     centerCursor();
                     entry.grab_focus();
                 }}
             >
-                <box vertical className={`${name} sorted-list`}>
-                    <box className="widget search">
+                <box vertical class={`${name} sorted-list`}>
+                    <box class="widget search">
                         <icon icon="preferences-system-search-symbolic" />
 
                         {entry}
 
-                        <button
+                        <cursor-button
                             css="margin-left: 5px;"
                             cursor="pointer"
                             onButtonReleaseEvent={refreshItems}
@@ -163,12 +165,12 @@ export class SortedList<T> {
                                 icon="view-refresh-symbolic"
                                 css="font-size: 26px;"
                             />
-                        </button>
+                        </cursor-button>
                     </box>
 
-                    <eventbox cursor="pointer">
+                    <cursor-eventbox cursor="pointer">
                         <scrollable
-                            className="widget list"
+                            class="widget list"
                             css="min-height: 600px; min-width: 700px;"
                             hscroll={Gtk.PolicyType.NEVER}
                             vscroll={Gtk.PolicyType.AUTOMATIC}
@@ -178,7 +180,7 @@ export class SortedList<T> {
                                 {placeholder}
                             </box>
                         </scrollable>
-                    </eventbox>
+                    </cursor-eventbox>
                 </box>
             </PopupWindow>
         ) as PopupWindow;

@@ -7,22 +7,18 @@
         ],
         "nixpkgs": [
           "nixpkgs"
-        ],
-        "systems": [
-          "systems"
         ]
       },
       "locked": {
-        "lastModified": 1761794292,
-        "narHash": "sha256-yyq3X7Y7D1/Oxp7XLYhgAfHakqSsJ1ykMvfwmZx8P6I=",
-        "owner": "matt1432",
+        "lastModified": 1764289441,
+        "narHash": "sha256-ak+lgFiYE5PHByN1/BRkO5JP498hno6Ix24C1Qf/vec=",
+        "owner": "Aylur",
         "repo": "ags",
-        "rev": "4a1af19ac67e914d3a0abdadeba52d29e12b72e4",
+        "rev": "e169694390548dfd38ff40f1ef2163d6c3ffe3ea",
         "type": "github"
       },
       "original": {
-        "owner": "matt1432",
-        "ref": "overlay",
+        "owner": "Aylur",
         "repo": "ags",
         "type": "github"
       }
@@ -80,22 +76,18 @@
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
-        ],
-        "systems": [
-          "systems"
         ]
       },
       "locked": {
-        "lastModified": 1763944728,
-        "narHash": "sha256-G4Mwh+bqH5Ouq2Lk5WOUv5f5eMUjIe6I9aQKb6eO198=",
-        "owner": "matt1432",
+        "lastModified": 1769774308,
+        "narHash": "sha256-8Ve6VdUpcYbl8bS5oyDwVnnNobyPxdPmUHGgSDyOazQ=",
+        "owner": "Aylur",
         "repo": "astal",
-        "rev": "d537296abad1390ac02c8dc594cd07737840e4ee",
+        "rev": "eb235f8813bdea2a4a38ac228f2efc4e2a8a90af",
         "type": "github"
       },
       "original": {
-        "owner": "matt1432",
-        "ref": "overlay",
+        "owner": "Aylur",
         "repo": "astal",
         "type": "github"
       }
@@ -1023,33 +1015,6 @@
         "type": "github"
       }
     },
-    "kompass": {
-      "inputs": {
-        "astal": [
-          "astal"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "systems": [
-          "systems"
-        ]
-      },
-      "locked": {
-        "lastModified": 1762237871,
-        "narHash": "sha256-S3kbpyo2C4KxhaOTEkliERXFgKPTZzyPz1nRut7w4gU=",
-        "owner": "kotontrion",
-        "repo": "kompass",
-        "rev": "0ea87abe506ebe6b6fd3d5d3c4f3ff72720d665c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "kotontrion",
-        "repo": "kompass",
-        "rev": "0ea87abe506ebe6b6fd3d5d3c4f3ff72720d665c",
-        "type": "github"
-      }
-    },
     "lib-aggregate": {
       "inputs": {
         "flake-utils": [
@@ -1681,7 +1646,6 @@
         "jellyfin-auto-collections-src": "jellyfin-auto-collections-src",
         "kapowarr-react": "kapowarr-react",
         "komf-src": "komf-src",
-        "kompass": "kompass",
         "lib-aggregate": "lib-aggregate",
         "libratbag-src": "libratbag-src",
         "material-symbols-src": "material-symbols-src",

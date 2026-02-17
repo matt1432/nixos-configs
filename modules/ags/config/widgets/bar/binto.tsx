@@ -1,4 +1,4 @@
-import { Astal, Gtk } from 'astal/gtk3';
+import { Astal, Gtk } from 'ags/gtk3';
 
 import { get_gdkmonitor_from_desc } from '../../lib';
 import Separator from '../misc/separator';
@@ -24,8 +24,8 @@ export default () => (
             Astal.WindowAnchor.RIGHT
         }
     >
-        <centerbox className="bar binto widget">
-            <box hexpand halign={Gtk.Align.START}>
+        <centerbox class="bar binto widget">
+            <box $type="start" hexpand halign={Gtk.Align.START}>
                 <CurrentIcon />
 
                 {/* <Separator size={8} />*/}
@@ -35,11 +35,11 @@ export default () => (
                 <Separator size={8} />
             </box>
 
-            <box>
+            <box $type="center">
                 <Clock />
             </box>
 
-            <box hexpand halign={Gtk.Align.END}>
+            <box $type="end" hexpand halign={Gtk.Align.END}>
                 <Network />
 
                 <Separator size={8} />

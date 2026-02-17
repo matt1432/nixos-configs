@@ -1,13 +1,13 @@
-import { bind, timeout } from 'astal';
-import { Astal, Gtk, Widget } from 'astal/gtk3';
+import { Astal, Gtk } from 'ags/gtk3';
+import { timeout } from 'ags/time';
 import AstalWp from 'gi://AstalWp';
+import { createBinding } from 'gnim';
 
 import { getWindow } from '../../lib';
 import Brightness from '../../services/brightness';
 import PopupWindow from '../misc/popup-window';
 import { ProgressBar } from '../misc/subclasses';
 
-/* Types */
 declare global {
     function popup_osd(osd: string): void;
 }
@@ -17,7 +17,7 @@ const transition_duration = 300;
 
 export default () => {
     let n_showing = 0;
-    let stack: Widget.Stack | undefined;
+    let stack: Astal.Stack | undefined;
 
     const popup = (osd: string) => {
         if (!stack) {
@@ -25,7 +25,7 @@ export default () => {
         }
 
         ++n_showing;
-        stack.shown = osd;
+        stack.visibleChildName = osd;
 
         getWindow('win-osd')?.set_visible(true);
 
@@ -50,123 +50,132 @@ export default () => {
         throw new Error('Could not find default audio devices.');
     }
 
+    const content = [
+        <box
+            $type="named"
+            name="speaker"
+            css="margin-bottom: 80px;"
+            $={() => {
+                speaker.connect('notify::mute', () => {
+                    popup('speaker');
+                });
+            }}
+        >
+            <box class="osd-item widget">
+                <icon icon={createBinding(speaker, 'volumeIcon')} />
+
+                <ProgressBar
+                    fraction={createBinding(speaker, 'volume')}
+                    sensitive={createBinding(speaker, 'mute').as((v) => !v)}
+                    valign={Gtk.Align.CENTER}
+                />
+            </box>
+        </box>,
+
+        <box
+            $type="named"
+            name="microphone"
+            css="margin-bottom: 80px;"
+            $={() => {
+                microphone.connect('notify::mute', () => {
+                    popup('microphone');
+                });
+            }}
+        >
+            <box class="osd-item widget">
+                <icon icon={createBinding(microphone, 'volumeIcon')} />
+
+                <ProgressBar
+                    fraction={createBinding(microphone, 'volume')}
+                    sensitive={createBinding(microphone, 'mute').as((v) => !v)}
+                    valign={Gtk.Align.CENTER}
+                />
+            </box>
+        </box>,
+
+        <box
+            $type="named"
+            name="brightness"
+            css="margin-bottom: 80px;"
+            $={() => {
+                brightness.connect('notify::screen-icon', () => {
+                    popup('brightness');
+                });
+            }}
+        >
+            <box class="osd-item widget">
+                <icon icon={createBinding(brightness, 'screenIcon')} />
+
+                <ProgressBar
+                    fraction={createBinding(brightness, 'screen')}
+                    valign={Gtk.Align.CENTER}
+                />
+            </box>
+        </box>,
+
+        brightness.hasKbd && (
+            <box
+                $type="named"
+                name="keyboard"
+                css="margin-bottom: 80px;"
+                $={() => {
+                    brightness.connect('notify::kbd-level', () => {
+                        popup('keyboard');
+                    });
+                }}
+            >
+                <box class="osd-item widget">
+                    <icon icon="keyboard-brightness-symbolic" />
+
+                    <ProgressBar
+                        fraction={createBinding(brightness, 'kbdLevel').as(
+                            (v) => (v ?? 0) / 2,
+                        )}
+                        sensitive={createBinding(brightness, 'kbdLevel').as(
+                            (v) => v !== 0,
+                        )}
+                        valign={Gtk.Align.CENTER}
+                    />
+                </box>
+            </box>
+        ),
+
+        <box
+            $type="named"
+            name="caps"
+            css="margin-bottom: 80px;"
+            $={() => {
+                brightness.connect('notify::caps-icon', () => {
+                    popup('caps');
+                });
+            }}
+        >
+            <box class="osd-item widget">
+                <icon icon={createBinding(brightness, 'capsIcon')} />
+
+                <label label="Caps Lock" />
+            </box>
+        </box>,
+    ] as Gtk.Widget[];
+
     return (
         <PopupWindow
             name="osd"
             anchor={Astal.WindowAnchor.BOTTOM}
             exclusivity={Astal.Exclusivity.IGNORE}
-            close_on_unfocus="stay"
+            closeOnUnfocus="stay"
             transition="slide bottom"
         >
             <stack
-                className="osd"
+                class="osd"
                 transitionDuration={transition_duration}
-                setup={(self) => {
+                $={(self) => {
                     timeout(3 * 1000, () => {
                         stack = self;
                     });
                 }}
             >
-                <box
-                    name="speaker"
-                    css="margin-bottom: 80px;"
-                    setup={(self) => {
-                        self.hook(speaker, 'notify::mute', () => {
-                            popup('speaker');
-                        });
-                    }}
-                >
-                    <box className="osd-item widget">
-                        <icon icon={bind(speaker, 'volumeIcon')} />
-
-                        <ProgressBar
-                            fraction={bind(speaker, 'volume')}
-                            sensitive={bind(speaker, 'mute').as((v) => !v)}
-                            valign={Gtk.Align.CENTER}
-                        />
-                    </box>
-                </box>
-
-                <box
-                    name="microphone"
-                    css="margin-bottom: 80px;"
-                    setup={(self) => {
-                        self.hook(microphone, 'notify::mute', () => {
-                            popup('microphone');
-                        });
-                    }}
-                >
-                    <box className="osd-item widget">
-                        <icon icon={bind(microphone, 'volumeIcon')} />
-
-                        <ProgressBar
-                            fraction={bind(microphone, 'volume')}
-                            sensitive={bind(microphone, 'mute').as((v) => !v)}
-                            valign={Gtk.Align.CENTER}
-                        />
-                    </box>
-                </box>
-
-                <box
-                    name="brightness"
-                    css="margin-bottom: 80px;"
-                    setup={(self) => {
-                        self.hook(brightness, 'notify::screen-icon', () => {
-                            popup('brightness');
-                        });
-                    }}
-                >
-                    <box className="osd-item widget">
-                        <icon icon={bind(brightness, 'screenIcon')} />
-
-                        <ProgressBar
-                            fraction={bind(brightness, 'screen')}
-                            valign={Gtk.Align.CENTER}
-                        />
-                    </box>
-                </box>
-
-                {brightness.hasKbd && (
-                    <box
-                        name="keyboard"
-                        css="margin-bottom: 80px;"
-                        setup={(self) => {
-                            self.hook(brightness, 'notify::kbd-level', () => {
-                                popup('keyboard');
-                            });
-                        }}
-                    >
-                        <box className="osd-item widget">
-                            <icon icon="keyboard-brightness-symbolic" />
-
-                            <ProgressBar
-                                fraction={bind(brightness, 'kbdLevel').as(
-                                    (v) => (v ?? 0) / 2,
-                                )}
-                                sensitive={bind(brightness, 'kbdLevel').as(
-                                    (v) => v !== 0,
-                                )}
-                                valign={Gtk.Align.CENTER}
-                            />
-                        </box>
-                    </box>
-                )}
-
-                <box
-                    name="caps"
-                    css="margin-bottom: 80px;"
-                    setup={(self) => {
-                        self.hook(brightness, 'notify::caps-icon', () => {
-                            popup('caps');
-                        });
-                    }}
-                >
-                    <box className="osd-item widget">
-                        <icon icon={bind(brightness, 'capsIcon')} />
-
-                        <label label="Caps Lock" />
-                    </box>
-                </box>
+                {content}
             </stack>
         </PopupWindow>
     );

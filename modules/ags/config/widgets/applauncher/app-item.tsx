@@ -1,24 +1,19 @@
-import { register } from 'astal/gobject';
-import { Gtk, Widget } from 'astal/gtk3';
-/* Types */
+import { register } from 'ags/gobject';
+import { Astal, Gtk } from 'ags/gtk3';
 import AstalApps from 'gi://AstalApps';
-type AppItemProps = Widget.BoxProps & {
+type AppItemProps = Partial<Astal.Box.ConstructorProps> & {
     app: AstalApps.Application;
+    class?: string;
 };
 
 @register()
-export class AppItem extends Widget.Box {
-    readonly app: AstalApps.Application;
+export class AppItem extends Astal.Box {
+    readonly app: AstalApps.Application =
+        null as unknown as AstalApps.Application;
 
-    constructor({
-        app,
-        hexpand = true,
-        className = '',
-        ...rest
-    }: AppItemProps) {
+    constructor({ app, hexpand = true, ...rest }: AppItemProps) {
         super({
             ...rest,
-            className: `app ${className}`,
             hexpand,
         });
         this.app = app;
@@ -28,12 +23,12 @@ export class AppItem extends Widget.Box {
                 icon={this.app.get_icon_name()}
                 css="font-size: 42px; margin-right: 25px;"
             />
-        );
+        ) as Astal.Icon;
 
         const textBox = (
             <box vertical>
                 <label
-                    className="title"
+                    class="title"
                     label={app.get_name()}
                     xalign={0}
                     truncate
@@ -42,7 +37,7 @@ export class AppItem extends Widget.Box {
 
                 {app.description !== '' && (
                     <label
-                        className="description"
+                        class="description"
                         label={app.get_description()}
                         wrap
                         xalign={0}
@@ -51,7 +46,7 @@ export class AppItem extends Widget.Box {
                     />
                 )}
             </box>
-        );
+        ) as Astal.Box;
 
         this.add(icon);
         this.add(textBox);

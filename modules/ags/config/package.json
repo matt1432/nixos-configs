@@ -3,7 +3,8 @@
     "version": "0.0.0",
     "main": "app.ts",
     "dependencies": {
-        "astal": "https://github.com/matt1432/astal/raw/d537296abad1390ac02c8dc594cd07737840e4ee/gjs.tar.gz",
+        "ags": "https://github.com/Aylur/ags/archive/e169694390548dfd38ff40f1ef2163d6c3ffe3ea.tar.gz",
+        "gnim": "^1.9.0",
         "fzf": "0.5.2",
         "@eslint/js": "9.39.2",
         "eslint": "9.39.2",

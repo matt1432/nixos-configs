@@ -1,5 +1,5 @@
-import { bind, Variable } from 'astal';
-import { Gtk } from 'astal/gtk3';
+import { createBinding, createState, With } from 'ags';
+import { Gtk } from 'ags/gtk3';
 import AstalBluetooth from 'gi://AstalBluetooth';
 
 import { getWindow } from '../../../lib';
@@ -7,14 +7,14 @@ import { getWindow } from '../../../lib';
 export default () => {
     const bluetooth = AstalBluetooth.get_default();
 
-    const Hovered = Variable(false);
+    const [isHovered, setIsHovered] = createState(false);
 
     return (
-        <button
-            className="bar-item bluetooth"
+        <cursor-button
+            class="bar-item bluetooth"
             cursor="pointer"
-            onHover={() => Hovered.set(true)}
-            onHoverLost={() => Hovered.set(false)}
+            onHover={() => setIsHovered(true)}
+            onHoverLost={() => setIsHovered(false)}
             onButtonReleaseEvent={(self) => {
                 const win = getWindow('win-bluetooth')!;
 
@@ -23,55 +23,65 @@ export default () => {
                 win.set_visible(!win.get_visible());
             }}
         >
-            {bind(bluetooth, 'isPowered').as((isPowered) => {
-                if (!isPowered) {
-                    return <icon icon="bluetooth-disabled-symbolic" />;
-                }
-                else {
-                    return (
-                        <box>
-                            {bind(bluetooth, 'isConnected').as(
-                                (isConnected) => {
-                                    const device = bluetooth
-                                        .get_devices()
-                                        .find((dev) => dev.get_connected());
+            <With value={createBinding(bluetooth, 'isPowered')}>
+                {(isPowered: boolean) => {
+                    if (!isPowered) {
+                        return <icon icon="bluetooth-disabled-symbolic" />;
+                    }
+                    else {
+                        return (
+                            <box>
+                                <With
+                                    value={createBinding(
+                                        bluetooth,
+                                        'isConnected',
+                                    )}
+                                >
+                                    {(isConnected: boolean) => {
+                                        const device = bluetooth
+                                            .get_devices()
+                                            .find((dev) => dev.get_connected());
 
-                                    if (!isConnected || !device) {
-                                        return (
-                                            <icon icon="bluetooth-active-symbolic" />
-                                        );
-                                    }
-                                    else {
-                                        return (
-                                            <>
-                                                <icon
-                                                    icon={bind(device, 'icon')}
-                                                />
-
-                                                <revealer
-                                                    revealChild={bind(Hovered)}
-                                                    transitionType={
-                                                        Gtk
-                                                            .RevealerTransitionType
-                                                            .SLIDE_LEFT
-                                                    }
-                                                >
-                                                    <label
-                                                        label={bind(
+                                        if (!isConnected || !device) {
+                                            return (
+                                                <icon icon="bluetooth-active-symbolic" />
+                                            );
+                                        }
+                                        else {
+                                            return (
+                                                <>
+                                                    <icon
+                                                        icon={createBinding(
                                                             device,
-                                                            'name',
+                                                            'icon',
                                                         )}
                                                     />
-                                                </revealer>
-                                            </>
-                                        );
-                                    }
-                                },
-                            )}
-                        </box>
-                    );
-                }
-            })}
-        </button>
+
+                                                    <revealer
+                                                        revealChild={isHovered}
+                                                        transitionType={
+                                                            Gtk
+                                                                .RevealerTransitionType
+                                                                .SLIDE_LEFT
+                                                        }
+                                                    >
+                                                        <label
+                                                            label={createBinding(
+                                                                device,
+                                                                'name',
+                                                            )}
+                                                        />
+                                                    </revealer>
+                                                </>
+                                            );
+                                        }
+                                    }}
+                                </With>
+                            </box>
+                        );
+                    }
+                }}
+            </With>
+        </cursor-button>
     );
 };
