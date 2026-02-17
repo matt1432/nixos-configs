@@ -1,22 +1,18 @@
 {
   lib,
-  fetchFromGitHub,
   python3Packages,
+  tccutil-src,
   ...
 }: let
-  # TODO: add update script
+  inherit (builtins) head match readFile;
+
   pname = "tccutil";
-  version = "1.5.1";
+  version = head (match ".*util_version = ['\"](.*)['\"].*" (readFile "${tccutil-src}/tccutil.py"));
 in
   python3Packages.buildPythonApplication {
     inherit pname version;
 
-    src = fetchFromGitHub {
-      owner = "jacobsalmela";
-      repo = "tccutil";
-      tag = "v${version}";
-      hash = "sha256-gb67xM8daBA03Oq8XCkLdNcPjx5qymz0U859gRaHofs=";
-    };
+    src = tccutil-src;
 
     pyproject = false;
     propagatedBuildInputs = with python3Packages; [

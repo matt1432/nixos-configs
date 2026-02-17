@@ -331,6 +331,10 @@ let
       repo = "yabai";
     }
     {
+      owner = "jacobsalmela";
+      repo = "tccutil";
+    }
+    {
       name = "jellyfin-auto-collections-src";
       owner = "matt1432";
       repo = "Jellyfin-Auto-Collections";

@@ -1682,6 +1682,7 @@
         "spotifywebapi-src": "spotifywebapi-src",
         "subscleaner-src": "subscleaner-src",
         "systems": "systems",
+        "tccutil-src": "tccutil-src",
         "treefmt-nix": "treefmt-nix",
         "ts-for-gir-src": "ts-for-gir-src",
         "tuya-local-src": "tuya-local-src",
@@ -1846,6 +1847,22 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "tccutil-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1759451354,
+        "narHash": "sha256-gb67xM8daBA03Oq8XCkLdNcPjx5qymz0U859gRaHofs=",
+        "owner": "jacobsalmela",
+        "repo": "tccutil",
+        "rev": "28b1942216d30b0d9970690a238c3fc8785e5279",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jacobsalmela",
+        "repo": "tccutil",
         "type": "github"
       }
     },

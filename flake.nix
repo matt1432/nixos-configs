@@ -464,6 +464,12 @@
       repo = "default";
       type = "github";
     };
+    tccutil-src = {
+      flake = false;
+      owner = "jacobsalmela";
+      repo = "tccutil";
+      type = "github";
+    };
     treefmt-nix = {
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "numtide";
