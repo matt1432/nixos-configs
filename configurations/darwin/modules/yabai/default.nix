@@ -28,14 +28,17 @@ in {
     inherit package;
 
     config = {
-      external_bar = "off:40:0";
-      menubar_opacity = "1.0";
+      # Mouse focuse stuff
       mouse_follows_focus = "off";
       focus_follows_mouse = "autofocus";
-      display_arrangement_order = "default";
-      window_origin_display = "default";
-      window_placement = "second_child";
       window_insertion_point = "focused";
+      window_origin_display = "cursor";
+
+      # Default
+      external_bar = "off:40:0";
+      menubar_opacity = "1.0";
+      display_arrangement_order = "default";
+      window_placement = "second_child";
       window_zoom_persist = "on";
       window_shadow = "on";
       window_animation_duration = "0.0";
