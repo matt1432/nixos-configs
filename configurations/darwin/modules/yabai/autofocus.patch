@@ -1,0 +1,32 @@
+From 0fa87ff5a8298239f6b982f181f35a2bb3c8ff0f Mon Sep 17 00:00:00 2001
+From: Jonas Drechsel <jonas@meditalk.de>
+Date: Thu, 23 Oct 2025 11:52:05 +0200
+Subject: [PATCH] Fix: Auto focus stops working after some time
+
+When hovering over different windows auto focus seems to break and stops working until a manual focus is triggered via a mouse click.
+Cause is g_mouse_state.ffm_window_id never being set back to 0, since the focus event is never being sent from the os.
+
+Increasing the delay in this hack to 40ms solves it on my machine (macbook air m4).
+---
+ src/window_manager.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/window_manager.c b/src/window_manager.c
+index 31081085..8551e45f 100644
+--- a/src/window_manager.c
++++ b/src/window_manager.c
+@@ -1293,12 +1293,12 @@ void window_manager_focus_window_without_raise(ProcessSerialNumber *window_psn,
+ 
+         //
+         // @hack
+-        // Artificially delay the activation by 1ms. This is necessary
++        // Artificially delay the activation by 40ms. This is necessary
+         // because some applications appear to be confused if both of
+         // the events appear instantaneously.
+         //
+ 
+-        usleep(10000);
++        usleep(40000);
+ 
+         g_event_bytes[0x8a] = 0x01;
+         memcpy(g_event_bytes + 0x3c, &window_id, sizeof(uint32_t));

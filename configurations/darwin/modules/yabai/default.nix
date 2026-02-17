@@ -9,9 +9,16 @@
 
   package = pkgs.yabai.overrideAttrs (o: {
     version = "${o.version}+${yabai-src.shortRev or "dirty"}";
-    src = yabai-src;
-    enableParallelBuilding = false;
+
+    # Remove versionCheckHook since we're adding the commit to the version
     nativeInstallCheckInputs = [];
+
+    src = yabai-src;
+
+    patches = (o.patches or []) ++ [./autofocus.patch];
+
+    # With this on, some files get removed before they stop being needed
+    enableParallelBuilding = false;
   });
 in {
   services.yabai = {
