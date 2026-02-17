@@ -10,9 +10,12 @@
   }: let
     inherit (self.lib) mkNixOS mkNixDarwin mkPkgs;
 
-    perSystem = attrs:
-      nixpkgs.lib.genAttrs (import systems) (system:
+    mkPerSystem = supportedSystems: attrs:
+      nixpkgs.lib.genAttrs supportedSystems (system:
         attrs (mkPkgs {inherit system nixpkgs;}));
+
+    perSystem = mkPerSystem (import systems);
+    perLinuxSystem = mkPerSystem (builtins.filter (nixpkgs.lib.hasSuffix "linux") (import systems));
   in {
     lib = import ./lib {inherit inputs perSystem;};
 
@@ -98,7 +101,10 @@
       self.nixosConfigurations // (mapAttrs' (n: v: nameValuePair "darwin" v) self.darwinConfigurations);
 
     # For nix-fast-build. I use a custom output to alleviate eval time of this flake. ie. when doing nix flake show
-    nixFastChecks = import ./nixFastChecks {inherit perSystem self;};
+    nixFastChecks = import ./nixFastChecks {
+      inherit self;
+      perSystem = perLinuxSystem;
+    };
 
     homeManagerModules = import ./homeManagerModules {inherit self;};
 

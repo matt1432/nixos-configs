@@ -37,7 +37,6 @@
       # done
 
       nix-fast-build \
-          --systems "x86_64-linux aarch64-linux" \
           --eval-workers 6 \
           --eval-max-memory-size 3072 \
           -f ..#nixFastChecks.all "$@"
