@@ -75,6 +75,7 @@
             };
           }
           {
+            # TODO: change to seerr
             jellyseerr = rec {
               href = "https://seerr.nelim.org";
               icon = "jellyseerr.png";
