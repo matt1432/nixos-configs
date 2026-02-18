@@ -8,7 +8,7 @@ const ICON_NAME = 'nvidia';
 
 @register()
 export default class GpuScreenRecorder extends GObject.Object {
-    private _lastNotifID: number | undefined;
+    private _lastNotifID: number | undefined = undefined;
 
     public constructor() {
         super();
