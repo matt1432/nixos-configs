@@ -4,7 +4,7 @@ import { subprocess } from 'ags/process';
 import style from '../style/greeter.scss';
 import Greeter from '../widgets/greeter';
 
-// FIXME: white flash
+// FIXME: white flash, seems to be a Hyprland bug?
 export default () => {
     app.start({
         css: style,

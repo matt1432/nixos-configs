@@ -108,7 +108,7 @@ let
       repo = "nix-gaming";
     };
 
-    # FIXME: remove this once neovim reaches 0.12 on nixpkgs
+    # FIXME: remove this once the foldinner setting on neovim reaches nixpkgs
     neovim-nightly = mkInput {
       owner = "nix-community";
       repo = "neovim-nightly-overlay";
