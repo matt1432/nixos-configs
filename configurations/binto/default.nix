@@ -69,6 +69,8 @@
     enable = true;
     user = mainUser;
 
+    easyeffects.enable = true;
+
     ags.enable = true;
     mainMonitor = "DP-2";
 

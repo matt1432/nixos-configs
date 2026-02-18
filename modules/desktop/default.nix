@@ -66,6 +66,14 @@ in {
       '';
     };
 
+    easyeffects.enable = mkOption {
+      type = types.bool;
+      default = false;
+      description = ''
+        Whether we want to easyeffects.
+      '';
+    };
+
     ags.enable = mkOption {
       type = types.bool;
       default = false;

@@ -8,7 +8,7 @@ self: {
   inherit (self.lib.hypr) mkBind;
   inherit (self.inputs) nixcord;
 
-  inherit (lib) attrValues getExe mkIf optionals;
+  inherit (lib) attrValues getExe mkIf optionalAttrs optionals;
   inherit (pkgs.writers) writeTOML;
 
   cfg = config.roles.desktop;
@@ -157,101 +157,104 @@ in {
         };
       };
 
-      home.packages = attrValues {
-        # KDE packages
-        inherit
-          (pkgs.kdePackages)
-          kdenlive
-          okular
-          ;
-
-        # School
-        inherit (purePkgs) libreoffice;
-        inherit (pkgs.hunspellDicts) en_CA;
-        inherit
-          (pkgs)
-          xournalpp
-          virt-manager
-          hunspell
-          ;
-
-        # Apps
-        inherit
-          (pkgs)
-          gnome-calculator
-          nextcloud-client
-          protonmail-desktop # run with `XDG_SESSION_TYPE=x11 proton-mail` if it crashes  https://github.com/NixOS/nixpkgs/issues/365156
-          spotifywm
-          swayimg
-          ;
-
-        prismlauncher = pkgs.prismlauncher.override {
-          jdk8 = pkgs.temurin-bin-8;
-        };
-
-        # tools
-        inherit
-          (pkgs)
-          grim-hyprland
-          wl-color-picker
-          wl-clipboard
-          cliphist
-          slurp
-          satty
-          ;
-
-        GParted = let
+      home.packages = attrValues ({
+          # KDE packages
           inherit
-            (pkgs)
-            # build deps
-            writeShellApplication
-            makeWrapper
-            symlinkJoin
-            # deps
-            gparted
-            psmisc
-            seahorse
+            (pkgs.kdePackages)
+            kdenlive
+            okular
             ;
 
-          sudoWrapper = writeShellApplication {
-            name = "GParted";
-            runtimeInputs = [
+          # School
+          inherit (purePkgs) libreoffice;
+          inherit (pkgs.hunspellDicts) en_CA;
+          inherit
+            (pkgs)
+            xournalpp
+            virt-manager
+            hunspell
+            ;
+
+          # Apps
+          inherit
+            (pkgs)
+            gnome-calculator
+            nextcloud-client
+            protonmail-desktop # run with `XDG_SESSION_TYPE=x11 proton-mail` if it crashes  https://github.com/NixOS/nixpkgs/issues/365156
+            spotifywm
+            swayimg
+            ;
+
+          prismlauncher = pkgs.prismlauncher.override {
+            jdk8 = pkgs.temurin-bin-8;
+          };
+
+          # tools
+          inherit
+            (pkgs)
+            grim-hyprland
+            wl-color-picker
+            wl-clipboard
+            cliphist
+            slurp
+            satty
+            ;
+
+          GParted = let
+            inherit
+              (pkgs)
+              # build deps
+              writeShellApplication
+              makeWrapper
+              symlinkJoin
+              # deps
               gparted
               psmisc
-              "/run/wrappers"
-            ];
-            text = ''
-              (
-              sleep 1.5
+              seahorse
+              ;
 
-              while killall -r -0 ssh-askpass > /dev/null 2>&1; do
-                  sleep 0.1
+            sudoWrapper = writeShellApplication {
+              name = "GParted";
+              runtimeInputs = [
+                gparted
+                psmisc
+                "/run/wrappers"
+              ];
+              text = ''
+                (
+                sleep 1.5
 
-                  if [[ $(hyprctl activewindow | grep ssh-askpass) == "" ]]; then
-                      killall -r ssh-askpass
-                  fi
-              done
-              ) &
+                while killall -r -0 ssh-askpass > /dev/null 2>&1; do
+                    sleep 0.1
 
-              export SUDO_ASKPASS="${seahorse}/libexec/seahorse/ssh-askpass"
+                    if [[ $(hyprctl activewindow | grep ssh-askpass) == "" ]]; then
+                        killall -r ssh-askpass
+                    fi
+                done
+                ) &
 
-              exec sudo -k -EA gparted "$@"
-            '';
-          };
-        in
-          symlinkJoin {
-            name = "gparted";
-            paths = [gparted];
-            buildInputs = [makeWrapper];
-            postBuild = ''
-              mkdir $out/.wrapped
-              mv $out/bin/gparted $out/.wrapped
-              cp ${getExe sudoWrapper} $out/bin/gparted
+                export SUDO_ASKPASS="${seahorse}/libexec/seahorse/ssh-askpass"
 
-              sed -i "s#Exec.*#Exec=$out/bin/gparted %f#" $out/share/applications/gparted.desktop
-            '';
-          };
-      };
+                exec sudo -k -EA gparted "$@"
+              '';
+            };
+          in
+            symlinkJoin {
+              name = "gparted";
+              paths = [gparted];
+              buildInputs = [makeWrapper];
+              postBuild = ''
+                mkdir $out/.wrapped
+                mv $out/bin/gparted $out/.wrapped
+                cp ${getExe sudoWrapper} $out/bin/gparted
+
+                sed -i "s#Exec.*#Exec=$out/bin/gparted %f#" $out/share/applications/gparted.desktop
+              '';
+            };
+        }
+        // optionalAttrs cfg.easyeffects.enable {
+          inherit (pkgs) easyeffects;
+        });
 
       wayland.windowManager.hyprland = {
         settings = {
@@ -269,6 +272,9 @@ in {
             ]
             ++ optionals config.services.tailscale.enable [
               "sleep 3; ${getExe restartTailscale}"
+            ]
+            ++ optionals cfg.easyeffects.enable [
+              "easyeffects --hide-window"
             ];
 
           windowrule =
