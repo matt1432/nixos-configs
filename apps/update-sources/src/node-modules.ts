@@ -8,11 +8,7 @@ import { npmRun, replaceInFile } from './lib';
 /* Constants */
 const FLAKE = process.env.FLAKE as string;
 
-const PINS = new Map([
-    // TODO: update to eslint v10
-    ['@eslint/js', '9.39.2'],
-    ['eslint', '9.39.2'],
-]);
+const PINS = new Map([]);
 
 const updatePackageJson = async (workspaceDir: string, updates: object) => {
     const currentPackageJson = await readPackageJSON(
