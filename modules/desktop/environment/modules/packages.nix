@@ -149,7 +149,7 @@ in {
           enable = true;
 
           config = {
-            startup_commands = "toggle_custom_color";
+            startup_commands = ["toggle_custom_color"];
             ui_font = "JetBrainsMono Nerd Font Mono Regular";
             font_size = "24";
             source = toString pkgs.scopedPackages.dracula.sioyek;
