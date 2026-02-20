@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage rec {
   imageName = "ghcr.io/browserless/chromium";
-  imageDigest = "sha256:ca3fca1093897b11dd1319d6b28d42d86ba5e2cff0fdfbdd4dcf448a0b76c795";
-  hash = "sha256-qI2400nLhgX9ZF+a1zyJtyRXAAvuTQyMFGXzJtMPxa4=";
+  imageDigest = "sha256:664e082b97dcd423fd88f66c58fd77ed575496a3e8b6964e0c4c5eeafefe56e7";
+  hash = "sha256-ij+M0ZNLX/fXDJTPcmB4lDloiFfMLXrfJO84b3K4Q9A=";
   finalImageName = imageName;
   finalImageTag = "latest";
 }
