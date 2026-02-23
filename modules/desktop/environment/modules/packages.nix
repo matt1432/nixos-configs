@@ -84,7 +84,33 @@ in {
           discord = {
             package = pkgs.discord;
 
-            vencord.unstable = true;
+            vencord = {
+              package = pkgs.callPackage "${nixcord}/pkgs/vencord.nix" {
+                unstable = false;
+                pnpm_10 = pkgs.pnpm_10.overrideAttrs (o: {
+                  passthru =
+                    o.passthru
+                    // {
+                      fetchDeps = {...} @ args:
+                        pkgs.fetchPnpmDeps (
+                          args
+                          // {
+                            pnpm = pkgs.pnpm_10;
+                          }
+                        );
+                      configHook = pkgs.pnpmConfigHook.overrideAttrs (prevAttrs: {
+                        propagatedBuildInputs =
+                          (prevAttrs.propagatedBuildInputs or [])
+                          ++ [
+                            pkgs.pnpm_10
+                          ];
+                      });
+                    };
+                });
+              };
+              unstable = true;
+            };
+
             openASAR.enable = false;
 
             settings = {
