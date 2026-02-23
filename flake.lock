@@ -1429,15 +1429,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1769132082,
-        "narHash": "sha256-cJVUBVP3qmRO2HGHqj18ChjOSztyo7eqElQJMRpWXw8=",
-        "owner": "nix-community",
+        "lastModified": 1771816265,
+        "narHash": "sha256-Lc0YANGlWoon8ftBqCQ2MFzl9bYJwgL0/sxBTqZJgC0=",
+        "owner": "matt1432",
         "repo": "nixos-avf",
-        "rev": "d0a62c3f64b45a39570fde31a3a490b214bf19ee",
+        "rev": "234a9944ea119e87c8621917e142e85e42c14631",
         "type": "github"
       },
       "original": {
-        "owner": "nix-community",
+        "owner": "matt1432",
+        "ref": "deprecations",
         "repo": "nixos-avf",
         "type": "github"
       }

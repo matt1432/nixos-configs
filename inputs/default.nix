@@ -26,9 +26,12 @@ let
       repo = "nix-darwin";
     };
 
+    # FIXME: https://github.com/nix-community/nixos-avf/pull/39
     nixos-avf = mkInput {
-      owner = "nix-community";
+      # owner = "nix-community";
+      owner = "matt1432";
       repo = "nixos-avf";
+      ref = "deprecations";
     };
 
     sops-nix = mkInput {

@@ -348,7 +348,8 @@
     };
     nixos-avf = {
       inputs.nixpkgs.follows = "nixpkgs";
-      owner = "nix-community";
+      owner = "matt1432";
+      ref = "deprecations";
       repo = "nixos-avf";
       type = "github";
     };

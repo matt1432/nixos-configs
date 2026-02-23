@@ -10,7 +10,7 @@
   wallpaper = toString pkgs.scopedPackages.dracula.wallpaper;
 in {
   config = mkIf cfg.enable {
-    home.packages = [pkgs.hyprpaper];
+    home.packages = [(pkgs.hyprpaper.override {xorg = {libXdmcp = pkgs.libxdmcp;};})];
 
     # NB: order of props in wallpaper matters
     xdg.configFile."hypr/hyprpaper.conf".text =
