@@ -36,10 +36,27 @@
       #     fi
       # done
 
-      nix-fast-build \
+      exec nix-fast-build \
           --eval-workers 6 \
           --eval-max-memory-size 3072 \
           -f ..#nixFastChecks.all "$@"
+    '';
+  };
+
+  listDeprecations = pkgs.writeShellApplication {
+    name = "listDeprecations";
+
+    runtimeInputs = attrValues {
+      inherit
+        (pkgs)
+        ripgrep
+        ;
+
+      inherit nixFastBuild;
+    };
+
+    text = ''
+      nixFastBuild |& rg -M 0 -r "" '.*trace: evaluation warning: ' | sort -n | uniq
     '';
   };
 in {
@@ -48,7 +65,11 @@ in {
     secretKeyFile = secrets.binary-cache-key.path;
   };
 
-  environment.systemPackages = [pkgs.nix-fast-build nixFastBuild];
+  environment.systemPackages = [
+    pkgs.nix-fast-build
+    nixFastBuild
+    listDeprecations
+  ];
 
   # Populate cache
   systemd = {

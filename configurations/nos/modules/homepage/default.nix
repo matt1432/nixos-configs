@@ -11,7 +11,7 @@
     listenPort = 3020;
     allowedHosts = "lan.nelim.org";
 
-    environmentFile = config.sops.secrets.homepage.path;
+    environmentFiles = [config.sops.secrets.homepage.path];
 
     settings = {
       title = "bruh";
