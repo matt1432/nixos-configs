@@ -6,7 +6,7 @@ self: {
 }: let
   inherit (self.lib.hypr) mkBind;
 
-  inherit (lib) getExe map mkIf;
+  inherit (lib) getExe mkBefore mkIf optionalAttrs;
 
   cfg = config.roles.desktop;
 
@@ -67,15 +67,34 @@ in {
         '';
     };
 
+    # unlock GPG keyring on login
+    services.gnome.gnome-keyring.enable = true;
+
+    security.pam.services =
+      {
+        login.enableGnomeKeyring = true;
+      }
+      // (optionalAttrs cfg.displayManager.enable {
+        greetd.enableGnomeKeyring = true;
+      });
+
+    environment.sessionVariables = {
+      # Tell Electron apps where to find the keyring
+      GNOME_KEYRING_CONTROL = "\${XDG_RUNTIME_DIR}/keyring";
+      SSH_AUTH_SOCK = "\${XDG_RUNTIME_DIR}/keyring/ssh";
+    };
+
     home-manager.users.${cfg.user} = {
       home.packages = [
         pkgs.seahorse
+        pkgs.libsecret
+        pkgs.libgnome-keyring # Required for Electron apps (moved to top-level)
+
         lockPkg
       ];
 
       wayland.windowManager.hyprland.settings = {
-        exec-once = [
-          "gnome-keyring-daemon --start --components=secrets"
+        exec-once = mkBefore [
           "${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1"
         ];
 

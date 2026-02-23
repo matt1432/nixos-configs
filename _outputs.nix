@@ -39,7 +39,7 @@
         cudaSupport = true;
         extraModules = [
           ./configurations/binto
-          secrets.nixosModules.default
+          secrets.nixosModules.binto
         ];
       };
 
