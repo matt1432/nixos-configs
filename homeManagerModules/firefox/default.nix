@@ -294,6 +294,7 @@ in {
               floccus
               return-youtube-dislikes
               sponsorblock
+              youtube-no-translation
               ;
           });
       };

@@ -6,10 +6,10 @@
 }: {
   "bitwarden" = buildFirefoxXpiAddon {
     pname = "bitwarden";
-    version = "2025.12.1";
+    version = "2026.1.1";
     addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4664623/bitwarden_password_manager-2025.12.1.xpi";
-    sha256 = "a7a123eee4e40fdd8af7c0c67243731ddcc37ae1498cf2828995f4905600c51f";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4698131/bitwarden_password_manager-2026.1.1.xpi";
+    sha256 = "6143af5d61d95021fcdd6939ab8c18f9535f775c80d4b69f75d1d238f81ae347";
     meta = with lib; {
       homepage = "https://bitwarden.com";
       description = "At home, at work, or on the go, Bitwarden easily secures all your passwords, passkeys, and sensitive information.";
@@ -304,6 +304,22 @@
       description = "Allows you to restore the tab you just closed with a single click—plus it can offer a list of recently closed tabs within a convenient context menu.";
       license = licenses.gpl3;
       mozPermissions = ["menus" "tabs" "sessions" "storage" "theme"];
+      platforms = platforms.all;
+    };
+  };
+  "youtube-no-translation" = buildFirefoxXpiAddon {
+    pname = "youtube-no-translation";
+    version = "2.20.1";
+    addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4685260/youtube_no_translation-2.20.1.xpi";
+    sha256 = "c69353a098e26eac56d3bd5bbbf486d176fb557d277056e95f695be9bc1a3055";
+    meta = with lib; {
+      description = "Keeps YouTube content in its original language (Titles, Audio Tracks, Descriptions...)";
+      mozPermissions = [
+        "storage"
+        "*://*.youtube.com/*"
+        "*://*.youtube-nocookie.com/*"
+      ];
       platforms = platforms.all;
     };
   };
