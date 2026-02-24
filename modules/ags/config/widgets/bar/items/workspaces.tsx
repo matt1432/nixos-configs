@@ -1,5 +1,5 @@
 import { Astal, Gtk } from 'ags/gtk3';
-import { timeout } from 'ags/time';
+import { timeout, Timer } from 'ags/time';
 import AstalHyprland from 'gi://AstalHyprland';
 import { createRoot, onCleanup } from 'gnim';
 import { register } from 'gnim/gobject';
@@ -13,8 +13,11 @@ const URGENT_DURATION = 1000;
 class Workspace extends Gtk.Revealer {
     dispose: (() => void) | undefined = undefined;
 
+    private disposeTimer: Timer | undefined = undefined;
+
     constructor({
         id = 0,
+        transitionDuration = 250,
         ...rest
     }: Partial<Gtk.Revealer.ConstructorProps> & {
         id?: number;
@@ -22,6 +25,7 @@ class Workspace extends Gtk.Revealer {
         super({
             ...rest,
             name: id.toString(),
+            transitionDuration,
             transitionType: Gtk.RevealerTransitionType.SLIDE_RIGHT,
         });
 
@@ -78,6 +82,12 @@ class Workspace extends Gtk.Revealer {
             onCleanup(() => {
                 conns.forEach((id) => {
                     hyprland.disconnect(id);
+                });
+                if (this.disposeTimer) {
+                    this.disposeTimer.cancel();
+                }
+                this.disposeTimer = timeout(transitionDuration + 10, () => {
+                    this.destroy();
                 });
             });
 
