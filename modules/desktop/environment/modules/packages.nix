@@ -291,6 +291,7 @@ in {
 
               "wl-paste --watch cliphist store"
 
+              # sleep to wait until system tray is started
               "sleep 3; nextcloud --background"
 
               "[workspace special:protonmail silent] sleep 10; proton-mail"
@@ -300,7 +301,8 @@ in {
               "sleep 3; ${getExe restartTailscale}"
             ]
             ++ optionals cfg.easyeffects.enable [
-              "easyeffects --hide-window"
+              # sleep to wait until system tray is started
+              "sleep 3; easyeffects --hide-window"
             ];
 
           windowrule =
