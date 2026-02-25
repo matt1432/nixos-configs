@@ -37,21 +37,14 @@ in {
     services;
 
     # TODO: add full TCC DB declarative control by force deleting it on every activation
-    tccutil = {
-      Global = mkOption {
-        type = types.listOf types.path;
-        default = [];
-      };
-
-      User = mkOption {
-        type = types.listOf types.path;
-        default = [];
-      };
+    tccutil = mkOption {
+      type = types.listOf types.path;
+      default = [];
     };
   };
 
   config = mkIf isDarwin {
-    home.packages = optionals (cfg.tccutil.Global != [] || cfg.tccutil.User != []) [tccutil];
+    home.packages = optionals (cfg.tccutil != []) [tccutil];
 
     home.activation = {
       checkFullDiskAccess =
@@ -81,45 +74,25 @@ in {
         );
 
       runTCCUtil = let
-        # FIXME: find better way to run sudo in home activation
-        sudoExe = "/usr/bin/sudo";
         tccExe = getExe tccutil;
       in
-        lib.hm.dag.entryAfter ["installPackages"] ((
-            concatMapStringsSep "\n" (
-              app:
-              # bash
-              ''
-                for entry in $(${sudoExe} ${tccExe} -l); do
-                    if [[ "${app}" != "$entry" ]] && [[ "$(basename "${app}")" == "$(basename "$entry")" ]]; then
-                        ${sudoExe} ${tccExe} -r "$entry"
-                    fi
-                done
+        lib.hm.dag.entryAfter ["installPackages"] (
+          concatMapStringsSep "\n" (
+            app:
+            # bash
+            ''
+              for entry in $(${tccExe} -l -u); do
+                  if [[ "${app}" != "$entry" ]] && [[ "$(basename "${app}")" == "$(basename "$entry")" ]]; then
+                      ${tccExe} -r "$entry" -u
+                  fi
+              done
 
-                ${sudoExe} ${tccExe} --insert ${app}
-                ${sudoExe} ${tccExe} --enable ${app}
-              ''
-            )
-            cfg.tccutil.Global
+              ${tccExe} --insert ${app} -u
+              ${tccExe} --enable ${app} -u
+            ''
           )
-          + "\n"
-          + (
-            concatMapStringsSep "\n" (
-              app:
-              # bash
-              ''
-                for entry in $(tccutil -l -u); do
-                    if [[ "${app}" != "$entry" ]] && [[ "$(basename "${app}")" == "$(basename "$entry")" ]]; then
-                        ${tccExe} -r "$entry" -u
-                    fi
-                done
-
-                ${tccExe} --insert ${app} -u
-                ${tccExe} --enable ${app} -u
-              ''
-            )
-            cfg.tccutil.User
-          ));
+          cfg.tccutil
+        );
     };
   };
 

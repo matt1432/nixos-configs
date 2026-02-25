@@ -1,6 +1,5 @@
 {
   lib,
-  mainUser,
   pkgs,
   yabai-src,
   ...
@@ -64,9 +63,7 @@ in {
     };
   };
 
-  home-manager.users.${mainUser} = {
-    darwin.tccutil.Global = [
-      (getExe package)
-    ];
-  };
+  darwin.tccutil = [
+    (getExe package)
+  ];
 }
