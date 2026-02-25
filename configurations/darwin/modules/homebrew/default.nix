@@ -4,7 +4,7 @@
 
     casks = [
       # To finish setup, launch Docker GUI
-      "docker"
+      "docker-desktop"
     ];
   };
 }
