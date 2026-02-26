@@ -31,14 +31,14 @@ in {
   options.darwin = {
     tcc = mapAttrs (_: _:
       mkOption {
-        type = types.listOf types.path;
+        type = types.listOf types.str;
         default = [];
       })
     services;
 
     # TODO: add full TCC DB declarative control by force deleting it on every activation
     tccutil = mkOption {
-      type = types.listOf types.path;
+      type = types.listOf types.str;
       default = [];
     };
   };
