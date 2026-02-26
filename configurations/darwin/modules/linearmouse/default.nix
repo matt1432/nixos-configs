@@ -1,9 +1,7 @@
 {mainUser, ...}: let
   inherit (builtins) toJSON;
 in {
-  homebrew.casks = [
-    "linearmouse"
-  ];
+  homebrew.casks = ["linearmouse"];
 
   launchd.user.agents."linearmouse".serviceConfig = {
     ProgramArguments = [

@@ -1,6 +1,8 @@
 {mainUser, ...}: let
   inherit (builtins) toJSON;
 in {
+  homebrew.casks = ["karabiner-elements"];
+
   home-manager.users.${mainUser} = let
     exceptTerminalCondition = type: {
       bundle_identifiers = [
