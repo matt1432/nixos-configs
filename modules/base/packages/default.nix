@@ -5,7 +5,7 @@ self: {
   purePkgs ? pkgs,
   ...
 }: let
-  inherit (lib) attrValues mkIf remove;
+  inherit (lib) attrValues head match mkIf readFile remove;
 
   cfg = config.roles.base;
 in {
@@ -15,7 +15,6 @@ in {
         "grim-hyprland"
         "nixos-jellyfin"
         "nixd"
-        "neovim-nightly"
       ])
       ++ [
         (final: prev: {
@@ -24,6 +23,18 @@ in {
             # since it's not worth the > 3 hour build time
             inherit (purePkgs) onnxruntime;
           };
+        })
+
+        # Neovim
+        self.inputs.neovim-nightly.overlays.default
+        (final: prev: {
+          neovim-unwrapped = prev.neovim-unwrapped.overrideAttrs (o: {
+            version = let
+              buildZigZon = readFile "${o.src}/build.zig.zon";
+              tag = head (match ''.*\.version = "([^"]*)".*'' buildZigZon);
+            in "${tag}-nightly+${o.version}";
+            __intentionallyOverridingVersion = true;
+          });
         })
       ];
 
