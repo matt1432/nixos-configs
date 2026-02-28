@@ -1,5 +1,5 @@
 inputs: let
-  inherit (builtins) functionArgs mapAttrs;
+  inherit (builtins) functionArgs length mapAttrs;
 
   hmSetupModule = specialArgs: {purePkgs, ...}: {
     home-manager.extraSpecialArgs = specialArgs // {inherit purePkgs;};
@@ -22,11 +22,17 @@ in rec {
     nix ? null,
     cudaSupport ? false,
   }: let
-    nixpkgs' = (import nixpkgs {inherit system;}).applyPatches {
-      name = "nixpkgs-patched";
-      src = nixpkgs;
-      patches = [];
-    };
+    patches = [];
+
+    nixpkgs' =
+      if length patches == 0
+      then nixpkgs
+      else
+        (import nixpkgs {inherit system;}).applyPatches {
+          name = "nixpkgs-patched";
+          src = nixpkgs;
+          inherit patches;
+        };
   in
     import nixpkgs' {
       inherit system;
