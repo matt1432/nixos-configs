@@ -31,7 +31,7 @@ in
       makeWrapper $out/node_modules/.bin/some-sass-language-server $out/bin/some-sass-language-server
     '';
 
-    npmDepsHash = "sha256-nCxW6XI4xAimkOQVOEpHiqAw2Lg9Jq1+OMESDFXnAc0=";
+    npmDepsHash = "sha256-0oneLJK8RUKvmlUbSjlIMwSgAK8zaqAzmHh7DE2KQS8=";
 
     passthru.updateScript = getExe (writeShellApplication {
       name = "update";

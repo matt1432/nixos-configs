@@ -36,10 +36,10 @@
   };
   "darkreader" = buildFirefoxXpiAddon {
     pname = "darkreader";
-    version = "4.9.120";
+    version = "4.9.121";
     addonId = "addon@darkreader.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4690081/darkreader-4.9.120.xpi";
-    sha256 = "496bf5a0e4a4d26226528ecce0ae051ee3f23153ee48d504d51f0f22afaf0fdd";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4690921/darkreader-4.9.121.xpi";
+    sha256 = "c0ec5d504e971dfbeaddc46f879c740a5f4c7c037a678ecd319afb7986fe63eb";
     meta = with lib; {
       homepage = "https://darkreader.org/";
       description = "Dark mode for every website. Take care of your eyes, use dark theme for night and daily browsing.";
@@ -325,13 +325,13 @@
   };
   "youtubelistview" = buildFirefoxXpiAddon {
     pname = "youtubelistview";
-    version = "1.502";
+    version = "1.600";
     addonId = "@idk-what-this-means";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4694095/youtubelistview-1.502.xpi";
-    sha256 = "8fb9f0784bc9d1b7ddf13b33ff6a5d10ac983feebced3464d2bcfc470c44e704";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4708703/youtubelistview-1.600.xpi";
+    sha256 = "8a3959cacddd9e8456b143d4011a0f5a6d6e8663877a626f41d6cf70061525d1";
     meta = with lib; {
       description = "Brings back the list view for the subscriptions page and more. Click the extension icon for customization options.";
-      mozPermissions = ["storage" "tabs" "https://www.youtube.com/*"];
+      mozPermissions = ["storage" "https://www.youtube.com/*"];
       platforms = platforms.all;
     };
   };
