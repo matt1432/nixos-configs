@@ -154,7 +154,6 @@
       };
       owner = "hyprwm";
       repo = "Hyprland";
-      rev = "b4ee4674f9a74e3d602c7fb17bc09f79d221583c";
       type = "github";
     };
     hyprland-plugins = {
@@ -165,7 +164,6 @@
       };
       owner = "hyprwm";
       repo = "hyprland-plugins";
-      rev = "e03c34ccd51280a44ea6d1f5c040cd81ecca25ed";
       type = "github";
     };
     hyprpaper = {

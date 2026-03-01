@@ -192,7 +192,8 @@ in {
             ;
 
           # School
-          inherit (purePkgs) libreoffice;
+          # FIXME: https://nixpkgs-tracker.ocfox.me/?pr=494721
+          # inherit (purePkgs) libreoffice;
           inherit (pkgs.hunspellDicts) en_CA;
           inherit
             (pkgs)

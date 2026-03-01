@@ -7,15 +7,4 @@ final: prev: {
         };
       }).pkgs;
   };
-
-  # FIXME: https://nixpkgs-tracker.ocfox.me/?pr=493376
-  pythonPackagesExtensions =
-    prev.pythonPackagesExtensions
-    ++ [
-      (python-final: python-prev: {
-        picosvg = python-prev.picosvg.overridePythonAttrs (oldAttrs: {
-          doCheck = false;
-        });
-      })
-    ];
 }
