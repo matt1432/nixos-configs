@@ -86,6 +86,34 @@ in {
         pkgs.vimPlugins.fzf-wrapper
         pkgs.vimPlugins.fzf-vim
 
+        pkgs.vimPlugins.plenary-nvim # Needed for telescope-nvim
+        pkgs.vimPlugins.telescope-fzf-native-nvim
+        {
+          plugin = pkgs.vimPlugins.telescope-nvim;
+          type = "lua";
+          config = ''
+            local telescope = require("telescope");
+
+            telescope.setup({
+                extensions = {
+                    fzf = {
+                        fuzzy = true,
+                        override_generic_sorter = true,
+                        override_file_sorter = true,
+                    },
+                },
+            });
+            telescope.load_extension('fzf');
+
+            vim.keymap.set(
+                'n',
+                '<C-RightMouse>',
+                require('telescope.builtin').lsp_references,
+                { noremap = true, silent = true }
+            );
+          '';
+        }
+
         {
           plugin = pkgs.vimPlugins.precognition-nvim;
           type = "lua";
