@@ -285,6 +285,15 @@ in {
                     to = [{key_code = "right_control";}];
                     type = "basic";
                   }
+
+                  {
+                    conditions = [
+                      (terminalCondition true)
+                    ];
+                    from = {key_code = "left_command";};
+                    to = [{key_code = "left_control";}];
+                    type = "basic";
+                  }
                 ];
               }
             ];
