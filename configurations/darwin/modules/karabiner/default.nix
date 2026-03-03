@@ -4,12 +4,16 @@ in {
   homebrew.casks = ["karabiner-elements"];
 
   home-manager.users.${mainUser} = let
-    exceptTerminalCondition = type: {
+    terminalCondition = type: {
       bundle_identifiers = [
         "^com\\.apple\\.Terminal$"
         "^com\\.github\\.wez\\.wezterm$"
       ];
-      type = "frontmost_application_${type}";
+      type = "frontmost_application_${
+        if type
+        then "if"
+        else "unless"
+      }";
     };
 
     isLaptopKeyboardCondition = {
@@ -49,7 +53,7 @@ in {
                   {
                     conditions = [
                       isLaptopKeyboardCondition
-                      (exceptTerminalCondition "if")
+                      (terminalCondition true)
                     ];
                     from = {
                       key_code = "right_arrow";
@@ -75,7 +79,7 @@ in {
                   {
                     conditions = [
                       isLaptopKeyboardCondition
-                      (exceptTerminalCondition "if")
+                      (terminalCondition true)
                     ];
                     from = {
                       key_code = "left_arrow";
@@ -152,7 +156,7 @@ in {
                     ];
                     type = "basic";
                     conditions = [
-                      (exceptTerminalCondition "unless")
+                      (terminalCondition false)
                     ];
                   }
                   {
@@ -169,7 +173,7 @@ in {
                     ];
                     type = "basic";
                     conditions = [
-                      (exceptTerminalCondition "if")
+                      (terminalCondition true)
                     ];
                   }
                   {
@@ -195,7 +199,7 @@ in {
                   {
                     conditions = [
                       isLaptopKeyboardCondition
-                      (exceptTerminalCondition "if")
+                      (terminalCondition true)
                     ];
                     from = [{key_code = "left_control";}];
                     to = {apple_vendor_top_case_key_code = "keyboard_fn";};
@@ -205,7 +209,7 @@ in {
                   {
                     conditions = [
                       isLaptopKeyboardCondition
-                      (exceptTerminalCondition "if")
+                      (terminalCondition true)
                     ];
                     from = {apple_vendor_top_case_key_code = "keyboard_fn";};
                     to = [{key_code = "left_control";}];
@@ -215,7 +219,7 @@ in {
                   {
                     conditions = [
                       isLaptopKeyboardCondition
-                      (exceptTerminalCondition "unless")
+                      (terminalCondition false)
                     ];
                     from = {apple_vendor_top_case_key_code = "keyboard_fn";};
                     to = [{key_code = "left_command";}];
@@ -225,7 +229,7 @@ in {
                   {
                     conditions = [
                       isLaptopKeyboardCondition
-                      (exceptTerminalCondition "unless")
+                      (terminalCondition false)
                     ];
                     from = {key_code = "left_command";};
                     to = [{key_code = "left_control";}];
@@ -235,7 +239,7 @@ in {
                   {
                     conditions = [
                       isLaptopKeyboardCondition
-                      (exceptTerminalCondition "unless")
+                      (terminalCondition false)
                     ];
                     from = {key_code = "left_control";};
                     to = [{apple_vendor_top_case_key_code = "keyboard_fn";}];
@@ -245,7 +249,7 @@ in {
                   {
                     conditions = [
                       isGSkillKeyboardCondition
-                      (exceptTerminalCondition "unless")
+                      (terminalCondition false)
                     ];
                     from = {key_code = "left_control";};
                     to = [{key_code = "left_command";}];
@@ -255,7 +259,7 @@ in {
                   {
                     conditions = [
                       isGSkillKeyboardCondition
-                      (exceptTerminalCondition "unless")
+                      (terminalCondition false)
                     ];
                     from = {key_code = "left_command";};
                     to = [{key_code = "left_control";}];
@@ -265,7 +269,7 @@ in {
                   {
                     conditions = [
                       isGSkillKeyboardCondition
-                      (exceptTerminalCondition "unless")
+                      (terminalCondition false)
                     ];
                     from = {key_code = "right_control";};
                     to = [{key_code = "right_command";}];
@@ -275,7 +279,7 @@ in {
                   {
                     conditions = [
                       isGSkillKeyboardCondition
-                      (exceptTerminalCondition "unless")
+                      (terminalCondition false)
                     ];
                     from = {key_code = "right_command";};
                     to = [{key_code = "right_control";}];
