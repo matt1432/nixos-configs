@@ -172,7 +172,8 @@
         };
 
         letterboxd = {
-          enabled = true;
+          # FIXME: letterboxd code throws errors
+          enabled = false;
           clear_collection = true;
           imdb_id_filter = true;
           list_ids = [
