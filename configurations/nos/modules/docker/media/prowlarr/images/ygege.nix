@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage rec {
-  imageName = "ghcr.io/uwudev/ygege";
-  imageDigest = "sha256:56f28df68c5806ef81e639e826afc004e17e9f43f08848a8aa0d5649316cc49a";
-  hash = "sha256-qz8orE31USa7axpHawigGXgf/zeDX9KXwxeQrBye6tI=";
+  imageName = "ghcr.io/djerayane/ygege";
+  imageDigest = "sha256:9ec0f34aacc9c03b6e325441ef0703deb5ad11fa9233a3f1b74d7af7f868ada8";
+  hash = "sha256-eraYVrjWd/C55qgpFpj9zQ8tMgN342zv7KZWABwxPYI=";
   finalImageName = imageName;
-  finalImageTag = "latest";
+  finalImageTag = "docker-publish";
 }
