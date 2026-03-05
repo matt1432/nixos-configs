@@ -168,6 +168,59 @@
                 }
               ];
             }
+
+            {
+              list_name = "Top Gear / Grand Tour Specials";
+              list_id = "top-gear-grand-tour-specials";
+
+              images = {
+                primary = "${my-images-src}/jellyfin-collections/top-gear-grand-tour-specials/Primary.jpg";
+                backdrop = "${my-images-src}/jellyfin-collections/top-gear-grand-tour-specials/Backdrop.jpg";
+              };
+
+              items = [
+                {
+                  title = "Middle East Special";
+                  media_type = "tvEpisode";
+                  imdb_id = "tt1802727";
+                }
+                {
+                  title = "Bolivia Special";
+                  media_type = "tvEpisode";
+                  imdb_id = "tt1571929";
+                }
+                {
+                  title = "The Beach (Buggy) Boys - Part 1";
+                  media_type = "tvEpisode";
+                  imdb_id = "tt6068840";
+                }
+                {
+                  title = "The Beach (Buggy) Boys - Part 2";
+                  media_type = "tvEpisode";
+                  imdb_id = "tt6068844";
+                }
+                {
+                  title = "Feed the World";
+                  media_type = "tvEpisode";
+                  imdb_id = "tt6068890";
+                }
+                {
+                  title = "Colombia Special (1)";
+                  media_type = "tvEpisode";
+                  imdb_id = "tt6068896";
+                }
+                {
+                  title = "Colombia Special (2)";
+                  media_type = "tvEpisode";
+                  imdb_id = "tt6068898";
+                }
+                {
+                  title = "Survival of the Fattest";
+                  media_type = "tvEpisode";
+                  imdb_id = "tt10008916";
+                }
+              ];
+            }
           ];
         };
 
