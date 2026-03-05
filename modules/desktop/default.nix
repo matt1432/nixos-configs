@@ -49,7 +49,7 @@ in {
 
       self.inputs."hyprland-plugins".overlays.default
       self.inputs."hyprgrass".overlays.default
-      self.inputs."hyprpaper".overlays.default
+      self.inputs."hyprpaper".overlays.hyprpaper-with-deps
     ];
   };
 

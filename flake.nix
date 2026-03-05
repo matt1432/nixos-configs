@@ -298,6 +298,7 @@
     nix-gaming = {
       inputs = {
         flake-parts.follows = "flake-parts";
+        git-hooks.follows = "pre-commit-hooks";
         nixpkgs.follows = "nixpkgs";
       };
       owner = "fufexan";

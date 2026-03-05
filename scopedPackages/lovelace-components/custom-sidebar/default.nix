@@ -38,7 +38,7 @@ in
     pnpmDeps = fetchPnpmDeps {
       fetcherVersion = 1;
       inherit (finalAttrs) pname version src;
-      hash = "sha256-s/SoAM8NoGAzUPo2FQUMyhjjiMJU9+OqIS23u931PX8=";
+      hash = "sha256-7Gt/ldmiyF0QsTaLbKGeRsG2BwpYiriIVBzf+3M4wKw=";
     };
 
     passthru.updateScript = ./update.sh;
