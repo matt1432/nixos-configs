@@ -115,14 +115,6 @@ in {
         }
 
         {
-          plugin = pkgs.vimPlugins.precognition-nvim;
-          type = "lua";
-          config = ''
-            require('precognition').setup();
-          '';
-        }
-
-        {
           plugin = pkgs.vimPlugins.todo-comments-nvim;
           type = "lua";
           config = ''
