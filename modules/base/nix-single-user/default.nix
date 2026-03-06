@@ -1,4 +1,5 @@
 # nix-daemon was flagged by SentinelOne on darwin so this is a workaround for a single-user installation of nix
+# https://zzamboni.org/post/using-nixs-single-user-mode-on-macos/
 self: {
   config,
   lib,
