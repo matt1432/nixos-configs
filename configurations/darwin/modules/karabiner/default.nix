@@ -1,8 +1,22 @@
-{mainUser, ...}: let
+{
+  mainUser,
+  # pkgs,
+  ...
+}: let
   inherit (builtins) toJSON;
-in {
-  homebrew.casks = ["karabiner-elements"];
 
+  # TODO: figure out latest Karabiner-Elements installation with nix
+  /*
+  package = pkgs.karabiner-elements.overrideAttrs rec {
+    version = "15.9.17";
+
+    src = pkgs.fetchurl {
+      url = "https://github.com/pqrs-org/Karabiner-Elements/releases/download/beta/Karabiner-Elements-${version}.dmg";
+      hash = "sha256-Rm2hBYAy6e+j/iM84dUUkc75HTGfzLQM8D9VX+RaqVk=";
+    };
+  };
+  */
+in {
   home-manager.users.${mainUser} = let
     terminalCondition = type: {
       bundle_identifiers = [
@@ -290,8 +304,22 @@ in {
                     conditions = [
                       (terminalCondition true)
                     ];
-                    from = {key_code = "left_command";};
+                    from = {
+                      key_code = "left_command";
+                      modifiers.optional = ["any"];
+                    };
                     to = [{key_code = "left_control";}];
+                    to_if_other_key_pressed = [
+                      {
+                        other_keys = [
+                          {
+                            key_code = "v";
+                            modifiers.optional = ["any"];
+                          }
+                        ];
+                        to = [{key_code = "left_command";}];
+                      }
+                    ];
                     type = "basic";
                   }
                 ];
