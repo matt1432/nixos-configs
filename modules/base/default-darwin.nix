@@ -11,6 +11,7 @@ in {
   imports = [
     ./substituters
     (import ./common-nix self)
+    (import ./nix-single-user self)
     (import ./packages self)
 
     self.nixosModules.tmux
@@ -92,5 +93,5 @@ in {
   };
 
   # For accurate stack trace
-  _file = ./default.nix;
+  _file = ./default-darwin.nix;
 }

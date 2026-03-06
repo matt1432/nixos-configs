@@ -4,7 +4,6 @@
   ...
 }: let
   inherit (builtins) toJSON;
-
   # TODO: figure out latest Karabiner-Elements installation with nix
   /*
   package = pkgs.karabiner-elements.overrideAttrs rec {
