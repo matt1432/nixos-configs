@@ -4,14 +4,13 @@
   pkgs,
   stdenv,
   ...
-} @ args: let
-  buildFirefoxXpiAddon = lib.makeOverridable ({
-    stdenv ? args.stdenv,
-    fetchurl ? args.fetchurl,
+}: let
+  buildMozillaXpiAddon = lib.makeOverridable ({
     pname,
     version,
     addonId,
-    url,
+    url ? "",
+    urls ? [], # Alternative for 'url' a list of URLs to try in specified order.
     sha256,
     meta,
     ...
@@ -21,10 +20,12 @@
 
       inherit meta;
 
-      src = fetchurl {inherit url sha256;};
+      src = fetchurl {inherit url urls sha256;};
 
       preferLocalBuild = true;
       allowSubstitutes = true;
+
+      passthru = {inherit addonId;};
 
       buildCommand =
         # bash
@@ -36,7 +37,7 @@
     });
 
   packages = import ./generated-firefox-addons.nix {
-    inherit buildFirefoxXpiAddon fetchurl lib stdenv;
+    inherit buildMozillaXpiAddon fetchurl lib stdenv;
   };
 in
-  lib.makeScope pkgs.newScope (_: packages // {inherit buildFirefoxXpiAddon;})
+  lib.makeScope pkgs.newScope (_: packages // {inherit buildMozillaXpiAddon;})

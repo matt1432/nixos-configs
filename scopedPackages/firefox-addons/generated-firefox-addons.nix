@@ -1,10 +1,10 @@
 {
-  buildFirefoxXpiAddon,
+  buildMozillaXpiAddon,
   fetchurl,
   lib,
   stdenv,
 }: {
-  "bitwarden" = buildFirefoxXpiAddon {
+  "bitwarden" = buildMozillaXpiAddon {
     pname = "bitwarden";
     version = "2026.1.1";
     addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
@@ -34,7 +34,7 @@
       platforms = platforms.all;
     };
   };
-  "darkreader" = buildFirefoxXpiAddon {
+  "darkreader" = buildMozillaXpiAddon {
     pname = "darkreader";
     version = "4.9.123";
     addonId = "addon@darkreader.org";
@@ -55,7 +55,7 @@
       platforms = platforms.all;
     };
   };
-  "floccus" = buildFirefoxXpiAddon {
+  "floccus" = buildMozillaXpiAddon {
     pname = "floccus";
     version = "5.8.6";
     addonId = "floccus@handmadeideas.org";
@@ -78,7 +78,7 @@
       platforms = platforms.all;
     };
   };
-  "google-container" = buildFirefoxXpiAddon {
+  "google-container" = buildMozillaXpiAddon {
     pname = "google-container";
     version = "1.5.4";
     addonId = "@contain-google";
@@ -101,7 +101,7 @@
       platforms = platforms.all;
     };
   };
-  "image-search-options" = buildFirefoxXpiAddon {
+  "image-search-options" = buildMozillaXpiAddon {
     pname = "image-search-options";
     version = "3.0.12";
     addonId = "{4a313247-8330-4a81-948e-b79936516f78}";
@@ -121,7 +121,7 @@
       platforms = platforms.all;
     };
   };
-  "istilldontcareaboutcookies" = buildFirefoxXpiAddon {
+  "istilldontcareaboutcookies" = buildMozillaXpiAddon {
     pname = "istilldontcareaboutcookies";
     version = "1.1.9";
     addonId = "idcac-pub@guus.ninja";
@@ -144,7 +144,7 @@
       platforms = platforms.all;
     };
   };
-  "return-youtube-dislikes" = buildFirefoxXpiAddon {
+  "return-youtube-dislikes" = buildMozillaXpiAddon {
     pname = "return-youtube-dislikes";
     version = "3.0.0.18";
     addonId = "{762f9885-5a13-4abd-9c77-433dcd38b8fd}";
@@ -162,7 +162,7 @@
       platforms = platforms.all;
     };
   };
-  "sound-volume" = buildFirefoxXpiAddon {
+  "sound-volume" = buildMozillaXpiAddon {
     pname = "sound-volume";
     version = "2.0.4";
     addonId = "{c4b582ec-4343-438c-bda2-2f691c16c262}";
@@ -181,7 +181,7 @@
       platforms = platforms.all;
     };
   };
-  "sponsorblock" = buildFirefoxXpiAddon {
+  "sponsorblock" = buildMozillaXpiAddon {
     pname = "sponsorblock";
     version = "6.1.2";
     addonId = "sponsorBlocker@ajay.app";
@@ -202,7 +202,7 @@
       platforms = platforms.all;
     };
   };
-  "stylus" = buildFirefoxXpiAddon {
+  "stylus" = buildMozillaXpiAddon {
     pname = "stylus";
     version = "2.3.19";
     addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
@@ -227,7 +227,7 @@
       platforms = platforms.all;
     };
   };
-  "tampermonkey" = buildFirefoxXpiAddon {
+  "tampermonkey" = buildMozillaXpiAddon {
     pname = "tampermonkey";
     version = "5.4.1";
     addonId = "firefox@tampermonkey.net";
@@ -255,7 +255,7 @@
       platforms = platforms.all;
     };
   };
-  "ublock-origin" = buildFirefoxXpiAddon {
+  "ublock-origin" = buildMozillaXpiAddon {
     pname = "ublock-origin";
     version = "1.69.0";
     addonId = "uBlock0@raymondhill.net";
@@ -293,7 +293,7 @@
       platforms = platforms.all;
     };
   };
-  "undoclosetabbutton" = buildFirefoxXpiAddon {
+  "undoclosetabbutton" = buildMozillaXpiAddon {
     pname = "undoclosetabbutton";
     version = "8.1.0";
     addonId = "{4853d046-c5a3-436b-bc36-220fd935ee1d}";
@@ -307,12 +307,12 @@
       platforms = platforms.all;
     };
   };
-  "youtube-no-translation" = buildFirefoxXpiAddon {
+  "youtube-no-translation" = buildMozillaXpiAddon {
     pname = "youtube-no-translation";
-    version = "2.20.1";
+    version = "2.21.1";
     addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4685260/youtube_no_translation-2.20.1.xpi";
-    sha256 = "c69353a098e26eac56d3bd5bbbf486d176fb557d277056e95f695be9bc1a3055";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4714437/youtube_no_translation-2.21.1.xpi";
+    sha256 = "a6ce0c91046c35d4eac0e4bbffe87f19a0481dd49d04b3943fc34c00840fceb9";
     meta = with lib; {
       description = "Keeps YouTube content in its original language (Titles, Audio Tracks, Descriptions...)";
       mozPermissions = [
@@ -323,12 +323,12 @@
       platforms = platforms.all;
     };
   };
-  "youtubelistview" = buildFirefoxXpiAddon {
+  "youtubelistview" = buildMozillaXpiAddon {
     pname = "youtubelistview";
-    version = "1.600";
+    version = "1.605";
     addonId = "@idk-what-this-means";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4708703/youtubelistview-1.600.xpi";
-    sha256 = "8a3959cacddd9e8456b143d4011a0f5a6d6e8663877a626f41d6cf70061525d1";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4715222/youtubelistview-1.605.xpi";
+    sha256 = "6ce138fc4907edd6dd1ac65ed0c5f184f3ae29e9ce0fbbe6b2b4ca6550bf7291";
     meta = with lib; {
       description = "Brings back the list view for the subscriptions page and more. Click the extension icon for customization options.";
       mozPermissions = ["storage" "https://www.youtube.com/*"];
