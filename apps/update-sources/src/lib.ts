@@ -36,8 +36,26 @@ export const parseArgs = (): Args => {
     return args;
 };
 
-export const parseFetchurl = (url: string): string =>
-    JSON.parse(
+interface NurlReturn {
+    args: {
+        hash: string;
+        owner: string;
+        repo: string;
+        rev: string;
+    };
+    fetcher: string;
+}
+
+export const parseNurl = (url: string): NurlReturn => {
+    return JSON.parse(
+        spawnSync(['nurl', url, '--json'].join(' '), [], {
+            shell: true,
+        }).stdout.toString(),
+    ) as NurlReturn;
+};
+
+export const parseFetchurl = (url: string): string => {
+    return JSON.parse(
         spawnSync(
             [
                 'nix',
@@ -55,6 +73,7 @@ export const parseFetchurl = (url: string): string =>
             { shell: true },
         ).stdout.toString(),
     ).hash;
+};
 
 export const replaceInFile = (
     replace: RegExp,

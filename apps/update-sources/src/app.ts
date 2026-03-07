@@ -8,6 +8,7 @@ import updateDocker from './docker';
 import updateFlakeInputs from './flake';
 import { parseArgs } from './lib';
 import updateNetDaemon from './netdaemon';
+import updateNixServeNg from './nix-serve-ng';
 import runNixUpdate from './nix-update';
 import updateNodeModules from './node-modules';
 import updateVuetorrent from './vuetorrent';
@@ -75,6 +76,10 @@ const main = async () => {
         console.log(updateNetDaemon() ?? 'No updates');
     }
 
+    if (args['nix-serve-ng']) {
+        console.log(updateNixServeNg() ?? 'No updates');
+    }
+
     if (args['node'] || args['node_modules']) {
         console.log((await updateNodeModules()) ?? 'No updates');
     }
@@ -126,6 +131,10 @@ const main = async () => {
         const nodeModulesOutput = await updateNodeModules();
 
         console.log(nodeModulesOutput ?? 'No updates');
+
+        const nixServeNgOutput = updateNixServeNg();
+
+        console.log(nixServeNgOutput ?? 'No updates');
 
         const vuetorrentOutput = updateVuetorrent();
 
@@ -209,6 +218,9 @@ const main = async () => {
         }
         if (netdaemonOutput) {
             output.push(`NetDaemon:\n${indentOutput(netdaemonOutput)}\n`);
+        }
+        if (nixServeNgOutput) {
+            output.push(`nix-serve-ng:\n${indentOutput(nixServeNgOutput)}\n`);
         }
         if (nixUpdateOutputs.length > 0) {
             output.push(
