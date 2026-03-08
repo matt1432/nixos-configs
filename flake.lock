@@ -955,14 +955,24 @@
         "type": "github"
       }
     },
-    "jellyfin-auto-collections-src": {
-      "flake": false,
+    "jellyfin-auto-collections": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": [
+          "systems"
+        ],
+        "treefmt-nix": [
+          "treefmt-nix"
+        ]
+      },
       "locked": {
-        "lastModified": 1767937464,
-        "narHash": "sha256-eNtBrglI4OdZ7jZgtotfnWdkvdaBuHzyr1ycc12ZjcQ=",
+        "lastModified": 1772940568,
+        "narHash": "sha256-Aq9cSD5w0dFMkXVCAj6QwT5q6lsXeBbqDeOf4wexzg0=",
         "owner": "matt1432",
         "repo": "Jellyfin-Auto-Collections",
-        "rev": "fccad677dafac48b0da073bcba9459deaf04646f",
+        "rev": "aa0f443a9f04978708611b04aa21c0706be25f87",
         "type": "github"
       },
       "original": {
@@ -1647,7 +1657,7 @@
         "hyprland-plugins": "hyprland-plugins",
         "hyprpaper": "hyprpaper",
         "jellarr": "jellarr",
-        "jellyfin-auto-collections-src": "jellyfin-auto-collections-src",
+        "jellyfin-auto-collections": "jellyfin-auto-collections",
         "kapowarr-react": "kapowarr-react",
         "komf-src": "komf-src",
         "lib-aggregate": "lib-aggregate",

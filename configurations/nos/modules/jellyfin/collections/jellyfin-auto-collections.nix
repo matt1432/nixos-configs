@@ -2,7 +2,7 @@
   config,
   lib,
   pkgs,
-  jellyfin-auto-collections-src,
+  jellyfin-auto-collections,
   ...
 }: let
   inherit
@@ -15,7 +15,7 @@
     types
     ;
 
-  inherit (config.sops.secrets) jellyfin-auto-collections;
+  inherit (config.sops) secrets;
 
   cfg = config.services.jellyfin-auto-collections;
 
@@ -31,7 +31,7 @@ in {
 
     package = mkOption {
       type = types.package;
-      default = pkgs.callPackage ./package.nix {inherit jellyfin-auto-collections-src;};
+      default = pkgs.jellyfin-auto-collections;
       defaultText = literalExpression "pkgs.callPackage ./package.nix {inherit jellyfin-auto-collections-src;}";
     };
 
@@ -42,6 +42,8 @@ in {
   };
 
   config = mkIf cfg.enable {
+    nixpkgs.overlays = [jellyfin-auto-collections.overlays.default];
+
     systemd.services.jellyfin-auto-collections = {
       wantedBy = ["multi-user.target"];
       wants = ["network-online.target"];
@@ -52,7 +54,7 @@ in {
         RuntimeDirectory = "jellyfin-auto-collections";
         WorkingDirectory = "%t/jellyfin-auto-collections";
 
-        EnvironmentFile = jellyfin-auto-collections.path;
+        EnvironmentFile = secrets.jellyfin-auto-collections.path;
 
         Type = "simple";
         Restart = "on-failure";

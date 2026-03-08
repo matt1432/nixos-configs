@@ -165,6 +165,11 @@ let
       repo = "jellarr";
     };
 
+    jellyfin-auto-collections = mkInput {
+      owner = "matt1432";
+      repo = "Jellyfin-Auto-Collections";
+    };
+
     bazarr-bulk = mkInput {
       owner = "mateoradman";
       repo = "bazarr-bulk";
@@ -336,11 +341,6 @@ let
     {
       owner = "jacobsalmela";
       repo = "tccutil";
-    }
-    {
-      name = "jellyfin-auto-collections-src";
-      owner = "matt1432";
-      repo = "Jellyfin-Auto-Collections";
     }
     {
       owner = "ljcp";
