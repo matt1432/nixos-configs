@@ -20,7 +20,9 @@ in {
         name = "setupDev";
 
         runtimeInputs = [
+          pkgs.bear
           pkgs.cmake
+          pkgs.gnumake
           osConfig.programs.direnv.nix-direnv.package
           osConfig.programs.git.package
         ];
@@ -44,9 +46,13 @@ in {
               fi
           fi
 
-          if [ -e CMakeLists.txt ] || [ -e ../CMakeLists.txt ]; then
+          if [ -e Makefile ]; then
+              nix develop -c bear -- make || true
+          elif [ -e CMakeLists.txt ] || [ -e ../CMakeLists.txt ]; then
               nix develop -c cmake -S . -B build/ -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
           fi
+
+          sed -i 's/"--no-gnu-unique",.*//g' compile_commands.json
 
           cat ${clangdConf} > .clangd
         '';
