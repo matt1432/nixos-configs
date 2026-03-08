@@ -188,6 +188,9 @@ let
       hyprland = mkInput {
         owner = "hyprwm";
         repo = "Hyprland";
+
+        # FIXME: wait for this to get merged and hyprland-plugins to chase it https://github.com/hyprwm/Hyprland/pull/13631
+        rev = "34c7cc7d38256f32f30a947f8b459df220149feb";
       };
 
       hyprland-plugins = mkHyprDep {

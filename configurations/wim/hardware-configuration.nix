@@ -112,9 +112,6 @@
       ;
   };
 
-  # enable brightness control
-  programs.light.enable = true;
-
   services = {
     xserver.videoDrivers = ["modesetting"];
 
