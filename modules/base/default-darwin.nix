@@ -52,7 +52,7 @@ in {
     };
 
     environment.systemPackages = attrValues {
-      inherit (pkgs) nh;
+      inherit (pkgs) nh awscli2;
 
       # Peripherals
       inherit
