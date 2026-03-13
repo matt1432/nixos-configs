@@ -1,21 +1,27 @@
 {
   mainUser,
-  # pkgs,
+  pkgs,
   ...
 }: let
   inherit (builtins) toJSON;
-  # TODO: figure out latest Karabiner-Elements installation with nix
-  /*
-  package = pkgs.karabiner-elements.overrideAttrs rec {
-    version = "15.9.17";
+in {
+  imports = [./module.nix];
 
-    src = pkgs.fetchurl {
-      url = "https://github.com/pqrs-org/Karabiner-Elements/releases/download/beta/Karabiner-Elements-${version}.dmg";
-      hash = "sha256-Rm2hBYAy6e+j/iM84dUUkc75HTGfzLQM8D9VX+RaqVk=";
+  services.karabiner-elements = {
+    enable = true;
+    package = pkgs.karabiner-elements.overrideAttrs rec {
+      version = "15.9.17";
+
+      src = pkgs.fetchurl {
+        url = "https://github.com/pqrs-org/Karabiner-Elements/releases/download/beta/Karabiner-Elements-${version}.dmg";
+        hash = "sha256-Rm2hBYAy6e+j/iM84dUUkc75HTGfzLQM8D9VX+RaqVk=";
+      };
+
+      # https://github.com/khaneliman/khanelinix/blob/5152a6dba2a79d09f08600966c0a5d72f220e180/overlays/karabiner-elements/default.nix#L4
+      postPatch = "";
     };
   };
-  */
-in {
+
   home-manager.users.${mainUser} = let
     terminalCondition = type: {
       bundle_identifiers = [
