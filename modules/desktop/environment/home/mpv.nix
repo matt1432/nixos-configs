@@ -22,8 +22,12 @@ in {
       # https://github.com/mpv-player/mpv/wiki/User-Scripts
       scripts = attrValues {
         inherit
-          (mpvScripts)
+          (pkgs.mpvScripts)
           modernz
+          ;
+
+        inherit
+          (mpvScripts)
           persist-properties
           undo-redo
           ;

@@ -69,7 +69,6 @@ MPV scripts I use that aren't in nixpkgs.
 | Name | Description | Homepage |
 | ---- | ----------- | -------- |
 | `kdialog-open-files` | Use KDE KDialog to add files to playlist, subtitles to playing video or open URLs. Based on 'mpv-open-file-dialog' <https://github.com/rossy/mpv-open-file-dialog>. | https://gist.github.com/ntasos/d1d846abd7d25e4e83a78d22ee067a22 |
-| `modernz` | A sleek and modern OSC for mpv designed to enhance functionality by adding more features, all while preserving the core standards of mpv's OSC. | https://github.com/Samillion/ModernZ |
 | `persist-properties` | Keeps selected property values (like volume) between player sessions. | https://github.com/d87/mpv-persist-properties |
 | `pointer-event` | Mouse/Touch input event detection for mpv. | https://github.com/christoph-heinrich/mpv-pointer-event |
 | `touch-gestures` | Touch gestures for mpv. | https://github.com/christoph-heinrich/mpv-touch-gestures |
