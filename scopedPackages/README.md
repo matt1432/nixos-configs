@@ -30,12 +30,13 @@ Every extensions I use in my firefox module.
 | `image-search-options` | A customizable reverse image search tool that conveniently presents a variety of top image search engines. | http://saucenao.com/ |
 | `istilldontcareaboutcookies` | Community version of the popular extension "I don't care about cookies" https://github.com/OhMyGuus/I-Dont-Care-About-Cookies | https://github.com/OhMyGuus/I-Dont-Care-About-Cookies |
 | `return-youtube-dislikes` | Returns ability to see dislike statistics on youtube |  |
-| `sound-volume` | Up to 600% volume boost |  |
 | `sponsorblock` | Easily skip YouTube video sponsors. When you visit a YouTube video, the extension will check the database for reported sponsors and automatically skip known sponsors. You can also report sponsors in videos. Other browsers: https://sponsor.ajay.app | https://sponsor.ajay.app |
 | `stylus` | Redesign your favorite websites with Stylus, an actively developed and community driven userstyles manager. Easily install custom themes from popular online repositories, or create, edit, and manage your own personalized CSS stylesheets. | https://add0n.com/stylus.html |
 | `tampermonkey` | Tampermonkey is the world's most popular userscript manager. | https://tampermonkey.net |
 | `ublock-origin` | Finally, an efficient wide-spectrum content blocker. Easy on CPU and memory. | https://github.com/gorhill/uBlock#ublock-origin |
 | `undoclosetabbutton` | Allows you to restore the tab you just closed with a single click---plus it can offer a list of recently closed tabs within a convenient context menu. | https://github.com/M-Reimer/undoclosetab |
+| `youtube-no-translation` | Keeps YouTube content in its original language (Titles, Audio Tracks, Descriptions...) |  |
+| `youtubelistview` | Brings back the list view for the subscriptions page and more. Click the extension icon for customization options. |  |
 
 ### hass-components
 

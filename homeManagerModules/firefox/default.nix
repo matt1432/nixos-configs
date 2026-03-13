@@ -280,7 +280,6 @@ in {
               darkreader
               image-search-options
               istilldontcareaboutcookies
-              sound-volume
               stylus
               tampermonkey
               ublock-origin

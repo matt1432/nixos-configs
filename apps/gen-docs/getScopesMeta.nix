@@ -11,7 +11,7 @@ in {
       desc = trimNewlines v;
       packages = let
         scopePkgs = removeAttrs self.${attr}.${currentSystem}.${n} [
-          "buildFirefoxXpiAddon"
+          "buildMozillaXpiAddon"
           "callPackage"
           "newScope"
           "override"

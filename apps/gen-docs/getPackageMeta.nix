@@ -1,5 +1,5 @@
 x: let
-  inherit (builtins) currentSystem mapAttrs removeAttrs replaceStrings;
+  inherit (builtins) currentSystem mapAttrs replaceStrings;
 
   trimNewlines = s: replaceStrings ["\n"] [" "] s;
   packages = removeAttrs x.${currentSystem} ["default"];

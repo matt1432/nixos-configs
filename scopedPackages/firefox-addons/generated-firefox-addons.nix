@@ -162,25 +162,6 @@
       platforms = platforms.all;
     };
   };
-  "sound-volume" = buildMozillaXpiAddon {
-    pname = "sound-volume";
-    version = "2.0.4";
-    addonId = "{c4b582ec-4343-438c-bda2-2f691c16c262}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4462455/600_sound_volume-2.0.4.xpi";
-    sha256 = "72e3b7ea83cefc4c72f4c22cb2875b77c4e0f2c0db743445b5aa70f09d0291ac";
-    meta = with lib; {
-      description = "Up to 600% volume boost";
-      license = licenses.mpl20;
-      mozPermissions = [
-        "<all_urls>"
-        "tabs"
-        "storage"
-        "webRequest"
-        "webRequestBlocking"
-      ];
-      platforms = platforms.all;
-    };
-  };
   "sponsorblock" = buildMozillaXpiAddon {
     pname = "sponsorblock";
     version = "6.1.2";
@@ -325,10 +306,10 @@
   };
   "youtubelistview" = buildMozillaXpiAddon {
     pname = "youtubelistview";
-    version = "1.605";
+    version = "1.614";
     addonId = "@idk-what-this-means";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4715222/youtubelistview-1.605.xpi";
-    sha256 = "6ce138fc4907edd6dd1ac65ed0c5f184f3ae29e9ce0fbbe6b2b4ca6550bf7291";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4724020/youtubelistview-1.614.xpi";
+    sha256 = "576fb4bc34dad1b1882a3382d12f6443f960560bea7b756f9c4d81d62dd16cbb";
     meta = with lib; {
       description = "Brings back the list view for the subscriptions page and more. Click the extension icon for customization options.";
       mozPermissions = ["storage" "https://www.youtube.com/*"];
