@@ -55,7 +55,7 @@ in {
             command-focused = false;
           };
 
-          colors = {
+          colors-dark = {
             # BG transparency
             alpha = 0.8;
 
