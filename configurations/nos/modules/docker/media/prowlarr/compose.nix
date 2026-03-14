@@ -34,6 +34,14 @@ in {
 
         ports = ["8715:8715"];
         networks = ["proxy_net"];
+
+        healthcheck = {
+          test = ["CMD-SHELL" "curl --fail http://localhost:$${BIND_PORT:-8715}/health || exit 1"];
+          interval = "1m30s";
+          timeout = "20s";
+          retries = "3";
+          start_period = "10s";
+          };
       };
 
       "flaresolverr" = {
