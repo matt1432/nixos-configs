@@ -1,4 +1,4 @@
-import { createBinding, createState, For } from 'ags';
+import { createBinding, createState, For, onCleanup } from 'ags';
 import { Gtk } from 'ags/gtk3';
 import AstalNetwork from 'gi://AstalNetwork';
 
@@ -14,21 +14,37 @@ export default () => {
         throw new Error('Could not find wifi device.');
     }
 
+    const [id, setId] = createState<number | null>(null);
+
     const [isRefreshing, setIsRefreshing] = createState(false);
     const [accessPoints, setAccessPoints] = createState<
         AstalNetwork.AccessPoint[]
     >(wifi.get_access_points());
 
-    // FIXME: doesn't update?
-    wifi.connect('notify::access-points', () => {
+    isRefreshing.subscribe(() => {
+        const _id = id();
+        if (_id !== null) {
+            wifi.disconnect(_id);
+            setId(null);
+        }
+
         if (isRefreshing()) {
             setAccessPoints(wifi.get_access_points());
+
+            setId(
+                wifi.connect('notify::access-points', () => {
+                    setAccessPoints(wifi.get_access_points());
+                }),
+            );
+
+            wifi.scan();
         }
     });
 
-    isRefreshing.subscribe(() => {
-        if (isRefreshing()) {
-            setAccessPoints(wifi.get_access_points());
+    onCleanup(() => {
+        const _id = id();
+        if (_id !== null) {
+            wifi.disconnect(_id);
         }
     });
 
