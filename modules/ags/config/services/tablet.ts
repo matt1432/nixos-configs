@@ -11,12 +11,13 @@ const ROTATION_MAP: Record<RotationName, 0 | 1 | 2 | 3> = {
     'left-up': 1,
 };
 
-const SCREEN = 'desc:BOE 0x0964';
+const SCREEN = 'desc:Lenovo Group Limited 0x41A0';
 
 const DEVICES = ['wacom-hid-52eb-finger', 'wacom-hid-52eb-pen'];
 
 interface TabletSignals extends GObject.Object.SignalSignatures {
     'autorotate-changed': Tablet['autorotateChanged'];
+    'rotation-changed': Tablet['rotationChanged'];
     'inputs-changed': Tablet['inputsChanged'];
     'notify::current-mode': (val: Tablet['currentMode']) => void;
     'notify::osk-state': (val: Tablet['oskState']) => void;
@@ -28,6 +29,11 @@ export default class Tablet extends GObject.Object {
     @signal([Boolean], GObject.TYPE_NONE, { default: false })
     autorotateChanged(running: boolean): undefined {
         console.log(running);
+    }
+
+    @signal([Number], GObject.TYPE_NONE, { default: false })
+    rotationChanged(rotation: number): undefined {
+        console.log(rotation);
     }
 
     @signal([Boolean], GObject.TYPE_NONE, { default: false })
@@ -223,6 +229,8 @@ export default class Tablet extends GObject.Object {
                 );
 
                 hyprMessage(`[[BATCH]] ${batchRotate.flat()}`);
+
+                this.emit('rotation-changed', orientation);
             }
         });
 
