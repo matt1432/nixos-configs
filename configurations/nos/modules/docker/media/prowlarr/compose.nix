@@ -41,7 +41,7 @@ in {
           timeout = "20s";
           retries = "3";
           start_period = "10s";
-          };
+        };
       };
 
       "flaresolverr" = {

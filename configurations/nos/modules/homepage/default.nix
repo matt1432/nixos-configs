@@ -75,13 +75,12 @@
             };
           }
           {
-            # TODO: change to seerr
-            jellyseerr = rec {
+            seerr = rec {
               href = "https://seerr.nelim.org";
-              icon = "jellyseerr.png";
+              icon = "seerr.png";
               description = "request handler";
               widget = {
-                type = "jellyseerr";
+                type = "seerr";
                 url = href;
                 key = "{{HOMEPAGE_VAR_SEERR_API}}";
               };

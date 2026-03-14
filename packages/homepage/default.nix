@@ -19,19 +19,19 @@
 in
   stdenv.mkDerivation (finalAttrs: {
     pname = "homepage-dashboard";
-    version = "1.10.1";
+    version = "1.11.0";
 
     src = fetchFromGitHub {
       owner = "gethomepage";
       repo = "homepage";
       rev = "v${finalAttrs.version}";
-      hash = "sha256-hJbF6VZRgC2oROdEonlWS6Oj229sKemnpQX+pf8+6rc=";
+      hash = "sha256-jnv9PnClm/jIQ4uU6c4A1UiAmwoihG0l6k3fUbD47I4=";
     };
 
     pnpmDeps = fetchPnpmDeps {
       fetcherVersion = 1;
       inherit (finalAttrs) pname version src;
-      hash = "sha256-723jquZSebNmDMebuV5+MbPyooxktE8kzc5hbA6ClXk=";
+      hash = "sha256-fP5y6q42Az8pcCLqiiifFtEh8lgISSZndWyfCX1mfgM=";
     };
 
     nativeBuildInputs = [
