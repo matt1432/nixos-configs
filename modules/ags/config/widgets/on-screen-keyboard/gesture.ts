@@ -19,7 +19,7 @@ const releaseAllKeys = () => {
     execAsync(['ydotool', 'key', ...KEYCODES]).catch(print);
 };
 
-// FIXME: hard to start with fingers
+// FIXME: cursorpos doesn't update location when finger touching the screen moves
 export default (win: OskWindow) => {
     const tablet = Tablet.get_default();
 
@@ -27,6 +27,8 @@ export default (win: OskWindow) => {
     let calculatedHeight = 0;
 
     idle(() => {
+        // Expose a bit of the window to make it easier with finger after bug is fixed ^
+        // calculatedHeight = win.get_allocated_height() - 4;
         calculatedHeight = win.get_allocated_height();
         tablet.oskState = false;
 
