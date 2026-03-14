@@ -6,6 +6,5 @@
     ./nfs-client
     ./pcsd
     ./unbound
-    ./whoogle
   ];
 }

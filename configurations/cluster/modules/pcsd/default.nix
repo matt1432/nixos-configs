@@ -49,12 +49,6 @@ in {
         enable = true;
         group = "caddy-grp";
       }
-
-      {
-        systemdName = "whoogle-search";
-        enable = true;
-        group = "caddy-grp";
-      }
     ];
 
     nodes = [

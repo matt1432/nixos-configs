@@ -124,22 +124,10 @@ in {
           default =
             if isDarwin
             then "google"
-            else "whoogle";
+            else "ddg";
           force = true;
 
           engines = {
-            whoogle = {
-              name = "Whoogle Search";
-              urls = singleton {
-                template = "https://search.nelim.org/search";
-                params = attrsToList {
-                  "q" = "{searchTerms}";
-                };
-              };
-              icon = "https://search.nelim.org/favicon.ico";
-              definedAliases = ["@s"];
-            };
-
             code = {
               name = "Github Search Code";
               urls = singleton {
@@ -259,7 +247,6 @@ in {
           order =
             optionals isDarwin ["google"]
             ++ [
-              "whoogle"
               "ddg"
               "mynixos"
               "nixwiki"

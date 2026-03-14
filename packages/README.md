@@ -24,4 +24,3 @@ This directory contains every derivations for packages exposed by this flake.
 | `subscleaner` | Subscleaner is a Python script that removes advertisements from subtitle files. It's designed to help you enjoy your favorite shows and movies without the distraction of unwanted ads in the subtitles. | https://gitlab.com/rogs/subscleaner |
 | `tccutil` | Command line tool to modify OS X's accessibility database | https://github.com/jacobsalmela/tccutil |
 | `trash-d` | A near drop-in replacement for `rm` that uses the [FreeDesktop trash bin](https://specifications.freedesktop.org/trash-spec/trashspec-latest.html). | https://github.com/rushsteve1/trash-d |
-| `whoogle-search` | Self-hosted, ad-free, privacy-respecting metasearch engine | https://github.com/benbusby/whoogle-search |

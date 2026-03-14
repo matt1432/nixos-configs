@@ -6,7 +6,7 @@
   self,
   ...
 }: let
-  inherit (lib) attrValues head removeAttrs;
+  inherit (lib) attrValues head;
 
   inherit (config.sops) secrets;
   inherit (config.networking) hostName;
@@ -60,7 +60,6 @@ in {
       "Vaultwarden" = mkPublicReverseProxy "vault" "${nosIP}:8781" {};
       "Hauk" = mkPublicReverseProxy "hauk" "${nosIP}:3003" {};
       "Headscale" = mkPublicReverseProxy "headscale" "${clusterIP}:8085" {};
-      "Whoogle" = mkPublicReverseProxy "search" "${clusterIP}:8080" {};
 
       "Jellyfin" = mkPublicReverseProxy "jelly" "${nosIP}:8096" {
         subDirectories.jfa-go = {
