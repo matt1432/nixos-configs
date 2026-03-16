@@ -238,10 +238,10 @@
   };
   "ublock-origin" = buildMozillaXpiAddon {
     pname = "ublock-origin";
-    version = "1.69.0";
+    version = "1.70.0";
     addonId = "uBlock0@raymondhill.net";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4675310/ublock_origin-1.69.0.xpi";
-    sha256 = "785bcde68a25faa8a0949964ec5ffe9bdcb85d3f0ae21c23f607c6c8f91472cf";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4721638/ublock_origin-1.70.0.xpi";
+    sha256 = "f2730d2877005763a45d765749892e936f49cae713d28f7aa6ea314454b89cf1";
     meta = with lib; {
       homepage = "https://github.com/gorhill/uBlock#ublock-origin";
       description = "Finally, an efficient wide-spectrum content blocker. Easy on CPU and memory.";
@@ -306,10 +306,10 @@
   };
   "youtubelistview" = buildMozillaXpiAddon {
     pname = "youtubelistview";
-    version = "1.614";
+    version = "1.617";
     addonId = "@idk-what-this-means";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4724020/youtubelistview-1.614.xpi";
-    sha256 = "576fb4bc34dad1b1882a3382d12f6443f960560bea7b756f9c4d81d62dd16cbb";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4727487/youtubelistview-1.617.xpi";
+    sha256 = "ddd04782975513481dd443b3bff5388f8cf980fa21f7f34d6f13e356621f539a";
     meta = with lib; {
       description = "Brings back the list view for the subscriptions page and more. Click the extension icon for customization options.";
       mozPermissions = ["storage" "https://www.youtube.com/*"];
