@@ -118,37 +118,6 @@ in {
               }
 
               {
-                description = "Clipboard History";
-                enabled = false;
-                manipulators = [
-                  {
-                    from = {
-                      key_code = "v";
-                      modifiers = {
-                        mandatory = ["left_command"];
-                        optional = ["any"];
-                      };
-                    };
-                    to = [
-                      {
-                        key_code = "spacebar";
-                        modifiers = ["left_command"];
-                      }
-                      {
-                        key_code = "4";
-                        modifiers = ["left_command"];
-                      }
-                      {
-                        key_code = "4";
-                        modifiers = ["left_command"];
-                      }
-                    ];
-                    type = "basic";
-                  }
-                ];
-              }
-
-              {
                 manipulators = [
                   {
                     description = "Change CSA ù to Slash";
@@ -252,6 +221,17 @@ in {
                     ];
                     from = {key_code = "left_command";};
                     to = [{key_code = "left_control";}];
+                    to_if_other_key_pressed = [
+                      {
+                        other_keys = [
+                          {
+                            key_code = "v";
+                            modifiers.optional = ["any"];
+                          }
+                        ];
+                        to = [{key_code = "left_command";}];
+                      }
+                    ];
                     type = "basic";
                   }
 
@@ -282,6 +262,17 @@ in {
                     ];
                     from = {key_code = "left_command";};
                     to = [{key_code = "left_control";}];
+                    to_if_other_key_pressed = [
+                      {
+                        other_keys = [
+                          {
+                            key_code = "v";
+                            modifiers.optional = ["any"];
+                          }
+                        ];
+                        to = [{key_code = "left_command";}];
+                      }
+                    ];
                     type = "basic";
                   }
 

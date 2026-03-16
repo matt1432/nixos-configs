@@ -3,6 +3,7 @@
   lib,
   mainUser,
   nixpkgs-firefox-darwin,
+  pkgs,
   self,
   ...
 }: let
@@ -46,6 +47,8 @@ in {
   networking.hostName = "MGCOMP0192";
 
   time.timeZone = "America/Montreal";
+
+  environment.systemPackages = with pkgs; [raycast];
 
   # ------------------------------------------------
   # `Self` Modules configuration
