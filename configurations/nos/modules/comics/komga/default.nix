@@ -53,7 +53,7 @@ in {
       database.file = "${stateDir}/database.sqlite";
 
       metadataProviders = {
-        cacheDatabaseExpiry = 30;
+        cacheDatabaseExpiry = 0;
         comicVineIssueName = "Issue #{number}";
         comicVineIdFormat = "[cv-{id}]";
 
