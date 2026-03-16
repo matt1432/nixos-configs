@@ -1135,22 +1135,6 @@
         "type": "github"
       }
     },
-    "modernz-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1773596220,
-        "narHash": "sha256-yEvNUS5ibdAQ9y4fnmtu11DF3+yabc3Y9rfkL24xaeA=",
-        "owner": "Samillion",
-        "repo": "ModernZ",
-        "rev": "1ef462c69a07fc1f2e2440eec0fa8d191cb772e4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Samillion",
-        "repo": "ModernZ",
-        "type": "github"
-      }
-    },
     "mpv-persist-properties-src": {
       "flake": false,
       "locked": {
@@ -1682,7 +1666,6 @@
         "libratbag-src": "libratbag-src",
         "material-symbols-src": "material-symbols-src",
         "minix": "minix",
-        "modernz-src": "modernz-src",
         "mpv-persist-properties-src": "mpv-persist-properties-src",
         "mpv-pointer-event-src": "mpv-pointer-event-src",
         "mpv-touch-gestures-src": "mpv-touch-gestures-src",

@@ -250,12 +250,6 @@
       repo = "Minix";
       type = "github";
     };
-    modernz-src = {
-      flake = false;
-      owner = "Samillion";
-      repo = "ModernZ";
-      type = "github";
-    };
     mpv-persist-properties-src = {
       flake = false;
       owner = "d87";

@@ -388,11 +388,6 @@ let
 
     # MPV scripts
     {
-      name = "modernz-src";
-      owner = "Samillion";
-      repo = "ModernZ";
-    }
-    {
       owner = "d87";
       repo = "mpv-persist-properties";
     }
