@@ -1,5 +1,4 @@
 {pkgs, ...}: {
-  # TODO: look into alternatives for gradience
   gradience = rec {
     # https://github.com/V-Mann-Nick/nix-home-manager/blob/main/gnome/theme.nix
     package = pkgs.python3Packages.buildPythonApplication {
