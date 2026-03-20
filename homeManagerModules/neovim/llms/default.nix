@@ -9,46 +9,13 @@ self: {
   inherit (self.inputs) vimplugin-agentic-src;
 
   inherit (lib) mkIf;
-  inherit (builtins) toJSON;
 
   cfg = config.programs.neovim;
 in {
   config = mkIf (cfg.enable && cfg.ideConfig.enableLLMs) {
     home.sessionPath = ["$HOME/.local/bin"];
 
-    home.file."cursor-agent-acp-config" = {
-      target = ".config/cursor-agent-acp/config.json";
-      text = toJSON {
-        cursorAgent = {
-          model = "opus-4-thinking";
-          args = ["--model" "opus-4-thinking"];
-        };
-      };
-    };
-
     home.activation = {
-      # TODO: add support for linux
-      initCursorSettings =
-        config.lib.dag.entryAfter ["writeBoundary"]
-        # bash
-        ''
-          # Initialize Cursor settings if not present (don't overwrite user changes)
-          CURSOR_SETTINGS="$HOME/Library/Application Support/Cursor/User/settings.json"
-          mkdir -p "$(dirname "$CURSOR_SETTINGS")"
-
-          # Remove symlink if it exists (from previous home-manager config)
-          if [ -L "$CURSOR_SETTINGS" ]; then
-              rm "$CURSOR_SETTINGS"
-          fi
-
-          # Copy initial settings only if file doesn't exist
-          if [ ! -f "$CURSOR_SETTINGS" ]; then
-              cat > "$CURSOR_SETTINGS" << 'EOF'
-          {}
-          EOF
-          fi
-        '';
-
       installCursorCli =
         config.lib.dag.entryAfter ["writeBoundary"]
         # bash
@@ -124,14 +91,15 @@ in {
                       ['cursor-acp'] = {
                           name = 'Cursor Agent ACP',
                           command = vim.fn.expand('~/.npm-global/bin/cursor-agent-acp'),
-                          args = { '-c', vim.fn.expand('~/.config/cursor-agent-acp/config.json') },
                           env = {
-                              NODE_NO_WARNINGS = '1',
-                              IS_AI_TERMINAL = '1',
                               PATH = vim.fn.expand('~/.npm-global/bin') .. ':' .. vim.fn.expand('~/.local/bin') .. ':' .. vim.env.PATH,
-                              HOME = vim.fn.expand('~'),
                           },
                       },
+                  },
+                  diff_preview = {
+                      enabled = true,
+                      layout = "split",  -- "split" or "inline"
+                      center_on_navigate_hunks = true,
                   },
               });
 
