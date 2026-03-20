@@ -29,7 +29,7 @@ in {
     home.activation = {
       # TODO: add support for linux
       initCursorSettings =
-        lib.dag.entryAfter ["writeBoundary"]
+        config.lib.dag.entryAfter ["writeBoundary"]
         # bash
         ''
           # Initialize Cursor settings if not present (don't overwrite user changes)
@@ -50,7 +50,7 @@ in {
         '';
 
       installCursorCli =
-        lib.dag.entryAfter ["writeBoundary"]
+        config.lib.dag.entryAfter ["writeBoundary"]
         # bash
         ''
           if ! [ -x "$HOME/.local/bin/cursor-agent" ]; then
@@ -60,7 +60,7 @@ in {
         '';
 
       installCursorAgentAcp =
-        lib.dag.entryAfter ["writeBoundary" "installCursorCli"]
+        config.lib.dag.entryAfter ["writeBoundary" "installCursorCli"]
         # bash
         ''
           # Install cursor-agent-acp if not present
@@ -81,7 +81,31 @@ in {
 
     programs = {
       neovim = {
+        extraPackages = [
+          pkgs.python3Packages.pylatexenc
+        ];
+
         plugins = [
+          {
+            plugin = pkgs.vimPlugins.render-markdown-nvim;
+            type = "lua";
+            config = ''
+              require('render-markdown').setup({
+                  file_types = { 'AgenticChat', 'AgenticCode', 'AgenticFiles' },
+                  anti_conceal = { enabled = false },
+                  render_modes = true,
+              });
+
+              vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {
+                  pattern = { 'AgenticChat', 'AgenticCode', 'AgenticFiles' },
+                  callback = function(args)
+                      local buf = args.buf;
+                      vim.treesitter.start(buf, 'markdown');
+                  end,
+              });
+            '';
+          }
+
           {
             plugin = pkgs.vimUtils.buildVimPlugin {
               pname = "agentic-nvim";
