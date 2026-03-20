@@ -11,6 +11,8 @@ self: {
   inherit (lib) mkIf;
 
   cfg = config.programs.neovim;
+
+  model = "composer-2-fast";
 in {
   config = mkIf (cfg.enable && cfg.ideConfig.enableLLMs) {
     home.sessionPath = ["$HOME/.local/bin"];
@@ -38,13 +40,39 @@ in {
               mkdir -p "$HOME/.npm-global" "$HOME/.npm-global/.cache"
               ${pkgs.nodejs}/bin/npm install -g @blowmage/cursor-agent-acp
           fi
-
-          # Create symlink so cursor-agent-acp can find cursor-agent
-          if [ -x "$HOME/.local/bin/cursor-agent" ]; then
-              ln -sf "$HOME/.local/bin/cursor-agent" "$HOME/.npm-global/bin/cursor-agent"
-          fi
         '';
     };
+
+    # Force the use of a model
+    home.file.".npm-global/bin/cursor-agent".source = pkgs.writeShellScript "cursor-agent" ''
+      args=()
+      skip=0
+
+      for arg in "$@"; do
+          if [ "$skip" -eq 1 ]; then
+              skip=0
+              continue
+          fi
+          case "$arg" in
+              --model)
+                  skip=1
+                  continue
+              ;;
+              --model=*)
+                  continue
+              ;;
+              --force)
+                  continue
+              ;;
+              -f)
+                  continue
+              ;;
+          esac
+          args+=("$arg")
+      done
+
+      exec "$HOME/.local/bin/cursor-agent" --model ${model} "''${args[@]}"
+    '';
 
     programs = {
       neovim = {
@@ -95,11 +123,6 @@ in {
                               PATH = vim.fn.expand('~/.npm-global/bin') .. ':' .. vim.fn.expand('~/.local/bin') .. ':' .. vim.env.PATH,
                           },
                       },
-                  },
-                  diff_preview = {
-                      enabled = true,
-                      layout = "split",  -- "split" or "inline"
-                      center_on_navigate_hunks = true,
                   },
               });
 
