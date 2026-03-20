@@ -489,6 +489,12 @@
       repo = "tuya-local";
       type = "github";
     };
+    vimplugin-agentic-src = {
+      flake = false;
+      owner = "carlos-algms";
+      repo = "agentic.nvim";
+      type = "github";
+    };
     vimplugin-easytables-src = {
       flake = false;
       owner = "Myzel394";

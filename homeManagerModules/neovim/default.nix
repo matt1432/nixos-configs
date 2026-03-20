@@ -11,6 +11,7 @@ in {
   imports = [
     (import ./git self)
     (import ./langs self)
+    (import ./llms self)
     (import ./theme self)
   ];
 
@@ -20,6 +21,11 @@ in {
     };
 
     ideConfig = {
+      enableLLMs = mkOption {
+        type = types.bool;
+        default = false;
+      };
+
       enableBash = mkOption {
         type = types.bool;
         default = true;

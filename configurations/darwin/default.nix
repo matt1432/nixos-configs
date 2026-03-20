@@ -87,6 +87,7 @@ in {
       neovim = {
         enable = true;
         user = mainUser;
+        ideConfig.enableLLMs = true;
       };
     };
   };

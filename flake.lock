@@ -1701,6 +1701,7 @@
         "treefmt-nix": "treefmt-nix",
         "ts-for-gir-src": "ts-for-gir-src",
         "tuya-local-src": "tuya-local-src",
+        "vimplugin-agentic-src": "vimplugin-agentic-src",
         "vimplugin-easytables-src": "vimplugin-easytables-src",
         "vimplugin-gitsigns-src": "vimplugin-gitsigns-src",
         "vimplugin-nix-develop-src": "vimplugin-nix-develop-src",
@@ -1930,6 +1931,22 @@
       "original": {
         "owner": "make-all",
         "repo": "tuya-local",
+        "type": "github"
+      }
+    },
+    "vimplugin-agentic-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1773748889,
+        "narHash": "sha256-baL1ktaIbamonXy9gtbvuFPFdTfximeWr6TGbDw2ZRk=",
+        "owner": "carlos-algms",
+        "repo": "agentic.nvim",
+        "rev": "9f3fc1cc64c0107fe08e77f9924cbffda54a9f17",
+        "type": "github"
+      },
+      "original": {
+        "owner": "carlos-algms",
+        "repo": "agentic.nvim",
         "type": "github"
       }
     },

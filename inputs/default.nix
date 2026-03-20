@@ -335,6 +335,11 @@ let
       owner = "lewis6991";
       repo = "gitsigns.nvim";
     }
+    {
+      name = "vimplugin-agentic-src";
+      owner = "carlos-algms";
+      repo = "agentic.nvim";
+    }
 
     # Overlays & packages
     {
