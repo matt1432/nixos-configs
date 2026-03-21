@@ -21,12 +21,13 @@ in
     pname = "${pname}-types";
     version = "0.0.0";
 
-    npmDepsHash = "sha256-Rb3T7lg3IAeupXdmRnuDUJegyeT1HiOVIjF6sVcPJiw=";
+    npmDepsHash = "sha256-K5l6/vx9dVbCPJfCQA3h1DbzzBoxbHN3ITyijqSNgx0=";
 
     src = ./.;
     dontNpmBuild = true;
 
     buildPhase = ''
+      cp ./node_modules/@ts-for-gir/{cli/,}package.json
       echo -e '\n${buildPhase}\n'
       ${buildPhase}
     '';
