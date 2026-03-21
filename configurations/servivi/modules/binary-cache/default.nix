@@ -36,6 +36,8 @@
       #     fi
       # done
 
+      nom build ..#nixFastChecks.devices.aarch64-linux.device_android -o result-aarch64-linux.device_android
+
       exec nix-fast-build \
           --eval-workers 6 \
           --eval-max-memory-size 3072 \
