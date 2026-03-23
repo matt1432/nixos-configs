@@ -211,6 +211,17 @@ in {
                     ];
                     from = {apple_vendor_top_case_key_code = "keyboard_fn";};
                     to = [{key_code = "left_command";}];
+                    to_if_other_key_pressed = [
+                      {
+                        other_keys = [
+                          {
+                            key_code = "v";
+                            modifiers.optional = ["any"];
+                          }
+                        ];
+                        to = [{key_code = "left_control";}];
+                      }
+                    ];
                     type = "basic";
                   }
 
@@ -252,6 +263,17 @@ in {
                     ];
                     from = {key_code = "left_control";};
                     to = [{key_code = "left_command";}];
+                    to_if_other_key_pressed = [
+                      {
+                        other_keys = [
+                          {
+                            key_code = "v";
+                            modifiers.optional = ["any"];
+                          }
+                        ];
+                        to = [{key_code = "left_control";}];
+                      }
+                    ];
                     type = "basic";
                   }
 
