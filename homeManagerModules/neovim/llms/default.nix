@@ -113,12 +113,13 @@ in {
               local agentic = require('agentic');
 
               agentic.setup({
-                  provider = 'cursor-acp',
+                  provider = 'cursor-agent-acp',
                   debug = false,
                   acp_providers = {
-                      ['cursor-acp'] = {
+                      ['cursor-agent-acp'] = {
                           name = 'Cursor Agent ACP',
                           command = vim.fn.expand('~/.npm-global/bin/cursor-agent-acp'),
+                          args = {},
                           env = {
                               PATH = vim.fn.expand('~/.npm-global/bin') .. ':' .. vim.fn.expand('~/.local/bin') .. ':' .. vim.env.PATH,
                           },
