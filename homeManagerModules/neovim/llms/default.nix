@@ -71,7 +71,7 @@ in {
           args+=("$arg")
       done
 
-      exec "$HOME/.local/bin/cursor-agent" --model ${model} "''${args[@]}"
+      exec "$HOME/.local/bin/cursor-agent" --trust --model ${model} "''${args[@]}"
     '';
 
     programs = {
