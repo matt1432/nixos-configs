@@ -25,23 +25,7 @@ in {
 
         ports = ["9696:9696"];
         networks = ["proxy_net"];
-        depends_on = ["flaresolverr" "ygege"];
-      };
-
-      "ygege" = {
-        image = pkgs.callPackage ./images/ygege.nix pkgs;
-        restart = "always";
-
-        ports = ["8715:8715"];
-        networks = ["proxy_net"];
-
-        healthcheck = {
-          test = ["CMD-SHELL" "curl --fail http://localhost:$${BIND_PORT:-8715}/health || exit 1"];
-          interval = "1m30s";
-          timeout = "20s";
-          retries = "3";
-          start_period = "10s";
-        };
+        depends_on = ["flaresolverr"];
       };
 
       "flaresolverr" = {
