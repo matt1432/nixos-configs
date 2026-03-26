@@ -143,8 +143,8 @@ in {
         source = pkgs.fetchFromGitHub {
           owner = "nvm-sh";
           repo = "nvm";
-          tag = "v0.40.3";
-          sha256 = "sha256-s36EQojnNKm4x410nllC3nbnzzwcLZCKSP3DkJPpjjo=";
+          tag = "v0.40.4";
+          sha256 = "sha256-k2HCcdJYlWn1V3muNrUcXuT8WjvsnE/PO12Pr7R5Ffo=";
         };
       };
     };
