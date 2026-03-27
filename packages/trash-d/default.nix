@@ -49,7 +49,6 @@ in
       platforms = [
         "x86_64-linux"
         "i686-linux"
-        "x86_64-darwin"
       ];
       homepage = "https://github.com/rushsteve1/trash-d";
       description = ''
