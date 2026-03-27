@@ -8,7 +8,10 @@ import { npmRun, replaceInFile } from './lib';
 /* Constants */
 const FLAKE = process.env.FLAKE as string;
 
-const PINS = new Map([]);
+const PINS = new Map([
+    // TODO: update to typescript v6
+    ['typescript', '5.9.3'],
+]);
 
 const updatePackageJson = async (workspaceDir: string, updates: object) => {
     const currentPackageJson = await readPackageJSON(

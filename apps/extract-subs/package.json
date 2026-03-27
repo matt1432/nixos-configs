@@ -13,7 +13,7 @@
         "eslint": "10.1.0",
         "jiti": "2.6.1",
         "prettier": "3.8.1",
-        "prettier-plugin-brace-style": "0.10.0",
+        "prettier-plugin-brace-style": "0.10.1",
         "typescript": "5.9.3"
     },
     "devDependencies": {

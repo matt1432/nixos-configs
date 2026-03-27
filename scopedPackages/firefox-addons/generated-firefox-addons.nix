@@ -6,10 +6,10 @@
 }: {
   "bitwarden" = buildMozillaXpiAddon {
     pname = "bitwarden";
-    version = "2026.1.1";
+    version = "2026.2.0";
     addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4698131/bitwarden_password_manager-2026.1.1.xpi";
-    sha256 = "6143af5d61d95021fcdd6939ab8c18f9535f775c80d4b69f75d1d238f81ae347";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4715321/bitwarden_password_manager-2026.2.0.xpi";
+    sha256 = "e54999d45ae1cd001452a34294240633c89a95ae832f212721d746a89555958e";
     meta = with lib; {
       homepage = "https://bitwarden.com";
       description = "At home, at work, or on the go, Bitwarden easily secures all your passwords, passkeys, and sensitive information.";
@@ -290,10 +290,10 @@
   };
   "youtube-no-translation" = buildMozillaXpiAddon {
     pname = "youtube-no-translation";
-    version = "2.21.1";
+    version = "2.21.4";
     addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4714437/youtube_no_translation-2.21.1.xpi";
-    sha256 = "a6ce0c91046c35d4eac0e4bbffe87f19a0481dd49d04b3943fc34c00840fceb9";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4732610/youtube_no_translation-2.21.4.xpi";
+    sha256 = "92c97b6bea1d1d14563c467a2993cd448228aba895a16df16887c65069072e99";
     meta = with lib; {
       description = "Keeps YouTube content in its original language (Titles, Audio Tracks, Descriptions...)";
       mozPermissions = [
