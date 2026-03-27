@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   lib,
   osConfig,
@@ -41,7 +42,10 @@ in {
         extraCss = "@import url(\"file://${gradience.build}/gtk-3.0/gtk.css\");";
       };
 
-      gtk4.extraCss = "@import url(\"file://${gradience.build}/gtk-4.0/gtk.css\");";
+      gtk4 = {
+        theme = config.gtk.theme;
+        extraCss = "@import url(\"file://${gradience.build}/gtk-4.0/gtk.css\");";
+      };
     };
 
     dconf.settings = {
