@@ -30,9 +30,8 @@ in {
         (final: prev: {
           neovim-unwrapped = prev.neovim-unwrapped.overrideAttrs (o: {
             version = let
-              # buildZigZon = readFile "${o.src}/build.zig.zon";
-              # tag = head (match ''.*\.version = "([^"]*)".*'' buildZigZon);
-              tag = "0.13.0";
+              buildZigZon = readFile "${o.src}/build.zig.zon";
+              tag = head (match ''.*\.version = "([^"]*)".*'' buildZigZon);
             in "${tag}-nightly+${o.version}";
             __intentionallyOverridingVersion = true;
           });

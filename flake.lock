@@ -1189,38 +1189,42 @@
         "flake-parts": [
           "flake-parts"
         ],
-        "neovim-src": "neovim-src",
+        "neovim-src": [
+          "neovim-src"
+        ],
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1774915815,
-        "narHash": "sha256-LocQzkSjVS4G0AKMBiEIVdBKCNTMZXQFjQMWFId4Jpg=",
+        "lastModified": 1774570021,
+        "narHash": "sha256-wsYvPHx2/PcZqSWh1yZL3p7YA5lzaZQwDxpbWAYu/70=",
         "owner": "nix-community",
         "repo": "neovim-nightly-overlay",
-        "rev": "9001416dc5d0ca24c8e4b5a44bfe7cd6fbeb1dd1",
+        "rev": "2e94080a884c108044aa349cb0f4b77033cda940",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
         "repo": "neovim-nightly-overlay",
+        "rev": "2e94080a884c108044aa349cb0f4b77033cda940",
         "type": "github"
       }
     },
     "neovim-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1774915197,
-        "narHash": "sha256-yor+eo8CVi7wBp7CjAMQnVoK+m197gsl7MvUzaqicns=",
+        "lastModified": 1774546966,
+        "narHash": "sha256-uIFX2x4sg2Cmkp5IsamABr/8+PsNsYUqqH16F00Pt/A=",
         "owner": "neovim",
         "repo": "neovim",
-        "rev": "dbc4800dda2b0dc3290dc79955f857256e0694e2",
+        "rev": "ae2829ee35c1fb8649f9d4046c5af48987193d03",
         "type": "github"
       },
       "original": {
         "owner": "neovim",
         "repo": "neovim",
+        "rev": "ae2829ee35c1fb8649f9d4046c5af48987193d03",
         "type": "github"
       }
     },
@@ -1655,6 +1659,7 @@
         "mpv-touch-gestures-src": "mpv-touch-gestures-src",
         "my-images-src": "my-images-src",
         "neovim-nightly": "neovim-nightly",
+        "neovim-src": "neovim-src",
         "netdaemon-src": "netdaemon-src",
         "nix-darwin": "nix-darwin",
         "nix-gaming": "nix-gaming",
