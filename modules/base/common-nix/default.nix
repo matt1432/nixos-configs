@@ -6,7 +6,7 @@ self: {
 }: let
   inherit (self.inputs) nixpkgs;
 
-  inherit (lib) hasAttr mkIf optionals optionalString;
+  inherit (lib) hasAttr mkIf optionalString;
 
   inherit (config.sops.secrets) access-token;
 
@@ -14,14 +14,7 @@ self: {
 in {
   config = mkIf cfg.enable {
     nix = {
-      package = pkgs.lixPackageSets.stable.lix.overrideAttrs (o: {
-        patches =
-          o.patches
-          ++ optionals (config.services.nix-serve.enable or false) [
-            ./pkg-config.patch
-            ./version-macros.patch
-          ];
-      });
+      package = pkgs.lixPackageSets.stable.lix;
 
       # Minimize dowloads of indirect nixpkgs flakes
       registry.nixpkgs.flake = nixpkgs;
