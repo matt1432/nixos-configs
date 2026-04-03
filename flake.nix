@@ -153,8 +153,8 @@
         systems.follows = "systems";
       };
       owner = "hyprwm";
+      ref = "v0.54.3";
       repo = "Hyprland";
-      rev = "34c7cc7d38256f32f30a947f8b459df220149feb";
       type = "github";
     };
     hyprland-plugins = {

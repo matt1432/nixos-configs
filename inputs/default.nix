@@ -183,8 +183,8 @@ let
         owner = "hyprwm";
         repo = "Hyprland";
 
-        # FIXME: wait for this to get merged and hyprland-plugins to chase it https://github.com/hyprwm/Hyprland/pull/13631
-        rev = "34c7cc7d38256f32f30a947f8b459df220149feb";
+        # FIXME: wait for hyprland-plugins to chase renderer refactors
+        ref = "v0.54.3";
       };
 
       hyprland-plugins = mkHyprDep {
