@@ -8,13 +8,15 @@
   makeWrapper,
   nodejs_latest,
   jq,
+  python3Packages,
   ...
 }: let
-  inherit (lib) boolToString concatMapStringsSep concatStringsSep mapAttrsToList;
-  inherit (builtins) fromJSON isBool readFile;
+  inherit (lib) concatMapStringsSep;
+  inherit (builtins) fromJSON readFile;
+
+  jsonlint = "${python3Packages.demjson3}/bin/jsonlint";
 
   packageJSON = fromJSON (readFile "${src}/package.json");
-  tsconfig = fromJSON (readFile ./config/tsconfig.base.json);
 
   pname = packageJSON.name;
   inherit (packageJSON) version;
@@ -25,7 +27,8 @@ in
     prePatch = ''
       # Patch tsconfig
       mv ./tsconfig.json ./project.json
-      sed 's/^ *\/\/.*//' ${./config/tsconfig.base.json} > ./base.json
+      ${jsonlint} -SF ./project.json
+      ${jsonlint} -SF -o ./base.json ${./config/tsconfig.base.json}
       ${jq}/bin/jq -sr '.[0] * .[1] | del(.extends)' ./project.json ./base.json > ./tsconfig.json
       rm base.json project.json
     '';
@@ -42,15 +45,9 @@ in
     checkPhase = ''
       runHook preCheck
 
-      npx tsc --ignoreConfig ${concatStringsSep " " (mapAttrsToList (n: v:
-        if n == "lib"
-        then concatMapStringsSep " " (x: "--lib ${x}") v
-        else "--${n} ${
-          if isBool v
-          then boolToString v
-          else toString v
-        }")
-      tsconfig.compilerOptions)} src/app.ts
+      rm eslint.config.ts
+
+      npx tsc
 
       runHook postCheck
     '';
