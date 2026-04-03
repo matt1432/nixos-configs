@@ -9,7 +9,7 @@ in {
     networks.proxy_net = {external = true;};
 
     services = {
-      "app" = {
+      "resume-app" = {
         image = pkgs.callPackage ./images/reactive-resume.nix pkgs;
         restart = "always";
 
@@ -26,11 +26,13 @@ in {
         };
 
         environment = {
-          # --- Server ---
           inherit TZ;
+
+          # --- Server ---
           APP_URL = "https://resume.nelim.org";
 
           # --- Printer ---
+          PRINTER_APP_URL = "http://resume-app:3000";
           PRINTER_ENDPOINT = "ws://printer:3000";
 
           # --- Database (PostgreSQL) ---
@@ -72,7 +74,6 @@ in {
         };
       };
 
-      # FIXME: export to pdf doesn't work
       "printer" = {
         image = pkgs.callPackage ./images/chrome.nix pkgs;
         restart = "always";
