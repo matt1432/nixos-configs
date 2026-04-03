@@ -49,6 +49,8 @@ export default () => {
         main: () => {
             execAsync('hyprpaper').catch(() => {});
 
+            Brightness.get_default({ caps: 'input2::capslock' });
+
             perMonitor((monitor) => BgLayer(monitor, false));
 
             AppLauncher();
@@ -62,7 +64,6 @@ export default () => {
             PowerMenu();
             Screenshot();
 
-            Brightness.get_default({ caps: 'input2::capslock' });
             GpuScreenRecorder.get_default();
             MonitorClicks.get_default();
         },
