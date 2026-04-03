@@ -22,7 +22,7 @@ in {
 
         dependsOn = {
           postgres.condition = "service_healthy";
-          printer.condition = "service_healthy";
+          printer.condition = "service_started";
         };
 
         environment = {
@@ -33,7 +33,7 @@ in {
 
           # --- Printer ---
           PRINTER_APP_URL = "http://resume-app:3000";
-          PRINTER_ENDPOINT = "ws://printer:3000";
+          PRINTER_ENDPOINT = "http://printer:9222";
 
           # --- Database (PostgreSQL) ---
           DATABASE_URL = "postgresql://postgres:postgres@postgres:5432/postgres";
@@ -78,21 +78,8 @@ in {
         image = pkgs.callPackage ./images/chrome.nix pkgs;
         restart = "always";
 
-        ports = ["4000:3000"];
+        ports = ["9222:9222"];
         networks = ["proxy_net"];
-
-        environment = {
-          HEALTH = "true";
-          CONCURRENT = "20";
-          QUEUED = "10";
-        };
-
-        healthcheck = {
-          interval = "10s";
-          retries = 10;
-          test = ["CMD" "curl" "-f" "http://localhost:3000/pressure"];
-          timeout = "5s";
-        };
       };
     };
   };
