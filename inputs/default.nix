@@ -111,21 +111,6 @@ let
       repo = "nix-gaming";
     };
 
-    # FIXME: https://nixpkgs-tracker.ocfox.me/?pr=504078
-    # `nix shell nixpkgs#neovim -c nvim -l - <<< 'vim.cmd[[echo has("patch-9.1.1819")]]'`29)
-    neovim-src = mkInput {
-      owner = "neovim";
-      repo = "neovim";
-      rev = "ae2829ee35c1fb8649f9d4046c5af48987193d03";
-      flake = false;
-    };
-    neovim-nightly = mkInput {
-      owner = "nix-community";
-      repo = "neovim-nightly-overlay";
-      rev = "2e94080a884c108044aa349cb0f4b77033cda940";
-      inputs.neovim-src.follows = "neovim-src";
-    };
-
     nixpkgs-firefox-darwin = mkInput {
       owner = "bandithedoge";
       repo = "nixpkgs-firefox-darwin";
