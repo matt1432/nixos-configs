@@ -7,7 +7,6 @@
     ],
     "module": "preserve",
     "moduleResolution": "bundler",
-    "baseUrl": ".",
     "noEmit": true,
     "newLine": "LF",
     "esModuleInterop": true,
@@ -16,6 +15,7 @@
     "isolatedModules": true,
     "skipLibCheck": true,
     "strict": true,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "types": ["node"]
   }
 }

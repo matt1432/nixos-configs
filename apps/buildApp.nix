@@ -42,7 +42,7 @@ in
     checkPhase = ''
       runHook preCheck
 
-      npx tsc ${concatStringsSep " " (mapAttrsToList (n: v:
+      npx tsc --ignoreConfig ${concatStringsSep " " (mapAttrsToList (n: v:
         if n == "lib"
         then concatMapStringsSep " " (x: "--lib ${x}") v
         else "--${n} ${
