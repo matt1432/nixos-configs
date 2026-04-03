@@ -24,12 +24,8 @@ in {
         # We keep the packages here because shell scripts are too common
         extraPackages = attrValues {
           inherit
-            (pkgs.nodePackages)
-            bash-language-server
-            ;
-
-          inherit
             (pkgs)
+            bash-language-server
             shellcheck
             ;
         };

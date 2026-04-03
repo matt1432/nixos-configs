@@ -50,7 +50,7 @@ in {
       };
 
       inherit
-        (pkgs.nodePackages)
+        (pkgs)
         undollar
         ;
 

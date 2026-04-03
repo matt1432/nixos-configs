@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage rec {
   imageName = "cyfershepard/jellystat";
-  imageDigest = "sha256:c8c451704ba7985340142cd047e2364cabaf41b613669b6c5340688ed217f82a";
-  hash = "sha256-vlQoKtUtaaINTzpI0rfKkQPJRKTRsRzMWngaO3wZSUA=";
+  imageDigest = "sha256:f7f56aabad139faa996b8bb21a36dd3e65f7c87e10408921815b95a28a4efbaf";
+  hash = "sha256-CvIwYfgKTChAUIPgtSm4rpyPhRTfHgIDY871vdGXxag=";
   finalImageName = imageName;
   finalImageTag = "latest";
 }
