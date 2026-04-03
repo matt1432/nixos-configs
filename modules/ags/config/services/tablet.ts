@@ -1,4 +1,10 @@
-import GObject, { getter, register, setter, signal } from 'ags/gobject';
+import GObject, {
+    getter,
+    ParamSpec,
+    register,
+    setter,
+    signal,
+} from 'ags/gobject';
 import { execAsync, subprocess } from 'ags/process';
 
 import { hyprMessage } from '../lib';
@@ -19,9 +25,9 @@ interface TabletSignals extends GObject.Object.SignalSignatures {
     'autorotate-changed': Tablet['autorotateChanged'];
     'rotation-changed': Tablet['rotationChanged'];
     'inputs-changed': Tablet['inputsChanged'];
-    'notify::current-mode': (val: Tablet['currentMode']) => void;
-    'notify::osk-state': (val: Tablet['oskState']) => void;
-    'notify::osk-auto-changed': (val: Tablet['oskAutoChanged']) => void;
+    'notify::current-mode': (pspec: ParamSpec) => void;
+    'notify::osk-state': (pspec: ParamSpec) => void;
+    'notify::osk-auto-changed': (pspec: ParamSpec) => void;
 }
 
 @register()

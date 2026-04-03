@@ -1,7 +1,6 @@
 import { Astal, Gtk } from 'ags/gtk3';
 import { execAsync } from 'ags/process';
-import { interval } from 'ags/time';
-import AstalIO from 'gi://AstalIO';
+import { interval, Timer } from 'ags/time';
 import { Accessor, createState, Setter } from 'gnim';
 
 import { toggleClassName } from '../../lib/widgets';
@@ -16,8 +15,6 @@ interface Key {
     shape: string;
     keycode: number;
 }
-
-const brightness = Brightness.get_default();
 
 const SPACING = 4;
 const LSHIFT_CODE = 42;
@@ -35,22 +32,26 @@ const [RCtrl, setRCtrl] = createState(false);
 
 const [Caps, setCaps] = createState(false);
 
-brightness.connect('notify::caps-level', (_, state) => {
-    setCaps(state);
-});
-
 // Assume both shifts are the same for key.labelShift
 const [LShift, setLShift] = createState(false);
 const [RShift, setRShift] = createState(false);
 
 const [Shift, setShift] = createState(false);
 
-LShift.subscribe(() => {
-    setShift(LShift() || RShift());
-});
-RShift.subscribe(() => {
-    setShift(LShift() || RShift());
-});
+export const setupKeys = () => {
+    const brightness = Brightness.get_default();
+
+    brightness.connect('notify::caps-level', () => {
+        setCaps(Boolean(brightness.capsLevel));
+    });
+
+    LShift.subscribe(() => {
+        setShift(LShift() || RShift());
+    });
+    RShift.subscribe(() => {
+        setShift(LShift() || RShift());
+    });
+};
 
 const ModKey = (key: Key) => {
     let Mod: Accessor<boolean>;
@@ -207,7 +208,7 @@ const RegularKey = (key: Key) => {
         });
     });
 
-    let spamClick: AstalIO.Time | undefined;
+    let spamClick: Timer | undefined;
 
     IsLongPressing.subscribe(() => {
         if (IsLongPressing()) {
@@ -229,5 +230,5 @@ const RegularKey = (key: Key) => {
     ) as Astal.Box;
 };
 
-export default (key: Key): Astal.Box =>
+export const Key = (key: Key): Astal.Box =>
     key.keytype === 'normal' ? RegularKey(key) : ModKey(key);

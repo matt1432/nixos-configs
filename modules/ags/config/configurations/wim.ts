@@ -94,6 +94,11 @@ export default () => {
             // Fixes weird margin above bar
             execAsync('hyprctl reload').catch(() => {});
 
+            Brightness.get_default({
+                kbd: 'tpacpi::kbd_backlight',
+                caps: 'input1::capslock',
+            });
+
             perMonitor((monitor) => BgLayer(monitor, true));
 
             AppLauncher();
@@ -113,10 +118,6 @@ export default () => {
             PowerMenu();
             Screenshot();
 
-            Brightness.get_default({
-                kbd: 'tpacpi::kbd_backlight',
-                caps: 'input1::capslock',
-            });
             MonitorClicks.get_default();
         },
     });

@@ -1,6 +1,14 @@
-import GObject, { getter, register, setter } from 'ags/gobject';
+import GObject, { getter, ParamSpec, register, setter } from 'ags/gobject';
 import { execAsync } from 'ags/process';
 import { interval } from 'ags/time';
+
+interface BrightnessSignals extends GObject.Object.SignalSignatures {
+    'notify::screen': (pspec: ParamSpec) => void;
+    'notify::kbd-level': (pspec: ParamSpec) => void;
+    'notify::screen-icon': (pspec: ParamSpec) => void;
+    'notify::caps-icon': (pspec: ParamSpec) => void;
+    'notify::caps-level': (pspec: ParamSpec) => void;
+}
 
 const SCREEN_ICONS: Record<number, string> = {
     90: 'display-brightness-high-symbolic',
@@ -13,6 +21,15 @@ const INTERVAL = 500;
 
 @register()
 export default class Brightness extends GObject.Object {
+    declare $signals: BrightnessSignals; // this makes signals inferable in JSX
+
+    override connect<S extends keyof BrightnessSignals>(
+        signal: S,
+        callback: GObject.SignalCallback<this, BrightnessSignals[S]>,
+    ): number {
+        return super.connect(signal, callback);
+    }
+
     declare private _kbd: string | undefined;
     declare private _caps: string | undefined;
 
@@ -58,9 +75,7 @@ export default class Brightness extends GObject.Object {
     @getter(Number)
     get kbdLevel() {
         if (!this._kbdMax) {
-            console.error('[get kbdLevel] No Keyboard brightness');
-
-            return -1;
+            return 0;
         }
 
         return this._kbdLevel ?? 0;
@@ -69,8 +84,6 @@ export default class Brightness extends GObject.Object {
     @setter(Number)
     set kbdLevel(value) {
         if (!this._kbdMax || !value) {
-            console.error('[set kbdLevel] No Keyboard brightness');
-
             return;
         }
 

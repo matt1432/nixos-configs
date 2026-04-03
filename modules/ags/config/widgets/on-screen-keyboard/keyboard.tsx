@@ -8,7 +8,7 @@ import Separator from '../misc/separator';
 import { ToggleButton } from '../misc/subclasses';
 import Arc from './arcs';
 import { defaultOskLayout, oskLayouts } from './keyboard-layouts';
-import Key from './keys';
+import { Key, setupKeys } from './keys';
 
 const keyboardLayout = defaultOskLayout;
 const keyboardJson = oskLayouts[keyboardLayout];
@@ -19,6 +19,8 @@ const SPACING = 4;
 const COLOR = 'rgba(0, 0, 0, 0.5)';
 
 export default () => {
+    setupKeys();
+
     const [screenSize, setScreenSize] = createState({ height: 0, width: 0 });
     const [thirdWidth, setThirdWidth] = createState(0);
 
