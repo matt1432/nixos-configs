@@ -1641,6 +1641,7 @@
         "subscleaner-src": "subscleaner-src",
         "systems": "systems",
         "tccutil-src": "tccutil-src",
+        "touchpos": "touchpos",
         "treefmt-nix": "treefmt-nix",
         "ts-for-gir-src": "ts-for-gir-src",
         "tuya-local-src": "tuya-local-src",
@@ -1822,6 +1823,29 @@
       "original": {
         "owner": "jacobsalmela",
         "repo": "tccutil",
+        "type": "github"
+      }
+    },
+    "touchpos": {
+      "inputs": {
+        "hyprland": [
+          "hyprland"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1775281063,
+        "narHash": "sha256-AfNxFMs1jriRkYoaIPWzU0wnzU03ztdN/FdO5FBO2ds=",
+        "owner": "matt1432",
+        "repo": "touchpos",
+        "rev": "2ac98f2ce91d1e2bffebccc23094dbefbc47be1e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "matt1432",
+        "repo": "touchpos",
         "type": "github"
       }
     },

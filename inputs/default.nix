@@ -199,6 +199,11 @@ let
         submodules = true;
       };
 
+      touchpos = mkHyprDep {
+        owner = "matt1432";
+        repo = "touchpos";
+      };
+
       hyprpaper = mkHyprDep {
         owner = "hyprwm";
         repo = "hyprpaper";

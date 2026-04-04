@@ -12,7 +12,10 @@ self: {
 in {
   config = mkIf (cfg.enable && cfg.isTouchscreen) {
     wayland.windowManager.hyprland = {
-      plugins = [pkgs.hyprlandPlugins.hyprgrass];
+      plugins = [
+        pkgs.hyprlandPlugins.hyprgrass
+        pkgs.hyprlandPlugins.touchpos
+      ];
 
       settings = {
         plugin.touch_gestures = {

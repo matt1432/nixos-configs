@@ -462,6 +462,15 @@
       repo = "tccutil";
       type = "github";
     };
+    touchpos = {
+      inputs = {
+        hyprland.follows = "hyprland";
+        nixpkgs.follows = "nixpkgs";
+      };
+      owner = "matt1432";
+      repo = "touchpos";
+      type = "github";
+    };
     treefmt-nix = {
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "numtide";

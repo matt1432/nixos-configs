@@ -19,16 +19,14 @@ const releaseAllKeys = () => {
     execAsync(['ydotool', 'key', ...KEYCODES]).catch(print);
 };
 
-// FIXME: cursorpos doesn't update location when finger touching the screen moves
 export default (win: OskWindow) => {
     const tablet = Tablet.get_default();
 
     let signals = [] as number[];
     let calculatedHeight = 0;
+    let isTouch = false;
 
     idle(() => {
-        // Expose a bit of the window to make it easier with finger after bug is fixed ^
-        // calculatedHeight = win.get_allocated_height() - 4;
         calculatedHeight = win.get_allocated_height();
         tablet.oskState = false;
 
@@ -83,88 +81,94 @@ export default (win: OskWindow) => {
         // Begin drag
         signals.push(
             gesture.connect('drag-begin', () => {
+                isTouch =
+                    gesture.get_device()?.get_name() ===
+                    'Wayland Touch Master Pointer';
+
                 hyprMessage('j/cursorpos').then((out) => {
                     win.startY = JSON.parse(out).y;
                 });
             }),
         );
 
+        let lastOffset = 0;
+
         // Update drag
         signals.push(
             gesture.connect('drag-update', () => {
-                hyprMessage('j/cursorpos').then((out) => {
-                    if (!win.startY) {
-                        return;
-                    }
+                hyprMessage(isTouch ? 'j/touchpos' : 'j/cursorpos')
+                    .then((out) => {
+                        if (!win.startY) {
+                            return;
+                        }
 
-                    const currentY = JSON.parse(out).y;
-                    const offset = win.startY - currentY;
+                        const currentY = isTouch
+                            ? JSON.parse(out)['0'].y
+                            : JSON.parse(out).y;
 
-                    if (offset < 0) {
-                        setCss(
-                            provider,
-                            `
-                                transition: margin-bottom 0.5s ease-in-out;
-                                margin-bottom: -${calculatedHeight}px;
-                            `,
-                        );
+                        const offset = (lastOffset = win.startY - currentY);
 
-                        return;
-                    }
+                        if (offset < 0) {
+                            setCss(
+                                provider,
+                                `
+                                    transition: margin-bottom 0.5s ease-in-out;
+                                    margin-bottom: -${calculatedHeight}px;
+                                `,
+                            );
 
-                    if (offset > calculatedHeight) {
-                        setCss(
-                            provider,
-                            `
-                                margin-bottom: 0px;
-                            `,
-                        );
-                    }
-                    else {
-                        setCss(
-                            provider,
-                            `
-                                margin-bottom: ${offset - calculatedHeight}px;
-                            `,
-                        );
-                    }
-                });
+                            return;
+                        }
+
+                        if (offset > calculatedHeight) {
+                            setCss(
+                                provider,
+                                `
+                                    margin-bottom: 0px;
+                                `,
+                            );
+                        }
+                        else {
+                            setCss(
+                                provider,
+                                `
+                                    margin-bottom: ${offset - calculatedHeight}px;
+                                `,
+                            );
+                        }
+                    })
+                    .catch(console.error);
             }),
         );
 
         // End drag
         signals.push(
             gesture.connect('drag-end', () => {
-                hyprMessage('j/cursorpos').then((out) => {
-                    if (!win.startY) {
-                        return;
-                    }
+                if (!win.startY) {
+                    return;
+                }
 
-                    const currentY = JSON.parse(out).y;
-                    const offset = win.startY - currentY;
+                if (lastOffset > calculatedHeight) {
+                    setCss(
+                        provider,
+                        `
+                            transition: margin-bottom 0.5s ease-in-out;
+                            margin-bottom: 0px;
+                        `,
+                    );
+                    tablet.oskState = true;
+                }
+                else {
+                    setCss(
+                        provider,
+                        `
+                            transition: margin-bottom 0.5s ease-in-out;
+                            margin-bottom: -${calculatedHeight}px;
+                        `,
+                    );
+                }
 
-                    if (offset > calculatedHeight) {
-                        setCss(
-                            provider,
-                            `
-                                transition: margin-bottom 0.5s ease-in-out;
-                                margin-bottom: 0px;
-                            `,
-                        );
-                        tablet.oskState = true;
-                    }
-                    else {
-                        setCss(
-                            provider,
-                            `
-                                transition: margin-bottom 0.5s ease-in-out;
-                                margin-bottom: -${calculatedHeight}px;
-                            `,
-                        );
-                    }
-
-                    win.startY = null;
-                });
+                win.startY = null;
             }),
         );
     };
@@ -175,6 +179,10 @@ export default (win: OskWindow) => {
         // Begin drag
         signals.push(
             gesture.connect('drag-begin', () => {
+                isTouch =
+                    gesture.get_device()?.get_name() ===
+                    'Wayland Touch Master Pointer';
+
                 hyprMessage('j/cursorpos').then((out) => {
                     const hasActiveKey = Keys()
                         .map((v) => v())
@@ -187,73 +195,74 @@ export default (win: OskWindow) => {
             }),
         );
 
+        let lastOffset = 0;
+
         // Update drag
         signals.push(
             gesture.connect('drag-update', () => {
-                hyprMessage('j/cursorpos').then((out) => {
-                    if (!win.startY) {
-                        return;
-                    }
+                hyprMessage(isTouch ? 'j/touchpos' : 'j/cursorpos')
+                    .then((out) => {
+                        if (!win.startY) {
+                            return;
+                        }
 
-                    const currentY = JSON.parse(out).y;
-                    const offset = win.startY - currentY;
+                        const currentY = isTouch
+                            ? JSON.parse(out)['0'].y
+                            : JSON.parse(out).y;
+                        const offset = (lastOffset = win.startY - currentY);
 
-                    if (offset > 0) {
+                        if (offset > 0) {
+                            setCss(
+                                provider,
+                                `
+                                    transition: margin-bottom 0.5s ease-in-out;
+                                    margin-bottom: 0px;
+                                `,
+                            );
+
+                            return;
+                        }
+
                         setCss(
                             provider,
                             `
-                                transition: margin-bottom 0.5s ease-in-out;
-                                margin-bottom: 0px;
+                                margin-bottom: ${offset}px;
                             `,
                         );
-
-                        return;
-                    }
-
-                    setCss(
-                        provider,
-                        `
-                            margin-bottom: ${offset}px;
-                        `,
-                    );
-                });
+                    })
+                    .catch(console.error);
             }),
         );
 
         // End drag
         signals.push(
             gesture.connect('drag-end', () => {
-                hyprMessage('j/cursorpos').then((out) => {
-                    if (!win.startY) {
-                        return;
-                    }
+                if (!win.startY) {
+                    return;
+                }
 
-                    const currentY = JSON.parse(out).y;
-                    const offset = win.startY - currentY;
+                if (lastOffset < -((calculatedHeight * 2) / 3)) {
+                    setCss(
+                        provider,
+                        `
+                            transition: margin-bottom 0.5s ease-in-out;
+                            margin-bottom: -${calculatedHeight}px;
+                        `,
+                    );
 
-                    if (offset < -((calculatedHeight * 2) / 3)) {
-                        setCss(
-                            provider,
-                            `
-                                transition: margin-bottom 0.5s ease-in-out;
-                                margin-bottom: -${calculatedHeight}px;
-                            `,
-                        );
+                    tablet.oskState = false;
+                }
+                else {
+                    setCss(
+                        provider,
+                        `
+                            transition: margin-bottom 0.5s ease-in-out;
+                            margin-bottom: 0px;
+                        `,
+                    );
+                }
 
-                        tablet.oskState = false;
-                    }
-                    else {
-                        setCss(
-                            provider,
-                            `
-                                transition: margin-bottom 0.5s ease-in-out;
-                                margin-bottom: 0px;
-                            `,
-                        );
-                    }
-
-                    win.startY = null;
-                });
+                win.startY = null;
             }),
         );
     };
