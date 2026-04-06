@@ -18,7 +18,6 @@
   tccutil = pkgs.selfPackages.tccutil;
 in {
   options.darwin = {
-    # TODO: add full TCC DB declarative control by force deleting it on every activation
     tccutil = mkOption {
       type = types.listOf types.str;
       default = [];
