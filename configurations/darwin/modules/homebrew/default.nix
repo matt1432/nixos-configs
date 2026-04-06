@@ -10,9 +10,6 @@
       "pika"
 
       "spotify"
-
-      # TODO: adapt <base/locale.nix> to support darwin
-      "font-jetbrains-mono-nerd-font"
     ];
   };
 }

@@ -9,6 +9,8 @@ self: {
   cfg = config.roles.base;
 in {
   imports = [
+    ./locale
+    ./locale/darwin.nix
     ./substituters
     (import ./common-nix self)
     (import ./nix-single-user self)
