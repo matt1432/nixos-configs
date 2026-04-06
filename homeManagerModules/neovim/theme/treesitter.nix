@@ -18,6 +18,7 @@ in {
             ${pkgs.vimPlugins.nvim-treesitter.src}/scripts/install-parsers.lua |&
                 grep -v 'Compiling' |
                 grep -v 'Generating' |
+                grep -v "ENOENT: no such file or directory (cmd): 'curl'" |
                 grep -v 'Downloading' ||
                 # Doesn't exit with 0 because it only installs missing ones
                 true
