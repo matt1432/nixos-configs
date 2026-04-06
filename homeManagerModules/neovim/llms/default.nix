@@ -5,14 +5,9 @@ self: {
   pkgs,
   ...
 }: let
-  inherit (self.lib.${pkgs.stdenv.hostPlatform.system}) mkVersion;
-  inherit (self.inputs) vimplugin-agentic-src;
-
   inherit (lib) mkIf;
 
   cfg = config.programs.neovim;
-
-  model = "composer-2-fast";
 in {
   config = mkIf (cfg.enable && cfg.ideConfig.enableLLMs) {
     home.sessionPath = ["$HOME/.local/bin"];
@@ -27,52 +22,7 @@ in {
               ${pkgs.curl}/bin/curl https://cursor.com/install -fsS | PATH="${pkgs.curl}/bin:${pkgs.gnutar}/bin:${pkgs.gzip}/bin:${pkgs.coreutils}/bin:$PATH" ${pkgs.bash}/bin/bash
           fi
         '';
-
-      installCursorAgentAcp =
-        config.lib.dag.entryAfter ["writeBoundary" "installCursorCli"]
-        # bash
-        ''
-          # Install cursor-agent-acp if not present
-          if ! [ -x "$HOME/.npm-global/bin/cursor-agent-acp" ]; then
-              echo "Installing cursor-agent-acp..."
-              export NPM_CONFIG_PREFIX="$HOME/.npm-global"
-              export NPM_CONFIG_CACHE="$HOME/.npm-global/.cache"
-              mkdir -p "$HOME/.npm-global" "$HOME/.npm-global/.cache"
-              ${pkgs.nodejs}/bin/npm install -g @blowmage/cursor-agent-acp
-          fi
-        '';
     };
-
-    # Force the use of a model
-    home.file.".npm-global/bin/cursor-agent".source = pkgs.writeShellScript "cursor-agent" ''
-      args=()
-      skip=0
-
-      for arg in "$@"; do
-          if [ "$skip" -eq 1 ]; then
-              skip=0
-              continue
-          fi
-          case "$arg" in
-              --model)
-                  skip=1
-                  continue
-              ;;
-              --model=*)
-                  continue
-              ;;
-              --force)
-                  continue
-              ;;
-              -f)
-                  continue
-              ;;
-          esac
-          args+=("$arg")
-      done
-
-      exec "$HOME/.local/bin/cursor-agent" --trust --model ${model} "''${args[@]}"
-    '';
 
     programs = {
       neovim = {
@@ -86,13 +36,13 @@ in {
             type = "lua";
             config = ''
               require('render-markdown').setup({
-                  file_types = { 'AgenticChat', 'AgenticCode', 'AgenticFiles' },
+                  file_types = { 'Avante' },
                   anti_conceal = { enabled = false },
                   render_modes = true,
               });
 
               vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {
-                  pattern = { 'AgenticChat', 'AgenticCode', 'AgenticFiles' },
+                  pattern = { 'Avante' },
                   callback = function(args)
                       local buf = args.buf;
                       vim.treesitter.start(buf, 'markdown');
@@ -101,55 +51,53 @@ in {
             '';
           }
 
+          pkgs.vimPlugins.nui-nvim
+          pkgs.vimPlugins.dressing-nvim
           {
-            plugin = pkgs.vimUtils.buildVimPlugin {
-              pname = "agentic-nvim";
-              src = vimplugin-agentic-src;
-              version = mkVersion vimplugin-agentic-src;
-              doCheck = false;
-            };
+            plugin = pkgs.vimPlugins.avante-nvim;
             type = "lua";
             config = ''
-              local agentic = require('agentic');
-
-              agentic.setup({
-                  provider = 'cursor-agent-acp',
-                  debug = false,
+              require('avante').setup({
+                  provider = 'cursor',
+                  mode = 'agentic',
                   acp_providers = {
-                      ['cursor-agent-acp'] = {
-                          name = 'Cursor Agent ACP',
-                          command = vim.fn.expand('~/.npm-global/bin/cursor-agent-acp'),
-                          args = {},
+                      cursor = {
+                          command = os.getenv('HOME') .. '/.local/bin/cursor-agent',
+                          args = { 'acp' },
+                          auth_method = 'cursor_login',
                           env = {
-                              PATH = vim.fn.expand('~/.npm-global/bin') .. ':' .. vim.fn.expand('~/.local/bin') .. ':' .. vim.env.PATH,
+                              HOME = os.getenv('HOME'),
+                              PATH = os.getenv('PATH'),
                           },
                       },
                   },
               });
 
+              local api = require('avante.api');
+
               vim.keymap.set({ 'n', 'v' }, '<leader>at', function()
-                  agentic.toggle();
+                  api.toggle();
               end);
               vim.keymap.set({ 'n', 'v' }, '<leader>aa', function()
-                  agentic.add_selection_or_file_to_context();
+                  api.ask();
               end);
               vim.keymap.set({ 'n', 'v' }, '<leader>an', function()
-                  agentic.new_session();
+                  api.new_chat();
               end);
               vim.keymap.set({ 'n', 'v' }, '<leader>ac', function()
-                  agentic.close();
+                  api.close();
               end);
               vim.keymap.set({ 'n', 'v' }, '<leader>ao', function()
-                  agentic.open();
+                  api.focus();
               end);
               vim.keymap.set({ 'n' }, '<leader>af', function()
-                  agentic.add_file();
+                  api.add_file();
               end);
               vim.keymap.set({ 'v' }, '<leader>as', function()
-                  agentic.add_selection();
+                  api.add_selection();
               end);
               vim.keymap.set({ 'n', 'v' }, '<leader>aS', function()
-                  agentic.stop_generation();
+                  api.stop();
               end);
             '';
           }
