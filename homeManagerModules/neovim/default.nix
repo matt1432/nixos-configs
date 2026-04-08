@@ -47,6 +47,9 @@ in {
 
   config = mkIf cfg.enable {
     programs.neovim = {
+      withPython3 = true;
+      withRuby = true;
+
       initLua =
         # lua
         ''

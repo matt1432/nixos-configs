@@ -57,10 +57,10 @@
   };
   "floccus" = buildMozillaXpiAddon {
     pname = "floccus";
-    version = "5.8.6";
+    version = "5.9.0";
     addonId = "floccus@handmadeideas.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4673195/floccus-5.8.6.xpi";
-    sha256 = "52a7333b9a4984df65d0ad4b0c4d26c832fff4925b3c428a994f6b17bea03cf3";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4752643/floccus-5.9.0.xpi";
+    sha256 = "48172cf1718709602b528977af9bdbba545e5fa2b539e4d52f23d72091418747";
     meta = with lib; {
       homepage = "https://floccus.org";
       description = "Securely synchronize bookmarks across Chrome, Firefox, Edge, and more using your own cloud storage.";
