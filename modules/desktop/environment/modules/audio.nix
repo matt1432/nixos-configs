@@ -20,7 +20,7 @@ in {
         alsa.enable = true;
         jack.enable = true;
         pulse.enable = true;
-        lowLatency.enable = true;
+        lowLatency.enable = false;
 
         extraConfig.pipewire-pulse.combine-sink = {
           "pulse.cmd" = [
