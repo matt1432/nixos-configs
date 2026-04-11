@@ -7,13 +7,13 @@
         "build": "node_ver=$(node -v); esbuild src/app.ts --bundle --platform=node --target=\"node${node_ver:1:2}\" --outfile=out/bin/app.cjs"
     },
     "dependencies": {
-        "@types/node": "25.5.2",
-        "axios": "1.14.0",
+        "@types/node": "25.6.0",
+        "axios": "1.15.0",
         "esbuild": "0.28.0",
         "eslint": "10.2.0",
         "jiti": "2.6.1",
         "pkg-types": "2.3.0",
-        "prettier": "3.8.1",
+        "prettier": "3.8.2",
         "prettier-plugin-brace-style": "0.10.1",
         "typescript": "6.0.2"
     },

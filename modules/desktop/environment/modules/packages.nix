@@ -2,7 +2,6 @@ self: {
   config,
   lib,
   pkgs,
-  purePkgs ? pkgs,
   ...
 }: let
   inherit (self.lib.hypr) mkBind;
@@ -82,7 +81,7 @@ in {
           enable = true;
 
           discord = {
-            package = pkgs.discord;
+            package = nixcord.packages.${pkgs.stdenv.hostPlatform.system}.discord;
 
             vencord.unstable = true;
 

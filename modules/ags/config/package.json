@@ -3,8 +3,8 @@
     "version": "0.0.0",
     "main": "app.ts",
     "dependencies": {
-        "ags": "https://github.com/Aylur/ags/archive/e169694390548dfd38ff40f1ef2163d6c3ffe3ea.tar.gz",
-        "gnim": "1.9.0",
+        "ags": "https://github.com/Aylur/ags/archive/bbee2f18939f1ec7ff720e717cf305e73635628f.tar.gz",
+        "gnim": "1.9.1",
         "fzf": "0.5.2",
         "@eslint/js": "10.0.1",
         "eslint": "10.2.0",
@@ -13,9 +13,9 @@
         "eslint-plugin-perfectionist": "5.8.0",
         "eslint-plugin-prettier": "5.5.5",
         "jiti": "2.6.1",
-        "prettier": "3.8.1",
+        "prettier": "3.8.2",
         "prettier-plugin-brace-style": "0.10.1",
         "typescript": "6.0.2",
-        "typescript-eslint": "8.58.0"
+        "typescript-eslint": "8.58.1"
     }
 }

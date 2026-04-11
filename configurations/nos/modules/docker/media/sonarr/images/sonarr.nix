@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage rec {
   imageName = "ghcr.io/linuxserver/sonarr";
-  imageDigest = "sha256:b5670a3adb0f8a8b0f277feeaa69a5fbe3869ba4bb9fa7c0f0764c3b3f0e698f";
-  hash = "sha256-4tVmdgb96cmOCIyjxE4aFyLG+AsPLvzsBbX5blWC05I=";
+  imageDigest = "sha256:6854df9de20b8c82e1982604f39473d64dbb4c4584b1013f18f9ade1ee92af13";
+  hash = "sha256-bT0oO8L2V8Phu35IGjw1xP1eSJyqKJmH6xosXSVlM14=";
   finalImageName = imageName;
   finalImageTag = "latest";
 }
