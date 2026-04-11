@@ -154,8 +154,10 @@ let
       repo = "nixos-jellyfin";
     };
 
+    # FIXME: https://github.com/venkyr77/jellarr/pull/62
     jellarr = mkInput {
-      owner = "venkyr77";
+      # owner = "venkyr77";
+      owner = "matt1432";
       repo = "jellarr";
     };
 

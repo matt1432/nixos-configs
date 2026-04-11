@@ -189,7 +189,7 @@
         systems.follows = "systems";
         treefmt-nix.follows = "treefmt-nix";
       };
-      owner = "venkyr77";
+      owner = "matt1432";
       repo = "jellarr";
       type = "github";
     };
