@@ -21,9 +21,9 @@ in {
     };
 
     ideConfig = {
-      enableLLMs = mkOption {
-        type = types.bool;
-        default = false;
+      llmProvider = mkOption {
+        type = types.enum ["cursor" "opencode"];
+        default = "opencode";
       };
 
       enableBash = mkOption {

@@ -5,10 +5,7 @@
     ./homepage
     ./jellyfin
     ./jmusicbot
-
-    # TODO: re-enable this when homie is back up
-    # ./llm
-
+    ./llm
     ./mergerfs
     ./qbittorrent
     ./snapraid

@@ -5,14 +5,37 @@ self: {
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib) getExe mkIf;
 
   cfg = config.programs.neovim;
+
+  opencodeExe =
+    if cfg.ideConfig.llmProvider == "opencode"
+    then getExe pkgs.opencode
+    else "";
+
+  opencodeProviders =
+    if cfg.ideConfig.llmProvider == "opencode"
+    then
+      # lua
+      ''
+        providers = {
+            llamacpp = {
+                __inherited_from = 'openai',
+                endpoint = 'http://100.64.0.4:9292/v1',
+                model = 'Qwen3.5-35B-A3B-GGUF',
+                timeout = 1000000, -- Timeout in milliseconds
+                disable_tools = false,
+                api_key_name = "TERM",
+            },
+        },
+      ''
+    else "";
 in {
-  config = mkIf (cfg.enable && cfg.ideConfig.enableLLMs) {
+  config = mkIf cfg.enable {
     home.sessionPath = ["$HOME/.local/bin"];
 
-    home.activation = {
+    home.activation = mkIf (cfg.ideConfig.llmProvider == "cursor") {
       installCursorCli =
         config.lib.dag.entryAfter ["writeBoundary"]
         # bash
@@ -58,8 +81,9 @@ in {
             type = "lua";
             config = ''
               require('avante').setup({
-                  provider = 'cursor',
+                  provider = '${cfg.ideConfig.llmProvider}',
                   mode = 'agentic',
+                  ${opencodeProviders}
                   acp_providers = {
                       cursor = {
                           command = os.getenv('HOME') .. '/.local/bin/cursor-agent',
@@ -69,6 +93,11 @@ in {
                               HOME = os.getenv('HOME'),
                               PATH = os.getenv('PATH'),
                           },
+                      },
+                      opencode = {
+                          command = '${opencodeExe}',
+                          args = { 'acp' },
+                          env = {},
                       },
                   },
               });
