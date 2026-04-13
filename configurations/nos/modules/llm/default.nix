@@ -44,15 +44,9 @@ in {
     sha256 = "sha256-UUaKD9kBuoWITv/AV6Nh9t0z5LPJnq1F8mc9L9eaiUM=";
   };
 
-  environment.etc."llama-swap/config.yaml".text = ''
-    # llama-swap configuration
-    # This config uses llama.cpp's server to serve models on demand
-
-    models:
-      # unsloth/Qwen3.5-35B-A3B-GGUF - Fixed with scoring_func sigmoid metadata
-      # General use: --temp 1.0 --top-p 0.95, Tool-calling: --temp 0.7 --top-p 1.0
-      "Qwen3.5-35B-A3B-GGUF":
-        cmd: |
+  environment.etc."llama-swap/config.yaml".text = builtins.toJSON {
+    models = {
+      "Qwen3.5-35B-A3B-GGUF".cmd = ''
           ${pkgs.llama-cpp}/bin/llama-server
           -hf unsloth/Qwen3.5-35B-A3B-GGUF:UD-Q4_K_XL
           --port ''${PORT}
@@ -65,22 +59,21 @@ in {
           --presence-penalty 0.0
           --repeat-penalty 1.0
           --jinja
+        '';
+    };
 
-    healthCheckTimeout: 28800  # 8 hours for large model download + loading
+    groups = {
+      embedding = {
+        persistent = true;
+        swap = false;
+        exclusive = false;
+        members = ["embeddinggemma:300m"];
+      };
+    };
 
-    # TTL keeps models in memory for specified seconds after last use
-    ttl: 3600  # Keep models loaded for 1 hour (like OLLAMA_KEEP_ALIVE)
-
-    # Groups allow running multiple models simultaneously
-    groups:
-      embedding:
-        # Keep embedding model always loaded alongside any other model
-        persistent: true  # Prevents other groups from unloading this
-        swap: false       # Don't swap models within this group
-        exclusive: false  # Don't unload other groups when loading this
-        members:
-          - "embeddinggemma:300m"
-  '';
+    healthCheckTimeout = 28800;
+    ttl = 3600;
+  };
 
   systemd.services.llama-swap = {
     description = "llama-swap - OpenAI compatible proxy with automatic model swapping";
