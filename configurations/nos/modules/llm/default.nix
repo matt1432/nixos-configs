@@ -47,19 +47,19 @@ in {
   environment.etc."llama-swap/config.yaml".text = builtins.toJSON {
     models = {
       "Qwen3.5-35B-A3B-GGUF".cmd = ''
-          ${pkgs.llama-cpp}/bin/llama-server
-          -hf unsloth/Qwen3.5-35B-A3B-GGUF:UD-Q4_K_XL
-          --port ''${PORT}
-          --ctx-size 100000
-          --n-predict 32768
-          --temp 0.6
-          --top-p 0.95
-          --top-k 20
-          --min-p 0.00
-          --presence-penalty 0.0
-          --repeat-penalty 1.0
-          --jinja
-        '';
+        ${pkgs.llama-cpp}/bin/llama-server
+        -hf unsloth/Qwen3.5-35B-A3B-GGUF:UD-Q4_K_XL
+        --port ''${PORT}
+        --ctx-size 100000
+        --n-predict 32768
+        --temp 0.6
+        --top-p 0.95
+        --top-k 20
+        --min-p 0.00
+        --presence-penalty 0.0
+        --repeat-penalty 1.0
+        --jinja
+      '';
     };
 
     groups = {

@@ -306,10 +306,10 @@
   };
   "youtubelistview" = buildMozillaXpiAddon {
     pname = "youtubelistview";
-    version = "1.618";
+    version = "1.619";
     addonId = "@idk-what-this-means";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4757695/youtubelistview-1.618.xpi";
-    sha256 = "55c38a8bfe639c08e5bdee06a09aad7dc485e34c5708f9a29dbb3e9960f6219e";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4761181/youtubelistview-1.619.xpi";
+    sha256 = "047715d8b489567ac89eba307ff616b7d67404b2a5058278eb709add33114a8b";
     meta = with lib; {
       description = "Brings back the list view for the subscriptions page and more. Click the extension icon for customization options.";
       mozPermissions = ["storage" "https://www.youtube.com/*"];
