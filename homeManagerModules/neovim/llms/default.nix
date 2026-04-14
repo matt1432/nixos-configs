@@ -32,7 +32,7 @@ self: {
       ''
     else "";
 in {
-  config = mkIf cfg.enable {
+  config = mkIf (cfg.enable && cfg.ideConfig.llmProvider != "none") {
     home.sessionPath = ["$HOME/.local/bin"];
 
     home.activation = mkIf (cfg.ideConfig.llmProvider == "cursor") {

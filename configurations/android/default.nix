@@ -76,6 +76,8 @@
           user = mainUser;
 
           ideConfig = {
+            llmProvider = "none";
+
             enableJava = false;
             enableNix = false;
             enableWeb = false;
