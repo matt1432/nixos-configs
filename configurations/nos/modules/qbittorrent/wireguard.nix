@@ -8,7 +8,7 @@
   wgPort = 51820;
   wgDns = "10.2.0.1";
   clientIP = "10.2.0.2";
-  serverIP = "146.70.198.2";
+  serverIP = "163.5.171.2";
 in {
   networking.wireguard = {
     enable = true;
@@ -25,7 +25,7 @@ in {
 
         peers = [
           {
-            publicKey = "aQ2NoOYEObG9tDMwdc4VxK6hjW+eA0PLfgbH7ffmagU=";
+            publicKey = "gU9CLkRxLUarj9+MtswvE/2Tvclx32w5aoSYeY3eEX8=";
             allowedIPs = ["0.0.0.0/0"];
             endpoint = "${serverIP}:${toString wgPort}";
           }
