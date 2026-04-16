@@ -15,7 +15,7 @@ in {
           ''
             local lsp = require('lspconfig');
 
-            loadDevShell({
+            LoadDevShell({
                 name = 'qml',
                 pattern = { 'qml' },
                 pre_shell_callback = function()

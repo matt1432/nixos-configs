@@ -13,7 +13,7 @@ in {
         initLua =
           # lua
           ''
-            loadDevShell({
+            LoadDevShell({
                 name = 'golang',
                 pattern = { 'go', 'gomod', 'gowork', 'gotmpl' },
                 pre_shell_callback = function()

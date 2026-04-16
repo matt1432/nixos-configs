@@ -26,7 +26,7 @@ in {
         initLua =
           # lua
           ''
-            loadDevShell({
+            LoadDevShell({
                 name = 'markdown',
                 pattern = { 'markdown', 'tex' },
                 pre_shell_callback = function()
@@ -56,7 +56,7 @@ in {
             plugin = buildPlugin "easytables-nvim" vimplugin-easytables-src;
             type = "lua";
             config = ''
-              require('easytables').setup();
+              require('easytables').setup({});
             '';
           }
 

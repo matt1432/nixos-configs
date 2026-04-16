@@ -13,7 +13,7 @@ in {
         initLua =
           # lua
           ''
-            loadDevShell({
+            LoadDevShell({
                 name = 'kotlin',
                 pattern = { 'kotlin' },
                 pre_shell_callback = function()

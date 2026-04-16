@@ -16,7 +16,7 @@ in {
             plugin = pkgs.vimPlugins.clangd_extensions-nvim;
             type = "lua";
             config = ''
-              loadDevShell({
+              LoadDevShell({
                   name = 'c-lang',
                   pattern = { 'cpp', 'c', 'cuda' },
                   pre_shell_callback = function()

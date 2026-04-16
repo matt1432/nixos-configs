@@ -60,7 +60,7 @@ in {
                   vim.cmd[[e]]; -- reload to attach on current file
               end;
 
-              loadDevShell({
+              LoadDevShell({
                   name = 'csharp',
                   pattern = { 'cs' },
                   pre_shell_callback = function()

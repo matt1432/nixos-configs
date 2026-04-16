@@ -47,20 +47,23 @@ in {
           -- Init object to keep track of loaded devShells
           local devShells = {};
 
-          --- @param name string
-          --- @param pattern string|string[]
-          --- @param pre_shell_callback function
-          --- @param language_servers function?
-          --- @param post_shell_callback fun(bufnr: integer)?
-          local loadDevShell = function(args)
-              local name = args.name;
-              local pattern = args.pattern;
-              local pre_shell_callback = args.pre_shell_callback;
+          --- @class LoadArgs
+          --- @field name string
+          --- @field pattern string|string[]
+          --- @field pre_shell_callback function?
+          --- @field language_servers table<string, function>?
+          --- @field post_shell_callback fun(bufnr: integer)?
 
-              local post_shell_callback = args.post_shell_callback or function(bufnr)
+          --- @param load_args LoadArgs
+          LoadDevShell = function(load_args)
+              local shell_name = load_args.name;
+              local pattern = load_args.pattern;
+              local pre_shell_callback = load_args.pre_shell_callback;
+
+              local post_shell_callback = load_args.post_shell_callback or function(bufnr)
                   local filetype = vim.api.nvim_buf_get_option(bufnr, 'filetype');
 
-                  for name, func in pairs(args.language_servers) do
+                  for name, func in pairs(load_args.language_servers) do
                       if vim.tbl_contains(vim.lsp.config[name].filetypes, filetype) then
                           func(function(opts)
                               local final_opts = vim.tbl_deep_extend(
@@ -102,17 +105,19 @@ in {
                   callback = function(args)
                       local bufnr = args.buf;
 
-                      vim.schedule(pre_shell_callback);
+                      if pre_shell_callback ~= nil then
+                          vim.schedule(pre_shell_callback);
+                      end;
 
                       local final_post_shell_callback = function()
                           post_shell_callback(bufnr);
                       end;
 
-                      if (devShells[name] == nil) then
-                          devShells[name] = 1;
+                      if (devShells[shell_name] == nil) then
+                          devShells[shell_name] = 1;
 
                           nix_develop.nix_develop_extend(
-                              { '${flakeEnv}#' .. name },
+                              { '${flakeEnv}#' .. shell_name },
                               final_post_shell_callback
                           );
                       else
@@ -140,7 +145,11 @@ in {
           vim.api.nvim_create_autocmd('LspAttach', {
               callback = function(args)
                   local client = vim.lsp.get_client_by_id(args.data.client_id);
-                  client.server_capabilities.semanticTokensProvider = nil;
+
+                  if client ~= nil then
+                      client.server_capabilities.semanticTokensProvider = nil;
+                  end;
+
                   lsp_status.on_attach(client);
 
                   -- ensure treesitter is started, in case starting the lsp messed with it
@@ -153,6 +162,7 @@ in {
                   -- On Darwin, `require('nvim-treesitter').get_available()` doesn't seem to work
                   vim.treesitter.start();
                   vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()";
+                  require('otter').activate();
               ''
             else
               # lua
@@ -170,6 +180,7 @@ in {
                       if (filetype):find("^" .. language) then
                           vim.treesitter.start();
                           vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()";
+                          require('otter').activate();
                           return;
                       end;
                   end;
@@ -185,6 +196,7 @@ in {
           # lsp plugins
           nvim-lspconfig
           lsp-status-nvim
+          otter-nvim
           # completion plugins
           cmp-buffer
           cmp-nvim-lsp

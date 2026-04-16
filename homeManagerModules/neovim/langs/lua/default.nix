@@ -16,7 +16,7 @@ in {
             plugin = pkgs.vimPlugins.lazydev-nvim;
             type = "lua";
             config = ''
-              loadDevShell({
+              LoadDevShell({
                   name = 'lua',
                   pattern = { 'lua' },
                   pre_shell_callback = function()

@@ -13,7 +13,7 @@ in {
         initLua =
           # lua
           ''
-            loadDevShell({
+            LoadDevShell({
                 name = 'ocaml',
                 pattern = {
                     'ocaml',

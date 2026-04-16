@@ -13,7 +13,7 @@ in {
         initLua =
           # lua
           ''
-            loadDevShell({
+            LoadDevShell({
                 name = 'json',
                 pattern = { 'json', 'yaml', '.clang-.*', '%.json$', '%.jsonc$' },
                 pre_shell_callback = function()

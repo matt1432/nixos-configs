@@ -13,9 +13,7 @@ in {
         initLua =
           # lua
           ''
-            local default_capabilities = require('cmp_nvim_lsp').default_capabilities();
-
-            loadDevShell({
+            LoadDevShell({
                 name = 'python',
                 pattern = { 'python' },
                 pre_shell_callback = function()
