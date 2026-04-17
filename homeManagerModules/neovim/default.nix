@@ -53,6 +53,7 @@ in {
       initLua =
         # lua
         ''
+          vim.opt.fillchars = {};
           vim.opt.fillchars:append({
               eob = ' ',
               vert = '▕',

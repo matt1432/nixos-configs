@@ -30,6 +30,7 @@ in {
           type = "lua";
           config = ''
             -- set dot icon in place of trailing whitespaces
+            vim.opt.listchars = {};
             vim.opt.listchars:append({
                 tab = '→ ',
                 trail = '•',
