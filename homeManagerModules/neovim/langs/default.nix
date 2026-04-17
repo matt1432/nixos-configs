@@ -16,6 +16,7 @@ self: {
   flakeEnv = config.programs.bash.sessionVariables.FLAKE;
 
   # TODO: fix lua errors
+  # TODO: fix indentation using otter language instead of main one
 in {
   imports = [
     ./bash
@@ -63,7 +64,7 @@ in {
               local pre_shell_callback = load_args.pre_shell_callback;
 
               local post_shell_callback = load_args.post_shell_callback or function(bufnr)
-                  local filetype = vim.api.nvim_buf_get_option(bufnr, 'filetype');
+                  local filetype = vim.api.nvim_get_option_value('filetype', { buf = bufnr });
 
                   for name, func in pairs(load_args.language_servers) do
                       if vim.tbl_contains(vim.lsp.config[name].filetypes, filetype) then
@@ -196,7 +197,6 @@ in {
           # lsp plugins
           nvim-lspconfig
           lsp-status-nvim
-          otter-nvim
           # completion plugins
           cmp-buffer
           cmp-nvim-lsp
@@ -221,6 +221,45 @@ in {
           type = "lua";
           config = ''
             require('nvim-autopairs').setup({});
+          '';
+        };
+
+        otter-nvim = {
+          plugin = pkgs.vimPlugins.otter-nvim;
+          type = "lua";
+          config = ''
+            require('otter').setup({
+                lsp = {
+                    -- `:h events` that cause the diagnostics to update. Set to:
+                    -- { "BufWritePost", "InsertLeave", "TextChanged" } for less performant
+                    -- but more instant diagnostic updates
+                    diagnostic_update_events = { 'BufWritePost' },
+
+                    -- function to find the root dir where the otter-ls is started
+                    root_dir = function(_, bufnr)
+                        return vim.fs.root(bufnr or 0, {
+                            '.luarc.json',
+                            '.git',
+                            'package.json',
+                        }) or vim.fn.getcwd(0)
+                    end,
+                },
+
+                buffers = {
+                    -- if set to true, the filetype of the otterbuffers will be set.
+                    -- otherwise only the autocommand of lspconfig that attaches
+                    -- the language server will be executed without setting the filetype
+                    set_filetype = true,
+
+                    write_to_disk = false,
+                },
+
+                strip_wrapping_quote_characters = { "'", '"', '`' },
+
+                -- otter may not work the way you expect when entire code blocks are indented (eg. in Org files)
+                -- When true, otter handles these cases fully.
+                handle_leading_whitespace = true,
+            })
           '';
         };
 
