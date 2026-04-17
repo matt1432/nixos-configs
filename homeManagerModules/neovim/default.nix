@@ -53,16 +53,12 @@ in {
       initLua =
         # lua
         ''
-          vim.opt.fillchars = {
+          vim.opt.fillchars:append({
               eob = ' ',
-              foldopen = '',
-              foldclose = '',
-              foldinner = ' ',
-              foldsep = ' ',
               vert = '▕',
               diff = '╱',
               msgsep = '‾',
-          };
+          });
 
           -- by default, the indent is 2 spaces.
           vim.opt.smartindent = true;
@@ -75,7 +71,7 @@ in {
           vim.opt.relativenumber = true;
 
           vim.opt.undofile = true;
-          vim.opt.undodir = '${config.xdg.cacheHome}/nvim/';
+          vim.opt.undodir = vim.fn.expand("~/.local/state/nvim/undo/");
 
           -- Always show the signcolumn, otherwise it would shift
           -- the text each time diagnostics appear/become resolved
@@ -144,7 +140,7 @@ in {
                 config_files = { '.nvim.lua', '.nvimrc', '.exrc' },
 
                 -- Where the plugin keeps files data
-                hashfile = '${config.xdg.cacheHome}/nvim/config-local',
+                hashfile = vim.fn.expand("~/.local/state/nvim/config-local/"),
             });
           '';
         }

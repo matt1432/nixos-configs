@@ -14,6 +14,8 @@ self: {
     then getExe pkgs.opencode
     else "";
 
+  # TODO: fix lua errors
+
   opencodeProviders =
     if cfg.ideConfig.llmProvider == "opencode"
     then

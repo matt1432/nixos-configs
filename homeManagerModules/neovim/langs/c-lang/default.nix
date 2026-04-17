@@ -29,7 +29,7 @@ in {
 
                       clangd = function(start)
                           start({
-                              on_attach = function(_, bufnr)
+                              on_attach = function()
                                   require('clangd_extensions').setup();
                               end,
                           });

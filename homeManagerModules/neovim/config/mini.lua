@@ -78,7 +78,7 @@ local function get_char()
     if not ret_val or char_num < 32 then
         return nil;
     end;
-    local char = vim.fn.nr2char(char_num);
+    local char = vim.fn.nr2char(char_num + 0);
 
     return char;
 end;

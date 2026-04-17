@@ -19,6 +19,8 @@ self: {
     url = "https://raw.githubusercontent.com/OzakIOne/markdown-github-dark/5bd0bcf3ad20cf9f58591f97a597fd68fc699f8e/style.css";
     hash = "sha256-deQvQOOyK6iP7kjVrgEdFTyOP80RWXMrETs6gi7DTmo=";
   };
+
+  # TODO: fix lua errors
 in {
   config = mkIf cfg.enable {
     programs = {
@@ -41,7 +43,7 @@ in {
                                     latexFormatter = 'latexindent',
                                     latexindent = {
                                         modifyLineBreaks = false,
-                                        ["local"] = '.indentconfig.yaml';
+                                        ['local'] = '.indentconfig.yaml';
                                     },
                                 },
                             },

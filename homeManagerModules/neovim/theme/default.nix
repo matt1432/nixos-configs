@@ -10,6 +10,8 @@ self: {
   inherit (lib) attrValues fileContents getExe mkIf;
 
   cfg = config.programs.neovim;
+
+  # TODO: fix otter errors
 in {
   imports = [./treesitter.nix];
 
@@ -28,13 +30,13 @@ in {
           type = "lua";
           config = ''
             -- set dot icon in place of trailing whitespaces
-            vim.opt.listchars = {
+            vim.opt.listchars:append({
                 tab = '→ ',
                 trail = '•',
                 extends = '⟩',
                 precedes = '⟨',
                 nbsp = '␣',
-            };
+            });
             vim.opt.list = true;
 
             -- Add visual indicator for trailing whitespaces

@@ -100,7 +100,11 @@ in {
                     if root then
                         on_dir(root);
                     else
-                        local git_root = util.find_git_ancestor(vim.api.nvim_buf_get_name(bufnr));
+                        local git_root = vim.fs.dirname(vim.fs.find('.git', {
+                            path = vim.api.nvim_buf_get_name(bufnr),
+                            upward = true,
+                        })[1]);
+
                         if git_root then
                             on_dir(git_root);
                         end

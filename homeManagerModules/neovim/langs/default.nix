@@ -14,6 +14,8 @@ self: {
 
   cfg = config.programs.neovim;
   flakeEnv = config.programs.bash.sessionVariables.FLAKE;
+
+  # TODO: fix lua errors
 in {
   imports = [
     ./bash
@@ -158,32 +160,30 @@ in {
             then
               # lua
               ''
-                --
-                  -- On Darwin, `require('nvim-treesitter').get_available()` doesn't seem to work
-                  vim.treesitter.start();
-                  vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()";
-                  require('otter').activate();
+                -- On Darwin, `require('nvim-treesitter').get_available()` doesn't seem to work
+                vim.treesitter.start();
+                vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()";
+                require('otter').activate();
               ''
             else
               # lua
               ''
-                --
-                  local filetype = vim.filetype.match({
-                      buf = vim.api.nvim_get_current_buf(),
-                  });
+                local filetype = vim.filetype.match({
+                    buf = vim.api.nvim_get_current_buf(),
+                });
 
-                  if filetype == nil then
-                      return;
-                  end;
+                if filetype == nil then
+                    return;
+                end;
 
-                  for _, language in ipairs(require('nvim-treesitter').get_available()) do
-                      if (filetype):find("^" .. language) then
-                          vim.treesitter.start();
-                          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()";
-                          require('otter').activate();
-                          return;
-                      end;
-                  end;
+                for _, language in ipairs(require('nvim-treesitter').get_available()) do
+                    if (filetype):find("^" .. language) then
+                        vim.treesitter.start();
+                        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()";
+                        require('otter').activate();
+                        return;
+                    end;
+                end;
               ''
           }
               end,

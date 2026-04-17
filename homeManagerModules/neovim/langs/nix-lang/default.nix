@@ -12,6 +12,8 @@ self: {
   cfg = config.programs.neovim;
   mainHmCfg = osConfig.home-manager.users.${cfg.user} or config;
 
+  # TODO: fix otter errors
+
   defaultFormatter = self.formatter.${pkgs.stdenv.hostPlatform.system};
   formatCmd = pkgs.writeShellApplication {
     name = "nix-fmt-cmd";

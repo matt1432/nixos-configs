@@ -9,6 +9,8 @@
   cfg = config.programs.neovim;
 
   javaSdk = pkgs.temurin-bin-21;
+
+  # TODO: fix lua errors
 in {
   config = mkIf (cfg.enable && cfg.ideConfig.enableJava) {
     programs = {

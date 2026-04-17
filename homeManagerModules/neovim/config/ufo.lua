@@ -6,6 +6,13 @@ vim.o.foldlevel = 99;   -- Using ufo provider need a large value, feel free to d
 vim.o.foldlevelstart = 99;
 vim.o.foldenable = true;
 
+vim.opt.fillchars:append({
+    foldopen = '',
+    foldclose = '',
+    foldinner = ' ',
+    foldsep = ' ',
+});
+
 local handler = function(virtText, lnum, endLnum, width, truncate)
     local newVirtText = {};
     local suffix = (' 󰁂 %d '):format(endLnum - lnum);

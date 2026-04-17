@@ -7,6 +7,8 @@
   inherit (lib) mkIf;
 
   cfg = config.programs.neovim;
+
+  # TODO: fix lua errors
 in {
   config = mkIf cfg.enable {
     programs = {
