@@ -27,6 +27,7 @@ in {
     (import ./media/jellystat/compose.nix globalEnv)
 
     (import ./media/prowlarr/compose.nix globalEnv)
+    (import ./media/qbit/compose.nix globalEnv)
     (import ./media/radarr/compose.nix globalEnv)
     (import ./media/seerr/compose.nix globalEnv)
     (import ./media/sonarr/compose.nix globalEnv)

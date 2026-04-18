@@ -22,7 +22,7 @@ const genVueText = (
 export default (): string | null => {
     console.log(styleText(['magenta'], '\nUpdating Vuetorrent:\n'));
 
-    const FILE = `${FLAKE}/configurations/nos/modules/qbittorrent/vuetorrent.nix`;
+    const FILE = `${FLAKE}/configurations/nos/modules/docker/media/qbit/vuetorrent.nix`;
 
     const OLD_VERSION = JSON.parse(
         spawnSync(['nix', 'eval', '-f', FILE, '--json'].join(' '), [], {

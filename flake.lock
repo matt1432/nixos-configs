@@ -178,11 +178,11 @@
     },
     "docker-compose": {
       "locked": {
-        "lastModified": 1754849999,
-        "narHash": "sha256-xuJD5bxhFn6414ZeEtNAhsZWmh1si6jHU/d2qCLipo8=",
+        "lastModified": 1776489324,
+        "narHash": "sha256-S4xnTNvExf+19jIOHAsKt/nHVxHTmhcsNwJCD8G1Osk=",
         "owner": "matt1432",
         "repo": "nixos-docker-compose",
-        "rev": "ed6f58893f5a1d24bad139f1c974eb2e4d599585",
+        "rev": "2c2b127491f47888924f396381bb6e45c9ac4dd8",
         "type": "github"
       },
       "original": {
@@ -1665,11 +1665,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1776219308,
-        "narHash": "sha256-kEKuQdr7SYsvLgmxcrhv9Tlq++kUT8FvEyCmoXQxtP4=",
+        "lastModified": 1776486854,
+        "narHash": "sha256-94tFw7ftrhwQBtr662FHxm/5xbKYGjvY3LxVkZ6Gb20=",
         "ref": "refs/heads/main",
-        "rev": "e79f63430178068dfdac41bd2bd8f41815ccd390",
-        "revCount": 117,
+        "rev": "0db17bd28d282f0eae4b1a1925a86785c3ad82e5",
+        "revCount": 118,
         "type": "git",
         "url": "ssh://git@git.nelim.org/matt1432/nixos-secrets"
       },
