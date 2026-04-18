@@ -177,6 +177,13 @@
             };
           }
           {
+            cleanuparr = {
+              href = "https://lan.nelim.org/cleanuparr";
+              icon = "cleanuparr.png";
+              description = "takes care of malware and stalling downloads";
+            };
+          }
+          {
             bazarr = rec {
               href = "https://lan.nelim.org/bazarr";
               icon = "bazarr.png";

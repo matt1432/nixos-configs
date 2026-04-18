@@ -22,6 +22,7 @@ in {
     (import ./wg-easy/compose.nix globalEnv)
 
     (import ./media/bazarr/compose.nix globalEnv)
+    (import ./media/cleanuparr/compose.nix globalEnv)
     (import ./media/joal/compose.nix globalEnv)
 
     (import ./media/jellystat/compose.nix globalEnv)
