@@ -18,6 +18,8 @@ self: {
   # FIXME: fix indentation using otter language instead of main one
   # FIXME: only have one otter-ls in status bar
   # FIXME: fix lsp not in path warning
+  # FIXME: fix otter not starting when opening file directly from cli
+  # TODO: implement otter formatting
 in {
   imports = [
     ./bash
@@ -73,12 +75,12 @@ in {
                               local final_opts = vim.tbl_deep_extend(
                                   'force',
                                   vim.lsp.config[name],
-                                  {
-                                      capabilities = default_capabilities,
-                                  }
+                                  { capabilities = default_capabilities }
                               );
 
-                              local has_root_dir_callback = vim.lsp.config[name]['root_dir'] ~= nil and type(vim.lsp.config[name]['root_dir']) == 'function';
+                              local has_root_dir_callback =
+                                  vim.lsp.config[name]['root_dir'] ~= nil and
+                                  type(vim.lsp.config[name]['root_dir']) == 'function';
 
                               if not has_root_dir_callback and vim.lsp.config[name]['root_markers'] ~= nil then
                                   final_opts = vim.tbl_deep_extend('force', final_opts, {
@@ -96,7 +98,10 @@ in {
                                       }, opts or {}), { bufnr = bufnr });
                                   end);
                               else
-                                  vim.lsp.start(vim.tbl_deep_extend('force', final_opts, opts or {}), { bufnr = bufnr });
+                                  vim.lsp.start(
+                                      vim.tbl_deep_extend('force', final_opts, opts or {}),
+                                      { bufnr = bufnr }
+                                  );
                               end;
                           end);
                       end;
