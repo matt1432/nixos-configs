@@ -507,6 +507,13 @@
       repo = "nix-develop.nvim";
       type = "github";
     };
+    vimplugin-otter-src = {
+      flake = false;
+      owner = "matt1432";
+      ref = "interpolation";
+      repo = "otter.nvim";
+      type = "github";
+    };
     vimplugin-roslyn-src = {
       flake = false;
       owner = "seblj";

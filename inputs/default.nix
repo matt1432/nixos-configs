@@ -336,6 +336,12 @@ let
       owner = "lewis6991";
       repo = "gitsigns.nvim";
     }
+    {
+      name = "vimplugin-otter-src";
+      owner = "matt1432";
+      repo = "otter.nvim";
+      ref = "interpolation";
+    }
 
     # Overlays & packages
     {

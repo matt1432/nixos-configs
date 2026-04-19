@@ -4,7 +4,7 @@ self: {
   pkgs,
   ...
 }: let
-  inherit (self.inputs) vimplugin-nix-develop-src;
+  inherit (self.inputs) vimplugin-nix-develop-src vimplugin-otter-src;
   inherit (self.lib.${pkgs.stdenv.hostPlatform.system}) mkVersion;
 
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
@@ -15,8 +15,9 @@ self: {
   cfg = config.programs.neovim;
   flakeEnv = config.programs.bash.sessionVariables.FLAKE;
 
-  # TODO: fix lua errors
-  # TODO: fix indentation using otter language instead of main one
+  # FIXME: fix indentation using otter language instead of main one
+  # FIXME: only have one otter-ls in status bar
+  # FIXME: fix lsp not in path warning
 in {
   imports = [
     ./bash
@@ -225,7 +226,9 @@ in {
         };
 
         otter-nvim = {
-          plugin = pkgs.vimPlugins.otter-nvim;
+          plugin = pkgs.vimPlugins.otter-nvim.overrideAttrs (o: {
+            src = vimplugin-otter-src;
+          });
           type = "lua";
           config = ''
             require('otter').setup({

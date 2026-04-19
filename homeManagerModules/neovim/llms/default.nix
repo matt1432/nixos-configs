@@ -13,26 +13,6 @@ self: {
     if cfg.ideConfig.llmProvider == "opencode"
     then getExe pkgs.opencode
     else "";
-
-  # TODO: fix lua errors
-
-  opencodeProviders =
-    if cfg.ideConfig.llmProvider == "opencode"
-    then
-      # lua
-      ''
-        providers = {
-            llamacpp = {
-                __inherited_from = 'openai',
-                endpoint = 'http://100.64.0.4:9292/v1',
-                model = 'Qwen3.5-35B-A3B-GGUF',
-                timeout = 1000000, -- Timeout in milliseconds
-                disable_tools = false,
-                api_key_name = "TERM",
-            },
-        },
-      ''
-    else "";
 in {
   config = mkIf (cfg.enable && cfg.ideConfig.llmProvider != "none") {
     home.sessionPath = ["$HOME/.local/bin"];
@@ -85,7 +65,24 @@ in {
               require('avante').setup({
                   provider = '${cfg.ideConfig.llmProvider}',
                   mode = 'agentic',
-                  ${opencodeProviders}
+                  ${
+                if cfg.ideConfig.llmProvider == "opencode"
+                then
+                  # lua
+                  ''
+                    providers = {
+                        llamacpp = {
+                            __inherited_from = 'openai',
+                            endpoint = 'http://100.64.0.4:9292/v1',
+                            model = 'Qwen3.5-35B-A3B-GGUF',
+                            timeout = 1000000, -- Timeout in milliseconds
+                            disable_tools = false,
+                            api_key_name = "TERM",
+                        },
+                    },
+                  ''
+                else ""
+              }
                   acp_providers = {
                       cursor = {
                           command = os.getenv('HOME') .. '/.local/bin/cursor-agent',

@@ -10,8 +10,6 @@ self: {
   inherit (lib) attrValues fileContents getExe mkIf;
 
   cfg = config.programs.neovim;
-
-  # TODO: fix otter errors
 in {
   imports = [./treesitter.nix];
 

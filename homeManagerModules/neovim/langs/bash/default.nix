@@ -7,8 +7,6 @@
   inherit (lib) attrValues getExe mkIf;
 
   cfg = config.programs.neovim;
-
-  # TODO: fix lua errors
 in {
   config = mkIf (cfg.enable && cfg.ideConfig.enableBash) {
     programs = {
