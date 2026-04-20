@@ -1952,11 +1952,11 @@
     "vimplugin-otter-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1776624463,
-        "narHash": "sha256-ihPzs1bJlHWu+BdgblZf/lYDrcvxZHXk3kPOKIwNUD8=",
+        "lastModified": 1776657629,
+        "narHash": "sha256-akYLXjGCuwr1InYqA1nt5oJgd9kk8BLgwfpMF22SepI=",
         "owner": "matt1432",
         "repo": "otter.nvim",
-        "rev": "098eb9e9e885d58b59b02a99cacf2f7a65cc36e7",
+        "rev": "63025f55f0a656cdeeae0fa4a6b43f75f3620400",
         "type": "github"
       },
       "original": {

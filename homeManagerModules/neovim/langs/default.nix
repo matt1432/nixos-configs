@@ -12,7 +12,6 @@ self: {
   inherit (builtins) attrValues;
   inherit (lib) fileContents mkBefore mkIf;
 
-  # FIXME: fix otter not starting when opening file directly from cli
   # FIXME: conform inject breaks on interpolations
 
   cfg = config.programs.neovim;
@@ -150,6 +149,7 @@ in {
           -- Remove LSP highlighting to use Treesitter
           vim.api.nvim_create_autocmd("LspAttach", {
               callback = function(args)
+                  local bufnr = args.buf
                   local client = vim.lsp.get_client_by_id(args.data.client_id)
 
                   if client ~= nil then
@@ -165,15 +165,18 @@ in {
               # lua
               ''
                 -- On Darwin, `require('nvim-treesitter').get_available()` doesn't seem to work
-                vim.treesitter.start()
-                vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-                require("otter").activate()
+                vim.treesitter.start(bufnr)
+                vim.bo[bufnr].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+
+                if not string.match(args.file, ".*%.otter%..*") then
+                    require("otter").activate(nil, nil, nil, nil, nil, nil, nil, bufnr)
+                end
               ''
             else
               # lua
               ''
                 local filetype = vim.filetype.match({
-                    buf = vim.api.nvim_get_current_buf(),
+                    buf = bufnr,
                 })
 
                 if filetype == nil then
@@ -182,9 +185,12 @@ in {
 
                 for _, language in ipairs(require("nvim-treesitter").get_available()) do
                     if (filetype):find("^" .. language) then
-                        vim.treesitter.start()
-                        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-                        require("otter").activate()
+                        vim.treesitter.start(bufnr)
+                        vim.bo[bufnr].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+
+                        if not string.match(args.file, ".*%.otter%..*") then
+                            require("otter").activate(nil, nil, nil, nil, nil, nil, nil, bufnr)
+                        end
                         return
                     end
                 end
