@@ -58,7 +58,7 @@ self: {
 
   flakeEnv = config.programs.bash.sessionVariables.FLAKE;
 
-  getFlake = "(builtins.getFlake \"${flakeEnv}\")";
+  getFlake = "(builtins.getFlake \\\"${flakeEnv}\\\")";
 
   optionsAttr =
     if osConfig != null
