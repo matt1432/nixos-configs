@@ -12,7 +12,6 @@ self: {
   inherit (builtins) attrValues;
   inherit (lib) fileContents mkBefore mkIf;
 
-  # FIXME: fix indentation using otter language instead of main one
   # FIXME: only have one otter-ls in status bar
   # FIXME: fix lsp not in path warning
   # FIXME: fix otter not starting when opening file directly from cli
@@ -56,8 +55,8 @@ in {
           --- @class LoadArgs
           --- @field name string
           --- @field pattern string|string[]
-          --- @field pre_shell_callback function?
           --- @field language_servers table<string, function>?
+          --- @field pre_shell_callback fun(bufnr: integer)?
           --- @field post_shell_callback fun(bufnr: integer)?
 
           --- @param load_args LoadArgs
@@ -118,9 +117,13 @@ in {
                   callback = function(args)
                       local bufnr = args.buf
 
-                      if pre_shell_callback ~= nil then
-                          vim.schedule(pre_shell_callback)
+                      local final_pre_shell_callback = function()
+                          if pre_shell_callback ~= nil then
+                              pre_shell_callback(bufnr)
+                          end
                       end
+
+                      vim.schedule(final_pre_shell_callback)
 
                       local final_post_shell_callback = function()
                           post_shell_callback(bufnr)

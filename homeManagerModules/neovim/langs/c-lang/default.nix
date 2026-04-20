@@ -19,8 +19,11 @@ in {
               LoadDevShell({
                   name = "c-lang",
                   pattern = { "cpp", "c", "cuda" },
-                  pre_shell_callback = function()
-                      vim.cmd([[setlocal ts=4 sw=4 sts=0 expandtab]])
+                  pre_shell_callback = function(bufnr)
+                      vim.bo[bufnr].ts = 4
+                      vim.bo[bufnr].sw = 4
+                      vim.bo[bufnr].sts = 0
+                      vim.bo[bufnr].expandtab = true
                   end,
                   language_servers = {
                       cmake = function(start)
