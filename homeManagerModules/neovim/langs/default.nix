@@ -16,7 +16,6 @@ self: {
   # FIXME: only have one otter-ls in status bar
   # FIXME: fix lsp not in path warning
   # FIXME: fix otter not starting when opening file directly from cli
-  # TODO: implement otter formatting
 
   cfg = config.programs.neovim;
   flakeEnv = config.programs.bash.sessionVariables.FLAKE;
@@ -47,11 +46,11 @@ in {
         mkBefore
         # lua
         ''
-          local nix_develop = require('nix-develop');
-          local default_capabilities = require('cmp_nvim_lsp').default_capabilities();
+          local nix_develop = require('nix-develop')
+          local default_capabilities = require('cmp_nvim_lsp').default_capabilities()
 
           -- Init object to keep track of loaded devShells
-          local devShells = {};
+          local devShells = {}
 
           --- @class LoadArgs
           --- @field name string
@@ -62,95 +61,99 @@ in {
 
           --- @param load_args LoadArgs
           LoadDevShell = function(load_args)
-              local shell_name = load_args.name;
-              local pattern = load_args.pattern;
-              local pre_shell_callback = load_args.pre_shell_callback;
+              local shell_name = load_args.name
+              local pattern = load_args.pattern
+              local pre_shell_callback = load_args.pre_shell_callback
 
-              local post_shell_callback = load_args.post_shell_callback or function(bufnr)
-                  local filetype = vim.api.nvim_get_option_value('filetype', { buf = bufnr });
+              local post_shell_callback = load_args.post_shell_callback
+                  or function(bufnr)
+                      local filetype = vim.api.nvim_get_option_value('filetype', { buf = bufnr })
 
-                  for name, func in pairs(load_args.language_servers) do
-                      if vim.tbl_contains(vim.lsp.config[name].filetypes, filetype) then
-                          func(function(opts)
-                              local final_opts = vim.tbl_deep_extend(
-                                  'force',
-                                  vim.lsp.config[name],
-                                  { capabilities = default_capabilities }
-                              );
+                      for name, func in pairs(load_args.language_servers) do
+                          if vim.tbl_contains(vim.lsp.config[name].filetypes, filetype) then
+                              local callback = function(opts)
+                                  local final_opts = vim.tbl_deep_extend(
+                                      'force',
+                                      vim.lsp.config[name],
+                                      { capabilities = default_capabilities }
+                                  )
 
-                              local has_root_dir_callback =
-                                  vim.lsp.config[name]['root_dir'] ~= nil and
-                                  type(vim.lsp.config[name]['root_dir']) == 'function';
+                                  local has_root_dir_callback = vim.lsp.config[name]['root_dir'] ~= nil
+                                      and type(vim.lsp.config[name]['root_dir']) == 'function'
 
-                              if not has_root_dir_callback and vim.lsp.config[name]['root_markers'] ~= nil then
-                                  final_opts = vim.tbl_deep_extend('force', final_opts, {
-                                      root_dir = vim.fs.root(
-                                          0,
-                                          vim.lsp.config[name]['root_markers']
-                                      ),
-                                  });
-                              end;
+                                  if
+                                      not has_root_dir_callback
+                                      and vim.lsp.config[name]['root_markers'] ~= nil
+                                  then
+                                      final_opts = vim.tbl_deep_extend('force', final_opts, {
+                                          root_dir = vim.fs.root(0, vim.lsp.config[name]['root_markers']),
+                                      })
+                                  end
 
-                              if has_root_dir_callback then
-                                  vim.lsp.config[name]['root_dir'](0, function(root_dir)
-                                      vim.lsp.start(vim.tbl_deep_extend('force', final_opts, {
-                                          root_dir = root_dir,
-                                      }, opts or {}), { bufnr = bufnr });
-                                  end);
-                              else
-                                  vim.lsp.start(
-                                      vim.tbl_deep_extend('force', final_opts, opts or {}),
-                                      { bufnr = bufnr }
-                                  );
-                              end;
-                          end);
-                      end;
-                  end;
-              end;
+                                  if has_root_dir_callback then
+                                      vim.lsp.config[name]['root_dir'](0, function(root_dir)
+                                          vim.lsp.start(
+                                              vim.tbl_deep_extend('force', final_opts, {
+                                                  root_dir = root_dir,
+                                              }, opts or {}),
+                                              { bufnr = bufnr }
+                                          )
+                                      end)
+                                  else
+                                      vim.lsp.start(
+                                          vim.tbl_deep_extend('force', final_opts, opts or {}),
+                                          { bufnr = bufnr }
+                                      )
+                                  end
+                              end
+                              func(callback)
+                          end
+                      end
+                  end
 
               vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {
                   pattern = pattern,
 
                   callback = function(args)
-                      local bufnr = args.buf;
+                      local bufnr = args.buf
 
                       if pre_shell_callback ~= nil then
-                          vim.schedule(pre_shell_callback);
-                      end;
+                          vim.schedule(pre_shell_callback)
+                      end
 
                       local final_post_shell_callback = function()
-                          post_shell_callback(bufnr);
-                      end;
+                          post_shell_callback(bufnr)
+                      end
 
-                      if (devShells[shell_name] == nil) then
-                          devShells[shell_name] = 1;
+                      if devShells[shell_name] == nil then
+                          devShells[shell_name] = 1
 
                           nix_develop.nix_develop_extend(
                               { '${flakeEnv}#' .. shell_name },
                               final_post_shell_callback
-                          );
+                          )
                       else
-                          print('Shell already extended. Launching Language Servers');
-                          vim.schedule(final_post_shell_callback);
+                          print('Shell already extended. Launching Language Servers')
+                          vim.schedule(final_post_shell_callback)
                       end
                   end,
-              });
-          end;
+              })
+          end
 
           -- LSP-Status setup
-          local lsp_status = require('lsp-status');
-          lsp_status.register_progress();
+          local lsp_status = require('lsp-status')
+          lsp_status.register_progress()
 
           -- Remove LSP highlighting to use Treesitter
           vim.api.nvim_create_autocmd('LspAttach', {
               callback = function(args)
-                  local client = vim.lsp.get_client_by_id(args.data.client_id);
+                  local client = vim.lsp.get_client_by_id(args.data.client_id)
 
                   if client ~= nil then
-                      client.server_capabilities.semanticTokensProvider = nil;
-                  end;
+                      client.server_capabilities.semanticTokensProvider = nil
+                  end
 
-                  lsp_status.on_attach(client);
+                  lsp_status.on_attach(client)
 
                   -- ensure treesitter is started, in case starting the lsp messed with it
                   ${
@@ -159,33 +162,33 @@ in {
               # lua
               ''
                 -- On Darwin, `require('nvim-treesitter').get_available()` doesn't seem to work
-                vim.treesitter.start();
-                vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()";
-                require('otter').activate();
+                vim.treesitter.start()
+                vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                require('otter').activate()
               ''
             else
               # lua
               ''
                 local filetype = vim.filetype.match({
                     buf = vim.api.nvim_get_current_buf(),
-                });
+                })
 
                 if filetype == nil then
-                    return;
-                end;
+                    return
+                end
 
                 for _, language in ipairs(require('nvim-treesitter').get_available()) do
-                    if (filetype):find("^" .. language) then
-                        vim.treesitter.start();
-                        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()";
-                        require('otter').activate();
-                        return;
-                    end;
-                end;
+                    if (filetype):find('^' .. language) then
+                        vim.treesitter.start()
+                        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                        require('otter').activate()
+                        return
+                    end
+                end
               ''
           }
               end,
-          });
+          })
         '';
 
       plugins = attrValues {
@@ -217,7 +220,7 @@ in {
           plugin = pkgs.vimPlugins.nvim-autopairs;
           type = "lua";
           config = ''
-            require('nvim-autopairs').setup({});
+            require('nvim-autopairs').setup({})
           '';
         };
 
@@ -229,20 +232,16 @@ in {
                 default_format_opts = {
                     lsp_format = 'fallback',
                 },
-            });
+            })
 
             -- Add formatting cmd
-            vim.api.nvim_create_user_command(
-                'Format',
-                function()
-                    require("conform").format({ bufnr = 0, timeout_ms = 10000000 }, function(err)
-                        if err == 'No formatters available for buffer' then
-                            vim.lsp.buf.format();
-                        end
-                    end)
-                end,
-                {}
-            );
+            vim.api.nvim_create_user_command('Format', function()
+                require('conform').format({ bufnr = 0, timeout_ms = 10000000 }, function(err)
+                    if err == 'No formatters available for buffer' then
+                        vim.lsp.buf.format()
+                    end
+                end)
+            end, {})
           '';
         };
 
@@ -294,9 +293,9 @@ in {
             -- Disable virtual_text since it's redundant due to tiny-inline-diagnostic.
             vim.diagnostic.config({
                 virtual_text = false,
-            });
+            })
 
-            require("tiny-inline-diagnostic").setup({
+            require('tiny-inline-diagnostic').setup({
                 -- Available options:
                 -- "modern", "classic", "minimal", "powerline",
                 -- "ghost", "simple", "nonerdfont", "amongus"
@@ -321,7 +320,7 @@ in {
                     enable_on_insert = true,
                     throttle = 0,
                 },
-            });
+            })
           '';
         };
       };

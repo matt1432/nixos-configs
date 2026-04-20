@@ -14,24 +14,24 @@ in {
           # lua
           ''
             LoadDevShell({
-                name = 'ocaml',
+                name = "ocaml",
                 pattern = {
-                    'ocaml',
-                    'menhir',
-                    'ocamlinterface',
-                    'ocamllex',
-                    'reason',
-                    'dune'
+                    "ocaml",
+                    "menhir",
+                    "ocamlinterface",
+                    "ocamllex",
+                    "reason",
+                    "dune",
                 },
                 pre_shell_callback = function()
-                    vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
+                    vim.cmd([[setlocal ts=4 sw=4 sts=0 expandtab]])
                 end,
                 language_servers = {
                     ocamllsp = function(start)
-                        start();
+                        start()
                     end,
                 },
-            });
+            })
           '';
       };
     };

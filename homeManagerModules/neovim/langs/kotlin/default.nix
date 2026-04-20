@@ -14,17 +14,17 @@ in {
           # lua
           ''
             LoadDevShell({
-                name = 'kotlin',
-                pattern = { 'kotlin' },
+                name = "kotlin",
+                pattern = { "kotlin" },
                 pre_shell_callback = function()
-                    vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
+                    vim.cmd([[setlocal ts=4 sw=4 sts=0 expandtab]])
                 end,
                 language_servers = {
                     kotlin_language_server = function(start)
-                        start();
+                        start()
                     end,
                 },
-            });
+            })
           '';
       };
     };

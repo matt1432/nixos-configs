@@ -19,25 +19,25 @@ in {
             plugin = buildPlugin "roslyn-nvim" vimplugin-roslyn-src;
             type = "lua";
             config = ''
-              vim.api.nvim_create_autocmd('User', {
-                  pattern = 'RoslynInitialized',
+              vim.api.nvim_create_autocmd("User", {
+                  pattern = "RoslynInitialized",
 
                   callback = function()
-                      vim.lsp.inlay_hint.enable();
+                      vim.lsp.inlay_hint.enable()
                   end,
-              });
+              })
 
               local startRoslyn = function()
-                  require('roslyn').setup({
+                  require("roslyn").setup({
                       config = {
-                          capabilities = require('cmp_nvim_lsp').default_capabilities(),
+                          capabilities = require("cmp_nvim_lsp").default_capabilities(),
 
                           on_attach = function()
-                              vim.lsp.inlay_hint.enable();
+                              vim.lsp.inlay_hint.enable()
                           end,
 
                           settings = {
-                              ['csharp|inlay_hints'] = {
+                              ["csharp|inlay_hints"] = {
                                   csharp_enable_inlay_hints_for_implicit_object_creation = true,
                                   csharp_enable_inlay_hints_for_implicit_variable_types = true,
                                   csharp_enable_inlay_hints_for_lambda_parameter_types = true,
@@ -54,20 +54,20 @@ in {
                           },
                       },
 
-                      exe = 'Microsoft.CodeAnalysis.LanguageServer',
-                  });
+                      exe = "Microsoft.CodeAnalysis.LanguageServer",
+                  })
 
-                  vim.cmd[[e]]; -- reload to attach on current file
-              end;
+                  vim.cmd([[e]]) -- reload to attach on current file
+              end
 
               LoadDevShell({
-                  name = 'csharp',
-                  pattern = { 'cs' },
+                  name = "csharp",
+                  pattern = { "cs" },
                   pre_shell_callback = function()
-                      vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
+                      vim.cmd([[setlocal ts=4 sw=4 sts=0 expandtab]])
                   end,
                   post_shell_callback = startRoslyn,
-              });
+              })
             '';
           }
         ];

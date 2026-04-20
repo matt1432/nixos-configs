@@ -33,21 +33,21 @@ in {
         initLua =
           # lua
           ''
-            vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {
-                pattern = 'sh',
-                command = 'setlocal ts=4 sw=4 sts=0 expandtab',
-            });
+            vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
+                pattern = "sh",
+                command = "setlocal ts=4 sw=4 sts=0 expandtab",
+            })
 
-            vim.lsp.enable('bashls');
-            vim.lsp.config('bashls', {
-                capabilities = require('cmp_nvim_lsp').default_capabilities(),
+            vim.lsp.enable("bashls")
+            vim.lsp.config("bashls", {
+                capabilities = require("cmp_nvim_lsp").default_capabilities(),
 
                 settings = {
                     bashIde = {
-                        shellcheckPath = '${getExe pkgs.shellcheck}',
+                        shellcheckPath = "${getExe pkgs.shellcheck}",
                     },
                 },
-            });
+            })
           '';
       };
     };

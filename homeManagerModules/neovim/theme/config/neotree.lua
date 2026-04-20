@@ -1,10 +1,10 @@
 -- Override netrw
-vim.g.loaded_netrw = 0;
-vim.g.loaded_netrwPlugin = 0;
+vim.g.loaded_netrw = 0
+vim.g.loaded_netrwPlugin = 0
 
-local neotreeCmd = require('neo-tree.command');
+local neotreeCmd = require("neo-tree.command")
 
-require('neo-tree').setup({
+require("neo-tree").setup({
     close_if_last_window = true,
     enable_refresh_on_write = true,
 
@@ -36,33 +36,36 @@ require('neo-tree').setup({
     source_selector = {
         winbar = false,
         statusline = false,
-        truncation_character = '...',
+        truncation_character = "...",
     },
-});
+})
 
 local function is_neotree_open()
     for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
-        if vim.api.nvim_get_option_value('ft', { buf = vim.api.nvim_win_get_buf(win) }) == 'neo-tree' then
-            return true;
-        end;
-    end;
-    return false;
-end;
+        if
+            vim.api.nvim_get_option_value("ft", { buf = vim.api.nvim_win_get_buf(win) })
+            == "neo-tree"
+        then
+            return true
+        end
+    end
+    return false
+end
 
 -- Auto open Neo-Tree on big enough window
-vim.api.nvim_create_autocmd({ 'VimEnter', 'VimResized' }, {
-    pattern = '*',
+vim.api.nvim_create_autocmd({ "VimEnter", "VimResized" }, {
+    pattern = "*",
     callback = function()
         if vim.api.nvim_eval([[&columns]]) > 100 then
             if is_neotree_open() == false then
-                neotreeCmd.execute({ action = 'show' });
+                neotreeCmd.execute({ action = "show" })
                 -- https://github.com/romgrk/barbar.nvim/issues/421#issuecomment-1502473406
-                vim.api.nvim_exec_autocmds('BufWinEnter', { buffer = vim.fn.bufnr('#') });
-            end;
+                vim.api.nvim_exec_autocmds("BufWinEnter", { buffer = vim.fn.bufnr("#") })
+            end
         else
             if is_neotree_open() then
-                neotreeCmd.execute({ action = 'close' });
-            end;
-        end;
+                neotreeCmd.execute({ action = "close" })
+            end
+        end
     end,
-});
+})

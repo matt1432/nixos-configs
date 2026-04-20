@@ -27,10 +27,10 @@ in {
           # lua
           ''
             LoadDevShell({
-                name = 'markdown',
-                pattern = { 'markdown', 'tex' },
+                name = "markdown",
+                pattern = { "markdown", "tex" },
                 pre_shell_callback = function()
-                    vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
+                    vim.cmd([[setlocal ts=4 sw=4 sts=0 expandtab]])
                 end,
                 language_servers = {
                     texlab = function(start)
@@ -38,17 +38,17 @@ in {
                             settings = {
                                 texlab = {
                                     formatterLineLength = 100,
-                                    latexFormatter = 'latexindent',
+                                    latexFormatter = "latexindent",
                                     latexindent = {
                                         modifyLineBreaks = false,
-                                        ['local'] = '.indentconfig.yaml';
+                                        ["local"] = ".indentconfig.yaml",
                                     },
                                 },
                             },
-                        });
+                        })
                     end,
                 },
-            });
+            })
           '';
 
         plugins = [
@@ -56,7 +56,7 @@ in {
             plugin = buildPlugin "easytables-nvim" vimplugin-easytables-src;
             type = "lua";
             config = ''
-              require('easytables').setup({});
+              require("easytables").setup({})
             '';
           }
 

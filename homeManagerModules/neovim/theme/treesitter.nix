@@ -32,13 +32,13 @@ in {
         plugin = pkgs.vimPlugins.nvim-treesitter-context;
         type = "lua";
         config = ''
-          require('treesitter-context').setup({
+          require("treesitter-context").setup({
               enable = true,
               max_lines = 3,
               min_window_height = 20,
-          });
+          })
 
-          vim.cmd.hi('TreesitterContextBottom', 'gui=underline guisp=Grey');
+          vim.cmd.hi("TreesitterContextBottom", "gui=underline guisp=Grey")
         '';
       }
 
@@ -48,25 +48,25 @@ in {
         plugin = pkgs.vimPlugins.nvim-treesitter.withAllGrammars;
         type = "lua";
         config = ''
-          vim.api.nvim_create_autocmd('FileType', {
+          vim.api.nvim_create_autocmd("FileType", {
               callback = function()
                   local filetype = vim.filetype.match({
                       buf = vim.api.nvim_get_current_buf(),
-                  });
+                  })
 
                   if filetype == nil then
-                      return;
-                  end;
+                      return
+                  end
 
-                  for _, language in ipairs(require('nvim-treesitter').get_available()) do
+                  for _, language in ipairs(require("nvim-treesitter").get_available()) do
                       if (filetype):find("^" .. language) then
-                          vim.treesitter.start();
-                          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()";
-                          return;
-                      end;
-                  end;
+                          vim.treesitter.start()
+                          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                          return
+                      end
+                  end
               end,
-          });
+          })
         '';
       }
     ];

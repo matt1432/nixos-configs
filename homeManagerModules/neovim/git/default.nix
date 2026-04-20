@@ -26,13 +26,13 @@ in {
           });
         type = "lua";
         config = ''
-          local gitsigns = require("gitsigns");
+          local gitsigns = require("gitsigns")
 
           vim.keymap.set("v", "gs", function()
-              gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') });
-          end);
+              gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+          end)
 
-          gitsigns.setup();
+          gitsigns.setup()
         '';
       }
     ];

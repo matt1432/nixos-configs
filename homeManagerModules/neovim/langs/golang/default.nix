@@ -14,17 +14,17 @@ in {
           # lua
           ''
             LoadDevShell({
-                name = 'golang',
-                pattern = { 'go', 'gomod', 'gowork', 'gotmpl' },
+                name = "golang",
+                pattern = { "go", "gomod", "gowork", "gotmpl" },
                 pre_shell_callback = function()
-                    vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
+                    vim.cmd([[setlocal ts=4 sw=4 sts=0 expandtab]])
                 end,
                 language_servers = {
                     gopls = function(start)
-                        start();
+                        start()
                     end,
                 },
-            });
+            })
           '';
       };
     };

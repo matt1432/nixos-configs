@@ -17,26 +17,26 @@ in {
             type = "lua";
             config = ''
               LoadDevShell({
-                  name = 'lua',
-                  pattern = { 'lua' },
+                  name = "lua",
+                  pattern = { "lua" },
                   pre_shell_callback = function()
-                      vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
+                      vim.cmd([[setlocal ts=4 sw=4 sts=0 expandtab]])
                   end,
                   language_servers = {
                       lua_ls = function(start)
-                          require('lazydev').setup({
+                          require("lazydev").setup({
                               library = {
                                   -- Load luvit types when the `vim.uv` word is found
-                                  { path = '${pkgs.vimPlugins.luvit-meta}/library', words = { 'vim%.uv' } },
+                                  { path = "${pkgs.vimPlugins.luvit-meta}/library", words = { "vim%.uv" } },
                               },
-                          });
+                          })
 
-                          start();
+                          start()
                       end,
                   },
-              });
+              })
 
-              require('conform').formatters_by_ft.lua = { 'stylua' };
+              require("conform").formatters_by_ft.lua = { "stylua" }
             '';
           }
         ];

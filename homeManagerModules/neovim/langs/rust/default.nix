@@ -18,18 +18,18 @@ in {
         initLua =
           # lua
           ''
-            vim.lsp.enable('rust_analyzer');
-            vim.lsp.config('rust_analyzer', {
-                capabilities = require('cmp_nvim_lsp').default_capabilities(),
-            });
+            vim.lsp.enable("rust_analyzer")
+            vim.lsp.config("rust_analyzer", {
+                capabilities = require("cmp_nvim_lsp").default_capabilities(),
+            })
 
-            vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {
-                pattern = { 'rust' },
+            vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
+                pattern = { "rust" },
 
                 callback = function()
-                    vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
+                    vim.cmd([[setlocal ts=4 sw=4 sts=0 expandtab]])
                 end,
-            });
+            })
           '';
       };
     };

@@ -14,17 +14,17 @@ in {
           # lua
           ''
             LoadDevShell({
-                name = 'json',
-                pattern = { 'json', 'yaml', '.clang-.*', '%.json$', '%.jsonc$' },
+                name = "json",
+                pattern = { "json", "yaml", ".clang-.*", "%.json$", "%.jsonc$" },
                 pre_shell_callback = function()
-                    vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
+                    vim.cmd([[setlocal ts=4 sw=4 sts=0 expandtab]])
                 end,
                 language_servers = {
                     jsonls = function(start)
-                        start();
+                        start()
 
                         -- On first open, ts is set to 2 for some reason
-                        vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
+                        vim.cmd([[setlocal ts=4 sw=4 sts=0 expandtab]])
                     end,
 
                     yamlls = function(start)
@@ -36,16 +36,14 @@ in {
                                         singleQuote = true,
                                     },
                                     schemas = {
-                                        [
-                                            "https://json.schemastore.org/github-workflow.json"
-                                        ] = "/.github/workflows/*",
+                                        ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
                                     },
                                 },
                             },
-                        });
+                        })
                     end,
                 },
-            });
+            })
           '';
       };
     };
