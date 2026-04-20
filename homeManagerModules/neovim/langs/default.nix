@@ -12,7 +12,6 @@ self: {
   inherit (builtins) attrValues;
   inherit (lib) fileContents mkBefore mkIf;
 
-  # FIXME: fix lsp not in path warning
   # FIXME: fix otter not starting when opening file directly from cli
   # FIXME: conform inject breaks on interpolations
 
@@ -126,11 +125,10 @@ in {
 
                       local final_post_shell_callback = function()
                           post_shell_callback(bufnr)
+                          devShells[shell_name] = 1
                       end
 
                       if devShells[shell_name] == nil then
-                          devShells[shell_name] = 1
-
                           nix_develop.nix_develop_extend(
                               { "${flakeEnv}#" .. shell_name },
                               final_post_shell_callback
