@@ -16,25 +16,30 @@ in {
             plugin = pkgs.vimPlugins.lazydev-nvim;
             type = "lua";
             config = ''
-              loadDevShell({
-                  name = 'lua',
-                  pattern = { 'lua' },
-                  pre_shell_callback = function()
-                      vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
+              LoadDevShell({
+                  name = "lua",
+                  pattern = { "lua" },
+                  pre_shell_callback = function(bufnr)
+                      vim.bo[bufnr].ts = 4;
+                      vim.bo[bufnr].sw = 4;
+                      vim.bo[bufnr].sts = 0;
+                      vim.bo[bufnr].expandtab = true;
                   end,
                   language_servers = {
                       lua_ls = function(start)
-                          require('lazydev').setup({
+                          require("lazydev").setup({
                               library = {
                                   -- Load luvit types when the `vim.uv` word is found
-                                  { path = '${pkgs.vimPlugins.luvit-meta}/library', words = { 'vim%.uv' } },
+                                  { path = "${pkgs.vimPlugins.luvit-meta}/library", words = { "vim%.uv" } },
                               },
-                          });
+                          })
 
-                          start();
+                          start()
                       end,
                   },
-              });
+              })
+
+              require("conform").formatters_by_ft.lua = { "stylua" }
             '';
           }
         ];

@@ -28,19 +28,20 @@ in {
           type = "lua";
           config = ''
             -- set dot icon in place of trailing whitespaces
-            vim.opt.listchars = {
-                tab = '→ ',
-                trail = '•',
-                extends = '⟩',
-                precedes = '⟨',
-                nbsp = '␣',
-            };
-            vim.opt.list = true;
+            vim.opt.listchars = {}
+            vim.opt.listchars:append({
+                tab = "→ ",
+                trail = "•",
+                extends = "⟩",
+                precedes = "⟨",
+                nbsp = "␣",
+            })
+            vim.opt.list = true
 
             -- Add visual indicator for trailing whitespaces
-            vim.fn.matchadd('errorMsg', [[\s\+$]]);
+            vim.fn.matchadd("errorMsg", [[\s\+$]])
 
-            vim.cmd.colorscheme('dracula');
+            vim.cmd.colorscheme("dracula")
           '';
         }
         {
@@ -55,25 +56,25 @@ in {
                 "RainbowGreen",
                 "RainbowViolet",
                 "RainbowCyan",
-            };
+            }
 
-            local hooks = require('ibl.hooks');
+            local hooks = require("ibl.hooks")
             hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-                vim.api.nvim_set_hl(0, "RainbowRed",    { fg = "#E06C75" });
-                vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" });
-                vim.api.nvim_set_hl(0, "RainbowBlue",   { fg = "#61AFEF" });
-                vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" });
-                vim.api.nvim_set_hl(0, "RainbowGreen",  { fg = "#98C379" });
-                vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" });
-                vim.api.nvim_set_hl(0, "RainbowCyan",   { fg = "#56B6C2" });
-            end);
+                vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
+                vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
+                vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
+                vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
+                vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
+                vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
+                vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
+            end)
 
-            require('ibl').setup({
+            require("ibl").setup({
                 indent = {
                     highlight = highlight,
                     char = "▏",
                 },
-            });
+            })
           '';
         }
 
@@ -82,9 +83,9 @@ in {
           type = "lua";
           config = ''
             -- Ensure termguicolors is enabled if not already
-            vim.opt.termguicolors = true;
+            vim.opt.termguicolors = true
 
-            require('nvim-highlight-colors').setup({});
+            require("nvim-highlight-colors").setup({})
           '';
         }
 
@@ -100,17 +101,17 @@ in {
           plugin = pkgs.vimPlugins.barbar-nvim;
           type = "lua";
           config = ''
-            vim.g.barbar_auto_setup = false; -- disable auto-setup
-            require('barbar').setup({
+            vim.g.barbar_auto_setup = false -- disable auto-setup
+            require("barbar").setup({
                 icons = {
-                    preset = 'default',
-                    separator = { left = '│', right = "" },
-                    inactive = { separator = { left = '│', right = "" } },
+                    preset = "default",
+                    separator = { left = "│", right = "" },
+                    inactive = { separator = { left = "│", right = "" } },
                 },
                 sidebar_filetypes = {
-                    ['neo-tree'] = true,
+                    ["neo-tree"] = true,
                 },
-            });
+            })
           '';
         }
 
@@ -130,37 +131,37 @@ in {
           plugin = pkgs.vimPlugins.transparent-nvim;
           type = "lua";
           config = ''
-            require('transparent').setup({
+            require("transparent").setup({
                 groups = {
-                    'Normal',
-                    'NormalNC',
-                    'Comment',
-                    'Constant',
-                    'Special',
-                    'Identifier',
-                    'Statement',
-                    'PreProc',
-                    'Type',
-                    'Underlined',
-                    'Todo',
-                    'String',
-                    'Function',
-                    'Conditional',
-                    'Repeat',
-                    'Operator',
-                    'Structure',
-                    'LineNr',
-                    'NonText',
-                    'SignColumn',
-                    'CursorLine',
-                    'CursorLineNr',
-                    'StatusLine',
-                    'StatusLineNC',
-                    'EndOfBuffer',
+                    "Normal",
+                    "NormalNC",
+                    "Comment",
+                    "Constant",
+                    "Special",
+                    "Identifier",
+                    "Statement",
+                    "PreProc",
+                    "Type",
+                    "Underlined",
+                    "Todo",
+                    "String",
+                    "Function",
+                    "Conditional",
+                    "Repeat",
+                    "Operator",
+                    "Structure",
+                    "LineNr",
+                    "NonText",
+                    "SignColumn",
+                    "CursorLine",
+                    "CursorLineNr",
+                    "StatusLine",
+                    "StatusLineNC",
+                    "EndOfBuffer",
                 },
                 extra_groups = {},
                 exclude_groups = {},
-            });
+            })
           '';
         }
       ];

@@ -58,7 +58,7 @@ self: {
 
   flakeEnv = config.programs.bash.sessionVariables.FLAKE;
 
-  getFlake = "(builtins.getFlake \"${flakeEnv}\")";
+  getFlake = "(builtins.getFlake \\\"${flakeEnv}\\\")";
 
   optionsAttr =
     if osConfig != null
@@ -101,30 +101,67 @@ in {
         initLua =
           # lua
           ''
-            vim.lsp.enable('nixd');
-            vim.lsp.config('nixd', {
-                capabilities = require('cmp_nvim_lsp').default_capabilities(),
+            vim.lsp.enable("nixd")
+            vim.lsp.config("nixd", {
+                capabilities = require("cmp_nvim_lsp").default_capabilities(),
 
-                filetypes = { 'nix', 'in.nix' },
+                filetypes = { "nix", "in.nix" },
                 settings = {
                     nixd = {
                         nixpkgs = {
-                            expr = 'import ${getFlake}.inputs.nixpkgs {}',
+                            expr = "import ${getFlake}.inputs.nixpkgs {}",
                         },
                         formatting = {
-                            command = { '${getExe formatCmd}' },
+                            command = { "${getExe formatCmd}" },
                         },
                         options = {
                             nixos = {
-                                expr = '${getFlake}.${optionsAttr}',
+                                expr = "${getFlake}.${optionsAttr}",
                             },
                             home_manager = {
-                                expr = '${getFlake}.${homeOptionsAttr}',
+                                expr = "${getFlake}.${homeOptionsAttr}",
                             },
                         },
                     },
                 },
-            });
+            })
+
+            require("conform").formatters_by_ft.nix = { "mynixfmt", "injected" }
+
+            require("conform").formatters.mynixfmt = {
+                command = "${getExe formatCmd}",
+            }
+
+            -- Customize the "injected" formatter for otter-ls
+            require("conform").formatters.injected = {
+                options = {
+                    ignore_errors = false,
+
+                    -- Map of treesitter language to file extension
+                    -- A temporary file name with this extension will be generated during formatting
+                    -- because some formatters care about the filename.
+                    lang_to_ext = {
+                        bash = "sh",
+                        c_sharp = "cs",
+                        elixir = "exs",
+                        javascript = "js",
+                        julia = "jl",
+                        latex = "tex",
+                        lua = "lua",
+                        markdown = "md",
+                        python = "py",
+                        ruby = "rb",
+                        rust = "rs",
+                        teal = "tl",
+                        r = "r",
+                        typescript = "ts",
+                    },
+
+                    -- Map of treesitter language to formatters to use
+                    -- (defaults to the value from formatters_by_ft)
+                    lang_to_formatters = {},
+                },
+            }
           '';
       };
     };

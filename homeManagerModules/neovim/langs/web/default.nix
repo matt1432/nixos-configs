@@ -33,36 +33,39 @@ in {
         initLua =
           # lua
           ''
-            vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {
-                pattern = 'scss',
-                command = 'setlocal iskeyword+=@-@',
-            });
+            vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
+                pattern = "scss",
+                command = "setlocal iskeyword+=@-@",
+            })
 
-            vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {
+            vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
                 pattern = {
-                    'javascript',
-                    'javascriptreact',
-                    'javascript.jsx',
-                    'typescript',
-                    'typescriptreact',
-                    'typescript.tsx',
-                    'css',
-                    'scss',
-                    'html',
+                    "javascript",
+                    "javascriptreact",
+                    "javascript.jsx",
+                    "typescript",
+                    "typescriptreact",
+                    "typescript.tsx",
+                    "css",
+                    "scss",
+                    "html",
                 },
-                callback = function()
-                    vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
+                callback = function(args)
+                    vim.bo[args.buf].ts = 4;
+                    vim.bo[args.buf].sw = 4;
+                    vim.bo[args.buf].sts = 0;
+                    vim.bo[args.buf].expandtab = true;
                 end,
-            });
+            })
 
-            vim.lsp.enable('ts_ls');
-            vim.lsp.config('ts_ls', {
-                capabilities = require('cmp_nvim_lsp').default_capabilities(),
-            });
+            vim.lsp.enable("ts_ls")
+            vim.lsp.config("ts_ls", {
+                capabilities = require("cmp_nvim_lsp").default_capabilities(),
+            })
 
-            vim.lsp.enable('cssls');
-            vim.lsp.config('cssls', {
-                capabilities = require('cmp_nvim_lsp').default_capabilities(),
+            vim.lsp.enable("cssls")
+            vim.lsp.config("cssls", {
+                capabilities = require("cmp_nvim_lsp").default_capabilities(),
 
                 settings = {
                     css = {
@@ -75,11 +78,11 @@ in {
                         validate = false,
                     },
                 },
-            });
+            })
 
-            vim.lsp.enable('eslint');
-            vim.lsp.config('eslint', {
-                capabilities = require('cmp_nvim_lsp').default_capabilities(),
+            vim.lsp.enable("eslint")
+            vim.lsp.config("eslint", {
+                capabilities = require("cmp_nvim_lsp").default_capabilities(),
 
                 root_dir = function(bufnr, on_dir)
                     local root = vim.fs.root(bufnr, {
@@ -96,20 +99,24 @@ in {
                         "eslint.config.mts",
                         "eslint.config.cts",
                         "package.json",
-                    });
+                    })
                     if root then
-                        on_dir(root);
+                        on_dir(root)
                     else
-                        local git_root = util.find_git_ancestor(vim.api.nvim_buf_get_name(bufnr));
+                        local git_root = vim.fs.dirname(vim.fs.find(".git", {
+                            path = vim.api.nvim_buf_get_name(bufnr),
+                            upward = true,
+                        })[1])
+
                         if git_root then
-                            on_dir(git_root);
+                            on_dir(git_root)
                         end
                     end
                 end,
 
                 settings = {
                     codeActionOnSave = {
-                        mode = 'all',
+                        mode = "all",
                         rules = {},
                     },
               ${optionalString isDarwin
@@ -117,22 +124,22 @@ in {
               ''
                 rulesCustomizations = {
                     {
-                        rule = '@typescript-eslint/naming-convention',
-                        severity = 'off',
+                        rule = "@typescript-eslint/naming-convention",
+                        severity = "off",
                         fixable = false,
                     },
                 },
               ''}
                 },
-            });
+            })
 
-            vim.lsp.config['eslint'].before_init = nil;
+            vim.lsp.config["eslint"].before_init = nil
 
-            local html_caps = require('cmp_nvim_lsp').default_capabilities();
-            html_caps.textDocument.completion.completionItem.snippetSupport = true;
+            local html_caps = require("cmp_nvim_lsp").default_capabilities()
+            html_caps.textDocument.completion.completionItem.snippetSupport = true
 
-            vim.lsp.enable('html');
-            vim.lsp.config('html', {
+            vim.lsp.enable("html")
+            vim.lsp.config("html", {
                 capabilities = html_caps,
 
                 settings = {
@@ -145,11 +152,11 @@ in {
                     tabSize = 4,
                     insertSpaces = true,
                     indentEmptyLines = false,
-                    wrapAttributes = 'auto',
+                    wrapAttributes = "auto",
                     wrapAttributesIndentSize = 4,
                     endWithNewline = true,
                 },
-            });
+            })
           '';
 
         plugins = [
@@ -157,20 +164,20 @@ in {
             plugin = pkgs.vimPlugins.package-info-nvim;
             type = "lua";
             config = ''
-              local packageInfo = require('package-info');
+              local packageInfo = require("package-info")
 
               packageInfo.setup({
                   hide_up_to_date = true,
-                  package_manager = 'npm',
-              });
+                  package_manager = "npm",
+              })
 
-              vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
-                  pattern = { 'package.json' },
+              vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+                  pattern = { "package.json" },
 
                   callback = function()
-                      packageInfo.show({ force = true });
+                      packageInfo.show({ force = true })
                   end,
-              });
+              })
             '';
           }
         ];

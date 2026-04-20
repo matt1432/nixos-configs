@@ -13,13 +13,14 @@ in {
         initLua =
           # lua
           ''
-            local default_capabilities = require('cmp_nvim_lsp').default_capabilities();
-
-            loadDevShell({
-                name = 'python',
-                pattern = { 'python' },
-                pre_shell_callback = function()
-                    vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
+            LoadDevShell({
+                name = "python",
+                pattern = { "python" },
+                pre_shell_callback = function(bufnr)
+                    vim.bo[bufnr].ts = 4;
+                    vim.bo[bufnr].sw = 4;
+                    vim.bo[bufnr].sts = 0;
+                    vim.bo[bufnr].expandtab = true;
                 end,
                 language_servers = {
                     basedpyright = function(start)
@@ -30,17 +31,17 @@ in {
                                 },
                                 basedpyright = {
                                     analysis = {
-                                        diagnosticMode = 'workspace',
+                                        diagnosticMode = "workspace",
                                     },
                                 },
                             },
-                        });
+                        })
                     end,
                     ruff = function(start)
-                        start();
+                        start()
                     end,
                 },
-            });
+            })
           '';
       };
     };

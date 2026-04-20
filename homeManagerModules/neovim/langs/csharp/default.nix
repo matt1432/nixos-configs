@@ -19,21 +19,21 @@ in {
             plugin = buildPlugin "roslyn-nvim" vimplugin-roslyn-src;
             type = "lua";
             config = ''
-              vim.api.nvim_create_autocmd('User', {
-                  pattern = 'RoslynInitialized',
+              vim.api.nvim_create_autocmd("User", {
+                  pattern = "RoslynInitialized",
 
                   callback = function()
-                      vim.lsp.inlay_hint.enable();
+                      vim.lsp.inlay_hint.enable()
                   end,
-              });
+              })
 
               local startRoslyn = function()
-                  require('roslyn').setup({
+                  require("roslyn").setup({
                       config = {
-                          capabilities = require('cmp_nvim_lsp').default_capabilities(),
+                          capabilities = require("cmp_nvim_lsp").default_capabilities(),
 
                           on_attach = function()
-                              vim.lsp.inlay_hint.enable();
+                              vim.lsp.inlay_hint.enable()
                           end,
 
                           settings = {
@@ -54,20 +54,23 @@ in {
                           },
                       },
 
-                      exe = 'Microsoft.CodeAnalysis.LanguageServer',
-                  });
+                      exe = "Microsoft.CodeAnalysis.LanguageServer",
+                  })
 
-                  vim.cmd[[e]]; -- reload to attach on current file
-              end;
+                  vim.cmd([[e]]) -- reload to attach on current file
+              end
 
-              loadDevShell({
-                  name = 'csharp',
-                  pattern = { 'cs' },
-                  pre_shell_callback = function()
-                      vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
+              LoadDevShell({
+                  name = "csharp",
+                  pattern = { "cs" },
+                  pre_shell_callback = function(bufnr)
+                      vim.bo[bufnr].ts = 4
+                      vim.bo[bufnr].sw = 4
+                      vim.bo[bufnr].sts = 0
+                      vim.bo[bufnr].expandtab = true
                   end,
                   post_shell_callback = startRoslyn,
-              });
+              })
             '';
           }
         ];

@@ -13,18 +13,23 @@ in {
         initLua =
           # lua
           ''
-            loadDevShell({
-                name = 'json',
-                pattern = { 'json', 'yaml', '.clang-.*', '%.json$', '%.jsonc$' },
-                pre_shell_callback = function()
-                    vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
+            LoadDevShell({
+                name = "json",
+                pattern = { "json", "yaml", ".clang-.*", "%.json$", "%.jsonc$" },
+                pre_shell_callback = function(bufnr)
+                    vim.bo[bufnr].ts = 4;
+                    vim.bo[bufnr].sw = 4;
+                    vim.bo[bufnr].sts = 0;
+                    vim.bo[bufnr].expandtab = true;
                 end,
                 language_servers = {
                     jsonls = function(start)
-                        start();
+                        start()
 
-                        -- On first open, ts is set to 2 for some reason
-                        vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
+                        vim.bo[0].ts = 4;
+                        vim.bo[0].sw = 4;
+                        vim.bo[0].sts = 0;
+                        vim.bo[0].expandtab = true;
                     end,
 
                     yamlls = function(start)
@@ -36,16 +41,14 @@ in {
                                         singleQuote = true,
                                     },
                                     schemas = {
-                                        [
-                                            "https://json.schemastore.org/github-workflow.json"
-                                        ] = "/.github/workflows/*",
+                                        ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
                                     },
                                 },
                             },
-                        });
+                        })
                     end,
                 },
-            });
+            })
           '';
       };
     };

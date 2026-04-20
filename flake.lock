@@ -1648,6 +1648,7 @@
         "vimplugin-easytables-src": "vimplugin-easytables-src",
         "vimplugin-gitsigns-src": "vimplugin-gitsigns-src",
         "vimplugin-nix-develop-src": "vimplugin-nix-develop-src",
+        "vimplugin-otter-src": "vimplugin-otter-src",
         "vimplugin-roslyn-src": "vimplugin-roslyn-src",
         "virtualkeyboard-adapter": "virtualkeyboard-adapter",
         "wakewords-src": "wakewords-src",
@@ -1945,6 +1946,23 @@
       "original": {
         "owner": "matt1432",
         "repo": "nix-develop.nvim",
+        "type": "github"
+      }
+    },
+    "vimplugin-otter-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1776657629,
+        "narHash": "sha256-akYLXjGCuwr1InYqA1nt5oJgd9kk8BLgwfpMF22SepI=",
+        "owner": "matt1432",
+        "repo": "otter.nvim",
+        "rev": "63025f55f0a656cdeeae0fa4a6b43f75f3620400",
+        "type": "github"
+      },
+      "original": {
+        "owner": "matt1432",
+        "ref": "interpolation",
+        "repo": "otter.nvim",
         "type": "github"
       }
     },

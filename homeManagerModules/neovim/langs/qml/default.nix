@@ -13,23 +13,26 @@ in {
         initLua =
           # lua
           ''
-            local lsp = require('lspconfig');
+            local lsp = require("lspconfig")
 
-            loadDevShell({
-                name = 'qml',
-                pattern = { 'qml' },
-                pre_shell_callback = function()
-                    vim.cmd[[setlocal ts=4 sw=4 sts=0 expandtab]];
+            LoadDevShell({
+                name = "qml",
+                pattern = { "qml" },
+                pre_shell_callback = function(bufnr)
+                    vim.bo[bufnr].ts = 4;
+                    vim.bo[bufnr].sw = 4;
+                    vim.bo[bufnr].sts = 0;
+                    vim.bo[bufnr].expandtab = true;
                 end,
                 language_servers = {
                     qmlls = function(start)
                         start({
-                            cmd = { 'qmlls', '-E' },
-                            root_dir = lsp.util.root_pattern('*.qml', '.git'),
-                        });
+                            cmd = { "qmlls", "-E" },
+                            root_dir = lsp.util.root_pattern("*.qml", ".git"),
+                        })
                     end,
                 },
-            });
+            })
           '';
       };
     };
