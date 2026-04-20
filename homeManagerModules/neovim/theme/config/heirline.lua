@@ -234,8 +234,16 @@ local LSPActive = {
 
     provider = function()
         local names = {}
+        local has_otter = false;
         for _, server in pairs(vim.lsp.get_clients()) do
-            table.insert(names, server.name)
+            if string.match(server.name, "otter.*") then
+                has_otter = true
+            else
+                table.insert(names, server.name)
+            end
+        end
+        if has_otter then
+            table.insert(names, "otter-ls")
         end
         return " [" .. table.concat(names, " ") .. "] "
     end,

@@ -12,7 +12,6 @@ self: {
   inherit (builtins) attrValues;
   inherit (lib) fileContents mkBefore mkIf;
 
-  # FIXME: only have one otter-ls in status bar
   # FIXME: fix lsp not in path warning
   # FIXME: fix otter not starting when opening file directly from cli
   # FIXME: conform inject breaks on interpolations
