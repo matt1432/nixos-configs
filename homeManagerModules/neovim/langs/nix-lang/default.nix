@@ -125,6 +125,43 @@ in {
                     },
                 },
             });
+
+            require('conform').formatters_by_ft.nix = { 'mynixfmt', 'injected' };
+
+            require('conform').formatters.mynixfmt = {
+                command = '${getExe formatCmd}',
+            };
+
+            -- Customize the "injected" formatter for otter-ls
+            require('conform').formatters.injected = {
+                options = {
+                    ignore_errors = false,
+
+                    -- Map of treesitter language to file extension
+                    -- A temporary file name with this extension will be generated during formatting
+                    -- because some formatters care about the filename.
+                    lang_to_ext = {
+                        bash = 'sh',
+                        c_sharp = 'cs',
+                        elixir = 'exs',
+                        javascript = 'js',
+                        julia = 'jl',
+                        latex = 'tex',
+                        lua = 'lua',
+                        markdown = 'md',
+                        python = 'py',
+                        ruby = 'rb',
+                        rust = 'rs',
+                        teal = 'tl',
+                        r = 'r',
+                        typescript = 'ts',
+                    },
+
+                    -- Map of treesitter language to formatters to use
+                    -- (defaults to the value from formatters_by_ft)
+                    lang_to_formatters = {},
+                },
+            };
           '';
       };
     };

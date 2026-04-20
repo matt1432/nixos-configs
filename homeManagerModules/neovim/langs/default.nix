@@ -12,14 +12,14 @@ self: {
   inherit (builtins) attrValues;
   inherit (lib) fileContents mkBefore mkIf;
 
-  cfg = config.programs.neovim;
-  flakeEnv = config.programs.bash.sessionVariables.FLAKE;
-
   # FIXME: fix indentation using otter language instead of main one
   # FIXME: only have one otter-ls in status bar
   # FIXME: fix lsp not in path warning
   # FIXME: fix otter not starting when opening file directly from cli
   # TODO: implement otter formatting
+
+  cfg = config.programs.neovim;
+  flakeEnv = config.programs.bash.sessionVariables.FLAKE;
 in {
   imports = [
     ./bash
@@ -137,15 +137,6 @@ in {
               });
           end;
 
-          -- Add formatting cmd
-          vim.api.nvim_create_user_command(
-              'Format',
-              function()
-                  vim.lsp.buf.format({ async = true });
-              end,
-              {}
-          );
-
           -- LSP-Status setup
           local lsp_status = require('lsp-status');
           lsp_status.register_progress();
@@ -227,6 +218,31 @@ in {
           type = "lua";
           config = ''
             require('nvim-autopairs').setup({});
+          '';
+        };
+
+        conform-nvim = {
+          plugin = pkgs.vimPlugins.conform-nvim;
+          type = "lua";
+          config = ''
+            require('conform').setup({
+                default_format_opts = {
+                    lsp_format = 'fallback',
+                },
+            });
+
+            -- Add formatting cmd
+            vim.api.nvim_create_user_command(
+                'Format',
+                function()
+                    require("conform").format({ bufnr = 0, timeout_ms = 10000000 }, function(err)
+                        if err == 'No formatters available for buffer' then
+                            vim.lsp.buf.format();
+                        end
+                    end)
+                end,
+                {}
+            );
           '';
         };
 
