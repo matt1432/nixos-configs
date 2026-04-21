@@ -28,7 +28,7 @@ in {
 
         PORT = "11011";
         BASE_PATH = "/cleanuparr";
-        UMASK="022";
+        UMASK = "022";
       };
 
       networks = ["proxy_net"];

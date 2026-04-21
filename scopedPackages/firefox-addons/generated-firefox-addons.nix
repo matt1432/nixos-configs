@@ -171,7 +171,7 @@
     meta = with lib; {
       homepage = "https://sponsor.ajay.app";
       description = "Easily skip YouTube video sponsors. When you visit a YouTube video, the extension will check the database for reported sponsors and automatically skip known sponsors. You can also report sponsors in videos. Other browsers: https://sponsor.ajay.app";
-      license = licenses.lgpl3;
+      license = licenses.gpl3;
       mozPermissions = [
         "storage"
         "scripting"
@@ -306,10 +306,10 @@
   };
   "youtubelistview" = buildMozillaXpiAddon {
     pname = "youtubelistview";
-    version = "1.619";
+    version = "1.623";
     addonId = "@idk-what-this-means";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4761181/youtubelistview-1.619.xpi";
-    sha256 = "047715d8b489567ac89eba307ff616b7d67404b2a5058278eb709add33114a8b";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4773157/youtubelistview-1.623.xpi";
+    sha256 = "ed9c186547ec623c9b5ecb180a45702484af9859b21870ea785080f652151c7e";
     meta = with lib; {
       description = "Brings back the list view for the subscriptions page and more. Click the extension icon for customization options.";
       mozPermissions = ["storage" "https://www.youtube.com/*"];

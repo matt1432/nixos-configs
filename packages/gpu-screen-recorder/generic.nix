@@ -23,13 +23,14 @@
   ninja,
   pipewire,
   pkg-config,
+  vulkan-loader,
   vulkan-headers,
   wayland,
   wayland-scanner,
   ...
 }: let
   inherit (lib) makeLibraryPath optionalString;
-  inherit (builtins) fromTOML readFile;
+  inherit (builtins) readFile;
 
   tag =
     (fromTOML (readFile "${gpu-screen-recorder-src}/project.conf"))
@@ -61,6 +62,7 @@ in
       libpulseaudio
       libva
       pipewire
+      vulkan-loader
       vulkan-headers
       wayland
       wayland-scanner

@@ -4,7 +4,11 @@
   mainGID,
   TZ,
   ...
-}: {config, pkgs, ...}: let
+}: {
+  config,
+  pkgs,
+  ...
+}: let
   inherit (config.sops) secrets;
 
   rwPath = configPath + "/media/qbit";
