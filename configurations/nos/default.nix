@@ -24,6 +24,10 @@
   # ------------------------------------------------
   # User Settings
   # ------------------------------------------------
+  users.groups.${mainUser} = {
+    gid = 1000;
+  };
+
   users.users.${mainUser} = {
     isNormalUser = true;
     uid = 1000;
@@ -34,6 +38,7 @@
       "wheel"
       "adm"
       "borg"
+      mainUser
     ];
   };
 
