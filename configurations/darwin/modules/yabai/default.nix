@@ -14,8 +14,6 @@
 
     src = yabai-src;
 
-    patches = (o.patches or []) ++ [./autofocus.patch];
-
     # With this on, some files get removed before they stop being needed
     enableParallelBuilding = false;
   });
