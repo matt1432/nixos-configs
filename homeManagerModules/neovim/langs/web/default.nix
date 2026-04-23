@@ -5,9 +5,7 @@ self: {
   ...
 }: let
   inherit (builtins) attrValues;
-  inherit (lib) mkIf optionalString;
-
-  inherit (pkgs.stdenv.hostPlatform) isDarwin;
+  inherit (lib) mkIf;
 
   cfg = config.programs.neovim;
 in {
@@ -119,17 +117,6 @@ in {
                         mode = "all",
                         rules = {},
                     },
-              ${optionalString isDarwin
-              # lua
-              ''
-                rulesCustomizations = {
-                    {
-                        rule = "@typescript-eslint/naming-convention",
-                        severity = "off",
-                        fixable = false,
-                    },
-                },
-              ''}
                 },
             })
 

@@ -7,8 +7,6 @@ self: {
   inherit (self.inputs) vimplugin-nix-develop-src vimplugin-otter-src;
   inherit (self.lib.${pkgs.stdenv.hostPlatform.system}) mkVersion;
 
-  inherit (pkgs.stdenv.hostPlatform) isDarwin;
-
   inherit (builtins) attrValues;
   inherit (lib) fileContents mkBefore mkIf;
 
@@ -159,43 +157,25 @@ in {
                   lsp_status.on_attach(client)
 
                   -- ensure treesitter is started, in case starting the lsp messed with it
-                  ${
-            if isDarwin
-            then
-              # lua
-              ''
-                -- On Darwin, `require('nvim-treesitter').get_available()` doesn't seem to work
-                vim.treesitter.start(bufnr)
-                vim.bo[bufnr].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                  local filetype = vim.filetype.match({
+                      buf = bufnr,
+                  })
 
-                if not string.match(args.file, ".*%.otter%..*") then
-                    require("otter").activate(nil, nil, nil, nil, nil, nil, nil, bufnr)
-                end
-              ''
-            else
-              # lua
-              ''
-                local filetype = vim.filetype.match({
-                    buf = bufnr,
-                })
+                  if filetype == nil then
+                      return
+                  end
 
-                if filetype == nil then
-                    return
-                end
+                  for _, language in ipairs(require("nvim-treesitter").get_available()) do
+                      if (filetype):find("^" .. language) then
+                          vim.treesitter.start(bufnr)
+                          vim.bo[bufnr].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 
-                for _, language in ipairs(require("nvim-treesitter").get_available()) do
-                    if (filetype):find("^" .. language) then
-                        vim.treesitter.start(bufnr)
-                        vim.bo[bufnr].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-
-                        if not string.match(args.file, ".*%.otter%..*") then
-                            require("otter").activate(nil, nil, nil, nil, nil, nil, nil, bufnr)
-                        end
-                        return
-                    end
-                end
-              ''
-          }
+                          if not string.match(args.file, ".*%.otter%..*") then
+                              require("otter").activate(nil, nil, nil, nil, nil, nil, nil, bufnr)
+                          end
+                          return
+                      end
+                  end
               end,
           })
         '';
