@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (lib) converge getExe mkOption types;
-  inherit (lib.modules) mkForce mkIf;
+  inherit (lib.modules) mkIf;
   inherit (lib.lists) elem;
   inherit (lib.strings) concatMapStringsSep optionalString;
   inherit (lib.attrsets) mapAttrsToList filterAttrsRecursive optionalAttrs;
@@ -42,55 +42,40 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # Fixes https://github.com/NixOS/nixpkgs/issues/339557
-    users = {
-      users.esphome = {
-        isNormalUser = true;
-        group = "esphome";
-        home = stateDir;
-      };
-      groups.esphome = {};
-    };
-
     systemd.services.esphome = {
-      serviceConfig =
-        (optionalAttrs (cfg.firmwareConfigs != {}) {
-          ExecStartPre = getExe (pkgs.writeShellApplication {
-            name = "esphome-exec-start-pre";
+      serviceConfig = optionalAttrs (cfg.firmwareConfigs != {}) {
+        ExecStartPre = getExe (pkgs.writeShellApplication {
+          name = "esphome-exec-start-pre";
 
-            runtimeInputs = [
-              pkgs.findutils
-            ];
+          runtimeInputs = [
+            pkgs.findutils
+          ];
 
-            text = ''
-              shopt -s nullglob
+          text = ''
+            shopt -s nullglob
 
-              for file in ${stateDir}/*-nix.yaml; do
-                  rm "$file"
-              done
+            for file in ${stateDir}/*-nix.yaml; do
+                rm "$file"
+            done
 
-              ${optionalString
-                (cfg.secretsFile != null)
+            ${optionalString
+              (cfg.secretsFile != null)
+              # bash
+              ''
+                cp -f "$(realpath "${cfg.secretsFile}")" ${stateDir}/secrets.yaml
+              ''}
+
+            ${concatMapStringsSep
+              "\n"
+              (dev:
                 # bash
                 ''
-                  cp -f "$(realpath "${cfg.secretsFile}")" ${stateDir}/secrets.yaml
-                ''}
-
-              ${concatMapStringsSep
-                "\n"
-                (dev:
-                  # bash
-                  ''
-                    cp -f "$(realpath "${dev.file}")" ${stateDir}/"${dev.name}"
-                  '')
-                (mapAttrsToList mkESPConf cfg.firmwareConfigs)}
-            '';
-          });
-        })
-        // {
-          # Fixes https://github.com/NixOS/nixpkgs/issues/339557
-          DynamicUser = mkForce "off";
-        };
+                  cp -f "$(realpath "${dev.file}")" ${stateDir}/"${dev.name}"
+                '')
+              (mapAttrsToList mkESPConf cfg.firmwareConfigs)}
+          '';
+        });
+      };
     };
   };
 }
