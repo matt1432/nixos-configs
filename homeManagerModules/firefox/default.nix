@@ -25,6 +25,8 @@ in {
 
       package = pkgs.firefox-devedition;
 
+      configPath = "${config.xdg.configHome}/mozilla/firefox";
+
       profiles.${mainProfile} = {
         isDefault = true;
         id = 0;
