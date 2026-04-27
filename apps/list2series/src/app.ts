@@ -9,6 +9,7 @@ import {
     rmSync,
     writeFileSync,
 } from 'fs';
+import { styleText } from 'node:util';
 import { basename } from 'path';
 
 import type {
@@ -374,7 +375,18 @@ const setBookMetadata = async (
         newTitle = 'Redirect';
     }
     else {
-        const thisSeries = (await getSeries(source.seriesTitle))[0];
+        const seriesResult = await getSeries(source.seriesTitle);
+
+        if (seriesResult.length !== 1) {
+            console.warn(
+                styleText(
+                    ['yellow'],
+                    `Multiple series with name ${source.seriesTitle} found. The wrong metadata might get copied.`,
+                ),
+            );
+        }
+
+        const thisSeries = seriesResult[0];
 
         if (thisSeries.booksCount !== 1) {
             newTitle += ` #${source.metadata.number}`;
