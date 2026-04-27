@@ -22,7 +22,7 @@ in {
 
     ideConfig = {
       llmProvider = mkOption {
-        type = types.enum ["cursor" "opencode" "none"];
+        type = types.enum ["opencode" "none"];
         default = "opencode";
       };
 

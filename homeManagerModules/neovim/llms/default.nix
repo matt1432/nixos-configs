@@ -1,4 +1,3 @@
-# https://github.com/SRachamim/etc-nixos/blob/1dc73f9ffef22accb17ac1088bf095b3bbc3da47/home.nix
 self: {
   config,
   lib,
@@ -15,20 +14,6 @@ self: {
     else "";
 in {
   config = mkIf (cfg.enable && cfg.ideConfig.llmProvider != "none") {
-    home.sessionPath = ["$HOME/.local/bin"];
-
-    home.activation = mkIf (cfg.ideConfig.llmProvider == "cursor") {
-      installCursorCli =
-        config.lib.dag.entryAfter ["writeBoundary"]
-        # bash
-        ''
-          if ! [ -x "$HOME/.local/bin/cursor-agent" ]; then
-              echo "Installing Cursor CLI..."
-              ${pkgs.curl}/bin/curl https://cursor.com/install -fsS | PATH="${pkgs.curl}/bin:${pkgs.gnutar}/bin:${pkgs.gzip}/bin:${pkgs.coreutils}/bin:$PATH" ${pkgs.bash}/bin/bash
-          fi
-        '';
-    };
-
     programs = {
       neovim = {
         extraPackages = [
@@ -84,15 +69,6 @@ in {
                 else ""
               }
                   acp_providers = {
-                      cursor = {
-                          command = os.getenv("HOME") .. "/.local/bin/cursor-agent",
-                          args = { "acp" },
-                          auth_method = "cursor_login",
-                          env = {
-                              HOME = os.getenv("HOME"),
-                              PATH = os.getenv("PATH"),
-                          },
-                      },
                       opencode = {
                           command = "${opencodeExe}",
                           args = { "acp" },
