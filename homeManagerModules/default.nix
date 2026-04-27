@@ -34,11 +34,4 @@ in {
       themes that follow Dracula Theme and settings for CLI programs, such as
       starship, trash-d, nix-comma, nix-direnv, git, etc.
     '';
-
-  tcc =
-    module
-    (import ./tcc self)
-    ''
-      Allows declaring permissions declaratively for darwin.
-    '';
 }

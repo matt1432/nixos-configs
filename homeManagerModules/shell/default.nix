@@ -4,9 +4,7 @@ self: {
   pkgs,
   ...
 }: let
-  inherit (lib) concatMapStringsSep fileContents mkIf mkOption optionalString types;
-
-  inherit (pkgs.stdenv.hostPlatform) isDarwin;
+  inherit (lib) fileContents mkIf mkOption optionalString types;
 
   cfg = config.programs.bash;
 in {
@@ -90,8 +88,6 @@ in {
         cp = "cp -r";
       };
 
-      #profileExtra = ''
-      #'';
       bashrcExtra =
         # bash
         ''
@@ -112,29 +108,6 @@ in {
               [[ -r $NVM_DIR/bash_completion ]] && \. $NVM_DIR/bash_completion
             ''}
         '';
-
-      initExtra = let
-        # https://github.com/nix-darwin/nix-darwin/issues/122#issuecomment-2272570087
-        profiles = [
-          "/etc/profiles/per-user/$USER" # Home manager packages
-          "$HOME/.nix-profile"
-          "$HOME/.local/state/nix/profile"
-          "/run/current-system/sw"
-          "/nix/var/nix/profiles/default"
-        ];
-
-        makeBinSearchPath =
-          concatMapStringsSep ":" (path: "${path}/bin");
-      in
-        optionalString isDarwin
-        # bash
-        ''
-          # Fix path that was re-ordered by Apple's path_helper
-          export PATH="${makeBinSearchPath profiles}:$PATH"
-        '';
-
-      #logoutExtra = ''
-      #'';
     };
 
     home.file = mkIf cfg.enableNvm {

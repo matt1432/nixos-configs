@@ -32,7 +32,7 @@ substituteScopes() {
 }
 
 substituteDerivs "appsPackages" "apps" "getPackageMeta"
-substituteDerivs "configurations" "configurations" "getConfigMeta"
+substituteDerivs "nixosConfigurations" "configurations" "getConfigMeta"
 substituteDerivs "devShells" "devShells" "getPackageMeta"
 substituteDerivs "packages" "packages" "getPackageMeta"
 

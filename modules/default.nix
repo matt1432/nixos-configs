@@ -15,14 +15,6 @@ in {
       miscellaneous configs I might want on every device I use.
     '';
 
-  base-darwin =
-    module
-    (import ./base/default-darwin.nix self)
-    ''
-      Sets up locale, nix config, binary caches, general packages and some
-      miscellaneous configs I might want on every darwin device I use.
-    '';
-
   borgbackup =
     module
     (import ./borgbackup)

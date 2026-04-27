@@ -279,12 +279,6 @@
       repo = "integration";
       type = "github";
     };
-    nix-darwin = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      owner = "nix-darwin";
-      repo = "nix-darwin";
-      type = "github";
-    };
     nix-gaming = {
       inputs = {
         flake-parts.follows = "flake-parts";
@@ -358,12 +352,6 @@
       shallow = true;
       type = "git";
       url = "https://github.com/NixOS/nixpkgs";
-    };
-    nixpkgs-firefox-darwin = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      owner = "bandithedoge";
-      repo = "nixpkgs-firefox-darwin";
-      type = "github";
     };
     nvim-theme-src = {
       flake = false;
@@ -453,13 +441,7 @@
     };
     systems = {
       owner = "nix-systems";
-      repo = "default";
-      type = "github";
-    };
-    tccutil-src = {
-      flake = false;
-      owner = "jacobsalmela";
-      repo = "tccutil";
+      repo = "default-linux";
       type = "github";
     };
     touchpos = {
@@ -530,12 +512,6 @@
       flake = false;
       owner = "fwartner";
       repo = "home-assistant-wakewords-collection";
-      type = "github";
-    };
-    yabai-src = {
-      flake = false;
-      owner = "asmvik";
-      repo = "yabai";
       type = "github";
     };
     yamaha-soundbar-src = {

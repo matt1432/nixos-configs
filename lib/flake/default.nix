@@ -106,23 +106,4 @@ in rec {
         ]
         ++ extraModules;
     };
-
-  mkNixDarwin = {
-    extraModules ? [],
-    mainUser ? "matt",
-    system,
-  }:
-    inputs.nix-darwin.lib.darwinSystem rec {
-      inherit system;
-      specialArgs = inputs // {inherit mainUser;};
-      modules =
-        [
-          {nixpkgs.hostPlatform = system;}
-          inputs.home-manager.darwinModules.home-manager
-
-          (allowModularOverrides {inherit system;})
-          (hmSetupModule specialArgs)
-        ]
-        ++ extraModules;
-    };
 }

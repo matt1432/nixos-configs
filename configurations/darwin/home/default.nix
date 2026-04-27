@@ -1,6 +1,0 @@
-{...}: {
-  imports = [
-    ./wezterm
-    ./ssh
-  ];
-}

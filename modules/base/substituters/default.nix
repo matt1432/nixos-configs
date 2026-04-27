@@ -6,8 +6,6 @@
 }: let
   inherit (lib) foldl isList mergeAttrsWithFunc mkIf optionals unique;
 
-  inherit (pkgs.stdenv.hostPlatform) isDarwin;
-
   cfg = config.roles.base;
 
   mergeAttrsList = list:
@@ -18,7 +16,7 @@
     list;
 in {
   config = mkIf cfg.enable {
-    environment.systemPackages = optionals (!isDarwin) [
+    environment.systemPackages = [
       (pkgs.writeShellApplication {
         name = "rebuild-no-cache";
         runtimeInputs = [config.programs.nh.package];
@@ -45,9 +43,6 @@ in {
             (mkSubstituterConf 1000 "https://viperml.cachix.org" "viperml.cachix.org-1:qZhKBMTfmcLL+OG6fj/hzsMEedgKvZVFRRAhq7j8Vh8=")
             (mkSubstituterConf 1000 "https://cuda-maintainers.cachix.org" "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E=")
             (mkSubstituterConf 1100 "https://nix-on-droid.cachix.org" "nix-on-droid.cachix.org-1:56snoMJTXmDRC1Ei24CmKoUqvHJ9XCp+nidK7qkMQrU=")
-          ]
-          ++ optionals isDarwin [
-            (mkSubstituterConf 100 "https://matt-darwin.cachix.org" "matt-darwin.cachix.org-1:yFHQVe96+ljXwv8oz9XSWt9Qz98aYCVF2xInTbKg7U8=")
           ]
           ++ optionals (config.networking.hostName != "servivi") [
             (mkSubstituterConf 100 "https://cache.nelim.org" "cache.nelim.org:JmFqkUdH11EA9EZOFAGVHuRYp7EbsdJDHvTQzG2pPyY=")

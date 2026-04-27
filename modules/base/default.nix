@@ -13,7 +13,6 @@ self: {
 in {
   imports = [
     ./locale
-    ./locale/nixos.nix
     ./locate
     ./substituters
     (import ./common-nix self)

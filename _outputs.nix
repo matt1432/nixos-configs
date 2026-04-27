@@ -10,7 +10,7 @@
   }: let
     inherit (nixpkgs.lib) filter genAttrs hasSuffix mapAttrs' nameValuePair;
 
-    inherit (self.lib) mkNixOS mkNixDarwin mkPkgs;
+    inherit (self.lib) mkNixOS mkPkgs;
 
     mkPerSystem = supportedSystems: attrs:
       genAttrs supportedSystems (system:
@@ -20,12 +20,6 @@
     perLinuxSystem = mkPerSystem (filter (hasSuffix "linux") (import systems));
   in {
     lib = import ./lib {inherit inputs perSystem;};
-
-    darwinConfigurations."MGCOMP0192" = mkNixDarwin {
-      mainUser = "mhurtubise";
-      system = "x86_64-darwin";
-      extraModules = [./configurations/darwin];
-    };
 
     nixosConfigurations = {
       # Desktops
@@ -95,9 +89,6 @@
         extraModules = [./configurations/live-image];
       };
     };
-
-    # For gen-docs
-    configurations = self.nixosConfigurations // (mapAttrs' (n: v: nameValuePair "darwin" v) self.darwinConfigurations);
 
     # For nix-fast-build. I use a custom output to alleviate eval time of this flake. ie. when doing nix flake show
     nixFastChecks = import ./nixFastChecks {

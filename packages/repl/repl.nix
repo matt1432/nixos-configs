@@ -27,5 +27,4 @@
 in
   {inherit lib pkgs self;}
   // (self.nixosConfigurations.${hostname}
-  or self.darwinConfigurations."MGCOMP0192"
   or {})

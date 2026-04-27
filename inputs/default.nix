@@ -6,7 +6,7 @@ let
   mainInputs = {
     systems = mkInput {
       owner = "nix-systems";
-      repo = "default";
+      repo = "default-linux";
     };
 
     nixpkgs = mkInput {
@@ -19,11 +19,6 @@ let
     home-manager = mkInput {
       owner = "nix-community";
       repo = "home-manager";
-    };
-
-    nix-darwin = mkInput {
-      owner = "nix-darwin";
-      repo = "nix-darwin";
     };
 
     # FIXME: https://github.com/nix-community/nixos-avf/pull/39
@@ -109,11 +104,6 @@ let
     nix-gaming = mkInput {
       owner = "fufexan";
       repo = "nix-gaming";
-    };
-
-    nixpkgs-firefox-darwin = mkInput {
-      owner = "bandithedoge";
-      repo = "nixpkgs-firefox-darwin";
     };
   };
 
@@ -344,14 +334,6 @@ let
     }
 
     # Overlays & packages
-    {
-      owner = "asmvik";
-      repo = "yabai";
-    }
-    {
-      owner = "jacobsalmela";
-      repo = "tccutil";
-    }
     {
       owner = "ljcp";
       repo = "alive-server";
