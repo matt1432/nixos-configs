@@ -15,8 +15,7 @@
     self.nixosModules.base
     self.nixosModules.desktop
     self.nixosModules.docker
-    # FIXME: makes Hyprland crash on startup
-    # self.nixosModules.kmscon
+    self.nixosModules.kmscon
     self.nixosModules.meta
     self.nixosModules.plymouth
     self.nixosModules.server
@@ -103,7 +102,7 @@
     ];
   };
 
-  # services.kmscon.enable = true;
+  services.kmscon.enable = true;
 
   home-manager.sharedModules = [
     self.homeManagerModules.neovim
