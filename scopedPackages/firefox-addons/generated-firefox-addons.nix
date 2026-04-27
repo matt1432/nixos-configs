@@ -164,14 +164,14 @@
   };
   "sponsorblock" = buildMozillaXpiAddon {
     pname = "sponsorblock";
-    version = "6.1.3";
+    version = "6.1.5";
     addonId = "sponsorBlocker@ajay.app";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4744354/sponsorblock-6.1.3.xpi";
-    sha256 = "cc6ee2918298ce6a1754b462d0b54d9a96f545f65cd3ac69016332ebca1d100b";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4773757/sponsorblock-6.1.5.xpi";
+    sha256 = "d8ec229aecb0b78e307a86d436496891b755f874c24c0f7324551c7ffd1b2e14";
     meta = with lib; {
       homepage = "https://sponsor.ajay.app";
       description = "Easily skip YouTube video sponsors. When you visit a YouTube video, the extension will check the database for reported sponsors and automatically skip known sponsors. You can also report sponsors in videos. Other browsers: https://sponsor.ajay.app";
-      license = licenses.gpl3;
+      license = licenses.lgpl3;
       mozPermissions = [
         "storage"
         "scripting"
@@ -290,10 +290,10 @@
   };
   "youtube-no-translation" = buildMozillaXpiAddon {
     pname = "youtube-no-translation";
-    version = "2.22.0";
+    version = "2.23.0";
     addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4756712/youtube_no_translation-2.22.0.xpi";
-    sha256 = "b84fb05e2b77274c4c146bd0925f587ea95df958cc6d60a8ed9f702eccd9024a";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4769229/youtube_no_translation-2.23.0.xpi";
+    sha256 = "3a64e30fc83ab6610c009765a34457125956f27a906f049c7e4e3750b86e5a30";
     meta = with lib; {
       description = "Keeps YouTube content in its original language (Titles, Audio Tracks, Descriptions...)";
       mozPermissions = [
@@ -306,10 +306,10 @@
   };
   "youtubelistview" = buildMozillaXpiAddon {
     pname = "youtubelistview";
-    version = "1.623";
+    version = "1.625";
     addonId = "@idk-what-this-means";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4773157/youtubelistview-1.623.xpi";
-    sha256 = "ed9c186547ec623c9b5ecb180a45702484af9859b21870ea785080f652151c7e";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4777313/youtubelistview-1.625.xpi";
+    sha256 = "8ad956e7a81436ad829f4ecd87c0d06ae43981fa754cc810caa1b577bcdbcc86";
     meta = with lib; {
       description = "Brings back the list view for the subscriptions page and more. Click the extension icon for customization options.";
       mozPermissions = ["storage" "https://www.youtube.com/*"];
