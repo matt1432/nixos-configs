@@ -61,27 +61,39 @@ in {
         volumes = ["${rwPath}/db:/var/lib/postgresql/data"];
       };
 
-      "act_runner" = {
-        image = pkgs.callPackage ./images/act_runner.nix pkgs;
+      "docker_dind" = {
+        image = pkgs.callPackage ./images/docker_dind.nix pkgs;
 
-        privileged = true;
-        user = "root:root";
-        networks = ["proxy_net"];
+        command = ["dockerd" "-H" "tcp://0.0.0.0:2375" "--tls=false"];
+
+        privileged = "true";
 
         restart = "always";
-        depends_on = ["forgejo"];
+
+        extraHosts = ["git.nelim.org:10.0.0.130"];
+        networks = ["proxy_net"];
+      };
+
+      "runner" = {
+        image = pkgs.callPackage ./images/runner.nix pkgs;
+
+        user = "${mainUID}:${mainGID}";
+        command = "forgejo-runner daemon --config runner-config.yml";
+
+        restart = "always";
+        depends_on = ["docker_dind" "forgejo"];
+        links = ["docker_dind"];
 
         environment = {
-          GITEA_RUNNER_NAME = "DinD";
-          GITEA_INSTANCE_URL = "https://git.nelim.org";
-          GITEA_RUNNER_REGISTRATION_TOKEN_FILE = secrets.forgejo-runner.path;
+          DOCKER_HOST = "tcp://docker_dind:2375";
         };
 
         volumes = [
-          "${rwPath}/act:/data"
-          "${secrets.forgejo-runner.path}:${secrets.forgejo-runner.path}"
+          "${rwPath}/runner:/data"
         ];
-        extra_hosts = ["git.nelim.org:10.0.0.130"];
+
+        extraHosts = ["git.nelim.org:10.0.0.130"];
+        networks = ["proxy_net"];
       };
     };
   };
