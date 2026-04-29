@@ -153,7 +153,6 @@
         systems.follows = "systems";
       };
       owner = "hyprwm";
-      ref = "v0.54.3";
       repo = "Hyprland";
       type = "github";
     };
@@ -163,7 +162,8 @@
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
       };
-      owner = "hyprwm";
+      owner = "matt1432";
+      ref = "chase-renderer";
       repo = "hyprland-plugins";
       type = "github";
     };

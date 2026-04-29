@@ -39,7 +39,7 @@ in {
     ];
 
     nixpkgs.overlays = [
-      self.inputs."hyprland".overlays.default
+      self.inputs."hyprland".overlays.hyprland-packages
 
       (final: prev: {
         hyprlandPlugins = final.callPackage "${final.path}/pkgs/applications/window-managers/hyprwm/hyprland-plugins/default.nix" {

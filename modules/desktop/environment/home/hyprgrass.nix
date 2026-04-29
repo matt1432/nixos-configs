@@ -9,25 +9,11 @@ self: {
   inherit (lib) mkIf;
 
   cfg = osConfig.roles.desktop;
-
-  # FIXME: https://github.com/doctest/doctest/issues/1098
-  doctest = pkgs.doctest.overrideAttrs rec {
-    version = "2.5.2";
-    src = pkgs.fetchFromGitHub {
-      owner = "doctest";
-      repo = "doctest";
-      tag = "v${version}";
-      hash = "sha256-4jW6xPFCFxk1l47EkSUVojhycrtluPhOc5Adf/25R7M=";
-    };
-  };
 in {
   config = mkIf (cfg.enable && cfg.isTouchscreen) {
     wayland.windowManager.hyprland = {
       plugins = [
-        (pkgs.hyprlandPlugins.hyprgrass.override (o: {
-          inherit doctest;
-          wf-touch = o.wf-touch.override {inherit doctest;};
-        }))
+        pkgs.hyprlandPlugins.hyprgrass
         pkgs.hyprlandPlugins.touchpos
       ];
 

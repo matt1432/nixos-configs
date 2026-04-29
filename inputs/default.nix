@@ -174,14 +174,15 @@ let
       hyprland = mkInput {
         owner = "hyprwm";
         repo = "Hyprland";
-
-        # FIXME: wait for hyprland-plugins to chase renderer refactors
-        ref = "v0.54.3";
       };
 
       hyprland-plugins = mkHyprDep {
-        owner = "hyprwm";
+        # owner = "hyprwm";
         repo = "hyprland-plugins";
+
+        # FIXME: https://github.com/hyprwm/hyprland-plugins/pull/650
+        owner = "matt1432";
+        ref = "chase-renderer";
       };
 
       hyprgrass = mkHyprDep {
