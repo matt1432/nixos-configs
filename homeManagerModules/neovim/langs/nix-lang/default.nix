@@ -25,36 +25,7 @@ self: {
     '';
   };
 
-  # FIXME: https://github.com/nix-community/nixd/issues/799
-  generateSplicesForNixComponents = nixComponentsAttributeName:
-    pkgs.generateSplicesForMkScope [
-      "nixVersions"
-      nixComponentsAttributeName
-    ];
-  nixComponents =
-    (pkgs.nixDependencies.callPackage "${pkgs.path}/pkgs/tools/package-management/nix/modular/packages.nix" rec {
-      version = "2.33.3";
-      inherit (pkgs.nixVersions.nix_2_31.meta) teams;
-      otherSplices = generateSplicesForNixComponents "nixComponents_2_33";
-      src = pkgs.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nix";
-        tag = version;
-        hash = "sha256-2Mga4e9ZtOPLwYqF4+hcjdsTImcA7TKUvDDfaF7jqEo=";
-      };
-    }).appendPatches [
-      (pkgs.fetchpatch {
-        name = "nix-lowdown-3.0-support.patch";
-        url = "https://github.com/NixOS/nix/commit/472c35c561bd9e8db1465e0677f1efe2cb88c568.patch";
-        hash = "sha256-ZCQgI/euBN8t9rgdCsGRgrcEWG3T5MUc+bQc4tIcHuI=";
-      })
-    ];
-
-  nixdPkg = pkgs.nixd.override (o: {
-    inherit nixComponents;
-    nixf = o.nixf.override {inherit (nixComponents) nix-expr;};
-    nixt = o.nixt.override {inherit nixComponents;};
-  });
+  nixdPkg = pkgs.nixd;
 
   flakeEnv = config.programs.bash.sessionVariables.FLAKE;
 
