@@ -19,7 +19,6 @@ in {
     (import ./nextcloud/compose.nix globalEnv)
     (import ./resume/compose.nix globalEnv)
     (import ./vaultwarden/compose.nix globalEnv)
-    (import ./wg-easy/compose.nix globalEnv)
 
     (import ./media/bazarr/compose.nix globalEnv)
     (import ./media/cleanuparr/compose.nix globalEnv)
