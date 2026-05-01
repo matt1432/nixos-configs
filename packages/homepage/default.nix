@@ -29,9 +29,9 @@ in
     };
 
     pnpmDeps = fetchPnpmDeps {
-      fetcherVersion = 1;
+      fetcherVersion = 3;
       inherit (finalAttrs) pname version src;
-      hash = "sha256-e8DXeNU4M2ruywGLWR3yx1nbRKcmzruJFKUaWwiFY0Q=";
+      hash = "sha256-suevJNExlktuuCXRYEi8603qrxeEPLYaYp9MO2hnLEk=";
     };
 
     nativeBuildInputs = [
