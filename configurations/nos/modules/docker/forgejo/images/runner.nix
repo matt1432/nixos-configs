@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage rec {
   imageName = "data.forgejo.org/forgejo/runner";
-  imageDigest = "sha256:2860af6a7fa5521b2cdb26a14545c083ffd06b2528dbfc470cfec39a0b6bde39";
-  hash = "sha256-Kqf3dwSIvq/Ek6XgYADTadL8mP/6JQDNsxhN2JLDfL8=";
+  imageDigest = "sha256:d708348726d2358236ada4f134c721e7f9925c511d807ff9332a12c68e55a323";
+  hash = "sha256-dX7BVM/UCDELwUn/WELJs8BgvWwXGnDWu4GrvkREJPM=";
   finalImageName = imageName;
   finalImageTag = "12";
 }

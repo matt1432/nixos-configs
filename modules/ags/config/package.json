@@ -7,7 +7,7 @@
         "gnim": "1.9.1",
         "fzf": "0.5.2",
         "@eslint/js": "10.0.1",
-        "eslint": "10.2.1",
+        "eslint": "10.3.0",
         "eslint-config-prettier": "10.1.8",
         "eslint-plugin-jsdoc": "62.9.0",
         "eslint-plugin-perfectionist": "5.9.0",
@@ -16,6 +16,6 @@
         "prettier": "3.8.3",
         "prettier-plugin-brace-style": "0.10.1",
         "typescript": "6.0.3",
-        "typescript-eslint": "8.59.1"
+        "typescript-eslint": "8.59.2"
     }
 }

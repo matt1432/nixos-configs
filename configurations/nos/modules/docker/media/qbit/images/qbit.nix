@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage rec {
   imageName = "ghcr.io/linuxserver/qbittorrent";
-  imageDigest = "sha256:3679a75dd2304b695525d83a4ff14c458708b5da4a7ce53044240932139590e1";
-  hash = "sha256-IgGCwQYp1kr1P3CBmo7q3gYhwUExkhCXI/nZMnCmMOQ=";
+  imageDigest = "sha256:c9990949e968e99333f47f49da7d16e81ba6e1469c8c46807a65b984c9e8b6ff";
+  hash = "sha256-30Q0VcZ3UodmjWVNSFkymyMIo8gEZ/yP7Hxw3nyKMiY=";
   finalImageName = imageName;
   finalImageTag = "latest";
 }
