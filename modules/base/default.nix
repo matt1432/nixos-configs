@@ -41,6 +41,7 @@ in {
     programs.tmux.enableCustomConf = true;
 
     boot.tmp.useTmpfs = true;
+    boot.zfs.forceImportRoot = false;
 
     systemd.services.nix-daemon = {
       environment.TMPDIR = "/home/nix-cache";
