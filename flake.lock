@@ -927,11 +927,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1775941678,
-        "narHash": "sha256-i0MDRM0/HNtEIddRrORP+1nZ+ehovhQcgqmDowHPEIw=",
+        "lastModified": 1778007298,
+        "narHash": "sha256-7PMbyZgEOtdz6wVComZhuOg2ChqYz3UhG88v1hgGpfM=",
         "owner": "matt1432",
         "repo": "jellarr",
-        "rev": "952a27452e53037115983d28d8e4a45c7aa9eab6",
+        "rev": "54676a3e3988e1537857a1015f9b8e96bc91c0e8",
         "type": "github"
       },
       "original": {
