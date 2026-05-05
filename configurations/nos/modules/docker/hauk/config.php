@@ -202,7 +202,7 @@
 // in need of typing in a link manually on another computer. This is the reason
 // that short links are default.
 //
-// ---- PLEASE NOTE ----
+// ---- NB ----
 // This option is provided to you only because several people have requested it
 // as a convenience. You are free to change it, but you should know that
 // changing the default here gives you, for all intents and purposes, no

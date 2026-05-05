@@ -17,7 +17,7 @@ in {
     enable = true;
     environmentFile = jellarr-env.path;
 
-    # FIXME: https://github.com/venkyr77/jellarr/issues/35
+    # NOTE: https://github.com/venkyr77/jellarr/issues/35
     /*
     bootstrap = {
       enable = true;
@@ -110,7 +110,7 @@ in {
       };
 
       system = {
-        # FIXME: not supported yet with Jellarr?
+        # NOTE: not supported yet with Jellarr
         /*
         serverName = "Jelly";
         quickConnectAvailable = false;

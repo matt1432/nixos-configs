@@ -21,8 +21,8 @@ let
       repo = "home-manager";
     };
 
-    # FIXME: https://github.com/nix-community/nixos-avf/pull/39
     nixos-avf = mkInput {
+      # NOTE: https://github.com/nix-community/nixos-avf/pull/39
       # owner = "nix-community";
       owner = "matt1432";
       repo = "nixos-avf";
@@ -144,8 +144,8 @@ let
       repo = "nixos-jellyfin";
     };
 
-    # FIXME: https://github.com/venkyr77/jellarr/pull/62
     jellarr = mkInput {
+      # NOTE: https://github.com/venkyr77/jellarr/pull/62
       # owner = "venkyr77";
       owner = "matt1432";
       repo = "jellarr";
@@ -340,7 +340,7 @@ let
       # owner = "Snd-R";
       repo = "komf";
 
-      # FIXME: https://github.com/Snd-R/komf/pull/259
+      # NOTE: https://github.com/Snd-R/komf/pull/259
       owner = "matt1432";
       ref = "personal";
     }
