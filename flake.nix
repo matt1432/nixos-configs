@@ -194,6 +194,12 @@
     };
     jellyfin-auto-collections = {
       inputs = {
+        letterboxdpy-src = {
+          flake = false;
+          owner = "matt1432";
+          repo = "letterboxdpy";
+          type = "github";
+        };
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
         treefmt-nix.follows = "treefmt-nix";

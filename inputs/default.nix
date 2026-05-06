@@ -154,6 +154,13 @@ let
     jellyfin-auto-collections = mkInput {
       owner = "matt1432";
       repo = "Jellyfin-Auto-Collections";
+
+      inputs.letterboxdpy-src = {
+        type = "github";
+        owner = "matt1432";
+        repo = "letterboxdpy";
+        flake = false;
+      };
     };
 
     bazarr-bulk = mkInput {
@@ -164,8 +171,6 @@ let
     kapowarr-react = mkInput {
       owner = "matt1432";
       repo = "KapowarrReact";
-      # type = "path";
-      # path = "/home/matt/git/Kapowarr";
     };
   };
 

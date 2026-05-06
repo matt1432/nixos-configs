@@ -942,6 +942,7 @@
     },
     "jellyfin-auto-collections": {
       "inputs": {
+        "letterboxdpy-src": "letterboxdpy-src",
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -953,11 +954,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1777831425,
-        "narHash": "sha256-wm4IKqwcaltLDR32SvVI9Qrn/4bRLdM5SC5dU1S0Uow=",
+        "lastModified": 1778039698,
+        "narHash": "sha256-PPLIawrj4/kdrkvq3FxPo9ZUlc6E+Eb4xPvPMfEfZHU=",
         "owner": "matt1432",
         "repo": "Jellyfin-Auto-Collections",
-        "rev": "2519515c1e6985c20c6072d26b37bde94a25c60a",
+        "rev": "f64aa0d6525045ca40d740d811f00d1e376de084",
         "type": "github"
       },
       "original": {
@@ -1007,6 +1008,23 @@
         "owner": "matt1432",
         "ref": "personal",
         "repo": "komf",
+        "type": "github"
+      }
+    },
+    "letterboxdpy-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1778038679,
+        "narHash": "sha256-9IhYc6MmBiV0ExfOfz2rYDrGvdcgPdHNm29HS4o1uCM=",
+        "owner": "matt1432",
+        "repo": "letterboxdpy",
+        "rev": "1a61dafdc38a91d3aa1788b87314be224ed3836a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nmcassa",
+        "ref": "v6.5.2",
+        "repo": "letterboxdpy",
         "type": "github"
       }
     },
