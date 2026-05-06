@@ -954,11 +954,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1778039698,
-        "narHash": "sha256-PPLIawrj4/kdrkvq3FxPo9ZUlc6E+Eb4xPvPMfEfZHU=",
+        "lastModified": 1778093341,
+        "narHash": "sha256-J+NwRZyBdObfLQTujzeZDCU5gRq4nqT2Pc9EGDNKTmQ=",
         "owner": "matt1432",
         "repo": "Jellyfin-Auto-Collections",
-        "rev": "f64aa0d6525045ca40d740d811f00d1e376de084",
+        "rev": "90ff1fe492cb74b3e953f0fec25fc1cf579b57b5",
         "type": "github"
       },
       "original": {
