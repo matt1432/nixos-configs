@@ -51,8 +51,10 @@ in {
 
       serviceConfig = {
         DynamicUser = true;
+        WorkingDirectory = "/var/lib/jellyfin-auto-collections";
+        StateDirectory = "jellyfin-auto-collections";
         RuntimeDirectory = "jellyfin-auto-collections";
-        WorkingDirectory = "%t/jellyfin-auto-collections";
+        RuntimeDirectoryMode = "0755";
 
         EnvironmentFile = secrets.jellyfin-auto-collections.path;
 
