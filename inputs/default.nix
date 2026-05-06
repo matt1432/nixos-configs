@@ -151,16 +151,17 @@ let
       repo = "jellarr";
     };
 
+    letterboxdpy-src = mkInput {
+      owner = "matt1432";
+      repo = "letterboxdpy";
+      flake = false;
+    };
+
     jellyfin-auto-collections = mkInput {
       owner = "matt1432";
       repo = "Jellyfin-Auto-Collections";
 
-      inputs.letterboxdpy-src = {
-        type = "github";
-        owner = "matt1432";
-        repo = "letterboxdpy";
-        flake = false;
-      };
+      inputs.letterboxdpy-src.follows = "letterboxdpy-src";
     };
 
     bazarr-bulk = mkInput {

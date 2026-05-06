@@ -194,12 +194,7 @@
     };
     jellyfin-auto-collections = {
       inputs = {
-        letterboxdpy-src = {
-          flake = false;
-          owner = "matt1432";
-          repo = "letterboxdpy";
-          type = "github";
-        };
+        letterboxdpy-src.follows = "letterboxdpy-src";
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
         treefmt-nix.follows = "treefmt-nix";
@@ -223,6 +218,12 @@
       owner = "matt1432";
       ref = "personal";
       repo = "komf";
+      type = "github";
+    };
+    letterboxdpy-src = {
+      flake = false;
+      owner = "matt1432";
+      repo = "letterboxdpy";
       type = "github";
     };
     lib-aggregate = {

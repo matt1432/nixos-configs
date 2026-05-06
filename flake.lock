@@ -942,7 +942,9 @@
     },
     "jellyfin-auto-collections": {
       "inputs": {
-        "letterboxdpy-src": "letterboxdpy-src",
+        "letterboxdpy-src": [
+          "letterboxdpy-src"
+        ],
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -1022,8 +1024,7 @@
         "type": "github"
       },
       "original": {
-        "owner": "nmcassa",
-        "ref": "v6.5.2",
+        "owner": "matt1432",
         "repo": "letterboxdpy",
         "type": "github"
       }
@@ -1583,6 +1584,7 @@
         "jellyfin-auto-collections": "jellyfin-auto-collections",
         "kapowarr-react": "kapowarr-react",
         "komf-src": "komf-src",
+        "letterboxdpy-src": "letterboxdpy-src",
         "lib-aggregate": "lib-aggregate",
         "libratbag-src": "libratbag-src",
         "material-symbols-src": "material-symbols-src",
