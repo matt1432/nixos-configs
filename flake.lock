@@ -983,11 +983,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1778160593,
-        "narHash": "sha256-yp0VrlhRo+E0eQgA7CAE5Msdy5fOCLJuhdeGYFuLWds=",
+        "lastModified": 1778165319,
+        "narHash": "sha256-qdurfMSUglIeYbq+K1xXuENF1b2qStUrOuDKIMjnN3w=",
         "owner": "matt1432",
         "repo": "KapowarrReact",
-        "rev": "12c1c1614d0d0d80dcd202d02090b848697b40af",
+        "rev": "4a219fec506383e7b0ff77a7e032ef2d18bb1a99",
         "type": "github"
       },
       "original": {
@@ -1069,11 +1069,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1778159460,
-        "narHash": "sha256-/SaYM/+y64A9Q+WcJV9m2SA5ZA2qaXPEc+HMbDL58ZM=",
+        "lastModified": 1778165268,
+        "narHash": "sha256-P1UJ/vAsCfaYSia7x3ZhlLSD0RQ8sef2CJDjAFfFSR0=",
         "owner": "matt1432",
         "repo": "LibgenComics",
-        "rev": "6453324945256f122665cac969389b8f1d06dbcd",
+        "rev": "6fbd25d44196e7fadd9e255032b802e2e9089b61",
         "type": "github"
       },
       "original": {
@@ -1657,16 +1657,15 @@
     "simyan-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1759876554,
-        "narHash": "sha256-FkOrC9yks/ltNugZLLbueFHBEXofDV4/4maZqj9y9pg=",
+        "lastModified": 1777935968,
+        "narHash": "sha256-XRk+3R7MXnLeL90ZQm3qh5BdLi1mVnTPNGyQmYBJvww=",
         "owner": "Metron-Project",
         "repo": "Simyan",
-        "rev": "59ad0da681a0f89964ce13475367081640c7a3b7",
+        "rev": "716f538b3dde18d9c88799b9bf2c566c4168fb96",
         "type": "github"
       },
       "original": {
         "owner": "Metron-Project",
-        "ref": "1.6.0",
         "repo": "Simyan",
         "type": "github"
       }
