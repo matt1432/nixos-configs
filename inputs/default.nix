@@ -212,6 +212,9 @@ let
       nixcord = mkInput {
         owner = "kaylorben";
         repo = "nixcord";
+
+        # NOTE: https://github.com/FlameFlag/nixcord/issues/201
+        ref = "dev";
       };
     };
 
