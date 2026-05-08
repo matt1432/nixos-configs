@@ -4,8 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (builtins) toJSON;
-  inherit (lib) attrValues mkIf mkEnableOption mkOption optionals optionalString types;
+  inherit (lib) attrValues mkIf mkEnableOption mkOption optionals types;
 
   cfg = config.nvidia;
 in {
@@ -83,33 +82,6 @@ in {
     boot.kernelModules =
       optionals cfg.enableCUDA ["nvidia-uvm"]
       ++ ["nvidia" "nvidia-drm"];
-
-    # Fixes egl-wayland issues with beta drivers
-    # https://github.com/hyprwm/Hyprland/issues/7202
-    environment.etc = let
-      mkEglFile = n: library: let
-        suffix = optionalString (library != "wayland") ".1";
-        pkg =
-          if library != "wayland"
-          then config.hardware.nvidia.package
-          else pkgs.egl-wayland;
-
-        fileName = "${toString n}_nvidia_${library}.json";
-        library_path = "${pkg}/lib/libnvidia-egl-${library}.so${suffix}";
-      in {
-        "egl/egl_external_platform.d/${fileName}".source = pkgs.writeText fileName (toJSON {
-          file_format_version = "1.0.0";
-          ICD = {inherit library_path;};
-        });
-      };
-    in
-      mkIf cfg.enableWayland (
-        {"egl/egl_external_platform.d".enable = false;}
-        // mkEglFile 10 "wayland"
-        // mkEglFile 15 "gbm"
-        // mkEglFile 20 "xcb"
-        // mkEglFile 20 "xlib"
-      );
   };
 
   # For accurate stack trace

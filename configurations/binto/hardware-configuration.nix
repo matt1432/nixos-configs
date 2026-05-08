@@ -16,7 +16,7 @@
       "nowatchdog"
       "modprobe.blacklist=sp5100_tco"
 
-      # Recommend AMD params
+      # Recommended AMD params
       "amd_pstate=active"
 
       # Remove these if I use plymouth module
