@@ -324,7 +324,6 @@
         nixpkgs.follows = "nixpkgs";
       };
       owner = "kaylorben";
-      ref = "dev";
       repo = "nixcord";
       type = "github";
     };
