@@ -82,6 +82,14 @@ in {
         # Get rid of logs shown on the TTY right before Hyprland launches
         package = pkgs.hyprland.overrideAttrs (o: {
           postInstall = replaceStrings ["--suffix"] ["--append-flags '&>/dev/null' --suffix"] o.postInstall;
+
+          # NOTE: https://github.com/hyprwm/Hyprland/pull/14393
+          patches = (o.patches or []) ++ [
+            (pkgs.fetchpatch2 {
+              url = "https://github.com/hyprwm/Hyprland/pull/14393.patch";
+              hash = "sha256-RxOqDNT9iffsTcOtIbWwyC1oQKPVajwC+dkhXdhHO0c=";
+            })
+          ];
         });
 
         systemd.variables = ["-all"];
