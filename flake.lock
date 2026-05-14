@@ -927,15 +927,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1778007298,
-        "narHash": "sha256-7PMbyZgEOtdz6wVComZhuOg2ChqYz3UhG88v1hgGpfM=",
-        "owner": "matt1432",
+        "lastModified": 1778572661,
+        "narHash": "sha256-w0lIobuMGNRk5+WXMxt9zmgGBKDmD8p1ZGEK9MsQbXE=",
+        "owner": "venkyr77",
         "repo": "jellarr",
-        "rev": "54676a3e3988e1537857a1015f9b8e96bc91c0e8",
+        "rev": "faeb5c70999592cb7763e68a93924503df0ada9e",
         "type": "github"
       },
       "original": {
-        "owner": "matt1432",
+        "owner": "venkyr77",
+        "ref": "v0.1.1",
         "repo": "jellarr",
         "type": "github"
       }

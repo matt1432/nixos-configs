@@ -145,10 +145,11 @@ let
     };
 
     jellarr = mkInput {
-      # NOTE: https://github.com/venkyr77/jellarr/pull/62
-      # owner = "venkyr77";
-      owner = "matt1432";
+      owner = "venkyr77";
       repo = "jellarr";
+
+      # NOTE: switch to main once it is merged
+      ref = "v0.1.1";
     };
 
     letterboxdpy-src = mkInput {

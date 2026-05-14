@@ -110,9 +110,10 @@ in {
       };
 
       system = {
+        serverName = "Jelly";
+
         # NOTE: not supported yet with Jellarr
         /*
-        serverName = "Jelly";
         quickConnectAvailable = false;
         isStartupWizardCompleted = true;
 
