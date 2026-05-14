@@ -183,9 +183,9 @@ let
         repo = "Hyprland";
       };
 
-      hyprland-plugins = mkHyprDep {
-        owner = "hyprwm";
-        repo = "hyprland-plugins";
+      hyprexpo = mkHyprDep {
+        owner = "colonelpanic8";
+        repo = "hyprexpo";
       };
 
       hyprgrass = mkHyprDep {

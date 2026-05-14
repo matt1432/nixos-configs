@@ -136,6 +136,16 @@
       repo = "home-manager";
       type = "github";
     };
+    hyprexpo = {
+      inputs = {
+        hyprland.follows = "hyprland";
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
+      owner = "colonelpanic8";
+      repo = "hyprexpo";
+      type = "github";
+    };
     hyprgrass = {
       inputs = {
         hyprland.follows = "hyprland";
@@ -154,16 +164,6 @@
       };
       owner = "hyprwm";
       repo = "Hyprland";
-      type = "github";
-    };
-    hyprland-plugins = {
-      inputs = {
-        hyprland.follows = "hyprland";
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
-      owner = "hyprwm";
-      repo = "hyprland-plugins";
       type = "github";
     };
     hyprpaper = {
