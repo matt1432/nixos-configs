@@ -6,10 +6,10 @@
 }: {
   "bitwarden" = buildMozillaXpiAddon {
     pname = "bitwarden";
-    version = "2026.3.0";
+    version = "2026.4.0";
     addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4749958/bitwarden_password_manager-2026.3.0.xpi";
-    sha256 = "2dc6d074d4dc0abd2a8966f5065a55e7252bbf5e54b23c31dbedabfac0d4dbc4";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4796063/bitwarden_password_manager-2026.4.0.xpi";
+    sha256 = "ccbdf6c3a11c8655d4fe9bdfcf5f16c4c9ff2d8732fadbb85396a2123274ae10";
     meta = with lib; {
       homepage = "https://bitwarden.com";
       description = "At home, at work, or on the go, Bitwarden easily secures all your passwords, passkeys, and sensitive information.";
@@ -185,10 +185,10 @@
   };
   "stylus" = buildMozillaXpiAddon {
     pname = "stylus";
-    version = "2.3.22";
+    version = "2.3.23";
     addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4786206/styl_us-2.3.22.xpi";
-    sha256 = "1ddf633c24a3513aadbdf1cd1f8dfa3cf22034c59075458957b4c9efc68b3483";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4802647/styl_us-2.3.23.xpi";
+    sha256 = "94ef5476bb0efc61d9198541e119f5b6f3d25c7a9e17e0148581baf86011b82b";
     meta = with lib; {
       homepage = "https://add0n.com/stylus.html";
       description = "Redesign your favorite websites with Stylus, an actively developed and community driven userstyles manager. Easily install custom themes from popular online repositories, or create, edit, and manage your own personalized CSS stylesheets.";

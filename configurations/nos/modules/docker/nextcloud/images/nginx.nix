@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage rec {
   imageName = "nginx";
-  imageDigest = "sha256:1881968aff6f7cdcc4b888c00a11f4ce241ad7ec957e0cb4a9e19e93a3ff87ea";
-  hash = "sha256-UthdPnWnq4zurGGE9uwpjn1yrA3K5Rp/8kqvUK8CWjE=";
+  imageDigest = "sha256:06aa3d7be10bc6307990c81bdca075793132e9163391abc370c015e344e23128";
+  hash = "sha256-5Dhnlm+KE/Yk2Y73kOeCMSbknILKN9yjZCF7PSuMGhc=";
   finalImageName = imageName;
   finalImageTag = "latest";
 }
