@@ -233,7 +233,7 @@ export const PositionSlider = (
                 if (!display) {
                     return;
                 }
-                self.window.set_cursor(
+                self.window?.set_cursor(
                     Gdk.Cursor.new_from_name(display, 'grabbing'),
                 );
             }}
@@ -241,7 +241,7 @@ export const PositionSlider = (
                 if (!display) {
                     return;
                 }
-                self.window.set_cursor(
+                self.window?.set_cursor(
                     Gdk.Cursor.new_from_name(display, 'pointer'),
                 );
             }}
@@ -249,12 +249,12 @@ export const PositionSlider = (
                 if (!display) {
                     return;
                 }
-                self.window.set_cursor(
+                self.window?.set_cursor(
                     Gdk.Cursor.new_from_name(display, 'pointer'),
                 );
             }}
             onLeaveNotifyEvent={(self) => {
-                self.window.set_cursor(null);
+                self.window?.set_cursor(null);
             }}
             $={(self) => {
                 const provider = getCssProvider(self);

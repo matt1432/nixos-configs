@@ -11,7 +11,10 @@ export default (streams: Accessor<AstalWp.Endpoint[]>) => {
     return (
         <For
             each={streams.as((arr) =>
-                arr.sort((a, b) => a.description.localeCompare(b.description)),
+                arr.sort(
+                    (a, b) =>
+                        a.description?.localeCompare(b.description ?? '') ?? -1,
+                ),
             )}
         >
             {(stream: AstalWp.Endpoint) => {
@@ -42,7 +45,9 @@ export default (streams: Accessor<AstalWp.Endpoint[]>) => {
                             <Separator size={8} />
 
                             <label
-                                label={createBinding(stream, 'description')}
+                                label={createBinding(stream, 'description').as(
+                                    (v) => v ?? '',
+                                )}
                             />
                         </box>
 

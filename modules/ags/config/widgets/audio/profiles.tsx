@@ -8,13 +8,20 @@ export default (devices: Accessor<AstalWp.Device[]>) => {
     return (
         <For
             each={devices.as((arr) =>
-                arr.sort((a, b) => a.description.localeCompare(b.description)),
+                arr.sort(
+                    (a, b) =>
+                        a.description?.localeCompare(b.description ?? '') ?? -1,
+                ),
             )}
         >
             {(device: AstalWp.Device) =>
                 (
                     <box class="stream" vertical>
-                        <label label={createBinding(device, 'description')} />
+                        <label
+                            label={createBinding(device, 'description').as(
+                                (v) => v ?? '',
+                            )}
+                        />
 
                         <ComboBoxText
                             $={(self) => {

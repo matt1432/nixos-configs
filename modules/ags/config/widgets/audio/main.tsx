@@ -17,11 +17,17 @@ export default () => {
 
     const content = [
         <scrollable $type="named" name="outputs" hscroll={Gtk.PolicyType.NEVER}>
-            <box vertical>{Streams(createBinding(audio, 'speakers'))}</box>
+            <box vertical>
+                {Streams(createBinding(audio, 'speakers').as((v) => v || []))}
+            </box>
         </scrollable>,
 
         <scrollable $type="named" name="inputs" hscroll={Gtk.PolicyType.NEVER}>
-            <box vertical>{Streams(createBinding(audio, 'microphones'))}</box>
+            <box vertical>
+                {Streams(
+                    createBinding(audio, 'microphones').as((v) => v || []),
+                )}
+            </box>
         </scrollable>,
 
         <scrollable
@@ -29,7 +35,9 @@ export default () => {
             name="profiles"
             hscroll={Gtk.PolicyType.NEVER}
         >
-            <box vertical>{Profiles(createBinding(audio, 'devices'))}</box>
+            <box vertical>
+                {Profiles(createBinding(audio, 'devices').as((v) => v || []))}
+            </box>
         </scrollable>,
     ] as Gtk.Widget[];
 

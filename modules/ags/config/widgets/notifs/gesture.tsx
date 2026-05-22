@@ -1,7 +1,6 @@
 import { property, register } from 'ags/gobject';
 import { Astal, Gdk, Gtk } from 'ags/gtk3';
 import { idle, interval, timeout } from 'ags/time';
-import AstalIO from 'gi://AstalIO';
 import AstalNotifd from 'gi://AstalNotifd';
 import { createRoot, onCleanup } from 'gnim';
 import GObject from 'gnim/gobject';
@@ -58,7 +57,7 @@ export class NotifGestureWrapper extends Astal.EventBox {
     readonly slide_in_from: 'Left' | 'Right';
     readonly is_popup: boolean;
 
-    private timer_object: AstalIO.Time | undefined;
+    private timer_object: ReturnType<typeof interval> | undefined;
 
     @property(Number) popup_timer: number;
 
@@ -128,7 +127,7 @@ export class NotifGestureWrapper extends Astal.EventBox {
         if (!display) {
             return;
         }
-        this.window.set_cursor(Gdk.Cursor.new_from_name(display, cursor));
+        this.window?.set_cursor(Gdk.Cursor.new_from_name(display, cursor));
     }
 
     public slideAway(side: 'Left' | 'Right', duplicate = false): void {

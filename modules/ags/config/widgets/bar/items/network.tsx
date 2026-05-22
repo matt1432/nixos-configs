@@ -61,7 +61,7 @@ export default () => {
                                                     label={createBinding(
                                                         ap,
                                                         'ssid',
-                                                    )}
+                                                    ).as((v) => v ?? '')}
                                                 />
                                             )
                                         }
