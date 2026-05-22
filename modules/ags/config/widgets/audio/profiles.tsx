@@ -16,7 +16,7 @@ export default (devices: Accessor<AstalWp.Device[]>) => {
         >
             {(device: AstalWp.Device) =>
                 (
-                    <box class="stream" vertical>
+                    <box class="device" vertical>
                         <label
                             label={createBinding(device, 'description').as(
                                 (v) => v ?? '',

@@ -5,21 +5,21 @@ import { Accessor, createBinding, For } from 'gnim';
 import Separator from '../misc/separator';
 import { RadioButton } from '../misc/subclasses';
 
-export default (streams: Accessor<AstalWp.Endpoint[]>) => {
+export default (endpoints: Accessor<AstalWp.Endpoint[]>) => {
     let group: RadioButton | undefined;
 
     return (
         <For
-            each={streams.as((arr) =>
+            each={endpoints.as((arr) =>
                 arr.sort(
                     (a, b) =>
                         a.description?.localeCompare(b.description ?? '') ?? -1,
                 ),
             )}
         >
-            {(stream: AstalWp.Endpoint) => {
+            {(endpoint: AstalWp.Endpoint) => {
                 return (
-                    <box class="stream" vertical>
+                    <box class="endpoint" vertical>
                         <box class="title">
                             <RadioButton
                                 cursor="pointer"
@@ -32,22 +32,27 @@ export default (streams: Accessor<AstalWp.Endpoint[]>) => {
                                         self.group = group;
                                     }
 
-                                    self.active = stream.get_is_default();
-                                    stream.connect('notify::is-default', () => {
-                                        self.active = stream.get_is_default();
-                                    });
+                                    self.active = endpoint.get_is_default();
+                                    endpoint.connect(
+                                        'notify::is-default',
+                                        () => {
+                                            self.active =
+                                                endpoint.get_is_default();
+                                        },
+                                    );
                                 }}
                                 onButtonReleaseEvent={() => {
-                                    stream.set_is_default(true);
+                                    endpoint.set_is_default(true);
                                 }}
                             />
 
                             <Separator size={8} />
 
                             <label
-                                label={createBinding(stream, 'description').as(
-                                    (v) => v ?? '',
-                                )}
+                                label={createBinding(
+                                    endpoint,
+                                    'description',
+                                ).as((v) => v ?? '')}
                             />
                         </box>
 
@@ -59,14 +64,14 @@ export default (streams: Accessor<AstalWp.Endpoint[]>) => {
                                 class="toggle"
                                 valign={Gtk.Align.END}
                                 onButtonReleaseEvent={() => {
-                                    stream.set_mute(!stream.get_mute());
+                                    endpoint.set_mute(!endpoint.get_mute());
                                 }}
                             >
                                 <icon
-                                    icon={createBinding(stream, 'mute').as(
+                                    icon={createBinding(endpoint, 'mute').as(
                                         (isMuted) => {
                                             if (
-                                                stream.get_media_class() ===
+                                                endpoint.get_media_class() ===
                                                 AstalWp.MediaClass
                                                     .STREAM_INPUT_AUDIO
                                             ) {
@@ -91,9 +96,9 @@ export default (streams: Accessor<AstalWp.Endpoint[]>) => {
                                 halign={Gtk.Align.FILL}
                                 drawValue
                                 cursor="pointer"
-                                value={createBinding(stream, 'volume')}
+                                value={createBinding(endpoint, 'volume')}
                                 onDragged={(self) => {
-                                    stream.set_volume(self.value);
+                                    endpoint.set_volume(self.value);
                                 }}
                             />
                         </box>

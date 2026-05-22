@@ -3,8 +3,8 @@ import AstalWp from 'gi://AstalWp';
 import { createBinding, createState } from 'gnim';
 
 import Separator from '../misc/separator';
+import Endpoints from './endpoints';
 import Profiles from './profiles';
-import Streams from './streams';
 
 export default () => {
     const audio = AstalWp.get_default()?.get_audio();
@@ -18,13 +18,13 @@ export default () => {
     const content = [
         <scrollable $type="named" name="outputs" hscroll={Gtk.PolicyType.NEVER}>
             <box vertical>
-                {Streams(createBinding(audio, 'speakers').as((v) => v || []))}
+                {Endpoints(createBinding(audio, 'speakers').as((v) => v || []))}
             </box>
         </scrollable>,
 
         <scrollable $type="named" name="inputs" hscroll={Gtk.PolicyType.NEVER}>
             <box vertical>
-                {Streams(
+                {Endpoints(
                     createBinding(audio, 'microphones').as((v) => v || []),
                 )}
             </box>
