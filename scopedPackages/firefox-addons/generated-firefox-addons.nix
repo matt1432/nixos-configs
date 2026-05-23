@@ -185,10 +185,10 @@
   };
   "stylus" = buildMozillaXpiAddon {
     pname = "stylus";
-    version = "2.3.23";
+    version = "2.3.24";
     addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4802647/styl_us-2.3.23.xpi";
-    sha256 = "94ef5476bb0efc61d9198541e119f5b6f3d25c7a9e17e0148581baf86011b82b";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4813027/styl_us-2.3.24.xpi";
+    sha256 = "2e038b38ccd88d240f2a9e68174fc39543627bc7599c6dd0a2c90f769b11dbe4";
     meta = with lib; {
       homepage = "https://add0n.com/stylus.html";
       description = "Redesign your favorite websites with Stylus, an actively developed and community driven userstyles manager. Easily install custom themes from popular online repositories, or create, edit, and manage your own personalized CSS stylesheets.";
@@ -210,10 +210,10 @@
   };
   "tampermonkey" = buildMozillaXpiAddon {
     pname = "tampermonkey";
-    version = "5.4.1";
+    version = "5.5.0";
     addonId = "firefox@tampermonkey.net";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4624137/tampermonkey-5.4.1.xpi";
-    sha256 = "60f3f2bc86d43a3f5704b4878490beb7f4c44d27c14ac8747845082fe1773ad0";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4797143/tampermonkey-5.5.0.xpi";
+    sha256 = "190031c78dbc5696114835601f2c8e6b855ad1e134df5df278f8fc158c065908";
     meta = with lib; {
       homepage = "https://tampermonkey.net";
       description = "Tampermonkey is the world's most popular userscript manager.";
@@ -230,6 +230,7 @@
         "contextMenus"
         "clipboardWrite"
         "cookies"
+        "contextualIdentities"
         "downloads"
         "<all_urls>"
       ];
@@ -290,10 +291,10 @@
   };
   "youtube-no-translation" = buildMozillaXpiAddon {
     pname = "youtube-no-translation";
-    version = "2.23.0";
+    version = "2.24.0";
     addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4769229/youtube_no_translation-2.23.0.xpi";
-    sha256 = "3a64e30fc83ab6610c009765a34457125956f27a906f049c7e4e3750b86e5a30";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4813872/youtube_no_translation-2.24.0.xpi";
+    sha256 = "db45e3b52d0f8a149d8994f8cb3fed3ee41e30473f18858156f1d842f5b209f6";
     meta = with lib; {
       description = "Keeps YouTube content in its original language (Titles, Audio Tracks, Descriptions...)";
       mozPermissions = [

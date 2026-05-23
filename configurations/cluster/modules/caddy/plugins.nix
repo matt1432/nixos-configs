@@ -13,5 +13,5 @@
     };
   };
 
-  hash = "sha256-DiYoMyNcwfEKntvXB9DSdTfwq+ld6YIGTWtB9g4kApk=";
+  hash = "sha256-cFftU+rB95k0Blb9wKT4aQ2BHWZ+V0PMeVUGAdrv0qM=";
 }

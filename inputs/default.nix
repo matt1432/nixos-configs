@@ -145,11 +145,11 @@ let
     };
 
     jellarr = mkInput {
-      owner = "venkyr77";
+      # FIXME: make PR and make package option
+      owner = "matt1432";
+      # owner = "venkyr77";
       repo = "jellarr";
-
-      # NOTE: switch to main once it is merged
-      ref = "v0.1.1";
+      ref = "pnpm-deps";
     };
 
     letterboxdpy-src = mkInput {
