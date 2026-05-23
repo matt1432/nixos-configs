@@ -1,9 +1,13 @@
 import { Astal, Gtk } from 'ags/gtk3';
+import app from 'ags/gtk3/app';
 import AstalApps from 'gi://AstalApps?version=0.1';
+import AstalCava from 'gi://AstalCava';
 import AstalWp from 'gi://AstalWp';
-import { Accessor, createBinding, For } from 'gnim';
+import { Accessor, createBinding, createEffect, For } from 'gnim';
 
 import Separator from '../misc/separator';
+
+const FPS = 60;
 
 const getFullName = (stream: AstalWp.Stream): string => {
     let result = '';
@@ -26,7 +30,10 @@ const getFullName = (stream: AstalWp.Stream): string => {
     return result;
 };
 
-export default (streams: Accessor<AstalWp.Stream[]>) => {
+export default (
+    streams: Accessor<AstalWp.Stream[]>,
+    isVisible: Accessor<boolean>,
+) => {
     const applications = AstalApps.Apps.new();
 
     return (
@@ -51,6 +58,25 @@ export default (streams: Accessor<AstalWp.Stream[]>) => {
                     );
                 });
 
+                const isWinVisible = createBinding(
+                    app.get_window('win-audio')!,
+                    'visible',
+                );
+
+                const cava = new AstalCava.Cava();
+                cava.set_framerate(FPS);
+                cava.set_bars(1);
+                cava.set_input(AstalCava.Input.PIPEWIRE);
+                cava.set_source(stream.serial.toString());
+
+                createEffect(() => {
+                    cava.set_active(isVisible() && isWinVisible());
+                });
+
+                const currentSoundValue = createBinding(cava, 'values').as(
+                    (v) => v[0],
+                );
+
                 return (
                     <box class="stream" vertical>
                         <box class="title">
@@ -66,11 +92,6 @@ export default (streams: Accessor<AstalWp.Stream[]>) => {
                             <label
                                 label={createBinding(stream, 'name').as(
                                     (v) => v ?? '',
-                                )}
-                            />
-                            <label
-                                label={createBinding(stream, 'mediaRole').as(
-                                    (v) => v.toString() ?? '',
                                 )}
                             />
                         </box>
@@ -121,6 +142,16 @@ export default (streams: Accessor<AstalWp.Stream[]>) => {
                                 }}
                             />
                         </box>
+
+                        <Separator vertical size={8} />
+
+                        <levelbar
+                            hexpand
+                            halign={Gtk.Align.FILL}
+                            value={currentSoundValue}
+                        />
+
+                        <Separator size={0} />
                     </box>
                 ) as Astal.Box;
             }}

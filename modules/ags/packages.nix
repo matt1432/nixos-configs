@@ -46,6 +46,7 @@ in {
           auth
           battery
           bluetooth
+          cava
           greet
           hyprland
           mpris

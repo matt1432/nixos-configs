@@ -33,7 +33,10 @@ export default () => {
 
         <scrollable $type="named" name="apps" hscroll={Gtk.PolicyType.NEVER}>
             <box vertical>
-                {Streams(createBinding(audio, 'streams').as((v) => v || []))}
+                {Streams(
+                    createBinding(audio, 'streams').as((v) => v || []),
+                    shown.as((s) => s === 'apps'),
+                )}
             </box>
         </scrollable>,
 
