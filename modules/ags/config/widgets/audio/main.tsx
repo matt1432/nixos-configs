@@ -5,6 +5,7 @@ import { createBinding, createState } from 'gnim';
 import Separator from '../misc/separator';
 import Endpoints from './endpoints';
 import Profiles from './profiles';
+import Streams from './streams';
 
 export default () => {
     const audio = AstalWp.get_default()?.get_audio();
@@ -27,6 +28,12 @@ export default () => {
                 {Endpoints(
                     createBinding(audio, 'microphones').as((v) => v || []),
                 )}
+            </box>
+        </scrollable>,
+
+        <scrollable $type="named" name="apps" hscroll={Gtk.PolicyType.NEVER}>
+            <box vertical>
+                {Streams(createBinding(audio, 'streams').as((v) => v || []))}
             </box>
         </scrollable>,
 
@@ -82,6 +89,10 @@ export default () => {
                 <StackButton
                     label="inputs"
                     iconName="audio-input-microphone-symbolic"
+                />
+                <StackButton
+                    label="apps"
+                    iconName="multimedia-volume-control-symbolic"
                 />
                 <StackButton
                     label="profiles"
