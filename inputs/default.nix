@@ -213,6 +213,9 @@ let
       nixcord = mkInput {
         owner = "kaylorben";
         repo = "nixcord";
+
+        # NOTE: doesn't recognize mouse input on latest
+        rev = "661299d88356dc7de82cb1baef330b4c41fd48b1";
       };
     };
 

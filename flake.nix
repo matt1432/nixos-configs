@@ -326,6 +326,7 @@
       };
       owner = "kaylorben";
       repo = "nixcord";
+      rev = "661299d88356dc7de82cb1baef330b4c41fd48b1";
       type = "github";
     };
     nixd = {
