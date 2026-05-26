@@ -15,6 +15,7 @@ text/plain=nvim.desktop;
 text/x-java=nvim.desktop;
 x-scheme-handler/discord-712465656758665259=discord-712465656758665259.desktop
 x-scheme-handler/ror2mm=r2modman.desktop
+x-scheme-handler/proton-inbox=proton-mail.desktop
 
 [Removed Associations]
 application/pdf=firefox-3.desktop;firefox-2.desktop;
