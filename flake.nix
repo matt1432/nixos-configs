@@ -48,6 +48,15 @@
       repo = "custom-sidebar";
       type = "github";
     };
+    determinate-nix = {
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+      };
+      owner = "DeterminateSystems";
+      repo = "nix-src";
+      type = "github";
+    };
     docker-compose = {
       owner = "matt1432";
       repo = "nixos-docker-compose";
@@ -284,6 +293,17 @@
       flake = false;
       owner = "net-daemon";
       repo = "integration";
+      type = "github";
+    };
+    nix-eval-jobs = {
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nix.follows = "determinate-nix";
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+      owner = "DeterminateSystems";
+      repo = "nix-eval-jobs";
       type = "github";
     };
     nix-gaming = {

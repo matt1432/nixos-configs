@@ -16,6 +16,11 @@ let
       shallow = true;
     };
 
+    determinate-nix = mkInput {
+      owner = "DeterminateSystems";
+      repo = "nix-src";
+    };
+
     home-manager = mkInput {
       owner = "nix-community";
       repo = "home-manager";
@@ -51,6 +56,12 @@ let
     nix-output-monitor = mkInput {
       owner = "maralorn";
       repo = "nix-output-monitor";
+    };
+
+    nix-eval-jobs = mkInput {
+      owner = "DeterminateSystems";
+      repo = "nix-eval-jobs";
+      inputs.nix.follows = "determinate-nix";
     };
 
     # These are here to make sure all 'systems' and popular inputs are the same

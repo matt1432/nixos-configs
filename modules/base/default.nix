@@ -144,6 +144,13 @@ in {
 
         home.enableNixpkgsReleaseCheck = false;
         home.stateVersion = config.system.stateVersion;
+
+        # https://github.com/nix-community/home-manager/issues/7935
+        manual = {
+          html.enable = false;
+          json.enable = false;
+          manpages.enable = false;
+        };
       };
     in {
       root = default;

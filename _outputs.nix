@@ -8,7 +8,7 @@
     secrets,
     ...
   }: let
-    inherit (nixpkgs.lib) filter genAttrs hasSuffix mapAttrs' nameValuePair;
+    inherit (nixpkgs.lib) filter genAttrs hasSuffix;
 
     inherit (self.lib) mkNixOS mkPkgs;
 
