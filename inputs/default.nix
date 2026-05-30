@@ -197,6 +197,9 @@ let
       hyprexpo = mkHyprDep {
         owner = "colonelpanic8";
         repo = "hyprexpo";
+
+        # NOTE: https://github.com/colonelpanic8/hyprexpo/issues/3
+        rev = "8bafe0dbc7c26a3269f7e0fa01e3fa3cf54a3161";
       };
 
       hyprgrass = mkHyprDep {

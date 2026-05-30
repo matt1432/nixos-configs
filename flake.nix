@@ -153,6 +153,7 @@
       };
       owner = "colonelpanic8";
       repo = "hyprexpo";
+      rev = "8bafe0dbc7c26a3269f7e0fa01e3fa3cf54a3161";
       type = "github";
     };
     hyprgrass = {
