@@ -17,10 +17,10 @@ const genVersionFileText = (
 `;
 
 export default (): string | null => {
+    console.log(styleText(['magenta'], '\nUpdating NetDaemon:\n'));
+
     // TODO: re-enable this when homie is back up
     return null;
-
-    console.log(styleText(['magenta'], '\nUpdating NetDaemon:\n'));
 
     const FOLDER = `${FLAKE}/configurations/homie/modules/home-assistant/netdaemon`;
 
