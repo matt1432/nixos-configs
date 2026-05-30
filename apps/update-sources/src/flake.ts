@@ -20,6 +20,7 @@ export default (): string | null => {
         // Filter out some inputs
         .filter(
             (input) =>
+                input.startsWith(' Updated input ') &&
                 ![
                     'systems',
                     'flake-compat',
@@ -62,5 +63,5 @@ export default (): string | null => {
         stdio: 'inherit',
     });
 
-    return inputsUpdates.length > 0 ? formattedOutput : null;
+    return inputsUpdates.length > 0 ? '•' + formattedOutput : null;
 };
