@@ -36,10 +36,16 @@ writeShellApplication {
 
                 for file in /nix/store/*"''${IMAGE//\//-}-$TAG".tar.drv; do
                     if [[ -f "$file" ]]; then
-                        file_digest="$(nix derivation show "$file" | jq -r '.[].env.imageDigest')"
+                        jq_prefix=""
+
+                        if [ "$(nix derivation show "$file" | jq -r 'has("derivations")')" = "true" ]; then
+                            jq_prefix=".derivations"
+                        fi
+
+                        file_digest="$(nix derivation show "$file" | jq -r "$jq_prefix.[].env.imageDigest")"
 
                         if [[ "$file_digest" = "$NEW_DIGEST" ]]; then
-                            out_file="$(nix derivation show "$file" | jq -r '.[].env.out')"
+                            out_file="$(nix derivation show "$file" | jq -r "$jq_prefix.[].env.out")"
 
                             HASH=$(nix-hash --flat --type sha256 --sri "$out_file")
 
