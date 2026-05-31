@@ -33,6 +33,9 @@ in {
 
         package = cfgHypr.finalPackage;
 
+        # TODO: move to lua
+        configType = "hyprlang";
+
         settings = {
           inherit (cfgHypr.settings) cursor device ecosystem input misc monitor;
 
