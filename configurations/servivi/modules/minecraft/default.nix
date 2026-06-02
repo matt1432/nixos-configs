@@ -24,6 +24,12 @@
       user = mainUser;
 
       instances = let
+        ports = {
+          mc = 25569;
+          mc2 = 25560;
+          cv = 25566;
+        };
+
         jre25 = pkgs.temurin-bin-25;
 
         defaults = {
@@ -42,7 +48,7 @@
 
           serverConfig =
             {
-              server-port = 25569;
+              server-port = ports.mc;
               motd = "1.21.4 gaming";
 
               extra-options = {
@@ -67,7 +73,7 @@
 
           serverConfig =
             {
-              server-port = 25560;
+              server-port = ports.mc2;
               motd = "It's craftin' time";
 
               extra-options = {
@@ -91,7 +97,7 @@
 
           serverConfig =
             {
-              server-port = 25566;
+              server-port = ports.cv;
               motd = "creative mode gaming";
 
               extra-options = {
