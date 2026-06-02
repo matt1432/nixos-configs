@@ -10,6 +10,7 @@
 
   environment.systemPackages = [
     pkgs.curseforge-server-downloader
+    pkgs.mrpack-install
     pkgs.selfPackages.nbted
   ];
 
@@ -55,6 +56,7 @@
                 difficulty = "hard";
                 enable-command-block = true;
                 enforce-white-list = true;
+                white-list = true;
                 max-players = 10;
                 view-distance = 16;
                 level-seed = "8764718009920";
@@ -63,8 +65,8 @@
             // defaults;
         };
 
-        # Public Survival
-        pv = {
+        # Create+ Survival https://modrinth.com/modpack/create_plus/versions
+        create = {
           enable = true;
 
           jvmMaxAllocation = "12G";
@@ -74,12 +76,13 @@
           serverConfig =
             {
               server-port = ports.mc2;
-              motd = "It's craftin' time";
+              motd = "It's creatin' time";
 
               extra-options = {
                 difficulty = "hard";
                 enable-command-block = true;
                 enforce-white-list = true;
+                white-list = true;
                 max-players = 12;
                 view-distance = 16;
               };
@@ -104,6 +107,7 @@
                 difficulty = "hard";
                 enable-command-block = true;
                 enforce-white-list = true;
+                white-list = true;
                 gamemode = "creative";
                 max-players = 6;
                 view-distance = 16;
