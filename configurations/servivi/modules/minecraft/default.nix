@@ -14,6 +14,10 @@
     pkgs.selfPackages.nbted
   ];
 
+  # Isolate thread 11 for main Minecraft server
+  # use `taskset -c 0-11` before java command in `start.sh`
+  systemd.settings.Manager.CPUAffinity = "0-10";
+
   services = {
     borgbackup.configs.mc = {
       paths = ["/var/lib/minix"];
@@ -31,6 +35,7 @@
           cv = 25566;
         };
 
+        jre21 = pkgs.jdk21;
         jre25 = pkgs.temurin-bin-25;
 
         defaults = {
@@ -70,8 +75,16 @@
           enable = true;
 
           jvmMaxAllocation = "12G";
-          jvmInitialAllocation = "2G";
-          jvmPackage = jre25;
+          jvmInitialAllocation = "12G";
+          jvmPackage = jre21;
+
+          # https://github.com/DataDalton/Minecraft-Performance-Guide/blob/main/Java%20Arguments/README.md
+          jvmOpts = "-XX:+UnlockExperimentalVMOptions -XX:+UnlockDiagnosticVMOptions -XX:+AlwaysActAsServerClassMachine -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+UseNUMA -XX:NmethodSweepActivity=1 -XX:ReservedCodeCacheSize=400M -XX:NonNMethodCodeHeapSize=12M -XX:ProfiledCodeHeapSize=194M -XX:NonProfiledCodeHeapSize=194M -XX:-DontCompileHugeMethods -XX:MaxNodeLimit=240000 -XX:NodeLimitFudgeFactor=8000 -XX:+UseVectorCmov -XX:+PerfDisableSharedMem -XX:+UseFastUnorderedTimeStamps -XX:+UseCriticalJavaThreadPriority -XX:ThreadPriorityPolicy=1 -XX:+UseZGC -XX:AllocatePrefetchStyle=1 -XX:-ZProactive";
+
+          serviceExtraPackages = with pkgs; [
+            ncurses # infocmp
+            util-linux # taskset
+          ];
 
           serverConfig =
             {

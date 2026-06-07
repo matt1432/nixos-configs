@@ -1193,11 +1193,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1754854300,
-        "narHash": "sha256-8zBoBl8t1B21m9udrDOSOuBgKCUxnusmI67cpBfbZgo=",
+        "lastModified": 1780868919,
+        "narHash": "sha256-tgbEZreF2BWbKzv2aRwprhYU3b8wSkZTyjXk4sQLsok=",
         "owner": "matt1432",
         "repo": "Minix",
-        "rev": "1e5682fe7f86f81b8eac962b6e08159f82352c0e",
+        "rev": "6e62651ce8b563be2a2752e6025d9be247b1bbff",
         "type": "github"
       },
       "original": {
