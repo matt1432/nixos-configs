@@ -84,7 +84,7 @@
                 enforce-white-list = true;
                 white-list = true;
                 max-players = 12;
-                view-distance = 16;
+                view-distance = 12;
               };
             }
             // defaults;
