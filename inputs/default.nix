@@ -192,6 +192,9 @@ let
       hyprland = mkInput {
         owner = "hyprwm";
         repo = "Hyprland";
+
+        # FIXME: imports are broken for plugins on latest
+        rev = "34fddc949042e45d22bed6cbe72f9a9c838914fa";
       };
 
       hyprexpo = mkHyprDep {

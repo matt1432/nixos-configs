@@ -174,6 +174,7 @@
       };
       owner = "hyprwm";
       repo = "Hyprland";
+      rev = "34fddc949042e45d22bed6cbe72f9a9c838914fa";
       type = "github";
     };
     hyprpaper = {

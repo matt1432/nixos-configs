@@ -3,10 +3,10 @@ self: {nix ? null}: final: prev: let
 
   inherit (self.inputs) nix-eval-jobs nix-output-monitor;
 
-  inherit (final.lib) pipe;
+  inherit (final.lib) pipe remove;
   inherit (final.stdenv.hostPlatform) system;
 
-  usingDetSys = system == "x86_64-linux";
+  isX86 = system == "x86_64-linux";
 
   nullCheck = n: v:
     if nix == null
@@ -18,6 +18,10 @@ in
 
     # Can't use `overrideAll` because of the package's complexity upstream
     nix-output-monitor = nix-output-monitor.packages.${system}.default.overrideAttrs (o: {
+      outputs =
+        if isX86
+        then o.outputs
+        else remove "test" o.outputs;
       postPatch = ''
         ${o.postPatch or ""}
 
@@ -30,7 +34,7 @@ in
     ];
 
     nix-eval-jobs =
-      if usingDetSys
+      if isX86
       then nix-eval-jobs.packages.${system}.default.override {pkgs = final;} // {inherit nix;}
       else prev.nix-eval-jobs;
   }

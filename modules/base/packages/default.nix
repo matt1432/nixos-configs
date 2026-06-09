@@ -8,6 +8,11 @@ self: {
   inherit (lib) attrValues mkIf remove;
 
   cfg = config.roles.base;
+
+  notAarch = pkg:
+    if pkgs.stdenv.hostPlatform.system != "aarch64-linux"
+    then pkg
+    else null;
 in {
   config = mkIf cfg.enable {
     nixpkgs.overlays =
@@ -33,9 +38,9 @@ in {
         repl
         ;
 
-      nurl = pkgs.nurl.override {
+      nurl = notAarch (pkgs.nurl.override {
         gitMinimal = config.home-manager.users.${cfg.user}.programs.git.package or pkgs.gitMinimal;
-      };
+      });
 
       inherit
         (pkgs)

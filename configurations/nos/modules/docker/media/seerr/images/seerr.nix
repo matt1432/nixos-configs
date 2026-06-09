@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage rec {
   imageName = "ghcr.io/seerr-team/seerr";
-  imageDigest = "sha256:c4cbd5121236ac2f70a843a0b920b68a27976be57917555f1c45b08a1e6b2aad";
-  hash = "sha256-WIXd3+p299CcjF69sfPSPDX73y1w7kiUoR2MyKV6YC8=";
+  imageDigest = "sha256:c92d2dc117f62185e7bcb88cd56efd374ea79210eaf433275449e8d5988eb5a8";
+  hash = "sha256-6KKOVvnJrxKAZbAcgab+TTn/kblh85KP6dUQugFih8c=";
   finalImageName = imageName;
   finalImageTag = "latest";
 }
