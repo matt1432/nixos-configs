@@ -18,6 +18,7 @@ in
 
     # Can't use `overrideAll` because of the package's complexity upstream
     nix-output-monitor = nix-output-monitor.packages.${system}.default.overrideAttrs (o: {
+      # NOTE: https://github.com/maralorn/nix-output-monitor/issues/273
       outputs =
         if isX86
         then o.outputs
