@@ -1422,17 +1422,16 @@
         "nixpkgs-nixcord": "nixpkgs-nixcord"
       },
       "locked": {
-        "lastModified": 1778750150,
-        "narHash": "sha256-ZVp6cIiYvHEHKvpQ0WXx8V5rCo0GkK02JCi41Y801wI=",
+        "lastModified": 1781024815,
+        "narHash": "sha256-qiLThtQyAnmh4YJQ0N8yx9MDtXyiG5ZBSjQXFxegyg0=",
         "owner": "kaylorben",
         "repo": "nixcord",
-        "rev": "661299d88356dc7de82cb1baef330b4c41fd48b1",
+        "rev": "4665e3c2314a2585853c8395018efbc7973b53ec",
         "type": "github"
       },
       "original": {
         "owner": "kaylorben",
         "repo": "nixcord",
-        "rev": "661299d88356dc7de82cb1baef330b4c41fd48b1",
         "type": "github"
       }
     },
@@ -1541,16 +1540,16 @@
     },
     "nixpkgs-nixcord": {
       "locked": {
-        "lastModified": 1778003029,
-        "narHash": "sha256-q/nkKLDtHIyLjZpKhWk3cSK5IYsFqtMd6UtXF3ddjgA=",
+        "lastModified": 1780453794,
+        "narHash": "sha256-bXMRa9VTsHSPXL4Cw8R6JJLQeY3Y/IP4+YJCYVmQ7FY=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "0c88e1f2bdb93d5999019e99cb0e61e1fe2af4c5",
+        "rev": "6b316287bae2ee04c9b93c8c858d930fd07d7338",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixos-25.11",
+        "ref": "nixos-26.05",
         "repo": "nixpkgs",
         "type": "github"
       }
