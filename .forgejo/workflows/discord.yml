@@ -6,14 +6,15 @@ on:
 
 jobs:
   discord_commits:
-    runs-on: ubuntu-latest
+    runs-on: nix-latest
     name: discord commits
     if: contains(github.event.head_commit.message, '(servers)')
 
     steps:
       - name: Discommit
-        uses: https://github.com/matt1432/discommit@v0.0.2
-        with:
-          discord_webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          api_url: 'https://git.nelim.org/api/v1/repos/$OWNER/$REPO/git/commits/$REF'
-          title: 'New commit containing changes to server configs:'
+        shell: bash
+        run: nix run github:matt1432/discommit
+        env:
+          INPUT_DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          INPUT_API_URL: 'https://git.nelim.org/api/v1/repos/$OWNER/$REPO/git/commits/$REF'
+          INPUT_TITLE: 'New commit containing changes to server configs:'
