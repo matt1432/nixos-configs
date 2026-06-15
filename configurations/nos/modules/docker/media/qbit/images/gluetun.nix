@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage rec {
   imageName = "qmcgaw/gluetun";
-  imageDigest = "sha256:5665416a97ad2823dda6986a581b8913cc3af1b196ac768f5130abad4b0d4f62";
-  hash = "sha256-6Y+iV9bTSXOX2KHUTwz7hHzrJqMNYg1G5nT70L77XgE=";
+  imageDigest = "sha256:0e999c910d8077458ffbd869acfd9faa2a49decbca02afec6370277854587b3e";
+  hash = "sha256-ljShxkEwRowaqLXvMDFNDHCPoAJ3unQb7hkKLk7q/WI=";
   finalImageName = imageName;
   finalImageTag = "latest";
 }

@@ -7,7 +7,7 @@
         "gnim": "1.9.1",
         "fzf": "0.5.2",
         "@eslint/js": "10.0.1",
-        "eslint": "10.4.1",
+        "eslint": "10.5.0",
         "eslint-config-prettier": "10.1.8",
         "eslint-plugin-jsdoc": "63.0.2",
         "eslint-plugin-perfectionist": "5.9.0",

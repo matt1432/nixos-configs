@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage rec {
   imageName = "docker";
-  imageDigest = "sha256:7d85d0eda291f1a7ab6df4a9d1802b5ad4cf9145a088bd11188c78dcb5c7392b";
-  hash = "sha256-xI8hqAQhHV9PTgo5g8SCXfuubmNVyd5+ofatedTUqRo=";
+  imageDigest = "sha256:ad68e89b675740867a3bb96488a93fea9209ad36c6305bfba2664912d6dcf11a";
+  hash = "sha256-qLJepoZRMhS4To6M9clEzgfFoY4Pw0W/DyltPP9pNF8=";
   finalImageName = imageName;
   finalImageTag = "dind";
 }

@@ -6,10 +6,10 @@
 }: {
   "bitwarden" = buildMozillaXpiAddon {
     pname = "bitwarden";
-    version = "2026.5.0";
+    version = "2026.5.1";
     addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4827854/bitwarden_password_manager-2026.5.0.xpi";
-    sha256 = "8ebb475518a330b88b4e2cba0864c5ca11bed390739cb84fbf256e938c91b6d9";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4842111/bitwarden_password_manager-2026.5.1.xpi";
+    sha256 = "d32f61f4fb95728ab450edabc88fe195400adfafab488ca949b5a355298f27b8";
     meta = with lib; {
       homepage = "https://bitwarden.com";
       description = "At home, at work, or on the go, Bitwarden easily secures all your passwords, passkeys, and sensitive information.";
@@ -36,10 +36,10 @@
   };
   "darkreader" = buildMozillaXpiAddon {
     pname = "darkreader";
-    version = "4.9.126";
+    version = "4.9.127";
     addonId = "addon@darkreader.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4834907/darkreader-4.9.126.xpi";
-    sha256 = "b0bd9127a60a5af8db6fa23de81f304a4ec5d7d3cd7e6e301e3eaa42339528a7";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4837294/darkreader-4.9.127.xpi";
+    sha256 = "25f06b10b43270266af63c8d25e01ecf5e497bd2d5411243ee6d19b3869296ad";
     meta = with lib; {
       homepage = "https://darkreader.org/";
       description = "Dark mode for every website. Take care of your eyes, use dark theme for night and daily browsing.";
