@@ -72,7 +72,7 @@
       in {
         # Vanilla Survival
         sv = {
-          enable = true;
+          enable = false;
 
           jvmMaxAllocation = "8G";
           jvmInitialAllocation = "2G";
@@ -130,7 +130,7 @@
 
         # Vanilla Creative
         cv = {
-          enable = true;
+          enable = false;
 
           jvmMaxAllocation = "6G";
           jvmInitialAllocation = "2G";
