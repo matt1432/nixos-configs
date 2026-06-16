@@ -11,6 +11,25 @@
   environment.systemPackages = [
     pkgs.curseforge-server-downloader
     pkgs.mrpack-install
+    (pkgs.buildGo125Module rec {
+      pname = "mrpack-install";
+      version = "0.21.0-beta";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "nothub";
+        repo = "mrpack-install";
+        rev = "v${version}";
+        hash = "sha256-QSgq9VgiEg2aZLgMhzhFE2IpSVcYdmmRV9CJWkWPkg4=";
+      };
+
+      vendorHash = "sha256-ZbQICz2z2+SPY1z9dS5AXJh18+522PfT/wPg5GhmNZQ=";
+
+      doCheck = false;
+
+      postFixup = ''
+        mv "$out/bin/mrpack-install" "$out/bin/mrpack-install-beta"
+      '';
+    })
     pkgs.selfPackages.nbted
   ];
 
@@ -43,6 +62,13 @@
           max-tick-time = 5 * 60 * 1000;
           allow-flight = true;
         };
+
+        defaultsExtra = {
+          enable-command-block = true;
+          enforce-white-list = true;
+          enforce-whitelist = true;
+          white-list = true;
+        };
       in {
         # Vanilla Survival
         sv = {
@@ -57,15 +83,14 @@
               server-port = ports.mc;
               motd = "1.21.4 gaming";
 
-              extra-options = {
-                difficulty = "hard";
-                enable-command-block = true;
-                enforce-white-list = true;
-                white-list = true;
-                max-players = 10;
-                view-distance = 16;
-                level-seed = "8764718009920";
-              };
+              extra-options =
+                {
+                  difficulty = "hard";
+                  max-players = 10;
+                  view-distance = 16;
+                  level-seed = "8764718009920";
+                }
+                // defaultsExtra;
             }
             // defaults;
         };
@@ -91,14 +116,14 @@
               server-port = ports.mc2;
               motd = "It's creatin' time";
 
-              extra-options = {
-                difficulty = "hard";
-                enable-command-block = true;
-                enforce-white-list = true;
-                white-list = true;
-                max-players = 12;
-                view-distance = 12;
-              };
+              extra-options =
+                {
+                  difficulty = "hard";
+                  max-players = 12;
+                  view-distance = 12;
+                  simulation-distance = 6;
+                }
+                // defaultsExtra;
             }
             // defaults;
         };
@@ -116,15 +141,14 @@
               server-port = ports.cv;
               motd = "creative mode gaming";
 
-              extra-options = {
-                difficulty = "hard";
-                enable-command-block = true;
-                enforce-white-list = true;
-                white-list = true;
-                gamemode = "creative";
-                max-players = 6;
-                view-distance = 16;
-              };
+              extra-options =
+                {
+                  difficulty = "hard";
+                  gamemode = "creative";
+                  max-players = 6;
+                  view-distance = 16;
+                }
+                // defaultsExtra;
             }
             // defaults;
         };
