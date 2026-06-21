@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage rec {
   imageName = "ghcr.io/linuxserver/prowlarr";
-  imageDigest = "sha256:a46d0ce0a8236bc4e065fe7c91a55d026c9d849620c5845250519b977d8857f3";
-  hash = "sha256-6Juvtx0ZZhQ52HwtSHL3PWIxf9QbdKBUwoiOnwPEjp4=";
+  imageDigest = "sha256:7ab5769616c1929247c8e7944453253f0b777fac2724c3bc9976ae2ff4023257";
+  hash = "sha256-cznmty5Ullh8fLxR9vjFVpfTNHOLhVVr5Cwx92W/4GY=";
   finalImageName = imageName;
   finalImageTag = "latest";
 }

@@ -310,6 +310,7 @@
     };
     nix-gaming = {
       inputs = {
+        flake-compat.follows = "flake-compat";
         flake-parts.follows = "flake-parts";
         git-hooks.follows = "pre-commit-hooks";
         nixpkgs.follows = "nixpkgs";
