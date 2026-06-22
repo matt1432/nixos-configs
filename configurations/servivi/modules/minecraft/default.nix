@@ -128,6 +128,12 @@
             // defaults;
         };
 
+        # BlueMap for create
+        map-create = {
+          enable = true;
+          jvmPackage = jre25;
+        };
+
         # Vanilla Creative
         cv = {
           enable = false;
