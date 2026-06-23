@@ -995,16 +995,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1779565842,
-        "narHash": "sha256-j+bEHWa9N0Ce/7oC4BIGRY7bM3sbUXXSDznkuvsWEr0=",
-        "owner": "matt1432",
+        "lastModified": 1779591413,
+        "narHash": "sha256-Ne8qXUSnosNmJYDot5jJIHNGv0be/f9oLkBNAKeR7TY=",
+        "owner": "venkyr77",
         "repo": "jellarr",
-        "rev": "d574f068444993387024fe957683ea570d7ed520",
+        "rev": "b9fd2ae4526c4d832e6b22e20f1cf979f0e9bbaf",
         "type": "github"
       },
       "original": {
-        "owner": "matt1432",
-        "ref": "pnpm-deps",
+        "owner": "venkyr77",
+        "ref": "v0.1.1",
         "repo": "jellarr",
         "type": "github"
       }
