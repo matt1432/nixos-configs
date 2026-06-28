@@ -33,10 +33,6 @@
     pkgs.selfPackages.nbted
   ];
 
-  # Isolate thread 11 for main Minecraft server
-  # use `taskset -c 0-11` before java command in `start.sh`
-  systemd.settings.Manager.CPUAffinity = "0-10";
-
   services = {
     borgbackup.configs.mc = {
       paths = ["/var/lib/minix"];
@@ -108,7 +104,6 @@
 
           serviceExtraPackages = with pkgs; [
             ncurses # infocmp
-            util-linux # taskset
           ];
 
           serverConfig =
@@ -121,7 +116,7 @@
                   difficulty = "hard";
                   max-players = 12;
                   view-distance = 12;
-                  simulation-distance = 6;
+                  simulation-distance = 8;
                 }
                 // defaultsExtra;
             }
