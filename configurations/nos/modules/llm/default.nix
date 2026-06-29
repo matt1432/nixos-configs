@@ -13,7 +13,8 @@ in {
 
   services = {
     # Speech-to-Text
-    /*wyoming.faster-whisper.servers."en" = {
+    /*
+      wyoming.faster-whisper.servers."en" = {
       # TODO: re-enable this when homie is back up
       enable = false;
       uri = "tcp://${tailscaleIP}:10300";
@@ -35,7 +36,8 @@ in {
 
       loadModels = ["mistral-nemo"];
       environmentVariables.OLLAMA_DEBUG = "1";
-    };*/
+    };
+    */
   };
 
   # https://github.com/rwade628/dot.nix/blob/b39596f26d615e9bf493989c599590f3092d8ab0/modules/nixos/services/ai.nix

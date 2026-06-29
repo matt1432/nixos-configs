@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage rec {
   imageName = "ghcr.io/amruthpillai/reactive-resume";
-  imageDigest = "sha256:5ca66890dc8c2f71026b3efe24b3a87b2ad4dcccad7d4eefb5de9052d07094cd";
-  hash = "sha256-Fg0sSPaihtxJNCwQqdEmcKr+qkxinXhLd2kWsuC8mnU=";
+  imageDigest = "sha256:c5791a55eadfbd5fa3995b8b9e07c58082f238f86b2a077723f37a8b7f4e2f84";
+  hash = "sha256-FrlHYeQT24ggaaESGh87bvpgQDwIWYQMW27epvoF6aQ=";
   finalImageName = imageName;
   finalImageTag = "latest";
 }

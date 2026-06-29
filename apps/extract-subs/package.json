@@ -8,12 +8,12 @@
     },
     "dependencies": {
         "@dropb/ffprobe": "3.0.1",
-        "@types/node": "26.0.0",
+        "@types/node": "26.0.1",
         "esbuild": "0.28.1",
-        "eslint": "10.5.0",
+        "eslint": "10.6.0",
         "jiti": "2.7.0",
-        "prettier": "3.8.4",
-        "prettier-plugin-brace-style": "0.10.1",
+        "prettier": "3.9.3",
+        "prettier-plugin-brace-style": "0.10.2",
         "typescript": "6.0.3"
     },
     "devDependencies": {
