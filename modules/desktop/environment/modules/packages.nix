@@ -83,8 +83,7 @@ in {
           discord = {
             package = nixcord.packages.${pkgs.stdenv.hostPlatform.system}.discord;
 
-            vencord.unstable = true;
-
+            vencord.enable = true;
             openASAR.enable = false;
 
             settings = {
@@ -244,11 +243,11 @@ in {
               paths = [gparted];
               buildInputs = [makeWrapper];
               postBuild = ''
-                mkdir $out/.wrapped
-                mv $out/bin/gparted $out/.wrapped
-                cp ${getExe sudoWrapper} $out/bin/gparted
+                mkdir "$out/.wrapped"
+                mv "$out/bin/gparted" "$out/.wrapped"
+                cp "${getExe sudoWrapper}" "$out/bin/gparted"
 
-                sed -i "s#Exec.*#Exec=$out/bin/gparted %f#" $out/share/applications/gparted.desktop
+                sed -i "s#Exec.*#Exec=$out/bin/gparted %f#" "$out/share/applications/gparted.desktop"
               '';
             };
         }
