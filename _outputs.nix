@@ -37,11 +37,6 @@
         ];
       };
 
-      android = mkNixOS {
-        system = "aarch64-linux";
-        extraModules = [./configurations/android];
-      };
-
       # NAS
       nos = mkNixOS {
         cudaSupport = true;

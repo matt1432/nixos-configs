@@ -6,7 +6,7 @@ let
   mainInputs = {
     systems = mkInput {
       owner = "nix-systems";
-      repo = "default-linux";
+      repo = "x86_64-linux";
     };
 
     nixpkgs = mkInput {
@@ -24,14 +24,6 @@ let
     home-manager = mkInput {
       owner = "nix-community";
       repo = "home-manager";
-    };
-
-    nixos-avf = mkInput {
-      # NOTE: https://github.com/nix-community/nixos-avf/pull/39
-      # owner = "nix-community";
-      owner = "matt1432";
-      repo = "nixos-avf";
-      ref = "deprecations";
     };
 
     sops-nix = mkInput {

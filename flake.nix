@@ -361,13 +361,6 @@
       repo = "nixd";
       type = "github";
     };
-    nixos-avf = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      owner = "matt1432";
-      ref = "deprecations";
-      repo = "nixos-avf";
-      type = "github";
-    };
     nixos-jellyfin = {
       inputs = {
         nixpkgs.follows = "nixpkgs";
@@ -471,7 +464,7 @@
     };
     systems = {
       owner = "nix-systems";
-      repo = "default-linux";
+      repo = "x86_64-linux";
       type = "github";
     };
     touchpos = {

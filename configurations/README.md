@@ -7,7 +7,6 @@ unique to them.
 
 | Name      | Model / Specs | Description                                                                                      |
 | --------- | ------------- | ------------------------------------------------------------------------------------------------ |
-| `android` | Google Pixel 8 | NixOS running on AVF on my phone |
 | `binto` | NVIDIA 3070 with Ryzen 7 3700X | Desktop PC with a multi-monitor setup |
 | `live-image` | USB key | Basic configuration that serves as my custom ISO target |
 | `nos` | NVIDIA 3060 with i5-3600 | Custom built NAS and seedbox for Linux ISOs ;) |
