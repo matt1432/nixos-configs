@@ -92,7 +92,6 @@ let
       repo = "git-hooks.nix";
       inputs = {
         flake-compat.follows = "flake-compat";
-        gitignore.follows = "gitignore";
         nixpkgs.follows = "nixpkgs";
       };
     };

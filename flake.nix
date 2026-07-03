@@ -411,7 +411,6 @@
     pre-commit-hooks = {
       inputs = {
         flake-compat.follows = "flake-compat";
-        gitignore.follows = "gitignore";
         nixpkgs.follows = "nixpkgs";
       };
       owner = "cachix";

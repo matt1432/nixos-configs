@@ -8,9 +8,6 @@
   nixpkgs.hostPlatform = "x86_64-linux";
   imports = [(modulesPath + "/installer/scan/not-detected.nix")];
 
-  # NOTE: https://github.com/NixOS/nixpkgs/issues/535850
-  system.boot.loader.kernelFile = "vmlinuz";
-
   boot = {
     kernelPackages = pkgs.linuxPackages_zen;
 
