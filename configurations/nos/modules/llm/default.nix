@@ -64,15 +64,6 @@ in {
       '';
     };
 
-    groups = {
-      embedding = {
-        persistent = true;
-        swap = false;
-        exclusive = false;
-        members = ["embeddinggemma:300m"];
-      };
-    };
-
     healthCheckTimeout = 28800;
     ttl = 3600;
   };
