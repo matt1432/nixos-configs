@@ -119,6 +119,8 @@ in {
           POSTGRES_PASSWORD = "\${DB_PASSWORD}";
           POSTGRES_USER = "\${DB_USERNAME}";
           POSTGRES_DB = "\${DB_DATABASE_NAME}";
+          POSTGRES_INITDB_ARGS = "--data-checksums";
+          shm_size = "128mb";
         };
       };
     };
