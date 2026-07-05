@@ -1,3 +1,4 @@
+# NOTE: remove this when https://github.com/jellyfin/jellyfin/pull/16668 reaches a release
 {...}: {
   imports = [./jellyfin-actor-processor.nix];
 
