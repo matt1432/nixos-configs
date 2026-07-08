@@ -12,7 +12,7 @@
   jre_minimal,
   ...
 }: let
-  inherit (lib) concatStringsSep elem filter getExe hasSuffix;
+  inherit (lib) concatStringsSep getExe;
 
   jre_modules = [
     "java.se"
@@ -29,26 +29,26 @@
           --add-modules ${concatStringsSep "," jre_modules} \
           --no-header-files \
           --no-man-pages \
-          --output $out
+          --output "$out"
 
       runHook postBuild
     '';
   });
 
   pname = "jmusicbot";
-  version = "0.4.12";
+  version = "0.6.5";
 in
   maven.buildMavenPackage {
     inherit pname version;
 
     src = fetchFromGitHub {
-      owner = "matt1432";
+      owner = "chrisb09";
       repo = "MusicBot";
-      rev = "6d86eea5718c6257aae7008ee687f4a3d987d0df";
-      hash = "sha256-nGa6Yv+301++7+/o2XK4WBUCeS9UpCAKxa3WaujiRG0=";
+      tag = version;
+      hash = "sha256-yX2X0mKG/Cd7l2lXe/MsZurCTRlE0m3oNslrWSmdcas=";
     };
 
-    mvnHash = "sha256-H8BeH9WcGi7UiINl51UoA0054EvvmmVHAIElfdS84hw=";
+    mvnHash = "sha256-Z0mBnegmos7SQLl5kLhpXqnsZyu4LAHNm+PYMnupz74=";
 
     nativeBuildInputs = [makeWrapper];
 
@@ -63,10 +63,10 @@ in
     '';
 
     installPhase = ''
-      mkdir -p $out/lib
-      install -Dm644 ./target/JMusicBot-${version}-All.jar $out/lib/JMusicBot
+      mkdir -p "$out/lib"
+      install -Dm644 ./target/JMusicBot-${version}-All.jar "$out/lib/JMusicBot"
 
-      makeWrapper ${jre}/bin/java $out/bin/JMusicBot \
+      makeWrapper ${jre}/bin/java "$out/bin/JMusicBot" \
         --add-flags "-Xmx1G -Dnogui=true -Djava.util.concurrent.ForkJoinPool.common.parallelism=1 -jar $out/lib/JMusicBot" \
         --suffix PATH : ${lib.makeBinPath [chromedriver google-chrome]}
     '';

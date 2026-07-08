@@ -58,6 +58,10 @@ const main = async () => {
         console.log(runNixUpdate('homepage') ?? 'No updates');
     }
 
+    if (args['jmusicbot']) {
+        console.log(runNixUpdate('jmusicbot') ?? 'No updates');
+    }
+
     if (args['komf']) {
         console.log(runNixUpdate('komf') ?? 'No updates');
     }
@@ -160,6 +164,7 @@ const main = async () => {
 
         updatePackage('alive-server');
         updatePackage('homepage');
+        updatePackage('jmusicbot');
         updatePackage('komf');
         updatePackage('pam-fprint-grosshack');
         updatePackage('protonhax');
