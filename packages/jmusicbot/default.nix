@@ -36,7 +36,7 @@
   });
 
   pname = "jmusicbot";
-  version = "0.6.5";
+  version = "0.6.6";
 in
   maven.buildMavenPackage {
     inherit pname version;
@@ -45,10 +45,10 @@ in
       owner = "chrisb09";
       repo = "MusicBot";
       tag = version;
-      hash = "sha256-yX2X0mKG/Cd7l2lXe/MsZurCTRlE0m3oNslrWSmdcas=";
+      hash = "sha256-nv1tI/Jwg4I3iYMc85Cojvc/gteu5C2+fUfbe6w0Dso=";
     };
 
-    mvnHash = "sha256-Z0mBnegmos7SQLl5kLhpXqnsZyu4LAHNm+PYMnupz74=";
+    mvnHash = "sha256-U3+Iwe6PT5AKL8tN/r8kI//gbyroHDs6Xz6vnixMUEg=";
 
     nativeBuildInputs = [makeWrapper];
 
