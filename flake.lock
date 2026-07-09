@@ -536,30 +536,19 @@
         "type": "github"
       }
     },
-    "hyprexpo": {
-      "inputs": {
-        "hyprland": [
-          "hyprland"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "systems": [
-          "systems"
-        ]
-      },
+    "hyprexpo-src": {
+      "flake": false,
       "locked": {
-        "lastModified": 1779455466,
-        "narHash": "sha256-SBGT6GVkmpX5XoAf+oiVZWlv9xaNSWZeQ33HNIlrz0k=",
-        "owner": "colonelpanic8",
+        "lastModified": 1782144333,
+        "narHash": "sha256-kGqrRZWQ0uSvA47CPyBzlzcN1zCbtMHNaSt9dK8exLg=",
+        "owner": "sandwichfarm",
         "repo": "hyprexpo",
-        "rev": "8bafe0dbc7c26a3269f7e0fa01e3fa3cf54a3161",
+        "rev": "49c4bf993a754089ee678a0b33f671a157b9d7b7",
         "type": "github"
       },
       "original": {
-        "owner": "colonelpanic8",
+        "owner": "sandwichfarm",
         "repo": "hyprexpo",
-        "rev": "8bafe0dbc7c26a3269f7e0fa01e3fa3cf54a3161",
         "type": "github"
       }
     },
@@ -1686,7 +1675,7 @@
         "grim-hyprland": "grim-hyprland",
         "gtk-theme-src": "gtk-theme-src",
         "home-manager": "home-manager",
-        "hyprexpo": "hyprexpo",
+        "hyprexpo-src": "hyprexpo-src",
         "hyprgrass": "hyprgrass",
         "hyprland": "hyprland",
         "hyprpaper": "hyprpaper",

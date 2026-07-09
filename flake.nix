@@ -145,15 +145,10 @@
       repo = "home-manager";
       type = "github";
     };
-    hyprexpo = {
-      inputs = {
-        hyprland.follows = "hyprland";
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
-      owner = "colonelpanic8";
+    hyprexpo-src = {
+      flake = false;
+      owner = "sandwichfarm";
       repo = "hyprexpo";
-      rev = "8bafe0dbc7c26a3269f7e0fa01e3fa3cf54a3161";
       type = "github";
     };
     hyprgrass = {

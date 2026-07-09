@@ -42,12 +42,11 @@ in {
       self.inputs."hyprland".overlays.hyprland-packages
 
       (final: prev: {
-        hyprlandPlugins = final.callPackage "${final.path}/pkgs/applications/window-managers/hyprwm/hyprland-plugins/default.nix" {
+        hyprlandPlugins = (final.callPackage "${final.path}/pkgs/applications/window-managers/hyprwm/hyprland-plugins/default.nix" {
           hyprland = hyprCfg.finalPackage;
-        };
+        }) // {hyprexpo = final.callPackage "${self.inputs.hyprexpo-src}/default.nix" {};};
       })
 
-      self.inputs."hyprexpo".overlays.default
       self.inputs."hyprgrass".overlays.default
       self.inputs."touchpos".overlays.default
       self.inputs."hyprpaper".overlays.hyprpaper-with-deps
