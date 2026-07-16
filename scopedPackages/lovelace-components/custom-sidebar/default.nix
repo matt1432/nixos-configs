@@ -7,7 +7,7 @@
   custom-sidebar-src,
   # deps
   nodejs,
-  pnpm,
+  pnpm_10,
   ...
 }: let
   inherit (builtins) fromJSON readFile;
@@ -22,7 +22,7 @@ in
 
     nativeBuildInputs = [
       nodejs
-      pnpm
+      pnpm_10
       pnpmConfigHook
     ];
 
@@ -31,14 +31,15 @@ in
     '';
 
     installPhase = ''
-      mkdir $out
-      cp ./dist/* $out
+      mkdir "$out"
+      cp ./dist/* "$out"
     '';
 
     pnpmDeps = fetchPnpmDeps {
+      pnpm = pnpm_10;
       fetcherVersion = 3;
       inherit (finalAttrs) pname version src;
-      hash = "sha256-GeDsBpBO1RjSRJWYngttBNMMQ5BxJaJpEQ53Bg5gcrA=";
+      hash = "sha256-cwyhL2fC4j7XDayS/kaVCTOTdQ0BqfUgC7kp+l1fk8M=";
     };
 
     passthru.updateScript = ./update.sh;
