@@ -12,6 +12,8 @@ self: {
 in {
   config = mkIf cfg.enable {
     home.pointerCursor = {
+      enable = true;
+
       name = "Dracula-cursors";
       package = dracula.gtk;
       size = 24;
