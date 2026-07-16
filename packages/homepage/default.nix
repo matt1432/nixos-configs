@@ -4,16 +4,19 @@
   stdenv,
   fetchPnpmDeps,
   fetchFromGitHub,
-  makeWrapper,
+  makeBinaryWrapper,
+  node-gyp-build,
   pnpmConfigHook,
   # deps
   nodejs,
-  pnpm,
+  pnpm_10,
+  python3,
+  unixtools,
   # params
   enableLocalIcons ? true,
   ...
 }: let
-  inherit (lib) getExe optionalString;
+  inherit (lib) getExe makeBinPath optionalString;
 
   installLocalIcons = import ./icons.nix {inherit fetchFromGitHub;};
 in
@@ -29,57 +32,81 @@ in
     };
 
     pnpmDeps = fetchPnpmDeps {
+      inherit
+        (finalAttrs)
+        pname
+        version
+        src
+        ;
+      pnpm = pnpm_10;
       fetcherVersion = 3;
-      inherit (finalAttrs) pname version src;
-      hash = "sha256-C/QJ0S3Z/1Evd6IDMR6uiRhPTttZIN4vC/Ye6zA/41U=";
+      hash = "sha256-jAcAbi++Wbyi07YdPuIhDAeNT4fJVAIxp51boD30x3k=";
     };
 
     nativeBuildInputs = [
-      makeWrapper
+      makeBinaryWrapper
       nodejs
-      pnpm
+      pnpm_10
       pnpmConfigHook
     ];
 
-    buildPhase = ''
-      pnpm build
+    buildInputs = [
+      node-gyp-build
+    ];
 
-      # Add a shebang to the server js file
-      sed -i '1s|^|#!${getExe nodejs}\n|' .next/standalone/server.js
+    env.PYTHON = "${python3}/bin/python";
+
+    preBuild = ''
+      # patch next.js file-system-cache to use NIXPKGS_HOMEPAGE_CACHE_DIR
+      # related:
+      # * https://github.com/NixOS/nixpkgs/issues/328621 ("homepage-dashboard: Failed to update prerender cache")
+      # * https://github.com/NixOS/nixpkgs/pull/337902 ("nixos/homepage-dashboard: set an explicit cache dir")
+      # * https://github.com/NixOS/nixpkgs/issues/458494 ("homepage-dashboard: Dashboard styles are destroyed after a server restart")
+
+      # source file
+      substituteInPlace node_modules/next/dist/server/lib/incremental-cache/file-system-cache.js \
+        --replace-fail 'this.serverDistDir = ctx.serverDistDir;' \
+                       'this.serverDistDir = require("path").join((process.env.NIXPKGS_HOMEPAGE_CACHE_DIR || "/var/cache/homepage-dashboard"), "homepage");'
+
+      # bundled runtimes
+      for bundle in node_modules/next/dist/compiled/next-server/*.runtime.prod.js; do
+        substituteInPlace "$bundle" \
+          --replace-fail 'this.serverDistDir=e.serverDistDir' \
+                         'this.serverDistDir=(process.env.NIXPKGS_HOMEPAGE_CACHE_DIR||"/var/cache/homepage-dashboard")+"/homepage"'
+      done
+    '';
+
+    buildPhase = ''
+      runHook preBuild
+      mkdir -p config
+      pnpm build
+      runHook postBuild
     '';
 
     installPhase = ''
       runHook preInstall
 
-      mkdir -p $out/{share,bin}
-
-      # Without this, homepage-dashboard errors when trying to
-      # write its prerender cache.
-      #
-      # This ensures that the cache implementation respects the env
-      # variable `HOMEPAGE_CACHE_DIR`, which is set by default in the
-      # wrapper below.
-      substituteInPlace .next/standalone/node_modules/next/dist/server/lib/incremental-cache/file-system-cache.js --replace-fail \
-        "this.serverDistDir = ctx.serverDistDir;" \
-        "this.serverDistDir = require('node:path').join(process.env.HOMEPAGE_CACHE_DIR, \"homepage\");"
-
+      mkdir -p $out/{bin,share}
       cp -r .next/standalone $out/share/homepage/
       cp -r public $out/share/homepage/public
+      chmod +x $out/share/homepage/server.js
 
       mkdir -p $out/share/homepage/.next
       cp -r .next/static $out/share/homepage/.next/static
 
-      chmod +x $out/share/homepage/server.js
-
-      makeWrapper $out/share/homepage/server.js $out/bin/homepage \
+      makeWrapper "${getExe nodejs}" $out/bin/homepage \
         --set-default PORT 3000 \
         --set-default HOMEPAGE_CONFIG_DIR /var/lib/homepage-dashboard \
-        --set-default HOMEPAGE_CACHE_DIR /var/cache/homepage-dashboard
+        --set-default NIXPKGS_HOMEPAGE_CACHE_DIR /var/cache/homepage-dashboard \
+        --add-flags "$out/share/homepage/server.js" \
+        --prefix PATH : "${makeBinPath [unixtools.ping]}"
 
       ${optionalString enableLocalIcons installLocalIcons}
 
       runHook postInstall
     '';
+
+    doDist = false;
 
     meta = {
       mainProgram = "homepage";
