@@ -146,10 +146,14 @@ let
       repo = "nixos-jellyfin";
     };
 
+    # NOTE: https://github.com/venkyr77/jellarr/pull/75
     jellarr = mkInput {
-      owner = "venkyr77";
+      # owner = "venkyr77";
       repo = "jellarr";
-      ref = "v0.1.1";
+      # ref = "v0.1.1";
+
+      owner = "matt1432";
+      ref = "nix-pnpm-10";
     };
 
     letterboxdpy-src = mkInput {

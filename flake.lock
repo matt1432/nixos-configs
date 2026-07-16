@@ -985,16 +985,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1779591413,
-        "narHash": "sha256-Ne8qXUSnosNmJYDot5jJIHNGv0be/f9oLkBNAKeR7TY=",
-        "owner": "venkyr77",
+        "lastModified": 1784212871,
+        "narHash": "sha256-iy6izpYwp4mnEWUpNBLomttLMaiWuBfrxS/faoeUDM4=",
+        "owner": "matt1432",
         "repo": "jellarr",
-        "rev": "b9fd2ae4526c4d832e6b22e20f1cf979f0e9bbaf",
+        "rev": "f568f36a780bd3737391be80d27b4fac84ead2e1",
         "type": "github"
       },
       "original": {
-        "owner": "venkyr77",
-        "ref": "v0.1.1",
+        "owner": "matt1432",
+        "ref": "nix-pnpm-10",
         "repo": "jellarr",
         "type": "github"
       }
