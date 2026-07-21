@@ -33,8 +33,6 @@ in
     flake = pkgs.callPackage ./flake {};
     default = self.devShells.${pkgs.stdenv.hostPlatform.system}.flake;
 
-    netdaemon = pkgs.callPackage ./netdaemon {};
-
     node = pkgs.callPackage ./node {inherit bumpNpmDeps;};
 
     subtitles-dev = pkgs.callPackage ./subtitle-dev {inherit bumpNpmDeps;};

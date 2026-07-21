@@ -48,23 +48,6 @@ in {
       sets default options such as BTRFS filesystem and adds an update script for images.
     '';
 
-  esphome-plus =
-    module
-    (import ./esphome-plus)
-    ''
-      Fixes a bug with compilation of m5-atom-stack firmware and allows declaring
-      firmware configurations in nix code.
-    '';
-
-  ha-plus =
-    module
-    (import ./ha-plus)
-    ''
-      Extends the home-assistant options to allow declaring the content of specific
-      configuration files in the home-assistant configuration directory such as
-      custom sentences through nix code.
-    '';
-
   jmusicbot =
     module
     (import ./jmusicbot)
@@ -114,14 +97,5 @@ in {
     ''
       Uses the home-manager tmux module to declare my custom configuration and
       links it to `/etc` to set it globally.
-    '';
-
-  wyoming-plus =
-    module
-    (import ./wyoming-plus)
-    ''
-      Extends the `wyoming.openwakeword` options to allow declaring flags used
-      by the [fork](https://github.com/rhasspy/wyoming-openwakeword/pull/17)
-      of `wyoming-openwakeword` exposed by this module.
     '';
 }

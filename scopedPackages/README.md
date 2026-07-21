@@ -38,30 +38,6 @@ Every extensions I use in my firefox module.
 | `youtube-no-translation` | Keeps YouTube content in its original language (Titles, Audio Tracks, Descriptions...) |  |
 | `youtubelistview` | Brings back the list view for the subscriptions page and more. Click the extension icon for customization options. |  |
 
-### hass-components
-
-Components I use for Home-Assistant that aren't in nixpkgs.
-
-| Name | Description | Homepage |
-| ---- | ----------- | -------- |
-| `extended-ollama-conversation` | Home Assistant custom component of conversation agent. It uses Ollama to control your devices. | https://github.com/TheNimaj/extended_ollama_conversation |
-| `material-symbols` | Material Symbols for Home Assistant is a collection of 13,803 Google Material Symbols for use within Home Assistant. It uses the icon-set produced and maintained by iconify. | https://github.com/beecho01/material-symbols |
-| `netdaemon` | An application daemon for Home Assistant written in .NET. | https://github.com/net-daemon/netdaemon |
-| `spotifyplus` | Home Assistant integration for Spotify Player control, services, and soundtouchplus integration support. | https://github.com/thlucas1/homeassistantcomponent_spotifyplus |
-| `tuya-local` | Local support for Tuya devices in Home Assistant. | https://github.com/make-all/tuya-local |
-| `yamaha-soundbar` | Yamaha soundbar integration for Home Assistant. | https://github.com/osk2/yamaha-soundbar |
-
-### lovelace-components
-
-Lovelace components I use for Home-Assistant that aren't in nixpkgs.
-
-| Name | Description | Homepage |
-| ---- | ----------- | -------- |
-| `big-slider-card` | A card with a big slider for light entities in Home Assistant. | https://github.com/nicufarmache/lovelace-big-slider-card |
-| `custom-sidebar` | Custom HACS plugin that allows you to personalise the Home Assistant's sidebar per user or device basis. | https://github.com/elchininet/custom-sidebar |
-| `material-rounded-theme` | Material Design 3 Colors and Components in Home Assistant. | https://github.com/Nerwyn/material-rounded-theme |
-| `material-you-utilities` | Material You color theme generation and Home Assistant component modification. | https://github.com/Nerwyn/ha-material-you-utilities |
-
 ### mpvScripts
 
 MPV scripts I use that aren't in nixpkgs.

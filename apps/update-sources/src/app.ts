@@ -7,7 +7,6 @@ import updateCaddyPlugins from './caddy';
 import updateDocker from './docker';
 import updateFlakeInputs from './flake';
 import { parseArgs } from './lib';
-import updateNetDaemon from './netdaemon';
 import updateNixServeNg from './nix-serve-ng';
 import runNixUpdate from './nix-update';
 import updateNodeModules from './node-modules';
@@ -26,16 +25,6 @@ const args = parseArgs();
 const main = async () => {
     if (args['alive-server']) {
         console.log(runNixUpdate('alive-server') ?? 'No updates');
-    }
-
-    if (args['custom-sidebar']) {
-        console.log(
-            runNixUpdate(
-                'scopedPackages',
-                'lovelace-components',
-                'custom-sidebar',
-            ) ?? 'No updates',
-        );
     }
 
     if (args['caddy'] || args['caddy-plugins']) {
@@ -64,20 +53,6 @@ const main = async () => {
 
     if (args['komf']) {
         console.log(runNixUpdate('komf') ?? 'No updates');
-    }
-
-    if (args['material-rounded-theme']) {
-        console.log(
-            runNixUpdate(
-                'scopedPackages',
-                'lovelace-components',
-                'material-rounded-theme',
-            ) ?? 'No updates',
-        );
-    }
-
-    if (args['netdaemon']) {
-        console.log(updateNetDaemon() ?? 'No updates');
     }
 
     if (args['nix-serve-ng']) {
@@ -124,10 +99,6 @@ const main = async () => {
             console.log(dockerOutput ?? 'No updates');
         }
 
-        const netdaemonOutput = updateNetDaemon();
-
-        console.log(netdaemonOutput ?? 'No updates');
-
         const nodeModulesOutput = await updateNodeModules();
 
         console.log(nodeModulesOutput ?? 'No updates');
@@ -170,16 +141,6 @@ const main = async () => {
         updatePackage('protonhax');
         updatePackage('some-sass-language-server');
         updatePackage('trash-d');
-        updatePackage(
-            'scopedPackages',
-            'lovelace-components',
-            'custom-sidebar',
-        );
-        updatePackage(
-            'scopedPackages',
-            'lovelace-components',
-            'material-rounded-theme',
-        );
 
         spawnSync(`alejandra -q ${FLAKE}`, [], { shell: true });
 
@@ -215,9 +176,6 @@ const main = async () => {
             output.push(
                 `Caddy Plugins:\n${indentOutput(caddyPluginsOutput)}\n`,
             );
-        }
-        if (netdaemonOutput) {
-            output.push(`NetDaemon:\n${indentOutput(netdaemonOutput)}\n`);
         }
         if (nixServeNgOutput) {
             output.push(`nix-serve-ng:\n${indentOutput(nixServeNgOutput)}\n`);

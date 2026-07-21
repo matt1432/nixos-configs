@@ -22,20 +22,6 @@
     text = ''
       cd "$FLAKE/results" || return
 
-      # TODO: re-enable this when homie is back up
-      # Home-assistant sometimes fails some tests when built with everything else
-      # hass="..#nixosConfigurations.homie.config.services.home-assistant.package"
-      # i=0
-
-      # while ! nom build --no-link "$hass"; do
-      #     echo "Retrying to build home-assistant"
-      #     i=$((i+1))
-
-      #     if [[ "$i" -ge 5 ]]; then
-      #         break
-      #     fi
-      # done
-
       exec nix-fast-build \
           --eval-workers 6 \
           --eval-max-memory-size 3072 \
@@ -93,14 +79,14 @@ in {
       };
 
       script = ''
-        cd /tmp
+        cd /tmp || return
 
         if [[ -d ./nix-clone ]]; then
             rm -r ./nix-clone
         fi
 
         git clone https://git.nelim.org/matt1432/nixos-configs.git nix-clone
-        cd nix-clone
+        cd nix-clone || return
 
         nix-fast-build -f .#nixFastChecks.all
 

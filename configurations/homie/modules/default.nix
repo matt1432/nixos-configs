@@ -1,6 +1,0 @@
-{...}: {
-  imports = [
-    ./home-assistant
-    ./music
-  ];
-}

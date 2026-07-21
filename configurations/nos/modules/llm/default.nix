@@ -1,44 +1,12 @@
 {
   mainUser,
   pkgs,
-  self,
   ...
 }: let
   tailscaleIP = "100.64.0.4";
 in {
-  imports = [self.nixosModules.wyoming-plus];
-
   # In case tailscale is down
   boot.kernel.sysctl."net.ipv4.ip_nonlocal_bind" = 1;
-
-  services = {
-    # Speech-to-Text
-    /*
-      wyoming.faster-whisper.servers."en" = {
-      # TODO: re-enable this when homie is back up
-      enable = false;
-      uri = "tcp://${tailscaleIP}:10300";
-
-      # see https://github.com/rhasspy/wyoming-faster-whisper/releases/tag/v2.0.0
-      model = "medium";
-      language = "en";
-      device = "cuda";
-    };
-
-    # Text-to-Intent
-    ollama = {
-      # TODO: re-enable this when homie is back up
-      enable = false;
-      package = pkgs.ollama-cuda;
-
-      host = tailscaleIP;
-      port = 11434;
-
-      loadModels = ["mistral-nemo"];
-      environmentVariables.OLLAMA_DEBUG = "1";
-    };
-    */
-  };
 
   # https://github.com/rwade628/dot.nix/blob/b39596f26d615e9bf493989c599590f3092d8ab0/modules/nixos/services/ai.nix
   environment.etc."llama-templates/openai-gpt-oss-20b.jinja".source = pkgs.fetchurl {

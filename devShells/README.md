@@ -14,7 +14,6 @@ This directory contains every derivations for devShells exposed by this flake.
 | `kotlin` | kotlin shell to be loaded by my Neovim config dynamically. |
 | `lua` | lua shell to be loaded by my Neovim config dynamically. |
 | `markdown` | markdown shell to be loaded by my Neovim config dynamically. |
-| `netdaemon` | Shell that makes sure we have the right dotnet-sdk version for NetDaemon development. |
 | `node` | Shell that provides `bumpNpmDeps`, node and typescript. |
 | `ocaml` | ocaml shell to be loaded by my Neovim config dynamically. |
 | `python` | python shell to be loaded by my Neovim config dynamically. |

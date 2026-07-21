@@ -37,7 +37,6 @@ in {
       clusterIP = (head config.services.pcsd.virtualIps).ip;
       nosIP = "10.0.0.121";
       serviviIP = "10.0.0.249";
-      homieIP = "100.64.0.10";
 
       tlsConf = ''
         tls {
@@ -56,7 +55,6 @@ in {
         // (removeAttrs extraConf ["extraConfig"]);
     in {
       # Public
-      "Home-Assistant" = mkPublicReverseProxy "homie" "${homieIP}:8123" {};
       "Vaultwarden" = mkPublicReverseProxy "vault" "${nosIP}:8781" {};
       "Hauk" = mkPublicReverseProxy "hauk" "${nosIP}:3003" {};
       "Headscale" = mkPublicReverseProxy "headscale" "${clusterIP}:8085" {};
@@ -115,7 +113,6 @@ in {
         ];
 
         subDomains = {
-          esphome.reverseProxy = "${homieIP}:6052";
           pr-tracker.reverseProxy = "${serviviIP}:3000";
 
           pcsd = {

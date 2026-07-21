@@ -128,22 +128,6 @@
         "type": "github"
       }
     },
-    "caule-themes-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1696467225,
-        "narHash": "sha256-biNz3ZO3nFfEgchoPu9M3lXiTj9BDxkUaZiCNq0Jy8M=",
-        "owner": "ricardoquecria",
-        "repo": "caule-themes-pack-1",
-        "rev": "0ec8a4b7acf63d8618bcf2fdd968d6256e998acb",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ricardoquecria",
-        "repo": "caule-themes-pack-1",
-        "type": "github"
-      }
-    },
     "curseforge-server-downloader-src": {
       "flake": false,
       "locked": {
@@ -157,22 +141,6 @@
       "original": {
         "owner": "Malpiszonekx4",
         "repo": "curseforge-server-downloader",
-        "type": "github"
-      }
-    },
-    "custom-sidebar-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1783984531,
-        "narHash": "sha256-T7kI8DlWJTv3AyWGfIa1zrTmnQAoVxgRVbeVHNvl00g=",
-        "owner": "elchininet",
-        "repo": "custom-sidebar",
-        "rev": "1666e8b0d9debe7bbfd702bcef5e3ad2a2022415",
-        "type": "github"
-      },
-      "original": {
-        "owner": "elchininet",
-        "repo": "custom-sidebar",
         "type": "github"
       }
     },
@@ -217,22 +185,6 @@
         "type": "github"
       }
     },
-    "dracul-ha-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1710105609,
-        "narHash": "sha256-nmGYMwZF8GDWi83BgGG9xEolxnvJK4qS8ya/hFwynSg=",
-        "owner": "berti24",
-        "repo": "dracul-ha",
-        "rev": "ce7a07d8c287762ab2bda6d9132e6ac4aab8e52e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "berti24",
-        "repo": "dracul-ha",
-        "type": "github"
-      }
-    },
     "dracula-plymouth-src": {
       "flake": false,
       "locked": {
@@ -262,22 +214,6 @@
       "original": {
         "owner": "Eisa01",
         "repo": "mpv-scripts",
-        "type": "github"
-      }
-    },
-    "extended-ollama-conversation-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1722207930,
-        "narHash": "sha256-WF54xX9DF8QJf7kZtsDyCSZRR6ktm6gNpI7WqKSIjZY=",
-        "owner": "TheNimaj",
-        "repo": "extended_ollama_conversation",
-        "rev": "d8ea4190e75b9f8127cd55403e775dd47dd2b79b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "TheNimaj",
-        "repo": "extended_ollama_conversation",
         "type": "github"
       }
     },
@@ -1157,22 +1093,6 @@
         "type": "github"
       }
     },
-    "material-symbols-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1784170908,
-        "narHash": "sha256-Z4YO/2H1N5lnpiRHByANpjn2vutKcZud0uBoIh40IdI=",
-        "owner": "beecho01",
-        "repo": "material-symbols",
-        "rev": "5c3a9d04bf1da5e0f81f6a6157f9b5eb6b5b5299",
-        "type": "github"
-      },
-      "original": {
-        "owner": "beecho01",
-        "repo": "material-symbols",
-        "type": "github"
-      }
-    },
     "minix": {
       "inputs": {
         "curseforge-server-downloader-src": "curseforge-server-downloader-src",
@@ -1259,22 +1179,6 @@
       "original": {
         "type": "git",
         "url": "https://git.nelim.org/matt1432/pub-images.git"
-      }
-    },
-    "netdaemon-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1733943150,
-        "narHash": "sha256-/4hNvihCkS4jOSLWO146EG1wBgkBIdObZg3sLNsWfMM=",
-        "owner": "net-daemon",
-        "repo": "integration",
-        "rev": "2781bf156761a9e3818c710f1240982af1e9f4d9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "net-daemon",
-        "repo": "integration",
-        "type": "github"
       }
     },
     "nix-eval-jobs": {
@@ -1658,14 +1562,10 @@
         "astal": "astal",
         "bat-theme-src": "bat-theme-src",
         "bazarr-bulk": "bazarr-bulk",
-        "caule-themes-src": "caule-themes-src",
-        "custom-sidebar-src": "custom-sidebar-src",
         "determinate-nix": "determinate-nix",
         "docker-compose": "docker-compose",
-        "dracul-ha-src": "dracul-ha-src",
         "dracula-plymouth-src": "dracula-plymouth-src",
         "eisa-scripts-src": "eisa-scripts-src",
-        "extended-ollama-conversation-src": "extended-ollama-conversation-src",
         "flake-compat": "flake-compat_2",
         "flake-parts": "flake-parts",
         "flake-utils": "flake-utils",
@@ -1687,13 +1587,11 @@
         "letterboxdpy-src": "letterboxdpy-src",
         "lib-aggregate": "lib-aggregate",
         "libratbag-src": "libratbag-src",
-        "material-symbols-src": "material-symbols-src",
         "minix": "minix",
         "mpv-persist-properties-src": "mpv-persist-properties-src",
         "mpv-pointer-event-src": "mpv-pointer-event-src",
         "mpv-touch-gestures-src": "mpv-touch-gestures-src",
         "my-images-src": "my-images-src",
-        "netdaemon-src": "netdaemon-src",
         "nix-eval-jobs": "nix-eval-jobs",
         "nix-gaming": "nix-gaming",
         "nix-github-actions": "nix-github-actions",
@@ -1711,24 +1609,18 @@
         "pre-commit-hooks": "pre-commit-hooks",
         "secrets": "secrets",
         "sioyek-theme-src": "sioyek-theme-src",
-        "smartinspect-src": "smartinspect-src",
         "sops-nix": "sops-nix",
-        "spotifyplus-src": "spotifyplus-src",
-        "spotifywebapi-src": "spotifywebapi-src",
         "subscleaner-src": "subscleaner-src",
         "systems": "systems",
         "touchpos": "touchpos",
         "treefmt-nix": "treefmt-nix",
         "ts-for-gir-src": "ts-for-gir-src",
-        "tuya-local-src": "tuya-local-src",
         "vimplugin-easytables-src": "vimplugin-easytables-src",
         "vimplugin-gitsigns-src": "vimplugin-gitsigns-src",
         "vimplugin-nix-develop-src": "vimplugin-nix-develop-src",
         "vimplugin-otter-src": "vimplugin-otter-src",
         "vimplugin-roslyn-src": "vimplugin-roslyn-src",
-        "virtualkeyboard-adapter": "virtualkeyboard-adapter",
-        "wakewords-src": "wakewords-src",
-        "yamaha-soundbar-src": "yamaha-soundbar-src"
+        "virtualkeyboard-adapter": "virtualkeyboard-adapter"
       }
     },
     "secrets": {
@@ -1741,11 +1633,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781633468,
-        "narHash": "sha256-hnQ8gBHJSgX/9jFcv1QAcraABjZ5g6wFHzmiAeCt3/4=",
+        "lastModified": 1784656331,
+        "narHash": "sha256-SeohOMqtoIvKN1g+eCD8LYbFWBEsqRd2VzK8/2hewCg=",
         "ref": "refs/heads/main",
-        "rev": "bbd36699e5b6390a43becd75b37c34dfce7f76e9",
-        "revCount": 120,
+        "rev": "6658072588e5a886e6bd2fc1d692e9905eb54c2f",
+        "revCount": 122,
         "type": "git",
         "url": "ssh://git@git.nelim.org/matt1432/nixos-secrets"
       },
@@ -1787,22 +1679,6 @@
         "type": "github"
       }
     },
-    "smartinspect-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1754158552,
-        "narHash": "sha256-Ix0yCElcML/FIMyn4W3L+t8PTV2XpDTKif6vbvddaKg=",
-        "owner": "thlucas1",
-        "repo": "SmartInspectPython",
-        "rev": "84385d58772701b5a6c07b160a1413580bb304fa",
-        "type": "github"
-      },
-      "original": {
-        "owner": "thlucas1",
-        "repo": "SmartInspectPython",
-        "type": "github"
-      }
-    },
     "sops-nix": {
       "inputs": {
         "nixpkgs": [
@@ -1820,38 +1696,6 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
-        "type": "github"
-      }
-    },
-    "spotifyplus-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1784056605,
-        "narHash": "sha256-pgIoYajcdLY8ii2sdooIQogzkoAUSMOlZ/KZdHu7utA=",
-        "owner": "thlucas1",
-        "repo": "homeassistantcomponent_spotifyplus",
-        "rev": "a761e1216ccc8fc230cbd5f512e6a1f2b21a15fc",
-        "type": "github"
-      },
-      "original": {
-        "owner": "thlucas1",
-        "repo": "homeassistantcomponent_spotifyplus",
-        "type": "github"
-      }
-    },
-    "spotifywebapi-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1784056103,
-        "narHash": "sha256-P10fc3jxrOZlySSDBf9X6HRqmavr7zT7WTAcZbcxP1s=",
-        "owner": "thlucas1",
-        "repo": "SpotifyWebApiPython",
-        "rev": "8bb3d6e2f0cde48c7dde27f689b5cacc5c1d9533",
-        "type": "github"
-      },
-      "original": {
-        "owner": "thlucas1",
-        "repo": "SpotifyWebApiPython",
         "type": "github"
       }
     },
@@ -1942,22 +1786,6 @@
       "original": {
         "owner": "gjsify",
         "repo": "ts-for-gir",
-        "type": "github"
-      }
-    },
-    "tuya-local-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1784211334,
-        "narHash": "sha256-vZXlOTuTMQ1z57mhrB980OYIrklrqdYBTwgSdrA64/U=",
-        "owner": "make-all",
-        "repo": "tuya-local",
-        "rev": "a53148b75e07acd910995ce7483e96abc72d6313",
-        "type": "github"
-      },
-      "original": {
-        "owner": "make-all",
-        "repo": "tuya-local",
         "type": "github"
       }
     },
@@ -2062,22 +1890,6 @@
         "type": "github"
       }
     },
-    "wakewords-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1768321690,
-        "narHash": "sha256-DcWmfrlpX1xV6wN5pndhC4i8ZTCwjjrv4twze40wVjk=",
-        "owner": "fwartner",
-        "repo": "home-assistant-wakewords-collection",
-        "rev": "8bcd2f20bb7b76c351b2eff871fa1ce873fe9be2",
-        "type": "github"
-      },
-      "original": {
-        "owner": "fwartner",
-        "repo": "home-assistant-wakewords-collection",
-        "type": "github"
-      }
-    },
     "xdph": {
       "inputs": {
         "hyprland-protocols": [
@@ -2116,22 +1928,6 @@
       "original": {
         "owner": "hyprwm",
         "repo": "xdg-desktop-portal-hyprland",
-        "type": "github"
-      }
-    },
-    "yamaha-soundbar-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1776870922,
-        "narHash": "sha256-n9Zd2WgdKLRAB07eyetP0xgDYSjlg1kbnbFKevzfCT4=",
-        "owner": "osk2",
-        "repo": "yamaha-soundbar",
-        "rev": "b030154b9d0b8fb8e6e65b04dcd799d002e20258",
-        "type": "github"
-      },
-      "original": {
-        "owner": "osk2",
-        "repo": "yamaha-soundbar",
         "type": "github"
       }
     }

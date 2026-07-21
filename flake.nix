@@ -36,18 +36,6 @@
       repo = "bazarr-bulk";
       type = "github";
     };
-    caule-themes-src = {
-      flake = false;
-      owner = "ricardoquecria";
-      repo = "caule-themes-pack-1";
-      type = "github";
-    };
-    custom-sidebar-src = {
-      flake = false;
-      owner = "elchininet";
-      repo = "custom-sidebar";
-      type = "github";
-    };
     determinate-nix = {
       inputs = {
         flake-parts.follows = "flake-parts";
@@ -62,12 +50,6 @@
       repo = "nixos-docker-compose";
       type = "github";
     };
-    dracul-ha-src = {
-      flake = false;
-      owner = "berti24";
-      repo = "dracul-ha";
-      type = "github";
-    };
     dracula-plymouth-src = {
       flake = false;
       owner = "matt1432";
@@ -78,12 +60,6 @@
       flake = false;
       owner = "Eisa01";
       repo = "mpv-scripts";
-      type = "github";
-    };
-    extended-ollama-conversation-src = {
-      flake = false;
-      owner = "TheNimaj";
-      repo = "extended_ollama_conversation";
       type = "github";
     };
     flake-compat = {
@@ -249,12 +225,6 @@
       repo = "libratbag";
       type = "github";
     };
-    material-symbols-src = {
-      flake = false;
-      owner = "beecho01";
-      repo = "material-symbols";
-      type = "github";
-    };
     minix = {
       inputs = {
         nixpkgs.follows = "nixpkgs";
@@ -286,12 +256,6 @@
       flake = false;
       type = "git";
       url = "https://git.nelim.org/matt1432/pub-images.git";
-    };
-    netdaemon-src = {
-      flake = false;
-      owner = "net-daemon";
-      repo = "integration";
-      type = "github";
     };
     nix-eval-jobs = {
       inputs = {
@@ -427,28 +391,10 @@
       repo = "sioyek";
       type = "github";
     };
-    smartinspect-src = {
-      flake = false;
-      owner = "thlucas1";
-      repo = "SmartInspectPython";
-      type = "github";
-    };
     sops-nix = {
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "Mic92";
       repo = "sops-nix";
-      type = "github";
-    };
-    spotifyplus-src = {
-      flake = false;
-      owner = "thlucas1";
-      repo = "homeassistantcomponent_spotifyplus";
-      type = "github";
-    };
-    spotifywebapi-src = {
-      flake = false;
-      owner = "thlucas1";
-      repo = "SpotifyWebApiPython";
       type = "github";
     };
     subscleaner-src = {
@@ -481,12 +427,6 @@
       flake = false;
       owner = "gjsify";
       repo = "ts-for-gir";
-      type = "github";
-    };
-    tuya-local-src = {
-      flake = false;
-      owner = "make-all";
-      repo = "tuya-local";
       type = "github";
     };
     vimplugin-easytables-src = {
@@ -524,18 +464,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       owner = "horriblename";
       repo = "fcitx-virtualkeyboard-adapter";
-      type = "github";
-    };
-    wakewords-src = {
-      flake = false;
-      owner = "fwartner";
-      repo = "home-assistant-wakewords-collection";
-      type = "github";
-    };
-    yamaha-soundbar-src = {
-      flake = false;
-      owner = "osk2";
-      repo = "yamaha-soundbar";
       type = "github";
     };
   };
