@@ -57,10 +57,10 @@
   };
   "floccus" = buildMozillaXpiAddon {
     pname = "floccus";
-    version = "5.10.1";
+    version = "5.10.2";
     addonId = "floccus@handmadeideas.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4887521/floccus-5.10.1.xpi";
-    sha256 = "ff42ae958319b2f33deeddd020bd91f22b57a6f382040f72f1273a439d5b2136";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4905907/floccus-5.10.2.xpi";
+    sha256 = "e84bc56c4e1bfc3cc3aec2a74003c9955ab8f55a3f51394754d2c773afe4f483";
     meta = with lib; {
       homepage = "https://floccus.org";
       description = "Securely synchronize bookmarks across Chrome, Firefox, Edge, and more using your own cloud storage.";
@@ -185,10 +185,10 @@
   };
   "stylus" = buildMozillaXpiAddon {
     pname = "stylus";
-    version = "2.4.6";
+    version = "2.4.8";
     addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4899605/styl_us-2.4.6.xpi";
-    sha256 = "6954080952bf11dae66d9d46cf739ba98966c62d52ab8ae5d8884d1e620c7428";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4907275/styl_us-2.4.8.xpi";
+    sha256 = "455426890a38bd3ee511000112ece51675f8bbc21e988be2170c3ae6900cbedf";
     meta = with lib; {
       homepage = "https://add0n.com/stylus.html";
       description = "Redesign your favorite websites with Stylus, an actively developed and community driven userstyles manager. Easily install custom themes from popular online repositories, or create, edit, and manage your own personalized CSS stylesheets.";
