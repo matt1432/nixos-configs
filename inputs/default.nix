@@ -185,9 +185,6 @@ let
       hyprland = mkInput {
         owner = "hyprwm";
         repo = "Hyprland";
-
-        # FIXME: imports are broken for hyprexpo on latest
-        rev = "34fddc949042e45d22bed6cbe72f9a9c838914fa";
       };
 
       hyprexpo-src = mkInput {
@@ -202,9 +199,6 @@ let
         url = "https://github.com/horriblename/hyprgrass";
         shallow = true;
         submodules = true;
-
-        # FIXME: imports are broken for hyprexpo on latest hyprland
-        rev = "230495900cef1a5681bf8f8abf797939d1d64c1b";
       };
 
       touchpos = mkHyprDep {

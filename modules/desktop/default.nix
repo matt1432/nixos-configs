@@ -40,6 +40,7 @@ in {
 
     nixpkgs.overlays = [
       self.inputs."hyprland".overlays.hyprland-packages
+      self.inputs."hyprland".overlays.hyprland-extras # for xdph
 
       (final: prev: {
         hyprlandPlugins =
