@@ -12,6 +12,7 @@
 result*
 !results/
 .nixd.json
+modules/desktop/.luarc.json
 
 ## AGS
 **/vars.ts

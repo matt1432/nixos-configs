@@ -4,17 +4,28 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib) mkIf removePrefix;
   inherit (pkgs.writers) writeJSON;
 
   cfg = osConfig.roles.desktop;
+
+  flakeDir = osConfig.environment.variables.FLAKE;
+  hyprConfigDir = "${removePrefix "/home/${cfg.user}/" flakeDir}/modules/desktop";
 
   clangdConf = writeJSON "clangd-hypr-conf" {
     CompileFlags.Add = ["-D__cpp_concepts=202002L"];
   };
 in {
-  # https://wiki.hyprland.org/Contributing-and-Debugging/#lsp-and-formatting
   config = mkIf cfg.enable {
+    home.file."${hyprConfigDir}/.luarc.json".source = writeJSON ".luarc.json" {
+      "$schema" = "https://raw.githubusercontent.com/LuaLS/vscode-lua/master/setting/schema.json";
+      "diagnostics.disable" = ["trailing-space"];
+      workspace.library = [
+        "${osConfig.programs.hyprland.package}/share/hypr/stubs"
+      ];
+    };
+
+    # https://wiki.hyprland.org/Contributing-and-Debugging/#lsp-and-formatting
     home.packages = [
       (pkgs.writeShellApplication {
         name = "setupDev";
