@@ -59,7 +59,7 @@ in {
             map mkExecOnce [
               # lua
               ''
-                hl.dsp.focus({ monitor = "${cfg.mainMonitor}" })
+                hl.exec_cmd("hyprctl dispatch 'hl.dsp.focus({monitor=\"${cfg.mainMonitor}\"})'")
               ''
             ]
           else [];
