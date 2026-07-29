@@ -17,35 +17,28 @@
     .hyprland
     .finalPackage;
 
-  # Show Regreet on all monitors
+  # Show greeter on all monitors
   dupeMonitors = pkgs.writeShellApplication {
     name = "dupeMonitors";
     runtimeInputs = [hyprland pkgs.jq];
     text = ''
       main="${cfg.mainMonitor}"
-      names="($(hyprctl -j monitors | jq -r '.[] .description'))"
+      mapfile -t names < <(hyprctl -j monitors | jq -r '.[] .name')
 
       if [[ "$main" == "null" ]]; then
           main="''${names[0]}"
       fi
 
       for (( i=0; i<''${#names[@]}; i++ )); do
-
-          # shellcheck disable=SC2001
-          name=$(echo "''${names[$i]}" | sed 's/.*(\(.*\))/\1/')
-          # shellcheck disable=SC2001
-          desc=$(echo "''${names[$i]}" | sed 's/ (.*//')
+          name="''${names[$i]}"
+          desc=$(hyprctl -j monitors | jq -r '.[] | select(.name == "'"''${names[$i]}"'") | .description')
 
           if [[ "$name" != "$main" && "desc:$desc" != "$main" ]]; then
-              # FIXME: replace this with lua equivalent and check if rest of script works
-              hyprctl keyword monitor "$name",preferred,auto,1,mirror,"$main"
+                hyprctl eval 'hl.monitor({output="'"$name"'",mode="preferred",position="auto",scale=1,mirror="'"$main"'"})'
           fi
       done
 
-      dispatch='hl.dsp.focus({ monitor = "'
-      dispatch+="$main"
-      dispatch+='"})'
-      hyprctl dispatch "$dispatch"
+      hyprctl dispatch 'hl.dsp.focus({ monitor = "'"$main"'"})'
     '';
   };
   # Check if user wants the greeter only on main monitor
