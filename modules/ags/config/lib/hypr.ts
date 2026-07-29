@@ -94,5 +94,5 @@ export const centerCursor = (): void => {
             break;
     }
 
-    hyprMessage(`dispatch movecursor ${x} ${y}`);
+    hyprMessage(`dispatch hl.dsp.cursor.move({x=${x},y=${y}})`);
 };

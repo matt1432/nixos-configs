@@ -61,7 +61,7 @@ export class PopupWindow extends Astal.Window {
 
         const setTransition = (_: PopupWindow, t: HyprTransition) => {
             hyprMessage(
-                `keyword layerrule animation ${t}, match:namespace ${this.name}`,
+                `eval hl.layer_rule({animation="${t}",match={namespace="${this.name}"}})`,
             ).catch(console.log);
         };
 

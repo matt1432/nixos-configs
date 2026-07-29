@@ -45,7 +45,7 @@ const PowermenuWidget = () => {
                     (self.get_parent()?.get_parent() as Astal.Stack).set_shown(
                         'message',
                     );
-                    hyprMessage('dispatch exit').catch(print);
+                    hyprMessage('dispatch hl.dsp.exit()').catch(print);
                 }}
             >
                 <icon icon="system-log-out-symbolic" />

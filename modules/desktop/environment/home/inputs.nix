@@ -3,7 +3,7 @@ self: {
   lib,
   ...
 }: let
-  inherit (self.lib.hypr) mkBind;
+  inherit (self.lib.hypr) mkBind mkExecOnce;
 
   inherit (lib) mkIf;
 
@@ -27,51 +27,75 @@ in {
       settings = {
         device = map mkConf miceNames;
 
-        cursor = {
-          no_hardware_cursors = osConfig.nvidia.enable;
-          hide_on_touch = true;
-        };
+        config = {
+          cursor = {
+            no_hardware_cursors = osConfig.nvidia.enable;
+            hide_on_touch = true;
+          };
 
-        exec-once =
-          if cfg.mainMonitor != null
-          then ["hyprctl dispatch focusmonitor ${cfg.mainMonitor}"]
-          else [];
+          input = {
+            # Keyboard
+            kb_layout = xkb.layout;
+            kb_variant = xkb.variant;
+            numlock_by_default = true;
+            repeat_rate = 25;
 
-        input = {
-          # Keyboard
-          kb_layout = xkb.layout;
-          kb_variant = xkb.variant;
-          numlock_by_default = true;
-          repeat_rate = 25;
+            # Mouse
+            follow_mouse = true;
 
-          # Mouse
-          follow_mouse = true;
-
-          # Touchpad
-          touchpad = {
-            natural_scroll = true;
-            disable_while_typing = false;
-            drag_lock = true;
-            tap-and-drag = true;
+            # Touchpad
+            touchpad = {
+              natural_scroll = true;
+              disable_while_typing = false;
+              drag_lock = true;
+              tap_and_drag = true;
+            };
           };
         };
 
+        on =
+          if cfg.mainMonitor != null
+          then
+            map mkExecOnce [
+              # lua
+              ''
+                hl.dsp.focus({ monitor = "${cfg.mainMonitor}" })
+              ''
+            ]
+          else [];
+
         bind = map mkBind [
           {
-            key = "XF86AudioPlay";
-            command = "playerctl play-pause";
+            keys = "XF86AudioPlay";
+            dispatcher =
+              # lua
+              ''
+                hl.dsp.exec_cmd("playerctl play-pause")
+              '';
           }
           {
-            key = "XF86AudioStop";
-            command = "playerctl stop";
+            keys = "XF86AudioStop";
+            dispatcher =
+              # lua
+              ''
+                hl.dsp.exec_cmd("playerctl stop")
+              '';
           }
           {
-            key = "XF86AudioNext";
-            command = "playerctl next";
+            keys = "XF86AudioNext";
+            dispatcher =
+              # lua
+              ''
+                hl.dsp.exec_cmd("playerctl next")
+              '';
           }
           {
-            key = "XF86AudioPrev";
-            command = "playerctl previous";
+            keys = "XF86AudioPrev";
+            dispatcher =
+              # lua
+              ''
+                hl.dsp.exec_cmd("playerctl previous")
+              '';
           }
         ];
       };

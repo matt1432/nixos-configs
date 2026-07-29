@@ -4,7 +4,7 @@ self: {
   pkgs,
   ...
 }: let
-  inherit (self.lib.hypr) mkBind;
+  inherit (self.lib.hypr) mkBind mkExecOnce;
 
   inherit (lib) getExe mkBefore mkIf optionalAttrs;
 
@@ -30,7 +30,10 @@ self: {
 
       run() {
           export HYPRLAND_INSTANCE_SIGNATURE="$1"
-          sudo -Eu ${cfg.user} hyprctl dispatch exec "''${params[@]}"
+          cmd='hl.exec_cmd("'
+          cmd+=''${params[*]}
+          cmd+='")'
+          sudo -Eu ${cfg.user} hyprctl dispatch "$cmd"
       }
 
       i=0
@@ -94,25 +97,37 @@ in {
       ];
 
       wayland.windowManager.hyprland.settings = {
-        exec-once = mkBefore [
-          "${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1"
-        ];
+        on = mkBefore (map mkExecOnce [
+          # lua
+          ''
+            hl.exec_cmd("${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1")
+          ''
+        ]);
 
-        windowrule = [
-          "float on      , match:class ^(org.kde.polkit-kde-authentication-agent-1)$"
-          "size 741 288  , match:class ^(org.kde.polkit-kde-authentication-agent-1)$"
-          "move -50% -50%, match:class ^(org.kde.polkit-kde-authentication-agent-1)$"
+        window_rule = [
+          {
+            match.class = "^(org.kde.polkit-kde-authentication-agent-1)$";
+            float = true;
+            size = "741 288";
+            move = "-50% -50%";
+          }
 
           # For GParted auth
-          "size 741 288         , match:class ^(ssh-askpass)$"
-          "move cursor -370 -144, match:class ^(ssh-askpass)$"
+          {
+            match.class = "^(ssh-askpass)$";
+            size = "741 288";
+            move = "cursor -370 -144";
+          }
         ];
 
         bind = map mkBind [
           {
-            modifier = "$mainMod";
-            key = "L";
-            command = getExe lockPkg;
+            keys = "SUPER + L";
+            dispatcher =
+              # lua
+              ''
+                hl.dsp.exec_cmd("${getExe lockPkg}")
+              '';
           }
         ];
       };

@@ -37,17 +37,21 @@
           desc=$(echo "''${names[$i]}" | sed 's/ (.*//')
 
           if [[ "$name" != "$main" && "desc:$desc" != "$main" ]]; then
+              # FIXME: replace this with lua equivalent and check if rest of script works
               hyprctl keyword monitor "$name",preferred,auto,1,mirror,"$main"
           fi
       done
 
-      hyprctl dispatch focusmonitor "$main"
+      dispatch='hl.dsp.focus({ monitor = "'
+      dispatch+="$main"
+      dispatch+='"})'
+      hyprctl dispatch "$dispatch"
     '';
   };
   # Check if user wants the greeter only on main monitor
 in {
   setupMonitors =
     if (cfg.mainMonitor != "null" && !cfg.displayManager.duplicateScreen)
-    then "hyprctl dispatch focusmonitor ${cfg.mainMonitor}"
+    then "hyprctl dispatch 'hl.dsp.focus({ monitor = \"${cfg.mainMonitor}\" })'"
     else getExe dupeMonitors;
 }

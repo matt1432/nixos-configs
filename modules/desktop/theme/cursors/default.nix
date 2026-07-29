@@ -4,6 +4,8 @@ self: {
   pkgs,
   ...
 }: let
+  inherit (self.lib.hypr) mkExecOnce;
+
   inherit (pkgs.scopedPackages) dracula;
 
   inherit (lib) mkIf;
@@ -24,8 +26,11 @@ in {
 
     # Fixes Gtk4 apps complaining about mismatched cursor size
     wayland.windowManager.hyprland.settings = {
-      exec-once = [
-        "gsettings set org.gnome.desktop.interface cursor-size 30"
+      on = map mkExecOnce [
+        # lua
+        ''
+          hl.exec_cmd("gsettings set org.gnome.desktop.interface cursor-size 30")
+        ''
       ];
     };
   };

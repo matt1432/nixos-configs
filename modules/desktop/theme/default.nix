@@ -19,16 +19,25 @@ in {
   config = mkIf cfg.enable {
     wayland.windowManager.hyprland = {
       settings = {
-        windowrule = [
-          "size 1231 950, match:title ^(Open Folder)$"
-          "float on     , match:title ^(Open Folder)$"
+        window_rule = [
+          {
+            match.title = "^(Open Folder)$";
+            size = "1231 950";
+            float = true;
+          }
 
-          "size 1231 950, match:title ^(Open File)$"
-          "float on     , match:title ^(Open File)$"
+          {
+            match.title = "^(Open File)$";
+            size = "1231 950";
+            float = true;
+          }
         ];
 
-        layerrule = [
-          "no_anim on, match:namespace selection"
+        layer_rule = [
+          {
+            match.namespace = "selection";
+            no_anim = true;
+          }
         ];
       };
     };

@@ -4,10 +4,10 @@ self: {
   pkgs,
   ...
 }: let
-  inherit (self.lib.hypr) mkBind;
+  inherit (self.lib.hypr) mkBind mkExecOnce;
   inherit (self.inputs) nixcord;
 
-  inherit (lib) attrValues getExe mkIf optionalAttrs optionals;
+  inherit (lib) attrValues getExe mkIf optionalAttrs optionals optionalString;
   inherit (pkgs.writers) writeTOML;
 
   cfg = config.roles.desktop;
@@ -257,83 +257,127 @@ in {
 
       wayland.windowManager.hyprland = {
         settings = {
-          exec-once =
+          on = map mkExecOnce [
+            # lua
+            ''
+              hl.exec_cmd("${config.programs.kdeconnect.package}/libexec/kdeconnectd")
+              hl.exec_cmd("kdeconnect-indicator")
+
+              hl.exec_cmd("wl-paste --watch cliphist store")
+
+              -- sleep to wait until system tray is started
+              hl.exec_cmd("sleep 3; nextcloud --background")
+
+              hl.exec_cmd("sleep 10; proton-mail", { workspace = "special:protonmail silent" })
+              hl.exec_cmd("spotify", { workspace = "special:spot silent" })
+
+              ${optionalString config.services.tailscale.enable "hl.exec_cmd(\"sleep 3; ${getExe restartTailscale}\")"}
+              ${optionalString cfg.easyeffects.enable "hl.exec_cmd(\"sleep 3; easyeffects --hide-window\")"}
+            ''
+          ];
+
+          window_rule =
             [
-              "${config.programs.kdeconnect.package}/libexec/kdeconnectd"
-              "kdeconnect-indicator"
-
-              "wl-paste --watch cliphist store"
-
-              # sleep to wait until system tray is started
-              "sleep 3; nextcloud --background"
-
-              "[workspace special:protonmail silent] sleep 10; proton-mail"
-              "[workspace special:spot silent] spotify"
-            ]
-            ++ optionals config.services.tailscale.enable [
-              "sleep 3; ${getExe restartTailscale}"
-            ]
-            ++ optionals cfg.easyeffects.enable [
-              # sleep to wait until system tray is started
-              "sleep 3; easyeffects --hide-window"
-            ];
-
-          windowrule =
-            [
-              "tile on      , match:class ^(libreoffice)$"
-              "float on     , match:class ^(org.gnome.Calculator)$"
-              "float on     , match:class ^(com.gabm.satty)$"
-              "size 1000 700, match:class ^(com.gabm.satty)$"
-
-              "float on       , match:class ^(com.nextcloud.desktopclient.nextcloud)$"
-              "size 400 581   , match:class ^(com.nextcloud.desktopclient.nextcloud)$"
-              "move move 50 80, match:class ^(com.nextcloud.desktopclient.nextcloud)$"
-
-              "workspace special:protonmail silent, match:class ^(Proton Mail)$"
-              "workspace special:spot silent, match:class ^(spotify)$"
+              {
+                match.class = "^(libreoffice)$";
+                float = false;
+              }
+              {
+                match.class = "^(org.gnome.Calculator)$";
+                float = true;
+              }
+              {
+                match.class = "^(com.gabm.satty)$";
+                float = true;
+                size = "1000 700";
+              }
+              {
+                match.class = "^(com.nextcloud.desktopclient.nextcloud)$";
+                float = true;
+                size = "400 581";
+                move = "move 50 80";
+              }
+              {
+                match.class = "^(Proton Mail)$";
+                workspace = "special:protonmail silent";
+              }
+              {
+                match.class = "^(spotify)$";
+                workspace = "special:spot silent";
+              }
             ]
             ++ optionals isNvidia [
-              "workspace 1 silent, match:class ^(discord)$"
-              "workspace 2 silent, match:class ^(steam)$"
-              "workspace 2 silent, match:class ^(steam_app_.*)$"
-              "fullscreen on     , match:class ^(steam_app_.*)$"
+              {
+                match.class = "^(discord)$";
+                workspace = "1 silent";
+              }
+              {
+                match.class = "^(steam)$";
+                workspace = "2 silent";
+              }
+              {
+                match.class = "^(steam_app_.*)$";
+                workspace = "2 silent";
+                fullscreen = true;
+              }
             ];
 
-          workspace = optionals isNvidia [
-            "1, monitor:desc:GIGA-BYTE TECHNOLOGY CO. LTD. G27QC 0x00000B1D, default:true"
-            "2, monitor:${cfg.mainMonitor}, default:true"
+          workspace_rule = optionals isNvidia [
+            {
+              workspace = "1";
+              monitor = "desc:GIGA-BYTE TECHNOLOGY CO. LTD. G27QC 0x00000B1D";
+              default = true;
+            }
+            {
+              workspace = "2";
+              monitor = cfg.mainMonitor;
+              default = true;
+            }
           ];
 
           bind = map mkBind [
             {
-              modifier = "$mainMod";
-              key = "Q";
-              command = "foot";
+              keys = "SUPER + Q";
+              dispatcher =
+                # lua
+                ''
+                  hl.dsp.exec_cmd("foot")
+                '';
             }
 
             {
-              modifier = "$mainMod SHIFT";
-              key = "C";
-              command = "wl-color-picker";
+              keys = "SUPER + SHIFT + C";
+              dispatcher =
+                # lua
+                ''
+                  hl.dsp.exec_cmd("wl-color-picker")
+                '';
             }
 
             {
-              modifier = "$mainMod";
-              key = "P";
-              dispatcher = "togglespecialworkspace";
-              command = "protonmail";
+              keys = "SUPER + P";
+              dispatcher =
+                # lua
+                ''
+                  hl.dsp.workspace.toggle_special("protonmail")
+                '';
             }
             {
-              modifier = "$mainMod";
-              key = "S";
-              dispatcher = "togglespecialworkspace";
-              command = "spot";
+              keys = "SUPER + S";
+              dispatcher =
+                # lua
+                ''
+                  hl.dsp.workspace.toggle_special("spot")
+                '';
             }
 
             {
-              key = "mouse:277";
-              dispatcher = "pass";
-              command = "class:^(discord)$";
+              keys = "mouse:277";
+              dispatcher =
+                # lua
+                ''
+                  hl.dsp.pass({ window = "class:^(discord)$" })
+                '';
             }
           ];
         };

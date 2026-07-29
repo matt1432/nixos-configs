@@ -35,7 +35,6 @@ in {
 
         plugins = [
           {
-            # TOOD: setup debugger https://github.com/mfussenegger/nvim-jdtls#debugger-via-nvim-dap
             plugin = pkgs.vimPlugins.nvim-jdtls;
             type = "lua";
             config = ''

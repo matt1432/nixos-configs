@@ -4,9 +4,9 @@ self: {
   pkgs,
   ...
 }: let
-  inherit (self.lib.hypr) mkAnimation;
+  inherit (self.lib.hypr) mkEnvs mkExecOnce;
 
-  inherit (lib) mkIf optionals;
+  inherit (lib) mkIf optionalAttrs;
 
   inherit (import ./setupMonitors.nix {inherit config pkgs;}) setupMonitors;
 
@@ -33,42 +33,49 @@ in {
 
         package = cfgHypr.finalPackage;
 
-        # TODO: move to lua
-        configType = "hyprlang";
+        configType = "lua";
 
         settings = {
-          inherit (cfgHypr.settings) cursor device ecosystem input misc monitor;
+          inherit (cfgHypr.settings) device monitor;
 
-          envd = optionals (config.nvidia.enable) [
-            "LIBVA_DRIVER_NAME, nvidia"
-            "NVD_BACKEND, direct"
-            "XDG_SESSION_TYPE, wayland"
-            "GBM_BACKEND, nvidia-drm"
-            "__GLX_VENDOR_LIBRARY_NAME, nvidia"
-          ];
+          config = {
+            inherit (cfgHypr.settings.config) cursor ecosystem input misc;
 
-          general.border_size = 0;
+            general.border_size = 0;
 
-          decoration = {
-            blur.enabled = false;
-            shadow.enabled = false;
+            decoration = {
+              blur.enabled = false;
+              shadow.enabled = false;
+            };
           };
 
-          animation = map mkAnimation [
+          env = mkEnvs (optionalAttrs config.nvidia.enable {
+            LIBVA_DRIVER_NAME = "nvidia";
+            XDG_SESSION_TYPE = "wayland";
+            GBM_BACKEND = "nvidia-drm";
+            __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+          });
+
+          animation = [
             {
-              name = "fadeLayersIn";
-              enable = false;
+              leaf = "fadeLayersIn";
+              enabled = false;
             }
             {
-              name = "layers";
-              duration = 4;
+              leaf = "layers";
+              enabled = true;
+              speed = 4;
+              bezier = "default";
               style = "popin";
             }
           ];
 
-          exec-once = [
-            setupMonitors
-            "agsGreeter &> /tmp/ags-greetd.log; hyprctl dispatch exit"
+          on = map mkExecOnce [
+            # lua
+            ''
+              hl.exec_cmd("${setupMonitors}")
+              hl.exec_cmd("agsGreeter &> /tmp/ags-greetd.log; hyprctl dispatch 'hl.dsp.exit()'")
+            ''
           ];
         };
       };

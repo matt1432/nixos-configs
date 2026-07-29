@@ -97,9 +97,9 @@ class Workspace extends Gtk.Revealer {
                         cursor="pointer"
                         tooltip_text={id.toString()}
                         onClickRelease={() => {
-                            hyprMessage(`dispatch workspace ${id}`).catch(
-                                console.log,
-                            );
+                            hyprMessage(
+                                `dispatch hl.dsp.focus({workspace="${id}"})`,
+                            ).catch(console.log);
                         }}
                         $={() => {
                             update(content);

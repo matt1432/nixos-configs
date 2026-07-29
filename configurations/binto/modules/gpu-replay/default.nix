@@ -5,7 +5,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) concatStringsSep getExe hasPrefix removePrefix;
+  inherit (lib) concatStringsSep getExe hasPrefix mkLuaInline removePrefix;
   inherit (pkgs.selfPackages) gpu-screen-recorder;
 
   hyprPkgs = config.home-manager.users.${mainUser}.wayland.windowManager.hyprland.finalPackage;
@@ -93,7 +93,14 @@ in {
     ];
 
     wayland.windowManager.hyprland.settings = {
-      bind = [",F8, exec, ags request 'save-replay'"];
+      bind = [
+        {
+          _args = [
+            "F8"
+            (mkLuaInline ''hl.dsp.exec_cmd("ags request 'save-replay'")'')
+          ];
+        }
+      ];
     };
   };
 }

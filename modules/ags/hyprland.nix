@@ -4,7 +4,7 @@ self: {
   pkgs,
   ...
 }: let
-  inherit (self.lib.hypr) mkAnimation mkBezier mkBind mkLayerRule;
+  inherit (self.lib.hypr) mkBezier mkBind mkExecOnce;
 
   inherit (lib) getExe mkIf;
 
@@ -13,199 +13,252 @@ in {
   config = mkIf cfgDesktop.ags.enable {
     wayland.windowManager.hyprland = {
       settings = {
-        general = {
-          gaps_in = 5;
-          gaps_out = 5;
-          border_size = 0;
-        };
-
-        decoration = {
-          rounding = 12;
-
-          blur = {
-            enabled = true;
-            size = 3;
-            passes = 1;
+        config = {
+          general = {
+            gaps_in = 5;
+            gaps_out = 5;
+            border_size = 0;
           };
 
-          shadow.enabled = false;
+          animations.enabled = true;
+
+          decoration = {
+            rounding = 12;
+
+            blur = {
+              enabled = true;
+              size = 3;
+              passes = 1;
+            };
+
+            shadow.enabled = false;
+          };
+
+          misc.session_lock_xray = true;
         };
 
-        misc.session_lock_xray = true;
-
-        animations = {
-          enabled = true;
-
-          bezier = map mkBezier [
-            {
-              name = "easeInQuart";
-              p0 = [0.895 0.030];
-              p1 = [0.685 0.220];
-            }
-            {
-              name = "easeOutQuart";
-              p0 = [0.165 0.840];
-              p1 = [0.440 1.000];
-            }
-            {
-              name = "easeInOutQuart";
-              p0 = [0.770 0.000];
-              p1 = [0.175 1.000];
-            }
-
-            # fade out
-            {
-              name = "easeInExpo";
-              p0 = [0.950 0.050];
-              p1 = [0.795 0.035];
-            }
-          ];
-
-          animation = map mkAnimation [
-            {
-              name = "workspaces";
-              duration = 6;
-              bezier = "easeOutQuart";
-              style = "slide";
-            }
-
-            {
-              name = "windows";
-              duration = 4;
-              bezier = "easeOutQuart";
-              style = "slide";
-            }
-            {
-              name = "fadeIn";
-              enable = false;
-            }
-            {
-              name = "fadeOut";
-              duration = 4;
-              bezier = "easeInExpo";
-            }
-
-            {
-              name = "fadeLayersIn";
-              enable = false;
-            }
-            {
-              name = "fadeLayersOut";
-              duration = 4;
-              bezier = "easeInExpo";
-            }
-            {
-              name = "layers";
-              duration = 4;
-              bezier = "easeInOutQuart";
-              style = "fade";
-            }
-          ];
-        };
-
-        layerrule = map mkLayerRule [
+        curve = map mkBezier [
           {
-            rule = "animation popin";
-            namespace = "^(hyprpaper.*)";
+            name = "easeInQuart";
+            p0 = [0.895 0.030];
+            p1 = [0.685 0.220];
           }
           {
-            rule = "animation fade";
-            namespace = "^(bg-layer.*)";
+            name = "easeOutQuart";
+            p0 = [0.165 0.840];
+            p1 = [0.440 1.000];
           }
           {
-            rule = "no_anim on";
-            namespace = "^(noanim-.*)";
+            name = "easeInOutQuart";
+            p0 = [0.770 0.000];
+            p1 = [0.175 1.000];
           }
 
+          # fade out
           {
-            rule = "blur on";
-            namespace = "^(blur-bg.*)";
-          }
-          {
-            rule = "ignore_alpha 0.19";
-            namespace = "^(blur-bg.*)";
+            name = "easeInExpo";
+            p0 = [0.950 0.050];
+            p1 = [0.795 0.035];
           }
         ];
 
-        exec-once = [
-          "ags"
-          "sleep 3; ags request 'open win-applauncher'"
+        animation = [
+          {
+            leaf = "workspaces";
+            enabled = true;
+            speed = 6;
+            bezier = "easeOutQuart";
+            style = "slide";
+          }
+
+          {
+            leaf = "windows";
+            enabled = true;
+            speed = 4;
+            bezier = "easeOutQuart";
+            style = "slide";
+          }
+          {
+            leaf = "fadeIn";
+            enabled = false;
+          }
+          {
+            leaf = "fadeOut";
+            enabled = true;
+            speed = 4;
+            bezier = "easeInExpo";
+          }
+
+          {
+            leaf = "fadeLayersIn";
+            enabled = false;
+          }
+          {
+            leaf = "fadeLayersOut";
+            enabled = true;
+            speed = 4;
+            bezier = "easeInExpo";
+          }
+          {
+            leaf = "layers";
+            enabled = true;
+            speed = 4;
+            bezier = "easeInOutQuart";
+            style = "fade";
+          }
+        ];
+
+        layer_rule = [
+          {
+            match.namespace = "^(hyprpaper.*)";
+            animation = "popin";
+          }
+          {
+            match.namespace = "^(bg-layer.*)";
+            animation = "fade";
+          }
+          {
+            match.namespace = "^(noanim-.*)";
+            no_anim = true;
+          }
+          {
+            match.namespace = "^(blur-bg.*)";
+            blur = true;
+            ignore_alpha = 0.19;
+          }
+        ];
+
+        on = map mkExecOnce [
+          # lua
+          ''
+            hl.exec_cmd("ags")
+            hl.exec_cmd("sleep 3; ags request 'open win-applauncher'")
+          ''
         ];
 
         bind = map mkBind [
           {
-            modifier = "$mainMod SHIFT";
-            key = "E";
-            command = "ags toggle win-powermenu";
-          }
-          {
-            modifier = "$mainMod";
-            key = "D";
-            command = "ags toggle win-applauncher";
-          }
-          {
-            modifier = "$mainMod";
-            key = "V";
-            command = "ags toggle win-clipboard";
-          }
-          {
-            key = "Print";
-            command = "ags toggle win-screenshot";
-          }
-
-          {
-            key = "XF86AudioMute";
-            command = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
-          }
-          {
-            key = "XF86AudioMicMute";
-            command = "pactl set-source-mute @DEFAULT_SOURCE@ toggle";
-          }
-          {
-            modifier = "$mainMod";
-            key = "Print";
-            command = getExe (pkgs.writeShellApplication {
-              name = "select-screenshot";
-              runtimeInputs = with pkgs; [grim-hyprland satty slurp];
-              text = ''
-                grim -g "$(slurp)" - | satty -f -
+            keys = "SUPER + SHIFT + E";
+            dispatcher =
+              # lua
+              ''
+                hl.dsp.exec_cmd("ags toggle win-powermenu")
               '';
-            });
           }
-        ];
+          {
+            keys = "SUPER + D";
+            dispatcher =
+              # lua
+              ''
+                hl.dsp.exec_cmd("ags toggle win-applauncher")
+              '';
+          }
+          {
+            keys = "SUPER + V";
+            dispatcher =
+              # lua
+              ''
+                hl.dsp.exec_cmd("ags toggle win-clipboard")
+              '';
+          }
+          {
+            keys = "Print";
+            dispatcher =
+              # lua
+              ''
+                hl.dsp.exec_cmd("ags toggle win-screenshot")
+              '';
+          }
 
-        binde = map mkBind [
           {
-            key = "XF86MonBrightnessUp";
-            command = "ags request 'Brightness.screen +0.05'";
+            keys = "XF86AudioMute";
+            dispatcher =
+              # lua
+              ''
+                hl.dsp.exec_cmd("pactl set-sink-mute @DEFAULT_SINK@ toggle")
+              '';
           }
           {
-            key = "XF86MonBrightnessDown";
-            command = "ags request 'Brightness.screen -0.05'";
+            keys = "XF86AudioMicMute";
+            dispatcher =
+              # lua
+              ''
+                hl.dsp.exec_cmd("pactl set-source-mute @DEFAULT_SOURCE@ toggle")
+              '';
+          }
+          {
+            keys = "SUPER + Print";
+            dispatcher = let
+              command = getExe (pkgs.writeShellApplication {
+                name = "select-screenshot";
+                runtimeInputs = with pkgs; [grim-hyprland satty slurp];
+                text = ''
+                  grim -g "$(slurp)" - | satty -f -
+                '';
+              });
+            in
+              # lua
+              ''
+                hl.dsp.exec_cmd("${command}")
+              '';
           }
 
           {
-            key = "XF86AudioRaiseVolume";
-            command = "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+ & ags request 'popup speaker' &";
+            keys = "XF86MonBrightnessUp";
+            dispatcher =
+              # lua
+              ''
+                hl.dsp.exec_cmd("ags request 'Brightness.screen +0.05'")
+              '';
+            flags.repeating = true;
           }
           {
-            key = "XF86AudioLowerVolume";
-            command = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- & ags request 'popup speaker' &";
+            keys = "XF86MonBrightnessDown";
+            dispatcher =
+              # lua
+              ''
+                hl.dsp.exec_cmd("ags request 'Brightness.screen -0.05'")
+              '';
+            flags.repeating = true;
           }
-        ];
 
-        bindn = map mkBind [
           {
-            key = "Escape";
-            command = "ags request closeAll";
+            keys = "XF86AudioRaiseVolume";
+            dispatcher =
+              # lua
+              ''
+                hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+ & ags request 'popup speaker' &")
+              '';
+            flags.repeating = true;
           }
-        ];
-
-        bindr = map mkBind [
           {
-            modifier = "CAPS";
-            key = "Caps_Lock";
-            command = "ags request fetchCapsState";
+            keys = "XF86AudioLowerVolume";
+            dispatcher =
+              # lua
+              ''
+                hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- & ags request 'popup speaker' &")
+              '';
+            flags.repeating = true;
+          }
+
+          {
+            keys = "Escape";
+            dispatcher =
+              # lua
+              ''
+                hl.dsp.exec_cmd("ags request closeAll")
+              '';
+            flags.non_consuming = true;
+          }
+
+          {
+            keys = "CAPS + Caps_Lock";
+            dispatcher =
+              # lua
+              ''
+                hl.dsp.exec_cmd("ags request fetchCapsState")
+              '';
+            flags.release = true;
           }
         ];
       };

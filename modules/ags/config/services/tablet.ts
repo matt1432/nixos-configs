@@ -19,8 +19,6 @@ const ROTATION_MAP: Record<RotationName, 0 | 1 | 2 | 3> = {
 
 const SCREEN = 'desc:Lenovo Group Limited 0x41A0';
 
-const DEVICES = ['wacom-hid-52eb-finger', 'wacom-hid-52eb-pen'];
-
 interface TabletSignals extends GObject.Object.SignalSignatures {
     'autorotate-changed': Tablet['autorotateChanged'];
     'rotation-changed': Tablet['rotationChanged'];
@@ -217,8 +215,7 @@ export default class Tablet extends GObject.Object {
         this._autorotate = subprocess(['monitor-sensor'], (output) => {
             if (output.includes('orientation changed')) {
                 const index = output.split(' ').at(-1) as
-                    | RotationName
-                    | undefined;
+                    RotationName | undefined;
 
                 if (!index) {
                     return;
@@ -226,15 +223,19 @@ export default class Tablet extends GObject.Object {
 
                 const orientation = ROTATION_MAP[index];
 
+                // FIXME: aspect ratio is wrong when rotating
+                const mode =
+                    orientation === 1 || orientation === 3
+                        ? '1200x1920@60'
+                        : '1920x1200@60';
+
                 hyprMessage(
-                    `keyword monitor ${SCREEN},transform,${orientation}`,
+                    `eval hl.monitor({mode="${mode}",output="${SCREEN}",scale="1",transform=${orientation}})`,
                 ).catch(print);
 
-                const batchRotate = DEVICES.map(
-                    (dev) => `keyword device:${dev}:transform ${orientation}; `,
+                hyprMessage(
+                    `eval hl.config({ input = { touchdevice = { transform = ${orientation} }, tablet = { transform = ${orientation} } } })`,
                 );
-
-                hyprMessage(`[[BATCH]] ${batchRotate.flat()}`);
 
                 this.emit('rotation-changed', orientation);
             }

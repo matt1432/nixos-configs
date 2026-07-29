@@ -20,9 +20,6 @@ export default () => (
             setHeartState(HeartState() === '' ? '󰣐' : '');
         }}
     >
-        <label
-            label={HeartState}
-            css="margin-left: -6px; margin-right: 4px; font-size: 28px;"
-        />
+        <label label={HeartState} css="font-size: 28px;" />
     </cursor-button>
 );
