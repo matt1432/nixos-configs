@@ -52,6 +52,6 @@
 in {
   setupMonitors =
     if (cfg.mainMonitor != "null" && !cfg.displayManager.duplicateScreen)
-    then "hyprctl dispatch 'hl.dsp.focus({ monitor = \"${cfg.mainMonitor}\" })'"
+    then "hyprctl dispatch 'hl.dsp.focus({ monitor = \\\"${cfg.mainMonitor}\\\" })'"
     else getExe dupeMonitors;
 }
