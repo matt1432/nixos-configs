@@ -6,7 +6,7 @@ self: {
 }: let
   inherit (self.lib.hypr) mkBind mkExecOnce;
 
-  inherit (lib) getExe mkBefore mkIf optionalAttrs;
+  inherit (lib) getExe mkBefore mkIf optionalAttrs optionalString;
 
   cfg = config.roles.desktop;
 
@@ -41,6 +41,40 @@ self: {
       while ! run "''${SIGS[$i]}"; do
           ((i+=1))
       done
+    '';
+  };
+
+  keyringPassFile = config.sops.secrets.binto-keyring.path or "null";
+
+  autoLoginKeyringFix = pkgs.writeShellApplication {
+    name = "autoLoginKeyringFix";
+    text = ''
+      # Wait for keyring control socket to be available (up to 5 seconds)
+      # shellcheck disable=SC2034
+      for i in $(seq 1 10); do
+          [ -S "$XDG_RUNTIME_DIR/keyring/control" ] && break
+          sleep 0.5
+      done
+
+      # Check if keyring control socket exists
+      if [ ! -S "$XDG_RUNTIME_DIR/keyring/control" ]; then
+          echo "Keyring control socket not found after waiting, keyring may not be running" >&2
+          echo "Keyring control socket not found after waiting, keyring may not be running" >> /tmp/gkd.log
+          exit 1
+      fi
+
+      # Read the password from the sops-nix secret and unlock
+      if [ -f "${keyringPassFile}" ]; then
+          /run/wrappers/bin/gnome-keyring-daemon \
+              --daemonize \
+              --replace \
+              --unlock \
+              --components=secrets < "${keyringPassFile}" &> /tmp/gkd.log
+      else
+          echo "Keyring password file not found: ${keyringPassFile}" >&2
+          echo "Keyring password file not found: ${keyringPassFile}" >> /tmp/gkd.log
+          exit 1
+      fi
     '';
   };
 in {
@@ -98,10 +132,16 @@ in {
 
       wayland.windowManager.hyprland.settings = {
         on = mkBefore (map mkExecOnce [
-          # lua
-          ''
-            hl.exec_cmd("${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1")
-          ''
+          (optionalString (keyringPassFile != "null")
+            # lua
+            ''
+              hl.exec_cmd("${getExe autoLoginKeyringFix}")
+            ''
+            +
+            # lua
+            ''
+              hl.exec_cmd("${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1")
+            '')
         ]);
 
         window_rule = [
