@@ -28,7 +28,7 @@ in {
       };
 
       disable_check_updates = true;
-      ephemeral_node_inactivity_timeout = "30m";
+      node.ephemeral.inactivity_timeout = "30m";
 
       unix_socket = "/run/headscale/headscale.sock";
       unix_socket_permission = "0770";
