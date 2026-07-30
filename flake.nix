@@ -301,9 +301,9 @@
     };
     nixcord = {
       inputs = {
-        flake-compat.follows = "flake-compat";
         flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
       };
       owner = "kaylorben";
       repo = "nixcord";
