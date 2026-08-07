@@ -19,6 +19,9 @@ let
     determinate-nix = mkInput {
       owner = "DeterminateSystems";
       repo = "nix-src";
+
+      # NOTE: nix-eval-jobs needs to chase latest nix-src
+      rev = "0ff46631f69584c9f76792cae595ea253bd482c3";
     };
 
     home-manager = mkInput {
@@ -182,9 +185,11 @@ let
 
   desktopInputs = {
     hyprlandInputs = {
+      # NOTE: hyprexpo and hyprgrass have to chase d10194c63b323e37c2ba5a4b954a7bbb12901e3b
       hyprland = mkInput {
         owner = "hyprwm";
         repo = "Hyprland";
+        rev = "91f29f23bb691462f8aa6171b964069aebc37910";
       };
 
       hyprexpo-src = mkInput {

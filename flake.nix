@@ -43,6 +43,7 @@
       };
       owner = "DeterminateSystems";
       repo = "nix-src";
+      rev = "0ff46631f69584c9f76792cae595ea253bd482c3";
       type = "github";
     };
     docker-compose = {
@@ -145,6 +146,7 @@
       };
       owner = "hyprwm";
       repo = "Hyprland";
+      rev = "91f29f23bb691462f8aa6171b964069aebc37910";
       type = "github";
     };
     hyprpaper = {
