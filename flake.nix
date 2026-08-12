@@ -171,8 +171,8 @@
         systems.follows = "systems";
         treefmt-nix.follows = "treefmt-nix";
       };
-      owner = "matt1432";
-      ref = "nix-pnpm-10";
+      owner = "venkyr77";
+      ref = "v0.1.1";
       repo = "jellarr";
       type = "github";
     };

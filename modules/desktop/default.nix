@@ -43,6 +43,9 @@ in {
       self.inputs."hyprland".overlays.hyprland-extras # for xdph
 
       (final: prev: {
+        # NOTE: remove when unpinning hyprland
+        hyprland-guiutils = prev.hyprland-guiutils.override {stdenv = final.gcc16Stdenv;};
+
         hyprlandPlugins =
           (final.callPackage "${final.path}/pkgs/applications/window-managers/hyprwm/hyprland-plugins/default.nix" {
             hyprland = hyprCfg.finalPackage;
