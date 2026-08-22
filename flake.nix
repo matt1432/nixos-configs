@@ -266,6 +266,7 @@
       };
       owner = "DeterminateSystems";
       repo = "nix-eval-jobs";
+      rev = "92bba1af154ca1a76ec5fb5a48a8cb450dfbf450";
       type = "github";
     };
     nix-gaming = {

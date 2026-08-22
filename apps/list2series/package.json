@@ -10,7 +10,7 @@
         "@types/node": "26.2.0",
         "axios": "1.19.0",
         "esbuild": "0.28.2",
-        "eslint": "10.8.1",
+        "eslint": "10.9.0",
         "jiti": "2.7.0",
         "pkg-types": "2.3.1",
         "prettier": "3.9.6",

@@ -10,7 +10,7 @@
         "@dropb/ffprobe": "3.0.1",
         "@types/node": "26.2.0",
         "esbuild": "0.28.2",
-        "eslint": "10.8.1",
+        "eslint": "10.9.0",
         "jiti": "2.7.0",
         "prettier": "3.9.6",
         "prettier-plugin-brace-style": "0.10.3",

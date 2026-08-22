@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage rec {
   imageName = "quay.io/vaultwarden/server";
-  imageDigest = "sha256:ebdfe70701c60ac0c28c697e787cea767d7972940b786037b29fe0d507f821e8";
-  hash = "sha256-TzSepKz9MJDH+TtaeZ7E2VOqhuztuRz4wPXES9WYld8=";
+  imageDigest = "sha256:094b5689ed81549bd293418395c7cf495ae9d960fc2d4928cef2083ef913d912";
+  hash = "sha256-81ToEmBK+36U7Z+F7eSqg58FicZSji3w6owUReYvtYw=";
   finalImageName = imageName;
   finalImageTag = "latest";
 }

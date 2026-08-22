@@ -3,14 +3,9 @@
   gtk-theme-src,
   ...
 }: let
-  inherit (pkgs.lib) attrValues tryEval warnIf;
-
-  # NOTE: https://github.com/NixOS/nixpkgs/pull/548380
-  dracula-theme = warnIf ((tryEval pkgs.dracula-theme).success) ''
-    dracula-theme is back in nixpkgs
-  '' (pkgs.callPackage ./package.nix {});
+  inherit (pkgs.lib) attrValues;
 in
-  dracula-theme.overrideAttrs (o: {
+  pkgs.dracula-theme.overrideAttrs (o: {
     version = o.version + "+" + gtk-theme-src.shortRev;
     src = gtk-theme-src;
 

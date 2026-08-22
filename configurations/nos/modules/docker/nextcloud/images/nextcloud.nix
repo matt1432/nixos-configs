@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage rec {
   imageName = "nextcloud";
-  imageDigest = "sha256:f10fb7467a9ad56de6d4c43afedca15b79d83ee6f728a5510faa53b3c55c2232";
-  hash = "sha256-nEOZRVDwBkdVmnsOTSRwY1ufBOEgWSABf87VtJXwAAI=";
+  imageDigest = "sha256:ae06fc9821c30656c2181bfbb78084b97fe784ba5d864952e7295e077e4c8cb0";
+  hash = "sha256-s12sbTfjoIOlqihgkOrItmXOp+3I4OV180v9Roa3k4g=";
   finalImageName = imageName;
   finalImageTag = "fpm";
 }
