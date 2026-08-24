@@ -20,8 +20,8 @@ let
       owner = "DeterminateSystems";
       repo = "nix-src";
 
-      # NOTE: boost patches breaks build on latest unstable
-      rev = "0ff46631f69584c9f76792cae595ea253bd482c3";
+      # NOTE: boost patch is now in nixos-unstable so it tries to apply it twice
+      overrideNixpkgs = false;
     };
 
     home-manager = mkInput {
@@ -58,8 +58,8 @@ let
       repo = "nix-eval-jobs";
       inputs.nix.follows = "determinate-nix";
 
-      # NOTE: remove when nix-src is up to date
-      rev = "92bba1af154ca1a76ec5fb5a48a8cb450dfbf450";
+      # NOTE: boost patch is now in nixos-unstable so it tries to apply it twice
+      overrideNixpkgs = false;
     };
 
     # These are here to make sure all 'systems' and popular inputs are the same

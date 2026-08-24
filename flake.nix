@@ -37,13 +37,8 @@
       type = "github";
     };
     determinate-nix = {
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        nixpkgs.follows = "nixpkgs";
-      };
       owner = "DeterminateSystems";
       repo = "nix-src";
-      rev = "0ff46631f69584c9f76792cae595ea253bd482c3";
       type = "github";
     };
     docker-compose = {
@@ -258,15 +253,9 @@
       url = "https://git.nelim.org/matt1432/pub-images.git";
     };
     nix-eval-jobs = {
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        nix.follows = "determinate-nix";
-        nixpkgs.follows = "nixpkgs";
-        treefmt-nix.follows = "treefmt-nix";
-      };
+      inputs.nix.follows = "determinate-nix";
       owner = "DeterminateSystems";
       repo = "nix-eval-jobs";
-      rev = "92bba1af154ca1a76ec5fb5a48a8cb450dfbf450";
       type = "github";
     };
     nix-gaming = {
