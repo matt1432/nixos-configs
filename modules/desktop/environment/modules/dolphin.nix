@@ -22,8 +22,10 @@ in {
       serviceConfig = {
         Type = "dbus";
         BusName = "org.freedesktop.FileManager1";
-        ExecStart = "${pkgs.kdePackages.dolphin}/bin/dolphin";
       };
+      script = ''
+        exec ${pkgs.kdePackages.dolphin}/bin/dolphin --daemon
+      '';
       wantedBy = ["graphical-session.target"];
     };
 

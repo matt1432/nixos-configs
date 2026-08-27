@@ -48,9 +48,12 @@ in {
       enable = true;
 
       extraPortals = [
-        pkgs.kdePackages.xdg-desktop-portal-kde
+        hyprCfg.finalPortalPackage
         pkgs.xdg-desktop-portal-gtk
+        pkgs.kdePackages.xdg-desktop-portal-kde
       ];
+
+      configPackages = [hyprCfg.finalPackage];
 
       config.hyprland = {
         default = [
@@ -58,9 +61,8 @@ in {
           "gtk"
         ];
 
-        "org.freedesktop.impl.portal.FileChooser" = [
-          "kde"
-        ];
+        "org.freedesktop.impl.portal.FileChooser" = "kde";
+        "org.freedesktop.impl.portal.Print" = "kde";
       };
     };
 
@@ -86,7 +88,8 @@ in {
 
         configType = "lua";
 
-        systemd.variables = ["-all"];
+        # https://github.com/hyprwm/xdg-desktop-portal-hyprland/issues/343#issuecomment-3114058583
+        systemd.extraCommands = ["systemctl --user restart xdg-desktop-portal"];
 
         settings = {
           env = let
