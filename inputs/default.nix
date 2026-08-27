@@ -184,18 +184,20 @@ let
 
   desktopInputs = {
     hyprlandInputs = {
-      # NOTE: hyprexpo and hyprgrass have to chase d10194c63b323e37c2ba5a4b954a7bbb12901e3b
       hyprland = mkInput {
         owner = "hyprwm";
         repo = "Hyprland";
-        rev = "91f29f23bb691462f8aa6171b964069aebc37910";
       };
 
       hyprexpo-src = mkInput {
-        owner = "sandwichfarm";
+        # owner = "sandwichfarm";
         repo = "hyprexpo";
 
         flake = false;
+
+        # NOTE: switch back to upstream when up to date
+        owner = "matt1432";
+        ref = "chase-keybind";
       };
 
       hyprgrass = mkHyprDep {
@@ -203,6 +205,9 @@ let
         url = "https://github.com/horriblename/hyprgrass";
         shallow = true;
         submodules = true;
+
+        # NOTE: switch back to upstream when up to date
+        rev = "37d6f0ad4eeee01f8579da9a803a62208f4e11ae";
       };
 
       touchpos = mkHyprDep {

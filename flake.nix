@@ -119,7 +119,8 @@
     };
     hyprexpo-src = {
       flake = false;
-      owner = "sandwichfarm";
+      owner = "matt1432";
+      ref = "chase-keybind";
       repo = "hyprexpo";
       type = "github";
     };
@@ -128,6 +129,7 @@
         hyprland.follows = "hyprland";
         nixpkgs.follows = "nixpkgs";
       };
+      rev = "37d6f0ad4eeee01f8579da9a803a62208f4e11ae";
       shallow = true;
       submodules = true;
       type = "git";
@@ -141,7 +143,6 @@
       };
       owner = "hyprwm";
       repo = "Hyprland";
-      rev = "91f29f23bb691462f8aa6171b964069aebc37910";
       type = "github";
     };
     hyprpaper = {
