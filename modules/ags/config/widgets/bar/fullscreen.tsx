@@ -50,7 +50,7 @@ export default ({
                 );
 
                 return (
-                    c.fullscreenClient !== 0 &&
+                    c.fullscreenClient === 2 &&
                     c.workspace.id === mon?.activeWorkspace.id
                 );
             });
