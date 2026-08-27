@@ -14,11 +14,16 @@ export default () => {
         throw new Error('Could not find default audio devices.');
     }
 
-    const [shown, setShown] = createState('outputs');
+    const [shown, setShown] = createState<string | undefined>(undefined);
 
     const content = [
         <scrollable $type="named" name="outputs" hscroll={Gtk.PolicyType.NEVER}>
-            <box vertical>
+            <box
+                $={() => {
+                    setShown('outputs');
+                }}
+                vertical
+            >
                 {Endpoints(createBinding(audio, 'speakers').as((v) => v || []))}
             </box>
         </scrollable>,
@@ -52,10 +57,7 @@ export default () => {
     ] as Gtk.Widget[];
 
     const stack = (
-        <stack
-            visibleChildName={shown}
-            transitionType={Gtk.StackTransitionType.SLIDE_LEFT_RIGHT}
-        >
+        <stack transitionType={Gtk.StackTransitionType.SLIDE_LEFT_RIGHT}>
             {content}
         </stack>
     ) as Astal.Stack;
@@ -81,6 +83,13 @@ export default () => {
             </cursor-button>
         ) as Astal.Button;
     };
+
+    shown.subscribe(() => {
+        const label = shown();
+        if (typeof label !== 'undefined') {
+            stack.set_visible_child_name(label);
+        }
+    });
 
     return (
         <box class="audio widget" vertical>

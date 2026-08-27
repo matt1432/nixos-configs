@@ -29,7 +29,7 @@ export default (endpoints: Accessor<AstalWp.Endpoint[]>) => {
                                         group = self;
                                     }
                                     else {
-                                        self.group = group;
+                                        self.join_group(group);
                                     }
 
                                     self.active = endpoint.get_is_default();

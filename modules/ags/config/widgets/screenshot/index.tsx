@@ -74,11 +74,16 @@ export default () => {
     hyprland.connect('notify::clients', updateWindows);
     hyprland.connect('notify::focused-workspace', updateWindows);
 
-    const [shown, setShown] = createState('monitors');
+    const [shown, setShown] = createState<string | undefined>(undefined);
 
     const stackContent = [
         <scrollable $type="named" name="monitors">
-            <box vertical>
+            <box
+                $={() => {
+                    setShown('monitors');
+                }}
+                vertical
+            >
                 <For each={createBinding(hyprland, 'monitors')}>
                     {(monitor: AstalHyprland.Monitor) => (
                         <cursor-button
@@ -105,10 +110,7 @@ export default () => {
     ] as Gtk.Widget[];
 
     const stack = (
-        <stack
-            visibleChildName={shown}
-            transitionType={Gtk.StackTransitionType.SLIDE_LEFT_RIGHT}
-        >
+        <stack transitionType={Gtk.StackTransitionType.SLIDE_LEFT_RIGHT}>
             {stackContent}
         </stack>
     ) as Astal.Stack;
@@ -168,6 +170,13 @@ export default () => {
             </box>
         </cursor-button>
     ) as Astal.Button;
+
+    shown.subscribe(() => {
+        const label = shown();
+        if (typeof label !== 'undefined') {
+            stack.set_visible_child_name(label);
+        }
+    });
 
     return (
         <PopupWindow
