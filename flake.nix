@@ -129,7 +129,6 @@
         hyprland.follows = "hyprland";
         nixpkgs.follows = "nixpkgs";
       };
-      rev = "37d6f0ad4eeee01f8579da9a803a62208f4e11ae";
       shallow = true;
       submodules = true;
       type = "git";

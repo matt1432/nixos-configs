@@ -205,9 +205,6 @@ let
         url = "https://github.com/horriblename/hyprgrass";
         shallow = true;
         submodules = true;
-
-        # NOTE: switch back to upstream when up to date
-        rev = "37d6f0ad4eeee01f8579da9a803a62208f4e11ae";
       };
 
       touchpos = mkHyprDep {

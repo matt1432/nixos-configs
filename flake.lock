@@ -562,17 +562,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1787594588,
-        "narHash": "sha256-DHXqWg4u7MQXhz5GX9bNKiVmZ6rY6tp8eP1NnUBRW7k=",
+        "lastModified": 1788026134,
+        "narHash": "sha256-vywiM9euudO2Pzqt67kJIhAOtX5g2yZLhLHA4i3v9b0=",
         "ref": "refs/heads/main",
-        "rev": "37d6f0ad4eeee01f8579da9a803a62208f4e11ae",
+        "rev": "ad8f0dfd6923046e1cb3d69491b408698166d551",
         "shallow": true,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/horriblename/hyprgrass"
       },
       "original": {
-        "rev": "37d6f0ad4eeee01f8579da9a803a62208f4e11ae",
         "shallow": true,
         "submodules": true,
         "type": "git",
