@@ -19,9 +19,6 @@ let
     determinate-nix = mkInput {
       owner = "DeterminateSystems";
       repo = "nix-src";
-
-      # NOTE: boost patch is now in nixos-unstable so it tries to apply it twice
-      overrideNixpkgs = false;
     };
 
     home-manager = mkInput {
@@ -57,9 +54,6 @@ let
       owner = "DeterminateSystems";
       repo = "nix-eval-jobs";
       inputs.nix.follows = "determinate-nix";
-
-      # NOTE: boost patch is now in nixos-unstable so it tries to apply it twice
-      overrideNixpkgs = false;
     };
 
     # These are here to make sure all 'systems' and popular inputs are the same
@@ -195,7 +189,7 @@ let
 
         flake = false;
 
-        # NOTE: switch back to upstream when up to date
+        # NOTE: https://github.com/sandwichfarm/hyprexpo/pull/109
         owner = "matt1432";
         ref = "chase-keybind";
       };

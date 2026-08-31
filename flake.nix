@@ -37,6 +37,10 @@
       type = "github";
     };
     determinate-nix = {
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+      };
       owner = "DeterminateSystems";
       repo = "nix-src";
       type = "github";
@@ -253,7 +257,12 @@
       url = "https://git.nelim.org/matt1432/pub-images.git";
     };
     nix-eval-jobs = {
-      inputs.nix.follows = "determinate-nix";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nix.follows = "determinate-nix";
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
+      };
       owner = "DeterminateSystems";
       repo = "nix-eval-jobs";
       type = "github";
