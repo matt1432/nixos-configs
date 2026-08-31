@@ -9,7 +9,7 @@ import { npmRun, replaceInFile } from './lib';
 const FLAKE = process.env.FLAKE as string;
 
 const PINS = new Map([
-    ['typescript', '6.0.3'], // NOTE: update to v7 once typescript-eslint is updated
+    ['typescript', '6.0.3'], // NOTE: https://github.com/typescript-eslint/typescript-eslint/issues/10940
 ]);
 
 const updatePackageJson = async (workspaceDir: string, updates: object) => {

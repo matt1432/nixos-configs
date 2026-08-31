@@ -14,9 +14,13 @@
         "pkg-types": "2.3.1",
         "prettier": "3.9.6",
         "prettier-plugin-brace-style": "0.10.3",
-        "typescript": "6.0.3"
+        "typescript": "6.0.3",
+        "typescript-7": "npm:typescript@7.0.2"
     },
     "devDependencies": {
         "eslint-conf": "file:../config"
+    },
+    "allowScripts": {
+        "esbuild@0.28.2": true
     }
 }

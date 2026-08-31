@@ -47,7 +47,7 @@ in
 
       rm eslint.config.ts
 
-      npx tsc
+      node ./node_modules/typescript-7/bin/tsc
 
       runHook postCheck
     '';
