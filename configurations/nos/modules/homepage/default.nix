@@ -69,7 +69,7 @@
           }
           {
             jellystat = {
-              href = "https://lan.nelim.org/jellystat";
+              href = "https://jellystat.nelim.org/jellystat";
               icon = "jellyfin.png";
               description = "view jellyfin stats";
             };

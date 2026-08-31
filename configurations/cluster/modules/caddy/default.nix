@@ -140,6 +140,8 @@ in {
 
           wgui.reverseProxy = "${nosIP}:51821";
 
+          jellystat.reverseProxy = "${nosIP}:3070";
+
           lan = {
             reverseProxy = "${nosIP}:3020";
             extraConfig = ''
@@ -149,7 +151,6 @@ in {
             subDirectories = {
               bazarr.reverseProxy = "${nosIP}:6767";
               cleanuparr.reverseProxy = "${nosIP}:11011";
-              jellystat.reverseProxy = "${nosIP}:3070";
               prowlarr.reverseProxy = "${nosIP}:9696";
               radarr.reverseProxy = "${nosIP}:7878";
               sonarr.reverseProxy = "${nosIP}:8989";
