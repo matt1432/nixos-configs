@@ -57,10 +57,10 @@
   };
   "floccus" = buildMozillaXpiAddon {
     pname = "floccus";
-    version = "5.10.2";
+    version = "5.10.3";
     addonId = "floccus@handmadeideas.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4905907/floccus-5.10.2.xpi";
-    sha256 = "e84bc56c4e1bfc3cc3aec2a74003c9955ab8f55a3f51394754d2c773afe4f483";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4993287/floccus-5.10.3.xpi";
+    sha256 = "3aaa6b65931c92be31fbd02b9f9a07531b53333dbd57cfe52f035e66a8b25d54";
     meta = with lib; {
       homepage = "https://floccus.org";
       description = "Securely synchronize bookmarks across Chrome, Firefox, Edge, and more using your own cloud storage.";
@@ -239,10 +239,10 @@
   };
   "ublock-origin" = buildMozillaXpiAddon {
     pname = "ublock-origin";
-    version = "1.73.0";
+    version = "1.74.0";
     addonId = "uBlock0@raymondhill.net";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4940584/ublock_origin-1.73.0.xpi";
-    sha256 = "bccc51a773150af4af6e1fd62c7bfdeb7238b79ff2381b998fa9f2e38f64786a";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4981431/ublock_origin-1.74.0.xpi";
+    sha256 = "175756d74468c9ba45863f7fc333d3be670f82d5b066314e915814dd547d1652";
     meta = with lib; {
       homepage = "https://github.com/gorhill/uBlock#ublock-origin";
       description = "Finally, an efficient wide-spectrum content blocker. Easy on CPU and memory.";
