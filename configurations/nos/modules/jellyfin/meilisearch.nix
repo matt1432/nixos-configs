@@ -14,7 +14,7 @@ in {
       image = pkgs.callPackage ./images/meilisearch.nix pkgs;
       restart = "always";
 
-      command = ["/bin/meilisearch" "--experimental-dumpless-upgrade"];
+      command = ["/bin/meilisearch" "--upgrade-db"];
 
       networks = ["proxy_net"];
 
