@@ -25,6 +25,7 @@
       exec nix-fast-build \
           --eval-workers 6 \
           --eval-max-memory-size 3072 \
+          --out-link result \
           -f ..#nixFastChecks.all "$@"
     '';
   };
@@ -42,7 +43,7 @@
     };
 
     text = ''
-      nixFastBuild |& rg -M 0 -r "" '.*trace: evaluation warning: ' | sort -n | uniq
+      exec nixFastBuild |& rg -M 0 -r "" '.*trace: evaluation warning: ' | sort -n | uniq
     '';
   };
 in {
