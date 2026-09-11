@@ -29,7 +29,7 @@ lib.makeScope pkgs.newScope (_: let
           })
         )
       else pkgs.proton-ge-bin
-    ).override {
+    ).overrideAttrs {
       steamDisplayName = "GE-Proton${versionSuffix}";
     };
 in {

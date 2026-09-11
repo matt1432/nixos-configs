@@ -36,10 +36,10 @@
   };
   "darkreader" = buildMozillaXpiAddon {
     pname = "darkreader";
-    version = "4.9.129";
+    version = "4.9.130";
     addonId = "addon@darkreader.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4899461/darkreader-4.9.129.xpi";
-    sha256 = "f4f047fe08e420b6d29617738ea00a7b784892b2262b7e6f38dd09b8ee958a44";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4998573/darkreader-4.9.130.xpi";
+    sha256 = "075d5457316af21d62a39a290b31fbf71f514dfc8c3f6a87376fd50f54ef4c9c";
     meta = with lib; {
       homepage = "https://darkreader.org/";
       description = "Dark mode for every website. Take care of your eyes, use dark theme for night and daily browsing.";
@@ -146,10 +146,10 @@
   };
   "return-youtube-dislikes" = buildMozillaXpiAddon {
     pname = "return-youtube-dislikes";
-    version = "3.0.0.18";
+    version = "4.0.6";
     addonId = "{762f9885-5a13-4abd-9c77-433dcd38b8fd}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4371820/return_youtube_dislikes-3.0.0.18.xpi";
-    sha256 = "2d33977ce93276537543161f8e05c3612f71556840ae1eb98239284b8f8ba19e";
+    url = "https://addons.mozilla.org/firefox/downloads/file/5012638/return_youtube_dislikes-4.0.6.xpi";
+    sha256 = "59719749f6df38c1601ca5f39c02158d5f005c43e9eeea1f19527f468c941217";
     meta = with lib; {
       description = "Returns ability to see dislike statistics on youtube";
       license = licenses.gpl3;
@@ -158,6 +158,7 @@
         "*://*.youtube.com/*"
         "storage"
         "*://returnyoutubedislikeapi.com/*"
+        "identity"
       ];
       platforms = platforms.all;
     };
@@ -291,10 +292,10 @@
   };
   "youtube-no-translation" = buildMozillaXpiAddon {
     pname = "youtube-no-translation";
-    version = "2.24.5";
+    version = "2.24.6";
     addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4966116/youtube_no_translation-2.24.5.xpi";
-    sha256 = "904f39f228e4663c1e61f43cad01e75d7079da51c6de9416156aff9a2a31ba39";
+    url = "https://addons.mozilla.org/firefox/downloads/file/5006014/youtube_no_translation-2.24.6.xpi";
+    sha256 = "585c82cf962e0c2c8d6540ad6a81211eef6a133fbcd269cd3fcc2f0aa2dacf92";
     meta = with lib; {
       description = "Keeps YouTube content in its original language (Titles, Audio Tracks, Descriptions...)";
       mozPermissions = [

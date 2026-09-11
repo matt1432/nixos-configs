@@ -133,6 +133,7 @@
         hyprland.follows = "hyprland";
         nixpkgs.follows = "nixpkgs";
       };
+      rev = "3453f5e3a362416ad1e3ad489c549835aa469f1f";
       shallow = true;
       submodules = true;
       type = "git";
@@ -146,6 +147,7 @@
       };
       owner = "hyprwm";
       repo = "Hyprland";
+      rev = "3b2dadd987fd9da19006a4969036777f44c98f61";
       type = "github";
     };
     hyprpaper = {
@@ -302,7 +304,6 @@
     };
     nixcord = {
       inputs = {
-        flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
         treefmt-nix.follows = "treefmt-nix";
       };
@@ -327,6 +328,7 @@
       };
       owner = "matt1432";
       repo = "nixos-jellyfin";
+      rev = "7f1c81895f0c2d82a4fe53198f016ec45e68bf61";
       type = "github";
     };
     nixpkgs = {
