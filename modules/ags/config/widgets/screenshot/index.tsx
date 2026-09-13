@@ -30,15 +30,14 @@ export default () => {
         }
 
         const applications = AstalApps.Apps.new();
+        const currentWS = JSON.parse(
+            await hyprMessage('j/activeworkspace'),
+        ).address;
 
         windowList.children = (
             JSON.parse(await hyprMessage('j/clients')) as AstalHyprland.Client[]
         )
-            .filter(
-                (client) =>
-                    client.workspace.id ===
-                    hyprland.get_focused_workspace().get_id(),
-            )
+            .filter((client) => client.workspace.id === currentWS)
             .map(
                 (client) =>
                     (

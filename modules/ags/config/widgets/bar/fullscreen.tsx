@@ -10,6 +10,8 @@ import {
     hyprMessage,
 } from '../../lib';
 
+// TODO: look into AstalWorkspace
+
 const [FullscreenState, setFullscreenState] = createState({
     monitors: [] as string[],
     clientAddrs: new Map() as Map<string, string>,
@@ -44,22 +46,34 @@ export default ({
             ) as AstalHyprland.Monitor[];
 
             const fs = FullscreenState();
-            const fsClients = hyprland.get_clients().filter((c) => {
+            const fsClients = (
+                JSON.parse(
+                    await hyprMessage('j/clients'),
+                ) as AstalHyprland.Client[]
+            ).filter((c) => {
                 const mon = newMonitors.find(
-                    (m) => m.id === c.get_monitor()?.id,
+                    // @ts-expect-error new workspace API
+                    (m) => m.id === c.monitor,
                 );
 
                 return (
                     c.fullscreenClient === 2 &&
-                    c.workspace.id === mon?.activeWorkspace.id
+                    // @ts-expect-error new workspace API
+                    c.workspace.address === mon?.activeWorkspace.address
                 );
             });
 
-            const monitors = fsClients.map((c) => get_monitor_desc(c.monitor));
+            const monitors = fsClients.map((c) =>
+                // @ts-expect-error new workspace API
+                get_monitor_desc(newMonitors.find((m) => m.id === c.monitor)!),
+            );
 
             const clientAddrs = new Map(
                 fsClients.map((c) => [
-                    get_monitor_desc(c.monitor),
+                    get_monitor_desc(
+                        // @ts-expect-error new workspace API
+                        newMonitors.find((m) => m.id === c.monitor)!,
+                    ),
                     c.address ?? '',
                 ]),
             );
@@ -76,7 +90,9 @@ export default ({
             }
         }
         catch (e) {
-            console.log(e);
+            if (!String(e).startsWith('SyntaxError: JSON.parse')) {
+                console.log(e);
+            }
         }
     });
 
@@ -111,16 +127,16 @@ export default ({
     ) as Astal.Window;
 
     // Hide bar instantly when out of focus
-    hyprland.connect('notify::focused-workspace', () => {
+    hyprland.connect('notify::focused-workspace', async () => {
         const addr = FullscreenState().clientAddrs.get(monitor);
 
         if (addr) {
             const client = hyprland.get_client(addr);
+            const activeWorkspace = JSON.parse(
+                await hyprMessage('j/activeworkspace'),
+            );
 
-            if (
-                client?.workspace.id !==
-                hyprland.get_focused_workspace().get_id()
-            ) {
+            if (client?.workspace.name !== activeWorkspace.address) {
                 setBarVisible(true);
                 barCloser.visible = false;
             }
