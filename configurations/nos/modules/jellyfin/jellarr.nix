@@ -154,11 +154,6 @@ in {
           }
           {
             enabled = true;
-            name = "Air Times";
-            url = "https://raw.githubusercontent.com/apteryxxyz/jellyfin-plugin-airtimes/main/manifest.json";
-          }
-          {
-            enabled = true;
             name = "InPlayerEpisodePreview";
             url = "https://raw.githubusercontent.com/Namo2/InPlayerEpisodePreview/master/manifest.json";
           }
@@ -176,11 +171,6 @@ in {
       };
 
       plugins = [
-        {
-          name = "Air Times";
-          configuration = {};
-        }
-
         {
           name = "EditorsChoice";
           configuration = {
@@ -240,12 +230,6 @@ in {
             '';
           in {
             CustomJavaScripts = [
-              {
-                Name = "Kefin Tweaks";
-                Enabled = true;
-                RequiresAuthentication = false;
-                Script = mkInjectRemoteScript "https://cdn.jsdelivr.net/gh/ranaldsgift/KefinTweaks@latest/kefinTweaks-plugin.js";
-              }
               {
                 Name = "jf-avatars";
                 Enabled = true;
