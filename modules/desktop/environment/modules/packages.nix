@@ -17,6 +17,7 @@ self: {
 
   restartTailscale = pkgs.writeShellScriptBin "restartTailscale" ''
     sudo ${pkgs.systemd}/bin/systemctl restart tailscaled.service
+    sudo ${pkgs.systemd}/bin/systemctl restart nscd.service
   '';
 in {
   imports = [./dolphin.nix];
@@ -31,6 +32,16 @@ in {
         commands = [
           {
             command = "${pkgs.systemd}/bin/systemctl restart tailscaled.service";
+            options = ["SETENV" "NOPASSWD"];
+          }
+        ];
+      }
+      {
+        users = [cfg.user];
+        groups = [100];
+        commands = [
+          {
+            command = "${pkgs.systemd}/bin/systemctl restart nscd.service";
             options = ["SETENV" "NOPASSWD"];
           }
         ];

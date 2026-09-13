@@ -48,8 +48,6 @@ in {
       enable = true;
 
       extraPortals = [
-        hyprCfg.finalPortalPackage
-        pkgs.xdg-desktop-portal-gtk
         pkgs.kdePackages.xdg-desktop-portal-kde
       ];
 
@@ -87,9 +85,6 @@ in {
         });
 
         configType = "lua";
-
-        # https://github.com/hyprwm/xdg-desktop-portal-hyprland/issues/343#issuecomment-3114058583
-        systemd.extraCommands = ["systemctl --user restart xdg-desktop-portal"];
 
         settings = {
           env = let
