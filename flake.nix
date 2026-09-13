@@ -133,7 +133,6 @@
         hyprland.follows = "hyprland";
         nixpkgs.follows = "nixpkgs";
       };
-      rev = "3453f5e3a362416ad1e3ad489c549835aa469f1f";
       shallow = true;
       submodules = true;
       type = "git";
@@ -147,7 +146,6 @@
       };
       owner = "hyprwm";
       repo = "Hyprland";
-      rev = "3b2dadd987fd9da19006a4969036777f44c98f61";
       type = "github";
     };
     hyprpaper = {

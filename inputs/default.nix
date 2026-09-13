@@ -184,9 +184,6 @@ let
       hyprland = mkInput {
         owner = "hyprwm";
         repo = "Hyprland";
-
-        # NOTE: wait for plugins to chase upstream
-        rev = "3b2dadd987fd9da19006a4969036777f44c98f61";
       };
 
       hyprexpo-src = mkInput {
@@ -195,7 +192,7 @@ let
 
         flake = false;
 
-        # NOTE: https://github.com/sandwichfarm/hyprexpo/pull/109
+        # NOTE: upstream doesn't chase git latest
         owner = "matt1432";
         ref = "chase-keybind";
       };
@@ -203,9 +200,6 @@ let
       hyprgrass = mkHyprDep {
         type = "git";
         url = "https://github.com/horriblename/hyprgrass";
-
-        # NOTE: wait for plugins to chase upstream
-        rev = "3453f5e3a362416ad1e3ad489c549835aa469f1f";
         shallow = true;
         submodules = true;
       };
