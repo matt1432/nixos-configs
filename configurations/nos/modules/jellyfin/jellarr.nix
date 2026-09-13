@@ -164,11 +164,6 @@ in {
           }
           {
             enabled = true;
-            name = "Streamyfin";
-            url = "https://raw.githubusercontent.com/streamyfin/jellyfin-plugin-streamyfin/main/manifest.json";
-          }
-          {
-            enabled = true;
             name = "Editor's Choice";
             url = "https://github.com/lachlandcp/jellyfin-editors-choice-plugin/raw/main/manifest.json";
           }
@@ -283,28 +278,6 @@ in {
           name = "OMDb";
           configuration = {
             CastAndCrew = false;
-          };
-        }
-
-        {
-          name = "Streamyfin";
-          configuration = {
-            Config = {
-              settings = {
-                jellyseerrServerUrl = {
-                  locked = true;
-                  value = "https://seerr.nelim.org";
-                };
-                rememberAudioSelections = {
-                  locked = false;
-                  value = true;
-                };
-                rememberSubtitleSelections = {
-                  locked = false;
-                  value = true;
-                };
-              };
-            };
           };
         }
 
