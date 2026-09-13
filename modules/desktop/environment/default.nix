@@ -125,9 +125,17 @@ in {
 
             dwindle = {
               smart_split = true;
-              special_scale_factor = 0.8;
             };
           };
+
+          # special_scale_factor replacement
+          workspace_rule = [
+            {
+              workspace = "s[true]"; # is special
+              gaps_out = 70;
+              gaps_in = 70;
+            }
+          ];
 
           monitor = [
             # Plug N' Play for unknown monitors
