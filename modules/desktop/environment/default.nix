@@ -47,10 +47,6 @@ in {
     xdg.portal = {
       enable = true;
 
-      extraPortals = [
-        pkgs.kdePackages.xdg-desktop-portal-kde
-      ];
-
       configPackages = [hyprCfg.finalPackage];
 
       config.hyprland = {
@@ -58,9 +54,6 @@ in {
           "hyprland"
           "gtk"
         ];
-
-        "org.freedesktop.impl.portal.FileChooser" = "kde";
-        "org.freedesktop.impl.portal.Print" = "kde";
       };
     };
 
