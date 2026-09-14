@@ -326,7 +326,6 @@
       };
       owner = "matt1432";
       repo = "nixos-jellyfin";
-      rev = "7f1c81895f0c2d82a4fe53198f016ec45e68bf61";
       type = "github";
     };
     nixpkgs = {

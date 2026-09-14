@@ -14,7 +14,8 @@ in {
   imports = [jellarr.nixosModules.default];
 
   services.jellarr = {
-    enable = true;
+    # FIXME: https://github.com/venkyr77/jellarr/issues/80
+    enable = false;
     environmentFile = jellarr-env.path;
 
     # NOTE: https://github.com/venkyr77/jellarr/issues/35
