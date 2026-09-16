@@ -56,6 +56,13 @@ let
       inputs.nix.follows = "determinate-nix";
     };
 
+    nix-fast-build = mkInput {
+      owner = "Mic92";
+      repo = "nix-fast-build";
+      # I want to keep using nom for now
+      ref = "1.6.0";
+    };
+
     # These are here to make sure all 'systems' and popular inputs are the same
     flake-compat = mkInput {
       owner = "edolstra";

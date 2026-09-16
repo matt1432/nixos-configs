@@ -267,6 +267,17 @@
       repo = "nix-eval-jobs";
       type = "github";
     };
+    nix-fast-build = {
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+      owner = "Mic92";
+      ref = "1.6.0";
+      repo = "nix-fast-build";
+      type = "github";
+    };
     nix-gaming = {
       inputs = {
         flake-compat.follows = "flake-compat";

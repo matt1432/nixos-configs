@@ -1250,6 +1250,33 @@
         "type": "github"
       }
     },
+    "nix-fast-build": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "treefmt-nix": [
+          "treefmt-nix"
+        ]
+      },
+      "locked": {
+        "lastModified": 1781073171,
+        "narHash": "sha256-PMBbenLBvn/0pSFOhwPVn171Vw7kU5YmBUNDhxllZ7c=",
+        "owner": "Mic92",
+        "repo": "nix-fast-build",
+        "rev": "a28921953d962c6c2527108a6be4062eb6dc2f51",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "ref": "1.6.0",
+        "repo": "nix-fast-build",
+        "type": "github"
+      }
+    },
     "nix-gaming": {
       "inputs": {
         "flake-compat": [
@@ -1632,6 +1659,7 @@
         "mpv-touch-gestures-src": "mpv-touch-gestures-src",
         "my-images-src": "my-images-src",
         "nix-eval-jobs": "nix-eval-jobs",
+        "nix-fast-build": "nix-fast-build",
         "nix-gaming": "nix-gaming",
         "nix-github-actions": "nix-github-actions",
         "nix-index-db": "nix-index-db",

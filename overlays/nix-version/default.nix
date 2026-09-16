@@ -1,7 +1,7 @@
 self: {nix ? null}: final: prev: let
   inherit (builtins) mapAttrs;
 
-  inherit (self.inputs) nix-eval-jobs nix-output-monitor;
+  inherit (self.inputs) nix-eval-jobs nix-output-monitor nix-fast-build;
 
   inherit (final.lib) pipe;
   inherit (final.stdenv.hostPlatform) system;
@@ -24,6 +24,10 @@ in
         sed -i 's/.*" nom hasn‘t detected any input. Have you redirected nix-build stderr into nom? (See -h and the README for details.)".*//' ./lib/NOM/Print.hs
       '';
     });
+
+    nix-fast-build = nix-fast-build.packages.${system}.default.override {
+      inherit (final) nix-output-monitor nix-eval-jobs;
+    };
 
     nix-serve = pipe final.nix-serve-ng [
       (final.haskell.lib.compose.overrideSrc (import ./nix-serve-ng-src.nix final))
