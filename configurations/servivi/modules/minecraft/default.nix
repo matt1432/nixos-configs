@@ -11,7 +11,7 @@
   environment.systemPackages = [
     pkgs.curseforge-server-downloader
     pkgs.mrpack-install
-    (pkgs.buildGo125Module rec {
+    (pkgs.buildGoModule rec {
       pname = "mrpack-install";
       version = "0.21.0-beta";
 

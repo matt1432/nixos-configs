@@ -19,6 +19,9 @@ let
     determinate-nix = mkInput {
       owner = "DeterminateSystems";
       repo = "nix-src";
+
+      # NOTE: fails tests with latest nixos-unstable
+      overrideNixpkgs = false;
     };
 
     home-manager = mkInput {

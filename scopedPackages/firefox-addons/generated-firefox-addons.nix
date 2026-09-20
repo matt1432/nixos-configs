@@ -6,10 +6,10 @@
 }: {
   "bitwarden" = buildMozillaXpiAddon {
     pname = "bitwarden";
-    version = "2026.8.0";
+    version = "2026.9.0";
     addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4970633/bitwarden_password_manager-2026.8.0.xpi";
-    sha256 = "989ee33f19329af1fc155dcebb7f90a517a7259cea4bfbdd660923d25a7d465a";
+    url = "https://addons.mozilla.org/firefox/downloads/file/5037282/bitwarden_password_manager-2026.9.0.xpi";
+    sha256 = "324a2d97e365092fe9db0f0069e4c748c935858523868361a3277c1bbf339a17";
     meta = with lib; {
       homepage = "https://bitwarden.com";
       description = "At home, at work, or on the go, Bitwarden easily secures all your passwords, passkeys, and sensitive information.";
@@ -36,10 +36,10 @@
   };
   "darkreader" = buildMozillaXpiAddon {
     pname = "darkreader";
-    version = "4.9.130";
+    version = "4.9.131";
     addonId = "addon@darkreader.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4998573/darkreader-4.9.130.xpi";
-    sha256 = "075d5457316af21d62a39a290b31fbf71f514dfc8c3f6a87376fd50f54ef4c9c";
+    url = "https://addons.mozilla.org/firefox/downloads/file/5029993/darkreader-4.9.131.xpi";
+    sha256 = "8be2371a105c298d159180c623c1fc133ed10aef56ae2bf2c98e899bd0e39d20";
     meta = with lib; {
       homepage = "https://darkreader.org/";
       description = "Dark mode for every website. Take care of your eyes, use dark theme for night and daily browsing.";
@@ -186,10 +186,10 @@
   };
   "stylus" = buildMozillaXpiAddon {
     pname = "stylus";
-    version = "2.4.11";
+    version = "2.4.13";
     addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4970801/styl_us-2.4.11.xpi";
-    sha256 = "a1fb8025132ad77f3f81dcdf6ac6a31798048a95ea65b975d12b335116df0224";
+    url = "https://addons.mozilla.org/firefox/downloads/file/5028285/styl_us-2.4.13.xpi";
+    sha256 = "2d969b7514acbfa7b77b4e4c6341b9e1e8bcd4c3b9bc63d8b06e5d853dd1cbdd";
     meta = with lib; {
       homepage = "https://add0n.com/stylus.html";
       description = "Redesign your favorite websites with Stylus, an actively developed and community driven userstyles manager. Easily install custom themes from popular online repositories, or create, edit, and manage your own personalized CSS stylesheets.";
@@ -240,10 +240,10 @@
   };
   "ublock-origin" = buildMozillaXpiAddon {
     pname = "ublock-origin";
-    version = "1.74.0";
+    version = "1.75.0";
     addonId = "uBlock0@raymondhill.net";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4981431/ublock_origin-1.74.0.xpi";
-    sha256 = "175756d74468c9ba45863f7fc333d3be670f82d5b066314e915814dd547d1652";
+    url = "https://addons.mozilla.org/firefox/downloads/file/5034826/ublock_origin-1.75.0.xpi";
+    sha256 = "5b74415860456370644bd80f16125e865b0e6c356bb5dfcfb84069967eaa5287";
     meta = with lib; {
       homepage = "https://github.com/gorhill/uBlock#ublock-origin";
       description = "Finally, an efficient wide-spectrum content blocker. Easy on CPU and memory.";
@@ -292,10 +292,10 @@
   };
   "youtube-no-translation" = buildMozillaXpiAddon {
     pname = "youtube-no-translation";
-    version = "2.24.6";
+    version = "2.25.0";
     addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/5006014/youtube_no_translation-2.24.6.xpi";
-    sha256 = "585c82cf962e0c2c8d6540ad6a81211eef6a133fbcd269cd3fcc2f0aa2dacf92";
+    url = "https://addons.mozilla.org/firefox/downloads/file/5016291/youtube_no_translation-2.25.0.xpi";
+    sha256 = "e82410d32621fc61eec626141c7008586c40e660ad0d3e74990587bc8dba838c";
     meta = with lib; {
       description = "Keeps YouTube content in its original language (Titles, Audio Tracks, Descriptions...)";
       mozPermissions = [

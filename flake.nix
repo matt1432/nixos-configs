@@ -37,10 +37,6 @@
       type = "github";
     };
     determinate-nix = {
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        nixpkgs.follows = "nixpkgs";
-      };
       owner = "DeterminateSystems";
       repo = "nix-src";
       type = "github";

@@ -8,11 +8,11 @@
     },
     "dependencies": {
         "@dropb/ffprobe": "3.0.1",
-        "@types/node": "22.20.2",
+        "@types/node": "26.6.2",
         "esbuild": "0.28.2",
-        "eslint": "10.10.0",
+        "eslint": "10.11.0",
         "jiti": "2.7.0",
-        "prettier": "3.9.6",
+        "prettier": "3.9.8",
         "prettier-plugin-brace-style": "0.10.3",
         "typescript": "6.0.3",
         "typescript-7": "npm:typescript@7.0.2"
