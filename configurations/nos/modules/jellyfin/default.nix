@@ -15,7 +15,6 @@
 in {
   imports = [
     ./collections
-    ./fix-cast
     ./jellarr.nix
     ./jfa-go.nix
     ./meilisearch.nix
