@@ -5,7 +5,7 @@
   makeWrapper,
   komf-src,
   # deps
-  gradle_8,
+  gradle_9,
   jdk17_headless,
   ...
 }: let
@@ -15,7 +15,7 @@
   version = "${tag}+${komf-src.shortRev or "dirty"}";
 
   jdk = jdk17_headless;
-  gradle = gradle_8.override {java = jdk;};
+  gradle = gradle_9.override {java = jdk;};
 in
   stdenv.mkDerivation (finalAttrs: {
     inherit pname version;

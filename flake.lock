@@ -1028,11 +1028,11 @@
     "komf-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1780284980,
-        "narHash": "sha256-3G6CMyzGNcYQjJ5XsIrRqdptSNgenQJ6i4gmVTIiImo=",
+        "lastModified": 1789931925,
+        "narHash": "sha256-WqmtoPqwmQudF110C0SdHDvOQYYIELwyC7gjGajUlcM=",
         "owner": "matt1432",
         "repo": "komf",
-        "rev": "21b28e276d50612ce1184549d33661c742834f9a",
+        "rev": "6d7a6db03d3aabace4cef6066130c1c64538aff9",
         "type": "github"
       },
       "original": {
