@@ -40,6 +40,11 @@ let
 
       inputs.sops-nix.follows = "sops-nix";
     };
+
+    wsl = mkInput {
+      owner = "nix-community";
+      repo = "NixOS-WSL";
+    };
   };
 
   nixTools = {

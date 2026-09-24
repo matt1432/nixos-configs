@@ -1717,7 +1717,8 @@
         "vimplugin-nix-develop-src": "vimplugin-nix-develop-src",
         "vimplugin-otter-src": "vimplugin-otter-src",
         "vimplugin-roslyn-src": "vimplugin-roslyn-src",
-        "virtualkeyboard-adapter": "virtualkeyboard-adapter"
+        "virtualkeyboard-adapter": "virtualkeyboard-adapter",
+        "wsl": "wsl"
       }
     },
     "secrets": {
@@ -1984,6 +1985,29 @@
       "original": {
         "owner": "horriblename",
         "repo": "fcitx-virtualkeyboard-adapter",
+        "type": "github"
+      }
+    },
+    "wsl": {
+      "inputs": {
+        "flake-compat": [
+          "flake-compat"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1789164534,
+        "narHash": "sha256-DoYGPM6QpnYBLWj9gGw6ZwAzIX+HrAVov1BoT+8Jixo=",
+        "owner": "nix-community",
+        "repo": "NixOS-WSL",
+        "rev": "72c92b11bb8289e6651c7fef29cc0a885fd6a255",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "NixOS-WSL",
         "type": "github"
       }
     },

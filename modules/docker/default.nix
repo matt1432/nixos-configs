@@ -4,8 +4,10 @@ self: {
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf mkOption types;
+  inherit (lib) hasAttr mkIf mkOption optionals types;
   inherit (config.sops) secrets;
+
+  hasSecrets = optionals (hasAttr "sops" config);
 
   cfg = config.roles.docker;
 in {
@@ -22,7 +24,7 @@ in {
 
     storageDriver = mkOption {
       default = "btrfs"; # I use BTRFS on all my servers
-      type = types.str;
+      type = types.nullOr types.str;
     };
   };
 
@@ -37,11 +39,11 @@ in {
     };
 
     # Script for updating the images of a compose.nix file
-    environment.systemPackages = [
+    environment.systemPackages = hasSecrets [
       (pkgs.callPackage ./updateImage.nix {})
     ];
-    nix.settings.extra-sandbox-paths = [secrets.docker.path];
-    nixpkgs.overlays = [
+    nix.settings.extra-sandbox-paths = hasSecrets [secrets.docker.path];
+    nixpkgs.overlays = hasSecrets [
       (final: prev: {
         skopeo = pkgs.writeScriptBin "skopeo" ''exec ${prev.skopeo}/bin/skopeo "$@" --authfile=${secrets.docker.path}'';
       })

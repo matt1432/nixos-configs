@@ -10,6 +10,7 @@ unique to them.
 | `binto` | NVIDIA 3070 with Ryzen 7 3700X | Desktop PC with a multi-monitor setup |
 | `live-image` | USB key | Basic configuration that serves as my custom ISO target |
 | `nos` | NVIDIA 3060 with i5-3600 | Custom built NAS and seedbox for Linux ISOs ;) |
+| `ouessel` | ThinkPad E14 Gen 6 Intel | WSL on Work Laptop |
 | `servivi` | Headless Ryzen 5 3600 | Gaming PC in a previous life, it is now used as a build farm and hosts game servers |
 | `thingone` | Lenovo ThinkCentre M900 | Mini PC that makes use of [NixOS-pcsd](https://github.com/matt1432/nixos-pcsd) to form a cluster with its twin. Files located in `cluster` |
 | `thingtwo` | Lenovo ThinkCentre M900 | Mini PC that makes use of [NixOS-pcsd](https://github.com/matt1432/nixos-pcsd) to form a cluster with its twin. Files located in `cluster` |

@@ -471,6 +471,15 @@
       repo = "fcitx-virtualkeyboard-adapter";
       type = "github";
     };
+    wsl = {
+      inputs = {
+        flake-compat.follows = "flake-compat";
+        nixpkgs.follows = "nixpkgs";
+      };
+      owner = "nix-community";
+      repo = "NixOS-WSL";
+      type = "github";
+    };
   };
   outputs = inputs: inputs.flakegen ./_outputs.nix inputs;
 }

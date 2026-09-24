@@ -37,6 +37,14 @@
         ];
       };
 
+      # Work Laptop WSL (WSL -> Wessel -> Ouessel)
+      ouessel = mkNixOS {
+        mainUser = "mhurtubise";
+        extraModules = [
+          ./configurations/ouessel
+        ];
+      };
+
       # NAS
       nos = mkNixOS {
         cudaSupport = true;
