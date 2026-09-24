@@ -8,13 +8,17 @@
 
   dotnet-combined = with pkgs.dotnetCorePackages;
     combinePackages [
-      sdk_8_0
+      sdk_8_0-bin
       sdk_10_0-bin
     ];
 in {
   environment = {
-    variables = {
+    variables = rec {
       DOTNET_ROOT = "${dotnet-combined}/share/dotnet";
+
+      # https://github.com/dotnet/sdk/issues/51693#issuecomment-3584569224
+      DOTNET_ROOT_X64 = DOTNET_ROOT;
+
       TF_VAR_env = "dev";
       TF_VAR_suffix = "-mh";
       AWS_SDK_LOAD_CONFIG = "1";
