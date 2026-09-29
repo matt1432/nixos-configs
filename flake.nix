@@ -39,6 +39,7 @@
     determinate-nix = {
       owner = "DeterminateSystems";
       repo = "nix-src";
+      rev = "60e0bcb31113f84503e22478cb6316b834c71104";
       type = "github";
     };
     docker-compose = {
@@ -261,6 +262,7 @@
       };
       owner = "DeterminateSystems";
       repo = "nix-eval-jobs";
+      rev = "ea717b501794614a7868c25e84d74d8192bd5763";
       type = "github";
     };
     nix-fast-build = {

@@ -10,6 +10,7 @@ const FLAKE = process.env.FLAKE as string;
 
 const PINS = new Map([
     ['typescript', '6.0.3'], // NOTE: https://github.com/typescript-eslint/typescript-eslint/issues/10940
+    ['gnim', '1.9.1'], // TODO: look into gnim v2
 ]);
 
 const updatePackageJson = async (workspaceDir: string, updates: object) => {

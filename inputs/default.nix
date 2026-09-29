@@ -20,7 +20,8 @@ let
       owner = "DeterminateSystems";
       repo = "nix-src";
 
-      # NOTE: fails tests with latest nixos-unstable
+      # NOTE: fails to build with latest nixos-unstable
+      rev = "60e0bcb31113f84503e22478cb6316b834c71104";
       overrideNixpkgs = false;
     };
 
@@ -61,6 +62,9 @@ let
     nix-eval-jobs = mkInput {
       owner = "DeterminateSystems";
       repo = "nix-eval-jobs";
+
+      # NOTE: fails to build with latest nixos-unstable
+      rev = "ea717b501794614a7868c25e84d74d8192bd5763";
       inputs.nix.follows = "determinate-nix";
     };
 

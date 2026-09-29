@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage rec {
   imageName = "ghcr.io/cleanuparr/cleanuparr";
-  imageDigest = "sha256:8136c3beda7aa217012657e0ee31f0473ff4ae7e54a156730ff04523987fa815";
-  hash = "sha256-5AdjS+fEKU5ZvD+16tB6kF8u8Tn8D5DMx+AB/cbXhdc=";
+  imageDigest = "sha256:ec444338a67e429a20f6eef938e1ed771ce357ed4831765026096061a09bbbb7";
+  hash = "sha256-Zzv/9axb/ovtuKGgJ4p2pf3JLkisaGoStP12Kro1ylE=";
   finalImageName = imageName;
   finalImageTag = "latest";
 }
