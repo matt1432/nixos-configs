@@ -1,4 +1,4 @@
 {
-  rev = "6d7a6db03d3aabace4cef6066130c1c64538aff9";
-  tag = "2.0.1";
+  rev = "77804ae261c63eddfe16991e90b3a6f22a776160";
+  tag = "2.1.0";
 }

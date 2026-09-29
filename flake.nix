@@ -196,7 +196,7 @@
     komf-src = {
       flake = false;
       owner = "matt1432";
-      ref = "personal";
+      ref = "personal-2";
       repo = "komf";
       type = "github";
     };

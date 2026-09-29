@@ -307,7 +307,7 @@ let
 
       # NOTE: https://github.com/Snd-R/komf/pull/259
       owner = "matt1432";
-      ref = "personal";
+      ref = "personal-2";
     }
     {
       type = "gitlab";
