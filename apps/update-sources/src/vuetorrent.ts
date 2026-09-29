@@ -43,9 +43,21 @@ export default (): string | null => {
     ).tag_name.replace('v', '');
 
     const URL = `https://github.com/VueTorrent/VueTorrent/releases/download/v${VERSION}/vuetorrent.zip`;
-    const HASH = parseFetchurl(URL);
 
-    const fileText = genVueText(VERSION, HASH, URL);
+    let hash: string | undefined = undefined;
+    try {
+        hash = parseFetchurl(URL);
+    }
+    catch (e) {
+        console.error(URL);
+        console.error(e);
+    }
+
+    if (!hash) {
+        return null;
+    }
+
+    const fileText = genVueText(VERSION, hash, URL);
 
     writeFileSync(FILE, fileText);
 
