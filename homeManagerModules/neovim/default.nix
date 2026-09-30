@@ -22,8 +22,8 @@ in {
 
     ideConfig = {
       llmProvider = mkOption {
-        type = types.enum ["opencode" "none"];
-        default = "opencode";
+        type = types.enum ["llama_cpp" "none"];
+        default = "llama_cpp";
       };
 
       enableBash = mkOption {

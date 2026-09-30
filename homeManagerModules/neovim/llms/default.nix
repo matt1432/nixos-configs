@@ -4,14 +4,9 @@ self: {
   pkgs,
   ...
 }: let
-  inherit (lib) getExe mkIf;
+  inherit (lib) mkIf;
 
   cfg = config.programs.neovim;
-
-  opencodeExe =
-    if cfg.ideConfig.llmProvider == "opencode"
-    then getExe pkgs.opencode
-    else "";
 in {
   config = mkIf (cfg.enable && cfg.ideConfig.llmProvider != "none") {
     programs = {
@@ -47,33 +42,35 @@ in {
             plugin = pkgs.vimPlugins.avante-nvim;
             type = "lua";
             config = ''
+              ---@diagnostic disable-next-line: missing-fields
               require("avante").setup({
-                  provider = "${cfg.ideConfig.llmProvider}",
+                  provider = "llama_cpp",
                   mode = "agentic",
-                  ${
-                if cfg.ideConfig.llmProvider == "opencode"
-                then
-                  # lua
-                  ''
-                    providers = {
-                        llamacpp = {
-                            __inherited_from = 'openai',
-                            endpoint = 'http://100.64.0.4:9292/v1',
-                            model = 'Qwen3.5-35B-A3B-GGUF',
-                            timeout = 1000000, -- Timeout in milliseconds
-                            disable_tools = false,
-                            api_key_name = "TERM",
-                        },
-                    },
-                  ''
-                else ""
-              }
-                  acp_providers = {
-                      opencode = {
-                          command = "${opencodeExe}",
-                          args = { "acp" },
-                          env = {},
+                  providers = {
+                      llama_cpp = {
+                          __inherited_from = "openai",
+                          endpoint = "http://100.64.0.4:9292/v1",
+                          model = "qwen3.6-35b-a3b",
+                          timeout = 1000000, -- Timeout in milliseconds
+                          disable_tools = false,
+                          api_key_name = "TERM",
                       },
+                      -- For some reason they would show up in :AvanteModels
+                      vertex = {
+                          is_env_set = function()
+                              return false
+                          end,
+                      },
+                      vertex_claude = {
+                          is_env_set = function()
+                              return false
+                          end,
+                      },
+                  },
+                  ---@diagnostic disable-next-line: missing-fields
+                  web_search_engine = {
+                      provider = "tavily",
+                      proxy = nil,
                   },
               })
 
