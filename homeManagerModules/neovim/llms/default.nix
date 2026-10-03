@@ -9,6 +9,8 @@ self: {
   cfg = config.programs.neovim;
 in {
   config = mkIf (cfg.enable && cfg.ideConfig.llmProvider != "none") {
+    home.sessionVariables.SEARXNG_API_URL = "http://127.0.0.1:8067/search";
+
     programs = {
       neovim = {
         extraPackages = [
@@ -69,8 +71,7 @@ in {
                   },
                   ---@diagnostic disable-next-line: missing-fields
                   web_search_engine = {
-                      provider = "tavily",
-                      proxy = nil,
+                      provider = "searxng",
                   },
               })
 

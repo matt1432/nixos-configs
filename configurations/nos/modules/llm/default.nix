@@ -5,6 +5,9 @@
 }: let
   tailscaleIP = "100.64.0.4";
 in {
+  # For web_search tool
+  imports = [./searxng];
+
   # In case tailscale is down
   boot.kernel.sysctl."net.ipv4.ip_nonlocal_bind" = 1;
 
