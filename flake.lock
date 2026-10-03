@@ -972,9 +972,7 @@
     },
     "jellyfin-auto-collections": {
       "inputs": {
-        "letterboxdpy-src": [
-          "letterboxdpy-src"
-        ],
+        "letterboxdpy-src": "letterboxdpy-src",
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -986,11 +984,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1778093341,
-        "narHash": "sha256-J+NwRZyBdObfLQTujzeZDCU5gRq4nqT2Pc9EGDNKTmQ=",
+        "lastModified": 1791055177,
+        "narHash": "sha256-Sjde2f8IFEDMYozZ04baA55o8izhtB6WJSHYDKW9Go4=",
         "owner": "matt1432",
         "repo": "Jellyfin-Auto-Collections",
-        "rev": "90ff1fe492cb74b3e953f0fec25fc1cf579b57b5",
+        "rev": "3e02c70133446463842177442bb16d1f12eee709",
         "type": "github"
       },
       "original": {
@@ -1046,15 +1044,16 @@
     "letterboxdpy-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1778038679,
-        "narHash": "sha256-9IhYc6MmBiV0ExfOfz2rYDrGvdcgPdHNm29HS4o1uCM=",
-        "owner": "matt1432",
+        "lastModified": 1780311116,
+        "narHash": "sha256-8kna1aI/fphPwJEDwnNhqo82fg0bPhH20XTU5+WQ3ss=",
+        "owner": "nmcassa",
         "repo": "letterboxdpy",
-        "rev": "1a61dafdc38a91d3aa1788b87314be224ed3836a",
+        "rev": "cafa31dd84a58948e2d13a84bcc3a1a4a76f5701",
         "type": "github"
       },
       "original": {
-        "owner": "matt1432",
+        "owner": "nmcassa",
+        "ref": "v6.5.5",
         "repo": "letterboxdpy",
         "type": "github"
       }
@@ -1699,7 +1698,6 @@
         "jellyfin-auto-collections": "jellyfin-auto-collections",
         "kapowarr-react": "kapowarr-react",
         "komf-src": "komf-src",
-        "letterboxdpy-src": "letterboxdpy-src",
         "lib-aggregate": "lib-aggregate",
         "libratbag-src": "libratbag-src",
         "minix": "minix",
