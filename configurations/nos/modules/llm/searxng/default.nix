@@ -1,4 +1,4 @@
-{
+ip: {
   lib,
   pkgs,
   ...
@@ -33,9 +33,7 @@ in {
 
         formats = [
           "html"
-
           "csv"
-
           "json"
         ];
       };
@@ -48,7 +46,7 @@ in {
 
       server = {
         port = 8067;
-        bind_address = "127.0.0.1";
+        bind_address = ip;
 
         secret_key = "whatislove";
 
@@ -74,4 +72,7 @@ in {
       };
     };
   };
+
+  # For accurate stack trace
+  _file = ./default.nix;
 }

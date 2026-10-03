@@ -7,9 +7,16 @@ self: {
   inherit (lib) mkIf;
 
   cfg = config.programs.neovim;
+
+  searxCfg =
+    self.nixosConfigurations.nos.config.services.searx.settings.server or {
+      bind_address = "127.0.0.1";
+      port = 8080;
+    };
+  inherit (searxCfg) bind_address port;
 in {
   config = mkIf (cfg.enable && cfg.ideConfig.llmProvider != "none") {
-    home.sessionVariables.SEARXNG_API_URL = "http://127.0.0.1:8067/search";
+    home.sessionVariables.SEARXNG_API_URL = "http://${bind_address}:${toString port}/search";
 
     programs = {
       neovim = {
