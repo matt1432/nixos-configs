@@ -10,7 +10,7 @@ in {
   config = mkIf cfg.enable {
     programs = {
       neovim = {
-        initLua =
+        vscode.excludedInitLua =
           # lua
           ''
             LoadDevShell({

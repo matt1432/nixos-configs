@@ -19,7 +19,7 @@ in {
         inherit (pkgs) bat;
       };
 
-      plugins = [
+      vscode.excludedPlugins = [
         {
           plugin = pkgs.vimPlugins.dracula-nvim.overrideAttrs (o: {
             name = "vimplugin-${o.pname}-${mkVersion nvim-theme-src}";

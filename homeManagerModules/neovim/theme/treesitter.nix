@@ -27,7 +27,7 @@ in {
       '';
     };
 
-    programs.neovim.plugins = [
+    programs.neovim.vscode.excludedPlugins = [
       {
         plugin = pkgs.vimPlugins.nvim-treesitter-context;
         type = "lua";
@@ -41,7 +41,10 @@ in {
           vim.cmd.hi("TreesitterContextBottom", "gui=underline guisp=Grey")
         '';
       }
+    ];
 
+    # Kept with vscode-neovim since mini.ai uses the parsers and textobjects
+    programs.neovim.plugins = [
       pkgs.vimPlugins.nvim-treesitter-textobjects
 
       {

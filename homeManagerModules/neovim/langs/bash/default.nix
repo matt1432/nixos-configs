@@ -30,7 +30,7 @@ in {
             ;
         };
 
-        initLua =
+        vscode.excludedInitLua =
           # lua
           ''
             vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {

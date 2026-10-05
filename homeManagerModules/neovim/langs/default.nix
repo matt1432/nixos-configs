@@ -37,7 +37,7 @@ in {
 
   config = mkIf cfg.enable {
     programs.neovim = {
-      initLua =
+      vscode.excludedInitLua =
         mkBefore
         # lua
         ''
@@ -180,7 +180,7 @@ in {
           })
         '';
 
-      plugins = attrValues {
+      vscode.excludedPlugins = attrValues {
         inherit
           (pkgs.vimPlugins)
           # lsp plugins

@@ -14,7 +14,7 @@ in {
   config = mkIf cfg.enable {
     programs = {
       neovim = {
-        plugins = [
+        vscode.excludedPlugins = [
           {
             plugin = buildPlugin "roslyn-nvim" vimplugin-roslyn-src;
             type = "lua";

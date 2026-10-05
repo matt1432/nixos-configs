@@ -19,7 +19,7 @@ in {
       };
 
       neovim = {
-        initLua =
+        vscode.excludedInitLua =
           # lua
           ''
             vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
@@ -33,7 +33,7 @@ in {
             })
           '';
 
-        plugins = [
+        vscode.excludedPlugins = [
           {
             plugin = pkgs.vimPlugins.nvim-jdtls;
             type = "lua";

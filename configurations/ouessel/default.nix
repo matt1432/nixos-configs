@@ -79,6 +79,7 @@
 
         neovim = {
           enable = true;
+          vscode.enable = true;
           user = mainUser;
         };
       };

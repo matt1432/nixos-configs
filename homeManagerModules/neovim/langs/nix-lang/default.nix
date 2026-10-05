@@ -69,7 +69,7 @@ in {
           inherit nixdPkg;
         };
 
-        initLua =
+        vscode.excludedInitLua =
           # lua
           ''
             vim.lsp.enable("nixd")

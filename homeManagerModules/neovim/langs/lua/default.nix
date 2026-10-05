@@ -11,7 +11,7 @@ in {
   config = mkIf cfg.enable {
     programs = {
       neovim = {
-        plugins = [
+        vscode.excludedPlugins = [
           {
             plugin = pkgs.vimPlugins.lazydev-nvim;
             type = "lua";

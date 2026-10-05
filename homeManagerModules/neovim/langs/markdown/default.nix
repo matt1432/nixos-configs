@@ -23,7 +23,7 @@ in {
   config = mkIf cfg.enable {
     programs = {
       neovim = {
-        initLua =
+        vscode.excludedInitLua =
           # lua
           ''
             LoadDevShell({
@@ -54,7 +54,7 @@ in {
             })
           '';
 
-        plugins = [
+        vscode.excludedPlugins = [
           {
             plugin = buildPlugin "easytables-nvim" vimplugin-easytables-src;
             type = "lua";

@@ -24,7 +24,7 @@ in {
           pkgs.python3Packages.pylatexenc
         ];
 
-        plugins = [
+        vscode.excludedPlugins = [
           {
             plugin = pkgs.vimPlugins.render-markdown-nvim;
             type = "lua";
