@@ -12,6 +12,18 @@
       sdk_10_0-bin
     ];
 in {
+  # https://nix-community.github.io/NixOS-WSL/how-to/vscode.html
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      stdenv.cc.cc.lib
+      zlib
+      openssl
+      libffi
+      glibc
+    ];
+  };
+
   environment = {
     variables = rec {
       DOTNET_ROOT = "${dotnet-combined}/share/dotnet";
@@ -25,8 +37,10 @@ in {
       BROWSER = "/home/${mainUser}/.local/bin/firefox";
     };
 
+    localBinInPath = true;
+
     systemPackages = attrValues {
-      inherit (pkgs) awscli2 openssl_4_0 tfenv xdg-utils;
+      inherit (pkgs) awscli2 openssl_4_0 tfenv xdg-utils uv;
 
       inherit dotnet-combined;
 
