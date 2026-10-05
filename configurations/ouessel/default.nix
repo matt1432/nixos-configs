@@ -25,9 +25,7 @@
   # ------------------------------------------------
   wsl.enable = true;
   wsl.defaultUser = mainUser;
-
-  # https://nix-community.github.io/NixOS-WSL/how-to/vscode.html
-  programs.nix-ld.enable = true;
+  wsl.interop.register = true;
 
   users.users.${mainUser} = {
     isNormalUser = true;
