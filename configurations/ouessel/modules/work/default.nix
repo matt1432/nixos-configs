@@ -40,7 +40,15 @@ in {
     localBinInPath = true;
 
     systemPackages = attrValues {
-      inherit (pkgs) awscli2 openssl_4_0 tfenv xdg-utils uv;
+      inherit
+        (pkgs)
+        awscli2
+        gh
+        openssl_4_0
+        tfenv
+        uv
+        xdg-utils
+        ;
 
       inherit dotnet-combined;
 
