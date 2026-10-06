@@ -36,12 +36,7 @@
       repo = "bazarr-bulk";
       type = "github";
     };
-    determinate-nix = {
-      owner = "DeterminateSystems";
-      repo = "nix-src";
-      rev = "60e0bcb31113f84503e22478cb6316b834c71104";
-      type = "github";
-    };
+    determinate-nix.follows = "nix-eval-jobs/nix";
     docker-compose = {
       owner = "matt1432";
       repo = "nixos-docker-compose";
@@ -150,6 +145,7 @@
         aquamarine.follows = "hyprland/aquamarine";
         hyprgraphics.follows = "hyprland/hyprgraphics";
         hyprlang.follows = "hyprland/hyprlang";
+        hyprtoolkit.follows = "hyprland/hyprtoolkit";
         hyprutils.follows = "hyprland/hyprutils";
         hyprwayland-scanner.follows = "hyprland/hyprwayland-scanner";
         hyprwire.follows = "hyprland/hyprwire";
@@ -247,15 +243,8 @@
       url = "https://git.nelim.org/matt1432/pub-images.git";
     };
     nix-eval-jobs = {
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        nix.follows = "determinate-nix";
-        nixpkgs.follows = "nixpkgs";
-        treefmt-nix.follows = "treefmt-nix";
-      };
       owner = "DeterminateSystems";
       repo = "nix-eval-jobs";
-      rev = "ea717b501794614a7868c25e84d74d8192bd5763";
       type = "github";
     };
     nix-fast-build = {

@@ -16,14 +16,7 @@ let
       shallow = true;
     };
 
-    determinate-nix = mkInput {
-      owner = "DeterminateSystems";
-      repo = "nix-src";
-
-      # NOTE: fails to build with latest nixos-unstable
-      rev = "60e0bcb31113f84503e22478cb6316b834c71104";
-      overrideNixpkgs = false;
-    };
+    determinate-nix.follows = "nix-eval-jobs/nix";
 
     home-manager = mkInput {
       owner = "nix-community";
@@ -62,10 +55,7 @@ let
     nix-eval-jobs = mkInput {
       owner = "DeterminateSystems";
       repo = "nix-eval-jobs";
-
-      # NOTE: fails to build with latest nixos-unstable
-      rev = "ea717b501794614a7868c25e84d74d8192bd5763";
-      inputs.nix.follows = "determinate-nix";
+      overrideNixpkgs = false;
     };
 
     nix-fast-build = mkInput {

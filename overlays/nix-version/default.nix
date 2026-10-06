@@ -35,6 +35,6 @@ in
 
     nix-eval-jobs =
       if isX86
-      then nix-eval-jobs.packages.${system}.default.override {pkgs = final;} // {inherit nix;}
+      then nix-eval-jobs.packages.${system}.default // {inherit nix;}
       else prev.nix-eval-jobs;
   }

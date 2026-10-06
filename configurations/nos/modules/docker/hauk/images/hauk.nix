@@ -1,7 +1,7 @@
 pkgs:
 pkgs.dockerTools.pullImage rec {
   imageName = "bilde2910/hauk";
-  imageDigest = "sha256:c7614b8340c25d91f32bfd00ebb92f81c05a4506410849e83d9102ba6304400e";
+  imageDigest = "sha256:0cb80df07fe76e74988a5532d6632994eedaf74ca3ca81e213561e9b1f136c29";
   sha256 = "0dx7g8hrm4gz5bwd2v12l0hvyvbwrf9yiyqsn1pvw62ii8j721zp";
   finalImageName = imageName;
   finalImageTag = "latest";
