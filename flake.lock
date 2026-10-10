@@ -994,11 +994,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1791156338,
-        "narHash": "sha256-1roGuVdxEniJwui7UTnu2zTTh9dlSPzO2QWvo7GOOTs=",
+        "lastModified": 1791668142,
+        "narHash": "sha256-1xh7FNioZ/gJCgKHoGCvhtrjVMVWYkO93AcDUoZvjks=",
         "owner": "matt1432",
         "repo": "KapowarrReact",
-        "rev": "a0caadff07b22487f4904fe03d2e6725db7a2ef7",
+        "rev": "f14d68969210a982e4efda123e0dd1e9d007478a",
         "type": "github"
       },
       "original": {
