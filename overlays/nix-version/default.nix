@@ -23,6 +23,17 @@ in
 
         sed -i 's/.*" nom hasn‘t detected any input. Have you redirected nix-build stderr into nom? (See -h and the README for details.)".*//' ./lib/NOM/Print.hs
       '';
+
+      # NOTE: https://github.com/maralorn/nix-output-monitor/pull/321
+      patches =
+        o.patches or []
+        ++ [
+          (prev.fetchpatch2 {
+            url = "https://patch-diff.githubusercontent.com/raw/maralorn/nix-output-monitor/pull/321.patch";
+            relative = "nix-output-monitor";
+            hash = "sha256-uleti4hBzGN/uQS7CxUi4FaVs+fy+Q/rmqDPNPXBNiM=";
+          })
+        ];
     });
 
     nix-fast-build = nix-fast-build.packages.${system}.default.override {
