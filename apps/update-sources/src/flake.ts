@@ -60,8 +60,12 @@ export default (): string | null => {
                     (_, backref1, backref2) => `${backref2} rev: ${backref1}`,
                 )
                 .replace(
-                    /\?ref.*&rev=(.{40})[^'&]*(.*)/,
-                    (_, backref1, backref2) => `${backref2} rev: ${backref1}`,
+                    /(\?ref.*)&rev=(.{40})[^'&]*(.*)/,
+                    (_, b1, b2, b3) => `${b1}${b3} rev: ${b2}`,
+                )
+                .replace(
+                    /'github:(.*)\/([^/]*)'(.*)/,
+                    (_, b1, b2, b3) => `'github:${b1}'${b3} rev: ${b2}`,
                 ),
         )
         .join('\n');
