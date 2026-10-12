@@ -4,38 +4,48 @@ import { styleText } from 'node:util';
 /* Constants */
 const FLAKE = process.env.FLAKE;
 
+const hasUpdated = (input: string) => {
+    const parts = input.split('\n');
+
+    return !parts[2].includes(parts[1].trim());
+};
+
+const isWantedInput = (input: string) => {
+    return ![
+        'systems',
+        'flake-compat',
+        'flake-utils',
+        'flake-parts',
+        'treefmt-nix',
+        'lib-aggregate',
+        'lib-aggregate/nixpkgs-lib',
+        'nix-github-actions',
+        'pre-commit-hooks',
+        'pre-commit-hooks/nixpkgs',
+    ].some((inputName) => input.startsWith(` Updated input '${inputName}'`));
+};
+
 export default (): string | null => {
     console.log(styleText(['magenta'], '\nUpdating flake inputs:\n'));
 
     const output: string = spawnSync(
         `git restore flake.lock &> /dev/null; nix flake update --flake ${FLAKE}` +
-            ' |& grep -v "warning: updating lock file" |& grep -v "unpacking" |& grep -v "fetching"',
+            ' |& grep -v "warning: updating lock file"' +
+            ' |& grep -v "unpacking"' +
+            ' |& grep -v "fetching"' +
+            ' |& grep -v "has an override for a non-existent input "' + // We fix that at the end
+            '',
         [],
         { shell: true },
     ).stdout.toString();
 
     const inputsUpdates: string[] = output
-        // Get an array of each update / change
-        .split('\n•')
-        // Filter out some inputs
+        .split('\n•') // Each input starts with '•'
         .filter(
             (input) =>
                 input.startsWith(' Updated input ') &&
-                ![
-                    'systems',
-                    'flake-compat',
-                    'flake-utils',
-                    'flake-parts',
-                    'treefmt-nix',
-                    'lib-aggregate',
-                    'lib-aggregate/nixpkgs-lib',
-                    'nix-gaming/umu',
-                    'nix-github-actions',
-                    'pre-commit-hooks',
-                    'pre-commit-hooks/nixpkgs',
-                ].some((inputName) =>
-                    input.startsWith(` Updated input '${inputName}'`),
-                ),
+                isWantedInput(input) &&
+                hasUpdated(input),
         );
 
     const formattedOutput: string = inputsUpdates
