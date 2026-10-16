@@ -16,6 +16,7 @@ in {
       unitConfig = {
         Description = "Dolphin file manager";
         PartOf = ["graphical-session.target"];
+        After = ["graphical-session.target"];
       };
       path = ["/run/current-system/sw"];
       environment.QT_QPA_PLATFORM = "wayland";
