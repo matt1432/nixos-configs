@@ -44,7 +44,7 @@ self: {
     '';
   };
 
-  keyringPassFile = config.sops.secrets.binto-keyring.path or "null";
+  keyringPassFile = config.sops.secrets.keyring.path or "null";
 
   autoLoginKeyringFix = pkgs.writeShellApplication {
     name = "autoLoginKeyringFix";
@@ -115,10 +115,12 @@ in {
         greetd.enableGnomeKeyring = true;
       });
 
-    environment.sessionVariables = {
+    environment.sessionVariables = let
+      runtimeDir = "/run/user/${toString config.users.users.${cfg.user}.uid}";
+    in {
       # Tell Electron apps where to find the keyring
-      GNOME_KEYRING_CONTROL = "\${XDG_RUNTIME_DIR}/keyring";
-      SSH_AUTH_SOCK = "\${XDG_RUNTIME_DIR}/keyring/ssh";
+      GNOME_KEYRING_CONTROL = "${runtimeDir}/keyring";
+      SSH_AUTH_SOCK = "${runtimeDir}/keyring/ssh";
     };
 
     home-manager.users.${cfg.user} = {

@@ -55,35 +55,115 @@ export default (hyprpaper: ReturnType<typeof subprocess>) => {
 
     const response = (<label />) as Astal.Label;
 
+    // Drives the PAM conversation step by step so that messages like
+    // "Place your finger on the reader" from pam_fprintd get acknowledged
+    // instead of aborting the login like AstalGreet.login() does
+    const greeter = new AstalGreet.Greeter();
+
+    let sessionCreated = false;
+
+    // Password typed before the session was created, answers the first prompt
+    let pendingPassword: string | null = null;
+
+    const resetEntry = () => {
+        password.set_text('');
+        password.set_sensitive(true);
+        password.grab_focus();
+    };
+
+    greeter.connect('secret-request', (_, message: string) => {
+        if (pendingPassword !== null) {
+            greeter.post_auth(pendingPassword);
+            pendingPassword = null;
+        }
+        else {
+            response.set_label(message.trim());
+            resetEntry();
+        }
+    });
+
+    greeter.connect('visible-request', (_, message: string) => {
+        pendingPassword = null;
+        response.set_label(message.trim());
+        resetEntry();
+    });
+
+    greeter.connect('info-message', (_, message: string) => {
+        response.set_label(message.trim());
+    });
+
+    greeter.connect('error-message', (_, message: string) => {
+        response.set_label(message.trim());
+    });
+
+    greeter.connect('cancelled', (_, error: AstalGreet.Error) => {
+        sessionCreated = false;
+        pendingPassword = null;
+        response.set_label(error.description);
+        resetEntry();
+    });
+
+    greeter.connect('authenticated', () => {
+        response.set_label('');
+
+        greeter.start_session(['Hyprland'], [], () => {
+            app.get_window('greeter')?.set_visible(false);
+            hyprpaper.kill();
+
+            setTimeout(() => {
+                app.quit();
+            }, 500);
+        });
+    });
+
     const password = (
         <entry
             placeholderText="Password"
             visibility={false}
+            secondaryIconName="view-reveal-symbolic"
+            secondaryIconTooltipText="Show password"
+            onIconPress={(self, position) => {
+                if (position !== Gtk.EntryIconPosition.SECONDARY) {
+                    return;
+                }
+
+                const visible = !self.get_visibility();
+
+                self.set_visibility(visible);
+                self.set_icon_from_icon_name(
+                    Gtk.EntryIconPosition.SECONDARY,
+                    visible ? 'view-conceal-symbolic' : 'view-reveal-symbolic',
+                );
+                self.set_icon_tooltip_text(
+                    Gtk.EntryIconPosition.SECONDARY,
+                    visible ? 'Hide password' : 'Show password',
+                );
+            }}
             $={(self) =>
                 idle(() => {
                     self.grab_focus();
                 })
             }
             onActivate={(self) => {
-                AstalGreet.login(
-                    dropdown.get_active_text() ?? '',
-                    self.get_text() || '',
-                    'Hyprland',
-                    (_, res) => {
-                        try {
-                            AstalGreet.login_finish(res);
-                            app.get_window('greeter')?.set_visible(false);
-                            hyprpaper.kill();
+                // Prevent sending a second request while one is in flight
+                if (!self.get_sensitive()) {
+                    return;
+                }
 
-                            setTimeout(() => {
-                                app.quit();
-                            }, 500);
-                        }
-                        catch (error) {
-                            response.set_label(JSON.stringify(error));
-                        }
-                    },
-                );
+                self.set_sensitive(false);
+                response.set_label('');
+
+                if (sessionCreated) {
+                    // Answering a follow-up prompt from PAM
+                    greeter.post_auth(self.get_text());
+                }
+                else {
+                    // An empty password makes greetd's PAM stack fall back
+                    // to pam_fprintd which waits for the fingerprint
+                    sessionCreated = true;
+                    pendingPassword = self.get_text();
+                    greeter.create_session(dropdown.get_active_text() ?? '');
+                }
             }}
         />
     ) as Gtk.Entry;

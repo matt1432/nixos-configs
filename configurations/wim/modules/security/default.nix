@@ -1,9 +1,10 @@
 {
+  config,
   lib,
   pkgs,
   ...
 }: let
-  inherit (lib) mkDefault mkBefore;
+  inherit (lib) mkBefore mkDefault mkForce mkIf;
   inherit (pkgs.selfPackages) pam-fprint-grosshack;
 
   pam_fprintd_grosshackSo = "${pam-fprint-grosshack}/lib/security/pam_fprintd_grosshack.so";
@@ -34,5 +35,33 @@ in {
     sudo.text = mkDefault (mkBefore grosshackConf);
     login.text = mkDefault (mkBefore grosshackConf);
     polkit-1.text = mkDefault (mkBefore grosshackConf);
+
+    greetd.rules.auth.login.modulePath = mkIf config.services.greetd.enable (mkForce "greetd-auth");
+
+    greetd-auth = mkIf config.services.greetd.enable {
+      enableGnomeKeyring = true;
+
+      # Ask for the password first and only fall back to the fingerprint when
+      # it was left empty
+      rules.auth = let
+        unixOrder = config.security.pam.services.greetd-auth.rules.auth.unix.order;
+      in {
+        empty-password = {
+          order = unixOrder + 10;
+          control = "[success=ok default=die]";
+          modulePath = "${config.security.pam.package}/lib/security/pam_exec.so";
+          args = [
+            "quiet"
+            "expose_authtok"
+            (toString (pkgs.writeShellScript "is-password-empty" ''
+              # The password is written to stdin followed by a NUL byte
+              [ -z "$(${pkgs.coreutils}/bin/head -c1 | ${pkgs.coreutils}/bin/tr -d '\0')" ]
+            ''))
+          ];
+        };
+
+        fprintd.order = unixOrder + 20;
+      };
+    };
   };
 }

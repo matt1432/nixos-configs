@@ -26,7 +26,7 @@
       wim = mkNixOS {
         extraModules = [
           ./configurations/wim
-          secrets.nixosModules.default
+          secrets.nixosModules.wim
         ];
       };
       binto = mkNixOS {
