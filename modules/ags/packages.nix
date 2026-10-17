@@ -48,7 +48,6 @@ in {
           bluetooth
           cava
           greet
-          hyprland
           mpris
           network
           notifd
@@ -56,6 +55,11 @@ in {
           tray
           wireplumber
           ;
+
+        # NOTE: remove once astal supports Hyprland 0.56 workspace addresses
+        hyprland = astal.packages.${system}.hyprland.overrideAttrs (o: {
+          patches = (o.patches or []) ++ [./astal-hyprland-0.56.patch];
+        });
 
         inherit
           (pkgs)

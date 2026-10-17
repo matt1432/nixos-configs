@@ -1,0 +1,163 @@
+--- a/src/client.vala
++++ b/src/client.vala
+@@ -51,7 +51,7 @@
+         fullscreen = (Fullscreen)obj.get_int_member("fullscreen");
+         fullscreen_client = (Fullscreen)obj.get_int_member("fullscreenClient");
+ 
+-        workspace = hyprland.get_workspace((int)obj.get_object_member("workspace").get_int_member("id"));
++        workspace = hyprland.get_workspace(hyprland.workspace_id_of(obj.get_object_member("workspace")));
+         monitor = hyprland.get_monitor((int)obj.get_int_member("monitor"));
+     }
+ 
+--- a/src/hyprland.vala
++++ b/src/hyprland.vala
+@@ -42,6 +42,39 @@
+     private HashTable<string, Client> _clients =
+         new HashTable<string, Client>(str_hash, str_equal);
+ 
++    // Since Hyprland 0.56, only numbered workspaces have an "id".
++    // Special and named workspaces are identified by their address,
++    // so we give them stable negative ids to keep the int based API.
++    private HashTable<string, int> _workspace_ids =
++        new HashTable<string, int>(str_hash, str_equal);
++    private int _next_workspace_id = -1000;
++
++    internal int workspace_id(string? address) {
++        if (address == null || address == "") return 0;
++
++        var addr = address.has_prefix("name:") ? address.substring(5) : address;
++
++        int id;
++        if (int.try_parse(addr, out id)) return id;
++
++        if (!_workspace_ids.contains(addr)) {
++            _workspace_ids.insert(addr, _next_workspace_id--);
++        }
++        return _workspace_ids.get(addr);
++    }
++
++    internal int workspace_id_of(Json.Object obj) {
++        if (obj.has_member("address")) {
++            return workspace_id(obj.get_string_member("address"));
++        }
++        return obj.has_member("id") ? (int)obj.get_int_member("id") : 0;
++    }
++
++    // event payloads start with the workspace selector: "<selector>,<name>[,...]"
++    private int workspace_id_of_event(string data) {
++        return workspace_id(data.split(",", 2)[0]);
++    }
++
+     public List<weak Monitor> monitors { owned get { return _monitors.get_values(); } }
+     public List<weak Workspace> workspaces { owned get { return _workspaces.get_values(); } }
+     public List<weak Client> clients { owned get { return _clients.get_values(); } }
+@@ -226,7 +259,7 @@
+             if (mon.get_object().get_member("focused").get_boolean()) focused_monitor = m;
+         }
+         foreach (var wrkpsc in wrkspcs.get_elements()) {
+-            var id = (int)wrkpsc.get_object().get_member("id").get_int();
++            var id = workspace_id_of(wrkpsc.get_object());
+             _workspaces.set(id, new Workspace());
+         }
+         foreach (var clnt in clnts.get_elements()) {
+@@ -240,7 +273,7 @@
+             get_client(addr).sync(c.get_object());
+         }
+         foreach (var ws in wrkspcs.get_elements()) {
+-            var id = (int)ws.get_object().get_member("id").get_int();
++            var id = workspace_id_of(ws.get_object());
+             get_workspace(id).sync(ws.get_object());
+         }
+         foreach (var mon in mons.get_elements()) {
+@@ -249,8 +282,8 @@
+         }
+ 
+         // focused
+-        focused_workspace = get_workspace((int)Json.from_string(message("j/activeworkspace"))
+-                .get_object().get_member("id").get_int());
++        focused_workspace = get_workspace(workspace_id_of(Json.from_string(message("j/activeworkspace"))
++                .get_object()));
+ 
+         focused_client = get_client(Json.from_string(message("j/activewindow"))
+                 .get_object().get_member("address").get_string());
+@@ -280,7 +313,7 @@
+         var str = yield message_async("j/workspaces");
+         var arr = Json.from_string(str).get_array();
+         foreach (var obj in arr.get_elements()) {
+-            var id = (int)obj.get_object().get_int_member("id");
++            var id = workspace_id_of(obj.get_object());
+             var ws = get_workspace(id);
+             if (ws != null) ws.sync(obj.get_object());
+         }
+@@ -317,7 +350,7 @@
+             case "workspacev2": {
+                 yield sync_workspaces();
+                 yield sync_monitors();
+-                focused_workspace = get_workspace(int.parse(args[1]));
++                focused_workspace = get_workspace(workspace_id_of_event(args[1]));
+                 break;
+             }
+             case "focusedmon": {
+@@ -349,7 +382,7 @@
+                 break;
+             }
+             case "createworkspacev2": {
+-                var id = int.parse(args[1].split(",", 2)[0]);
++                var id = workspace_id_of_event(args[1]);
+                 var ws = new Workspace();
+                 _workspaces.insert(id, ws);
+                 yield sync_workspaces();
+@@ -358,7 +391,8 @@
+                 break;
+             }
+             case "destroyworkspacev2": {
+-                var id = int.parse(args[1].split(",", 2)[0]);
++                var id = workspace_id_of_event(args[1]);
++                if (!_workspaces.contains(id)) break;
+                 _workspaces.get(id).removed();
+                 _workspaces.remove(id);
+                 workspace_removed(id);
+@@ -368,7 +402,7 @@
+             case "moveworkspacev2": {
+                 yield sync_workspaces();
+                 yield sync_monitors();
+-                focused_workspace = get_workspace(int.parse(args[1]));
++                focused_workspace = get_workspace(workspace_id_of_event(args[1]));
+                 notify_property("workspaces");
+                 break;
+             }
+@@ -412,8 +446,8 @@
+                 yield sync_clients();
+                 yield sync_workspaces();
+                 var argv = args[1].split(",");
+-                client_moved(get_client(argv[0]), get_workspace(int.parse(argv[1])));
+-                get_client(argv[0]).moved_to(get_workspace(int.parse(argv[1])));
++                client_moved(get_client(argv[0]), get_workspace(workspace_id(argv[1])));
++                get_client(argv[0]).moved_to(get_workspace(workspace_id(argv[1])));
+                 break;
+             }
+             case "submap": {
+--- a/src/monitor.vala
++++ b/src/monitor.vala
+@@ -62,8 +62,8 @@
+             modes.append_val(mode.get_string());
+         }
+ 
+-        active_workspace = hyprland.get_workspace((int)obj.get_object_member("activeWorkspace").get_int_member("id"));
+-        special_workspace = hyprland.get_workspace((int)obj.get_object_member("specialWorkspace").get_int_member("id"));
++        active_workspace = hyprland.get_workspace(hyprland.workspace_id_of(obj.get_object_member("activeWorkspace")));
++        special_workspace = hyprland.get_workspace(hyprland.workspace_id_of(obj.get_object_member("specialWorkspace")));
+     }
+ 
+     public void focus() {
+--- a/src/workspace.vala
++++ b/src/workspace.vala
+@@ -32,7 +32,7 @@
+     internal void sync(Json.Object obj) {
+         var hyprland = Hyprland.get_default();
+ 
+-        id = (int)obj.get_int_member("id");
++        id = hyprland.workspace_id_of(obj);
+         name = obj.get_string_member("name");
+         has_fullscreen = obj.get_boolean_member("hasfullscreen");
+ 

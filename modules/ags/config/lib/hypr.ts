@@ -46,7 +46,28 @@ export const get_monitor_desc = (mon: AstalHyprland.Monitor): string => {
     return `desc:${mon.description}`;
 };
 
+// Hyprland's socket only queues 10 pending connections, so identical
+// read-only requests that are already in flight share the same answer.
+const pendingQueries = new Map<string, Promise<string>>();
+
 export const hyprMessage = (message: string) => {
+    if (!message.startsWith('j/')) {
+        return sendHyprMessage(message);
+    }
+
+    let pending = pendingQueries.get(message);
+
+    if (!pending) {
+        pending = sendHyprMessage(message).finally(() => {
+            pendingQueries.delete(message);
+        });
+        pendingQueries.set(message, pending);
+    }
+
+    return pending;
+};
+
+const sendHyprMessage = (message: string) => {
     return new Promise<string>(
         (resolution = () => {}, rejection = () => {}) => {
             const hyprland = AstalHyprland.get_default();
