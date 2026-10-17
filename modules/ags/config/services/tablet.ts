@@ -223,14 +223,8 @@ export default class Tablet extends GObject.Object {
 
                 const orientation = ROTATION_MAP[index];
 
-                // FIXME: aspect ratio is wrong when rotating
-                const mode =
-                    orientation === 1 || orientation === 3
-                        ? '1200x1920@60'
-                        : '1920x1200@60';
-
                 hyprMessage(
-                    `eval hl.monitor({mode="${mode}",output="${SCREEN}",scale="1",transform=${orientation}})`,
+                    `eval hl.monitor({mode="1920x1200@60",output="${SCREEN}",position="0x2920",scale="1",transform=${orientation}})`,
                 ).catch(print);
 
                 hyprMessage(
