@@ -43,7 +43,9 @@ in {
       inherit
         (pkgs)
         awscli2
+        gcc
         gh
+        gnumake
         openssl_4_0
         tfenv
         uv
