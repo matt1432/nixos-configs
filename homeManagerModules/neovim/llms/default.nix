@@ -77,9 +77,10 @@ in {
                       },
                   },
                   ---@diagnostic disable-next-line: missing-fields
-                  web_search_engine = {
-                      provider = "searxng",
-                  },
+                  -- FIXME: this is deprecated
+                  -- web_search_engine = {
+                  --     provider = "searxng",
+                  -- },
               })
 
               local api = require("avante.api")
