@@ -6,7 +6,7 @@
   inherit (config.networking) hostName;
 
   clusterIP = (builtins.head config.services.pcsd.virtualIps).ip;
-  wanIP = "166.62.184.216";
+  wanIP = "96.22.217.27";
 in {
   users.users.${mainUser}.extraGroups = ["headscale"];
 
