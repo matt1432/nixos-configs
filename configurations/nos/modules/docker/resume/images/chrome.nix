@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage rec {
   imageName = "chromedp/headless-shell";
-  imageDigest = "sha256:47e3a0c0cbef29e321d16c893cd804996243f710ca7855770dd4f9c4cd2b8627";
-  hash = "sha256-9T8+8rNlrOi8qNVP5kIbi+aar0Wbgmb6ZAwn/jCD8SU=";
+  imageDigest = "sha256:3da74b0945e4f80f00f0310bcda9f76cee283539ebd200a053a7bebf3de89423";
+  hash = "sha256-QAd1uL0hBvUJUN8ls7QHRei+UlrsaARwIjtPKSsx2nw=";
   finalImageName = imageName;
   finalImageTag = "latest";
 }

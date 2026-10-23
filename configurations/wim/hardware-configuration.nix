@@ -23,11 +23,50 @@
     kernelModules = ["amdgpu" "kvm-amd" "acpi_call"];
 
     extraModulePackages = builtins.attrValues {
-      inherit
-        (config.boot.kernelPackages)
-        acpi_call
-        zenpower
-        ;
+      # NOTE: https://nixpkgs-tracker.ocfox.me/?pr=576565
+      zenpower = let
+        inherit (config.boot.kernelPackages) kernel kernelModuleMakeFlags;
+      in
+        config.boot.kernelPackages.zenpower.overrideAttrs (o: {
+          makeFlags =
+            kernelModuleMakeFlags
+            ++ [
+              "KERNEL_BUILD=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+              "INSTALL_MOD_PATH=${placeholder "out"}"
+              "INSTALL_MOD_DIR=kernel/drivers/hwmon/zenpower"
+              "INSTALL_MOD_STRIP=1"
+              "DEPMOD=true"
+            ];
+
+          installTargets = ["modules_install"];
+
+          installFlags = [
+            "-C"
+            "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+            "M=$(PWD)"
+          ];
+          installPhase = "";
+        });
+
+      # NOTE: https://nixpkgs-tracker.ocfox.me/?pr=575394
+      acpi_call = let
+        inherit (config.boot.kernelPackages) kernel kernelModuleMakeFlags;
+      in
+        config.boot.kernelPackages.acpi_call.overrideAttrs (o: {
+          makeFlags =
+            kernelModuleMakeFlags
+            ++ [
+              "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+              "INSTALL_MOD_PATH=${placeholder "out"}"
+              "INSTALL_MOD_DIR=misc"
+              "DEPMOD=true"
+            ];
+
+          postInstall = ''
+            install -D -m755 examples/turn_off_gpu.sh $out/bin/test_discrete_video_off.sh
+          '';
+          installPhase = "";
+        });
     };
     blacklistedKernelModules = ["k10temp"];
 
