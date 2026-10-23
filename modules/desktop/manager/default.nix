@@ -18,7 +18,7 @@ self: {
     .hyprland
     .finalPackage;
 
-  hyprlandExe = "${hyprland}/bin/Hyprland";
+  hyprlandExe = "${hyprland}/bin/Hyprland &>/dev/null";
 in {
   imports = [
     (import ./ags self)

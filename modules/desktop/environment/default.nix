@@ -6,7 +6,7 @@ self: {
 }: let
   inherit (self.lib.hypr) mkBind mkEnvs;
 
-  inherit (lib) attrValues mkIf mkLuaInline optionalAttrs replaceStrings;
+  inherit (lib) attrValues mkIf mkLuaInline optionalAttrs;
 
   cfg = config.roles.desktop;
 
@@ -72,10 +72,7 @@ in {
       wayland.windowManager.hyprland = {
         enable = true;
 
-        # Get rid of logs shown on the TTY right before Hyprland launches
-        package = pkgs.hyprland.overrideAttrs (o: {
-          postInstall = replaceStrings ["--suffix"] ["--append-flags '&>/dev/null' --suffix"] o.postInstall;
-        });
+        package = pkgs.hyprland;
 
         configType = "lua";
 
