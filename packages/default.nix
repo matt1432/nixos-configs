@@ -10,6 +10,8 @@
 
     coloryou = final.callPackage ./coloryou {};
 
+    dzgui = final.callPackage ./dzgui {};
+
     gpu-screen-recorder = final.callPackage ./gpu-screen-recorder {
       inherit (inputs) gpu-screen-recorder-src;
     };

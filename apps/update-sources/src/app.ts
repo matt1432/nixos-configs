@@ -35,6 +35,10 @@ const main = async () => {
         console.log(updateDocker() ?? 'No updates');
     }
 
+    if (args['dzgui']) {
+        console.log(runNixUpdate('dzgui') ?? 'No updates');
+    }
+
     if (args['firefox']) {
         console.log(updateFirefoxAddons() ?? 'No updates');
     }
@@ -134,6 +138,7 @@ const main = async () => {
         };
 
         updatePackage('alive-server');
+        updatePackage('dzgui');
         updatePackage('homepage');
         updatePackage('jmusicbot');
         updatePackage('komf');

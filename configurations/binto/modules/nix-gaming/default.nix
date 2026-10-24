@@ -33,6 +33,7 @@
     })
 
     pkgs.r2modman
+    pkgs.selfPackages.dzgui
     pkgs.ryubing
   ];
 
