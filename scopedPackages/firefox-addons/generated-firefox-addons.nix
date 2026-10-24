@@ -56,10 +56,10 @@
   };
   "floccus" = buildMozillaXpiAddon {
     pname = "floccus";
-    version = "5.11.0";
+    version = "5.12.0";
     addonId = "floccus@handmadeideas.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/5063393/floccus-5.11.0.xpi";
-    sha256 = "14e934361bde413a198eaf3c851537c23255c11f36650fc3240cfa86a9642588";
+    url = "https://addons.mozilla.org/firefox/downloads/file/5156500/floccus-5.12.0.xpi";
+    sha256 = "a461abeb50d6578498d959fb4ac96cb8a327f0ecae6371618a1550425267ee62";
     meta = with lib; {
       homepage = "https://floccus.org";
       description = "Securely synchronize bookmarks across Chrome, Firefox, Edge, and more using your own cloud storage.";
@@ -291,10 +291,10 @@
   };
   "youtube-no-translation" = buildMozillaXpiAddon {
     pname = "youtube-no-translation";
-    version = "2.25.1";
+    version = "2.26.0";
     addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/5055100/youtube_no_translation-2.25.1.xpi";
-    sha256 = "dd6c9e52824b58ffa2bf6eb42de6c4f205278ff0b0acc2d7254c59cb69b95af1";
+    url = "https://addons.mozilla.org/firefox/downloads/file/5156795/youtube_no_translation-2.26.0.xpi";
+    sha256 = "ad692c47c41aa6c5480e9d96d6030bca49b57b93a0310c1bcccf927a14f2c371";
     meta = with lib; {
       description = "Keeps YouTube content in its original language (Titles, Audio Tracks, Descriptions...)";
       mozPermissions = [

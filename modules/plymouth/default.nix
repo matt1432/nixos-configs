@@ -9,11 +9,6 @@
 in {
   config = mkIf cfg.enable {
     boot = {
-      initrd = {
-        verbose = false;
-        systemd.enable = true;
-      };
-
       consoleLogLevel = 0;
 
       kernelParams = [

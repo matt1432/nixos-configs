@@ -48,7 +48,7 @@ in
       hash = "sha256-N3QvFP3SL7i8RMOAP9hsyFdGPArzM27T7vqCq06VWro=";
     };
 
-    mvnHash = "sha256-NrDFltBEqQIaRAhoEr0l4r2Nfj2T7GIh1xu0cudKcPA=";
+    mvnHash = "sha256-730peQUqqFeSOL2LacIWja5aZcuBQmSHtCwSWoEHldk=";
 
     nativeBuildInputs = [makeWrapper];
 

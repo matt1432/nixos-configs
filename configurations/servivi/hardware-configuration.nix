@@ -14,30 +14,10 @@
 
     # Zenpower for ryzen cpu monitoring
     extraModulePackages = builtins.attrValues {
-      # NOTE: https://nixpkgs-tracker.ocfox.me/?pr=576565
-      zenpower = let
-        inherit (config.boot.kernelPackages) kernel kernelModuleMakeFlags;
-      in
-        config.boot.kernelPackages.zenpower.overrideAttrs (o: {
-          makeFlags =
-            kernelModuleMakeFlags
-            ++ [
-              "KERNEL_BUILD=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-              "INSTALL_MOD_PATH=${placeholder "out"}"
-              "INSTALL_MOD_DIR=kernel/drivers/hwmon/zenpower"
-              "INSTALL_MOD_STRIP=1"
-              "DEPMOD=true"
-            ];
-
-          installTargets = ["modules_install"];
-
-          installFlags = [
-            "-C"
-            "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-            "M=$(PWD)"
-          ];
-          installPhase = "";
-        });
+      inherit
+        (config.boot.kernelPackages)
+        zenpower
+        ;
     };
 
     blacklistedKernelModules = ["k10temp"];
