@@ -6,6 +6,7 @@
     callPackage = file: final.callPackage file ({inherit buildApp;} // inputs);
   in
     listToAttrs (map (x: nameValuePair x (callPackage ./${x})) [
+      "eval-warnings"
       "extract-subs"
       "gen-docs"
       "list2series"
