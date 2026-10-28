@@ -35,10 +35,10 @@
   };
   "darkreader" = buildMozillaXpiAddon {
     pname = "darkreader";
-    version = "4.9.133";
+    version = "4.9.134";
     addonId = "addon@darkreader.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/5055786/darkreader-4.9.133.xpi";
-    sha256 = "eb06c5096d761616c7f1d954c11524ca4bff4fe7229044dc1fce288a8c0853ab";
+    url = "https://addons.mozilla.org/firefox/downloads/file/5175215/darkreader-4.9.134.xpi";
+    sha256 = "700633395aa2f639a1bed4253e27309eb676f346d599b0ae2b7a0453232e0aec";
     meta = with lib; {
       homepage = "https://darkreader.org/";
       description = "Dark mode for every website. Take care of your eyes, use dark theme for night and daily browsing.";
@@ -277,10 +277,10 @@
   };
   "undoclosetabbutton" = buildMozillaXpiAddon {
     pname = "undoclosetabbutton";
-    version = "8.1.0";
+    version = "8.1.1";
     addonId = "{4853d046-c5a3-436b-bc36-220fd935ee1d}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4513641/undoclosetabbutton-8.1.0.xpi";
-    sha256 = "ff9a47b466fe29a860a1846a65502e327717945dc9f7ce627c9cd64a2859baab";
+    url = "https://addons.mozilla.org/firefox/downloads/file/5169497/undoclosetabbutton-8.1.1.xpi";
+    sha256 = "57ce71a53686083960b8c0c66b1b983445c77b51cb55e2f0ea1ac0338d3e0d07";
     meta = with lib; {
       homepage = "https://github.com/M-Reimer/undoclosetab";
       description = "Allows you to restore the tab you just closed with a single click—plus it can offer a list of recently closed tabs within a convenient context menu.";
@@ -291,10 +291,10 @@
   };
   "youtube-no-translation" = buildMozillaXpiAddon {
     pname = "youtube-no-translation";
-    version = "2.26.0";
+    version = "2.26.1";
     addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/5156795/youtube_no_translation-2.26.0.xpi";
-    sha256 = "ad692c47c41aa6c5480e9d96d6030bca49b57b93a0310c1bcccf927a14f2c371";
+    url = "https://addons.mozilla.org/firefox/downloads/file/5178154/youtube_no_translation-2.26.1.xpi";
+    sha256 = "c850e92de937879067919eb7f683160e0159feb0271d2abc011a663481d50cf3";
     meta = with lib; {
       description = "Keeps YouTube content in its original language (Titles, Audio Tracks, Descriptions...)";
       mozPermissions = [

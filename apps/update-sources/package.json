@@ -13,7 +13,7 @@
         "jiti": "2.7.0",
         "pkg-types": "2.4.0",
         "prettier": "3.9.10",
-        "prettier-plugin-brace-style": "0.10.3",
+        "prettier-plugin-brace-style": "0.10.4",
         "typescript": "6.0.3",
         "typescript-7": "npm:typescript@7.0.2"
     },

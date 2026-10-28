@@ -46,7 +46,7 @@ in {
         gcc
         gh
         gnumake
-        openssl_4_0
+        openssl
         tfenv
         uv
         xdg-utils
