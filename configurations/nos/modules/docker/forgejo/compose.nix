@@ -41,6 +41,8 @@ in {
           SSH_DOMAIN = "git.nelim.org";
           SSH_PORT = "22";
           HTTP_PORT = "3000";
+
+          FORGEJO__repository__DISABLE_DOWNLOAD_SOURCE_ARCHIVES = "true";
         };
 
         volumes = [

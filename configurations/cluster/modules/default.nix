@@ -1,5 +1,6 @@
 {...}: {
   imports = [
+    ./anubis
     ./blocky
     ./caddy
     ./headscale

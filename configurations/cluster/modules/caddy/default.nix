@@ -84,7 +84,18 @@ in {
         '';
       };
 
-      "Forgejo" = mkPublicReverseProxy "git" "${nosIP}:3000" {};
+      "Forgejo" = mkPublicReverseProxy "git" null {
+        extraConfig = ''
+          # DISABLE_DOWNLOAD_SOURCE_ARCHIVES doesn't apply to the API
+          @apiArchive path_regexp ^/api/v1/repos/[^/]+/[^/]+/archive/
+          respond @apiArchive 404
+
+          reverse_proxy unix/${config.services.anubis.instances."forgejo".settings.BIND} {
+            header_up X-Real-Ip {remote_host}
+            header_up X-Http-Version {http.request.proto}
+          }
+        '';
+      };
 
       "Nextcloud" = mkPublicReverseProxy "cloud" "${nosIP}:8042" {
         extraConfig = ''
