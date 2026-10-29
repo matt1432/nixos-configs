@@ -11,6 +11,8 @@
   };
 in {
   imports = [
+    ./ca-bundle.nix
+
     (import ./forgejo/compose.nix globalEnv)
     (import ./freshrss/compose.nix globalEnv)
     (import ./gameyfin/compose.nix globalEnv)
