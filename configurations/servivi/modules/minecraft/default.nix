@@ -11,18 +11,18 @@
   environment.systemPackages = [
     pkgs.curseforge-server-downloader
     pkgs.mrpack-install
-    (pkgs.buildGoModule rec {
+    (pkgs.buildGo127Module rec {
       pname = "mrpack-install";
-      version = "0.21.0-beta";
+      version = "0.22.0-beta";
 
       src = pkgs.fetchFromGitHub {
         owner = "nothub";
         repo = "mrpack-install";
         rev = "v${version}";
-        hash = "sha256-QSgq9VgiEg2aZLgMhzhFE2IpSVcYdmmRV9CJWkWPkg4=";
+        hash = "sha256-pVbk4jQCoeqLrDLoCB37blr5pxt1/Yvdg5uwW+bF1cE=";
       };
 
-      vendorHash = "sha256-ZbQICz2z2+SPY1z9dS5AXJh18+522PfT/wPg5GhmNZQ=";
+      vendorHash = "sha256-2Lr8Ug1ErwtKt4sdrPV4rmh8pd74PHq88ZJG8MBvjNI=";
 
       doCheck = false;
 
@@ -91,8 +91,8 @@
             // defaults;
         };
 
-        # Create+ Survival https://modrinth.com/modpack/create_plus/versions
-        create = {
+        # Cobbleverse https://modrinth.com/modpack/cobbleverse/versions
+        cob = {
           enable = true;
 
           jvmMaxAllocation = "12G";
@@ -109,7 +109,7 @@
           serverConfig =
             {
               server-port = ports.mc2;
-              motd = "It's creatin' time";
+              motd = "gotta catch em all";
 
               extra-options =
                 {
@@ -117,16 +117,11 @@
                   max-players = 12;
                   view-distance = 12;
                   simulation-distance = 8;
+                  level-seed = "-7304550136147349891";
                 }
                 // defaultsExtra;
             }
             // defaults;
-        };
-
-        # BlueMap for create
-        map-create = {
-          enable = true;
-          jvmPackage = jre25;
         };
 
         # Vanilla Creative

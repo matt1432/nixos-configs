@@ -72,18 +72,6 @@ in {
 
       "Gameyfin" = mkPublicReverseProxy "games" "${nosIP}:8074" {};
 
-      "BlueMap" = mkPublicReverseProxy "kitemap" "${serviviIP}:8123" {
-        extraConfig = ''
-          handle /maps/*/live/* {
-              reverse_proxy ${serviviIP}:8124
-          }
-
-          handle /maps/*/assets/playerheads/* {
-              reverse_proxy ${serviviIP}:8124
-          }
-        '';
-      };
-
       "Forgejo" = mkPublicReverseProxy "git" null {
         extraConfig = ''
           # DISABLE_DOWNLOAD_SOURCE_ARCHIVES doesn't apply to the API
