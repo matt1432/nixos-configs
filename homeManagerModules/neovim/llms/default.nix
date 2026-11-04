@@ -14,105 +14,41 @@ self: {
       port = 8080;
     };
   inherit (searxCfg) bind_address port;
+
+  strataEndpoint = "http://${bind_address}:9292/v1";
+  strataKey =
+    self.nixosConfigurations.nos.config.virtualisation.docker.compose.strata.services.strata.environment.API_KEY or "none";
 in {
   config = mkIf (cfg.enable && cfg.ideConfig.llmProvider != "none") {
-    home.sessionVariables.SEARXNG_API_URL = "http://${bind_address}:${toString port}/search";
+    home.packages = [pkgs.pi-coding-agent];
 
-    programs = {
-      neovim = {
-        extraPackages = [
-          pkgs.python3Packages.pylatexenc
-        ];
-
-        vscode.excludedPlugins = [
+    home.file.".pi/agent/models.json".text = builtins.toJSON {
+      providers.strata = {
+        baseUrl = strataEndpoint;
+        api = "openai-completions";
+        apiKey = strataKey;
+        models = [
           {
-            plugin = pkgs.vimPlugins.render-markdown-nvim;
-            type = "lua";
-            config = ''
-              require("render-markdown").setup({
-                  file_types = { "Avante" },
-                  anti_conceal = { enabled = false },
-                  render_modes = true,
-              })
-
-              vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
-                  pattern = { "Avante" },
-                  callback = function(args)
-                      local buf = args.buf
-                      vim.treesitter.start(buf, "markdown")
-                  end,
-              })
-            '';
-          }
-
-          pkgs.vimPlugins.nui-nvim
-          pkgs.vimPlugins.dressing-nvim
-          {
-            plugin = pkgs.vimPlugins.avante-nvim;
-            type = "lua";
-            config = ''
-              ---@diagnostic disable-next-line: missing-fields
-              require("avante").setup({
-                  provider = "llama_cpp",
-                  mode = "agentic",
-                  providers = {
-                      llama_cpp = {
-                          __inherited_from = "openai",
-                          endpoint = "http://100.64.0.4:9292/v1",
-                          model = "qwen3.6-35b-a3b",
-                          timeout = 1000000, -- Timeout in milliseconds
-                          disable_tools = false,
-                          api_key_name = "TERM",
-                      },
-                      -- For some reason they would show up in :AvanteModels
-                      vertex = {
-                          is_env_set = function()
-                              return false
-                          end,
-                      },
-                      vertex_claude = {
-                          is_env_set = function()
-                              return false
-                          end,
-                      },
-                  },
-                  ---@diagnostic disable-next-line: missing-fields
-                  -- FIXME: this is deprecated
-                  -- web_search_engine = {
-                  --     provider = "searxng",
-                  -- },
-              })
-
-              local api = require("avante.api")
-
-              vim.keymap.set({ "n", "v" }, "<leader>at", function()
-                  api.toggle()
-              end)
-              vim.keymap.set({ "n", "v" }, "<leader>aa", function()
-                  api.ask()
-              end)
-              vim.keymap.set({ "n", "v" }, "<leader>an", function()
-                  api.new_chat()
-              end)
-              vim.keymap.set({ "n", "v" }, "<leader>ac", function()
-                  api.close()
-              end)
-              vim.keymap.set({ "n", "v" }, "<leader>ao", function()
-                  api.focus()
-              end)
-              vim.keymap.set({ "n" }, "<leader>af", function()
-                  api.add_file()
-              end)
-              vim.keymap.set({ "v" }, "<leader>as", function()
-                  api.add_selection()
-              end)
-              vim.keymap.set({ "n", "v" }, "<leader>aS", function()
-                  api.stop()
-              end)
-            '';
+            id = "qwen3.8-flash-next-gyro-s";
+            name = "Qwen3.8 Flash Next (Gyro-S)";
+            reasoning = true;
+            input = ["text" "image"];
+            contextWindow = 262144;
+            maxTokens = 32768;
+            # Strata takes reasoning_effort, like the post's pi setup
+            compat.thinkingFormat = "openai";
           }
         ];
       };
+    };
+
+    # Adds web_search and web_fetch tools to pi
+    home.file.".pi/agent/extensions/rpiv-web-tools".source = "${pkgs.scopedPackages.piExtensions.rpiv-web-tools}/node_modules/@juicesharp/rpiv-web-tools";
+
+    xdg.configFile."rpiv-web-tools/config.json".text = builtins.toJSON {
+      provider = "searxng";
+      baseUrls.searxng = "http://${bind_address}:${toString port}";
+      interceptors.github = true;
     };
   };
 

@@ -50,6 +50,14 @@ MPV scripts I use that aren't in nixpkgs.
 | `touch-gestures` | Touch gestures for mpv. | https://github.com/christoph-heinrich/mpv-touch-gestures |
 | `undo-redo` | Accidentally seeked? No worries, simply undo.. Undo is not enough to fix your accidental seek? Well now you can redo as well.. | https://github.com/Eisa01/mpv-scripts?tab=readme-ov-file#undoredo |
 
+### piExtensions
+
+Pi coding agent extensions I use that aren't in nixpkgs.
+
+| Name | Description | Homepage |
+| ---- | ----------- | -------- |
+| `rpiv-web-tools` | Pi extension. Web search and fetch for the model with pluggable providers. | https://github.com/juicesharp/rpiv-mono/tree/main/packages/rpiv-web-tools |
+
 ### protonGE
 
 My pinned versions of proton-ge-bin.

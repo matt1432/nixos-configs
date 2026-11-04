@@ -75,6 +75,13 @@ const main = async () => {
         console.log(runNixUpdate('protonhax') ?? 'No updates');
     }
 
+    if (args['rpiv-web-tools']) {
+        console.log(
+            runNixUpdate('scopedPackages', 'piExtensions', 'rpiv-web-tools') ??
+            'No updates',
+        );
+    }
+
     if (args['some-sass-language-server']) {
         console.log(runNixUpdate('some-sass-language-server') ?? 'No updates');
     }
@@ -144,6 +151,7 @@ const main = async () => {
         updatePackage('komf');
         updatePackage('pam-fprint-grosshack');
         updatePackage('protonhax');
+        updatePackage('scopedPackages', 'piExtensions', 'rpiv-web-tools');
         updatePackage('some-sass-language-server');
         updatePackage('trash-d');
 

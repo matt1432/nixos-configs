@@ -25,6 +25,10 @@ in {
       MPV scripts I use that aren't in nixpkgs.
     '';
 
+    piExtensions = mkScope ./pi-extensions ''
+      Pi coding agent extensions I use that aren't in nixpkgs.
+    '';
+
     protonGE = mkScope ./proton-ge ''
       My pinned versions of proton-ge-bin.
     '';

@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@juicesharp/rpiv-web-tools": "2.15.0"
+  }
+}

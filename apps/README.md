@@ -6,6 +6,7 @@ This directory contains every derivations for apps exposed by this flake.
 
 | Name | Description |
 | ---- | ----------- |
+| `eval-warnings` | Forces a fresh evaluation of derivations, bypassing the eval cache, and prints every warning and trace they produce. |
 | `extract-subs` | Extract all `srt` subtitle files from a `mkv` video with the appropriate name. |
 | `gen-docs` | Generates the READMEs in this repository from nix attributes. |
 | `list2series` | Converts a Komga read list into a comics series for reading with mihon. |

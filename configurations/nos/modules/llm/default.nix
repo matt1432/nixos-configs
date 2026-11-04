@@ -1,9 +1,6 @@
-{
-  mainUser,
-  pkgs,
-  ...
-}: let
+{pkgs, ...}: let
   tailscaleIP = "100.64.0.4";
+  rwPath = "/var/lib/strata";
 in {
   # For web_search tool
   imports = [(import ./searxng tailscaleIP)];
@@ -11,96 +8,112 @@ in {
   # In case tailscale is down
   boot.kernel.sysctl."net.ipv4.ip_nonlocal_bind" = 1;
 
-  environment.etc."llama-swap/config.yaml".text = builtins.toJSON {
-    # llama-swap hands each model a backend port counting up from 5800 and does not
-    # check whether that port is actually free
-    startPort = 8081;
+  hardware.nvidia-container-toolkit.enable = true;
 
-    models = {
-      # Qwen3.6-35B-A3B (MoE, 3B active) on RTX 3060 12GiB + 46GiB RAM / 6 cores.
-      #
-      #   KV @ Q8_0 = 10 layers * 2 (K,V) * 2 kv_heads * 256 head_dim * 1B
-      #             = 10 KiB/token -> 2.5 GiB at the full 256K context.
-      # That is why KV Q8_0 + 256K fits comfortably.
-      #
-      # Weights (Q4_K_M) are 22.1 GB and do NOT fit in 12 GiB of VRAM, so:
-      #   -ngl 40          offload every non-expert tensor (attention, linear-attn,
-      #                    embeddings) so all 256K of KV lands in VRAM, and
-      #   --n-cpu-moe 32   pin the first 32 layers' experts to CPU, leaving the
-      #                    last 8 expert layers (~3.6 GB) on the GPU.
-      # Measured on this machine (54K-token prompt):
-      #   --n-cpu-moe 26 -> CRASH: cudaMalloc failed: out of memory
-      #   --n-cpu-moe 28 -> 561 MiB VRAM free, 19.2 tok/s
-      #   --n-cpu-moe 30 -> 1739 MiB free, 23.1 tok/s
-      #   --n-cpu-moe 32 -> 2667 MiB free, 22.7 tok/s   <- chosen, same speed, 5x headroom
-      #   --n-cpu-moe 34 -> 3597 MiB free, 21.4 tok/s
-      # Never drop --n-cpu-moe below 30: the extra VRAM is not worth an OOM crash.
-      #
-      # Verified end to end at --ctx-size 262144 (VRAM is preallocated, so it stays
-      # flat no matter how much context is actually used):
-      #   54K ctx -> 486 t/s prompt, 22.7 t/s gen | 9653 MiB VRAM, 2667 free
-      #  180K ctx -> 431 t/s prompt, 15.1 t/s gen | 9653 MiB VRAM, 2667 free
-      #  252K ctx -> 401 t/s prompt, 10.2 t/s gen | 9653 MiB VRAM, 2667 free
-      "qwen3.6-35b-a3b".cmd = toString [
-        "${pkgs.llama-cpp}/bin/llama-server"
-        "-hf unsloth/Qwen3.6-35B-A3B-GGUF:UD-Q4_K_M"
-        "--port \${PORT}"
-        "--alias qwen3.6-35b-a3b"
+  virtualisation.docker.compose."strata" = {
+    services."strata" = {
+      image = pkgs.callPackage ./images/strata.nix pkgs;
+      restart = "always";
 
-        # text-only: skips the 861 MB vision projector, which otherwise OOMs the GPU
-        "--no-mmproj"
+      ports = ["${tailscaleIP}:9292:8080"];
+      devices = ["nvidia.com/gpu=all"];
 
-        # --- context + KV cache: 256K @ Q8_0 ~= 2.5 GiB ---
-        "--ctx-size 262144"
-        "--cache-type-k q8_0"
-        "--cache-type-v q8_0"
-        "--flash-attn on"
-        "--parallel 1"
-
-        # --- GPU/CPU split for 22 GB of weights on a 12 GB card ---
-        "-ngl 40"
-        "--n-cpu-moe 32"
-
-        # --- sampling: Qwen3.6 recommended, thinking mode, general tasks ---
-        "--temp 1.0"
-        "--top-p 0.95"
-        "--top-k 20"
-        "--min-p 0.0"
-        "--presence-penalty 1.5"
-        "--repeat-penalty 1.0"
-        "--n-predict -1"
-
-        "--jinja"
+      volumes = [
+        # The pack, the MTP draft layer, presets and logs
+        "${rwPath}/data:/data"
+        # The 58.5 GB GGUF, downloaded by hand so it is not fetched again with every new volume
+        "${rwPath}/models:/models:ro"
       ];
-    };
 
-    healthCheckTimeout = 28800;
-    ttl = 600;
+      environment = {
+        FAMILY = "gyro";
+        MODEL = "Gyro-S";
+        MODEL_PATH = "/models/Qwen3.8-Flash-Next-Gyro-S-TQ1_0.gguf";
+
+        # Strata does not serve beyond the container's loopback without a key. Port 9292 is only
+        # on the tailnet, so this is a formality and not a secret.
+        API_KEY = "6d3ee1c79f8692d62e5b0a1322fa22bedbc333551ecfbdf3";
+
+        # Based on the "Agentic" config from
+        # https://www.reddit.com/r/LocalLLaMA/comments/1xft2ae (RTX 5060 8 GiB + 32 GiB RAM),
+        # adapted to an RTX 3060 12 GiB + 46 GiB RAM / 6 cores
+        CONTEXT = "256k";
+        KV = "q4_0";
+        # parked sessions (the conversation cache below) instead of parallel slots, which OOM at >= 131K
+        PARALLEL = "1";
+        # in its own process: ~1-2 s per image, saves VRAM
+        VISION = "cpu";
+        TUNE = "skip";
+
+        # Measured on this machine (bench of 8K/32K prompts, 400-token code answers, 35K-context answers):
+        #   pcie-frac 1.0: all VRAM expert misses computed on the GPU. This 6-core CPU is the
+        #                  bottleneck: 36 t/s vs 27 t/s at 0.6-0.8
+        #   MTP draft layer (setup's default) + spec 6: 46 t/s vs 36 t/s without
+        #   kv-resident 20480: the minimum, the VRAM is worth more as expert cache (37-45 t/s at 35K context)
+        #   vram-reserve-mib 600: no display on this card. At 500 the engine warned of only 470 MiB free
+        #                         at a request start (under 512 the driver can page VRAM to RAM)
+        #   STRATA_RESIDENT_HEADROOM_GIB 8: RAM left for the rest of nos (6 left it critically low with MTP)
+        STRATA_SET = toString [
+          "pcie-frac=1.0"
+          "spec=6"
+          "spec-min-p=0.70"
+          "kv-resident=20480"
+          "vram-reserve-mib=600"
+          "conversation-cache-mib=4096"
+          "conversation-cache-slots=2"
+          "conversation-cache-min-tokens=8000"
+          "conversation-cache-min-free-mib=1024"
+          "STRATA_RESIDENT_HEADROOM_GIB=8"
+          "STRATA_PREFILL_CPU_SHARE=0"
+        ];
+      };
+
+      # the engine page-locks ~22 GiB of experts
+      ulimits.memlock = {
+        soft = -1;
+        hard = -1;
+      };
+      shm_size = "2gb";
+      # the model drains and unloads on docker stop
+      stop_grace_period = "2m";
+    };
   };
 
-  systemd.services.llama-swap = {
-    description = "llama-swap - OpenAI compatible proxy with automatic model swapping";
-    after = ["network.target"];
+  # Stopping the unit blocks until docker's stop_grace_period (2m) runs out. systemd's default
+  # 90 s stop timeout would SIGKILL it before the model finishes unloading, so keep this above it.
+  systemd.services.compose-strata.serviceConfig.TimeoutStopSec = "3min";
+
+  # Unload the model after 10 min idle to free its RAM and VRAM (reloading takes ~50 s).
+  systemd.paths.strata-idle-unload = {
     wantedBy = ["multi-user.target"];
-
-    serviceConfig = {
-      Type = "simple";
-      User = mainUser;
-      Group = "users";
-      ExecStart = "${pkgs.llama-swap}/bin/llama-swap --config /etc/llama-swap/config.yaml --listen ${tailscaleIP}:9292 --watch-config";
-      Restart = "always";
-      RestartSec = 10;
-
-      # Environment for CUDA support
-      Environment = [
-        "PATH=/run/current-system/sw/bin"
-        "LD_LIBRARY_PATH=/run/opengl-driver/lib:/run/opengl-driver-32/lib"
-      ];
-
-      # Environment needs access to cache directories for model downloads
-      # Simplified security settings to avoid namespace issues
-      PrivateTmp = true;
-      NoNewPrivileges = true;
+    pathConfig = {
+      PathChanged = "${rwPath}/data/install";
+      MakeDirectory = true;
     };
+  };
+
+  systemd.services.strata-idle-unload = {
+    wantedBy = ["multi-user.target" "compose-strata.service"];
+    before = ["compose-strata.service"];
+
+    path = [pkgs.coreutils pkgs.jq pkgs.systemd];
+    serviceConfig.Type = "oneshot";
+    script = ''
+      patched=""
+      for cfg in ${rwPath}/data/install/strata-*.json; do
+        [ -f "$cfg" ] || continue
+        # already set: no write, which would trigger this again
+        jq -e '.idle_unload_s == 600' "$cfg" > /dev/null && continue
+        jq '.idle_unload_s = 600' "$cfg" > "$cfg.tmp"
+        mv "$cfg.tmp" "$cfg"
+        patched=1
+      done
+
+      # not active when this runs before a start: nothing to restart then
+      if [ -n "$patched" ] && systemctl is-active -q compose-strata.service; then
+        echo "idle_unload_s set: restarting the container so the server reads it"
+        systemctl try-restart --no-block compose-strata.service
+      fi
+    '';
   };
 }
