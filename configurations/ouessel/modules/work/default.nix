@@ -42,7 +42,9 @@ in {
     systemPackages = attrValues {
       inherit
         (pkgs)
+        amazon-ecr-credential-helper
         awscli2
+        claude-code
         gcc
         gh
         gnumake
@@ -88,8 +90,7 @@ in {
         home.file.".docker/config.json".text = mkForce ''
           {
             "psFormat": "table {{.ID}}\\t{{.Image}}\\t{{.Names}}\\t{{.Status}}",
-            "auths":{"714500182046.dkr.ecr.us-east-1.amazonaws.com":{}},
-            "credsStore":"wincred.exe"
+            "credHelpers":{"714500182046.dkr.ecr.us-east-1.amazonaws.com":"ecr-login"}
           }
         '';
       })

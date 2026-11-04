@@ -79,6 +79,7 @@
           enable = true;
           vscode.enable = true;
           user = mainUser;
+          ideConfig.llmProvider = "none";
         };
       };
     }
