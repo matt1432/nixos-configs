@@ -30,6 +30,12 @@ export default (): string | null => {
         updates.push(jellfyinUpdates);
     }
 
+    const llmUpdates = updateImages(`${FLAKE}/configurations/nos/modules/llm`);
+
+    if (llmUpdates) {
+        updates.push(llmUpdates);
+    }
+
     const DIR = `${FLAKE}/configurations/nos/modules/docker`;
 
     readdirSync(DIR, { withFileTypes: true, recursive: true }).forEach(

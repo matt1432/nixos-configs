@@ -18,7 +18,7 @@
 
   src = fetchFromGitHub {
     owner = "aclist";
-    repo = "dztui";
+    repo = "dzgui";
     rev = version;
     hash = "sha256-yVvSvkkl1udpxtZD+iVnitkJF1lMtfrE7E2hNNA3iPg=";
     fetchSubmodules = true;
@@ -112,7 +112,7 @@ in
     meta = {
       mainProgram = "dzgui";
       license = with lib.licenses; [gpl3Plus];
-      homepage = "https://github.com/aclist/dztui";
+      homepage = "https://github.com/aclist/dzgui";
       description = ''
         DayZ server browser and mod manager for Linux.
       '';
