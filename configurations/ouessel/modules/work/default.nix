@@ -46,7 +46,6 @@ in {
         awscli2
         claude-code
         gcc
-        gh
         gnumake
         openssl
         tfenv
@@ -84,6 +83,16 @@ in {
         programs.bash.bashrcExtra = ''
           source ~/.landr.sh
         '';
+
+        programs.gh = {
+          enable = true;
+          extensions = [pkgs.gh-stack];
+          gitCredentialHelper.enable = false;
+          settings = {
+            git_protocol = "https";
+            aliases.co = "pr checkout";
+          };
+        };
 
         home.file.".local/bin/firefox".source = mkOutOfStoreSymlink "/mnt/c/Program Files/Firefox Developer Edition/firefox.exe";
 
