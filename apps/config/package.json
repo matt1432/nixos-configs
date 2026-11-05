@@ -5,9 +5,9 @@
     "exports": "./index.ts",
     "dependencies": {
         "@eslint/js": "10.0.1",
-        "eslint": "10.13.0",
+        "eslint": "10.14.0",
         "eslint-config-prettier": "10.1.8",
-        "eslint-plugin-jsdoc": "65.4.2",
+        "eslint-plugin-jsdoc": "65.4.3",
         "eslint-plugin-perfectionist": "5.13.0",
         "eslint-plugin-prettier": "5.5.7",
         "jiti": "2.7.0",
