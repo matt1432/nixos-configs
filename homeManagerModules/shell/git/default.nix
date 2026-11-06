@@ -52,6 +52,8 @@ in {
           diff-clean = "-c delta.side-by-side=false diff";
           diff-patch = "-c delta.side-by-side=false -c delta.keep-plus-minus-markers=true diff";
 
+          pull-force = "!git fetch origin && git reset --hard @{u}";
+
           # https://stackoverflow.com/a/18317425
           ignore = "update-index --assume-unchanged";
           unignore = "update-index --no-assume-unchanged";
