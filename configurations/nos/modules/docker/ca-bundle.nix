@@ -21,8 +21,8 @@
     "joal" = ["joal"];
     "nextcloud" = ["app-server" "onlyoffice-document-server" "nginx-server" "nextcloud-db" "nextcloud-cache"];
     "prowlarr" = ["flaresolverr"];
-    "qbit" = ["gluetun"];
     "seerr" = ["seerr"];
+    "strata" = ["strata"];
     "vaultwarden" = ["public-vault" "private-vault"];
   };
 
@@ -32,6 +32,7 @@
     "immich" = ["immich_machine_learning"];
     "nextcloud" = ["onlyoffice-document-server"];
     "prowlarr" = ["flaresolverr"];
+    "strata" = ["strata"];
   };
 
   forServices = projects: f:
