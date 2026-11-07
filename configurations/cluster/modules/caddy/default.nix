@@ -126,6 +126,8 @@ in {
 
           komf.reverseProxy = "${nosIP}:8085";
 
+          ntfy.reverseProxy = "127.0.0.1:2586";
+
           # Resume builder
           resume.reverseProxy = "${nosIP}:3060";
 
