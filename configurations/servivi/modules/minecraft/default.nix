@@ -151,4 +151,56 @@
       };
     };
   };
+
+  # Periodically regenerate the chunks of a Custom Worlds dimension on Cobbleverse
+  systemd = let
+    dim = "moronland";
+    dir = "/var/lib/minix/cob/world/dimensions/customworlds/${dim}";
+  in {
+    services.cob-reset-dim = {
+      description = "Reset chunks of the customworlds:${dim} dimension";
+      serviceConfig.Type = "oneshot";
+      restartIfChanged = false;
+      path = [pkgs.tmux pkgs.util-linux];
+
+      script = ''
+        say() {
+          runuser -u ${mainUser} -- \
+            tmux send-keys -t minix-cob:0.0 "say $1" C-m || true
+        }
+
+        wasActive=false
+        if systemctl is-active --quiet minix-cob; then
+          wasActive=true
+          say "The ${dim} world will reset in 30 minutes. Server restarts then."
+          sleep 1200
+          say "The ${dim} world will reset in 10 minutes."
+          sleep 300
+          say "The ${dim} world will reset in 5 minutes."
+          sleep 240
+          say "The ${dim} world will reset in 1 minute!"
+          sleep 60
+          systemctl stop minix-cob
+        fi
+
+        # Never touch region files while the JVM could still be writing them
+        if systemctl is-active --quiet minix-cob; then
+          echo "minix-cob still active, aborting reset" >&2
+          exit 1
+        fi
+
+        rm -rf "${dir}/region" "${dir}/entities" "${dir}/poi"
+
+        if $wasActive; then
+          systemctl start minix-cob
+        fi
+      '';
+    };
+
+    timers.cob-reset-dim = {
+      wantedBy = ["timers.target"];
+      # Warnings start here; the actual reset happens 30 min later
+      timerConfig.OnCalendar = "Mon *-*-* 05:30:00";
+    };
+  };
 }
