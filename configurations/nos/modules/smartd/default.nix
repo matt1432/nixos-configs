@@ -19,6 +19,8 @@ in {
     enable = true;
     autodetect = true;
 
+    notifications.wall.enable = false;
+
     # -a: monitor everything, -o on: automatic offline testing
     # -s: short self-test daily at 02:00, long self-test Saturdays at 03:00
     # -M exec: send warnings to ntfy instead of mail
