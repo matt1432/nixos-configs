@@ -62,14 +62,6 @@ in {
           exec "$BROWSER" "$@"
         '';
       };
-
-      loginNPM = pkgs.writeShellApplication {
-        name = "loginNPM";
-        text = ''
-          npm login --registry=https://registry.npmjs.org/ --scope=landr --auth-type=web
-          npm login --registry=https://registry.yarnpkg.com/ --scope=landr --auth-type=web
-        '';
-      };
     };
   };
 
