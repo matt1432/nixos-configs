@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) attrValues mkForce;
+  inherit (lib) attrValues getExe' mkForce;
 
   dotnet-combined = with pkgs.dotnetCorePackages;
     combinePackages [
@@ -24,6 +24,17 @@ in {
     ];
   };
 
+  # For Claude Desktop on Windows
+  wsl.extraBin = map (name: {src = "${getExe' pkgs.coreutils name}";}) [
+    "realpath"
+    "readlink"
+    "pwd"
+    "ls"
+    "cat"
+    "stat"
+    "test"
+  ];
+
   environment = {
     variables = rec {
       DOTNET_ROOT = "${dotnet-combined}/share/dotnet";
@@ -32,7 +43,7 @@ in {
       DOTNET_ROOT_X64 = DOTNET_ROOT;
 
       TF_VAR_env = "dev";
-      TF_VAR_suffix = "-mh";
+      TF_VAR_suffix = "-mhurtubise";
       AWS_SDK_LOAD_CONFIG = "1";
       BROWSER = "/home/${mainUser}/.local/bin/firefox";
     };
