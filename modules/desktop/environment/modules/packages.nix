@@ -124,7 +124,7 @@ in {
               clearUrls.enable = true;
               crashHandler.enable = true;
               disableCallIdle.enable = true;
-              expressionCloner.enable = true;
+              expressionManager.enable = true;
               imageZoom.enable = true;
               memberCount.enable = true;
               messageLinkEmbeds.enable = true;
