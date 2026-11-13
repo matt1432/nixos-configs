@@ -138,6 +138,7 @@
       };
       owner = "hyprwm";
       repo = "Hyprland";
+      rev = "64bde62ee467d7fe56d15431e91eaa4bb47ddd14";
       type = "github";
     };
     hyprpaper = {
@@ -154,6 +155,7 @@
       };
       owner = "hyprwm";
       repo = "hyprpaper";
+      rev = "a8e93f4e60eabc432dde43449dfeb9a565c54da2";
       type = "github";
     };
     jellarr = {

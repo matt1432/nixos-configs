@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage rec {
   imageName = "rssbridge/rss-bridge";
-  imageDigest = "sha256:655da7086bac287e8b0ae0a5291a8035c30e762978a8bd49501e81bf2f0e1233";
-  hash = "sha256-DBjXNimD8LW5xicDb55mEMuP/0ayGX9Fn4g1FTMehAo=";
+  imageDigest = "sha256:62e08f813cfa2eca58736e2743dc2018df46b67abb5f5eef48b18f031c948ced";
+  hash = "sha256-rwClnNKNgGuYTlwF3UqbJ0kHH51SxRB2WEAeQG7Ap+Y=";
   finalImageName = imageName;
   finalImageTag = "latest";
 }
