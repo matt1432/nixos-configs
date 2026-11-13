@@ -1,0 +1,25 @@
+From ba87bc06b9e6116ac55347f400d8a9b83c5267e7 Mon Sep 17 00:00:00 2001
+From: Steven Barrett <steven@liquorix.net>
+Subject: [PATCH] sched/alt: Remove a duplicate current_at store in
+ process_one_work()
+
+A BH worker has no task, so the duplicated store outside of the
+`if (worker->task)` guard dereferences NULL and panics at boot.
+
+Link: https://github.com/zen-kernel/zen-kernel/issues/425
+Signed-off-by: Steven Barrett <steven@liquorix.net>
+---
+ kernel/workqueue.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/kernel/workqueue.c b/kernel/workqueue.c
+--- a/kernel/workqueue.c
++++ b/kernel/workqueue.c
+@@ -3329,7 +3329,6 @@ __acquires(&pool->lock)
+ 		worker->current_at = worker->task->sched_time;
+ #else
+ 		worker->current_at = READ_ONCE(worker->task->se.sum_exec_runtime);
+-		worker->current_at = worker->task->se.sum_exec_runtime;
+ #endif
+ 	worker->current_start = jiffies;
+ 	work_data = *work_data_bits(work);
