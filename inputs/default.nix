@@ -182,9 +182,6 @@ let
       hyprland = mkInput {
         owner = "hyprwm";
         repo = "Hyprland";
-
-        # FIXME: chase plugins
-        rev = "64bde62ee467d7fe56d15431e91eaa4bb47ddd14";
       };
 
       hyprexpo-src = mkInput {
@@ -195,7 +192,7 @@ let
 
         # NOTE: upstream doesn't chase git latest
         owner = "matt1432";
-        ref = "chase-keybind";
+        ref = "personal";
       };
 
       hyprgrass = mkHyprDep {
@@ -213,9 +210,6 @@ let
       hyprpaper = mkHyprDep {
         owner = "hyprwm";
         repo = "hyprpaper";
-
-        # FIXME: chase plugins
-        rev = "a8e93f4e60eabc432dde43449dfeb9a565c54da2";
       };
 
       grim-hyprland = mkInput {
