@@ -935,11 +935,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1791055177,
-        "narHash": "sha256-Sjde2f8IFEDMYozZ04baA55o8izhtB6WJSHYDKW9Go4=",
+        "lastModified": 1794693192,
+        "narHash": "sha256-+0POdZDT3d28rzHoqCO+e2vBH1R2Rjq+pt1cf2Ioz34=",
         "owner": "matt1432",
         "repo": "Jellyfin-Auto-Collections",
-        "rev": "3e02c70133446463842177442bb16d1f12eee709",
+        "rev": "c62421ef6b70b1aafd05d7d6773a9339695256b1",
         "type": "github"
       },
       "original": {
@@ -962,11 +962,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794078501,
-        "narHash": "sha256-9Ht7teYTKzGWPntauLTZQS9LXzPbdRLQTILaV5OBcD0=",
+        "lastModified": 1794691493,
+        "narHash": "sha256-L+MsYB8Fcik1n3dOujiRl3OC21XBhRLzHMPBNxLgp8U=",
         "owner": "matt1432",
         "repo": "KapowarrReact",
-        "rev": "40b8f06cbe6d1011b4306fe3ce4c0aa8cc88db41",
+        "rev": "2784951aba7759a4ec3019e1e9201fe2efea25d4",
         "type": "github"
       },
       "original": {

@@ -21,7 +21,6 @@
     "joal" = ["joal"];
     "nextcloud" = ["app-server" "onlyoffice-document-server" "nginx-server" "nextcloud-db" "nextcloud-cache"];
     "prowlarr" = ["flaresolverr"];
-    "seerr" = ["seerr"];
     "strata" = ["strata"];
     "vaultwarden" = ["public-vault" "private-vault"];
   };
