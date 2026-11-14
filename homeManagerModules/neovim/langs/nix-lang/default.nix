@@ -6,7 +6,7 @@ self: {
   ...
 }: let
   inherit (builtins) attrValues;
-  inherit (lib) getExe hasPrefix mkIf;
+  inherit (lib) fileContents getExe hasPrefix mkIf;
   inherit (osConfig.networking) hostName;
 
   cfg = config.programs.neovim;
@@ -105,6 +105,10 @@ in {
 
             -- Customize the "injected" formatter for otter-ls
             require("conform").formatters.injected = {
+                format = (function()
+                    ${fileContents ./injected-format.lua}
+                end)(),
+
                 options = {
                     ignore_errors = false,
 

@@ -10,8 +10,6 @@ self: {
   inherit (builtins) attrValues;
   inherit (lib) fileContents mkBefore mkIf;
 
-  # FIXME: conform inject breaks on interpolations
-
   cfg = config.programs.neovim;
   flakeEnv = config.programs.bash.sessionVariables.FLAKE;
 in {
