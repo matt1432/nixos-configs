@@ -4,6 +4,5 @@
     ./binary-cache
     ./minecraft
     ./nfs
-    ./pr-tracker
   ];
 }

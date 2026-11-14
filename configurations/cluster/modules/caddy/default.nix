@@ -112,8 +112,6 @@ in {
         ];
 
         subDomains = {
-          pr-tracker.reverseProxy = "${serviviIP}:3000";
-
           pcsd = {
             extraConfig = ''
               reverse_proxy https://${clusterIP}:2224 {

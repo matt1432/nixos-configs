@@ -352,11 +352,6 @@
       repo = "pokemon-colorscripts";
       type = "gitlab";
     };
-    pr-tracker = {
-      owner = "matt1432";
-      repo = "pr-tracker";
-      type = "github";
-    };
     pre-commit-hooks = {
       inputs = {
         flake-compat.follows = "flake-compat";

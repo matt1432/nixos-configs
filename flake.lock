@@ -1592,21 +1592,6 @@
         "type": "gitlab"
       }
     },
-    "pr-tracker": {
-      "locked": {
-        "lastModified": 1754853900,
-        "narHash": "sha256-O8KM/4JCzTMSALFhXwd6OegrAhfjeaHGaBNqxSaP5AU=",
-        "owner": "matt1432",
-        "repo": "pr-tracker",
-        "rev": "96f174636ac133c506606c64dcefabf57e4ee0fd",
-        "type": "github"
-      },
-      "original": {
-        "owner": "matt1432",
-        "repo": "pr-tracker",
-        "type": "github"
-      }
-    },
     "pre-commit-hooks": {
       "inputs": {
         "flake-compat": [
@@ -1683,7 +1668,6 @@
         "pcsd": "pcsd",
         "piper-src": "piper-src",
         "pokemon-colorscripts-src": "pokemon-colorscripts-src",
-        "pr-tracker": "pr-tracker",
         "pre-commit-hooks": "pre-commit-hooks",
         "secrets": "secrets",
         "sioyek-theme-src": "sioyek-theme-src",
