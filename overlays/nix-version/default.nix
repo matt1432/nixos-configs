@@ -38,3 +38,24 @@ in
       then nix-eval-jobs.packages.${system}.default // {inherit nix;}
       else prev.nix-eval-jobs;
   }
+  // {
+    # Not null-checked since flake outputs don't set `nix`
+    nix-update =
+      (prev.nix-update.override {
+        # Use the Nix from PATH instead of nixpkgs'
+        nix = final.emptyDirectory;
+      }).overridePythonAttrs (o: {
+        # `nix flake metadata` doesn't copy the flake to the store anymore
+        postPatch = ''
+          ${o.postPatch or ""}
+
+          substituteInPlace nix_update/options.py \
+            --replace-fail '"flake", "metadata"' '"flake", "archive"'
+        '';
+
+        # Lazy trees break position sanitization
+        makeWrapperArgs =
+          (o.makeWrapperArgs or [])
+          ++ final.lib.optionals isX86 ["--suffix" "NIX_CONFIG" "\n" "lazy-trees = false"];
+      });
+  }

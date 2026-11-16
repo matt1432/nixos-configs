@@ -59,15 +59,6 @@ const hasSrcUrl = (attr: string): boolean =>
     spawnSync('nix', ['eval', '--raw', `${FLAKE}#${attr}.src.url`]).status ===
     0;
 
-const getPackageFile = (
-    attr: string,
-    scope?: string,
-    scopeAttr?: string,
-): string =>
-    scope
-        ? `scopedPackages/${scope.replace(/([A-Z])/g, '-$1').toLowerCase()}/${scopeAttr}/default.nix`
-        : `packages/${attr}/default.nix`;
-
 export default (
     attr: string,
     scope?: string,
@@ -83,15 +74,6 @@ export default (
     const OLD_VERSION = getAttrVersion(realAttr);
 
     const updateArgs = ['--flake', realAttr];
-
-    // Nix omits the "path" field from `nix flake metadata --json`, so
-    // nix-update cannot pin the flake store path and position sanitization
-    // fails ("... is not in /nix/store/..."). Override the filename to
-    // disable position sanitization entirely.
-    updateArgs.push(
-        '--override-filename',
-        getPackageFile(attr, scope, scopeAttr),
-    );
 
     const script = getUpdateScript(realAttr);
 
