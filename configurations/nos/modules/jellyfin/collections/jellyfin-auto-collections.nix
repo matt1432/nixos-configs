@@ -47,6 +47,7 @@ in {
     systemd.services.jellyfin-auto-collections = {
       wantedBy = ["multi-user.target"];
       wants = ["network-online.target"];
+      requires = ["jellyfin.service"];
       after = ["network-online.target" "jellyfin.service"];
 
       serviceConfig = {

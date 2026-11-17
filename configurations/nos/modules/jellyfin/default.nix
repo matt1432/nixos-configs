@@ -33,7 +33,12 @@ in {
   services.jellyfin = {
     enable = true;
 
-    ffmpegPackage = pkgs.jellyfin-ffmpeg-cuda;
+    waitForReady.enable = true;
+
+    # NOTE: nvidiaPackages.latest (615.78) only supports up to CUDA 13.4.
+    ffmpegPackage = pkgs.jellyfin-ffmpeg-cuda.override {
+      cudaPackages = pkgs.cudaPackages_13_4;
+    };
 
     webPackage = pkgs.jellyfin-web.override {
       forceEnableBackdrops = true;
