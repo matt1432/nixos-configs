@@ -68,7 +68,7 @@
       in {
         # Vanilla Survival
         sv = {
-          enable = false;
+          enable = true;
 
           jvmMaxAllocation = "8G";
           jvmInitialAllocation = "2G";
@@ -77,7 +77,7 @@
           serverConfig =
             {
               server-port = ports.mc;
-              motd = "1.21.4 gaming";
+              motd = "26.3 gaming";
 
               extra-options =
                 {

@@ -101,24 +101,25 @@ const download = async (url: string, path: string) =>
 const main = () => {
     const mods = [
         'badpackets',
-        'carpet',
         'c2me-fabric',
+        'carpet',
         'cloth-config',
         'clumps',
         'fabric-api',
+        'fabric-language-kotlin',
         'ferrite-core',
+        'forge-config-api-port',
         'leaves-be-gone',
         'ledger',
-        'fabric-language-kotlin',
         'lithium',
         'modernfix-mvus',
         'no-chat-reports',
-        'noisiumforked',
         'puzzles-lib',
-        'forge-config-api-port',
         'vmp-fabric',
         'worldedit',
         'wthit',
+        'zconfig',
+        'zfastnoise',
     ];
 
     if (action === 'check') {
