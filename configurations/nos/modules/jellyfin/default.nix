@@ -30,6 +30,8 @@ in {
     ++ optionalGroup "render"
     ++ optionalGroup "video";
 
+  systemd.services.jellyfin.serviceConfig.TimeoutStopSec = "1min";
+
   services.jellyfin = {
     enable = true;
 

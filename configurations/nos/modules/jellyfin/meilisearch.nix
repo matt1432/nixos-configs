@@ -1,13 +1,29 @@
 {
   config,
+  lib,
   pkgs,
   ...
 }: let
+  inherit (lib) getExe;
+
   jellyService = config.systemd.services.jellyfin.serviceConfig;
 in {
-  virtualisation.docker.compose."meilisearch" = {
-    systemdDependencies = ["jellyfin.service"];
+  # The Meilisearch plugin connects on Jellyfin startup, so Meilisearch has to be up first.
+  systemd.services = {
+    jellyfin = {
+      wants = ["compose-meilisearch.service"];
+      after = ["compose-meilisearch.service"];
+    };
 
+    # compose-meilisearch is Type=simple, so wait for the API before it counts as started.
+    compose-meilisearch.postStart = ''
+      until ${getExe pkgs.curl} -fsS -o /dev/null http://127.0.0.1:7700/health; do
+        sleep 1
+      done
+    '';
+  };
+
+  virtualisation.docker.compose."meilisearch" = {
     networks.proxy_net = {external = true;};
 
     services."meilisearch" = {
