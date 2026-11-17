@@ -2,6 +2,7 @@
   gamePath = "/var/lib/steam-servers/7-days-to-die";
   relativeConfig = "serverconfig-7days.xml";
 in {
+  # TODO: delete previous backups and only backup saves in ~/.local/...
   services.borgbackup.configs."seven-days" = {
     paths = ["/var/lib/steam-servers/7-days-to-die"];
     startAt = "02/3:00";
