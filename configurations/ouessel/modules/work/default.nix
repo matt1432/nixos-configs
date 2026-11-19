@@ -92,7 +92,11 @@ in {
 
   home-manager.users.${mainUser} = {
     imports = [
-      ({config, ...}: let
+      ({
+        config,
+        lib,
+        ...
+      }: let
         inherit (config.lib.file) mkOutOfStoreSymlink;
       in {
         home.sessionPath = ["$HOME/.dotnet/tools"];
@@ -112,6 +116,26 @@ in {
         };
 
         home.file.".local/bin/firefox".source = mkOutOfStoreSymlink "/mnt/c/Program Files/Firefox Developer Edition/firefox.exe";
+
+        # Support claude:// links from Windows
+        home.activation.claudeUrlHandler = let
+          regFile = pkgs.writeText "claude-url-handler.reg" ''
+            REGEDIT4
+
+            [HKEY_CURRENT_USER\Software\Classes\claude]
+            @="URL:claude"
+            "URL Protocol"=""
+
+            [HKEY_CURRENT_USER\Software\Classes\claude\shell\open\command]
+            @="\"C:\\Program Files\\WSL\\wslg.exe\" -d NixOS --cd \"~\" -- /run/current-system/sw/bin/claude-desktop \"%1\""
+          '';
+          reg = "/mnt/c/Windows/System32/reg.exe";
+        in
+          lib.hm.dag.entryAfter ["writeBoundary"] ''
+            if [ -x ${reg} ]; then
+              run ${reg} import "$(/bin/wslpath -w ${regFile})"
+            fi
+          '';
 
         home.file.".docker/config.json".text = mkForce ''
           {
