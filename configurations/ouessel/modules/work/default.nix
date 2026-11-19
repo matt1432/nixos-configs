@@ -1,10 +1,11 @@
 {
+  claude-desktop,
   lib,
   mainUser,
   pkgs,
   ...
 }: let
-  inherit (lib) attrValues getExe' mkForce;
+  inherit (lib) attrValues mkForce;
 
   dotnet-combined = with pkgs.dotnetCorePackages;
     combinePackages [
@@ -23,17 +24,6 @@ in {
       glibc
     ];
   };
-
-  # For Claude Desktop on Windows
-  wsl.extraBin = map (name: {src = "${getExe' pkgs.coreutils name}";}) [
-    "realpath"
-    "readlink"
-    "pwd"
-    "ls"
-    "cat"
-    "stat"
-    "test"
-  ];
 
   environment = {
     variables = rec {
@@ -58,6 +48,7 @@ in {
         claude-code
         gcc
         gnumake
+        jira-cli-go
         openssl
         tfenv
         uv
@@ -65,6 +56,29 @@ in {
         ;
 
       inherit dotnet-combined;
+
+      claude-desktop = let
+        claude-desktop-fhs = claude-desktop.packages.${pkgs.stdenv.hostPlatform.system}.claude-desktop-fhs;
+      in
+        pkgs.symlinkJoin {
+          name = "claude-desktop-wslg";
+          paths = [claude-desktop-fhs];
+          nativeBuildInputs = [pkgs.makeWrapper];
+          postBuild = ''
+            # The Start menu launches this without the login env, so the
+            # theme dirs and the cursors from ../wslg are added explicitly.
+            wrapProgram "$out/bin/claude-desktop" \
+              --prefix XDG_DATA_DIRS : "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}" \
+              --prefix XDG_DATA_DIRS : "${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}" \
+              --prefix XDG_DATA_DIRS : "${lib.makeSearchPath "share" (with pkgs; [adw-gtk3 flat-remix-icon-theme adwaita-icon-theme hicolor-icon-theme])}" \
+              --set-default GDK_PIXBUF_MODULE_FILE "${pkgs.librsvg.out}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache" \
+              --prefix XCURSOR_PATH : "${pkgs.adwaita-icon-theme}/share/icons" \
+              --run 'export XCURSOR_PATH="$HOME/.local/share/icons''${XCURSOR_PATH:+:$XCURSOR_PATH}"' \
+              --set-default XCURSOR_THEME Windows \
+              --set-default XCURSOR_SIZE 24 \
+              --add-flags "--ozone-platform=wayland --enable-features=WaylandWindowDecorations"
+          '';
+        };
 
       # https://github.com/npm/promise-spawn/blob/e19bfab86f4370eb52911032cae8e4d887e6cd1f/lib/index.js#L159
       sensible-browser = pkgs.writeShellApplication {

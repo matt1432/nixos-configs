@@ -23,9 +23,11 @@
   # ------------------------------------------------
   # User Settings
   # ------------------------------------------------
-  wsl.enable = true;
-  wsl.defaultUser = mainUser;
-  wsl.interop.register = true;
+  wsl = {
+    enable = true;
+    defaultUser = mainUser;
+    interop.register = true;
+  };
 
   users.users.${mainUser} = {
     isNormalUser = true;
@@ -37,6 +39,7 @@
 
     extraGroups = [
       "docker"
+      "video"
       "wheel"
     ];
   };

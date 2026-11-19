@@ -145,6 +145,29 @@
         "type": "github"
       }
     },
+    "claude-desktop": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1794934772,
+        "narHash": "sha256-csu6Jk0KUqiyyVXLOUmy7efn5y3aRq+ConWf0MqI29U=",
+        "owner": "aaddrick",
+        "repo": "claude-desktop-debian",
+        "rev": "adaec9803a00a72bde48a44dbd0f0419ee7fca3f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "aaddrick",
+        "repo": "claude-desktop-debian",
+        "type": "github"
+      }
+    },
     "curseforge-server-downloader-src": {
       "flake": false,
       "locked": {
@@ -1622,6 +1645,7 @@
         "astal": "astal",
         "bat-theme-src": "bat-theme-src",
         "bazarr-bulk": "bazarr-bulk",
+        "claude-desktop": "claude-desktop",
         "determinate-nix": [
           "nix-eval-jobs",
           "nix"

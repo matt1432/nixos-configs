@@ -36,6 +36,15 @@
       repo = "bazarr-bulk";
       type = "github";
     };
+    claude-desktop = {
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+      };
+      owner = "aaddrick";
+      repo = "claude-desktop-debian";
+      type = "github";
+    };
     determinate-nix.follows = "nix-eval-jobs/nix";
     docker-compose = {
       owner = "matt1432";

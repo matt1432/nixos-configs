@@ -139,6 +139,13 @@ let
     };
   };
 
+  ouesselInputs = {
+    claude-desktop = mkInput {
+      owner = "aaddrick";
+      repo = "claude-desktop-debian";
+    };
+  };
+
   nosInputs = {
     docker-compose = mkInput {
       owner = "matt1432";
@@ -377,6 +384,7 @@ in
   // nvimInputs
   // clusterInputs
   // serviviInputs
+  // ouesselInputs
   // nosInputs
   // desktopInputs.hyprlandInputs
   // desktopInputs.shellInputs
