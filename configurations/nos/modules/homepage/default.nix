@@ -1,8 +1,51 @@
 {
   config,
+  lib,
   pkgs,
+  self,
   ...
-}: {
+}: let
+  inherit (lib) filter;
+
+  mcInstances = self.nixosConfigurations.servivi.config.services.minix.instances;
+
+  mcWidgets = [
+    {
+      instance = "sv";
+      label = "survie";
+      host = "mc.nelim.org";
+    }
+    {
+      instance = "cob";
+      label = "modded";
+      host = "mc2.nelim.org";
+    }
+    {
+      instance = "cv";
+      label = "creative";
+      host = "cv.nelim.org";
+    }
+  ];
+
+  mkMcWidget = {
+    label,
+    host,
+    ...
+  }: {
+    ${label} = {
+      icon = "minecraft.png";
+      description = "minecwaf";
+      widget = {
+        type = "minecraft";
+        url = "udp://${host}";
+      };
+    };
+  };
+
+  enabledMcWidgets = map mkMcWidget (filter
+    ({instance, ...}: mcInstances.${instance}.enable or false)
+    mcWidgets);
+in {
   services.homepage-dashboard = {
     enable = true;
 
@@ -57,6 +100,7 @@
                 type = "jellyfin";
                 url = href;
                 key = "{{HOMEPAGE_VAR_JELLY_API}}";
+                version = 2;
               };
             };
           }
@@ -269,59 +313,31 @@
       ##  MANAGEMENT
       #####################################################
       {
-        management = [
-          {
-            cloudflare = {
-              href = "https://dash.cloudflare.com/3152abbe78daf6d91c57b6fcc424f958/nelim.org/dns";
-              icon = "cloudflare.png";
-              description = "dns to the world";
-            };
-          }
-          {
-            vaultwarden = {
-              href = "https://lan.nelim.org/vault";
-              icon = "bitwarden.png";
-              description = "password manager";
-            };
-          }
-          {
-            wireguard = {
-              href = "https://wg.nelim.org";
-              icon = "wireguard.png";
-              description = "wireguard gui";
-            };
-          }
-          {
-            survie = {
-              icon = "minecraft.png";
-              description = "minecwaf";
-              widget = {
-                type = "minecraft";
-                url = "udp://mc.nelim.org";
+        management =
+          [
+            {
+              cloudflare = {
+                href = "https://dash.cloudflare.com/3152abbe78daf6d91c57b6fcc424f958/nelim.org/dns";
+                icon = "cloudflare.png";
+                description = "dns to the world";
               };
-            };
-          }
-          {
-            creative = {
-              icon = "minecraft.png";
-              description = "minecwaf";
-              widget = {
-                type = "minecraft";
-                url = "udp://cv.nelim.org";
+            }
+            {
+              vaultwarden = {
+                href = "https://lan.nelim.org/vault";
+                icon = "bitwarden.png";
+                description = "password manager";
               };
-            };
-          }
-          {
-            modded = {
-              icon = "minecraft.png";
-              description = "minecwaf";
-              widget = {
-                type = "minecraft";
-                url = "udp://mc2.nelim.org";
+            }
+            {
+              wireguard = {
+                href = "https://wg.nelim.org";
+                icon = "wireguard.png";
+                description = "wireguard gui";
               };
-            };
-          }
-        ];
+            }
+          ]
+          ++ enabledMcWidgets;
       }
     ];
   };
