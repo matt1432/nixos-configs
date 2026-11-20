@@ -48,6 +48,8 @@
 
   time.timeZone = "America/Montreal";
 
+  services.earlyoom.enable = true;
+
   # ------------------------------------------------
   # `Self` Modules configuration
   # ------------------------------------------------
