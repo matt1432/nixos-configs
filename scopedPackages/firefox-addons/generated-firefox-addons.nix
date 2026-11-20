@@ -6,13 +6,13 @@
 }: {
   "bitwarden" = buildMozillaXpiAddon {
     pname = "bitwarden";
-    version = "2026.10.2";
+    version = "2026.11.0";
     addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/5198653/bitwarden_password_manager-2026.10.2.xpi";
-    sha256 = "abf9d7273dd55ac0583ecc6997f7f7ae3d29de11e2ad0a4838b80e2b941daa73";
+    url = "https://addons.mozilla.org/firefox/downloads/file/5278513/bitwarden_password_manager-2026.11.0.xpi";
+    sha256 = "607d6433d9de151a4c51135ad9e70882460d0e0493a9b585f15a9848d5f10b97";
     meta = with lib; {
       homepage = "https://bitwarden.com";
-      description = "At home, at work, or on the go, Bitwarden easily secures all your passwords, passkeys, and sensitive information.";
+      description = "Securely store, share, and autofill passwords and passkeys anywhere.";
       mozPermissions = [
         "<all_urls>"
         "*://*/*"

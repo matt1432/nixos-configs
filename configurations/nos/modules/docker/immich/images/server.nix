@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage rec {
   imageName = "ghcr.io/immich-app/immich-server";
-  imageDigest = "sha256:7c489add298fc2f92cda4c777de6462aa206877e04087b815f62c7664af0b53b";
-  hash = "sha256-mvGL1GoCFV+p18kaxXseB63/8u0fEmvOntoqGpHXOHg=";
+  imageDigest = "sha256:fc880c1bf665b4aab1e74c15e56ab871225989cd546536e6b77e771869af06bd";
+  hash = "sha256-g9847etf0T5srlzYkf1CeJg9uCU+XBip79zH3p6H3y0=";
   finalImageName = imageName;
   finalImageTag = "release";
 }

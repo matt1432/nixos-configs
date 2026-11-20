@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage rec {
   imageName = "ghcr.io/gameyfin/gameyfin";
-  imageDigest = "sha256:1042f8c7ccce1ce98b9d6b4314937f80c37c360f2e1fbbe7e4a0a9434facb930";
-  hash = "sha256-QGRwuXpSOIlKSTcKrTW53u9W6HlyFQ1LJo7bvhD6sPk=";
+  imageDigest = "sha256:42c9d1a2e992d9bb18b540a27eb7708533b51a4af5ff684b9872bfb15eaee737";
+  hash = "sha256-H4PBp/vtJvlBv9CSxLNpVsFrbkO9SAmCdeh6tmZiqIg=";
   finalImageName = imageName;
   finalImageTag = "2";
 }
