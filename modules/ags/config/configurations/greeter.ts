@@ -1,4 +1,4 @@
-import app from 'ags/gtk3/app';
+import app from 'ags/gtk4/app';
 import { subprocess } from 'ags/process';
 
 import style from '../style/greeter.scss';

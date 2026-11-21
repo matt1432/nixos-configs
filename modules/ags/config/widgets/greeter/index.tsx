@@ -1,6 +1,6 @@
 import { readFile } from 'ags/file';
-import { Astal, Gtk } from 'ags/gtk3';
-import app from 'ags/gtk3/app';
+import { Astal, Gtk } from 'ags/gtk4';
+import app from 'ags/gtk4/app';
 import { subprocess } from 'ags/process';
 import { idle } from 'ags/time';
 import AstalGreet from 'gi://AstalGreet';
@@ -45,15 +45,11 @@ export default (hyprpaper: ReturnType<typeof subprocess>) => {
 
     const users = parsePasswd(readFile('/etc/passwd'));
 
-    const dropdown = new Gtk.ComboBoxText();
+    const usernames = users.map((u) => u.name);
 
-    dropdown.show_all();
+    const dropdown = Gtk.DropDown.new_from_strings(usernames);
 
-    users.forEach((u) => {
-        dropdown.append(null, u.name);
-    });
-
-    const response = (<label />) as Astal.Label;
+    const response = (<label />) as Gtk.Label;
 
     // Drives the PAM conversation step by step so that messages like
     // "Place your finger on the reader" from pam_fprintd get acknowledged
@@ -162,7 +158,9 @@ export default (hyprpaper: ReturnType<typeof subprocess>) => {
                     // to pam_fprintd which waits for the fingerprint
                     sessionCreated = true;
                     pendingPassword = self.get_text();
-                    greeter.create_session(dropdown.get_active_text() ?? '');
+                    greeter.create_session(
+                        usernames[dropdown.get_selected()] ?? '',
+                    );
                 }
             }}
         />
@@ -183,7 +181,7 @@ export default (hyprpaper: ReturnType<typeof subprocess>) => {
             }}
         >
             <box
-                vertical
+                orientation={Gtk.Orientation.VERTICAL}
                 halign={Gtk.Align.CENTER}
                 valign={Gtk.Align.CENTER}
                 hexpand
@@ -191,7 +189,7 @@ export default (hyprpaper: ReturnType<typeof subprocess>) => {
                 class="base"
             >
                 <box
-                    vertical
+                    orientation={Gtk.Orientation.VERTICAL}
                     halign={Gtk.Align.CENTER}
                     valign={Gtk.Align.CENTER}
                     hexpand
@@ -199,10 +197,8 @@ export default (hyprpaper: ReturnType<typeof subprocess>) => {
                     class="linked"
                     $={() => {
                         idle(() => {
-                            const usernames = users.map((u) => u.name);
-
                             if (usernames.includes(DEFAULT_NAME)) {
-                                dropdown.set_active(
+                                dropdown.set_selected(
                                     usernames.indexOf(DEFAULT_NAME),
                                 );
                             }

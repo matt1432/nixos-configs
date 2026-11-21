@@ -1,11 +1,9 @@
-import { Astal, Gtk } from 'ags/gtk3';
-import { idle } from 'ags/time';
+import { Astal, Gdk, Gtk } from 'ags/gtk4';
 import { createState, onCleanup, With } from 'gnim';
 
-import { toggleClassName } from '../../lib/widgets';
+import { pointer, toggleClassName } from '../../lib/widgets';
 import Tablet from '../../services/tablet';
 import Separator from '../misc/separator';
-import { ToggleButton } from '../misc/subclasses';
 import Arc from './arcs';
 import { defaultOskLayout, oskLayouts } from './keyboard-layouts';
 import { Key, setupKeys } from './keys';
@@ -17,6 +15,24 @@ const keyboardJson = oskLayouts[keyboardLayout];
 const L_KEY_PER_ROW = [8, 7, 6, 6, 6, 4];
 const SPACING = 4;
 const COLOR = 'rgba(0, 0, 0, 0.5)';
+
+/**
+ * Runs a callback with the widget's width once it has been allocated.
+ *
+ * @param self     the widget
+ * @param callback what to do with the width
+ */
+const onAllocated = (self: Gtk.Widget, callback: (width: number) => void) => {
+    self.add_tick_callback(() => {
+        if (self.get_width() > 0) {
+            callback(self.get_width());
+
+            return false;
+        }
+
+        return true;
+    });
+};
 
 export default () => {
     setupKeys();
@@ -56,28 +72,36 @@ export default () => {
 
     return (
         <box
-            vertical
+            orientation={Gtk.Orientation.VERTICAL}
             onRealize={(self) => {
-                idle(() => {
-                    const win = self.get_window();
-                    if (!win) {
-                        throw Error('Window is undefined for OSK');
-                    }
-
-                    const screen = self.get_screen();
-                    const rect = screen.get_monitor_geometry(
-                        screen.get_monitor_at_window(win),
-                    );
-                    if (!rect) {
-                        throw Error('Monitor geometry is undefined for OSK');
-                    }
+                const setGeometry = (monitor: Gdk.Monitor) => {
+                    const rect = monitor.get_geometry();
 
                     setScreenSize({
                         height: rect.height,
                         width: rect.width,
                     });
-                    setThirdWidth(screen.get_width() / 3);
-                });
+                    setThirdWidth(rect.width / 3);
+                };
+
+                const surface = self.get_native()?.get_surface();
+                if (!surface) {
+                    throw Error('Window is undefined for OSK');
+                }
+
+                const monitor =
+                    Gdk.Display.get_default()?.get_monitor_at_surface(surface);
+
+                if (monitor) {
+                    setGeometry(monitor);
+                }
+                else {
+                    // The surface doesn't know its monitor until it is mapped
+                    const id = surface.connect('enter-monitor', (_, mon) => {
+                        surface.disconnect(id);
+                        setGeometry(mon);
+                    });
+                }
             }}
         >
             <centerbox class="osk hidden" hexpand>
@@ -90,17 +114,13 @@ export default () => {
                     `}
                     class="left-side side"
                     halign={Gtk.Align.START}
-                    vertical
-                    onRealize={(self) => {
-                        idle(() => {
-                            setKeyboardLeftSideWidth(
-                                self.get_allocated_width(),
-                            );
-                        });
+                    orientation={Gtk.Orientation.VERTICAL}
+                    onMap={(self) => {
+                        onAllocated(self, setKeyboardLeftSideWidth);
                     }}
                 >
                     {...keyboardJson.keys.map((row, rowIndex) => {
-                        const keys = [] as Astal.Box[];
+                        const keys = [] as Gtk.Box[];
 
                         row.forEach((key, keyIndex) => {
                             if (keyIndex < L_KEY_PER_ROW[rowIndex]) {
@@ -109,7 +129,7 @@ export default () => {
                         });
 
                         return (
-                            <box vertical>
+                            <box orientation={Gtk.Orientation.VERTICAL}>
                                 <box class="row">
                                     <Separator size={SPACING} />
 
@@ -123,101 +143,102 @@ export default () => {
                 </box>
 
                 {/* MIDDLE */}
-                <With value={isMiddleVisible}>
-                    {(v) =>
-                        v ? (
-                            <box
-                                $type="center"
-                                widthRequest={thirdWidth}
-                                halign={Gtk.Align.CENTER}
-                                valign={Gtk.Align.FILL}
-                                vertical
-                            >
-                                <box valign={Gtk.Align.START}>
-                                    <With value={thirdWidth}>
-                                        {(width) => (
-                                            <Arc
-                                                allocation={{
-                                                    width,
-                                                    height: 160,
-                                                }}
-                                                css={`
-                                                    background: ${COLOR};
-                                                `}
-                                            />
-                                        )}
-                                    </With>
-                                </box>
+                {/* Wrapped in a box since With can't remove children of a centerbox */}
+                <box $type="center">
+                    <With value={isMiddleVisible}>
+                        {(v) =>
+                            v ? (
+                                <box
+                                    widthRequest={thirdWidth}
+                                    halign={Gtk.Align.CENTER}
+                                    valign={Gtk.Align.FILL}
+                                    orientation={Gtk.Orientation.VERTICAL}
+                                >
+                                    <box valign={Gtk.Align.START}>
+                                        <With value={thirdWidth}>
+                                            {(width) => (
+                                                <Arc
+                                                    allocation={{
+                                                        width,
+                                                        height: 160,
+                                                    }}
+                                                    color={COLOR}
+                                                />
+                                            )}
+                                        </With>
+                                    </box>
 
+                                    <box
+                                        halign={Gtk.Align.FILL}
+                                        hexpand
+                                        vexpand
+                                        css={`
+                                            background: ${COLOR};
+                                        `}
+                                        class="settings"
+                                    >
+                                        <centerbox
+                                            halign={Gtk.Align.FILL}
+                                            hexpand
+                                            vexpand
+                                        >
+                                            <box $type="start" />
+
+                                            <togglebutton
+                                                $type="center"
+                                                class="button"
+                                                cursor={pointer}
+                                                active
+                                                label="Exclusive"
+                                                valign={Gtk.Align.CENTER}
+                                                halign={Gtk.Align.CENTER}
+                                                onToggled={(self) => {
+                                                    toggleClassName(
+                                                        self,
+                                                        'toggled',
+                                                        self.get_active(),
+                                                    );
+
+                                                    const root =
+                                                        self.get_root();
+
+                                                    if (
+                                                        !(
+                                                            root instanceof
+                                                            Astal.Window
+                                                        )
+                                                    ) {
+                                                        return;
+                                                    }
+
+                                                    root.set_exclusivity(
+                                                        self.get_active()
+                                                            ? Astal.Exclusivity
+                                                                  .EXCLUSIVE
+                                                            : Astal.Exclusivity
+                                                                  .NORMAL,
+                                                    );
+                                                }}
+                                            />
+
+                                            <box $type="end" />
+                                        </centerbox>
+                                    </box>
+                                </box>
+                            ) : (
                                 <box
                                     halign={Gtk.Align.FILL}
                                     hexpand
                                     vexpand
+                                    widthRequest={middleWidth}
                                     css={`
                                         background: ${COLOR};
                                     `}
-                                    class="settings"
-                                >
-                                    <centerbox
-                                        halign={Gtk.Align.FILL}
-                                        hexpand
-                                        vexpand
-                                    >
-                                        <box $type="start" />
-
-                                        <ToggleButton
-                                            $type="center"
-                                            class="button"
-                                            cursor="pointer"
-                                            active
-                                            valign={Gtk.Align.CENTER}
-                                            halign={Gtk.Align.CENTER}
-                                            onToggled={(self) => {
-                                                toggleClassName(
-                                                    self,
-                                                    'toggled',
-                                                    self.get_active(),
-                                                );
-
-                                                if (
-                                                    self.get_toplevel() === self
-                                                ) {
-                                                    return;
-                                                }
-
-                                                (
-                                                    self.get_toplevel() as
-                                                        | Astal.Window
-                                                        | undefined
-                                                )?.set_exclusivity(
-                                                    self.get_active()
-                                                        ? Astal.Exclusivity
-                                                              .EXCLUSIVE
-                                                        : Astal.Exclusivity
-                                                              .NORMAL,
-                                                );
-                                            }}
-                                        >
-                                            Exclusive
-                                        </ToggleButton>
-
-                                        <box $type="end" />
-                                    </centerbox>
-                                </box>
-                            </box>
-                        ) : (
-                            <box
-                                halign={Gtk.Align.FILL}
-                                hexpand
-                                vexpand
-                                widthRequest={middleWidth}
-                                css={`
-                                    background: ${COLOR};
-                                `}
-                            />
-                        )
-                    }
-                </With>
+                                />
+                            )
+                        }
+                    </With>
+                </box>
 
                 {/* RIGHT */}
                 <box
@@ -228,17 +249,13 @@ export default () => {
                     `}
                     class="right-side side"
                     halign={Gtk.Align.END}
-                    vertical
-                    onRealize={(self) => {
-                        idle(() => {
-                            setKeyboardRightSideWidth(
-                                self.get_allocated_width(),
-                            );
-                        });
+                    orientation={Gtk.Orientation.VERTICAL}
+                    onMap={(self) => {
+                        onAllocated(self, setKeyboardRightSideWidth);
                     }}
                 >
                     {...keyboardJson.keys.map((row, rowIndex) => {
-                        const keys = [] as Astal.Box[];
+                        const keys = [] as Gtk.Box[];
 
                         row.forEach((key, keyIndex) => {
                             if (keyIndex >= L_KEY_PER_ROW[rowIndex]) {
@@ -247,7 +264,7 @@ export default () => {
                         });
 
                         return (
-                            <box vertical>
+                            <box orientation={Gtk.Orientation.VERTICAL}>
                                 <box class="row" halign={Gtk.Align.END}>
                                     {...keys}
                                 </box>
@@ -259,5 +276,5 @@ export default () => {
                 </box>
             </centerbox>
         </box>
-    ) as Astal.Box;
+    ) as Gtk.Box;
 };

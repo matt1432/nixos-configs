@@ -1,3 +1,4 @@
+import { Gtk } from 'ags/gtk4';
 import { execAsync } from 'ags/process';
 
 import { getWindow } from '../../lib';
@@ -31,7 +32,7 @@ export default () =>
                 });
         },
 
-        create_row: (item) => (<ClipItem item={item} />) as ClipItem,
+        create_row: (item) => (<ClipItem item={item} />) as Gtk.Widget,
 
         fzf_options: {
             selector: (item) => item.content,
@@ -39,33 +40,10 @@ export default () =>
 
         unique_props: ['id'],
 
-        on_row_activated: (row) => {
-            const clip = row.get_children()[0] as ClipItem;
-
-            execAsync(`${CLIP_SCRIPT} --copy-by-id ${clip.id}`);
+        on_activate: (item) => {
+            execAsync(`${CLIP_SCRIPT} --copy-by-id ${item.id}`);
             getWindow('win-clipboard')?.set_visible(false);
         },
 
-        sort_func: (a, b, entry, fzfResults) => {
-            const row1 = a.get_children()[0] as ClipItem;
-            const row2 = b.get_children()[0] as ClipItem;
-
-            if (entry.text === '' || entry.text === '-') {
-                a.set_visible(true);
-                b.set_visible(true);
-
-                return row2.id - row1.id;
-            }
-            else {
-                const s1 =
-                    fzfResults.find((r) => r.item.id === row1.id)?.score ?? 0;
-                const s2 =
-                    fzfResults.find((r) => r.item.id === row2.id)?.score ?? 0;
-
-                a.set_visible(s1 !== 0);
-                b.set_visible(s2 !== 0);
-
-                return s2 - s1;
-            }
-        },
+        compare: (a, b) => b.id - a.id,
     });

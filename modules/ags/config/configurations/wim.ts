@@ -1,4 +1,4 @@
-import app from 'ags/gtk3/app';
+import app from 'ags/gtk4/app';
 import { execAsync } from 'ags/process';
 
 import { closeAll, getWindow, perMonitor } from '../lib';

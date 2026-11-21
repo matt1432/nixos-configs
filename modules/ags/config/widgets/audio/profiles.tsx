@@ -1,74 +1,71 @@
-import { Astal } from 'ags/gtk3';
+import { Gtk } from 'ags/gtk4';
 import AstalWp from 'gi://AstalWp';
 import { Accessor, createBinding, For } from 'gnim';
 
-import { ComboBoxText } from '../misc/subclasses';
+import { pointer } from '../../lib/widgets';
 
-export default (devices: Accessor<AstalWp.Device[]>) => {
-    return (
-        <For
-            each={devices.as((arr) =>
-                arr.sort(
-                    (a, b) =>
-                        a.description?.localeCompare(b.description ?? '') ?? -1,
-                ),
-            )}
-        >
-            {(device: AstalWp.Device) =>
-                (
-                    <box class="device" vertical>
-                        <label
-                            label={createBinding(device, 'description').as(
-                                (v) => v ?? '',
-                            )}
-                        />
+export default (devices: Accessor<AstalWp.Device[]>) => (
+    <For
+        each={devices.as((arr) =>
+            arr.sort(
+                (a, b) =>
+                    a.description?.localeCompare(b.description ?? '') ?? -1,
+            ),
+        )}
+    >
+        {(device: AstalWp.Device) => {
+            const profiles = (device.get_profiles() ?? []).sort((a, b) => {
+                if (a.get_description() === 'Off') {
+                    return 1;
+                }
+                else if (b.get_description() === 'Off') {
+                    return -1;
+                }
+                else {
+                    return a
+                        .get_description()
+                        .localeCompare(b.get_description());
+                }
+            });
 
-                        <ComboBoxText
-                            $={(self) => {
-                                const profiles = (
-                                    device.get_profiles() ?? []
-                                ).sort((a, b) => {
-                                    if (a.get_description() === 'Off') {
-                                        return 1;
-                                    }
-                                    else if (b.get_description() === 'Off') {
-                                        return -1;
-                                    }
-                                    else {
-                                        return a
-                                            .get_description()
-                                            .localeCompare(b.get_description());
-                                    }
-                                });
+            return (
+                <box class="device" orientation={Gtk.Orientation.VERTICAL}>
+                    <label
+                        label={createBinding(device, 'description').as(
+                            (v) => v ?? '',
+                        )}
+                    />
 
-                                profiles.forEach((profile) => {
-                                    self.append(
-                                        profile.get_index().toString(),
-                                        profile.get_description(),
-                                    );
-                                });
+                    <Gtk.DropDown
+                        cursor={pointer}
+                        model={Gtk.StringList.new(
+                            profiles.map((p) => p.get_description()),
+                        )}
+                        $={(self) => {
+                            const active = profiles.indexOf(
+                                device.get_profile(
+                                    device.get_active_profile_id(),
+                                )!,
+                            );
 
-                                self.set_active(
-                                    profiles.indexOf(
-                                        device.get_profile(
-                                            device.get_active_profile_id(),
-                                        )!,
-                                    ),
-                                );
-                            }}
-                            onChanged={(self) => {
-                                const activeId = self.get_active_id();
+                            if (active >= 0) {
+                                self.set_selected(active);
+                            }
 
-                                if (activeId) {
+                            // Connect after setting the initial value
+                            self.connect('notify::selected', () => {
+                                const profile = profiles[self.get_selected()];
+
+                                if (profile) {
                                     device.set_active_profile_id(
-                                        parseInt(activeId),
+                                        profile.get_index(),
                                     );
                                 }
-                            }}
-                        />
-                    </box>
-                ) as Astal.Box
-            }
-        </For>
-    );
-};
+                            });
+                        }}
+                    />
+                </box>
+            ) as Gtk.Box;
+        }}
+    </For>
+);

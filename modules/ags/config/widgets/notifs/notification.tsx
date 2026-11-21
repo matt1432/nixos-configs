@@ -1,13 +1,14 @@
-import { Astal, Gtk } from 'ags/gtk3';
-import app from 'ags/gtk3/app';
+import { Gdk, Gtk } from 'ags/gtk4';
 import AstalApps from 'gi://AstalApps';
-import GLib from 'gi://GLib';
-const Applications = AstalApps.Apps.new();
-
 import AstalNotifd from 'gi://AstalNotifd';
+import GLib from 'gi://GLib';
+import Pango from 'gi://Pango';
 import { createRoot, createState } from 'gnim';
 
+import { pointer } from '../../lib/widgets';
 import NotifGestureWrapper from './gesture';
+
+const Applications = AstalApps.Apps.new();
 
 // Make a variable to connect to for Widgets
 // to know when there are notifs or not
@@ -16,28 +17,41 @@ export const [HasNotifs, setHasNotifs] = createState(false);
 const setTime = (time: number): string =>
     GLib.DateTime.new_from_unix_local(time).format('%H:%M') ?? '';
 
-const NotifIcon = ({ notifObj }: { notifObj: AstalNotifd.Notification }) => {
-    let icon: string | undefined;
+const hasIcon = (name: string) => {
+    const display = Gdk.Display.get_default();
 
-    if (notifObj.get_image() && notifObj.get_image() !== '') {
-        icon = notifObj.get_image();
-        app.add_icons(icon);
+    return display
+        ? Gtk.IconTheme.get_for_display(display).has_icon(name)
+        : false;
+};
+
+const NotifIcon = ({ notifObj }: { notifObj: AstalNotifd.Notification }) => {
+    let file: string | undefined;
+    let iconName: string | undefined;
+
+    const image = notifObj.get_image();
+    const appIcon = notifObj.get_app_icon();
+
+    if (image && image !== '') {
+        if (GLib.file_test(image, GLib.FileTest.EXISTS)) {
+            file = image;
+        }
+        else {
+            iconName = image;
+        }
     }
-    else if (
-        notifObj.get_app_icon() !== '' &&
-        Astal.Icon.lookup_icon(notifObj.get_app_icon())
-    ) {
-        icon = notifObj.get_app_icon();
+    else if (appIcon && appIcon !== '' && hasIcon(appIcon)) {
+        iconName = appIcon;
     }
     else {
-        icon = Applications.fuzzy_query(
+        iconName = Applications.fuzzy_query(
             notifObj.get_app_name(),
         )[0]?.get_icon_name();
     }
 
     return (
-        <cursor-button
-            cursor="pointer"
+        <button
+            cursor={pointer}
             valign={Gtk.Align.CENTER}
             class="icon"
             css={`
@@ -45,17 +59,17 @@ const NotifIcon = ({ notifObj }: { notifObj: AstalNotifd.Notification }) => {
                 min-height: 78px;
             `}
         >
-            {icon && (
-                <icon
-                    icon={icon}
-                    css="font-size: 58px;"
+            {(file || iconName) && (
+                <image
+                    {...(file ? { file } : { iconName })}
+                    pixelSize={58}
                     halign={Gtk.Align.CENTER}
                     hexpand
                     valign={Gtk.Align.CENTER}
                     vexpand
                 />
             )}
-        </cursor-button>
+        </button>
     );
 };
 
@@ -65,8 +79,8 @@ export const Notification = ({
     id = 0,
     popup_timer = 0,
     slide_in_from = 'Left' as 'Left' | 'Right',
-}): NotifGestureWrapper | undefined => {
-    return createRoot((dispose) => {
+}): NotifGestureWrapper | undefined =>
+    createRoot((dispose) => {
         const notifications = AstalNotifd.get_default();
 
         const notifObj = notifications.get_notification(id);
@@ -83,92 +97,94 @@ export const Notification = ({
 
         setHasNotifs(notifications.get_notifications().length > 0);
 
+        const summary = notifObj.get_summary() ?? '';
+
         return new NotifGestureWrapper({
             id,
             popup_timer,
             slide_in_from,
-            disposeCallback: dispose,
+            dispose_callback: dispose,
             children: [
-                <box
-                    vertical
-                    class={`notification ${notifObj.get_urgency()} widget`}
-                >
-                    {/* Content */}
-                    <box>
-                        <NotifIcon notifObj={notifObj} />
+                (
+                    <box
+                        orientation={Gtk.Orientation.VERTICAL}
+                        class={`notification ${notifObj.get_urgency()} widget`}
+                    >
+                        {/* Content */}
+                        <box>
+                            <NotifIcon notifObj={notifObj} />
 
-                        {/* Top of Content */}
-                        <box vertical css="min-width: 400px">
-                            <box>
-                                {/* Title */}
+                            {/* Top of Content */}
+                            <box
+                                orientation={Gtk.Orientation.VERTICAL}
+                                css="min-width: 400px;"
+                            >
+                                <box>
+                                    {/* Title */}
+                                    <label
+                                        class="title"
+                                        halign={Gtk.Align.START}
+                                        valign={Gtk.Align.END}
+                                        xalign={0}
+                                        hexpand
+                                        maxWidthChars={24}
+                                        ellipsize={Pango.EllipsizeMode.END}
+                                        wrap
+                                        label={summary}
+                                        useMarkup={summary.startsWith('<')}
+                                    />
+
+                                    {/* Time */}
+                                    <label
+                                        class="time"
+                                        valign={Gtk.Align.CENTER}
+                                        halign={Gtk.Align.END}
+                                        label={setTime(notifObj.get_time())}
+                                    />
+
+                                    {/* Close button */}
+                                    <button
+                                        cursor={pointer}
+                                        class="close-button"
+                                        valign={Gtk.Align.START}
+                                        halign={Gtk.Align.END}
+                                        onClicked={() => {
+                                            notifObj.dismiss();
+                                        }}
+                                    >
+                                        <image iconName="window-close-symbolic" />
+                                    </button>
+                                </box>
+
+                                {/* Description */}
                                 <label
-                                    class="title"
-                                    halign={Gtk.Align.START}
-                                    valign={Gtk.Align.END}
-                                    xalign={0}
+                                    class="description"
                                     hexpand
-                                    max_width_chars={24}
-                                    truncate
+                                    useMarkup
+                                    xalign={0}
+                                    label={notifObj.get_body() ?? ''}
                                     wrap
-                                    label={notifObj.get_summary()}
-                                    use_markup={notifObj
-                                        .get_summary()
-                                        .startsWith('<')}
                                 />
-
-                                {/* Time */}
-                                <label
-                                    class="time"
-                                    valign={Gtk.Align.CENTER}
-                                    halign={Gtk.Align.END}
-                                    label={setTime(notifObj.get_time())}
-                                />
-
-                                {/* Close button */}
-                                <cursor-button
-                                    cursor="pointer"
-                                    class="close-button"
-                                    valign={Gtk.Align.START}
-                                    halign={Gtk.Align.END}
-                                    onButtonReleaseEvent={() => {
-                                        notifObj.dismiss();
-                                    }}
-                                >
-                                    <icon icon="window-close-symbolic" />
-                                </cursor-button>
                             </box>
+                        </box>
 
-                            {/* Description */}
-                            <label
-                                class="description"
-                                hexpand
-                                use_markup
-                                xalign={0}
-                                label={notifObj.get_body()}
-                                wrap
-                            />
+                        {/* progress */}
+
+                        {/* Actions */}
+                        <box class="actions">
+                            {notifObj.get_actions().map((action) => (
+                                <button
+                                    cursor={pointer}
+                                    class="action-button"
+                                    hexpand
+                                    onClicked={() => notifObj.invoke(action.id)}
+                                >
+                                    <label label={action.label} />
+                                </button>
+                            ))}
                         </box>
                     </box>
-
-                    {/* progress */}
-
-                    {/* Actions */}
-                    <box class="actions">
-                        {notifObj.get_actions().map((action) => (
-                            <cursor-button
-                                cursor="pointer"
-                                class="action-button"
-                                hexpand
-                                onButtonReleaseEvent={() =>
-                                    notifObj.invoke(action.id)
-                                }
-                            >
-                                <label label={action.label} />
-                            </cursor-button>
-                        ))}
-                    </box>
-                </box>,
+                ) as Gtk.Widget,
             ],
         });
     });
-};

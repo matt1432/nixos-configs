@@ -1,5 +1,5 @@
 import GObject, { register, signal } from 'ags/gobject';
-import app from 'ags/gtk3/app';
+import app from 'ags/gtk4/app';
 import { subprocess } from 'ags/process';
 
 import { getWindow, hyprMessage } from '../lib';
@@ -89,13 +89,13 @@ export default class MonitorClicks extends GObject.Object {
     private _initAppConnection() {
         app.connect('window-toggled', () => {
             const anyVisibleAndClosable = (
-                app.get_windows() as PopupWindow[]
+                app.get_windows() as unknown as PopupWindow[]
             ).some((w) => {
                 const closable =
-                    w.closeOnUnfocus &&
+                    w.close_on_unfocus &&
                     !(
-                        w.closeOnUnfocus === 'none' ||
-                        w.closeOnUnfocus === 'stay'
+                        w.close_on_unfocus === 'none' ||
+                        w.close_on_unfocus === 'stay'
                     );
 
                 return w.visible && closable;
@@ -121,12 +121,14 @@ export default class MonitorClicks extends GObject.Object {
     }
 
     public static async detectClickedOutside(clickStage: string) {
-        const toClose = (app.get_windows() as PopupWindow[]).some((w) => {
-            const closable =
-                w.closeOnUnfocus && w.closeOnUnfocus === clickStage;
+        const toClose = (app.get_windows() as unknown as PopupWindow[]).some(
+            (w) => {
+                const closable =
+                    w.close_on_unfocus && w.close_on_unfocus === clickStage;
 
-            return w.visible && closable;
-        });
+                return w.visible && closable;
+            },
+        );
 
         if (!toClose) {
             return;
@@ -185,8 +187,8 @@ export default class MonitorClicks extends GObject.Object {
 
                         return (
                             win &&
-                            win.closeOnUnfocus &&
-                            win.closeOnUnfocus === clickStage
+                            win.close_on_unfocus &&
+                            win.close_on_unfocus === clickStage
                         );
                     });
 
@@ -195,14 +197,12 @@ export default class MonitorClicks extends GObject.Object {
                     }
                     else {
                         widgets.forEach((w) => {
-                            if (
-                                !(
-                                    pos.x > w.x &&
-                                    pos.x < w.x + w.w &&
-                                    pos.y > w.y &&
-                                    pos.y < w.y + w.h
-                                )
-                            ) {
+                            if (!(
+                                pos.x > w.x &&
+                                pos.x < w.x + w.w &&
+                                pos.y > w.y &&
+                                pos.y < w.y + w.h
+                            )) {
                                 getWindow(w.namespace)?.set_visible(false);
                             }
                         });

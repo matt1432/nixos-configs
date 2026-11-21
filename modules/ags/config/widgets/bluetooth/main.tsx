@@ -1,12 +1,12 @@
 /* eslint-disable no-magic-numbers */
 
 import { createBinding } from 'ags';
-import { Gtk } from 'ags/gtk3';
+import { Gtk } from 'ags/gtk4';
 import AstalBluetooth from 'gi://AstalBluetooth';
+import Gio from 'gi://Gio';
 
-import { toggleClassName } from '../../lib/widgets';
+import { pointer, toggleClassName } from '../../lib/widgets';
 import Separator from '../misc/separator';
-import { ListBox, ToggleButton } from '../misc/subclasses';
 import DeviceWidget from './device';
 
 const calculateDevSort = (dev: AstalBluetooth.Device) => {
@@ -42,90 +42,142 @@ const calculateDevSort = (dev: AstalBluetooth.Device) => {
     return value;
 };
 
+// Properties that affect sorting or filtering
+const WATCHED_PROPS = ['connected', 'paired', 'blocked', 'icon', 'name'];
+
+const DeviceList = () => {
+    const bluetooth = AstalBluetooth.get_default();
+
+    const store = new Gio.ListStore({
+        item_type: AstalBluetooth.Device.$gtype,
+    });
+
+    const widgets = new Map<AstalBluetooth.Device, DeviceWidget>();
+    const devSignals = new Map<AstalBluetooth.Device, number[]>();
+
+    const filter = Gtk.CustomFilter.new((obj) =>
+        Boolean((obj as unknown as AstalBluetooth.Device).get_name()),
+    );
+
+    const sorter = Gtk.CustomSorter.new((obj1, obj2) => {
+        const devA = obj1 as unknown as AstalBluetooth.Device;
+        const devB = obj2 as unknown as AstalBluetooth.Device;
+
+        const sort = calculateDevSort(devB) - calculateDevSort(devA);
+
+        return Math.sign(
+            sort !== 0
+                ? sort
+                : (devA.get_name() ?? '').localeCompare(devB.get_name() ?? ''),
+        ) as Gtk.Ordering;
+    });
+
+    const addDevice = (dev: AstalBluetooth.Device) => {
+        devSignals.set(
+            dev,
+            WATCHED_PROPS.map((prop) =>
+                dev.connect(`notify::${prop}`, () => {
+                    filter.changed(Gtk.FilterChange.DIFFERENT);
+                    sorter.changed(Gtk.SorterChange.DIFFERENT);
+                }),
+            ),
+        );
+        store.append(dev);
+    };
+
+    const removeDevice = (dev: AstalBluetooth.Device) => {
+        devSignals.get(dev)?.forEach((id) => dev.disconnect(id));
+        devSignals.delete(dev);
+
+        const [found, position] = store.find(dev);
+
+        if (found) {
+            store.remove(position);
+        }
+
+        widgets.get(dev)?.dispose?.();
+        widgets.delete(dev);
+    };
+
+    bluetooth.get_devices().forEach(addDevice);
+
+    bluetooth.connect('device-added', (_, dev) => {
+        addDevice(dev);
+    });
+
+    bluetooth.connect('device-removed', (_, dev) => {
+        const devWidget = widgets.get(dev);
+
+        if (devWidget && devWidget.get_mapped()) {
+            devWidget.set_reveal_child(false);
+
+            setTimeout(() => {
+                removeDevice(dev);
+            }, devWidget.get_transition_duration() + 100);
+        }
+        else {
+            removeDevice(dev);
+        }
+    });
+
+    const factory = new Gtk.SignalListItemFactory();
+
+    factory.connect('bind', (_, listItem) => {
+        const item = listItem as Gtk.ListItem;
+        const dev = item.get_item() as AstalBluetooth.Device;
+        let widget = widgets.get(dev);
+
+        if (!widget) {
+            widget = new DeviceWidget({ dev });
+            widgets.set(dev, widget);
+        }
+
+        item.set_child(widget);
+    });
+
+    factory.connect('unbind', (_, listItem) => {
+        (listItem as Gtk.ListItem).set_child(null);
+    });
+
+    return (
+        <Gtk.ListView
+            model={
+                new Gtk.NoSelection({
+                    model: new Gtk.FilterListModel({
+                        model: new Gtk.SortListModel({ model: store, sorter }),
+                        filter,
+                    }),
+                })
+            }
+            factory={factory}
+        />
+    );
+};
+
 export default () => {
     const bluetooth = AstalBluetooth.get_default();
 
-    const deviceList = (
-        <scrollable
-            class="list"
-            css="min-height: 300px;"
-            hscroll={Gtk.PolicyType.NEVER}
-            vscroll={Gtk.PolicyType.AUTOMATIC}
-        >
-            <ListBox
-                selectionMode={Gtk.SelectionMode.SINGLE}
-                $={(self) => {
-                    bluetooth.devices
-                        .filter((dev) => dev.get_name())
-                        .forEach((dev) => {
-                            self.add(
-                                (<DeviceWidget dev={dev} />) as DeviceWidget,
-                            );
-                        });
-
-                    bluetooth.connect('device-added', (_, dev) => {
-                        if (dev.get_name()) {
-                            self.add(
-                                (<DeviceWidget dev={dev} />) as DeviceWidget,
-                            );
-                            self.invalidate_sort();
-                        }
-                    });
-
-                    bluetooth.connect('device-removed', (_, dev) => {
-                        const children = self
-                            .get_children()
-                            .map((ch) => ch.get_child()) as DeviceWidget[];
-
-                        const devWidget = children.find((ch) => ch.dev === dev);
-
-                        if (devWidget) {
-                            devWidget.set_reveal_child(false);
-
-                            setTimeout(() => {
-                                devWidget.dispose?.();
-                                devWidget.get_parent()?.destroy();
-                            }, devWidget.get_transition_duration() + 100);
-                        }
-                    });
-
-                    self.set_sort_func((a, b) => {
-                        const devA = (a.get_child() as DeviceWidget).dev!;
-                        const devB = (b.get_child() as DeviceWidget).dev!;
-
-                        const sort =
-                            calculateDevSort(devB) - calculateDevSort(devA);
-
-                        return sort !== 0
-                            ? sort
-                            : devA.get_name().localeCompare(devB.get_name());
-                    });
-                }}
-            />
-        </scrollable>
-    );
-
     return (
-        <box class="bluetooth widget" vertical>
-            <centerbox homogeneous>
-                <cursor-switch
+        <box class="bluetooth widget" orientation={Gtk.Orientation.VERTICAL}>
+            <centerbox>
+                <switch
                     $type="start"
-                    cursor="pointer"
+                    cursor={pointer}
                     valign={Gtk.Align.CENTER}
                     halign={Gtk.Align.START}
                     active={createBinding(bluetooth, 'isPowered')}
-                    $={(self) => {
-                        self.connect('notify::active', () => {
+                    onNotifyActive={(self) => {
+                        if (self.active !== bluetooth.get_is_powered()) {
                             bluetooth.get_adapter()?.set_powered(self.active);
-                        });
+                        }
                     }}
                 />
 
                 <box $type="center" />
 
-                <ToggleButton
+                <togglebutton
                     $type="end"
-                    cursor="pointer"
+                    cursor={pointer}
                     halign={Gtk.Align.END}
                     class="toggle-button"
                     sensitive={createBinding(bluetooth, 'isPowered')}
@@ -140,16 +192,23 @@ export default () => {
                         }
                     }}
                 >
-                    <icon
-                        icon="emblem-synchronizing-symbolic"
-                        css="font-size: 30px;"
+                    <image
+                        iconName="emblem-synchronizing-symbolic"
+                        pixelSize={30}
                     />
-                </ToggleButton>
+                </togglebutton>
             </centerbox>
 
             <Separator size={8} vertical />
 
-            {deviceList}
+            <scrolledwindow
+                class="list"
+                css="min-height: 300px;"
+                hscrollbarPolicy={Gtk.PolicyType.NEVER}
+                vscrollbarPolicy={Gtk.PolicyType.AUTOMATIC}
+            >
+                <DeviceList />
+            </scrolledwindow>
         </box>
     );
 };

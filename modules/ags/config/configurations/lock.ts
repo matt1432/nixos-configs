@@ -1,6 +1,6 @@
 import app from 'ags/gtk4/app';
 
-import style from '../style.scss';
+import style from '../style/lock.scss';
 import Lockscreen from '../widgets/lockscreen';
 
 export default () => {

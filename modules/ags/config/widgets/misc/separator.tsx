@@ -1,19 +1,17 @@
-import { Astal } from 'ags/gtk3';
-import { CCProps } from 'gnim';
+import { Astal } from 'ags/gtk4';
 
 export default ({
     size,
     vertical = false,
     css = '',
     ...rest
-}: CCProps<
-    Astal.Box,
-    { size: number } & Partial<Astal.Box.ConstructorProps>
->) => (
+}: { size: number; css?: string } & Partial<Astal.Box>) => (
     <box
         css={`
-            ${vertical ? 'min-height' : 'min-width'}: ${size}px;
-            ${css}
+            * {
+                ${vertical ? 'min-height' : 'min-width'}: ${size}px;
+                ${css}
+            }
         `}
         {...rest}
     />

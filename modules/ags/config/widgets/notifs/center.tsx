@@ -1,13 +1,14 @@
-import { Astal, Gtk } from 'ags/gtk3';
+import { Gtk } from 'ags/gtk4';
 import { timeout } from 'ags/time';
 import AstalNotifd from 'gi://AstalNotifd';
 import { createBinding } from 'gnim';
 
 import { getWindow } from '../../lib';
+import { cursor, getChildren } from '../../lib/widgets';
 import NotifGestureWrapper from './gesture';
 import { HasNotifs, Notification } from './notification';
 
-const addNotif = (box: Astal.Box, notifObj: AstalNotifd.Notification) => {
+const addNotif = (box: Gtk.Box, notifObj: AstalNotifd.Notification) => {
     if (notifObj) {
         const NewNotif = Notification({
             id: notifObj.id,
@@ -15,8 +16,8 @@ const addNotif = (box: Astal.Box, notifObj: AstalNotifd.Notification) => {
         });
 
         if (NewNotif) {
-            box.pack_end(NewNotif, false, false, 0);
-            box.show_all();
+            // Put it at the top
+            box.prepend(NewNotif);
         }
     }
 };
@@ -26,7 +27,7 @@ const NotificationList = () => {
 
     return (
         <box
-            vertical
+            orientation={Gtk.Orientation.VERTICAL}
             vexpand
             valign={Gtk.Align.START}
             visible={HasNotifs}
@@ -48,7 +49,7 @@ const NotificationList = () => {
                 });
                 notifications.connect('resolved', (_, id) => {
                     const notif = (
-                        self.get_children() as NotifGestureWrapper[]
+                        getChildren(self) as NotifGestureWrapper[]
                     ).find((ch) => ch.id === id);
 
                     if (notif?.get_sensitive()) {
@@ -64,15 +65,17 @@ const ClearButton = () => {
     const notifications = AstalNotifd.get_default();
 
     return (
-        <cursor-eventbox
+        // The button can't show a cursor while insensitive, so the
+        // 'not-allowed' cursor is set on a wrapper
+        <box
             cursor={HasNotifs.as((hasNotifs) =>
-                hasNotifs ? 'pointer' : 'not-allowed',
+                cursor(hasNotifs ? 'pointer' : 'not-allowed'),
             )}
         >
             <button
                 class="clear"
                 sensitive={HasNotifs}
-                onButtonReleaseEvent={() => {
+                onClicked={() => {
                     notifications.get_notifications().forEach((notif) => {
                         notif.dismiss();
                     });
@@ -84,17 +87,19 @@ const ClearButton = () => {
                 <box>
                     <label label="Clear " />
 
-                    <icon
-                        icon={createBinding(notifications, 'notifications').as(
-                            (notifs) =>
-                                notifs.length > 0
-                                    ? 'user-trash-full-symbolic'
-                                    : 'user-trash-symbolic',
+                    <image
+                        iconName={createBinding(
+                            notifications,
+                            'notifications',
+                        ).as((notifs) =>
+                            notifs.length > 0
+                                ? 'user-trash-full-symbolic'
+                                : 'user-trash-symbolic',
                         )}
                     />
                 </box>
             </button>
-        </cursor-eventbox>
+        </box>
     );
 };
 
@@ -112,34 +117,42 @@ const Placeholder = () => (
     >
         <box
             class="placeholder"
-            vertical
+            orientation={Gtk.Orientation.VERTICAL}
             valign={Gtk.Align.CENTER}
             halign={Gtk.Align.CENTER}
             vexpand
             hexpand
         >
-            <icon icon="notification-disabled-symbolic" />
+            <image iconName="notification-disabled-symbolic" />
             <label label="Your inbox is empty" />
         </box>
     </revealer>
 );
 
 export default () => (
-    <box class="notification-center widget" vertical>
+    <box
+        class="notification-center widget"
+        orientation={Gtk.Orientation.VERTICAL}
+    >
         <Header />
 
         <box class="notification-wallpaper-box">
-            <scrollable
+            <scrolledwindow
                 class="notification-list-box"
-                hscroll={Gtk.PolicyType.NEVER}
-                vscroll={Gtk.PolicyType.AUTOMATIC}
+                hexpand
+                vexpand
+                hscrollbarPolicy={Gtk.PolicyType.NEVER}
+                vscrollbarPolicy={Gtk.PolicyType.AUTOMATIC}
             >
-                <box class="notification-list" vertical>
+                <box
+                    class="notification-list"
+                    orientation={Gtk.Orientation.VERTICAL}
+                >
                     <NotificationList />
 
                     <Placeholder />
                 </box>
-            </scrollable>
+            </scrolledwindow>
         </box>
     </box>
 );

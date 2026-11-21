@@ -1,8 +1,10 @@
-import { createBinding } from 'ags';
-import { Gtk } from 'ags/gtk3';
-import app from 'ags/gtk3/app';
+import { createBinding, createRoot } from 'ags';
+import { Gtk } from 'ags/gtk4';
+import app from 'ags/gtk4/app';
 import { idle } from 'ags/time';
 import AstalTray from 'gi://AstalTray';
+
+import { pointer } from '../../../lib/widgets';
 
 const SKIP_ITEMS = ['.spotify-wrapped'];
 
@@ -16,32 +18,27 @@ const TrayItem = (item: AstalTray.TrayItem) => {
             transitionType={Gtk.RevealerTransitionType.SLIDE_RIGHT}
             revealChild={false}
         >
-            <cursor-menubutton
+            <menubutton
                 class="tray-item"
-                cursor="pointer"
-                usePopover={false}
+                // Keeps the button square so its hover background stays a circle
+                valign={Gtk.Align.CENTER}
+                cursor={pointer}
+                menuModel={createBinding(item, 'menuModel')}
+                tooltipMarkup={createBinding(item, 'tooltipMarkup')}
                 $={(self) => {
-                    self.menuModel = item.menuModel;
                     self.insert_action_group('dbusmenu', item.actionGroup);
 
                     item.connect('notify::action-group', () => {
                         self.insert_action_group('dbusmenu', item.actionGroup);
                     });
 
-                    item.connect('notify::tooltip-markup', () => {
-                        self.set_tooltip_markup(item.tooltipMarkup);
-                    });
+                    self.set_child(
+                        (
+                            <image gicon={createBinding(item, 'gicon')} />
+                        ) as Gtk.Image,
+                    );
                 }}
-            >
-                <icon
-                    $={(self) => {
-                        self.gicon = item.gicon;
-                        item.connect('notify::gicon', () => {
-                            self.gicon = item.gicon;
-                        });
-                    }}
-                />
-            </cursor-menubutton>
+            />
         </revealer>
     ) as Gtk.Revealer;
 };
@@ -49,7 +46,10 @@ const TrayItem = (item: AstalTray.TrayItem) => {
 export default () => {
     const tray = AstalTray.get_default();
 
-    const itemMap = new Map<string, Gtk.Revealer>();
+    const itemMap = new Map<
+        string,
+        { widget: Gtk.Revealer; dispose: () => void }
+    >();
 
     return (
         <box
@@ -58,36 +58,51 @@ export default () => {
                 (items) => items.length !== 0,
             )}
             $={(self) => {
-                tray.connect('item-added', (_, item: string) => {
+                const addItem = (id: string) => {
                     if (
-                        itemMap.has(item) ||
-                        SKIP_ITEMS.includes(tray.get_item(item).get_title())
+                        itemMap.has(id) ||
+                        SKIP_ITEMS.includes(tray.get_item(id).get_title())
                     ) {
                         return;
                     }
 
-                    const widget = TrayItem(tray.get_item(item));
+                    let dispose = () => {};
+                    const widget = createRoot((d) => {
+                        dispose = d;
 
-                    itemMap.set(item, widget);
+                        return TrayItem(tray.get_item(id));
+                    });
 
-                    self.add(widget);
+                    itemMap.set(id, { widget, dispose });
+
+                    self.append(widget);
 
                     idle(() => {
                         widget.set_reveal_child(true);
                     });
+                };
+
+                tray.get_items().forEach((item) => {
+                    addItem(item.itemId);
                 });
 
-                tray.connect('item-removed', (_, item: string) => {
-                    if (!itemMap.has(item)) {
+                tray.connect('item-added', (_, id: string) => {
+                    addItem(id);
+                });
+
+                tray.connect('item-removed', (_, id: string) => {
+                    const entry = itemMap.get(id);
+
+                    if (!entry) {
                         return;
                     }
 
-                    const widget = itemMap.get(item);
-
-                    widget?.set_reveal_child(false);
+                    itemMap.delete(id);
+                    entry.widget.set_reveal_child(false);
 
                     setTimeout(() => {
-                        widget?.destroy();
+                        self.remove(entry.widget);
+                        entry.dispose();
                     }, 1000);
                 });
             }}

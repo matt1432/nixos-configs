@@ -1,141 +1,205 @@
-// This is definitely not good practice but I couldn't figure out how to extend PopupWindow
-// so here we are with a cursed function that returns a prop of the class.
-
-import { Astal, Gtk } from 'ags/gtk3';
+import GObject, { register } from 'ags/gobject';
+import { Astal, Gtk } from 'ags/gtk4';
 import { idle } from 'ags/time';
-import { AsyncFzf, AsyncFzfOptions, FzfResultItem } from 'fzf';
+import { AsyncFzf, AsyncFzfOptions } from 'fzf';
+import Gio from 'gi://Gio';
 
 import { centerCursor } from '../../lib';
+import { pointer } from '../../lib/widgets';
 import PopupWindow from '../misc/popup-window';
 
+/**
+ * GObject wrapper so any JS value can be stored in a Gio.ListStore.
+ */
+@register()
+class SortedListItem extends GObject.Object {
+    declare value: unknown;
+
+    constructor(value: unknown) {
+        super();
+        this.value = value;
+    }
+}
+
 export interface SortedListProps<T> {
+    name: string;
     create_list: () => T[] | Promise<T[]>;
     create_row: (item: T) => Gtk.Widget;
     fzf_options?: AsyncFzfOptions<T>;
+    /** Props used to tell if an item from a new list is already shown */
     unique_props?: (keyof T)[];
-    on_row_activated: (row: Gtk.ListBoxRow) => void;
-    sort_func: (
-        a: Gtk.ListBoxRow,
-        b: Gtk.ListBoxRow,
-        entry: Gtk.Entry,
-        fzf: FzfResultItem<T>[],
-    ) => number;
-    name: string;
+    on_activate: (item: T) => void;
+    /** Order of the items when there is no search query */
+    compare: (a: T, b: T) => number;
 }
 
 export class SortedList<T> {
-    private item_list: T[] = [];
-    private fzf_results: FzfResultItem<T>[] = [];
-
     readonly window: PopupWindow;
-    private _item_map = new Map<T, Gtk.Widget>();
 
-    readonly create_list: () => T[] | Promise<T[]>;
-    readonly create_row: (item: T) => Gtk.Widget;
-    readonly fzf_options: AsyncFzfOptions<T>;
-    readonly unique_props: (keyof T)[] | undefined;
+    private readonly store = new Gio.ListStore({
+        item_type: SortedListItem.$gtype,
+    });
 
-    readonly on_row_activated: (row: Gtk.ListBoxRow) => void;
-
-    readonly sort_func: (
-        a: Gtk.ListBoxRow,
-        b: Gtk.ListBoxRow,
-        entry: Gtk.Entry,
-        fzf: FzfResultItem<T>[],
-    ) => number;
+    private readonly widgets = new Map<SortedListItem, Gtk.Widget>();
+    private scores = new Map<T, number>();
+    private query = '';
 
     constructor({
+        name,
         create_list,
         create_row,
         fzf_options = {} as AsyncFzfOptions<T>,
         unique_props,
-        on_row_activated,
-        sort_func,
-        name,
+        on_activate,
+        compare,
     }: SortedListProps<T>) {
-        const list = new Gtk.ListBox({
-            selectionMode: Gtk.SelectionMode.SINGLE,
+        const isSearching = () => this.query !== '' && this.query !== '-';
+
+        const filter = Gtk.CustomFilter.new((obj) => {
+            const item = (obj as unknown as SortedListItem).value as T;
+
+            return !isSearching() || (this.scores.get(item) ?? 0) > 0;
         });
 
-        list.connect('row-activated', (_, row) => {
-            this.on_row_activated(row);
+        const sorter = Gtk.CustomSorter.new((obj1, obj2) => {
+            const a = (obj1 as unknown as SortedListItem).value as T;
+            const b = (obj2 as unknown as SortedListItem).value as T;
+
+            const result = isSearching()
+                ? (this.scores.get(b) ?? 0) - (this.scores.get(a) ?? 0)
+                : compare(a, b);
+
+            return Math.sign(result) as Gtk.Ordering;
         });
+
+        const filtered = new Gtk.FilterListModel({
+            model: new Gtk.SortListModel({ model: this.store, sorter }),
+            filter,
+        });
+
+        const selection = new Gtk.SingleSelection({
+            model: filtered,
+            autoselect: true,
+        });
+
+        const factory = new Gtk.SignalListItemFactory();
+
+        factory.connect('bind', (_, listItem) => {
+            const obj = (listItem as Gtk.ListItem).get_item() as SortedListItem;
+            let widget = this.widgets.get(obj);
+
+            if (!widget) {
+                widget = create_row(obj.value as T);
+                this.widgets.set(obj, widget);
+            }
+
+            (listItem as Gtk.ListItem).set_child(widget);
+        });
+
+        factory.connect('unbind', (_, listItem) => {
+            (listItem as Gtk.ListItem).set_child(null);
+        });
+
+        const activate = (position: number) => {
+            const obj = filtered.get_item(position) as SortedListItem | null;
+
+            if (obj) {
+                on_activate(obj.value as T);
+            }
+        };
+
+        const listView = (
+            <Gtk.ListView
+                model={selection}
+                factory={factory}
+                singleClickActivate
+                cursor={pointer}
+                onActivate={(_, position) => activate(position)}
+            />
+        ) as Gtk.ListView;
 
         const placeholder = (
             <revealer>
-                <label label="   Couldn't find a match" class="placeholder" />
+                <label label="   Couldn't find a match" class="placeholder" />
             </revealer>
         ) as Gtk.Revealer;
 
-        const on_text_change = (text: string) => {
-            // @ts-expect-error this works
-            new AsyncFzf<T[]>(this.item_list, this.fzf_options)
+        const onTextChange = (text: string) => {
+            this.query = text;
+
+            const items = this.getItems().map((obj) => obj.value as T);
+
+            // @ts-expect-error fzf's typing doesn't like generics
+            new AsyncFzf<T[]>(items, fzf_options)
                 .find(text)
-                .then((out) => {
-                    this.fzf_results = out;
-                    list.invalidate_sort();
+                .then((results) => {
+                    // Ignore results of outdated queries
+                    if (text !== this.query) {
+                        return;
+                    }
 
-                    const visibleApplications = list
-                        .get_children()
-                        .filter((row) => row.get_visible()).length;
+                    this.scores = new Map(
+                        results.map((r) => [r.item as T, r.score]),
+                    );
 
-                    placeholder.set_reveal_child(visibleApplications <= 0);
+                    filter.changed(Gtk.FilterChange.DIFFERENT);
+                    sorter.changed(Gtk.SorterChange.DIFFERENT);
+
+                    placeholder.set_reveal_child(filtered.get_n_items() === 0);
+
+                    if (filtered.get_n_items() > 0) {
+                        listView.scroll_to(0, Gtk.ListScrollFlags.SELECT, null);
+                    }
                 })
                 .catch(() => {});
         };
 
         const entry = (
-            <entry onNotifyText={(self) => on_text_change(self.text)} hexpand />
+            <entry
+                hexpand
+                onNotifyText={(self) => onTextChange(self.text)}
+                onActivate={() => activate(selection.get_selected())}
+            />
         ) as Gtk.Entry;
 
-        list.set_sort_func((a, b) => {
-            return this.sort_func(a, b, entry, this.fzf_results);
-        });
-
         const refreshItems = () => {
-            const callback = async () => {
-                // Delete items that don't exist anymore
-                const new_list = await this.create_list();
-
-                [...this._item_map].forEach(([item, widget]) => {
-                    if (
-                        !new_list.some(
-                            (new_item) =>
-                                this.unique_props?.every(
-                                    (prop) => item[prop] === new_item[prop],
-                                ) ?? item === new_item,
-                        )
-                    ) {
-                        widget.get_parent()?.destroy();
-                        this._item_map.delete(item);
-                    }
-                });
-
-                // Add missing items
-                new_list.forEach((item) => {
-                    if (
-                        !this.item_list.some(
-                            (old_item) =>
-                                this.unique_props?.every(
-                                    (prop) => old_item[prop] === item[prop],
-                                ) ?? old_item === item,
-                        )
-                    ) {
-                        const itemWidget = this.create_row(item);
-
-                        list.add(itemWidget);
-                        this._item_map.set(item, itemWidget);
-                    }
-                });
-
-                this.item_list = new_list;
-
-                list.show_all();
-                on_text_change('');
-            };
+            const isSame = (a: T, b: T) =>
+                unique_props?.every((prop) => a[prop] === b[prop]) ?? a === b;
 
             idle(() => {
-                callback().catch(console.error);
+                Promise.resolve(create_list())
+                    .then((newList) => {
+                        const oldItems = this.getItems();
+
+                        // Delete items that don't exist anymore
+                        for (let i = oldItems.length - 1; i >= 0; i--) {
+                            const obj = oldItems[i];
+
+                            if (
+                                !newList.some((item) =>
+                                    isSame(obj.value as T, item),
+                                )
+                            ) {
+                                this.store.remove(i);
+                                this.widgets.delete(obj);
+                            }
+                        }
+
+                        // Add missing items
+                        const added = newList
+                            .filter(
+                                (item) =>
+                                    !oldItems.some((obj) =>
+                                        isSame(obj.value as T, item),
+                                    ),
+                            )
+                            .map((item) => new SortedListItem(item));
+
+                        this.store.splice(this.store.get_n_items(), 0, added);
+
+                        onTextChange(entry.text);
+                    })
+                    .catch(console.error);
             });
         };
 
@@ -143,56 +207,64 @@ export class SortedList<T> {
             <PopupWindow
                 name={name}
                 keymode={Astal.Keymode.ON_DEMAND}
-                openCallback={() => {
+                open_callback={() => {
                     entry.set_text('');
                     refreshItems();
                     centerCursor();
                     entry.grab_focus();
                 }}
             >
-                <box vertical class={`${name} sorted-list`}>
+                <box
+                    orientation={Gtk.Orientation.VERTICAL}
+                    class={`${name} sorted-list`}
+                >
                     <box class="widget search">
-                        <icon icon="preferences-system-search-symbolic" />
+                        <image iconName="preferences-system-search-symbolic" />
 
                         {entry}
 
-                        <cursor-button
+                        <button
                             css="margin-left: 5px;"
-                            cursor="pointer"
-                            onButtonReleaseEvent={refreshItems}
+                            cursor={pointer}
+                            onClicked={refreshItems}
                         >
-                            <icon
-                                icon="view-refresh-symbolic"
-                                css="font-size: 26px;"
+                            <image
+                                iconName="view-refresh-symbolic"
+                                pixelSize={26}
                             />
-                        </cursor-button>
+                        </button>
                     </box>
 
-                    <cursor-eventbox cursor="pointer">
-                        <scrollable
-                            class="widget list"
+                    <box
+                        class="widget list"
+                        orientation={Gtk.Orientation.VERTICAL}
+                    >
+                        <scrolledwindow
                             css="min-height: 600px; min-width: 700px;"
-                            hscroll={Gtk.PolicyType.NEVER}
-                            vscroll={Gtk.PolicyType.AUTOMATIC}
+                            vexpand
+                            hscrollbarPolicy={Gtk.PolicyType.NEVER}
+                            vscrollbarPolicy={Gtk.PolicyType.AUTOMATIC}
                         >
-                            <box vertical>
-                                {list}
-                                {placeholder}
-                            </box>
-                        </scrollable>
-                    </cursor-eventbox>
+                            {listView}
+                        </scrolledwindow>
+
+                        {placeholder}
+                    </box>
                 </box>
             </PopupWindow>
         ) as PopupWindow;
 
-        this.create_list = create_list;
-        this.create_row = create_row;
-        this.fzf_options = fzf_options;
-        this.unique_props = unique_props;
-        this.on_row_activated = on_row_activated;
-        this.sort_func = sort_func;
-
         refreshItems();
+    }
+
+    private getItems(): SortedListItem[] {
+        const items: SortedListItem[] = [];
+
+        for (let i = 0; i < this.store.get_n_items(); i++) {
+            items.push(this.store.get_item(i) as SortedListItem);
+        }
+
+        return items;
     }
 }
 
@@ -200,6 +272,6 @@ export class SortedList<T> {
  * @param props props for a SortedList Widget
  * @returns the widget
  */
-export default function <Attr>(props: SortedListProps<Attr>) {
+export default function <T>(props: SortedListProps<T>) {
     return new SortedList(props).window;
 }

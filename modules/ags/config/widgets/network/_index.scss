@@ -6,6 +6,11 @@
 
     * {
         font-size: 20px;
+        -gtk-icon-size: 20px;
+    }
+
+    listview {
+        background: transparent;
     }
 
     row {

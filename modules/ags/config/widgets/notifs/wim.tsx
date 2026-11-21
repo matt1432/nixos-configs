@@ -1,4 +1,4 @@
-import { Astal } from 'ags/gtk3';
+import { Astal } from 'ags/gtk4';
 
 import PopupWindow from '../misc/popup-window';
 import Center from './center';
@@ -10,6 +10,7 @@ export const NotifPopups = () => (
         namespace="notifications"
         layer={Astal.Layer.OVERLAY}
         anchor={Astal.WindowAnchor.TOP | Astal.WindowAnchor.LEFT}
+        visible
     >
         <Popups />
     </window>

@@ -1,9 +1,8 @@
-import { Astal, Gdk } from 'ags/gtk3';
+import { Astal, Gdk } from 'ags/gtk4';
 
-export default (
-    monitor = Gdk.Display.get_default()?.get_monitor(0) as Gdk.Monitor,
-    gradient = true,
-) => {
+import { getMonitors } from '../../lib';
+
+export default (monitor: Gdk.Monitor = getMonitors()[0], gradient = true) => {
     return (
         <window
             name="bg-layer"
@@ -11,6 +10,7 @@ export default (
             gdkmonitor={monitor}
             layer={Astal.Layer.BACKGROUND}
             exclusivity={Astal.Exclusivity.IGNORE}
+            visible
             anchor={
                 Astal.WindowAnchor.TOP |
                 Astal.WindowAnchor.BOTTOM |
@@ -20,10 +20,11 @@ export default (
             css={
                 gradient
                     ? `
-                        background-image: -gtk-gradient (linear,
-                            left top, left bottom,
-                            from(rgba(0, 0, 0, 0.5)),
-                            to(rgba(0, 0, 0, 0)));
+                        background-image: linear-gradient(
+                            to bottom,
+                            rgba(0, 0, 0, 0.5),
+                            rgba(0, 0, 0, 0)
+                        );
                     `
                     : `
                         background-color: rgba(0, 0, 0, 0.4);

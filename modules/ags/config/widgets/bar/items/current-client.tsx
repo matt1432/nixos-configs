@@ -1,6 +1,7 @@
-import { Gtk } from 'ags/gtk3';
+import { Gtk } from 'ags/gtk4';
 import AstalApps from 'gi://AstalApps';
 import AstalHyprland from 'gi://AstalHyprland';
+import Pango from 'gi://Pango';
 import { createState } from 'gnim';
 
 import Separator from '../../misc/separator';
@@ -60,13 +61,17 @@ export default () => {
                         revealChild={visibleIcon}
                     >
                         <box>
-                            <icon css="font-size: 32px;" icon={focusedIcon} />
+                            <image pixelSize={32} iconName={focusedIcon} />
 
                             <Separator size={8} />
                         </box>
                     </revealer>
 
-                    <label label={focusedTitle} truncate maxWidthChars={35} />
+                    <label
+                        label={focusedTitle}
+                        ellipsize={Pango.EllipsizeMode.END}
+                        maxWidthChars={35}
+                    />
                 </box>
             </box>
         </revealer>

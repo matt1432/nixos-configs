@@ -1,3 +1,4 @@
+import { Gtk } from 'ags/gtk4';
 import AstalNotifd from 'gi://AstalNotifd';
 
 import NotifGestureWrapper from './gesture';
@@ -11,7 +12,7 @@ export default () => {
             // Needed so it occupies space at the start
             // It needs to be bigger than the notifs to not jiggle
             css="min-width: 550px;"
-            vertical
+            orientation={Gtk.Orientation.VERTICAL}
             $={(self) => {
                 const notifQueue: number[] = [];
 
@@ -24,9 +25,8 @@ export default () => {
                         const NewNotif = Notification({ id, popup_timer: 5 });
 
                         if (NewNotif) {
-                            // Use this instead of add to put it at the top
-                            self.pack_end(NewNotif, false, false, 0);
-                            self.show_all();
+                            // Put it at the top
+                            self.prepend(NewNotif);
 
                             NotifGestureWrapper.popups.set(id, NewNotif);
                         }

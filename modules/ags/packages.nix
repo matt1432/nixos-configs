@@ -7,21 +7,22 @@ self: {
 }: let
   inherit (self.inputs) ags astal;
 
-  inherit (lib) attrValues boolToString filter getExe mkIf optionalAttrs optionals;
+  inherit (lib) attrValues boolToString getExe mkIf optionalAttrs optionals;
 
   inherit (osConfig.networking) hostName;
   inherit (pkgs.stdenv.hostPlatform) system;
 
   cfg = config.programs.ags;
   cfgDesktop = osConfig.roles.desktop;
-  gtk4ConfigDir = "${cfg.configDir}/../gtk4";
 
   mainPkg = pkgs.writeShellApplication {
     name = "ags";
     runtimeInputs = [cfg.package];
     text = ''
+      gsettings set org.gnome.desktop.interface cursor-size 30
+
       if [ "$#" == 0 ]; then
-          exec ags run ~/${cfg.configDir} --gtk 3 ${hostName}
+          exec ags run ~/${cfg.configDir}/app.ts --gtk 4 ${hostName}
       else
           exec ags "$@"
       fi
@@ -40,7 +41,6 @@ in {
         inherit
           (astal.packages.${system})
           io
-          astal3
           astal4
           apps
           auth
@@ -76,7 +76,7 @@ in {
           gsettings set org.gnome.desktop.interface cursor-size 30
 
           if [ "$#" == 0 ]; then
-              exec ags run ~/${gtk4ConfigDir}/app.ts --gtk 4 lock
+              exec ags run ~/${cfg.configDir}/app.ts --gtk 4 lock
           else
               exec ags "$@" -i lock
           fi
@@ -86,22 +86,7 @@ in {
 
     home = {
       packages =
-        [
-          mainPkg
-          (pkgs.writeShellApplication {
-            name = "ags4";
-            runtimeInputs = [cfg.package];
-            text = ''
-              gsettings set org.gnome.desktop.interface cursor-size 30
-
-              if [ "$#" == 0 ]; then
-                  exec ags run ~/${gtk4ConfigDir}/app.ts --gtk 4 ${hostName}
-              else
-                  exec ags "$@"
-              fi
-            '';
-          })
-        ]
+        [mainPkg]
         ++ (attrValues {
           inherit
             (pkgs)
@@ -142,26 +127,10 @@ in {
           inherit pkgs;
           agsConfigDir = cfg.configDir;
         })
-        // (import ./icons.nix {
-          inherit pkgs;
-          agsConfigDir = gtk4ConfigDir;
-        })
         // (buildGirTypes {
           pname = "ags";
           configPath = "${cfg.configDir}/@girs";
-          packages = filter (x:
-            true
-            && x.pname != "libadwaita"
-            && x.pname != "gtk4-layer-shell"
-            && x.pname != "gtk4-session-lock")
-          cfg.astalLibs;
-        })
-        // (buildGirTypes {
-          pname = "ags";
-          configPath = "${gtk4ConfigDir}/@girs";
-          packages = filter (x:
-            true)
-          cfg.astalLibs;
+          packages = cfg.astalLibs;
         })
         // {
           "${cfg.configDir}/node_modules" = {
@@ -169,12 +138,7 @@ in {
             source = buildNodeModules ./config (import ./config).npmDepsHash;
           };
 
-          "${gtk4ConfigDir}/node_modules" = {
-            force = true;
-            source = buildNodeModules ./config (import ./config).npmDepsHash;
-          };
-
-          "${gtk4ConfigDir}/widgets/lockscreen/vars.ts".text = lockscreenVars;
+          "${cfg.configDir}/widgets/lockscreen/vars.ts".text = lockscreenVars;
         }
         // optionalAttrs cfgDesktop.isTouchscreen {
           ".config/fcitx5/conf/virtualkeyboardadapter.conf".text = ''

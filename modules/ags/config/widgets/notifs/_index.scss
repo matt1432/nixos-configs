@@ -119,8 +119,8 @@
     .placeholder {
         color: white;
 
-        icon {
-            font-size: 7em;
+        image {
+            -gtk-icon-size: 7em;
             text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6);
             -gtk-icon-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6);
         }

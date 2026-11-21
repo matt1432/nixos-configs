@@ -19,8 +19,8 @@ type PopupCallback = (self?: Astal.Window) => void;
 export type PopupWindowProps = Partial<Astal.Window.ConstructorProps> & {
     transition?: HyprTransition;
     close_on_unfocus?: CloseType;
-    on_open?: PopupCallback;
-    on_close?: PopupCallback;
+    open_callback?: PopupCallback;
+    close_callback?: PopupCallback;
 };
 
 @register()
@@ -29,14 +29,14 @@ export class PopupWindow extends Astal.Window {
 
     @property(String) close_on_unfocus: CloseType;
 
-    on_open: PopupCallback;
-    on_close: PopupCallback;
+    open_callback: PopupCallback;
+    close_callback: PopupCallback;
 
     constructor({
         transition = 'slide top',
         close_on_unfocus = 'released',
-        on_open = () => {},
-        on_close = () => {},
+        open_callback = () => {},
+        close_callback = () => {},
 
         name,
         visible = false,
@@ -65,28 +65,56 @@ export class PopupWindow extends Astal.Window {
             ).catch(console.log);
         };
 
-        this.connect('notify::transition', setTransition);
+        this.connect('notify::transition', () => {
+            setTransition(this, this.transition);
+        });
 
         this.close_on_unfocus = close_on_unfocus;
         this.transition = transition;
-        this.on_open = on_open;
-        this.on_close = on_close;
+        this.open_callback = open_callback;
+        this.close_callback = close_callback;
 
         this.connect('notify::visible', () => {
             // Make sure we have the right animation
             setTransition(this, this.transition);
 
             if (this.visible) {
-                this.on_open(this);
+                this.open_callback(this);
             }
             else {
-                this.on_close(this);
+                this.close_callback(this);
             }
         });
     }
 
-    async set_x_pos(alloc: Gtk.Allocation, side = 'right' as 'left' | 'right') {
-        const monitor = this.gdkmonitor ?? this.get_current_monitor();
+    /**
+     * Aligns this popup horizontally with a widget of another window
+     * (usually a bar item).
+     *
+     * @param widget the widget to align with
+     * @param side   which edge of the popup to align
+     */
+    set_x_pos(widget: Gtk.Widget, side = 'right' as 'left' | 'right') {
+        const root = widget.get_root() as Gtk.Widget | null;
+        const [ok, bounds] = root ? widget.compute_bounds(root) : [false];
+
+        if (!ok || !bounds) {
+            return;
+        }
+
+        const x = bounds.get_x();
+        const w = bounds.get_width();
+
+        // This popup is usually not mapped yet, so get the monitor from the
+        // anchor widget's window instead
+        const surface = widget.get_native()?.get_surface();
+        const monitor =
+            this.gdkmonitor ??
+            (surface && widget.get_display().get_monitor_at_surface(surface));
+
+        if (!monitor) {
+            return;
+        }
 
         const transform = get_hyprland_monitor(monitor)?.get_transform();
 
@@ -100,12 +128,9 @@ export class PopupWindow extends Astal.Window {
         }
 
         this.margin_right =
-            side === 'right'
-                ? width - alloc.x - alloc.width
-                : this.margin_right;
+            side === 'right' ? width - x - w : this.margin_right;
 
-        this.margin_left =
-            side === 'right' ? this.margin_left : alloc.x - alloc.width;
+        this.margin_left = side === 'right' ? this.margin_left : x - w;
     }
 }
 

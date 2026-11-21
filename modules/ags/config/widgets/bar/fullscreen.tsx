@@ -1,12 +1,13 @@
-import { Astal, Gdk, Gtk } from 'ags/gtk3';
-import app from 'ags/gtk3/app';
-import { idle } from 'ags/time';
+import { Astal, Gdk, Gtk } from 'ags/gtk4';
+import app from 'ags/gtk4/app';
+import { idle, timeout } from 'ags/time';
 import AstalHyprland from 'gi://AstalHyprland';
 import { createState, Node } from 'gnim';
 
 import {
     get_hyprland_monitor_desc,
     get_monitor_desc,
+    getMonitors,
     hyprMessage,
 } from '../../lib';
 
@@ -19,7 +20,7 @@ const [FullscreenState, setFullscreenState] = createState({
 
 export default ({
     anchor,
-    gdkmonitor = Gdk.Display.get_default()?.get_monitor(0) as Gdk.Monitor,
+    gdkmonitor = getMonitors()[0],
     children: child,
     ...rest
 }: {
@@ -104,7 +105,9 @@ export default ({
         <window
             name={`noanim-bar-${monitor}-closer`}
             namespace={`noanim-bar-${monitor}-closer`}
-            css="all: unset;"
+            // GTK4 doesn't render a window with nothing to draw, so the compositor
+            // never maps it and it gets no input: give it an invisible background
+            css="all: unset; background-color: rgba(0, 0, 0, 0.01);"
             visible={false}
             gdkmonitor={gdkmonitor}
             layer={Astal.Layer.OVERLAY}
@@ -115,14 +118,14 @@ export default ({
                 Astal.WindowAnchor.RIGHT
             }
         >
-            <eventbox
-                onHover={() => {
-                    barCloser.visible = false;
-                    setBarVisible(false);
-                }}
-            >
-                <box css="padding: 1px;" />
-            </eventbox>
+            <box css="padding: 1px;">
+                <Gtk.EventControllerMotion
+                    onEnter={() => {
+                        barCloser.visible = false;
+                        setBarVisible(false);
+                    }}
+                />
+            </box>
         </window>
     ) as Astal.Window;
 
@@ -177,7 +180,28 @@ export default ({
     }
 
     const barWrap = (
-        <revealer revealChild={BarVisible} transitionType={transition}>
+        <revealer
+            revealChild={BarVisible}
+            transitionType={transition}
+            onNotifyChildRevealed={(self) => {
+                // GTK4 windows don't shrink by themselves: without this the
+                // hidden bar keeps its full size, stays drawn and catches input
+                if (!self.childRevealed) {
+                    const root = self.get_root() as Gtk.Window | null;
+
+                    if (!root) {
+                        return;
+                    }
+
+                    root.set_default_size(1, 1);
+
+                    // The new size is only sent to the compositor with a frame
+                    // that actually changed, so briefly change the background
+                    root.add_css_class('shrinking');
+                    timeout(100, () => root.remove_css_class('shrinking'));
+                }
+            }}
+        >
             {child as Node}
         </revealer>
     );
@@ -189,20 +213,29 @@ export default ({
             layer={Astal.Layer.OVERLAY}
             gdkmonitor={gdkmonitor}
             anchor={anchor}
+            visible
             {...rest}
         >
-            <eventbox
-                onHover={() => {
-                    if (!BarVisible()) {
-                        barCloser.visible = true;
-                        setBarVisible(true);
-                    }
-                }}
+            <box
+                hexpand
+                halign={Gtk.Align.FILL}
+                orientation={
+                    vertical
+                        ? Gtk.Orientation.VERTICAL
+                        : Gtk.Orientation.HORIZONTAL
+                }
             >
-                <box hexpand halign={Gtk.Align.FILL} vertical={vertical}>
-                    {isBottomOrLeft ? [buffer, barWrap] : [barWrap, buffer]}
-                </box>
-            </eventbox>
+                <Gtk.EventControllerMotion
+                    onEnter={() => {
+                        if (!BarVisible()) {
+                            barCloser.visible = true;
+                            setBarVisible(true);
+                        }
+                    }}
+                />
+
+                {isBottomOrLeft ? [buffer, barWrap] : [barWrap, buffer]}
+            </box>
         </window>
     ) as Astal.Window;
 

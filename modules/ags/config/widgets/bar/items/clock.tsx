@@ -1,9 +1,9 @@
-import app from 'ags/gtk3/app';
+import app from 'ags/gtk4/app';
 import { createPoll } from 'ags/time';
 import GLib from 'gi://GLib';
 
 import { getWindow } from '../../../lib';
-import { toggleClassName } from '../../../lib/widgets';
+import { pointer, toggleClassName } from '../../../lib/widgets';
 
 export default () => {
     const timeVar = createPoll('', 1000, (prev) => {
@@ -28,13 +28,13 @@ export default () => {
     });
 
     return (
-        <cursor-button
+        <button
             class="bar-item"
-            cursor="pointer"
-            onButtonReleaseEvent={(self) => {
+            cursor={pointer}
+            onClicked={(self) => {
                 const win = getWindow('win-calendar')!;
 
-                win.set_x_pos(self.get_allocation(), 'right');
+                win.set_x_pos(self, 'right');
 
                 win.set_visible(!win.get_visible());
             }}
@@ -47,6 +47,6 @@ export default () => {
             }}
         >
             <label label={timeVar} />
-        </cursor-button>
+        </button>
     );
 };

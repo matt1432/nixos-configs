@@ -1,5 +1,6 @@
 import { createState } from 'ags';
 
+import { pointer } from '../../../lib/widgets';
 import Persist from '../../misc/persist';
 
 const [HeartState, setHeartState] = createState('');
@@ -13,13 +14,13 @@ Persist({
 });
 
 export default () => (
-    <cursor-button
+    <button
         class="bar-item heart-toggle"
-        cursor="pointer"
-        onButtonReleaseEvent={() => {
+        cursor={pointer}
+        onClicked={() => {
             setHeartState(HeartState() === '' ? '󰣐' : '');
         }}
     >
         <label label={HeartState} css="font-size: 28px;" />
-    </cursor-button>
+    </button>
 );

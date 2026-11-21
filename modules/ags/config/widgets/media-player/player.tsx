@@ -1,6 +1,6 @@
-import { Astal, Gtk } from 'ags/gtk3';
+import { Gtk } from 'ags/gtk4';
 import Mpris from 'gi://AstalMpris';
-import { Accessor, createState, Setter } from 'gnim';
+import { Accessor, createRoot, createState, Setter } from 'gnim';
 
 import Separator from '../misc/separator';
 import PlayerGesture, {
@@ -17,19 +17,18 @@ const Top = (player: Mpris.Player, overlay: PlayerGestureClass) =>
         <box class="top" halign={Gtk.Align.START} valign={Gtk.Align.START}>
             {mpris.PlayerIcon(player, overlay)}
         </box>
-    ) as Astal.Box;
+    ) as Gtk.Box;
 
 const Center = (player: Mpris.Player, colors: Accessor<mpris.Colors>) =>
     (
         <box class="center">
             <centerbox
-                vertical
-                start_widget={
+                orientation={Gtk.Orientation.VERTICAL}
+                startWidget={
                     (
                         <box
-                            $type="start"
                             class="metadata"
-                            vertical
+                            orientation={Gtk.Orientation.VERTICAL}
                             halign={Gtk.Align.START}
                             valign={Gtk.Align.CENTER}
                             hexpand
@@ -37,24 +36,16 @@ const Center = (player: Mpris.Player, colors: Accessor<mpris.Colors>) =>
                             {mpris.TitleLabel(player)}
                             {mpris.ArtistLabel(player)}
                         </box>
-                    ) as Astal.Box
+                    ) as Gtk.Box
                 }
             />
 
             <centerbox
-                vertical
-                center_widget={
-                    (
-                        <mpris.PlayPauseButton
-                            $type="center"
-                            player={player}
-                            colors={colors}
-                        />
-                    ) as Astal.Button
-                }
+                orientation={Gtk.Orientation.VERTICAL}
+                centerWidget={mpris.PlayPauseButton({ player, colors })}
             />
         </box>
-    ) as Astal.Box;
+    ) as Gtk.Box;
 
 const Bottom = (player: Mpris.Player, colors: Accessor<mpris.Colors>) =>
     (
@@ -73,7 +64,7 @@ const Bottom = (player: Mpris.Player, colors: Accessor<mpris.Colors>) =>
 
             {mpris.LoopButton(player, colors)}
         </box>
-    ) as Astal.Box;
+    ) as Gtk.Box;
 
 const PlayerBox = (
     player: Mpris.Player,
@@ -81,21 +72,19 @@ const PlayerBox = (
     setColors: Setter<mpris.Colors>,
     overlay: PlayerGestureClass,
 ) => {
-    const widget = (
-        <mpris.CoverArt
-            player={player}
-            colors={colors}
-            setColors={setColors}
-            props={{
-                class: `player ${player.identity}`,
-                hexpand: true,
+    const widget = mpris.CoverArt({
+        player,
+        colors,
+        setColors,
+        props: {
+            class: `player ${player.identity}`,
+            hexpand: true,
 
-                start_widget: Top(player, overlay),
-                center_widget: Center(player, colors),
-                end_widget: Bottom(player, colors),
-            }}
-        />
-    ) as PlayerBoxClass;
+            startWidget: Top(player, overlay),
+            centerWidget: Center(player, colors),
+            endWidget: Bottom(player, colors),
+        },
+    });
 
     widget.visible = false;
 
@@ -105,13 +94,15 @@ const PlayerBox = (
 export default () => {
     const content = PlayerGesture({
         setup: (self) => {
+            const disposers = new Map<string, () => void>();
+
             const addPlayer = (player: Mpris.Player) => {
                 if (!player || self.players.has(player.bus_name)) {
                     return;
                 }
 
                 // Get the one on top so we can move it up later
-                const previousFirst = self.overlays.at(-1) as PlayerBoxClass;
+                const previousFirst = self.overlays.at(-1);
 
                 // Make the new player
                 const [colorsVar, setColorsVar] = createState({
@@ -123,9 +114,13 @@ export default () => {
 
                 self.players.set(
                     player.bus_name,
-                    PlayerBox(player, colorsVar, setColorsVar, self),
+                    createRoot((dispose) => {
+                        disposers.set(player.bus_name, dispose);
+
+                        return PlayerBox(player, colorsVar, setColorsVar, self);
+                    }),
                 );
-                self.add_overlay(self.players.get(player.bus_name));
+                self.add_player(self.players.get(player.bus_name));
 
                 // Select favorite player at startup
                 if (!self.setup && self.players.has(FAVE_PLAYER)) {
@@ -144,10 +139,12 @@ export default () => {
                     return;
                 }
 
-                const toDelete = self.players.get(player.bus_name);
+                const toDelete = self.players.get(
+                    player.bus_name,
+                ) as PlayerBoxClass;
 
                 // Get the one on top so we can move it up later
-                const previousFirst = self.overlays.at(-1) as PlayerBoxClass;
+                const previousFirst = self.overlays.at(-1);
 
                 // Move previousFirst on top again
                 if (previousFirst !== toDelete) {
@@ -162,8 +159,10 @@ export default () => {
                 }
 
                 // Remake overlays without deleted one
-                self.remove(toDelete);
+                self.remove_player(toDelete);
                 self.players.delete(player.bus_name);
+                disposers.get(player.bus_name)?.();
+                disposers.delete(player.bus_name);
             };
 
             const mpris = Mpris.get_default();
@@ -175,5 +174,5 @@ export default () => {
         },
     });
 
-    return (<box class="media-player">{content}</box>) as Astal.Box;
+    return (<box class="media-player">{content}</box>) as Gtk.Box;
 };

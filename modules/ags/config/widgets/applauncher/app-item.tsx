@@ -1,56 +1,34 @@
-import { register } from 'ags/gobject';
-import { Astal, Gtk } from 'ags/gtk3';
+import { Gtk } from 'ags/gtk4';
 import AstalApps from 'gi://AstalApps';
-type AppItemProps = Partial<Astal.Box.ConstructorProps> & {
-    app: AstalApps.Application;
-    class?: string;
-};
+import Pango from 'gi://Pango';
 
-@register()
-export class AppItem extends Astal.Box {
-    readonly app: AstalApps.Application =
-        null as unknown as AstalApps.Application;
+export default ({ app }: { app: AstalApps.Application }) => (
+    <box class="app" hexpand>
+        <image
+            iconName={app.get_icon_name() ?? ''}
+            pixelSize={42}
+            css="margin-right: 25px;"
+        />
 
-    constructor({ app, hexpand = true, ...rest }: AppItemProps) {
-        super({
-            ...rest,
-            hexpand,
-        });
-        this.app = app;
-
-        const icon = (
-            <icon
-                icon={this.app.get_icon_name()}
-                css="font-size: 42px; margin-right: 25px;"
+        <box orientation={Gtk.Orientation.VERTICAL} valign={Gtk.Align.CENTER}>
+            <label
+                class="title"
+                label={app.get_name()}
+                xalign={0}
+                ellipsize={Pango.EllipsizeMode.END}
+                valign={Gtk.Align.CENTER}
             />
-        ) as Astal.Icon;
 
-        const textBox = (
-            <box vertical>
+            {app.get_description() !== '' && (
                 <label
-                    class="title"
-                    label={app.get_name()}
+                    class="description"
+                    label={app.get_description()}
+                    wrap
                     xalign={0}
-                    truncate
+                    justify={Gtk.Justification.LEFT}
                     valign={Gtk.Align.CENTER}
                 />
-
-                {app.description !== '' && (
-                    <label
-                        class="description"
-                        label={app.get_description()}
-                        wrap
-                        xalign={0}
-                        justify={Gtk.Justification.LEFT}
-                        valign={Gtk.Align.CENTER}
-                    />
-                )}
-            </box>
-        ) as Astal.Box;
-
-        this.add(icon);
-        this.add(textBox);
-    }
-}
-
-export default AppItem;
+            )}
+        </box>
+    </box>
+);

@@ -15,11 +15,14 @@ self: {
   agsConfig = let
     homeFiles = config.home-manager.users.${cfg.user}.home.file;
     nodeModules = homeFiles."${agsCfg.configDir}/node_modules".source;
+    lockscreenVars = homeFiles."${agsCfg.configDir}/widgets/lockscreen/vars.ts".source;
   in
     pkgs.runCommandLocal "agsConfig" {} ''
       cp -ar ${../../../ags/config}/* ./.
       chmod +w -R ./.
+      rm -rf ./node_modules ./@girs ./widgets/lockscreen/vars.ts
       cp -ar ${nodeModules} ./node_modules
+      cp ${lockscreenVars} ./widgets/lockscreen/vars.ts
       cp -ar . $out
     '';
 in {
@@ -52,7 +55,7 @@ in {
           ];
 
           text = ''
-            exec ags run ${agsConfig} --gtk 3 greeter
+            exec ags run ${agsConfig} --gtk 4 greeter
           '';
         })
       ];

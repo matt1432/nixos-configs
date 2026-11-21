@@ -1,4 +1,4 @@
-import { Astal, Gtk } from 'ags/gtk3';
+import { Astal, Gtk } from 'ags/gtk4';
 import { timeout } from 'ags/time';
 import AstalWp from 'gi://AstalWp';
 import { createBinding } from 'gnim';
@@ -6,7 +6,6 @@ import { createBinding } from 'gnim';
 import { getWindow } from '../../lib';
 import Brightness from '../../services/brightness';
 import PopupWindow from '../misc/popup-window';
-import { ProgressBar } from '../misc/subclasses';
 
 declare global {
     function popup_osd(osd: string): void;
@@ -17,7 +16,7 @@ const transition_duration = 300;
 
 export default () => {
     let n_showing = 0;
-    let stack: Astal.Stack | undefined;
+    let stack: Gtk.Stack | undefined;
 
     const popup = (osd: string) => {
         if (!stack) {
@@ -62,9 +61,9 @@ export default () => {
             }}
         >
             <box class="osd-item widget">
-                <icon icon={createBinding(speaker, 'volumeIcon')} />
+                <image iconName={createBinding(speaker, 'volumeIcon')} />
 
-                <ProgressBar
+                <Gtk.ProgressBar
                     fraction={createBinding(speaker, 'volume')}
                     sensitive={createBinding(speaker, 'mute').as((v) => !v)}
                     valign={Gtk.Align.CENTER}
@@ -83,9 +82,9 @@ export default () => {
             }}
         >
             <box class="osd-item widget">
-                <icon icon={createBinding(microphone, 'volumeIcon')} />
+                <image iconName={createBinding(microphone, 'volumeIcon')} />
 
-                <ProgressBar
+                <Gtk.ProgressBar
                     fraction={createBinding(microphone, 'volume')}
                     sensitive={createBinding(microphone, 'mute').as((v) => !v)}
                     valign={Gtk.Align.CENTER}
@@ -104,9 +103,9 @@ export default () => {
             }}
         >
             <box class="osd-item widget">
-                <icon icon={createBinding(brightness, 'screenIcon')} />
+                <image iconName={createBinding(brightness, 'screenIcon')} />
 
-                <ProgressBar
+                <Gtk.ProgressBar
                     fraction={createBinding(brightness, 'screen')}
                     valign={Gtk.Align.CENTER}
                 />
@@ -125,9 +124,9 @@ export default () => {
                 }}
             >
                 <box class="osd-item widget">
-                    <icon icon="keyboard-brightness-symbolic" />
+                    <image iconName="keyboard-brightness-symbolic" />
 
-                    <ProgressBar
+                    <Gtk.ProgressBar
                         fraction={createBinding(brightness, 'kbdLevel').as(
                             (v) => (v ?? 0) / 2,
                         )}
@@ -151,23 +150,23 @@ export default () => {
             }}
         >
             <box class="osd-item widget">
-                <icon icon={createBinding(brightness, 'capsIcon')} />
+                <image iconName={createBinding(brightness, 'capsIcon')} />
 
                 <label label="Caps Lock" />
             </box>
         </box>,
-    ] as Gtk.Widget[];
+    ].filter(Boolean) as Gtk.Widget[];
 
     return (
         <PopupWindow
             name="osd"
             anchor={Astal.WindowAnchor.BOTTOM}
             exclusivity={Astal.Exclusivity.IGNORE}
-            closeOnUnfocus="stay"
+            close_on_unfocus="stay"
             transition="slide bottom"
         >
             <stack
-                class="osd"
+                class="on-screen-display"
                 transitionDuration={transition_duration}
                 $={(self) => {
                     timeout(3 * 1000, () => {

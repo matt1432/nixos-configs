@@ -1,0 +1,46 @@
+@use 'colors';
+
+// libadwaita (initialized by ags in GTK4) ignores the Gradience
+// `@define-color`s from ~/.config/gtk-4.0 and uses the system accent color,
+// so expose the theme colors as the CSS variables it actually reads.
+$theme: (
+    'accent-color': colors.$accent_color,
+    'accent-bg-color': colors.$accent_bg_color,
+    'accent-fg-color': colors.$accent_fg_color,
+    'destructive-color': colors.$destructive_color,
+    'destructive-bg-color': colors.$destructive_bg_color,
+    'destructive-fg-color': colors.$destructive_fg_color,
+    'success-color': colors.$success_color,
+    'success-bg-color': colors.$success_bg_color,
+    'success-fg-color': colors.$success_fg_color,
+    'warning-color': colors.$warning_color,
+    'warning-bg-color': colors.$warning_bg_color,
+    'warning-fg-color': colors.$warning_fg_color,
+    'error-color': colors.$error_color,
+    'error-bg-color': colors.$error_bg_color,
+    'error-fg-color': colors.$error_fg_color,
+    'window-bg-color': colors.$window_bg_color,
+    'window-fg-color': colors.$window_fg_color,
+    'view-bg-color': colors.$view_bg_color,
+    'view-fg-color': colors.$view_fg_color,
+    'headerbar-bg-color': colors.$headerbar_bg_color,
+    'headerbar-fg-color': colors.$headerbar_fg_color,
+    'headerbar-border-color': colors.$headerbar_border_color,
+    'headerbar-backdrop-color': colors.$headerbar_backdrop_color,
+    'headerbar-shade-color': colors.$headerbar_shade_color,
+    'card-bg-color': colors.$card_bg_color,
+    'card-fg-color': colors.$card_fg_color,
+    'card-shade-color': colors.$card_shade_color,
+    'dialog-bg-color': colors.$dialog_bg_color,
+    'dialog-fg-color': colors.$dialog_fg_color,
+    'popover-bg-color': colors.$popover_bg_color,
+    'popover-fg-color': colors.$popover_fg_color,
+    'shade-color': colors.$shade_color,
+    'scrollbar-outline-color': colors.$scrollbar_outline_color,
+);
+
+:root {
+    @each $name, $value in $theme {
+        --#{$name}: #{$value};
+    }
+}

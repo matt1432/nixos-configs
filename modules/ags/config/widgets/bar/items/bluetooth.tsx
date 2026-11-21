@@ -1,8 +1,9 @@
 import { createBinding, createState, With } from 'ags';
-import { Gtk } from 'ags/gtk3';
+import { Gtk } from 'ags/gtk4';
 import AstalBluetooth from 'gi://AstalBluetooth';
 
 import { getWindow } from '../../../lib';
+import { pointer } from '../../../lib/widgets';
 
 export default () => {
     const bluetooth = AstalBluetooth.get_default();
@@ -10,25 +11,31 @@ export default () => {
     const [isHovered, setIsHovered] = createState(false);
 
     return (
-        <cursor-button
+        <button
             class="bar-item bluetooth"
-            cursor="pointer"
-            onHover={() => setIsHovered(true)}
-            onHoverLost={() => setIsHovered(false)}
-            onButtonReleaseEvent={(self) => {
+            cursor={pointer}
+            onClicked={(self) => {
                 const win = getWindow('win-bluetooth')!;
 
-                win.set_x_pos(self.get_allocation(), 'right');
+                win.set_x_pos(self, 'right');
 
                 win.set_visible(!win.get_visible());
             }}
         >
-            <With value={createBinding(bluetooth, 'isPowered')}>
-                {(isPowered: boolean) => {
-                    if (!isPowered) {
-                        return <icon icon="bluetooth-disabled-symbolic" />;
-                    }
-                    else {
+            <Gtk.EventControllerMotion
+                onEnter={() => setIsHovered(true)}
+                onLeave={() => setIsHovered(false)}
+            />
+
+            <box>
+                <With value={createBinding(bluetooth, 'isPowered')}>
+                    {(isPowered: boolean) => {
+                        if (!isPowered) {
+                            return (
+                                <image iconName="bluetooth-disabled-symbolic" />
+                            );
+                        }
+
                         return (
                             <box>
                                 <With
@@ -44,44 +51,43 @@ export default () => {
 
                                         if (!isConnected || !device) {
                                             return (
-                                                <icon icon="bluetooth-active-symbolic" />
+                                                <image iconName="bluetooth-active-symbolic" />
                                             );
                                         }
-                                        else {
-                                            return (
-                                                <>
-                                                    <icon
-                                                        icon={createBinding(
+
+                                        return (
+                                            <box>
+                                                <image
+                                                    iconName={createBinding(
+                                                        device,
+                                                        'icon',
+                                                    )}
+                                                />
+
+                                                <revealer
+                                                    revealChild={isHovered}
+                                                    transitionType={
+                                                        Gtk
+                                                            .RevealerTransitionType
+                                                            .SLIDE_LEFT
+                                                    }
+                                                >
+                                                    <label
+                                                        label={createBinding(
                                                             device,
-                                                            'icon',
+                                                            'name',
                                                         )}
                                                     />
-
-                                                    <revealer
-                                                        revealChild={isHovered}
-                                                        transitionType={
-                                                            Gtk
-                                                                .RevealerTransitionType
-                                                                .SLIDE_LEFT
-                                                        }
-                                                    >
-                                                        <label
-                                                            label={createBinding(
-                                                                device,
-                                                                'name',
-                                                            )}
-                                                        />
-                                                    </revealer>
-                                                </>
-                                            );
-                                        }
+                                                </revealer>
+                                            </box>
+                                        );
                                     }}
                                 </With>
                             </box>
                         );
-                    }
-                }}
-            </With>
-        </cursor-button>
+                    }}
+                </With>
+            </box>
+        </button>
     );
 };

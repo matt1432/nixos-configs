@@ -1,12 +1,12 @@
-import { Astal, Gtk } from 'ags/gtk3';
+import { Astal, Gdk, Gtk } from 'ags/gtk4';
 import { execAsync } from 'ags/process';
-import { idle } from 'ags/time';
 
 import { hyprMessage } from '../../lib';
-import { getCssProvider, setCss, toggleClassName } from '../../lib/widgets';
+import { toggleClassName } from '../../lib/widgets';
 import Tablet from '../../services/tablet';
 import { Keys } from './keys';
 import OskWindow from './osk-window';
+import { easeInBack, easeInOut, Slider } from './slide';
 
 const KEY_N = 249;
 const KEYCODES = Array.from(Array(KEY_N).keys()).map(
@@ -14,6 +14,7 @@ const KEYCODES = Array.from(Array(KEY_N).keys()).map(
 );
 
 const ANIM_DURATION = 700;
+const SNAP_DURATION = 500;
 
 const releaseAllKeys = () => {
     execAsync(['ydotool', 'key', ...KEYCODES]).catch(print);
@@ -21,49 +22,43 @@ const releaseAllKeys = () => {
 
 export default (win: OskWindow) => {
     const tablet = Tablet.get_default();
+    const slider = new Slider(win);
 
     let signals = [] as number[];
     let calculatedHeight = 0;
     let isTouch = false;
 
-    idle(() => {
-        calculatedHeight = win.get_allocated_height();
+    // Wait for the window to be allocated to know its height
+    win.add_tick_callback(() => {
+        if (win.get_height() === 0) {
+            return true;
+        }
+
+        calculatedHeight = win.get_height();
         tablet.oskState = false;
 
         setTimeout(() => {
             toggleClassName(win.get_grandchildren()[0], 'hidden', false);
             win.set_exclusivity(Astal.Exclusivity.EXCLUSIVE);
         }, ANIM_DURATION * 3);
+
+        return false;
     });
 
-    const provider = getCssProvider(win.get_child());
+    const gesture = new Gtk.GestureDrag();
 
-    const gesture = Gtk.GestureDrag.new(win);
+    win.add_controller(gesture);
 
     tablet.connect('notify::osk-state', () => {
         if (tablet.oskState) {
             win.setSlideDown();
-
-            setCss(
-                provider,
-                `
-                    transition: margin-bottom ${ANIM_DURATION}ms cubic-bezier(0.36, 0, 0.66, -0.56);
-                    margin-bottom: 0px;
-                `,
-            );
+            slider.animate(0, ANIM_DURATION, easeInBack);
         }
         else {
             releaseAllKeys();
 
             win.setSlideUp();
-
-            setCss(
-                provider,
-                `
-                    transition: margin-bottom ${ANIM_DURATION}ms cubic-bezier(0.36, 0, 0.66, -0.56);
-                    margin-bottom: -${calculatedHeight}px;
-                `,
-            );
+            slider.animate(-calculatedHeight, ANIM_DURATION, easeInBack);
         }
     });
 
@@ -75,15 +70,17 @@ export default (win: OskWindow) => {
         win.startY = null;
     };
 
+    const isTouchEvent = () =>
+        gesture.get_current_event_device()?.get_source() ===
+        Gdk.InputSource.TOUCHSCREEN;
+
     win.setSlideUp = () => {
         win.killGestureSigs();
 
         // Begin drag
         signals.push(
             gesture.connect('drag-begin', () => {
-                isTouch =
-                    gesture.get_device()?.get_name() ===
-                    'Wayland Touch Master Pointer';
+                isTouch = isTouchEvent();
 
                 hyprMessage('j/cursorpos').then((out) => {
                     win.startY = JSON.parse(out).y;
@@ -109,32 +106,20 @@ export default (win: OskWindow) => {
                         const offset = (lastOffset = win.startY - currentY);
 
                         if (offset < 0) {
-                            setCss(
-                                provider,
-                                `
-                                    transition: margin-bottom 0.5s ease-in-out;
-                                    margin-bottom: -${calculatedHeight}px;
-                                `,
+                            slider.animate(
+                                -calculatedHeight,
+                                SNAP_DURATION,
+                                easeInOut,
                             );
 
                             return;
                         }
 
                         if (offset > calculatedHeight) {
-                            setCss(
-                                provider,
-                                `
-                                    margin-bottom: 0px;
-                                `,
-                            );
+                            slider.set(0);
                         }
                         else {
-                            setCss(
-                                provider,
-                                `
-                                    margin-bottom: ${offset - calculatedHeight}px;
-                                `,
-                            );
+                            slider.set(offset - calculatedHeight);
                         }
                     })
                     .catch(console.error);
@@ -149,23 +134,11 @@ export default (win: OskWindow) => {
                 }
 
                 if (lastOffset > calculatedHeight) {
-                    setCss(
-                        provider,
-                        `
-                            transition: margin-bottom 0.5s ease-in-out;
-                            margin-bottom: 0px;
-                        `,
-                    );
+                    slider.animate(0, SNAP_DURATION, easeInOut);
                     tablet.oskState = true;
                 }
                 else {
-                    setCss(
-                        provider,
-                        `
-                            transition: margin-bottom 0.5s ease-in-out;
-                            margin-bottom: -${calculatedHeight}px;
-                        `,
-                    );
+                    slider.animate(-calculatedHeight, SNAP_DURATION, easeInOut);
                 }
 
                 win.startY = null;
@@ -179,9 +152,7 @@ export default (win: OskWindow) => {
         // Begin drag
         signals.push(
             gesture.connect('drag-begin', () => {
-                isTouch =
-                    gesture.get_device()?.get_name() ===
-                    'Wayland Touch Master Pointer';
+                isTouch = isTouchEvent();
 
                 hyprMessage('j/cursorpos').then((out) => {
                     const hasActiveKey = Keys()
@@ -212,23 +183,12 @@ export default (win: OskWindow) => {
                         const offset = (lastOffset = win.startY - currentY);
 
                         if (offset > 0) {
-                            setCss(
-                                provider,
-                                `
-                                    transition: margin-bottom 0.5s ease-in-out;
-                                    margin-bottom: 0px;
-                                `,
-                            );
+                            slider.animate(0, SNAP_DURATION, easeInOut);
 
                             return;
                         }
 
-                        setCss(
-                            provider,
-                            `
-                                margin-bottom: ${offset}px;
-                            `,
-                        );
+                        slider.set(offset);
                     })
                     .catch(console.error);
             }),
@@ -242,24 +202,12 @@ export default (win: OskWindow) => {
                 }
 
                 if (lastOffset < -((calculatedHeight * 2) / 3)) {
-                    setCss(
-                        provider,
-                        `
-                            transition: margin-bottom 0.5s ease-in-out;
-                            margin-bottom: -${calculatedHeight}px;
-                        `,
-                    );
+                    slider.animate(-calculatedHeight, SNAP_DURATION, easeInOut);
 
                     tablet.oskState = false;
                 }
                 else {
-                    setCss(
-                        provider,
-                        `
-                            transition: margin-bottom 0.5s ease-in-out;
-                            margin-bottom: 0px;
-                        `,
-                    );
+                    slider.animate(0, SNAP_DURATION, easeInOut);
                 }
 
                 win.startY = null;

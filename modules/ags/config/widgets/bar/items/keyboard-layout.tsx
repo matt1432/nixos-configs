@@ -1,8 +1,9 @@
 import { createState } from 'ags';
-import { Astal, Gtk } from 'ags/gtk3';
+import { Gtk } from 'ags/gtk4';
 import AstalHyprland from 'gi://AstalHyprland';
 
 import { hyprMessage } from '../../../lib';
+import { pointer } from '../../../lib/widgets';
 
 interface Keyboard {
     address: string;
@@ -23,7 +24,7 @@ export default () => {
 
     const hyprland = AstalHyprland.get_default();
 
-    const getKbdLayout = (self: Astal.Label, _: string, layout?: string) => {
+    const getKbdLayout = (self: Gtk.Label, layout?: string) => {
         if (layout) {
             if (layout === 'error') {
                 return;
@@ -58,14 +59,14 @@ export default () => {
     };
 
     return (
-        <cursor-button
-            class="bar-item keyboard"
-            cursor="pointer"
-            onHover={() => setIsHovered(true)}
-            onHoverLost={() => setIsHovered(false)}
-        >
+        <button class="bar-item keyboard" cursor={pointer}>
+            <Gtk.EventControllerMotion
+                onEnter={() => setIsHovered(true)}
+                onLeave={() => setIsHovered(false)}
+            />
+
             <box>
-                <icon icon="input-keyboard-symbolic" />
+                <image iconName="input-keyboard-symbolic" />
 
                 <revealer
                     revealChild={isHovered}
@@ -73,12 +74,17 @@ export default () => {
                 >
                     <label
                         $={(self) => {
-                            hyprland.connect('keyboard-layout', getKbdLayout);
-                            getKbdLayout(self, '');
+                            hyprland.connect(
+                                'keyboard-layout',
+                                (_, _kb, layout) => {
+                                    getKbdLayout(self, layout);
+                                },
+                            );
+                            getKbdLayout(self);
                         }}
                     />
                 </revealer>
             </box>
-        </cursor-button>
+        </button>
     );
 };

@@ -1,4 +1,5 @@
 import { createBinding } from 'ags';
+import { Gtk } from 'ags/gtk4';
 import AstalBattery from 'gi://AstalBattery';
 
 import { toggleClassName } from '../../../lib/widgets';
@@ -11,8 +12,8 @@ export default () => {
 
     return (
         <box class="bar-item battery">
-            <icon
-                $={(self) => {
+            <image
+                $={(self: Gtk.Image) => {
                     const update = () => {
                         const percent = Math.round(
                             battery.get_percentage() * 100,
@@ -26,7 +27,7 @@ export default () => {
                                   isCharging ? '-charging' : ''
                               }-symbolic`;
 
-                        self.set_icon(iconName);
+                        self.set_from_icon_name(iconName);
 
                         toggleClassName(self, 'charging', isCharging);
                         toggleClassName(self, 'charged', charged);

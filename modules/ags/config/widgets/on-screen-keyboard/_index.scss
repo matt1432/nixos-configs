@@ -2,7 +2,9 @@
 @use '../../style/colors';
 
 .settings {
-    padding: 0.5rem;
+    // px, not rem: GTK4 keeps fractional sizes and the translucent background
+    // would then overlap its neighbours by a fraction of a pixel
+    padding: 8px;
 
     .button {
         background-color: colors.$window_bg_color;

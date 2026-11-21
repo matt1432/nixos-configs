@@ -1,7 +1,7 @@
 import { register } from 'ags/gobject';
 import { Astal, Gdk, Gtk } from 'ags/gtk4';
 import app from 'ags/gtk4/app';
-import { createPoll, idle, timeout } from 'ags/time';
+import { createPoll, timeout } from 'ags/time';
 import AstalAuth from 'gi://AstalAuth';
 import Gtk4SessionLock from 'gi://Gtk4SessionLock';
 
@@ -25,6 +25,7 @@ export default () => {
     const blurBGs: BlurredBox[] = [];
 
     const transition_duration = 1000;
+    const START_DELAY = 100;
     const WINDOW_MARGINS = -2;
     const ENTRY_SPACING = 20;
     const CLOCK_SPACING = 60;
@@ -85,28 +86,38 @@ export default () => {
     const PasswordPrompt = (monitor: Gdk.Monitor, visible: boolean) => {
         const rev = (<BlurredBox css={bgCSS()} />) as BlurredBox;
 
-        idle(() => {
-            rev.geometry = {
-                w: monitor.get_geometry().width,
-                h: monitor.get_geometry().height,
-            };
+        // GTK4 only animates CSS changes on a widget that has been on screen for
+        // a moment, so wait until it has a size and give it a bit of time
+        rev.add_tick_callback(() => {
+            if (rev.get_width() <= 0) {
+                return true;
+            }
 
-            setCss(
-                rev,
-                bgCSS({
-                    w: rev.geometry.w,
-                }),
-            );
+            timeout(START_DELAY, () => {
+                rev.geometry = {
+                    w: monitor.get_geometry().width,
+                    h: monitor.get_geometry().height,
+                };
 
-            timeout(transition_duration / 2, () => {
                 setCss(
                     rev,
                     bgCSS({
                         w: rev.geometry.w,
-                        h: rev.geometry.h,
                     }),
                 );
+
+                timeout(transition_duration / 2, () => {
+                    setCss(
+                        rev,
+                        bgCSS({
+                            w: rev.geometry.w,
+                            h: rev.geometry.h,
+                        }),
+                    );
+                });
             });
+
+            return false;
         });
 
         blurBGs.push(rev);

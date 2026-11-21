@@ -1,12 +1,12 @@
-import { Astal, Gtk } from 'ags/gtk3';
+import { Gtk } from 'ags/gtk4';
 import AstalWp from 'gi://AstalWp';
 import { Accessor, createBinding, For } from 'gnim';
 
+import { pointer } from '../../lib/widgets';
 import Separator from '../misc/separator';
-import { RadioButton } from '../misc/subclasses';
 
 export default (endpoints: Accessor<AstalWp.Endpoint[]>) => {
-    let group: RadioButton | undefined;
+    let group: Gtk.CheckButton | undefined;
 
     return (
         <For
@@ -17,32 +17,32 @@ export default (endpoints: Accessor<AstalWp.Endpoint[]>) => {
                 ),
             )}
         >
-            {(endpoint: AstalWp.Endpoint) => {
-                return (
-                    <box class="endpoint" vertical>
+            {(endpoint: AstalWp.Endpoint) =>
+                (
+                    <box
+                        class="endpoint"
+                        orientation={Gtk.Orientation.VERTICAL}
+                    >
                         <box class="title">
-                            <RadioButton
-                                cursor="pointer"
+                            <Gtk.CheckButton
+                                cursor={pointer}
                                 css="margin-top: 1px;"
-                                onRealize={(self) => {
+                                active={createBinding(endpoint, 'isDefault')}
+                                $={(self) => {
                                     if (!group) {
                                         group = self;
                                     }
                                     else {
-                                        self.join_group(group);
+                                        self.set_group(group);
                                     }
-
-                                    self.active = endpoint.get_is_default();
-                                    endpoint.connect(
-                                        'notify::is-default',
-                                        () => {
-                                            self.active =
-                                                endpoint.get_is_default();
-                                        },
-                                    );
                                 }}
-                                onButtonReleaseEvent={() => {
-                                    endpoint.set_is_default(true);
+                                onToggled={(self) => {
+                                    if (
+                                        self.active &&
+                                        !endpoint.get_is_default()
+                                    ) {
+                                        endpoint.set_is_default(true);
+                                    }
                                 }}
                             />
 
@@ -59,52 +59,53 @@ export default (endpoints: Accessor<AstalWp.Endpoint[]>) => {
                         <Separator size={4} vertical />
 
                         <box class="body">
-                            <cursor-button
-                                cursor="pointer"
+                            <button
+                                cursor={pointer}
                                 class="toggle"
                                 valign={Gtk.Align.END}
-                                onButtonReleaseEvent={() => {
+                                onClicked={() => {
                                     endpoint.set_mute(!endpoint.get_mute());
                                 }}
                             >
-                                <icon
-                                    icon={createBinding(endpoint, 'mute').as(
-                                        (isMuted) => {
-                                            if (
-                                                endpoint.get_media_class() ===
-                                                AstalWp.MediaClass
-                                                    .STREAM_INPUT_AUDIO
-                                            ) {
-                                                return isMuted
-                                                    ? 'audio-input-microphone-muted-symbolic'
-                                                    : 'audio-input-microphone-symbolic';
-                                            }
-                                            else {
-                                                return isMuted
-                                                    ? 'audio-volume-muted-symbolic'
-                                                    : 'audio-speakers-symbolic';
-                                            }
-                                        },
-                                    )}
+                                <image
+                                    iconName={createBinding(
+                                        endpoint,
+                                        'mute',
+                                    ).as((isMuted) => {
+                                        if (
+                                            endpoint.get_media_class() ===
+                                            AstalWp.MediaClass
+                                                .STREAM_INPUT_AUDIO
+                                        ) {
+                                            return isMuted
+                                                ? 'audio-input-microphone-muted-symbolic'
+                                                : 'audio-input-microphone-symbolic';
+                                        }
+                                        else {
+                                            return isMuted
+                                                ? 'audio-volume-muted-symbolic'
+                                                : 'audio-speakers-symbolic';
+                                        }
+                                    })}
                                 />
-                            </cursor-button>
+                            </button>
 
                             <Separator size={4} />
 
-                            <cursor-slider
+                            <slider
                                 hexpand
                                 halign={Gtk.Align.FILL}
                                 drawValue
-                                cursor="pointer"
+                                cursor={pointer}
                                 value={createBinding(endpoint, 'volume')}
-                                onDragged={(self) => {
-                                    endpoint.set_volume(self.value);
+                                onChangeValue={(_, __, value) => {
+                                    endpoint.set_volume(value);
                                 }}
                             />
                         </box>
                     </box>
-                ) as Astal.Box;
-            }}
+                ) as Gtk.Box
+            }
         </For>
     );
 };

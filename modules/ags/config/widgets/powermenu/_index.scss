@@ -4,8 +4,8 @@
 .powermenu {
     padding: 10px;
 
-    icon {
-        font-size: 70px;
+    image {
+        -gtk-icon-size: 70px;
         min-width: 130px;
         min-height: 130px;
     }

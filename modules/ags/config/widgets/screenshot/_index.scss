@@ -3,6 +3,10 @@
 .screenshot {
     font-size: 30px;
 
+    image {
+        -gtk-icon-size: 30px;
+    }
+
     .header {
         .header-btn {
             margin: 5px;
@@ -14,7 +18,7 @@
         }
     }
 
-    scrollable {
+    scrolledwindow {
         margin: 5px;
         min-height: 400px;
 

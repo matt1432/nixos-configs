@@ -1,7 +1,8 @@
-import { Astal, Gtk } from 'ags/gtk3';
+import { Gtk } from 'ags/gtk4';
 import AstalWp from 'gi://AstalWp';
 import { createBinding, createState } from 'gnim';
 
+import { pointer } from '../../lib/widgets';
 import Separator from '../misc/separator';
 import Endpoints from './endpoints';
 import Profiles from './profiles';
@@ -17,72 +18,83 @@ export default () => {
     const [shown, setShown] = createState<string | undefined>(undefined);
 
     const content = [
-        <scrollable $type="named" name="outputs" hscroll={Gtk.PolicyType.NEVER}>
+        <scrolledwindow
+            $type="named"
+            name="outputs"
+            hscrollbarPolicy={Gtk.PolicyType.NEVER}
+        >
             <box
                 $={() => {
                     setShown('outputs');
                 }}
-                vertical
+                orientation={Gtk.Orientation.VERTICAL}
             >
                 {Endpoints(createBinding(audio, 'speakers').as((v) => v || []))}
             </box>
-        </scrollable>,
+        </scrolledwindow>,
 
-        <scrollable $type="named" name="inputs" hscroll={Gtk.PolicyType.NEVER}>
-            <box vertical>
+        <scrolledwindow
+            $type="named"
+            name="inputs"
+            hscrollbarPolicy={Gtk.PolicyType.NEVER}
+        >
+            <box orientation={Gtk.Orientation.VERTICAL}>
                 {Endpoints(
                     createBinding(audio, 'microphones').as((v) => v || []),
                 )}
             </box>
-        </scrollable>,
+        </scrolledwindow>,
 
-        <scrollable $type="named" name="apps" hscroll={Gtk.PolicyType.NEVER}>
-            <box vertical>
+        <scrolledwindow
+            $type="named"
+            name="apps"
+            hscrollbarPolicy={Gtk.PolicyType.NEVER}
+        >
+            <box orientation={Gtk.Orientation.VERTICAL}>
                 {Streams(
                     createBinding(audio, 'streams').as((v) => v || []),
                     shown.as((s) => s === 'apps'),
                 )}
             </box>
-        </scrollable>,
+        </scrolledwindow>,
 
-        <scrollable
+        <scrolledwindow
             $type="named"
             name="profiles"
-            hscroll={Gtk.PolicyType.NEVER}
+            hscrollbarPolicy={Gtk.PolicyType.NEVER}
         >
-            <box vertical>
+            <box orientation={Gtk.Orientation.VERTICAL}>
                 {Profiles(createBinding(audio, 'devices').as((v) => v || []))}
             </box>
-        </scrollable>,
+        </scrolledwindow>,
     ] as Gtk.Widget[];
 
     const stack = (
         <stack transitionType={Gtk.StackTransitionType.SLIDE_LEFT_RIGHT}>
             {content}
         </stack>
-    ) as Astal.Stack;
+    ) as Gtk.Stack;
 
-    const StackButton = ({ label = '', iconName = '' }) => {
-        return (
-            <cursor-button
-                cursor="pointer"
-                class={shown(
+    const StackButton = ({ label = '', iconName = '' }) =>
+        (
+            <button
+                cursor={pointer}
+                class={shown.as(
                     (s) => `header-btn${s === label ? ' active' : ''}`,
                 )}
-                onButtonReleaseEvent={() => {
+                onClicked={() => {
                     setShown(label);
                 }}
             >
                 <box halign={Gtk.Align.CENTER}>
-                    <icon icon={iconName} />
+                    <image iconName={iconName} />
 
                     <Separator size={8} />
 
                     {label}
                 </box>
-            </cursor-button>
-        ) as Astal.Button;
-    };
+            </button>
+        ) as Gtk.Button;
 
     shown.subscribe(() => {
         const label = shown();
@@ -92,7 +104,7 @@ export default () => {
     });
 
     return (
-        <box class="audio widget" vertical>
+        <box class="audio widget" orientation={Gtk.Orientation.VERTICAL}>
             <box class="header" homogeneous>
                 <StackButton
                     label="outputs"

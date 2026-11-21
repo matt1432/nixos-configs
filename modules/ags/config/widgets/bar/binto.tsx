@@ -1,4 +1,4 @@
-import { Astal, Gtk } from 'ags/gtk3';
+import { Astal, Gtk } from 'ags/gtk4';
 
 import { get_gdkmonitor_from_desc } from '../../lib';
 import Separator from '../misc/separator';
@@ -14,6 +14,7 @@ export default () => (
         name="noanim-bar"
         namespace="noanim-bar"
         layer={Astal.Layer.OVERLAY}
+        visible
         gdkmonitor={get_gdkmonitor_from_desc(
             'desc:GIGA-BYTE TECHNOLOGY CO. LTD. G27QC 0x00000B1D',
         )}

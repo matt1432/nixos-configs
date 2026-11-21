@@ -1,50 +1,24 @@
 /* eslint-disable no-magic-numbers */
 
-import { Gdk, Gtk } from 'ags/gtk3';
-import Cairo from 'cairo';
+import { Gdk } from 'ags/gtk4';
 
 import { Bezier, BezierPoints, Point } from '../../lib';
 
-type Side = 'top' | 'right' | 'bottom' | 'left';
-
-const SIDES: Side[] = ['top', 'right', 'bottom', 'left'];
-
-export default ({
-    css = 'background-color: black;',
-    allocation = { width: 0, height: 0 },
-}) => (
+/*
+ * GTK4 doesn't let us read background colors from the style context,
+ * so the fill color is passed directly instead of through CSS.
+ */
+export default ({ color = 'black', allocation = { width: 0, height: 0 } }) => (
     <box>
         <drawingarea
-            css={css}
+            widthRequest={allocation.width}
+            heightRequest={allocation.height}
             $={(widget) => {
-                widget.set_size_request(allocation.width, allocation.height);
+                const bgColor = new Gdk.RGBA();
 
-                widget.connect('draw', (_, cairoContext: Cairo.Context) => {
-                    widget.set_size_request(
-                        allocation.width,
-                        allocation.height,
-                    );
+                bgColor.parse(color);
 
-                    const styleContext = widget.get_style_context();
-
-                    const bgColor = styleContext.get_background_color(
-                        Gtk.StateFlags.NORMAL,
-                    );
-
-                    const borderWidth = styleContext.get_border(
-                        Gtk.StateFlags.NORMAL,
-                    );
-
-                    const borderColor = Object.fromEntries(
-                        SIDES.map((side) => [
-                            side,
-                            styleContext.get_property(
-                                `border-${side}-color`,
-                                Gtk.StateFlags.NORMAL,
-                            ) as Gdk.RGBA,
-                        ]),
-                    ) as Record<Side, Gdk.RGBA>;
-
+                widget.set_draw_func((_, cairoContext) => {
                     /*
                      * Draws a cubic bezier curve from the current point
                      * of the cairo context.
@@ -66,32 +40,6 @@ export default ({
                         curve[3] = curve[3] * (dest.y - start.y) + start.y;
 
                         cairoContext.curveTo(...curve, dest.x, dest.y);
-                    };
-
-                    const colorBorder = (
-                        side: Side,
-                        start: Point,
-                        dest: Point,
-                        curve?: BezierPoints,
-                    ) => {
-                        cairoContext.moveTo(...start.values);
-
-                        if (curve) {
-                            drawBezier(dest, curve);
-                        }
-                        else {
-                            cairoContext.lineTo(...dest.values);
-                        }
-
-                        cairoContext.setLineWidth(borderWidth[side]);
-                        cairoContext.setSourceRGBA(
-                            borderColor[side].red,
-                            borderColor[side].green,
-                            borderColor[side].blue,
-                            borderColor[side].alpha,
-                        );
-
-                        cairoContext.stroke();
                     };
 
                     const bottomLeft = new Point({
@@ -153,13 +101,6 @@ export default ({
                         bgColor.alpha,
                     );
                     cairoContext.fill();
-
-                    colorBorder('left', bottomLeft, topLeft);
-                    colorBorder('top', topLeft, middleLeft, bezier.points);
-                    colorBorder('top', middleLeft, middleRight);
-                    colorBorder('top', middleRight, topRight, bezier.points);
-                    colorBorder('right', topRight, bottomRight);
-                    colorBorder('bottom', bottomLeft, bottomRight);
                 });
             }}
         />

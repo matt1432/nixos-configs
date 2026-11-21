@@ -1,8 +1,12 @@
-import { Gtk } from 'ags/gtk3';
+import { Gtk } from 'ags/gtk4';
 import { createPoll } from 'ags/time';
 import GLib from 'gi://GLib';
 
-const Divider = () => <box class="divider" vertical />;
+import { pointer } from '../../lib/widgets';
+
+const Divider = () => (
+    <box class="divider" orientation={Gtk.Orientation.VERTICAL} />
+);
 
 const Time = () => {
     const hour = createPoll(
@@ -29,7 +33,7 @@ const Time = () => {
     });
 
     return (
-        <box class="timebox" vertical>
+        <box class="timebox" orientation={Gtk.Orientation.VERTICAL}>
             <box
                 class="time-container"
                 halign={Gtk.Align.CENTER}
@@ -49,19 +53,37 @@ const Time = () => {
     );
 };
 
-export default () => {
-    const cal = new Gtk.Calendar({
-        show_day_names: true,
-        show_heading: true,
-    });
+export default () => (
+    <box class="date widget" orientation={Gtk.Orientation.VERTICAL}>
+        <Time />
 
-    cal.show_all();
+        <box class="cal-box">
+            <Gtk.Calendar
+                showDayNames
+                showHeading
+                $={(self) => {
+                    // The arrows and days are internal widgets, so set the cursor
+                    // on the clickable ones directly
+                    const setCursors = (widget: Gtk.Widget) => {
+                        if (
+                            widget instanceof Gtk.Button ||
+                            widget.has_css_class('day-number')
+                        ) {
+                            widget.set_cursor(pointer);
+                        }
 
-    return (
-        <box class="date widget" vertical>
-            <Time />
+                        for (
+                            let child = widget.get_first_child();
+                            child;
+                            child = child.get_next_sibling()
+                        ) {
+                            setCursors(child);
+                        }
+                    };
 
-            <box class="cal-box">{cal}</box>
+                    setCursors(self);
+                }}
+            />
         </box>
-    );
-};
+    </box>
+);

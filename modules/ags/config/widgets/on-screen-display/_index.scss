@@ -1,4 +1,5 @@
-.osd {
+// Not `.osd`: libadwaita styles that class with its own background
+.on-screen-display {
     .osd-item {
         padding: 12px 20px;
 
@@ -11,8 +12,8 @@
             min-width: 170px;
         }
 
-        icon {
-            font-size: 2rem;
+        image {
+            -gtk-icon-size: 2rem;
             color: white;
             margin-left: -0.4rem;
             margin-right: 0.8rem;

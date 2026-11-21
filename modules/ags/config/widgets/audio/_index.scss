@@ -8,13 +8,17 @@
             margin: 5px;
             transition: background 400ms;
 
+            image {
+                -gtk-icon-size: 30px;
+            }
+
             &.active {
                 background: colors.$window_bg_color;
             }
         }
     }
 
-    scrollable {
+    scrolledwindow {
         margin: 5px;
         min-height: 400px;
 
@@ -34,8 +38,8 @@
         background-color: color.adjust(colors.$window_bg_color, $lightness: -3%);
 
         .title {
-            icon {
-                font-size: 26px;
+            image {
+                -gtk-icon-size: 26px;
             }
         }
 
@@ -43,8 +47,8 @@
             .toggle {
                 padding: 5px;
 
-                icon {
-                    font-size: 26px;
+                image {
+                    -gtk-icon-size: 26px;
                 }
             }
         }

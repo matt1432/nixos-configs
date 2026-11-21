@@ -30,6 +30,7 @@
     margin: 0 12px 18px;
 
     calendar {
+        border: none;
         font-size: 20px;
         background-color: inherit;
         padding: .5rem .10rem 0;
@@ -38,31 +39,31 @@
         &>* {
             border: solid 0 transparent;
         }
-
-        &.highlight {
-            padding: 10rem;
-        }
     }
 }
 
-calendar:selected {
-    color: colors.$cyan;
+calendar > grid > label.day-number:selected {
+    color: colors.$window_bg_color;
+    font-weight: bold;
 }
 
-calendar.header {
+calendar > header {
+    border: none;
     color: colors.$cyan;
     font-weight: bold;
 }
 
-calendar.button {
+calendar > header > button {
     color: colors.$cyan;
+    border-radius: 100%;
 }
 
-calendar.highlight {
+calendar > grid > label.day-name,
+calendar > grid > label.week-number {
     color: colors.$green;
     font-weight: bold;
 }
 
-calendar:indeterminate {
+calendar > grid > label.day-number.other-month {
     color: colors.$lightblack;
 }

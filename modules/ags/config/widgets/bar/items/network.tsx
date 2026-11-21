@@ -1,8 +1,9 @@
 import { createBinding, createState, With } from 'ags';
-import { Astal, Gtk } from 'ags/gtk3';
+import { Gtk } from 'ags/gtk4';
 import AstalNetwork from 'gi://AstalNetwork';
 
 import { getWindow } from '../../../lib';
+import { pointer } from '../../../lib/widgets';
 
 export default () => {
     const network = AstalNetwork.get_default();
@@ -10,81 +11,103 @@ export default () => {
     const [isHovered, setIsHovered] = createState(false);
 
     return (
-        <cursor-button
+        <button
             class="bar-item network"
-            cursor="pointer"
-            onHover={() => setIsHovered(true)}
-            onHoverLost={() => setIsHovered(false)}
-            onButtonReleaseEvent={(self) => {
+            cursor={pointer}
+            onClicked={(self) => {
                 const win = getWindow('win-network')!;
 
-                win.set_x_pos(self.get_allocation(), 'right');
+                win.set_x_pos(self, 'right');
 
                 win.set_visible(!win.get_visible());
             }}
         >
-            <With value={createBinding(network, 'primary')}>
-                {(primary) => {
-                    if (primary === AstalNetwork.Primary.UNKNOWN) {
-                        return (
-                            <icon icon="network-wireless-signal-none-symbolic" />
-                        ) as Astal.Icon;
-                    }
-                    else if (primary === AstalNetwork.Primary.WIFI) {
-                        const Wifi = network.get_wifi();
+            <Gtk.EventControllerMotion
+                onEnter={() => setIsHovered(true)}
+                onLeave={() => setIsHovered(false)}
+            />
 
-                        if (!Wifi || Wifi.get_access_points().length === 0) {
+            <box>
+                <With value={createBinding(network, 'primary')}>
+                    {(primary) => {
+                        if (primary === AstalNetwork.Primary.UNKNOWN) {
                             return (
-                                <icon icon="network-wireless-signal-none-symbolic" />
-                            ) as Astal.Icon;
+                                <image iconName="network-wireless-signal-none-symbolic" />
+                            );
                         }
+                        else if (primary === AstalNetwork.Primary.WIFI) {
+                            const Wifi = network.get_wifi();
 
-                        return (
-                            <box>
-                                <icon icon={createBinding(Wifi, 'iconName')} />
+                            if (
+                                !Wifi ||
+                                Wifi.get_access_points().length === 0
+                            ) {
+                                return (
+                                    <image iconName="network-wireless-signal-none-symbolic" />
+                                );
+                            }
 
-                                <revealer
-                                    revealChild={isHovered}
-                                    transitionType={
-                                        Gtk.RevealerTransitionType.SLIDE_LEFT
-                                    }
-                                >
-                                    <With
-                                        value={createBinding(
+                            return (
+                                <box>
+                                    <image
+                                        iconName={createBinding(
                                             Wifi,
-                                            'activeAccessPoint',
+                                            'iconName',
                                         )}
-                                    >
-                                        {(ap: AstalNetwork.AccessPoint) =>
-                                            ap && (
-                                                <label
-                                                    label={createBinding(
-                                                        ap,
-                                                        'ssid',
-                                                    ).as((v) => v ?? '')}
-                                                />
-                                            )
+                                    />
+
+                                    <revealer
+                                        revealChild={isHovered}
+                                        transitionType={
+                                            Gtk.RevealerTransitionType
+                                                .SLIDE_LEFT
                                         }
-                                    </With>
-                                </revealer>
-                            </box>
-                        ) as Astal.Box;
-                    }
-                    else {
-                        const Wired = network.get_wired();
-
-                        if (!Wired) {
-                            return (
-                                <icon icon="network-wireless-signal-none-symbolic" />
-                            ) as Astal.Icon;
+                                    >
+                                        <box>
+                                            <With
+                                                value={createBinding(
+                                                    Wifi,
+                                                    'activeAccessPoint',
+                                                )}
+                                            >
+                                                {(
+                                                    ap: AstalNetwork.AccessPoint | null,
+                                                ) =>
+                                                    ap && (
+                                                        <label
+                                                            label={createBinding(
+                                                                ap,
+                                                                'ssid',
+                                                            ).as(
+                                                                (v) => v ?? '',
+                                                            )}
+                                                        />
+                                                    )
+                                                }
+                                            </With>
+                                        </box>
+                                    </revealer>
+                                </box>
+                            );
                         }
+                        else {
+                            const Wired = network.get_wired();
 
-                        return (
-                            <icon icon={createBinding(Wired, 'iconName')} />
-                        ) as Astal.Icon;
-                    }
-                }}
-            </With>
-        </cursor-button>
+                            if (!Wired) {
+                                return (
+                                    <image iconName="network-wireless-signal-none-symbolic" />
+                                );
+                            }
+
+                            return (
+                                <image
+                                    iconName={createBinding(Wired, 'iconName')}
+                                />
+                            );
+                        }
+                    }}
+                </With>
+            </box>
+        </button>
     );
 };

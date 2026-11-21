@@ -1,6 +1,8 @@
 import { register } from 'ags/gobject';
-import { Astal } from 'ags/gtk3';
-import app from 'ags/gtk3/app';
+import { Astal, Gtk } from 'ags/gtk4';
+import app from 'ags/gtk4/app';
+
+import { getChildren } from '../../lib/widgets';
 
 @register()
 export default class OskWindow extends Astal.Window {
@@ -10,18 +12,18 @@ export default class OskWindow extends Astal.Window {
     declare public setSlideUp: () => void;
     declare public setSlideDown: () => void;
 
-    get_child(): Astal.Box {
-        return super.get_child() as Astal.Box;
+    get_child(): Gtk.Box {
+        return super.get_child() as Gtk.Box;
     }
 
-    get_grandchildren(): (Astal.Box | Astal.CenterBox)[] {
-        return this.get_child().get_children() as (
-            | Astal.Box
-            | Astal.CenterBox
-        )[];
+    get_grandchildren(): Gtk.Widget[] {
+        return getChildren(this.get_child());
     }
 
     constructor({ ...rest }: Partial<Astal.Window.ConstructorProps>) {
-        super({ ...rest, application: app, visible: true });
+        super({ ...rest, application: app });
+
+        // GTK4 windows have to be shown after their layer-shell setup
+        this.set_visible(true);
     }
 }

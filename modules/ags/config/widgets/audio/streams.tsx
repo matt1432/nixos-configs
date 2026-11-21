@@ -1,10 +1,11 @@
-import { Astal, Gtk } from 'ags/gtk3';
-import app from 'ags/gtk3/app';
+import { Gtk } from 'ags/gtk4';
+import app from 'ags/gtk4/app';
 import AstalApps from 'gi://AstalApps?version=0.1';
 import AstalCava from 'gi://AstalCava';
 import AstalWp from 'gi://AstalWp';
-import { Accessor, createBinding, createEffect, For } from 'gnim';
+import { Accessor, createBinding, createEffect, createState, For } from 'gnim';
 
+import { pointer } from '../../lib/widgets';
 import Separator from '../misc/separator';
 
 const FPS = 60;
@@ -58,10 +59,12 @@ export default (
                     );
                 });
 
-                const isWinVisible = createBinding(
-                    app.get_window('win-audio')!,
-                    'visible',
-                );
+                // The window might not exist yet if streams are
+                // created while the widget is being built
+                const win = app.get_window('win-audio');
+                const isWinVisible = win
+                    ? createBinding(win, 'visible')
+                    : createState(true)[0];
 
                 const cava = new AstalCava.Cava();
                 cava.set_framerate(FPS);
@@ -74,13 +77,13 @@ export default (
                 });
 
                 const currentSoundValue = createBinding(cava, 'values').as(
-                    (v) => v[0],
+                    (v) => v[0] ?? 0,
                 );
 
                 return (
-                    <box class="stream" vertical>
+                    <box class="stream" orientation={Gtk.Orientation.VERTICAL}>
                         <box class="title">
-                            <icon icon={icon} />
+                            <image iconName={icon} />
 
                             <Separator size={8} />
 
@@ -99,16 +102,16 @@ export default (
                         <Separator size={4} vertical />
 
                         <box class="body">
-                            <cursor-button
-                                cursor="pointer"
+                            <button
+                                cursor={pointer}
                                 class="toggle"
                                 valign={Gtk.Align.END}
-                                onButtonReleaseEvent={() => {
+                                onClicked={() => {
                                     stream.set_mute(!stream.get_mute());
                                 }}
                             >
-                                <icon
-                                    icon={createBinding(stream, 'mute').as(
+                                <image
+                                    iconName={createBinding(stream, 'mute').as(
                                         (isMuted) => {
                                             if (
                                                 stream.get_media_class() ===
@@ -127,18 +130,18 @@ export default (
                                         },
                                     )}
                                 />
-                            </cursor-button>
+                            </button>
 
                             <Separator size={4} />
 
-                            <cursor-slider
+                            <slider
                                 hexpand
                                 halign={Gtk.Align.FILL}
                                 drawValue
-                                cursor="pointer"
+                                cursor={pointer}
                                 value={createBinding(stream, 'volume')}
-                                onDragged={(self) => {
-                                    stream.set_volume(self.value);
+                                onChangeValue={(_, __, value) => {
+                                    stream.set_volume(value);
                                 }}
                             />
                         </box>
@@ -153,7 +156,7 @@ export default (
 
                         <Separator size={0} />
                     </box>
-                ) as Astal.Box;
+                ) as Gtk.Box;
             }}
         </For>
     );

@@ -1,6 +1,7 @@
-import { Astal, Gtk } from 'ags/gtk3';
+import { Astal, Gtk } from 'ags/gtk4';
 import { createBinding } from 'gnim';
 
+import { pointer } from '../../lib/widgets';
 import Tablet from '../../services/tablet';
 import Separator from '../misc/separator';
 import BarRevealer from './fullscreen';
@@ -36,22 +37,22 @@ export default () => (
 
                 <Separator size={8} />
 
-                <cursor-button
+                <button
                     class="bar-item tablet-mode"
-                    cursor="pointer"
-                    onButtonReleaseEvent={() => {
+                    cursor={pointer}
+                    onClicked={() => {
                         const tablet = Tablet.get_default();
 
                         tablet.toggleMode();
                     }}
                 >
-                    <icon
-                        icon={createBinding(
+                    <image
+                        iconName={createBinding(
                             Tablet.get_default(),
                             'currentMode',
                         ).as((mode) => `${mode}-symbolic`)}
                     />
-                </cursor-button>
+                </button>
 
                 <Separator size={8} />
 

@@ -1,10 +1,12 @@
-import { Astal, Gtk } from 'ags/gtk3';
+import { Gtk } from 'ags/gtk4';
 import { execAsync } from 'ags/process';
 import AstalApps from 'gi://AstalApps';
 import AstalHyprland from 'gi://AstalHyprland';
+import Pango from 'gi://Pango';
 import { createBinding, createState, For } from 'gnim';
 
 import { getWindow, hyprMessage } from '../../lib';
+import { getChildren, pointer } from '../../lib/widgets';
 import PopupWindow from '../misc/popup-window';
 import Separator from '../misc/separator';
 
@@ -22,7 +24,9 @@ const takeScreenshot = (selector: string[], delay = 1000): void => {
 export default () => {
     const hyprland = AstalHyprland.get_default();
 
-    const windowList = (<box vertical />) as Astal.Box;
+    const windowList = (
+        <box orientation={Gtk.Orientation.VERTICAL} />
+    ) as Gtk.Box;
 
     const updateWindows = async () => {
         if (!getWindow('win-screenshot')?.get_visible()) {
@@ -34,40 +38,44 @@ export default () => {
             await hyprMessage('j/activeworkspace'),
         ).address;
 
-        windowList.children = (
+        const clients = (
             JSON.parse(await hyprMessage('j/clients')) as AstalHyprland.Client[]
-        )
-            .filter((client) => client.workspace.id === currentWS)
-            .map(
-                (client) =>
-                    (
-                        <cursor-button
-                            class="item-btn"
-                            cursor="pointer"
-                            onButtonReleaseEvent={() => {
-                                takeScreenshot(['-w', client.address]);
-                            }}
-                        >
-                            <box halign={Gtk.Align.CENTER}>
-                                <icon
-                                    icon={
-                                        applications.fuzzy_query(
-                                            client.class,
-                                        )[0].iconName
-                                    }
-                                />
+        ).filter((client) => client.workspace.id === currentWS);
 
-                                <Separator size={ICON_SEP} />
+        getChildren(windowList).forEach((child) => {
+            windowList.remove(child);
+        });
 
-                                <label
-                                    label={client.title}
-                                    truncate
-                                    max_width_chars={50}
-                                />
-                            </box>
-                        </cursor-button>
-                    ) as Astal.Button,
+        clients.forEach((client) => {
+            windowList.append(
+                (
+                    <button
+                        class="item-btn"
+                        cursor={pointer}
+                        onClicked={() => {
+                            takeScreenshot(['-w', client.address]);
+                        }}
+                    >
+                        <box halign={Gtk.Align.CENTER}>
+                            <image
+                                iconName={
+                                    applications.fuzzy_query(client.class)[0]
+                                        ?.iconName ?? ''
+                                }
+                            />
+
+                            <Separator size={ICON_SEP} />
+
+                            <label
+                                label={client.title}
+                                ellipsize={Pango.EllipsizeMode.END}
+                                maxWidthChars={50}
+                            />
+                        </box>
+                    </button>
+                ) as Gtk.Button,
             );
+        });
     };
 
     hyprland.connect('notify::clients', updateWindows);
@@ -76,99 +84,100 @@ export default () => {
     const [shown, setShown] = createState<string | undefined>(undefined);
 
     const stackContent = [
-        <scrollable $type="named" name="monitors">
+        <scrolledwindow $type="named" name="monitors">
             <box
                 $={() => {
                     setShown('monitors');
                 }}
-                vertical
+                orientation={Gtk.Orientation.VERTICAL}
             >
                 <For each={createBinding(hyprland, 'monitors')}>
                     {(monitor: AstalHyprland.Monitor) => (
-                        <cursor-button
+                        <button
                             class="item-btn"
-                            cursor="pointer"
-                            onButtonReleaseEvent={() => {
+                            cursor={pointer}
+                            onClicked={() => {
                                 takeScreenshot(['-o', monitor.get_name()]);
                             }}
                         >
                             <label
                                 label={`${monitor.get_name()}: ${monitor.get_description()}`}
-                                truncate
+                                ellipsize={Pango.EllipsizeMode.END}
                                 maxWidthChars={50}
                             />
-                        </cursor-button>
+                        </button>
                     )}
                 </For>
             </box>
-        </scrollable>,
+        </scrolledwindow>,
 
-        <scrollable $type="named" name="windows">
+        <scrolledwindow $type="named" name="windows">
             {windowList}
-        </scrollable>,
+        </scrolledwindow>,
     ] as Gtk.Widget[];
 
     const stack = (
         <stack transitionType={Gtk.StackTransitionType.SLIDE_LEFT_RIGHT}>
             {stackContent}
         </stack>
-    ) as Astal.Stack;
+    ) as Gtk.Stack;
 
     const StackButton = ({ label = '', iconName = '' }) =>
         (
-            <cursor-button
-                cursor="pointer"
+            <button
+                cursor={pointer}
                 class={shown.as(
-                    (shown) => `header-btn${shown === label ? ' active' : ''}`,
+                    (s) => `header-btn${s === label ? ' active' : ''}`,
                 )}
-                onButtonReleaseEvent={() => {
+                onClicked={() => {
                     setShown(label);
                 }}
             >
                 <box halign={Gtk.Align.CENTER}>
-                    <icon icon={iconName} />
+                    <image iconName={iconName} />
 
                     <Separator size={ICON_SEP} />
 
                     {label}
                 </box>
-            </cursor-button>
-        ) as Astal.Button;
+            </button>
+        ) as Gtk.Button;
 
-    let frozen = false;
-    const freezeIcon = (<icon icon="checkbox-symbolic" />) as Astal.Icon;
+    const [frozen, setFrozen] = createState(false);
+
     const freezeButton = (
-        <cursor-button
-            cursor="pointer"
+        <button
+            cursor={pointer}
             class="header-btn"
-            onButtonReleaseEvent={() => {
-                frozen = !frozen;
-                freezeIcon.set_icon(
-                    frozen ? 'checkbox-checked-symbolic' : 'checkbox-symbolic',
-                );
+            onClicked={() => {
+                setFrozen(!frozen());
             }}
         >
             <box halign={Gtk.Align.CENTER}>
-                {freezeIcon}
+                <image
+                    iconName={frozen.as((f) =>
+                        f ? 'checkbox-checked-symbolic' : 'checkbox-symbolic',
+                    )}
+                />
                 <Separator size={ICON_SEP} />
                 freeze
             </box>
-        </cursor-button>
-    ) as Astal.Button;
+        </button>
+    ) as Gtk.Button;
 
     const regionButton = (
-        <cursor-button
-            cursor="pointer"
+        <button
+            cursor={pointer}
             class="header-btn"
-            onButtonReleaseEvent={() => {
-                takeScreenshot(['region', frozen ? 'true' : 'false'], 0);
+            onClicked={() => {
+                takeScreenshot(['region', frozen() ? 'true' : 'false'], 0);
             }}
         >
             <box halign={Gtk.Align.CENTER}>
-                <icon icon="tool-crop-symbolic" />
+                <image iconName="tool-crop-symbolic" />
             </box>
-        </cursor-button>
-    ) as Astal.Button;
+        </button>
+    ) as Gtk.Button;
 
     shown.subscribe(() => {
         const label = shown();
@@ -180,11 +189,14 @@ export default () => {
     return (
         <PopupWindow
             name="screenshot"
-            openCallback={() => {
+            open_callback={() => {
                 updateWindows();
             }}
         >
-            <box class="screenshot widget" vertical>
+            <box
+                class="screenshot widget"
+                orientation={Gtk.Orientation.VERTICAL}
+            >
                 <box class="header" homogeneous>
                     <StackButton label="monitors" iconName="display-symbolic" />
                     <StackButton label="windows" iconName="window-symbolic" />

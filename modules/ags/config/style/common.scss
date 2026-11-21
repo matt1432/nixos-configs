@@ -1,3 +1,4 @@
+@use 'adwaita';
 @use 'colors';
 
 window,
@@ -31,23 +32,26 @@ progressbar {
 }
 
 scale {
-    contents {
-        trough {
-            min-height: 10px;
-        }
+    trough {
+        min-height: 10px;
     }
 }
 
+// See widgets/misc/circular-progress.ts: the trough color is a property
+// since GTK4 can't expose background colors to custom drawing
 circularprogress {
-    background: #363847;
     min-height: 35px;
     min-width: 35px;
-    font-size: 4px;
     color: #79659f;
 
     &.disabled {
         opacity: 0.5;
     }
+}
+
+// Astal3's <icon> was sized by font-size, GTK4 images default to 16px
+image {
+    -gtk-icon-size: 1em;
 }
 
 .widget {

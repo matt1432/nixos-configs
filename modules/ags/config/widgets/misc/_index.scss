@@ -2,8 +2,8 @@
 
 .sorted-list {
     .search {
-        icon {
-            font-size: 20px;
+        image {
+            -gtk-icon-size: 20px;
             min-width: 40px;
             min-height: 40px
         }
@@ -16,7 +16,7 @@
             border-radius: 10px;
 
             &:hover, &:selected {
-                icon {
+                image {
                     -gtk-icon-shadow: 2px 2px colors.$accent_color;
                 }
             }

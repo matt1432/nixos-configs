@@ -1,10 +1,19 @@
-import { register } from 'ags/gobject';
-import { Astal, Gtk } from 'ags/gtk3';
+import GObject, { register } from 'ags/gobject';
+import { Gtk } from 'ags/gtk4';
 import { execAsync } from 'ags/process';
 import AstalNetwork from 'gi://AstalNetwork';
-import { createBinding, createRoot, onCleanup } from 'gnim';
+import {
+    Accessor,
+    createBinding,
+    createComputed,
+    createRoot,
+    createState,
+    onCleanup,
+    Setter,
+} from 'gnim';
 
 import { notifySend } from '../../lib';
+import { pointer } from '../../lib/widgets';
 import Separator from '../misc/separator';
 
 const apCommand = (ap: AstalNetwork.AccessPoint, cmd: string[]): void => {
@@ -36,23 +45,40 @@ const apDisconnect = (ap: AstalNetwork.AccessPoint): void => {
     apCommand(ap, ['connection', 'down']);
 };
 
+/**
+ * All the access points sharing an SSID, stored in the ListView's model.
+ */
 @register()
-export default class AccessPointWidget extends Astal.Box {
-    aps: AstalNetwork.AccessPoint[] = [];
-
-    dispose: (() => void) | null = null;
+export class ApGroup extends GObject.Object {
+    declare ssid: string;
+    declare aps: Accessor<AstalNetwork.AccessPoint[]>;
+    declare setAps: Setter<AstalNetwork.AccessPoint[]>;
 
     getStrongest() {
-        return this.aps.sort(
+        return [...this.aps()].sort(
             (apA, apB) => apB.get_strength() - apA.get_strength(),
         )[0];
     }
 
-    constructor({ aps }: { aps: AstalNetwork.AccessPoint[] }) {
+    get strength() {
+        return this.getStrongest()?.get_strength() ?? 0;
+    }
+
+    constructor(ssid: string, aps: AstalNetwork.AccessPoint[]) {
+        super();
+        this.ssid = ssid;
+        [this.aps, this.setAps] = createState(aps);
+    }
+}
+
+@register()
+export default class AccessPointWidget extends Gtk.Box {
+    dispose: (() => void) | null = null;
+
+    constructor({ group }: { group: ApGroup }) {
         super({
             orientation: Gtk.Orientation.VERTICAL,
         });
-        this.aps = aps;
 
         createRoot((dispose) => {
             this.dispose = dispose;
@@ -63,11 +89,49 @@ export default class AccessPointWidget extends Astal.Box {
                 throw new Error('Could not find wifi device.');
             }
 
+            const activeAp = createBinding(wifi, 'activeAccessPoint');
+            const isActive = createComputed(() =>
+                group.aps().includes(activeAp() as AstalNetwork.AccessPoint),
+            );
+
+            // Follow the icon of the strongest access point
+            const [iconName, setIconName] = createState('');
+            let iconAp: AstalNetwork.AccessPoint | undefined;
+            let iconId: number | undefined;
+
+            const followStrongest = () => {
+                if (iconAp && iconId !== undefined) {
+                    iconAp.disconnect(iconId);
+                }
+
+                iconAp = group.getStrongest();
+                setIconName(iconAp?.get_icon_name() ?? '');
+
+                iconId = iconAp?.connect('notify::icon-name', () => {
+                    setIconName(iconAp?.get_icon_name() ?? '');
+                });
+            };
+
+            followStrongest();
+            const unsub = group.aps.subscribe(followStrongest);
+
+            onCleanup(() => {
+                unsub();
+
+                if (iconAp && iconId !== undefined) {
+                    iconAp.disconnect(iconId);
+                }
+            });
+
             const rev = (
                 <revealer
                     transitionType={Gtk.RevealerTransitionType.SLIDE_DOWN}
                 >
-                    <box vertical halign={Gtk.Align.FILL} hexpand>
+                    <box
+                        orientation={Gtk.Orientation.VERTICAL}
+                        halign={Gtk.Align.FILL}
+                        hexpand
+                    >
                         <Separator size={8} vertical />
 
                         <centerbox>
@@ -80,22 +144,26 @@ export default class AccessPointWidget extends Astal.Box {
 
                             <box $type="center" />
 
-                            <cursor-switch
+                            <switch
                                 $type="end"
-                                cursor="pointer"
+                                cursor={pointer}
                                 valign={Gtk.Align.CENTER}
                                 halign={Gtk.Align.END}
-                                state={createBinding(
-                                    wifi,
-                                    'activeAccessPoint',
-                                ).as((activeAp) => aps.includes(activeAp))}
-                                onButtonReleaseEvent={(self) => {
-                                    if (self.state) {
-                                        apDisconnect(this.getStrongest());
+                                active={isActive}
+                                state={isActive}
+                                onStateSet={(_, state) => {
+                                    // The binding also triggers this signal
+                                    if (state !== isActive()) {
+                                        if (state) {
+                                            apConnect(group.getStrongest());
+                                        }
+                                        else {
+                                            apDisconnect(group.getStrongest());
+                                        }
                                     }
-                                    else {
-                                        apConnect(this.getStrongest());
-                                    }
+
+                                    // The state is only changed by the binding
+                                    return true;
                                 }}
                             />
                         </centerbox>
@@ -106,43 +174,34 @@ export default class AccessPointWidget extends Astal.Box {
             ) as Gtk.Revealer;
 
             const button = (
-                <cursor-button
-                    cursor="pointer"
-                    onButtonReleaseEvent={() => {
+                <button
+                    cursor={pointer}
+                    onClicked={() => {
                         rev.revealChild = !rev.revealChild;
                     }}
                 >
                     <box>
-                        <icon
-                            icon="check-active-symbolic"
-                            css={createBinding(wifi, 'activeAccessPoint').as(
-                                (activeAp) =>
-                                    aps.includes(activeAp) ? '' : 'opacity: 0;',
+                        <image
+                            iconName="check-active-symbolic"
+                            css={isActive.as((active) =>
+                                active ? '' : 'opacity: 0;',
                             )}
                         />
 
                         <Separator size={8} />
 
-                        <icon icon={createBinding(aps[0], 'iconName')} />
+                        <image iconName={iconName} />
 
                         <Separator size={8} />
 
-                        <label label={aps[0].get_ssid()!} />
+                        <label label={group.ssid} />
                     </box>
-                </cursor-button>
-            ) as Astal.Button;
+                </button>
+            ) as Gtk.Button;
 
-            this.set_children([
-                button,
-                rev,
-                (<Separator size={8} vertical />) as Gtk.Widget,
-            ]);
-            this.show_all();
-        });
-
-        // Ran by `For` in ./main.tsx
-        onCleanup(() => {
-            this.dispose?.();
+            this.append(button);
+            this.append(rev);
+            this.append((<Separator size={8} vertical />) as Gtk.Widget);
         });
     }
 }

@@ -1,4 +1,4 @@
-import { Gdk } from 'ags/gtk3';
+import { Gdk } from 'ags/gtk4';
 import AstalHyprland from 'gi://AstalHyprland';
 
 export const get_hyprland_monitor = (
@@ -31,8 +31,8 @@ export const get_hyprland_monitor_desc = (monitor: Gdk.Monitor): string => {
 export const get_gdkmonitor_from_desc = (desc: string): Gdk.Monitor => {
     const display = Gdk.Display.get_default();
 
-    for (let m = 0; m < (display?.get_n_monitors() ?? 0); m++) {
-        const monitor = display?.get_monitor(m);
+    for (let m = 0; m < (display?.get_monitors().get_n_items() ?? 0); m++) {
+        const monitor = display?.get_monitors().get_item(m) as Gdk.Monitor;
 
         if (monitor && desc === get_hyprland_monitor_desc(monitor)) {
             return monitor;

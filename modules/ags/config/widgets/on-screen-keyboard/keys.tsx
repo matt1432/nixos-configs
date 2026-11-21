@@ -1,9 +1,9 @@
-import { Astal, Gtk } from 'ags/gtk3';
+import { Gtk } from 'ags/gtk4';
 import { execAsync } from 'ags/process';
-import { interval, Timer } from 'ags/time';
+import { interval, timeout, Timer } from 'ags/time';
 import { Accessor, createState, Setter } from 'gnim';
 
-import { toggleClassName } from '../../lib/widgets';
+import { pointer, toggleClassName } from '../../lib/widgets';
 import Brightness from '../../services/brightness';
 import Separator from '../misc/separator';
 
@@ -20,6 +20,9 @@ const SPACING = 4;
 const LSHIFT_CODE = 42;
 const LALT_CODE = 56;
 const LCTRL_CODE = 29;
+
+// Same as GTK's default gtk-long-press-time with a delay factor of 1
+const LONG_PRESS_DELAY = 500;
 
 export const [Keys, setKeys] = createState<Accessor<boolean>[]>([]);
 
@@ -51,6 +54,22 @@ export const setupKeys = () => {
     RShift.subscribe(() => {
         setShift(LShift() || RShift());
     });
+};
+
+/**
+ * GTK4 doesn't set the :active state on boxes, so we do it manually
+ * to keep the `.key:active` styling.
+ *
+ * @param widget the key widget
+ * @param active whether the key is pressed
+ */
+const setPressed = (widget: Gtk.Widget, active: boolean) => {
+    if (active) {
+        widget.set_state_flags(Gtk.StateFlags.ACTIVE, false);
+    }
+    else {
+        widget.unset_state_flags(Gtk.StateFlags.ACTIVE);
+    }
 };
 
 const ModKey = (key: Key) => {
@@ -92,29 +111,37 @@ const ModKey = (key: Key) => {
 
     const label = (
         <label class={`mod ${key.label}`} label={key.label} />
-    ) as Astal.Label;
+    ) as Gtk.Label;
 
     const button = (
-        <cursor-eventbox
-            class="key"
-            cursor="pointer"
-            onButtonPressEvent={() => {
-                execAsync(`ydotool key ${key.keycode}:${Mod() ? 0 : 1}`);
-
-                toggleClassName(label, 'active', !Mod());
-                setMod(!Mod());
-            }}
-        >
+        <box class="key" cursor={pointer}>
             {label}
-        </cursor-eventbox>
-    );
+        </box>
+    ) as Gtk.Box;
+
+    const click = new Gtk.GestureClick();
+
+    click.connect('pressed', () => {
+        setPressed(button, true);
+
+        execAsync(`ydotool key ${key.keycode}:${Mod() ? 0 : 1}`);
+
+        toggleClassName(label, 'active', !Mod());
+        setMod(!Mod());
+    });
+
+    click.connect('end', () => {
+        setPressed(button, false);
+    });
+
+    button.add_controller(click);
 
     return (
         <box>
             {button}
             <Separator size={SPACING} />
         </box>
-    ) as Astal.Box;
+    ) as Gtk.Box;
 };
 
 const RegularKey = (key: Key) => {
@@ -124,14 +151,7 @@ const RegularKey = (key: Key) => {
     setKeys([...Keys(), IsActive]);
 
     const widget = (
-        <cursor-eventbox
-            class="key"
-            cursor="pointer"
-            onButtonReleaseEvent={() => {
-                setIsLongPressing(false);
-                setIsActive(false);
-            }}
-        >
+        <box class="key" cursor={pointer}>
             <label
                 class={IsActive.as((v) =>
                     ['normal', key.label, v ? 'active' : ''].join(' '),
@@ -169,53 +189,59 @@ const RegularKey = (key: Key) => {
                     });
                 }}
             />
-        </cursor-eventbox>
-    ) as Astal.EventBox;
+        </box>
+    ) as Gtk.Box;
 
-    const gesture = Gtk.GestureLongPress.new(widget);
-
-    gesture.delay_factor = 1.0;
-
-    const onClick = (callback: () => void) => {
-        const pointer = gesture.get_point(null);
-        const x = pointer[1];
-        const y = pointer[2];
-
-        if (!x || !y || (x === 0 && y === 0)) {
-            return;
-        }
-
-        callback();
+    const sendKey = () => {
+        execAsync(`ydotool key ${key.keycode}:1`);
+        execAsync(`ydotool key ${key.keycode}:0`);
     };
 
-    gesture.connect('begin', () => {
+    /*
+     * A short press sends the key once on release, while holding the key
+     * for longer than LONG_PRESS_DELAY repeats it until it is released.
+     */
+    const click = new Gtk.GestureClick();
+
+    let longPressTimer: Timer | undefined;
+    let clickPending = false;
+
+    click.connect('pressed', () => {
+        clickPending = true;
+        setPressed(widget, true);
         setIsActive(true);
-    });
 
-    gesture.connect('cancelled', () => {
-        onClick(() => {
-            execAsync(`ydotool key ${key.keycode}:1`);
-            execAsync(`ydotool key ${key.keycode}:0`);
-
-            setIsActive(false);
-        });
-    });
-
-    // Long Press
-    gesture.connect('pressed', () => {
-        onClick(() => {
+        longPressTimer?.cancel();
+        longPressTimer = timeout(LONG_PRESS_DELAY, () => {
+            longPressTimer = undefined;
+            clickPending = false;
             setIsLongPressing(true);
         });
     });
+
+    click.connect('released', () => {
+        if (clickPending) {
+            clickPending = false;
+            sendKey();
+        }
+    });
+
+    click.connect('end', () => {
+        longPressTimer?.cancel();
+        longPressTimer = undefined;
+
+        setPressed(widget, false);
+        setIsLongPressing(false);
+        setIsActive(false);
+    });
+
+    widget.add_controller(click);
 
     let spamClick: Timer | undefined;
 
     IsLongPressing.subscribe(() => {
         if (IsLongPressing()) {
-            spamClick = interval(100, () => {
-                execAsync(`ydotool key ${key.keycode}:1`);
-                execAsync(`ydotool key ${key.keycode}:0`);
-            });
+            spamClick = interval(100, sendKey);
         }
         else {
             spamClick?.cancel();
@@ -227,8 +253,8 @@ const RegularKey = (key: Key) => {
             {widget}
             <Separator size={SPACING} />
         </box>
-    ) as Astal.Box;
+    ) as Gtk.Box;
 };
 
-export const Key = (key: Key): Astal.Box =>
+export const Key = (key: Key): Gtk.Box =>
     key.keytype === 'normal' ? RegularKey(key) : ModKey(key);

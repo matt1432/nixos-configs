@@ -1,5 +1,5 @@
 import { createState } from 'ags';
-import { Gtk } from 'ags/gtk3';
+import { Gtk } from 'ags/gtk4';
 import AstalApps from 'gi://AstalApps';
 import AstalHyprland from 'gi://AstalHyprland';
 
@@ -38,7 +38,7 @@ export default () => {
         >
             <box>
                 <box class="bar-item current-window">
-                    <icon css="font-size: 32px;" icon={focusedIcon} />
+                    <image pixelSize={32} iconName={focusedIcon} />
                 </box>
 
                 <Separator size={8} />

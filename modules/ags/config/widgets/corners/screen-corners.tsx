@@ -1,7 +1,12 @@
-import { Gtk } from 'ags/gtk3';
-import Cairo from 'cairo';
+import { Gtk } from 'ags/gtk4';
 
-export default (place = 'top left', css = 'background-color: black;') => (
+const RADIUS = 8;
+
+/*
+ * GTK4 can't read the background color or border radius of a widget
+ * from its style context, so the corner is filled with the CSS `color`.
+ */
+export default (place = 'top left', color = 'black') => (
     <box
         halign={place.includes('left') ? Gtk.Align.START : Gtk.Align.END}
         valign={place.includes('top') ? Gtk.Align.START : Gtk.Align.END}
@@ -15,94 +20,52 @@ export default (place = 'top left', css = 'background-color: black;') => (
     >
         <drawingarea
             css={`
-                border-radius: 8px;
-                border-width: 0.068rem;
-                ${css}
+                color: ${color};
             `}
+            widthRequest={RADIUS}
+            heightRequest={RADIUS}
             $={(widget) => {
-                const styleContext = widget.get_style_context();
-
-                let radius = styleContext.get_property(
-                    'border-radius',
-                    Gtk.StateFlags.NORMAL,
-                ) as number;
-
-                widget.set_size_request(radius, radius);
-
-                widget.connect('draw', (_, cairoContext: Cairo.Context) => {
-                    const bgColor = styleContext.get_background_color(
-                        Gtk.StateFlags.NORMAL,
-                    );
-                    const borderColor = styleContext.get_color(
-                        Gtk.StateFlags.NORMAL,
-                    );
-                    const borderWidth = styleContext.get_border(
-                        Gtk.StateFlags.NORMAL,
-                    ).left;
-
-                    radius = styleContext.get_property(
-                        'border-radius',
-                        Gtk.StateFlags.NORMAL,
-                    ) as number;
-
-                    widget.set_size_request(radius, radius);
+                widget.set_draw_func((_, cr) => {
+                    const fg = widget.get_color();
+                    const radius = RADIUS;
 
                     switch (place) {
                         case 'topleft':
-                            cairoContext.arc(
+                            cr.arc(
                                 radius,
                                 radius,
                                 radius,
                                 Math.PI,
                                 (3 * Math.PI) / 2,
                             );
-                            cairoContext.lineTo(0, 0);
+                            cr.lineTo(0, 0);
                             break;
 
                         case 'topright':
-                            cairoContext.arc(
+                            cr.arc(
                                 0,
                                 radius,
                                 radius,
                                 (3 * Math.PI) / 2,
                                 2 * Math.PI,
                             );
-                            cairoContext.lineTo(radius, 0);
+                            cr.lineTo(radius, 0);
                             break;
 
                         case 'bottomleft':
-                            cairoContext.arc(
-                                radius,
-                                0,
-                                radius,
-                                Math.PI / 2,
-                                Math.PI,
-                            );
-                            cairoContext.lineTo(0, radius);
+                            cr.arc(radius, 0, radius, Math.PI / 2, Math.PI);
+                            cr.lineTo(0, radius);
                             break;
 
                         case 'bottomright':
-                            cairoContext.arc(0, 0, radius, 0, Math.PI / 2);
-                            cairoContext.lineTo(radius, radius);
+                            cr.arc(0, 0, radius, 0, Math.PI / 2);
+                            cr.lineTo(radius, radius);
                             break;
                     }
 
-                    cairoContext.closePath();
-                    cairoContext.setSourceRGBA(
-                        bgColor.red,
-                        bgColor.green,
-                        bgColor.blue,
-                        bgColor.alpha,
-                    );
-                    cairoContext.fill();
-                    cairoContext.setLineWidth(borderWidth);
-                    cairoContext.setSourceRGBA(
-                        borderColor.red,
-                        borderColor.green,
-                        borderColor.blue,
-                        borderColor.alpha,
-                    );
-                    cairoContext.stroke();
+                    cr.closePath();
+                    cr.setSourceRGBA(fg.red, fg.green, fg.blue, fg.alpha);
+                    cr.fill();
                 });
             }}
         />

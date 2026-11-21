@@ -20,19 +20,21 @@
 
         transition: background-color 300ms;
 
-        &:hover {
+        // GTK4 also sets :hover on boxes (like the tray), GTK3 only did it on
+        // widgets that handle input
+        &:not(box):hover {
             background-color: color.adjust(colors.$window_bg_color, $lightness: 3%);
         }
 
-        &.bluetooth icon,
+        &.bluetooth image,
         &.heart-toggle label,
-        &.keyboard icon,
-        &.network icon,
-        &.tablet-mode icon {
+        &.keyboard image,
+        &.network image,
+        &.tablet-mode image {
             min-width: 30px;
         }
 
-        &.battery icon {
+        &.battery image {
             &.charging {
                 color: green;
             }
@@ -71,16 +73,31 @@
 
         &.system-tray {
             .tray-item {
-                all: unset;
-                font-size: 30px;
-                min-width: 36px;
-                border-radius: 100%;
-                transition: background-color 300ms;
+                > button {
+                    all: unset;
+                    font-size: 30px;
+                    // Square so the hover background is a circle; 35px is the height of
+                    // bar items
+                    min-width: 35px;
+                    min-height: 35px;
+                    border-radius: 100%;
+                    transition: background-color 300ms;
 
-                &:hover {
-                    background: colors.$window_bg_color;
+                    &:hover,
+                    &:checked {
+                        background: color.adjust(colors.$window_bg_color, $lightness: 10%);
+                    }
+                }
+
+                image {
+                    -gtk-icon-size: 30px;
                 }
             }
         }
     }
+}
+
+// See widgets/bar/fullscreen.tsx
+window.shrinking {
+    background-color: rgba(0, 0, 0, 0.01);
 }
