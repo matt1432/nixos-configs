@@ -54,6 +54,8 @@ in {
           powerprofiles
           tray
           wireplumber
+          wl # needed by workspace
+          workspace
           ;
 
         # NOTE: remove once astal supports Hyprland 0.56 workspace addresses

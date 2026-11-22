@@ -11,8 +11,6 @@ import {
     hyprMessage,
 } from '../../lib';
 
-// TODO: look into AstalWorkspace
-
 const [FullscreenState, setFullscreenState] = createState({
     monitors: [] as string[],
     clientAddrs: new Map() as Map<string, string>,

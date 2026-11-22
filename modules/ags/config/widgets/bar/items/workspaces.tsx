@@ -1,10 +1,10 @@
 import { Gtk } from 'ags/gtk4';
 import { timeout, Timer } from 'ags/time';
 import AstalHyprland from 'gi://AstalHyprland';
+import AstalWorkspace from 'gi://AstalWorkspace';
 import { createRoot, onCleanup } from 'gnim';
 import { register } from 'gnim/gobject';
 
-import { hyprMessage } from '../../../lib';
 import {
     getChildren,
     pointer,
@@ -14,10 +14,23 @@ import {
 
 const URGENT_DURATION = 1000;
 
-// TODO: look into AstalWorkspace
-const getCurrentWSID = async (): Promise<number> =>
-    // The address is a string, but workspace ids are compared as numbers
-    parseInt(JSON.parse(await hyprMessage('j/activeworkspace')).address);
+/*
+ * The list of workspaces comes from ext-workspace-v1 (AstalWorkspace).
+ * It doesn't know which monitor is focused or how many windows a workspace
+ * has, so those still come from AstalHyprland. Urgent does too: Hyprland only
+ * sends a workspace's ext-workspace state when it is created or its active
+ * state changes, so urgent windows don't show up there until then.
+ */
+
+// Only numbered workspaces are shown, special and named ones are skipped
+const getNumber = (ws: AstalWorkspace.Workspace): number =>
+    Number(ws.get_name());
+
+const isShown = (ws: AstalWorkspace.Workspace): boolean =>
+    Number.isInteger(getNumber(ws)) && getNumber(ws) > 0;
+
+const getFocusedName = (): string | undefined =>
+    AstalHyprland.get_default().get_focused_workspace()?.get_name();
 
 @register()
 class Workspace extends Gtk.Revealer {
@@ -26,15 +39,15 @@ class Workspace extends Gtk.Revealer {
     private disposeTimer: Timer | undefined = undefined;
 
     constructor({
-        id = 0,
+        workspace,
         transitionDuration = 250,
         ...rest
     }: Partial<Gtk.Revealer.ConstructorProps> & {
-        id?: number;
+        workspace: AstalWorkspace.Workspace;
     }) {
         super({
             ...rest,
-            name: id.toString(),
+            name: workspace.get_name(),
             transitionDuration,
             transitionType: Gtk.RevealerTransitionType.SLIDE_RIGHT,
         });
@@ -43,83 +56,58 @@ class Workspace extends Gtk.Revealer {
             this.dispose = dispose;
 
             const hyprland = AstalHyprland.get_default();
+            const name = workspace.get_name();
 
             const content = (
                 <box
                     valign={Gtk.Align.CENTER}
                     class="button"
                     cursor={pointer}
-                    tooltipText={id.toString()}
+                    tooltipText={name}
                 >
-                    <Gtk.GestureClick
-                        onReleased={() => {
-                            hyprMessage(
-                                `dispatch hl.dsp.focus({workspace="${id}"})`,
-                            ).catch(console.log);
-                        }}
-                    />
+                    <Gtk.GestureClick onReleased={() => workspace.activate()} />
                 </box>
             ) as Gtk.Box;
 
-            const update = async (client?: AstalHyprland.Client) => {
-                try {
-                    const workspace = (
-                        JSON.parse(
-                            await hyprMessage('j/workspaces'),
-                        ) as AstalHyprland.Workspace[]
-                    )
-                        // @ts-expect-error new workspace API
-                        .find((ws) => parseInt(ws.address) === id);
-                    // @ts-expect-error new workspace API
-                    const occupied = workspace && workspace.windows > 0;
+            const updateOccupied = () => {
+                toggleClassName(
+                    content,
+                    'occupied',
+                    (hyprland.get_workspace_by_name(name)?.get_clients()
+                        .length ?? 0) > 0,
+                );
+            };
 
-                    toggleClassName(content, 'occupied', occupied!);
+            const hyprConns = [
+                hyprland.connect('event', updateOccupied),
 
-                    if (!client) {
+                hyprland.connect('urgent', (_, client) => {
+                    if (client.get_workspace()?.get_name() !== name) {
                         return;
                     }
 
-                    const isUrgent =
-                        client &&
-                        parseInt(client.get_workspace().get_name()) === id;
+                    toggleClassName(content, 'urgent', true);
 
-                    if (isUrgent) {
-                        toggleClassName(content, 'urgent', true);
-
-                        // Only show for a sec when urgent is current workspace
-                        if ((await getCurrentWSID()) === id) {
-                            timeout(URGENT_DURATION, () => {
-                                toggleClassName(content, 'urgent', false);
-                            });
-                        }
+                    // Only show for a sec when urgent is current workspace
+                    if (getFocusedName() === name) {
+                        timeout(URGENT_DURATION, () => {
+                            toggleClassName(content, 'urgent', false);
+                        });
                     }
-                }
-                catch (e) {
-                    if (!String(e).startsWith('SyntaxError: JSON.parse')) {
-                        console.log(e);
-                    }
-                }
-            };
+                }),
 
-            const conns: number[] = [];
-
-            conns.push(
-                hyprland.connect('event', () => update()),
-
-                // Deal with urgent windows
-                hyprland.connect('urgent', (_, client) => update(client)),
-
-                hyprland.connect('notify::focused-workspace', async () => {
-                    if ((await getCurrentWSID()) === id) {
+                hyprland.connect('notify::focused-workspace', () => {
+                    if (getFocusedName() === name) {
                         toggleClassName(content, 'urgent', false);
                     }
                 }),
-            );
+            ];
 
             onCleanup(() => {
-                conns.forEach((id) => {
+                hyprConns.forEach((id) => {
                     hyprland.disconnect(id);
                 });
+
                 if (this.disposeTimer) {
                     this.disposeTimer.cancel();
                 }
@@ -129,31 +117,28 @@ class Workspace extends Gtk.Revealer {
             });
 
             this.set_child(content);
-            update();
+            updateOccupied();
         });
     }
 }
 
 export default () => {
     const hyprland = AstalHyprland.get_default();
+    const manager = AstalWorkspace.get_default();
 
     const L_PADDING = 2;
     const WS_WIDTH = 30;
 
     let indicatorBox: Gtk.Box | undefined;
 
-    const updateHighlight = async (self: Gtk.Box) => {
+    const updateHighlight = (self: Gtk.Box) => {
         if (!indicatorBox) {
             return;
         }
 
-        const currentId = await getCurrentWSID();
-
-        const indicators = getChildren(indicatorBox) as Workspace[];
-
-        const currentIndex = indicators.findIndex(
-            (w) => w.name === currentId.toString(),
-        );
+        const currentIndex = (getChildren(indicatorBox) as Workspace[])
+            .filter((w) => w.get_reveal_child())
+            .findIndex((w) => w.name === getFocusedName());
 
         if (currentIndex >= 0) {
             setCss(
@@ -177,97 +162,51 @@ export default () => {
         />
     ) as Gtk.Box;
 
-    let workspaces: Workspace[] = [];
-
     const init = (self: Gtk.Box) => {
         indicatorBox = self;
 
-        const refresh = () => {
-            (getChildren(self) as Workspace[]).forEach((rev) => {
-                rev.set_reveal_child(false);
-            });
+        const indicators = new Map<AstalWorkspace.Workspace, Workspace>();
 
-            workspaces.forEach((ws) => {
-                ws.set_reveal_child(true);
-            });
-        };
+        const update = () => {
+            const current = manager
+                .get_workspaces()
+                .filter(isShown)
+                .sort((a, b) => getNumber(a) - getNumber(b));
 
-        const updateWorkspaces = async () => {
-            (
-                JSON.parse(
-                    await hyprMessage('j/workspaces'),
-                ) as AstalHyprland.Workspace[]
-            ).forEach((ws) => {
-                const currentWs = (getChildren(self) as Workspace[]).find(
-                    // @ts-expect-error new workspace API
-                    (ch) => ch.name === ws.address,
-                );
-
-                // @ts-expect-error new workspace API
-                if (!currentWs && parseInt(ws.address) > 0) {
-                    self.append(
-                        new Workspace({
-                            // @ts-expect-error new workspace API
-                            id: parseInt(ws.address),
-                        }),
-                    );
+            // Hide and dispose of removed workspaces
+            indicators.forEach((indicator, ws) => {
+                if (!current.includes(ws)) {
+                    indicator.set_reveal_child(false);
+                    indicator.dispose?.();
+                    indicators.delete(ws);
                 }
             });
 
-            // Make sure the order is correct
-            workspaces.forEach((workspace, i) => {
-                if (workspace.get_parent() === self) {
-                    self.reorder_child_after(
-                        workspace,
-                        i === 0 ? null : workspaces[i - 1],
-                    );
+            // Add new workspaces and make sure the order is correct
+            let previous: Workspace | null = null;
+
+            current.forEach((ws) => {
+                let indicator = indicators.get(ws);
+
+                if (!indicator) {
+                    indicator = new Workspace({ workspace: ws });
+                    indicators.set(ws, indicator);
+                    self.append(indicator);
                 }
+
+                self.reorder_child_after(indicator, previous);
+                indicator.set_reveal_child(true);
+                previous = indicator;
             });
+
+            // Make sure the highlight doesn't go too far
+            const TEMP_TIMEOUT = 100;
+
+            timeout(TEMP_TIMEOUT, () => updateHighlight(highlight));
         };
 
-        const updateAll = async () => {
-            try {
-                const oldWorkspaces = workspaces;
-
-                const hyprWorkspaces = JSON.parse(
-                    await hyprMessage('j/workspaces'),
-                ) as AstalHyprland.Workspace[];
-
-                workspaces = (getChildren(self) as Workspace[])
-                    .filter((ch) => {
-                        return hyprWorkspaces.find((ws) => {
-                            // @ts-expect-error new workspace API
-                            return ws.address === ch.name;
-                        });
-                    })
-                    .sort(
-                        (a, b) =>
-                            parseInt(a.name ?? '0') - parseInt(b.name ?? '0'),
-                    );
-
-                oldWorkspaces
-                    .filter((ws) => !workspaces.includes(ws))
-                    .forEach((ch) => {
-                        ch.dispose?.();
-                    });
-
-                updateWorkspaces();
-                refresh();
-
-                // Make sure the highlight doesn't go too far
-                const TEMP_TIMEOUT = 100;
-
-                timeout(TEMP_TIMEOUT, () => updateHighlight(highlight));
-            }
-            catch (e) {
-                if (!String(e).startsWith('SyntaxError: JSON.parse')) {
-                    console.log(e);
-                }
-            }
-        };
-
-        updateAll();
-        hyprland.connect('event', updateAll);
+        update();
+        manager.connect('updated', update);
     };
 
     return (
