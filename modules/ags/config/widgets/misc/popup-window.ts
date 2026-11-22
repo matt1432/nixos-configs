@@ -106,10 +106,12 @@ export class PopupWindow extends Astal.Window {
         const w = bounds.get_width();
 
         // This popup is usually not mapped yet, so get the monitor from the
-        // anchor widget's window instead
+        // anchor widget's window instead. Layer surfaces don't always report
+        // the monitor they're on, so prefer the window's own monitor.
         const surface = widget.get_native()?.get_surface();
         const monitor =
             this.gdkmonitor ??
+            (root instanceof Astal.Window ? root.gdkmonitor : null) ??
             (surface && widget.get_display().get_monitor_at_surface(surface));
 
         if (!monitor) {
