@@ -15,6 +15,21 @@
         row {
             border-radius: 10px;
 
+            // Same as the adw-gtk3 theme used before GTK4, instead of
+            // libadwaita's accent colored selection
+            &:hover {
+                background-color: #{'alpha(currentColor, 0.07)'};
+            }
+
+            &:selected {
+                background-color: #{'alpha(currentColor, 0.1)'};
+                color: inherit;
+            }
+
+            &:selected:hover {
+                background-color: #{'alpha(currentColor, 0.12)'};
+            }
+
             &:hover, &:selected {
                 image {
                     -gtk-icon-shadow: 2px 2px colors.$accent_color;

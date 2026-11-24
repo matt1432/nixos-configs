@@ -1,6 +1,6 @@
 import { Astal, Gdk, Gtk } from 'ags/gtk4';
 import app from 'ags/gtk4/app';
-import { idle, timeout } from 'ags/time';
+import { idle } from 'ags/time';
 import AstalHyprland from 'gi://AstalHyprland';
 import { createState, Node } from 'gnim';
 
@@ -10,6 +10,7 @@ import {
     getMonitors,
     hyprMessage,
 } from '../../lib';
+import { shrinkWindow } from '../../lib/widgets';
 
 const [FullscreenState, setFullscreenState] = createState({
     monitors: [] as string[],
@@ -191,12 +192,7 @@ export default ({
                         return;
                     }
 
-                    root.set_default_size(1, 1);
-
-                    // The new size is only sent to the compositor with a frame
-                    // that actually changed, so briefly change the background
-                    root.add_css_class('shrinking');
-                    timeout(100, () => root.remove_css_class('shrinking'));
+                    shrinkWindow(root);
                 }
             }}
         >

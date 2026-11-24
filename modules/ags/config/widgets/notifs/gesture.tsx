@@ -4,7 +4,7 @@ import { idle, interval, timeout } from 'ags/time';
 import AstalNotifd from 'gi://AstalNotifd';
 import { createRoot, onCleanup } from 'gnim';
 
-import { cursor, setCss } from '../../lib/widgets';
+import { cursor, setCss, shrinkWindow } from '../../lib/widgets';
 import { setHasNotifs } from './notification';
 
 const MAX_OFFSET = 200;
@@ -119,12 +119,19 @@ export class NotifGestureWrapper extends Gtk.Box {
                 this.dispose?.();
 
                 const root = this.get_root();
+                const parent = this.get_parent() as Gtk.Box | null;
 
-                (this.get_parent() as Gtk.Box | null)?.remove(this);
+                parent?.remove(this);
 
-                // Gtk4 windows don't shrink by themselves
                 if (root instanceof Gtk.Window) {
-                    root.set_default_size(1, 1);
+                    // Hide the popups window once it's empty, so its last
+                    // size doesn't keep catching clicks
+                    if (this.is_popup && !parent?.get_first_child()) {
+                        root.set_visible(false);
+                    }
+                    else {
+                        shrinkWindow(root);
+                    }
                 }
             });
         });

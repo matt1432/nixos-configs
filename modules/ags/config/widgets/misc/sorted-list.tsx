@@ -82,24 +82,6 @@ export class SortedList<T> {
             autoselect: true,
         });
 
-        const factory = new Gtk.SignalListItemFactory();
-
-        factory.connect('bind', (_, listItem) => {
-            const obj = (listItem as Gtk.ListItem).get_item() as SortedListItem;
-            let widget = this.widgets.get(obj);
-
-            if (!widget) {
-                widget = create_row(obj.value as T);
-                this.widgets.set(obj, widget);
-            }
-
-            (listItem as Gtk.ListItem).set_child(widget);
-        });
-
-        factory.connect('unbind', (_, listItem) => {
-            (listItem as Gtk.ListItem).set_child(null);
-        });
-
         const activate = (position: number) => {
             const obj = filtered.get_item(position) as SortedListItem | null;
 
@@ -108,11 +90,52 @@ export class SortedList<T> {
             }
         };
 
+        const factory = new Gtk.SignalListItemFactory();
+
+        // Rows are activated with a single click here instead of with
+        // ListView's singleClickActivate, which also selects rows on hover
+        factory.connect('setup', (_, item) => {
+            const listItem = item as Gtk.ListItem;
+            const click = new Gtk.GestureClick();
+
+            // Claim the click so the ListView doesn't cancel it on release
+            click.connect('pressed', () => {
+                click.set_state(Gtk.EventSequenceState.CLAIMED);
+            });
+            click.connect('released', () => activate(listItem.get_position()));
+
+            const container = new Gtk.Box();
+
+            container.add_controller(click);
+            listItem.set_child(container);
+        });
+
+        factory.connect('bind', (_, item) => {
+            const listItem = item as Gtk.ListItem;
+            const obj = listItem.get_item() as SortedListItem;
+            let widget = this.widgets.get(obj);
+
+            if (!widget) {
+                widget = create_row(obj.value as T);
+                this.widgets.set(obj, widget);
+            }
+
+            (listItem.get_child() as Gtk.Box).append(widget);
+        });
+
+        factory.connect('unbind', (_, item) => {
+            const container = (item as Gtk.ListItem).get_child() as Gtk.Box;
+            const child = container.get_first_child();
+
+            if (child) {
+                container.remove(child);
+            }
+        });
+
         const listView = (
             <Gtk.ListView
                 model={selection}
                 factory={factory}
-                singleClickActivate
                 cursor={pointer}
                 onActivate={(_, position) => activate(position)}
             />

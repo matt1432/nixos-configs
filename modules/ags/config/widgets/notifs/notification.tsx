@@ -164,6 +164,11 @@ export const Notification = ({
                                     xalign={0}
                                     label={notifObj.get_body() ?? ''}
                                     wrap
+                                    wrapMode={Pango.WrapMode.WORD_CHAR}
+                                    // GTK4 wrapping labels ask for the width
+                                    // of their whole text, so let the box's
+                                    // min-width decide where it wraps instead
+                                    maxWidthChars={1}
                                 />
                             </box>
                         </box>

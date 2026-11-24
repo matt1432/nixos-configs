@@ -14,7 +14,8 @@ export const NotifPopups = () => (
         )}
         layer={Astal.Layer.OVERLAY}
         anchor={Astal.WindowAnchor.BOTTOM | Astal.WindowAnchor.LEFT}
-        visible
+        // Shown by Popups when a notification comes in
+        visible={false}
     >
         <Popups />
     </window>

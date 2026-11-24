@@ -1,4 +1,5 @@
 import { Gdk, Gtk } from 'ags/gtk4';
+import { timeout } from 'ags/time';
 
 const providers = new WeakMap<Gtk.Widget, Gtk.CssProvider>();
 
@@ -85,4 +86,18 @@ export const getChildren = (widget: Gtk.Widget): Gtk.Widget[] => {
     }
 
     return children;
+};
+
+/**
+ * GTK4 windows don't shrink by themselves, so a window that lost content keeps
+ * its old size and keeps catching input there. This asks for the smallest size
+ * again and briefly changes the background, because the new size is only sent
+ * to the compositor with a frame that actually changed.
+ *
+ * @param window the window to shrink
+ */
+export const shrinkWindow = (window: Gtk.Window) => {
+    window.set_default_size(1, 1);
+    window.add_css_class('shrinking');
+    timeout(100, () => window.remove_css_class('shrinking'));
 };

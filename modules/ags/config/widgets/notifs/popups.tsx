@@ -28,6 +28,11 @@ export default () => {
                             // Put it at the top
                             self.prepend(NewNotif);
 
+                            // The window is hidden while there are no popups
+                            (self.get_root() as Gtk.Window | null)?.set_visible(
+                                true,
+                            );
+
                             NotifGestureWrapper.popups.set(id, NewNotif);
                         }
                     }
