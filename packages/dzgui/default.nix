@@ -14,13 +14,13 @@
   ...
 }: let
   pname = "dzgui";
-  version = "7.0.0b30";
+  version = "7.0.0b31";
 
   src = fetchFromGitHub {
     owner = "aclist";
     repo = "dzgui";
     rev = version;
-    hash = "sha256-EY5l4HHACN1qSegiX23goW5GGrUJ7IgKX1+VDxAi3t4=";
+    hash = "sha256-EPGz9aPNL9O5TiPKyXZ3DKLlifZv7ThevMHtZqc/X7Q=";
     fetchSubmodules = true;
   };
 

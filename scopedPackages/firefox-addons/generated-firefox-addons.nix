@@ -56,10 +56,10 @@
   };
   "floccus" = buildMozillaXpiAddon {
     pname = "floccus";
-    version = "5.13.0";
+    version = "5.14.0";
     addonId = "floccus@handmadeideas.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/5224106/floccus-5.13.0.xpi";
-    sha256 = "71f658e689e67c17b3c605503e64400fa05c730618365b8d023b8e63bd1c8473";
+    url = "https://addons.mozilla.org/firefox/downloads/file/5285330/floccus-5.14.0.xpi";
+    sha256 = "05c9e7ffe9f915829ef7305e3af6ebcb30eeaf43777a5b312ad5257757a523b0";
     meta = with lib; {
       homepage = "https://floccus.org";
       description = "Securely synchronize bookmarks across Chrome, Firefox, Edge, and more using your own cloud storage.";
@@ -185,10 +185,10 @@
   };
   "stylus" = buildMozillaXpiAddon {
     pname = "stylus";
-    version = "2.4.18";
+    version = "2.4.19";
     addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/5257053/styl_us-2.4.18.xpi";
-    sha256 = "4c8e1b0f63457dd9092e6148631fbaddb71edc24d3acfc39b53ea8f78f0d2254";
+    url = "https://addons.mozilla.org/firefox/downloads/file/5307848/styl_us-2.4.19.xpi";
+    sha256 = "3261b7482ff352783138221387ad9495b3d8d3ddb90ccb99454a0fcd3f47941f";
     meta = with lib; {
       homepage = "https://add0n.com/stylus.html";
       description = "Redesign your favorite websites with Stylus, an actively developed and community driven userstyles manager. Easily install custom themes from popular online repositories, or create, edit, and manage your own personalized CSS stylesheets.";
@@ -239,10 +239,10 @@
   };
   "ublock-origin" = buildMozillaXpiAddon {
     pname = "ublock-origin";
-    version = "1.76.4";
+    version = "1.77.2";
     addonId = "uBlock0@raymondhill.net";
-    url = "https://addons.mozilla.org/firefox/downloads/file/5257481/ublock_origin-1.76.4.xpi";
-    sha256 = "66d0e3f21ce3b32b1bc0a9399b93cb2c9aa598ef18805d92118c76f66e266c1e";
+    url = "https://addons.mozilla.org/firefox/downloads/file/5308235/ublock_origin-1.77.2.xpi";
+    sha256 = "c9186bcbb5ef542465187ce52aa7d76b5315e8a020c360e3e701f678ad47d776";
     meta = with lib; {
       homepage = "https://github.com/gorhill/uBlock#ublock-origin";
       description = "Finally, an efficient wide-spectrum content blocker. Easy on CPU and memory.";

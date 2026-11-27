@@ -31,7 +31,7 @@ in
       cp -r node_modules $out
     '';
 
-    npmDepsHash = "sha256-tH34ykHjaUm7UfJo28SGea7t5WZVzQibXytASDYLR4I=";
+    npmDepsHash = "sha256-2XMQ4wyjjWBtKzab6hKDMVLtZ6IzRy7SEt43Ki7n4OU=";
 
     passthru.updateScript = getExe (writeShellApplication {
       name = "update";

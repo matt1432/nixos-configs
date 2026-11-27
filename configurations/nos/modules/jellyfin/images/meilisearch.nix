@@ -1,8 +1,8 @@
 pkgs:
 pkgs.dockerTools.pullImage rec {
   imageName = "getmeili/meilisearch";
-  imageDigest = "sha256:91bf09897482c17205c8faeca8daa8d57999fb9de20d862763cdfa92ba4ec790";
-  hash = "sha256-v1ttfzRfuIYtsLAnsqNUzvHaLiEV4VZKZLouXTLCfq8=";
+  imageDigest = "sha256:cee0d2e31191594ff8e1651eb144aabd95b389a0bc3532327ecfb9ed91dffe7e";
+  hash = "sha256-Nv/xsjSjzvVYG5OzOLgBz8S8KlgCT6XRgGVIUpM79xk=";
   finalImageName = imageName;
   finalImageTag = "latest";
 }
