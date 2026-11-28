@@ -3,7 +3,7 @@ import { Astal, Gtk } from 'ags/gtk4';
 import app from 'ags/gtk4/app';
 import { idle } from 'ags/time';
 
-import { get_hyprland_monitor, hyprMessage } from '../../lib';
+import { hyprMessage } from '../../lib';
 
 type CloseType = 'none' | 'stay' | 'released' | 'clicked';
 type HyprTransition =
@@ -118,16 +118,7 @@ export class PopupWindow extends Astal.Window {
             return;
         }
 
-        const transform = get_hyprland_monitor(monitor)?.get_transform();
-
-        let width: number;
-
-        if (transform && (transform === 1 || transform === 3)) {
-            width = monitor.get_geometry().height;
-        }
-        else {
-            width = monitor.get_geometry().width;
-        }
+        const width = monitor.get_geometry().width;
 
         this.margin_right =
             side === 'right' ? width - x - w : this.margin_right;
